@@ -1,6 +1,8 @@
-import { Form, Input, Button } from "antd";
+import React from "react";
+import Link from "next/link";
+import { Form, Input, Button, Checkbox } from "antd";
 import Container from "../src/common/components/Container/Container";
-import { useQuery, createClient } from "urql";
+import { useQuery } from "urql";
 
 const Login = () => {
   const onFinish = async (values: object) => {
@@ -29,13 +31,15 @@ const Login = () => {
       },
     },
   });
+
   console.log(result);
   return (
     <Container>
       <Form
+        layout="vertical"
         name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 8 }}
+        labelCol={{ span: 12, offset: 6 }}
+        wrapperCol={{ span: 12, offset: 6 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -43,9 +47,18 @@ const Login = () => {
         style={{ marginTop: "250px" }}
       >
         <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          label="Enter Email Address"
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: "Please enter your email address",
+            },
+            {
+              type: "email",
+              message: "Email is invalid",
+            },
+          ]}
         >
           <Input />
         </Form.Item>
@@ -58,12 +71,30 @@ const Login = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          wrapperCol={{ span: 12, offset: 6 }}
+        >
+          <Checkbox>Remember me</Checkbox>
+          <Link href="/signup">Forgot Password</Link>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+          <Button
+            className="ant-btn ant-btn-primary ant-btn-block nb-button"
+            type="primary"
+            htmlType="submit"
+          >
+            Login
           </Button>
         </Form.Item>
       </Form>
+      <Form.Item
+        wrapperCol={{ span: 12, offset: 6 }}
+      >
+        Don't have an account? <Link href="/signup">Register</Link>
+      </Form.Item>
     </Container>
   );
 };
