@@ -2,23 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind base;
+@import "./../styles/settings/variable.scss";
 
 @layer base {
   body {
-    font-family: 'Rubik', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-      color:green !important;
-  } 
-  h1 {
-    @apply text-2xl;
+    color: green !important;
   }
-h1 , h2  , h3, h4 , h5  , h6{
-  font-family: 'Circular Std', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-  h2 {
-    @apply text-xl;
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Circular Std", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+      "Noto Color Emoji";
   }
+  // h1 {
+  //   @apply text-2xl;
+  // }
+  // h2 {
+  //   @apply text-xl;
+  // }
+
+  h1{font-weight:bold; font-size:30px;}
+  h2{font-weight:bold; font-size:24px;}
+  h3{font-weight:bold; font-size:22px;}
+  h4{font-weight:bold; font-size:20px;}
+  h5{font-weight:medium; font-size:16px;}
+  h6{font-weight:book; font-size:16px;}
+
+
+// $primary: #1a82fe;
+.text-primary{color:$primary}
+.bg-primary{background-color:$primary}
+.border-primary{border-color:$primary}
+.outline-primary{color:$primary}
+
+.text-secondary{color:$secondary}
+.bg-secondary{background-color:$secondary}
+.border-secondary{border-color:$secondary}
+.outline-secondary{color:$secondary}
+
+.text-grey{color:$grey}
+.bg-grey{background-color:$grey}
+.border-grey{border-color:$grey}
+.outline-grey{color:$grey}
+
+
+.text-white{color:$white}
+.bg-white{background-color:$white}
+.border-white{border-color:$white}
+.outline-white{color:$white}
+
+.text-light-blue{color:$light-blue}
+.bg-light-blue{background-color:$light-blue}
+.border-light-blue{border-color:$light-blue}
+.outline-light-blue{color:$light-blue}
+
+.text-yellow{color:$yellow}
+.bg-yellow{background-color:$yellow}
+.border-yellow{border-color:$yellow}
+.outline-yellow{color:$yellow}
+
+.text-red{color:$red}
+.bg-red{background-color:$red}
+.border-red{border-color:$red}
+.outline-red{color:$red}
+
+.text-dark-grey{color:$dark-grey}
+.bg-dark-grey{background-color:$dark-grey}
+.border-dark-grey{border-color:$dark-grey}
+.outline-dark-grey{color:$dark-grey}
+
+.text-cyan{color:$cyan}
+.bg-cyan{background-color:$cyan}
+.border-cyan{border-color:$cyan}
+.outline-cyan{color:$cyan}
+
+.text-brown{color:$brown}
+.bg-brown{background-color:$brown}
+.border-brown{border-color:$brown}
+.outline-brown{color:$brown}
+
+.text-light-grey{color:$primary}
+.bg-light-grey{background-color:$primary}
+.border-light-grey{border-color:$primary}
+.outline-light-grey{color:$primary}
+
+
+
 }
