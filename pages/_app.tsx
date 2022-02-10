@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import { createClient, Provider } from 'urql';
 import "./../styles/global.scss"
-import "antd/dist/antd.css";
+import "./../styles/cutomized-antd.css";
 
 const client = createClient({
   url: 'http://stark-thicket-56377.herokuapp.com/',

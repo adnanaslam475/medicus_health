@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { Form, Input, Button, Tabs, Select, DatePicker } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Tabs,
+  Select,
+  DatePicker,
+  Radio,
+  Checkbox,
+} from "antd";
 import Container from "../src/common/components/Container/Container";
 
 const { TabPane } = Tabs;
 
 const Signup = () => {
-  const [activeKey, setActiveKey] = useState("1");
+  const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
 
   const onFinish = async (values: object) => {
@@ -30,8 +39,10 @@ const Signup = () => {
   const personalInfo = () => {
     return (
       <>
-        <h3>Create Your Account</h3>
-        <p>Create your account to start using Medicus</p>
+        <h2 className="text-center font-bold">Create Your Account</h2>
+        <h4 className="text-center font-normal text-xs text-grey">
+          Create your account to start using Medicus.
+        </h4>
         <div className="flex flex-col md:flex-row gap-4">
           <Form.Item
             className="flex-1"
@@ -231,51 +242,189 @@ const Signup = () => {
 
   const healthQuestionnare = () => {
     return (
-      <Form
-        layout="vertical"
-        name="basic"
-        labelCol={{ span: 12, offset: 6 }}
-        wrapperCol={{ span: 12, offset: 6 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-        style={{ marginTop: "250px" }}
-      >
+      <>
         <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+          <Button block> Skip This For Now & Fill This Later</Button>
+        </Form.Item>
+        <Form.Item
+          name="radio-drink"
+          label="Do you drink Alcohol?"
+          rules={[{ required: true, message: "Please pick an option!" }]}
+        >
+          <Radio.Group defaultValue={"yes"}>
+            <Radio value="yes">Yes</Radio>
+            <Radio value="no">No</Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item
+          className="flex-1"
+          label="How many Drinks on average and how offen?"
+          name="drinks"
+          rules={[
+            {
+              required: true,
+              message: "Please fill filed",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="radio-smoke"
+          label="Do you smoke?"
+          rules={[{ required: true, message: "Please pick an option!" }]}
+        >
+          <Radio.Group defaultValue={"yes"}>
+            <Radio value="yes">Yes</Radio>
+            <Radio value="no">No</Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item
+          className="flex-1"
+          label="How many and for how long do you smoke?"
+          name="smoke"
+          rules={[
+            {
+              required: true,
+              message: "Please fill filed",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="radio-drug"
+          label="Do you take any Recreational drugs?"
+          rules={[{ required: true, message: "Please pick an option!" }]}
+        >
+          <Radio.Group defaultValue={"yes"}>
+            <Radio value="yes">Yes</Radio>
+            <Radio value="no">No</Radio>
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+          name="medical-condition"
+          label="Please list any current medical conditions and/or past medical conditions you have experienced, (You can select multiple)"
+        >
+          <Checkbox>Stroke</Checkbox>
+          <br />
+          <Checkbox>Asthma</Checkbox>
+          <br />
+          <Checkbox>Cancer</Checkbox>
+          <br />
+          <Checkbox>Diabetes</Checkbox>
+          <br />
+          <Checkbox>Other</Checkbox>
+        </Form.Item>
+        <Form.Item className="flex-1" name="medical">
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          className="flex-1"
+          label="Please list any known allergies"
+          name="allergies"
+          rules={[
+            {
+              required: true,
+              message: "Please fill",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          className="flex-1"
+          label="Please explain any adverse/side affects you have experienced from medications"
+          name="side-effects"
+          rules={[
+            {
+              required: true,
+              message: "Please fill",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          className="flex-1"
+          label="Please list any current medication you are taking and provide the dosage, and frequency"
+          name="current-medication"
+          rules={[
+            {
+              required: true,
+              message: "Please fill",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          className="flex-1"
+          label="Please list any medical problems that are common/genetically inherited in your family"
+          rules={[
+            {
+              required: true,
+              message: "Please fill",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Checkbox>
+          I agree to the <Link href={"#"}>Terms & Condition</Link>
+        </Checkbox>
+
+        <Form.Item wrapperCol={{ span: 3, offset: 15 }}>
           <Button
-            className="ant-btn ant-btn-primary ant-btn-block"
+            className="ant-btn ant-btn-primary ant-btn-block nb-button"
             type="primary"
+            htmlType="submit"
           >
-            Skip This For Now & Fill This Later
+            Complete
           </Button>
         </Form.Item>
-      </Form>
+        <Button type="link" onClick={() => setActiveKey("1")}>
+          Back
+        </Button>
+      </>
     );
   };
 
   return (
     <Container>
-      <Form
-        layout="vertical"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
-        <Tabs
-          defaultActiveKey="1"
-          centered
-          onChange={handleChange}
-          activeKey={activeKey}
-        >
-          <TabPane tab="Personal Info" key="1">
-            {personalInfo()}
-          </TabPane>
-          <TabPane disabled={nextTab} tab="Health Questionnaire" key="2">
-            {healthQuestionnare()}
-          </TabPane>
-        </Tabs>
-      </Form>
+      <div className="flex items-center justify-center min-h-screen w-h-100">
+        <div className="w-full sm:w-1/3 md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
+          <div className="card p-4 shadow-md border rounded-md">
+            <Form
+              layout="vertical"
+              initialValues={{ remember: true }}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+            >
+              <Tabs
+                defaultActiveKey="1"
+                centered
+                onChange={handleChange}
+                activeKey={activeKey}
+              >
+                <TabPane tab="Personal Info" key="1">
+                  {personalInfo()}
+                </TabPane>
+                <TabPane disabled={nextTab} tab="Health Questionnaire" key="2">
+                  {healthQuestionnare()}
+                </TabPane>
+              </Tabs>
+            </Form>
+          </div>
+        </div>
+      </div>
     </Container>
   );
 };
