@@ -37,7 +37,7 @@ const Login = () => {
       <div className="flex items-center justify-center min-h-screen w-h-100">
         <div className="w-full sm:w-1/3 md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
           <div className="card p-4 shadow-md border rounded-md">
-            <h1 className="text-center font-bold text-lg text-dark-grey bg-cyan">Login to continue</h1>
+            <h1 className="text-center text-secondary">Login to continue</h1>
             <h5 className="text-center">
             Enter your credentials to access your account.
             </h5>

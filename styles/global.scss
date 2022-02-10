@@ -35,9 +35,9 @@ button.ant-btn {
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
       "Noto Color Emoji";
   }
-  h1 {
-    @apply text-2xl;
-  }
+  // h1 {
+  //   @apply text-2xl;
+  // }
   h2,
   h1,
   h3 {
@@ -46,9 +46,9 @@ button.ant-btn {
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     color: green;
   }
-  h2 {
-    @apply text-xl;
-  }
+  // h2 {
+  //   @apply text-xl;
+  // }
   // h1 {
   //   @apply text-2xl;
   // }
@@ -56,12 +56,12 @@ button.ant-btn {
   //   @apply text-xl;
   // }
 
-  h1{font-weight:bold; font-size:30px;}
-  h2{font-weight:bold; font-size:24px;}
-  h3{font-weight:bold; font-size:22px;}
-  h4{font-weight:bold; font-size:20px;}
-  h5{font-weight:medium; font-size:16px;}
-  h6{font-weight:book; font-size:16px;}
+  h1{font-weight:bold; font-size:30px !important;}
+  h2{font-weight:bold; font-size:24px!important;}
+  h3{font-weight:bold; font-size:22px!important;}
+  h4{font-weight:bold; font-size:20px!important;}
+  h5{font-weight:medium; font-size:16px!important;}
+  h6{font-weight:book; font-size:16px!important;}
 
 
 // $primary: #1a82fe;
