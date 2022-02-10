@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Form, Input, Button, Checkbox, Card } from "antd";
 import Container from "../src/common/components/Container/Container";
 import { useQuery } from "urql";
+import Image from "next/image";
 
 const Login = () => {
   const onFinish = async (values: object) => {
@@ -33,13 +34,21 @@ const Login = () => {
   });
 
   return (
-    <Container>
-      <div className="flex items-center justify-center min-h-screen w-h-100">
+    <Container className="login-bg">
+      <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
         <div className="w-full sm:w-1/3 md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
-          <div className="card p-4 shadow-md border rounded-md">
-            <h1 className="text-center text-secondary">Login to continue</h1>
-            <h5 className="text-center">
-            Enter your credentials to access your account.
+          <div className="card p-4 shadow-lg rounded-lg bg-white py-12 px-6">
+          <div className="flex justify-center mb-6"><Image
+              className="main-logo mx-auto"
+              height={34}
+              width={216}
+              src="/assets/images/logo-medi.svg"
+            /></div>
+            <h1 className="text-center text-secondary mb-3">
+              Login to continue
+            </h1>
+            <h5 className="text-center text-darkGray">
+              Enter your credentials to access your account.
             </h5>
             <Form
               layout="vertical"

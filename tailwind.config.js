@@ -16,9 +16,13 @@ module.exports = {
     },
     colors: {
       transparent: "transparent",
+      
       current: "currentColor",
+      
       black: colors.black,
+      
       white: colors.white,
+
       primary: {
         DEFAULT: "#1A82FE",
       },
@@ -28,31 +32,36 @@ module.exports = {
       gray: {
         DEFAULT: "#9295AF",
       },
-      "sky-blue": {
+      darkGray: {
+        DEFAULT: "#8f95a7",
+      },
+      skyBlue: {
         DEFAULT: "#272B4C",
+      },
+      lightBlue: {
+        DEFAULT: "#ebf3ff",
       },
       yellow: {
         DEFAULT: "#FFAF02",
       },
+      cyan: {
+        DEFAULT: "#30cec2",
+      },
       red: {
         DEFAULT: "#D53E4F",
       },
-      "dove-gray": {
+      doveGray: {
         DEFAULT: "#707070",
       },
-      "light-gray": {
+      lightGray: {
         DEFAULT: "#CFCCCC",
       },
-    },
-    fontFamily: {
-      sans: ['Circular Std', "system-ui"],
+
     },
     // fontFamily: {
-    //   primaryFont: ['Circular Std', 'sens-serif'],
+    //   sans: ['Circular Std', "system-ui"],
     // },
-    // fontFamily: {
-    //   sans: ["Rubik", "system-ui"],
-    // },
+
     extend: {},
   },
   plugins: [],

@@ -12,6 +12,9 @@ const GUI = () => {
       <h4>H4 Heading</h4>
       <h5>H5 Heading</h5>
       <h6>H6 Heading</h6>
+
+      <p>This is a Long text paragraph you should test for body text with known zerium,</p>
+
       <h3 className="pt-20">04. BUTTONS</h3>
       <hr />
       <Row className="pt-5">
