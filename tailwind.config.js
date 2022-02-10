@@ -45,8 +45,14 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ["Rubik", "system-ui"],
+      sans: ['Circular Std', "system-ui"],
     },
+    // fontFamily: {
+    //   primaryFont: ['Circular Std', 'sens-serif'],
+    // },
+    // fontFamily: {
+    //   sans: ["Rubik", "system-ui"],
+    // },
     extend: {},
   },
   plugins: [],
