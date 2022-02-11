@@ -404,7 +404,7 @@ const Signup = () => {
     <Container className="login-bg">
       <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
         <div className="w-full sm:w-1/3 md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
-          <div className="card p-4 shadow-lg rounded-lg bg-white py-12 px-6">
+          <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white py-12 px-6">
             <div className="flex justify-center mb-6"><Image
               className="main-logo mx-auto"
               height={34}

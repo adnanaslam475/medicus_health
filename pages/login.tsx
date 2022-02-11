@@ -37,7 +37,7 @@ const Login = () => {
     <Container className="login-bg">
       <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
         <div className="w-full sm:w-1/3 md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
-          <div className="card p-4 shadow-lg rounded-lg bg-white py-12 px-6">
+          <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
           <div className="flex justify-center mb-6"><Image
               className="main-logo mx-auto"
               height={34}
@@ -50,6 +50,7 @@ const Login = () => {
             <h5 className="text-center text-darkGray">
               Enter your credentials to access your account.
             </h5>
+            <div className="mt-10">
             <Form
               layout="vertical"
               name="basic"
@@ -59,12 +60,12 @@ const Login = () => {
               autoComplete="off"
             >
               <Form.Item
-                label="Enter Email Address"
+                label="Email Address"
                 name="email"
                 className="mb-1"
                 rules={[
                   {
-                    required: true,
+                    required: false,
                     message: "Please enter your email address",
                   },
                   {
@@ -80,21 +81,24 @@ const Login = () => {
                 label="Password"
                 name="password"
                 rules={[
-                  { required: true, message: "Please input your password!" },
+                  { required: false, message: "Please input your password!" },
                 ]}
               >
                 <Input.Password size="large" />
               </Form.Item>
 
               <Form.Item name="remember" valuePropName="checked">
-                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base">
+                <div className="flex justify-between text-base">
+                <Checkbox className="text-base">
                   Remember me
                 </Checkbox>
                 <Link href="/signup">Forgot Password</Link>
+                </div>
               </Form.Item>
 
               <Form.Item>
                 <Button
+
                   className="ant-btn ant-btn-secondary ant-btn-block nb-button"
                   type="primary"
                   htmlType="submit"
@@ -103,8 +107,11 @@ const Login = () => {
                 </Button>
               </Form.Item>
             </Form>
+            </div>
             <Form.Item>
-              Dont have an account? <Link href="/signup">Register</Link>
+              <div className="flex justify-center mt-8">
+              Dont have an account? <span className="ml-2"><Link href="/signup">Register</Link></span>
+              </div>
             </Form.Item>
           </div>
         </div>
