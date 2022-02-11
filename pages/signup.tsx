@@ -416,6 +416,7 @@ const Signup = () => {
             <h5 className="text-center text-darkGray">
               Create your account to start using Medicus
             </h5>
+            <div className="mt-5">
             <Form
               layout="vertical"
               initialValues={{ remember: true }}
@@ -436,6 +437,7 @@ const Signup = () => {
                 </TabPane>
               </Tabs>
             </Form>
+            </div>
           </div>
         </div>
       </div>

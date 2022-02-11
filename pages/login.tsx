@@ -36,7 +36,7 @@ const Login = () => {
   return (
     <Container className="login-bg">
       <div className="flex items-center justify-center py-16">
-        <div className="w-full sm:w-1/3 md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
+        <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
           <div className="flex justify-center mb-6"><Image
               className="main-logo mx-auto"
@@ -50,7 +50,7 @@ const Login = () => {
             <h5 className="text-center text-darkGray">
               Enter your credentials to access your account.
             </h5>
-            <div className="mt-10">
+            <div className="mt-5">
             <Form
               layout="vertical"
               name="basic"
@@ -74,7 +74,7 @@ const Login = () => {
                   },
                 ]}
               >
-                <Input size="large" />
+                <Input/>
               </Form.Item>
 
               <Form.Item
@@ -84,7 +84,7 @@ const Login = () => {
                   { required: true, message: "Please input your password!" },
                 ]}
               >
-                <Input.Password size="large" />
+                <Input.Password/>
               </Form.Item>
 
               <Form.Item name="remember" valuePropName="checked">
