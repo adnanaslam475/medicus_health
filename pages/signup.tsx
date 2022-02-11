@@ -16,7 +16,6 @@ import Container from "../src/common/components/Container/Container";
 // import mainLogo from '../public/assets/images/logo-medi.svg';
 
 const { TabPane } = Tabs;
-
 const Signup = () => {
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);

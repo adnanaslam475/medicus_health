@@ -14,7 +14,7 @@ button.ant-btn {
 // for all tags
 .ant-tag {
   padding-left: 1.25rem !important;
-  // 20px
+  // padding-left: 20px !important;
   padding-right: 1.25rem !important;
   border: none !important;
 }
@@ -40,6 +40,28 @@ button.ant-btn {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 100% 100%;
+}
+
+.bg-gradient {
+  background: transparent
+    linear-gradient(90deg, #9161fa 0%, #4b75fd 29%, #25abdf 68%, #34dbb8 100%)
+    0% 0% no-repeat padding-box;
+}
+
+.ant-form-item-label
+  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  display: none !important;
+}
+
+.ant-form-item-label
+  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
+  display: inline-block;
+  margin-right: 4px;
+  color: #ff4d4f;
+  font-size: 15px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+  content: "*";    
 }
 
 @layer base {
@@ -70,7 +92,7 @@ button.ant-btn {
     // font-size: 30px !important;
   }
   h2 {
-    font-weight: bold;
+    font-weight: bold;    
     font-size: 1.5rem !important;
     // font-size: 24px !important;
   }
@@ -95,9 +117,6 @@ button.ant-btn {
     // font-size: 16px !important;
   }
 
-  .bg-gradient {
-    background: transparent
-      linear-gradient(90deg, #9161fa 0%, #4b75fd 29%, #25abdf 68%, #34dbb8 100%)
-      0% 0% no-repeat padding-box;
-  }
+
+  
 }
