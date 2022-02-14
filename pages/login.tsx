@@ -92,7 +92,7 @@ const Login = () => {
                 <Checkbox className="text-base">
                   Remember me
                 </Checkbox>
-                <Link href="/signup">Forgot Password</Link>
+                <Link href="/forgotPassword">Forgot Password</Link>
                 </div>
               </Form.Item>
 
