@@ -110,7 +110,7 @@ const Login = () => {
             </div>
             <Form.Item>
               <div className="flex justify-center mt-8">
-              Dont have an account? <span className="ml-2"><Link href="/signup">Register</Link></span>
+              Dont have an account? <span className="ml-1"><Link href="/signup">Register</Link></span>
               </div>
             </Form.Item>
           </div>

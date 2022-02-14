@@ -5,7 +5,7 @@ import Container from "../src/common/components/Container/Container";
 import { useQuery } from "urql";
 import Image from "next/image";
 
-const ForgotPassword = () => {
+const ConfirmPassword = () => {
   const onFinish = async (values: object) => {
     console.log("Success:", values);
     reexecuteQuery();
@@ -46,9 +46,9 @@ const ForgotPassword = () => {
                 src="/assets/images/logo-medi.svg"
               />
             </div>
-            <h1 className="text-center text-secondary mb-3">Forgot Password</h1>
+            <h1 className="text-center text-secondary mb-3">Confirm Password</h1>
             <h5 className="text-center text-darkGray">
-              Enter your email below to reset password.
+              Enter your new password
             </h5>
             <div className="mt-5">
               <Form
@@ -60,22 +60,24 @@ const ForgotPassword = () => {
                 autoComplete="off"
               >
                 <Form.Item
-                  label="Email Address"
-                  name="email"
-                  className="mb-1"
-                  rules={[
-                    {
-                      required: false,
-                      message: "Please enter your email address",
-                    },
-                    {
-                      type: "email",
-                      message: "Email is invalid",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
+                label="Password"
+                name="password"
+                rules={[
+                  { required: false, message: "Please input your new password!" },
+                ]}
+              >
+                <Input.Password/>
+              </Form.Item>
+
+              <Form.Item
+                label="Confirm Password"
+                name="confirmpassword"
+                rules={[
+                  { required: false, message: "Confirm password!" },
+                ]}
+              >
+                <Input.Password/>
+              </Form.Item>
 
                 <Form.Item>
                   <Button
@@ -83,7 +85,7 @@ const ForgotPassword = () => {
                     type="primary"
                     htmlType="submit"
                   >
-                    Reset Password
+                    Confirm Password
                   </Button>
                 </Form.Item>
               </Form>
@@ -113,4 +115,4 @@ const ForgotPassword = () => {
     </Container>
   );
 };
-export default ForgotPassword;
+export default ConfirmPassword;
