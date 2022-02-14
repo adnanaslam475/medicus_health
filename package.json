@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next build",
+    "start": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next start",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build"
   },

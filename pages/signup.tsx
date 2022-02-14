@@ -15,40 +15,56 @@ import {
 } from "antd";
 
 import Container from "../src/common/components/Container/Container";
+<<<<<<< Updated upstream
 
 import { PlusCircleFilled } from "@ant-design/icons";
 // import mainLogo from '../public/assets/images/logo-medi.svg';
+=======
+>>>>>>> Stashed changes
 
 const { TabPane } = Tabs;
 const Signup = () => {
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
 
-  const onFinish = async (values: object) => {
-    setActiveKey("2");
+  const onFinishRegistration = async (values: object) => {
+    handleChange();
     setNextTab(false);
     console.log("Success:", values);
   };
 
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishRegistrationFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const onFinishHealthQuestionnary = async (values: object) => {
+    handleChange();
+    setNextTab(false);
+    console.log("Success:", values);
+  };
+
+  const onFinishHealthQuestionnaryFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
   const handleChange = () => {
+    console.log("chal gya");
+    console.log(activeKey, "activeKey");
     if (activeKey === "1") {
       setActiveKey("2");
     } else {
       setActiveKey("1");
     }
   };
+  console.log(nextTab, "nextTab");
 
   const personalInfo = () => {
     return (
-      <>
-        {/* <h2 className="text-center font-bold">Create Your Account</h2>
-        <h4 className="text-center font-normal text-xs text-darkGray">
-          Create your account to start using Medicus.
-        </h4> */}
+      <Form
+        layout="vertical"
+        onFinish={onFinishRegistration}
+        onFinishFailed={onFinishRegistrationFailed}
+      >
         <div className="flex flex-col md:flex-row gap-4">
           <Form.Item
             className="flex-1"
@@ -246,19 +262,32 @@ const Signup = () => {
        <p>
           Already have an account? <Link href="/login">Login</Link>
         </p>
+<<<<<<< Updated upstream
        </div>
       </>
+=======
+      </Form>
+>>>>>>> Stashed changes
     );
   };
 
   const healthQuestionnare = () => {
     return (
-      <>
+      <Form
+        initialValues={{
+          radio_drink: "yes",
+          radio_smoke: "yes",
+          radio_drug: "yes",
+        }}
+        layout="vertical"
+        onFinish={onFinishHealthQuestionnary}
+        onFinishFailed={onFinishHealthQuestionnaryFailed}
+      >
         <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
           <Button block> Skip This For Now & Fill This Later</Button>
         </Form.Item>
         <Form.Item
-          name="radio-drink"
+          name="radio_drink"
           label="Do you drink Alcohol?"
           rules={[{ required: true, message: "Please pick an option!" }]}
         >
@@ -282,7 +311,7 @@ const Signup = () => {
         </Form.Item>
 
         <Form.Item
-          name="radio-smoke"
+          name="radio_smoke"
           label="Do you smoke?"
           rules={[{ required: true, message: "Please pick an option!" }]}
         >
@@ -306,7 +335,7 @@ const Signup = () => {
         </Form.Item>
 
         <Form.Item
-          name="radio-drug"
+          name="radio_drug"
           label="Do you take any Recreational drugs?"
           rules={[{ required: true, message: "Please pick an option!" }]}
         >
@@ -401,10 +430,10 @@ const Signup = () => {
             Complete
           </Button>
         </Form.Item>
-        <Button type="link" onClick={() => setActiveKey("1")}>
+        <Button type="link" onClick={() => handleChange()}>
           Back
         </Button>
-      </>
+      </Form>
     );
   };
 
@@ -427,6 +456,7 @@ const Signup = () => {
             <h5 className="text-center text-darkGray">
               Create your account to start using Medicus
             </h5>
+<<<<<<< Updated upstream
             <div className="mt-5">
               <Form
                 layout="vertical"
@@ -473,6 +503,22 @@ const Signup = () => {
                 </Tabs>
               </Form>
             </div>
+=======
+
+            <Tabs
+              defaultActiveKey="1"
+              centered
+              onChange={handleChange}
+              activeKey={activeKey}
+            >
+              <TabPane tab="Personal Info" key="1">
+                {personalInfo()}
+              </TabPane>
+              <TabPane disabled={nextTab} tab="Health Questionnaire" key="2">
+                {healthQuestionnare()}
+              </TabPane>
+            </Tabs>
+>>>>>>> Stashed changes
           </div>
         </div>
       </div>
