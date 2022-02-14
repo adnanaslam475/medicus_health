@@ -93,19 +93,15 @@ const Login = () => {
                 <span className="ml-2">
                   <Link href="/login" className="cursor-pointer">
                   <div className="inline-flex items-center">
-                   <span className="span">
-                      <div className="flex justify-center mb-0 mr-3">
+                  <div className="mb-0 mr-3">
                         <Image
                           className="left-arrow-icon mx-auto"
-                          // width="16" height="16"
                           height={16}
                           width={16}
-                          src="/assets/icon/arrow-left.svg"
+                          src="/assets/icon/arrow-left.svg"                        
                         />
                         <span className="cursor-pointer text-primary ml-3">Back to login </span>
-                      </div>                      
-                    </span> 
-                    {/* <span className="cursor-pointer text-primary">Back to log in </span> */}
+                      </div>     
                    </div>               
                   </Link>
                 </span>

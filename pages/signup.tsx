@@ -11,10 +11,8 @@ import {
   DatePicker,
   Radio,
   Checkbox,
-  Badge
+  Badge,
 } from "antd";
-
-
 
 import Container from "../src/common/components/Container/Container";
 
@@ -94,8 +92,9 @@ const Signup = () => {
             ]}
           >
             <Select placeholder="Gender" className="nb-select-input">
-              <Select.Option value="male">Man</Select.Option>
-              <Select.Option value="female">Woman</Select.Option>
+              <Select.Option value="male">Male</Select.Option>
+              <Select.Option value="female">Female</Select.Option>
+              <Select.Option value="female">Other</Select.Option>
             </Select>
           </Form.Item>
 
@@ -110,7 +109,7 @@ const Signup = () => {
               },
             ]}
           >
-            <DatePicker />
+            <DatePicker className="w-full" />
           </Form.Item>
         </div>
 
@@ -232,7 +231,8 @@ const Signup = () => {
           </Form.Item>
         </div>
 
-        <Form.Item wrapperCol={{ span: 3, offset: 21 }}>
+        <div className="flex justify-end">
+        <Form.Item>
           <Button
             className="ant-btn ant-btn-primary ant-btn-block nb-button"
             type="primary"
@@ -241,9 +241,12 @@ const Signup = () => {
             Next
           </Button>
         </Form.Item>
-        <p>
+        </div>
+       <div className="flex justify-center mt-8">
+       <p>
           Already have an account? <Link href="/login">Login</Link>
         </p>
+       </div>
       </>
     );
   };
@@ -410,12 +413,14 @@ const Signup = () => {
       <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
         <div className="w-full sm:w-1/3 md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white py-12 px-6">
-            <div className="flex justify-center mb-6"><Image
-              className="main-logo mx-auto"
-              height={34}
-              width={216}
-              src="/assets/images/logo-medi.svg"
-            /></div>
+            <div className="flex justify-center mb-6">
+              <Image
+                className="main-logo mx-auto"
+                height={34}
+                width={216}
+                src="/assets/images/logo-medi.svg"
+              />
+            </div>
             <h1 className="text-center text-secondary mb-3">
               Create Your Account
             </h1>
@@ -423,26 +428,50 @@ const Signup = () => {
               Create your account to start using Medicus
             </h5>
             <div className="mt-5">
-            <Form
-              layout="vertical"
-              initialValues={{ remember: true }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-            >
-              <Tabs
-                defaultActiveKey="1"
-                centered
-                onChange={handleChange}
-                activeKey={activeKey}
+              <Form
+                layout="vertical"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
               >
-                <TabPane tab="Personal Info" key="1">
-                  {personalInfo()}
-                </TabPane>
-                <TabPane disabled={nextTab} tab="Health Questionnaire" key="2">
-                  {healthQuestionnare()}
-                </TabPane>
-              </Tabs>
-            </Form>
+                <Tabs
+                  defaultActiveKey="1"
+                  centered
+                  onChange={handleChange}
+                  activeKey={activeKey}
+                >
+                  <TabPane
+                    tab={
+                      <span>
+                        <Badge
+                        className="mr-3"
+                          count={1}
+                          style={{ backgroundColor: "#1A82FE" }}
+                        ></Badge>
+                        <span className="ml-3">Personal Info</span>
+                      </span>
+                    }
+                    key="1"
+                  >
+                    {personalInfo()}
+                  </TabPane>
+                  <TabPane
+                    disabled={nextTab}
+                    tab={
+                      <span>
+                        <Badge                        
+                          count={2}
+                          style={{ backgroundColor: "#1A82FE" }}
+                        ></Badge>
+                        <span className="ml-3">Health Questionnaire</span>
+                      </span>
+                    }                    
+                    key="2"
+                  >
+                    {healthQuestionnare()}
+                  </TabPane>
+                </Tabs>
+              </Form>
             </div>
           </div>
         </div>
