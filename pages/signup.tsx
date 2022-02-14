@@ -15,12 +15,6 @@ import {
 } from "antd";
 
 import Container from "../src/common/components/Container/Container";
-<<<<<<< Updated upstream
-
-import { PlusCircleFilled } from "@ant-design/icons";
-// import mainLogo from '../public/assets/images/logo-medi.svg';
-=======
->>>>>>> Stashed changes
 
 const { TabPane } = Tabs;
 const Signup = () => {
@@ -248,26 +242,22 @@ const Signup = () => {
         </div>
 
         <div className="flex justify-end">
-        <Form.Item>
-          <Button
-            className="ant-btn ant-btn-primary ant-btn-block nb-button"
-            type="primary"
-            htmlType="submit"
-          >
-            Next
-          </Button>
-        </Form.Item>
+          <Form.Item>
+            <Button
+              className="ant-btn ant-btn-primary ant-btn-block nb-button"
+              type="primary"
+              htmlType="submit"
+            >
+              Next
+            </Button>
+          </Form.Item>
         </div>
-       <div className="flex justify-center mt-8">
-       <p>
-          Already have an account? <Link href="/login">Login</Link>
-        </p>
-<<<<<<< Updated upstream
-       </div>
-      </>
-=======
+        <div className="flex justify-center mt-8">
+          <p>
+            Already have an account? <Link href="/login">Login</Link>
+          </p>
+        </div>
       </Form>
->>>>>>> Stashed changes
     );
   };
 
@@ -444,6 +434,7 @@ const Signup = () => {
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white py-12 px-6">
             <div className="flex justify-center mb-6">
               <Image
+                alt=""
                 className="main-logo mx-auto"
                 height={34}
                 width={216}
@@ -456,69 +447,45 @@ const Signup = () => {
             <h5 className="text-center text-darkGray">
               Create your account to start using Medicus
             </h5>
-<<<<<<< Updated upstream
             <div className="mt-5">
-              <Form
-                layout="vertical"
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+              <Tabs
+                defaultActiveKey="1"
+                centered
+                onChange={handleChange}
+                activeKey={activeKey}
               >
-                <Tabs
-                  defaultActiveKey="1"
-                  centered
-                  onChange={handleChange}
-                  activeKey={activeKey}
-                >
-                  <TabPane
-                    tab={
-                      <span>
-                        <Badge
+                <TabPane
+                  tab={
+                    <span>
+                      <Badge
                         className="mr-3"
-                          count={1}
-                          style={{ backgroundColor: "#1A82FE" }}
-                        ></Badge>
-                        <span className="ml-3">Personal Info</span>
-                      </span>
-                    }
-                    key="1"
-                  >
-                    {personalInfo()}
-                  </TabPane>
-                  <TabPane
-                    disabled={nextTab}
-                    tab={
-                      <span>
-                        <Badge                        
-                          count={2}
-                          style={{ backgroundColor: "#1A82FE" }}
-                        ></Badge>
-                        <span className="ml-3">Health Questionnaire</span>
-                      </span>
-                    }                    
-                    key="2"
-                  >
-                    {healthQuestionnare()}
-                  </TabPane>
-                </Tabs>
-              </Form>
+                        count={1}
+                        style={{ backgroundColor: "#1A82FE" }}
+                      ></Badge>
+                      <span className="ml-3">Personal Info</span>
+                    </span>
+                  }
+                  key="1"
+                >
+                  {personalInfo()}
+                </TabPane>
+                <TabPane
+                  disabled={nextTab}
+                  tab={
+                    <span>
+                      <Badge
+                        count={2}
+                        style={{ backgroundColor: "#1A82FE" }}
+                      ></Badge>
+                      <span className="ml-3">Health Questionnaire</span>
+                    </span>
+                  }
+                  key="2"
+                >
+                  {healthQuestionnare()}
+                </TabPane>
+              </Tabs>
             </div>
-=======
-
-            <Tabs
-              defaultActiveKey="1"
-              centered
-              onChange={handleChange}
-              activeKey={activeKey}
-            >
-              <TabPane tab="Personal Info" key="1">
-                {personalInfo()}
-              </TabPane>
-              <TabPane disabled={nextTab} tab="Health Questionnaire" key="2">
-                {healthQuestionnare()}
-              </TabPane>
-            </Tabs>
->>>>>>> Stashed changes
           </div>
         </div>
       </div>

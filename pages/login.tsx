@@ -51,55 +51,46 @@ const Login = () => {
               Enter your credentials to access your account.
             </h5>
             <div className="mt-5">
-            <Form
-              layout="vertical"
-              name="basic"
-              initialValues={{ remember: true }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              autoComplete="off"
-            >
-              <Form.Item
-                label="Email Address"
-                name="email"
-                className="mb-1"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your email address",
-                  },
-                  {
-                    type: "email",
-                    message: "Email is invalid",
-                  },
-                ]}
+              <Form
+                layout="vertical"
+                name="basic"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
               >
-                <Input/>
-              </Form.Item>
+                <Form.Item
+                  label="Email Address"
+                  name="email"
+                  className="mb-1"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your email address",
+                    },
+                    {
+                      type: "email",
+                      message: "Email is invalid",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
 
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  { required: true, message: "Please input your password!" },
-                ]}
-              >
-                <Input.Password/>
-              </Form.Item>
-
-              <Form.Item name="remember" valuePropName="checked">
-                <div className="flex justify-between text-base">
-                <Checkbox className="text-base">
-                  Remember me
-                </Checkbox>
-                <Link href="/forgotPassword">Forgot Password</Link>
-                </div>
-              </Form.Item>
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  rules={[
+                    { required: true, message: "Please input your password!" },
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
 
                 <Form.Item name="remember" valuePropName="checked">
                   <div className="flex justify-between text-base">
                     <Checkbox className="text-base">Remember me</Checkbox>
-                    <Link href="/signup">Forgot Password</Link>
+                    <Link href="/forgotPassword">Forgot Password</Link>
                   </div>
                 </Form.Item>
 
@@ -116,7 +107,10 @@ const Login = () => {
             </div>
             <Form.Item>
               <div className="flex justify-center mt-8">
-              Dont have an account? <span className="ml-1"><Link href="/signup">Register</Link></span>
+                Dont have an account?{" "}
+                <span className="ml-1">
+                  <Link href="/signup">Register</Link>
+                </span>
               </div>
             </Form.Item>
           </div>
