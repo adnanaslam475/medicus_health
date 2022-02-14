@@ -11,8 +11,14 @@ import {
   DatePicker,
   Radio,
   Checkbox,
+  Badge
 } from "antd";
+
+
+
 import Container from "../src/common/components/Container/Container";
+
+import { PlusCircleFilled } from "@ant-design/icons";
 // import mainLogo from '../public/assets/images/logo-medi.svg';
 
 const { TabPane } = Tabs;
