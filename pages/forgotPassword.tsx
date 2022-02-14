@@ -34,9 +34,9 @@ const Login = () => {
   });
 
   return (
-    <Container className="login-bg">
+    <Container className="login-bg w-full">
       <div className="flex items-center justify-center py-16">
-        <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
+        <div className="w-full sm:w-full md:w-3/2 lg:w-1/2 xl:w-1/2 px-0">
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
             <div className="flex justify-center mb-6">
               <Image
@@ -91,7 +91,7 @@ const Login = () => {
             <Form.Item>
               <div className="flex justify-center mt-8">
                 <span className="ml-2">
-                  <Link href="/login" className="cursor-pointer">
+                  <Link href="/login">
                   <div className="inline-flex items-center">
                   <div className="mb-0 mr-3">
                         <Image
