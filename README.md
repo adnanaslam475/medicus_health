@@ -4,7 +4,7 @@ This project encompasses the essence of creating a Tele Health Web Applications.
 
 ## Technical Stack
 
-- NodeJS (v: 14)
+- NodeJS (v: 17)
 - NextJS (v: 12)
 - ReactJS (v: 17)
 - Typescript (v: 4.5)

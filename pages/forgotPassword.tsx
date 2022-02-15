@@ -1,54 +1,54 @@
 import React from "react";
 import Link from "next/link";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, Card } from "antd";
 import Container from "../src/common/components/Container/Container";
-import { useMutation } from "urql";
+import { useQuery } from "urql";
 import Image from "next/image";
 
-const LOGIN_MUT = `mutation Login($email: String!, $password:String!) {
-  login(options: { email: $email, password: $password }) {
-    errors {
-      field
-      message
-    }
-    user {
-      id
-      email
-    }
-}`;
-
-const Login = () => {
-  const [, login] = useMutation(LOGIN_MUT);
-
+const ForgotPassword = () => {
   const onFinish = async (values: object) => {
-    console.log(values, "vvv");
-    const res = login(values);
-    console.log("Success:", res);
+    console.log("Success:", values);
+    reexecuteQuery();
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
+  const loginQuery = `
+  query($data:LoginStudentInput!) {
+    login(data:$data) {
+      token
+    }
+  }
+`;
+
+  const [result, reexecuteQuery] = useQuery({
+    query: loginQuery,
+    variables: {
+      data: {
+        email: "yasir9001@yahoo.com",
+        password: "123admin",
+      },
+    },
+  });
+
   return (
-    <Container className="login-bg">
+    <Container className="login-bg w-full">
       <div className="flex items-center justify-center py-16">
-        <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
+      <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-2/3 px-0">
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
             <div className="flex justify-center mb-6">
               <Image
-                alt=""
                 className="main-logo mx-auto"
                 height={34}
                 width={216}
                 src="/assets/images/logo-medi.svg"
               />
             </div>
-            <h1 className="text-center text-secondary mb-3">
-              Login to continue
-            </h1>
+            <h1 className="text-center text-secondary mb-3">Forgot Password</h1>
             <h5 className="text-center text-darkGray">
-              Enter your credentials to access your account.
+              Enter your email below to reset password.
             </h5>
             <div className="mt-5">
               <Form
@@ -65,7 +65,7 @@ const Login = () => {
                   className="mb-1"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Please enter your email address",
                     },
                     {
@@ -77,39 +77,33 @@ const Login = () => {
                   <Input />
                 </Form.Item>
 
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[
-                    { required: true, message: "Please input your password!" },
-                  ]}
-                >
-                  <Input.Password />
-                </Form.Item>
-
-                <Form.Item name="remember" valuePropName="checked">
-                  <div className="flex justify-between text-base">
-                    <Checkbox className="text-base">Remember me</Checkbox>
-                    <Link href="/forgotPassword">Forgot Password</Link>
-                  </div>
-                </Form.Item>
-
                 <Form.Item>
                   <Button
                     className="ant-btn ant-btn-secondary ant-btn-block nb-button"
                     type="primary"
                     htmlType="submit"
                   >
-                    Login
+                    Reset Password
                   </Button>
                 </Form.Item>
               </Form>
             </div>
             <Form.Item>
               <div className="flex justify-center mt-8">
-                Dont have an account?{" "}
-                <span className="ml-1">
-                  <Link href="/signup">Register</Link>
+                <span className="ml-2">
+                  <Link href="/login">
+                  <div className="inline-flex items-center">
+                  <div className="mb-0 mr-3">
+                        <Image
+                          className="left-arrow-icon mx-auto"
+                          height={16}
+                          width={16}
+                          src="/assets/icon/arrow-left.svg"                        
+                        />
+                        <span className="cursor-pointer text-primary ml-3">Back to login </span>
+                      </div>     
+                   </div>               
+                  </Link>
                 </span>
               </div>
             </Form.Item>
@@ -119,4 +113,4 @@ const Login = () => {
     </Container>
   );
 };
-export default Login;
+export default ForgotPassword;

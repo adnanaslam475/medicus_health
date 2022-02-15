@@ -1,14 +1,21 @@
-import type { AppProps } from 'next/app'
-import { createClient, Provider } from 'urql';
-import "./../styles/global.scss"
-import "antd/dist/antd.css";
+import type { AppProps } from "next/app";
+import { createClient, Provider } from "urql";
+import "./../styles/global.scss";
+import "./../styles/cutomized-antd.css";
 
 const client = createClient({
-  url: 'http://stark-thicket-56377.herokuapp.com/',
+  url: "http://stark-thicket-56377.herokuapp.com/",
+  fetchOptions: {
+    credentials: "include",
+  },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Provider value={client}><Component {...pageProps} /></Provider>
+  return (
+    <Provider value={client}>
+      <Component {...pageProps} />
+    </Provider>
+  );
 }
 
-export default MyApp
+export default MyApp;
