@@ -1,37 +1,17 @@
 import React from "react";
 import Link from "next/link";
-import { Form, Input, Button, Checkbox, Card } from "antd";
+import { Form, Button } from "antd";
 import Container from "../src/common/components/Container/Container";
-import { useQuery } from "urql";
 import Image from "next/image";
 
 const successScreen = () => {
   const onFinish = async (values: object) => {
     console.log("Success:", values);
-    reexecuteQuery();
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-
-  const loginQuery = `
-  query($data:LoginStudentInput!) {
-    login(data:$data) {
-      token
-    }
-  }
-`;
-
-  const [result, reexecuteQuery] = useQuery({
-    query: loginQuery,
-    variables: {
-      data: {
-        email: "yasir9001@yahoo.com",
-        password: "123admin",
-      },
-    },
-  });
 
   return (
     <Container className="login-bg w-full">
@@ -40,6 +20,7 @@ const successScreen = () => {
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-24 pb-12 px-6">
             <div className="flex flex-col justify-center mb-6">
               <Image
+                alt=""
                 className="main-logo mx-auto"
                 height={34}
                 width={216}
@@ -47,6 +28,7 @@ const successScreen = () => {
               />
               <div className="flex justify-center mt-10">
                 <Image
+                  alt=""
                   className="success-icon mx-auto mt-10"
                   height={84}
                   width={84}
