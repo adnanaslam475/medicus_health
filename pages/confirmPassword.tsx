@@ -2,36 +2,18 @@ import React from "react";
 import Link from "next/link";
 import { Form, Input, Button, Checkbox, Card } from "antd";
 import Container from "../src/common/components/Container/Container";
-import { useQuery } from "urql";
 import Image from "next/image";
 
 const ConfirmPassword = () => {
   const onFinish = async (values: object) => {
     console.log("Success:", values);
-    reexecuteQuery();
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
-  const loginQuery = `
-  query($data:LoginStudentInput!) {
-    login(data:$data) {
-      token
-    }
-  }
-`;
-
-  const [result, reexecuteQuery] = useQuery({
-    query: loginQuery,
-    variables: {
-      data: {
-        email: "yasir9001@yahoo.com",
-        password: "123admin",
-      },
-    },
-  });
+ 
 
   return (
     <Container className="login-bg w-full">
