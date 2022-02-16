@@ -36,7 +36,7 @@ const ConfirmPassword = () => {
   return (
     <Container className="login-bg w-full">
       <div className="flex items-center justify-center py-16">
-      <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-2/3 px-0">
+      <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
             <div className="flex justify-center mb-6">
               <Image
