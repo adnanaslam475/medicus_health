@@ -96,7 +96,7 @@ const Login = () => {
 
                 <Form.Item>
                   <Button
-                    className="ant-btn ant-btn-secondary ant-btn-block nb-button"
+                    block
                     type="primary"
                     htmlType="submit"
                   >

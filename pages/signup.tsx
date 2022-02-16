@@ -104,7 +104,6 @@ const Signup = () => {
             <Select placeholder="Gender" className="nb-select-input">
               <Select.Option value="male">Male</Select.Option>
               <Select.Option value="female">Female</Select.Option>
-              <Select.Option value="female">Other</Select.Option>
             </Select>
           </Form.Item>
 
@@ -186,10 +185,10 @@ const Signup = () => {
               },
             ]}
           >
-            <Select placeholder="Country" className="nb-select-input">
-              <Select.Option value="male">Pakistan</Select.Option>
-              <Select.Option value="female">USA</Select.Option>
-              <Select.Option value="female">Canada</Select.Option>
+            <Select placeholder="Country">
+              <Select.Option value="pakistan">Pakistan</Select.Option>
+              <Select.Option value="usa">USA</Select.Option>
+              <Select.Option value="canada">Canada</Select.Option>
             </Select>
           </Form.Item>
         </div>
@@ -273,12 +272,13 @@ const Signup = () => {
         onFinish={onFinishHealthQuestionnary}
         onFinishFailed={onFinishHealthQuestionnaryFailed}
       >
-        <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+        <Form.Item>
           <Button block> Skip This For Now & Fill This Later</Button>
         </Form.Item>
         <Form.Item
           name="radio_drink"
           label="Do you drink Alcohol?"
+          className="text-secondary"
           rules={[{ required: true, message: "Please pick an option!" }]}
         >
           <Radio.Group defaultValue={"yes"}>
@@ -287,7 +287,7 @@ const Signup = () => {
           </Radio.Group>
         </Form.Item>
         <Form.Item
-          className="flex-1"
+          className="flex-1 text-secondary"
           label="How many Drinks on average and how offen?"
           name="drinks"
           rules={[
@@ -303,6 +303,7 @@ const Signup = () => {
         <Form.Item
           name="radio_smoke"
           label="Do you smoke?"
+          className="text-secondary"
           rules={[{ required: true, message: "Please pick an option!" }]}
         >
           <Radio.Group defaultValue={"yes"}>
@@ -311,7 +312,7 @@ const Signup = () => {
           </Radio.Group>
         </Form.Item>
         <Form.Item
-          className="flex-1"
+          className="flex-1 text-secondary"
           label="How many and for how long do you smoke?"
           name="smoke"
           rules={[
@@ -327,6 +328,7 @@ const Signup = () => {
         <Form.Item
           name="radio_drug"
           label="Do you take any Recreational drugs?"
+          className="text-secondary"
           rules={[{ required: true, message: "Please pick an option!" }]}
         >
           <Radio.Group defaultValue={"yes"}>
@@ -337,6 +339,7 @@ const Signup = () => {
 
         <Form.Item
           name="medical-condition"
+          className="text-secondary"
           label="Please list any current medical conditions and/or past medical conditions you have experienced, (You can select multiple)"
         >
           <Checkbox>Stroke</Checkbox>
@@ -354,7 +357,7 @@ const Signup = () => {
         </Form.Item>
 
         <Form.Item
-          className="flex-1"
+          className="flex-1 text-secondary"
           label="Please list any known allergies"
           name="allergies"
           rules={[
@@ -368,7 +371,7 @@ const Signup = () => {
         </Form.Item>
 
         <Form.Item
-          className="flex-1"
+          className="flex-1 text-secondary" 
           label="Please explain any adverse/side affects you have experienced from medications"
           name="side-effects"
           rules={[
@@ -382,7 +385,7 @@ const Signup = () => {
         </Form.Item>
 
         <Form.Item
-          className="flex-1"
+          className="flex-1 text-secondary"
           label="Please list any current medication you are taking and provide the dosage, and frequency"
           name="current-medication"
           rules={[
@@ -396,7 +399,7 @@ const Signup = () => {
         </Form.Item>
 
         <Form.Item
-          className="flex-1"
+          className="flex-1 text-secondary"
           label="Please list any medical problems that are common/genetically inherited in your family"
           rules={[
             {
@@ -407,22 +410,36 @@ const Signup = () => {
         >
           <Input />
         </Form.Item>
-        <Checkbox>
-          I agree to the <Link href={"#"}>Terms & Condition</Link>
-        </Checkbox>
+        <div className="flex justify-between items-center">
+          <Checkbox>
+            <span className="mb-10 text-gray">I agree to the <Link href={"#"}>Terms & Condition</Link></span>
+          </Checkbox>
 
-        <Form.Item wrapperCol={{ span: 3, offset: 15 }}>
-          <Button
-            className="ant-btn ant-btn-primary ant-btn-block nb-button"
-            type="primary"
-            htmlType="submit"
-          >
-            Complete
-          </Button>
-        </Form.Item>
-        <Button type="link" onClick={() => handleChange()}>
-          Back
-        </Button>
+          <Form.Item className="mb-0">
+            <Button
+              className="ant-btn ant-btn-primary ant-btn-block mb-0"
+              type="primary"
+              htmlType="submit"
+            >
+              Complete
+            </Button>
+          </Form.Item>
+        </div>
+       
+        <div className="flex justify-center">
+        <div className="inline-flex items-center">
+          <div className="mb-0">
+            <Button type="link" onClick={() => handleChange()}>
+              <span><Image
+              className="left-arrow-icon mx-auto mt-3"
+              height={16}
+              width={16}
+              src="/assets/icon/arrow-left.svg"
+            /></span><span className="ml-3">Back</span>
+            </Button>
+          </div>
+        </div>
+        </div>
       </Form>
     );
   };
@@ -457,12 +474,32 @@ const Signup = () => {
                 <TabPane
                   tab={
                     <span>
-                      <Badge
-                        className="mr-3"
-                        count={1}
-                        style={{ backgroundColor: "#1A82FE" }}
-                      ></Badge>
-                      <span className="ml-3">Personal Info</span>
+                      {!nextTab ? (
+                        <Badge
+                          className="mr-3"
+                          count={
+                            <Image
+                              alt=""
+                              className="success-small mx-auto"
+                              height={22}
+                              width={22}
+                              src="/assets/icon/success-small.svg"
+                            />
+                          }
+                          style={{ backgroundColor: "#30cec2" }}
+                        ></Badge>
+                      ) : (
+                        <Badge
+                          className="mr-3"
+                          count={1}
+                          style={{ backgroundColor: "#1A82FE" }}
+                        ></Badge>
+                      )}
+                      {!nextTab ? (
+                        <span className="ml-3 text-cyan">Personal Info</span>
+                      ) : (
+                        <span className="ml-3">Personal Info</span>
+                      )}
                     </span>
                   }
                   key="1"
@@ -475,7 +512,11 @@ const Signup = () => {
                     <span>
                       <Badge
                         count={2}
-                        style={{ backgroundColor: "#1A82FE" }}
+                        style={
+                          nextTab
+                            ? { backgroundColor: "#cdcdcd" }
+                            : { backgroundColor: "#1A82FE" }
+                        }
                       ></Badge>
                       <span className="ml-3">Health Questionnaire</span>
                     </span>
