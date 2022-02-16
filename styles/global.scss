@@ -63,6 +63,26 @@ button.ant-btn {
   content: "*";    
 }
 
+// .ant-form-item.text-secondary .ant-form-item-label label {
+//   color: $secondary !important;
+// }
+
+// radio label stayle 
+
+label.ant-radio-wrapper{
+  color: #9295AF !important;
+  
+}
+
+.ant-form-item.text-secondary {
+  .ant-form-item-label {
+    label {
+      color: #272B4C;
+  }
+  }
+}
+
+
 @layer base {
   body {
     font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
