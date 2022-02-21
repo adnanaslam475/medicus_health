@@ -12,11 +12,14 @@ import {
   Radio,
   Checkbox,
   Badge,
+  Modal, Space
 } from "antd";
-
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import Container from "../src/common/components/Container/Container";
 
 const { TabPane } = Tabs;
+const { confirm } = Modal;
+
 const Signup = () => {
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
@@ -51,6 +54,20 @@ const Signup = () => {
     }
   };
   console.log(nextTab, "nextTab");
+
+  function showConfirm() {
+    confirm({
+      title: '',
+      icon: <ExclamationCircleOutlined />,
+      content: 'These are the mandatory fields for Book an Appointment you can Skip it for now and can Add/Edit later from My Profile section',
+      onOk() {
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
 
   const personalInfo = () => {
     return (
@@ -123,7 +140,7 @@ const Signup = () => {
         </div>
 
         <Form.Item
-          label="Enter Email Address"
+          label="Email Address"
           name="email"
           rules={[
             {
@@ -144,7 +161,7 @@ const Signup = () => {
             className="flex-1"
             label="Password"
             name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            rules={[{ required: true, message: "Please enter your password!" }]}
           >
             <Input.Password />
           </Form.Item>
@@ -153,7 +170,7 @@ const Signup = () => {
             className="flex-1"
             label="Confirm Password"
             name="confirmPassword"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            rules={[{ required: true, message: "Please confirm your password!" }]}
           >
             <Input.Password />
           </Form.Item>
@@ -273,7 +290,7 @@ const Signup = () => {
         onFinishFailed={onFinishHealthQuestionnaryFailed}
       >
         <Form.Item>
-          <Button block> Skip This For Now & Fill This Later</Button>
+          <Button block onClick={showConfirm}> Skip This For Now & Fill This Later</Button>
         </Form.Item>
         <Form.Item
           name="radio_drink"
@@ -445,7 +462,7 @@ const Signup = () => {
   };
 
   return (
-    <Container className="login-bg w-full max-auto">
+    <Container className="login-bg w-full mx-auto">
       <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
         <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white py-12 px-6">

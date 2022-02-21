@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "antd";
-import Container from "../Container";
+import Container from "../Container/Container";
 
 function AuthLayout({ children }) {
   return (

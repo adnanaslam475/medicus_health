@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import { Layout, Avatar, Dropdown, Menu } from "antd";
+import { Layout, Avatar, Dropdown, Menu, Badge, } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Router from "next/router";
-import { useSelector } from "react-redux";
-import { deleteCookie } from "../../../utils/cookie";
+import InfoMessage from "../InfoMessage";
+import Image from "next/image";
+// import { useSelector } from "react-redux";
+// import { deleteCookie } from "../../../utils/cookie";
 import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { Header } = Layout;
 
 const AppHeader = () => {
   const [visible, setVisible] = useState(false);
-  const { auth } = useSelector((state) => state?.admin);
+  // const { auth } = useSelector((state) => state?.admin);
 
   const logout = () => {
     localStorage.removeItem("token");
-    deleteCookie("token");
+    // deleteCookie("token");
     setVisible(false);
     Router.push("/login");
   };
@@ -23,31 +25,55 @@ const AppHeader = () => {
   };
 
   return (
-    <Header className="flex justify-end items-center border-b-2 h-25 px-4 md:px-6" style={{ backgroundColor: "white" }}>
-      <div className="mr-auto">
-        <SidebarDrawer />
+    <Header className="flex w-full justify-end items-center h-25 px-0 md:px-0">
+      <div className="w-full flex px-0 justify-between items-center">
+        <div class="w-full md:w-1/2">
+        <InfoMessage />
+        </div>
+
+        <div className="avatar-and-notification-area inline-flex h-10 items-center text-right justify-end w-full md:w-1/2">
+          <span className="hidden sm:block">
+            <SidebarDrawer />
+          </span>
+
+          {/* Bell icon  */}
+          <span className="mt-7 mr-8">
+          <Badge count={12}>
+          <Image
+            alt=""
+            className="warning-small mx-auto shadow-none border-0"
+            height={34}
+            width={34}
+            src="/assets/icon/bell_Icon.svg"
+          />
+          </Badge>
+          </span>
+          
+
+          {/* Avatar Icon */}
+          <Avatar className="ml-3" size="large" src="https://joeschmoe.io/api/v1/jess" />
+          <span className="justify-center px-4">
+            Mark Mansion
+            {/* <p>{auth?.user?.name ? auth?.user?.name : "Admin"}</p> */}
+          </span>
+          <Dropdown
+            overlay={
+              // eslint-disable-next-line react/jsx-wrap-multilines
+              <Menu>
+                <Menu.Item onClick={() => Router.push("/profile")}>
+                  Profile
+                </Menu.Item>
+                <Menu.Item onClick={logout}>Logout</Menu.Item>
+              </Menu>
+            }
+            placement="bottomRight"
+            trigger="click"
+            overlayStyle={{ width: 130 }}
+          >
+            <CaretDownOutlined onClick={showPopover} />
+          </Dropdown>
+        </div>
       </div>
-      <Avatar size="large" src="https://joeschmoe.io/api/v1/jess" />
-      <span className="justify-center px-4">
-        <p>{auth?.user?.name ? auth?.user?.name : "Admin"}</p>
-      </span>
-      <Dropdown
-        overlay={
-          // eslint-disable-next-line react/jsx-wrap-multilines
-          <Menu>
-            {/* <Menu.Item onClick={logout}>Profile</Menu.Item> */}
-            <Menu.Item onClick={() => Router.push("/profile")}>
-              Profile
-            </Menu.Item>
-            <Menu.Item onClick={logout}>Logout</Menu.Item>
-          </Menu>
-        }
-        placement="bottomRight"
-        trigger="click"
-        overlayStyle={{ width: 130 }}
-      >
-        <CaretDownOutlined onClick={showPopover} />
-      </Dropdown>
     </Header>
   );
 };

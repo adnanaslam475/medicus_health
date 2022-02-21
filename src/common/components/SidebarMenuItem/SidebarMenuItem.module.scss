@@ -1,0 +1,13 @@
+.side-bar-submenu-item {
+  &:hover {
+    svg.sidebar-icon-hover {
+      g {
+        path {
+          fill: url(#linear-gradient);
+        }
+      }
+    }
+  }
+}
+
+

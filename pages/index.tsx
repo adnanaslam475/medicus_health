@@ -18,8 +18,9 @@ const App = () => {
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>
+  <Dashboard />
   {/* {isLoggedIn ? <Dashboard /> : <Login />} */}
-  hello world
+  {/* hello world */}
   </>;
 };
 
