@@ -18,10 +18,13 @@ const Account = () => {
   };
 
   return (
-    <AppLayout className="w-full">
-      <div className="w-full py-0">
-        <h1 className="mb-0">Account</h1>
+    <AppLayout>
+      <div className="w-full p-5">
+        <h2 className="mb-3">Account</h2>
+      <div className="w-3/4">
       <AccountTabs></AccountTabs>
+      </div>
+      
 
       </div>
     </AppLayout>

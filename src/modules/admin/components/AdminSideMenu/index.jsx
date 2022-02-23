@@ -22,7 +22,7 @@ function AdminSideMenu() {
         background:"#F6F8FA",
       }}
       theme="light"
-      className="hidden md:block bg-gray border-r border-b overflow-x-hidden"
+      className="hidden md:block bg-gray overflow-x-hidden"
       width="18rem"
     >
       <Layout.Header className="flex justify-center bg-gray-f px-0 xl:px-4  items-center">

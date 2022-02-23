@@ -1,11 +1,26 @@
 import React, { useState } from "react";
-import { Layout, Avatar, Dropdown, Menu, Space, Tabs } from "antd";
+import {
+  Layout,
+  Avatar,
+  Dropdown,
+  Menu,
+  Space,
+  Tabs,
+  Button,
+  List,
+  Typography,
+  Divider,
+} from "antd";
 import Router from "next/router";
 import Image from "next/image";
-import { WarningFilled } from "@ant-design/icons";
-
+import yourImage from "../../../../public/assets/images/your_photo.png";
+import PersonalInfo from "./PersonelInfo";
+// import HealthQuestionair from "./HealthQuestionair";
+import PaymentMethods from "./PaymentMethods";
+import TransactionHistory from "./TransactionHistory";
 // import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
+
 const AccountTabs = () => {
   return (
     <>
@@ -13,26 +28,24 @@ const AccountTabs = () => {
         <SidebarDrawer />
       </span> */}
 
-      <div className="">
-      <div className="card-container">
-    <Tabs type="card">
-      <TabPane tab="Tab Title 1" key="1">
-        <p>Content of Tab Pane 1</p>
-        <p>Content of Tab Pane 1</p>
-        <p>Content of Tab Pane 1</p>
-      </TabPane>
-      <TabPane tab="Tab Title 2" key="2">
-        <p>Content of Tab Pane 2</p>
-        <p>Content of Tab Pane 2</p>
-        <p>Content of Tab Pane 2</p>
-      </TabPane>
-      <TabPane tab="Tab Title 3" key="3">
-        <p>Content of Tab Pane 3</p>
-        <p>Content of Tab Pane 3</p>
-        <p>Content of Tab Pane 3</p>
-      </TabPane>
-    </Tabs>
-  </div>,
+      <div>
+        <div className="card-container profileTabs">
+          <Tabs type="card">
+            <TabPane tab="Personal Information" key="1" className="">
+              <PersonalInfo />
+            </TabPane>
+            <TabPane tab="Health Questionnaire" key="2">
+              Questionair module component
+            </TabPane>
+            <TabPane tab="Payment Methods" key="3">
+              <PaymentMethods />
+            </TabPane>
+            <TabPane tab="Transaction History" key="4">
+              <TransactionHistory />
+            </TabPane>
+          </Tabs>
+        </div>
+        
       </div>
     </>
   );
