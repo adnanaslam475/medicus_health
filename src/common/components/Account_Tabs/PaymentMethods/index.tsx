@@ -10,9 +10,9 @@ import PaymentHeader2 from "./PaymentHeader2";
 const { Panel } = Collapse;
 
 const PaymentMethods = () => {
-  function callback(key) {
-    console.log(key);
-  }
+  // function callback(key) {
+  //   console.log(key);
+  // }
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 

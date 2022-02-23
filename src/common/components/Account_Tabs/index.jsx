@@ -18,15 +18,11 @@ import PersonalInfo from "./PersonelInfo";
 // import HealthQuestionair from "./HealthQuestionair";
 import PaymentMethods from "./PaymentMethods";
 import TransactionHistory from "./TransactionHistory";
-// import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
 
 const AccountTabs = () => {
   return (
-    <>
-      {/* <span className="hidden sm:block">
-        <SidebarDrawer />
-      </span> */}
+    <>      
 
       <div>
         <div className="card-container profileTabs">
