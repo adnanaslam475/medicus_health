@@ -130,34 +130,52 @@ label.ant-radio-wrapper {
   background-color: #f6f8fa !important;
 }
 
-.ant-menu{
-  background-color:#F6F8FA !important
+.ant-menu {
+  background-color: #f6f8fa !important;
 }
 
 .ant-menu > .ant-menu-item:hover,
 .ant-menu > .ant-menu-submenu:hover,
 .ant-menu > .ant-menu-item-active,
-.ant-menu> .ant-menu-submenu-active,
+.ant-menu > .ant-menu-submenu-active,
 .ant-menu > .ant-menu-item-open,
-.ant-menu> .ant-menu-submenu-open,
+.ant-menu > .ant-menu-submenu-open,
 .ant-menu > .ant-menu-item-selected,
 .ant-menu > .ant-menu-submenu-selected {
-  color: #8F95A7;
+  color: #8f95a7;
   // border-bottom: 2px solid red;
 }
-
 
 .profileTabs {
   .ant-tabs {
     .ant-tabs-nav {
       .ant-tabs-nav-wrap {
         .ant-tabs-nav-list {
-          .ant-tabs-tab-active{
-            background-color: #1A82FE;
-            .ant-tabs-tab{}
-            & > .ant-tabs-tab-btn{
+          .ant-tabs-tab {
+            color: #8f95a7;
+            background-color: transparent;
+            border: 0;
+            &:hover {
+              background-color: #ebf1ff;
+              color: #000;
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
+            }
+          }
+          .ant-tabs-tab-active {
+            background-color: #1a82fe;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+
+            &:hover {
+              background-color: #1a82fe;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            }
+
+            & > .ant-tabs-tab-btn {
               color: #fff;
-              font-size: 14px !important;              
+              font-size: 14px !important;
             }
           }
         }
@@ -222,4 +240,15 @@ label.ant-radio-wrapper {
     font-size: 1rem !important;
     // font-size: 16px !important;
   }
+}
+
+.ant-layout-has-sider aside + .ant-layout header.ant-layout-header {
+  padding: 0px 25px;
+}
+
+
+.checkbox-dir-col .ant-checkbox-group {
+  display: flex;
+  flex-flow: column;
+  flex-direction: column;
 }

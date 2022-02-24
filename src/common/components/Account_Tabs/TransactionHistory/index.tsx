@@ -164,7 +164,7 @@ const TransactionHistory = () => {
       title: "Total Amount",
       dataIndex: "totalamount",
       key: "city",
-      width: "20%",
+      // width: "20%",
     },
     {
       title: "Transaction Date",
@@ -182,7 +182,7 @@ const TransactionHistory = () => {
       title: "View",
       dataIndex: "view",
       key: "view",
-      width: "20%",
+      // width: "20%",
     },
   ];
   return <Table columns={columns} dataSource={data} />;
