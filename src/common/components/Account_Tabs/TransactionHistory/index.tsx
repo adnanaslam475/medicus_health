@@ -31,12 +31,18 @@ const data = [
     name: "ali",
     age: 32,
     address: "London No. 2 Lake Park",
-    city: "aadsfasdf"
+    city: "aadsfasdf",
   },
 ];
 
-const TransactionHistory = () => {
+interface col {
+  title: string;
+  dataIndex: string;
+  key: "string";
+  width: "30%";
+}
 
+const TransactionHistory = () => {
   const columns = [
     {
       title: "Name",
@@ -54,8 +60,7 @@ const TransactionHistory = () => {
       title: "Address",
       dataIndex: "address",
       key: "address",
-      sorter: (a, b) => a.address.length - b.address.length,
-      sortDirections: ["descend", "ascend"],
+      width: "20%",
     },
     {
       title: "city",

@@ -513,9 +513,9 @@ const Signup = () => {
                         ></Badge>
                       )}
                       {!nextTab ? (
-                        <span className="ml-3 text-cyan">Personal Info</span>
+                        <span className="ml-3 text-cyan text-xs sm:text-base">Personal Info</span>
                       ) : (
-                        <span className="ml-3">Personal Info</span>
+                        <span className="ml-3 text-xs sm:text-base">Personal Info</span>
                       )}
                     </span>
                   }
@@ -535,7 +535,7 @@ const Signup = () => {
                             : { backgroundColor: "#1A82FE" }
                         }
                       ></Badge>
-                      <span className="ml-3">Health Questionnaire</span>
+                      <span className="ml-3 text-xs sm:text-base">Health Questionnaire</span>
                     </span>
                   }
                   key="2"
