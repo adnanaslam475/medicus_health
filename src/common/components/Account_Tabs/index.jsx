@@ -18,6 +18,7 @@ import PersonalInfo from "./PersonelInfo";
 // import HealthQuestionair from "./HealthQuestionair";
 import PaymentMethods from "./PaymentMethods";
 import TransactionHistory from "./TransactionHistory";
+import HealthQuestionair from "./HealthQuestionair"
 const { TabPane } = Tabs;
 
 const AccountTabs = () => {
@@ -30,8 +31,8 @@ const AccountTabs = () => {
             <TabPane tab="Personal Information" key="1" className="">
               <PersonalInfo />
             </TabPane>
-            <TabPane tab="Health Questionnaire" key="2">
-              Questionair module component
+            <TabPane tab="Health Questionair" key="2">
+              <HealthQuestionair />
             </TabPane>
             <TabPane tab="Payment Methods" key="3">
               <PaymentMethods />

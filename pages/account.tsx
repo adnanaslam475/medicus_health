@@ -21,7 +21,7 @@ const Account = () => {
     <AppLayout>
       <div className="w-full p-5">
         <h2 className="mb-3">Account</h2>
-      <div className="w-3/4">
+      <div className="w-full">
       <AccountTabs></AccountTabs>
       </div>
       
