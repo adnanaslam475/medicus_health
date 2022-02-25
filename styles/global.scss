@@ -39,7 +39,7 @@ button.ant-btn {
   background-image: url("../public/assets/images/login-bg.svg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 100% 100%;
+  background-position: 100% 0;
 }
 
 .bg-gradient {
@@ -145,6 +145,22 @@ label.ant-radio-wrapper {
   color: #8f95a7;
   // border-bottom: 2px solid red;
 }
+.sideMenuCover{
+  .ant-menu {
+    .ant-menu-item{
+      &:hover{
+        background-color: #EDF1F4;
+        cursor: pointer;
+        color: #272B4C !important;
+      }
+      &:active{
+        background-color: #EDF1F4;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
 
 .profileTabs {
   .ant-tabs {
