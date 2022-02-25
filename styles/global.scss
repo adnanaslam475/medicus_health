@@ -268,3 +268,13 @@ label.ant-radio-wrapper {
   flex-flow: column;
   flex-direction: column;
 }
+
+.notificationMenuCover{
+  max-width: 300px;
+  max-height: 300px;
+    overflow: auto;
+  span.notificationBody {
+    display: flex;
+    flex-flow: column;
+} 
+}

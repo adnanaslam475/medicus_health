@@ -4,8 +4,6 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import InfoMessage from "../InfoMessage";
 import Image from "next/image";
-// import { useSelector } from "react-redux";
-// import { deleteCookie } from "../../../utils/cookie";
 import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { Header } = Layout;
 
@@ -26,17 +24,45 @@ const AppHeader = () => {
 
   const notificationMenu = (
     <>
-      <div className="notificationMenuCover">
-        <Menu class="px-2 py-2 bg-white border border-gray-3 rounded">
-          <Menu.Item key="0">
-            <a href="https://www.antgroup.com">1st menu item</a>
-          </Menu.Item>
-          <Menu.Item key="1">
-            <a href="https://www.aliyun.com">2nd menu item</a>
-          </Menu.Item>
-          <Menu.Divider />
-          <Menu.Item key="3">3rd menu item</Menu.Item>
-        </Menu>
+      <div className="notificationMenuCover border border-gray-3 rounded">
+        <div class="px-3 py-2 bg-white">
+          {/* <Menu.Item key="0"> */}
+            <div className="flex border-b border-gray-4 items-start mb-3">
+              <span className=" ">
+                <Image
+                  alt=""
+                  className="warning-small mx-auto shadow-none border-0"
+                  height={34}
+                  width={34}
+                  src="/assets/icon/blue_bell_Icon.svg"
+                />
+              </span>
+              {/* <div> */}
+              <span class="notificationBody ml-3 w-full break-word">
+                Your appointment with <b>John Petrucci</b> has been confirmed.
+              </span>
+              {/* </div> */}
+            </div>
+          {/* </Menu.Item> */}
+          <div className="flex border-b border-gray-4 items-start mb-3">
+              <span className=" ">
+                <Image
+                  alt=""
+                  className="warning-small mx-auto shadow-none border-0"
+                  height={34}
+                  width={34}
+                  src="/assets/icon/blue_bell_Icon.svg"
+                />
+              </span>
+              {/* <div> */}
+              <span class="notificationBody ml-3 w-full break-word">
+                Your appointment with <b>John Petrucci</b> has been confirmed.
+              </span>
+              {/* </div> */}
+            </div>
+        </div>
+        
+        
       </div>
     </>
   );
@@ -56,7 +82,11 @@ const AppHeader = () => {
           {/* Bell icon Notifications  */}
 
           <span className="mt-7 mr-8">
-            <Dropdown overlay={notificationMenu} trigger={["click"]} placement="bottomLeft">
+            <Dropdown
+              overlay={notificationMenu}
+              trigger={["click"]}
+              placement="bottomLeft"
+            >
               <a
                 className="ant-dropdown-link"
                 onClick={(e) => e.preventDefault()}
