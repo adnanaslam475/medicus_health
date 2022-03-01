@@ -16,6 +16,7 @@ const HealthQuestionair = () => {
           <Avatar
             src={
               <Image
+              alt=""
                 src={yourImage}
                 width={64}
                 height={64}

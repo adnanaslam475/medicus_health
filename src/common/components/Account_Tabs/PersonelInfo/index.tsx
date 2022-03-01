@@ -16,6 +16,7 @@ const PersonalInfo = () => {
             <Avatar
               src={
                 <Image
+                  alt=""
                   src={yourImage}
                   width={64}
                   height={64}
@@ -33,7 +34,7 @@ const PersonalInfo = () => {
               <span className="text-xs">EDIT</span>
             </Button>
 
-            <div className="btn_group inline-block hidden">
+            <div className="btn-group hidden">
               <Button danger className="text-xs p-5 text-red" size="large">
                 <span className="text-xs">CANCEL</span>
               </Button>

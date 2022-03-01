@@ -20,6 +20,7 @@ const ForgotPassword = () => {
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
             <div className="flex justify-center mb-6">
               <Image
+              alt=""
                 className="main-logo mx-auto"
                 height={34}
                 width={216}
@@ -75,6 +76,7 @@ const ForgotPassword = () => {
                     <div className="inline-flex items-center">
                       <div className="mb-0 mr-3">
                         <Image
+                        alt=""
                           className="left-arrow-icon mx-auto"
                           height={16}
                           width={16}

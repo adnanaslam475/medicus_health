@@ -25,7 +25,7 @@ function AdminSideMenu() {
       className="hidden md:block bg-gray overflow-x-hidden"
       width="18rem"
     >
-      <Layout.Header className="flex justify-center bg-gray-f px-0 xl:px-4  items-center">
+      <Layout.Header className="flex justify-center bg-gray-f px-0 xl:px-4 items-center mt-5">
       <Image alt="" src={Logo} width={200} height={35} />
       {/* <div className="justify-center items-center xl:flex ">
          
