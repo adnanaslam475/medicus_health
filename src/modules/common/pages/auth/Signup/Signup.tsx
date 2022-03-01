@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { useState } from "react";
 import Image from "next/image";
+import Router from "next/router";
 import { Tabs, Badge, Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
@@ -27,12 +28,11 @@ function Signup() {
 
   const [signUpPayload, setSignUpPaylod] = useState<CreateUserPayload>();
 
-  const [, createUser] = useCreateUserMutation();
+  const [result, createUser] = useCreateUserMutation();
+  const { fetching } = result;
   const [, createPatientHealthHistory] =
     useCreatePatientHealthHistoryMutation();
-
   const handleChange = () => {
-    console.log(activeKey, "activeKey");
     if (activeKey === "1") {
       setActiveKey("2");
     } else {
@@ -62,13 +62,13 @@ function Signup() {
     submitPersonalInfo();
     const healthQuesJson = JSON.stringify(quesPayload);
     try {
-      const res = await createPatientHealthHistory({
+      await createPatientHealthHistory({
         input: { history: healthQuesJson, user_id: 123 },
       });
-      console.log(res);
       handleChange();
       setActiveKey("2");
       setNextTab(false);
+      Router.push("/login");
     } catch (err) {
       console.log(err);
     }
@@ -84,9 +84,7 @@ function Signup() {
       await createUser({
         input: data as CreateUserInput,
       });
-      handleChange();
-      setActiveKey("2");
-      setNextTab(false);
+      Router.push("/login");
     } catch (err) {
       console.log(err);
     }
@@ -193,6 +191,7 @@ function Signup() {
                     onFinishedFailed={onFinishHealthQuestionnaryFailed}
                     handleBackChange={handleChange}
                     skipHealthQues={skipHealthQuestions}
+                    isLoading={fetching}
                   />
                 </TabPane>
               </Tabs>

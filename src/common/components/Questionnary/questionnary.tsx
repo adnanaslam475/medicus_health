@@ -15,6 +15,7 @@ interface HealthQuesType {
   onFinishedFailed: (value: any) => void;
   skipHealthQues: (value: any) => void;
   handleBackChange: (value: any) => void;
+  isLoading: boolean;
 }
 
 const HealthQuestionnary = ({
@@ -23,6 +24,7 @@ const HealthQuestionnary = ({
   onFinishedFailed,
   handleBackChange,
   skipHealthQues,
+  isLoading,
 }: HealthQuesType) => {
   const [radioDrink, setRadioDring] = useState(true);
   const [radioSmoke, setRadioSmoke] = useState(true);
@@ -309,7 +311,8 @@ const HealthQuestionnary = ({
 
         <Form.Item className="mb-0">
           <Button
-            disabled={!terms}
+            loading={isLoading}
+            disabled={!terms || isLoading}
             className="ant-btn ant-btn-primary ant-btn-block mb-0"
             type="primary"
             htmlType="submit"

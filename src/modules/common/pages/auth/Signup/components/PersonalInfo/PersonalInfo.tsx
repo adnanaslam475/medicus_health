@@ -24,15 +24,6 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
 
-  // async function validateFields(value: any) {
-  //   // try {
-  //   //   await form.validateFields();
-  //   //   validateForm(true);
-  //   // } catch (err) {
-  //   //   console.log(err);
-  //   // }
-  // }
-
   function selectCountryId(id: number): void {
     setCountryId(id);
   }
@@ -61,13 +52,6 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
 
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
-
-  // const onFinishRegistration = async (values: any) => {
-  //   values.date_of_birth = dayjs.utc(values.date_of_birth).format();
-  //   delete values.confirmPassword;
-  //   const payload: CreateUserInput = { ...values };
-  //   // onFinishPersonalInfo(payload);
-  // };
 
   const onFinishRegistrationFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
