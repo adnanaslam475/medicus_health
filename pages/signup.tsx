@@ -1,7 +1,8 @@
+/* eslint-disable react/jsx-key */
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import HealthQuestionnary from "../src/common/components/Questionnary/questionnary";
 import {
   Form,
   Input,
@@ -9,13 +10,25 @@ import {
   Tabs,
   Select,
   DatePicker,
-  Radio,
-  Checkbox,
   Badge,
-  Modal, Space
+  Modal,
+  FormInstance,
 } from "antd";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
+
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
+
 import Container from "../src/common/components/Container/Container";
+import {
+  CreateUserInput,
+  useCreateUserMutation,
+  useCountriesQuery,
+  useGetStatesByCountryQuery,
+  useGetCitiesByStateQuery,
+  useCreatePatientHealthHistoryMutation,
+} from "../src/generated/graphql";
 
 const { TabPane } = Tabs;
 const { confirm } = Modal;
@@ -23,29 +36,52 @@ const { confirm } = Modal;
 const Signup = () => {
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
+  const [form] = Form.useForm();
+  const [countryId, setCountryId] = useState<number | undefined>();
+  const [stateId, setStateId] = useState<number | undefined>();
 
-  const onFinishRegistration = async (values: object) => {
-    handleChange();
-    setNextTab(false);
-    console.log("Success:", values);
+  const [, createUser] = useCreateUserMutation();
+  const [, createPatientHealthHistory] =
+    useCreatePatientHealthHistoryMutation();
+
+  const [getStatesByCountry] = useGetStatesByCountryQuery({
+    variables: {
+      input: countryId || 0,
+    },
+    pause: countryId === undefined,
+  });
+
+  const [getCityByState] = useGetCitiesByStateQuery({
+    variables: {
+      input: stateId || 0,
+    },
+    pause: stateId === undefined,
+  });
+
+  const [{ data }] = useCountriesQuery();
+  const { countries } = data || {};
+
+  const onFinishRegistration = async (values: any) => {
+    values.date_of_birth = dayjs.utc(values.date_of_birth).format();
+    delete values.confirmPassword;
+    const payload: CreateUserInput = { ...values };
+    try {
+      const res = await createUser({
+        input: payload,
+      });
+      handleChange();
+      setActiveKey("2");
+      setNextTab(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onFinishRegistrationFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
-  const onFinishHealthQuestionnary = async (values: object) => {
-    handleChange();
-    setNextTab(false);
-    console.log("Success:", values);
-  };
-
-  const onFinishHealthQuestionnaryFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
   const handleChange = () => {
-    console.log("chal gya");
     console.log(activeKey, "activeKey");
     if (activeKey === "1") {
       setActiveKey("2");
@@ -53,25 +89,38 @@ const Signup = () => {
       setActiveKey("1");
     }
   };
-  console.log(nextTab, "nextTab");
 
   function showConfirm() {
     confirm({
-      title: '',
+      title: "",
       icon: <ExclamationCircleOutlined />,
-      content: 'These are the mandatory fields for Book an Appointment you can Skip it for now and can Add/Edit later from My Profile section',
+      content:
+        "These are the mandatory fields for Book an Appointment you can Skip it for now and can Add/Edit later from My Profile section",
       onOk() {
-        console.log('OK');
+        form.submit();
       },
       onCancel() {
-        console.log('Cancel');
+        console.log("Cancel");
       },
     });
   }
 
-  const personalInfo = () => {
+  function selectCountryId(id: number): void {
+    setCountryId(id);
+  }
+
+  function selectStateId(id: number): void {
+    setStateId(id);
+  }
+
+  function disabledDate(current: any) {
+    return current && current < dayjs().startOf("day");
+  }
+
+  const PersonalInfo = ({ form: signupForm }: { form: FormInstance<any> }) => {
     return (
       <Form
+        form={signupForm}
         layout="vertical"
         onFinish={onFinishRegistration}
         onFinishFailed={onFinishRegistrationFailed}
@@ -80,7 +129,7 @@ const Signup = () => {
           <Form.Item
             className="flex-1"
             label="First Name"
-            name="firstName"
+            name="first_name"
             rules={[
               {
                 required: true,
@@ -94,7 +143,7 @@ const Signup = () => {
           <Form.Item
             className="flex-1"
             label="Last Name"
-            name="lastName"
+            name="last_name"
             rules={[
               {
                 required: true,
@@ -127,7 +176,7 @@ const Signup = () => {
           <Form.Item
             className="flex-1"
             label="Date of birth"
-            name="dob"
+            name="date_of_birth"
             rules={[
               {
                 required: true,
@@ -135,7 +184,7 @@ const Signup = () => {
               },
             ]}
           >
-            <DatePicker className="w-full" />
+            <DatePicker className="w-full" disabledDate={disabledDate} />
           </Form.Item>
         </div>
 
@@ -161,7 +210,12 @@ const Signup = () => {
             className="flex-1"
             label="Password"
             name="password"
-            rules={[{ required: true, message: "Please enter your password!" }]}
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
           >
             <Input.Password />
           </Form.Item>
@@ -170,7 +224,24 @@ const Signup = () => {
             className="flex-1"
             label="Confirm Password"
             name="confirmPassword"
-            rules={[{ required: true, message: "Please confirm your password!" }]}
+            rules={[
+              {
+                required: true,
+                message: "Please confirm your password!",
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error(
+                      "The two passwords that you entered do not match!"
+                    )
+                  );
+                },
+              }),
+            ]}
           >
             <Input.Password />
           </Form.Item>
@@ -180,7 +251,7 @@ const Signup = () => {
           <Form.Item
             className="flex-1"
             label="Cell Number"
-            name="cellNumber"
+            name="contact_number"
             rules={[
               {
                 required: true,
@@ -194,7 +265,7 @@ const Signup = () => {
           <Form.Item
             className="flex-1"
             label="Country"
-            name="country"
+            name="country_id"
             rules={[
               {
                 required: true,
@@ -202,10 +273,55 @@ const Signup = () => {
               },
             ]}
           >
-            <Select placeholder="Country">
-              <Select.Option value="pakistan">Pakistan</Select.Option>
-              <Select.Option value="usa">USA</Select.Option>
-              <Select.Option value="canada">Canada</Select.Option>
+            <Select
+              onChange={(e) => {
+                selectCountryId(e);
+                signupForm.setFieldsValue({
+                  state_id: null,
+                  city_id: null,
+                });
+              }}
+              placeholder="Country"
+            >
+              {countries?.map((el, i) => {
+                return (
+                  <Select.Option key={i} value={el?.id}>
+                    {el?.country_name}
+                  </Select.Option>
+                );
+              })}
+            </Select>
+          </Form.Item>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-4">
+          <Form.Item
+            className="flex-1"
+            label="State"
+            name="state_id"
+            rules={[
+              {
+                required: true,
+                message: "Please enter your state",
+              },
+            ]}
+          >
+            <Select
+              onChange={(e) => {
+                selectStateId(e);
+                signupForm.setFieldsValue({
+                  city_id: null,
+                });
+              }}
+              placeholder="State"
+            >
+              {getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
+                return (
+                  <Select.Option key={i} value={el.id}>
+                    {el?.state_name}
+                  </Select.Option>
+                );
+              })}
             </Select>
           </Form.Item>
         </div>
@@ -214,7 +330,7 @@ const Signup = () => {
           <Form.Item
             className="flex-1"
             label="City"
-            name="city"
+            name="city_id"
             rules={[
               {
                 required: true,
@@ -222,30 +338,21 @@ const Signup = () => {
               },
             ]}
           >
-            <Input />
+            <Select placeholder="City">
+              {getCityByState?.data?.getCitiesByState?.map((el, i) => {
+                return (
+                  <Select.Option key={i} value={el.id}>
+                    {el?.city_name}
+                  </Select.Option>
+                );
+              })}
+            </Select>
           </Form.Item>
 
           <Form.Item
             className="flex-1"
-            label="State"
-            name="state"
-            rules={[
-              {
-                required: true,
-                message: "Please enter your country",
-              },
-            ]}
-          >
-            <Select placeholder="State" className="nb-select-input">
-              <Select.Option value="one">one</Select.Option>
-              <Select.Option value="two">two</Select.Option>
-              <Select.Option value="three">three</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item
-            className="flex-1"
             label="Zip"
-            name="zip"
+            name="zip_code"
             rules={[
               {
                 required: true,
@@ -276,189 +383,28 @@ const Signup = () => {
       </Form>
     );
   };
+  const onFinishHealthQuestionnaryFailed = (err: any) => {
+    console.log(err, "eerrr");
+  };
 
-  const healthQuestionnare = () => {
-    return (
-      <Form
-        initialValues={{
-          radio_drink: "yes",
-          radio_smoke: "yes",
-          radio_drug: "yes",
-        }}
-        layout="vertical"
-        onFinish={onFinishHealthQuestionnary}
-        onFinishFailed={onFinishHealthQuestionnaryFailed}
-      >
-        <Form.Item>
-          <Button block onClick={showConfirm}> Skip This For Now & Fill This Later</Button>
-        </Form.Item>
-        <Form.Item
-          name="radio_drink"
-          label="Do you drink Alcohol?"
-          className="text-secondary"
-          rules={[{ required: true, message: "Please pick an option!" }]}
-        >
-          <Radio.Group defaultValue={"yes"}>
-            <Radio value="yes">Yes</Radio>
-            <Radio value="no">No</Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
-          className="flex-1 text-secondary"
-          label="How many Drinks on average and how offen?"
-          name="drinks"
-          rules={[
-            {
-              required: true,
-              message: "Please fill filed",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+  const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
+    form.submit();
+    const healthQuesJson = JSON.stringify(quesPayload);
+    try {
+      const res = await createPatientHealthHistory({
+        input: { history: healthQuesJson, user_id: 123 },
+      });
+      console.log(res);
+      handleChange();
+      setActiveKey("2");
+      setNextTab(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-        <Form.Item
-          name="radio_smoke"
-          label="Do you smoke?"
-          className="text-secondary"
-          rules={[{ required: true, message: "Please pick an option!" }]}
-        >
-          <Radio.Group defaultValue={"yes"}>
-            <Radio value="yes">Yes</Radio>
-            <Radio value="no">No</Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
-          className="flex-1 text-secondary"
-          label="How many and for how long do you smoke?"
-          name="smoke"
-          rules={[
-            {
-              required: true,
-              message: "Please fill filed",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="radio_drug"
-          label="Do you take any Recreational drugs?"
-          className="text-secondary"
-          rules={[{ required: true, message: "Please pick an option!" }]}
-        >
-          <Radio.Group defaultValue={"yes"}>
-            <Radio value="yes">Yes</Radio>
-            <Radio value="no">No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          name="medical-condition"
-          className="text-secondary"
-          label="Please list any current medical conditions and/or past medical conditions you have experienced, (You can select multiple)"
-        >
-          <Checkbox>Stroke</Checkbox>
-          <br />
-          <Checkbox>Asthma</Checkbox>
-          <br />
-          <Checkbox>Cancer</Checkbox>
-          <br />
-          <Checkbox>Diabetes</Checkbox>
-          <br />
-          <Checkbox>Other</Checkbox>
-        </Form.Item>
-        <Form.Item className="flex-1" name="medical">
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          className="flex-1 text-secondary"
-          label="Please list any known allergies"
-          name="allergies"
-          rules={[
-            {
-              required: true,
-              message: "Please fill",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          className="flex-1 text-secondary" 
-          label="Please explain any adverse/side affects you have experienced from medications"
-          name="side-effects"
-          rules={[
-            {
-              required: true,
-              message: "Please fill",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          className="flex-1 text-secondary"
-          label="Please list any current medication you are taking and provide the dosage, and frequency"
-          name="current-medication"
-          rules={[
-            {
-              required: true,
-              message: "Please fill",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          className="flex-1 text-secondary"
-          label="Please list any medical problems that are common/genetically inherited in your family"
-          rules={[
-            {
-              required: true,
-              message: "Please fill",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <div className="flex justify-between items-center">
-          <Checkbox>
-            <span className="mb-10 text-gray">I agree to the <Link href={"#"}>Terms & Condition</Link></span>
-          </Checkbox>
-
-          <Form.Item className="mb-0">
-            <Button
-              className="ant-btn ant-btn-primary ant-btn-block mb-0"
-              type="primary"
-              htmlType="submit"
-            >
-              Complete
-            </Button>
-          </Form.Item>
-        </div>
-       
-        <div className="flex justify-center">
-        <div className="inline-flex items-center">
-          <div className="mb-0">
-            <Button type="link" onClick={() => handleChange()}>
-              <span><Image
-              className="left-arrow-icon mx-auto mt-3"
-              height={16}
-              width={16}
-              src="/assets/icon/arrow-left.svg"
-            /></span><span className="ml-3">Back</span>
-            </Button>
-          </div>
-        </div>
-        </div>
-      </Form>
-    );
+  const skipHealthQuestions = (e: any) => {
+    showConfirm();
   };
 
   return (
@@ -513,15 +459,19 @@ const Signup = () => {
                         ></Badge>
                       )}
                       {!nextTab ? (
-                        <span className="ml-3 text-cyan text-xs sm:text-base">Personal Info</span>
+                        <span className="ml-3 text-cyan text-xs sm:text-base">
+                          Personal Info
+                        </span>
                       ) : (
-                        <span className="ml-3 text-xs sm:text-base">Personal Info</span>
+                        <span className="ml-3 text-xs sm:text-base">
+                          Personal Info
+                        </span>
                       )}
                     </span>
                   }
                   key="1"
                 >
-                  {personalInfo()}
+                  <PersonalInfo form={form} />
                 </TabPane>
                 <TabPane
                   disabled={nextTab}
@@ -535,12 +485,20 @@ const Signup = () => {
                             : { backgroundColor: "#1A82FE" }
                         }
                       ></Badge>
-                      <span className="ml-3 text-xs sm:text-base">Health Questionnaire</span>
+                      <span className="ml-3 text-xs sm:text-base">
+                        Health Questionnaire
+                      </span>
                     </span>
                   }
                   key="2"
                 >
-                  {healthQuestionnare()}
+                  <HealthQuestionnary
+                    isUpdateMode={false}
+                    onFinishSuccess={onFinishHealthQuestionnarySuccess}
+                    onFinishedFailed={onFinishHealthQuestionnaryFailed}
+                    handleBackChange={handleChange}
+                    skipHealthQues={skipHealthQuestions}
+                  />
                 </TabPane>
               </Tabs>
             </div>
