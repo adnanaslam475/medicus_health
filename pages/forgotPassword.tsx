@@ -18,7 +18,7 @@ const ForgotPassword = () => {
       <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
         <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-16">
               <Image
                 alt=""
                 className="main-logo mx-auto"
@@ -27,8 +27,8 @@ const ForgotPassword = () => {
                 src="/assets/images/logo-medi.svg"
               />
             </div>
-            <h1 className="text-center text-secondary mb-3">Forgot Password</h1>
-            <h5 className="text-center text-darkGray">
+            <h1 className="text-center text-secondary mb-0">Forgot Password</h1>
+            <h5 className="text-center text-gray font-rubik font-normal">
               Enter your email below to reset password.
             </h5>
             <div className="mt-5">
@@ -74,7 +74,7 @@ const ForgotPassword = () => {
                 <span className="ml-2">
                   <Link href="/login">
                     <div className="inline-flex items-center">
-                      <div className="mb-0 mr-3">
+                      <div className="mb-0 mr-3 inline-flex items-center">
                         <Image
                           alt=""
                           className="left-arrow-icon mx-auto"
@@ -83,7 +83,7 @@ const ForgotPassword = () => {
                           src="/assets/icon/arrow-left.svg"
                         />
                         <span className="cursor-pointer text-primary ml-3">
-                          Back to login{" "}
+                          Back to log in
                         </span>
                       </div>
                     </div>
