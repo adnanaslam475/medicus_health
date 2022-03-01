@@ -102,7 +102,7 @@ const Login = () => {
                 <Form.Item name="remember" valuePropName="checked">
                   <div className="flex justify-between text-base">
                     <Checkbox className="text-base">Remember me</Checkbox>
-                    <Link href="/forgotPassword">Forgot Password</Link>
+                    <Link href="/forgotPassword" ><span className="text-primary">Forgot Password?</span></Link>
                   </div>
                 </Form.Item>
 
@@ -115,7 +115,7 @@ const Login = () => {
             </div>
             <Form.Item>
               <div className="flex justify-center mt-8">
-                Dont have an account?{" "}
+                Don't have an account?{" "}
                 <span className="ml-1">
                   <Link href="/signup">Register</Link>
                 </span>

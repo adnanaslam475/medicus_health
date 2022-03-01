@@ -150,22 +150,21 @@ label.ant-radio-wrapper {
     border: 0;
     li.ant-menu-submenu.ant-menu-submenu-open {
       background-color: white;
-      
+
       ul.ant-menu.ant-menu-sub {
         background-color: white !important;
         padding: 0 15px;
       }
       .ant-menu-submenu-title {
-        .ant-menu-title-content{
+        .ant-menu-title-content {
           color: #272b4c !important;
         }
       }
 
       ul.ant-menu.ant-menu-sub {
         li.ant-menu-item {
-          
           .ant-menu-title-content {
-            a{
+            a {
               color: #272b4c !important;
             }
           }
@@ -342,29 +341,33 @@ label.ant-radio-wrapper {
   }
 }
 
-
 .ant-form-item-control {
-  .ant-form-item-control-input + .ant-form-item-explain.ant-form-item-explain-connected {
-
+  .ant-form-item-control-input
+    + .ant-form-item-explain.ant-form-item-explain-connected {
     .ant-form-item-explain-error {
       font-size: 12px !important;
     }
   }
 }
 
-
-
-
-.font-rubik{
+.font-rubik {
   font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-      word-spacing: 1.5px;
-      letter-spacing: 0.4px;
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  word-spacing: 1.5px;
+  letter-spacing: 0.4px;
 }
-.font-circular{
-font-family: "Circular Std", -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-      "Noto Color Emoji" !important;
-    }
+.font-circular {
+  font-family: "Circular Std", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  border-color: #429eff !important; 
+  background-color: #429eff !important;
+}
+
+.ant-checkbox-checked::after{
+  border-color: transparent !important;
+}
