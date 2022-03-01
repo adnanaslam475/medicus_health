@@ -341,3 +341,14 @@ label.ant-radio-wrapper {
     flex-flow: column;
   }
 }
+
+
+.ant-form-item-control {
+  .ant-form-item-control-input + .ant-form-item-explain.ant-form-item-explain-connected {
+
+    .ant-form-item-explain-error {
+      font-size: 12px !important;
+    }
+  }
+}
+
