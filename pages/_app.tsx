@@ -1,20 +1,17 @@
 import type { AppProps } from "next/app";
+import config from "./config";
 import { createClient, Provider } from "urql";
 import "./../styles/global.scss";
 import "./../styles/cutomized-antd.css";
 
 const client = createClient({
-  url: "https://medicus-api-dev.agencypartner.com/graphql",
-  // fetchOptions: {
-  //   mode: "cors",
-  //   credentials: "same-origin",
-  // },
+  url: config.baseURL || "",
 });
-
+console.log(config, "bbbb");
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider value={client}>
-      <Component {...pageProps} />
+      <Component {...pageProps} key />
     </Provider>
   );
 }
