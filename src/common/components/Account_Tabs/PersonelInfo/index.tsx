@@ -14,12 +14,13 @@ const PersonalInfo = () => {
         <div className="flex justify-between items-center">
           <div className="flex w-1/2 justify-start items-center p-3">
             <Avatar
+            size={64}
               src={
                 <Image
                   alt=""
                   src={yourImage}
-                  width={64}
-                  height={64}
+                  width={128}
+                  height={128}
                   className="border rounded border-gray-2"
                 />
               }

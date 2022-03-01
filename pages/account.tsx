@@ -14,7 +14,7 @@ const Account = () => {
 
   return (
     <AppLayout>
-      <div className="w-full p-5">
+      <div className="w-full py-5">
         <h2 className="mb-3">Account</h2>
       <div className="w-full">
       <AccountTabs></AccountTabs>
