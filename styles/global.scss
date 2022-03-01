@@ -145,22 +145,59 @@ label.ant-radio-wrapper {
   color: #8f95a7;
   // border-bottom: 2px solid red;
 }
-.sideMenuCover{
+.sideMenuCover {
   .ant-menu {
-    .ant-menu-item{
-      &:hover{
-        background-color: #EDF1F4;
+    .ant-menu-submenu {
+      &:hover {
+        background-color: #edf1f4;
         cursor: pointer;
-        color: #272B4C !important;
+        color: #272b4c !important;
+
+        .ant-menu-submenu {
+          .ant-menu-title-content {
+            a {
+              color: #272b4c;
+            }
+          }
+        }
       }
-      &:active{
-        background-color: #EDF1F4;
+
+      .ant-menu-submenu-title {
+        .ant-menu-title-content {
+          color: #8f95a7;
+        }
+        i.ant-menu-submenu-arrow::before,
+        i.ant-menu-submenu-arrow::after {
+          color: #8f95a7;
+        }
+      }
+    }
+    .ant-menu-item {
+      &:hover {
+        background-color: #edf1f4;
         cursor: pointer;
+        color: #272b4c !important;
+
+        .ant-menu-title-content {
+          a {
+            color: #272b4c;
+          }
+        }
+      }
+
+      &:active {
+        background-color: #edf1f4;
+        cursor: pointer;
+      }
+
+      .ant-menu-title-content {
+        a {
+          color: #8f95a7;
+        }
       }
     }
   }
 }
-
 
 .profileTabs {
   .ant-tabs {
@@ -185,8 +222,8 @@ label.ant-radio-wrapper {
 
             &:hover {
               background-color: #1a82fe;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
             }
 
             & > .ant-tabs-tab-btn {
@@ -262,19 +299,18 @@ label.ant-radio-wrapper {
   padding: 0px 25px;
 }
 
-
 .checkbox-dir-col .ant-checkbox-group {
   display: flex;
   flex-flow: column;
   flex-direction: column;
 }
 
-.notificationMenuCover{
+.notificationMenuCover {
   max-width: 300px;
   max-height: 300px;
-    overflow: auto;
+  overflow: auto;
   span.notificationBody {
     display: flex;
     flex-flow: column;
-} 
+  }
 }

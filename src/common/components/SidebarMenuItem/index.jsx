@@ -28,7 +28,7 @@ function SidebarMenuItem() {
       defaultSelectedKeys={["/"]}
       selectedKeys={[router.pathname]}
       mode="inline"
-      className="bg-gray-4"
+      className="bg-gray-4 border-r-0"
     >
       {/* <Menu.Item
         key="1"
