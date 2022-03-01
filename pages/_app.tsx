@@ -4,10 +4,11 @@ import "./../styles/global.scss";
 import "./../styles/cutomized-antd.css";
 
 const client = createClient({
-  url: "http://stark-thicket-56377.herokuapp.com/",
-  fetchOptions: {
-    credentials: "include",
-  },
+  url: "https://medicus-api-dev.agencypartner.com/graphql",
+  // fetchOptions: {
+  //   mode: "cors",
+  //   credentials: "same-origin",
+  // },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {

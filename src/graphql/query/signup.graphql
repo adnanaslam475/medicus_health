@@ -1,0 +1,24 @@
+query countries {
+  countries {
+    id
+    country_name
+  }
+}
+
+
+query getStatesByCountry($input: Int!) {
+  getStatesByCountry(country_id: $input) {
+   	id
+    country_id
+    state_name
+  }
+}
+
+
+query getCitiesByState($input: Int!) {
+  getCitiesByState(state_id: $input) {
+   	id
+    state_id
+    city_name
+  }
+}

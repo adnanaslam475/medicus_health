@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { Form, Input, Button, Checkbox } from "antd";
 import Container from "../src/common/components/Container/Container";
@@ -18,10 +19,11 @@ const LOGIN_MUT = `mutation Login($email: String!, $password:String!) {
 }`;
 
 const Login = () => {
+  const router = useRouter();
+
   const [, login] = useMutation(LOGIN_MUT);
 
   const onFinish = async (values: object) => {
-    console.log(values, "vvv");
     const res = login(values);
     console.log("Success:", res);
   };
@@ -29,6 +31,16 @@ const Login = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  function authCheck(url: string) {
+    const publicPaths: string[] = ["/login", "/signup", "/forgotPassword"];
+    const path = url.split("?")[0];
+    console.log(path, publicPaths, "pppp");
+  }
+
+  useEffect(() => {
+    authCheck(router.asPath);
+  }, []);
 
   return (
     <Container className="login-bg">
@@ -95,11 +107,7 @@ const Login = () => {
                 </Form.Item>
 
                 <Form.Item>
-                  <Button
-                    block
-                    type="primary"
-                    htmlType="submit"
-                  >
+                  <Button block type="primary" htmlType="submit">
                     Login
                   </Button>
                 </Form.Item>
