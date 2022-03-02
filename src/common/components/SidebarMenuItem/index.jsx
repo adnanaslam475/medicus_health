@@ -56,14 +56,14 @@ function SidebarMenuItem() {
 
         <Menu.Item
           key="3"
-          onClick={() => Router.push("/appointments/Requested")}
+          onClick={() => Router.push("/appointments/requested")}
         >
           <Link href="/appointments/requested">Requested</Link>
         </Menu.Item>
 
         <Menu.Item
           key="4"
-          onClick={() => Router.push("/appointments/Cancelled")}
+          onClick={() => Router.push("/appointments/cancelled")}
         >
           <Link href="/appointments/cancelled">Cancelled</Link>
         </Menu.Item>

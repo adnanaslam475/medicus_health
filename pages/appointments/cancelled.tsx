@@ -1,13 +1,12 @@
 import React from "react";
-import UpcomingAppointments from "../../src/modules/admin/pages/appointments/UpcomingAppointment/UpcomingAppointments";
-// import UpcomingAppointments from "../../src/modules/admin/pages/appointments/AppointmentDetail/appointmentDetail";
+import HistoryAppointments from "../../src/modules/admin/pages/appointments/HistoryAppointments/HistoryAppointments";
 
 
-function upcomingAppointments() {
-  return <UpcomingAppointments />;
+function historyAppointments() {
+  return <HistoryAppointments />;
 }
 
-export default upcomingAppointments;
+export default historyAppointments;
 
 
 
