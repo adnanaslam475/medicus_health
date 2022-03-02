@@ -59,9 +59,9 @@ const Login = () => {
             <h1 className="text-center text-secondary mb-3">
               Login to continue
             </h1>
-            <h5 className="text-center text-darkGray">
+            <h6 className="text-center text-gray font-rubik font-normal">
               Enter your credentials to access your account.
-            </h5>
+            </h6>
             <div className="mt-5">
               <Form
                 layout="vertical"
@@ -102,7 +102,7 @@ const Login = () => {
                 <Form.Item name="remember" valuePropName="checked">
                   <div className="flex justify-between text-base">
                     <Checkbox className="text-base">Remember me</Checkbox>
-                    <Link href="/forgotPassword" ><span className="text-primary">Forgot Password?</span></Link>
+                    <Link href="/forgotPassword" ><span className="text-primary cursor-pointer">Forgot Password?</span></Link>
                   </div>
                 </Form.Item>
 

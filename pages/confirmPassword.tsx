@@ -30,7 +30,7 @@ const ConfirmPassword = () => {
               />
             </div>
             <h1 className="text-center text-secondary mb-3">Confirm Password</h1>
-            <h5 className="text-center text-darkGray">
+            <h5 className="text-center text-gray font-rubik font-normal">
               Enter your new password
             </h5>
             <div className="mt-5">
