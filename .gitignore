@@ -37,3 +37,11 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# codegen
+
+graphql.schema.json
+
+#css
+
+cutomized-antd.css

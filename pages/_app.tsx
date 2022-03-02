@@ -1,19 +1,17 @@
 import type { AppProps } from "next/app";
+import config from "./config";
 import { createClient, Provider } from "urql";
 import "./../styles/global.scss";
 import "./../styles/cutomized-antd.css";
 
 const client = createClient({
-  url: "http://stark-thicket-56377.herokuapp.com/",
-  fetchOptions: {
-    credentials: "include",
-  },
+  url: config.baseURL || "",
 });
-
+console.log(config, "bbbb");
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider value={client}>
-      <Component {...pageProps} />
+      <Component {...pageProps} key />
     </Provider>
   );
 }

@@ -1,0 +1,12 @@
+mutation createUser($input: CreateUserInput!) {
+  	createUser(createUserInput: $input){
+    id
+  }
+}
+
+mutation CreatePatientHealthHistory($input: CreatePatientHealthHistoryInput! ){
+  createPatientHealthHistory(createPatientHealthHistoryInput: $input){
+    id
+  }
+}
+
