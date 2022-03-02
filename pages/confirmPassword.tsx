@@ -20,7 +20,7 @@ const ConfirmPassword = () => {
         <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
             <div className="flex justify-center mb-6">
-              <Image
+              <Image              
                 className="main-logo mx-auto"
                 height={34}
                 width={216}
@@ -28,10 +28,8 @@ const ConfirmPassword = () => {
                 alt=""
               />
             </div>
-            <h1 className="text-center text-secondary mb-3">
-              Confirm Password
-            </h1>
-            <h5 className="text-center text-darkGray">
+            <h1 className="text-center text-secondary mb-3">Confirm Password</h1>
+            <h5 className="text-center text-gray font-rubik font-normal">
               Enter your new password
             </h5>
             <div className="mt-5">
@@ -81,18 +79,16 @@ const ConfirmPassword = () => {
                   <Link href="/login">
                     <div className="inline-flex items-center">
                       <div className="mb-0 mr-3">
-                        <Image
+                        <Image                        
                           className="left-arrow-icon mx-auto"
                           height={16}
                           width={16}
                           src="/assets/icon/arrow-left.svg"
                           alt=""
                         />
-                        <span className="cursor-pointer text-primary ml-3">
-                          Back to login
-                        </span>
-                      </div>
-                    </div>
+                        <span className="cursor-pointer text-primary ml-3">Back to login</span>
+                      </div>     
+                   </div>               
                   </Link>
                 </span>
               </div>

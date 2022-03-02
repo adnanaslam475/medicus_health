@@ -8,7 +8,7 @@ package-lock.json
 yarn.lock.json
 
 # testing
-/coverage
+/coverage+
 
 # next.js
 /.next/
@@ -27,6 +27,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -47,5 +48,3 @@ graphql.schema.json
 cutomized-antd.css
 
 styles/cutomized-antd.css
-
-.eslintrc.json

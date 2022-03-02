@@ -33,7 +33,7 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
   }
 
   function disabledDate(current: any) {
-    return current && current < dayjs().startOf("day");
+    return current && current > dayjs().startOf("day");
   }
 
   const [getStatesByCountry] = useGetStatesByCountryQuery({
