@@ -86,7 +86,7 @@ const ConfirmPassword = () => {
                           width={16}
                           src="/assets/icon/arrow-left.svg"                        
                         />
-                        <span className="cursor-pointer text-primary ml-3">Back to login </span>
+                        <span className="cursor-pointer text-primary ml-3">Back to login</span>
                       </div>     
                    </div>               
                   </Link>

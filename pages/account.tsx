@@ -1,28 +1,8 @@
 import React from "react";
-import AppLayout from "../src/common/components/Layout";
-import AccountTabs from "../src/common/components/Account_Tabs"
+import AccountDetail from "../src/modules/admin/pages/accounts/AccountDetail/AccountDetail";
 
+function account() {
+  return <AccountDetail />;
+}
 
-const Account = () => {
-  const onFinish = async (values: object) => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  return (
-    <AppLayout>
-      <div className="w-full py-5">
-        <h2 className="mb-3">Account</h2>
-      <div className="w-full">
-      <AccountTabs></AccountTabs>
-      </div>
-      
-
-      </div>
-    </AppLayout>
-  );
-};
-export default Account;
+export default account;
