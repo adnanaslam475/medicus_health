@@ -1,3 +1,12 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "overrides": [
+    {
+      "files": ["*.test.*", "**/*.js", "**/*.ts", "**/*.tsx"],
+      "rules": {
+        "react/jsx-key": "off",
+        "react/no-array-index-key": "off"
+      }
+    }
+  ]
 }

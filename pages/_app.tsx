@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import config from "./config";
+import config from "./../config";
 import { createClient, Provider } from "urql";
 import "./../styles/global.scss";
 import "./../styles/cutomized-antd.css";
@@ -7,7 +7,6 @@ import "./../styles/cutomized-antd.css";
 const client = createClient({
   url: config.baseURL || "",
 });
-console.log(config, "bbbb");
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider value={client}>
