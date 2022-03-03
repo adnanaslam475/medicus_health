@@ -1,18 +1,21 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { Form, Button } from "antd";
 import Container from "../src/common/components/Container/Container";
 import Image from "next/image";
 
-const successScreen = () => {
+export default function SuccessScreen() {
+  const router = useRouter();
+  console.log(router,"rrr")
+  const { email } = router.query;
+
   const onFinish = async (values: object) => {
     console.log("Success:", values);
   };
-
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-
   return (
     <Container className="login-bg w-full">
       <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
@@ -40,10 +43,9 @@ const successScreen = () => {
               Success! Your account has been created.
             </h2>
             <p className="text-gray text-center text-xs px-7">
-              We have sent you an email on{" "}
-              <span className="text-secondary">markmanson@gmail.com.</span>{" "}
-              Please click on the verification link and your account will be
-              verified.
+              We have sent you an email on
+              <span className="text-secondary"> {email}</span> Please click on
+              the verification link and your account will be verified.
             </p>
             <div className="mt-5">
               <Form
@@ -72,5 +74,4 @@ const successScreen = () => {
       </div>
     </Container>
   );
-};
-export default successScreen;
+}
