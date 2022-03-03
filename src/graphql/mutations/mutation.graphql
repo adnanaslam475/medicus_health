@@ -1,0 +1,18 @@
+mutation createUser($input: CreateUserInput!) {
+  createUser(createUserInput: $input) {
+    id
+    email
+  }
+}
+
+mutation CreatePatientHealthHistory($input: CreatePatientHealthHistoryInput!) {
+  createPatientHealthHistory(createPatientHealthHistoryInput: $input) {
+    id
+  }
+}
+
+mutation userVerifyEmail($input: String!) {
+  userVerifyEmail(token: $input) {
+    id
+  }
+}

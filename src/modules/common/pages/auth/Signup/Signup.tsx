@@ -59,32 +59,39 @@ function Signup() {
   };
 
   const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
-    submitPersonalInfo();
+    const user = await submitPersonalInfo();
     const healthQuesJson = JSON.stringify(quesPayload);
     try {
       await createPatientHealthHistory({
-        input: { history: healthQuesJson, user_id: 123 },
+        input: {
+          history: healthQuesJson,
+          user_id: user?.data?.createUser.id as number,
+        },
       });
       handleChange();
       setActiveKey("2");
       setNextTab(false);
-      Router.push("/login");
     } catch (err) {
       console.log(err);
     }
   };
 
   async function submitPersonalInfo() {
-    let data = signUpPayload;
-    if (data) {
-      data.date_of_birth = date.convertToUTC(data?.date_of_birth);
-      delete data.confirmPassword;
+    let pyaload = signUpPayload;
+    if (pyaload) {
+      pyaload.date_of_birth = date.convertToUTC(pyaload?.date_of_birth);
+      delete pyaload.confirmPassword;
     }
+    let user = null;
     try {
-      await createUser({
-        input: data as CreateUserInput,
+      user = await createUser({
+        input: pyaload as CreateUserInput,
       });
-      Router.push("/login");
+      Router.push({
+        pathname: "/successScreen",
+        query: { email: pyaload?.email },
+      });
+      return user;
     } catch (err) {
       console.log(err);
     }
@@ -159,8 +166,8 @@ function Signup() {
                   key="1"
                 >
                   <PersonalInfo
-                    onFinish={(data) => {
-                      setSignUpPaylod(data);
+                    onFinish={(val) => {
+                      setSignUpPaylod(val);
                       setActiveKey("2");
                       setNextTab(false);
                     }}
