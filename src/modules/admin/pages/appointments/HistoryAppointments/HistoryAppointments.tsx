@@ -4,7 +4,6 @@ import AppLayout from "../../../../../common/components/Layout";
 import { CloseOutlined } from "@ant-design/icons";
 import TransactionHistory from "../../../../../common/components/Account_Tabs/TransactionHistory";
 
-
 const { RangePicker } = DatePicker;
 
 function CancelledAppointment() {
@@ -45,16 +44,14 @@ function CancelledAppointment() {
               <RangePicker />
             </Space>
 
-            <Button type="text" size="large" className="w-50"> 
+            <Button type="text" size="large" className="w-50">
               <CloseOutlined />
               <span class="text-gray-2 mx-3">Clear</span>
             </Button>
           </div>
-
-         
         </div>
-         {/* Transaction History table */}
-         <TransactionHistory/>
+        {/* Transaction History table */}
+        <TransactionHistory />
       </div>
     </AppLayout>
   );
