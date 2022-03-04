@@ -10,6 +10,10 @@ function handleChange(value) {
 
 const { RangePicker } = DatePicker;
 
+function onChange(date, dateString) {
+  console.log(date, dateString);
+}
+
 function SearchFilters() {
 
   return (
@@ -42,9 +46,10 @@ function SearchFilters() {
     </Select>
     <Space direction="vertical" size={12} className="mx-3">
       <RangePicker />
+      {/* <DatePicker onChange={onChange} /> */}
     </Space>
 
-    <Button type="text" size="large" className="w-50">
+    <Button type="text" size="small" className="w-50">
       <CloseOutlined />
       <span className="text-gray-2 mx-3">Clear</span>
     </Button>
