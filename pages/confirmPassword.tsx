@@ -47,7 +47,7 @@ const ConfirmPassword = () => {
                   rules={[
                     {
                       required: false,
-                      message: "Please input your new password!",
+                      message: "Please enter your new password!",
                     },
                   ]}
                 >

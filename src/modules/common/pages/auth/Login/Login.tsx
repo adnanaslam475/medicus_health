@@ -94,7 +94,7 @@ const Login = () => {
                   label="Password"
                   name="password"
                   rules={[
-                    { required: true, message: "Please input your password!" },
+                    { required: true, message: "Please enter your password!" },
                   ]}
                 >
                   <Input.Password />

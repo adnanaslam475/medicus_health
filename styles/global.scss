@@ -222,6 +222,15 @@ label.ant-radio-wrapper {
         }
       }
     }
+
+    .ant-menu-item-active{
+      background-color: #ffffff !important;
+      .ant-menu-title-content{
+        a {
+          color: #272B4C !important;
+        }
+      }
+    }
   }
 }
 
