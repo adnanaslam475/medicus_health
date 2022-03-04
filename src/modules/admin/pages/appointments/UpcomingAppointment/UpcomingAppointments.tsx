@@ -13,7 +13,7 @@ function UpcomingAppointments() {
         <div className="flex items-center justify-between">
           <h2 className="mb-3">Upcoming Appointments</h2>
           <Button type="primary" size="large">
-          Request an Appointment
+            Request an Appointment
           </Button>
         </div>
         <h5 className="text-gray">
@@ -21,22 +21,16 @@ function UpcomingAppointments() {
           tortor a fringilla tempus.
         </h5>
 
-        <div className="w-5/6" >
-        <SearchFilters/>
+        <div className="w-5/6">
+          <SearchFilters />
         </div>
-        
-        
-        <div className="w-full">
 
+        <div className="w-full">
           <div className="appointmentCards flex flex-wrap">
-            <AppointmentCard />
-            <AppointmentCard />
-            <AppointmentCard />
-            <AppointmentCard />
-            <AppointmentCard />
-            <AppointmentCard />
-            <AppointmentCard />
-            <AppointmentCard />
+            <AppointmentCard status="confirmed" />
+            <AppointmentCard status="request" />
+            <AppointmentCard status="pending" />
+            <AppointmentCard status="cancelled" />
           </div>
         </div>
       </div>

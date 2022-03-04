@@ -36,6 +36,8 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
     return current && current > dayjs().startOf("day");
   }
 
+  const dateFormat = 'MM/DD/YY';
+
   const [getStatesByCountry] = useGetStatesByCountryQuery({
     variables: {
       input: countryId || 0,
@@ -115,15 +117,15 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
         <Form.Item
           className="flex-1"
           label="Date of birth"
-          name="date_of_birth"
+          name="date_of_birth"          
           rules={[
             {
               required: true,
-              message: "Please select date of birth",
+              message: "Please select date of birth",              
             },
           ]}
         >
-          <DatePicker className="w-full" disabledDate={disabledDate} />
+          <DatePicker placeholder={"mm/dd/yy"} className="w-full" disabledDate={disabledDate} />
         </Form.Item>
       </div>
 
@@ -313,8 +315,8 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
         </Form.Item>
       </div>
       <div className="flex justify-center mt-8">
-        <p>
-          Already have an account? <Link href="/login">Login</Link>
+        <p className="text-secondary-1">
+          Already have an account? <Link href="/login" className="text-primary">Login</Link>
         </p>
       </div>
     </Form>

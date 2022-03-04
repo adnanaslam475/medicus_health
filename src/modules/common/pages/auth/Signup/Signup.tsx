@@ -111,7 +111,7 @@ function Signup() {
             <h1 className="text-center text-secondary mb-3">
               Create Your Account
             </h1>
-            <h5 className="text-center text-darkGray">
+            <h5 className="text-center text-gray font-rubik font-normal">
               Create your account to start using Medicus
             </h5>
             <div className="mt-5">
