@@ -154,6 +154,16 @@ label.ant-radio-wrapper {
       ul.ant-menu.ant-menu-sub {
         background-color: white !important;
         padding: 0 15px;
+
+        li.ant-menu-item {
+          .ant-menu-title-content {
+            a {
+              color: #272b4c !important;
+            }
+          }
+          
+        }
+
       }
       .ant-menu-submenu-title {
         .ant-menu-title-content {
@@ -223,14 +233,6 @@ label.ant-radio-wrapper {
       }
     }
 
-    .ant-menu-item-active{
-      background-color: #ffffff !important;
-      .ant-menu-title-content{
-        a {
-          color: #272B4C !important;
-        }
-      }
-    }
   }
 }
 

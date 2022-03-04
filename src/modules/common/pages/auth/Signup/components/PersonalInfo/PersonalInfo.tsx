@@ -194,7 +194,7 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
           rules={[
             {
               required: true,
-              message: "Please enter your Cell Number",
+              message: "Please enter your cell number",
             },
           ]}
         >
@@ -316,7 +316,7 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
       </div>
       <div className="flex justify-center mt-8">
         <p className="text-secondary-1">
-          Already have an account? <Link href="/login" className="text-primary">Login</Link>
+          Already have an account? <Link href="/login"><span className="text-primary">Login</span></Link>
         </p>
       </div>
     </Form>
