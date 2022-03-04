@@ -1,12 +1,12 @@
 import React from "react";
-import HistoryAppointments from "../../src/modules/admin/pages/appointments/HistoryAppointments/HistoryAppointments";
+import CancelledAppointments from "../../src/modules/admin/pages/appointments/CancelledAppointment/CancelledAppointment";
 
 
-function historyAppointments() {
-  return <HistoryAppointments />;
+function CancelledAppointment() {
+  return <CancelledAppointments />;
 }
 
-export default historyAppointments;
+export default CancelledAppointment;
 
 
 

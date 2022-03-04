@@ -1,6 +1,5 @@
 // import { Card,Button } from "antd";
 import React from "react";
-import AppHeader from "../../../../../common/components/AppHeader";
 import AppLayout from "../../../../../common/components/Layout";
 // import { VideoCameraOutlined } from '@ant-design/icons';
 import AppointmentCard from "../../../../../common/components/AppointmentCard";
