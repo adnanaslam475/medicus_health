@@ -1,4 +1,3 @@
-import React from "react";
 import RequestedAppointment from "../../src/modules/admin/pages/appointments/RequestedAppointment/RequestedAppointment";
 
 function requestedAppointments() {
@@ -6,6 +5,3 @@ function requestedAppointments() {
 }
 
 export default requestedAppointments;
-
-
-

@@ -51,7 +51,7 @@ const Login = () => {
             <div className="flex justify-center mb-6">
               <Image
                 alt=""
-                className="main-logo mx-auto"
+                className="mx-auto"
                 height={34}
                 width={216}
                 src="/assets/images/logo-medi.svg"

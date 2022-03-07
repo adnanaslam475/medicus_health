@@ -8,10 +8,10 @@ function physicians() {
   return (
     <AppLayout>
       <div className="w-full py-5">
-        <div className="w-3/5 mx-auto">
+        <div className="w-4/5 mx-auto">
           <h2 className="mb-3">Physicians</h2>
           <div className="w-full">
-          <DoctorCard/>
+          <DoctorCard status={"confirmed"}/>
           </div>
         </div>
       </div>
