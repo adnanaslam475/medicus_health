@@ -1,10 +1,10 @@
 import type { AppProps } from "next/app";
 import { useState, useEffect } from "react";
-import config from "./../config";
+import { useRouter } from "next/router";
 import { createClient, Provider } from "urql";
+import config from "./../config";
 import "./../styles/global.scss";
 import "./../styles/cutomized-antd.css";
-import { useRouter } from "next/router";
 
 const client = createClient({
   url: config.baseURL || "",

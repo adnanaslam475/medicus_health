@@ -9,7 +9,7 @@ import {
   useLoginMutation,
 } from "../../../../../generated/graphql";
 
-const Login = () => {
+function Login() {
   const [authToken, setAuthToken] = useState(false);
   const router = useRouter();
   function getToken() {
@@ -31,7 +31,7 @@ const Login = () => {
     } else {
       setAuthToken(false);
     }
-  });
+  },[]);
 
   const [result, login] = useLoginMutation();
   const { error, fetching } = result;
@@ -174,5 +174,5 @@ const Login = () => {
       </Container>
     );
   }
-};
+}
 export default Login;
