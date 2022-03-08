@@ -9,11 +9,9 @@ const { Header } = Layout;
 
 const AppHeader = () => {
   const [visible, setVisible] = useState(false);
-  // const { auth } = useSelector((state) => state?.admin);
 
   const logout = () => {
-    localStorage.removeItem("token");
-    // deleteCookie("token");
+    localStorage.removeItem("loggedInUserData");
     setVisible(false);
     Router.push("/login");
   };

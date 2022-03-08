@@ -294,6 +294,13 @@ export type UserVerifyEmailMutationVariables = Exact<{
 
 export type UserVerifyEmailMutation = { __typename?: 'Mutation', userVerifyEmail: { __typename?: 'User', id: number } };
 
+export type LoginMutationVariables = Exact<{
+  input: LoginUserInput;
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string } } };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -347,6 +354,21 @@ export const UserVerifyEmailDocument = gql`
 
 export function useUserVerifyEmailMutation() {
   return Urql.useMutation<UserVerifyEmailMutation, UserVerifyEmailMutationVariables>(UserVerifyEmailDocument);
+};
+export const LoginDocument = gql`
+    mutation login($input: LoginUserInput!) {
+  login(loginUserInput: $input) {
+    access_token
+    user {
+      id
+      email
+    }
+  }
+}
+    `;
+
+export function useLoginMutation() {
+  return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
 };
 export const CountriesDocument = gql`
     query countries {
