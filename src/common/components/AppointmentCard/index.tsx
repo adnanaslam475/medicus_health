@@ -4,6 +4,7 @@ import Router, { useRouter } from "next/router";
 import Link from "next/link";
 
 import { VideoCameraOutlined } from "@ant-design/icons";
+import _classes from "./AppointmentCard.module.scss";
 
 type StatusName = "confirmed" | "request" | "pending" | "cancelled";
 
@@ -62,13 +63,7 @@ function AppointmentCard({ status }: props) {
   return (
     <Card
       //   title="Default size card"
-      style={{
-        width: 259,
-        backgroundColor: "#F6F8FA",
-        border: 0,
-        marginRight: "20px",
-        marginBottom: "20px",
-      }}
+      className={_classes["appointment-card-style"]}      
     >
       <h3 className="mb-0">Dr. Paul Wallner</h3>
       <h5 className="text-gray">First Consultation</h5>
