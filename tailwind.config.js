@@ -3,7 +3,6 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",
-    // "./src/**/*.{js, jsx, tsx}",
   ],
   darkMode: false,
   theme: {
@@ -18,11 +17,8 @@ module.exports = {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-
       black: colors.black,
-
       white: colors.white,
-
       primary: {
         DEFAULT: "#1A82FE",
       },

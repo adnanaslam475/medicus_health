@@ -7,5 +7,3 @@ export function convertToUTC(date: string) {
   return dayjs.utc(date).format();
 }
 
-
-export const dateFormat = 'MM/DD/YY';

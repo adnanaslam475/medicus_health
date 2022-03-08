@@ -1,10 +1,8 @@
 import React from "react";
 import { Card, Button } from "antd";
-import Router, { useRouter } from "next/router";
-import Link from "next/link";
-
 import { VideoCameraOutlined } from "@ant-design/icons";
 import _classes from "./AppointmentCard.module.scss";
+import { ButtonType } from "antd/lib/button";
 
 type StatusName = "confirmed" | "request" | "pending" | "cancelled";
 
@@ -14,7 +12,7 @@ type StatusType<K extends StatusName> = {
     color: string;
     button: {
       show: boolean;
-      type: string;
+      type: ButtonType;
     };
   };
 };
@@ -59,12 +57,16 @@ const APPOINTMENT_STATUS: StatusType<StatusName> = {
 };
 
 function AppointmentCard({ status }: props) {
-  const { lable, color, button } = APPOINTMENT_STATUS[status] || {};
+  const {
+    lable,
+    color,
+    button = {
+      show: false,
+      type: "primary",
+    },
+  } = APPOINTMENT_STATUS[status] || {};
   return (
-    <Card
-      //   title="Default size card"
-      className={_classes["appointment-card-style"]}      
-    >
+    <Card className={_classes["appointment-card"]}>
       <h3 className="mb-0">Dr. Paul Wallner</h3>
       <h5 className="text-gray">First Consultation</h5>
       <span className="text-sm">Date</span>

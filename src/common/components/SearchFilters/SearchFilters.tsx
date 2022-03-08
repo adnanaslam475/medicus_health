@@ -4,13 +4,13 @@ import CloseOutlined from '@ant-design/icons';
 
 const { Option } = Select;
 
-function handleChange(value) {
+function handleChange(value: any) {
   console.log(`selected ${value}`);
 }
 
 const { RangePicker } = DatePicker;
 
-function onChange(date, dateString) {
+function onChange(date: any, dateString: any) {
   console.log(date, dateString);
 }
 

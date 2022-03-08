@@ -1,8 +1,8 @@
 import { Button } from "antd";
 import React from "react";
 import AppointmentCard from "../../../../../common/components/AppointmentCard";
-import AppLayout from "../../../../../common/components/Layout";
-import SearchFilters from "../../../../../common/components/SearchFilters";
+import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
+import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 
 function CancelledAppointment() {
   return (

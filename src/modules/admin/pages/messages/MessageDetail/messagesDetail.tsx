@@ -1,5 +1,5 @@
 import React from "react";
-import AppLayout from "../../../../../common/components/Layout";
+import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 // import AccountTabs from "../../../../../common/components/Account-Tabs";
 
 function messsages() {

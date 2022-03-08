@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { Layout } from "antd";
 import Image from "next/image";
 import Logo from "../../../../../public/assets/images/logo-medi.svg";
-import SidebarMenuItem from "../../../../common/components/SidebarMenuItem";
+import SidebarMenuItem from "../../../../common/components/SidebarMenuItem/SidebarMenuItem";
+import _classes from "./SideMenu.module.scss";
 
 function AdminSideMenu() {
   const [collapsed, setCollapsed] = useState(false);
@@ -13,28 +14,19 @@ function AdminSideMenu() {
       collapsed={collapsed}
       collapsedWidth="5rem"
       breakpoint="xl"
-      style={{
-        overflowY: "auto",
-        overflowX: "hidden",
-        height: "100vh",
-        position: "fixed",
-        left: 0,
-        background:"#F6F8FA",
-      }}
+      
       theme="light"
-      className="hidden md:block bg-gray overflow-x-hidden"
+      className={`${_classes["admin-side-menu"]} hidden md:block bg-gray overflow-x-hidden`}
       width="18rem"
     >
-      <Layout.Header className="flex justify-center bg-gray-f px-0 xl:px-4 items-center mt-5">
-      <Image alt="" src={Logo} width={200} height={35} />
-      {/* <div className="justify-center items-center xl:flex ">
-         
-        </div> */}
+      <Layout.Header
+        className={`${_classes["admin-side-menu-header"]} flex justify-center bg-gray-2 px-0 xl:px-4 items-center`}
+      >
+        <Image alt="" src={Logo} width={200} height={35} />
       </Layout.Header>
       <div className="side-menu-cover px-5 flex mx-0">
-      <SidebarMenuItem 
-      // style={{background:"#F6F8FA"}} 
-      />
+        <SidebarMenuItem
+        />
       </div>
     </Layout.Sider>
   );

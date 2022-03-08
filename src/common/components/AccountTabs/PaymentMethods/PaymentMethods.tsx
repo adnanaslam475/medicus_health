@@ -3,9 +3,9 @@ import Router from "next/router";
 import Image from "next/image";
 import { Collapse, Modal, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import BillingItem from "./BillingItem";
-import PaymentHeader from "./PaymentHeader";
-import PaymentHeader2 from "./PaymentHeader2";
+import BillingItem from "./BillingItem/BillingItem";
+import PaymentHeader from "./PaymentHeader/PaymentHeader";
+import PaymentHeader2 from "./PaymentHeader2/PaymentHeader2";
 
 const { Panel } = Collapse;
 

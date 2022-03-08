@@ -1,7 +1,7 @@
 import { Card } from "antd";
 import React from "react";
 import DoctorCard from "../../../../../common/components/DoctorCards/DoctorCards";
-import AppLayout from "../../../../../common/components/Layout";
+import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 
 
 function physicians() {

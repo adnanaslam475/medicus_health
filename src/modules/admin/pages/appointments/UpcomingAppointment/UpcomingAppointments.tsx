@@ -1,9 +1,9 @@
 // import { Card,Button } from "antd";
 import React from "react";
-import AppLayout from "../../../../../common/components/Layout";
+import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 // import { VideoCameraOutlined } from '@ant-design/icons';
 import AppointmentCard from "../../../../../common/components/AppointmentCard";
-import SearchFilters from "../../../../../common/components/SearchFilters";
+import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import { Button } from "antd";
 
 function UpcomingAppointments() {

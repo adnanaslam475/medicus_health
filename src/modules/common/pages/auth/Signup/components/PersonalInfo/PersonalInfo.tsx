@@ -3,22 +3,19 @@ import React, { useState } from "react";
 import { Form, Input, Button, Select, DatePicker } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
-
-import utc from "dayjs/plugin/utc";
 import {
   useGetStatesByCountryQuery,
   useGetCitiesByStateQuery,
   useCountriesQuery,
 } from "../../../../../../../generated/graphql";
-dayjs.extend(utc);
 
-interface PersonalInfoInterface {
+type props = {
   validateForm?: (value: any) => void;
   onFinishPersonalInfo?: (value: any) => void;
   onFinish?: (value: any) => void;
-}
+};
 
-export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
+export default function PersonalInfo({ onFinish }: props) {
   const [form] = Form.useForm();
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
@@ -34,8 +31,6 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
   function disabledDate(current: any) {
     return current && current > dayjs().startOf("day");
   }
-
-  // const dateFormat = 'MM/DD/YY';
 
   const [getStatesByCountry] = useGetStatesByCountryQuery({
     variables: {
@@ -116,15 +111,19 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
         <Form.Item
           className="flex-1"
           label="Date of birth"
-          name="date_of_birth"          
+          name="date_of_birth"
           rules={[
             {
               required: true,
-              message: "Please select date of birth",              
+              message: "Please select date of birth",
             },
           ]}
         >
-          <DatePicker placeholder={"mm/dd/yy"} className="w-full" disabledDate={disabledDate} />
+          <DatePicker
+            placeholder="mm/dd/yy"
+            className="w-full"
+            disabledDate={disabledDate}
+          />
         </Form.Item>
       </div>
 
@@ -315,7 +314,10 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
       </div>
       <div className="flex justify-center mt-8">
         <p className="text-secondary-1">
-          Already have an account? <Link href="/login"><span className="text-primary">Login</span></Link>
+          Already have an account?{" "}
+          <Link href="/login">
+            <span className="text-primary">Login</span>
+          </Link>
         </p>
       </div>
     </Form>
