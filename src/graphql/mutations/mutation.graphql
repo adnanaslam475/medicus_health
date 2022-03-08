@@ -16,3 +16,13 @@ mutation userVerifyEmail($input: String!) {
     id
   }
 }
+
+mutation login($input: LoginUserInput!) {
+  login(loginUserInput: $input) {
+    access_token
+    user {
+      id
+      email
+    }
+  }
+}

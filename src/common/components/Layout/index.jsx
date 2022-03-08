@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import React from "react";
 import AdminSideMenu from "../../../modules/admin/components/AdminSideMenu";
 
-import AppHeader from "../AppHeader";
+import AppHeader from "../AppHeader/AppHeader";
 import Container from "../Container/Container";
 
 function AppLayout({ children }) {

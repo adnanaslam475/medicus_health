@@ -9,11 +9,9 @@ const { Header } = Layout;
 
 const AppHeader = () => {
   const [visible, setVisible] = useState(false);
-  // const { auth } = useSelector((state) => state?.admin);
 
   const logout = () => {
-    localStorage.removeItem("token");
-    // deleteCookie("token");
+    localStorage.removeItem("loggedInUserData");
     setVisible(false);
     Router.push("/login");
   };
@@ -25,44 +23,42 @@ const AppHeader = () => {
   const notificationMenu = (
     <>
       <div className="notificationMenuCover border border-gray-3 rounded">
-        <div class="px-3 py-2 bg-white">
+        <div className="px-3 py-2 bg-white">
           {/* <Menu.Item key="0"> */}
-            <div className="flex border-b border-gray-4 items-start mb-3">
-              <span className=" ">
-                <Image
-                  alt=""
-                  className="warning-small mx-auto shadow-none border-0"
-                  height={34}
-                  width={34}
-                  src="/assets/icon/blue_bell_Icon.svg"
-                />
-              </span>
-              {/* <div> */}
-              <span class="notificationBody ml-3 w-full break-word">
-                Your appointment with <b>John Petrucci</b> has been confirmed.
-              </span>
-              {/* </div> */}
-            </div>
+          <div className="flex border-b border-gray-4 items-start mb-3">
+            <span className=" ">
+              <Image
+                alt=""
+                className="warning-small mx-auto shadow-none border-0"
+                height={34}
+                width={34}
+                src="/assets/icon/blue_bell_Icon.svg"
+              />
+            </span>
+            {/* <div> */}
+            <span className="notificationBody ml-3 w-full break-word">
+              Your appointment with <b>John Petrucci</b> has been confirmed.
+            </span>
+            {/* </div> */}
+          </div>
           {/* </Menu.Item> */}
           <div className="flex border-b border-gray-4 items-start mb-3">
-              <span className=" ">
-                <Image
-                  alt=""
-                  className="warning-small mx-auto shadow-none border-0"
-                  height={34}
-                  width={34}
-                  src="/assets/icon/blue_bell_Icon.svg"
-                />
-              </span>
-              {/* <div> */}
-              <span class="notificationBody ml-3 w-full break-word">
-                Your appointment with <b>John Petrucci</b> has been confirmed.
-              </span>
-              {/* </div> */}
-            </div>
+            <span className=" ">
+              <Image
+                alt=""
+                className="warning-small mx-auto shadow-none border-0"
+                height={34}
+                width={34}
+                src="/assets/icon/blue_bell_Icon.svg"
+              />
+            </span>
+            {/* <div> */}
+            <span className="notificationBody ml-3 w-full break-word">
+              Your appointment with <b>John Petrucci</b> has been confirmed.
+            </span>
+            {/* </div> */}
+          </div>
         </div>
-        
-        
       </div>
     </>
   );
@@ -70,7 +66,7 @@ const AppHeader = () => {
   return (
     <Header className="flex w-full justify-end items-center h-25 px-0 md:px-0">
       <div className="w-full flex px-0 justify-between items-center">
-        <div class="w-full md:w-1/2">
+        <div className="w-full md:w-1/2">
           <InfoMessage />
         </div>
 
@@ -117,7 +113,7 @@ const AppHeader = () => {
           <Dropdown
             overlay={
               // eslint-disable-next-line react/jsx-wrap-multilines
-              <Menu class="px-2 py-2 bg-white border border-gray-3 rounded">
+              <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
                 <Menu.Item
                   className="border-b border-gray-4"
                   onClick={() => Router.push("/account-settings")}
