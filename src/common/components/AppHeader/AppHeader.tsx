@@ -80,7 +80,6 @@ const AppHeader = () => {
           <span className="mt-7 mr-8">
             <Dropdown
               overlay={notificationMenu}
-              trigger={["click"]}
               placement="bottomLeft"
             >
               <a
@@ -134,7 +133,6 @@ const AppHeader = () => {
               </Menu>
             }
             placement="bottomRight"
-            trigger="click"
             // overlayStyle={{ width: 130 }}
           >
             <CaretDownOutlined onClick={showPopover} />
