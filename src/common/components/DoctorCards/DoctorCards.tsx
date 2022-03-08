@@ -6,44 +6,26 @@ import { VideoCameraFilled } from "@ant-design/icons";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png"
-
-// type StatusName = "confirmed" | "request" | "pending" | "cancelled";
-
-// type StatusType<K extends StatusName> = {
-//   [k in K]: {
-//     lable: string;
-//     color: string;
-//     button: {
-//       show: boolean;
-//       type: string;
-//     };
-//   };
-// };
+import _classes from "./DoctorCard.module.scss";
 
 
 function DoctorCard() {
-  // { status }: props)
-  // const { lable, color, button } = APPOINTMENT_STATUS[status] || {};
+
   return (
     <Card
-      //   title="Default size card"
-      style={{
-        // width: 259,
-        backgroundColor: "#F6F8FA",
-        border: 0,
-        // marginRight: "20px",
-        marginBottom: "20px",
-      }}
-    >
-      <div className="flex">
-        <div className="w-1/7 mr-3">
+      //   title="Default size card"      
+      className={_classes["doctorCard"]}>
+      <div className="flex lg:flex-row flex-col md:flex-wrap">
+        
+        <div className="card-body lg:w-4/6 md:w-full lg:flex-row md:flex-row sm:flex-column justify-start sm:justify-center">
+          <span className="docAvatarCover inline-block sm:block sm:w-full md:w-1/5 ">
           <Avatar
             size={88}
             src="./assets/images/doc-pic.png"
             className=""
           ></Avatar>
-        </div>
-        <div className="card-body w-5/7 lg:mr-3">
+          </span>
+          <div className="inline-block md:w-full md:mx-3">
           <div className="flex items-center">
             <h2 className="mb-0 mr-3">Dr. Paul Wallner</h2>
             <div className="flagAvatar engFlag mx-1"><Image src={engFlag} alt="engFlag" width={35} height={35}/></div>
@@ -64,11 +46,13 @@ function DoctorCard() {
             Abnormal heart rythms // Aorta diseas // Conginital heart disease
             Corony artery disease // Heart Attack // Heart Faliure
           </h6>
+          </div>
+          
         </div>
-        <div className="card-actionBtns w-2/7">
-          <Button type="default" style={{ background: "transparent" }} className="mb-3 w-full"> View Profile</Button>
+        <div className="card-actionBtns mt-5 lg:mt-0 lg:w-2/6 md:w-full flex justify-start flex-col items-start">
+          <Button type="default" className="mb-3 w-full bg-transparent"> View Profile</Button>
 
-          <Button type="primary" icon={<VideoCameraFilled /> } className="mb-3">
+          <Button type="primary" icon={<VideoCameraFilled /> } className="mb-3 md:w-full sm:w-32">
             <span className="">Request an Appointment</span>
           </Button>
         </div>

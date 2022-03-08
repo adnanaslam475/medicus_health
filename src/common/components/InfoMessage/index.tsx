@@ -13,7 +13,7 @@ const InfoMessage = () => {
       </span> */}
 
       <div className="">
-        <div className="flex items-center bg-gray-4 h-10 px-2 rounded text-xs text-nowr">
+        <div className="flex items-center bg-gray-4 lg:h-10 md:h-auto px-2 rounded text-xs text-nowr">
           {/* <span className="mr-3 mb-0"><WarningFilled style={{ color: 'white' backgroundColor: 'red' }} /></span> */}
           <Image
             alt=""
@@ -22,7 +22,7 @@ const InfoMessage = () => {
             width={34}
             src="/assets/icon/warning-small.svg"
           />
-          <span className="ml-3">Please complete the health questionnaire in order to book appointments with our Physicians.</span>
+          <span className="ml-3 min-h-max">Please complete the health questionnaire in order to book appointments with our Physicians.</span>
           <a href="void(0)" className="underline text-primary px-3 whitespace-nowrap">
             Complete Now
           </a>
