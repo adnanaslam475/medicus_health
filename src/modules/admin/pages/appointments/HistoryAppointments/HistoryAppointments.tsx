@@ -2,7 +2,7 @@ import { Select, DatePicker, Space, Button } from "antd";
 import React from "react";
 import AppLayout from "../../../../../common/components/Layout";
 import { CloseOutlined } from "@ant-design/icons";
-import TransactionHistory from "../../../../../common/components/Account_Tabs/TransactionHistory";
+import TransactionHistory from "../../../../../common/components/Account-Tabs/TransactionHistory";
 
 const { RangePicker } = DatePicker;
 

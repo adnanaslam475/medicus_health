@@ -26,7 +26,7 @@ function RequestedAppointment() {
         
         <div className="w-full">
 
-          <div className="appointmentCards flex flex-wrap">
+          <div className="appointment-cards  flex flex-wrap">
             <AppointmentCard />
             <AppointmentCard />
             <AppointmentCard />

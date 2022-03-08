@@ -49,26 +49,26 @@ function SidebarMenuItem() {
       >
         <Menu.Item
           key="2"
-          onClick={() => Router.push("/appointments/upcoming")}
+          
         >
           <Link href="/appointments/upcoming">Upcoming</Link>
         </Menu.Item>
 
         <Menu.Item
           key="3"
-          onClick={() => Router.push("/appointments/requested")}
+         
         >
           <Link href="/appointments/requested">Requested</Link>
         </Menu.Item>
 
         <Menu.Item
           key="4"
-          onClick={() => Router.push("/appointments/cancelled")}
+          
         >
           <Link href="/appointments/cancelled">Cancelled</Link>
         </Menu.Item>
 
-        <Menu.Item key="5" onClick={() => Router.push("/appointments/history")}>
+        <Menu.Item key="5">
           <Link href="/appointments/history">History</Link>
         </Menu.Item>
       </Menu.SubMenu>
@@ -78,8 +78,7 @@ function SidebarMenuItem() {
       <Menu.Item
         className={_classes["side-bar-submenu-item"]}
         key="6"
-        icon={<PhysicianIcon className={_classes["sidebar-icon-hover"]} />}
-        onClick={() => Router.push("/physicians")}
+        icon={<PhysicianIcon className={_classes["sidebar-icon-hover"]} />}        
       >
         <Link href="/physicians">Physicians</Link>
       </Menu.Item>
@@ -88,7 +87,7 @@ function SidebarMenuItem() {
         className={_classes["side-bar-submenu-item"]}
         key="7"
         icon={<ChatBubbleIcon className={_classes["sidebar-icon-hover"]} />}
-        onClick={() => Router.push("/messages")}
+        // onClick={() => Router.push("/messages")}
       >
         <div className="flex justify-between items-center">
           <Link href="/messages">Messages</Link>
@@ -106,8 +105,7 @@ function SidebarMenuItem() {
               fill="red"
             />
           </div>
-        }
-        onClick={() => Router.push("/account")}
+        }       
       >
         <Link href="/account">Account</Link>
       </Menu.Item>

@@ -72,13 +72,13 @@ function AppointmentCard({ status }: props) {
     >
       <h3 className="mb-0">Dr. Paul Wallner</h3>
       <h5 className="text-gray">First Consultation</h5>
-      <span className="font-14">Date</span>
+      <span className="text-sm">Date</span>
       <h6>February 4, 2022</h6>
 
-      <span className="font-14">Time</span>
+      <span className="text-sm">Time</span>
       <h6 className="text-cyan">07:45 am - 08:30 am (Now)</h6>
 
-      <span className="font-14">Status</span>
+      <span className="text-sm">Status</span>
       <h6 className={color}>{lable}</h6>
 
       <Button type={button.type} size="large" icon={<VideoCameraOutlined />}>

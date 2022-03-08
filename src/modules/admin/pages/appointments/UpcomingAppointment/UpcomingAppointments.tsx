@@ -26,7 +26,7 @@ function UpcomingAppointments() {
         </div>
 
         <div className="w-full">
-          <div className="appointmentCards flex flex-wrap">
+          <div className="appointment-cards  flex flex-wrap">
             <AppointmentCard status="confirmed" />
             <AppointmentCard status="request" />
             <AppointmentCard status="pending" />

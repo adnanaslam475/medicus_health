@@ -17,22 +17,22 @@ function DoctorCard() {
       className={_classes["doctorCard"]}>
       <div className="flex lg:flex-row flex-col md:flex-wrap">
         
-        <div className="card-body lg:w-4/6 md:w-full lg:flex-row md:flex-row sm:flex-column justify-start sm:justify-center">
-          <span className="docAvatarCover inline-block sm:block sm:w-full md:w-1/5 ">
+        <div className="card-body lg:w-4/6 md:w-full flex flex-col md:flex-row lg:flex-row  md:items-start justify-start sm:justify-center md:text-left text-center">
+          <div className="docAvatarCover inline-block sm:w-full md:w-1/5 self-auto">
           <Avatar
             size={88}
             src="./assets/images/doc-pic.png"
             className=""
           ></Avatar>
-          </span>
-          <div className="inline-block md:w-full md:mx-3">
+          </div>
+          <div className="inline-block sm:w-full md:w-4/5">
           <div className="flex items-center">
             <h2 className="mb-0 mr-3">Dr. Paul Wallner</h2>
             <div className="flagAvatar engFlag mx-1"><Image src={engFlag} alt="engFlag" width={35} height={35}/></div>
             <div className="flagAvatar espanolFlag mx-1"><Image src={espanolFlag} alt="espanolFlag" width={35} height={35}/></div>
           </div>
           <h5 className="text-primary text-xs">Cardiologist</h5>
-          <span className="font-14">10+ years of experience</span>
+          <span className="text-sm">10+ years of experience</span>
           <h6 className="text-gray-2 font-normal">
             Heads up! This alert needs your attention, but it's not super
             imporant
@@ -40,7 +40,7 @@ function DoctorCard() {
           <Divider />
 
           <h6 className="text-gray-2 font-normal">
-            <span className="font-14 font-rubik">CONDITIONS TREATED </span>
+            <span className="text-sm font-rubik">CONDITIONS TREATED </span>
           </h6>
           <h6 className="">
             Abnormal heart rythms // Aorta diseas // Conginital heart disease

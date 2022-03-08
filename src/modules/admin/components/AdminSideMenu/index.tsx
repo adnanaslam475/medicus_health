@@ -31,7 +31,7 @@ function AdminSideMenu() {
          
         </div> */}
       </Layout.Header>
-      <div className="sideMenuCover px-5 flex mx-0">
+      <div className="side-menu-cover px-5 flex mx-0">
       <SidebarMenuItem 
       // style={{background:"#F6F8FA"}} 
       />

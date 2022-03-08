@@ -126,9 +126,7 @@ label.ant-radio-wrapper {
   background: #fff !important;
 }
 
-.bg-gray-f {
-  background-color: #f6f8fa !important;
-}
+
 
 .ant-menu {
   background-color: #f6f8fa !important;
@@ -145,7 +143,7 @@ label.ant-radio-wrapper {
   color: #8f95a7;
   // border-bottom: 2px solid red;
 }
-.sideMenuCover {
+.side-menu-cover {
   ul.ant-menu-inline {
     border: 0;
     li.ant-menu-submenu.ant-menu-submenu-open {
@@ -234,7 +232,7 @@ label.ant-radio-wrapper {
 }
 
 .profileTabs {
-  .ant-tabs {
+   .ant-tabs {
     .ant-tabs-nav {
       .ant-tabs-nav-wrap {
         .ant-tabs-nav-list {
@@ -389,6 +387,3 @@ label.ant-radio-wrapper {
   border-color: transparent !important;
 }
 
-.font-14 {
-  font-size: 14px !important;
-}

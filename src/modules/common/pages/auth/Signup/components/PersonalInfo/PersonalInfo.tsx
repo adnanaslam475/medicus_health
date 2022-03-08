@@ -35,7 +35,7 @@ export default function PersonalInfo({ onFinish }: PersonalInfoInterface) {
     return current && current > dayjs().startOf("day");
   }
 
-  const dateFormat = 'MM/DD/YY';
+  // const dateFormat = 'MM/DD/YY';
 
   const [getStatesByCountry] = useGetStatesByCountryQuery({
     variables: {

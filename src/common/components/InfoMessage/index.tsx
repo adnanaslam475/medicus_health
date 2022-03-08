@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Layout, Avatar, Dropdown, Menu, Space } from "antd";
 import Router from "next/router";
 import Image from "next/image";
+import link from "next/link";
 import { WarningFilled } from "@ant-design/icons";
+import Link from "next/link";
 
 // import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const InfoMessage = () => {
@@ -22,10 +24,15 @@ const InfoMessage = () => {
             width={34}
             src="/assets/icon/warning-small.svg"
           />
-          <span className="ml-3 min-h-max">Please complete the health questionnaire in order to book appointments with our Physicians.</span>
-          <a href="void(0)" className="underline text-primary px-3 whitespace-nowrap">
-            Complete Now
-          </a>
+          <span className="ml-3 min-h-max">
+            Please complete the health questionnaire in order to book
+            appointments with our Physicians.
+          </span>
+          <Link href="/">
+            <a className="underline text-primary px-3 whitespace-nowrap">
+              Complete Now
+            </a>
+          </Link>
         </div>
       </div>
     </>

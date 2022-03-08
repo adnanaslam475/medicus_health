@@ -1,5 +1,5 @@
 import React from "react";
-import AccountTabs from "../../../../../common/components/Account_Tabs";
+import AccountTabs from "../../../../../common/components/Account-Tabs";
 import AppLayout from "../../../../../common/components/Layout";
 
 function AccountDetail() {
