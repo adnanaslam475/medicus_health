@@ -25,9 +25,9 @@ function CancelledAppointment() {
 
         <div className="w-full">
           <div className="appointment-cards flex flex-wrap">
-            <AppointmentCard />
-            <AppointmentCard />
-            <AppointmentCard />
+            <AppointmentCard status="confirmed" />
+            <AppointmentCard status="request" />
+            <AppointmentCard status="pending" />
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ const AppHeader = () => {
   const [visible, setVisible] = useState(false);
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("loggedInUserData");
     setVisible(false);
     Router.push("/login");
   };
@@ -25,6 +25,7 @@ const AppHeader = () => {
   const notificationMenu = (
       <div className="notificationMenuCover border border-gray-3 rounded">
         <div className="px-3 py-2 bg-white">
+          {/* <Menu.Item key="0"> */}
           <div className="flex border-b border-gray-4 items-start mb-3">
             <span className=" ">
               <Image
@@ -35,6 +36,23 @@ const AppHeader = () => {
                 src="/assets/icon/blue_bell_Icon.svg"
               />
             </span>
+            {/* <div> */}
+            <span className="notificationBody ml-3 w-full break-word">
+              Your appointment with <b>John Petrucci</b> has been confirmed.
+            </span>
+            {/* </div> */}
+          </div>
+          {/* </Menu.Item> */}
+          <div className="flex border-b border-gray-4 items-start mb-3">
+            <span className=" ">
+              <Image
+                alt=""
+                className="warning-small mx-auto shadow-none border-0"
+                height={34}
+                width={34}
+                src="/assets/icon/blue_bell_Icon.svg"
+              />
+            </span> 
             <span className="notificationBody ml-3 w-full break-word">
               Your appointment with <b>John Petrucci</b> has been confirmed.
             </span>
@@ -71,7 +89,6 @@ const AppHeader = () => {
           <span className="mt-7 mr-8">
             <Dropdown
               overlay={notificationMenu}
-              trigger={["click"]}
               placement="bottomLeft"
             >
               <a

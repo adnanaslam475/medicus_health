@@ -1,135 +1,178 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
 import Link from "next/link";
-import { Form, Input, Button, Checkbox } from "antd";
-// import Container from "../src/common/components/Container/Container";
-import { useMutation } from "urql";
+import { Form, Input, Button, Checkbox, Alert } from "antd";
 import Image from "next/image";
 import Container from "../../../../../common/components/Container/Container";
+import {
+  LoginUserInput,
+  useLoginMutation,
+} from "../../../../../generated/graphql";
 
-const LOGIN_MUT = `mutation Login($email: String!, $password:String!) {
-  login(options: { email: $email, password: $password }) {
-    errors {
-      field
-      message
-    }
-    user {
-      id
-      email
-    }
-}`;
-
-const Login = () => {
+function Login() {
+  const [authToken, setAuthToken] = useState(false);
   const router = useRouter();
+  function getToken() {
+    let userData;
+    if (
+      typeof window !== "undefined" &&
+      localStorage?.getItem("loggedInUserData")
+    ) {
+      userData = JSON.parse(localStorage?.getItem("loggedInUserData") || "");
+    }
+    return userData?.access_token;
+  }
 
-  const [, login] = useMutation(LOGIN_MUT);
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      setAuthToken(token);
+      router.push("/");
+    } else {
+      setAuthToken(false);
+    }
+  },[]);
 
-  const onFinish = async (values: object) => {
-    const res = login(values);
-    console.log("Success:", res);
+  const [result, login] = useLoginMutation();
+  const { error, fetching } = result;
+  const onFinish = async (values: any) => {
+    let payload = { ...values };
+    delete payload.remember;
+    try {
+      const res = await login({
+        input: payload as LoginUserInput,
+      });
+      if (res.data && !res.error) {
+        localStorage.setItem(
+          "loggedInUserData",
+          JSON.stringify(res?.data?.login as any)
+        );
+        Router.replace({
+          pathname: "/",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-
-  function authCheck(url: string) {
-    const publicPaths: string[] = ["/login", "/signup", "/forgotPassword"];
-    const path = url.split("?")[0];
-    console.log(path, publicPaths, "pppp");
-  }
-
-  useEffect(() => {
-    authCheck(router.asPath);
-  }, []);
-
-  return (
-    <Container className="login-bg">
-      <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
-        <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
-          <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
-            <div className="flex justify-center mb-6">
-              <Image
-                alt=""
-                className="mx-auto"
-                height={34}
-                width={216}
-                src="/assets/images/logo-medi.svg"
-              />
-            </div>
-            <h1 className="text-center text-secondary mb-3">
-              Login to continue
-            </h1>
-            <h6 className="text-center text-gray font-rubik font-normal">
-              Enter your credentials to access your account.
-            </h6>
-            <div className="mt-5">
-              <Form
-                layout="vertical"
-                name="basic"
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
-              >
-                <Form.Item
-                  label="Email Address"
-                  name="email"
-                  className="mb-1"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your email address",
-                    },
-                    {
-                      type: "email",
-                      message: "Email is invalid",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[
-                    { required: true, message: "Please enter your password!" },
-                  ]}
-                >
-                  <Input.Password />
-                </Form.Item>
-
-                <Form.Item name="remember" valuePropName="checked">
-                  <div className="flex justify-between text-base">
-                    <Checkbox className="text-base">Remember me</Checkbox>
-                    <Link href="/forgotPassword">
-                      <span className="text-primary cursor-pointer">
-                        Forgot Password?
-                      </span>
-                    </Link>
-                  </div>
-                </Form.Item>
-
-                <Form.Item>
-                  <Button block type="primary" htmlType="submit">
-                    Login
-                  </Button>
-                </Form.Item>
-              </Form>
-            </div>
-            <Form.Item>
-              <div className="flex justify-center mt-8">
-                Don't have an account?{" "}
-                <span className="ml-1">
-                  <Link href="/signup">Register</Link>
-                </span>
+  if (authToken) {
+    return (
+      <div className="loaderCover flex h-screen w-full justify-center items-center">
+        <Image
+          alt=""
+          className="mx-auto"
+          height={245}
+          width={456}
+          src="/assets/images/loaderLogo.png"
+        />
+      </div>
+    );
+  } else {
+    return (
+      <Container className="login-bg">
+        <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
+          <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 px-0">
+            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
+              <div className="flex justify-center mb-6">
+                <Image
+                  alt=""
+                  className="main-logo mx-auto"
+                  height={34}
+                  width={216}
+                  src="/assets/images/logo-medi.svg"
+                />
               </div>
-            </Form.Item>
+              <h1 className="text-center text-secondary mb-3">
+                Login to continue
+              </h1>
+              <h6 className="text-center text-gray font-rubik font-normal">
+                Enter your credentials to access your account.
+              </h6>
+              <div className="mt-5">
+                <Form
+                  layout="vertical"
+                  initialValues={{ remember: true }}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                >
+                  <Form.Item
+                    label="Email Address"
+                    name="email"
+                    className="mb-1"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter your email address",
+                      },
+                      {
+                        type: "email",
+                        message: "Email is invalid",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your password!",
+                      },
+                    ]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+
+                  <Form.Item name="remember" valuePropName="checked">
+                    <div className="flex justify-between text-base">
+                      <Checkbox className="text-base">Remember me</Checkbox>
+                      <Link href="/forgotPassword">
+                        <a>
+                          <span className="text-primary cursor-pointer">
+                            Forgot Password?
+                          </span>
+                        </a>
+                      </Link>
+                    </div>
+                  </Form.Item>
+
+                  <Form.Item>
+                    <Button
+                      disabled={fetching}
+                      loading={fetching}
+                      block
+                      type="primary"
+                      htmlType="submit"
+                    >
+                      Login
+                    </Button>
+                  </Form.Item>
+
+                  {error?.message && (
+                    <Alert className="" message={error?.message} type="error" />
+                  )}
+                </Form>
+              </div>
+              <Form.Item>
+                <div className="flex justify-center mt-8">
+                  Don&apos;t have an account?
+                  <span className="ml-1">
+                    <Link href="/signup">Register</Link>
+                  </span>
+                </div>
+              </Form.Item>
+            </div>
           </div>
         </div>
-      </div>
-    </Container>
-  );
-};
+      </Container>
+    );
+  }
+}
 export default Login;
