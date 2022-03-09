@@ -5,13 +5,20 @@ import { createClient, Provider } from "urql";
 import config from "./../config";
 import "./../styles/global.scss";
 import "./../styles/cutomized-antd.css";
+import { User } from "../src/generated/graphql";
+
+type userAuth = {
+  user: User;
+  remember: boolean;
+  access_token: string;
+};
 
 const client = createClient({
   url: config.baseURL || "",
 });
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<userAuth>();
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
@@ -43,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       userData = JSON.parse(localStorage?.getItem("loggedInUserData") || "");
     }
     setUser(userData);
-    const publicPaths = ["/login"];
+    const publicPaths = ["/login", "/signup", "/forgotPassword"];
     const path = url.split("?")[0];
     if (!userData?.access_token && !publicPaths.includes(path)) {
       setAuthorized(false);
@@ -54,6 +61,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       setAuthorized(true);
     }
   }
+
   return (
     <Provider value={client}>
       {authorized && <Component {...pageProps} key />}
