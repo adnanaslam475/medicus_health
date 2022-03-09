@@ -49,7 +49,7 @@ const GUI = () => {
       </Row>
       <Row className="pt-5">
         <Col span={6}>
-          <Button type="default">Primary Button</Button>
+          <Button type="default">Primary Button outline</Button>
         </Col>
         <Col span={6}>
           <Button
@@ -57,7 +57,7 @@ const GUI = () => {
             className="default"
             type="default"
           >
-            Primary Button
+            Primary Button outline icon
           </Button>
         </Col>
       </Row>

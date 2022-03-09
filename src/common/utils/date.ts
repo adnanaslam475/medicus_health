@@ -6,3 +6,4 @@ dayjs.extend(utc);
 export function convertToUTC(date: string) {
   return dayjs.utc(date).format();
 }
+

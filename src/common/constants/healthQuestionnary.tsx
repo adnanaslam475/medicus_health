@@ -23,13 +23,13 @@ interface Question {
 const HealthQuestionnaryData: Questions = {
   q1: {
     name: "radio_drink",
-    label: "Do you drink Alcohol?",
+    label: "Do you drink Alcohol?*",
     type: "radio",
     ans: null,
     option: ["yes", "no"],
     q: {
       name: "drinks",
-      label: "How many Drinks on average and how offen?",
+      label: "How many Drinks on average and how offen?*",
       type: "text",
       ans: "",
     },
@@ -42,7 +42,7 @@ const HealthQuestionnaryData: Questions = {
     option: ["yes", "no"],
     q: {
       name: "smoke",
-      label: "How many and for how long do you smoke?",
+      label: "How many and for how long do you smoke?*",
       type: "text",
       ans: "",
     },
@@ -56,7 +56,7 @@ const HealthQuestionnaryData: Questions = {
     q: {
       name: "check_drug",
       label:
-        "Please list any current medical conditions and/or past medical conditions you have experienced. (You can select multiple)",
+        "Please list any current medical conditions and/or past medical conditions you have experienced. (You can select multiple)*",
       type: "checkbox",
       ans: "",
       option: ["Stroke", "Asthma", "Cancer", "Diabetes", "Others"],
@@ -66,7 +66,7 @@ const HealthQuestionnaryData: Questions = {
   q4: {
     name: "surgical_history",
     label:
-      "Please list your past Surgical History you have gone thorough. (You can select multiple)",
+      "Please list your past Surgical History you have gone thorough. (You can select multiple)*",
     type: "checkbox",
     ans: "",
     option: [
@@ -82,28 +82,28 @@ const HealthQuestionnaryData: Questions = {
   },
   q5: {
     name: "allergies",
-    label: "Please list any known allergies",
+    label: "Please list any known allergies*",
     type: "text",
     ans: "",
   },
   q6: {
     name: "adverse",
     label:
-      "Please explain any adverse/side affects you have experienced from medications",
+      "Please explain any adverse/side affects you have experienced from medications*",
     type: "text",
     ans: "",
   },
   q7: {
     name: "medication",
     label:
-      "Please list any current medication you are taking and provide the dosage, and frequency",
+      "Please list any current medication you are taking and provide the dosage, and frequency*",
     type: "text",
     ans: "",
   },
   q8: {
     name: "inherited",
     label:
-      "Please list any medical problems that are common/genetically inherited in your family",
+      "Please list any medical problems that are common/genetically inherited in your family*",
     type: "text",
     ans: "",
   },

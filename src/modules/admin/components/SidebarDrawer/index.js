@@ -3,7 +3,7 @@ import { Drawer, Button } from "antd";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import Image from "next/image";
 // import { Logo } from "../../../../utils/images";
-import SidebarMenuItem from "../../../../common/components/SidebarMenuItem";
+import SidebarMenuItem from "../../../../common/components/SidebarMenuItem/SidebarMenuItem";
 
 function AdminSideMenu() {
   const [showDrawer, setShowDrawer] = useState(false);

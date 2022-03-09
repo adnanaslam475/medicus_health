@@ -60,15 +60,15 @@ button.ant-btn {
   display: none !important;
 }
 
-.ant-form-item-label
-  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
-  display: inline-block;
-  margin-right: 4px;
-  font-size: 15px;
-  font-family: SimSun, sans-serif;
-  line-height: 1;
-  content: "*";
-}
+// .ant-form-item-label
+//   > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
+//   display: inline-block;
+//   margin-right: 4px;
+//   font-size: 15px;
+//   font-family: SimSun, sans-serif;
+//   line-height: 1;
+//   content: "*";
+// }
 
 // .ant-form-item.text-secondary .ant-form-item-label label {
 //   color: $secondary !important;
@@ -122,30 +122,12 @@ label.ant-radio-wrapper {
   }
 }
 
-.ant-layout-header {
-  background: #fff !important;
-}
 
-.bg-gray-f {
+
+
+
+.side-menu-cover {
   background-color: #f6f8fa !important;
-}
-
-.ant-menu {
-  background-color: #f6f8fa !important;
-}
-
-.ant-menu > .ant-menu-item:hover,
-.ant-menu > .ant-menu-submenu:hover,
-.ant-menu > .ant-menu-item-active,
-.ant-menu > .ant-menu-submenu-active,
-.ant-menu > .ant-menu-item-open,
-.ant-menu > .ant-menu-submenu-open,
-.ant-menu > .ant-menu-item-selected,
-.ant-menu > .ant-menu-submenu-selected {
-  color: #8f95a7;
-  // border-bottom: 2px solid red;
-}
-.sideMenuCover {
   ul.ant-menu-inline {
     border: 0;
     li.ant-menu-submenu.ant-menu-submenu-open {
@@ -154,6 +136,14 @@ label.ant-radio-wrapper {
       ul.ant-menu.ant-menu-sub {
         background-color: white !important;
         padding: 0 15px;
+
+        li.ant-menu-item {
+          .ant-menu-title-content {
+            a {
+              color: #272b4c !important;
+            }
+          }
+        }
       }
       .ant-menu-submenu-title {
         .ant-menu-title-content {
@@ -173,6 +163,7 @@ label.ant-radio-wrapper {
     }
   }
   .ant-menu {
+    background-color: #f6f8fa !important;
     .ant-menu-submenu {
       &:hover {
         background-color: #edf1f4;
@@ -226,7 +217,7 @@ label.ant-radio-wrapper {
 }
 
 .profileTabs {
-  .ant-tabs {
+   .ant-tabs {
     .ant-tabs-nav {
       .ant-tabs-nav-wrap {
         .ant-tabs-nav-list {
@@ -364,10 +355,20 @@ label.ant-radio-wrapper {
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-  border-color: #429eff !important; 
+  border-color: #429eff !important;
   background-color: #429eff !important;
 }
 
-.ant-checkbox-checked::after{
+.ant-tabs
+  .ant-form-item-control-input
+  .ant-checkbox-group
+  .ant-checkbox-checked
+  .ant-checkbox-inner {
+  border-color: #30cec2 !important;
+  background-color: #30cec2 !important;
+}
+
+.ant-checkbox-checked::after {
   border-color: transparent !important;
 }
+

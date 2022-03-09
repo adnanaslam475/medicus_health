@@ -1,6 +1,6 @@
 import React from "react";
-import AccountTabs from "../../../../../common/components/Account_Tabs";
-import AppLayout from "../../../../../common/components/Layout";
+import AccountTabs from "../../../../../common/components/AccountTabs/AccountTabs";
+import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 
 function AccountDetail() {
   function onFinish(values: object) {

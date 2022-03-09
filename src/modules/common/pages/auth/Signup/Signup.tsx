@@ -109,7 +109,7 @@ function Signup() {
             <div className="flex justify-center mb-6">
               <Image
                 alt=""
-                className="main-logo mx-auto"
+                className="mx-auto"
                 height={34}
                 width={216}
                 src="/assets/images/logo-medi.svg"
@@ -118,7 +118,7 @@ function Signup() {
             <h1 className="text-center text-secondary mb-3">
               Create Your Account
             </h1>
-            <h5 className="text-center text-darkGray">
+            <h5 className="text-center text-gray font-rubik font-normal">
               Create your account to start using Medicus
             </h5>
             <div className="mt-5">

@@ -1,13 +1,7 @@
-import React from "react";
-import UpcomingAppointments from "../../src/modules/admin/pages/appointments/UpcomingAppointment/UpcomingAppointments";
-// import UpcomingAppointments from "../../src/modules/admin/pages/appointments/AppointmentDetail/appointmentDetail";
+import CancelledAppointments from "../../src/modules/admin/pages/appointments/CancelledAppointment/CancelledAppointment";
 
-
-function upcomingAppointments() {
-  return <UpcomingAppointments />;
+function CancelledAppointment() {
+  return <CancelledAppointments />;
 }
 
-export default upcomingAppointments;
-
-
-
+export default CancelledAppointment;

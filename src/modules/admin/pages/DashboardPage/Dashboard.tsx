@@ -6,7 +6,7 @@ import { Layout } from "antd";
 // import SimpleMap from "../../components/AdminMap";
 // import TopFive from "../../components/AdminTopFive";
 // import Tricomp from "../../components/AdminTriComp";
-import AppLayout from "../../../../common/components/Layout";
+import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 // import { aimsDashboardUsers, aimsDashboardTeacher, aimsDashboardGroup } from "../../../../utils/dasboardImages";
 
 const { Content } = Layout;

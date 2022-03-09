@@ -1,13 +1,7 @@
-import React from "react";
-import UpcomingAppointments from "../../src/modules/admin/pages/appointments/UpcomingAppointment/UpcomingAppointments";
-// import UpcomingAppointments from "../../src/modules/admin/pages/appointments/AppointmentDetail/appointmentDetail";
-
+import RequestedAppointment from "../../src/modules/admin/pages/appointments/RequestedAppointment/RequestedAppointment";
 
 function requestedAppointments() {
-  return <UpcomingAppointments />;
+  return <RequestedAppointment />;
 }
 
 export default requestedAppointments;
-
-
-

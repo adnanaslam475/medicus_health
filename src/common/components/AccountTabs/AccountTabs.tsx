@@ -14,11 +14,11 @@ import {
 import Router from "next/router";
 import Image from "next/image";
 import yourImage from "../../../../public/assets/images/your_photo.png";
-import PersonalInfo from "./PersonelInfo";
+import PersonalInfo from "./PersonelInfo/PersonelInfo";
 // import HealthQuestionair from "./HealthQuestionair";
-import PaymentMethods from "./PaymentMethods";
-import TransactionHistory from "./TransactionHistory";
-import HealthQuestionair from "./HealthQuestionair"
+import PaymentMethods from "./PaymentMethods/PaymentMethods";
+import TransactionHistory from "./TransactionHistory/TransactionHistory";
+import HealthQuestionair from "./HealthQuestionair/HealthQuestionair"
 const { TabPane } = Tabs;
 
 const AccountTabs = () => {
@@ -31,7 +31,7 @@ const AccountTabs = () => {
             <TabPane tab="Personal Information" key="1" className="">
               <PersonalInfo />
             </TabPane>
-            <TabPane tab="Health Questionair" key="2">
+            <TabPane tab="Health Questionnaire" key="2">
               <HealthQuestionair />
             </TabPane>
             <TabPane tab="Payment Methods" key="3">
