@@ -14,7 +14,7 @@ function AppLayout({ children }: props) {
       <AdminSideMenu />
       <Layout className="ml-0 md:ml-20 xl:ml-72">
         <div className="border-b border-gray-5 bg-white">
-          <AppHeader className="bg-white" />
+          <AppHeader />
         </div>
         <Layout.Content className="flex w-full" style={{ overflow: "auto" }}>
           <Container fluid className="md:px-2 lg:px-3 w-full bg-white">

@@ -5,6 +5,7 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import InfoMessage from "../InfoMessage/InfoMessage";
 import Image from "next/image";
+import _classes from "./AppHeader.module.scss";
 import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { Header } = Layout;
 
@@ -57,7 +58,8 @@ const AppHeader = () => {
   );
 
   return (
-    <Header className="flex w-full justify-end items-center h-25 px-0 md:px-0">
+    
+    <Header className={`${_classes["bg-white"]} flex w-full justify-end items-center h-25 px-0 md:px-0`} >
       <div className="w-full flex px-0 justify-between items-center">
         <div className="w-full md:w-1/2">
           <InfoMessage />
