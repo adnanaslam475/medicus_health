@@ -17,8 +17,8 @@ function SidebarMenuItem() {
     <Menu
       defaultSelectedKeys={["/"]}
       selectedKeys={[router.pathname]}
-      mode="inline"
-      className="bg-gray-4 border-r-0"
+      mode="inline"      
+      className={`${_classes["side-menu-cover"]} bg-gray-4 border-r-0`}
     >
       <Menu.SubMenu
         className={_classes["side-bar-submenu-item"]}

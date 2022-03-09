@@ -1,4 +1,4 @@
-.side-bar-submenu-item {  
+.side-bar-submenu-item {
   &:hover {
     svg.sidebar-icon-hover {
       g {
@@ -14,6 +14,96 @@
   background: #fff !important;
 }
 
+.side-menu-cover {
+  border: none !important;
+  background-color: #f6f8fa !important;
+  :global .ant-menu-submenu-open {
+    background-color: #f6f8fa !important;
+    ul.ant-menu.ant-menu-sub {
+      background-color: white !important;
+      padding: 0 15px;
+      li.ant-menu-item {
+        .ant-menu-title-content {
+          a {
+            color: #272b4c !important;
+          }
+        }
+      }
+    }
+    .ant-menu-submenu-title {
+      .ant-menu-title-content {
+        color: #272b4c !important;
+      }
+    }
 
+    ul.ant-menu.ant-menu-sub {
+      li.ant-menu-item {
+        .ant-menu-title-content {
+          a {
+            color: #272b4c !important;
+          }
+        }
+      }
+    }
+  }
+  :global .ant-menu-submenu {
+    &:hover {
+      background-color: #edf1f4;
+      cursor: pointer;
+      color: #272b4c !important;
 
+      .ant-menu-submenu {
+        .ant-menu-title-content {
+          a {
+            color: #272b4c;
+          }
+        }
+      }
+    }
 
+    .ant-menu-submenu-title {
+      .ant-menu-title-content {
+        color: #8f95a7;
+      }
+      i.ant-menu-submenu-arrow::before,
+      i.ant-menu-submenu-arrow::after {
+        color: #8f95a7;
+      }
+    }
+  }
+  :global .ant-menu-item {
+    &:hover {
+      background-color: #edf1f4;
+      cursor: pointer;
+      color: #272b4c !important;
+      .ant-menu-title-content {
+        a {
+          color: #272b4c;
+        }
+      }
+    }
+    &:active {
+      background-color: #edf1f4;
+      cursor: pointer;
+    }
+    .ant-menu-title-content {
+      a {
+        color: #8f95a7;
+      }
+    }
+  }
+  :global .ant-menu-item-selected {
+    background-color: #ffffff !important;
+    border-radius: 5px;
+    box-shadow: 0px 1px 0px #e9e9e9;
+
+    &:after {
+      border-right: 3px solid #ffffff !important;
+    }
+    .ant-menu-title-content {
+      a {
+        color: #272b4c !important;
+      }
+    }
+  }
+}
