@@ -405,7 +405,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string, role?: string | null } } };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -473,6 +473,7 @@ export const LoginDocument = gql`
     user {
       id
       email
+      role
     }
   }
 }

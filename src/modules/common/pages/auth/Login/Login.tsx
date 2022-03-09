@@ -8,20 +8,12 @@ import {
   LoginUserInput,
   useLoginMutation,
 } from "../../../../../generated/graphql";
+import { getToken } from "../../../../../common/utils/userData";
+import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 
 function Login() {
   const [authToken, setAuthToken] = useState(false);
   const router = useRouter();
-  function getToken() {
-    let userData;
-    if (
-      typeof window !== "undefined" &&
-      localStorage?.getItem("loggedInUserData")
-    ) {
-      userData = JSON.parse(localStorage?.getItem("loggedInUserData") || "");
-    }
-    return userData?.access_token;
-  }
 
   useEffect(() => {
     const token = getToken();
@@ -31,7 +23,7 @@ function Login() {
     } else {
       setAuthToken(false);
     }
-  },[]);
+  }, []);
 
   const [result, login] = useLoginMutation();
   const { error, fetching } = result;
@@ -43,9 +35,11 @@ function Login() {
         input: payload as LoginUserInput,
       });
       if (res.data && !res.error) {
+        let userPayload: any = res?.data?.login;
+        userPayload.remember = values.remember;
         localStorage.setItem(
           "loggedInUserData",
-          JSON.stringify(res?.data?.login as any)
+          JSON.stringify(userPayload as any)
         );
         Router.replace({
           pathname: "/",
@@ -60,17 +54,7 @@ function Login() {
     console.log("Failed:", errorInfo);
   };
   if (authToken) {
-    return (
-      <div className="loaderCover flex h-screen w-full justify-center items-center">
-        <Image
-          alt=""
-          className="mx-auto"
-          height={245}
-          width={456}
-          src="/assets/images/loaderLogo.png"
-        />
-      </div>
-    );
+    return <PageLoader />;
   } else {
     return (
       <Container className="login-bg">
@@ -95,7 +79,7 @@ function Login() {
               <div className="mt-5">
                 <Form
                   layout="vertical"
-                  initialValues={{ remember: true }}
+                  initialValues={{ remember: false }}
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
                 >

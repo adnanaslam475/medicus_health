@@ -23,6 +23,7 @@ mutation login($input: LoginUserInput!) {
     user {
       id
       email
+      role
     }
   }
 }
