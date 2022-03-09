@@ -303,7 +303,7 @@ const HealthQuestionnary = ({
               setTerms(e.target.checked);
             }}
           >
-            <span className="mb-10 text-gray">
+            <span className="mb-10 text-gray text-xs">
               I agree to the <Link href={"#"}>Terms & Condition</Link>
             </span>
           </Checkbox>
@@ -327,7 +327,8 @@ const HealthQuestionnary = ({
           <div className="inline-flex items-center">
             <div className="mb-0">
               <Button type="link" onClick={(e) => handleChange(e)}>
-                <span>
+                <div className="flex items-center">
+                <span className="mt-1">
                   <Image
                     alt=""
                     className="left-arrow-icon mx-auto mt-3"
@@ -336,7 +337,7 @@ const HealthQuestionnary = ({
                     src="/assets/icon/arrow-left.svg"
                   />
                 </span>
-                <span className="ml-3">Back</span>
+                <span className="ml-3">Back</span></div>
               </Button>
             </div>
           </div>
