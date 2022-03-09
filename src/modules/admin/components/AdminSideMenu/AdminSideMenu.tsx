@@ -24,8 +24,8 @@ function AdminSideMenu() {
       >
         <Image alt="" src={Logo} width={200} height={35} />
       </Layout.Header>
-      <div className="side-menu-cover px-5 flex mx-0">
-        <SidebarMenuItem
+      <div className="px-5 flex mx-0">
+        <SidebarMenuItem 
         />
       </div>
     </Layout.Sider>

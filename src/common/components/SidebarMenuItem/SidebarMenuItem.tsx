@@ -17,8 +17,8 @@ function SidebarMenuItem() {
     <Menu
       defaultSelectedKeys={["/"]}
       selectedKeys={[router.pathname]}
-      mode="inline"
-      className="bg-gray-4 border-r-0"
+      mode="inline"      
+      className={`${_classes["side-menu-cover"]} bg-gray-4 border-r-0`}
     >
       <Menu.SubMenu
         className={_classes["side-bar-submenu-item"]}
@@ -26,26 +26,26 @@ function SidebarMenuItem() {
         icon={<AppointmentIcon className={_classes["sidebar-icon-hover"]} />}
         title="Appointments"
       >
-        <Menu.Item key="2">
+        <Menu.Item key="/appointments/upcoming">
           <Link href="/appointments/upcoming">Upcoming</Link>
         </Menu.Item>
 
-        <Menu.Item key="3">
+        <Menu.Item key="/appointments/requested">
           <Link href="/appointments/requested">Requested</Link>
         </Menu.Item>
 
-        <Menu.Item key="4">
+        <Menu.Item key="/appointments/cancelled">
           <Link href="/appointments/cancelled">Cancelled</Link>
         </Menu.Item>
 
-        <Menu.Item key="5">
+        <Menu.Item key="/appointments/history">
           <Link href="/appointments/history">History</Link>
         </Menu.Item>
       </Menu.SubMenu>
 
       <Menu.Item
         className={_classes["side-bar-submenu-item"]}
-        key="6"
+        key="/physicians"
         icon={<PhysicianIcon className={_classes["sidebar-icon-hover"]} />}
       >
         <Link href="/physicians">Physicians</Link>
@@ -53,7 +53,7 @@ function SidebarMenuItem() {
 
       <Menu.Item
         className={_classes["side-bar-submenu-item"]}
-        key="7"
+        key="/messages"
         icon={<ChatBubbleIcon className={_classes["sidebar-icon-hover"]} />}
       >
         <div className="flex justify-between items-center">
@@ -64,7 +64,7 @@ function SidebarMenuItem() {
 
       <Menu.Item
         className={_classes["side-bar-submenu-item"]}
-        key="8"
+        key="/account"
         icon={
           <div>
             <ProfileIcon className={_classes["sidebar-icon-hover"]} />

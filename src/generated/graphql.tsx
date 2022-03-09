@@ -426,6 +426,11 @@ export type GetCitiesByStateQueryVariables = Exact<{
 
 export type GetCitiesByStateQuery = { __typename?: 'Query', getCitiesByState: Array<{ __typename?: 'City', id: number, state_id: number, city_name: string }> };
 
+export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DoctorProfilesQuery = { __typename?: 'Query', doctorProfiles: Array<{ __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience: number, specialization: string, condition_treated: string, educational_background: string, professional_experience: string, language: string, about_me: string, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender: string, contact_number: string } | null }> };
+
 
 export const CreateUserDocument = gql`
     mutation createUser($input: CreateUserInput!) {
@@ -514,6 +519,33 @@ export const GetCitiesByStateDocument = gql`
 
 export function useGetCitiesByStateQuery(options: Omit<Urql.UseQueryArgs<GetCitiesByStateQueryVariables>, 'query'>) {
   return Urql.useQuery<GetCitiesByStateQuery>({ query: GetCitiesByStateDocument, ...options });
+};
+export const DoctorProfilesDocument = gql`
+    query doctorProfiles {
+  doctorProfiles {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
+      contact_number
+    }
+  }
+}
+    `;
+
+export function useDoctorProfilesQuery(options?: Omit<Urql.UseQueryArgs<DoctorProfilesQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorProfilesQuery>({ query: DoctorProfilesDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
