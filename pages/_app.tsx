@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       userData = JSON.parse(localStorage?.getItem("loggedInUserData") || "");
     }
     setUser(userData);
-    const publicPaths = ["/login", "/signup", "/forgotPassword", "/user/confirm"];
+    const publicPaths = ["/login", "/signup", "/forgotPassword", "/user/confirm", "/user/resetPassword"];
     const path = url.split("?")[0];
     if (!userData?.access_token && !publicPaths.includes(path)) {
       setAuthorized(false);

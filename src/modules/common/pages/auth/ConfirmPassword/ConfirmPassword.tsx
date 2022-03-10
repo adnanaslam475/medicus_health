@@ -5,6 +5,7 @@ import { Form, Input, Button } from "antd";
 import Image from "next/image";
 import Container from "../../../../../common/components/Container/Container";
 import ConfirmPasswordForm from "./ConfirmPasswordForm";
+import { useUserResetPasswordMutation } from "../../../../../generated/graphql";
 
 function ConfirmPassword() {
   const onFinish = async (values: object) => {
@@ -14,6 +15,23 @@ function ConfirmPassword() {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+
+   // Reset Password API call
+
+   const [resetPass, setResetPass] = useUserResetPasswordMutation();
+   const { error, fetching } = resetPass;
+   console.log(error);
+   const onFinish = async (values: object) => {
+     let payload = values;
+     try {
+       const res = await setResetPass({
+         input: payload as string,
+       });
+     } catch (err) {
+       console.log(err);
+     }
+   };
 
   return (
     <Container className="login-bg w-full">

@@ -7,8 +7,12 @@ import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorCard.module.scss";
+import { useDoctorProfilesQuery } from "../../../generated/graphql";
 
 function DoctorCard() {
+  const [{ data }] = useDoctorProfilesQuery();
+  const { doctorProfiles } = data || {};
+
   return (
     <Card className={_classes["doctorCard"]}>
       <div className="flex lg:flex-row flex-col md:flex-wrap">
@@ -22,7 +26,17 @@ function DoctorCard() {
           </div>
           <div className="inline-block sm:w-full md:w-4/5">
             <div className="flex items-center">
-              <h2 className="mb-0 mr-3">Dr. Paul Wallner</h2>
+              <h2 className="mb-0 mr-3">
+                {doctorProfiles?.map((el, i) => {
+                  return (
+                    <div key={i} value={el?.user?.id}>
+                      {el?.user?.first_name}
+                      
+                    </div>
+                  );
+                })}       
+                Dr. Paul Wallner         
+              </h2>
               <div className="flagAvatar engFlag mx-1">
                 <Image src={engFlag} alt="engFlag" width={35} height={35} />
               </div>
@@ -54,7 +68,6 @@ function DoctorCard() {
         </div>
         <div className="card-actionBtns mt-5 lg:mt-0 lg:w-2/6 md:w-full flex justify-start flex-col items-start">
           <Button type="default" className="mb-3 w-full bg-transparent">
-            {" "}
             View Profile
           </Button>
 

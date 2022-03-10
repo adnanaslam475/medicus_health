@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Alert } from "antd";
 import Image from "next/image";
 import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import Container from "../../../../../common/components/Container/Container";
+
+import { useUserForgotPasswordMutation } from "../../../../../generated/graphql";
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -21,9 +23,23 @@ const ForgotPassword = () => {
     }
   }, []);
 
+  // Forgot Password API call
+
+  const [forgotPass, setForgotPass] = useUserForgotPasswordMutation();
+  const { error, fetching } = forgotPass;
+  console.log(error);
   const onFinish = async (values: object) => {
-    console.log("Success:", values);
+    let payload = values.email;
+    try {
+      const res = await setForgotPass({
+        input: payload as string,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+   
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -67,7 +83,7 @@ const ForgotPassword = () => {
                     className="mb-1"
                     rules={[
                       {
-                        required: false,
+                        required: true,
                         message: "Please enter your email address",
                       },
                       {
@@ -81,6 +97,8 @@ const ForgotPassword = () => {
 
                   <Form.Item>
                     <Button
+                      loading={fetching}
+                      disabled={fetching}
                       className="ant-btn ant-btn-secondary ant-btn-block nb-button"
                       type="primary"
                       htmlType="submit"
@@ -88,6 +106,14 @@ const ForgotPassword = () => {
                       Reset Password
                     </Button>
                   </Form.Item>
+
+                  {error?.graphQLErrors[0].message && (
+                    <Alert
+                      className=""
+                      message={error?.graphQLErrors[0].message}
+                      type="error"
+                    />
+                  )}
                 </Form>
               </div>
               <Form.Item>

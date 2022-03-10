@@ -41,6 +41,7 @@ export type CreateDoctorProfileInput = {
   educational_background: Scalars['String'];
   language: Scalars['String'];
   professional_experience: Scalars['String'];
+  profile_image?: InputMaybe<Scalars['String']>;
   specialization: Scalars['String'];
   year_of_experience: Scalars['Float'];
 };
@@ -56,6 +57,8 @@ export type CreatePatientHealthHistoryInput = {
 };
 
 export type CreatePaymentInput = {
+  card_digits: Scalars['Float'];
+  card_type: Scalars['String'];
   is_default: Scalars['Boolean'];
   source_id: Scalars['String'];
   user_id: Scalars['Float'];
@@ -87,6 +90,7 @@ export type DoctorProfile = {
   id: Scalars['Int'];
   language: Scalars['String'];
   professional_experience: Scalars['String'];
+  profile_image?: Maybe<Scalars['String']>;
   specialization: Scalars['String'];
   user?: Maybe<User>;
   year_of_experience: Scalars['Int'];
@@ -102,6 +106,7 @@ export type DoctorSchedule = {
   id: Scalars['ID'];
   startTime: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+  user?: Maybe<User>;
 };
 
 export type LoginResponse = {
@@ -160,6 +165,7 @@ export type MutationCreateDoctorProfileArgs = {
 
 export type MutationCreateOrUpdateDoctorScheduleArgs = {
   createDoctorScheduleInput: Array<CreateDoctorScheduleInput>;
+  doctorId: Scalars['Int'];
 };
 
 
@@ -269,7 +275,12 @@ export type QueryCountryArgs = {
 
 
 export type QueryDoctorProfileArgs = {
-  id: Scalars['Int'];
+  doctor_id: Scalars['Int'];
+};
+
+
+export type QueryGetAllCardsArgs = {
+  user_id: Scalars['Int'];
 };
 
 
@@ -326,6 +337,7 @@ export type UpdateDoctorProfileInput = {
   educational_background?: InputMaybe<Scalars['String']>;
   language?: InputMaybe<Scalars['String']>;
   professional_experience?: InputMaybe<Scalars['String']>;
+  profile_image?: InputMaybe<Scalars['String']>;
   specialization?: InputMaybe<Scalars['String']>;
   year_of_experience?: InputMaybe<Scalars['Float']>;
 };
@@ -359,6 +371,7 @@ export type User = {
   country_id: Scalars['Int'];
   date_of_birth: Scalars['DateTime'];
   doctorProfile?: Maybe<DoctorProfile>;
+  doctorSchedules?: Maybe<DoctorSchedule>;
   email: Scalars['String'];
   first_name: Scalars['String'];
   gender: Scalars['String'];
@@ -373,7 +386,9 @@ export type User = {
 
 export type UserCard = {
   __typename?: 'UserCard';
+  card_digits: Scalars['Int'];
   card_id: Scalars['String'];
+  card_type: Scalars['String'];
   id: Scalars['Int'];
   is_default: Scalars['Boolean'];
   user_id: Scalars['Int'];
@@ -406,6 +421,20 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string, role?: string | null } } };
+
+export type UserForgotPasswordMutationVariables = Exact<{
+  input: Scalars['String'];
+}>;
+
+
+export type UserForgotPasswordMutation = { __typename?: 'Mutation', UserForgotPassword: { __typename?: 'User', id: number } };
+
+export type UserResetPasswordMutationVariables = Exact<{
+  input: ResetPasswordInput;
+}>;
+
+
+export type UserResetPasswordMutation = { __typename?: 'Mutation', UserResetPassword: { __typename?: 'User', id: number } };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -481,6 +510,28 @@ export const LoginDocument = gql`
 
 export function useLoginMutation() {
   return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+};
+export const UserForgotPasswordDocument = gql`
+    mutation UserForgotPassword($input: String!) {
+  UserForgotPassword(email: $input) {
+    id
+  }
+}
+    `;
+
+export function useUserForgotPasswordMutation() {
+  return Urql.useMutation<UserForgotPasswordMutation, UserForgotPasswordMutationVariables>(UserForgotPasswordDocument);
+};
+export const UserResetPasswordDocument = gql`
+    mutation UserResetPassword($input: ResetPasswordInput!) {
+  UserResetPassword(resetPasswordInput: $input) {
+    id
+  }
+}
+    `;
+
+export function useUserResetPasswordMutation() {
+  return Urql.useMutation<UserResetPasswordMutation, UserResetPasswordMutationVariables>(UserResetPasswordDocument);
 };
 export const CountriesDocument = gql`
     query countries {
@@ -731,6 +782,14 @@ export default {
             "args": []
           },
           {
+            "name": "profile_image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "specialization",
             "type": {
               "kind": "NON_NULL",
@@ -853,6 +912,15 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
             "args": []
           }
@@ -1015,6 +1083,16 @@ export default {
                         "name": "Any"
                       }
                     }
+                  }
+                }
+              },
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
                   }
                 }
               }
@@ -1476,7 +1554,7 @@ export default {
             },
             "args": [
               {
-                "name": "id",
+                "name": "doctor_id",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -1539,7 +1617,18 @@ export default {
                 }
               }
             },
-            "args": []
+            "args": [
+              {
+                "name": "user_id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
             "name": "getCard",
@@ -1846,6 +1935,15 @@ export default {
             "args": []
           },
           {
+            "name": "doctorSchedules",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorSchedule",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "email",
             "type": {
               "kind": "NON_NULL",
@@ -1958,7 +2056,29 @@ export default {
         "name": "UserCard",
         "fields": [
           {
+            "name": "card_digits",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "card_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "card_type",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
