@@ -22,7 +22,7 @@ export default function EmailVerification() {
         input: token as string,
       });
       if (res?.error) {
-        setErrorMsg(res.error.message);
+        setErrorMsg(res.error.graphQLErrors[0].message);
       } else {
         Router.push("/login");
       }
@@ -45,13 +45,23 @@ export default function EmailVerification() {
                 src="/assets/images/logo-medi.svg"
               />
               <div className="flex justify-center mt-10">
-                <Image
-                  alt=""
-                  className="success-icon mx-auto mt-10"
-                  height={84}
-                  width={84}
-                  src="/assets/icon/success-big.svg"
-                />
+                {!errorMsg ? (
+                  <Image
+                    alt=""
+                    className="success-icon mx-auto mt-10"
+                    height={84}
+                    width={84}
+                    src="/assets/icon/success-big.svg"
+                  />
+                ) : (
+                  <Image
+                    alt=""
+                    className="success-icon mx-auto mt-10"
+                    height={84}
+                    width={84}
+                    src="/assets/icon/failed-big.png"
+                  />
+                )}
               </div>
             </div>
             <h2 className="text-center text-secondary mb-3 px-10 leading-8">

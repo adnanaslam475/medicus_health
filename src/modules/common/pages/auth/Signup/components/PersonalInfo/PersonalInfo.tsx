@@ -105,12 +105,15 @@ export default function PersonalInfo({ onFinish }: props) {
           <Select placeholder="Gender" className="nb-select-input">
             <Select.Option value="male">Male</Select.Option>
             <Select.Option value="female">Female</Select.Option>
+            <Select.Option value="not-to-answer">
+              I prefer not to answer
+            </Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item
           className="flex-1"
-          label="Date of birth"
+          label="Date of Birth"
           name="date_of_birth"
           rules={[
             {
@@ -187,12 +190,12 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label="Cell Number"
+          label="Contact Number"
           name="contact_number"
           rules={[
             {
               required: true,
-              message: "Please enter your cell number",
+              message: "Please enter your contact number",
             },
           ]}
         >
@@ -288,12 +291,12 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label="Zip"
+          label="Postal Code"
           name="zip_code"
           rules={[
             {
               required: true,
-              message: "Please enter your zip",
+              message: "Please enter your postal code",
             },
           ]}
         >
