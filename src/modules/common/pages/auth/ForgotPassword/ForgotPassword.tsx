@@ -10,6 +10,7 @@ import Container from "../../../../../common/components/Container/Container";
 import { useUserForgotPasswordMutation } from "../../../../../generated/graphql";
 
 const ForgotPassword = () => {
+  const [form] = Form.useForm();
   const router = useRouter();
   const [authToken, setAuthToken] = useState(false);
 
@@ -26,20 +27,22 @@ const ForgotPassword = () => {
   // Forgot Password API call
 
   const [forgotPass, setForgotPass] = useUserForgotPasswordMutation();
-  const { error, fetching } = forgotPass;
-  console.log(error);
+  const { error, fetching, data } = forgotPass;
   const onFinish = async (values: object) => {
     let payload = values.email;
     try {
       const res = await setForgotPass({
         input: payload as string,
       });
+      if (!error) {
+        form.setFieldsValue({
+          email: null,
+        });
+      }
     } catch (err) {
       console.log(err);
     }
   };
-
-   
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -70,6 +73,7 @@ const ForgotPassword = () => {
               </h5>
               <div className="mt-5">
                 <Form
+                  form={form}
                   layout="vertical"
                   name="basic"
                   initialValues={{ remember: true }}
@@ -112,6 +116,15 @@ const ForgotPassword = () => {
                       className=""
                       message={error?.graphQLErrors[0].message}
                       type="error"
+                    />
+                  )}
+                  {data?.UserForgotPassword && (
+                    <Alert
+                      className=""
+                      message={
+                        "Your password reset link has been sent on your email please check!"
+                      }
+                      type="success"
                     />
                   )}
                 </Form>

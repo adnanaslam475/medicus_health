@@ -34,8 +34,9 @@ mutation UserForgotPassword($input: String!){
   }
 }
 
-mutation UserResetPassword($input: ResetPasswordInput!) {
-  UserResetPassword(resetPasswordInput: $input) {
-	id
+mutation UserResetPassword($input: ResetPasswordInput!){
+  	UserResetPassword(resetPasswordInput: $input){
+      id
+    }
   }
-}
+

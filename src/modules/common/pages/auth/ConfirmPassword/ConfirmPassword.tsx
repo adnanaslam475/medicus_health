@@ -5,33 +5,36 @@ import { Form, Input, Button } from "antd";
 import Image from "next/image";
 import Container from "../../../../../common/components/Container/Container";
 import ConfirmPasswordForm from "./ConfirmPasswordForm";
-import { useUserResetPasswordMutation } from "../../../../../generated/graphql";
+import {
+  ResetPasswordInput,
+  useUserResetPasswordMutation,
+} from "../../../../../generated/graphql";
+import { useRouter } from "next/router";
 
 function ConfirmPassword() {
-  const onFinish = async (values: object) => {
-    console.log("Success:", values);
-  };
+  // Reset Password API call
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
+  const [result, resetPassword] = useUserResetPasswordMutation();
+  const { error, fetching } = result;
 
+  const router = useRouter();
+  const { token } = router.query;
 
-   // Reset Password API call
-
-   const [resetPass, setResetPass] = useUserResetPasswordMutation();
-   const { error, fetching } = resetPass;
-   console.log(error);
-   const onFinish = async (values: object) => {
-     let payload = values;
-     try {
-       const res = await setResetPass({
-         input: payload as string,
-       });
-     } catch (err) {
-       console.log(err);
-     }
-   };
+  async function onConfirmPassword(val: object) {
+    let payload = { password: val.password, password_token: token };
+    try {
+      const res = await resetPassword({
+        input: payload as ResetPasswordInput,
+      });
+      if (res.data && !res.error) {
+        Router.replace({
+          pathname: "/login",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <Container className="login-bg w-full">
@@ -54,30 +57,11 @@ function ConfirmPassword() {
               Enter your new password
             </h5>
             <div className="mt-5">
-              <ConfirmPasswordForm onFinish={()=> null} />
+              <ConfirmPasswordForm
+                onFinish={(val) => onConfirmPassword(val)}
+                loading={fetching}
+              />
             </div>
-            <Form.Item>
-              <div className="flex justify-center mt-8">
-                <span className="ml-2">
-                  <Link href="/login">
-                    <div className="inline-flex items-center">
-                      <div className="mb-0 mr-3">
-                        <Image
-                          className="left-arrow-icon mx-auto"
-                          height={16}
-                          width={16}
-                          src="/assets/icon/arrow-left.svg"
-                          alt=""
-                        />
-                        <span className="cursor-pointer text-primary ml-3">
-                          Back to login
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </span>
-              </div>
-            </Form.Item>
           </div>
         </div>
       </div>
