@@ -16,6 +16,7 @@ import PersonalInfo from "./components/PersonalInfo/PersonalInfo";
 import { date } from "../../../../../common/utils";
 import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
+import successSmall from "../../../../../../public/assets/icon/success-small.svg"
 
 const { TabPane } = Tabs;
 const { confirm } = Modal;
@@ -157,7 +158,7 @@ function Signup() {
                                 className="success-small mx-auto"
                                 height={22}
                                 width={22}
-                                src="/assets/icon/success-small.svg"
+                                src={successSmall}
                               />
                             }
                             style={{ backgroundColor: "#30cec2" }}
