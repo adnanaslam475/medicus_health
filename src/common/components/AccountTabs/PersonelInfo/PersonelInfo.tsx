@@ -113,7 +113,7 @@ const PersonalInfo = () => {
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Maritial Status</div>
+                  <div className="w-1/2 text-gray-1">Marital Status</div>
                   <div className="w-1/2 text-gray-1">N/A</div>
                 </div>
               </li>
