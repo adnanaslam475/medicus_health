@@ -227,10 +227,12 @@ label.ant-radio-wrapper {
 }
 
 .checkbox-dir-col .ant-checkbox-group {
-  
   display: flex;
   flex-flow: column;
   flex-direction: column;
+  label {
+    color: #9295af !important;
+  }
 }
 
 .notificationMenuCover {
