@@ -49,14 +49,14 @@ const HealthQuestionnaryData: Questions = {
   },
   q3: {
     name: "radio_drug",
-    label: "Do you take any Recreational drugs?",
+    label: "Do you take any recreational drugs?",
     type: "radio",
     ans: "",
     option: ["yes", "no"],
     q: {
       name: "check_drug",
       label:
-        "Please list any current medical conditions and/or past medical conditions you have experienced. (You can select multiple)*",
+        "Please list any current medical conditions and/or past medical conditions you have experienced. (You can select multiple) *",
       type: "checkbox",
       ans: "",
       option: ["Stroke", "Asthma", "Cancer", "Diabetes", "Others"],
