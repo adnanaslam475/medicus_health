@@ -9,7 +9,10 @@ import {
   ResetPasswordInput,
   useUserResetPasswordMutation,
 } from "../../../../../generated/graphql";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
+
+// type : {password : string
+//   replace: string}
 
 function ConfirmPassword() {
   // Reset Password API call
@@ -20,8 +23,12 @@ function ConfirmPassword() {
   const router = useRouter();
   const { token } = router.query;
 
-  async function onConfirmPassword(val: object) {
-    let payload = { password: val.password, password_token: token };
+  async function onConfirmPassword(data: { password: string }) {
+    const payload = {
+      password: data.password,
+      password_token: token,
+    };
+
     try {
       const res = await resetPassword({
         input: payload as ResetPasswordInput,
@@ -58,7 +65,7 @@ function ConfirmPassword() {
             </h5>
             <div className="mt-5">
               <ConfirmPasswordForm
-                onFinish={(val) => onConfirmPassword(val)}
+                onFinish={(data) => onConfirmPassword(data)}
                 loading={fetching}
               />
             </div>

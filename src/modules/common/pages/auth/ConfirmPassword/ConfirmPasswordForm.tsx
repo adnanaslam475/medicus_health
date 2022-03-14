@@ -1,7 +1,7 @@
 import { Button, Form, Input } from "antd";
 
 type Props = {
-  onFinish: (values: any) => void;
+  onFinish: (values: { password: string }) => void;
   loading: boolean;
 };
 
@@ -10,7 +10,7 @@ function ConfirmPasswordForm({ onFinish, loading }: Props) {
     <Form
       layout="vertical"
       initialValues={{ remember: true }}
-      onFinish={onFinish}
+      onFinish={({ password }) => onFinish({ password })}
       autoComplete="off"
     >
       <Form.Item

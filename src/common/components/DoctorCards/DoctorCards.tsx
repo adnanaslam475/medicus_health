@@ -27,15 +27,10 @@ function DoctorCard() {
           <div className="inline-block sm:w-full md:w-4/5">
             <div className="flex items-center">
               <h2 className="mb-0 mr-3">
-                {doctorProfiles?.map((el, i) => {
-                  return (
-                    <div key={i} value={el?.user?.id}>
-                      {el?.user?.first_name}
-                      
-                    </div>
-                  );
-                })}       
-                Dr. Paul Wallner         
+                {doctorProfiles?.map(({ user }, i) => {
+                  return <div key={user?.id}>{user?.first_name}</div>;
+                })}
+                Dr. Paul Wallner
               </h2>
               <div className="flagAvatar engFlag mx-1">
                 <Image src={engFlag} alt="engFlag" width={35} height={35} />
