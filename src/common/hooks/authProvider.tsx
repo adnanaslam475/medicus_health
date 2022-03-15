@@ -88,6 +88,9 @@ function AuthProvider({ children }: any) {
   } else if (router.pathname === "/user/resetPassword") {
     return children;
   } else {
+    if (authorized) {
+      return children;
+    }
     return PageLoader;
   }
 }
