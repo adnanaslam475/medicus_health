@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { User } from "../../generated/graphql";
+import { PageLoader } from "../components/PageLoader/PageLoader";
 import { getRole, getUserData } from "../utils/userData";
 
 type userAuth = {
@@ -87,7 +88,7 @@ function AuthProvider({ children }: any) {
   } else if (router.pathname === "/user/resetPassword") {
     return children;
   } else {
-    return "page not found 404";
+    return PageLoader;
   }
 }
 
