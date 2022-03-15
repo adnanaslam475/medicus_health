@@ -8,7 +8,7 @@ import {
   LoginUserInput,
   useLoginMutation,
 } from "../../../../../generated/graphql";
-import { getToken } from "../../../../../common/utils/userData";
+import { getRole, getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 
 function Login() {
@@ -17,9 +17,16 @@ function Login() {
 
   useEffect(() => {
     const token = getToken();
+    const role = getRole();
     if (token) {
       setAuthToken(token);
-      router.push("/");
+      if (role === "Doctor") {
+        router.push("/doctor/dashboard");
+      } else if (role === "User") {
+        router.push("/patient/dashboard");
+      } else if (role === "Admin") {
+        router.push("/admin/dashboard");
+      }
     } else {
       setAuthToken(false);
     }
@@ -39,11 +46,21 @@ function Login() {
         userPayload.remember = values.remember;
         localStorage.setItem(
           "loggedInUserData",
-          JSON.stringify(userPayload as any)
+          JSON.stringify(userPayload)
         );
-        Router.replace({
-          pathname: "/",
-        });
+        if (userPayload.user.role === "Doctor") {
+          Router.replace({
+            pathname: "/doctor/dashboard",
+          });
+        } else if (userPayload.user.role === "User") {
+          Router.replace({
+            pathname: "/patient/dashboard",
+          });
+        } else if (userPayload.user.role === "Admin") {
+          Router.replace({
+            pathname: "/admin/dashboard",
+          });
+        }
       }
     } catch (err) {
       console.log(err);
