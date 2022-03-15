@@ -1,15 +1,16 @@
 import { Button, Form, Input } from "antd";
 
 type Props = {
-  onFinish: (values: any) => void;
+  onFinish: (values: { password: string }) => void;
+  loading: boolean;
 };
 
-function ConfirmPasswordForm({ onFinish }: Props) {
+function ConfirmPasswordForm({ onFinish, loading }: Props) {
   return (
     <Form
       layout="vertical"
       initialValues={{ remember: true }}
-      onFinish={onFinish}
+      onFinish={({ password }) => onFinish({ password })}
       autoComplete="off"
     >
       <Form.Item
@@ -28,13 +29,27 @@ function ConfirmPasswordForm({ onFinish }: Props) {
       <Form.Item
         label="Confirm Password"
         name="confirmpassword"
-        rules={[{ required: false, message: "Confirm password!" }]}
+        rules={[
+          { required: false, message: "Confirm password!" },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue("password") === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(
+                new Error("The two passwords that you entered do not match!")
+              );
+            },
+          }),
+        ]}
       >
         <Input.Password />
       </Form.Item>
 
       <Form.Item>
         <Button
+          loading={loading}
+          disabled={loading}
           className="ant-btn ant-btn-secondary ant-btn-block nb-button"
           type="primary"
           htmlType="submit"

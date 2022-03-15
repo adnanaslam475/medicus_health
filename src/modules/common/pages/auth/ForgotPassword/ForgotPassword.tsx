@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Alert } from "antd";
 import Image from "next/image";
 import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import Container from "../../../../../common/components/Container/Container";
 
+import { useUserForgotPasswordMutation } from "../../../../../generated/graphql";
+
 const ForgotPassword = () => {
+  const [form] = Form.useForm();
   const router = useRouter();
   const [authToken, setAuthToken] = useState(false);
 
@@ -21,8 +24,26 @@ const ForgotPassword = () => {
     }
   }, []);
 
-  const onFinish = async (values: object) => {
-    console.log("Success:", values);
+  // Forgot Password API call
+
+  const [forgotPass, setForgotPass] = useUserForgotPasswordMutation();
+  const { error, fetching, data } = forgotPass;
+  
+  
+  const onFinish = async (value: { email: string })  => {
+    let payload = value.email;
+    try {
+      const res = await setForgotPass({
+        input: payload as string,
+      });
+      if (!error) {
+        form.setFieldsValue({
+          email: null,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -54,6 +75,7 @@ const ForgotPassword = () => {
               </h5>
               <div className="mt-5">
                 <Form
+                  form={form}
                   layout="vertical"
                   name="basic"
                   initialValues={{ remember: true }}
@@ -67,7 +89,7 @@ const ForgotPassword = () => {
                     className="mb-1"
                     rules={[
                       {
-                        required: false,
+                        required: true,
                         message: "Please enter your email address",
                       },
                       {
@@ -81,6 +103,8 @@ const ForgotPassword = () => {
 
                   <Form.Item>
                     <Button
+                      loading={fetching}
+                      disabled={fetching}
                       className="ant-btn ant-btn-secondary ant-btn-block nb-button"
                       type="primary"
                       htmlType="submit"
@@ -88,6 +112,23 @@ const ForgotPassword = () => {
                       Reset Password
                     </Button>
                   </Form.Item>
+
+                  {error?.graphQLErrors[0].message && (
+                    <Alert
+                      className=""
+                      message={error?.graphQLErrors[0].message}
+                      type="error"
+                    />
+                  )}
+                  {data?.UserForgotPassword && (
+                    <Alert
+                      className=""
+                      message={
+                        "Your password reset link has been sent on your email please check!"
+                      }
+                      type="success"
+                    />
+                  )}
                 </Form>
               </div>
               <Form.Item>

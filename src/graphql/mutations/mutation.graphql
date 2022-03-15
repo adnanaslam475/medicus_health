@@ -27,3 +27,16 @@ mutation login($input: LoginUserInput!) {
     }
   }
 }
+
+mutation UserForgotPassword($input: String!){
+  UserForgotPassword(email: $input){
+    id
+  }
+}
+
+mutation UserResetPassword($input: ResetPasswordInput!){
+  	UserResetPassword(resetPasswordInput: $input){
+      id
+    }
+  }
+

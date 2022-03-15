@@ -223,13 +223,16 @@ export default function PersonalInfo({ onFinish }: props) {
             }}
             placeholder="Country"
           >
-            {countries?.map((el, i) => {
+            {React.Children.toArray(
+              countries?.map((el, i) => {
               return (
-                <Select.Option key={i} value={el?.id}>
+                <Select.Option value={el?.id}>
                   {el?.country_name}
                 </Select.Option>
               );
-            })}
+            })
+            )}
+            
           </Select>
         </Form.Item>
       </div>
@@ -255,13 +258,16 @@ export default function PersonalInfo({ onFinish }: props) {
             }}
             placeholder="State"
           >
-            {getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
+            {React.Children.toArray(
+            getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
               return (
-                <Select.Option key={i} value={el.id}>
+                <Select.Option value={el.id}>
                   {el?.state_name}
                 </Select.Option>
               );
-            })}
+            })
+            )}
+            
           </Select>
         </Form.Item>
       </div>
@@ -279,13 +285,13 @@ export default function PersonalInfo({ onFinish }: props) {
           ]}
         >
           <Select placeholder="City">
-            {getCityByState?.data?.getCitiesByState?.map((el, i) => {
-              return (
-                <Select.Option key={i} value={el.id}>
-                  {el?.city_name}
-                </Select.Option>
-              );
-            })}
+            {React.Children.toArray(
+              getCityByState?.data?.getCitiesByState?.map((el, i) => {
+                return (
+                  <Select.Option value={el.id}>{el?.city_name}</Select.Option>
+                );
+              })
+            )}
           </Select>
         </Form.Item>
 
