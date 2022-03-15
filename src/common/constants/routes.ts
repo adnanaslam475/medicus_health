@@ -1,4 +1,4 @@
-const patientRoutes = [
+export const PATIENT_ROUTES = [
   { name: "Appointments", route: "/patient/appointments" },
   { name: "Upcoming", route: "/patient/appointments/upcoming" },
   { name: "Requested", route: "/patient/appointments/requested" },
@@ -8,14 +8,12 @@ const patientRoutes = [
   { name: "Account", route: "/patient/account" },
 ];
 
-const adminRoutes = [
+export const ADMIN_ROUTES = [
   { name: "Dashboard", route: "/admin/dashboard" },
   { name: "Admin Listing", route: "/admin/listing" },
 ];
 
-const doctorRoutes = [
+export const DOCTOR_ROUTES = [
   { name: "Dashboard", route: "/doctor/dashboard" },
   { name: "Doctor Listing", route: "/doctor/listing" },
 ];
-
-export { patientRoutes, adminRoutes, doctorRoutes };
