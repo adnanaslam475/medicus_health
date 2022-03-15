@@ -8,6 +8,8 @@ import _classes from "./SideMenu.module.scss";
 
 function AdminSideMenu() {
   const [collapsed, setCollapsed] = useState(false);
+
+  
   return (
     <Layout.Sider
       onBreakpoint={(broken) => setCollapsed(broken)}

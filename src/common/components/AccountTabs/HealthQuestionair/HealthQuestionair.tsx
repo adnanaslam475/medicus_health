@@ -12,7 +12,7 @@ const HealthQuestionair = () => {
     <>
       <div className="w-1/2">
       <div className="flex justify-between items-center">
-        <div className="flex w-1/2 justify-start items-center p-3">
+        <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
           <Avatar
             src={
               <Image
@@ -34,7 +34,7 @@ const HealthQuestionair = () => {
       </div>
       </div>
     </>
-  );
+  )
 };
 
 export default HealthQuestionair;
