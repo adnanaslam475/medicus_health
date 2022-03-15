@@ -124,6 +124,7 @@ export default function PersonalInfo({ onFinish }: props) {
         >
           <DatePicker
             placeholder="mm/dd/yy"
+            format={"MM-DD-YYYY"}
             className="w-full"
             disabledDate={disabledDate}
           />
@@ -214,6 +215,10 @@ export default function PersonalInfo({ onFinish }: props) {
           ]}
         >
           <Select
+            showSearch
+            filterOption={(input, country: any) =>
+              country.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
             onChange={(e) => {
               selectCountryId(e);
               form.setFieldsValue({
@@ -225,14 +230,13 @@ export default function PersonalInfo({ onFinish }: props) {
           >
             {React.Children.toArray(
               countries?.map((el, i) => {
-              return (
-                <Select.Option value={el?.id}>
-                  {el?.country_name}
-                </Select.Option>
-              );
-            })
+                return (
+                  <Select.Option value={el?.id}>
+                    {el?.country_name}
+                  </Select.Option>
+                );
+              })
             )}
-            
           </Select>
         </Form.Item>
       </div>
@@ -250,6 +254,10 @@ export default function PersonalInfo({ onFinish }: props) {
           ]}
         >
           <Select
+          showSearch
+          filterOption={(input, state: any) =>
+            state.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
             onChange={(e) => {
               selectStateId(e);
               form.setFieldsValue({
@@ -259,15 +267,12 @@ export default function PersonalInfo({ onFinish }: props) {
             placeholder="State"
           >
             {React.Children.toArray(
-            getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
-              return (
-                <Select.Option value={el.id}>
-                  {el?.state_name}
-                </Select.Option>
-              );
-            })
+              getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
+                return (
+                  <Select.Option value={el.id}>{el?.state_name}</Select.Option>
+                );
+              })
             )}
-            
           </Select>
         </Form.Item>
       </div>
@@ -284,7 +289,11 @@ export default function PersonalInfo({ onFinish }: props) {
             },
           ]}
         >
-          <Select placeholder="City">
+          <Select placeholder="City"
+          showSearch
+          filterOption={(input, city: any) =>
+            city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }>
             {React.Children.toArray(
               getCityByState?.data?.getCitiesByState?.map((el, i) => {
                 return (
