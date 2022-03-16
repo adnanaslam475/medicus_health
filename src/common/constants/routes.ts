@@ -4,6 +4,7 @@ export const PATIENT_ROUTES = [
   { name: "Requested", route: "/patient/appointments/requested" },
   { name: "Cancelled", route: "/patient/appointments/cancelled" },
   { name: "History", route: "/patient/appointments/history" },
+  { name: "Physicians", route: "/patient/physicians" },
   { name: "Messages", route: "/patient/messages" },
   { name: "Account", route: "/patient/account" },
 ];
