@@ -1,21 +1,26 @@
-
 export const PATIENT_ROUTES = [
-  { name: "Appointments", route: "/patient/appointments" },
-  { name: "Upcoming", route: "/patient/appointments/upcoming" },
-  { name: "Requested", route: "/patient/appointments/requested" },
-  { name: "Cancelled", route: "/patient/appointments/cancelled" },
-  { name: "History", route: "/patient/appointments/history" },
-  { name: "Physicians", route: "/patient/physicians" },
-  { name: "Messages", route: "/patient/messages" },
-  { name: "Account", route: "/patient/account" },
+  {
+    name: "Appointments",
+    route: "/patient/appointments",
+    submenu: [
+      { name: "Upcoming", route: "/patient/appointments/upcoming" },
+      { name: "Requested", route: "/patient/appointments/requested" },
+      { name: "Cancelled", route: "/patient/appointments/cancelled" },
+      { name: "History", route: "/patient/appointments/history" },
+    ],
+  },
+
+  { name: "Physicians", route: "/patient/physicians", submenu: []},
+  { name: "Messages", route: "/patient/messages" , submenu: [] },
+  { name: "Account", route: "/patient/account" , submenu: []},
 ];
 
 export const ADMIN_ROUTES = [
-  { name: "Dashboard", route: "/admin/dashboard" },
-  { name: "Admin Listing", route: "/admin/listing" },
+  { name: "Dashboard", route: "/admin/dashboard" , submenu: []},
+  { name: "Admin Listing", route: "/admin/listing" , submenu: []},
 ];
 
 export const DOCTOR_ROUTES = [
-  { name: "Dashboard", route: "/doctor/dashboard" },
-  { name: "Doctor Listing", route: "/doctor/listing" },
+  { name: "Dashboard", route: "/doctor/dashboard" , submenu: []},
+  { name: "Doctor Listing", route: "/doctor/listing" , submenu: []},
 ];

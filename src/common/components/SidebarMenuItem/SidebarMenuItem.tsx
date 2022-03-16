@@ -37,55 +37,98 @@ function SidebarMenuItem() {
     >
       {getRole() === "User" &&
         PATIENT_ROUTES?.map((el, i) => {
-          return (
-            //       <Menu.SubMenu
-            //   className={_classes["side-bar-submenu-item"]}
-            //   key="sub1"
-            //   icon={<AppointmentIcon className={_classes["sidebar-icon-hover"]} />}
-            //   title="Appointments"
-            // >
-            //   <Menu.Item key="/appointments/upcoming">
-            //     <Link href="/appointments/upcoming">Upcoming</Link>
-            //   </Menu.Item>
-
-            //   <Menu.Item key="/appointments/requested">
-            //     <Link href="/appointments/requested">Requested</Link>
-            //   </Menu.Item>
-
-            //   <Menu.Item key="/appointments/cancelled">
-            //     <Link href="/appointments/cancelled">Cancelled</Link>
-            //   </Menu.Item>
-
-            //   <Menu.Item key="/appointments/history">
-            //     <Link href="/appointments/history">History</Link>
-            //   </Menu.Item>
-            // </Menu.SubMenu>
-
-            // <Menu.Item
-            //   className={_classes["side-bar-submenu-item"]}
-            //   key="/physicians"
-            //   icon={<PhysicianIcon className={_classes["sidebar-icon-hover"]} />}
-            // >
-            //   <Link href="/physicians">Physicians</Link>
-            // </Menu.Item>
-
-            <Menu.Item key={el.route} icon={IconsList[i]}>
+          return el.submenu.length > 0 ? (
+            <Menu.SubMenu
+              className={_classes["side-bar-submenu-item"]}
+              key="sub1"
+              icon={
+                <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
+              }
+              title="Appointments"
+            >
+              {el.submenu?.map((el2, i2) => {
+                return (
+                  <Menu.Item
+                    key={el2.route}
+                    // icon={IconsList[i2]}
+                  >
+                    <Link href={el2.route}>{el2.name}</Link>
+                  </Menu.Item>
+                );
+              })}
+            </Menu.SubMenu>
+          ) : (
+            <Menu.Item
+              key={el.route}
+              className={_classes["side-bar-submenu-item"]}
+              icon={IconsList[i]}
+            >
               <Link href={el.route}>{el.name}</Link>
             </Menu.Item>
           );
         })}
       {getRole() === "Doctor" &&
         ADMIN_ROUTES?.map((el) => {
-          return (
-            <Menu.Item key={el.route}>
+          return el.submenu.length > 0 ? (
+            <Menu.SubMenu
+              className={_classes["side-bar-submenu-item"]}
+              key="sub1"
+              icon={
+                <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
+              }
+              title="Appointments"
+            >
+              {el.submenu?.map((el2, i2) => {
+                return (
+                  <Menu.Item
+                    key={el2.route}
+                    className={_classes["side-bar-submenu-item"]}
+                    // icon={IconsList[i2]}
+                  >
+                    <Link href={el2.route}>{el2.name}</Link>
+                  </Menu.Item>
+                );
+              })}
+            </Menu.SubMenu>
+          ) : (
+            <Menu.Item
+              key={el.route}
+              icon={IconsList[i]}
+              className={_classes["side-bar-submenu-item"]}
+            >
               <Link href={el.route}>{el.name}</Link>
             </Menu.Item>
           );
         })}
       {getRole() === "Admin" &&
         DOCTOR_ROUTES?.map((el) => {
-          return (
-            <Menu.Item key={el.route}>
+          return el.submenu.length > 0 ? (
+            <Menu.SubMenu
+              className={_classes["side-bar-submenu-item"]}
+              key="sub1"
+              icon={
+                <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
+              }
+              title="Appointments"
+            >
+              {el.submenu?.map((el2, i2) => {
+                return (
+                  <Menu.Item
+                    key={el2.route}
+                    // icon={IconsList[i2]}
+                    className={_classes["side-bar-submenu-item"]}
+                  >
+                    <Link href={el2.route}>{el2.name}</Link>
+                  </Menu.Item>
+                );
+              })}
+            </Menu.SubMenu>
+          ) : (
+            <Menu.Item
+              key={el.route}
+              icon={IconsList[i]}
+              className={_classes["side-bar-submenu-item"]}
+            >
               <Link href={el.route}>{el.name}</Link>
             </Menu.Item>
           );

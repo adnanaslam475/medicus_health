@@ -33,11 +33,11 @@ function ConfirmPassword() {
       const res = await resetPassword({
         input: payload as ResetPasswordInput,
       });
-      if (res.data && !res.error) {
-        Router.replace({
-          pathname: "/login",
-        });
-      }
+      // if (res.data && !res.error) {
+      //   Router.replace({
+      //     pathname: "/login",
+      //   });
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -67,6 +67,7 @@ function ConfirmPassword() {
               <ConfirmPasswordForm
                 onFinish={(data) => onConfirmPassword(data)}
                 loading={fetching}
+                response={error}
               />
             </div>
           </div>

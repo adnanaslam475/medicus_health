@@ -1,11 +1,12 @@
-import { Button, Form, Input } from "antd";
+import { Alert, Button, Form, Input } from "antd";
 
 type Props = {
   onFinish: (values: { password: string }) => void;
   loading: boolean;
+  response: any;
 };
 
-function ConfirmPasswordForm({ onFinish, loading }: Props) {
+function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
   return (
     <Form
       layout="vertical"
@@ -57,6 +58,22 @@ function ConfirmPasswordForm({ onFinish, loading }: Props) {
           Confirm Password
         </Button>
       </Form.Item>
+      {response.error?.graphQLErrors[0].message && (
+        <Alert
+          className=""
+          message={response.error?.graphQLErrors[0].message}
+          type="error"
+        />
+      )}
+      {!response.error && (
+        <Alert
+          className=""
+          message={
+            "Your password has been reset!"
+          }
+          type="success"
+        />
+      )}
     </Form>
   );
 }
