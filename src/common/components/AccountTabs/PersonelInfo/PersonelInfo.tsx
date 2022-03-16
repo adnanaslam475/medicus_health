@@ -83,6 +83,13 @@ const PersonalInfo = () => {
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
+                  <div className="w-1/2 text-gray-1">Contact Number</div>
+                  <div className="w-1/2 text-secondary">405 395 333</div>
+                </div>
+              </li>
+
+              <li>
+                <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Email Address</div>
                   <div className="w-1/2 text-secondary">
                     markmanson@gmail.com
@@ -106,10 +113,31 @@ const PersonalInfo = () => {
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
+                  <div className="w-1/2 text-gray-1">State</div>
+                  <div className="w-1/2 text-secondary">Utaho</div>
+                </div>
+              </li>
+
+              <li>
+                <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">City</div>
                   <div className="w-1/2 text-secondary">Dallas</div>
                 </div>
               </li>
+
+              <li>
+                <div className="flex w-full  border-b border-gray-3 p-4">
+                  <div className="w-1/2 text-gray-1">Postal Code</div>
+                  <div className="w-1/2 text-secondary">98439</div>
+                </div>
+              </li>
+
+              <li>
+                <div className="flex w-full  border-b border-gray-3 p-4">
+                  <div className="w-1/2 text-gray-1">Street Address</div>
+                  <div className="w-1/2 text-secondary">5456 YuanTabu , 5th Floor, Suit 2</div>
+                </div>
+              </li>              
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
