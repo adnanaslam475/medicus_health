@@ -19,7 +19,7 @@ function DoctorCard() {
         <div className="lg:w-4/6 flex-none sm:flex">
           <div className="docAvatarCover pr-3">
             <Avatar
-              size={88}
+              size={86}
               src="./assets/images/doc-pic.png"
               className=""
             ></Avatar>
