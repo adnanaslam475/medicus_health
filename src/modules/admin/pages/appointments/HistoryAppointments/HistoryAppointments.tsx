@@ -9,8 +9,8 @@ const { RangePicker } = DatePicker;
 function CancelledAppointment() {
   return (
     <AppLayout>
-      <div className="w-full py-5">
-        <h2 className="mb-3">History</h2>
+      <div className="w-full">
+        <h2 className="mb-4">History</h2>
         <div className="w-3/5 mb-10">
           <div className="flex items-center">
             <span className="mx-3">Filter</span>

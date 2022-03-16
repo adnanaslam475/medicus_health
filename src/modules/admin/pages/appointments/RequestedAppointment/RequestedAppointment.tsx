@@ -7,9 +7,9 @@ import AppointmentCard from "../../../../../common/components/AppointmentCard";
 function RequestedAppointment() {
   return (
     <AppLayout>
-      <div className="w-full py-5">
+      <div className="w-full">
         <div className="flex items-center justify-between">
-          <h2 className="mb-3">Requested Appointments</h2>
+          <h2 className="mb-4">Requested Appointments</h2>
           <Button type="primary" size="large">
             Request an Appointment
           </Button>

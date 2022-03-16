@@ -7,9 +7,9 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 function physicians() {
   return (
     <AppLayout>
-      <div className="w-full py-5">
+      <div className="w-full">
         <div className="lg:w-4/5 md:4/5 mx-auto">
-          <h2 className="mb-3">Physicians</h2>
+          <h2 className="mb-4">Physicians</h2>
           <div className="w-full">
           <DoctorCard />
           </div>
