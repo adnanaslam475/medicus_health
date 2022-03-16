@@ -68,7 +68,7 @@ function SidebarMenuItem() {
           );
         })}
       {getRole() === "Doctor" &&
-        ADMIN_ROUTES?.map((el) => {
+        ADMIN_ROUTES?.map((el,i) => {
           return el.submenu.length > 0 ? (
             <Menu.SubMenu
               className={_classes["side-bar-submenu-item"]}
@@ -101,7 +101,7 @@ function SidebarMenuItem() {
           );
         })}
       {getRole() === "Admin" &&
-        DOCTOR_ROUTES?.map((el) => {
+        DOCTOR_ROUTES?.map((el, i) => {
           return el.submenu.length > 0 ? (
             <Menu.SubMenu
               className={_classes["side-bar-submenu-item"]}
