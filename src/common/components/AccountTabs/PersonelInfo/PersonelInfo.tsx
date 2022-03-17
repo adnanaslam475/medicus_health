@@ -69,7 +69,11 @@ const PersonalInfo = () => {
             )}
           </div>
         </div>
-        {isEdit ? <PersonalInfoDetail /> : <PersonalInfoList />}
+        {isEdit ? (
+          <PersonalInfoDetail onFinish={() => null} loading={true} />
+        ) : (
+          <PersonalInfoList />
+        )}
       </div>
     </>
   );

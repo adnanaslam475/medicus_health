@@ -4,7 +4,7 @@ import DoctorProfileCard from "../../../../../common/components/DoctorCardsDetai
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 
 
-function physiciansDetail() {
+function PhysiciansDetail() {
     return (
         <AppLayout>
         <div className="w-full">
@@ -18,4 +18,4 @@ function physiciansDetail() {
         </AppLayout>
       );
 }
-export default physiciansDetail;
+export default PhysiciansDetail;
