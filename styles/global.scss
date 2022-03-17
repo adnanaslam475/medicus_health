@@ -6,7 +6,7 @@
 
 // for default button
 button.ant-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -14,7 +14,6 @@ button.ant-btn {
 // for all tags
 .ant-tag {
   padding-left: 1.25rem !important;
-  // padding-left: 20px !important;
   padding-right: 1.25rem !important;
   border: none !important;
 }
@@ -122,14 +121,10 @@ label.ant-radio-wrapper {
   }
 }
 
-
-
-
-
-.profileTabs {
-   .ant-tabs {
+.profile-tabs {
+  .ant-tabs {
     .ant-tabs-nav {
-      &:before{
+      &:before {
         border-bottom: 0px !important;
       }
       .ant-tabs-nav-wrap {
@@ -145,10 +140,9 @@ label.ant-radio-wrapper {
               border-bottom-left-radius: 5px;
               border-bottom-right-radius: 5px;
             }
-            .ant-tabs-tab-btn{
+            .ant-tabs-tab-btn {
               font-size: 14px !important;
             }
-           
           }
           .ant-tabs-tab-active {
             background-color: #1a82fe;
@@ -172,9 +166,9 @@ label.ant-radio-wrapper {
   }
 }
 
-.ant-modal-footer button {
-  display: inline-block;
-}
+// .ant-modal-footer button {
+//   display: inline-block;
+// }
 
 @layer base {
   body {
@@ -243,7 +237,7 @@ label.ant-radio-wrapper {
   }
 }
 
-.notificationMenuCover {
+.notification-menu-cover {
   max-width: 300px;
   max-height: 300px;
   overflow: auto;
@@ -292,4 +286,3 @@ label.ant-radio-wrapper {
 .ant-checkbox-checked::after {
   border-color: transparent !important;
 }
-

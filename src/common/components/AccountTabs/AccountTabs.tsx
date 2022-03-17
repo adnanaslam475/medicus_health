@@ -26,7 +26,7 @@ const AccountTabs = () => {
     <>      
 
       <div>
-        <div className="card-container profileTabs">
+        <div className="card-container profile-tabs">
           <Tabs type="card">
             <TabPane tab="Personal Information" key="1" className="">
               <PersonalInfo />

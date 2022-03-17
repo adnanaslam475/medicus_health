@@ -23,7 +23,7 @@ const AppHeader = () => {
   };
 
   const notificationMenu = (
-      <div className="notificationMenuCover border border-gray-3 rounded">
+      <div className="notification-menu-cover border border-gray-3 rounded">
         <div className="px-3 py-2 bg-white">
           {/* <Menu.Item key="0"> */}
           <div className="flex border-b border-gray-4 items-start mb-3">

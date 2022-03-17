@@ -67,7 +67,7 @@ function SidebarMenuItem() {
             </Menu.Item>
           );
         })}
-      {getRole() === "Doctor" &&
+      {getRole() === "Admin" &&
         ADMIN_ROUTES?.map((el, i) => {
           return el.submenu && el.submenu.length > 0 ? (
             <Menu.SubMenu
@@ -100,7 +100,7 @@ function SidebarMenuItem() {
             </Menu.Item>
           );
         })}
-      {getRole() === "Admin" &&
+      {getRole() === "Doctor" &&
         DOCTOR_ROUTES?.map((el, i) => {
           return el.submenu && el.submenu.length > 0 ? (
             <Menu.SubMenu
