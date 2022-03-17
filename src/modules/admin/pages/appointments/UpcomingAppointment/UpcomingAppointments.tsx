@@ -9,9 +9,9 @@ import { Button } from "antd";
 function UpcomingAppointments() {
   return (
     <AppLayout>
-      <div className="w-full py-5">
+      <div className="w-full">
         <div className="flex items-center justify-between">
-          <h2 className="mb-3">Upcoming Appointments</h2>
+          <h2 className="mb-4">Upcoming Appointments</h2>
           <Button type="primary" size="large">
             Request an Appointment
           </Button>

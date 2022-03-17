@@ -14,34 +14,33 @@ function DoctorCard() {
   const { doctorProfiles } = data || {};
 
   return (
-    <Card className={_classes["doctorCard"]}>
-      <div className="flex lg:flex-row flex-col md:flex-wrap">
-        <div className="card-body lg:w-4/6 md:w-full flex flex-col md:flex-row lg:flex-row  md:items-start justify-start sm:justify-center md:text-left text-center">
-          <div className="docAvatarCover inline-block sm:w-full md:w-1/5 self-auto">
+    <Card className={`${_classes["doctorCard"]} rounded-xl`}>
+      <div className="flex-none lg:flex">
+        <div className="lg:w-4/6 flex-none sm:flex">
+          <div className="docAvatarCover pr-3">
             <Avatar
-              size={88}
+              size={86}
               src="./assets/images/doc-pic.png"
               className=""
             ></Avatar>
           </div>
-          <div className="inline-block sm:w-full md:w-4/5">
-            <div className="flex items-center">
-              <h2 className="mb-0 mr-3">
-                {doctorProfiles?.map(({ user }, i) => {
-                  return <div key={user?.id}>{user?.first_name}</div>;
-                })}
-                Dr. Paul Wallner
+          <div className="lg:pr-5">
+            <div className="flex-row md:flex">
+              <h2 className="mb-0 mr-3 pr-4">
+                <span>Dr. Paul Wallner</span>
               </h2>
-              <div className="flagAvatar engFlag mx-1">
-                <Image src={engFlag} alt="engFlag" width={35} height={35} />
-              </div>
-              <div className="flagAvatar espanolFlag mx-1">
-                <Image
-                  src={espanolFlag}
-                  alt="espanolFlag"
-                  width={35}
-                  height={35}
-                />
+              <div className="flex">
+                <div className="flagAvatar engFlag pr-2">
+                  <Image src={engFlag} alt="engFlag" width={25} height={25} />
+                </div>
+                <div className="flagAvatar espanolFlag">
+                  <Image
+                    src={espanolFlag}
+                    alt="espanolFlag"
+                    width={25}
+                    height={25}
+                  />
+                </div>
               </div>
             </div>
             <h5 className="text-primary text-xs">Cardiologist</h5>
@@ -55,21 +54,24 @@ function DoctorCard() {
             <h6 className="text-gray-2 font-normal">
               <span className="text-sm font-rubik">CONDITIONS TREATED </span>
             </h6>
-            <h6 className="">
+            <h6>
               Abnormal heart rythms // Aorta diseas // Conginital heart disease
               Corony artery disease // Heart Attack // Heart Faliure
             </h6>
           </div>
         </div>
-        <div className="card-actionBtns mt-5 lg:mt-0 lg:w-2/6 md:w-full flex justify-start flex-col items-start">
-          <Button type="default" className="mb-3 w-full bg-transparent">
+        <div className="card-actionBtns lg:w-2/6">
+          <Button
+            type="default"
+            className="mb-3 w-full bg-transparent"
+            onClick={() => Router.push("/patient/physicians/profile")}
+          >
             View Profile
           </Button>
-
           <Button
             type="primary"
             icon={<VideoCameraFilled />}
-            className="mb-3 md:w-full sm:w-32"
+            className="w-full"
           >
             <span className="">Request an Appointment</span>
           </Button>
