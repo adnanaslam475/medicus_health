@@ -34,7 +34,6 @@ function AuthProvider({ children }: any) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   function authCheck(url: any) {
     let userData = getUserData();
     setUser(userData);
@@ -44,6 +43,7 @@ function AuthProvider({ children }: any) {
       "/forgotPassword",
       "/user/confirm",
       "/user/resetPassword",
+      "/successScreen",
     ];
     const path = url.split("?")[0];
     if (!userData?.access_token && !publicPaths.includes(path)) {
@@ -86,6 +86,8 @@ function AuthProvider({ children }: any) {
   if (router.pathname === "/user/confirm") {
     return children;
   } else if (router.pathname === "/user/resetPassword") {
+    return children;
+  } else if (router.pathname === "/successScreen") {
     return children;
   } else {
     if (authorized) {
