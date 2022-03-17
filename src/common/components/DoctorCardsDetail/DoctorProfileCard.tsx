@@ -7,7 +7,7 @@ import { VideoCameraFilled } from "@ant-design/icons";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
-import _classes from "./DoctorCard.module.scss";
+import _classes from "./DoctorProfileCard.module.scss";
 import { useDoctorProfilesQuery } from "../../../generated/graphql";
 
 const { Panel } = Collapse;
@@ -17,11 +17,11 @@ function DoctorProfileCard() {
   const { doctorProfiles } = data || {};
 
   return (
-    <Card className={_classes["doctorCard"]}>
+    <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
       <div className="flex-none sm:flex">
         <div className="docAvatarCover pr-3">
           <Avatar
-            size={86}
+            size={150}
             src="./assets/images/doc-pic.png"
             className=""
           ></Avatar>
@@ -45,26 +45,81 @@ function DoctorProfileCard() {
               </div>
             </div>
           </div>
-          <h5 className="text-primary text-xs">Cardiologist</h5>
+          <h5 className="text-primary text-xs mb-1">Cardiologist</h5>
           <span className="text-sm">10+ years of experience</span>
-          <Collapse>
+          <Collapse className="lg:w-4/5">
             <Panel
               key="1"
               header={
-                <div className="custom-Collapse-Header">
-                  <p>Some thing</p>
+                <div className="flex flex-grow justify-between">
+                    <div className="ant-collapse-available">Available Here</div>
+                  <span className="ant-collapse-time">12:00 pm - 09:00 pm</span>
                 </div>
-              }
-            >
-              <p>Some thing</p>
+                }
+                >
+                <div className="ant-collapse-time-body">
+                    <div className="flex flex-grow justify-between mb-2">
+                        <span>Monday</span>
+                        <div>
+                            <span>07:00 AM - 09:00 AM</span>
+                            <span>12:00 PM - 03:00 PM</span>
+                            <span>07:00 PM - 09:00 PM</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-grow justify-between mb-2">
+                        <span>Tuesday</span>
+                        <div>
+                            <span>12:00 PM - 09:00 PM</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-grow justify-between mb-2">
+                        <span>Wednesday</span>
+                        <div>
+                            <span>12:00 PM - 09:00 PM</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-grow justify-between mb-2">
+                        <span>Thursday</span>
+                        <div>
+                            <span>12:00 PM - 09:00 PM</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-grow justify-between mb-2">
+                        <span>Friday</span>
+                        <div>
+                            <span>12:00 PM - 09:00 PM</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-grow justify-between mb-2">
+                        <span>Saturday</span>
+                        <div>
+                            <span>12:00 PM - 09:00 PM</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-grow justify-between mb-2">
+                        <span>Sunday</span>
+                        <div>
+                            <span>12:00 PM - 09:00 PM</span>
+                        </div>
+                    </div>
+                </div>
             </Panel>
           </Collapse>
-          <h6 className="text-gray-2 font-normal">
-            Heads up! This alert needs your attention, but it&apos;s not super
-            imporant
-          </h6>
-          <Divider />
+          <div className="flex mt-3">
+            <Button
+                type="primary"
+                icon={<VideoCameraFilled />}
+            >
+                <span className="">Request an Appointment</span>
+            </Button>
+            <Button
+                className="bg-transparent"
+                icon={<VideoCameraFilled />}
+            >
+            </Button>
 
+          </div>
+          <Divider />
           <h6 className="text-gray-2 font-normal">
             <span className="text-sm font-rubik">CONDITIONS TREATED </span>
           </h6>

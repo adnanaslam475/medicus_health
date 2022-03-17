@@ -50,7 +50,9 @@ function CancelledAppointment() {
           </div>
         </div>
         {/* Transaction History table */}
+        <div className="custom-table-ui">
         <TransactionHistory />
+        </div>
       </div>
     </AppLayout>
   );

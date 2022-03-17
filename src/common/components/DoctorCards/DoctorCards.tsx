@@ -14,7 +14,7 @@ function DoctorCard() {
   const { doctorProfiles } = data || {};
 
   return (
-    <Card className={_classes["doctorCard"]}>
+    <Card className={`${_classes["doctorCard"]} rounded-xl`}>
       <div className="flex-none lg:flex">
         <div className="lg:w-4/6 flex-none sm:flex">
           <div className="docAvatarCover pr-3">
@@ -26,22 +26,22 @@ function DoctorCard() {
           </div>
           <div className="lg:pr-5">
             <div className="flex-row md:flex">
-                <h2 className="mb-0 mr-3 pr-4">
-                  <span>Dr. Paul Wallner</span>
-                </h2>
-                <div className="flex">
-                    <div className="flagAvatar engFlag pr-2">
-                    <Image src={engFlag} alt="engFlag" width={25} height={25} />
-                  </div>
-                  <div className="flagAvatar espanolFlag">
-                    <Image
-                      src={espanolFlag}
-                      alt="espanolFlag"
-                      width={25}
-                      height={25}
-                    />
-                  </div>
+              <h2 className="mb-0 mr-3 pr-4">
+                <span>Dr. Paul Wallner</span>
+              </h2>
+              <div className="flex">
+                <div className="flagAvatar engFlag pr-2">
+                  <Image src={engFlag} alt="engFlag" width={25} height={25} />
                 </div>
+                <div className="flagAvatar espanolFlag">
+                  <Image
+                    src={espanolFlag}
+                    alt="espanolFlag"
+                    width={25}
+                    height={25}
+                  />
+                </div>
+              </div>
             </div>
             <h5 className="text-primary text-xs">Cardiologist</h5>
             <span className="text-sm">10+ years of experience</span>
@@ -61,7 +61,11 @@ function DoctorCard() {
           </div>
         </div>
         <div className="card-actionBtns lg:w-2/6">
-          <Button type="default" className="mb-3 w-full bg-transparent" onClick={() => Router.push("/patient/physicians/profile")}>
+          <Button
+            type="default"
+            className="mb-3 w-full bg-transparent"
+            onClick={() => Router.push("/patient/physicians/profile")}
+          >
             View Profile
           </Button>
           <Button
