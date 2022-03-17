@@ -54,14 +54,14 @@ function DoctorCard() {
             <h6 className="text-gray-2 font-normal">
               <span className="text-sm font-rubik">CONDITIONS TREATED </span>
             </h6>
-            <h6 className="">
+            <h6>
               Abnormal heart rythms // Aorta diseas // Conginital heart disease
               Corony artery disease // Heart Attack // Heart Faliure
             </h6>
           </div>
         </div>
         <div className="card-actionBtns lg:w-2/6">
-          <Button type="default" className="mb-3 w-full bg-transparent">
+          <Button type="default" className="mb-3 w-full bg-transparent" onClick={() => Router.push("/patient/physicians/profile")}>
             View Profile
           </Button>
           <Button
