@@ -79,7 +79,7 @@ const AppHeader = () => {
     
     <Header className={`${_classes["bg-white"]} flex w-full justify-end items-center h-25 px-0 md:px-0`} >
       <div className="w-full flex px-0 justify-between items-center">
-        <div className="w-full md:w-1/2">
+        <div className="w-full ">
           <InfoMessage />
         </div>
         <div className="avatar-and-notification-area inline-flex h-10 items-center text-right justify-end w-full md:w-1/2">

@@ -129,18 +129,26 @@ label.ant-radio-wrapper {
 .profileTabs {
    .ant-tabs {
     .ant-tabs-nav {
+      &:before{
+        border-bottom: 0px !important;
+      }
       .ant-tabs-nav-wrap {
         .ant-tabs-nav-list {
           .ant-tabs-tab {
             color: #8f95a7;
             background-color: transparent;
             border: 0;
+            border-bottom: 1px solid #f0f0f0 !important;
             &:hover {
               background-color: #ebf1ff;
               color: #000;
               border-bottom-left-radius: 5px;
               border-bottom-right-radius: 5px;
             }
+            .ant-tabs-tab-btn{
+              font-size: 14px !important;
+            }
+           
           }
           .ant-tabs-tab-active {
             background-color: #1a82fe;
