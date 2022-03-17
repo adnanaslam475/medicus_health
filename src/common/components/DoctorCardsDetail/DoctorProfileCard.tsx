@@ -1,0 +1,81 @@
+import React from "react";
+import { Card, Button, Divider, Avatar } from "antd";
+import { Collapse } from "antd";
+import Router, { useRouter } from "next/router";
+import Link from "next/link";
+import { VideoCameraFilled } from "@ant-design/icons";
+import Image from "next/image";
+import engFlag from "../../../../public/assets//images/engFlag.png";
+import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
+import _classes from "./DoctorCard.module.scss";
+import { useDoctorProfilesQuery } from "../../../generated/graphql";
+
+const { Panel } = Collapse;
+
+function DoctorProfileCard() {
+  const [{ data }] = useDoctorProfilesQuery();
+  const { doctorProfiles } = data || {};
+
+  return (
+    <Card className={_classes["doctorCard"]}>
+      <div className="flex-none sm:flex">
+        <div className="docAvatarCover pr-3">
+          <Avatar
+            size={86}
+            src="./assets/images/doc-pic.png"
+            className=""
+          ></Avatar>
+        </div>
+        <div className="lg:pr-5">
+          <div className="flex-row md:flex">
+            <h2 className="mb-0 mr-3 pr-4">
+              <span>Dr. Jonathan Green</span>
+            </h2>
+            <div className="flex">
+              <div className="flagAvatar engFlag pr-2">
+                <Image src={engFlag} alt="engFlag" width={25} height={25} />
+              </div>
+              <div className="flagAvatar espanolFlag">
+                <Image
+                  src={espanolFlag}
+                  alt="espanolFlag"
+                  width={25}
+                  height={25}
+                />
+              </div>
+            </div>
+          </div>
+          <h5 className="text-primary text-xs">Cardiologist</h5>
+          <span className="text-sm">10+ years of experience</span>
+          <Collapse>
+            <Panel
+              key="1"
+              header={
+                <div className="custom-Collapse-Header">
+                  <p>Some thing</p>
+                </div>
+              }
+            >
+              <p>Some thing</p>
+            </Panel>
+          </Collapse>
+          <h6 className="text-gray-2 font-normal">
+            Heads up! This alert needs your attention, but it&apos;s not super
+            imporant
+          </h6>
+          <Divider />
+
+          <h6 className="text-gray-2 font-normal">
+            <span className="text-sm font-rubik">CONDITIONS TREATED </span>
+          </h6>
+          <h6>
+            Abnormal heart rythms // Aorta diseas // Conginital heart disease
+            Corony artery disease // Heart Attack // Heart Faliure
+          </h6>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+export default DoctorProfileCard;
