@@ -63,4 +63,20 @@
             }
         }
     }
+    @media screen and (min-width:0px) and  (max-width:640px){
+        :global .ant-btn {
+            width: 100%;
+            &.highlighted-button {
+                width: 100%;
+                transition: inherit;
+                .hidden {
+                    display: block;
+                }
+                &:hover {
+                    width: 100%;
+                    transition: inherit;
+                }
+            }
+        }    
+    }
 }

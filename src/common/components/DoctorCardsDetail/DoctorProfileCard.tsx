@@ -52,14 +52,14 @@ function DoctorProfileCard() {
             <Panel
               key="1"
               header={
-                <div className="flex flex-grow justify-between">
+                <div className="flex-none sm:flex flex-grow justify-between">
                     <div className="ant-collapse-available">Available Here</div>
                   <span className="ant-collapse-time">12:00 pm - 09:00 pm</span>
                 </div>
                 }
                 >
                 <div className="ant-collapse-time-body">
-                    <div className="flex flex-grow justify-between mb-2">
+                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
                         <span>Monday</span>
                         <div>
                             <span>07:00 AM - 09:00 AM</span>
@@ -67,37 +67,37 @@ function DoctorProfileCard() {
                             <span>07:00 PM - 09:00 PM</span>
                         </div>
                     </div>
-                    <div className="flex flex-grow justify-between mb-2">
+                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
                         <span>Tuesday</span>
                         <div>
                             <span>12:00 PM - 09:00 PM</span>
                         </div>
                     </div>
-                    <div className="flex flex-grow justify-between mb-2">
+                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
                         <span>Wednesday</span>
                         <div>
                             <span>12:00 PM - 09:00 PM</span>
                         </div>
                     </div>
-                    <div className="flex flex-grow justify-between mb-2">
+                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
                         <span>Thursday</span>
                         <div>
                             <span>12:00 PM - 09:00 PM</span>
                         </div>
                     </div>
-                    <div className="flex flex-grow justify-between mb-2">
+                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
                         <span>Friday</span>
                         <div>
                             <span>12:00 PM - 09:00 PM</span>
                         </div>
                     </div>
-                    <div className="flex flex-grow justify-between mb-2">
+                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
                         <span>Saturday</span>
                         <div>
                             <span>12:00 PM - 09:00 PM</span>
                         </div>
                     </div>
-                    <div className="flex flex-grow justify-between mb-2">
+                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
                         <span>Sunday</span>
                         <div>
                             <span>12:00 PM - 09:00 PM</span>
@@ -106,25 +106,27 @@ function DoctorProfileCard() {
                 </div>
             </Panel>
           </Collapse>
-          <div className="flex mt-3">
+          <div className="flex-none md:flex mt-3">
             <Button
                 type="primary"
                 icon={<VideoCameraFilled />}
             >
                 <span>Request an Appointment</span>
             </Button>
-            <Button
-                className="highlighted-button bg-transparent ml-3"
-                icon={<VideoCameraFilled />}
-            >
-                <span className="hidden">Message Admin</span>
-            </Button>
-            <Button
-                className="highlighted-button button-phy  bg-transparent ml-3"
-                icon={<VideoCameraFilled />}
-            >
-                <span className="hidden">Message Physician</span>
-            </Button>
+            <div className="flex-none sm:flex">
+                <Button
+                    className="highlighted-button bg-transparent mt-3 md:mt-0 md:ml-3"
+                    icon={<VideoCameraFilled />}
+                >
+                    <span className="hidden">Message Admin</span>
+                </Button>
+                <Button
+                    className="highlighted-button button-phy bg-transparent mt-3 md:mt-0 sm:ml-3"
+                    icon={<VideoCameraFilled />}
+                >
+                    <span className="hidden">Message Physician</span>
+                </Button>
+            </div>
           </div>
         </div>
       </div>
