@@ -5,8 +5,8 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 function messsages() {
     return (
         <AppLayout>
-            <div className="w-full py-5">
-                <h2 className="mb-3">Messages</h2>
+            <div className="w-full">
+                <h2 className="mb-4">Messages</h2>
                 <div className="w-full">
                     {/* <AccountTabs></AccountTabs> */}
                 </div>

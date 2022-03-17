@@ -13,8 +13,8 @@ function AccountDetail() {
 
   return (
     <AppLayout>
-      <div className="w-full py-5">
-        <h2 className="mb-5">Account</h2>
+      <div className="w-full">
+        <h2 className="mb-4">Account</h2>
         <div className="w-full">
           <AccountTabs />
         </div>

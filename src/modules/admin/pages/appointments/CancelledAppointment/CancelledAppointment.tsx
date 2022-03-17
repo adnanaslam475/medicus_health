@@ -7,9 +7,9 @@ import SearchFilters from "../../../../../common/components/SearchFilters/Search
 function CancelledAppointment() {
   return (
     <AppLayout>
-      <div className="w-full py-5">
+      <div className="w-full">
         <div className="flex items-center justify-between">
-          <h2 className="mb-3">Cancelled Appointments</h2>
+          <h2 className="mb-4">Cancelled Appointments</h2>
           <Button type="primary" size="large">
             Request an Appointment
           </Button>
