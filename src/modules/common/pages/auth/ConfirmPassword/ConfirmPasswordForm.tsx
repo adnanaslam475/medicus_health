@@ -1,11 +1,15 @@
-import { Button, Form, Input } from "antd";
+import { Alert, Button, Form, Input } from "antd";
+import Link from "next/link";
+import { Router, useRouter } from "next/router";
 
 type Props = {
   onFinish: (values: { password: string }) => void;
   loading: boolean;
+  response: any;
 };
 
-function ConfirmPasswordForm({ onFinish, loading }: Props) {
+function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
+  console.log(response, "rrr");
   return (
     <Form
       layout="vertical"
@@ -57,6 +61,30 @@ function ConfirmPasswordForm({ onFinish, loading }: Props) {
           Confirm Password
         </Button>
       </Form.Item>
+      {response && response.error?.graphQLErrors[0].message && (
+        <Alert
+          className=""
+          message={response.error?.graphQLErrors[0].message}
+          type="error"
+        />
+      )}
+      {response && !response.error && (
+        <Alert
+          className=""
+          message={"Your password has been reset!"}
+          type="success"
+          action={
+            <Link href="/login" passHref>
+              <Button
+                size="small"
+                type="primary"
+              >
+                Login
+              </Button>
+            </Link>
+          }
+        />
+      )}
     </Form>
   );
 }
