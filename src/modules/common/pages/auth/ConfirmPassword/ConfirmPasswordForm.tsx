@@ -6,7 +6,6 @@ type Props = {
   onFinish: (values: { password: string }) => void;
   loading: boolean;
   response: any;
-  push: any;
 };
 
 function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
@@ -75,14 +74,13 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
           message={"Your password has been reset!"}
           type="success"
           action={
-            <Link href="/login">              
-                <Button
-                  size="small"
-                  type="primary"
-                  // onClick={() => Router.push("/login")}
-                >
-                  Login
-                </Button>
+            <Link href="/login" passHref>
+              <Button
+                size="small"
+                type="primary"
+              >
+                Login
+              </Button>
             </Link>
           }
         />

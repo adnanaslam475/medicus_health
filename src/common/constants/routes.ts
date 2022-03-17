@@ -1,7 +1,16 @@
-export const PATIENT_ROUTES = [
+type routes = {
+  name: string;
+  route: string;
+  submenu?: {
+    name: string;
+    route: string;
+  }[];
+}[];
+
+export const PATIENT_ROUTES: routes = [
   {
     name: "Appointments",
-    route: "/patient/appointments",
+    route: "/patient/ap pointments",
     submenu: [
       { name: "Upcoming", route: "/patient/appointments/upcoming" },
       { name: "Requested", route: "/patient/appointments/requested" },
@@ -10,17 +19,17 @@ export const PATIENT_ROUTES = [
     ],
   },
 
-  { name: "Physicians", route: "/patient/physicians", submenu: []},
-  { name: "Messages", route: "/patient/messages" , submenu: [] },
-  { name: "Account", route: "/patient/account" , submenu: []},
+  { name: "Physicians", route: "/patient/physicians" },
+  { name: "Messages", route: "/patient/messages" },
+  { name: "Account", route: "/patient/account" },
 ];
 
-export const ADMIN_ROUTES = [
-  { name: "Dashboard", route: "/admin/dashboard" , submenu: []},
-  { name: "Admin Listing", route: "/admin/listing" , submenu: []},
+export const ADMIN_ROUTES: routes = [
+  { name: "Dashboard", route: "/admin/dashboard" },
+  { name: "Admin Listing", route: "/admin/listing" },
 ];
 
-export const DOCTOR_ROUTES = [
-  { name: "Dashboard", route: "/doctor/dashboard" , submenu: []},
-  { name: "Doctor Listing", route: "/doctor/listing" , submenu: []},
+export const DOCTOR_ROUTES: routes = [
+  { name: "Dashboard", route: "/doctor/dashboard" },
+  { name: "Doctor Listing", route: "/doctor/listing" },
 ];

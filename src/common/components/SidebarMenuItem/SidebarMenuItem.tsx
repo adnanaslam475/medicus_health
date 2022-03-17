@@ -37,7 +37,7 @@ function SidebarMenuItem() {
     >
       {getRole() === "User" &&
         PATIENT_ROUTES?.map((el, i) => {
-          return el.submenu.length > 0 ? (
+          return el.submenu && el.submenu.length > 0 ? (
             <Menu.SubMenu
               className={_classes["side-bar-submenu-item"]}
               key="sub1"
@@ -68,8 +68,8 @@ function SidebarMenuItem() {
           );
         })}
       {getRole() === "Doctor" &&
-        ADMIN_ROUTES?.map((el,i) => {
-          return el.submenu.length > 0 ? (
+        ADMIN_ROUTES?.map((el, i) => {
+          return el.submenu && el.submenu.length > 0 ? (
             <Menu.SubMenu
               className={_classes["side-bar-submenu-item"]}
               key="sub1"
@@ -102,7 +102,7 @@ function SidebarMenuItem() {
         })}
       {getRole() === "Admin" &&
         DOCTOR_ROUTES?.map((el, i) => {
-          return el.submenu.length > 0 ? (
+          return el.submenu && el.submenu.length > 0 ? (
             <Menu.SubMenu
               className={_classes["side-bar-submenu-item"]}
               key="sub1"
@@ -112,6 +112,9 @@ function SidebarMenuItem() {
               title="Appointments"
             >
               {el.submenu?.map((el2, i2) => {
+                type: {
+                  route: String;
+                }
                 return (
                   <Menu.Item
                     key={el2.route}
