@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import HealthQuestionnaryData from "../../constants/healthQuestionnary";
 
-import { Form, Input, Button, Radio, Checkbox } from "antd";
+import { Form, Input, Button, Radio, Checkbox, FormInstance } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
 
 const CheckboxGroup = Checkbox.Group;
@@ -27,11 +27,14 @@ const HealthQuestionnary = ({
   isLoading,
 }: HealthQuesType) => {
   const [terms, setTerms] = useState(false);
-  const form = useRef();
+  const form: any = useRef();
   const handleChange = (e: any) => {
     handleBackChange(e);
   };
 
+  useEffect(() => {
+    console.log(form);
+  }, []);
   return (
     <div>
       {!isUpdateMode && (
@@ -59,12 +62,13 @@ const HealthQuestionnary = ({
             </span>
           </Checkbox>
         )}
+        {console.log(form)}
         <Button
           loading={isLoading}
           disabled={!terms || isLoading}
-          className="ant-btn ant-btn-primary ant-btn-block mb-0"
+          className="ant-btn ant-btn-primary ant-btn mb-0"
           type="primary"
-          onClick={() => form.current?.submit()}
+          onClick={() => form?.current?.submit()}
           // htmlType="submit"
         >
           {isUpdateMode ? "Updated" : "Complete"}
