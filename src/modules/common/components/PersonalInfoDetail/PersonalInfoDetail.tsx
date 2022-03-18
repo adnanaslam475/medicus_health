@@ -38,15 +38,12 @@ function PersonalInfoDetail(props: Props) {
   // const { error, fetching } = result;
 
   return (
-    <div className="customList mt-4">
+    <div className="custom-list mt-4">
       <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        name="basic"        
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
+        onFinishFailed={onFinishFailed}        
       >
         <ul>
           <div className="border border-gray-3 px-0 rounded custom-list-items">

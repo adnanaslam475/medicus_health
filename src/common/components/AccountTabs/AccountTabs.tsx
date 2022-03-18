@@ -18,13 +18,13 @@ import PersonalInfo from "./PersonelInfo/PersonelInfo";
 // import HealthQuestionair from "./HealthQuestionair";
 import PaymentMethods from "./PaymentMethods/PaymentMethods";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
-import HealthQuestionair from "./HealthQuestionair/HealthQuestionair"
+import HealthQuestionair from "./HealthQuestionair/HealthQuestionair";
+import HealthQuestionnary from "../Questionnary/questionnary";
 const { TabPane } = Tabs;
 
 const AccountTabs = () => {
   return (
-    <>      
-
+    <>
       <div>
         <div className="card-container profile-tabs">
           <Tabs type="card">
@@ -33,6 +33,16 @@ const AccountTabs = () => {
             </TabPane>
             <TabPane tab="Health Questionnaire" key="2">
               <HealthQuestionair />
+              {/* <div className="w-1/3">
+                <HealthQuestionnary
+                  isUpdateMode={false}
+                  onFinishSuccess={onFinishHealthQuestionnarySuccess}
+                  onFinishedFailed={onFinishHealthQuestionnaryFailed}
+                  handleBackChange={handleChange}
+                  skipHealthQues={skipHealthQuestions}
+                  isLoading={fetching}
+                />
+              </div> */}
             </TabPane>
             <TabPane tab="Payment Methods" key="3">
               <PaymentMethods />
@@ -42,7 +52,6 @@ const AccountTabs = () => {
             </TabPane>
           </Tabs>
         </div>
-        
       </div>
     </>
   );

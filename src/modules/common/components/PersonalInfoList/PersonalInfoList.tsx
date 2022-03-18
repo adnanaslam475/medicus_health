@@ -4,7 +4,7 @@ import React from "react";
 
 function PersonalInfoList() {
   return (
-    <div className="customList mt-4">
+    <div className="custom-list mt-4">
           <ul>
             <div className="border border-gray-3 px-0 rounded custom-list-items">
               <li>
