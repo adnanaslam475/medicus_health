@@ -3,18 +3,21 @@ import { Avatar, Tabs, Button } from "antd";
 import Router from "next/router";
 import Image from "next/image";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
-// import PersonalInfo from "";
+import PersonalInfoList from "../../../../modules/common/components/PersonalInfoList/PersonalInfoList";
+import PersonalInfoDetail from "../../../../modules/common/components/PersonalInfoDetail/PersonalInfoDetail";
 // import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
 
 const PersonalInfo = () => {
+  const [isEdit, setIsEdit] = useState(false as boolean);
+
   return (
     <>
       <div className="w-1/2">
         <div className="flex justify-between items-center">
           <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
             <Avatar
-            size={64}
+              size={64}
               src={
                 <Image
                   alt=""
@@ -25,163 +28,52 @@ const PersonalInfo = () => {
                 />
               }
             />
-            <a href="void(0)" className="text-primary underline ml-3 text-xs">
+            <a
+              href="javascript:void(0)"
+              className="text-primary underline ml-3 text-xs"
+            >
               Update Photo
             </a>
           </div>
 
           <div className="edit-btn flex justify-end">
-            <Button type="default" className="text-xs p-5" size="large">
-              <span className="text-xs">EDIT</span>
-            </Button>
-
-            <div className="btn-group hidden">
-              <Button danger className="text-xs p-5 text-red" size="large">
-                <span className="text-xs">CANCEL</span>
-              </Button>
+            {isEdit ? (
+              <div className="flex gap-4">
+                <Button
+                  danger
+                  className="text-xs p-5 text-red"
+                  size="large"
+                  onClick={() => setIsEdit(false)}
+                >
+                  <span className="text-xs">CANCEL</span>
+                </Button>
+                <Button
+                  style={{ background: "#30CEC2", borderColor: "transparent" }}
+                  className="text-xs p-5"
+                  size="large"
+                  // loading={loading}
+                  // disabled={loading}
+                >
+                  <span className="text-xs text-white">SAVE</span>
+                </Button>
+              </div>
+            ) : (
               <Button
-                style={{ background: "#30CEC2", borderColor: "transparent" }}
+                type="default"
                 className="text-xs p-5"
                 size="large"
+                onClick={() => setIsEdit(true)}
               >
-                <span className="text-xs text-white">SAVE</span>
+                <span className="text-xs">EDIT</span>
               </Button>
-            </div>
+            )}
           </div>
         </div>
-
-        <div className="customList mt-4">
-          <ul>
-            <div className="border border-gray-3 px-0 rounded custom-list-items">
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">First Name</div>
-                  <div className="w-1/2 text-secondary">Mark</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Last Name</div>
-                  <div className="w-1/2 text-secondary">Manson</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Gender</div>
-                  <div className="w-1/2 text-secondary">Male</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Date of Birth</div>
-                  <div className="w-1/2 text-secondary">April, 21, 1990</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Contact Number</div>
-                  <div className="w-1/2 text-secondary">405 395 333</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Email Address</div>
-                  <div className="w-1/2 text-secondary">
-                    markmanson@gmail.com
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Password</div>
-                  <div className="w-1/2 text-secondary">*****************</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Country</div>
-                  <div className="w-1/2 text-secondary">United States</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">State</div>
-                  <div className="w-1/2 text-secondary">Utaho</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">City</div>
-                  <div className="w-1/2 text-secondary">Dallas</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Postal Code</div>
-                  <div className="w-1/2 text-secondary">98439</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Street Address</div>
-                  <div className="w-1/2 text-secondary">5456 YuanTabu , 5th Floor, Suit 2</div>
-                </div>
-              </li>              
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Marital Status</div>
-                  <div className="w-1/2 text-gray-1">N/A</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">
-                    Do You have any children?
-                  </div>
-                  <div className="w-1/2 text-gray-1">N/A</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">
-                    What is your Occupation?
-                  </div>
-                  <div className="w-1/2 text-gray-1">N/A</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">
-                    Do you have any Occupational Exposure?
-                  </div>
-                  <div className="w-1/2 text-gray-1">N/A</div>
-                </div>
-              </li>
-
-              <li>
-                <div className="flex w-full  border-b border-gray-3 p-4">
-                  <div className="w-1/2 text-gray-1">Do you have any pets?</div>
-                  <div className="w-1/2 text-gray-1">N/A</div>
-                </div>
-              </li>
-            </div>
-          </ul>
-        </div>
+        {isEdit ? (
+          <PersonalInfoDetail onFinish={() => null} loading={true} />
+        ) : (
+          <PersonalInfoList />
+        )}
       </div>
     </>
   );

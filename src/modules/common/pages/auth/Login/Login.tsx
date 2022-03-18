@@ -44,10 +44,7 @@ function Login() {
       if (res.data && !res.error) {
         let userPayload: any = res?.data?.login;
         userPayload.remember = values.remember;
-        localStorage.setItem(
-          "loggedInUserData",
-          JSON.stringify(userPayload)
-        );
+        localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
         if (userPayload.user.role === "Doctor") {
           Router.replace({
             pathname: "/doctor/dashboard",
@@ -115,7 +112,7 @@ function Login() {
                       },
                     ]}
                   >
-                    <Input />
+                    <Input disabled={fetching} />
                   </Form.Item>
 
                   <Form.Item
@@ -128,12 +125,14 @@ function Login() {
                       },
                     ]}
                   >
-                    <Input.Password />
+                    <Input.Password disabled={fetching} />
                   </Form.Item>
 
                   <Form.Item name="remember" valuePropName="checked">
                     <div className="flex justify-between text-base">
-                      <Checkbox className="text-base">Remember me</Checkbox>
+                      <Checkbox disabled={fetching} className="text-base">
+                        Remember me
+                      </Checkbox>
                       <Link href="/forgotPassword">
                         <a>
                           <span className="text-primary cursor-pointer">

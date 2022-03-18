@@ -1,7 +1,7 @@
-import physiciansDetails from "../../../src/modules/admin/pages/physicians/PhysicianDetail/PhysicianDetail";
+import PhysiciansDetail from "../../../src/modules/admin/pages/physicians/PhysicianDetail/PhysicianDetail";
 
 function physiciansDetail() {
-  return <physiciansDetails />;
+  return <PhysiciansDetail />;
 }
 
-export default physiciansDetails;
+export default physiciansDetail;
