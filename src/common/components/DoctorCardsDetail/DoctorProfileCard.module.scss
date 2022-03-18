@@ -52,6 +52,11 @@
             }
             &:hover {
                 width: 175px;
+                color: #fff;
+                background-color: #1a82fe !important;
+                svg {
+                    color: #fff;
+                }
                 .hidden {
                     display: block;
                 }
