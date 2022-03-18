@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import HealthQuestionnaryData from "../../constants/healthQuestionnary";
@@ -26,10 +26,94 @@ const HealthQuestionnary = ({
   skipHealthQues,
   isLoading,
 }: HealthQuesType) => {
+  const [terms, setTerms] = useState(false);
+  const form = useRef();
+  const handleChange = (e: any) => {
+    handleBackChange(e);
+  };
+
+  return (
+    <div>
+      {!isUpdateMode && (
+        <Button className="mb-4" block onClick={skipHealthQues}>
+          Skip This For Now & Fill This Later
+        </Button>
+      )}
+
+      <QuestionnaireForm
+        ref={form}
+        onFinishSuccess={onFinishSuccess}
+        onFinishedFailed={onFinishedFailed}
+      />
+
+      <div className="flex justify-between items-center">
+        {!isUpdateMode && (
+          <Checkbox
+            value={terms}
+            onChange={(e) => {
+              setTerms(e.target.checked);
+            }}
+          >
+            <span className="mb-10 text-gray text-xs">
+              I agree to the <Link href={"#"}>Terms & Condition</Link>
+            </span>
+          </Checkbox>
+        )}
+        <Button
+          loading={isLoading}
+          disabled={!terms || isLoading}
+          className="ant-btn ant-btn-primary ant-btn-block mb-0"
+          type="primary"
+          onClick={() => form.current?.submit()}
+          // htmlType="submit"
+        >
+          {isUpdateMode ? "Updated" : "Complete"}
+        </Button>
+      </div>
+      {!isUpdateMode && (
+        <div className="flex justify-center">
+          <div className="inline-flex items-center">
+            <div className="mb-0">
+              <Button type="link" onClick={(e) => handleChange(e)}>
+                <div className="flex items-center">
+                  <span className="mt-1">
+                    <Image
+                      alt=""
+                      className="left-arrow-icon mx-auto mt-3"
+                      height={16}
+                      width={16}
+                      src="/assets/icon/arrow-left.svg"
+                    />
+                  </span>
+                  <span className="ml-3">Back</span>
+                </div>
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default HealthQuestionnary;
+
+export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
+  props: any,
+  ref: any
+) {
+  const { onFinishSuccess, onFinishedFailed } = props || {};
   const [radioDrink, setRadioDring] = useState(true);
   const [radioSmoke, setRadioSmoke] = useState(true);
   const [radioDrug, setRadioDrug] = useState(true);
-  const [terms, setTerms] = useState(false);
+  const [formInstance] = Form.useForm();
+
+  useEffect(() => {
+    if (ref) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      ref.current = formInstance;
+    }
+  }, []);
 
   const onFinishHealthQuestionnary = async (values: any) => {
     if (values.radio_drink) {
@@ -93,10 +177,6 @@ const HealthQuestionnary = ({
     onFinishedFailed(errorInfo);
   };
 
-  const handleChange = (e: any) => {
-    handleBackChange(e);
-  };
-
   function onChangeMedicalCondition(e: CheckboxValueType[]): void {
     HealthQuestionnaryData.q3.q.selectedOption = e;
   }
@@ -115,15 +195,8 @@ const HealthQuestionnary = ({
       layout="vertical"
       onFinish={onFinishHealthQuestionnary}
       onFinishFailed={onFinishHealthQuestionnaryFailed}
+      form={formInstance}
     >
-      {!isUpdateMode && (
-        <Form.Item>
-          <Button block onClick={skipHealthQues}>
-            Skip This For Now & Fill This Later
-          </Button>
-        </Form.Item>
-      )}
-
       <Form.Item
         name={HealthQuestionnaryData.q1.name}
         label={HealthQuestionnaryData.q1.label}
@@ -155,7 +228,6 @@ const HealthQuestionnary = ({
           <Input />
         </Form.Item>
       )}
-
       <Form.Item
         name={HealthQuestionnaryData.q2.name}
         label={HealthQuestionnaryData.q2.label}
@@ -187,7 +259,6 @@ const HealthQuestionnary = ({
           <Input />
         </Form.Item>
       )}
-
       <Form.Item
         name={HealthQuestionnaryData.q3.name}
         label={HealthQuestionnaryData.q3.label}
@@ -204,7 +275,6 @@ const HealthQuestionnary = ({
           <Radio value={0}>No</Radio>
         </Radio.Group>
       </Form.Item>
-
       {!!radioDrug && (
         <>
           <Form.Item
@@ -224,7 +294,6 @@ const HealthQuestionnary = ({
           </Form.Item>
         </>
       )}
-
       <Form.Item
         name={HealthQuestionnaryData.q4.name}
         className="text-secondary"
@@ -253,7 +322,6 @@ const HealthQuestionnary = ({
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         className="flex-1 text-secondary"
         name={HealthQuestionnaryData.q6.name}
@@ -267,7 +335,6 @@ const HealthQuestionnary = ({
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         className="flex-1 text-secondary"
         name={HealthQuestionnaryData.q7.name}
@@ -281,7 +348,6 @@ const HealthQuestionnary = ({
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         className="flex-1 text-secondary"
         name={HealthQuestionnaryData.q8.name}
@@ -295,56 +361,6 @@ const HealthQuestionnary = ({
       >
         <Input />
       </Form.Item>
-      <div className="flex justify-between items-center">
-        {!isUpdateMode && (
-          <Checkbox
-            value={terms}
-            onChange={(e) => {
-              setTerms(e.target.checked);
-            }}
-          >
-            <span className="mb-10 text-gray text-xs">
-              I agree to the <Link href={"#"}>Terms & Condition</Link>
-            </span>
-          </Checkbox>
-        )}
-
-        <Form.Item className="mb-0">
-          <Button
-            loading={isLoading}
-            disabled={!terms || isLoading}
-            className="ant-btn ant-btn-primary ant-btn-block mb-0"
-            type="primary"
-            htmlType="submit"
-          >
-            {isUpdateMode ? "Updated" : "Complete"}
-          </Button>
-        </Form.Item>
-      </div>
-
-      {!isUpdateMode && (
-        <div className="flex justify-center">
-          <div className="inline-flex items-center">
-            <div className="mb-0">
-              <Button type="link" onClick={(e) => handleChange(e)}>
-                <div className="flex items-center">
-                <span className="mt-1">
-                  <Image
-                    alt=""
-                    className="left-arrow-icon mx-auto mt-3"
-                    height={16}
-                    width={16}
-                    src="/assets/icon/arrow-left.svg"
-                  />
-                </span>
-                <span className="ml-3">Back</span></div>
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
     </Form>
   );
-};
-
-export default HealthQuestionnary;
+});
