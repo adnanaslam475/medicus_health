@@ -33,6 +33,7 @@ const AccountTabs = () => {
             </TabPane>
             <TabPane tab="Health Questionnaire" key="2">
               <HealthQuestionair />
+              
               {/* <div className="w-1/3">
                 <HealthQuestionnary
                   isUpdateMode={false}
