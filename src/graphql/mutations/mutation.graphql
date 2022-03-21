@@ -11,6 +11,12 @@ mutation CreatePatientHealthHistory($input: CreatePatientHealthHistoryInput!) {
   }
 }
 
+mutation UpdatePatientHealthHistory($input: UpdatePatientHealthHistoryInput!) {
+  updatePatientHealthHistory(updatePatientHealthHistoryInput: $input) {
+    id
+  }
+}
+
 mutation userVerifyEmail($input: String!) {
   userVerifyEmail(token: $input) {
     id
@@ -28,15 +34,14 @@ mutation login($input: LoginUserInput!) {
   }
 }
 
-mutation UserForgotPassword($input: String!){
-  UserForgotPassword(email: $input){
+mutation UserForgotPassword($input: String!) {
+  UserForgotPassword(email: $input) {
     id
   }
 }
 
-mutation UserResetPassword($input: ResetPasswordInput!){
-  	UserResetPassword(resetPasswordInput: $input){
-      id
-    }
+mutation UserResetPassword($input: ResetPasswordInput!) {
+  UserResetPassword(resetPasswordInput: $input) {
+    id
   }
-
+}

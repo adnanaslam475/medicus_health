@@ -62,7 +62,7 @@ const HealthQuestionnary = ({
             </span>
           </Checkbox>
         )}
-        {console.log(form)}
+        {/* {console.log(form)} */}
         <Button
           loading={isLoading}
           disabled={!terms || isLoading}
@@ -71,7 +71,7 @@ const HealthQuestionnary = ({
           onClick={() => form?.current?.submit()}
           // htmlType="submit"
         >
-          {isUpdateMode ? "Updated" : "Complete"}
+          {isUpdateMode ? "Update" : "Complete"}
         </Button>
       </div>
       {!isUpdateMode && (
@@ -174,11 +174,11 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       HealthQuestionnaryData.q8.ans = null;
     }
 
-    onFinishSuccess(HealthQuestionnaryData);
+    onFinishSuccess?.(HealthQuestionnaryData);
   };
 
   const onFinishHealthQuestionnaryFailed = (errorInfo: any) => {
-    onFinishedFailed(errorInfo);
+    onFinishedFailed?.(errorInfo);
   };
 
   function onChangeMedicalCondition(e: CheckboxValueType[]): void {
@@ -211,7 +211,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           onChange={(e) => {
             setRadioDring(e.target.value);
           }}
-          defaultValue={1}
         >
           <Radio value={1}>Yes</Radio>
           <Radio value={0}>No</Radio>
@@ -242,7 +241,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           onChange={(e) => {
             setRadioSmoke(e.target.value);
           }}
-          defaultValue={1}
         >
           <Radio value={1}>Yes</Radio>
           <Radio value={0}>No</Radio>
@@ -273,7 +271,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           onChange={(e) => {
             setRadioDrug(e.target.value);
           }}
-          defaultValue={1}
         >
           <Radio value={1}>Yes</Radio>
           <Radio value={0}>No</Radio>

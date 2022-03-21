@@ -6,6 +6,8 @@ import { Form, Button } from "antd";
 import Container from "../../../../../common/components/Container/Container";
 import Image from "next/image";
 
+import { useRouter } from 'next/router'
+
 const successScreen = () => {
   const onFinish = async (values: object) => {
     console.log("Success:", values);
@@ -14,6 +16,9 @@ const successScreen = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  const { query } = useRouter();
+  console.log(query,"query")
 
   return (
     <Container className="login-bg w-full">
@@ -43,7 +48,9 @@ const successScreen = () => {
             </h2>
             <p className="text-gray text-center text-xs px-7">
               We have sent you an email on{" "}
-              <span className="text-secondary">markmanson@gmail.com.</span>{" "}
+              <span className="text-secondary">
+                 {` ${query?.email} `} 
+                </span>
               Please click on the verification link and your account will be
               verified.
             </p>

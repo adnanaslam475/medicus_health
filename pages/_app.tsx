@@ -4,9 +4,16 @@ import config from "./../config";
 import "./../styles/global.scss";
 import "./../styles/cutomized-antd.css";
 import AuthProvider from "../src/common/hooks/authProvider";
+import { getToken } from "../src/common/utils/userData";
 
 const client = createClient({
   url: config.baseURL || "",
+  fetchOptions: () => {
+    const token = getToken();
+    return {
+      headers: { Authorization: token ? `Bearer ${token}` : "" },
+    };
+  },
 });
 function MyApp({ Component, pageProps }: AppProps) {
   return (
