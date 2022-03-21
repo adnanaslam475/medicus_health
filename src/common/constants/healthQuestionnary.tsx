@@ -29,7 +29,7 @@ const HealthQuestionnaryData: Questions = {
     option: ["yes", "no"],
     q: {
       name: "drinks",
-      label: "How many Drinks on average and how offen?*",
+      label: "How many Drinks on average and how often?*",
       type: "text",
       ans: "",
     },

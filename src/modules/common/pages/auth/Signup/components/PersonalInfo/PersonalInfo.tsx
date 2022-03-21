@@ -105,7 +105,7 @@ export default function PersonalInfo({ onFinish }: props) {
           <Select placeholder="Gender" className="nb-select-input">
             <Select.Option value="male">Male</Select.Option>
             <Select.Option value="female">Female</Select.Option>
-            <Select.Option value="not-to-answer">
+            <Select.Option value="prefer not to answer">
               I prefer not to answer
             </Select.Option>
           </Select>

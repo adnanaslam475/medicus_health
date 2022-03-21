@@ -10,6 +10,7 @@ import {
   List,
   Typography,
   Divider,
+  Result,
 } from "antd";
 import Router from "next/router";
 import Image from "next/image";
@@ -19,7 +20,11 @@ import PersonalInfo from "./PersonelInfo/PersonelInfo";
 import PaymentMethods from "./PaymentMethods/PaymentMethods";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
 import HealthQuestionair from "./HealthQuestionair/HealthQuestionair";
-import HealthQuestionnary from "../Questionnary/questionnary";
+import HealthQuestionnary, {
+  QuestionnaireForm,
+} from "../Questionnary/questionnary";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { useCreateUserMutation } from "../../../generated/graphql";
 const { TabPane } = Tabs;
 
 const AccountTabs = () => {
@@ -32,18 +37,18 @@ const AccountTabs = () => {
               <PersonalInfo />
             </TabPane>
             <TabPane tab="Health Questionnaire" key="2">
-              <HealthQuestionair />
-              
-              {/* <div className="w-1/3">
-                <HealthQuestionnary
-                  isUpdateMode={false}
-                  onFinishSuccess={onFinishHealthQuestionnarySuccess}
-                  onFinishedFailed={onFinishHealthQuestionnaryFailed}
-                  handleBackChange={handleChange}
-                  skipHealthQues={skipHealthQuestions}
-                  isLoading={fetching}
-                />
-              </div> */}
+              {/* <HealthQuestionair /> */}
+
+              <div className="w-1/3">
+                
+                <QuestionnaireForm />
+
+                <div className="flex items-center justify-end">
+                  <Button type="primary" size="large">
+                    Update
+                  </Button>
+                </div>
+              </div>
             </TabPane>
             <TabPane tab="Payment Methods" key="3">
               <PaymentMethods />
