@@ -1,7 +1,21 @@
 .appointment-card {
-  width: 259px;
-  background-color: #f6f8fa;
-  border: 0;
-  margin-right: 20px;
-  margin-bottom: 20px;
+    background-color: #f6f8fa;
+    .card-btn {
+        font-size: 14px !important;
+        padding: 0px 10px !important;
+        height: 35px !important;
+        line-height: 35px !important;
+    
+    }   
 }
+.ant-card {
+     .ant-card-body {
+        :global .ant-btn {
+            font-size: 14px !important;
+            padding: 0px 10px !important;
+            height: 35px !important;
+            line-height: 35px !important;
+        } 
+    }
+}
+

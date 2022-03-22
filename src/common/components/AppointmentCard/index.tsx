@@ -1,6 +1,7 @@
 import React from "react";
+import Router, { useRouter } from "next/router";
 import { Card, Button } from "antd";
-import { VideoCameraOutlined } from "@ant-design/icons";
+import { VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentCard.module.scss";
 import { ButtonType } from "antd/lib/button";
 
@@ -66,21 +67,22 @@ function AppointmentCard({ status }: props) {
     },
   } = APPOINTMENT_STATUS[status] || {};
   return (
-    <Card className={_classes["appointment-card"]}>
+    <Card className={`${_classes["appointment-card"]} appointment-card`}>
+      <h6 className="mb-0">A-0001</h6>
       <h3 className="mb-0">Dr. Paul Wallner</h3>
       <h5 className="text-gray">First Consultation</h5>
       <span className="text-sm">Date</span>
       <h6>February 4, 2022</h6>
-
       <span className="text-sm">Time</span>
       <h6 className="text-cyan">07:45 am - 08:30 am (Now)</h6>
-
       <span className="text-sm">Status</span>
       <h6 className={color}>{lable}</h6>
+      <div className="flex">
+        <Button type={button.type} icon={<VideoCameraFilled />} className={`${_classes["card-btn"]} mr-3`}>Join Now</Button>
+        <Button className={`${_classes["card-btn"]} bg-transparent`} onClick={() => Router.push("/patient/appointments/details")}
 
-      <Button type={button.type} size="large" icon={<VideoCameraOutlined />}>
-        Join Now
-      </Button>
+>Details</Button>
+      </div>
     </Card>
   );
 }

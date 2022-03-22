@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Button, Select,  Space, DatePicker} from "antd";
-import CloseOutlined from '@ant-design/icons';
+import { Card, Input, Button, Select,  Space, DatePicker} from "antd";
+import { CloseOutlined, SearchOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -17,42 +17,36 @@ function onChange(date: any, dateString: any) {
 function SearchFilters() {
 
   return (
-    <div className="flex items-center my-10">
-    <span className="mx-3">Filter</span>
-    <div className="mx-3">
-      <Select
-        placeholder="Doctor"
-        className=" lg:w-44 font-medium text-primary placeholder-primary  text-center"
-      >
-        <Option
-          className="text-primary placeholder-gray-500"
-          value="Doctor Francis"
-        >
-          Doctor Francis
-        </Option>
-      </Select>
-    </div>
-
-    <Select
-      placeholder="Service"
-      className="mx-3 lg:w-44 font-medium text-primary placeholder-primary  text-center"
-    >
-      <Option
-        className="text-primary placeholder-gray-500"
-        value="Doctor Francis"
-      >
-        Doctor Francis
-      </Option>
-    </Select>
-    <Space direction="vertical" size={12} className="mx-3">
-      <RangePicker />
-      {/* <DatePicker onChange={onChange} /> */}
-    </Space>
-
-    <Button type="text" size="small" className="w-50">
-      <CloseOutlined />
-      <span className="text-gray-2 mx-3">Clear</span>
-    </Button>
+    <div className="page-filters flex-none lg:flex items-center mb-5">
+      <span className="text-gray-1">Filter</span>
+      <div className="flex-none sm:flex sm:mb-3 lg:mb-0">
+        <div className="lg:ml-3 sm:w-full md:w-full lg:w-70">
+          <Input placeholder="Search by ID or physician name" prefix={<SearchOutlined />} />
+        </div>
+        <div className="sm:ml-3 mt-3 sm:mt-0">
+          <Select placeholder="Physician" className="w-full sm:w-40">
+          <Option value="Dr.Paul Wallner">Dr.Paul Wallner</Option>
+          <Option value="Dr.Carolina Giménez">Dr.Carolina Giménez</Option>
+          <Option value="Dr.Megan Perkins">Dr.Megan Perkins</Option>
+          </Select>
+        </div>
+      </div>
+      <div className="flex-none sm:flex">
+        <div className="lg:ml-3 mt-3 sm:mt-0">
+          <Select placeholder="Service" className="w-full sm:w-40">
+          <Option value="First Consultation">First Consultation</Option>
+          <Option value="Second Opinion">Second Opinion</Option>
+          </Select>
+        </div>
+        <Space direction="vertical" size={12} className="sm:ml-3 mt-3 sm:mt-0">
+          <RangePicker />
+          {/* <DatePicker onChange={onChange} /> */}
+        </Space>
+        <Button type="text" className="sm:ml-3">
+          <CloseOutlined  className="text-sm" />
+          <span className="text-gray-1" size="small">Clear</span>
+        </Button>
+      </div>
   </div>
   );
 }
