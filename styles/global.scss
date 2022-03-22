@@ -322,8 +322,9 @@ label.ant-radio-wrapper {
         }
     }
 }
-.bg-transparent {
-    background: transparent !important;
+
+.btn-transparent{
+  background-color: transparent !important;
 }
 .page-filters {
     .ant-btn {
@@ -348,10 +349,3 @@ label.ant-radio-wrapper {
         padding: 20px;
     }
 }
-// .ant-select {
-//     &:not(.ant-select-customize-input) {
-//         .ant-select-selector {
-//             border: 1px solid #9295AF !important;
-//         }
-//     }
-// }

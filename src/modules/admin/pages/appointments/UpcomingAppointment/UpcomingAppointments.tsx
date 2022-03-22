@@ -11,13 +11,16 @@ function UpcomingAppointments() {
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">Upcoming Appointments</h2>
-            <p className="text-gray mb-0">Suspendisse ac nulla non ante viverra feugiat. Duis ullamcorperequesty tortor a fringilla tempus.</p>
+            <p className="text-gray mb-0">
+              Suspendisse ac nulla non ante viverra feugiat. Duis
+              ullamcorperequesty tortor a fringilla tempus.
+            </p>
           </div>
           <Button type="primary">Request an Appointment</Button>
         </div>
         <SearchFilters />
         <div className="w-full">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
             <AppointmentCard status="confirmed" />
             <AppointmentCard status="confirmed" />
             <AppointmentCard status="confirmed" />

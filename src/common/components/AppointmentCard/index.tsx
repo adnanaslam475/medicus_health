@@ -67,7 +67,7 @@ function AppointmentCard({ status }: props) {
     },
   } = APPOINTMENT_STATUS[status] || {};
   return (
-    <Card className={`${_classes["appointment-card"]} appointment-card`}>
+    <Card className={`${_classes["appointment-card"]}`}>
       <h6 className="mb-0">A-0001</h6>
       <h3 className="mb-0">Dr. Paul Wallner</h3>
       <h5 className="text-gray">First Consultation</h5>
@@ -78,10 +78,19 @@ function AppointmentCard({ status }: props) {
       <span className="text-sm">Status</span>
       <h6 className={color}>{lable}</h6>
       <div className="flex">
-        <Button type={button.type} icon={<VideoCameraFilled />} className={`${_classes["card-btn"]} mr-3`}>Join Now</Button>
-        <Button className={`${_classes["card-btn"]} bg-transparent`} onClick={() => Router.push("/patient/appointments/details")}
-
->Details</Button>
+        <Button
+          type={button.type}
+          icon={<VideoCameraFilled />}
+          className={`${_classes["card-btn"]} mr-3`}
+        >
+          Join Now
+        </Button>
+        <Button
+          className={`${_classes["card-btn"]} btn-transparent`}
+          onClick={() => Router.push("/patient/appointments/details")}
+        >
+          Details
+        </Button>
       </div>
     </Card>
   );
