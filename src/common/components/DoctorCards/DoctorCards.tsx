@@ -43,15 +43,15 @@ function DoctorCard() {
                 </div>
               </div>
             </div>
-            <h5 className="text-primary text-xs">Cardiologist</h5>
-            <span className="text-sm">10+ years of experience</span>
-            <h6 className="text-gray-2 font-normal">
+            <h5 className="text-primary text-xs mb-1">Cardiologist</h5>
+            <span className="text-secondary text-sm">10+ years of experience</span>
+            <h6 className="text-gray mt-3">
               Heads up! This alert needs your attention, but it&apos;s not super
               imporant
             </h6>
             <Divider />
 
-            <h6 className="text-gray-2 font-normal">
+            <h6 className="text-gray font-normal">
               <span className="text-sm font-rubik">CONDITIONS TREATED </span>
             </h6>
             <h6>

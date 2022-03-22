@@ -79,9 +79,7 @@ function AppointmentCard({ status }: props) {
       <h6 className={color}>{lable}</h6>
       <div className="flex">
         <Button type={button.type} icon={<VideoCameraFilled />} className={`${_classes["card-btn"]} mr-3`}>Join Now</Button>
-        <Button className={`${_classes["card-btn"]} bg-transparent`} onClick={() => Router.push("/patient/appointments/details")}
-
->Details</Button>
+        <Button className={`${_classes["card-btn"]} bg-transparent`} onClick={() => Router.push("/patient/appointments/details")}>Details</Button>
       </div>
     </Card>
   );
