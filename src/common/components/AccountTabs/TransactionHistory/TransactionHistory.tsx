@@ -216,7 +216,7 @@ const TransactionHistory = () => {
       dataIndex: "",
       key: "view",
       className: 'table-action-icon',
-      render: () => <EyeFilled />,    
+      render: () => <EyeFilled />,
       // width: "20%",
     },
   ];

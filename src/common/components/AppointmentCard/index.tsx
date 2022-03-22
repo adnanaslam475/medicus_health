@@ -78,19 +78,8 @@ function AppointmentCard({ status }: props) {
       <span className="text-sm">Status</span>
       <h6 className={color}>{lable}</h6>
       <div className="flex">
-        <Button
-          type={button.type}
-          icon={<VideoCameraFilled />}
-          className={`${_classes["card-btn"]} mr-3`}
-        >
-          Join Now
-        </Button>
-        <Button
-          className={`${_classes["card-btn"]} btn-transparent`}
-          onClick={() => Router.push("/patient/appointments/details")}
-        >
-          Details
-        </Button>
+        <Button type={button.type} icon={<VideoCameraFilled />} className={`${_classes["card-btn"]} mr-3`}>Join Now</Button>
+        <Button className={`${_classes["card-btn"]} bg-transparent`} onClick={() => Router.push("/patient/appointments/details")}>Details</Button>
       </div>
     </Card>
   );
