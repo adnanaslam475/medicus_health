@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     // antd break points
     screens: {
+      xs: "360px",
       sm: "576px",
       md: "768px",
       lg: "992px",
