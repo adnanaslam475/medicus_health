@@ -4,12 +4,11 @@ import DoctorCard from "../../../../../common/components/DoctorCards/DoctorCards
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
 
-function Physicians(props) {
-
+function Physicians() {
   const [{ data }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
 
-  console.log(doctorProfiles, 'doctorProfiles');
+  console.log(doctorProfiles, "doctorProfiles");
 
   return (
     <AppLayout>
@@ -17,7 +16,17 @@ function Physicians(props) {
         <div className="lg:w-4/5 mx-auto">
           <h2 className="mb-4">Physicians</h2>
           <div className="w-full">
-          { doctorProfiles?.map((el, i) => (<DoctorCard />)) }
+            {doctorProfiles?.map((profile, i) => (
+              <DoctorCard
+                key={profile.id}
+                name={profile.user?.first_name + " " + profile.user?.last_name}
+                specialization={profile.specialization}
+                about_me={profile.about_me}
+                year_of_experience={profile.year_of_experience}
+                condition_treated={`condition_treated`}
+                // data={profile}
+              />
+            ))}
           </div>
         </div>
       </div>
