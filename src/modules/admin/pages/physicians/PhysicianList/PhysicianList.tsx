@@ -20,10 +20,12 @@ function Physicians() {
               <DoctorCard
                 key={profile.id}
                 name={profile.user?.first_name + " " + profile.user?.last_name}
+                language={profile.language}
                 specialization={profile.specialization}
                 about_me={profile.about_me}
+                professional_experience={profile.professional_experience}
                 year_of_experience={profile.year_of_experience}
-                condition_treated={`condition_treated`}
+                condition_treated={profile.condition_treated}
                 // data={profile}
               />
             ))}

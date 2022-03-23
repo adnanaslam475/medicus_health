@@ -18,9 +18,13 @@ const FLAG_BY_LANGUAGE = {
 type props = {
   name: string;
   language: string;
+  // language: {
+  //   english: string;
+  //   Spanish: string;
+  // };
   specialization: string;
   about_me: string;
-  year_of_experience: string;
+  year_of_experience: number;
   professional_experience: string;
   condition_treated: string;
 };
