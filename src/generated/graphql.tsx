@@ -19,6 +19,32 @@ export type Scalars = {
   JSON: any;
 };
 
+export type Appointment = {
+  __typename?: 'Appointment';
+  charges: Scalars['Int'];
+  doctorId: Scalars['Int'];
+  endTime: Scalars['String'];
+  id: Scalars['Int'];
+  patient: User;
+  patientId: Scalars['Int'];
+  questionnair: Scalars['JSON'];
+  reportUrl?: Maybe<Scalars['JSON']>;
+  requestedDate: Scalars['DateTime'];
+  serviceId: Scalars['Int'];
+  startTime: Scalars['String'];
+  status?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+};
+
+export type AppointmentHealthHistory = {
+  __typename?: 'AppointmentHealthHistory';
+  appointmentId: Scalars['Int'];
+  doctorId: Scalars['Int'];
+  history: Scalars['JSON'];
+  id: Scalars['Int'];
+  patientId: Scalars['Int'];
+};
+
 export type City = {
   __typename?: 'City';
   city_name: Scalars['String'];
@@ -32,6 +58,18 @@ export type Country = {
   country_phone_code: Scalars['Float'];
   country_short_name: Scalars['String'];
   id: Scalars['Float'];
+};
+
+export type CreateAppointmentInput = {
+  charges: Scalars['Int'];
+  doctorId: Scalars['Int'];
+  endTime: Scalars['String'];
+  patientId: Scalars['Int'];
+  questionnair: Scalars['JSON'];
+  reportUrl: Scalars['JSON'];
+  requestedDate: Scalars['DateTime'];
+  serviceId: Scalars['Int'];
+  startTime: Scalars['String'];
 };
 
 export type CreateDoctorProfileInput = {
@@ -124,18 +162,25 @@ export type Mutation = {
   __typename?: 'Mutation';
   UserForgotPassword: User;
   UserResetPassword: User;
+  cancelAppointment: Appointment;
+  createAppointment: Appointment;
   createCard: UserCard;
   createDoctorProfile: DoctorProfile;
   createOrUpdateDoctorSchedule: Array<DoctorSchedule>;
   createPatientHealthHistory: PatientHealthHistory;
   createUser: User;
+  enableOrDisableDoctor: User;
   login: LoginResponse;
+  proposeNewTime: Appointment;
+  removeAppointment: Appointment;
   removeCard: UserCard;
   removeDoctorProfile: DoctorProfile;
   removeDoctorSchedule: DoctorSchedule;
   removePatientHealthHistory: PatientHealthHistory;
   removeUser: User;
   setAsDefaultCard: UserCard;
+  setDoctorPassword: User;
+  updateAppointment: Appointment;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
   updateUser: User;
@@ -150,6 +195,16 @@ export type MutationUserForgotPasswordArgs = {
 
 export type MutationUserResetPasswordArgs = {
   resetPasswordInput: ResetPasswordInput;
+};
+
+
+export type MutationCancelAppointmentArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationCreateAppointmentArgs = {
+  createAppointmentInput: CreateAppointmentInput;
 };
 
 
@@ -179,8 +234,23 @@ export type MutationCreateUserArgs = {
 };
 
 
+export type MutationEnableOrDisableDoctorArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationLoginArgs = {
   loginUserInput: LoginUserInput;
+};
+
+
+export type MutationProposeNewTimeArgs = {
+  proposeNewTimeInput: ProposeNewTimeInput;
+};
+
+
+export type MutationRemoveAppointmentArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -214,6 +284,16 @@ export type MutationSetAsDefaultCardArgs = {
 };
 
 
+export type MutationSetDoctorPasswordArgs = {
+  setPasswordInput: ResetPasswordInput;
+};
+
+
+export type MutationUpdateAppointmentArgs = {
+  updateAppointmentInput: UpdateAppointmentInput;
+};
+
+
 export type MutationUpdateDoctorProfileArgs = {
   updateDoctorProfileInput: UpdateDoctorProfileInput;
 };
@@ -242,8 +322,20 @@ export type PatientHealthHistory = {
   user_id: Scalars['Int'];
 };
 
+export type ProposeNewTimeInput = {
+  charges: Scalars['Int'];
+  endTime: Scalars['String'];
+  id: Scalars['Int'];
+  requestedDate: Scalars['DateTime'];
+  serviceId: Scalars['Int'];
+  startTime: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  appointment: Appointment;
+  appointmentQuestionner: AppointmentHealthHistory;
+  appointments: Array<Appointment>;
   cities: Array<City>;
   city: City;
   countries: Array<Country>;
@@ -264,6 +356,21 @@ export type Query = {
 };
 
 
+export type QueryAppointmentArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryAppointmentQuestionnerArgs = {
+  appointmentId: Scalars['Int'];
+};
+
+
+export type QueryAppointmentsArgs = {
+  doctorId: Scalars['Int'];
+};
+
+
 export type QueryCityArgs = {
   id: Scalars['Int'];
 };
@@ -276,6 +383,11 @@ export type QueryCountryArgs = {
 
 export type QueryDoctorProfileArgs = {
   doctor_id: Scalars['Int'];
+};
+
+
+export type QueryDoctorSchedulesArgs = {
+  doctorId: Scalars['Int'];
 };
 
 
@@ -330,6 +442,19 @@ export type State = {
   state_name: Scalars['String'];
 };
 
+export type UpdateAppointmentInput = {
+  charges?: InputMaybe<Scalars['Int']>;
+  doctorId?: InputMaybe<Scalars['Int']>;
+  endTime?: InputMaybe<Scalars['String']>;
+  id: Scalars['Int'];
+  patientId?: InputMaybe<Scalars['Int']>;
+  questionnair?: InputMaybe<Scalars['JSON']>;
+  reportUrl?: InputMaybe<Scalars['JSON']>;
+  requestedDate?: InputMaybe<Scalars['DateTime']>;
+  serviceId?: InputMaybe<Scalars['Int']>;
+  startTime?: InputMaybe<Scalars['String']>;
+};
+
 export type UpdateDoctorProfileInput = {
   about_me?: InputMaybe<Scalars['String']>;
   condition_treated?: InputMaybe<Scalars['String']>;
@@ -366,12 +491,13 @@ export type UpdateUserInput = {
 
 export type User = {
   __typename?: 'User';
+  appointment?: Maybe<Appointment>;
   city_id: Scalars['Int'];
   contact_number: Scalars['String'];
   country_id: Scalars['Int'];
   date_of_birth: Scalars['DateTime'];
   doctorProfile?: Maybe<DoctorProfile>;
-  doctorSchedules?: Maybe<DoctorSchedule>;
+  doctorSchedules?: Maybe<Array<DoctorSchedule>>;
   email: Scalars['String'];
   first_name: Scalars['String'];
   gender: Scalars['String'];
@@ -381,6 +507,7 @@ export type User = {
   patientHealthHistory?: Maybe<PatientHealthHistory>;
   role?: Maybe<Scalars['String']>;
   state_id: Scalars['Int'];
+  status: Scalars['Boolean'];
   zip_code: Scalars['String'];
 };
 
@@ -407,6 +534,13 @@ export type CreatePatientHealthHistoryMutationVariables = Exact<{
 
 
 export type CreatePatientHealthHistoryMutation = { __typename?: 'Mutation', createPatientHealthHistory: { __typename?: 'PatientHealthHistory', id: number } };
+
+export type UpdatePatientHealthHistoryMutationVariables = Exact<{
+  input: UpdatePatientHealthHistoryInput;
+}>;
+
+
+export type UpdatePatientHealthHistoryMutation = { __typename?: 'Mutation', updatePatientHealthHistory: { __typename?: 'PatientHealthHistory', id: number } };
 
 export type UserVerifyEmailMutationVariables = Exact<{
   input: Scalars['String'];
@@ -483,6 +617,17 @@ export const CreatePatientHealthHistoryDocument = gql`
 
 export function useCreatePatientHealthHistoryMutation() {
   return Urql.useMutation<CreatePatientHealthHistoryMutation, CreatePatientHealthHistoryMutationVariables>(CreatePatientHealthHistoryDocument);
+};
+export const UpdatePatientHealthHistoryDocument = gql`
+    mutation UpdatePatientHealthHistory($input: UpdatePatientHealthHistoryInput!) {
+  updatePatientHealthHistory(updatePatientHealthHistoryInput: $input) {
+    id
+  }
+}
+    `;
+
+export function useUpdatePatientHealthHistoryMutation() {
+  return Urql.useMutation<UpdatePatientHealthHistoryMutation, UpdatePatientHealthHistoryMutationVariables>(UpdatePatientHealthHistoryDocument);
 };
 export const UserVerifyEmailDocument = gql`
     mutation userVerifyEmail($input: String!) {
@@ -609,6 +754,211 @@ export default {
     },
     "subscriptionType": null,
     "types": [
+      {
+        "kind": "OBJECT",
+        "name": "Appointment",
+        "fields": [
+          {
+            "name": "charges",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "endTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "patient",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "patientId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "questionnair",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "reportUrl",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "requestedDate",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "serviceId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "startTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "status",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AppointmentHealthHistory",
+        "fields": [
+          {
+            "name": "appointmentId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "history",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "patientId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
       {
         "kind": "OBJECT",
         "name": "City",
@@ -1008,6 +1358,52 @@ export default {
             ]
           },
           {
+            "name": "cancelAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createAppointmentInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "createCard",
             "type": {
               "kind": "NON_NULL",
@@ -1145,6 +1541,29 @@ export default {
             ]
           },
           {
+            "name": "enableOrDisableDoctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "login",
             "type": {
               "kind": "NON_NULL",
@@ -1157,6 +1576,52 @@ export default {
             "args": [
               {
                 "name": "loginUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "proposeNewTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "proposeNewTimeInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "removeAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -1295,6 +1760,52 @@ export default {
             "args": [
               {
                 "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "setDoctorPassword",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "setPasswordInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "updateAppointmentInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -1461,6 +1972,81 @@ export default {
         "name": "Query",
         "fields": [
           {
+            "name": "appointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "appointmentQuestionner",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentHealthHistory",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "appointmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "appointments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Appointment",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "cities",
             "type": {
               "kind": "NON_NULL",
@@ -1599,7 +2185,18 @@ export default {
                 }
               }
             },
-            "args": []
+            "args": [
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
             "name": "getAllCards",
@@ -1882,6 +2479,15 @@ export default {
         "name": "User",
         "fields": [
           {
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "city_id",
             "type": {
               "kind": "NON_NULL",
@@ -1937,9 +2543,15 @@ export default {
           {
             "name": "doctorSchedules",
             "type": {
-              "kind": "OBJECT",
-              "name": "DoctorSchedule",
-              "ofType": null
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "DoctorSchedule",
+                  "ofType": null
+                }
+              }
             },
             "args": []
           },
@@ -2028,6 +2640,17 @@ export default {
           },
           {
             "name": "state_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "status",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

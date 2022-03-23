@@ -1,33 +1,54 @@
-import React, { useState } from "react";
-import {
-  Layout,
-  Avatar,
-  Dropdown,
-  Menu,
-  Space,
-  Tabs,
-  Button,
-  List,
-  Typography,
-  Divider,
-  Result,
-} from "antd";
+import React, { useState, useRef } from "react";
+import { Tabs, Button, Alert } from "antd";
 import Router from "next/router";
 import Image from "next/image";
 import yourImage from "../../../../public/assets/images/your_photo.png";
 import PersonalInfo from "./PersonelInfo/PersonelInfo";
-// import HealthQuestionair from "./HealthQuestionair";
 import PaymentMethods from "./PaymentMethods/PaymentMethods";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
-import HealthQuestionair from "./HealthQuestionair/HealthQuestionair";
 import HealthQuestionnary, {
   QuestionnaireForm,
 } from "../Questionnary/questionnary";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { useCreateUserMutation } from "../../../generated/graphql";
+import {
+  useCreateUserMutation,
+  useUpdatePatientHealthHistoryMutation,
+  CreateUserInput,
+} from "../../../generated/graphql";
+
 const { TabPane } = Tabs;
 
 const AccountTabs = () => {
+  type Props = {
+    loading?: boolean;
+  };
+
+  const form: any = useRef();
+
+  const [result, updatePatientHealthHistory] =
+    useUpdatePatientHealthHistoryMutation();
+
+  const { error, fetching } = result;
+
+  const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
+    // const user = await submitPersonalInfo();
+
+    const healthQuesJson = JSON.stringify(quesPayload);
+    // setLoading(true);
+    console.log(quesPayload, "rrrr");
+    try {
+      await updatePatientHealthHistory({
+        input: {
+          history: healthQuesJson,
+          user_id: 213,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      // setLoading(false);
+    }
+  };
+
   return (
     <>
       <div>
@@ -37,16 +58,40 @@ const AccountTabs = () => {
               <PersonalInfo />
             </TabPane>
             <TabPane tab="Health Questionnaire" key="2">
-              {/* <HealthQuestionair /> */}
-
               <div className="w-1/3">
-                
-                <QuestionnaireForm />
+                <QuestionnaireForm
+                  ref={form}
+                  // onFinishSuccess={onFinishSuccess}
+                  onFinishSuccess={onFinishHealthQuestionnarySuccess}
+                />
 
                 <div className="flex items-center justify-end">
-                  <Button type="primary" size="large">
+                  {console.log(form, "rrr")}
+                  <Button
+                    loading={fetching}
+                    disabled={fetching}
+                    className="ant-btn ant-btn-primary ant-btn mb-0"
+                    type="primary"
+                    onClick={() => form?.current?.submit()}
+                  >
                     Update
                   </Button>
+                  {/* <div className="flex-0">
+                  {error?.graphQLErrors[0].message && (
+                    <Alert
+                      className=""
+                      message={error?.graphQLErrors[0].message}
+                      type="error"
+                    />
+                  )}
+                  {result && !result.error && (
+                    <Alert
+                      className=""
+                      message={"Your Health History has been updated"}
+                      type="success"
+                    />
+                  )}
+                  </div> */}
                 </div>
               </div>
             </TabPane>
