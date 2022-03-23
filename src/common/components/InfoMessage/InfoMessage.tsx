@@ -18,10 +18,11 @@ const InfoMessage = () => {
           width={34}
           src="/assets/icon/warning-small.svg"
         />
-        <span className="ml-3 min-h-max">
+        <span className="ml-3 min-h-max hidden md:block">
           Please complete the health questionnaire in order to book appointments
           with our Physicians.
         </span>
+        <span className="ml-3 min-h-max block md:hidden">Questionnaire</span>
         <Link href="/">
           <a className="underline text-primary px-3 whitespace-nowrap">
             Complete Now

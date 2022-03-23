@@ -7,16 +7,16 @@ import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorCard.module.scss";
-import { useDoctorProfilesQuery } from "../../../generated/graphql";
+// import { useDoctorProfilesQuery } from "../../../generated/graphql";
 
 function DoctorCard() {
-  const [{ data }] = useDoctorProfilesQuery();
-  const { doctorProfiles } = data || {};
+  // const [{ data }] = useDoctorProfilesQuery();
+  // const { doctorProfiles } = data || {};
 
   return (
     <Card className={`${_classes["doctorCard"]} rounded-xl`}>
       <div className="flex-none lg:flex">
-        <div className="lg:w-4/6 flex-none sm:flex">
+        <div className="lg:w-4/6 flex-none sm:flex">  
           <div className="docAvatarCover pr-3">
             <Avatar
               size={86}

@@ -189,12 +189,24 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
   }
 
+  function prepareEditPayload(tipLocal) {
+    const { name, video, target_users: targetUsers } = tipLocal || {};
+    form.setFieldsValue({
+      [HealthQuestionnaryData.q1.name] : "this is name",
+      
+      // role_id: targetUsers?.map(({ id }) => id),
+    });
+
+  }
+
+
   return (
     <Form
       initialValues={{
         radio_drink: 1,
         radio_smoke: 1,
         radio_drug: 1,
+        // w : " Ali imtiaz"
       }}
       layout="vertical"
       onFinish={onFinishHealthQuestionnary}
@@ -220,6 +232,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         <Form.Item
           className="flex-1 text-secondary"
           name={HealthQuestionnaryData.q1.q.name}
+          // name="w"
           label={HealthQuestionnaryData.q1.q.label}
           rules={[
             {

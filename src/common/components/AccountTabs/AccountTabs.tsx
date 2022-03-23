@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Tabs, Button, Alert } from "antd";
 import Router from "next/router";
 import Image from "next/image";
@@ -11,9 +11,8 @@ import HealthQuestionnary, {
 } from "../Questionnary/questionnary";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
-  useCreateUserMutation,
   useUpdatePatientHealthHistoryMutation,
-  CreateUserInput,
+  usePatientHealthHistoryQuery,
 } from "../../../generated/graphql";
 
 const { TabPane } = Tabs;
@@ -24,6 +23,27 @@ const AccountTabs = () => {
   };
 
   const form: any = useRef();
+
+  // Get patient Health History
+
+  const [resultGet, resetPassword] = usePatientHealthHistoryQuery({
+    variables:{
+      input:56
+    }
+    
+  });
+  console.log(resultGet,"sadasdas")
+  
+
+  useEffect(() => {
+    console.log(resultGet,"resultget")
+    // form.current.setFieldsValue={
+
+    // }
+  }, [resultGet])
+  
+
+  // UPDATE PATIENT HEALTH HISTORY
 
   const [result, updatePatientHealthHistory] =
     useUpdatePatientHealthHistoryMutation();
@@ -63,6 +83,7 @@ const AccountTabs = () => {
                   ref={form}
                   // onFinishSuccess={onFinishSuccess}
                   onFinishSuccess={onFinishHealthQuestionnarySuccess}
+                  
                 />
 
                 <div className="flex items-center justify-end">
