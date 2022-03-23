@@ -16,19 +16,31 @@ function Physicians() {
         <div className="lg:w-4/5 mx-auto">
           <h2 className="mb-4">Physicians</h2>
           <div className="w-full">
-            {doctorProfiles?.map((profile, i) => (
-              <DoctorCard
-                key={profile.id}
-                name={profile.user?.first_name + " " + profile.user?.last_name}
-                language={profile.language}
-                specialization={profile.specialization}
-                about_me={profile.about_me}
-                professional_experience={profile.professional_experience}
-                year_of_experience={profile.year_of_experience}
-                condition_treated={profile.condition_treated}
-                // data={profile}
-              />
-            ))}
+            {doctorProfiles?.map((profile, i) => {
+              const {
+                id,
+                user,
+                language,
+                specialization,
+                about_me: aboutMe,
+                professional_experience: professionalExperience,
+                year_of_experience: yearOfExperience,
+                condition_treated: conditionTreated,
+              } = profile || {};
+              return (
+                <DoctorCard
+                  key={id}
+                  name={user?.first_name + " " + user?.last_name}
+                  language={language}
+                  specialization={specialization}
+                  aboutMe={aboutMe}
+                  professionalExperience={professionalExperience}
+                  yearOfExperience={yearOfExperience}
+                  conditionTreated={conditionTreated}
+                  // data={profile}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

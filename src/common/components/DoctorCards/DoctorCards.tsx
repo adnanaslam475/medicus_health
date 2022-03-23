@@ -11,36 +11,29 @@ import { date } from "../../utils";
 // import { useDoctorProfilesQuery } from "../../../generated/graphql";
 
 const FLAG_BY_LANGUAGE = {
-  english: engFlag,
-  Spanish: espanolFlag,
+  ["english" as string]: engFlag,
+  ["Spanish" as string]: espanolFlag,
 };
 
 type props = {
   name: string;
   language: string;
-  // language: {
-  //   english: string;
-  //   Spanish: string;
-  // };
   specialization: string;
-  about_me: string;
-  year_of_experience: number;
-  professional_experience: string;
-  condition_treated: string;
+  aboutMe: string;
+  yearOfExperience: number;
+  professionalExperience: string;
+  conditionTreated: string;
 };
 
 function DoctorCard({
   name,
   language,
   specialization,
-  about_me,
-  year_of_experience,
-  professional_experience,
-  condition_treated,
+  aboutMe,
+  yearOfExperience,
+  professionalExperience,
+  conditionTreated,
 }: props) {
-  // const [{ data }] = useDoctorProfilesQuery();
-  // const { doctorProfiles } = data || {};
-
   return (
     <Card className={`${_classes["doctorCard"]} rounded-xl`}>
       <div className="flex-none lg:flex">
@@ -87,12 +80,12 @@ function DoctorCard({
               {specialization}
             </h5>
             <span className="text-secondary text-sm">
-              {year_of_experience} years of experience
+              {yearOfExperience} years of experience
             </span>
             <h6 className="text-gray mt-3">
               {/* Heads up! This alert needs your attention, but it&apos;s not super
               imporant */}
-              {about_me}
+              {aboutMe}
             </h6>
             <Divider />
 
@@ -102,7 +95,7 @@ function DoctorCard({
             <h6>
               {/* Abnormal heart rythms // Aorta diseas // Conginital heart disease
               Corony artery disease // Heart Attack // Heart Faliure */}
-              {condition_treated}
+              {conditionTreated}
             </h6>
           </div>
         </div>

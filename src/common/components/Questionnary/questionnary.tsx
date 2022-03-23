@@ -189,16 +189,15 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
   }
 
-  function prepareEditPayload(tipLocal) {
-    const { name, video, target_users: targetUsers } = tipLocal || {};
-    form.setFieldsValue({
-      [HealthQuestionnaryData.q1.name] : "this is name",
-      
-      // role_id: targetUsers?.map(({ id }) => id),
-    });
+  // function prepareEditPayload(tipLocal) {
+  //   const { name, video, target_users: targetUsers } = tipLocal || {};
+  //   form.setFieldsValue({
+  //     [HealthQuestionnaryData.q1.name] : "this is name",
 
-  }
+  //     // role_id: targetUsers?.map(({ id }) => id),
+  //   });
 
+  // }
 
   return (
     <Form
