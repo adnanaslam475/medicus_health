@@ -106,7 +106,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   props: any,
   ref: any
 ) {
-  const { onFinishSuccess, onFinishedFailed } = props || {};
+  const { onFinishSuccess, onFinishedFailed,data } = props || {};
   const [radioDrink, setRadioDring] = useState(true);
   const [radioSmoke, setRadioSmoke] = useState(true);
   const [radioDrug, setRadioDrug] = useState(true);
@@ -117,7 +117,11 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       // eslint-disable-next-line react-hooks/exhaustive-deps
       ref.current = formInstance;
     }
-  }, []);
+    formInstance.setFieldsValue({
+      [HealthQuestionnaryData.q1.name]: 0,
+      [HealthQuestionnaryData.q2.name]: 0,
+    });
+  }, [data]);
 
   const onFinishHealthQuestionnary = async (values: any) => {
     if (values.radio_drink) {

@@ -26,22 +26,15 @@ const AccountTabs = () => {
 
   // Get patient Health History
 
-  const [resultGet, resetPassword] = usePatientHealthHistoryQuery({
-    variables:{
-      input:56
-    }
-    
+  const [resultGet] = usePatientHealthHistoryQuery({
+    variables: {
+      input: 56,
+    },
   });
-  console.log(resultGet,"sadasdas")
-  
 
   useEffect(() => {
-    console.log(resultGet,"resultget")
-    // form.current.setFieldsValue={
-
-    // }
-  }, [resultGet])
-  
+    console.log(resultGet, "resultget");
+  }, [resultGet]);
 
   // UPDATE PATIENT HEALTH HISTORY
 
@@ -78,18 +71,17 @@ const AccountTabs = () => {
               <PersonalInfo />
             </TabPane>
             <TabPane tab="Health Questionnaire" key="2">
-              <div className="w-1/3">
-                <QuestionnaireForm
-                  ref={form}
-                  // onFinishSuccess={onFinishSuccess}
-                  onFinishSuccess={onFinishHealthQuestionnarySuccess}
-                  
-                />
+                <div className="w-1/3">
+                  <QuestionnaireForm
+                    ref={form}
+                    // data={{}}
+                    // onFinishSuccess={onFinishSuccess}
+                    onFinishSuccess={onFinishHealthQuestionnarySuccess}
+                  />
 
-                <div className="flex items-center justify-end">
-                  {console.log(form, "rrr")}
-                  <Button
-                    loading={fetching}
+                  <div className="flex items-center justify-end">
+                    <Button
+                      loading={fetching}
                     disabled={fetching}
                     className="ant-btn ant-btn-primary ant-btn mb-0"
                     type="primary"
