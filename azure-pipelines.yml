@@ -47,10 +47,16 @@ stages:
               configMode: "manual"
               cliProjectKey: "medicus"
               cliProjectName: "Medicus FrontEnd"
-              cliSources: "."
+              cliSources: "src"
               extraProperties: |
                 sonar.sourceEncoding=UTF-8
                 sonar.scm.provider=git
+                sonar.profile=node
+                sonar.coverage.exclusions=cypress,src/models/index.js
+                sonar.dynamicAnalysis=reuseReports
+                sonar.javascript.lcov.reportPaths=coverage/lcov.info
+                sonar.javascript.coverage.reportPaths=coverage/clover.xml
+                sonar.clover.reportPath=coverage/clover.xml
 
           - task: SonarQubeAnalyze@5
             condition: eq(variables['Build.SourceBranchName'], 'master')
