@@ -106,7 +106,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   props: any,
   ref: any
 ) {
-  const { onFinishSuccess, onFinishedFailed } = props || {};
+  const { onFinishSuccess, onFinishedFailed,data } = props || {};
   const [radioDrink, setRadioDring] = useState(true);
   const [radioSmoke, setRadioSmoke] = useState(true);
   const [radioDrug, setRadioDrug] = useState(true);
@@ -117,7 +117,11 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       // eslint-disable-next-line react-hooks/exhaustive-deps
       ref.current = formInstance;
     }
-  }, []);
+    formInstance.setFieldsValue({
+      [HealthQuestionnaryData.q1.name]: 0,
+      [HealthQuestionnaryData.q2.name]: 0,
+    });
+  }, [data]);
 
   const onFinishHealthQuestionnary = async (values: any) => {
     if (values.radio_drink) {
@@ -189,12 +193,23 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
   }
 
+  // function prepareEditPayload(tipLocal) {
+  //   const { name, video, target_users: targetUsers } = tipLocal || {};
+  //   form.setFieldsValue({
+  //     [HealthQuestionnaryData.q1.name] : "this is name",
+
+  //     // role_id: targetUsers?.map(({ id }) => id),
+  //   });
+
+  // }
+
   return (
     <Form
       initialValues={{
         radio_drink: 1,
         radio_smoke: 1,
         radio_drug: 1,
+        // w : " Ali imtiaz"
       }}
       layout="vertical"
       onFinish={onFinishHealthQuestionnary}
@@ -220,6 +235,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         <Form.Item
           className="flex-1 text-secondary"
           name={HealthQuestionnaryData.q1.q.name}
+          // name="w"
           label={HealthQuestionnaryData.q1.q.label}
           rules={[
             {

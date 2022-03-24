@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Table, Input, Button, Space } from "antd";
-import { EyeFilled } from '@ant-design/icons';
+import { Table, Input, Button, Space, Tag } from "antd";
+import { EyeFilled } from "@ant-design/icons";
 
 const data = [
   {
@@ -13,7 +13,8 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    // status: ['completed', 'pending'],
+    status: ["completed", "pending"],
     view: "Eye",
   },
   {
@@ -25,7 +26,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    status: ["completed", "pending"],
     view: "Eye",
   },
   {
@@ -37,7 +38,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    status: ["completed", "pending"],
     view: "Eye",
   },
   {
@@ -49,7 +50,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    status: ["completed", "pending"],
     view: "Eye",
   },
   {
@@ -61,7 +62,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    status: ["completed", "pending"],
     view: "Eye",
   },
 
@@ -73,7 +74,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    status: ["completed", "pending"],
     view: "Eye",
   },
   {
@@ -84,7 +85,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    status: ["completed", "pending"],
     view: "Eye",
   },
   {
@@ -95,7 +96,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    status: ["completed", "pending"],
     view: "Eye",
   },
   {
@@ -106,7 +107,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    status: ["completed", "pending"],
     view: "Eye",
   },
   {
@@ -117,7 +118,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    status: "Pending",
+    status: ["completed", "pending"],
     view: "Eye",
   },
 ];
@@ -139,7 +140,6 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.transactionid - b.transactionid,
         multiple: 3,
       },
-      // width: "30%",
     },
     {
       title: "Doctor",
@@ -149,7 +149,6 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.doctor - b.doctor,
         multiple: 3,
       },
-      // width: "20%",
     },
     {
       title: "Service",
@@ -159,7 +158,6 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.service - b.service,
         multiple: 3,
       },
-      // width: "20%",
     },
     {
       title: "Time Slot",
@@ -169,7 +167,6 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
       },
-      // width: "20%",
     },
     {
       title: "Date",
@@ -179,7 +176,6 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.date - b.date,
         multiple: 3,
       },
-      // width: "20%",
     },
     {
       title: "Total Amount",
@@ -189,7 +185,6 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.totalamount - b.totalamount,
         multiple: 3,
       },
-      // width: "20%",
     },
     {
       title: "Transaction Date",
@@ -199,7 +194,6 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.transactiondate - b.transactiondate,
         multiple: 3,
       },
-      // width: "20%",
     },
     {
       title: "Status",
@@ -209,19 +203,29 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.status - b.status,
         multiple: 3,
       },
-      // width: "20%",
+      render: () => {
+        return (
+          <div className="someclass">
+            <Tag color="cyan">
+              {/* <a href="https://github.com/ant-design/ant-design/issues/1862"> */}
+              completed
+              {/* </a> */}
+            </Tag>
+            {/* <Tag color="warning">Pending</Tag> */}
+          </div>
+        );
+      },
     },
     {
       title: "",
       dataIndex: "",
       key: "view",
-      className: 'table-action-icon',
+      className: "table-action-icon",
       render: () => <EyeFilled />,
-      // width: "20%",
     },
   ];
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-    console.log('params', pagination, filters, sorter, extra);
+    console.log("params", pagination, filters, sorter, extra);
   }
   return <Table columns={columns} dataSource={data} onChange={onChange} />;
 };

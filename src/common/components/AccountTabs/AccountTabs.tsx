@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Tabs, Button, Alert } from "antd";
 import Router from "next/router";
 import Image from "next/image";
@@ -11,9 +11,8 @@ import HealthQuestionnary, {
 } from "../Questionnary/questionnary";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
-  useCreateUserMutation,
   useUpdatePatientHealthHistoryMutation,
-  CreateUserInput,
+  usePatientHealthHistoryQuery,
 } from "../../../generated/graphql";
 
 const { TabPane } = Tabs;
@@ -24,6 +23,20 @@ const AccountTabs = () => {
   };
 
   const form: any = useRef();
+
+  // Get patient Health History
+
+  const [resultGet] = usePatientHealthHistoryQuery({
+    variables: {
+      input: 56,
+    },
+  });
+
+  useEffect(() => {
+    console.log(resultGet, "resultget");
+  }, [resultGet]);
+
+  // UPDATE PATIENT HEALTH HISTORY
 
   const [result, updatePatientHealthHistory] =
     useUpdatePatientHealthHistoryMutation();
@@ -58,17 +71,17 @@ const AccountTabs = () => {
               <PersonalInfo />
             </TabPane>
             <TabPane tab="Health Questionnaire" key="2">
-              <div className="w-1/3">
-                <QuestionnaireForm
-                  ref={form}
-                  // onFinishSuccess={onFinishSuccess}
-                  onFinishSuccess={onFinishHealthQuestionnarySuccess}
-                />
+                <div className="w-1/3">
+                  <QuestionnaireForm
+                    ref={form}
+                    // data={{}}
+                    // onFinishSuccess={onFinishSuccess}
+                    onFinishSuccess={onFinishHealthQuestionnarySuccess}
+                  />
 
-                <div className="flex items-center justify-end">
-                  {console.log(form, "rrr")}
-                  <Button
-                    loading={fetching}
+                  <div className="flex items-center justify-end">
+                    <Button
+                      loading={fetching}
                     disabled={fetching}
                     className="ant-btn ant-btn-primary ant-btn mb-0"
                     type="primary"

@@ -7,12 +7,33 @@ import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorCard.module.scss";
-import { useDoctorProfilesQuery } from "../../../generated/graphql";
+import { date } from "../../utils";
+// import { useDoctorProfilesQuery } from "../../../generated/graphql";
 
-function DoctorCard() {
-  const [{ data }] = useDoctorProfilesQuery();
-  const { doctorProfiles } = data || {};
+const FLAG_BY_LANGUAGE = {
+  ["english" as string]: engFlag,
+  ["Spanish" as string]: espanolFlag,
+};
 
+type props = {
+  name: string;
+  language: string;
+  specialization: string;
+  aboutMe: string;
+  yearOfExperience: number;
+  professionalExperience: string;
+  conditionTreated: string;
+};
+
+function DoctorCard({
+  name,
+  language,
+  specialization,
+  aboutMe,
+  yearOfExperience,
+  professionalExperience,
+  conditionTreated,
+}: props) {
   return (
     <Card className={`${_classes["doctorCard"]} rounded-xl`}>
       <div className="flex-none lg:flex">
@@ -27,27 +48,44 @@ function DoctorCard() {
           <div className="lg:pr-5">
             <div className="flex-row md:flex">
               <h2 className="mb-0 mr-3 pr-4">
-                <span>Dr. Paul Wallner</span>
+                <span>
+                  {/* Dr.{data.user.first_name} {data.user.last_name} */}
+                  Dr.{name}
+                </span>
               </h2>
               <div className="flex">
                 <div className="flagAvatar engFlag pr-2">
-                  <Image src={engFlag} alt="engFlag" width={25} height={25} />
+                  {FLAG_BY_LANGUAGE[language] && (
+                    <Image
+                      src={FLAG_BY_LANGUAGE[language]}
+                      // src={espanolFlag}
+                      alt={language || "flag"}
+                      width={25}
+                      height={25}
+                    />
+                  )}
                 </div>
-                <div className="flagAvatar espanolFlag">
+                {/* <div className="flagAvatar espanolFlag">
                   <Image
                     src={espanolFlag}
                     alt="espanolFlag"
                     width={25}
                     height={25}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
-            <h5 className="text-primary text-xs mb-1">Cardiologist</h5>
-            <span className="text-secondary text-sm">10+ years of experience</span>
+            <h5 className="text-primary text-xs mb-1">
+              {/* cardiologist */}
+              {specialization}
+            </h5>
+            <span className="text-secondary text-sm">
+              {yearOfExperience} years of experience
+            </span>
             <h6 className="text-gray mt-3">
-              Heads up! This alert needs your attention, but it&apos;s not super
-              imporant
+              {/* Heads up! This alert needs your attention, but it&apos;s not super
+              imporant */}
+              {aboutMe}
             </h6>
             <Divider />
 
@@ -55,19 +93,19 @@ function DoctorCard() {
               <span className="text-sm font-rubik">CONDITIONS TREATED </span>
             </h6>
             <h6>
-              Abnormal heart rythms // Aorta diseas // Conginital heart disease
-              Corony artery disease // Heart Attack // Heart Faliure
+              {/* Abnormal heart rythms // Aorta diseas // Conginital heart disease
+              Corony artery disease // Heart Attack // Heart Faliure */}
+              {conditionTreated}
             </h6>
           </div>
         </div>
         <div className="card-actionBtns lg:w-2/6">
-          <Button
-            type="default"
-            className="mb-3 w-full bg-transparent"
-            onClick={() => Router.push("/patient/physicians/profile")}
-          >
-            View Profile
-          </Button>
+          <Link passHref href="/patient/physicians/profile">
+            <a className="mb-3 w-full bg-transparent inline-flex items-center justify-center border border-primary rounded-md py-3 px-4 ">
+              View Profile
+            </a>
+          </Link>
+
           <Button
             type="primary"
             icon={<VideoCameraFilled />}
