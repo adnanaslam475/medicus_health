@@ -45,3 +45,39 @@ mutation UserResetPassword($input: ResetPasswordInput!) {
     id
   }
 }
+
+# CREATE CARD MUTATION
+mutation createCard($input: CreatePaymentInput!) {
+  createCard(createPaymentInput: $input) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+  }
+}
+
+# REMOVE CARD MUTATION
+mutation removeCard($input: Int!) {
+  removeCard(id: $input) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+  }
+}
+
+# DEFAULT CARD SET
+mutation DefaultCard($input: Int!) {
+  setAsDefaultCard(id: $input) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+  }
+}

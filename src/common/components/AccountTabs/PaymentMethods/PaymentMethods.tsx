@@ -6,13 +6,42 @@ import { PlusOutlined } from "@ant-design/icons";
 import BillingItem from "./BillingItem/BillingItem";
 import PaymentHeader from "./PaymentHeader/PaymentHeader";
 import PaymentHeader2 from "./PaymentHeader2/PaymentHeader2";
+import { Elements } from "@stripe/react-stripe-js";
+import BillingNew from "./BillingNew";
+import {
+  useGetAllCardsQuery,
+  useCreateCardMutation,
+  useRemoveCardMutation,
+  useDefaultCardMutation,
+} from "../../../../generated/graphql";
+import { loadStripe } from "@stripe/stripe-js";
+import config from "../../../../../config";
 
 const { Panel } = Collapse;
+const stripePromise = loadStripe(config.stripeKey || "");
 
 const PaymentMethods = () => {
-  // function callback(key) {
-  //   console.log(key);
-  // }
+  // CREATE CARDS API CALL
+  const [{ data }] = useCreateCardMutation();
+  const { createCard: createCard } = data || {};
+  console.log(data, "card created");
+
+  // GET ALL CARDS API CALL
+  const [{ data }] = useGetAllCardsQuery();
+  const { getAllCards: allCards } = data || {};
+  console.log(data, "allCards");
+
+  // REMOVE  CARDS API CALL
+  const [{ data }] = useRemoveCardMutation();
+  const { removeCards: removeCard } = data || {};
+  console.log(data, "card removed");
+
+  // DEFAULT CARD SET API CALL
+  const [{ data }] = useDefaultCardMutation();
+  const { dafaultCard: setAsDefault } = data || {};
+  console.log(data, "set as Default");
+
+  // Modal Event Trigger
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -28,10 +57,82 @@ const PaymentMethods = () => {
     setIsModalVisible(false);
   };
 
+  const [paymentMethod, setPaymentMethod] = useState([]);
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
+  // const getPaymentMethodsData = async () => {
+  //   setPaymentLoading(true);
+  //   try {
+  //     const res = await getPaymentMethods();
+  //     setPaymentMethod(res?.data);
+  //     setPaymentLoading(false);
+  //   } catch (error) {
+  //     setPaymentLoading(false);
+  //     notification.error({
+  //       message: error?.message,
+  //     });
+  //   }
+  // };
+
+  // const makeDefaultPaymentMethodData = async (id) => {
+  //   try {
+  //     const res = await makeDefaultPaymentMethod(id);
+  //     await getPaymentMethodsData();
+  //     notification.success({
+  //       message: res?.message,
+  //     });
+  //   } catch (error) {
+  //     notification.error({
+  //       message: error?.message,
+  //     });
+  //   }
+  // };
+
+  // const addMorePaymentService = async (token) => {
+  //   try {
+  //     const res = await addMorePayment({ token });
+  //     await getPaymentMethodsData();
+  //     notification.success({
+  //       message: res?.message,
+  //     });
+  //   } catch (error) {
+  //     notification.error({
+  //       message: error?.message,
+  //     });
+  //   }
+  // };
+
+  // const deletePaymentMethodData = async (id) => {
+  //   try {
+  //     const res = await deletePaymentMethod(id);
+  //     await getPaymentMethodsData();
+  //     notification.success({
+  //       message: res?.message,
+  //     });
+  //   } catch (error) {
+  //     notification.error({
+  //       message: error?.message,
+  //     });
+  //   }
+  // };
+
   return (
     <>
       <div className="flex justify-between items-center w-full md:w-3/4">
         <div className="w-3/4 p-3">
+          <Elements stripe={loadStripe(config.stripeKey || "")}>
+            <BillingNew
+              // data={paymentMethod}
+              data={allCards}
+              // loading={paymentLoading}
+              // onMakeDefault={makeDefaultPaymentMethodData}
+              // onRemove={deletePaymentMethodData}
+              // onSubmit={(token) => {
+              //   addMorePaymentService(token);
+              // }}
+            />
+          </Elements>
+
           <div className="mb-5 bg-gray-4">
             <Collapse
               defaultActiveKey={["1"]}
@@ -44,7 +145,7 @@ const PaymentMethods = () => {
             </Collapse>
           </div>
 
-          <Collapse
+          {/* <Collapse
             defaultActiveKey={["2"]}
             expandIconPosition="right"
             className="bg-primary-1 mb-3 w-full mt-5"
@@ -52,7 +153,7 @@ const PaymentMethods = () => {
             <Panel header={<PaymentHeader2 />} key="2" className="bg-primary-1">
               <BillingItem />
             </Panel>
-          </Collapse>
+          </Collapse> */}
 
           <Button
             type="default"
@@ -68,7 +169,6 @@ const PaymentMethods = () => {
             visible={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
-            
           >
             <p>Some contents...</p>
             <p>Some contents...</p>
