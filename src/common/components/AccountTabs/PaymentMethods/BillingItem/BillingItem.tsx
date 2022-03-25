@@ -14,7 +14,9 @@ const BillingItem = () => (
             <div className="text-dark ">Natalia Raikova</div>
             <div className="text-red my-3">
               <span>
-                <Link href="/" ><span className="text-red cursor-pointer">Remove</span></Link>
+                <Link href="/">
+                  <span className="text-red cursor-pointer">Remove</span>
+                </Link>
               </span>
             </div>
           </div>

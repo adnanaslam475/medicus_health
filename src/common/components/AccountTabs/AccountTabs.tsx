@@ -63,33 +63,32 @@ const AccountTabs = () => {
   };
 
   return (
-    <>
-      <div>
-        <div className="card-container profile-tabs">
-          <Tabs type="card">
-            <TabPane tab="Personal Information" key="1" className="">
-              <PersonalInfo />
-            </TabPane>
-            <TabPane tab="Health Questionnaire" key="2">
-                <div className="w-1/3">
-                  <QuestionnaireForm
-                    ref={form}
-                    // data={{}}
-                    // onFinishSuccess={onFinishSuccess}
-                    onFinishSuccess={onFinishHealthQuestionnarySuccess}
-                  />
+    <div>
+      <div className="card-container profile-tabs">
+        <Tabs type="card">
+          <TabPane tab="Personal Information" key="1" className="">
+            <PersonalInfo />
+          </TabPane>
+          <TabPane tab="Health Questionnaire" key="2">
+            <div className="w-1/3">
+              <QuestionnaireForm
+                ref={form}
+                // data={{}}
+                // onFinishSuccess={onFinishSuccess}
+                onFinishSuccess={onFinishHealthQuestionnarySuccess}
+              />
 
-                  <div className="flex items-center justify-end">
-                    <Button
-                      loading={fetching}
-                    disabled={fetching}
-                    className="ant-btn ant-btn-primary ant-btn mb-0"
-                    type="primary"
-                    onClick={() => form?.current?.submit()}
-                  >
-                    Update
-                  </Button>
-                  {/* <div className="flex-0">
+              <div className="flex items-center justify-end">
+                <Button
+                  loading={fetching}
+                  disabled={fetching}
+                  className="ant-btn ant-btn-primary ant-btn mb-0"
+                  type="primary"
+                  onClick={() => form?.current?.submit()}
+                >
+                  Update
+                </Button>
+                {/* <div className="flex-0">
                   {error?.graphQLErrors[0].message && (
                     <Alert
                       className=""
@@ -105,19 +104,18 @@ const AccountTabs = () => {
                     />
                   )}
                   </div> */}
-                </div>
               </div>
-            </TabPane>
-            <TabPane tab="Payment Methods" key="3">
-              <PaymentMethods />
-            </TabPane>
-            <TabPane tab="Transaction History" key="4">
-              <TransactionHistory />
-            </TabPane>
-          </Tabs>
-        </div>
+            </div>
+          </TabPane>
+          <TabPane tab="Payment Methods" key="3">
+            <PaymentMethods />
+          </TabPane>
+          <TabPane tab="Transaction History" key="4">
+            <TransactionHistory />
+          </TabPane>
+        </Tabs>
       </div>
-    </>
+    </div>
   );
 };
 

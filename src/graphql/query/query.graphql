@@ -21,36 +21,56 @@ query getCitiesByState($input: Int!) {
   }
 }
 
-
 query doctorProfiles {
-    doctorProfiles {
+  doctorProfiles {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    user {
       id
-      doctor_id
-      year_of_experience
-      specialization
-      condition_treated
-      educational_background
-      professional_experience
-      language
-      about_me
-      user {
-        id
-        first_name
-        last_name
-        email
-        gender
-        contact_number
-      }
+      first_name
+      last_name
+      email
+      gender
+      contact_number
     }
+  }
 }
 
-
-
-
+# GET PATIENT HEALTH HISTORY
 query patientHealthHistory($input: Int!) {
   patientHealthHistory(id: $input) {
     id
     history
-   
+  }
+}
+
+# GET ALL CARDS
+query getAllCards {
+  getAllCards(user_id: 164) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+  }
+}
+
+# GET CARD QUERY
+query getCard {
+  getCard(id: 15) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
   }
 }
