@@ -9,81 +9,79 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { StripeCardNumberElement } from "@stripe/stripe-js/types/stripe-js/elements";
+import { GetAllCardsQuery, UserCard } from "../../../../generated/graphql";
 
-type props = {
+type Props = {
   title: string;
   description: string;
   isDefault: boolean;
-  onRemove: boolean;
-  onMakeDefault: string;
+  onRemove: () => void;
+  onMakeDefault: () => void;
 };
 
-export const Payment = ({
-  title,
-  description,
-  isDefault,
-  onRemove,
-  onMakeDefault,
-}: props) => (
-  <div className="bg-primary-1 p-5 rounded-md border-primary my-2">
-    <div className="flex flex-1 flex-row justify-between items-center">
-      <div className="inline-block w-full">
-        <div className="flex w-full justify-between">
-          <div className="">
-            <div className="capitalize text-dark font-bold">{title}</div>
-            <div className="text-dark">{description}</div>
-          </div>
-          {isDefault && (
-            <div className="text-primary">
-              <Tag color="#653374" className="rounded-full">
-                DEFAULT
-              </Tag>
+export const Payment = (props: Props) => {
+  const { title, description, isDefault, onRemove, onMakeDefault } = props;
+  return (
+    <div className="bg-gray-4 p-5 rounded-md border-primary my-2">
+      <div className="flex flex-1 flex-row justify-between items-center">
+        <div className="inline-block w-full">
+          <div className="flex w-full justify-between">
+            <div className="">
+              <div className="capitalize text-dark font-bold">{title}</div>
+              <div className="text-dark">{description}</div>
             </div>
-          )}
+            {isDefault && (
+              <div className="text-primary">
+                <Tag color="#653374" className="rounded-full">
+                  DEFAULT
+                </Tag>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-    {!isDefault && (
-      <div className="mt-3">
-        <Button
-          type="link"
-          size="small"
-          danger
-          onClick={() => {
-            Modal.confirm({
-              content: "Do you want to remove this card?",
-              okText: "Remove",
-              onOk() {
-                onRemove();
-              },
-              onCancel() {},
-            });
-          }}
-        >
-          Remove
-        </Button>
-        <span className="text-primary pl-4">
+      {!isDefault && (
+        <div className="mt-3">
           <Button
             type="link"
             size="small"
+            danger
             onClick={() => {
               Modal.confirm({
-                content: "Do you want to make this card default?",
-                okText: "Yes",
+                content: "Do you want to remove this card?",
+                okText: "Remove",
                 onOk() {
-                  onMakeDefault();
+                  onRemove();
                 },
                 onCancel() {},
               });
             }}
           >
-            Mark As Default
+            Remove
           </Button>
-        </span>
-      </div>
-    )}
-  </div>
-);
+          <span className="text-primary pl-4">
+            <Button
+              type="link"
+              size="small"
+              onClick={() => {
+                Modal.confirm({
+                  content: "Do you want to make this card default?",
+                  okText: "Yes",
+                  onOk() {
+                    onMakeDefault();
+                  },
+                  onCancel() {},
+                });
+              }}
+            >
+              Mark As Default
+            </Button>
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
 
 Payment.defaultProps = {
   title: "Visa Ending with ****",
@@ -94,11 +92,12 @@ Payment.defaultProps = {
 };
 
 type propsBilling = {
-  data: string;
+  data: UserCard[];
   loading: string;
-  onRemove: boolean;
-  onMakeDefault: string;
-  onSubmit: (token: string | undefined) => void;
+  onSubmit: (token: number | undefined) => void;
+  // onSubmit: (token: string | undefined) => void;
+  onRemove: (token: number | undefined) => void;
+  onMakeDefault: (token: string | undefined) => void;
 };
 
 function Billing({
@@ -159,7 +158,7 @@ function Billing({
             <div className="user-details-list w-full border px-5 py-3 rounded-lg">
               <div className="mb-3">Payment methods</div>
               {loading ? (
-                <div className="w-full bg-primary-1 rounded-md border-primary my-2 h-20 flex flex-col justify-center items-center">
+                <div className="w-full bg-gray-4 rounded-md border-primary my-2 h-20 flex flex-col justify-center items-center">
                   <Space size="middle">
                     <Spin size="small" />
                   </Space>
@@ -167,14 +166,14 @@ function Billing({
               ) : (
                 data.map((card) => (
                   <Payment
-                    isDefault={card?.default}
+                    isDefault={card?.is_default}
                     title={`${card?.card_type} Ending with ${card?.card_digits}`}
-                    description={`Expires at: ${card?.card_expiry_month}/${card?.card_expiry_year}`}
+                    // description={`Expires at: ${card?.card_expiry_month}/${card?.card_expiry_year}`}
                     onRemove={() => {
-                      onRemove(card?.card_id);
+                      onRemove(card?.id);
                     }}
                     onMakeDefault={() => {
-                      onMakeDefault(card?.card_id);
+                      onMakeDefault(card?.id);
                     }}
                   />
                 ))
@@ -234,9 +233,7 @@ function Billing({
           </div>
           <div className="flex justify-end">
             <Form.Item className="mx-2 my-0">
-              <Button type="" onClick={closeModal}>
-                Cancel
-              </Button>
+              <Button onClick={closeModal}>Cancel</Button>
             </Form.Item>
             <Form.Item className="m-0">
               <Button type="primary" htmlType="submit">

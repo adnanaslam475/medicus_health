@@ -3,5 +3,4 @@ const config = {
   version: process.env.NEXT_PUBLIC_VERSION,
   stripeKey: process.env.NEXT_PUBLIC_STRIPE,
 };
-// console.log("stripeKey", config.stripeKey);
 export default config;

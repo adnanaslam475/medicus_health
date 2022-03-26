@@ -33,7 +33,7 @@ const AccountTabs = () => {
   });
 
   useEffect(() => {
-    console.log(resultGet, "resultget");
+    // console.log(resultGet, "resultget");
   }, [resultGet]);
 
   // UPDATE PATIENT HEALTH HISTORY
@@ -48,7 +48,6 @@ const AccountTabs = () => {
 
     const healthQuesJson = JSON.stringify(quesPayload);
     // setLoading(true);
-    console.log(quesPayload, "rrrr");
     try {
       await updatePatientHealthHistory({
         input: {
@@ -88,22 +87,6 @@ const AccountTabs = () => {
                 >
                   Update
                 </Button>
-                {/* <div className="flex-0">
-                  {error?.graphQLErrors[0].message && (
-                    <Alert
-                      className=""
-                      message={error?.graphQLErrors[0].message}
-                      type="error"
-                    />
-                  )}
-                  {result && !result.error && (
-                    <Alert
-                      className=""
-                      message={"Your Health History has been updated"}
-                      type="success"
-                    />
-                  )}
-                  </div> */}
               </div>
             </div>
           </TabPane>

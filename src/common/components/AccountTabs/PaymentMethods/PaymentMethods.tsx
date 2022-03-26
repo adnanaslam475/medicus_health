@@ -7,7 +7,7 @@ import BillingItem from "./BillingItem/BillingItem";
 import PaymentHeader from "./PaymentHeader/PaymentHeader";
 import PaymentHeader2 from "./PaymentHeader2/PaymentHeader2";
 import { Elements } from "@stripe/react-stripe-js";
-import BillingNew from "./BillingNew";
+// import { BillingNew } from "./BillingNew";
 import {
   useGetAllCardsQuery,
   useCreateCardMutation,
@@ -16,30 +16,44 @@ import {
 } from "../../../../generated/graphql";
 import { loadStripe } from "@stripe/stripe-js";
 import config from "../../../../../config";
+import BillingNew from "./BillingNew";
 
 const { Panel } = Collapse;
 const stripePromise = loadStripe(config.stripeKey || "");
 
+type Props = {
+  onRemove: () => void;
+  onMakeDefault: () => void;
+};
+
 const PaymentMethods = () => {
   // CREATE CARDS API CALL
-  const [{ data }] = useCreateCardMutation();
-  const { createCard: createCard } = data || {};
-  console.log(data, "card created");
+  // const [{ data: { createCard } = {} }] = useCreateCardMutation();
+  const [{ data: createCardsData }] = useCreateCardMutation();
+  const { createCard } = createCardsData || {};
+  // const { createCard: createCard } = data || {};
+  // console.log(data, "card created");
 
   // GET ALL CARDS API CALL
-  const [{ data }] = useGetAllCardsQuery();
-  const { getAllCards: allCards } = data || {};
-  console.log(data, "allCards");
+  // const [{ data: { getAllCards } = {} }] = useGetAllCardsQuery();
+  // const { getAllCards } = data || {};
+  // console.log(data, "allCards");
+
+  // GET ALL CARDS API CALL
+  const [{ data: allCardsData }] = useGetAllCardsQuery();
+  const { getAllCards } = allCardsData || {};
+  // console.log(data, "allCards");
 
   // REMOVE  CARDS API CALL
-  const [{ data }] = useRemoveCardMutation();
-  const { removeCards: removeCard } = data || {};
-  console.log(data, "card removed");
+  const [{ data: removeCardData }, executeRemoveCard] = useRemoveCardMutation();
+  const { removeCard } = removeCardData || {};
+  // console.log(data, "card removed");
 
   // DEFAULT CARD SET API CALL
-  const [{ data }] = useDefaultCardMutation();
-  const { dafaultCard: setAsDefault } = data || {};
-  console.log(data, "set as Default");
+  const [{ data: DefaultCardData }] = useDefaultCardMutation();
+  const { setAsDefaultCard } = DefaultCardData || {};
+  // const [{ data:  dafaultCardData }] ] = useDefaultCardMutation();
+  // const { dafaultCard: setAsDefault } = data || {};
 
   // Modal Event Trigger
 
@@ -59,63 +73,15 @@ const PaymentMethods = () => {
 
   const [paymentMethod, setPaymentMethod] = useState([]);
   const [paymentLoading, setPaymentLoading] = useState(false);
-
-  // const getPaymentMethodsData = async () => {
-  //   setPaymentLoading(true);
-  //   try {
-  //     const res = await getPaymentMethods();
-  //     setPaymentMethod(res?.data);
-  //     setPaymentLoading(false);
-  //   } catch (error) {
-  //     setPaymentLoading(false);
-  //     notification.error({
-  //       message: error?.message,
-  //     });
-  //   }
-  // };
-
-  // const makeDefaultPaymentMethodData = async (id) => {
-  //   try {
-  //     const res = await makeDefaultPaymentMethod(id);
-  //     await getPaymentMethodsData();
-  //     notification.success({
-  //       message: res?.message,
-  //     });
-  //   } catch (error) {
-  //     notification.error({
-  //       message: error?.message,
-  //     });
-  //   }
-  // };
-
-  // const addMorePaymentService = async (token) => {
-  //   try {
-  //     const res = await addMorePayment({ token });
-  //     await getPaymentMethodsData();
-  //     notification.success({
-  //       message: res?.message,
-  //     });
-  //   } catch (error) {
-  //     notification.error({
-  //       message: error?.message,
-  //     });
-  //   }
-  // };
-
-  // const deletePaymentMethodData = async (id) => {
-  //   try {
-  //     const res = await deletePaymentMethod(id);
-  //     await getPaymentMethodsData();
-  //     notification.success({
-  //       message: res?.message,
-  //     });
-  //   } catch (error) {
-  //     notification.error({
-  //       message: error?.message,
-  //     });
-  //   }
-  // };
-
+  function onRemove(id) {
+    debugger;
+    executeRemoveCard({
+      input: id,
+    });
+  }
+  function onMakeDefault() {
+    debugger;
+  }
   return (
     <>
       <div className="flex justify-between items-center w-full md:w-3/4">
@@ -123,10 +89,10 @@ const PaymentMethods = () => {
           <Elements stripe={loadStripe(config.stripeKey || "")}>
             <BillingNew
               // data={paymentMethod}
-              data={allCards}
+              data={getAllCards}
               // loading={paymentLoading}
-              // onMakeDefault={makeDefaultPaymentMethodData}
-              // onRemove={deletePaymentMethodData}
+              onMakeDefault={onMakeDefault}
+              onRemove={onRemove}
               // onSubmit={(token) => {
               //   addMorePaymentService(token);
               // }}
