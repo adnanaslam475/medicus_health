@@ -22,35 +22,31 @@ const { Panel } = Collapse;
 const stripePromise = loadStripe(config.stripeKey || "");
 
 type Props = {
-  onRemove: () => void;
-  onMakeDefault: () => void;
+  // onRemove: (id: number) => void;
+  // onMakeDefault: (id: number) => void;
+  // onRemove: () => void;
+  // onMakeDefault: () => void;
 };
 
 const PaymentMethods = () => {
   // CREATE CARDS API CALL
   // const [{ data: { createCard } = {} }] = useCreateCardMutation();
-  const [{ data: createCardsData }] = useCreateCardMutation();
+
+  const [{ data: createCardsData }, executeCardMutation] =
+    useCreateCardMutation();
   const { createCard } = createCardsData || {};
   // const { createCard: createCard } = data || {};
-  // console.log(data, "card created");
-
-  // GET ALL CARDS API CALL
-  // const [{ data: { getAllCards } = {} }] = useGetAllCardsQuery();
-  // const { getAllCards } = data || {};
-  // console.log(data, "allCards");
 
   // GET ALL CARDS API CALL
   const [{ data: allCardsData }] = useGetAllCardsQuery();
   const { getAllCards } = allCardsData || {};
-  // console.log(data, "allCards");
 
   // REMOVE  CARDS API CALL
   const [{ data: removeCardData }, executeRemoveCard] = useRemoveCardMutation();
   const { removeCard } = removeCardData || {};
-  // console.log(data, "card removed");
 
   // DEFAULT CARD SET API CALL
-  const [{ data: DefaultCardData }] = useDefaultCardMutation();
+  const [{ data: DefaultCardData }, setDefaultCard] = useDefaultCardMutation();
   const { setAsDefaultCard } = DefaultCardData || {};
   // const [{ data:  dafaultCardData }] ] = useDefaultCardMutation();
   // const { dafaultCard: setAsDefault } = data || {};
@@ -73,24 +69,59 @@ const PaymentMethods = () => {
 
   const [paymentMethod, setPaymentMethod] = useState([]);
   const [paymentLoading, setPaymentLoading] = useState(false);
-  function onRemove(id) {
-    debugger;
+
+  function onRemove(id: number) {
+    console.log(id, "on Remove/default");
     executeRemoveCard({
       input: id,
     });
   }
-  function onMakeDefault() {
-    debugger;
+  function onMakeDefault(id: number) {
+    console.log(id, "on Remove/default2");
+    setDefaultCard({
+      input: id,
+    });
   }
+
+  // function addMorePaymentService = async () => {
+  // executeCardMutation();
+
+  // };
+
+  // try {
+  //   const res = await addMorePaym
+  //   ent({ token });
+  //   await getPaymentMethodsData();
+  //   notification.success({
+  //     message: res?.message,
+  //   });
+  // } catch (error) {
+  //   notification.error({
+  //     message: error?.message,
+  //   });
+
+  const getPaymentMethodsData = async () => {};
+
+  // setPaymentLoading(true);
+  // try {
+  //   const res = await getPaymentMethods();
+  //   setPaymentMethod(res?.data);
+  //   setPaymentLoading(false);
+  // } catch (error) {
+  //   setPaymentLoading(false);
+  //   notification.error({
+  //     message: error?.message,
+  //   });
+  // }
+
   return (
     <>
       <div className="flex justify-between items-center w-full md:w-3/4">
         <div className="w-3/4 p-3">
           <Elements stripe={loadStripe(config.stripeKey || "")}>
             <BillingNew
-              // data={paymentMethod}
               data={getAllCards}
-              // loading={paymentLoading}
+              // loading={fetching}
               onMakeDefault={onMakeDefault}
               onRemove={onRemove}
               // onSubmit={(token) => {
@@ -99,7 +130,7 @@ const PaymentMethods = () => {
             />
           </Elements>
 
-          <div className="mb-5 bg-gray-4">
+          {/* <div className="mb-5 bg-gray-4">
             <Collapse
               defaultActiveKey={["1"]}
               expandIconPosition="right"
@@ -109,7 +140,7 @@ const PaymentMethods = () => {
                 <BillingItem />
               </Panel>
             </Collapse>
-          </div>
+          </div> */}
 
           {/* <Collapse
             defaultActiveKey={["2"]}
@@ -121,7 +152,7 @@ const PaymentMethods = () => {
             </Panel>
           </Collapse> */}
 
-          <Button
+          {/* <Button
             type="default"
             onClick={showModal}
             icon={<PlusOutlined />}
@@ -139,7 +170,7 @@ const PaymentMethods = () => {
             <p>Some contents...</p>
             <p>Some contents...</p>
             <p>Some contents...</p>
-          </Modal>
+          </Modal> */}
         </div>
       </div>
     </>

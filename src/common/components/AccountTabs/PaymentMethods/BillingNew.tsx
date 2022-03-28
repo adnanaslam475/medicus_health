@@ -9,7 +9,12 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { StripeCardNumberElement } from "@stripe/stripe-js/types/stripe-js/elements";
-import { GetAllCardsQuery, UserCard } from "../../../../generated/graphql";
+import {
+  GetAllCardsQuery,
+  useCreateCardMutation,
+  UserCard,
+} from "../../../../generated/graphql";
+import { getUserData } from "../../../utils/userData";
 
 type Props = {
   title: string;
@@ -18,6 +23,8 @@ type Props = {
   onRemove: () => void;
   onMakeDefault: () => void;
 };
+
+const source_id = "src_1KhDBQBJVxn5LP3d4ZafVeMH";
 
 export const Payment = (props: Props) => {
   const { title, description, isDefault, onRemove, onMakeDefault } = props;
@@ -32,7 +39,7 @@ export const Payment = (props: Props) => {
             </div>
             {isDefault && (
               <div className="text-primary">
-                <Tag color="#653374" className="rounded-full">
+                <Tag color="#30CEC2" className="rounded-full">
                   DEFAULT
                 </Tag>
               </div>
@@ -42,23 +49,6 @@ export const Payment = (props: Props) => {
       </div>
       {!isDefault && (
         <div className="mt-3">
-          <Button
-            type="link"
-            size="small"
-            danger
-            onClick={() => {
-              Modal.confirm({
-                content: "Do you want to remove this card?",
-                okText: "Remove",
-                onOk() {
-                  onRemove();
-                },
-                onCancel() {},
-              });
-            }}
-          >
-            Remove
-          </Button>
           <span className="text-primary pl-4">
             <Button
               type="link"
@@ -77,6 +67,23 @@ export const Payment = (props: Props) => {
               Mark As Default
             </Button>
           </span>
+          <Button
+            type="link"
+            size="small"
+            danger
+            onClick={() => {
+              Modal.confirm({
+                content: "Do you want to remove this card?",
+                okText: "Remove",
+                onOk() {
+                  onRemove();
+                },
+                onCancel() {},
+              });
+            }}
+          >
+            Remove
+          </Button>
         </div>
       )}
     </div>
@@ -94,10 +101,10 @@ Payment.defaultProps = {
 type propsBilling = {
   data: UserCard[];
   loading: string;
-  onSubmit: (token: number | undefined) => void;
-  // onSubmit: (token: string | undefined) => void;
-  onRemove: (token: number | undefined) => void;
-  onMakeDefault: (token: string | undefined) => void;
+  onSubmit: (id: {} | undefined) => void;
+  onRemove: (id: number) => void;
+  onMakeDefault: (id: number) => void;
+  // source: undefined | {} | "";
 };
 
 function Billing({
@@ -115,21 +122,41 @@ function Billing({
     setModalVisible(false);
   };
 
+  const [{ data: createCardsData }, executeCardMutation] =
+    useCreateCardMutation();
+  const { createCard } = createCardsData || {};
+
   const handleSubmit = async () => {
     try {
       if (elements == null) {
         return;
       }
       const cardElement = elements.getElement(CardNumberElement);
-      const { token, error } =
-        (await stripe?.createToken(cardElement as StripeCardNumberElement)) ||
-        {};
+      const { source, error } = (await stripe?.createSource(cardElement)) || {};
+      console.log(source, "myID");
+      const { user } = getUserData();
+      await executeCardMutation({
+        input: {
+          card_digits: Number(source?.card?.last4) || 0,
+          card_type: source?.card?.brand || "",
+          is_default: false,
+          // card_id:
+          // source_id: token?.card?.id || "",
+          source_id: source?.id,
+          user_id: user?.id as number,
+        },
+      });
+
+      setTimeout(() => {
+        console.log(createCard, "card created");
+      }, 1000);
+
       if (error) {
         notification.error({
           message: error?.message || "Something went wrong",
         });
       } else {
-        await onSubmit(token?.id);
+        await onSubmit(source?.id);
         setModalVisible(false);
         cardElement?.clear();
       }
@@ -231,8 +258,8 @@ function Billing({
               </div>
             </div>
           </div>
-          <div className="flex justify-end">
-            <Form.Item className="mx-2 my-0">
+          <div className="flex justify-end gap-4">
+            <Form.Item className="mx-2 my-0 gap-4">
               <Button onClick={closeModal}>Cancel</Button>
             </Form.Item>
             <Form.Item className="m-0">
