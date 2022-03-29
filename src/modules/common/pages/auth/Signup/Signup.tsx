@@ -68,9 +68,7 @@ function Signup() {
       },
     });
   }
-  const onFinishHealthQuestionnaryFailed = (err: any) => {
-    console.log(err, "eerrr");
-  };
+  const onFinishHealthQuestionnaryFailed = (err: any) => {};
 
   const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
     const user = await submitPersonalInfo();

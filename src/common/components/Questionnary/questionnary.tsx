@@ -62,7 +62,7 @@ const HealthQuestionnary = ({
             </span>
           </Checkbox>
         )}
-        {/* {console.log(form)} */}
+
         <Button
           loading={isLoading}
           disabled={!terms || isLoading}
@@ -127,7 +127,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     setRadioDrink(parsedData?.q1.ans);
     setRadioSmoke(parsedData?.q2.ans);
     setRadioDrug(parsedData?.q3.ans);
-    
+
     formInstance.setFieldsValue({
       // q1
       [HealthQuestionnaryData.q1.name]: parsedData?.q1.ans,

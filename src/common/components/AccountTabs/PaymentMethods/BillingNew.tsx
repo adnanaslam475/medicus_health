@@ -134,14 +134,13 @@ function Billing({
       const { token } =
         (await stripe?.createToken(cardElement as StripeCardNumberElement)) ||
         {};
-      console.log(token, "token");
 
       const { source, error } =
         (await stripe?.createSource(
           cardElement as StripeElement,
           {} as CreateSourceData
         )) || {};
-      console.log(source, "myID");
+
       const { user } = getUserData();
       await executeCardMutation({
         input: {
@@ -154,10 +153,6 @@ function Billing({
           // exp_year: source?.card?.exp_month as number,
         },
       });
-
-      // setTimeout(() => {
-      //   console.log(createCard, "card created");
-      // }, 1000);
 
       if (error) {
         notification.error({

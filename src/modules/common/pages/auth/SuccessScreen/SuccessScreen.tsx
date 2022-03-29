@@ -1,12 +1,10 @@
-
-
 import React from "react";
 import Link from "next/link";
 import { Form, Button } from "antd";
 import Container from "../../../../../common/components/Container/Container";
 import Image from "next/image";
 
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 const successScreen = () => {
   const onFinish = async (values: object) => {
@@ -18,7 +16,7 @@ const successScreen = () => {
   };
 
   const { query } = useRouter();
-  console.log(query,"query")
+  console.log(query, "query");
 
   return (
     <Container className="login-bg w-full">
@@ -48,9 +46,7 @@ const successScreen = () => {
             </h2>
             <p className="text-gray text-center text-xs px-7">
               We have sent you an email on{" "}
-              <span className="text-secondary">
-                 {` ${query?.email} `} 
-                </span>
+              <span className="text-secondary">{` ${query?.email} `}</span>
               Please click on the verification link and your account will be
               verified.
             </p>
