@@ -15,6 +15,7 @@ import {
   UserCard,
 } from "../../../../generated/graphql";
 import { getUserData } from "../../../utils/userData";
+import { CreateSourceData, StripeElement } from "@stripe/stripe-js";
 
 type Props = {
   title: string;
@@ -23,9 +24,6 @@ type Props = {
   onRemove: () => void;
   onMakeDefault: () => void;
 };
-
-const source_id = "src_1KhDBQBJVxn5LP3d4ZafVeMH";
-
 export const Payment = (props: Props) => {
   const { title, description, isDefault, onRemove, onMakeDefault } = props;
   return (
@@ -132,7 +130,17 @@ function Billing({
         return;
       }
       const cardElement = elements.getElement(CardNumberElement);
-      const { source, error } = (await stripe?.createSource(cardElement)) || {};
+
+      const { token } =
+        (await stripe?.createToken(cardElement as StripeCardNumberElement)) ||
+        {};
+      console.log(token, "token");
+
+      const { source, error } =
+        (await stripe?.createSource(
+          cardElement as StripeElement,
+          {} as CreateSourceData
+        )) || {};
       console.log(source, "myID");
       const { user } = getUserData();
       await executeCardMutation({
@@ -140,16 +148,16 @@ function Billing({
           card_digits: Number(source?.card?.last4) || 0,
           card_type: source?.card?.brand || "",
           is_default: false,
-          // card_id:
-          // source_id: token?.card?.id || "",
-          source_id: source?.id,
+          source_id: source?.id as string,
           user_id: user?.id as number,
+          // exp_month: source?.card?.exp_month || "",
+          // exp_year: source?.card?.exp_month as number,
         },
       });
 
-      setTimeout(() => {
-        console.log(createCard, "card created");
-      }, 1000);
+      // setTimeout(() => {
+      //   console.log(createCard, "card created");
+      // }, 1000);
 
       if (error) {
         notification.error({
@@ -195,7 +203,7 @@ function Billing({
                   <Payment
                     isDefault={card?.is_default}
                     title={`${card?.card_type} Ending with ${card?.card_digits}`}
-                    // description={`Expires at: ${card?.card_expiry_month}/${card?.card_expiry_year}`}
+                    // description={`Expires at: ${card?.exp_month}/${card?.exp_year}`}
                     onRemove={() => {
                       onRemove(card?.id);
                     }}
