@@ -74,3 +74,22 @@ query getCard {
     is_default
   }
 }
+
+# GET USER DATA
+
+query getUser($input: Int!) {
+  user(id: $input) {
+    id
+    first_name
+    last_name
+    gender
+    date_of_birth
+    contact_number
+    country_id
+    city_id
+    state_id
+    password
+    zip_code
+    role
+  }
+}
