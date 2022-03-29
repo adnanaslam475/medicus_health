@@ -7,7 +7,7 @@ import BillingItem from "./BillingItem/BillingItem";
 import PaymentHeader from "./PaymentHeader/PaymentHeader";
 import PaymentHeader2 from "./PaymentHeader2/PaymentHeader2";
 import { Elements } from "@stripe/react-stripe-js";
-import BillingNew from "./BillingNew";
+// import { BillingNew } from "./BillingNew";
 import {
   useGetAllCardsQuery,
   useCreateCardMutation,
@@ -16,30 +16,40 @@ import {
 } from "../../../../generated/graphql";
 import { loadStripe } from "@stripe/stripe-js";
 import config from "../../../../../config";
+import BillingNew from "./BillingNew";
 
 const { Panel } = Collapse;
 const stripePromise = loadStripe(config.stripeKey || "");
 
+type Props = {
+  // onRemove: (id: number) => void;
+  // onMakeDefault: (id: number) => void;
+  // onRemove: () => void;
+  // onMakeDefault: () => void;
+};
+
 const PaymentMethods = () => {
   // CREATE CARDS API CALL
-  const [{ data }] = useCreateCardMutation();
-  const { createCard: createCard } = data || {};
-  console.log(data, "card created");
+  // const [{ data: { createCard } = {} }] = useCreateCardMutation();
+
+  const [{ data: createCardsData }, executeCardMutation] =
+    useCreateCardMutation();
+  const { createCard } = createCardsData || {};
+  // const { createCard: createCard } = data || {};
 
   // GET ALL CARDS API CALL
-  const [{ data }] = useGetAllCardsQuery();
-  const { getAllCards: allCards } = data || {};
-  console.log(data, "allCards");
+  const [{ data: allCardsData }] = useGetAllCardsQuery();
+  const { getAllCards } = allCardsData || {};
 
   // REMOVE  CARDS API CALL
-  const [{ data }] = useRemoveCardMutation();
-  const { removeCards: removeCard } = data || {};
-  console.log(data, "card removed");
+  const [{ data: removeCardData }, executeRemoveCard] = useRemoveCardMutation();
+  const { removeCard } = removeCardData || {};
 
   // DEFAULT CARD SET API CALL
-  const [{ data }] = useDefaultCardMutation();
-  const { dafaultCard: setAsDefault } = data || {};
-  console.log(data, "set as Default");
+  const [{ data: DefaultCardData }, setDefaultCard] = useDefaultCardMutation();
+  const { setAsDefaultCard } = DefaultCardData || {};
+  // const [{ data:  dafaultCardData }] ] = useDefaultCardMutation();
+  // const { dafaultCard: setAsDefault } = data || {};
 
   // Modal Event Trigger
 
@@ -60,61 +70,49 @@ const PaymentMethods = () => {
   const [paymentMethod, setPaymentMethod] = useState([]);
   const [paymentLoading, setPaymentLoading] = useState(false);
 
-  // const getPaymentMethodsData = async () => {
-  //   setPaymentLoading(true);
-  //   try {
-  //     const res = await getPaymentMethods();
-  //     setPaymentMethod(res?.data);
-  //     setPaymentLoading(false);
-  //   } catch (error) {
-  //     setPaymentLoading(false);
-  //     notification.error({
-  //       message: error?.message,
-  //     });
-  //   }
+  function onRemove(id: number) {
+    console.log(id, "on Remove/default");
+    executeRemoveCard({
+      input: id,
+    });
+  }
+  function onMakeDefault(id: number) {
+    console.log(id, "on Remove/default2");
+    setDefaultCard({
+      input: id,
+    });
+  }
+
+  // function addMorePaymentService = async () => {
+  // executeCardMutation();
+
   // };
 
-  // const makeDefaultPaymentMethodData = async (id) => {
-  //   try {
-  //     const res = await makeDefaultPaymentMethod(id);
-  //     await getPaymentMethodsData();
-  //     notification.success({
-  //       message: res?.message,
-  //     });
-  //   } catch (error) {
-  //     notification.error({
-  //       message: error?.message,
-  //     });
-  //   }
-  // };
+  // try {
+  //   const res = await addMorePaym
+  //   ent({ token });
+  //   await getPaymentMethodsData();
+  //   notification.success({
+  //     message: res?.message,
+  //   });
+  // } catch (error) {
+  //   notification.error({
+  //     message: error?.message,
+  //   });
 
-  // const addMorePaymentService = async (token) => {
-  //   try {
-  //     const res = await addMorePayment({ token });
-  //     await getPaymentMethodsData();
-  //     notification.success({
-  //       message: res?.message,
-  //     });
-  //   } catch (error) {
-  //     notification.error({
-  //       message: error?.message,
-  //     });
-  //   }
-  // };
+  const getPaymentMethodsData = async () => {};
 
-  // const deletePaymentMethodData = async (id) => {
-  //   try {
-  //     const res = await deletePaymentMethod(id);
-  //     await getPaymentMethodsData();
-  //     notification.success({
-  //       message: res?.message,
-  //     });
-  //   } catch (error) {
-  //     notification.error({
-  //       message: error?.message,
-  //     });
-  //   }
-  // };
+  // setPaymentLoading(true);
+  // try {
+  //   const res = await getPaymentMethods();
+  //   setPaymentMethod(res?.data);
+  //   setPaymentLoading(false);
+  // } catch (error) {
+  //   setPaymentLoading(false);
+  //   notification.error({
+  //     message: error?.message,
+  //   });
+  // }
 
   return (
     <>
@@ -122,18 +120,17 @@ const PaymentMethods = () => {
         <div className="w-3/4 p-3">
           <Elements stripe={loadStripe(config.stripeKey || "")}>
             <BillingNew
-              // data={paymentMethod}
-              data={allCards}
-              // loading={paymentLoading}
-              // onMakeDefault={makeDefaultPaymentMethodData}
-              // onRemove={deletePaymentMethodData}
+              data={getAllCards}
+              // loading={fetching}
+              onMakeDefault={onMakeDefault}
+              onRemove={onRemove}
               // onSubmit={(token) => {
               //   addMorePaymentService(token);
               // }}
             />
           </Elements>
 
-          <div className="mb-5 bg-gray-4">
+          {/* <div className="mb-5 bg-gray-4">
             <Collapse
               defaultActiveKey={["1"]}
               expandIconPosition="right"
@@ -143,7 +140,7 @@ const PaymentMethods = () => {
                 <BillingItem />
               </Panel>
             </Collapse>
-          </div>
+          </div> */}
 
           {/* <Collapse
             defaultActiveKey={["2"]}
@@ -155,7 +152,7 @@ const PaymentMethods = () => {
             </Panel>
           </Collapse> */}
 
-          <Button
+          {/* <Button
             type="default"
             onClick={showModal}
             icon={<PlusOutlined />}
@@ -173,7 +170,7 @@ const PaymentMethods = () => {
             <p>Some contents...</p>
             <p>Some contents...</p>
             <p>Some contents...</p>
-          </Modal>
+          </Modal> */}
         </div>
       </div>
     </>

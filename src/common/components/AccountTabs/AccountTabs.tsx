@@ -25,16 +25,15 @@ const AccountTabs = () => {
   const form: any = useRef();
 
   // Get patient Health History
-
-  const [resultGet] = usePatientHealthHistoryQuery({
+  const [{data}] = usePatientHealthHistoryQuery({
     variables: {
       input: 56,
     },
   });
 
-  useEffect(() => {
-    console.log(resultGet, "resultget");
-  }, [resultGet]);
+  // useEffect(() => {
+  //   console.log({ data });
+  // }, [data]);
 
   // UPDATE PATIENT HEALTH HISTORY
 
@@ -44,11 +43,7 @@ const AccountTabs = () => {
   const { error, fetching } = result;
 
   const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
-    // const user = await submitPersonalInfo();
-
     const healthQuesJson = JSON.stringify(quesPayload);
-    // setLoading(true);
-    console.log(quesPayload, "rrrr");
     try {
       await updatePatientHealthHistory({
         input: {
@@ -58,7 +53,6 @@ const AccountTabs = () => {
       });
     } catch (err) {
       console.log(err);
-      // setLoading(false);
     }
   };
 
@@ -73,8 +67,7 @@ const AccountTabs = () => {
             <div className="w-1/3">
               <QuestionnaireForm
                 ref={form}
-                // data={{}}
-                // onFinishSuccess={onFinishSuccess}
+                data={data?.patientHealthHistory.history}
                 onFinishSuccess={onFinishHealthQuestionnarySuccess}
               />
 
