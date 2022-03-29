@@ -5,11 +5,25 @@ import Image from "next/image";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import PersonalInfoList from "../../../../modules/common/components/PersonalInfoList/PersonalInfoList";
 import PersonalInfoDetail from "../../../../modules/common/components/PersonalInfoDetail/PersonalInfoDetail";
+import { useGetUserQuery } from "../../../../generated/graphql";
+import { getUserData } from "../../../utils/userData";
 // import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
 
 const PersonalInfo = () => {
   const [isEdit, setIsEdit] = useState(false as boolean);
+
+  // GET USER ID
+  const { user } = getUserData();
+  const id: number = user?.id;
+
+  // GET USER DATA API CALL
+  // const [{ data: createCardsData }, executeCardMutation] =
+  const [{ data: userData }] = useGetUserQuery({
+    variables: { input: id },
+  });
+  // const { userAccountData } = data || {};
+  console.log(userData?.user, "userAccountData", id, "user_id");
 
   return (
     <>
