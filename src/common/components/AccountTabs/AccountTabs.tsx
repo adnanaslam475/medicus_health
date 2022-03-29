@@ -14,6 +14,7 @@ import {
   useUpdatePatientHealthHistoryMutation,
   usePatientHealthHistoryQuery,
 } from "../../../generated/graphql";
+import { getUserData } from "../../utils/userData";
 
 const { TabPane } = Tabs;
 
@@ -24,11 +25,13 @@ const AccountTabs = () => {
 
   const form: any = useRef();
 
+  // GET USER ID
+  const { user } = getUserData();
+  const id: number = user?.id;
+
   // Get patient Health History
   const [{ data }] = usePatientHealthHistoryQuery({
-    variables: {
-      input: 56,
-    },
+    variables: { input: id },
   });
 
   // useEffect(() => {
@@ -47,7 +50,8 @@ const AccountTabs = () => {
       await updatePatientHealthHistory({
         input: {
           history: healthQuesJson,
-          user_id: 213,
+          // user_id: 213,
+          user_id: id,
         },
       });
     } catch (err) {

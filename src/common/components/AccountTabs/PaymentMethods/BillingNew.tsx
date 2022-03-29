@@ -183,10 +183,10 @@ function Billing({
           </div> */}
       <div className="col-start-1 col-end-8 flex justify-between align-middle px-2 py-3">
         <div className="mb-8 flex flex-col w-full">
-          <h5 className="text-base font-medium mb-4">Billing</h5>
+          <h5 className="font-medium text-lg mb-4">Payment Methods</h5>
           <div className="flex md:flex-row gap-0 w-full">
-            <div className="user-details-list w-full border px-5 py-3 rounded-lg">
-              <div className="mb-3">Payment methods</div>
+            <div className="user-details-list w-full py-3 rounded-lg">
+              {/* <div className="mb-3">Payment methods</div> */}
               {loading ? (
                 <div className="w-full bg-gray-4 rounded-md border-primary my-2 h-20 flex flex-col justify-center items-center">
                   <Space size="middle">
