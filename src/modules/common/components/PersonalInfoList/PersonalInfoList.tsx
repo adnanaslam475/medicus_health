@@ -60,6 +60,13 @@ function PersonalInfoList() {
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
+                  <div className="w-1/2 text-gray-1">Confirm Password</div>
+                  <div className="w-1/2 text-secondary">*****************</div>
+                </div>
+              </li>
+
+              <li>
+                <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Country</div>
                   <div className="w-1/2 text-secondary">United States</div>
                 </div>

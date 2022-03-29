@@ -5,6 +5,7 @@ import Router, { useRouter } from "next/router";
 import Link from "next/link";
 import { VideoCameraFilled } from "@ant-design/icons";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import VideoCamera from "../../../../public/assets/icon/video.svg";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
@@ -23,13 +24,13 @@ function DoctorProfileCard() {
         <div className="docAvatarCover pr-3">
           <Avatar
             size={150}
-            src="./assets/images/doc-pic.png"
+            src="../assets/images/doc-pic.png"
             className=""
           ></Avatar>
         </div>
-        <div className="lg:pr-5 w-full">
+        <div className="lg:pr-5 w-full mb-5">
           <div className="flex-row md:flex items-center">
-            <h2 className="mb-0 mr-3 pr-4">
+            <h2 className="font-bold mb-0 mr-3">
               <span>Dr. Jonathan Green</span>
             </h2>
             <div className="flex">
@@ -47,13 +48,13 @@ function DoctorProfileCard() {
             </div>
           </div>
           <h5 className="text-primary text-xs mb-1">Cardiologist</h5>
-          <span className="text-sm">10+ years of experience</span>
+          <span className="text-secondary text-sm block mb-2">10+ years of experience</span>
           <Collapse className="lg:w-4/5">
             <Panel
               key="1"
               header={
                 <div className="flex-none sm:flex flex-grow justify-between">
-                    <div className="ant-collapse-available">Available Here</div>
+                    <div className="ant-collapse-available">Available Today</div>
                   <span className="ant-collapse-time">12:00 pm - 09:00 pm</span>
                 </div>
                 }
@@ -109,19 +110,24 @@ function DoctorProfileCard() {
           <div className="flex-none md:flex mt-3">
             <Button
                 type="primary"
-                icon={<VideoCameraFilled />}
             >
-                <span>Request an Appointment</span>
+                <Image
+                  src={VideoCamera}
+                  alt="espanolFlag"
+                  width={20}
+                  height={11}
+                />
+                <span className="ml-2">Request an Appointment</span>
             </Button>
             <div className="flex-none sm:flex">
                 <Button
-                    className="highlighted-button bg-transparent mt-3 md:mt-0 md:ml-3"
+                    className="highlighted-button btn-transparent mt-3 md:mt-0 md:ml-3"
                     icon={<VideoCameraFilled />}
                 >
                     <span className="hidden">Message Admin</span>
                 </Button>
                 <Button
-                    className="highlighted-button button-phy bg-transparent mt-3 md:mt-0 sm:ml-3"
+                    className="highlighted-button button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
                     icon={<VideoCameraFilled />}
                 >
                     <span className="hidden">Message Physician</span>
@@ -131,52 +137,58 @@ function DoctorProfileCard() {
         </div>
       </div>
         <Divider />
-        <h3>About Us</h3>
-        <p>Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex 
-          ante id nibh. In vehicula ligula vitae pulvinar malesuada. 
-          Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. 
-          Sed iaculis justo at feugiat porttitor.</p>
+        <h4 className="font-bold mb-1">About Me</h4>
+        <div className="text-gray text-base">
           <p>Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex 
-          ante id nibh. In vehicula ligula vitae pulvinar malesuada. 
-          Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. 
-          Sed iaculis justo at feugiat porttitor.
-        </p>
+            ante id nibh. In vehicula ligula vitae pulvinar malesuada. 
+            Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. 
+            Sed iaculis justo at feugiat porttitor.</p>
+            <p>Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex 
+            ante id nibh. In vehicula ligula vitae pulvinar malesuada. 
+            Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. 
+            Sed iaculis justo at feugiat porttitor.
+          </p>
+        </div>
         <Divider />
-        <h3>Conditions Treated</h3>
-        <p>
+        <h4 className="font-bold mb-1">Conditions Treated</h4>
+        <p className="text-base text-secondary">
             Abnormal heart rythms // Aorta diseas // Conginital heart disease
             Corony artery disease // Heart Attack // Heart Faliure
         </p>
         <Divider />
-        <h3>Professional Background</h3>
-        <p>
-            <span className="font-medium">Cook County Health and Hospitals System</span>
-            <span className="block">Fellowship, Cardiovascular Disease</span>
-        </p>
-        <p>
-            <span className="font-medium">Cook County Health and Hospitals System</span>
-            <span className="block">Fellowship, Cardiovascular Disease</span>
-        </p>
-        <p>
-            <span className="font-medium">Cook County Health and Hospitals System</span>
-            <span className="block">Fellowship, Cardiovascular Disease</span>
-        </p>
+        <h4 className="font-bold mb-1">Professional Background</h4>
+        <div className="text-base text-secondary">
+          <p>
+              <span className="font-medium">Cook County Health and Hospitals System</span>
+              <span className="block">Fellowship, Cardiovascular Disease</span>
+          </p>
+          <p>
+              <span className="font-medium">Cook County Health and Hospitals System</span>
+              <span className="block">Fellowship, Cardiovascular Disease</span>
+          </p>
+          <p>
+              <span className="font-medium">Cook County Health and Hospitals System</span>
+              <span className="block">Fellowship, Cardiovascular Disease</span>
+          </p>
+        </div>
         <Divider />
-        <h3>Educational Background</h3>
-        <p>
-            <span className="font-medium">Cook County Health and Hospitals System</span>
-            <span className="block">Fellowship, Cardiovascular Disease</span>
-        </p>
-        <p>
-            <span className="font-medium">Cook County Health and Hospitals System</span>
-            <span className="block">Fellowship, Cardiovascular Disease</span>
-        </p>
-        <p>
-            <span className="font-medium">Cook County Health and Hospitals System</span>
-            <span className="block">Fellowship, Cardiovascular Disease</span>
-        </p>
+        <h4 className="font-bold mb-1">Educational Background</h4>
+        <div className="text-base text-secondary">
+          <p>
+              <span className="font-medium">Cook County Health and Hospitals System</span>
+              <span className="block">Fellowship, Cardiovascular Disease</span>
+          </p>
+          <p>
+              <span className="font-medium">Cook County Health and Hospitals System</span>
+              <span className="block">Fellowship, Cardiovascular Disease</span>
+          </p>
+          <p>
+              <span className="font-medium">Cook County Health and Hospitals System</span>
+              <span className="block">Fellowship, Cardiovascular Disease</span>
+          </p>
+        </div>
         <Divider />
-        <a href="#" className="flex items-center" onClick={() => Router.push("/patient/physicians")}><ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span></a>
+        <a href="#" className="text-base flex items-center" onClick={() => Router.push("/patient/physicians")}><ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span></a>
 
 
     </Card>

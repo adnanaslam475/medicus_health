@@ -9,8 +9,8 @@ function PhysiciansDetail() {
         <AppLayout>
         <div className="w-full">
             <div className="lg:w-4/5 mx-auto">
-                <h2 className="mb-4">Physician Profile</h2>
-                <div className="w-full">
+                {/* <h2 className="mb-4">Physician Profile</h2> */}
+                <div className="w-full py-5">
                     <DoctorProfileCard />
                 </div>
             </div>

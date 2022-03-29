@@ -320,7 +320,18 @@ label.ant-radio-wrapper {
         }
     }
 }
-
+.ant-form-item-control-input {
+  .ant-form-item-control-input-content {
+    .ant-checkbox-group {
+      .ant-checkbox-wrapper {
+        &.ant-checkbox-group-item {
+          color: #9295AF;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
 .btn-transparent{
   background-color: transparent !important;
 }
@@ -346,4 +357,7 @@ label.ant-radio-wrapper {
     .ant-card-body {
         padding: 20px;
     }
+}
+.mb-0 {
+  margin-bottom: 0px !important;
 }

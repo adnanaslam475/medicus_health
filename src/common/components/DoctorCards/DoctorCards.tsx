@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Button, Divider, Avatar } from "antd";
 import Router, { useRouter } from "next/router";
 import Link from "next/link";
-import { VideoCameraFilled } from "@ant-design/icons";
+import VideoCameraFilled from "../../../../public/assets/icon/video.svg";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
@@ -41,13 +41,13 @@ function DoctorCard({
           <div className="docAvatarCover pr-3">
             <Avatar
               size={86}
-              src="./assets/images/doc-pic.png"
+              src="../assets/images/doc-pic.png"
               className=""
             ></Avatar>
           </div>
           <div className="lg:pr-5">
             <div className="flex-row md:flex">
-              <h2 className="mb-0 mr-3 pr-4">
+              <h2 className="font-bold mb-0 mr-3">
                 <span>
                   {/* Dr.{data.user.first_name} {data.user.last_name} */}
                   Dr.{name}
@@ -82,7 +82,7 @@ function DoctorCard({
             <span className="text-secondary text-sm">
               {yearOfExperience} years of experience
             </span>
-            <h6 className="text-gray mt-3">
+            <h6 className="font-rubik text-gray mt-3">
               {/* Heads up! This alert needs your attention, but it&apos;s not super
               imporant */}
               {aboutMe}
@@ -101,17 +101,22 @@ function DoctorCard({
         </div>
         <div className="card-actionBtns lg:w-2/6">
           <Link passHref href="/patient/physicians/profile">
-            <a className="mb-3 w-full bg-transparent inline-flex items-center justify-center border border-primary rounded-md py-3 px-4 ">
+            <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
               View Profile
             </a>
           </Link>
 
           <Button
             type="primary"
-            icon={<VideoCameraFilled />}
             className="w-full"
           >
-            <span className="">Request an Appointment</span>
+            <Image
+              src={VideoCameraFilled}
+              alt="espanolFlag"
+              width={20}
+              height={11}
+            />
+            <span className="ml-2">Request an Appointment</span>
           </Button>
         </div>
       </div>
