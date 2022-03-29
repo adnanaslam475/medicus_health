@@ -659,7 +659,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender: string, date_of_birth: any, contact_number: string, country_id: number, city_id: number, state_id: number, password: string, zip_code: string, role?: string | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender: string, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, password: string, zip_code: string, role?: string | null } };
 
 
 export const CreateUserDocument = gql`
@@ -911,6 +911,7 @@ export const GetUserDocument = gql`
     gender
     date_of_birth
     contact_number
+    email
     country_id
     city_id
     state_id

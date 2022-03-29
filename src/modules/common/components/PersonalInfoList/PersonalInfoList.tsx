@@ -1,8 +1,14 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
+import { User } from "../../../../generated/graphql";
+
+type Props={
+  userDetail: User | undefined;
+}
 
 
-function PersonalInfoList() {
+function PersonalInfoList({userDetail}) {
+  const {first_name, last_name,gender, date_of_birth, contact_number, email, password, country_id, state_id, city_id, zip_code} = userDetail || {};
   return (
     <div className="custom-list mt-4">
           <ul>
@@ -10,35 +16,35 @@ function PersonalInfoList() {
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">First Name</div>
-                  <div className="w-1/2 text-secondary">Mark</div>
+                  <div className="w-1/2 text-secondary">{first_name}</div>
                 </div>
               </li>
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Last Name</div>
-                  <div className="w-1/2 text-secondary">Manson</div>
+                  <div className="w-1/2 text-secondary">{last_name}</div>
                 </div>
               </li>
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Gender</div>
-                  <div className="w-1/2 text-secondary">Male</div>
+                  <div className="w-1/2 text-secondary">{gender}</div>
                 </div>
               </li>
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Date of Birth</div>
-                  <div className="w-1/2 text-secondary">April, 21, 1990</div>
+                  <div className="w-1/2 text-secondary">{date_of_birth}</div>
                 </div>
               </li>
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Contact Number</div>
-                  <div className="w-1/2 text-secondary">405 395 333</div>
+                  <div className="w-1/2 text-secondary">{contact_number}</div>
                 </div>
               </li>
 
@@ -46,7 +52,7 @@ function PersonalInfoList() {
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Email Address</div>
                   <div className="w-1/2 text-secondary">
-                    markmanson@gmail.com
+                    {email}
                   </div>
                 </div>
               </li>
@@ -54,35 +60,35 @@ function PersonalInfoList() {
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Password</div>
-                  <div className="w-1/2 text-secondary">*****************</div>
+                  <div className="w-1/2 text-secondary"><div className="word-wrap bg-transparent"><input type="password" disabled value={password} /></div></div>
                 </div>
               </li>
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Country</div>
-                  <div className="w-1/2 text-secondary">United States</div>
+                  <div className="w-1/2 text-secondary">{country_id}</div>
                 </div>
               </li>
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">State</div>
-                  <div className="w-1/2 text-secondary">Utaho</div>
+                  <div className="w-1/2 text-secondary">{state_id}</div>
                 </div>
               </li>
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">City</div>
-                  <div className="w-1/2 text-secondary">Dallas</div>
+                  <div className="w-1/2 text-secondary">{city_id}</div>
                 </div>
               </li>
 
               <li>
                 <div className="flex w-full  border-b border-gray-3 p-4">
                   <div className="w-1/2 text-gray-1">Postal Code</div>
-                  <div className="w-1/2 text-secondary">98439</div>
+                  <div className="w-1/2 text-secondary">{zip_code}</div>
                 </div>
               </li>
 
