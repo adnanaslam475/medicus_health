@@ -106,8 +106,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   props: any,
   ref: any
 ) {
-  const { onFinishSuccess, onFinishedFailed,data } = props || {};
-  const [radioDrink, setRadioDring] = useState(true);
+  const { onFinishSuccess, onFinishedFailed, data } = props || {};
+  const [radioDrink, setRadioDrink] = useState(true);
   const [radioSmoke, setRadioSmoke] = useState(true);
   const [radioDrug, setRadioDrug] = useState(true);
   const [formInstance] = Form.useForm();
@@ -117,11 +117,37 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       // eslint-disable-next-line react-hooks/exhaustive-deps
       ref.current = formInstance;
     }
-    formInstance.setFieldsValue({
-      [HealthQuestionnaryData.q1.name]: 0,
-      [HealthQuestionnaryData.q2.name]: 0,
-    });
+    if (data) {
+      prepareAndSetEditPayload(JSON.parse(data));
+    }
   }, [data]);
+  console.log({ data: JSON.parse(data) });
+
+  function prepareAndSetEditPayload(parsedData) {
+    setRadioDrink(parsedData?.q1.ans);
+    setRadioSmoke(parsedData?.q2.ans);
+    setRadioDrug(parsedData?.q3.ans);
+    
+    formInstance.setFieldsValue({
+      // q1
+      [HealthQuestionnaryData.q1.name]: parsedData?.q1.ans,
+      [HealthQuestionnaryData.q1.q.name]: parsedData?.q1.q.name,
+      // q2
+      [HealthQuestionnaryData.q2.name]: parsedData?.q2.ans,
+      [HealthQuestionnaryData.q2.q.name]: parsedData?.q2.q.name,
+      // q3
+      [HealthQuestionnaryData.q3.name]: parsedData?.q3.ans,
+      [HealthQuestionnaryData.q3.q.name]: parsedData?.q3.q.selectedOption,
+
+      //q4
+      [HealthQuestionnaryData.q4.name]: parsedData?.q4.selectedOption,
+      surgical_text: parsedData?.q4.ans,
+      [HealthQuestionnaryData.q5.name]: parsedData?.q5.ans,
+      [HealthQuestionnaryData.q6.name]: parsedData?.q6.ans,
+      [HealthQuestionnaryData.q7.name]: parsedData?.q7.ans,
+      [HealthQuestionnaryData.q8.name]: parsedData?.q8.ans,
+    });
+  }
 
   const onFinishHealthQuestionnary = async (values: any) => {
     if (values.radio_drink) {
@@ -209,7 +235,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         radio_drink: 1,
         radio_smoke: 1,
         radio_drug: 1,
-        // w : " Ali imtiaz"
       }}
       layout="vertical"
       onFinish={onFinishHealthQuestionnary}
@@ -224,7 +249,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       >
         <Radio.Group
           onChange={(e) => {
-            setRadioDring(e.target.value);
+            setRadioDrink(e.target.value);
           }}
         >
           <Radio value={1}>Yes</Radio>
@@ -235,7 +260,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         <Form.Item
           className="flex-1 text-secondary"
           name={HealthQuestionnaryData.q1.q.name}
-          // name="w"
           label={HealthQuestionnaryData.q1.q.label}
           rules={[
             {
@@ -299,12 +323,12 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             label={HealthQuestionnaryData.q3.q.label}
             className="text-secondary"
           >
-            <div className="checkbox-dir-col">
-              <CheckboxGroup
-                options={HealthQuestionnaryData.q3.q.option}
-                onChange={onChangeMedicalCondition}
-              />
-            </div>
+            {/* <div className="checkbox-dir-col"> */}
+            <CheckboxGroup
+              options={HealthQuestionnaryData.q3.q.option}
+              onChange={onChangeMedicalCondition}
+            />
+            {/* </div> */}
           </Form.Item>
           <Form.Item className="flex-1" name="drug_text">
             <Input />
@@ -316,12 +340,12 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         className="text-secondary"
         label={HealthQuestionnaryData.q4.label}
       >
-        <div className="checkbox-dir-col">
-          <CheckboxGroup
-            options={HealthQuestionnaryData.q4.option}
-            onChange={onChangeSurgicalHistory}
-          />
-        </div>
+        {/* <div className="checkbox-dir-col"> */}
+        <CheckboxGroup
+          options={HealthQuestionnaryData.q4.option}
+          onChange={onChangeSurgicalHistory}
+        />
+        {/* </div> */}
       </Form.Item>
       <Form.Item className="flex-1" name="surgical_text">
         <Input />
