@@ -206,12 +206,7 @@ const TransactionHistory = () => {
       render: () => {
         return (
           <div className="someclass">
-            <Tag color="cyan">
-              {/* <a href="https://github.com/ant-design/ant-design/issues/1862"> */}
-              completed
-              {/* </a> */}
-            </Tag>
-            {/* <Tag color="warning">Pending</Tag> */}
+            <Tag color="cyan">completed</Tag>
           </div>
         );
       },

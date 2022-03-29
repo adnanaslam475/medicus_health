@@ -25,7 +25,7 @@ const AccountTabs = () => {
   const form: any = useRef();
 
   // Get patient Health History
-  const [{data}] = usePatientHealthHistoryQuery({
+  const [{ data }] = usePatientHealthHistoryQuery({
     variables: {
       input: 56,
     },
@@ -34,7 +34,6 @@ const AccountTabs = () => {
   // useEffect(() => {
   //   console.log({ data });
   // }, [data]);
-
   // UPDATE PATIENT HEALTH HISTORY
 
   const [result, updatePatientHealthHistory] =
@@ -81,22 +80,6 @@ const AccountTabs = () => {
                 >
                   Update
                 </Button>
-                {/* <div className="flex-0">
-                  {error?.graphQLErrors[0].message && (
-                    <Alert
-                      className=""
-                      message={error?.graphQLErrors[0].message}
-                      type="error"
-                    />
-                  )}
-                  {result && !result.error && (
-                    <Alert
-                      className=""
-                      message={"Your Health History has been updated"}
-                      type="success"
-                    />
-                  )}
-                  </div> */}
               </div>
             </div>
           </TabPane>

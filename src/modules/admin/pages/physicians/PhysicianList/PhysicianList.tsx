@@ -1,4 +1,3 @@
-import { Card } from "antd";
 import React from "react";
 import DoctorCard from "../../../../../common/components/DoctorCards/DoctorCards";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
@@ -7,9 +6,6 @@ import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
 function Physicians() {
   const [{ data }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
-
-  console.log(doctorProfiles, "doctorProfiles");
-
   return (
     <AppLayout>
       <div className="w-full">

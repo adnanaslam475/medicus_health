@@ -71,13 +71,11 @@ const PaymentMethods = () => {
   const [paymentLoading, setPaymentLoading] = useState(false);
 
   function onRemove(id: number) {
-    console.log(id, "on Remove/default");
     executeRemoveCard({
       input: id,
     });
   }
   function onMakeDefault(id: number) {
-    console.log(id, "on Remove/default2");
     setDefaultCard({
       input: id,
     });

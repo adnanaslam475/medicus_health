@@ -15,7 +15,7 @@ import PersonalInfo from "./components/PersonalInfo/PersonalInfo";
 import { date } from "../../../../../common/utils";
 import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
-import successSmall from "../../../../../../public/assets/icon/success-small.svg"
+import successSmall from "../../../../../../public/assets/icon/success-small.svg";
 
 const { TabPane } = Tabs;
 const { confirm } = Modal;
@@ -68,9 +68,7 @@ function Signup() {
       },
     });
   }
-  const onFinishHealthQuestionnaryFailed = (err: any) => {
-    console.log(err, "eerrr");
-  };
+  const onFinishHealthQuestionnaryFailed = (err: any) => {};
 
   const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
     const user = await submitPersonalInfo();
