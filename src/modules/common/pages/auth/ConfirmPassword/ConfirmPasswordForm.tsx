@@ -75,10 +75,7 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
           type="success"
           action={
             <Link href="/login" passHref>
-              <Button
-                size="small"
-                type="primary"
-              >
+              <Button size="small" type="primary">
                 Login
               </Button>
             </Link>
