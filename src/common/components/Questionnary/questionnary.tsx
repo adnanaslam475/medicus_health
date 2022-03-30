@@ -110,8 +110,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const [radioDrink, setRadioDrink] = useState(true);
   const [radioSmoke, setRadioSmoke] = useState(true);
   const [radioDrug, setRadioDrug] = useState(true);
-  const [showDrugOthers, setShowDrugOthers] = useState(true);
-  const [showSurgicalOthers, setShowSurgicalOthers] = useState(true);
+  const [showDrugOthers, setShowDrugOthers] = useState(false);
+  const [showSurgicalOthers, setShowSurgicalOthers] = useState(false);
   const [formInstance] = Form.useForm();
 
   useEffect(() => {
@@ -125,7 +125,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   }, [data]);
 
   function prepareAndSetEditPayload(parsedData: any) {
-    console.log({parsedData})
+    console.log({ parsedData });
 
     setRadioDrink(parsedData?.q1.ans);
     setRadioSmoke(parsedData?.q2.ans);
@@ -144,7 +144,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       [HealthQuestionnaryData.q3.name]: parsedData?.q3.ans,
       [HealthQuestionnaryData.q3.q.name]: parsedData?.q3.q.selectedOption,
       [HealthQuestionnaryData.q3.q2.name]: parsedData?.q3?.q2?.ans,
-      
+
       //q4
       [HealthQuestionnaryData.q4.name]: parsedData?.q4.selectedOption,
       [HealthQuestionnaryData.q4.q2.name]: parsedData?.q4?.q2?.ans,
@@ -157,7 +157,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   }
 
   const onFinishHealthQuestionnary = async (values: any) => {
-    console.log(values)
+    console.log(values);
     if (values.radio_drink) {
       HealthQuestionnaryData.q1["ans"] = 1;
       HealthQuestionnaryData.q1.q.ans = values.drinks;
@@ -181,13 +181,13 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       HealthQuestionnaryData.q3["ans"] = 0;
       HealthQuestionnaryData.q3.q.ans = null;
     }
-    
+
     if (values.drug_text) {
       HealthQuestionnaryData.q3.q2.ans = values.drug_text;
     } else {
       HealthQuestionnaryData.q3.q2.ans = null;
     }
-    
+
     if (values.surgical_text) {
       HealthQuestionnaryData.q4.q2.ans = values.surgical_text;
     } else {
@@ -233,12 +233,12 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 
   function onChangeMedicalCondition(e: CheckboxValueType[]): void {
     HealthQuestionnaryData.q3.q.selectedOption = e;
-    setShowDrugOthers(e.includes("Others"))
+    setShowDrugOthers(e.includes("Others"));
   }
-  
+
   function onChangeSurgicalHistory(checkedValue: CheckboxValueType[]): void {
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
-    setShowSurgicalOthers(checkedValue.includes("Others"))
+    setShowSurgicalOthers(checkedValue.includes("Others"));
   }
 
   // function prepareEditPayload(tipLocal) {
@@ -354,14 +354,14 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             {/* </div> */}
           </Form.Item>
           {showDrugOthers && (
-            <Form.Item 
-              className="flex-1" 
+            <Form.Item
+              className="flex-1"
               // name="drug_text"
               name={HealthQuestionnaryData.q3.q2.name}
             >
               <Input />
             </Form.Item>
-          )} 
+          )}
         </>
       )}
       <Form.Item
@@ -378,14 +378,14 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         {/* </div> */}
       </Form.Item>
       {showSurgicalOthers && (
-        <Form.Item 
-          className="flex-1" 
+        <Form.Item
+          className="flex-1"
           // name="surgical_text"
-          name={HealthQuestionnaryData.q4.q2.name}  
+          name={HealthQuestionnaryData.q4.q2.name}
         >
           <Input />
         </Form.Item>
-      )} 
+      )}
       <Form.Item
         className="flex-1 text-secondary"
         name={HealthQuestionnaryData.q5.name}
