@@ -27,7 +27,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
   let selectedCountry = countries?.filter((item) => item.id === country_id);
   let countryName = "";
   if (selectedCountry) {
-    countryName = selectedCountry[0].country_name;
+    countryName = selectedCountry[0]?.country_name;
   }
 
   return (
