@@ -22,8 +22,6 @@ const PersonalInfo = () => {
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: id },
   });
-  // const { userAccountData } = data || {};
-  console.log(userData?.user, "userAccountData", id, "user_id");
 
   return (
     <>
@@ -51,7 +49,15 @@ const PersonalInfo = () => {
           </div>
 
           <div className="edit-btn flex justify-end">
-            {isEdit ? (
+          <Button
+                type="default"
+                className="text-xs p-5"
+                size="large"
+                // onClick={() => setIsEdit(true)}
+              >
+                <span className="text-xs">EDIT</span>
+              </Button>
+            {/* {isEdit ? (
               <div className="flex gap-4">
                 <Button
                   danger
@@ -65,8 +71,7 @@ const PersonalInfo = () => {
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
                   className="text-xs p-5"
                   size="large"
-                  // loading={loading}
-                  // disabled={loading}
+                  
                 >
                   <span className="text-xs text-white">SAVE</span>
                 </Button>
@@ -80,13 +85,13 @@ const PersonalInfo = () => {
               >
                 <span className="text-xs">EDIT</span>
               </Button>
-            )}
+            )} */}
           </div>
         </div>
         {isEdit ? (
           <PersonalInfoDetail onFinish={() => null} loading={true} />
         ) : (
-          <PersonalInfoList />
+          <PersonalInfoList userDetail= {userData?.user} />
         )}
       </div>
     </>

@@ -85,6 +85,7 @@ query getUser($input: Int!) {
     gender
     date_of_birth
     contact_number
+    email
     country_id
     city_id
     state_id

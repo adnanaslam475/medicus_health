@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next dev",
     "build": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next build",
-    "start": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next start -p 8080",
+    "start": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next start",
+    "start:dev": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next start -p 8080",
+    "start:uat": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next start -p 8090",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
     "codegen.yml": "graphql-codegen --config codegen.yml"
