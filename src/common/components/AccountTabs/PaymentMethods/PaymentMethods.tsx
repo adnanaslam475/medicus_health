@@ -17,6 +17,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import config from "../../../../../config";
 import BillingNew from "./BillingNew";
+import { getUserData } from "../../../utils/userData";
 
 const { Panel } = Collapse;
 const stripePromise = loadStripe(config.stripeKey || "");
@@ -29,6 +30,10 @@ type Props = {
 };
 
 const PaymentMethods = () => {
+  // GET USER ID
+  const { user } = getUserData();
+  const id: number = user?.id;
+
   // CREATE CARDS API CALL
   // const [{ data: { createCard } = {} }] = useCreateCardMutation();
 
@@ -38,7 +43,9 @@ const PaymentMethods = () => {
   // const { createCard: createCard } = data || {};
 
   // GET ALL CARDS API CALL
-  const [{ data: allCardsData }] = useGetAllCardsQuery();
+  const [{ data: allCardsData }] = useGetAllCardsQuery({
+    variables: { userId: id },
+  });
   const { getAllCards } = allCardsData || {};
 
   // REMOVE  CARDS API CALL
