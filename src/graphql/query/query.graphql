@@ -52,8 +52,8 @@ query patientHealthHistory($input: Int!) {
 }
 
 # GET ALL CARDS
-query getAllCards {
-  getAllCards(user_id: 164) {
+query getAllCards($userId: Int!) {
+  getAllCards(user_id: $userId) {
     id
     user_id
     card_id
@@ -64,8 +64,8 @@ query getAllCards {
 }
 
 # GET CARD QUERY
-query getCard {
-  getCard(id: 15) {
+query getCard($id: Int!) {
+  getCard(id: $id) {
     id
     user_id
     card_id
@@ -75,7 +75,7 @@ query getCard {
   }
 }
 
-# GET USER DATA
+# GET USER
 
 query getUser($input: Int!) {
   user(id: $input) {
@@ -85,6 +85,7 @@ query getUser($input: Int!) {
     gender
     date_of_birth
     contact_number
+    email
     country_id
     city_id
     state_id
