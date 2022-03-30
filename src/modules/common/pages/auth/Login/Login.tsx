@@ -156,7 +156,11 @@ function Login() {
                   </Form.Item>
 
                   {error?.message && (
-                    <Alert className="" message={error?.message} type="error" />
+                    <Alert
+                      className=""
+                      message={error?.message.split("]")[1].trim()}
+                      type="error"
+                    />
                   )}
                 </Form>
               </div>
