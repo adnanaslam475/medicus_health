@@ -60,6 +60,8 @@ query getAllCards($userId: Int!) {
     card_type
     card_digits
     is_default
+    exp_month
+    exp_year
   }
 }
 
