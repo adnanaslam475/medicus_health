@@ -52,7 +52,7 @@ stages:
                 sonar.sourceEncoding=UTF-8
                 sonar.scm.provider=git
                 sonar.profile=node
-                sonar.coverage.exclusions=cypress,src/models/index.js
+                sonar.coverage.exclusions=cypress,src/models/index.js,src/pages/api/coverage.js
                 sonar.dynamicAnalysis=reuseReports
                 sonar.javascript.lcov.reportPaths=coverage/lcov.info
                 sonar.javascript.coverage.reportPaths=coverage/clover.xml
@@ -67,7 +67,6 @@ stages:
             displayName: "Publish SonarQube Analysis"
             inputs:
               pollingTimeoutSec: "300"
-
           - script: npm run build
             displayName: "Build Package"
 
