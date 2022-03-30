@@ -48,10 +48,11 @@ export const Payment = (props: Props) => {
       </div>
       {!isDefault && (
         <div className="mt-3">
-          <span className="text-primary pl-4">
+          <span className="text-primary pl-0">
             <Button
               type="link"
               size="small"
+              className="px-0"
               onClick={() => {
                 Modal.confirm({
                   content: "Do you want to make this card default?",
