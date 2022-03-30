@@ -1,6 +1,12 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
-import { useCountriesQuery, User } from "../../../../generated/graphql";
+import { date } from "../../../../common/utils";
+import {
+  useCountriesQuery,
+  useGetCitiesByStateQuery,
+  useGetStatesByCountryQuery,
+  User,
+} from "../../../../generated/graphql";
 
 type Props = {
   userDetail: User | undefined;
@@ -24,10 +30,41 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
 
+  const [getStatesByCountry] = useGetStatesByCountryQuery({
+    variables: {
+      input: country_id || 0,
+    },
+    pause: country_id === undefined,
+  });
+
+  const [getCityByState] = useGetCitiesByStateQuery({
+    variables: {
+      input: state_id || 0,
+    },
+    pause: state_id === undefined,
+  });
+
   let selectedCountry = countries?.filter((item) => item.id === country_id);
   let countryName = "";
   if (selectedCountry) {
-    countryName = selectedCountry[0].country_name;
+    countryName = selectedCountry[0]?.country_name;
+  }
+
+  let selectedState = getStatesByCountry?.data?.getStatesByCountry.filter(
+    (item) => item.id === state_id
+  );
+
+  let state = "";
+  if (selectedState) {
+    state = selectedState[0]?.state_name;
+  }
+
+  let selectedCity = getCityByState?.data?.getCitiesByState.filter(
+    (city) => city.state_id === state_id
+  );
+  let cityName = "";
+  if (selectedCity) {
+    cityName = selectedCity[0]?.city_name;
   }
 
   return (
@@ -58,7 +95,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Date of Birth</div>
-              <div className="w-1/2 text-secondary">{date_of_birth}</div>
+              <div className="w-1/2 text-secondary">{date.convertToUTC(date_of_birth)}</div>
             </div>
           </li>
 
@@ -97,14 +134,14 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">State</div>
-              <div className="w-1/2 text-secondary">{state_id}</div>
+              <div className="w-1/2 text-secondary">{state}</div>
             </div>
           </li>
 
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">City</div>
-              <div className="w-1/2 text-secondary">{city_id}</div>
+              <div className="w-1/2 text-secondary">{cityName}</div>
             </div>
           </li>
 
