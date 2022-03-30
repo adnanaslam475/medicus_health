@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-        // onClick={() => Router.push("/messages")}
+// onClick={() => Router.push("/messages")}
 import { Layout, Avatar, Dropdown, Menu, Badge } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Router from "next/router";
@@ -23,61 +23,62 @@ const AppHeader = () => {
   };
 
   const notificationMenu = (
-      <div className="notification-menu-cover border border-gray-3 rounded">
-        <div className="px-3 py-2 bg-white">
-          {/* <Menu.Item key="0"> */}
-          <div className="flex border-b border-gray-4 items-start mb-3">
-            <span className=" ">
-              <Image
-                alt=""
-                className="warning-small mx-auto shadow-none border-0"
-                height={34}
-                width={34}
-                src="/assets/icon/blue_bell_Icon.svg"
-              />
-            </span>
-            {/* <div> */}
-            <span className="notificationBody ml-3 w-full break-word">
-              Your appointment with <b>John Petrucci</b> has been confirmed.
-            </span>
-            {/* </div> */}
-          </div>
-          {/* </Menu.Item> */}
-          <div className="flex border-b border-gray-4 items-start mb-3">
-            <span className=" ">
-              <Image
-                alt=""
-                className="warning-small mx-auto shadow-none border-0"
-                height={34}
-                width={34}
-                src="/assets/icon/blue_bell_Icon.svg"
-              />
-            </span> 
-            <span className="notificationBody ml-3 w-full break-word">
-              Your appointment with <b>John Petrucci</b> has been confirmed.
-            </span>
-          </div>
-          <div className="flex border-b border-gray-4 items-start mb-3">
-            <span className=" ">
-              <Image
-                alt=""
-                className="warning-small mx-auto shadow-none border-0"
-                height={34}
-                width={34}
-                src="/assets/icon/blue_bell_Icon.svg"
-              />
-            </span>
-            <span className="notificationBody ml-3 w-full break-word">
-              Your appointment with <b>John Petrucci</b> has been confirmed.
-            </span>
-          </div>
+    <div className="notification-menu-cover border border-gray-3 rounded">
+      <div className="px-3 py-2 bg-white">
+        {/* <Menu.Item key="0"> */}
+        <div className="flex border-b border-gray-4 items-start mb-3">
+          <span className=" ">
+            <Image
+              alt=""
+              className="warning-small mx-auto shadow-none border-0"
+              height={34}
+              width={34}
+              src="/assets/icon/blue_bell_Icon.svg"
+            />
+          </span>
+          {/* <div> */}
+          <span className="notificationBody ml-3 w-full break-word">
+            Your appointment with <b>John Petrucci</b> has been confirmed.
+          </span>
+          {/* </div> */}
+        </div>
+        {/* </Menu.Item> */}
+        <div className="flex border-b border-gray-4 items-start mb-3">
+          <span className=" ">
+            <Image
+              alt=""
+              className="warning-small mx-auto shadow-none border-0"
+              height={34}
+              width={34}
+              src="/assets/icon/blue_bell_Icon.svg"
+            />
+          </span>
+          <span className="notificationBody ml-3 w-full break-word">
+            Your appointment with <b>John Petrucci</b> has been confirmed.
+          </span>
+        </div>
+        <div className="flex border-b border-gray-4 items-start mb-3">
+          <span className=" ">
+            <Image
+              alt=""
+              className="warning-small mx-auto shadow-none border-0"
+              height={34}
+              width={34}
+              src="/assets/icon/blue_bell_Icon.svg"
+            />
+          </span>
+          <span className="notificationBody ml-3 w-full break-word">
+            Your appointment with <b>John Petrucci</b> has been confirmed.
+          </span>
         </div>
       </div>
+    </div>
   );
 
   return (
-    
-    <Header className={`${_classes["bg-white"]} flex w-full justify-end items-center h-25 px-0 md:px-0`} >
+    <Header
+      className={`${_classes["bg-white"]} flex w-full justify-end items-center h-25 px-0 md:px-0`}
+    >
       <div className="w-full flex px-0 justify-between items-center">
         <div className="w-full ">
           <InfoMessage />
@@ -87,10 +88,7 @@ const AppHeader = () => {
             <SidebarDrawer />
           </span>
           <span className="mt-7 mr-8">
-            <Dropdown
-              overlay={notificationMenu}
-              placement="bottomLeft"
-            >
+            <Dropdown overlay={notificationMenu} placement="bottomLeft">
               <a
                 className="ant-dropdown-link"
                 onClick={(e) => e.preventDefault()}
@@ -113,23 +111,21 @@ const AppHeader = () => {
             size="large"
             src="https://joeschmoe.io/api/v1/jess"
           />
-          <span className="justify-center px-4">
-            Mark Mansion
-          </span>
+          <span className="justify-center px-4">Mark Mansion</span>
           <Dropdown
             overlay={
               // eslint-disable-next-line react/jsx-wrap-multilines
               <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
                 <Menu.Item
                   className="border-b border-gray-4"
-                  onClick={() => Router.push("/account-settings")}
+                  // onClick={() => Router.push("/account-settings")}
                 >
                   Accounts Settings
                 </Menu.Item>
 
                 <Menu.Item
                   className="border-b border-gray-4"
-                  onClick={() => Router.push("/payment-settings")}
+                  // onClick={() => Router.push("/payment-settings")}
                 >
                   Payment Settings
                 </Menu.Item>

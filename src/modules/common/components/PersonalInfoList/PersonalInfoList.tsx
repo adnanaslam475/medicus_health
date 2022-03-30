@@ -95,7 +95,9 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Date of Birth</div>
-              <div className="w-1/2 text-secondary">{date.convertToUTC(date_of_birth)}</div>
+              <div className="w-1/2 text-secondary">
+                {date.convertToUTC(date_of_birth)}
+              </div>
             </div>
           </li>
 
@@ -117,7 +119,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Password</div>
               <div className="w-1/2 text-secondary">
-              <div className="w-1/2 text-secondary">******</div>
+                <div className="w-1/2 text-secondary">******</div>
                 {/* <div className="word-wrap bg-transparent">
                   <input type="password" disabled value={password} />
                 </div> */}
