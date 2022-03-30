@@ -1,20 +1,27 @@
 import type { AppProps } from "next/app";
 import { createClient, Provider } from "urql";
+import config from "./../config";
 import "./../styles/global.scss";
 import "./../styles/cutomized-antd.css";
+import AuthProvider from "../src/common/hooks/authProvider";
+import { getToken } from "../src/common/utils/userData";
 
 const client = createClient({
-  url: "http://stark-thicket-56377.herokuapp.com/",
-  fetchOptions: {
-    credentials: "include",
+  url: config.baseURL || "",
+  fetchOptions: () => {
+    const token = getToken();
+    return {
+      headers: { Authorization: token ? `Bearer ${token}` : "" },
+    };
   },
 });
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider value={client}>
-      <Component {...pageProps} />
-    </Provider>
+    <AuthProvider>
+      <Provider value={client}>
+        <Component {...pageProps} key />
+      </Provider>
+    </AuthProvider>
   );
 }
 

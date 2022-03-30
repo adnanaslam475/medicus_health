@@ -35,7 +35,7 @@ function Container({ children, style, fluid, className }: Props) {
       }
     : {
         margin: "0 auto",
-        padding: "1rem 1rem",
+        padding: "0.5rem 0.5rem",
         position: "relative",
         maxWidth: "1400px",
       };

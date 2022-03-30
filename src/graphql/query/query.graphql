@@ -1,0 +1,96 @@
+query countries {
+  countries {
+    id
+    country_name
+  }
+}
+
+query getStatesByCountry($input: Int!) {
+  getStatesByCountry(country_id: $input) {
+    id
+    country_id
+    state_name
+  }
+}
+
+query getCitiesByState($input: Int!) {
+  getCitiesByState(state_id: $input) {
+    id
+    state_id
+    city_name
+  }
+}
+
+query doctorProfiles {
+  doctorProfiles {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
+      contact_number
+    }
+  }
+}
+
+# GET PATIENT HEALTH HISTORY
+query patientHealthHistory($input: Int!) {
+  patientHealthHistory(id: $input) {
+    id
+    history
+  }
+}
+
+# GET ALL CARDS
+query getAllCards($userId: Int!) {
+  getAllCards(user_id: $userId) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+  }
+}
+
+# GET CARD QUERY
+query getCard($id: Int!) {
+  getCard(id: $id) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+  }
+}
+
+# GET USER
+
+query getUser($input: Int!) {
+  user(id: $input) {
+    id
+    first_name
+    last_name
+    gender
+    date_of_birth
+    contact_number
+    email
+    country_id
+    city_id
+    state_id
+    password
+    zip_code
+    role
+  }
+}

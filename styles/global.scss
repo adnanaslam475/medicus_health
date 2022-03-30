@@ -6,7 +6,7 @@
 
 // for default button
 button.ant-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -14,7 +14,6 @@ button.ant-btn {
 // for all tags
 .ant-tag {
   padding-left: 1.25rem !important;
-  // padding-left: 20px !important;
   padding-right: 1.25rem !important;
   border: none !important;
 }
@@ -39,7 +38,7 @@ button.ant-btn {
   background-image: url("../public/assets/images/login-bg.svg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 100% 100%;
+  background-position: 100% 0;
 }
 
 .bg-gradient {
@@ -48,40 +47,128 @@ button.ant-btn {
     0% 0% no-repeat padding-box;
 }
 
+.bg-gradient-fill {
+  fill: url(#linear-gradient);
+  // fill: transparent
+  //   linear-gradient(90deg, #9161fa 0%, #4b75fd 29%, #25abdf 68%, #34dbb8 100%)
+  //   0% 0% no-repeat padding-box;
+}
+
 .ant-form-item-label
   > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
   display: none !important;
 }
 
-.ant-form-item-label
-  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
-  display: inline-block;
-  margin-right: 4px;
-  font-size: 15px;
-  font-family: SimSun, sans-serif;
-  line-height: 1;
-  content: "*";    
-}
+// .ant-form-item-label
+//   > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
+//   display: inline-block;
+//   margin-right: 4px;
+//   font-size: 15px;
+//   font-family: SimSun, sans-serif;
+//   line-height: 1;
+//   content: "*";
+// }
 
 // .ant-form-item.text-secondary .ant-form-item-label label {
 //   color: $secondary !important;
 // }
 
-// radio label stayle 
+// radio label stayle
 
-label.ant-radio-wrapper{
-  color: #9295AF !important;
-  
+label.ant-radio-wrapper {
+  color: #9295af !important;
 }
 
 .ant-form-item.text-secondary {
   .ant-form-item-label {
     label {
-      color: #272B4C;
-  }
+      color: #272b4c;
+    }
   }
 }
 
+// CSS FOR ANT MODAL
+
+.ant-modal {
+  .ant-modal-content {
+    .ant-modal-body {
+      button.ant-btn {
+        line-height: 1;
+        position: relative;
+        display: inline-block;
+        font-weight: 400;
+        /* white-space: nowrap; */
+        text-align: center;
+        background-image: none;
+        // border: 1px solid transparent;
+        // box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+        // cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-action: manipulation;
+        height: 2.2rem;
+        padding: 0 1.5rem;
+        font-size: 14px;
+        border-radius: 0.4rem;
+        color: #1a82fe;
+        border-color: #1a82fe;
+        background: #fff;
+      }
+    }
+  }
+}
+
+.profile-tabs {
+  .ant-tabs {
+    .ant-tabs-nav {
+      &:before {
+        border-bottom: 0px !important;
+      }
+      .ant-tabs-nav-wrap {
+        .ant-tabs-nav-list {
+          .ant-tabs-tab {
+            color: #8f95a7;
+            background-color: transparent;
+            border: 0;
+            border-bottom: 1px solid #f0f0f0 !important;
+            &:hover {
+              background-color: #ebf1ff;
+              color: #000;
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
+            }
+            .ant-tabs-tab-btn {
+              font-size: 14px !important;
+            }
+          }
+          .ant-tabs-tab-active {
+            background-color: #1a82fe;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+
+            &:hover {
+              background-color: #1a82fe;
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
+            }
+
+            & > .ant-tabs-tab-btn {
+              color: #fff;
+              font-size: 14px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// .ant-modal-footer button {
+//   display: inline-block;
+// }
 
 @layer base {
   body {
@@ -111,7 +198,7 @@ label.ant-radio-wrapper{
     // font-size: 30px !important;
   }
   h2 {
-    font-weight: bold;    
+    font-weight: bold;
     font-size: 1.5rem !important;
     // font-size: 24px !important;
   }
@@ -135,7 +222,128 @@ label.ant-radio-wrapper{
     font-size: 1rem !important;
     // font-size: 16px !important;
   }
+}
+
+.ant-layout-has-sider aside + .ant-layout header.ant-layout-header {
+  padding: 0px 25px;
+}
+
+.checkbox-dir-col .ant-checkbox-group {
+  display: flex;
+  flex-flow: column;
+  flex-direction: column;
+  label {
+    color: #9295af !important;
+  }
+}
+
+.notification-menu-cover {
+  max-width: 300px;
+  max-height: 300px;
+  overflow: auto;
+  span.notificationBody {
+    display: flex;
+    flex-flow: column;
+  }
+}
+
+.ant-form-item-control {
+  .ant-form-item-control-input
+    + .ant-form-item-explain.ant-form-item-explain-connected {
+    .ant-form-item-explain-error {
+      font-size: 12px !important;
+    }
+  }
+}
+
+.font-rubik {
+  font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  word-spacing: 1.5px;
+  letter-spacing: 0.4px;
+}
+.font-circular {
+  font-family: "Circular Std", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  border-color: #429eff !important;
+  background-color: #429eff !important;
+}
+
+.ant-tabs
+  .ant-form-item-control-input
+  .ant-checkbox-group
+  .ant-checkbox-checked
+  .ant-checkbox-inner {
+  border-color: #30cec2 !important;
+  background-color: #30cec2 !important;
+}
+
+.ant-checkbox-checked::after {
+  border-color: transparent !important;
+}
 
 
-  
+// Faizan CSS
+.ant-table-wrapper {
+    .ant-table-content {
+        table {
+            .ant-table-thead {
+                tr > {
+                    th {
+                        // white-space: nowrap;
+                    }
+                }
+            }
+            .ant-table-tbody {
+                .ant-table-cell {
+                    &.table-action-icon {
+                        span {
+                            background: #f5f5f5;
+                            border-radius: 50px;
+                            color: #fff;
+                            font-size: 14px;
+                            width: 25px;
+                            height: 25px;
+                            line-height: 25px;
+                            svg {
+                                color: #1a82fe;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.btn-transparent{
+  background-color: transparent !important;
+}
+.page-filters {
+    .ant-btn {
+        padding: 0px !important;
+        &:hover {
+            color: rgba(0, 0, 0, 0.85);
+            background-color: transparent;
+            span {
+                color: rgba(0, 0, 0, 0.85);
+            }
+        }
+        &:focus {
+            background-color: transparent;
+        }
+    }
+}
+.ant-btn {
+    padding: 0 20px !important;
+}
+.ant-card {
+    .ant-card-body {
+        padding: 20px;
+    }
 }

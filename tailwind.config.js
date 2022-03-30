@@ -2,12 +2,12 @@ const colors = require("tailwindcss/colors");
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: false,
   theme: {
     // antd break points
     screens: {
+      xs: "360px",
       sm: "576px",
       md: "768px",
       lg: "992px",
@@ -16,30 +16,27 @@ module.exports = {
     },
     colors: {
       transparent: "transparent",
-      
       current: "currentColor",
-      
       black: colors.black,
-      
       white: colors.white,
-
       primary: {
         DEFAULT: "#1A82FE",
       },
       secondary: {
         DEFAULT: "#272B4C",
+        1: "#232643",
       },
       gray: {
         DEFAULT: "#9295AF",
-      },
-      darkGray: {
-        DEFAULT: "#8f95a7",
-      },
-      skyBlue: {
-        DEFAULT: "#272B4C",
-      },
+        1: "#8f95a7",
+        2: "#707070",
+        3: "#CFCCCC",
+        4: "#F6F8FA",
+        5: "#E7E9ED",
+      },      
       lightBlue: {
         DEFAULT: "#ebf3ff",
+        1: "#272B4C",
       },
       yellow: {
         DEFAULT: "#FFAF02",
@@ -49,19 +46,9 @@ module.exports = {
       },
       red: {
         DEFAULT: "#D53E4F",
-      },
-      doveGray: {
-        DEFAULT: "#707070",
-      },
-      lightGray: {
-        DEFAULT: "#CFCCCC",
-      },
+      },      
 
     },
-    // fontFamily: {
-    //   sans: ['Circular Std', "system-ui"],
-    // },
-
     extend: {},
   },
   plugins: [],

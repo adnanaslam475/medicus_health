@@ -1,0 +1,83 @@
+mutation createUser($input: CreateUserInput!) {
+  createUser(createUserInput: $input) {
+    id
+    email
+  }
+}
+
+mutation CreatePatientHealthHistory($input: CreatePatientHealthHistoryInput!) {
+  createPatientHealthHistory(createPatientHealthHistoryInput: $input) {
+    id
+  }
+}
+
+mutation UpdatePatientHealthHistory($input: UpdatePatientHealthHistoryInput!) {
+  updatePatientHealthHistory(updatePatientHealthHistoryInput: $input) {
+    id
+  }
+}
+
+mutation userVerifyEmail($input: String!) {
+  userVerifyEmail(token: $input) {
+    id
+  }
+}
+
+mutation login($input: LoginUserInput!) {
+  login(loginUserInput: $input) {
+    access_token
+    user {
+      id
+      email
+      role
+    }
+  }
+}
+
+mutation UserForgotPassword($input: String!) {
+  UserForgotPassword(email: $input) {
+    id
+  }
+}
+
+mutation UserResetPassword($input: ResetPasswordInput!) {
+  UserResetPassword(resetPasswordInput: $input) {
+    id
+  }
+}
+
+# CREATE CARD MUTATION
+mutation createCard($input: CreatePaymentInput!) {
+  createCard(createPaymentInput: $input) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+  }
+}
+
+# REMOVE CARD MUTATION
+mutation removeCard($input: Int!) {
+  removeCard(id: $input) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+  }
+}
+
+# DEFAULT CARD SET
+mutation DefaultCard($input: Int!) {
+  setAsDefaultCard(id: $input) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+  }
+}
