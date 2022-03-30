@@ -62,7 +62,7 @@ export const Payment = (props: Props) => {
                 });
               }}
             >
-              Mark As Default
+              Make Default
             </Button>
           </span>
           <Button
