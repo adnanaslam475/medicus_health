@@ -40,7 +40,7 @@ export const Payment = (props: Props) => {
         </div>
       )}
       {!isDefault && (
-        <div className="btn-stripe-card mt-3">
+        <div className={`${_classes["btn-stripe-card"]} mt-3`}>
           <Button
             type="link"
             size="small"
