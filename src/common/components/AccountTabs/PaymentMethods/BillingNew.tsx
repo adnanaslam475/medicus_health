@@ -28,44 +28,39 @@ type Props = {
 export const Payment = (props: Props) => {
   const { title, description, isDefault, onRemove, onMakeDefault } = props;
   return (
-    <div className="bg-gray-4 p-5 rounded-md border-primary mb-4">
-      <div className="flex flex-1 flex-row justify-between items-center">
-        <div className="inline-block w-full">
-          <div className="text-md capitalize text-dark font-bold">{title}</div>
-          <div className="text-gray-2">{description}</div>
-          {isDefault && (
-            <div className="text-primary">
-              <Tag color="#30CEC2" className="rounded-full">
-                DEFAULT
-              </Tag>
-            </div>
-          )}
+    <div className="btn-stripe-card bg-gray-4 p-5 rounded-md border-primary mb-4">
+      <div className="text-md capitalize text-dark font-bold">{title}</div>
+      <div className="text-gray-2">{description}</div>
+      {isDefault && (
+        <div className="mt-3">
+          <Tag color="#30CEC2" className="rounded-full">
+            DEFAULT
+          </Tag>
         </div>
-      </div>
+      )}
       {!isDefault && (
         <div className="mt-3">
-          <span className="text-primary pl-0">
-            <Button
-              type="link"
-              size="small"
-              className="px-0"
-              onClick={() => {
-                Modal.confirm({
-                  content: "Do you want to make this card default?",
-                  okText: "Yes",
-                  onOk() {
-                    onMakeDefault();
-                  },
-                  onCancel() {},
-                });
-              }}
-            >
-              Make Default
-            </Button>
-          </span>
           <Button
             type="link"
             size="small"
+            className="text-primary p-0"
+            onClick={() => {
+              Modal.confirm({
+                content: "Do you want to make this card default?",
+                okText: "Yes",
+                onOk() {
+                  onMakeDefault();
+                },
+                onCancel() {},
+              });
+            }}
+          >
+            Make Default
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            className="text-danger ml-2 p-0"
             danger
             onClick={() => {
               Modal.confirm({
@@ -180,7 +175,7 @@ function Billing({
     <>
       <div className="col-start-1 col-end-8 flex justify-between align-middle">
         <div className="mb-8 flex flex-col w-full">
-          <h5 className="font-medium text-lg my-5">Payment Methods</h5>
+          <h4 className="font-medium text-lg mt-5">Payment Methods</h4>
           <div className="flex md:flex-row gap-0 w-full">
             <div className="user-details-list w-full rounded-lg">
               {loading ? (
