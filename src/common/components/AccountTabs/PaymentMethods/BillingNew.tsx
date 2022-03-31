@@ -17,6 +17,7 @@ import {
 } from "../../../../generated/graphql";
 import { getUserData } from "../../../utils/userData";
 import { CreateSourceData, StripeElement } from "@stripe/stripe-js";
+import _classes from "./StripeCard.module.scss";
 
 type Props = {
   title: string;
@@ -28,18 +29,18 @@ type Props = {
 export const Payment = (props: Props) => {
   const { title, description, isDefault, onRemove, onMakeDefault } = props;
   return (
-    <div className="btn-stripe-card bg-gray-4 p-5 rounded-md border-primary mb-4">
+    <div className={`${_classes["stripeCard"]} bg-gray-4 p-5 rounded-md border-primary mb-4`}>
       <div className="text-md capitalize text-dark font-bold">{title}</div>
       <div className="text-gray-2">{description}</div>
       {isDefault && (
         <div className="mt-3">
-          <Tag color="#30CEC2" className="rounded-full">
+          <Tag color="#30CEC2" className={`${_classes["btn-stripe-card "]} rounded-full`}>
             DEFAULT
           </Tag>
         </div>
       )}
       {!isDefault && (
-        <div className="mt-3">
+        <div className={`${_classes["btn-stripe-card"]} mt-3`}>
           <Button
             type="link"
             size="small"
@@ -253,9 +254,9 @@ function Billing({
             </div>
           </div>
           <div className="flex justify-end">
-            <Form.Item  className="">
-              <Button onClick={closeModal} className="btn-stripe btn-stripe-secondary">Cancel</Button>
-              <Button loading={loadingSubmit} disabled={loadingSubmit} type="primary" htmlType="submit"  className="ml-4 btn-stripe btn-stripe-primary">
+            <Form.Item>
+              <Button onClick={closeModal}>Cancel</Button>
+              <Button loading={loadingSubmit} disabled={loadingSubmit} type="primary" htmlType="submit"  className={`${_classes["btn-stripe-primary"]} ml-4`}>
                 Submit
               </Button>            
               </Form.Item>
