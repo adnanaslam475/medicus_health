@@ -28,7 +28,7 @@ type Props = {
 export const Payment = (props: Props) => {
   const { title, description, isDefault, onRemove, onMakeDefault } = props;
   return (
-    <div className="bg-gray-4 p-5 rounded-md border-primary my-2">
+    <div className="bg-gray-4 p-5 rounded-md border-primary mb-4">
       <div className="flex flex-1 flex-row justify-between items-center">
         <div className="inline-block w-full">
           <div className="flex w-full justify-between">
@@ -182,11 +182,11 @@ function Billing({
 
   return (
     <>
-      <div className="col-start-1 col-end-8 flex justify-between align-middle px-2 py-3">
+      <div className="col-start-1 col-end-8 flex justify-between align-middle">
         <div className="mb-8 flex flex-col w-full">
-          <h5 className="font-medium text-lg mb-4">Payment Methods</h5>
+          <h5 className="font-medium text-lg my-5">Payment Methods</h5>
           <div className="flex md:flex-row gap-0 w-full">
-            <div className="user-details-list w-full py-3 rounded-lg">
+            <div className="user-details-list w-full rounded-lg">
               {loading ? (
                 <div className="w-full bg-gray-4 rounded-md border-primary my-2 h-20 flex flex-col justify-center items-center">
                   <Space size="middle">
