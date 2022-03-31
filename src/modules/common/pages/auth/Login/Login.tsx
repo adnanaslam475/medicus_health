@@ -23,7 +23,7 @@ function Login() {
       if (role === "Doctor") {
         router.push("/doctor/dashboard");
       } else if (role === "User") {
-        router.push("/patient/dashboard");
+        router.push("/patient/appointments/upcoming");
       } else if (role === "Admin") {
         router.push("/admin/dashboard");
       }
@@ -51,7 +51,7 @@ function Login() {
           });
         } else if (userPayload.user.role === "User") {
           Router.replace({
-            pathname: "/patient/dashboard",
+            pathname: "/patient/appointments/upcoming",
           });
         } else if (userPayload.user.role === "Admin") {
           Router.replace({
@@ -156,7 +156,11 @@ function Login() {
                   </Form.Item>
 
                   {error?.message && (
-                    <Alert className="" message={error?.message} type="error" />
+                    <Alert
+                      className=""
+                      message={error?.message.split("]")[1].trim()}
+                      type="error"
+                    />
                   )}
                 </Form>
               </div>

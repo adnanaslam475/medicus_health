@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
-import { Form, Input, Button, Checkbox, Select } from "antd";
-import React from "react";
+import React, { useState } from "react";
+import { Form, Input, Radio, Button, Checkbox, Select } from "antd";
 
 type Props = {
   onFinish?: (values: {
@@ -28,6 +28,10 @@ type Props = {
 
 function PersonalInfoDetail(props: Props) {
   const { onFinish, loading, response } = props || {};
+  const [radioChildren, setradioChildren] = useState(true);
+
+
+
   // const onFinish = (values: any) => {
   //   console.log("Success:", values);
   // };
@@ -73,8 +77,12 @@ function PersonalInfoDetail(props: Props) {
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Gender</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="gender">
-                    <Input size="large" placeholder="Gender" />
+                  <Form.Item className="mb-0">
+                    <Select placeholder="Gender" size="large">
+                      <Select.Option value="male">Male</Select.Option>
+                      <Select.Option value="female">Female</Select.Option>
+                      <Select.Option value="prefer not to answer">prefer not to answer</Select.Option>
+                    </Select>
                   </Form.Item>
                 </div>
               </div>
@@ -119,6 +127,17 @@ function PersonalInfoDetail(props: Props) {
                 <div className="w-1/2 text-secondary">
                   <Form.Item noStyle name="password">
                     <Input size="large" placeholder="Password" />
+                  </Form.Item>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
+                <div className="w-1/2 text-gray-1">Confirm Password</div>
+                <div className="w-1/2 text-secondary">
+                  <Form.Item noStyle name="password">
+                    <Input size="large" placeholder="Confirm Password" />
                   </Form.Item>
                 </div>
               </div>
@@ -183,8 +202,13 @@ function PersonalInfoDetail(props: Props) {
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item noStyle name="maritalStatus">
-                    <Input size="large" placeholder="Marital Status" />
+                  <Form.Item className="mb-0">
+                    <Select placeholder="Marital Status" size="large">
+                      <Select.Option value="single">Single</Select.Option>
+                      <Select.Option value="married">Married</Select.Option>
+                      <Select.Option value="widower">Widower</Select.Option>
+                      <Select.Option value="divorced">Divorced</Select.Option>
+                    </Select>
                   </Form.Item>
                 </div>
               </div>
@@ -196,8 +220,20 @@ function PersonalInfoDetail(props: Props) {
                   Do You have any children?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item noStyle name="children">
-                    <Input size="large" placeholder="No. of children" />
+                    <Form.Item className="mb-0">
+                      <Radio.Group
+                        onChange={(e) => {
+                          setradioChildren(e.target.value);
+                        }}                      
+                      >
+                        <Radio value={1}>Yes</Radio>
+                        <Radio value={0}>No</Radio>
+                      </Radio.Group>
+                      {!!radioChildren && (
+                      <Form.Item className="mb-0">
+                        <Input size="large" placeholder="No. of children" />
+                      </Form.Item>
+                      )}
                   </Form.Item>
                 </div>
               </div>
@@ -222,8 +258,11 @@ function PersonalInfoDetail(props: Props) {
                   Do you have any Occupational Exposure?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item noStyle name="occupationalExposure">
-                    <Input size="large" placeholder="Occupational Exposure" />
+                  <Form.Item className="mb-0">
+                    <Radio.Group>
+                      <Radio value={1}>Yes</Radio>
+                      <Radio value={0}>No</Radio>
+                    </Radio.Group>
                   </Form.Item>
                 </div>
               </div>

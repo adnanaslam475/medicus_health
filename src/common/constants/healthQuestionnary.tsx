@@ -17,6 +17,7 @@ interface Question {
   ans: any;
   option?: string[];
   q?: any;
+  q2?: any;
   selectedOption?: CheckboxValueType[];
 }
 
@@ -104,6 +105,12 @@ const HealthQuestionnaryData: Questions = {
       ],
       selectedOption: [],
     },
+    q2: {
+      name: "drug_text",
+      label: "",
+      type: "text",
+      ans: "",
+    }
   },
   q4: {
     name: "surgical_history",
@@ -124,6 +131,12 @@ const HealthQuestionnaryData: Questions = {
       "Others",
     ],
     selectedOption: [],
+    q2: {
+      name: "surgical_text",
+      label: "",
+      type: "text",
+      ans: "",
+    }
   },
   q5: {
     name: "allergies",

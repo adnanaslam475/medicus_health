@@ -62,9 +62,9 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
   let selectedCity = getCityByState?.data?.getCitiesByState.filter(
     (city) => city.state_id === state_id
   );
-  let cityName = "";
+  let cityName: any[] = [];
   if (selectedCity) {
-    cityName = selectedCity[0]?.city_name;
+    cityName = selectedCity?.filter((item) => item.id === city_id);
   }
 
   return (
@@ -95,7 +95,9 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Date of Birth</div>
-              <div className="w-1/2 text-secondary">{date.convertToUTC(date_of_birth)}</div>
+              <div className="w-1/2 text-secondary">
+                {date.convertToUTC(date_of_birth)}
+              </div>
             </div>
           </li>
 
@@ -117,9 +119,10 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Password</div>
               <div className="w-1/2 text-secondary">
-                <div className="word-wrap bg-transparent">
+                <div className="w-1/2 text-secondary">******</div>
+                {/* <div className="word-wrap bg-transparent">
                   <input type="password" disabled value={password} />
-                </div>
+                </div> */}
               </div>
             </div>
           </li>
@@ -141,7 +144,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">City</div>
-              <div className="w-1/2 text-secondary">{cityName}</div>
+              <div className="w-1/2 text-secondary">{cityName[0]?.city_name}</div>
             </div>
           </li>
 

@@ -12,6 +12,7 @@ import { StripeCardNumberElement } from "@stripe/stripe-js/types/stripe-js/eleme
 import {
   GetAllCardsQuery,
   useCreateCardMutation,
+  useGetAllCardsQuery,
   UserCard,
 } from "../../../../generated/graphql";
 import { getUserData } from "../../../utils/userData";
@@ -27,47 +28,39 @@ type Props = {
 export const Payment = (props: Props) => {
   const { title, description, isDefault, onRemove, onMakeDefault } = props;
   return (
-    <div className="bg-gray-4 p-5 rounded-md border-primary my-2">
-      <div className="flex flex-1 flex-row justify-between items-center">
-        <div className="inline-block w-full">
-          <div className="flex w-full justify-between">
-            <div className="">
-              <div className="capitalize text-dark font-bold">{title}</div>
-              <div className="text-dark">{description}</div>
-            </div>
-            {isDefault && (
-              <div className="text-primary">
-                <Tag color="#30CEC2" className="rounded-full">
-                  DEFAULT
-                </Tag>
-              </div>
-            )}
-          </div>
+    <div className="btn-stripe-card bg-gray-4 p-5 rounded-md border-primary mb-4">
+      <div className="text-md capitalize text-dark font-bold">{title}</div>
+      <div className="text-gray-2">{description}</div>
+      {isDefault && (
+        <div className="mt-3">
+          <Tag color="#30CEC2" className="rounded-full">
+            DEFAULT
+          </Tag>
         </div>
-      </div>
+      )}
       {!isDefault && (
         <div className="mt-3">
-          <span className="text-primary pl-4">
-            <Button
-              type="link"
-              size="small"
-              onClick={() => {
-                Modal.confirm({
-                  content: "Do you want to make this card default?",
-                  okText: "Yes",
-                  onOk() {
-                    onMakeDefault();
-                  },
-                  onCancel() {},
-                });
-              }}
-            >
-              Mark As Default
-            </Button>
-          </span>
           <Button
             type="link"
             size="small"
+            className="text-primary p-0"
+            onClick={() => {
+              Modal.confirm({
+                content: "Do you want to make this card default?",
+                okText: "Yes",
+                onOk() {
+                  onMakeDefault();
+                },
+                onCancel() {},
+              });
+            }}
+          >
+            Make Default
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            className="text-danger ml-2 p-0"
             danger
             onClick={() => {
               Modal.confirm({
@@ -102,7 +95,6 @@ type propsBilling = {
   onSubmit: (id: {} | undefined) => void;
   onRemove: (id: number) => void;
   onMakeDefault: (id: number) => void;
-  // source: undefined | {} | "";
 };
 
 function Billing({
@@ -115,16 +107,21 @@ function Billing({
   const stripe = useStripe();
   const elements = useElements();
   const [modalVisible, setModalVisible] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const closeModal = () => {
     setModalVisible(false);
   };
 
-  const [{ data: createCardsData }, executeCardMutation] =
-    useCreateCardMutation();
-  const { createCard } = createCardsData || {};
+  // GET ALL CARDS API CALL
+  const [, executeGetAllCardsQuery] = useGetAllCardsQuery({
+    variables: { userId: getUserData()?.user?.id as number },
+  });
+
+  const [, executeCardMutation] = useCreateCardMutation();
 
   const handleSubmit = async () => {
+    setLoadingSubmit(true);
     try {
       if (elements == null) {
         return;
@@ -140,6 +137,7 @@ function Billing({
           cardElement as StripeElement,
           {} as CreateSourceData
         )) || {};
+      console.log({ source });
 
       const { user } = getUserData();
       await executeCardMutation({
@@ -149,44 +147,37 @@ function Billing({
           is_default: false,
           source_id: source?.id as string,
           user_id: user?.id as number,
-          // exp_month: source?.card?.exp_month || "",
-          // exp_year: source?.card?.exp_month as number,
+          exp_month: String(source?.card?.exp_month),
+          exp_year: String(source?.card?.exp_year),
         },
       });
+
+      executeGetAllCardsQuery({ requestPolicy: "network-only" });
 
       if (error) {
         notification.error({
           message: error?.message || "Something went wrong",
         });
+        setLoadingSubmit(false);
       } else {
         await onSubmit(source?.id);
         setModalVisible(false);
         cardElement?.clear();
+        setLoadingSubmit(false);
       }
     } catch (error) {
       setModalVisible(true);
+      setLoadingSubmit(false);
     }
   };
 
   return (
     <>
-      {/* <div className="mb-5 bg-gray-4">
-            <Collapse
-              defaultActiveKey={["1"]}
-              expandIconPosition="right"
-              className="bg-primary-1 mb-3 w-full"
-            >
-              <Panel header={<PaymentHeader />} key="1" className="bg-gray-4">
-                <BillingItem />
-              </Panel>
-            </Collapse>
-          </div> */}
-      <div className="col-start-1 col-end-8 flex justify-between align-middle px-2 py-3">
+      <div className="col-start-1 col-end-8 flex justify-between align-middle">
         <div className="mb-8 flex flex-col w-full">
-          <h5 className="font-medium text-lg mb-4">Payment Methods</h5>
+          <h4 className="font-medium text-lg mt-5">Payment Methods</h4>
           <div className="flex md:flex-row gap-0 w-full">
-            <div className="user-details-list w-full py-3 rounded-lg">
-              {/* <div className="mb-3">Payment methods</div> */}
+            <div className="user-details-list w-full rounded-lg">
               {loading ? (
                 <div className="w-full bg-gray-4 rounded-md border-primary my-2 h-20 flex flex-col justify-center items-center">
                   <Space size="middle">
@@ -198,7 +189,7 @@ function Billing({
                   <Payment
                     isDefault={card?.is_default}
                     title={`${card?.card_type} Ending with ${card?.card_digits}`}
-                    // description={`Expires at: ${card?.exp_month}/${card?.exp_year}`}
+                    description={`Expires at: ${card?.exp_month}/${card?.exp_year}`}
                     onRemove={() => {
                       onRemove(card?.id);
                     }}
@@ -229,7 +220,7 @@ function Billing({
       >
         <Form className="" onFinish={handleSubmit} layout="vertical">
           <span className="text-base my-2">Card Number*</span>
-          <div className="border  mt-1 mb-3 hover:border-primary  p-3 rounded">
+          <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
             <CardNumberElement
               options={{
                 placeholder: "",
@@ -243,10 +234,10 @@ function Billing({
               }}
             />
           </div>
-          <div className="sm:grid  grid-cols-2 gap-4">
+          <div className="sm:grid grid-cols-2 gap-4">
             <div>
               <span className="text-base">CVV*</span>
-              <div className="border mt-1 mb-3 p-3 rounded hover:border-primary">
+              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
                 <CardCvcElement
                   options={{
                     placeholder: "",
@@ -256,20 +247,18 @@ function Billing({
             </div>
             <div>
               <span className="text-base my-2">Expiry*</span>
-              <div className="border  mt-1 mb-3  p-3 rounded hover:border-primary">
+              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
                 <CardExpiryElement />
               </div>
             </div>
           </div>
-          <div className="flex justify-end gap-4">
-            <Form.Item className="mx-2 my-0 gap-4">
-              <Button onClick={closeModal}>Cancel</Button>
-            </Form.Item>
-            <Form.Item className="m-0">
-              <Button type="primary" htmlType="submit">
+          <div className="flex justify-end">
+            <Form.Item  className="">
+              <Button onClick={closeModal} className="btn-stripe btn-stripe-secondary">Cancel</Button>
+              <Button loading={loadingSubmit} disabled={loadingSubmit} type="primary" htmlType="submit"  className="ml-4 btn-stripe btn-stripe-primary">
                 Submit
-              </Button>
-            </Form.Item>
+              </Button>            
+              </Form.Item>
           </div>
         </Form>
       </Modal>
