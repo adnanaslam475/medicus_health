@@ -31,19 +31,15 @@ export const Payment = (props: Props) => {
     <div className="bg-gray-4 p-5 rounded-md border-primary mb-4">
       <div className="flex flex-1 flex-row justify-between items-center">
         <div className="inline-block w-full">
-          <div className="flex w-full justify-between">
-            <div className="">
-              <div className="capitalize text-dark font-bold">{title}</div>
-              <div className="text-dark">{description}</div>
+          <div className="text-md capitalize text-dark font-bold">{title}</div>
+          <div className="text-gray-2">{description}</div>
+          {isDefault && (
+            <div className="text-primary">
+              <Tag color="#30CEC2" className="rounded-full">
+                DEFAULT
+              </Tag>
             </div>
-            {isDefault && (
-              <div className="text-primary">
-                <Tag color="#30CEC2" className="rounded-full">
-                  DEFAULT
-                </Tag>
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </div>
       {!isDefault && (
