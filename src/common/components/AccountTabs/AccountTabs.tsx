@@ -63,10 +63,10 @@ const AccountTabs = () => {
     <div>
       <div className="card-container profile-tabs">
         <Tabs type="card">
-          <TabPane tab="Personal Information" key="1" className="">
+          <TabPane tab={<span className="font-Circular font-medium">Personal Information</span>} key="1">
             <PersonalInfo />
           </TabPane>
-          <TabPane tab="Health Questionnaire" key="2">
+          <TabPane tab={<span className="font-Circular font-medium">Health Questionnaire</span>} key="2">
             <div className="w-1/3">
               <QuestionnaireForm
                 ref={form}
@@ -87,10 +87,10 @@ const AccountTabs = () => {
               </div>
             </div>
           </TabPane>
-          <TabPane tab="Payment Methods" key="3">
+          <TabPane tab={<span className="font-Circular font-medium">Payment Methods</span>} key="3">
             <PaymentMethods />
           </TabPane>
-          <TabPane tab="Transaction History" key="4">
+          <TabPane tab={<span className="font-Circular font-medium">Transaction History</span>} key="4">
             <TransactionHistory />
           </TabPane>
         </Tabs>
