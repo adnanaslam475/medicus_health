@@ -116,6 +116,7 @@ function Billing({
   const stripe = useStripe();
   const elements = useElements();
   const [modalVisible, setModalVisible] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -129,6 +130,7 @@ function Billing({
   const [, executeCardMutation] = useCreateCardMutation();
 
   const handleSubmit = async () => {
+    setLoadingSubmit(true);
     try {
       if (elements == null) {
         return;
@@ -165,13 +167,16 @@ function Billing({
         notification.error({
           message: error?.message || "Something went wrong",
         });
+        setLoadingSubmit(false);
       } else {
         await onSubmit(source?.id);
         setModalVisible(false);
         cardElement?.clear();
+        setLoadingSubmit(false);
       }
     } catch (error) {
       setModalVisible(true);
+      setLoadingSubmit(false);
     }
   };
 
@@ -224,7 +229,7 @@ function Billing({
       >
         <Form className="" onFinish={handleSubmit} layout="vertical">
           <span className="text-base my-2">Card Number*</span>
-          <div className="border  mt-1 mb-3 hover:border-primary  p-3 rounded">
+          <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
             <CardNumberElement
               options={{
                 placeholder: "",
@@ -238,10 +243,10 @@ function Billing({
               }}
             />
           </div>
-          <div className="sm:grid  grid-cols-2 gap-4">
+          <div className="sm:grid grid-cols-2 gap-4">
             <div>
               <span className="text-base">CVV*</span>
-              <div className="border mt-1 mb-3 p-3 rounded hover:border-primary">
+              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
                 <CardCvcElement
                   options={{
                     placeholder: "",
@@ -251,20 +256,18 @@ function Billing({
             </div>
             <div>
               <span className="text-base my-2">Expiry*</span>
-              <div className="border  mt-1 mb-3  p-3 rounded hover:border-primary">
+              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
                 <CardExpiryElement />
               </div>
             </div>
           </div>
-          <div className="flex justify-end gap-4">
-            <Form.Item className="mx-2 my-0 gap-4">
-              <Button onClick={closeModal}>Cancel</Button>
-            </Form.Item>
-            <Form.Item className="m-0">
-              <Button type="primary" htmlType="submit">
+          <div className="flex justify-end">
+            <Form.Item  className="">
+              <Button onClick={closeModal} className="btn-stripe btn-stripe-secondary">Cancel</Button>
+              <Button loading={loadingSubmit} disabled={loadingSubmit} type="primary" htmlType="submit"  className="ml-4 btn-stripe btn-stripe-primary">
                 Submit
-              </Button>
-            </Form.Item>
+              </Button>            
+              </Form.Item>
           </div>
         </Form>
       </Modal>
