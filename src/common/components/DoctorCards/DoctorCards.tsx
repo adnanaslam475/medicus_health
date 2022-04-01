@@ -16,6 +16,7 @@ const FLAG_BY_LANGUAGE = {
 };
 
 type props = {
+  id:number,
   name: string;
   language: string;
   specialization: string;
@@ -26,6 +27,7 @@ type props = {
 };
 
 function DoctorCard({
+  id,
   name,
   language,
   specialization,
@@ -49,7 +51,6 @@ function DoctorCard({
             <div className="flex-row md:flex">
               <h2 className="font-bold mb-0 mr-3">
                 <span>
-                  {/* Dr.{data.user.first_name} {data.user.last_name} */}
                   Dr.{name}
                 </span>
               </h2>
@@ -65,14 +66,6 @@ function DoctorCard({
                     />
                   )}
                 </div>
-                {/* <div className="flagAvatar espanolFlag">
-                  <Image
-                    src={espanolFlag}
-                    alt="espanolFlag"
-                    width={25}
-                    height={25}
-                  />
-                </div> */}
               </div>
             </div>
             <h5 className="text-primary text-xs mb-1">
@@ -100,7 +93,7 @@ function DoctorCard({
           </div>
         </div>
         <div className="card-actionBtns lg:w-2/6">
-          <Link passHref href="/patient/physicians/profile">
+          <Link passHref href={`/patient/physicians/profile/${id}`}>
             <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
               View Profile
             </a>

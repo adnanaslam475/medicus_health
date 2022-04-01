@@ -1,22 +1,35 @@
-import React from "react";
-import { Card, Button, Divider, Avatar } from "antd";
-import { Collapse } from "antd";
+import React, { useState } from "react";
+import { Card, Button, Divider, Avatar, Collapse } from "antd";
 import Router, { useRouter } from "next/router";
 import Link from "next/link";
-import { VideoCameraFilled } from "@ant-design/icons";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { VideoCameraFilled,ArrowLeftOutlined } from "@ant-design/icons";
 import VideoCamera from "../../../../public/assets/icon/video.svg";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorProfileCard.module.scss";
-import { useDoctorProfilesQuery } from "../../../generated/graphql";
 
 const { Panel } = Collapse;
 
-function DoctorProfileCard() {
-  const [{ data }] = useDoctorProfilesQuery();
-  const { doctorProfiles } = data || {};
+function DoctorProfileCard(props:any) {
+  const {doctorData,doctorId }= props || {};
+  // console.log("doctorId",doctorId)
+
+  // console.log("doctorData",doctorData)
+
+  const {
+    first_name,
+    last_name,
+    gender,
+    date_of_birth,
+    contact_number,
+    email,
+    password,
+    country_id,
+    state_id,
+    city_id,
+    zip_code,
+  } = doctorData.user || {};
 
   return (
     <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
@@ -31,7 +44,7 @@ function DoctorProfileCard() {
         <div className="lg:pr-5 w-full mb-5">
           <div className="flex-row md:flex items-center">
             <h2 className="font-bold mb-0 mr-3">
-              <span>Dr. Jonathan Green</span>
+              <span>Dr. {first_name + " " + last_name}</span>
             </h2>
             <div className="flex">
               <div className="flagAvatar engFlag pr-2">
@@ -47,8 +60,8 @@ function DoctorProfileCard() {
               </div>
             </div>
           </div>
-          <h5 className="text-primary text-xs mb-1">Cardiologist</h5>
-          <span className="text-secondary text-sm block mb-2">10+ years of experience</span>
+          <h5 className="text-primary text-xs mb-1">{doctorData?.specialization}</h5>
+          <span className="text-secondary text-sm block mb-2">{doctorData?.year_of_experience + " "}years of experience</span>
           <Collapse className="lg:w-4/5">
             <Panel
               key="1"
