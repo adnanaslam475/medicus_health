@@ -28,9 +28,8 @@ const ForgotPassword = () => {
 
   const [forgotPass, setForgotPass] = useUserForgotPasswordMutation();
   const { error, fetching, data } = forgotPass;
-  
-  
-  const onFinish = async (value: { email: string })  => {
+
+  const onFinish = async (value: { email: string }) => {
     let payload = value.email;
     try {
       const res = await setForgotPass({
@@ -90,6 +89,7 @@ const ForgotPassword = () => {
                     rules={[
                       {
                         required: true,
+                        type: "email",
                         message: "Please enter your email address",
                       },
                       {
