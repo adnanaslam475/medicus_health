@@ -78,7 +78,7 @@ const PaymentMethods = () => {
   return (
     <>
       <div className="flex justify-between items-center w-full md:w-3/4">
-        <div className="w-3/4 p-3">
+        <div className="w-3/4">
           <Elements stripe={loadStripe(config.stripeKey || "")}>
             <BillingNew
               data={getAllCards}
