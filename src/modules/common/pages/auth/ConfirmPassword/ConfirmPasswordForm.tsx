@@ -1,4 +1,5 @@
 import { Alert, Button, Form, Input } from "antd";
+import Password from "antd/lib/input/Password";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 
@@ -9,7 +10,6 @@ type Props = {
 };
 
 function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
-  console.log(response, "rrr");
   return (
     <Form
       layout="vertical"
@@ -22,7 +22,7 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
         name="password"
         rules={[
           {
-            required: false,
+            required: true,
             message: "Please enter your new password!",
           },
         ]}
@@ -61,27 +61,6 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
           Confirm Password
         </Button>
       </Form.Item>
-      {response && response.error?.graphQLErrors[0].message && (
-        <Alert
-          className=""
-          message={response.error?.graphQLErrors[0].message}
-          type="error"
-        />
-      )}
-      {response && !response.error && (
-        <Alert
-          className=""
-          message={"Your password has been reset!"}
-          type="success"
-          action={
-            <Link href="/login" passHref>
-              <Button size="small" type="primary">
-                Login
-              </Button>
-            </Link>
-          }
-        />
-      )}
     </Form>
   );
 }

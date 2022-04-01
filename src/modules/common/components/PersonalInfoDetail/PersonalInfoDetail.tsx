@@ -30,8 +30,6 @@ function PersonalInfoDetail(props: Props) {
   const { onFinish, loading, response } = props || {};
   const [radioChildren, setradioChildren] = useState(true);
 
-
-
   // const onFinish = (values: any) => {
   //   console.log("Success:", values);
   // };
@@ -44,10 +42,10 @@ function PersonalInfoDetail(props: Props) {
   return (
     <div className="custom-list mt-4">
       <Form
-        name="basic"        
+        name="basic"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}        
+        onFinishFailed={onFinishFailed}
       >
         <ul>
           <div className="border border-gray-3 px-0 rounded custom-list-items">
@@ -81,7 +79,9 @@ function PersonalInfoDetail(props: Props) {
                     <Select placeholder="Gender" size="large">
                       <Select.Option value="male">Male</Select.Option>
                       <Select.Option value="female">Female</Select.Option>
-                      <Select.Option value="prefer not to answer">prefer not to answer</Select.Option>
+                      <Select.Option value="prefer not to answer">
+                        prefer not to answer
+                      </Select.Option>
                     </Select>
                   </Form.Item>
                 </div>
@@ -149,7 +149,7 @@ function PersonalInfoDetail(props: Props) {
                 <div className="w-1/2 text-secondary">
                   <Form.Item noStyle name="country">
                     <Input size="large" placeholder="Country" />
-                  </Form.Item>{" "}
+                  </Form.Item>
                 </div>
               </div>
             </li>
@@ -220,20 +220,20 @@ function PersonalInfoDetail(props: Props) {
                   Do You have any children?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                    <Form.Item className="mb-0">
-                      <Radio.Group
-                        onChange={(e) => {
-                          setradioChildren(e.target.value);
-                        }}                      
-                      >
-                        <Radio value={1}>Yes</Radio>
-                        <Radio value={0}>No</Radio>
-                      </Radio.Group>
-                      {!!radioChildren && (
+                  <Form.Item className="mb-0">
+                    <Radio.Group
+                      onChange={(e) => {
+                        setradioChildren(e.target.value);
+                      }}
+                    >
+                      <Radio value={1}>Yes</Radio>
+                      <Radio value={0}>No</Radio>
+                    </Radio.Group>
+                    {!!radioChildren && (
                       <Form.Item className="mb-0">
                         <Input size="large" placeholder="No. of children" />
                       </Form.Item>
-                      )}
+                    )}
                   </Form.Item>
                 </div>
               </div>
@@ -259,10 +259,22 @@ function PersonalInfoDetail(props: Props) {
                 </div>
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0">
-                    <Radio.Group>
+                    <Radio.Group
+                      onChange={(e) => {
+                        setradioChildren(e.target.value);
+                      }}
+                    >
                       <Radio value={1}>Yes</Radio>
                       <Radio value={0}>No</Radio>
                     </Radio.Group>
+                    {!!radioChildren && (
+                      <Form.Item className="mb-0">
+                        <Input
+                          size="large"
+                          placeholder="Occupational Exposure"
+                        />
+                      </Form.Item>
+                    )}
                   </Form.Item>
                 </div>
               </div>
