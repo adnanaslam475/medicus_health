@@ -8,6 +8,11 @@ import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorProfileCard.module.scss";
+import AppointmentBookingStepOne from "../../../common/components/Appointments/booking/AppointmentBookingStepOne";
+import AppointmentBookingStepTwo from "../../../common/components/Appointments/booking/AppointmentBookingStepTwo";
+import AppointmentBookingStepThree from "../../../common/components/Appointments/booking/AppointmentBookingStepThree";
+import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
+import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
 
 const { Panel } = Collapse;
 
@@ -16,6 +21,19 @@ function DoctorProfileCard(props:any) {
   // console.log("doctorId",doctorId)
 
   // console.log("doctorData",doctorData)
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const {
     first_name,
@@ -33,6 +51,15 @@ function DoctorProfileCard(props:any) {
 } = doctorData?.user || {};
 
   return (
+    <>
+      <Modal
+        title="Request an Appointment"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <SuccessMessage />
+      </Modal>
     <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
       <div className="flex-none sm:flex">
         <div className="docAvatarCover pr-3">
@@ -198,6 +225,7 @@ function DoctorProfileCard(props:any) {
 
 
     </Card>
+    </>
   );
 }
 
