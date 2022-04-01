@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button, Divider, Avatar, Collapse } from "antd";
+import { Modal, Card, Button, Divider, Avatar, Collapse } from "antd";
 import Router, { useRouter } from "next/router";
 import Link from "next/link";
 import { VideoCameraFilled,ArrowLeftOutlined } from "@ant-design/icons";
@@ -13,6 +13,15 @@ import AppointmentBookingStepTwo from "../../../common/components/Appointments/b
 import AppointmentBookingStepThree from "../../../common/components/Appointments/booking/AppointmentBookingStepThree";
 import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
 import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
+
+const FLAG_BY_LANGUAGE = {
+  ["english" as string]: engFlag,
+  ["Spanish" as string]: espanolFlag,
+};
+
+type props = {
+  language: string;
+};
 
 const { Panel } = Collapse;
 
@@ -38,16 +47,14 @@ function DoctorProfileCard(props:any) {
   const {
     first_name,
     last_name,
+    language,
     specialization,
     year_of_experience,
     contact_number,
     condition_treated,
+    educational_background,
+    professional_experience,
     about_me,
-    password,
-    country_id,
-    state_id,
-    city_id,
-    zip_code,
 } = doctorData?.user || {};
 
   return (
@@ -58,7 +65,7 @@ function DoctorProfileCard(props:any) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <SuccessMessage />
+        <AppointmentBookingStepOne />
       </Modal>
     <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
       <div className="flex-none sm:flex">
@@ -75,17 +82,20 @@ function DoctorProfileCard(props:any) {
               <span>Dr. {first_name + " " + last_name}</span>
             </h2>
             <div className="flex">
-              <div className="flagAvatar engFlag pr-2">
-                <Image src={engFlag} alt="engFlag" width={25} height={25} />
-              </div>
-              <div className="flagAvatar espanolFlag">
-                <Image
-                  src={espanolFlag}
-                  alt="espanolFlag"
-                  width={25}
-                  height={25}
-                />
-              </div>
+            <div className="flagAvatar engFlag pr-2">
+                  {FLAG_BY_LANGUAGE[language] && (
+                    <Image
+                      src={FLAG_BY_LANGUAGE[language]}
+                      // src={espanolFlag}
+                      alt={language || "flag"}
+                      width={25}
+                      height={25}
+                    />
+                  )}
+                </div>
+
+
+              
             </div>
           </div>
           <h5 className="text-primary text-xs mb-1">{doctorData?.specialization}</h5>
@@ -151,6 +161,7 @@ function DoctorProfileCard(props:any) {
           <div className="flex-none md:flex mt-3">
             <Button
                 type="primary"
+                onClick={showModal}
             >
                 <Image
                   src={VideoCamera}
@@ -185,40 +196,19 @@ function DoctorProfileCard(props:any) {
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
         <p className="text-base text-secondary">
-            Abnormal heart rythms // Aorta diseas // Conginital heart disease
-            Corony artery disease // Heart Attack // Heart Faliure
+          {doctorData?.condition_treated}
         </p>
         <Divider />
         <h4 className="font-bold mb-1">Professional Background</h4>
         <div className="text-base text-secondary">
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
+          {doctorData?.professional_experience}
+         
         </div>
         <Divider />
         <h4 className="font-bold mb-1">Educational Background</h4>
         <div className="text-base text-secondary">
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
+          {doctorData?.educational_background}
+          
         </div>
         <Divider />
         <a href="#" className="text-base flex items-center" onClick={() => Router.push("/patient/physicians")}><ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span></a>
