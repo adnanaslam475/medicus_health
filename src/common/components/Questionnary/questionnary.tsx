@@ -125,8 +125,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   }, [data]);
 
   function prepareAndSetEditPayload(parsedData: any) {
-    console.log({ parsedData });
-
     setRadioDrink(parsedData?.q1.ans);
     setRadioSmoke(parsedData?.q2.ans);
     setRadioDrug(parsedData?.q3.ans);

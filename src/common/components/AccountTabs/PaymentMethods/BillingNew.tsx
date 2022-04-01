@@ -144,14 +144,13 @@ function Billing({
           cardElement as StripeElement,
           {} as CreateSourceData
         )) || {};
-      console.log({ source });
 
       const { user } = getUserData();
       await executeCardMutation({
         input: {
           card_digits: Number(source?.card?.last4) || 0,
           card_type: source?.card?.brand || "",
-          is_default: false,
+          is_default: data?.length === 0,
           source_id: source?.id as string,
           user_id: user?.id as number,
           exp_month: String(source?.card?.exp_month),
