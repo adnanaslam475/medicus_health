@@ -111,22 +111,21 @@ query doctorProfile($doctor_id: Int!) {
     language
     about_me
     profile_image
-    user{
-  id
-first_name
-last_name
-email
-gender
-date_of_birth
-contact_number
-country_id
-state_id
-city_id
-zip_code
-password
-status
-role
-}
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
+      date_of_birth
+      contact_number
+      country_id
+      state_id
+      city_id
+      zip_code
+      password
+      status
+      role
+    }
   }
 }
-

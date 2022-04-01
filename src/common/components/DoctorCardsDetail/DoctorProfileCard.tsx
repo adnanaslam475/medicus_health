@@ -20,16 +20,17 @@ function DoctorProfileCard(props:any) {
   const {
     first_name,
     last_name,
-    gender,
-    date_of_birth,
+    specialization,
+    year_of_experience,
     contact_number,
-    email,
+    condition_treated,
+    about_me,
     password,
     country_id,
     state_id,
     city_id,
     zip_code,
-  } = doctorData.user || {};
+} = doctorData?.user || {};
 
   return (
     <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
@@ -152,15 +153,7 @@ function DoctorProfileCard(props:any) {
         <Divider />
         <h4 className="font-bold mb-1">About Me</h4>
         <div className="text-gray text-base">
-          <p>Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex 
-            ante id nibh. In vehicula ligula vitae pulvinar malesuada. 
-            Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. 
-            Sed iaculis justo at feugiat porttitor.</p>
-            <p>Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex 
-            ante id nibh. In vehicula ligula vitae pulvinar malesuada. 
-            Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. 
-            Sed iaculis justo at feugiat porttitor.
-          </p>
+          {doctorData?.about_me}
         </div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
