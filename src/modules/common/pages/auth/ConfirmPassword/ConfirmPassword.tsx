@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import Link from "next/link";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Alert } from "antd";
 import Image from "next/image";
 import Container from "../../../../../common/components/Container/Container";
 import ConfirmPasswordForm from "./ConfirmPasswordForm";
@@ -18,8 +18,7 @@ function ConfirmPassword() {
   // Reset Password API call
 
   const [result, resetPassword] = useUserResetPasswordMutation();
-  const { error, fetching } = result;
-
+  const { error, fetching, data } = result;
   const router = useRouter();
   const { token } = router.query;
 
@@ -69,6 +68,23 @@ function ConfirmPassword() {
                 loading={fetching}
                 response={error}
               />
+              {error?.message && (
+                <Alert className="" message={error?.message} type="error" />
+              )}
+              {data && (
+                <Alert
+                  className=""
+                  message="Your password has been reset!"
+                  type="success"
+                  action={
+                    <Link href="/login" passHref>
+                      <Button size="small" type="primary">
+                        Login
+                      </Button>
+                    </Link>
+                  }
+                />
+              )}
             </div>
           </div>
         </div>

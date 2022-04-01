@@ -10,7 +10,6 @@ type Props = {
 };
 
 function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
-  console.log(response, "rrr");
   return (
     <Form
       layout="vertical"
@@ -62,27 +61,6 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
           Confirm Password
         </Button>
       </Form.Item>
-      {response && response.error?.graphQLErrors[0].message && (
-        <Alert
-          className=""
-          message={response.error?.graphQLErrors[0].message}
-          type="error"
-        />
-      )}
-      {response && !response.error && (
-        <Alert
-          className=""
-          message={"Your password has been reset!"}
-          type="success"
-          action={
-            <Link href="/login" passHref>
-              <Button size="small" type="primary">
-                Login
-              </Button>
-            </Link>
-          }
-        />
-      )}
     </Form>
   );
 }
