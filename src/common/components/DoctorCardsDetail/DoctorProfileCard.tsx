@@ -27,9 +27,7 @@ const { Panel } = Collapse;
 
 function DoctorProfileCard(props:any) {
   const {doctorData,doctorId }= props || {};
-  // console.log("doctorId",doctorId)
-
-  // console.log("doctorData",doctorData)
+  
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -48,13 +46,6 @@ function DoctorProfileCard(props:any) {
     first_name,
     last_name,
     language,
-    specialization,
-    year_of_experience,
-    contact_number,
-    condition_treated,
-    educational_background,
-    professional_experience,
-    about_me,
 } = doctorData?.user || {};
 
   return (

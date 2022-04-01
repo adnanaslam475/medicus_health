@@ -16,7 +16,7 @@ function PhysiciansDetail() {
   
   console.log("data", data );
   const { doctorProfile } = data || {};
-//   console.log("doctorDetail", doctorDetail);
+
   return (
     <AppLayout>
       <div className="w-full">
