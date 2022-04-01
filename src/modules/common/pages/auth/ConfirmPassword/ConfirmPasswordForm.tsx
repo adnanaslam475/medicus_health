@@ -1,4 +1,5 @@
 import { Alert, Button, Form, Input } from "antd";
+import Password from "antd/lib/input/Password";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 
@@ -22,7 +23,7 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
         name="password"
         rules={[
           {
-            required: false,
+            required: true,
             message: "Please enter your new password!",
           },
         ]}
