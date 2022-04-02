@@ -1,6 +1,6 @@
-/* eslint-disable react/jsx-key */
-import React, { useState } from "react";
-import { Form, Input, Radio, Button, Checkbox, Select } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Input, Radio, Select } from "antd";
+import { User } from "../../../../generated/graphql";
 
 type Props = {
   onFinish?: (values: {
@@ -16,37 +16,51 @@ type Props = {
     city: string;
     postalCode: string;
     streetAddress: string;
+    // patientProfile:{
+    //   maritalStatus: string;
+    //   // profileImage
+    //   children: string;
+    //   occupation: string;
+    //   occupationalExposure: string;
+    //   pets: string;
+    // }
     maritalStatus: string;
     children: string;
     occupation: string;
     occupationalExposure: string;
     pets: string;
   }) => void;
+  user?: User;
   loading?: boolean;
-  response?: any;
 };
 
-function PersonalInfoDetail(props: Props) {
-  const { onFinish, loading, response } = props || {};
+export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
+  props: Props,
+  ref: any
+) {
+  const [formInstance] = Form.useForm();
+  const { loading, user, onFinish } = props || {};
   const [radioChildren, setradioChildren] = useState(true);
 
-  // const onFinish = (values: any) => {
-  //   console.log("Success:", values);
-  // };
+  useEffect(() => {
+    if (ref) {
+      ref.current = formInstance;
+    }
+    if (user) {
+      prepareAndSetEditPayload();
+    }
+  }, [user]);
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-  // const { error, fetching } = result;
+  function prepareAndSetEditPayload() {
+    formInstance.setFieldsValue({
+      firstName: user?.first_name,
+      lastName: user?.last_name,
+    });
+  }
 
   return (
     <div className="custom-list mt-4">
-      <Form
-        name="basic"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
+      <Form form={formInstance} onFinish={onFinish}>
         <ul>
           <div className="border border-gray-3 px-0 rounded custom-list-items">
             <li>
@@ -75,7 +89,7 @@ function PersonalInfoDetail(props: Props) {
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Gender</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item className="mb-0">
+                  <Form.Item className="mb-0" name="gender">
                     <Select placeholder="Gender" size="large">
                       <Select.Option value="male">Male</Select.Option>
                       <Select.Option value="female">Female</Select.Option>
@@ -132,7 +146,7 @@ function PersonalInfoDetail(props: Props) {
               </div>
             </li>
 
-            <li>
+            {/* <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Confirm Password</div>
                 <div className="w-1/2 text-secondary">
@@ -141,7 +155,7 @@ function PersonalInfoDetail(props: Props) {
                   </Form.Item>
                 </div>
               </div>
-            </li>
+            </li> */}
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
@@ -202,7 +216,7 @@ function PersonalInfoDetail(props: Props) {
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0">
+                  <Form.Item className="mb-0" name="maritalStatus">
                     <Select placeholder="Marital Status" size="large">
                       <Select.Option value="single">Single</Select.Option>
                       <Select.Option value="married">Married</Select.Option>
@@ -220,7 +234,7 @@ function PersonalInfoDetail(props: Props) {
                   Do You have any children?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0">
+                  <Form.Item className="mb-0" name="children">
                     <Radio.Group
                       onChange={(e) => {
                         setradioChildren(e.target.value);
@@ -230,7 +244,7 @@ function PersonalInfoDetail(props: Props) {
                       <Radio value={0}>No</Radio>
                     </Radio.Group>
                     {!!radioChildren && (
-                      <Form.Item className="mb-0">
+                      <Form.Item className="mb-0" name="children">
                         <Input size="large" placeholder="No. of children" />
                       </Form.Item>
                     )}
@@ -258,23 +272,20 @@ function PersonalInfoDetail(props: Props) {
                   Do you have any Occupational Exposure?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0">
-                    <Radio.Group
-                      onChange={(e) => {
-                        setradioChildren(e.target.value);
-                      }}
-                    >
+                  {/* <Form.Item className="mb-0" name="occupationalExposure">
+                    <Radio.Group>
                       <Radio value={1}>Yes</Radio>
                       <Radio value={0}>No</Radio>
                     </Radio.Group>
-                    {!!radioChildren && (
-                      <Form.Item className="mb-0">
-                        <Input
-                          size="large"
-                          placeholder="Occupational Exposure"
-                        />
-                      </Form.Item>
-                    )}
+                  </Form.Item> */}
+                  <Form.Item className="mb-0" name="gender">
+                    <Select placeholder="Gender" size="large">
+                      <Select.Option value="male">Male</Select.Option>
+                      <Select.Option value="female">Female</Select.Option>
+                      <Select.Option value="prefer not to answer">
+                        prefer not to answer
+                      </Select.Option>
+                    </Select>
                   </Form.Item>
                 </div>
               </div>
@@ -295,5 +306,4 @@ function PersonalInfoDetail(props: Props) {
       </Form>
     </div>
   );
-}
-export default PersonalInfoDetail;
+});

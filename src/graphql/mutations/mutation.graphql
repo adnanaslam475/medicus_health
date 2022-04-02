@@ -99,5 +99,6 @@ mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {
     state_id
     role
     zip_code
+    streetAddress
   }
 }
