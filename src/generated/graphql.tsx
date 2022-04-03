@@ -93,6 +93,21 @@ export type CreateAppointmentServiceTypeInput = {
   price: Scalars['Float'];
 };
 
+export type CreateDoctorInput = {
+  city_id: Scalars['Float'];
+  country_id: Scalars['Float'];
+  date_of_birth?: InputMaybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  email_token?: InputMaybe<Scalars['String']>;
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  role?: InputMaybe<Scalars['String']>;
+  state_id: Scalars['Float'];
+  streetAddress: Scalars['String'];
+  stripe_customer_id?: InputMaybe<Scalars['String']>;
+  zip_code: Scalars['String'];
+};
+
 export type CreateDoctorProfileInput = {
   about_me: Scalars['String'];
   condition_treated: Scalars['String'];
@@ -138,6 +153,7 @@ export type CreateUserInput = {
   password: Scalars['String'];
   role?: InputMaybe<Scalars['String']>;
   state_id: Scalars['Float'];
+  streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
   zip_code: Scalars['String'];
 };
@@ -198,6 +214,7 @@ export type Mutation = {
   cancelAppointmentByPatient: Appointment;
   createAppointment: Appointment;
   createCard: UserCard;
+  createDoctor: User;
   createDoctorProfile: DoctorProfile;
   createOrUpdateDoctorSchedule: Array<DoctorSchedule>;
   createPatientHealthHistory: PatientHealthHistory;
@@ -254,6 +271,11 @@ export type MutationCreateAppointmentArgs = {
 
 export type MutationCreateCardArgs = {
   createPaymentInput: CreatePaymentInput;
+};
+
+
+export type MutationCreateDoctorArgs = {
+  createDoctorInput: CreateDoctorInput;
 };
 
 
@@ -564,6 +586,7 @@ export type UpdateUserInput = {
   profileImage?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['String']>;
   state_id: Scalars['Float'];
+  streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
   zip_code: Scalars['String'];
 };
@@ -579,15 +602,16 @@ export type User = {
   doctorSchedules?: Maybe<Array<DoctorSchedule>>;
   email: Scalars['String'];
   first_name: Scalars['String'];
-  gender: Scalars['String'];
+  gender?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   last_name: Scalars['String'];
-  password: Scalars['String'];
+  password?: Maybe<Scalars['String']>;
   patientHealthHistory?: Maybe<PatientHealthHistory>;
   patientProfile?: Maybe<PatientProfile>;
   role?: Maybe<Scalars['String']>;
   state_id: Scalars['Int'];
   status: Scalars['Boolean'];
+  streetAddress: Scalars['String'];
   zip_code: Scalars['String'];
 };
 
@@ -679,7 +703,7 @@ export type UpdateUserProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', first_name: string, last_name: string, email: string, gender: string, date_of_birth: any, country_id: number, contact_number: string, city_id: number, password: string, state_id: number, role?: string | null, zip_code: string } };
+export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth: any, country_id: number, contact_number: string, city_id: number, password?: string | null, state_id: number, role?: string | null, zip_code: string } };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -703,7 +727,7 @@ export type GetCitiesByStateQuery = { __typename?: 'Query', getCitiesByState: Ar
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DoctorProfilesQuery = { __typename?: 'Query', doctorProfiles: Array<{ __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience: number, specialization: string, condition_treated: string, educational_background: string, professional_experience: string, language: string, about_me: string, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender: string, contact_number: string } | null }> };
+export type DoctorProfilesQuery = { __typename?: 'Query', doctorProfiles: Array<{ __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience: number, specialization: string, condition_treated: string, educational_background: string, professional_experience: string, language: string, about_me: string, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, contact_number: string } | null }> };
 
 export type PatientHealthHistoryQueryVariables = Exact<{
   input: Scalars['Int'];
@@ -731,7 +755,14 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender: string, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, password: string, zip_code: string, role?: string | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, password?: string | null, zip_code: string, role?: string | null } };
+
+export type DoctorProfileQueryVariables = Exact<{
+  doctor_id: Scalars['Int'];
+}>;
+
+
+export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience: number, specialization: string, condition_treated: string, educational_background: string, professional_experience: string, language: string, about_me: string, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth: any, contact_number: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null } | null } };
 
 
 export const CreateUserDocument = gql`
@@ -1022,6 +1053,42 @@ export const GetUserDocument = gql`
 
 export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
   return Urql.useQuery<GetUserQuery>({ query: GetUserDocument, ...options });
+};
+export const DoctorProfileDocument = gql`
+    query doctorProfile($doctor_id: Int!) {
+  doctorProfile(doctor_id: $doctor_id) {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    profile_image
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
+      date_of_birth
+      contact_number
+      country_id
+      state_id
+      city_id
+      zip_code
+      password
+      status
+      role
+    }
+  }
+}
+    `;
+
+export function useDoctorProfileQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorProfileQuery>({ query: DoctorProfileDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
@@ -1794,6 +1861,29 @@ export default {
             "args": [
               {
                 "name": "createPaymentInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createDoctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createDoctorInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -3124,11 +3214,8 @@ export default {
           {
             "name": "gender",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -3157,11 +3244,8 @@ export default {
           {
             "name": "password",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -3204,6 +3288,17 @@ export default {
           },
           {
             "name": "status",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "streetAddress",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

@@ -26,6 +26,7 @@ function Physicians() {
               return (
                 <DoctorCard
                   key={id}
+                  id={id}
                   name={user?.first_name + " " + user?.last_name}
                   language={language}
                   specialization={specialization}

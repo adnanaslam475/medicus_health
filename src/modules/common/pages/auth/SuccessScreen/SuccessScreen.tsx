@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { useRouter } from "next/router";
 
-const successScreen = () => {
+const SuccessScreen = () => {
   const onFinish = async (values: object) => {
     console.log("Success:", values);
   };
@@ -45,7 +45,7 @@ const successScreen = () => {
               Success! Your account has been created.
             </h2>
             <p className="text-gray text-center text-xs px-7">
-              We have sent you an email on{" "}
+              We have sent you an email on
               <span className="text-secondary">{` ${query?.email} `}</span>
               Please click on the verification link and your account will be
               verified.
@@ -78,4 +78,4 @@ const successScreen = () => {
     </Container>
   );
 };
-export default successScreen;
+export default SuccessScreen;

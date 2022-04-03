@@ -1,0 +1,269 @@
+import React from "react";
+import { Divider, Radio, Checkbox, Form, Input, Button, Select, DatePicker } from "antd";
+
+function StepThree() {
+  return (
+    <>
+    <Form layout="vertical">
+        <Form.Item label="General Health Questionnaire*">
+            <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
+                <Checkbox value="0">
+                    <span className="text-gray-2">I want to use my last filled form</span>
+                </Checkbox>
+            </div>
+        </Form.Item>
+
+        <Divider />
+
+        <Form.Item
+            label="Please describe your main respiratory concern today?" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="How long have you had these symptoms?" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="How long have you had these symptoms?" 
+            className="text-secondary">
+            <Radio.Group>
+                <Radio value={0}>Improved</Radio>
+                <Radio value={1}>Worsened</Radio>
+                <Radio value={2}>Stayed the same</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="On a scale of 0-5 (0 is not at all, 5 is intolerable) how badly does your problem bother you?" 
+            className="text-secondary">
+            <Radio.Group>
+                <Radio value={0}>5</Radio>
+                <Radio value={1}>4</Radio>
+                <Radio value={2}>3</Radio>
+                <Radio value={3}>2</Radio>
+                <Radio value={4}>1</Radio>
+                <Radio value={5}>0</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Does anything make the problem better?" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="Does anything make the problem worse?" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="Have you changed your lifestyle or activities because of your respiratory problem?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Please explain" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="Do you have a cough?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Do you cough anything up?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Describe what you are coughing up?" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="Do you have a problem with acid reflux (heartburn)?" 
+            className="text-secondary">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Do you have a problem with sinus or post-nasal drip?" 
+            className="text-secondary">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Are you short of breath?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Does it occur at rest?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Does it occur when walking?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Does it occur when climbing a flight of stairs?" 
+            className="text-secondary">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="How far can you walk on level ground before you are winded?" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="Do you wheeze?" 
+            className="text-secondary">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+        <Form.Item
+            label="Can you lie flat at night to sleep?" 
+            className="text-secondary">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+        <Form.Item
+            label="Do you get chest pain when you exercise or work hard?" 
+            className="text-secondary">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+        <Form.Item
+            label="What is your country of birth?" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+        <Form.Item
+            label="Have you traveled out of the country recently?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Where did you travel to?" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="Do you have a history of, or have you been exposed to, tuberculosis (TB)?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+        <Form.Item
+            label="Please explain." 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="Do you have any pets or other animals?" 
+            className="text-secondary">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+            label="Have you ever smoked anything besides cigarettes?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+        <Form.Item
+            label="What and for how long?" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="Have you ever been in the hospital because of breathing problems?" 
+            className="text-secondary mb-0">
+            <Radio.Group>
+                <Radio value={0}>Yes</Radio>
+                <Radio value={1}>No</Radio>
+            </Radio.Group>
+        </Form.Item>
+        <Form.Item
+            label="Please describe." 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+            label="Please list any known exposure to asbestos, fumes, toxins, heavy metals, grinding, solvents, etc.:" 
+            className="text-secondary">
+            <Input />
+        </Form.Item>
+
+    </Form>
+    </>
+  );
+}
+export default StepThree;

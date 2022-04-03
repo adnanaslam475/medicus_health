@@ -96,3 +96,36 @@ query getUser($input: Int!) {
     role
   }
 }
+
+# GET SINGLE DOCTOR PROFILE
+
+query doctorProfile($doctor_id: Int!) {
+  doctorProfile(doctor_id: $doctor_id) {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    profile_image
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
+      date_of_birth
+      contact_number
+      country_id
+      state_id
+      city_id
+      zip_code
+      password
+      status
+      role
+    }
+  }
+}
