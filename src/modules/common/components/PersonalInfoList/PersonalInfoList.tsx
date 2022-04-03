@@ -25,6 +25,8 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
     state_id,
     city_id,
     zip_code,
+    streetAddress,
+    patientProfile
   } = userDetail || {};
 
   const [{ data }] = useCountriesQuery();
@@ -96,7 +98,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Date of Birth</div>
               <div className="w-1/2 text-secondary">
-                {date.convertToUTC(date_of_birth)}
+                {date.convertBirthDateToUTC(date_of_birth)}
               </div>
             </div>
           </li>
@@ -159,7 +161,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Street Address</div>
               <div className="w-1/2 text-secondary">
-                5456 YuanTabu , 5th Floor, Suit 2
+                {streetAddress}
               </div>
             </div>
           </li>
@@ -167,21 +169,21 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Marital Status</div>
-              <div className="w-1/2 text-gray-1">N/A</div>
+              <div className="w-1/2">{patientProfile?.maritalStatus}</div>
             </div>
           </li>
 
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Do You have any children?</div>
-              <div className="w-1/2 text-gray-1">N/A</div>
+              <div className="w-1/2">{patientProfile?.children}</div>
             </div>
           </li>
 
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">What is your Occupation?</div>
-              <div className="w-1/2 text-gray-1">N/A</div>
+              <div className="w-1/2">{patientProfile?.occupation}</div>
             </div>
           </li>
 
@@ -190,14 +192,14 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
               <div className="w-1/2 text-gray-1">
                 Do you have any Occupational Exposure?
               </div>
-              <div className="w-1/2 text-gray-1">N/A</div>
+              <div className="w-1/2">{patientProfile?.occupationalExposure}</div>
             </div>
           </li>
 
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Do you have any pets?</div>
-              <div className="w-1/2 text-gray-1">N/A</div>
+              <div className="w-1/2">{patientProfile?.pets}</div>
             </div>
           </li>
         </div>

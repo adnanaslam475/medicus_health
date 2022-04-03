@@ -11,11 +11,15 @@ import {
   useUpdateUserProfileMutation,
 } from "../../../../generated/graphql";
 import { getUserData } from "../../../utils/userData";
+import { Upload, message } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+
 // import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
 
 const PersonalInfo = () => {
   const [isEdit, setIsEdit] = useState(false as boolean);
+  const [image, setImage] = useState("" as string);
 
   // GET USER ID
   const { user } = getUserData();
@@ -36,37 +40,43 @@ const PersonalInfo = () => {
     console.log("values", values);
     try {
       await updateUserProfile({
-          id: 405,
-          updateUserInput: {
-            first_name: values?.first_name,
-            last_name: values?.lastName,
-            email: values?.email,
-            gender: "gender",
-            date_of_birth: values?.dateOfbirth,
-            country_id: values?.country,
-            contact_number: values?.conntactNumber,
-            city_id: 34,
-            password: values?.city,
-            state_id:values?. state,
-            role:"Doctor",
-            zip_code: values?.postalCode,
-            streetAddress:values?.streetAddress,
-            // patientProfile:{
-            //   maritalStatus: "",
-            //   profileImage
-            //   children: "",
-            //   occupation: "",
-            //   occupationalExposure: "",
-            //   pets: ""
-            // }
-          },
+        id: id,
+        updateUserInput: {
+          first_name: values?.firstName,
+          last_name: values?.lastName,
+          email: values?.email,
+          gender: values?.gender,
+          date_of_birth: values?.dateOfbirth,
+          country_id: Number(values?.country),
+          contact_number: values?.conntactNumber,
+          city_id: Number(values?.city),
+          password: values?.password,
+          state_id: Number(values?.state),
+          zip_code: values?.postalCode,
+          streetAddress: values?.streetAddress,
+          maritalStatus: values?.maritalStatus,
+          profileImage: image,
+          children: Number(values?.children),
+          occupation: values?.occupation,
+          occupationalExposure: values?.occupationalExposure,
+          pets: values?.pets,
+        },
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
-  console.log("result",result)
+  const props = {
+    // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+    onChange({ file, fileList }: any) {
+      if (file.status !== "uploading") {
+        // console.log("fileList", fileList);
+        // console.log("file", file);
+        setImage(file?.name);
+      }
+    },
+  };
 
   return (
     <>
@@ -89,8 +99,12 @@ const PersonalInfo = () => {
               href="javascript:void(0)"
               className="text-primary underline ml-3 text-xs"
             >
-              Update Photo
+              <Upload {...props}>Update Photo</Upload>
+              {/* Update Photo */}
             </a>
+            {/* <Upload {...props}>
+              <Button icon={<UploadOutlined />}>Upload</Button>
+            </Upload> */}
           </div>
 
           <div className="edit-btn flex justify-end">

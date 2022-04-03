@@ -93,6 +93,14 @@ query getUser($input: Int!) {
     state_id
     password
     zip_code
-    role
+    streetAddress
+    patientProfile {
+      maritalStatus
+      profileImage
+      children
+      occupation
+      occupationalExposure
+      pets
+    }
   }
 }

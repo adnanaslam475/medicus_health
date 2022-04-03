@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Radio, Select } from "antd";
 import { User } from "../../../../generated/graphql";
+import { convertBirthDateToUTC } from "../../../../common/utils/date";
 
 type Props = {
   onFinish?: (values: {
@@ -13,22 +14,17 @@ type Props = {
     password: string;
     country: string;
     state: string;
-    city: string;
+    city: number;
     postalCode: string;
     streetAddress: string;
-    // patientProfile:{
-    //   maritalStatus: string;
-    //   // profileImage
-    //   children: string;
-    //   occupation: string;
-    //   occupationalExposure: string;
-    //   pets: string;
-    // }
     maritalStatus: string;
+    profileImage: string;
     children: string;
     occupation: string;
     occupationalExposure: string;
     pets: string;
+    petsAnswer: string;
+    exposureDuration: string;
   }) => void;
   user?: User;
   loading?: boolean;
@@ -55,6 +51,21 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     formInstance.setFieldsValue({
       firstName: user?.first_name,
       lastName: user?.last_name,
+      gender: user?.gender,
+      dateOfbirth: convertBirthDateToUTC(user?.date_of_birth),
+      conntactNumber: user?.contact_number,
+      email: user?.email,
+      password: user?.password,
+      country: user?.country_id,
+      state: user?.state_id,
+      city: user?.city_id,
+      postalCode: user?.zip_code,
+      streetAddress: user?.streetAddress,
+      maritalStatus:user?.patientProfile?.maritalStatus,
+      children:user?.patientProfile?.children,
+      occupation:user?.patientProfile?.occupation,
+      occupationalExposure:user?.patientProfile?.occupationalExposure,
+      pets:user?.patientProfile?.pets
     });
   }
 
@@ -216,13 +227,19 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0" name="maritalStatus">
+                  {/* <Form.Item className="mb-0" name="maritalStatus">
                     <Select placeholder="Marital Status" size="large">
                       <Select.Option value="single">Single</Select.Option>
                       <Select.Option value="married">Married</Select.Option>
                       <Select.Option value="widower">Widower</Select.Option>
                       <Select.Option value="divorced">Divorced</Select.Option>
                     </Select>
+                  </Form.Item> */}
+                  <Form.Item className="mb-0" name="maritalStatus">
+                    <Radio.Group>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
+                    </Radio.Group>
                   </Form.Item>
                 </div>
               </div>
@@ -234,7 +251,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   Do You have any children?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0" name="children">
+                  <Form.Item className="mb-0">
                     <Radio.Group
                       onChange={(e) => {
                         setradioChildren(e.target.value);
@@ -272,13 +289,13 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   Do you have any Occupational Exposure?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  {/* <Form.Item className="mb-0" name="occupationalExposure">
+                  <Form.Item className="mb-0" name="occupationalExposure">
                     <Radio.Group>
-                      <Radio value={1}>Yes</Radio>
-                      <Radio value={0}>No</Radio>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
                     </Radio.Group>
-                  </Form.Item> */}
-                  <Form.Item className="mb-0" name="gender">
+                  </Form.Item>
+                  {/* <Form.Item className="mb-0" name="gender">
                     <Select placeholder="Gender" size="large">
                       <Select.Option value="male">Male</Select.Option>
                       <Select.Option value="female">Female</Select.Option>
@@ -286,7 +303,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         prefer not to answer
                       </Select.Option>
                     </Select>
-                  </Form.Item>
+                  </Form.Item> */}
                 </div>
               </div>
             </li>
@@ -295,8 +312,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Do you have any pets?</div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item noStyle name="pets">
+                  {/* <Form.Item noStyle name="pets">
                     <Input size="large" placeholder="Any Pets" />
+                  </Form.Item> */}
+                  <Form.Item className="mb-0" name="pets">
+                    <Radio.Group>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
+                    </Radio.Group>
                   </Form.Item>
                 </div>
               </div>

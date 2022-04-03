@@ -755,7 +755,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, password?: string | null, zip_code: string, role?: string | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, password?: string | null, zip_code: string, streetAddress: string, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null } };
 
 
 export const CreateUserDocument = gql`
@@ -1040,7 +1040,15 @@ export const GetUserDocument = gql`
     state_id
     password
     zip_code
-    role
+    streetAddress
+    patientProfile {
+      maritalStatus
+      profileImage
+      children
+      occupation
+      occupationalExposure
+      pets
+    }
   }
 }
     `;
