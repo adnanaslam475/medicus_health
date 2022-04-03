@@ -134,6 +134,15 @@ query doctorProfile($doctor_id: Int!) {
       password
       status
       role
+      doctorSchedules {
+        id
+        doctorId
+        day
+        startTime
+        endTime
+        createdAt
+        updatedAt
+      }
     }
   }
 }
