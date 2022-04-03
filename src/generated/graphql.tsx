@@ -757,6 +757,13 @@ export type GetUserQueryVariables = Exact<{
 
 export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, password?: string | null, zip_code: string, streetAddress: string, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null } };
 
+export type DoctorProfileQueryVariables = Exact<{
+  doctor_id: Scalars['Int'];
+}>;
+
+
+export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience: number, specialization: string, condition_treated: string, educational_background: string, professional_experience: string, language: string, about_me: string, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth: any, contact_number: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null } | null } };
+
 
 export const CreateUserDocument = gql`
     mutation createUser($input: CreateUserInput!) {
@@ -1055,6 +1062,42 @@ export const GetUserDocument = gql`
 
 export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
   return Urql.useQuery<GetUserQuery>({ query: GetUserDocument, ...options });
+};
+export const DoctorProfileDocument = gql`
+    query doctorProfile($doctor_id: Int!) {
+  doctorProfile(doctor_id: $doctor_id) {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    profile_image
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
+      date_of_birth
+      contact_number
+      country_id
+      state_id
+      city_id
+      zip_code
+      password
+      status
+      role
+    }
+  }
+}
+    `;
+
+export function useDoctorProfileQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorProfileQuery>({ query: DoctorProfileDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
