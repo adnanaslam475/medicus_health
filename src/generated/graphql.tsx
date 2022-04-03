@@ -703,7 +703,7 @@ export type UpdateUserProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth: any, country_id: number, contact_number: string, city_id: number, password?: string | null, state_id: number, role?: string | null, zip_code: string } };
+export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth: any, country_id: number, contact_number: string, city_id: number, password?: string | null, state_id: number, role?: string | null, zip_code: string, streetAddress: string } };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -755,7 +755,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, password?: string | null, zip_code: string, role?: string | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, password?: string | null, zip_code: string, streetAddress: string, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null } };
 
 export type DoctorProfileQueryVariables = Exact<{
   doctor_id: Scalars['Int'];
@@ -913,6 +913,7 @@ export const UpdateUserProfileDocument = gql`
     state_id
     role
     zip_code
+    streetAddress
   }
 }
     `;
@@ -1046,7 +1047,15 @@ export const GetUserDocument = gql`
     state_id
     password
     zip_code
-    role
+    streetAddress
+    patientProfile {
+      maritalStatus
+      profileImage
+      children
+      occupation
+      occupationalExposure
+      pets
+    }
   }
 }
     `;
