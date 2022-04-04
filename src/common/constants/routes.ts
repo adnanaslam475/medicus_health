@@ -10,7 +10,7 @@ type routes = {
 export const PATIENT_ROUTES: routes = [
   {
     name: "Appointments",
-    route: "/patient/ap pointments",
+    route: "/patient/appointments",
     submenu: [
       { name: "Upcoming", route: "/patient/appointments/upcoming" },
       { name: "Requested", route: "/patient/appointments/requested" },
