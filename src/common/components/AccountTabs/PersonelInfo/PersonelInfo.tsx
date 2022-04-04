@@ -37,7 +37,6 @@ const PersonalInfo = () => {
   const [result, updateUserProfile] = useUpdateUserProfileMutation();
 
   const updateUserDetail = async (values: any) => {
-    console.log("values", values);
     try {
       await updateUserProfile({
         id: id,
@@ -71,12 +70,30 @@ const PersonalInfo = () => {
     // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange({ file, fileList }: any) {
       if (file.status !== "uploading") {
-        // console.log("fileList", fileList);
-        // console.log("file", file);
-        setImage(file?.name);
+        if (file) {
+          var binaryData = [];
+          binaryData.push(file?.name.split(".")[0]);
+          let imageUrl = URL.createObjectURL(
+            new Blob(binaryData, { type: "application/zip" })
+          );
+          imageUrl = imageUrl.replace("blob:", "");
+          setImage(imageUrl);
+        }
       }
     },
   };
+
+  // const onImageChange = (event: any) => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     let img = event.target.files[0];
+  //     // console.log("img",event.target.files)
+
+  //     console.log("image in input", URL.createObjectURL(img));
+  //     // this.setState({
+  //     //   image: URL.createObjectURL(img)
+  //     // });
+  //   }
+  // };
 
   return (
     <>
@@ -99,8 +116,11 @@ const PersonalInfo = () => {
               href="javascript:void(0)"
               className="text-primary underline ml-3 text-xs"
             >
-              <Upload {...props}>Update Photo</Upload>
+              <Upload accept=".png, .jpg, .jpeg" {...props}>
+                Update Photo
+              </Upload>
               {/* Update Photo */}
+              {/* <input type="file" name="myImage" onChange={onImageChange} /> */}
             </a>
             {/* <Upload {...props}>
               <Button icon={<UploadOutlined />}>Upload</Button>
