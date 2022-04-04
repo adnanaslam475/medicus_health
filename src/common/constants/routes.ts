@@ -10,7 +10,7 @@ type routes = {
 export const PATIENT_ROUTES: routes = [
   {
     name: "Appointments",
-    route: "/patient/ap pointments",
+    route: "/patient/appointments",
     submenu: [
       { name: "Upcoming", route: "/patient/appointments/upcoming" },
       { name: "Requested", route: "/patient/appointments/requested" },
@@ -27,9 +27,11 @@ export const PATIENT_ROUTES: routes = [
 export const ADMIN_ROUTES: routes = [
   { name: "Dashboard", route: "/admin/dashboard" },
   { name: "Admin Listing", route: "/admin/listing" },
+  { name: "Physicians", route: "/admin/physicians" },
 ];
 
 export const DOCTOR_ROUTES: routes = [
   { name: "Dashboard", route: "/doctor/dashboard" },
   { name: "Doctor Listing", route: "/doctor/listing" },
+  { name: "Physicians", route: "/doctor/physicians" },
 ];

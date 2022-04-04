@@ -37,6 +37,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
   const [formInstance] = Form.useForm();
   const { loading, user, onFinish } = props || {};
   const [radioChildren, setradioChildren] = useState(true);
+  const [radioMaritalStatus, setradioMaritalStatus] = useState(true);
+  const [radioOccupationalExposure, setradioOccupationalExposure] =
+    useState(true);
 
   useEffect(() => {
     if (ref) {
@@ -61,11 +64,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       city: user?.city_id,
       postalCode: user?.zip_code,
       streetAddress: user?.streetAddress,
-      maritalStatus:user?.patientProfile?.maritalStatus,
-      children:user?.patientProfile?.children,
-      occupation:user?.patientProfile?.occupation,
-      occupationalExposure:user?.patientProfile?.occupationalExposure,
-      pets:user?.patientProfile?.pets
+      maritalStatus: user?.patientProfile?.maritalStatus,
+      children: user?.patientProfile?.children,
+      occupation: user?.patientProfile?.occupation,
+      occupationalExposure: user?.patientProfile?.occupationalExposure,
+      pets: user?.patientProfile?.pets,
     });
   }
 
@@ -157,17 +160,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               </div>
             </li>
 
-            {/* <li>
-              <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Confirm Password</div>
-                <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="password">
-                    <Input size="large" placeholder="Confirm Password" />
-                  </Form.Item>
-                </div>
-              </div>
-            </li> */}
-
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Country</div>
@@ -227,19 +219,24 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
-                  {/* <Form.Item className="mb-0" name="maritalStatus">
-                    <Select placeholder="Marital Status" size="large">
-                      <Select.Option value="single">Single</Select.Option>
-                      <Select.Option value="married">Married</Select.Option>
-                      <Select.Option value="widower">Widower</Select.Option>
-                      <Select.Option value="divorced">Divorced</Select.Option>
-                    </Select>
-                  </Form.Item> */}
                   <Form.Item className="mb-0" name="maritalStatus">
-                    <Radio.Group>
-                      <Radio value="Yes">Yes</Radio>
-                      <Radio value="No">No</Radio>
+                    <Radio.Group
+                      onChange={(e) => {
+                        setradioMaritalStatus(e.target.value);
+                      }}
+                    >
+                      <Radio value={1}>Yes</Radio>
+                      <Radio value={0}>No</Radio>
                     </Radio.Group>
+
+                    {!!radioMaritalStatus && (
+                      <Select placeholder="Marital Status" size="large">
+                        <Select.Option value="single">Single</Select.Option>
+                        <Select.Option value="married">Married</Select.Option>
+                        <Select.Option value="widower">Widower</Select.Option>
+                        <Select.Option value="divorced">Divorced</Select.Option>
+                      </Select>
+                    )}
                   </Form.Item>
                 </div>
               </div>
@@ -290,20 +287,33 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 </div>
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0" name="occupationalExposure">
-                    <Radio.Group>
-                      <Radio value="Yes">Yes</Radio>
-                      <Radio value="No">No</Radio>
+                    <Radio.Group
+                      onChange={(e) => {
+                        setradioOccupationalExposure(e.target.value);
+                      }}
+                    >
+                      <Radio value={1}>Yes</Radio>
+                      <Radio value={0}>No</Radio>
                     </Radio.Group>
+
+                    {!!radioOccupationalExposure && (
+                      <Select
+                        placeholder="Occupational Exposure Duration"
+                        size="large"
+                      >
+                        <Select.Option value="nope">None</Select.Option>
+                        <Select.Option value="<1">
+                          Less than a year
+                        </Select.Option>
+                        <Select.Option value="1+">
+                          More than a year (1+)
+                        </Select.Option>
+                        <Select.Option value="More than three to five years (3-5)">
+                          More than three to five years (3-5)
+                        </Select.Option>
+                      </Select>
+                    )}
                   </Form.Item>
-                  {/* <Form.Item className="mb-0" name="gender">
-                    <Select placeholder="Gender" size="large">
-                      <Select.Option value="male">Male</Select.Option>
-                      <Select.Option value="female">Female</Select.Option>
-                      <Select.Option value="prefer not to answer">
-                        prefer not to answer
-                      </Select.Option>
-                    </Select>
-                  </Form.Item> */}
                 </div>
               </div>
             </li>
