@@ -160,17 +160,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               </div>
             </li>
 
-            {/* <li>
-              <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Confirm Password</div>
-                <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="password">
-                    <Input size="large" placeholder="Confirm Password" />
-                  </Form.Item>
-                </div>
-              </div>
-            </li> */}
-
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Country</div>
@@ -228,18 +217,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                {/* <div className="w-1/2 text-gray-1">Marital Status</div>
-                <div className="w-1/2 text-secondary">
-                  <Form.Item className="mb-0" name="maritalStatus">
-                    <Select placeholder="Gender" size="large">
-                      <Select.Option value="male">Male</Select.Option>
-                      <Select.Option value="female">Female</Select.Option>
-                      <Select.Option value="prefer not to answer">
-                        prefer not to answer
-                      </Select.Option>
-                    </Select>
-                  </Form.Item>
-                </div> */}
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0" name="maritalStatus">
@@ -325,9 +302,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         size="large"
                       >
                         <Select.Option value="nope">None</Select.Option>
-                        <Select.Option value="<1">Less than a year (<1)</Select.Option>
-                        <Select.Option value="1+">More than a year (1+)</Select.Option>
-                        <Select.Option value="More than three to five years (3-5)">More than three to five years (3-5)</Select.Option>
+                        <Select.Option value="<1">
+                          Less than a year
+                        </Select.Option>
+                        <Select.Option value="1+">
+                          More than a year (1+)
+                        </Select.Option>
+                        <Select.Option value="More than three to five years (3-5)">
+                          More than three to five years (3-5)
+                        </Select.Option>
                       </Select>
                     )}
                   </Form.Item>
