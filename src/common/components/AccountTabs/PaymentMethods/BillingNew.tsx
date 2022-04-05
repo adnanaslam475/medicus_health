@@ -216,7 +216,7 @@ function Billing({
         </div>
       </div>
       <Modal
-        title="Add Payment Method"
+        title="Make Payment"
         centered
         visible={modalVisible}
         onOk={closeModal}
@@ -224,7 +224,7 @@ function Billing({
         footer={null}
       >
         <Form className="" onFinish={handleSubmit} layout="vertical">
-          <span className="text-base my-2">Card Number*</span>
+          <span className="text-base text-secondary my-2">Card Number*</span>
           <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
             <CardNumberElement
               options={{
@@ -241,7 +241,7 @@ function Billing({
           </div>
           <div className="sm:grid grid-cols-2 gap-4">
             <div>
-              <span className="text-base">CVV*</span>
+              <span className="text-base text-secondary">CVV*</span>
               <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
                 <CardCvcElement
                   options={{
@@ -251,7 +251,7 @@ function Billing({
               </div>
             </div>
             <div>
-              <span className="text-base my-2">Expiry*</span>
+              <span className="text-base text-secondary my-2">Expiry*</span>
               <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
                 <CardExpiryElement />
               </div>
@@ -259,7 +259,12 @@ function Billing({
           </div>
           <div className="flex justify-end">
             <Form.Item>
-              <Button onClick={closeModal}>Cancel</Button>
+              <Button 
+                onClick={closeModal}
+                className={`${_classes["btn-stripe-cancel"]}`}
+                >
+                  Cancel
+                </Button>
               <Button
                 loading={loadingSubmit}
                 disabled={loadingSubmit}
