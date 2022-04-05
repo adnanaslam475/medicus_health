@@ -54,6 +54,10 @@ function DoctorProfileCard(props: Props) {
         onCancel={handleCancel}
       >
         <AppointmentBookingStepOne />
+        <AppointmentBookingStepTwo />
+        <AppointmentBookingStepThree />
+        <AppointmentBookingStepFour />
+        <SuccessMessage/>
       </Modal>
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
