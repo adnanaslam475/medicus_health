@@ -14,6 +14,7 @@ import AppointmentBookingStepThree from "../../../common/components/Appointments
 import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
 import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
 import { DoctorProfile } from "../../../generated/graphql";
+import { date } from "../../utils";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -44,6 +45,22 @@ function DoctorProfileCard(props: Props) {
   };
 
   const { first_name, last_name } = doctorData?.user || {};
+
+  // function formatAMPM(date: Date) {
+  //   var hours = date.getHours();
+  //   var minutes = date.getMinutes();
+  //   var ampm = hours >= 12 ? 'pm' : 'am';
+  //   hours = hours % 12;
+  //   hours = hours ? hours : 12; // the hour '0' should be '12'
+  //   minutes = minutes < 10 ? '0'+minutes : minutes;
+  //   var strTime = hours + ':' + minutes + ' ' + ampm;
+  //   return strTime;
+  // }
+
+ 
+  
+
+
 
   return (
     <>
@@ -109,7 +126,7 @@ function DoctorProfileCard(props: Props) {
                       <span>{item?.day}</span>
                       <div>
                         <span>
-                          {item?.startTime}- {item?.endTime}
+                          {date.time24HrConvert(item?.startTime)}- {date.time24HrConvert(item?.endTime)}
                         </span>
                         {/* <span>12:00 PM - 03:00 PM</span>
                         <span>07:00 PM - 09:00 PM</span> */}
