@@ -94,7 +94,7 @@ function DoctorProfileCard(props: Props) {
           </Steps>
           <div className="steps-content">{steps[current].content}</div>
           <div className="steps-action">
-            {current > 0 && (
+            {current > 0 && current < steps.length - 1 && (
               <Button type="link" onClick={() => prev()}>
                 <LeftOutlined /> <span>Back</span>
               </Button>
