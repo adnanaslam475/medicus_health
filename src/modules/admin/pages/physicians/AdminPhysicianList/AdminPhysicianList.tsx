@@ -5,6 +5,7 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { Button, Table, Tag, Modal } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
+import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 const data = [
   {
     key: "1",
@@ -243,6 +244,7 @@ function AdminPhysicianList() {
             </a>
           </Link>
         </div>
+        <SearchFilters />
         <div className="w-full">
           <div className="">
             <Table columns={columns} dataSource={data} onChange={onChange} />
