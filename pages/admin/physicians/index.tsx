@@ -1,7 +1,7 @@
-import Physicians from "../../../src/modules/admin/pages/physicians/PhysicianList/PhysicianList";
+import AdminPhysicianList from "../../../src/modules/admin/pages/physicians/AdminPhysicianList/AdminPhysicianList";
 
-function physicians() {
-  return <Physicians />;
+function Adminphysicians() {
+  return <AdminPhysicianList />;
 }
 
-export default physicians;
+export default Adminphysicians;

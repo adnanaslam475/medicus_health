@@ -6,7 +6,7 @@ import Router from "next/router";
 import InfoMessage from "../InfoMessage/InfoMessage";
 import Image from "next/image";
 import _classes from "./AppHeader.module.scss";
-import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
+import SidebarDrawer from "../../../modules/common/components/SidebarDrawer";
 const { Header } = Layout;
 
 const AppHeader = () => {
