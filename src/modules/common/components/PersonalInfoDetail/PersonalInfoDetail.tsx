@@ -40,7 +40,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
   const { loading, user, onFinish } = props || {};
   const [radioChildren, setradioChildren] = useState(true);
   const [radioMaritalStatus, setradioMaritalStatus] = useState(true);
-  const [radioOccupationalExposure, setradioOccupationalExposure] =useState(true);
+  const [radioOccupationalExposure, setradioOccupationalExposure] =
+    useState(true);
 
   useEffect(() => {
     if (ref) {
@@ -70,6 +71,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       children: user?.patientProfile?.children,
       occupation: user?.patientProfile?.occupation,
       occupationalExposure: user?.patientProfile?.occupationalExposure,
+      exposureDuration: user?.patientProfile?.exposureDuration,
       pets: user?.patientProfile?.pets,
     });
   }
@@ -321,30 +323,30 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         setradioOccupationalExposure(e.target.value);
                       }}
                     >
-                      <Radio value={1}>Yes</Radio>
-                      <Radio value={0}>No</Radio>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
                     </Radio.Group>
-
-                    {!!radioOccupationalExposure && (
-                      <Form.Item className="mb-0" name="exposureDuration">
-                        <Select
-                          placeholder="Occupational Exposure Duration"
-                          size="large"
-                        >
-                          <Select.Option value="nope">None</Select.Option>
-                          <Select.Option value="<1">
-                            Less than a year
-                          </Select.Option>
-                          <Select.Option value="1+">
-                            More than a year (1+)
-                          </Select.Option>
-                          <Select.Option value="More than three to five years (3-5)">
-                            More than three to five years (3-5)
-                          </Select.Option>
-                        </Select>
-                      </Form.Item>
-                    )}
                   </Form.Item>
+
+                  {!!radioOccupationalExposure && (
+                    <Form.Item className="mb-0" name="exposureDuration">
+                      <Select
+                        placeholder="Occupational Exposure Duration"
+                        size="large"
+                      >
+                        <Select.Option value="None">None</Select.Option>
+                        <Select.Option value="Less than a year (<1)">
+                          Less than a year
+                        </Select.Option>
+                        <Select.Option value="More than a year (1+)">
+                          More than a year (1+)
+                        </Select.Option>
+                        <Select.Option value="More than three to five years (3-5)">
+                          More than three to five years (3-5)
+                        </Select.Option>
+                      </Select>
+                    </Form.Item>
+                  )}
                 </div>
               </div>
             </li>
