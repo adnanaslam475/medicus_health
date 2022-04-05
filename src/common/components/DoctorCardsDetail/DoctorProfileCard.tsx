@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Modal, Card, Button, Divider, Avatar, Collapse } from "antd";
-import Router, { useRouter } from "next/router";
 import Link from "next/link";
-import { VideoCameraFilled, ArrowLeftOutlined } from "@ant-design/icons";
+import { Steps,  message, Modal, Card, Button, Divider, Avatar, Collapse } from "antd";
+import Router, { useRouter } from "next/router";
+import { LeftOutlined, VideoCameraFilled, ArrowLeftOutlined } from "@ant-design/icons";
 import VideoCamera from "../../../../public/assets/icon/video.svg";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
@@ -26,6 +26,30 @@ type Props = {
 };
 
 const { Panel } = Collapse;
+const { Step } = Steps;
+
+const steps = [
+  {
+    title: '',
+    content: <AppointmentBookingStepOne />
+  },
+  {
+    title: '',
+    content: <AppointmentBookingStepTwo />
+  },
+  {
+    title: '',
+    content: <AppointmentBookingStepThree />
+  },
+  {
+    title: '',
+    content: <AppointmentBookingStepFour />
+  },
+  {
+    title: '',
+    content: <SuccessMessage />
+  },
+];
 
 function DoctorProfileCard(props: Props) {
   const { doctorData } = props || {};
@@ -42,6 +66,14 @@ function DoctorProfileCard(props: Props) {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const [current, setCurrent] = React.useState(0);
+  const next = () => {
+    setCurrent(current + 1);
+  };
+  const prev = () => {
+    setCurrent(current - 1);
   };
 
   const { first_name, last_name } = doctorData?.user || {};
@@ -69,9 +101,38 @@ function DoctorProfileCard(props: Props) {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
+        className={`${_classes["steps-style"]}`}
       >
-        <AppointmentBookingStepOne />
+          <Steps current={current}>
+            {steps.map(item => (
+              <Step key={item.title} title={item.title} />
+            ))}
+          </Steps>
+          <div className="steps-content">{steps[current].content}</div>
+          <div className="steps-action">
+            {current > 0 && current < steps.length - 1 && (
+              <Button type="link" onClick={() => prev()}>
+                <LeftOutlined /> <span>Back</span>
+              </Button>
+            )}
+            {current < steps.length - 2 && (
+              <Button type="primary" className={`${_classes["btn-next"]}`} onClick={() => next()}>
+                Next
+              </Button>
+            )}
+            {current === steps.length - 2 && (
+              <Button type="primary" className={`${_classes["btn-next"]}`} onClick={() => next()}>
+                Request an Appointment
+              </Button>
+            )}
+          </div>
       </Modal>
+
+      
+
+
+
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">

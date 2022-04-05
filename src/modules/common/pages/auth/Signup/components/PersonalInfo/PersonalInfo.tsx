@@ -188,6 +188,19 @@ export default function PersonalInfo({ onFinish }: props) {
         </Form.Item>
       </div>
 
+      <Form.Item
+        label="Street Address"
+        name="streetAddress"
+        rules={[
+          {
+            required: true,
+            message: "Please enter your street address",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"

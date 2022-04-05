@@ -16,7 +16,7 @@ const FLAG_BY_LANGUAGE = {
 };
 
 type props = {
-  id:number,
+  id: number;
   name: string;
   language: string;
   specialization: string;
@@ -51,9 +51,7 @@ function DoctorCard({
           <div className="lg:pr-5">
             <div className="flex-row md:flex">
               <h2 className="font-bold mb-0 mr-3">
-                <span>
-                  Dr.{name}
-                </span>
+                <span>Dr.{name}</span>
               </h2>
               <div className="flex">
                 <div className="flagAvatar engFlag pr-2">
@@ -94,8 +92,7 @@ function DoctorCard({
           </div>
         </div>
         <div className="card-actionBtns lg:w-2/6">
-        
-        {/* <Link passHref href={`/patient/physicians/profile/${id}`}>
+          {/* <Link passHref href={`/patient/physicians/profile/${id}`}>
             <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
               View Profile
             </a>
@@ -106,10 +103,7 @@ function DoctorCard({
             </a>
           </Link>
 
-          <Button
-            type="primary"
-            className="w-full"
-          >
+          <Button type="primary" className="w-full">
             <Image
               src={VideoCameraFilled}
               alt="espanolFlag"
