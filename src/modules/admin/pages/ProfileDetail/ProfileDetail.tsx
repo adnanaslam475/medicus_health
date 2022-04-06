@@ -6,7 +6,7 @@ import { Tabs, Badge, Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import Container from "../../../../common/components/Container/Container";
-import Profile from '../../components/profile/Profile'
+import Profile from '../../components/Profile/Profile'
 
 const { TabPane } = Tabs;
 
