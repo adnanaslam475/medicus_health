@@ -61,9 +61,7 @@ const PersonalInfo = () => {
           zip_code: values?.postalCode,
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
-          // profileImage: image,
-          profileImage:
-            "https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg",
+          profileImage: image ? image :userData?.user?.patientProfile?.profileImage,
           children: Number(values?.children),
           occupation: values?.occupation,
           occupationalExposure: values?.occupationalExposure,
@@ -71,8 +69,17 @@ const PersonalInfo = () => {
           pets: values?.pets,
         },
       });
+      {
+        result?.data?.updateUser &&
+          notification.success({
+            message: "Successfully Updated",
+          });
+      }
     } catch (error) {
       console.log(error);
+      notification.error({
+        message: error?.message || "Something went wrong",
+      });
     }
   };
 
@@ -82,39 +89,15 @@ const PersonalInfo = () => {
     accessKeyId: config?.accessKeyId || "",
     secretAccessKey: config?.secertAccessKey || "",
   };
-  const listFiles = async () => {
-    /* Import s3 config object and call the constrcutor */
-    const s3 = new ReactS3Client(configS3);
-
-    try {
-      const fileList = await s3.listFiles();
-
-      console.log(fileList);
-      /*
-       * {
-       *   Response: {
-       *     message: "Objects listed succesfully",
-       *     data: {                   // List of Objects
-       *       ...                     // Meta data
-       *       Contents: []            // Array of objects in the bucket
-       *     }
-       *   }
-       * }
-       */
-    } catch (exception) {
-      console.log(exception);
-      /* handle the exception */
-    }
-  };
 
   const fileChange = async (info: UploadChangeParam) => {
     const s3 = new ReactS3Client(configS3);
 
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
-    } catch (error: any) {
+      const res = await s3.uploadFile(info.file.originFileObj as File);
+      setImage(res?.location);
+    } catch (error) {
       console.log("error", error);
-
       notification.error({
         message: error?.message || "Something went wrong",
       });
@@ -123,44 +106,17 @@ const PersonalInfo = () => {
   const onBeforeUpload = (file: File) => {
     const isPNG = file.type === "image/png";
     const isJPG = file.type === "image/jpeg";
-    // if (!isPNG && !isJPG) {
-    //   notification.error({ message: "This file type is not accepted" });
-    // }
+    if (!isPNG && !isJPG) {
+      notification.error({ message: "This file type is not accepted" });
+    }
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  // useEffect(() => {
-  //   listFiles();
-  // }, []);
   return (
     <>
       <div className="w-1/2">
         <div className="flex justify-between items-center">
           <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
-            {/* <Avatar
-              size={64}
-              src={
-                <Image
-                  alt=""
-                  src={yourImage}
-                  width={128}
-                  height={128}
-                  className="border rounded border-gray-2"
-                />
-              }
-            />
-            <a
-              href="javascript:void(0)"
-              className="text-primary underline ml-3 text-xs"
-            >
-              <Upload accept=".png, .jpg, .jpeg" customRequest={() => null}>
-                Update Photo
-              </Upload>
-            </a> */}
-            {/* <Upload {...props}>
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload> */}
-
             <Upload
               onChange={fileChange}
               maxCount={1}
@@ -172,7 +128,7 @@ const PersonalInfo = () => {
                 <Avatar
                   size={50}
                   // icon={<UserOutlined />}
-                  // src={organizationDetails?.organization_image}
+                  src={userData?.user?.patientProfile?.profileImage}
                   style={{
                     borderColor: "purple",
                     borderWidth: 2,
@@ -196,14 +152,6 @@ const PersonalInfo = () => {
           </div>
 
           <div className="edit-btn flex justify-end">
-            {/* <Button
-                type="default"
-                className="text-xs p-5"
-                size="large"
-                // onClick={() => setIsEdit(true)}
-              >
-                <span className="text-xs">EDIT</span>
-              </Button> */}
             {isEdit ? (
               <div className="flex gap-4">
                 <Button
