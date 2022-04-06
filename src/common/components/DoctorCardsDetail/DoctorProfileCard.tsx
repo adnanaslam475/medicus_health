@@ -102,11 +102,6 @@ function DoctorProfileCard(props: Props) {
   //   return strTime;
   // }
 
- 
-  
-
-
-
   return (
     <>
       <Modal
@@ -204,7 +199,8 @@ function DoctorProfileCard(props: Props) {
                       <span>{item?.day}</span>
                       <div>
                         <span>
-                          {date.time24HrConvert(item?.startTime)}- {date.time24HrConvert(item?.endTime)}
+                          {date.time24HrConvert(item?.startTime)}-
+                          {date.time24HrConvert(item?.endTime)}
                         </span>
                         {/* <span>12:00 PM - 03:00 PM</span>
                         <span>07:00 PM - 09:00 PM</span> */}
