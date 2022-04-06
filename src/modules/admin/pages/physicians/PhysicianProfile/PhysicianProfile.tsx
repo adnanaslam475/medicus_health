@@ -6,7 +6,7 @@ import {
   useDoctorProfileQuery,
 } from "../../../../../generated/graphql";
 import { useRouter } from "next/router";
-function PhysiciansDetail() {
+function PhysicianProfile() {
   //   GET ID FROM URL
   const { query } = useRouter();
   console.log(query, "query");
@@ -29,4 +29,4 @@ function PhysiciansDetail() {
     </AppLayout>
   );
 }
-export default PhysiciansDetail;
+export default PhysicianProfile;
