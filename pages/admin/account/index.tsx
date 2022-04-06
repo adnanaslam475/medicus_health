@@ -1,7 +1,9 @@
-import AdminPhysicianList from "../../../src/modules/admin/pages/physicians/AdminPhysicianList/AdminPhysicianList";
+import ProfileDetail from "../../../src/modules/admin/pages/ProfileDetail/ProfileDetail";
 
-function Adminphysicians() {
-  return <AdminPhysicianList />;
+function ProfileDetailPage() {
+  return <ProfileDetail />;
 }
 
-export default Adminphysicians;
+export default ProfileDetailPage;
+
+

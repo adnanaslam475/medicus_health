@@ -36,6 +36,7 @@ function DoctorCard({
   professionalExperience,
   conditionTreated,
 }: props) {
+
   return (
     <Card className={`${_classes["doctorCard"]} rounded-xl`}>
       <div className="flex-none lg:flex">

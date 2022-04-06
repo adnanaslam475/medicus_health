@@ -28,6 +28,7 @@ export const ADMIN_ROUTES: routes = [
   { name: "Dashboard", route: "/admin/dashboard" },
   { name: "Admin Listing", route: "/admin/listing" },
   { name: "Physicians", route: "/admin/physicians" },
+  { name: "Account", route: "/admin/account" },
 ];
 
 export const DOCTOR_ROUTES: routes = [

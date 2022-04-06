@@ -1,5 +1,5 @@
-import { convertToUTC ,convertBirthDateToUTC} from "./date";
+import { convertToUTC ,convertBirthDateToUTC, time24HrConvert} from "./date";
 
-const date = { convertToUTC, convertBirthDateToUTC };
+const date = { convertToUTC, convertBirthDateToUTC, time24HrConvert };
 
 export { date };

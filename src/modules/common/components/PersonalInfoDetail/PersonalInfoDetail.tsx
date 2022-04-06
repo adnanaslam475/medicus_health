@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Radio, Select } from "antd";
+import { DatePicker, Form, Input, Radio, Select } from "antd";
 import { User } from "../../../../generated/graphql";
 import { convertBirthDateToUTC } from "../../../../common/utils/date";
+import dayjs from "dayjs";
+import moment from "moment";
 
 type Props = {
   onFinish?: (values: {
     firstName: string;
     lastName: string;
     gender: string;
-    dateOfbirth: string;
+    date_of_birth: string;
     conntactNumber: string;
     email: string;
     password: string;
@@ -55,7 +57,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       firstName: user?.first_name,
       lastName: user?.last_name,
       gender: user?.gender,
-      dateOfbirth: convertBirthDateToUTC(user?.date_of_birth),
+      // date_of_birth: convertBirthDateToUTC(user?.date_of_birth),
+      date_of_birth: moment(user?.date_of_birth),
       conntactNumber: user?.contact_number,
       email: user?.email,
       password: user?.password,
@@ -68,8 +71,13 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       children: user?.patientProfile?.children,
       occupation: user?.patientProfile?.occupation,
       occupationalExposure: user?.patientProfile?.occupationalExposure,
+      exposureDuration: user?.patientProfile?.exposureDuration,
       pets: user?.patientProfile?.pets,
     });
+  }
+
+  function disabledDate(current: any) {
+    return current && current > dayjs().startOf("day");
   }
 
   return (
@@ -120,8 +128,27 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Date of Birth</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="dateOfbirth">
+                  {/* <Form.Item noStyle name="dateOfbirth">
                     <Input size="large" placeholder="Date of Birth" />
+                  </Form.Item> */}
+
+                  <Form.Item
+                    className="flex-1"
+                    // label="Date of Birth"
+                    name="date_of_birth"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please select date of birth",
+                      },
+                    ]}
+                  >
+                    <DatePicker
+                      placeholder="mm/dd/yy"
+                      format={"MM-DD-YYYY"}
+                      className="w-full"
+                      disabledDate={disabledDate}
+                    />
                   </Form.Item>
                 </div>
               </div>
@@ -219,7 +246,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0" name="maritalStatus">
+                  <Form.Item className="mb-0">
                     <Radio.Group
                       onChange={(e) => {
                         setradioMaritalStatus(e.target.value);
@@ -230,12 +257,16 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     </Radio.Group>
 
                     {!!radioMaritalStatus && (
-                      <Select placeholder="Marital Status" size="large">
-                        <Select.Option value="single">Single</Select.Option>
-                        <Select.Option value="married">Married</Select.Option>
-                        <Select.Option value="widower">Widower</Select.Option>
-                        <Select.Option value="divorced">Divorced</Select.Option>
-                      </Select>
+                      <Form.Item className="mb-0" name="maritalStatus">
+                        <Select placeholder="Marital Status" size="large">
+                          <Select.Option value="Single">Single</Select.Option>
+                          <Select.Option value="Married">Married</Select.Option>
+                          <Select.Option value="Widower">Widower</Select.Option>
+                          <Select.Option value="Divorced">
+                            Divorced
+                          </Select.Option>
+                        </Select>
+                      </Form.Item>
                     )}
                   </Form.Item>
                 </div>
@@ -292,28 +323,30 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         setradioOccupationalExposure(e.target.value);
                       }}
                     >
-                      <Radio value={1}>Yes</Radio>
-                      <Radio value={0}>No</Radio>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
                     </Radio.Group>
+                  </Form.Item>
 
-                    {!!radioOccupationalExposure && (
+                  {!!radioOccupationalExposure && (
+                    <Form.Item className="mb-0" name="exposureDuration">
                       <Select
                         placeholder="Occupational Exposure Duration"
                         size="large"
                       >
-                        <Select.Option value="nope">None</Select.Option>
-                        <Select.Option value="<1">
+                        <Select.Option value="None">None</Select.Option>
+                        <Select.Option value="Less than a year (<1)">
                           Less than a year
                         </Select.Option>
-                        <Select.Option value="1+">
+                        <Select.Option value="More than a year (1+)">
                           More than a year (1+)
                         </Select.Option>
                         <Select.Option value="More than three to five years (3-5)">
                           More than three to five years (3-5)
                         </Select.Option>
                       </Select>
-                    )}
-                  </Form.Item>
+                    </Form.Item>
+                  )}
                 </div>
               </div>
             </li>
