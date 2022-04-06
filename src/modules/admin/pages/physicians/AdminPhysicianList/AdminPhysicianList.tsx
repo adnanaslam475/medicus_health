@@ -7,7 +7,7 @@ import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
-import { Router } from "next/router";
+import Router from "next/router";
 const data = [
   {
     key: "1",
@@ -227,9 +227,12 @@ function AdminPhysicianList() {
       className: "table-action-icon",
       _render: () => (
         <div className="bg-primary p-8 border border-gray-6">
-          <EyeFilled onClick={() => {
-            return Router.push("/physicianProfile");
-          }} />
+          <EyeFilled
+            onClick={() => {
+              return Router.push("/physicianProfile");
+            }}
+          />
+          {/* <EyeFilled /> */}
         </div>
       ),
       get render() {

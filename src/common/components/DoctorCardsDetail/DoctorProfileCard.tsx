@@ -1,8 +1,21 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { Steps,  message, Modal, Card, Button, Divider, Avatar, Collapse } from "antd";
+import {
+  Steps,
+  message,
+  Modal,
+  Card,
+  Button,
+  Divider,
+  Avatar,
+  Collapse,
+} from "antd";
 import Router, { useRouter } from "next/router";
-import { LeftOutlined, VideoCameraFilled, ArrowLeftOutlined } from "@ant-design/icons";
+import {
+  LeftOutlined,
+  VideoCameraFilled,
+  ArrowLeftOutlined,
+} from "@ant-design/icons";
 import VideoCamera from "../../../../public/assets/icon/video.svg";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
@@ -30,24 +43,24 @@ const { Step } = Steps;
 
 const steps = [
   {
-    title: '',
-    content: <AppointmentBookingStepOne />
+    title: "",
+    content: <AppointmentBookingStepOne />,
   },
   {
-    title: '',
-    content: <AppointmentBookingStepTwo />
+    title: "",
+    content: <AppointmentBookingStepTwo />,
   },
   {
-    title: '',
-    content: <AppointmentBookingStepThree />
+    title: "",
+    content: <AppointmentBookingStepThree />,
   },
   {
-    title: '',
-    content: <AppointmentBookingStepFour />
+    title: "",
+    content: <AppointmentBookingStepFour />,
   },
   {
-    title: '',
-    content: <SuccessMessage />
+    title: "",
+    content: <SuccessMessage />,
   },
 ];
 
@@ -104,34 +117,38 @@ function DoctorProfileCard(props: Props) {
         footer={null}
         className={`${_classes["steps-style"]}`}
       >
-          <Steps current={current}>
-            {steps.map(item => (
-              <Step key={item.title} title={item.title} />
-            ))}
-          </Steps>
-          <div className="steps-content">{steps[current].content}</div>
-          <div className="steps-action">
-            {current > 0 && current < steps.length - 1 && (
-              <Button type="link" onClick={() => prev()}>
-                <LeftOutlined /> <span>Back</span>
-              </Button>
-            )}
-            {current < steps.length - 2 && (
-              <Button type="primary" className={`${_classes["btn-next"]}`} onClick={() => next()}>
-                Next
-              </Button>
-            )}
-            {current === steps.length - 2 && (
-              <Button type="primary" className={`${_classes["btn-next"]}`} onClick={() => next()}>
-                Request an Appointment
-              </Button>
-            )}
-          </div>
+        <Steps current={current}>
+          {steps.map((item) => (
+            <Step key={item.title} title={item.title} />
+          ))}
+        </Steps>
+        <div className="steps-content">{steps[current].content}</div>
+        <div className="steps-action">
+          {current > 0 && current < steps.length - 1 && (
+            <Button type="link" onClick={() => prev()}>
+              <LeftOutlined /> <span>Back</span>
+            </Button>
+          )}
+          {current < steps.length - 2 && (
+            <Button
+              type="primary"
+              className={`${_classes["btn-next"]}`}
+              onClick={() => next()}
+            >
+              Next
+            </Button>
+          )}
+          {current === steps.length - 2 && (
+            <Button
+              type="primary"
+              className={`${_classes["btn-next"]}`}
+              onClick={() => next()}
+            >
+              Request an Appointment
+            </Button>
+          )}
+        </div>
       </Modal>
-
-      
-
-
 
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">

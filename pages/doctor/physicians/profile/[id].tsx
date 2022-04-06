@@ -1,4 +1,4 @@
-import PhysiciansDetail from "../../../../src/modules/admin/pages/physicians/PhysicianProfile/PhysicianProfile";
+import PhysiciansDetail from "../../../../src/modules/admin/pages/physicians/PhysicianProfile/PhysicianDetail";
 
 function physiciansDetail() {
   return <PhysiciansDetail />;
