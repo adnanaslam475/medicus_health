@@ -5,6 +5,9 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { Button, Table, Tag, Modal } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
+
+import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
+import { Router } from "next/router";
 const data = [
   {
     key: "1",
@@ -222,7 +225,19 @@ function AdminPhysicianList() {
       dataIndex: "",
       key: "view",
       className: "table-action-icon",
-      render: () => <EyeFilled />,
+      _render: () => (
+        <div className="bg-primary p-8 border border-gray-6">
+          <EyeFilled onClick={() => {
+            return Router.push("/physicianProfile");
+          }} />
+        </div>
+      ),
+      get render() {
+        return this._render;
+      },
+      set render(value) {
+        this._render = value;
+      },
     },
   ];
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
@@ -232,7 +247,7 @@ function AdminPhysicianList() {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-10">
           <h2 className="mb-4">Admin Physicians</h2>
           <Link passHref href={`/admin/physicians/addPhysician`}>
             <a>
@@ -243,6 +258,8 @@ function AdminPhysicianList() {
             </a>
           </Link>
         </div>
+        {/* <SearchFilters /> */}
+        <AdminPhysicianSearchFilters />
         <div className="w-full">
           <div className="">
             <Table columns={columns} dataSource={data} onChange={onChange} />

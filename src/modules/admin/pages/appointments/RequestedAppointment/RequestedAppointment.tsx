@@ -11,7 +11,10 @@ function RequestedAppointment() {
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">Requested Appointments</h2>
-            <p className="text-gray mb-0">Suspendisse ac nulla non ante viverra feugiat. Duis ullamcorperequesty tortor a fringilla tempus.</p>
+            <p className="text-gray mb-0">
+              Suspendisse ac nulla non ante viverra feugiat. Duis
+              ullamcorperequesty tortor a fringilla tempus.
+            </p>
           </div>
           <Button type="primary">Request an Appointment</Button>
         </div>
@@ -28,7 +31,6 @@ function RequestedAppointment() {
         </div>
       </div>
     </AppLayout>
-
-    );
+  );
 }
 export default RequestedAppointment;
