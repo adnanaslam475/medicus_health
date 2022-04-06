@@ -11,12 +11,24 @@ import {
   Input,
   Button,
   Checkbox,
+  Select,
 } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
 import yourImage from "../../../../../../public/assets/images/your_photo.png";
+import {
+  useCountriesQuery,
+  useGetCitiesByStateQuery,
+  useGetStatesByCountryQuery,
+} from "../../../../../generated/graphql";
+import dayjs from "dayjs";
 
+type props = {
+  validateForm?: (value: any) => void;
+  onFinishPersonalInfo?: (value: any) => void;
+  onFinish?: (value: any) => void;
+};
 function AdminPhysicianAdd() {
   // const [{ data }] = useDoctorProfilesQuery();
   // const { doctorProfiles } = data || {};
@@ -41,6 +53,39 @@ function AdminPhysicianAdd() {
       }
     },
   };
+
+  const [form] = Form.useForm();
+  const [countryId, setCountryId] = useState<number | undefined>();
+  const [stateId, setStateId] = useState<number | undefined>();
+
+  function selectCountryId(id: number): void {
+    setCountryId(id);
+  }
+
+  function selectStateId(id: number): void {
+    setStateId(id);
+  }
+
+  function disabledDate(current: any) {
+    return current && current > dayjs().startOf("day");
+  }
+
+  const [getStatesByCountry] = useGetStatesByCountryQuery({
+    variables: {
+      input: countryId || 0,
+    },
+    pause: countryId === undefined,
+  });
+
+  const [getCityByState] = useGetCitiesByStateQuery({
+    variables: {
+      input: stateId || 0,
+    },
+    pause: stateId === undefined,
+  });
+
+  const [{ data }] = useCountriesQuery();
+  const { countries } = data || {};
 
   return (
     <AppLayout>
@@ -73,7 +118,7 @@ function AdminPhysicianAdd() {
               </div>
               <div className="w-full">
                 <Form
-                  name="basic"
+                  name="addAPhysician"
                   // initialValues={{ remember: true }}
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
@@ -126,6 +171,168 @@ function AdminPhysicianAdd() {
                       className="flex-1"
                     >
                       <Input.Password />
+                    </Form.Item>
+                  </div>
+
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <Form.Item
+                      className="flex-1"
+                      label="Specialization"
+                      name="Specialization"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Specialization",
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </div>
+                  {/* Address, City, State, Country Postal Address */}
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <Form.Item
+                      className="flex-1"
+                      label="Street Address"
+                      name="streetAddress"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter your street address",
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </div>
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <Form.Item
+                      className="flex-1"
+                      label="Country"
+                      name="country_id"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter your country",
+                        },
+                      ]}
+                    >
+                      <Select
+                        showSearch
+                        filterOption={(input, country: any) =>
+                          country.children
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0
+                        }
+                        onChange={(e) => {
+                          selectCountryId(e);
+                          form.setFieldsValue({
+                            state_id: null,
+                            city_id: null,
+                          });
+                        }}
+                        placeholder="Country"
+                      >
+                        {React.Children.toArray(
+                          countries?.map((el, i) => {
+                            return (
+                              <Select.Option value={el?.id}>
+                                {el?.country_name}
+                              </Select.Option>
+                            );
+                          })
+                        )}
+                      </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                      className="flex-1"
+                      label="State"
+                      name="state_id"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter your state",
+                        },
+                      ]}
+                    >
+                      <Select
+                        showSearch
+                        filterOption={(input, state: any) =>
+                          state.children
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0
+                        }
+                        onChange={(e) => {
+                          selectStateId(e);
+                          form.setFieldsValue({
+                            city_id: null,
+                          });
+                        }}
+                        placeholder="State"
+                      >
+                        {React.Children.toArray(
+                          getStatesByCountry?.data?.getStatesByCountry?.map(
+                            (el, i) => {
+                              return (
+                                <Select.Option value={el.id}>
+                                  {el?.state_name}
+                                </Select.Option>
+                              );
+                            }
+                          )
+                        )}
+                      </Select>
+                    </Form.Item>
+                  </div>
+
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <Form.Item
+                      className="flex-1"
+                      label="City"
+                      name="city_id"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter your city",
+                        },
+                      ]}
+                    >
+                      <Select
+                        placeholder="City"
+                        showSearch
+                        filterOption={(input, city: any) =>
+                          city.children
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0
+                        }
+                      >
+                        {React.Children.toArray(
+                          getCityByState?.data?.getCitiesByState?.map(
+                            (el, i) => {
+                              return (
+                                <Select.Option value={el.id}>
+                                  {el?.city_name}
+                                </Select.Option>
+                              );
+                            }
+                          )
+                        )}
+                      </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                      className="flex-1"
+                      label="Postal Code"
+                      name="zip_code"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter your postal code",
+                        },
+                      ]}
+                    >
+                      <Input />
                     </Form.Item>
                   </div>
                   <Form.Item>
