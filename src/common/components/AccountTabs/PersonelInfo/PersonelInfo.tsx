@@ -112,7 +112,7 @@ const PersonalInfo = () => {
 
     try {
       const url = await s3.uploadFile(info.file.originFileObj as File);
-    } catch (error) {
+    } catch (error: any) {
       console.log("error", error);
 
       notification.error({
