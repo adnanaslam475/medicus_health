@@ -75,7 +75,7 @@ const PersonalInfo = () => {
             message: "Successfully Updated",
           });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       notification.error({
         message: error?.message || "Something went wrong",

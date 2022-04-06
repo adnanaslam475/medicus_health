@@ -26,8 +26,12 @@ import AppointmentBookingStepTwo from "../../../common/components/Appointments/b
 import AppointmentBookingStepThree from "../../../common/components/Appointments/booking/AppointmentBookingStepThree";
 import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
 import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
-import { DoctorProfile } from "../../../generated/graphql";
+import { DoctorProfile, DoctorSchedule } from "../../../generated/graphql";
 import { date } from "../../utils";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -90,8 +94,6 @@ function DoctorProfileCard(props: Props) {
   };
 
   const { first_name, last_name } = doctorData?.user || {};
-
-  console.log("doctorData?.user",doctorData?.user)
 
   return (
     <>
@@ -187,7 +189,7 @@ function DoctorProfileCard(props: Props) {
                 <div className="ant-collapse-time-body">
                   {doctorData?.user?.doctorSchedules?.map((item, index) => (
                     <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                      <span>{item?.day}</span>
+                      <span>{date?.dayName(item.day)}</span>
                       <div>
                         <span>
                           {date.time24HrConvert(item?.startTime)}-{" "}
