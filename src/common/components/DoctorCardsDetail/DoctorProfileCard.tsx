@@ -1,74 +1,218 @@
-import React from "react";
-import { Card, Button, Divider, Avatar } from "antd";
-import { Collapse } from "antd";
-import Router, { useRouter } from "next/router";
+import React, { useState } from "react";
 import Link from "next/link";
-import { VideoCameraFilled } from "@ant-design/icons";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import {
+  Steps,
+  message,
+  Modal,
+  Card,
+  Button,
+  Divider,
+  Avatar,
+  Collapse,
+} from "antd";
+import Router, { useRouter } from "next/router";
+import {
+  LeftOutlined,
+  VideoCameraFilled,
+  ArrowLeftOutlined,
+} from "@ant-design/icons";
 import VideoCamera from "../../../../public/assets/icon/video.svg";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorProfileCard.module.scss";
-import { useDoctorProfilesQuery } from "../../../generated/graphql";
+import AppointmentBookingStepOne from "../../../common/components/Appointments/booking/AppointmentBookingStepOne";
+import AppointmentBookingStepTwo from "../../../common/components/Appointments/booking/AppointmentBookingStepTwo";
+import AppointmentBookingStepThree from "../../../common/components/Appointments/booking/AppointmentBookingStepThree";
+import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
+import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
+import { DoctorProfile } from "../../../generated/graphql";
+import { date } from "../../utils";
+
+const FLAG_BY_LANGUAGE = {
+  ["english" as string]: engFlag,
+  ["Spanish" as string]: espanolFlag,
+};
+
+type Props = {
+  doctorData: DoctorProfile;
+};
 
 const { Panel } = Collapse;
+const { Step } = Steps;
 
-function DoctorProfileCard() {
-  const [{ data }] = useDoctorProfilesQuery();
-  const { doctorProfiles } = data || {};
+const steps = [
+  {
+    title: "",
+    content: <AppointmentBookingStepOne />,
+  },
+  {
+    title: "",
+    content: <AppointmentBookingStepTwo />,
+  },
+  {
+    title: "",
+    content: <AppointmentBookingStepThree />,
+  },
+  {
+    title: "",
+    content: <AppointmentBookingStepFour />,
+  },
+  {
+    title: "",
+    content: <SuccessMessage />,
+  },
+];
+
+function DoctorProfileCard(props: Props) {
+  const { doctorData } = props || {};
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const [current, setCurrent] = React.useState(0);
+  const next = () => {
+    setCurrent(current + 1);
+  };
+  const prev = () => {
+    setCurrent(current - 1);
+  };
+
+  const { first_name, last_name } = doctorData?.user || {};
+
+  // function formatAMPM(date: Date) {
+  //   var hours = date.getHours();
+  //   var minutes = date.getMinutes();
+  //   var ampm = hours >= 12 ? 'pm' : 'am';
+  //   hours = hours % 12;
+  //   hours = hours ? hours : 12; // the hour '0' should be '12'
+  //   minutes = minutes < 10 ? '0'+minutes : minutes;
+  //   var strTime = hours + ':' + minutes + ' ' + ampm;
+  //   return strTime;
+  // }
+
+ 
+  
+
+
 
   return (
-    <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
-      <div className="flex-none sm:flex">
-        <div className="docAvatarCover pr-3">
-          <Avatar
-            size={150}
-            src="../assets/images/doc-pic.png"
-            className=""
-          ></Avatar>
+    <>
+      <Modal
+        title="Request an Appointment"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+        className={`${_classes["steps-style"]}`}
+      >
+        <Steps current={current}>
+          {steps.map((item) => (
+            <Step key={item.title} title={item.title} />
+          ))}
+        </Steps>
+        <div className="steps-content">{steps[current].content}</div>
+        <div className="steps-action">
+          {current > 0 && current < steps.length - 1 && (
+            <Button type="link" onClick={() => prev()}>
+              <LeftOutlined /> <span>Back</span>
+            </Button>
+          )}
+          {current < steps.length - 2 && (
+            <Button
+              type="primary"
+              className={`${_classes["btn-next"]}`}
+              onClick={() => next()}
+            >
+              Next
+            </Button>
+          )}
+          {current === steps.length - 2 && (
+            <Button
+              type="primary"
+              className={`${_classes["btn-next"]}`}
+              onClick={() => next()}
+            >
+              Request an Appointment
+            </Button>
+          )}
         </div>
-        <div className="lg:pr-5 w-full mb-5">
-          <div className="flex-row md:flex items-center">
-            <h2 className="font-bold mb-0 mr-3">
-              <span>Dr. Jonathan Green</span>
-            </h2>
-            <div className="flex">
-              <div className="flagAvatar engFlag pr-2">
-                <Image src={engFlag} alt="engFlag" width={25} height={25} />
-              </div>
-              <div className="flagAvatar espanolFlag">
-                <Image
-                  src={espanolFlag}
-                  alt="espanolFlag"
-                  width={25}
-                  height={25}
-                />
+      </Modal>
+
+      <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
+        <div className="flex-none sm:flex">
+          <div className="docAvatarCover pr-3">
+            <Avatar
+              size={150}
+              src="../assets/images/doc-pic.png"
+              className=""
+            ></Avatar>
+          </div>
+          <div className="lg:pr-5 w-full mb-5">
+            <div className="flex-row md:flex items-center">
+              <h2 className="font-bold mb-0 mr-3">
+                <span>Dr. {first_name + " " + last_name}</span>
+              </h2>
+              <div className="flex">
+                <div className="flagAvatar engFlag pr-2">
+                  {FLAG_BY_LANGUAGE[doctorData?.language] && (
+                    <Image
+                      src={FLAG_BY_LANGUAGE[doctorData?.language]}
+                      // src={espanolFlag}
+                      alt={doctorData?.language || "flag"}
+                      width={25}
+                      height={25}
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <h5 className="text-primary text-xs mb-1">Cardiologist</h5>
-          <span className="text-secondary text-sm block mb-2">10+ years of experience</span>
-          <Collapse className="lg:w-4/5">
-            <Panel
-              key="1"
-              header={
-                <div className="flex-none sm:flex flex-grow justify-between">
-                    <div className="ant-collapse-available">Available Today</div>
-                  <span className="ant-collapse-time">12:00 pm - 09:00 pm</span>
-                </div>
-                }
-                >
-                <div className="ant-collapse-time-body">
-                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                        <span>Monday</span>
-                        <div>
-                            <span>07:00 AM - 09:00 AM</span>
-                            <span>12:00 PM - 03:00 PM</span>
-                            <span>07:00 PM - 09:00 PM</span>
-                        </div>
+            <h5 className="text-primary text-xs mb-1">
+              {doctorData?.specialization}
+            </h5>
+            <span className="text-secondary text-sm block mb-2">
+              {doctorData?.year_of_experience + " "}years of experience
+            </span>
+            <Collapse className="lg:w-4/5">
+              <Panel
+                key="1"
+                header={
+                  <div className="flex-none sm:flex flex-grow justify-between">
+                    <div className="ant-collapse-available">
+                      Available Today
                     </div>
+                    <span className="ant-collapse-time">
+                      12:00 pm - 09:00 pm
+                    </span>
+                  </div>
+                }
+              >
+                <div className="ant-collapse-time-body">
+                  {doctorData?.user?.doctorSchedules?.map((item, index) => (
                     <div className="flex-none sm:flex flex-grow justify-between mb-2">
+                      <span>{item?.day}</span>
+                      <div>
+                        <span>
+                          {date.time24HrConvert(item?.startTime)}- {date.time24HrConvert(item?.endTime)}
+                        </span>
+                        {/* <span>12:00 PM - 03:00 PM</span>
+                        <span>07:00 PM - 09:00 PM</span> */}
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* <div className="flex-none sm:flex flex-grow justify-between mb-2">
                         <span>Tuesday</span>
                         <div>
                             <span>12:00 PM - 09:00 PM</span>
@@ -103,14 +247,12 @@ function DoctorProfileCard() {
                         <div>
                             <span>12:00 PM - 09:00 PM</span>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
-            </Panel>
-          </Collapse>
-          <div className="flex-none md:flex mt-3">
-            <Button
-                type="primary"
-            >
+              </Panel>
+            </Collapse>
+            <div className="flex-none md:flex mt-3">
+              <Button type="primary" onClick={showModal}>
                 <Image
                   src={VideoCamera}
                   alt="espanolFlag"
@@ -118,80 +260,52 @@ function DoctorProfileCard() {
                   height={11}
                 />
                 <span className="ml-2">Request an Appointment</span>
-            </Button>
-            <div className="flex-none sm:flex">
+              </Button>
+              <div className="flex-none sm:flex">
                 <Button
-                    className="highlighted-button btn-transparent mt-3 md:mt-0 md:ml-3"
-                    icon={<VideoCameraFilled />}
+                  className="highlighted-button btn-transparent mt-3 md:mt-0 md:ml-3"
+                  icon={<VideoCameraFilled />}
                 >
-                    <span className="hidden">Message Admin</span>
+                  <span className="hidden">Message Admin</span>
                 </Button>
                 <Button
-                    className="highlighted-button button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
-                    icon={<VideoCameraFilled />}
+                  className="highlighted-button button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
+                  icon={<VideoCameraFilled />}
                 >
-                    <span className="hidden">Message Physician</span>
+                  <span className="hidden">Message Physician</span>
                 </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
         <Divider />
         <h4 className="font-bold mb-1">About Me</h4>
-        <div className="text-gray text-base">
-          <p>Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex 
-            ante id nibh. In vehicula ligula vitae pulvinar malesuada. 
-            Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. 
-            Sed iaculis justo at feugiat porttitor.</p>
-            <p>Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex 
-            ante id nibh. In vehicula ligula vitae pulvinar malesuada. 
-            Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. 
-            Sed iaculis justo at feugiat porttitor.
-          </p>
-        </div>
+        <div className="text-gray text-base">{doctorData?.about_me}</div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
         <p className="text-base text-secondary">
-            Abnormal heart rythms // Aorta diseas // Conginital heart disease
-            Corony artery disease // Heart Attack // Heart Faliure
+          {doctorData?.condition_treated}
         </p>
         <Divider />
         <h4 className="font-bold mb-1">Professional Background</h4>
         <div className="text-base text-secondary">
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
+          {doctorData?.professional_experience}
         </div>
         <Divider />
         <h4 className="font-bold mb-1">Educational Background</h4>
         <div className="text-base text-secondary">
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
-          <p>
-              <span className="font-medium">Cook County Health and Hospitals System</span>
-              <span className="block">Fellowship, Cardiovascular Disease</span>
-          </p>
+          {doctorData?.educational_background}
         </div>
         <Divider />
-        <a href="#" className="text-base flex items-center" onClick={() => Router.push("/patient/physicians")}><ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span></a>
-
-
-    </Card>
+        <a
+          href="#"
+          className="text-base flex items-center"
+          onClick={() => Router.push("/patient/physicians")}
+        >
+          <ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span>
+        </a>
+      </Card>
+    </>
   );
 }
 

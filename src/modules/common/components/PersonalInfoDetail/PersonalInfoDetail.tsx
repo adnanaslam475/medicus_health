@@ -1,52 +1,88 @@
-/* eslint-disable react/jsx-key */
-import React, { useState } from "react";
-import { Form, Input, Radio, Button, Checkbox, Select } from "antd";
+import React, { useEffect, useState } from "react";
+import { DatePicker, Form, Input, Radio, Select } from "antd";
+import { User } from "../../../../generated/graphql";
+import { convertBirthDateToUTC } from "../../../../common/utils/date";
+import dayjs from "dayjs";
+import moment from "moment";
 
 type Props = {
   onFinish?: (values: {
     firstName: string;
     lastName: string;
     gender: string;
-    dateOfbirth: string;
+    date_of_birth: string;
     conntactNumber: string;
     email: string;
     password: string;
     country: string;
     state: string;
-    city: string;
+    city: number;
     postalCode: string;
     streetAddress: string;
     maritalStatus: string;
+    profileImage: string;
     children: string;
     occupation: string;
     occupationalExposure: string;
     pets: string;
+    petsAnswer: string;
+    exposureDuration: string;
   }) => void;
+  user?: User;
   loading?: boolean;
-  response?: any;
 };
 
-function PersonalInfoDetail(props: Props) {
-  const { onFinish, loading, response } = props || {};
+export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
+  props: Props,
+  ref: any
+) {
+  const [formInstance] = Form.useForm();
+  const { loading, user, onFinish } = props || {};
   const [radioChildren, setradioChildren] = useState(true);
+  const [radioMaritalStatus, setradioMaritalStatus] = useState(true);
+  const [radioOccupationalExposure, setradioOccupationalExposure] =
+    useState(true);
 
-  // const onFinish = (values: any) => {
-  //   console.log("Success:", values);
-  // };
+  useEffect(() => {
+    if (ref) {
+      ref.current = formInstance;
+    }
+    if (user) {
+      prepareAndSetEditPayload();
+    }
+  }, [user]);
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-  // const { error, fetching } = result;
+  function prepareAndSetEditPayload() {
+    formInstance.setFieldsValue({
+      firstName: user?.first_name,
+      lastName: user?.last_name,
+      gender: user?.gender,
+      // date_of_birth: convertBirthDateToUTC(user?.date_of_birth),
+      date_of_birth: moment(user?.date_of_birth),
+      conntactNumber: user?.contact_number,
+      email: user?.email,
+      password: user?.password,
+      country: user?.country_id,
+      state: user?.state_id,
+      city: user?.city_id,
+      postalCode: user?.zip_code,
+      streetAddress: user?.streetAddress,
+      maritalStatus: user?.patientProfile?.maritalStatus,
+      children: user?.patientProfile?.children,
+      occupation: user?.patientProfile?.occupation,
+      occupationalExposure: user?.patientProfile?.occupationalExposure,
+      exposureDuration: user?.patientProfile?.exposureDuration,
+      pets: user?.patientProfile?.pets,
+    });
+  }
+
+  function disabledDate(current: any) {
+    return current && current > dayjs().startOf("day");
+  }
 
   return (
     <div className="custom-list mt-4">
-      <Form
-        name="basic"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
+      <Form form={formInstance} onFinish={onFinish}>
         <ul>
           <div className="border border-gray-3 px-0 rounded custom-list-items">
             <li>
@@ -75,7 +111,7 @@ function PersonalInfoDetail(props: Props) {
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Gender</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item className="mb-0">
+                  <Form.Item className="mb-0" name="gender">
                     <Select placeholder="Gender" size="large">
                       <Select.Option value="male">Male</Select.Option>
                       <Select.Option value="female">Female</Select.Option>
@@ -92,8 +128,27 @@ function PersonalInfoDetail(props: Props) {
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Date of Birth</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="dateOfbirth">
+                  {/* <Form.Item noStyle name="dateOfbirth">
                     <Input size="large" placeholder="Date of Birth" />
+                  </Form.Item> */}
+
+                  <Form.Item
+                    className="flex-1"
+                    // label="Date of Birth"
+                    name="date_of_birth"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please select date of birth",
+                      },
+                    ]}
+                  >
+                    <DatePicker
+                      placeholder="mm/dd/yy"
+                      format={"MM-DD-YYYY"}
+                      className="w-full"
+                      disabledDate={disabledDate}
+                    />
                   </Form.Item>
                 </div>
               </div>
@@ -127,17 +182,6 @@ function PersonalInfoDetail(props: Props) {
                 <div className="w-1/2 text-secondary">
                   <Form.Item noStyle name="password">
                     <Input size="large" placeholder="Password" />
-                  </Form.Item>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Confirm Password</div>
-                <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="password">
-                    <Input size="large" placeholder="Confirm Password" />
                   </Form.Item>
                 </div>
               </div>
@@ -203,12 +247,27 @@ function PersonalInfoDetail(props: Props) {
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0">
-                    <Select placeholder="Marital Status" size="large">
-                      <Select.Option value="single">Single</Select.Option>
-                      <Select.Option value="married">Married</Select.Option>
-                      <Select.Option value="widower">Widower</Select.Option>
-                      <Select.Option value="divorced">Divorced</Select.Option>
-                    </Select>
+                    <Radio.Group
+                      onChange={(e) => {
+                        setradioMaritalStatus(e.target.value);
+                      }}
+                    >
+                      <Radio value={1}>Yes</Radio>
+                      <Radio value={0}>No</Radio>
+                    </Radio.Group>
+
+                    {!!radioMaritalStatus && (
+                      <Form.Item className="mb-0" name="maritalStatus">
+                        <Select placeholder="Marital Status" size="large">
+                          <Select.Option value="Single">Single</Select.Option>
+                          <Select.Option value="Married">Married</Select.Option>
+                          <Select.Option value="Widower">Widower</Select.Option>
+                          <Select.Option value="Divorced">
+                            Divorced
+                          </Select.Option>
+                        </Select>
+                      </Form.Item>
+                    )}
                   </Form.Item>
                 </div>
               </div>
@@ -230,7 +289,7 @@ function PersonalInfoDetail(props: Props) {
                       <Radio value={0}>No</Radio>
                     </Radio.Group>
                     {!!radioChildren && (
-                      <Form.Item className="mb-0">
+                      <Form.Item className="mb-0" name="children">
                         <Input size="large" placeholder="No. of children" />
                       </Form.Item>
                     )}
@@ -258,24 +317,36 @@ function PersonalInfoDetail(props: Props) {
                   Do you have any Occupational Exposure?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0">
+                  <Form.Item className="mb-0" name="occupationalExposure">
                     <Radio.Group
                       onChange={(e) => {
-                        setradioChildren(e.target.value);
+                        setradioOccupationalExposure(e.target.value);
                       }}
                     >
-                      <Radio value={1}>Yes</Radio>
-                      <Radio value={0}>No</Radio>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
                     </Radio.Group>
-                    {!!radioChildren && (
-                      <Form.Item className="mb-0">
-                        <Input
-                          size="large"
-                          placeholder="Occupational Exposure"
-                        />
-                      </Form.Item>
-                    )}
                   </Form.Item>
+
+                  {!!radioOccupationalExposure && (
+                    <Form.Item className="mb-0" name="exposureDuration">
+                      <Select
+                        placeholder="Occupational Exposure Duration"
+                        size="large"
+                      >
+                        <Select.Option value="None">None</Select.Option>
+                        <Select.Option value="Less than a year (<1)">
+                          Less than a year
+                        </Select.Option>
+                        <Select.Option value="More than a year (1+)">
+                          More than a year (1+)
+                        </Select.Option>
+                        <Select.Option value="More than three to five years (3-5)">
+                          More than three to five years (3-5)
+                        </Select.Option>
+                      </Select>
+                    </Form.Item>
+                  )}
                 </div>
               </div>
             </li>
@@ -284,8 +355,14 @@ function PersonalInfoDetail(props: Props) {
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Do you have any pets?</div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item noStyle name="pets">
+                  {/* <Form.Item noStyle name="pets">
                     <Input size="large" placeholder="Any Pets" />
+                  </Form.Item> */}
+                  <Form.Item className="mb-0" name="pets">
+                    <Radio.Group>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
+                    </Radio.Group>
                   </Form.Item>
                 </div>
               </div>
@@ -295,5 +372,4 @@ function PersonalInfoDetail(props: Props) {
       </Form>
     </div>
   );
-}
-export default PersonalInfoDetail;
+});

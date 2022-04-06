@@ -188,6 +188,19 @@ export default function PersonalInfo({ onFinish }: props) {
         </Form.Item>
       </div>
 
+      <Form.Item
+        label="Street Address"
+        name="streetAddress"
+        rules={[
+          {
+            required: true,
+            message: "Please enter your street address",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
@@ -254,10 +267,10 @@ export default function PersonalInfo({ onFinish }: props) {
           ]}
         >
           <Select
-          showSearch
-          filterOption={(input, state: any) =>
-            state.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
+            showSearch
+            filterOption={(input, state: any) =>
+              state.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
             onChange={(e) => {
               selectStateId(e);
               form.setFieldsValue({
@@ -289,11 +302,13 @@ export default function PersonalInfo({ onFinish }: props) {
             },
           ]}
         >
-          <Select placeholder="City"
-          showSearch
-          filterOption={(input, city: any) =>
-            city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }>
+          <Select
+            placeholder="City"
+            showSearch
+            filterOption={(input, city: any) =>
+              city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
             {React.Children.toArray(
               getCityByState?.data?.getCitiesByState?.map((el, i) => {
                 return (
@@ -332,7 +347,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
       <div className="flex justify-center mt-8">
         <p className="text-secondary-1">
-          Already have an account?{" "}
+          Already have an account?
           <Link href="/login">
             <span className="text-primary">Login</span>
           </Link>
