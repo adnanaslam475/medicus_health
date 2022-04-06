@@ -17,6 +17,7 @@ import { Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { date } from "../../../utils";
 import { UploadChangeParam } from "antd/lib/upload";
+import config from "../../../../../config";
 
 // import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
@@ -41,7 +42,6 @@ const PersonalInfo = () => {
   const [result, updateUserProfile] = useUpdateUserProfileMutation();
 
   const updateUserDetail = async (values: any) => {
-    console.log("values", values);
     // return null;
     try {
       await updateUserProfile({
@@ -62,7 +62,8 @@ const PersonalInfo = () => {
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
           // profileImage: image,
-          profileImage:"https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg",
+          profileImage:
+            "https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg",
           children: Number(values?.children),
           occupation: values?.occupation,
           occupationalExposure: values?.occupationalExposure,
@@ -75,31 +76,15 @@ const PersonalInfo = () => {
     }
   };
 
-  // const region = "us-east-1";
-  // const bucketName = "aims-pro";
-  // const accessKeyId = "AKIAUT3OWCGNAONYU3PG";
-  // const secertAccessKey = "hkyTLeIbclNx5k1q2mxGKgDy8Ud9KLlHddZPmEC6";
-
-//   const region = "us-east-2";
-// const bucketName = "medicus-dev2";
-// const accessKeyId = "AKIAUT3OWCGNAONYU3PG";
-// const secertAccessKey = "hkyTLeIbclNx5k1q2mxGKgDy8Ud9KLlHddZPmEC6";
-
-const region = "us-east-1";
-const bucketName = "medicus-test-1";
-const accessKeyId = "AKIAX5BHJZJDOJH2ROOU";
-const secertAccessKey ="6M0qn9yrL8IMJ+5H/exVshAOocRsTgIyQqTgcwKJ";
-
-
-  const config = {
-    region: region,
-    bucketName: bucketName,
-    accessKeyId: accessKeyId,
-    secretAccessKey: secertAccessKey,
+  const configS3 = {
+    region: config?.region || "",
+    bucketName: config?.bucketName || "",
+    accessKeyId: config?.accessKeyId || "",
+    secretAccessKey: config?.secertAccessKey || "",
   };
   const listFiles = async () => {
     /* Import s3 config object and call the constrcutor */
-    const s3 = new ReactS3Client(config);
+    const s3 = new ReactS3Client(configS3);
 
     try {
       const fileList = await s3.listFiles();
@@ -123,12 +108,10 @@ const secertAccessKey ="6M0qn9yrL8IMJ+5H/exVshAOocRsTgIyQqTgcwKJ";
   };
 
   const fileChange = async (info: UploadChangeParam) => {
-    console.log("info", info);
-    const s3 = new ReactS3Client(config);
+    const s3 = new ReactS3Client(configS3);
 
     try {
       const url = await s3.uploadFile(info.file.originFileObj as File);
-      console.log("url", url);
     } catch (error) {
       console.log("error", error);
 
@@ -146,9 +129,9 @@ const secertAccessKey ="6M0qn9yrL8IMJ+5H/exVshAOocRsTgIyQqTgcwKJ";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  useEffect(() => {
-    listFiles();
-  }, []);
+  // useEffect(() => {
+  //   listFiles();
+  // }, []);
   return (
     <>
       <div className="w-1/2">
