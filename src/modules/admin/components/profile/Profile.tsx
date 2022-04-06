@@ -22,7 +22,7 @@ const props = {
     if (file.status !== "uploading") {
       // console.log("fileList", fileList);
       // console.log("file", file);
-      setImage(file?.name);
+      // setImage(file?.name);
     }
   },
 };

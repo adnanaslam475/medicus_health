@@ -5,3 +5,5 @@ function ProfileDetailPage() {
 }
 
 export default ProfileDetailPage;
+
+
