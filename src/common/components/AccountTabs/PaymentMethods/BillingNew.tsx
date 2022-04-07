@@ -32,18 +32,22 @@ export const Payment = (props: Props) => {
     <div
       className={`${_classes["stripeCard"]} bg-gray-4 p-5 rounded-md border-primary mb-4`}
     >
-      <div className="text-md capitalize text-dark font-bold">{title}</div>
-      <div className="text-gray-2">{description}</div>
-      {isDefault && (
-        <div className="mt-3">
-          <Tag
-            color="#30CEC2"
-            className={`${_classes["btn-stripe-card "]} rounded-full`}
-          >
-            DEFAULT
-          </Tag>
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-md capitalize text-dark font-medium">{title}</div>
+          <div className="text-gray-2">{description}</div>
         </div>
-      )}
+        <div>
+          {isDefault && (
+            <Tag
+              color="#30CEC2"
+              className={`${_classes["btn-stripe-card "]} rounded-full`}
+            >
+              DEFAULT
+            </Tag>
+          )}
+        </div>
+      </div>
       {!isDefault && (
         <div className={`${_classes["btn-stripe-card"]} mt-3`}>
           <Button
