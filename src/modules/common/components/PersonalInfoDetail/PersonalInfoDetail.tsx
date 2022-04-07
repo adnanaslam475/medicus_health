@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { DatePicker, Form, Input, Radio, Select } from "antd";
 import { User } from "../../../../generated/graphql";
-import { convertBirthDateToUTC } from "../../../../common/utils/date";
 import dayjs from "dayjs";
 import moment from "moment";
-import {
-  useCountriesQuery,
-  useGetCitiesByStateQuery,
-  useGetStatesByCountryQuery,
-} from "../../../../generated/graphql";
+import CitySelectDropDown from "./CitySelectDropDown";
+import StateSelectDropDown from "./StateSelectDropDown";
+import CountrySelectDropDown from "./CountrySelectDropDown";
 
 type Props = {
   onFinish?: (values: {
@@ -85,8 +82,10 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     return current && current > dayjs().startOf("day");
   }
 
-  const [countryId, setCountryId] = useState<number | undefined>();
-  const [stateId, setStateId] = useState<number | undefined>();
+  const [countryId, setCountryId] = useState<number | undefined>(
+    user?.country_id
+  );
+  const [stateId, setStateId] = useState<number | undefined>(user?.state_id);
 
   function selectCountryId(id: number): void {
     setCountryId(id);
@@ -95,23 +94,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
   function selectStateId(id: number): void {
     setStateId(id);
   }
-
-  const [getStatesByCountry] = useGetStatesByCountryQuery({
-    variables: {
-      input: countryId || 0,
-    },
-    pause: countryId === undefined,
-  });
-
-  const [getCityByState] = useGetCitiesByStateQuery({
-    variables: {
-      input: stateId || 0,
-    },
-    pause: stateId === undefined,
-  });
-
-  const [{ data }] = useCountriesQuery();
-  const { countries } = data || {};
 
   return (
     <div className="custom-list mt-4">
@@ -161,13 +143,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Date of Birth</div>
                 <div className="w-1/2 text-secondary">
-                  {/* <Form.Item noStyle name="dateOfbirth">
-                    <Input size="large" placeholder="Date of Birth" />
-                  </Form.Item> */}
-
                   <Form.Item
                     className="flex-1"
-                    // label="Date of Birth"
                     name="date_of_birth"
                     rules={[
                       {
@@ -224,46 +201,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Country</div>
                 <div className="w-1/2 text-secondary">
-                  {/* <Form.Item noStyle name="country">
-                    <Input size="large" placeholder="Country" />
-                  </Form.Item> */}
-                  <Form.Item
-                    className="flex-1"
-                    name="country_id"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter your country",
-                      },
-                    ]}
-                  >
-                    <Select
-                      showSearch
-                      filterOption={(input, country: any) =>
-                        country.children
-                          .toLowerCase()
-                          .indexOf(input.toLowerCase()) >= 0
-                      }
-                      onChange={(e) => {
-                        selectCountryId(e);
-                        formInstance.setFieldsValue({
-                          state_id: null,
-                          city_id: null,
-                        });
-                      }}
-                      placeholder="Country"
-                    >
-                      {React.Children.toArray(
-                        countries?.map((el, i) => {
-                          return (
-                            <Select.Option value={el?.id}>
-                              {el?.country_name}
-                            </Select.Option>
-                          );
-                        })
-                      )}
-                    </Select>
-                  </Form.Item>
+                  <CountrySelectDropDown
+                    onChange={(e) => {
+                      selectCountryId(e);
+                      formInstance.setFieldsValue({
+                        state_id: null,
+                        city_id: null,
+                      });
+                    }}
+                  />
                 </div>
               </div>
             </li>
@@ -272,48 +218,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">State</div>
                 <div className="w-1/2 text-secondary">
-                  {/* <Form.Item noStyle name="state">
-                    <Input size="large" placeholder="State" />
-                  </Form.Item> */}
-                  <Form.Item
-                    className="flex-1"
-                    name="state_id"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter your state",
-                      },
-                    ]}
-                  >
-                    <Select
-                      showSearch
-                      // filterOption={(input, state: any) =>
-                      //   state.children
-                      //     .toLowerCase()
-                      //     .indexOf(input.toLowerCase()) >= 0
-                      // }
-                      onChange={(e) => {
-                        selectStateId(e);
-                        formInstance.setFieldsValue({
-                          city_id: null,
-                        });
-                      }}
-                      placeholder="State"
-                    >
-                      {React.Children.toArray(
-                        getStatesByCountry?.data?.getStatesByCountry?.map(
-                          (el, i) => {
-                            return (
-                              <Select.Option value={el.id}>
-                                {el?.state_name}
-                              </Select.Option>
-                            );
-                          }
-                        )
-                      )}
-                      {/* console.log(el.state) */}
-                    </Select>
-                  </Form.Item>
+                  <StateSelectDropDown
+                    countryId={countryId}
+                    onChange={(e) => {
+                      selectStateId(e);
+                      formInstance.setFieldsValue({
+                        city_id: null,
+                      });
+                    }}
+                  />
                 </div>
               </div>
             </li>
@@ -322,39 +235,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">City</div>
                 <div className="w-1/2 text-secondary">
-                  {/* <Form.Item noStyle name="city">
-                    <Input size="large" placeholder="City" />
-                  </Form.Item> */}
-                  <Form.Item
-                    className="flex-1"
-                    name="city_id"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter your city",
-                      },
-                    ]}
-                  >
-                    <Select
-                      placeholder="City"
-                      showSearch
-                      filterOption={(input, city: any) =>
-                        city.children
-                          .toLowerCase()
-                          .indexOf(input.toLowerCase()) >= 0
-                      }
-                    >
-                      {React.Children.toArray(
-                        getCityByState?.data?.getCitiesByState?.map((el, i) => {
-                          return (
-                            <Select.Option value={el.id}>
-                              {el?.city_name}
-                            </Select.Option>
-                          );
-                        })
-                      )}
-                    </Select>
-                  </Form.Item>
+                  <CitySelectDropDown stateId={stateId} />
                 </div>
               </div>
             </li>
@@ -494,9 +375,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Do you have any pets?</div>
                 <div className="w-1/2 text-gray-1">
-                  {/* <Form.Item noStyle name="pets">
-                    <Input size="large" placeholder="Any Pets" />
-                  </Form.Item> */}
                   <Form.Item className="mb-0" name="pets">
                     <Radio.Group>
                       <Radio value="Yes">Yes</Radio>

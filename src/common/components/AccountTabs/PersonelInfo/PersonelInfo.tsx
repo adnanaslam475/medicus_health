@@ -23,8 +23,8 @@ import config from "../../../../../config";
 const { TabPane } = Tabs;
 
 const PersonalInfo = () => {
-  const [isEdit, setIsEdit] = useState(false as boolean);
-  const [image, setImage] = useState("" as string);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [image, setImage] = useState<string>("");
 
   // GET USER ID
   const { user } = getUserData();
@@ -43,10 +43,10 @@ const PersonalInfo = () => {
     userData?.user?.patientProfile || {};
 
   // UPDATE USER PROFILE
-  const [result, updateUserProfile] = useUpdateUserProfileMutation();
-  const { error } = result;
+  const [, updateUserProfile] = useUpdateUserProfileMutation();
 
   const updateUserDetail = async (values: any) => {
+    console.log({ values });
     // return null;
     try {
       await updateUserProfile({
@@ -58,11 +58,11 @@ const PersonalInfo = () => {
           gender: values?.gender,
           // date_of_birth: values?.date_of_birth,
           date_of_birth: date.convertBirthDateToUTC(values.date_of_birth._i),
-          country_id: Number(values?.country),
+          country_id: Number(values?.country_id),
           contact_number: values?.conntactNumber,
-          city_id: Number(values?.city),
+          city_id: Number(values?.city_id),
           password: values?.password,
-          state_id: Number(values?.state),
+          state_id: Number(values?.state_id),
           zip_code: values?.postalCode,
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
