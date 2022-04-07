@@ -223,6 +223,7 @@ const PersonalInfo = () => {
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
                   className="text-xs p-5"
                   size="large"
+                  // loading={fetching}
                   onClick={() => form?.current?.submit()}
                 >
                   <span className="text-xs text-white">SAVE</span>
