@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import isoWeek from "dayjs/plugin/isoWeek";
 
 dayjs.extend(utc);
 
@@ -24,4 +25,8 @@ export function time24HrConvert(time: any) {
     time[0] = +time[0] % 12 || 12; // Adjust hours
   }
   return time.join(""); // return adjusted time or original string
+}
+
+export function dayName(date: number) {
+  return dayjs().day(date).format("dddd");
 }

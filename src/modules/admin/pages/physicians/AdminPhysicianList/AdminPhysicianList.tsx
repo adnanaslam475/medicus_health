@@ -8,9 +8,12 @@ import Link from "next/link";
 
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
 import Router from "next/router";
-import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
+import { useDoctorProfilesQuery, User } from "../../../../../generated/graphql";
+import Image from "next/image";
+import engFlag from "../../../../../../public/assets//images/engFlag.png";
+import espanolFlag from "../../../../../../public/assets//images/espanolFlag.png";
 
-const data = [
+const Ddata = [
   {
     key: "1",
     // name: "John Brown",
@@ -131,40 +134,60 @@ const data = [
   },
 ];
 
+const FLAG_BY_LANGUAGE = {
+  ["english" as string]: engFlag,
+  ["Spanish" as string]: espanolFlag,
+};
+
 interface col {
   title: string;
   dataIndex: string;
   key: "string";
   width: "30%";
+  language: string;
 }
+
+type props = {
+  language: string;
+};
 
 function AdminPhysicianList() {
   // const [{ data }] = useDoctorProfilesQuery();
-  // const { doctorProfiles } = data || {};
+  const [{ data }] = useDoctorProfilesQuery();
+  const { doctorProfiles } = data || {};
 
   const columns = [
     {
       title: "ID",
-      dataIndex: "transactionid",
-      key: "name",
+      dataIndex: "doctor_id",
+      key: "doctor_id",
       sorter: {
-        compare: (a: any, b: any) => a.transactionid - b.transactionid,
+        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
         multiple: 3,
       },
     },
     {
       title: "Name",
-      dataIndex: "doctor",
-      key: "doctor",
+      dataIndex: "user",
+      key: "user",
+      render: (value: User) => {
+        return (
+          <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
+        );
+      },
+
       sorter: {
-        compare: (a: any, b: any) => a.doctor - b.doctor,
+        compare: (a: any, b: any) => a.first_name - b.first_name,
         multiple: 3,
       },
     },
     {
       title: "Email",
-      dataIndex: "service",
-      key: "service",
+      dataIndex: "user",
+      key: "email",
+      render: (value: User) => {
+        return <div className="someclass">{value?.email}</div>;
+      },
       sorter: {
         compare: (a: any, b: any) => a.service - b.service,
         multiple: 3,
@@ -172,7 +195,7 @@ function AdminPhysicianList() {
     },
     {
       title: "Specialization",
-      dataIndex: "timeslot",
+      dataIndex: "specialization",
       key: "timeslot",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
@@ -180,55 +203,36 @@ function AdminPhysicianList() {
       },
     },
     {
-      title: "Languages",
-      dataIndex: "date",
-      key: "date",
+      title: "Language",
+      dataIndex: "language",
+      key: "language",
+      render: (language: string) => {
+        return (
+          <div className="flagAvatar engFlag pr-2">
+            {FLAG_BY_LANGUAGE[language] && (
+              <Image
+                src={FLAG_BY_LANGUAGE[language]}
+                // src={espanolFlag}
+                alt={language || "flag"}
+                width={25}
+                height={25}
+              />
+            )}
+          </div>
+        );
+      },
       sorter: {
         compare: (a: any, b: any) => a.date - b.date,
         multiple: 3,
       },
     },
-    // {
-    //   title: "Total Amount",
-    //   dataIndex: "totalamount",
-    //   key: "city",
-    //   sorter: {
-    //     compare: (a: any, b: any) => a.totalamount - b.totalamount,
-    //     multiple: 3,
-    //   },
-    // },
-    // {
-    //   title: "Transaction Date",
-    //   dataIndex: "transactiondate",
-    //   key: "transactiondate",
-    //   sorter: {
-    //     compare: (a: any, b: any) => a.transactiondate - b.transactiondate,
-    //     multiple: 3,
-    //   },
-    // },
-    // {
-    //   title: "Status",
-    //   dataIndex: "status",
-    //   key: "status",
-    //   sorter: {
-    //     compare: (a: any, b: any) => a.status - b.status,
-    //     multiple: 3,
-    //   },
-    //   render: () => {
-    //     return (
-    //       <div className="someclass">
-    //         <Tag color="cyan">completed</Tag>
-    //       </div>
-    //     );
-    //   },
-    // },
     {
       title: "",
       dataIndex: "",
       key: "view",
       className: "table-action-icon",
-      _render: () => (
-        <div className="bg-primary p-8 border border-gray-6">
+      render: () => (
+        <div className="bg-primary">
           <EyeFilled
             onClick={() => {
               return Router.push("physicians/ProfileDetail");
@@ -237,12 +241,6 @@ function AdminPhysicianList() {
           {/* <EyeFilled /> */}
         </div>
       ),
-      get render() {
-        return this._render;
-      },
-      set render(value) {
-        this._render = value;
-      },
     },
   ];
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
@@ -267,7 +265,11 @@ function AdminPhysicianList() {
         <AdminPhysicianSearchFilters />
         <div className="w-full">
           <div className="">
-            <Table columns={columns} dataSource={data} onChange={onChange} />
+            <Table
+              columns={columns}
+              dataSource={doctorProfiles}
+              onChange={onChange}
+            />
           </div>
         </div>
       </div>

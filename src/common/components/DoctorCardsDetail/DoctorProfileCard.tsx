@@ -26,7 +26,7 @@ import AppointmentBookingStepTwo from "../../../common/components/Appointments/b
 import AppointmentBookingStepThree from "../../../common/components/Appointments/booking/AppointmentBookingStepThree";
 import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
 import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
-import { DoctorProfile } from "../../../generated/graphql";
+import { DoctorProfile, DoctorSchedule } from "../../../generated/graphql";
 import { date } from "../../utils";
 
 const FLAG_BY_LANGUAGE = {
@@ -90,17 +90,6 @@ function DoctorProfileCard(props: Props) {
   };
 
   const { first_name, last_name } = doctorData?.user || {};
-
-  // function formatAMPM(date: Date) {
-  //   var hours = date.getHours();
-  //   var minutes = date.getMinutes();
-  //   var ampm = hours >= 12 ? 'pm' : 'am';
-  //   hours = hours % 12;
-  //   hours = hours ? hours : 12; // the hour '0' should be '12'
-  //   minutes = minutes < 10 ? '0'+minutes : minutes;
-  //   var strTime = hours + ':' + minutes + ' ' + ampm;
-  //   return strTime;
-  // }
 
   return (
     <>
@@ -196,54 +185,15 @@ function DoctorProfileCard(props: Props) {
                 <div className="ant-collapse-time-body">
                   {doctorData?.user?.doctorSchedules?.map((item, index) => (
                     <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                      <span>{item?.day}</span>
+                      <span>{date?.dayName(item.day)}</span>
                       <div>
                         <span>
-                          {date.time24HrConvert(item?.startTime)}-
-                          {date.time24HrConvert(item?.endTime)}
+                          {`${date.time24HrConvert(item?.startTime)} -
+                          ${date.time24HrConvert(item?.endTime)}`}
                         </span>
-                        {/* <span>12:00 PM - 03:00 PM</span>
-                        <span>07:00 PM - 09:00 PM</span> */}
                       </div>
                     </div>
                   ))}
-
-                  {/* <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                        <span>Tuesday</span>
-                        <div>
-                            <span>12:00 PM - 09:00 PM</span>
-                        </div>
-                    </div>
-                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                        <span>Wednesday</span>
-                        <div>
-                            <span>12:00 PM - 09:00 PM</span>
-                        </div>
-                    </div>
-                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                        <span>Thursday</span>
-                        <div>
-                            <span>12:00 PM - 09:00 PM</span>
-                        </div>
-                    </div>
-                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                        <span>Friday</span>
-                        <div>
-                            <span>12:00 PM - 09:00 PM</span>
-                        </div>
-                    </div>
-                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                        <span>Saturday</span>
-                        <div>
-                            <span>12:00 PM - 09:00 PM</span>
-                        </div>
-                    </div>
-                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                        <span>Sunday</span>
-                        <div>
-                            <span>12:00 PM - 09:00 PM</span>
-                        </div>
-                    </div> */}
                 </div>
               </Panel>
             </Collapse>
