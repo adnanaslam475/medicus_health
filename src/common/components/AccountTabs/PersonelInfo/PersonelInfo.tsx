@@ -179,12 +179,12 @@ const PersonalInfo = () => {
                   // icon={<UserOutlined />}
                   // src={organizationDetails?.organization_image}
                   style={{
-                    borderColor: "purple",
+                    borderColor: "transparent",
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
                 />
-                <span className="rounded-full absolute p-1 left-8 -top-2">
+                {/* <span className="rounded-full absolute p-1 left-8 -top-2">
                   <Avatar
                     style={{
                       backgroundColor: "purple",
@@ -195,7 +195,7 @@ const PersonalInfo = () => {
                     size="small"
                     src="/assets/icons/editAvatar.png"
                   />
-                </span>
+                </span> */}
               </div>
             </Upload>
           </div>

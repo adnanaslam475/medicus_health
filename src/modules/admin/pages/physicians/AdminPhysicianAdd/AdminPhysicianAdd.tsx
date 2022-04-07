@@ -79,12 +79,12 @@ function AdminPhysicianAdd() {
                       // icon={<UserOutlined />}
                       // src={userData?.user?.patientProfile?.profileImage}
                       style={{
-                        borderColor: "purple",
+                        borderColor: "transparent",
                         borderWidth: 2,
                         lineHeight: "40px",
                       }}
                     />
-                    <span className="rounded-full absolute p-1 left-8 -top-2">
+                    {/* <span className="rounded-full absolute p-1 left-8 -top-2">
                       <Avatar
                         style={{
                           backgroundColor: "purple",
@@ -95,7 +95,7 @@ function AdminPhysicianAdd() {
                         size="small"
                         src="/assets/icons/editAvatar.png"
                       />
-                    </span>
+                    </span> */}
                   </div>
                 </Upload>
               </div>
