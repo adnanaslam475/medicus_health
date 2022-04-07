@@ -38,11 +38,15 @@ const PersonalInfo = () => {
     variables: { input: id },
   });
 
+  //GET USER PROFILE IMAGE FROM useGetUserQuery
+  const { profileImage: userProfileImage } =
+    userData?.user?.patientProfile || {};
+
   // UPDATE USER PROFILE
   const [result, updateUserProfile] = useUpdateUserProfileMutation();
+  const { error } = result;
 
   const updateUserDetail = async (values: any) => {
-    // return null;
     try {
       await updateUserProfile({
         id: id,
@@ -61,7 +65,7 @@ const PersonalInfo = () => {
           zip_code: values?.postalCode,
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
-          profileImage: image ? image :userData?.user?.patientProfile?.profileImage,
+          profileImage: image ? image : userProfileImage,
           children: Number(values?.children),
           occupation: values?.occupation,
           occupationalExposure: values?.occupationalExposure,
@@ -75,12 +79,12 @@ const PersonalInfo = () => {
             message: "Successfully Updated",
           });
       }
-    } catch (error) {
-      console.log(error);
-      notification.error({
-        message: error?.message || "Something went wrong",
-      });
-    }
+      if (error) {
+        notification.error({
+          message: error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+      }
+    } catch (error) {}
   };
 
   const configS3 = {
@@ -96,12 +100,7 @@ const PersonalInfo = () => {
     try {
       const res = await s3.uploadFile(info.file.originFileObj as File);
       setImage(res?.location);
-    } catch (error) {
-      console.log("error", error);
-      notification.error({
-        message: error?.message || "Something went wrong",
-      });
-    }
+    } catch (error) {}
   };
   const onBeforeUpload = (file: File) => {
     const isPNG = file.type === "image/png";
@@ -127,26 +126,14 @@ const PersonalInfo = () => {
               <div className="relative">
                 <Avatar
                   size={50}
-                  // icon={<UserOutlined />}
                   src={userData?.user?.patientProfile?.profileImage}
                   style={{
-                    borderColor: "purple",
+                    borderColor: "gray-1",
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
                 />
-                <span className="rounded-full absolute p-1 left-8 -top-2">
-                  <Avatar
-                    style={{
-                      backgroundColor: "purple",
-                      width: "15px",
-                      height: "15px",
-                      padding: "20%",
-                    }}
-                    size="small"
-                    src="/assets/icons/editAvatar.png"
-                  />
-                </span>
+                
               </div>
             </Upload>
           </div>
@@ -185,7 +172,6 @@ const PersonalInfo = () => {
         </div>
         {isEdit ? (
           <PersonalInfoDetail
-            // onFinish={(values) => updateUserDetail( values )}
             onFinish={updateUserDetail}
             user={userData?.user as User}
             loading={true}

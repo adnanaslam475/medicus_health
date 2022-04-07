@@ -102,3 +102,18 @@ mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {
     streetAddress
   }
 }
+
+# CREATE DOCTOR MUTATION
+mutation createDoctor($createDoctorInput: CreateDoctorInput!) {
+  createDoctor(createDoctorInput: $createDoctorInput) {
+    first_name
+    last_name
+    email
+    streetAddress
+    country_id
+    state_id
+    city_id
+    zip_code
+    id
+  }
+}
