@@ -155,22 +155,21 @@ function AdminPhysicianList() {
   // const [{ data }] = useDoctorProfilesQuery();
   const [{ data }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
-  console.log("data", data);
 
   const columns = [
     {
       title: "ID",
       dataIndex: "doctor_id",
-      key: "id",
+      key: "doctor_id",
       sorter: {
-        compare: (a: any, b: any) => a.transactionid - b.transactionid,
+        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
         multiple: 3,
       },
     },
     {
       title: "Name",
       dataIndex: "user",
-      key: "name",
+      key: "user",
       render: (value: User) => {
         return (
           <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
@@ -178,7 +177,7 @@ function AdminPhysicianList() {
       },
 
       sorter: {
-        compare: (a: any, b: any) => a.doctor - b.doctor,
+        compare: (a: any, b: any) => a.first_name - b.first_name,
         multiple: 3,
       },
     },
@@ -227,40 +226,6 @@ function AdminPhysicianList() {
         multiple: 3,
       },
     },
-    // {
-    //   title: "Total Amount",
-    //   dataIndex: "totalamount",
-    //   key: "city",
-    //   sorter: {
-    //     compare: (a: any, b: any) => a.totalamount - b.totalamount,
-    //     multiple: 3,
-    //   },
-    // },
-    // {
-    //   title: "Transaction Date",
-    //   dataIndex: "transactiondate",
-    //   key: "transactiondate",
-    //   sorter: {
-    //     compare: (a: any, b: any) => a.transactiondate - b.transactiondate,
-    //     multiple: 3,
-    //   },
-    // },
-    // {
-    //   title: "Status",
-    //   dataIndex: "status",
-    //   key: "status",
-    //   sorter: {
-    //     compare: (a: any, b: any) => a.status - b.status,
-    //     multiple: 3,
-    //   },
-    //   render: () => {
-    //     return (
-    //       <div className="someclass">
-    //         <Tag color="cyan">completed</Tag>
-    //       </div>
-    //     );
-    //   },
-    // },
     {
       title: "",
       dataIndex: "",
@@ -276,7 +241,6 @@ function AdminPhysicianList() {
           {/* <EyeFilled /> */}
         </div>
       ),
-      
     },
   ];
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
