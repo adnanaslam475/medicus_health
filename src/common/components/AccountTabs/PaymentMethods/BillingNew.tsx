@@ -209,7 +209,7 @@ function Billing({
                 className="text-primary"
                 onClick={() => setModalVisible(true)}
               >
-                Add a Payment Method
+                Add Payment Method
               </Button>
             </div>
           </div>
@@ -259,12 +259,12 @@ function Billing({
           </div>
           <div className="flex justify-end">
             <Form.Item>
-              <Button 
+              <Button
                 onClick={closeModal}
                 className={`${_classes["btn-stripe-cancel"]}`}
-                >
-                  Cancel
-                </Button>
+              >
+                Cancel
+              </Button>
               <Button
                 loading={loadingSubmit}
                 disabled={loadingSubmit}

@@ -8,6 +8,8 @@ import Link from "next/link";
 
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
 import Router from "next/router";
+import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
+
 const data = [
   {
     key: "1",
@@ -19,7 +21,7 @@ const data = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    // status: ['completed', 'pending'],
+    // status: ["completed", "pending"],
     status: ["completed", "pending"],
     view: "Eye",
   },
@@ -142,7 +144,7 @@ function AdminPhysicianList() {
 
   const columns = [
     {
-      title: "Transaction ID",
+      title: "ID",
       dataIndex: "transactionid",
       key: "name",
       sorter: {
@@ -151,7 +153,7 @@ function AdminPhysicianList() {
       },
     },
     {
-      title: "Doctor",
+      title: "Name",
       dataIndex: "doctor",
       key: "doctor",
       sorter: {
@@ -160,7 +162,7 @@ function AdminPhysicianList() {
       },
     },
     {
-      title: "Service",
+      title: "Email",
       dataIndex: "service",
       key: "service",
       sorter: {
@@ -169,7 +171,7 @@ function AdminPhysicianList() {
       },
     },
     {
-      title: "Time Slot",
+      title: "Specialization",
       dataIndex: "timeslot",
       key: "timeslot",
       sorter: {
@@ -178,7 +180,7 @@ function AdminPhysicianList() {
       },
     },
     {
-      title: "Date",
+      title: "Languages",
       dataIndex: "date",
       key: "date",
       sorter: {
@@ -186,40 +188,40 @@ function AdminPhysicianList() {
         multiple: 3,
       },
     },
-    {
-      title: "Total Amount",
-      dataIndex: "totalamount",
-      key: "city",
-      sorter: {
-        compare: (a: any, b: any) => a.totalamount - b.totalamount,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Transaction Date",
-      dataIndex: "transactiondate",
-      key: "transactiondate",
-      sorter: {
-        compare: (a: any, b: any) => a.transactiondate - b.transactiondate,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.status - b.status,
-        multiple: 3,
-      },
-      render: () => {
-        return (
-          <div className="someclass">
-            <Tag color="cyan">completed</Tag>
-          </div>
-        );
-      },
-    },
+    // {
+    //   title: "Total Amount",
+    //   dataIndex: "totalamount",
+    //   key: "city",
+    //   sorter: {
+    //     compare: (a: any, b: any) => a.totalamount - b.totalamount,
+    //     multiple: 3,
+    //   },
+    // },
+    // {
+    //   title: "Transaction Date",
+    //   dataIndex: "transactiondate",
+    //   key: "transactiondate",
+    //   sorter: {
+    //     compare: (a: any, b: any) => a.transactiondate - b.transactiondate,
+    //     multiple: 3,
+    //   },
+    // },
+    // {
+    //   title: "Status",
+    //   dataIndex: "status",
+    //   key: "status",
+    //   sorter: {
+    //     compare: (a: any, b: any) => a.status - b.status,
+    //     multiple: 3,
+    //   },
+    //   render: () => {
+    //     return (
+    //       <div className="someclass">
+    //         <Tag color="cyan">completed</Tag>
+    //       </div>
+    //     );
+    //   },
+    // },
     {
       title: "",
       dataIndex: "",
@@ -229,7 +231,7 @@ function AdminPhysicianList() {
         <div className="bg-primary p-8 border border-gray-6">
           <EyeFilled
             onClick={() => {
-              return Router.push("/physicianProfile");
+              return Router.push("physicians/ProfileDetail");
             }}
           />
           {/* <EyeFilled /> */}
