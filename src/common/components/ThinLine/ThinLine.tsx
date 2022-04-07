@@ -1,9 +1,9 @@
 import React from 'react'
-import divider from "./style.module.scss";
+import _classes from "./style.module.scss";
 
 function ThinLine() {
   return (
-    <div className={`${divider.line}`}></div>
+    <div className={_classes["thin-line"]}></div>
   )
 }
 

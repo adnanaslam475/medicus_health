@@ -14,7 +14,7 @@ import {
   Button,
   Checkbox,
 } from "antd";
-import EmailNotification from "../../../admin/components/EmailNotification/EmailNotification";
+import EmailNotification from "../../../common/components/EmailNotification/EmailNotification";
 import ThinLine from "../../../../common/components/ThinLine/ThinLine";
 
 function EmailNotificationPage() {
@@ -55,8 +55,8 @@ function EmailNotificationPage() {
           <span className="block">usama@gmail.com</span>
         </div>
       </div>
-      <div className="flex md:flex-row gap-0 w-1/2">
-        <div className=" w-full border px-5 py-3 rounded-lg border-gray-7">
+      <div className="flex md:flex-row gap-0 max-w-[60%]">
+        <div className=" w-full border py-0 rounded-lg border-gray-7">
           <EmailNotification
             title="Patient registration update"
             defaultChecked={0}
