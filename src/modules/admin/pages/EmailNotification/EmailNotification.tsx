@@ -1,18 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal, Divider } from "antd";
-import { ExclamationCircleOutlined, EditOutlined } from "@ant-design/icons";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
-  Table,
-  Tag,
   Avatar,
-  Upload,
-  Form,
-  Input,
-  Button,
-  Checkbox,
 } from "antd";
 import EmailNotification from "../../../common/components/EmailNotification/EmailNotification";
 import ThinLine from "../../../../common/components/ThinLine/ThinLine";
@@ -43,12 +34,6 @@ function EmailNotificationPage() {
             />
           }
         />
-        {/* <a
-  href="javascript:void(0)"
-  className="text-primary underline ml-3 text-xs"
->
-  <Upload {...props}>Update Photo</Upload>
-</a>  */}
         <div>
           <span>PY-123</span>
           <h2 className="mb-0">Maxime Bauwents</h2>
