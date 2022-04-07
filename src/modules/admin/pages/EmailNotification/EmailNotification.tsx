@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal } from "antd";
+import { Tabs, Badge, Modal, Divider } from "antd";
 import { ExclamationCircleOutlined, EditOutlined } from "@ant-design/icons";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
@@ -15,8 +15,19 @@ import {
   Checkbox,
 } from "antd";
 import EmailNotification from "../../../admin/components/EmailNotification/EmailNotification";
+import ThinLine from "../../../../common/components/ThinLine/ThinLine";
 
 function EmailNotificationPage() {
+  // const onPreferenceChange = async (checked, setChecked, id) => {
+  //   try {
+  //      const res = await updateEmailPreferences(id, { status: `${Number(checked)}` });
+  //     setChecked(Number(0));
+  //   } catch (error) {
+  //      notification.error({
+  //       message: error?.message || "Something went wrong",
+  //      });
+  //   }
+  // };
   return (
     <div>
       <div className="w-full mb-10 flex gap-8 items-center">
@@ -45,9 +56,43 @@ function EmailNotificationPage() {
         </div>
       </div>
       <div className="flex md:flex-row gap-0 w-1/2">
-      <div className=" w-full border px-5 py-3 rounded-lg border-gray-7">
-      <EmailNotification />
-      </div>
+        <div className=" w-full border px-5 py-3 rounded-lg border-gray-7">
+          <EmailNotification
+            title="Patient registration update"
+            defaultChecked={0}
+            // onChange={(checked, setChecked) => {
+            //   onPreferenceChange(checked, setChecked, 1);
+            // }}((
+            onChange={() => {}}
+          />
+          <ThinLine />
+          <EmailNotification
+            title="Patient registration update"
+            defaultChecked={0}
+            // onChange={(checked, setChecked) => {
+            //   onPreferenceChange(checked, setChecked, 1);
+            // }}((
+            onChange={() => {}}
+          />
+          <ThinLine />
+          <EmailNotification
+            title="Patient registration update"
+            defaultChecked={1}
+            // onChange={(checked, setChecked) => {
+            //   onPreferenceChange(checked, setChecked, 1);
+            // }}((
+            onChange={() => {}}
+          />
+          <ThinLine />
+          <EmailNotification
+            title="Patient registration update"
+            defaultChecked={0}
+            // onChange={(checked, setChecked) => {
+            //   onPreferenceChange(checked, setChecked, 1);
+            // }}((
+            onChange={() => {}}
+          />
+        </div>
       </div>
     </div>
   );
