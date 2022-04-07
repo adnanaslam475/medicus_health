@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Tabs, Button, Alert } from "antd";
+import { Tabs, Button, Alert, notification } from "antd";
 import Router from "next/router";
 import Image from "next/image";
 import yourImage from "../../../../public/assets/images/your_photo.png";
@@ -54,6 +54,12 @@ const AccountTabs = () => {
           user_id: id,
         },
       });
+      {
+        result?.data?.updatePatientHealthHistory &&
+          notification.success({
+            message: "Successfully Updated",
+          });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -63,11 +69,25 @@ const AccountTabs = () => {
     <div>
       <div className="card-container profile-tabs">
         <Tabs type="card">
-          <TabPane tab={<span className="font-Circular font-medium">Personal Information</span>} key="1">
+          <TabPane
+            tab={
+              <span className="font-Circular font-medium">
+                Personal Information
+              </span>
+            }
+            key="1"
+          >
             <PersonalInfo />
           </TabPane>
-          <TabPane tab={<span className="font-Circular font-medium">Health Questionnaire</span>} key="2">
-            <div className="w-1/3">
+          <TabPane
+            tab={
+              <span className="font-Circular font-medium">
+                Health Questionnaire
+              </span>
+            }
+            key="2"
+          >
+            <div className="w-3/6">
               <QuestionnaireForm
                 ref={form}
                 data={data?.patientHealthHistory.history}
@@ -87,10 +107,22 @@ const AccountTabs = () => {
               </div>
             </div>
           </TabPane>
-          <TabPane tab={<span className="font-Circular font-medium">Payment Methods</span>} key="3">
+          <TabPane
+            tab={
+              <span className="font-Circular font-medium">Payment Methods</span>
+            }
+            key="3"
+          >
             <PaymentMethods />
           </TabPane>
-          <TabPane tab={<span className="font-Circular font-medium">Transaction History</span>} key="4">
+          <TabPane
+            tab={
+              <span className="font-Circular font-medium">
+                Transaction History
+              </span>
+            }
+            key="4"
+          >
             <TransactionHistory />
           </TabPane>
         </Tabs>
