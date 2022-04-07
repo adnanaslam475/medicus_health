@@ -19,7 +19,7 @@ import EmailNotification from "../../../admin/components/EmailNotification/Email
 function EmailNotificationPage() {
   return (
     <div>
-      <div className="w-full mb-10 flex gap-8">
+      <div className="w-full mb-10 flex gap-8 items-center">
         <Avatar
           size={128}
           src={

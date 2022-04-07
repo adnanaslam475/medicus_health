@@ -12,7 +12,8 @@ function EmailNotification() {
           <Switch checked={true} />
         </div>
       </div>
-      <Divider className="my-0" />
+      {/* <Divider className="my-0" /> */}
+      <div style={{color: "gray" ,height:"1px" ,width:"100%" ,backgroundColor:"#e5e5e5"}}></div>
       <div className="flex flex-row justify-between items-center py-3">
         <div className="inline-block w-full">
           <div className="flex w-1/2 justify-between">
@@ -23,7 +24,7 @@ function EmailNotification() {
           <Switch checked={true} />
         </div>
       </div>
-      <Divider className="my-1.5 m-0" />
+      <div style={{color: "gray" ,height:"1px" ,width:"100%" ,backgroundColor:"#e5e5e5"}}></div>
       <div className="flex flex-row justify-between items-center py-3">
         <div className="inline-block w-full">
           <div className="flex w-1/2 justify-between">
@@ -34,7 +35,8 @@ function EmailNotification() {
           <Switch checked={true} />
         </div>
       </div>
-      <Divider className="my-0" />
+      {/* <Divider className="my-0" /> */}
+      <div style={{color: "gray" ,height:"1px" ,width:"100%" ,backgroundColor:"#e5e5e5"}}></div>
       <div className="flex flex-row justify-between items-center py-3">
         <div className="inline-block w-full">
           <div className="flex w-1/2 justify-between">

@@ -18,7 +18,7 @@ function ProfileDetail() {
       <div className="w-full">
         <div className="w-full py-5">
           <Tabs defaultActiveKey="1">
-            <TabPane tab= {<span><UserOutlined /> Profile</span>} key="1">
+            <TabPane tab= {<span><UserOutlined className=""/> Profile</span>} key="1">
               <Profile/>
             </TabPane>
             <TabPane tab={<span><BellOutlined />Email Notifications</span>} key="2">
