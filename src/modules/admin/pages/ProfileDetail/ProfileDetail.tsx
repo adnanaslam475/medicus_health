@@ -3,10 +3,12 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import { Tabs, Badge, Modal } from "antd";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { BellOutlined,UserOutlined  } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import Container from "../../../../common/components/Container/Container";
 import Profile from '../../components/Profile/Profile'
+import EmailNotification from "../EmailNotification/EmailNotification";
+import { ProfileIcon } from "../../../../../src/common/components/CustomIcon";
 
 const { TabPane } = Tabs;
 
@@ -16,11 +18,11 @@ function ProfileDetail() {
       <div className="w-full">
         <div className="w-full py-5">
           <Tabs defaultActiveKey="1">
-            <TabPane tab="Profile" key="1">
+            <TabPane tab= {<span><UserOutlined /> Profile</span>} key="1">
               <Profile/>
             </TabPane>
-            <TabPane tab="Email Notifications" key="2">
-              Content of Tab Pane 2
+            <TabPane tab={<span><BellOutlined />Email Notifications</span>} key="2">
+             <EmailNotification/>
             </TabPane>
           </Tabs>
         </div>
