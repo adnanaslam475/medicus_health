@@ -4,6 +4,11 @@ import { User } from "../../../../generated/graphql";
 import { convertBirthDateToUTC } from "../../../../common/utils/date";
 import dayjs from "dayjs";
 import moment from "moment";
+import {
+  useCountriesQuery,
+  useGetCitiesByStateQuery,
+  useGetStatesByCountryQuery,
+} from "../../../../generated/graphql";
 
 type Props = {
   onFinish?: (values: {
@@ -62,9 +67,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       conntactNumber: user?.contact_number,
       email: user?.email,
       password: user?.password,
-      country: user?.country_id,
-      state: user?.state_id,
-      city: user?.city_id,
+      country_id: user?.country_id,
+      state_id: user?.state_id,
+      city_id: user?.city_id,
       postalCode: user?.zip_code,
       streetAddress: user?.streetAddress,
       maritalStatus: user?.patientProfile?.maritalStatus,
@@ -79,6 +84,34 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
   function disabledDate(current: any) {
     return current && current > dayjs().startOf("day");
   }
+
+  const [countryId, setCountryId] = useState<number | undefined>();
+  const [stateId, setStateId] = useState<number | undefined>();
+
+  function selectCountryId(id: number): void {
+    setCountryId(id);
+  }
+
+  function selectStateId(id: number): void {
+    setStateId(id);
+  }
+
+  const [getStatesByCountry] = useGetStatesByCountryQuery({
+    variables: {
+      input: countryId || 0,
+    },
+    pause: countryId === undefined,
+  });
+
+  const [getCityByState] = useGetCitiesByStateQuery({
+    variables: {
+      input: stateId || 0,
+    },
+    pause: stateId === undefined,
+  });
+
+  const [{ data }] = useCountriesQuery();
+  const { countries } = data || {};
 
   return (
     <div className="custom-list mt-4">
@@ -191,8 +224,45 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Country</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="country">
+                  {/* <Form.Item noStyle name="country">
                     <Input size="large" placeholder="Country" />
+                  </Form.Item> */}
+                  <Form.Item
+                    className="flex-1"
+                    name="country_id"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter your country",
+                      },
+                    ]}
+                  >
+                    <Select
+                      showSearch
+                      filterOption={(input, country: any) =>
+                        country.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                      onChange={(e) => {
+                        selectCountryId(e);
+                        formInstance.setFieldsValue({
+                          state_id: null,
+                          city_id: null,
+                        });
+                      }}
+                      placeholder="Country"
+                    >
+                      {React.Children.toArray(
+                        countries?.map((el, i) => {
+                          return (
+                            <Select.Option value={el?.id}>
+                              {el?.country_name}
+                            </Select.Option>
+                          );
+                        })
+                      )}
+                    </Select>
                   </Form.Item>
                 </div>
               </div>
@@ -202,8 +272,47 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">State</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="state">
+                  {/* <Form.Item noStyle name="state">
                     <Input size="large" placeholder="State" />
+                  </Form.Item> */}
+                  <Form.Item
+                    className="flex-1"
+                    name="state_id"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter your state",
+                      },
+                    ]}
+                  >
+                    <Select
+                      showSearch
+                      // filterOption={(input, state: any) =>
+                      //   state.children
+                      //     .toLowerCase()
+                      //     .indexOf(input.toLowerCase()) >= 0
+                      // }
+                      onChange={(e) => {
+                        selectStateId(e);
+                        formInstance.setFieldsValue({
+                          city_id: null,
+                        });
+                      }}
+                      placeholder="State"
+                    >
+                      {React.Children.toArray(
+                        getStatesByCountry?.data?.getStatesByCountry?.map(
+                          (el, i) => {
+                            return (
+                              <Select.Option value={el.id}>
+                                {el?.state_name}
+                              </Select.Option>
+                            );
+                          }
+                        )
+                      )}
+                      {/* console.log(el.state) */}
+                    </Select>
                   </Form.Item>
                 </div>
               </div>
@@ -213,8 +322,38 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">City</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="city">
+                  {/* <Form.Item noStyle name="city">
                     <Input size="large" placeholder="City" />
+                  </Form.Item> */}
+                  <Form.Item
+                    className="flex-1"
+                    name="city_id"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter your city",
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="City"
+                      showSearch
+                      filterOption={(input, city: any) =>
+                        city.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      {React.Children.toArray(
+                        getCityByState?.data?.getCitiesByState?.map((el, i) => {
+                          return (
+                            <Select.Option value={el.id}>
+                              {el?.city_name}
+                            </Select.Option>
+                          );
+                        })
+                      )}
+                    </Select>
                   </Form.Item>
                 </div>
               </div>
