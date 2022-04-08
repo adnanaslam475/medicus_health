@@ -80,7 +80,6 @@ function ConfirmPassword() {
                 />
               )}
             </div>
-            {/* <Form.Item> */}
             <div className="flex justify-center mt-8">
               <span className="ml-2">
                 <Link href="/login">
@@ -101,7 +100,6 @@ function ConfirmPassword() {
                 </Link>
               </span>
             </div>
-            {/* </Form.Item> */}
           </div>
         </div>
       </div>
