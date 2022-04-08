@@ -150,12 +150,12 @@ const PersonalInfo = () => {
                     lineHeight: "40px",
                   }}
                 />
-                <a
-                  href="javascript:void(0)"
+                <Button
+                  type="link"
                   className="text-primary underline ml-3 text-xs"
                 >
                   Update Photo
-                </a>
+                </Button>
               </div>
             </Upload>
           </div>

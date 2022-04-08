@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-// import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
 import {
   Table,
   Tag,
@@ -31,9 +30,6 @@ type props = {
   onFinish?: (value: any) => void;
 };
 function AdminPhysicianDetail() {
-  // const [{ data }] = useDoctorProfilesQuery();
-  // const { doctorProfiles } = data || {};
-
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
@@ -45,11 +41,8 @@ function AdminPhysicianDetail() {
   const [image, setImage] = useState("");
 
   const props = {
-    // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange({ file, fileList }: any) {
       if (file.status !== "uploading") {
-        // console.log("fileList", fileList);
-        // console.log("file", file);
       }
     },
   };
@@ -67,29 +60,25 @@ function AdminPhysicianDetail() {
             <div className="flex flex-col w-full justify-start items-center py-3">
               <div className="w-full mb-10">
                 <Upload
-                  // onChange={fileChange}
                   maxCount={1}
-                  // beforeUpload={onBeforeUpload}
                   itemRender={() => <div />}
                   customRequest={() => null}
                 >
                   <div className="relative">
                     <Avatar
                       size={50}
-                      // icon={<UserOutlined />}
-                      // src={userData?.user?.patientProfile?.profileImage}
                       style={{
                         borderColor: "transparent",
                         borderWidth: 2,
                         lineHeight: "40px",
                       }}
                     />
-                    <a
-                      href="javascript:void(0)"
+                    <Button
+                      type="link"
                       className="text-primary underline ml-3 text-xs"
                     >
                       Update Photo
-                    </a>
+                    </Button>
                   </div>
                 </Upload>
               </div>
