@@ -30,7 +30,7 @@ type props = {
   onFinishPersonalInfo?: (value: any) => void;
   onFinish?: (value: any) => void;
 };
-function AdminPhysicianAdd() {
+function AdminPhysicianDetail() {
   // const [{ data }] = useDoctorProfilesQuery();
   // const { doctorProfiles } = data || {};
 
@@ -103,4 +103,4 @@ function AdminPhysicianAdd() {
     </AppLayout>
   );
 }
-export default AdminPhysicianAdd;
+export default AdminPhysicianDetail;
