@@ -46,8 +46,6 @@ const PersonalInfo = () => {
   const { error } = result;
 
   const updateUserDetail = async (values: any) => {
-    console.log({ values });
-    // return null;
     try {
       await updateUserProfile({
         id: id,
@@ -56,7 +54,6 @@ const PersonalInfo = () => {
           last_name: values?.lastName,
           email: values?.email,
           gender: values?.gender,
-          // date_of_birth: values?.date_of_birth,
           date_of_birth: date.convertBirthDateToUTC(values.date_of_birth._i),
           country_id: Number(values?.country_id),
           contact_number: values?.conntactNumber,
@@ -66,7 +63,6 @@ const PersonalInfo = () => {
           zip_code: values?.postalCode,
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
-          // profileImage: image,
           profileImage: image ? image : userProfileImage,
           children: Number(values?.children),
           occupation: values?.occupation,
@@ -126,7 +122,7 @@ const PersonalInfo = () => {
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
-                  src={userData?.user?.patientProfile?.profileImage}
+                  src={userProfileImage}
                 />
               </div>
             </Upload>
@@ -167,7 +163,6 @@ const PersonalInfo = () => {
         </div>
         {isEdit ? (
           <PersonalInfoDetail
-            // onFinish={(values) => updateUserDetail( values )}
             onFinish={updateUserDetail}
             user={userData?.user as User}
             loading={true}

@@ -248,7 +248,6 @@ function DoctorProfileCard(props: Props) {
         <Divider />
         <h4 className="font-bold mb-1">Educational Background</h4>
         <div className="text-base text-secondary">
-          {/* {doctorData?.educational_background} */}
           {doctorData &&
             JSON.parse(doctorData?.educational_background).map((item: any) => (
               <>
