@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { useState } from "react";
-import { Checkbox, Form, Input, Button, Select, DatePicker } from "antd";
+import { Form, Input, Button, Select, DatePicker } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
 import {
@@ -333,27 +333,6 @@ export default function PersonalInfo({ onFinish }: props) {
           <Input />
         </Form.Item>
       </div>
-
-
-      
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject(new Error('You must select Terms & Conditions')),
-          },
-        ]}
-      >
-        <Checkbox>
-          <span className="mb-10 text-gray text-xs">
-          I agree to the <Link href={"#"}>Terms & Condition</Link>
-          </span>
-        </Checkbox>
-      </Form.Item>
-
-
 
       <div className="flex justify-end">
         <Form.Item>
