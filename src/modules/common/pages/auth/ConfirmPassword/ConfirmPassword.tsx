@@ -11,9 +11,6 @@ import {
 } from "../../../../../generated/graphql";
 import Router, { useRouter } from "next/router";
 
-// type : {password : string
-//   replace: string}
-
 function ConfirmPassword() {
   // Reset Password API call
 
