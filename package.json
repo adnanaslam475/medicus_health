@@ -9,7 +9,9 @@
     "start:uat": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next start -p 8090",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
-    "codegen.yml": "graphql-codegen --config codegen.yml"
+    "codegen.yml": "graphql-codegen --config codegen.yml",
+    "setup": "git config core.hooksPath .githooks && yarn",
+    "setup-hook": "cd .git/hooks && mv pre-commit.sample pre-commit && cat /dev/null > pre-commit && echo 'CI=true yarn build'>pre-commit"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
