@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Tabs, Button, Alert } from "antd";
+import { Tabs, Button, Alert, notification } from "antd";
 import Router from "next/router";
 import Image from "next/image";
 import yourImage from "../../../../public/assets/images/your_photo.png";
@@ -50,6 +50,12 @@ const AccountTabs = () => {
           user_id: id,
         },
       });
+      {
+        result?.data?.updatePatientHealthHistory &&
+          notification.success({
+            message: "Successfully Updated",
+          });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -77,7 +83,7 @@ const AccountTabs = () => {
             }
             key="2"
           >
-            <div className="w-1/3">
+            <div className="w-3/6">
               <QuestionnaireForm
                 ref={form}
                 data={data?.patientHealthHistory.history}
