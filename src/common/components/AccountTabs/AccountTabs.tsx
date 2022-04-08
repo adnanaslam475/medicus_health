@@ -34,9 +34,6 @@ const AccountTabs = () => {
     variables: { input: id },
   });
 
-  // useEffect(() => {
-  //   console.log({ data });
-  // }, [data]);
   // UPDATE PATIENT HEALTH HISTORY
 
   const [result, updatePatientHealthHistory] =
@@ -50,7 +47,6 @@ const AccountTabs = () => {
       await updatePatientHealthHistory({
         input: {
           history: healthQuesJson,
-          // user_id: 213,
           user_id: id,
         },
       });

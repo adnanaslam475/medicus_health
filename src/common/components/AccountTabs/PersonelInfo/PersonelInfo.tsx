@@ -19,7 +19,6 @@ import { date } from "../../../utils";
 import { UploadChangeParam } from "antd/lib/upload";
 import config from "../../../../../config";
 
-// import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
 
 const PersonalInfo = () => {
@@ -88,7 +87,7 @@ const PersonalInfo = () => {
     secretAccessKey: config?.secertAccessKey || "",
   };
   const listFiles = async () => {
-    /* Import s3 config object and call the constrcutor */
+
     const s3 = new ReactS3Client(configS3);
 
     try {
@@ -128,44 +127,14 @@ const PersonalInfo = () => {
   const onBeforeUpload = (file: File) => {
     const isPNG = file.type === "image/png";
     const isJPG = file.type === "image/jpeg";
-    // if (!isPNG && !isJPG) {
-    //   notification.error({ message: "This file type is not accepted" });
-    // }
-    return isPNG || isJPG || Upload.LIST_IGNORE;
+    rn isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  // useEffect(() => {
-  //   listFiles();
-  // }, []);
   return (
     <>
       <div className="w-1/2">
         <div className="flex justify-between items-center">
           <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
-            {/* <Avatar
-              size={64}
-              src={
-                <Image
-                  alt=""
-                  src={yourImage}
-                  width={128}
-                  height={128}
-                  className="border rounded border-gray-2"
-                />
-              }
-            />
-            <a
-              href="javascript:void(0)"
-              className="text-primary underline ml-3 text-xs"
-            >
-              <Upload accept=".png, .jpg, .jpeg" customRequest={() => null}>
-                Update Photo
-              </Upload>
-            </a> */}
-            {/* <Upload {...props}>
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload> */}
-
             <Upload
               onChange={fileChange}
               maxCount={1}
@@ -176,39 +145,17 @@ const PersonalInfo = () => {
               <div className="relative">
                 <Avatar
                   size={50}
-                  // icon={<UserOutlined />}
-                  // src={organizationDetails?.organization_image}
                   style={{
                     borderColor: "transparent",
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
                 />
-                {/* <span className="rounded-full absolute p-1 left-8 -top-2">
-                  <Avatar
-                    style={{
-                      backgroundColor: "purple",
-                      width: "15px",
-                      height: "15px",
-                      padding: "20%",
-                    }}
-                    size="small"
-                    src="/assets/icons/editAvatar.png"
-                  />
-                </span> */}
               </div>
             </Upload>
           </div>
 
           <div className="edit-btn flex justify-end">
-            {/* <Button
-                type="default"
-                className="text-xs p-5"
-                size="large"
-                // onClick={() => setIsEdit(true)}
-              >
-                <span className="text-xs">EDIT</span>
-              </Button> */}
             {isEdit ? (
               <div className="flex gap-4">
                 <Button
