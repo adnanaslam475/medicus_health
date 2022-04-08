@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import { createClient, Provider } from "urql";
+import { NextIntlProvider } from "next-intl";
 import config from "./../config";
 import "./../styles/global.scss";
 import "./../styles/cutomized-antd.css";
@@ -20,11 +21,13 @@ const client = createClient({
 });
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <Provider value={client}>
-        <Component {...pageProps} key />
-      </Provider>
-    </AuthProvider>
+    <NextIntlProvider messages={pageProps.messages}>
+      <AuthProvider>
+        <Provider value={client}>
+          <Component {...pageProps} key />
+        </Provider>
+      </AuthProvider>
+    </NextIntlProvider>
   );
 }
 

@@ -153,7 +153,6 @@ function DoctorProfileCard(props: Props) {
                   {FLAG_BY_LANGUAGE[doctorData?.language] && (
                     <Image
                       src={FLAG_BY_LANGUAGE[doctorData?.language]}
-                      // src={espanolFlag}
                       alt={doctorData?.language || "flag"}
                       width={25}
                       height={25}

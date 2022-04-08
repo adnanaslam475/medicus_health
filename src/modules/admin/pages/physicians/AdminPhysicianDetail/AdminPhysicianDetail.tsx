@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-
 import {
   Table,
   Tag,
@@ -30,10 +29,7 @@ type props = {
   onFinishPersonalInfo?: (value: any) => void;
   onFinish?: (value: any) => void;
 };
-function AdminPhysicianAdd() {
-  // const [{ data }] = useDoctorProfilesQuery();
-  // const { doctorProfiles } = data || {};
-
+function AdminPhysicianDetail() {
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
@@ -45,11 +41,8 @@ function AdminPhysicianAdd() {
   const [image, setImage] = useState("");
 
   const props = {
-    // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange({ file, fileList }: any) {
       if (file.status !== "uploading") {
-        // console.log("fileList", fileList);
-        // console.log("file", file);
       }
     },
   };
@@ -99,4 +92,4 @@ function AdminPhysicianAdd() {
     </AppLayout>
   );
 }
-export default AdminPhysicianAdd;
+export default AdminPhysicianDetail;

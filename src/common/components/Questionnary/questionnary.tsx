@@ -18,7 +18,7 @@ interface HealthQuesType {
   isLoading: boolean;
 }
 
-const   HealthQuestionnary = ({
+const HealthQuestionnary = ({
   isUpdateMode,
   onFinishSuccess,
   onFinishedFailed,
@@ -49,9 +49,22 @@ const   HealthQuestionnary = ({
         onFinishedFailed={onFinishedFailed}
       />
 
-      <div className="flex justify-end items-center">
+      <div className="flex justify-between items-center">
+        {!isUpdateMode && (
+          <Checkbox
+            value={terms}
+            onChange={(e) => {
+              setTerms(e.target.checked);
+            }}
+          >
+            <span className="mb-10 text-gray text-xs">
+              I agree to the <Link href={"#"}>Terms & Condition</Link>
+            </span>
+          </Checkbox>
+        )}
         <Button
           loading={isLoading}
+          disabled={!terms || isLoading}
           className="ant-btn ant-btn-primary ant-btn mb-0"
           type="primary"
           onClick={() => form?.current?.submit()}

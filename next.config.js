@@ -21,5 +21,9 @@ module.exports = withTM(
   // your custom config goes here
   withBundleAnalyzer({
     reactStrictMode: true,
+    i18n: {
+      locales: ["en", "es"],
+      defaultLocale: "en",
+    },
   })
 );
