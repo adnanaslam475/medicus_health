@@ -77,13 +77,6 @@ function ConfirmPassword() {
                   className=""
                   message="Your password has been reset!"
                   type="success"
-                  // action={
-                  //   <Link href="/login" passHref>
-                  //     <Button size="small" type="primary">
-                  //       Login
-                  //     </Button>
-                  //   </Link>
-                  // }
                 />
               )}
             </div>
