@@ -18,7 +18,7 @@ interface HealthQuesType {
   isLoading: boolean;
 }
 
-const HealthQuestionnary = ({
+const   HealthQuestionnary = ({
   isUpdateMode,
   onFinishSuccess,
   onFinishedFailed,
@@ -49,23 +49,9 @@ const HealthQuestionnary = ({
         onFinishedFailed={onFinishedFailed}
       />
 
-      <div className="flex justify-between items-center">
-        {!isUpdateMode && (
-          <Checkbox
-            value={terms}
-            onChange={(e) => {
-              setTerms(e.target.checked);
-            }}
-          >
-            <span className="mb-10 text-gray text-xs">
-              I agree to the <Link href={"#"}>Terms & Condition</Link>
-            </span>
-          </Checkbox>
-        )}
-
+      <div className="flex justify-end items-center">
         <Button
           loading={isLoading}
-          disabled={!terms || isLoading}
           className="ant-btn ant-btn-primary ant-btn mb-0"
           type="primary"
           onClick={() => form?.current?.submit()}
@@ -252,9 +238,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   return (
     <Form
       initialValues={{
-        radio_drink: 1,
-        radio_smoke: 1,
-        radio_drug: 1,
+        radio_drink: 0,
+        radio_smoke: 0,
+        radio_drug: 0,
       }}
       layout="vertical"
       onFinish={onFinishHealthQuestionnary}

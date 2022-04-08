@@ -10,20 +10,28 @@
       color: #00b294;
     }
   
-    :global .fc-button-primary {
-      color: #ffffff;
-      background-color: #5c005c;
-    }
+   
     :global .fc-button.fc-button-primary {
       background-color: #f9f6f9;
-      border-color: #5c005c;
       color: #ffffff;
     }
     :global .fc-button.fc-button-primary {
       background-color: #f9f6f9;
-      border-color: #5c005c;
-      color: #5c005c;
+   border: none;
+      color: #7d7888;
+      font-size: 14px;
+      font-weight: 300;
     }
+:global .fc-customText-button{
+background: transparent !important; 
+border: none;
+}
+:global .fc-custom1-button{
+  background-color: blue !important;
+
+}
+
+
     :global .fc-button.fc-button-primary.fc-button-active {
       background-color: #5c005c;
       color: #f9f6f9;
@@ -181,3 +189,12 @@
     // background-color: rgba(55, 142, 83, 0.8);
   }
   
+ 
+
+
+  .style_css__JiOc_ .fc-button.fc-button-primary {
+ 
+    
+    background: transparent;
+   
+}

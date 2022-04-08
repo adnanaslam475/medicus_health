@@ -23,6 +23,7 @@ function AdminAimsCalender() {
   //     </>
   //   );
   // }
+  
 
   return (
     <div>
@@ -40,26 +41,51 @@ function AdminAimsCalender() {
               </div>
             );
           }}
-          initialView="dayGridWeek"
-          defaultView="dayGridMonth"
+          initialView="timeGridWeek"
+          
+
           headerToolbar={{
-            left: "customPrev today customNext",
+            left: "customText today customPrev customNext",
             center: "title",
-            right: "dayGridMonth timeGridWeek timeGridDay",
+            right: "listview search custom1",
           }}
           customButtons={{
             customNext: {
               icon: "chevron-right",
-              click: () => {
-                handleDateChange("next");
-              },
+              // click: () => {
+              //   handleDateChange("next");
+              // },
             },
             customPrev: {
               icon: "chevron-left",
-              click: () => {
-                handleDateChange("prev");
-              },
+              // click: () => {
+              //   handleDateChange("prev");
+              // },
             },
+            customText: {
+              text: "Appointment",
+            },
+            custom1: {
+              text: 'Request an Appointment',
+              click: function() {
+                alert('clicked custom button 1!');
+              }
+            },
+            listview: {
+              text: 'List View',
+              click: function() {
+                alert('clicked custom button 1!');
+              }
+            },
+            search: {
+           
+              text:"Search",
+              // click: () => {
+              //   handleDateChange("prev");
+              
+              // },
+            },
+
           }}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           // ref={calendarComponentRef}

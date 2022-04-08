@@ -1,24 +1,48 @@
-/* eslint-disable react/jsx-key */
+import { Button, Form, Input, Select } from "antd";
 import React, { useState } from "react";
-import { Checkbox, Form, Input, Button, Select, DatePicker } from "antd";
-import Link from "next/link";
 import dayjs from "dayjs";
 import {
-  useGetStatesByCountryQuery,
-  useGetCitiesByStateQuery,
   useCountriesQuery,
-} from "../../../../../../../generated/graphql";
+  useGetCitiesByStateQuery,
+  useGetStatesByCountryQuery,
+} from "../../../../generated/graphql";
 
-type props = {
-  validateForm?: (value: any) => void;
-  onFinishPersonalInfo?: (value: any) => void;
-  onFinish?: (value: any) => void;
+type Props = {
+  onFinish?: (values: {
+    firstName: string;
+    lastName: string;
+    gender: string;
+    date_of_birth: string;
+    conntactNumber: string;
+    email: string;
+    password: string;
+    country: string;
+    state: string;
+    city: number;
+    postalCode: string;
+    streetAddress: string;
+    maritalStatus: string;
+    profileImage: string;
+    children: string;
+    occupation: string;
+    occupationalExposure: string;
+    pets: string;
+    petsAnswer: string;
+    exposureDuration: string;
+  }) => void;
+  //   user?: User;
+  //   loading?: boolean;
 };
 
-export default function PersonalInfo({ onFinish }: props) {
-  const [form] = Form.useForm();
+export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
+  props: Props,
+  ref: any
+) {
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
+  const [form] = Form.useForm();
+
+  //   const {onFinish}
 
   function selectCountryId(id: number): void {
     setCountryId(id);
@@ -48,174 +72,93 @@ export default function PersonalInfo({ onFinish }: props) {
 
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
-
-  const onFinishRegistrationFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
   return (
     <Form
+      //   onFinish={onFinish}
       layout="vertical"
-      form={form}
-      onFinish={onFinish}
-      onFinishFailed={onFinishRegistrationFailed}
     >
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-row gap-3">
         <Form.Item
-          className="flex-1"
           label="First Name"
-          name="first_name"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your first name",
-            },
-          ]}
+          name="firstName"
+          rules={[{ required: true, message: "First Name!" }]}
+          className="flex-1"
         >
           <Input />
         </Form.Item>
 
         <Form.Item
+          label="Last name"
+          name="lastName"
+          rules={[{ required: true, message: "Last Name!" }]}
           className="flex-1"
-          label="Last Name"
-          name="last_name"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your last name",
-            },
-          ]}
         >
           <Input />
         </Form.Item>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-row gap-0">
         <Form.Item
+          name={["user", "email"]}
+          label="Email"
+          rules={[{ type: "email" }]}
           className="flex-1"
-          label="Gender"
-          name="gender"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your gender",
-            },
-          ]}
         >
-          <Select placeholder="Gender" className="nb-select-input">
-            <Select.Option value="male">Male</Select.Option>
-            <Select.Option value="female">Female</Select.Option>
-            <Select.Option value="prefer not to answer">
-              I prefer not to answer
-            </Select.Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          className="flex-1"
-          label="Date of Birth"
-          name="date_of_birth"
-          rules={[
-            {
-              required: true,
-              message: "Please select date of birth",
-            },
-          ]}
-        >
-          <DatePicker
-            placeholder="mm/dd/yy"
-            format={"MM-DD-YYYY"}
-            className="w-full"
-            disabledDate={disabledDate}
-          />
+          <Input />
         </Form.Item>
       </div>
-
-      <Form.Item
-        label="Email Address"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: "Please enter your email address",
-          },
-          {
-            type: "email",
-            message: "Email is invalid",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-row gap-3">
         <Form.Item
-          className="flex-1"
           label="Password"
           name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your password!",
-            },
-          ]}
+          rules={[{ required: true, message: "Password" }]}
+          className="flex-1"
         >
           <Input.Password />
         </Form.Item>
 
         <Form.Item
-          className="flex-1"
           label="Confirm Password"
           name="confirmPassword"
-          rules={[
-            {
-              required: true,
-              message: "Please confirm your password!",
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error("The two passwords that you entered do not match!")
-                );
-              },
-            }),
-          ]}
+          rules={[{ required: true, message: "Confirm password!" }]}
+          className="flex-1"
         >
           <Input.Password />
         </Form.Item>
       </div>
 
-      <Form.Item
-        label="Street Address"
-        name="streetAddress"
-        rules={[
-          {
-            required: true,
-            message: "Please enter your street address",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label="Contact Number"
-          name="contact_number"
+          label="Specialization"
+          name="Specialization"
           rules={[
             {
               required: true,
-              message: "Please enter your contact number",
+              message: "Specialization",
             },
           ]}
         >
           <Input />
         </Form.Item>
-
+      </div>
+      {/* Address, City, State, Country Postal Address */}
+      <div className="flex flex-col md:flex-row gap-4">
+        <Form.Item
+          className="flex-1"
+          label="Street Address"
+          name="streetAddress"
+          rules={[
+            {
+              required: true,
+              message: "Please enter your street address",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+      </div>
+      <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
           label="Country"
@@ -252,9 +195,7 @@ export default function PersonalInfo({ onFinish }: props) {
             )}
           </Select>
         </Form.Item>
-      </div>
 
-      <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
           label="State"
@@ -297,7 +238,7 @@ export default function PersonalInfo({ onFinish }: props) {
           name="city_id"
           rules={[
             {
-              required: false,
+              required: true,
               message: "Please enter your city",
             },
           ]}
@@ -333,47 +274,15 @@ export default function PersonalInfo({ onFinish }: props) {
           <Input />
         </Form.Item>
       </div>
-
-
-      
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject(new Error('You must select Terms & Conditions')),
-          },
-        ]}
-      >
-        <Checkbox>
-          <span className="mb-10 text-gray text-xs">
-          I agree to the <Link href={"#"}>Terms & Condition</Link>
-          </span>
-        </Checkbox>
-      </Form.Item>
-
-
-
-      <div className="flex justify-end">
-        <Form.Item>
-          <Button
-            htmlType="submit"
-            className="ant-btn ant-btn-primary ant-btn-block nb-button"
-            type="primary"
-          >
-            Next
+      <Form.Item>
+        <div className="flex items-center justify-end">
+          <Button type="primary" htmlType="submit">
+            Add Patient
           </Button>
-        </Form.Item>
-      </div>
-      <div className="flex justify-center mt-8">
-        <p className="text-secondary-1">
-          Already have an account?
-          <Link href="/login">
-            <span className="text-primary">Login</span>
-          </Link>
-        </p>
-      </div>
+        </div>
+      </Form.Item>
     </Form>
   );
-}
+});
+
+// export default AddPhysicianForm;

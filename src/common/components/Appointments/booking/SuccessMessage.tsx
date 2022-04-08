@@ -19,7 +19,7 @@ function SuccessMessage() {
           }
         />
         <h1 className="mb-0">Success!</h1>
-        <p>
+        <p className="text-base">
           Your appointment has been requested. You will <br /> get a
           notification once the doctor will confirm <br />
           the appointment. Thank you.
