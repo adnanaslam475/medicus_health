@@ -80,6 +80,28 @@ function ConfirmPassword() {
                 />
               )}
             </div>
+            {/* <Form.Item> */}
+            <div className="flex justify-center mt-8">
+              <span className="ml-2">
+                <Link href="/login">
+                  <div className="inline-flex items-center">
+                    <div className="mb-0 mr-3 inline-flex items-center">
+                      <Image
+                        alt=""
+                        className="left-arrow-icon mx-auto"
+                        height={16}
+                        width={16}
+                        src="/assets/icon/arrow-left.svg"
+                      />
+                      <span className="cursor-pointer text-primary ml-3">
+                        Back to log in
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </span>
+            </div>
+            {/* </Form.Item> */}
           </div>
         </div>
       </div>
