@@ -19,7 +19,6 @@ import { date } from "../../../utils";
 import { UploadChangeParam } from "antd/lib/upload";
 import config from "../../../../../config";
 
-// import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
 
 const PersonalInfo = () => {
@@ -133,7 +132,6 @@ const PersonalInfo = () => {
                     lineHeight: "40px",
                   }}
                 />
-                
               </div>
             </Upload>
           </div>
