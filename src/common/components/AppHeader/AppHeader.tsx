@@ -77,7 +77,7 @@ const AppHeader = () => {
 
   return (
     <Header
-      className={`${_classes["bg-white"]} flex w-full justify-end items-center h-25 px-0 md:px-0`}
+      className={`${_classes["bg-white"]} border-b border-gray-5 bg-white flex w-full justify-end items-center h-25 px-0 md:px-0`}
     >
       <div className="w-full flex px-0 justify-between items-center">
         <div className="w-full ">

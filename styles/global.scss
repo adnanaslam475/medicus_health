@@ -90,6 +90,12 @@ label.ant-radio-wrapper {
 // CSS FOR ANT MODAL
 
 .ant-modal {
+  .ant-modal-header {
+    .ant-modal-title {
+      font-family: 'Circular Std';
+      font-weight: medium;
+    }
+  }
   .ant-modal-content {
     .ant-modal-body {
       button.ant-btn {
@@ -175,7 +181,7 @@ label.ant-radio-wrapper {
     font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
 
   h1,
@@ -188,7 +194,7 @@ label.ant-radio-wrapper {
       Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
       "Noto Color Emoji";
-    word-spacing: -5px;
+    word-spacing: -10px;
     margin-bottom: 0px;
   }
 
