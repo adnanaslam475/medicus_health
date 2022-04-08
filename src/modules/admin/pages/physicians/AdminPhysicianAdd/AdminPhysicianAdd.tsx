@@ -35,9 +35,6 @@ type props = {
 function AdminPhysicianAdd() {
   const [data, CreateDoctorMutation] = useCreateDoctorMutation();
 
-  // const [{ data }] = useDoctorProfilesQuery();
-  // const { doctorProfiles } = data || {};
-
   const form: any = useRef();
 
   const onFinishFailed = (errorInfo: any) => {
@@ -47,7 +44,6 @@ function AdminPhysicianAdd() {
   const [image, setImage] = useState("");
 
   const createDoctor = async (values: any) => {
-    return null;
     await CreateDoctorMutation({
       createDoctorInput: {
         first_name: values?.firstName,
