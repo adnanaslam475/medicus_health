@@ -5,3 +5,11 @@ function login() {
 }
 
 export default login;
+
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      messages: require(`./../src/common/locales/${locale}.json`),
+    },
+  };
+}

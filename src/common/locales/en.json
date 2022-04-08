@@ -1,0 +1,9 @@
+{
+  "Login": {
+    "title": "Login to continue",
+    "description": "Enter your credentials to access your account."
+  },
+  "AccountDetail": {
+    "title": "Account"
+  }
+}
