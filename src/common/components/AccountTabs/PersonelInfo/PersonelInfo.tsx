@@ -42,7 +42,8 @@ const PersonalInfo = () => {
     userData?.user?.patientProfile || {};
 
   // UPDATE USER PROFILE
-  const [, updateUserProfile] = useUpdateUserProfileMutation();
+  const [result, updateUserProfile] = useUpdateUserProfileMutation();
+  const { error } = result;
 
   const updateUserDetail = async (values: any) => {
     console.log({ values });
@@ -66,8 +67,7 @@ const PersonalInfo = () => {
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
           // profileImage: image,
-          profileImage:
-            "https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg",
+          profileImage: image ? image : userProfileImage,
           children: Number(values?.children),
           occupation: values?.occupation,
           occupationalExposure: values?.occupationalExposure,
@@ -86,40 +86,17 @@ const PersonalInfo = () => {
     accessKeyId: config?.accessKeyId || "",
     secretAccessKey: config?.secertAccessKey || "",
   };
-  const listFiles = async () => {
-    const s3 = new ReactS3Client(configS3);
-
-    try {
-      const fileList = await s3.listFiles();
-
-      console.log(fileList);
-      /*
-       * {
-       *   Response: {
-       *     message: "Objects listed succesfully",
-       *     data: {                   // List of Objects
-       *       ...                     // Meta data
-       *       Contents: []            // Array of objects in the bucket
-       *     }
-       *   }
-       * }
-       */
-    } catch (exception) {
-      console.log(exception);
-      /* handle the exception */
-    }
-  };
 
   const fileChange = async (info: UploadChangeParam) => {
     const s3 = new ReactS3Client(configS3);
 
     try {
       const url = await s3.uploadFile(info.file.originFileObj as File);
-    } catch (error: any) {
-      console.log("error", error);
-
+      setImage(url?.location);
+    } catch (error) {}
+    if (error) {
       notification.error({
-        message: error?.message || "Something went wrong",
+        message: error?.graphQLErrors[0]?.message || "Something went wrong",
       });
     }
   };
@@ -149,6 +126,7 @@ const PersonalInfo = () => {
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
+                  src={userData?.user?.patientProfile?.profileImage}
                 />
               </div>
             </Upload>
