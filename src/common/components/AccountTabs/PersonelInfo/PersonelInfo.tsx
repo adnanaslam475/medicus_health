@@ -87,7 +87,6 @@ const PersonalInfo = () => {
     secretAccessKey: config?.secertAccessKey || "",
   };
   const listFiles = async () => {
-
     const s3 = new ReactS3Client(configS3);
 
     try {
@@ -127,7 +126,7 @@ const PersonalInfo = () => {
   const onBeforeUpload = (file: File) => {
     const isPNG = file.type === "image/png";
     const isJPG = file.type === "image/jpeg";
-    rn isPNG || isJPG || Upload.LIST_IGNORE;
+    return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
   return (
