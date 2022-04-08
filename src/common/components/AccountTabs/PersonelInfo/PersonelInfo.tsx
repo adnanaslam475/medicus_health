@@ -19,12 +19,11 @@ import { date } from "../../../utils";
 import { UploadChangeParam } from "antd/lib/upload";
 import config from "../../../../../config";
 
-// import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
 
 const PersonalInfo = () => {
-  const [isEdit, setIsEdit] = useState(false as boolean);
-  const [image, setImage] = useState("" as string);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [image, setImage] = useState<string>("");
 
   // GET USER ID
   const { user } = getUserData();
@@ -43,10 +42,11 @@ const PersonalInfo = () => {
     userData?.user?.patientProfile || {};
 
   // UPDATE USER PROFILE
-  const [result, updateUserProfile] = useUpdateUserProfileMutation();
-  const { error } = result;
+  const [, updateUserProfile] = useUpdateUserProfileMutation();
 
   const updateUserDetail = async (values: any) => {
+    console.log({ values });
+    // return null;
     try {
       await updateUserProfile({
         id: id,
@@ -57,15 +57,17 @@ const PersonalInfo = () => {
           gender: values?.gender,
           // date_of_birth: values?.date_of_birth,
           date_of_birth: date.convertBirthDateToUTC(values.date_of_birth._i),
-          country_id: Number(values?.country),
+          country_id: Number(values?.country_id),
           contact_number: values?.conntactNumber,
-          city_id: Number(values?.city),
+          city_id: Number(values?.city_id),
           password: values?.password,
-          state_id: Number(values?.state),
+          state_id: Number(values?.state_id),
           zip_code: values?.postalCode,
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
-          profileImage: image ? image : userProfileImage,
+          // profileImage: image,
+          profileImage:
+            "https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg",
           children: Number(values?.children),
           occupation: values?.occupation,
           occupationalExposure: values?.occupationalExposure,
@@ -73,18 +75,9 @@ const PersonalInfo = () => {
           pets: values?.pets,
         },
       });
-      {
-        result?.data?.updateUser &&
-          notification.success({
-            message: "Successfully Updated",
-          });
-      }
-      if (error) {
-        notification.error({
-          message: error?.graphQLErrors[0]?.message || "Something went wrong",
-        });
-      }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const configS3 = {
@@ -93,21 +86,46 @@ const PersonalInfo = () => {
     accessKeyId: config?.accessKeyId || "",
     secretAccessKey: config?.secertAccessKey || "",
   };
+  const listFiles = async () => {
+    const s3 = new ReactS3Client(configS3);
+
+    try {
+      const fileList = await s3.listFiles();
+
+      console.log(fileList);
+      /*
+       * {
+       *   Response: {
+       *     message: "Objects listed succesfully",
+       *     data: {                   // List of Objects
+       *       ...                     // Meta data
+       *       Contents: []            // Array of objects in the bucket
+       *     }
+       *   }
+       * }
+       */
+    } catch (exception) {
+      console.log(exception);
+      /* handle the exception */
+    }
+  };
 
   const fileChange = async (info: UploadChangeParam) => {
     const s3 = new ReactS3Client(configS3);
 
     try {
-      const res = await s3.uploadFile(info.file.originFileObj as File);
-      setImage(res?.location);
-    } catch (error) {}
+      const url = await s3.uploadFile(info.file.originFileObj as File);
+    } catch (error: any) {
+      console.log("error", error);
+
+      notification.error({
+        message: error?.message || "Something went wrong",
+      });
+    }
   };
   const onBeforeUpload = (file: File) => {
     const isPNG = file.type === "image/png";
     const isJPG = file.type === "image/jpeg";
-    if (!isPNG && !isJPG) {
-      notification.error({ message: "This file type is not accepted" });
-    }
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
@@ -126,14 +144,12 @@ const PersonalInfo = () => {
               <div className="relative">
                 <Avatar
                   size={50}
-                  src={userData?.user?.patientProfile?.profileImage}
                   style={{
-                    borderColor: "gray-1",
+                    borderColor: "transparent",
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
                 />
-                
               </div>
             </Upload>
           </div>
@@ -153,6 +169,7 @@ const PersonalInfo = () => {
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
                   className="text-xs p-5"
                   size="large"
+                  // loading={fetching}
                   onClick={() => form?.current?.submit()}
                 >
                   <span className="text-xs text-white">SAVE</span>
@@ -172,6 +189,7 @@ const PersonalInfo = () => {
         </div>
         {isEdit ? (
           <PersonalInfoDetail
+            // onFinish={(values) => updateUserDetail( values )}
             onFinish={updateUserDetail}
             user={userData?.user as User}
             loading={true}

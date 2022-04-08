@@ -297,7 +297,7 @@ export default function PersonalInfo({ onFinish }: props) {
           name="city_id"
           rules={[
             {
-              required: true,
+              required: false,
               message: "Please enter your city",
             },
           ]}

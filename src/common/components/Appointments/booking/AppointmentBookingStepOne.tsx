@@ -7,7 +7,7 @@ function StepOne() {
   return (
     <>
       <Form layout="vertical">
-        <Form.Item label="Doctor*">
+        <Form.Item label="Physician*">
           <Select disabled placeholder="Dr. Paul Wallner" className="w-full">
             <Option value="Dr.Paul Wallner">Dr.Paul Wallner</Option>
           </Select>
@@ -28,10 +28,10 @@ function StepOne() {
             </Form.Item>
           </div>
         </div>
-        <Form.Item label="Doctor*">
+        <Form.Item label="Requested Date*">
           {<DatePicker className="w-full" />}
         </Form.Item>
-        <Form.Item label="Avaiability*">
+        <Form.Item label="Availability">
           <div className="flex flex-wrap">
             <div className="w-44 bg-gray-4 rounded flex items-center justify-center h-8 w-full mr-3 mb-3">
               07:00 am - 09:00 am

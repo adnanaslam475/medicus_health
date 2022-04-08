@@ -62,7 +62,6 @@ const HealthQuestionnary = ({
             </span>
           </Checkbox>
         )}
-
         <Button
           loading={isLoading}
           disabled={!terms || isLoading}
@@ -252,9 +251,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   return (
     <Form
       initialValues={{
-        radio_drink: 1,
-        radio_smoke: 1,
-        radio_drug: 1,
+        radio_drink: 0,
+        radio_smoke: 0,
+        radio_drug: 0,
       }}
       layout="vertical"
       onFinish={onFinishHealthQuestionnary}

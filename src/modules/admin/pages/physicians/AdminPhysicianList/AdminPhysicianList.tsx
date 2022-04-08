@@ -24,7 +24,7 @@ const Ddata = [
     date: "Jan 30, 2022",
     totalamount: "$40.00",
     transactiondate: "Jan 24, 2022",
-    // status: ['completed', 'pending'],
+    // status: ["completed", "pending"],
     status: ["completed", "pending"],
     view: "Eye",
   },

@@ -3,6 +3,7 @@ import Router, { useRouter } from "next/router";
 import Link from "next/link";
 import { Form, Input, Button, Checkbox, Alert } from "antd";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import Container from "../../../../../common/components/Container/Container";
 import {
   LoginUserInput,
@@ -12,6 +13,7 @@ import { getRole, getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 
 function Login() {
+  const t = useTranslations("Login");
   const [authToken, setAuthToken] = useState(false);
   const router = useRouter();
 
@@ -84,11 +86,9 @@ function Login() {
                   src="/assets/images/logo-medi.svg"
                 />
               </div>
-              <h1 className="text-center text-secondary mb-3">
-                Login to continue
-              </h1>
+              <h1 className="text-center text-secondary mb-3">{t("title")}</h1>
               <h6 className="text-center text-gray font-rubik font-normal">
-                Enter your credentials to access your account.
+                {t("description")}
               </h6>
               <div className="mt-5">
                 <Form

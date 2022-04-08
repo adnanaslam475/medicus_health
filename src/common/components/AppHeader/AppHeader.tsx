@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-// onClick={() => Router.push("/messages")}
 import { Layout, Avatar, Dropdown, Menu, Badge } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
+import Link from "next/link";
 import InfoMessage from "../InfoMessage/InfoMessage";
 import Image from "next/image";
 import _classes from "./AppHeader.module.scss";
@@ -11,6 +11,10 @@ const { Header } = Layout;
 
 const AppHeader = () => {
   const [visible, setVisible] = useState(false);
+  const router = useRouter();
+  const { locales, locale: activeLocale } = router;
+  const otherLocales = locales?.filter((locale) => locale !== activeLocale);
+  const { pathname, query, asPath } = router;
 
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
@@ -25,7 +29,6 @@ const AppHeader = () => {
   const notificationMenu = (
     <div className="notification-menu-cover border border-gray-3 rounded">
       <div className="px-3 py-2 bg-white">
-        {/* <Menu.Item key="0"> */}
         <div className="flex border-b border-gray-4 items-start mb-3">
           <span className=" ">
             <Image
@@ -36,13 +39,10 @@ const AppHeader = () => {
               src="/assets/icon/blue_bell_Icon.svg"
             />
           </span>
-          {/* <div> */}
           <span className="notificationBody ml-3 w-full break-word">
             Your appointment with <b>John Petrucci</b> has been confirmed.
           </span>
-          {/* </div> */}
         </div>
-        {/* </Menu.Item> */}
         <div className="flex border-b border-gray-4 items-start mb-3">
           <span className=" ">
             <Image
@@ -77,7 +77,7 @@ const AppHeader = () => {
 
   return (
     <Header
-      className={`${_classes["bg-white"]} flex w-full justify-end items-center h-25 px-0 md:px-0`}
+      className={`${_classes["bg-white"]} border-b border-gray-5 bg-white flex w-full justify-end items-center h-25 px-0 md:px-0`}
     >
       <div className="w-full flex px-0 justify-between items-center">
         <div className="w-full ">
@@ -116,18 +116,22 @@ const AppHeader = () => {
             overlay={
               // eslint-disable-next-line react/jsx-wrap-multilines
               <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
-                <Menu.Item
-                  className="border-b border-gray-4"
-                  // onClick={() => Router.push("/account-settings")}
-                >
+                <Menu.Item className="border-b border-gray-4">
                   Accounts Settings
                 </Menu.Item>
 
-                <Menu.Item
-                  className="border-b border-gray-4"
-                  // onClick={() => Router.push("/payment-settings")}
-                >
+                <Menu.Item className="border-b border-gray-4">
                   Payment Settings
+                </Menu.Item>
+
+                <Menu.Item>
+                  <Link
+                    href={{ pathname, query }}
+                    as={asPath}
+                    locale={otherLocales?.[0]}
+                  >
+                    {`switch to ${otherLocales?.[0]}`}
+                  </Link>
                 </Menu.Item>
 
                 <Menu.Item onClick={logout}>
