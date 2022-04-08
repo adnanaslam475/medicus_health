@@ -1,7 +1,6 @@
 import React from "react";
 import DoctorCard from "../../../../../common/components/DoctorCards/DoctorCards";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-// import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
 import { Button, Table, Tag, Modal } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";

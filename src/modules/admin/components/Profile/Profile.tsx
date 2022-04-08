@@ -44,12 +44,9 @@ function Profile() {
                 />
               }
             />
-            {/* <a
-          href="javascript:void(0)"
-          className="text-primary underline ml-3 text-xs"
-        >
-          <Upload {...props}>Update Photo</Upload>
-        </a>  */}
+            <Button type="link" className="text-primary underline ml-3 text-xs">
+              <Upload {...props}>Update Photo</Upload>
+            </Button>
             <div>
               <span>PY-123</span>
               <h2 className="mb-0">Maxime Bauwents</h2>
