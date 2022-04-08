@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 // import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
 import {
@@ -12,6 +12,7 @@ import {
   Button,
   Checkbox,
   Select,
+  notification,
 } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
@@ -19,8 +20,10 @@ import Image from "next/image";
 import yourImage from "../../../../../../public/assets/images/your_photo.png";
 import {
   useCountriesQuery,
+  useCreateDoctorMutation,
   useGetCitiesByStateQuery,
   useGetStatesByCountryQuery,
+  User,
 } from "../../../../../generated/graphql";
 import dayjs from "dayjs";
 import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
@@ -28,15 +31,14 @@ import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysic
 type props = {
   validateForm?: (value: any) => void;
   onFinishPersonalInfo?: (value: any) => void;
-  onFinish?: (value: any) => void;
 };
 function AdminPhysicianAdd() {
+  const [data, CreateDoctorMutation] = useCreateDoctorMutation();
+
   // const [{ data }] = useDoctorProfilesQuery();
   // const { doctorProfiles } = data || {};
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
+  const form: any = useRef();
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -44,17 +46,42 @@ function AdminPhysicianAdd() {
 
   const [image, setImage] = useState("");
 
-  const props = {
-    // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange({ file, fileList }: any) {
-      if (file.status !== "uploading") {
-        // console.log("fileList", fileList);
-        // console.log("file", file);
+  const createDoctor = async (values: any) => {
+    return null;
+    await CreateDoctorMutation({
+      createDoctorInput: {
+        first_name: values?.firstName,
+        last_name: values?.lastName,
+        email: values?.email,
+        streetAddress: values?.streetAddress,
+        country_id: values?.country,
+        state_id: values?.state,
+        city_id: values?.city_id,
+        zip_code: values?.postalCode,
+      },
+    });
+    if (data?.data) {
+      {
+        data?.data?.createDoctor &&
+          notification.success({
+            message: "Successfully Created",
+          });
       }
-    },
-  };
+    }
 
-  const [form] = Form.useForm();
+    if (data?.error) {
+      {
+        data?.error?.graphQLErrors[0]?.message &&
+          notification.error({
+            message:
+              data?.error?.graphQLErrors[0]?.message || "Something went wrong",
+          });
+      }
+    }
+
+    try {
+    } catch (error) {}
+  };
 
   return (
     <AppLayout>
@@ -63,46 +90,10 @@ function AdminPhysicianAdd() {
           <h2 className="mb-4">Add a Physician</h2>
         </div>
         <div className="w-full">
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
             <div className="flex flex-col w-full justify-start items-center py-3">
-              <div className="w-full mb-10">
-                <Upload
-                  // onChange={fileChange}
-                  maxCount={1}
-                  // beforeUpload={onBeforeUpload}
-                  itemRender={() => <div />}
-                  customRequest={() => null}
-                >
-                  <div className="relative">
-                    <Avatar
-                      size={50}
-                      // icon={<UserOutlined />}
-                      // src={userData?.user?.patientProfile?.profileImage}
-                      style={{
-                        borderColor: "purple",
-                        borderWidth: 2,
-                        lineHeight: "40px",
-                      }}
-                    />
-                    <span className="rounded-full absolute p-1 left-8 -top-2">
-                      <Avatar
-                        style={{
-                          backgroundColor: "purple",
-                          width: "15px",
-                          height: "15px",
-                          padding: "20%",
-                        }}
-                        size="small"
-                        src="/assets/icons/editAvatar.png"
-                      />
-                    </span>
-                  </div>
-                </Upload>
-              </div>
               <div className="w-full">
-                <AddPhysicianForm
-                 onFinish={()=>null}
-                />
+                <AddPhysicianForm onFinish={createDoctor} />
               </div>
             </div>
           </div>
