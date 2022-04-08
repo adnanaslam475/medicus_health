@@ -11,8 +11,14 @@ import {
   Button,
   Checkbox,
   Select,
+  Tabs,
 } from "antd";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  EyeFilled,
+  UserOutlined,
+  BellOutlined,
+} from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
 import yourImage from "../../../../../../public/assets/images/your_photo.png";
@@ -23,6 +29,9 @@ import {
 } from "../../../../../generated/graphql";
 import dayjs from "dayjs";
 import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
+import Profile from "../../../components/Profile/Profile";
+import EmailNotification from "../../EmailNotification/EmailNotification";
+import { QuestionnaireForm } from "../../../../../common/components/Questionnary/questionnary";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -49,43 +58,91 @@ function AdminPhysicianDetail() {
 
   const [form] = Form.useForm();
 
+  const { TabPane } = Tabs;
+
   return (
     <AppLayout>
       <div className="w-full">
         <div className="flex justify-between">
-          <h2 className="mb-4">Add a Physician</h2>
+          <h2 className="mb-4">Edit Physician</h2>
         </div>
         <div className="w-full">
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-            <div className="flex flex-col w-full justify-start items-center py-3">
-              <div className="w-full mb-10">
-                <Upload
-                  maxCount={1}
-                  itemRender={() => <div />}
-                  customRequest={() => null}
-                >
-                  <div className="relative">
-                    <Avatar
-                      size={50}
-                      style={{
-                        borderColor: "transparent",
-                        borderWidth: 2,
-                        lineHeight: "40px",
-                      }}
-                    />
-                    <Button
-                      type="link"
-                      className="text-primary underline ml-3 text-xs"
-                    >
-                      Update Photo
-                    </Button>
-                  </div>
-                </Upload>
-              </div>
-              <div className="w-full">
-                <AddPhysicianForm onFinish={() => null} />
-              </div>
-            </div>
+          <div className="w-full py-5">
+            <Tabs defaultActiveKey="1">
+              <TabPane
+                tab={
+                  <span>
+                    <UserOutlined className="" />
+                    Profile
+                  </span>
+                }
+                key="1"
+              >
+                <Profile />
+              </TabPane>
+              {/* <TabPane
+                tab={
+                  <span>
+                    <BellOutlined />
+                    Email Notifications
+                  </span>
+                }
+                key="2"
+              >
+                <EmailNotification />
+              </TabPane> */}
+              <TabPane
+                tab={
+                  <span>
+                    <BellOutlined />
+                    Questionanaire
+                  </span>
+                }
+                key="2"
+              >
+                {/* <QuestionnaireForm
+                  ref={form}
+                  data={data?.patientHealthHistory.history}
+                  onFinishSuccess={onFinishHealthQuestionnarySuccess}
+                />
+
+                <div className="flex items-center justify-end">
+                  <Button
+                    loading={fetching}
+                    disabled={fetching}
+                    className="ant-btn ant-btn-primary ant-btn mb-0"
+                    type="primary"
+                    onClick={() => form?.current?.submit()}
+                  >
+                    Update
+                  </Button>
+                </div> */}
+              </TabPane>
+
+              <TabPane
+                tab={
+                  <span>
+                    <BellOutlined />
+                    Earnings
+                  </span>
+                }
+                key="3"
+              >
+                <EmailNotification />
+              </TabPane>
+
+              <TabPane
+                tab={
+                  <span>
+                    <BellOutlined />
+                    Staff
+                  </span>
+                }
+                key="4"
+              >
+                <EmailNotification />
+              </TabPane>
+            </Tabs>
           </div>
         </div>
       </div>
