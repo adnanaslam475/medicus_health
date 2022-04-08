@@ -2,8 +2,10 @@ import React from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
-import { Button } from "antd";
+import { Button ,Select} from "antd";
 
+
+const { Option } = Select;
 function UpcomingAppointments() {
   return (
     <AppLayout>
@@ -16,7 +18,15 @@ function UpcomingAppointments() {
               ullamcorperequesty tortor a fringilla tempus.
             </p>
           </div>
-          <Button type="primary">Request an Appointment</Button>
+          <div className="flex gap-3">
+          <div className="lg:ml-3 mt-0 sm:mt-0">
+          <Select defaultValue="Calendar View"  className="w-full sm:w-40">
+            <Option value="Calendar View">Calendar View</Option>
+            <Option value="List View">List View</Option>
+          </Select>
+        </div>
+          <Button type="primary" className="text-sm"><span className="text-xs sm:text-base">Request an Appointment</span></Button>
+          </div>
         </div>
         <SearchFilters />
         <div className="w-full">

@@ -20,9 +20,9 @@ import {
 
 const IconsList = [
   <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+  <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
   <ChatBubbleIcon className={_classes["sidebar-icon-hover"]} />,
   <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
-  <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
 ];
 
 function SidebarMenuItem() {
