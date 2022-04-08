@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 
 import {
@@ -12,6 +12,7 @@ import {
   Button,
   Checkbox,
   Select,
+  notification,
 } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
@@ -19,8 +20,10 @@ import Image from "next/image";
 import yourImage from "../../../../../../public/assets/images/your_photo.png";
 import {
   useCountriesQuery,
+  useCreateDoctorMutation,
   useGetCitiesByStateQuery,
   useGetStatesByCountryQuery,
+  User,
 } from "../../../../../generated/graphql";
 import dayjs from "dayjs";
 import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
@@ -28,15 +31,11 @@ import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysic
 type props = {
   validateForm?: (value: any) => void;
   onFinishPersonalInfo?: (value: any) => void;
-  onFinish?: (value: any) => void;
 };
 function AdminPhysicianAdd() {
-  // const [{ data }] = useDoctorProfilesQuery();
-  // const { doctorProfiles } = data || {};
+  const [data, CreateDoctorMutation] = useCreateDoctorMutation();
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
+  const form: any = useRef();
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -44,17 +43,41 @@ function AdminPhysicianAdd() {
 
   const [image, setImage] = useState("");
 
-  const props = {
-    // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange({ file, fileList }: any) {
-      if (file.status !== "uploading") {
-        // console.log("fileList", fileList);
-        // console.log("file", file);
+  const createDoctor = async (values: any) => {
+    await CreateDoctorMutation({
+      createDoctorInput: {
+        first_name: values?.firstName,
+        last_name: values?.lastName,
+        email: values?.email,
+        streetAddress: values?.streetAddress,
+        country_id: values?.country,
+        state_id: values?.state,
+        city_id: values?.city_id,
+        zip_code: values?.postalCode,
+      },
+    });
+    if (data?.data) {
+      {
+        data?.data?.createDoctor &&
+          notification.success({
+            message: "Successfully Created",
+          });
       }
-    },
-  };
+    }
 
-  const [form] = Form.useForm();
+    if (data?.error) {
+      {
+        data?.error?.graphQLErrors[0]?.message &&
+          notification.error({
+            message:
+              data?.error?.graphQLErrors[0]?.message || "Something went wrong",
+          });
+      }
+    }
+
+    try {
+    } catch (error) {}
+  };
 
   return (
     <AppLayout>
@@ -90,7 +113,7 @@ function AdminPhysicianAdd() {
                 </Upload>
               </div>
               <div className="w-full">
-                <AddPhysicianForm onFinish={() => null} />
+                <AddPhysicianForm onFinish={createDoctor} />
               </div>
             </div>
           </div>
