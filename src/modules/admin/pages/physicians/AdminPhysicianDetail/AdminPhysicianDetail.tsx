@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-
 import {
   Table,
   Tag,
@@ -12,7 +11,6 @@ import {
   Button,
   Checkbox,
   Select,
-  notification,
 } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
@@ -20,25 +18,21 @@ import Image from "next/image";
 import yourImage from "../../../../../../public/assets/images/your_photo.png";
 import {
   useCountriesQuery,
-  useCreateDoctorMutation,
   useGetCitiesByStateQuery,
   useGetStatesByCountryQuery,
-  User,
 } from "../../../../../generated/graphql";
 import dayjs from "dayjs";
 import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
-import Router, { useRouter } from "next/router";
-
 
 type props = {
   validateForm?: (value: any) => void;
   onFinishPersonalInfo?: (value: any) => void;
+  onFinish?: (value: any) => void;
 };
-function AdminPhysicianAdd() {
-  const [data, CreateDoctorMutation] = useCreateDoctorMutation();
-
-  const form: any = useRef();
+function AdminPhysicianDetail() {
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+  };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -46,46 +40,14 @@ function AdminPhysicianAdd() {
 
   const [image, setImage] = useState("");
 
-  const createDoctor = async (values: any) => {
-    const response = await CreateDoctorMutation({
-      createDoctorInput: {
-        first_name: values?.firstName,
-        last_name: values?.lastName,
-        email: values?.email,
-        streetAddress: values?.streetAddress,
-        country_id: values?.country,
-        state_id: values?.state,
-        city_id: values?.city_id,
-        zip_code: values?.postalCode,
-      },
-    });
-
-    if (response?.data?.createDoctor) {
-      Router.push({
-        pathname: "/successScreen",
-        query: { email: values?.email },
-      });
-    }
-
-    if (response?.data) {
-      response?.data?.createDoctor &&
-        notification.success({
-          message: "Successfully Created",
-        });
-    }
-
-    if (response?.error) {
-      response?.error?.graphQLErrors[0]?.message &&
-        notification.error({
-          message:
-            response?.error?.graphQLErrors[0]?.message ||
-            "Something went wrong",
-        });
-    }
-
-    try {
-    } catch (error) {}
+  const props = {
+    onChange({ file, fileList }: any) {
+      if (file.status !== "uploading") {
+      }
+    },
   };
+
+  const [form] = Form.useForm();
 
   return (
     <AppLayout>
@@ -121,7 +83,7 @@ function AdminPhysicianAdd() {
                 </Upload>
               </div>
               <div className="w-full">
-                <AddPhysicianForm onFinish={createDoctor} />
+                <AddPhysicianForm onFinish={() => null} />
               </div>
             </div>
           </div>
@@ -130,4 +92,4 @@ function AdminPhysicianAdd() {
     </AppLayout>
   );
 }
-export default AdminPhysicianAdd;
+export default AdminPhysicianDetail;

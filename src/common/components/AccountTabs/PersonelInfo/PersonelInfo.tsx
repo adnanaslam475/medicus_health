@@ -124,6 +124,12 @@ const PersonalInfo = () => {
                   }}
                   src={userProfileImage}
                 />
+                <Button
+                  type="link"
+                  className="text-primary underline ml-3 text-xs"
+                >
+                  Update Photo
+                </Button>
               </div>
             </Upload>
           </div>
