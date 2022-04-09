@@ -182,17 +182,19 @@ function DoctorProfileCard(props: Props) {
                 }
               >
                 <div className="ant-collapse-time-body">
-                  {doctorData?.user?.doctorSchedules?.map((item, index) => (
-                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                      <span>{date?.dayName(item.day)}</span>
-                      <div>
-                        <span>
-                          {`${date.time24HrConvert(item?.startTime)} -
+                  {doctorData?.user?.doctorSchedules?.length !== 0
+                    ? doctorData?.user?.doctorSchedules?.map((item, index) => (
+                        <div className="flex-none sm:flex flex-grow justify-between mb-2">
+                          <span>{date?.dayName(item.day)}</span>
+                          <div>
+                            <span>
+                              {`${date.time24HrConvert(item?.startTime)} -
                           ${date.time24HrConvert(item?.endTime)}`}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+                            </span>
+                          </div>
+                        </div>
+                      ))
+                    : "Doctor Schedules not available"}
                 </div>
               </Panel>
             </Collapse>
@@ -225,7 +227,7 @@ function DoctorProfileCard(props: Props) {
         </div>
         <Divider />
         <h4 className="font-bold mb-1">About Me</h4>
-        <div className="text-gray text-base">{doctorData?.about_me}</div>
+        <div className="text-base text-base">{doctorData?.about_me}</div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
         <p className="text-base text-secondary">
@@ -234,12 +236,27 @@ function DoctorProfileCard(props: Props) {
         <Divider />
         <h4 className="font-bold mb-1">Professional Background</h4>
         <div className="text-base text-secondary">
-          {doctorData?.professional_experience}
+          {doctorData &&
+            JSON.parse(doctorData?.professional_experience).map((item: any) => (
+              <>
+                <b>{item?.institution}</b>
+                <br />
+                <span> {item?.role}</span>
+              </>
+            ))}
         </div>
         <Divider />
         <h4 className="font-bold mb-1">Educational Background</h4>
         <div className="text-base text-secondary">
-          {doctorData?.educational_background}
+          {doctorData &&
+            JSON.parse(doctorData?.educational_background).map((item: any) => (
+              <>
+                <b>{item?.institution}</b>
+                <br />
+                <span> {item?.degree}</span>
+                <br />
+              </>
+            ))}
         </div>
         <Divider />
         <a

@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import {
   useCountriesQuery,
@@ -11,38 +11,27 @@ type Props = {
   onFinish?: (values: {
     firstName: string;
     lastName: string;
-    gender: string;
-    date_of_birth: string;
-    conntactNumber: string;
     email: string;
-    password: string;
     country: string;
     state: string;
     city: number;
     postalCode: string;
     streetAddress: string;
-    maritalStatus: string;
     profileImage: string;
-    children: string;
-    occupation: string;
-    occupationalExposure: string;
-    pets: string;
-    petsAnswer: string;
-    exposureDuration: string;
   }) => void;
-  //   user?: User;
-  //   loading?: boolean;
+    // user?: User;
+    // loading?: boolean;
 };
 
 export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
   props: Props,
   ref: any
 ) {
+  const [formInstance] = Form.useForm();
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
   const [form] = Form.useForm();
-
-  //   const {onFinish}
+  const { onFinish } = props || {};
 
   function selectCountryId(id: number): void {
     setCountryId(id);
@@ -50,10 +39,6 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
 
   function selectStateId(id: number): void {
     setStateId(id);
-  }
-
-  function disabledDate(current: any) {
-    return current && current > dayjs().startOf("day");
   }
 
   const [getStatesByCountry] = useGetStatesByCountryQuery({
@@ -72,11 +57,9 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
 
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
+
   return (
-    <Form
-      //   onFinish={onFinish}
-      layout="vertical"
-    >
+    <Form form={formInstance} onFinish={onFinish} layout="vertical">
       <div className="flex flex-row gap-3">
         <Form.Item
           label="First Name"
@@ -99,15 +82,49 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
 
       <div className="flex flex-row gap-0">
         <Form.Item
-          name={["user", "email"]}
+          name="email"
           label="Email"
-          rules={[{ type: "email" }]}
+          rules={[{ type: "email", required: true }]}
           className="flex-1"
         >
           <Input />
         </Form.Item>
       </div>
+      {/* <div className="flex flex-row gap-3">
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "Password" }]}
+          className="flex-1"
+        >
+          <Input.Password />
+        </Form.Item>
 
+        <Form.Item
+          label="Confirm Password"
+          name="confirmPassword"
+          rules={[{ required: true, message: "Confirm password!" }]}
+          className="flex-1"
+        >
+          <Input.Password />
+        </Form.Item>
+      </div> */}
+
+      {/* <div className="flex flex-col md:flex-row gap-4">
+        <Form.Item
+          className="flex-1"
+          label="Specialization"
+          name="Specialization"
+          rules={[
+            {
+              required: true,
+              message: "Specialization",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+      </div> */}
       {/* Address, City, State, Country Postal Address */}
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
@@ -128,7 +145,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
         <Form.Item
           className="flex-1"
           label="Country"
-          name="country_id"
+          name="country"
           rules={[
             {
               required: true,
@@ -165,7 +182,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
         <Form.Item
           className="flex-1"
           label="State"
-          name="state_id"
+          name="state"
           rules={[
             {
               required: true,
@@ -229,7 +246,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
         <Form.Item
           className="flex-1"
           label="Postal Code"
-          name="zip_code"
+          name="postalCode"
           rules={[
             {
               required: true,
