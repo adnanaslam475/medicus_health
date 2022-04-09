@@ -32,6 +32,7 @@ import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysic
 import Profile from "../../../components/Profile/Profile";
 import EmailNotification from "../../EmailNotification/EmailNotification";
 import { QuestionnaireForm } from "../../../../../common/components/Questionnary/questionnary";
+import PhysicianProfile from "./AdminDetailTabs/PhysicianProfile";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -78,19 +79,9 @@ function AdminPhysicianDetail() {
                 }
                 key="1"
               >
-                <Profile />
+                <PhysicianProfile />
               </TabPane>
-              {/* <TabPane
-                tab={
-                  <span>
-                    <BellOutlined />
-                    Email Notifications
-                  </span>
-                }
-                key="2"
-              >
-                <EmailNotification />
-              </TabPane> */}
+
               <TabPane
                 tab={
                   <span>
@@ -104,9 +95,9 @@ function AdminPhysicianDetail() {
                   ref={form}
                   data={data?.patientHealthHistory.history}
                   onFinishSuccess={onFinishHealthQuestionnarySuccess}
-                />
+                /> */}
 
-                <div className="flex items-center justify-end">
+                {/* <div className="flex items-center justify-end">
                   <Button
                     loading={fetching}
                     disabled={fetching}

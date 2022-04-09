@@ -857,6 +857,13 @@ export type DoctorProfileQueryVariables = Exact<{
 
 export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
 
+export type DoctorProfileDetailsQueryVariables = Exact<{
+  input: Scalars['Int'];
+}>;
+
+
+export type DoctorProfileDetailsQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', day: number, startTime: string, endTime: string }> | null } };
+
 
 export const CreateUserDocument = gql`
     mutation createUser($input: CreateUserInput!) {
@@ -1219,6 +1226,41 @@ export const DoctorProfileDocument = gql`
 
 export function useDoctorProfileQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorProfileQuery>({ query: DoctorProfileDocument, ...options });
+};
+export const DoctorProfileDetailsDocument = gql`
+    query doctorProfileDetails($input: Int!) {
+  user(id: $input) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    country_id
+    state_id
+    city_id
+    zip_code
+    doctorProfile {
+      id
+      year_of_experience
+      specialization
+      condition_treated
+      educational_background
+      professional_experience
+      language
+      about_me
+      profile_image
+    }
+    doctorSchedules {
+      day
+      startTime
+      endTime
+    }
+  }
+}
+    `;
+
+export function useDoctorProfileDetailsQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileDetailsQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorProfileDetailsQuery>({ query: DoctorProfileDetailsDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
