@@ -3,12 +3,22 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard";
 import Router, { useRouter } from "next/router";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
-import { Button ,Select} from "antd";
-import Link from 'next/link'
-
+import { Button, Select } from "antd";
+import Link from "next/link";
+import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 
 const { Option } = Select;
 function UpcomingAppointments() {
+  const [{ data }] = useGetAllRequestedAppointmentsQuery({
+    variables: {
+      filter: {
+        doctorId: 520,
+        status: "Requested",
+      },
+    },
+  });
+
+  const { appointments } = data || {};
   return (
     <AppLayout>
       <div className="w-full">
@@ -21,27 +31,54 @@ function UpcomingAppointments() {
             </p>
           </div>
           <div className="flex gap-3">
-          <div className="lg:ml-3 mt-0 sm:mt-0">
-          <Select defaultValue="Calendar View"  className="w-full sm:w-40">
-            <Option value="Calendar View" ><Link href="/patient/calendar">
-          <a>Calendar View</a>
-        </Link>
-</Option>
-            <Option value="List View">List View</Option>
-          </Select>
-        </div>
-          <Button type="primary" className="text-sm" onClick={()=>Router.push("/patient/calendar")}><span className="text-xs sm:text-base">Request an Appointment</span></Button>
+            <div className="lg:ml-3 mt-0 sm:mt-0">
+              <Select defaultValue="Calendar View" className="w-full sm:w-40">
+                <Option value="Calendar View">
+                  <Link href="/patient/calendar">
+                    <a>Calendar View</a>
+                  </Link>
+                </Option>
+                <Option value="List View">List View</Option>
+              </Select>
+            </div>
+            <Button
+              type="primary"
+              className="text-sm"
+              onClick={() => Router.push("/patient/calendar")}
+            >
+              <span className="text-xs sm:text-base">
+                Request an Appointment
+              </span>
+            </Button>
           </div>
         </div>
         <SearchFilters />
         <div className="w-full">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
+            {appointments?.map((appointmentDetail, i) => {
+              const {
+                id,
+                patientId,
+                doctorId,
+                serviceId,
+                requestedDate,
+                status,
+                serviceType,
+                doctor,
+              } = appointmentDetail || {};
+              return (
+                <AppointmentCard
+                  id={id}
+                  patientId={patientId}
+                  doctorId={doctorId}
+                  serviceId={serviceId}
+                  requestedDate={requestedDate}
+                  status={status}
+                  serviceType={serviceType?.name}
+                  doctor={doctor?.first_name}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

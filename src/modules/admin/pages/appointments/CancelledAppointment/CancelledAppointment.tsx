@@ -3,8 +3,20 @@ import React from "react";
 import AppointmentCard from "../../../../../common/components/AppointmentCard";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
+import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 
 function CancelledAppointment() {
+  const [{ data }] = useGetAllRequestedAppointmentsQuery({
+    variables: {
+      filter: {
+        doctorId: 520,
+        status: "Requested",
+      },
+    },
+  });
+
+  const { appointments } = data || {};
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -25,15 +37,32 @@ function CancelledAppointment() {
 
         <div className="w-full">
           <div className="appointment-cards flex flex-wrap">
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-          </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              {appointments?.map((appointmentDetail, i) => {
+                const {
+                  id,
+                  patientId,
+                  doctorId,
+                  serviceId,
+                  requestedDate,
+                  status,
+                  serviceType,
+                  doctor,
+                } = appointmentDetail || {};
+                return (
+                  <AppointmentCard
+                    id={id}
+                    patientId={patientId}
+                    doctorId={doctorId}
+                    serviceId={serviceId}
+                    requestedDate={requestedDate}
+                    status={status}
+                    serviceType={serviceType?.name}
+                    doctor={doctor?.first_name}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
