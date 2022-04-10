@@ -19,25 +19,25 @@ function SetPassword() {
   const router = useRouter();
   const { token } = router.query;
 
-    async function onConfirmPassword(data: { password: string }) {
-      const payload = {
-        password: data.password,
-        password_token: token,
-      };
+  async function onConfirmPassword(data: { password: string }) {
+    const payload = {
+      password: data.password,
+      password_token: token,
+    };
 
-      try {
-        const res = await resetPassword({
-          input: payload as ResetPasswordInput,
-        });
-        // if (res.data && !res.error) {
-        //   Router.replace({
-        //     pathname: "/login",
-        //   });
-        // }
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      const res = await resetPassword({
+        input: payload as ResetPasswordInput,
+      });
+      // if (res.data && !res.error) {
+      //   Router.replace({
+      //     pathname: "/login",
+      //   });
+      // }
+    } catch (err) {
+      console.log(err);
     }
+  }
 
   return (
     <Container className="login-bg w-full">
@@ -109,5 +109,3 @@ function SetPassword() {
   );
 }
 export default SetPassword;
-
-// some text

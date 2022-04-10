@@ -14,9 +14,6 @@ function PhysiciansDetail() {
   const [{ data }] = useDoctorProfileQuery({
     variables: { doctor_id: Number(query?.id) },
   });
-  // const [{ data }] = useDoctorProfileDetailsQuery({
-  //   variables: { id: Number(query?.id) },
-  // });
 
   const { doctorProfile } = data || {};
 

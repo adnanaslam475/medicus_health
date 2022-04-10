@@ -232,11 +232,16 @@ function AdminPhysicianList() {
       className: "table-action-icon",
       render: () => (
         <div className="bg-primary">
-          <EyeFilled
+          <Link passHref href={`physicians/ProfileDetail/${533}`}>
+            <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
+              <EyeFilled />
+            </a>
+          </Link>
+          {/* <EyeFilled
             onClick={() => {
               return Router.push("physicians/ProfileDetail");
-            }}
-          />
+            }}            
+          /> */}
           {/* <EyeFilled /> */}
         </div>
       ),

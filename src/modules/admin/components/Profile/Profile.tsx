@@ -17,12 +17,8 @@ import {
 } from "antd";
 
 const props = {
-  // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
   onChange({ file, fileList }: any) {
     if (file.status !== "uploading") {
-      // console.log("fileList", fileList);
-      // console.log("file", file);
-      // setImage(file?.name);
     }
   },
 };
@@ -44,9 +40,7 @@ function Profile() {
                 />
               }
             />
-            {/* <Button type="link" className="text-primary underline ml-3 text-xs">
-              <Upload {...props}>Update Photo</Upload>
-            </Button> */}
+
             <div>
               <span>PY-123</span>
               <h2 className="mb-0">Maxime Bauwents</h2>
