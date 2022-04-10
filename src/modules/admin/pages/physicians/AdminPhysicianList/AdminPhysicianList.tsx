@@ -227,14 +227,14 @@ function AdminPhysicianList() {
     },
     {
       title: "",
-      dataIndex: "",
+      dataIndex: "doctor_id",
       key: "view",
       className: "table-action-icon",
-      render: () => (
+      render: (value: any) => (
         <div className="bg-primary">
           <EyeFilled
             onClick={() => {
-              return Router.push("physicians/ProfileDetail");
+              return Router.push(`/admin/account/${value}`);
             }}
           />
           {/* <EyeFilled /> */}

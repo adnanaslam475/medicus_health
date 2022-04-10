@@ -6,13 +6,25 @@ import { Tabs, Badge, Modal } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import Container from "../../../../common/components/Container/Container";
-import Profile from "../../components/Profile/Profile";
+import {Profile} from "../../components/Profile/Profile";
 import EmailNotification from "../EmailNotification/EmailNotification";
 import { ProfileIcon } from "../../../../../src/common/components/CustomIcon";
+import { DoctorProfile, useDoctorProfileQuery } from "../../../../generated/graphql";
 
 const { TabPane } = Tabs;
 
 function ProfileDetail() {
+  const router = useRouter();
+
+  const { id } = router.query;
+  console.log("id",id)
+
+  const [{ data }] = useDoctorProfileQuery({
+    variables: { doctor_id: Number(id) },
+  });
+
+  console.log("data",data)
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -27,7 +39,7 @@ function ProfileDetail() {
               }
               key="1"
             >
-              <Profile />
+              <Profile doctorData={data}/>
             </TabPane>
             <TabPane
               tab={

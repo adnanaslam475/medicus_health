@@ -26,7 +26,32 @@ const props = {
     }
   },
 };
-function Profile() {
+export const Profile = React.forwardRef(function Profile(doctorData: any) {
+  const [formInstance] = Form.useForm();
+
+  // const {first_name,last_name,password}
+
+  useEffect(() => {
+    // if (ref) {
+    //   ref.current = formInstance;
+    // }
+    if (doctorData) {
+      console.log("doctorData", doctorData);
+      prepareAndSetEditPayload();
+    }
+  }, [doctorData]);
+
+  function prepareAndSetEditPayload() {
+    formInstance.setFieldsValue({
+      firstName: "majid",
+      lastName: "mateen",
+      conntactNumber: "",
+      email: "majd@gmail.com",
+      password: "",
+      confirmPassword: "",
+    });
+  }
+
   return (
     <div className="w-full">
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
@@ -60,6 +85,7 @@ function Profile() {
           </div>
           <div className="w-full">
             <Form
+              form={formInstance}
               name="basic"
               // initialValues={{ remember: true }}
               //   onFinish={onFinish}
@@ -88,7 +114,8 @@ function Profile() {
 
               <div className="flex flex-row gap-3">
                 <Form.Item
-                  name={["user", "email"]}
+                  name="email"
+                  // name={["user", "email"]}
                   label="Email"
                   rules={[{ type: "email" }]}
                   className="flex-1"
@@ -129,6 +156,6 @@ function Profile() {
       </div>
     </div>
   );
-}
+});
 
-export default Profile;
+// export default Profile;
