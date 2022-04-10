@@ -34,10 +34,6 @@ const FLAG_BY_LANGUAGE = {
   ["Spanish" as string]: espanolFlag,
 };
 
-type Props = {
-  doctorData: DoctorProfile;
-};
-
 const { Panel } = Collapse;
 const { Step } = Steps;
 
@@ -63,6 +59,10 @@ const steps = [
     content: <SuccessMessage />,
   },
 ];
+
+type Props = {
+  doctorData: DoctorProfile;
+};
 
 function DoctorProfileCard(props: Props) {
   const { doctorData } = props || {};
@@ -94,6 +94,7 @@ function DoctorProfileCard(props: Props) {
 
   console.log("doctorData", doctorData);
 
+  console.log(doctorData, "doctorData");
   return (
     <>
       <Modal
@@ -153,7 +154,7 @@ function DoctorProfileCard(props: Props) {
               </h2>
               <div className="flex">
                 <div className="flagAvatar engFlag pr-2">
-                  { language && FLAG_BY_LANGUAGE[language] && (
+                  {language && FLAG_BY_LANGUAGE[language] && (
                     <Image
                       src={FLAG_BY_LANGUAGE[language]}
                       alt={language || "flag"}
@@ -232,7 +233,7 @@ function DoctorProfileCard(props: Props) {
         </div>
         <Divider />
         <h4 className="font-bold mb-1">About Me</h4>
-        <div className="text-base text-base">{doctorData?.about_me}</div>
+        <div className="text-base">{doctorData?.about_me}</div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
         <p className="text-base text-secondary">
