@@ -6,9 +6,17 @@ import Image from "next/image";
 
 // import { getDateInFormat, getDateInFormatHHMMSS } from "../utils/dateFormat";
 
-function CalendarModalComponent(props) {
+
+type Props={
+    modalVisible:(arg: boolean)=>{};
+    closeModal:(arg: boolean)=>{};
+    data:any;
+    onOk:(arg: boolean)=>{};
+    okText:string
+}
+function CalendarModalComponent(props:Props) {
   const { modalVisible, closeModal, data, onOk, okText } = props;
-  const { id,doctor, patient,serviceType, className, date, endDate, status, type } = data;
+  const { id,doctor, patient,serviceType } = data;
   
 
   return (

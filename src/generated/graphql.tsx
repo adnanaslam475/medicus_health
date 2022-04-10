@@ -863,6 +863,7 @@ export type GetAllRequestedAppointmentsQueryVariables = Exact<{
 
 
 export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, requestedDate: any, status?: string | null, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, doctor: { __typename?: 'User', first_name: string } }> };
+
 export type DoctorProfileDetailsQueryVariables = Exact<{
   input: Scalars['Int'];
 }>;
@@ -1253,7 +1254,12 @@ export const GetAllRequestedAppointmentsDocument = gql`
       first_name
     }
   }
-  `;
+}
+    `;
+
+export function useGetAllRequestedAppointmentsQuery(options: Omit<Urql.UseQueryArgs<GetAllRequestedAppointmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllRequestedAppointmentsQuery>({ query: GetAllRequestedAppointmentsDocument, ...options });
+};
 export const DoctorProfileDetailsDocument = gql`
     query doctorProfileDetails($input: Int!) {
   user(id: $input) {
@@ -1286,8 +1292,6 @@ export const DoctorProfileDetailsDocument = gql`
 }
     `;
 
-export function useGetAllRequestedAppointmentsQuery(options: Omit<Urql.UseQueryArgs<GetAllRequestedAppointmentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllRequestedAppointmentsQuery>({ query: GetAllRequestedAppointmentsDocument, ...options });
 export function useDoctorProfileDetailsQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileDetailsQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorProfileDetailsQuery>({ query: DoctorProfileDetailsDocument, ...options });
 };
