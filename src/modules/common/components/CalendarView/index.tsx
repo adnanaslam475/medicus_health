@@ -10,10 +10,10 @@ import calendarStyle from "./style.module.scss";
 
 
 type Props ={
-  handleDateChange:(arg: string)=>{};
-  handleDateClick:(arg: string)=>{};
+  handleDateChange:(arg: any|undefined)=>void;
+  handleDateClick:(arg: any |undefined)=>void;
   calendarComponentRef:any;
-  calender:Array<string>
+  calender:any;
 }
 function AdminAimsCalender(props:Props) { 
  const {handleDateChange,calendarComponentRef,calender,handleDateClick}= props;

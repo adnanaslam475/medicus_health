@@ -8,19 +8,19 @@ import Image from "next/image";
 
 
 type Props={
-    modalVisible:(arg: boolean)=>{};
-    closeModal:(arg: boolean)=>{};
+    modalVisible:boolean;
+    closeModal:()=>void;
     data:any;
-    onOk:(arg: boolean)=>{};
+    onOk:boolean;
     okText:string
 }
 function CalendarModalComponent(props:Props) {
   const { modalVisible, closeModal, data, onOk, okText } = props;
-  const { id,doctor, patient,serviceType } = data;
+  const { id,doctor, patient,serviceType ,date} = data;
   
 
   return (
-    <Modal title="" centered visible={modalVisible} onOk={() => onOk?.()} onCancel={closeModal} footer={null}>
+    <Modal title="" centered visible={modalVisible}  onCancel={closeModal} >
       
         <div className="border-b pb-0 pt-2">
           <p className="text-grey-4 ">ID</p>
@@ -42,7 +42,7 @@ function CalendarModalComponent(props:Props) {
      
       
      
-        <div className="border-b pb-0 pt-2" size={12}>
+        <div className="border-b pb-0 pt-2" >
           <p className="text-grey-4 ">Date</p>
           <div className="flex justify-between font-semibold">
             <div className="flex items-center">
@@ -59,7 +59,7 @@ function CalendarModalComponent(props:Props) {
     
       
           
-          <Button key="link" onClick={() => onOk?.()} type="primary">
+          <Button key="link"  type="primary">
             Details
           </Button>
     

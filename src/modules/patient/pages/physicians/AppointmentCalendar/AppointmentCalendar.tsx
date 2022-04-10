@@ -5,9 +5,13 @@ import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/gr
 import CalendarModalComponent from "../../../../common/components/CalendarModal";
 import { Router } from "next/router";
 
+type events = {
+  calenderEvents:any ;
+  
+};
 function AppointmentCalendar() {
   const calendarComponentRef = useRef(null);
-  const [calender, setCalender] = useState({
+  const [calender, setCalender] = useState<events>({
     calenderEvents: [],
   });
   const [modalData, setModalData] = useState({});
@@ -24,7 +28,7 @@ function AppointmentCalendar() {
 
   const { appointments } = data || {};
 
-  const handleDateClick = (arg) => {
+  const handleDateClick = (arg:any) => {
     const data = arg?.event?.toJSON();
 
     setModalData(
@@ -70,24 +74,25 @@ function AppointmentCalendar() {
       )
     })
   }
+  console.log(calendarComponentRef,"g");
   useEffect(() => {
     setCalendarData();
   }, [appointments])
-  const handleDateChange = (arg) => {
+  const handleDateChange = (arg:string) => {
     setCalender({
       ...calender,
-      calendarEvents: [],
+     
     });
     setTimeout(() => {
       // getCalendarData();
     }, 200);
-    const calenderApi = calendarComponentRef.current?.getApi()?.currentDataManager;
+    // const calenderApi = calendarComponentRef.current?.getApi()?.currentDataManager;
     switch (arg) {
       case "next":
-        calenderApi.data.calendarApi.next();
+        // calenderApi.data.calendarApi.next();
         break;
       case "prev":
-        calenderApi.data.calendarApi.prev();
+        // calenderApi.data.calendarApi.prev();
         break;
       default:
         break;
@@ -100,7 +105,7 @@ function AppointmentCalendar() {
           <CalendarView calender={calender} handleDateChange={handleDateChange} calendarComponentRef={calendarComponentRef} handleDateClick={handleDateClick} />
         </div>
         <CalendarModalComponent
-          onOk={() => Router.push("s")}
+         
           modalVisible={modalVisible}
           closeModal={closeModal}
           data={modalData}
