@@ -1251,6 +1251,9 @@ export const GetAllRequestedAppointmentsDocument = gql`
     }
     doctor {
       first_name
+    }
+  }
+  `;
 export const DoctorProfileDetailsDocument = gql`
     query doctorProfileDetails($input: Int!) {
   user(id: $input) {
