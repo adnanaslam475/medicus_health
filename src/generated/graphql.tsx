@@ -863,6 +863,12 @@ export type GetAllRequestedAppointmentsQueryVariables = Exact<{
 
 
 export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, requestedDate: any, status?: string | null, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, doctor: { __typename?: 'User', first_name: string } }> };
+export type DoctorProfileDetailsQueryVariables = Exact<{
+  input: Scalars['Int'];
+}>;
+
+
+export type DoctorProfileDetailsQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', day: number, startTime: string, endTime: string }> | null } };
 
 
 export const CreateUserDocument = gql`
@@ -1245,6 +1251,33 @@ export const GetAllRequestedAppointmentsDocument = gql`
     }
     doctor {
       first_name
+export const DoctorProfileDetailsDocument = gql`
+    query doctorProfileDetails($input: Int!) {
+  user(id: $input) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    country_id
+    state_id
+    city_id
+    zip_code
+    doctorProfile {
+      id
+      year_of_experience
+      specialization
+      condition_treated
+      educational_background
+      professional_experience
+      language
+      about_me
+      profile_image
+    }
+    doctorSchedules {
+      day
+      startTime
+      endTime
     }
   }
 }
@@ -1252,6 +1285,8 @@ export const GetAllRequestedAppointmentsDocument = gql`
 
 export function useGetAllRequestedAppointmentsQuery(options: Omit<Urql.UseQueryArgs<GetAllRequestedAppointmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAllRequestedAppointmentsQuery>({ query: GetAllRequestedAppointmentsDocument, ...options });
+export function useDoctorProfileDetailsQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileDetailsQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorProfileDetailsQuery>({ query: DoctorProfileDetailsDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {

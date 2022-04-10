@@ -4,7 +4,7 @@ import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import { Tabs, Badge, Modal } from "antd";
 import { ExclamationCircleOutlined, EditOutlined } from "@ant-design/icons";
-import yourImage from "../../../../../public/assets/images/your_photo.png";
+import yourImage from "../../../../../../../public/assets/images/your_photo.png";
 import {
   Table,
   Tag,
@@ -26,7 +26,7 @@ const props = {
     }
   },
 };
-function Profile() {
+function PhysicianProfile() {
   return (
     <div className="w-full">
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
@@ -86,6 +86,24 @@ function Profile() {
                 </Form.Item>
               </div>
 
+              {/* <div className="flex flex-row gap-3">
+                <Form.Item
+                  label="Specialization"
+                  name="specialization"
+                  className="flex-1"
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label="Years of Experience"
+                  name="yearsOfExperience"
+                  rules={[{ required: false, message: "Years of experience!" }]}
+                  className="flex-1"
+                >
+                  <Input />
+                </Form.Item>
+              </div> */}
+
               <div className="flex flex-row gap-3">
                 <Form.Item
                   name={["user", "email"]}
@@ -95,14 +113,14 @@ function Profile() {
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item
+                {/* <Form.Item
                   label="Contact Number"
                   name="contact"
                   rules={[{ required: true, message: "Contact Number!" }]}
                   className="flex-1"
                 >
                   <Input />
-                </Form.Item>
+                </Form.Item> */}
               </div>
               <div className="flex flex-row gap-3">
                 <Form.Item
@@ -131,4 +149,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default PhysicianProfile;

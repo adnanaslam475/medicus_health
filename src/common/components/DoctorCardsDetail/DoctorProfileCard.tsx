@@ -34,10 +34,6 @@ const FLAG_BY_LANGUAGE = {
   ["Spanish" as string]: espanolFlag,
 };
 
-type Props = {
-  doctorData: DoctorProfile;
-};
-
 const { Panel } = Collapse;
 const { Step } = Steps;
 
@@ -64,8 +60,15 @@ const steps = [
   },
 ];
 
+type Props = {
+  doctorData: DoctorProfile;
+};
+
 function DoctorProfileCard(props: Props) {
   const { doctorData } = props || {};
+  const { first_name, last_name } = doctorData?.user || {};
+
+  const { language } = doctorData || "english";
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -89,8 +92,9 @@ function DoctorProfileCard(props: Props) {
     setCurrent(current - 1);
   };
 
-  const { first_name, last_name } = doctorData?.user || {};
+  console.log("doctorData", doctorData);
 
+  console.log(doctorData, "doctorData");
   return (
     <>
       <Modal
@@ -150,10 +154,10 @@ function DoctorProfileCard(props: Props) {
               </h2>
               <div className="flex">
                 <div className="flagAvatar engFlag pr-2">
-                  {FLAG_BY_LANGUAGE[doctorData?.language] && (
+                  {language && FLAG_BY_LANGUAGE[language] && (
                     <Image
-                      src={FLAG_BY_LANGUAGE[doctorData?.language]}
-                      alt={doctorData?.language || "flag"}
+                      src={FLAG_BY_LANGUAGE[language]}
+                      alt={language || "flag"}
                       width={25}
                       height={25}
                     />
@@ -165,7 +169,9 @@ function DoctorProfileCard(props: Props) {
               {doctorData?.specialization}
             </h5>
             <span className="text-secondary text-sm block mb-2">
-              {doctorData?.year_of_experience + " "}years of experience
+              {doctorData?.year_of_experience
+                ? `${doctorData?.year_of_experience}  years of experience`
+                : ""}
             </span>
             <Collapse className="lg:w-4/5">
               <Panel
@@ -227,7 +233,7 @@ function DoctorProfileCard(props: Props) {
         </div>
         <Divider />
         <h4 className="font-bold mb-1">About Me</h4>
-        <div className="text-base text-base">{doctorData?.about_me}</div>
+        <div className="text-base">{doctorData?.about_me}</div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
         <p className="text-base text-secondary">
@@ -236,7 +242,7 @@ function DoctorProfileCard(props: Props) {
         <Divider />
         <h4 className="font-bold mb-1">Professional Background</h4>
         <div className="text-base text-secondary">
-          {doctorData &&
+          {doctorData?.professional_experience &&
             JSON.parse(doctorData?.professional_experience).map((item: any) => (
               <>
                 <b>{item?.institution}</b>
@@ -248,7 +254,7 @@ function DoctorProfileCard(props: Props) {
         <Divider />
         <h4 className="font-bold mb-1">Educational Background</h4>
         <div className="text-base text-secondary">
-          {doctorData &&
+          {doctorData?.educational_background &&
             JSON.parse(doctorData?.educational_background).map((item: any) => (
               <>
                 <b>{item?.institution}</b>

@@ -72,7 +72,7 @@ query getUser($input: Int!) {
     password
     zip_code
     streetAddress
-    patientProfile{
+    patientProfile {
       maritalStatus
       profileImage
       children
@@ -207,6 +207,37 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     }
     doctor{
       first_name
+    }
+  }
+}
+# GET DOCTOR PROFILE DETAILS
+query doctorProfileDetails($input: Int!) {
+  user(id: $input) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    country_id
+    state_id
+    city_id
+    zip_code
+
+    doctorProfile {
+      id
+      year_of_experience
+      specialization
+      condition_treated
+      educational_background
+      professional_experience
+      language
+      about_me
+      profile_image
+    }
+    doctorSchedules {
+      day
+      startTime
+      endTime
     }
   }
 }

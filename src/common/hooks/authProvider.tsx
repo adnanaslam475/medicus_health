@@ -43,6 +43,7 @@ function AuthProvider({ children }: any) {
       "/forgotPassword",
       "/user/confirm",
       "/user/resetPassword",
+      "/admin/physicians/setPassword",
       "/successScreen",
     ];
     const path = url.split("?")[0];

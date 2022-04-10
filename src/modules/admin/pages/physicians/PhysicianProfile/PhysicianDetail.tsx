@@ -3,6 +3,7 @@ import DoctorProfileCard from "../../../../../common/components/DoctorCardsDetai
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import {
   DoctorProfile,
+  useDoctorProfileDetailsQuery,
   useDoctorProfileQuery,
 } from "../../../../../generated/graphql";
 import { useRouter } from "next/router";
@@ -13,6 +14,9 @@ function PhysiciansDetail() {
   const [{ data }] = useDoctorProfileQuery({
     variables: { doctor_id: Number(query?.id) },
   });
+  // const [{ data }] = useDoctorProfileDetailsQuery({
+  //   variables: { id: Number(query?.id) },
+  // });
 
   const { doctorProfile } = data || {};
 
