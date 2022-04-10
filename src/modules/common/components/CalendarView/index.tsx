@@ -9,34 +9,29 @@ import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClic
 import calendarStyle from "./style.module.scss";
 
 
-
-function AdminAimsCalender() {
- 
+type Props ={
+  handleDateChange:(arg: string)=>{};
+  handleDateClick:(arg: string)=>{};
+  calendarComponentRef:any;
+  calender:Array<string>
+}
+function AdminAimsCalender(props:Props) { 
+ const {handleDateChange,calendarComponentRef,calender,handleDateClick}= props;
   const events = [{ title: "today's event", date: new Date() }];
-  //   const calendarComponentRef = useRef(null);
-  // function renderEventContent(eventInfo) {
-  //   console.log("eventInfo", eventInfo.event.extendedProps);
-  //   return (
-  //     <>
-  //       {/* <b>{eventInfo.timeText}</b> */}
-  //       <p>{eventInfo.event.title}</p>
-  //     </>
-  //   );
-  // }
+
   
 
   return (
     <div>
       <div className={`${calendarStyle.css}`}>
         <FullCalendar
-          // eventContent={renderEventContent}
-          // eslint-disable-next-line react/no-unstable-nested-components
+     
           dayHeaderContent={(args) => {
             const weekShortName = new Date(args.date).toLocaleString("en-us", { weekday: "short" });
-            // const currentDate = new Date(args.date).getDate();
+            const currentDate = new Date(args.date).getDate();
             return (
               <div style={{ flexDirection: "column" }}>
-                {/* <div style={{ color: "#000" }}>{currentDate}</div> */}
+                <div style={{ color: "#000" }}>{currentDate}</div> 
                 <div style={{ color: "#000" }}>{weekShortName}</div>
               </div>
             );
@@ -45,22 +40,22 @@ function AdminAimsCalender() {
           
 
           headerToolbar={{
-            left: "customText today customPrev customNext",
-            center: "title",
+            left: "customText today customPrev customNext title",
+            center: "",
             right: "listview search custom1",
           }}
           customButtons={{
             customNext: {
               icon: "chevron-right",
-              // click: () => {
-              //   handleDateChange("next");
-              // },
+              click: () => {
+                handleDateChange("next");
+              },
             },
             customPrev: {
               icon: "chevron-left",
-              // click: () => {
-              //   handleDateChange("prev");
-              // },
+              click: () => {
+                handleDateChange("prev");
+              },
             },
             customText: {
               text: "Appointment",
@@ -88,10 +83,10 @@ function AdminAimsCalender() {
 
           }}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          // ref={calendarComponentRef}
+          ref={calendarComponentRef}
           // weekends={calender.calendarWeekends}
-          events={events}
-          // eventClick={handleDateClick}
+          events={calender?.calenderEvents}
+          eventClick={handleDateClick}
           eventTextColor="black"
           displayEventTime={false}
           // eslint-disable-next-line consistent-return

@@ -1,8 +1,8 @@
 .css {
     :global .fc-day-number {
       font-size: 1.5em;
-      color: #5c005c;
-      border: 1px solid #5c005c;
+      color: #1a82fe;
+      border: 1px solid #1a82fe;
     }
   
     :global .fc-day-header {
@@ -27,19 +27,20 @@ background: transparent !important;
 border: none;
 }
 :global .fc-custom1-button{
-  background-color: blue !important;
+  background-color: #1a82fe !important;
+  color:#fff !important
 
 }
 
 
     :global .fc-button.fc-button-primary.fc-button-active {
-      background-color: #5c005c;
+      background-color: #1a82fe;
       color: #f9f6f9;
     }
     :global .fc-button-primary:not(:disabled):active:focus,
     :global .fc-button-primary:not(:disabled).fc-button-active:focus {
       box-shadow: none;
-      background-color: #5c005c;
+      background-color: #1a82fe;
       color: #ffffff;
     }
     :global .fc .fc-button:disabled {
@@ -49,8 +50,17 @@ border: none;
     :global .fc .fc-toolbar-title {
       font-size: 1.75em;
       margin: 0;
-      color: #5c005c;
+      color:black;
+      display: inline;
+      padding-left: 20px;
+      padding-top:10px
+
     }
+    :global .fc-button:focus {
+      outline: 0;
+      border: none !important;
+      box-shadow: none;
+  }
     :global .fc .fc-col-header-cell-cushion {
       display: inline-block;
       padding: 2px 4px;
