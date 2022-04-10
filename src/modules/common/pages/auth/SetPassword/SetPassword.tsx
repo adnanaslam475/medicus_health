@@ -7,37 +7,37 @@ import Container from "../../../../../common/components/Container/Container";
 import ConfirmPasswordForm from "../ConfirmPassword/ConfirmPasswordForm";
 import {
   ResetPasswordInput,
-  useUserResetPasswordMutation,
+  useSetDoctorPasswordMutation,
 } from "../../../../../generated/graphql";
 import Router, { useRouter } from "next/router";
 
 function SetPassword() {
-  // Reset Password API call
+  // Set Doctor Password API call
 
-  const [result, resetPassword] = useUserResetPasswordMutation();
+  const [result, setDoctorPassword] = useSetDoctorPasswordMutation();
   const { error, fetching, data } = result;
   const router = useRouter();
   const { token } = router.query;
 
-    async function onConfirmPassword(data: { password: string }) {
-      const payload = {
-        password: data.password,
-        password_token: token,
-      };
+  async function onConfirmPassword(data: { password: string }) {
+    const payload = {
+      password: data.password,
+      password_token: token,
+    };
 
-      try {
-        const res = await resetPassword({
-          input: payload as ResetPasswordInput,
-        });
-        // if (res.data && !res.error) {
-        //   Router.replace({
-        //     pathname: "/login",
-        //   });
-        // }
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      const res = await setDoctorPassword({
+        setPasswordInput: payload as ResetPasswordInput,
+      });
+      // if (res.data && !res.error) {
+      //   Router.replace({
+      //     pathname: "/login",
+      //   });
+      // }
+    } catch (err) {
+      console.log(err);
     }
+  }
 
   return (
     <Container className="login-bg w-full">
@@ -62,8 +62,7 @@ function SetPassword() {
             </h5>
             <div className="mt-5">
               <ConfirmPasswordForm
-                // onFinish={(data) => onConfirmPassword(data)}
-                onFinish={() => null}
+                onFinish={(data) => onConfirmPassword(data)}
                 loading={fetching}
                 response={error}
               />
@@ -77,7 +76,7 @@ function SetPassword() {
               {data && (
                 <Alert
                   className=""
-                  message="Your password has been reset!"
+                  message="Your password has been set!"
                   type="success"
                 />
               )}

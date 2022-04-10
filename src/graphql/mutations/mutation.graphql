@@ -46,6 +46,13 @@ mutation UserResetPassword($input: ResetPasswordInput!) {
   }
 }
 
+# SET ADMIN PHYSICIAN PASSWORD
+mutation setDoctorPassword($setPasswordInput: ResetPasswordInput!) {
+  setDoctorPassword(setPasswordInput: $setPasswordInput) {
+    id
+  }
+}
+
 # CREATE CARD MUTATION
 mutation createCard($input: CreatePaymentInput!) {
   createCard(createPaymentInput: $input) {

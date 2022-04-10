@@ -762,6 +762,13 @@ export type UserResetPasswordMutationVariables = Exact<{
 
 export type UserResetPasswordMutation = { __typename?: 'Mutation', UserResetPassword: { __typename?: 'User', id: number } };
 
+export type SetDoctorPasswordMutationVariables = Exact<{
+  setPasswordInput: ResetPasswordInput;
+}>;
+
+
+export type SetDoctorPasswordMutation = { __typename?: 'Mutation', setDoctorPassword: { __typename?: 'User', id: number } };
+
 export type CreateCardMutationVariables = Exact<{
   input: CreatePaymentInput;
 }>;
@@ -940,6 +947,17 @@ export const UserResetPasswordDocument = gql`
 
 export function useUserResetPasswordMutation() {
   return Urql.useMutation<UserResetPasswordMutation, UserResetPasswordMutationVariables>(UserResetPasswordDocument);
+};
+export const SetDoctorPasswordDocument = gql`
+    mutation setDoctorPassword($setPasswordInput: ResetPasswordInput!) {
+  setDoctorPassword(setPasswordInput: $setPasswordInput) {
+    id
+  }
+}
+    `;
+
+export function useSetDoctorPasswordMutation() {
+  return Urql.useMutation<SetDoctorPasswordMutation, SetDoctorPasswordMutationVariables>(SetDoctorPasswordDocument);
 };
 export const CreateCardDocument = gql`
     mutation createCard($input: CreatePaymentInput!) {
