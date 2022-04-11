@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal, notification } from "antd";
-import { ExclamationCircleOutlined, EditOutlined } from "@ant-design/icons";
+
+import { ExclamationCircleOutlined, EditOutlined, DownOutlined } from "@ant-design/icons";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
   Table,
@@ -14,16 +14,26 @@ import {
   Input,
   Button,
   Checkbox,
+  Menu,
+   Dropdown,
+   Tabs, Badge, Modal,
+   notification,
+   Select
+
 } from "antd";
+
 import { useUpdateDoctorProfileMutation } from "../../../../generated/graphql";
 import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
+import Language from "../../../admin/components/Languague/Language";
 
 export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
 }: any) {
+
+  const { Option } = Select;
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
 
@@ -118,6 +128,19 @@ export const Profile = React.forwardRef(function Profile({
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
+  function handleMenuClick(e) {
+    console.log('click', e);
+  }
+  const menu= ( 
+  <Menu onClick={handleMenuClick}>
+  <Menu.Item key="1"  >
+    Published
+  </Menu.Item>
+  <Menu.Item key="2" >
+  UnPublished
+  </Menu.Item>
+
+</Menu>);
   return (
     <div className="w-full">
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
@@ -132,7 +155,7 @@ export const Profile = React.forwardRef(function Profile({
             >
               <div className="relative">
                 <Avatar
-                  size={50}
+                  size={104}
                   style={{
                     borderColor: "transparent",
                     borderWidth: 2,
@@ -140,25 +163,23 @@ export const Profile = React.forwardRef(function Profile({
                   }}
                   src={userProfileImage}
                 />
-                <Button
-                  type="link"
-                  className="text-primary underline ml-3 text-xs"
-                >
-                  Update Photo
-                </Button>
+              
               </div>
             </Upload>
             <div>
               <span>PY-123</span>
               <h2 className="mb-0">{`${first_name} ${last_name}`}</h2>
               <span className="block">{email}</span>
-              <Button size="large" className="px-0 mx-0">
-                {" "}
-                <EditOutlined />
-                Edit Info
-              </Button>
+              <Select  defaultValue="published"style={{ width: 200 }} >
+            <Option selected value="published">Published</Option>
+            <Option value="unpublished">UnPublished</Option>
+          </Select>
             </div>
+
+
+            
           </div>
+        
           <div className="w-full">
             <Form
               form={formInstance}
@@ -232,6 +253,11 @@ export const Profile = React.forwardRef(function Profile({
                 </div>
               </Form.Item>
             </Form>
+          </div>
+          <div className="mr-auto">Languages</div>
+          <div className="flex justify-between mr-auto">
+          <Language/>
+          <Language/>
           </div>
         </div>
       </div>
