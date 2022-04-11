@@ -4,14 +4,14 @@ import Link from "next/link";
 import { Form, Input, Button, Alert } from "antd";
 import Image from "next/image";
 import Container from "../../../../../common/components/Container/Container";
-import ConfirmPasswordForm from "./ConfirmPasswordForm";
+import ConfirmPasswordForm from "../ConfirmPassword/ConfirmPasswordForm";
 import {
   ResetPasswordInput,
   useUserResetPasswordMutation,
 } from "../../../../../generated/graphql";
 import Router, { useRouter } from "next/router";
 
-function ConfirmPassword() {
+function SetPassword() {
   // Reset Password API call
 
   const [result, resetPassword] = useUserResetPasswordMutation();
@@ -53,6 +53,7 @@ function ConfirmPassword() {
                 alt=""
               />
             </div>
+            <h1>ADMIN SET PASSWORD</h1>
             <h1 className="text-center text-secondary mb-3">
               Confirm Password
             </h1>
@@ -61,7 +62,8 @@ function ConfirmPassword() {
             </h5>
             <div className="mt-5">
               <ConfirmPasswordForm
-                onFinish={(data) => onConfirmPassword(data)}
+                // onFinish={(data) => onConfirmPassword(data)}
+                onFinish={() => null}
                 loading={fetching}
                 response={error}
               />
@@ -106,4 +108,4 @@ function ConfirmPassword() {
     </Container>
   );
 }
-export default ConfirmPassword;
+export default SetPassword;

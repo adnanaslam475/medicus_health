@@ -31,13 +31,12 @@ function Physicians() {
                   key={id}
                   id={doctor_id}
                   name={user?.first_name + " " + user?.last_name}
-                  language={language}
-                  specialization={specialization}
-                  aboutMe={aboutMe}
-                  professionalExperience={professionalExperience}
-                  yearOfExperience={yearOfExperience}
-                  conditionTreated={conditionTreated}
-                  // data={profile}
+                  language={language || ""}
+                  specialization={specialization || ""}
+                  aboutMe={aboutMe || ""}
+                  professionalExperience={professionalExperience || ""}
+                  yearOfExperience={yearOfExperience || 0}
+                  conditionTreated={conditionTreated || ""}
                 />
               );
             })}

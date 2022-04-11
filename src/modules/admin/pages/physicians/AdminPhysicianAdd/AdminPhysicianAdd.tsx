@@ -27,6 +27,9 @@ import {
 } from "../../../../../generated/graphql";
 import dayjs from "dayjs";
 import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
+import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
+import Router, { useRouter } from "next/router";
+
 
 type props = {
   validateForm?: (value: any) => void;
@@ -44,7 +47,7 @@ function AdminPhysicianAdd() {
   const [image, setImage] = useState("");
 
   const createDoctor = async (values: any) => {
-    await CreateDoctorMutation({
+    const response = await CreateDoctorMutation({
       createDoctorInput: {
         first_name: values?.firstName,
         last_name: values?.lastName,
@@ -56,23 +59,28 @@ function AdminPhysicianAdd() {
         zip_code: values?.postalCode,
       },
     });
-    if (data?.data) {
-      {
-        data?.data?.createDoctor &&
-          notification.success({
-            message: "Successfully Created",
-          });
-      }
+
+    if (response?.data?.createDoctor) {
+      Router.push({
+        pathname: "/successScreen",
+        query: { email: values?.email },
+      });
     }
 
-    if (data?.error) {
-      {
-        data?.error?.graphQLErrors[0]?.message &&
-          notification.error({
-            message:
-              data?.error?.graphQLErrors[0]?.message || "Something went wrong",
-          });
-      }
+    if (response?.data) {
+      response?.data?.createDoctor &&
+        notification.success({
+          message: "Successfully Created",
+        });
+    }
+
+    if (response?.error) {
+      response?.error?.graphQLErrors[0]?.message &&
+        notification.error({
+          message:
+            response?.error?.graphQLErrors[0]?.message ||
+            "Something went wrong",
+        });
     }
 
     try {
