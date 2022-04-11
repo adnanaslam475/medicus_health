@@ -1,6 +1,6 @@
 import React from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import AppointmentCard from "../../../../../common/components/AppointmentCard";
+import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import Router, { useRouter } from "next/router";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import { Button, Select } from "antd";

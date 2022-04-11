@@ -19,10 +19,6 @@ type StatusType<K extends StatusName> = {
   };
 };
 
-// interface props {
-//   status: StatusName;
-// }
-
 const APPOINTMENT_STATUS: StatusType<StatusName> = {
   confirmed: {
     lable: "Confirmed",
@@ -79,15 +75,6 @@ function AppointmentCard({
   serviceType,
   doctor,
 }: props) {
-  // const {
-  //   lable,
-  //   color,
-  //   button = {
-  //     show: false,
-  //     type: "primary",
-  //   },
-  // } = APPOINTMENT_STATUS[status] || {};
-
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <h6 className="mb-0">{id}</h6>

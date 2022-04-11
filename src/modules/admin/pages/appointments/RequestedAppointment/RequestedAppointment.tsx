@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { Button } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
-import AppointmentCard from "../../../../../common/components/AppointmentCard";
+import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 
 function RequestedAppointment() {
