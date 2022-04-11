@@ -26,7 +26,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
     city_id,
     zip_code,
     streetAddress,
-    patientProfile
+    patientProfile,
   } = userDetail || {};
 
   const [{ data }] = useCountriesQuery();
@@ -98,7 +98,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Date of Birth</div>
               <div className="w-1/2 text-secondary">
-                {date.convertBirthDateToUTC(date_of_birth)}
+                {date.convertStringDateToUTC(date_of_birth)}
               </div>
             </div>
           </li>
@@ -146,7 +146,9 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">City</div>
-              <div className="w-1/2 text-secondary">{cityName[0]?.city_name}</div>
+              <div className="w-1/2 text-secondary">
+                {cityName[0]?.city_name}
+              </div>
             </div>
           </li>
 
@@ -160,9 +162,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Street Address</div>
-              <div className="w-1/2 text-secondary">
-                {streetAddress}
-              </div>
+              <div className="w-1/2 text-secondary">{streetAddress}</div>
             </div>
           </li>
 
@@ -192,7 +192,9 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
               <div className="w-1/2 text-gray-1">
                 Do you have any Occupational Exposure?
               </div>
-              <div className="w-1/2">{patientProfile?.occupationalExposure}</div>
+              <div className="w-1/2">
+                {patientProfile?.occupationalExposure}
+              </div>
             </div>
           </li>
 

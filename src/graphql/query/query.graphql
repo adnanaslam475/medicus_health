@@ -167,6 +167,7 @@ query doctorProfile($doctor_id: Int!) {
       last_name
       email
       gender
+      contact_number
       country_id
       state_id
       city_id

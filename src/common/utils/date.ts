@@ -8,8 +8,16 @@ export function convertToUTC(date: string) {
   return dayjs.utc(date).format();
 }
 
-export function convertBirthDateToUTC(date: string) {
+export function convertStringDateToUTC(date: string) {
   return dayjs.utc(date).format("MM-DD-YYYY");
+}
+
+export function formatMMMMDDYYYY(date: string) {
+  return dayjs.utc(date).format("MMMM, M, YYYY");
+}
+
+export function formathhmma(date: string) {
+  return dayjs.utc(date).format("hh:mm a");
 }
 
 export function time24HrConvert(time: any) {

@@ -147,7 +147,7 @@ function DoctorProfileCard(props: Props) {
           <div className="lg:pr-5 w-full mb-5">
             <div className="flex-row md:flex items-center">
               <h2 className="font-bold mb-0 mr-3">
-                <span>Dr. {first_name + " " + last_name}</span>
+                <span>Dr. {doctorData ? first_name + " " + last_name : ""}</span>
               </h2>
               <div className="flex">
                 <div className="flagAvatar engFlag pr-2">
@@ -168,7 +168,7 @@ function DoctorProfileCard(props: Props) {
             <span className="text-secondary text-sm block mb-2">
               {doctorData?.year_of_experience
                 ? `${doctorData?.year_of_experience}  years of experience`
-                : ""}
+                : "experience not available"}
             </span>
             <Collapse className="lg:w-4/5">
               <Panel

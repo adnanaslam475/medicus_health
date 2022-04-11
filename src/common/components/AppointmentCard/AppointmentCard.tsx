@@ -4,6 +4,7 @@ import { Card, Button } from "antd";
 import { VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentCard.module.scss";
 import { ButtonType } from "antd/lib/button";
+import { date } from "../../utils";
 
 type StatusName = "confirmed" | "request" | "pending" | "cancelled";
 
@@ -17,10 +18,6 @@ type StatusType<K extends StatusName> = {
     };
   };
 };
-
-interface props {
-  status: StatusName;
-}
 
 const APPOINTMENT_STATUS: StatusType<StatusName> = {
   confirmed: {
@@ -57,29 +54,52 @@ const APPOINTMENT_STATUS: StatusType<StatusName> = {
   },
 };
 
-function AppointmentCard({ status }: props) {
-  const {
-    lable,
-    color,
-    button = {
-      show: false,
-      type: "primary",
-    },
-  } = APPOINTMENT_STATUS[status] || {};
+type props = {
+  id: number;
+  patientId: number;
+  doctorId: number;
+  serviceId: number;
+  requestedDate: string;
+  status: string | null | undefined;
+  serviceType: string | undefined;
+  doctor: string | undefined;
+};
+
+function AppointmentCard({
+  id,
+  patientId,
+  doctorId,
+  serviceId,
+  requestedDate,
+  status,
+  serviceType,
+  doctor,
+}: props) {
   return (
     <Card className={`${_classes["appointment-card"]}`}>
-      <h6 className="mb-0">A-0001</h6>
-      <h3 className="mb-0">Dr. Paul Wallner</h3>
-      <h5 className="text-gray">First Consultation</h5>
+      <h6 className="mb-0">{id}</h6>
+      <h3 className="mb-0">Dr. {doctor}</h3>
+      <h5 className="text-gray">{serviceType}</h5>
       <span className="text-sm">Date</span>
-      <h6>February 4, 2022</h6>
+      <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
       <span className="text-sm">Time</span>
-      <h6 className="text-cyan">07:45 am - 08:30 am (Now)</h6>
-      <span className="text-sm">Status</span>
-      <h6 className={color}>{lable}</h6>
+      <h6 className="text-cyan">{date.formathhmma(requestedDate)}</h6>
+      <span className="text-sm">{status}</span>
+      {/* <h6 className={color}>{lable}</h6> */}
       <div className="flex">
-        <Button type={button.type} icon={<VideoCameraFilled />} className={`${_classes["card-btn"]} mr-3`}>Join Now</Button>
-        <Button className={`${_classes["card-btn"]} bg-transparent`} onClick={() => Router.push("/patient/appointments/details")}>Details</Button>
+        <Button
+          // type={button.type}
+          icon={<VideoCameraFilled />}
+          className={`${_classes["card-btn"]} mr-3`}
+        >
+          Join Now
+        </Button>
+        <Button
+          className={`${_classes["card-btn"]} bg-transparent`}
+          onClick={() => Router.push("/patient/appointments/details")}
+        >
+          Details
+        </Button>
       </div>
     </Card>
   );

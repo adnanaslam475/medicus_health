@@ -66,6 +66,7 @@ function AppointmentCalendar() {
       ),
     });
   };
+
   useEffect(() => {
     setCalendarData();
   }, [appointments]);
