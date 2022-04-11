@@ -6,24 +6,27 @@ import { Tabs, Badge, Modal } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import Container from "../../../../common/components/Container/Container";
-import {Profile} from "../../components/Profile/Profile";
+import { Profile } from "../../components/Profile/Profile";
 import EmailNotification from "../EmailNotification/EmailNotification";
 import { ProfileIcon } from "../../../../../src/common/components/CustomIcon";
-import { DoctorProfile, useDoctorProfileQuery } from "../../../../generated/graphql";
+import {
+  DoctorProfile,
+  useDoctorProfileQuery,
+} from "../../../../generated/graphql";
 
 const { TabPane } = Tabs;
 
 function ProfileDetail() {
-  const router = useRouter();
-
-  const { id } = router.query;
-  console.log("id",id)
+  //   GET ID FROM URL
+  const { query } = useRouter();
 
   const [{ data }] = useDoctorProfileQuery({
-    variables: { doctor_id: Number(id) },
+    variables: { doctor_id: Number(query?.id) },
   });
 
-  console.log("data",data)
+  const { doctorProfile } = data || {};
+
+
 
   return (
     <AppLayout>
@@ -39,7 +42,7 @@ function ProfileDetail() {
               }
               key="1"
             >
-              <Profile doctorData={data}/>
+              <Profile doctorId={query?.id} doctorData={doctorProfile} />
             </TabPane>
             <TabPane
               tab={

@@ -805,6 +805,13 @@ export type CreateDoctorMutationVariables = Exact<{
 
 export type CreateDoctorMutation = { __typename?: 'Mutation', createDoctor: { __typename?: 'User', first_name: string, last_name: string, email: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, id: number } };
 
+export type UpdateDoctorProfileMutationVariables = Exact<{
+  updateDoctorProfileInput: UpdateDoctorProfileInput;
+}>;
+
+
+export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, contact_number: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null } | null } };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -862,7 +869,7 @@ export type DoctorProfileQueryVariables = Exact<{
 }>;
 
 
-export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
+export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, contact_number: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
 
 export type DoctorProfileDetailsQueryVariables = Exact<{
   input: Scalars['Int'];
@@ -1058,6 +1065,42 @@ export const CreateDoctorDocument = gql`
 export function useCreateDoctorMutation() {
   return Urql.useMutation<CreateDoctorMutation, CreateDoctorMutationVariables>(CreateDoctorDocument);
 };
+export const UpdateDoctorProfileDocument = gql`
+    mutation updateDoctorProfile($updateDoctorProfileInput: UpdateDoctorProfileInput!) {
+  updateDoctorProfile(updateDoctorProfileInput: $updateDoctorProfileInput) {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    profile_image
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
+      contact_number
+      streetAddress
+      country_id
+      state_id
+      city_id
+      zip_code
+      password
+      status
+      role
+    }
+  }
+}
+    `;
+
+export function useUpdateDoctorProfileMutation() {
+  return Urql.useMutation<UpdateDoctorProfileMutation, UpdateDoctorProfileMutationVariables>(UpdateDoctorProfileDocument);
+};
 export const CountriesDocument = gql`
     query countries {
   countries {
@@ -1221,6 +1264,7 @@ export const DoctorProfileDocument = gql`
       last_name
       email
       gender
+      contact_number
       country_id
       state_id
       city_id
