@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal, notification } from "antd";
+import { Tabs, Badge, Modal, notification, Select } from "antd";
 import { ExclamationCircleOutlined, EditOutlined } from "@ant-design/icons";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
@@ -15,7 +15,10 @@ import {
   Button,
   Checkbox,
 } from "antd";
-import { useUpdateDoctorProfileMutation } from "../../../../generated/graphql";
+import {
+  useEnableOrDisableDoctorMutation,
+  useUpdateDoctorProfileMutation,
+} from "../../../../generated/graphql";
 import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
@@ -26,15 +29,20 @@ export const Profile = React.forwardRef(function Profile({
 }: any) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
+  const [ispublish, setIsPublish] = useState(true);
 
-  const { first_name, last_name, password, email, contact_number } =
+  const { first_name, last_name, password, email, contact_number, status } =
     doctorData?.user || {};
+
+  console.log("status", status);
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
 
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error } = result || {};
+
+  const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
   useEffect(() => {
     if (doctorData) {
@@ -118,6 +126,23 @@ export const Profile = React.forwardRef(function Profile({
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
+  const { Option } = Select;
+  async function handleChange(value: string) {
+    console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+
+    const res = await EnableOrDisableDoctor({
+      id: Number(doctorId),
+    });
+
+    // if (res?.data?.enableOrDisableDoctor.status) {
+    //   setIsPublish(true);
+    // } else {
+    //   setIsPublish(false);
+    // }
+
+    console.log("EnableOrDisableDoctor", res);
+  }
+
   return (
     <div className="w-full">
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
@@ -152,11 +177,28 @@ export const Profile = React.forwardRef(function Profile({
               <span>PY-123</span>
               <h2 className="mb-0">{`${first_name} ${last_name}`}</h2>
               <span className="block">{email}</span>
-              <Button size="large" className="px-0 mx-0">
-                {" "}
-                <EditOutlined />
-                Edit Info
-              </Button>
+              <div className=" grid grid-cols-2 gap-4">
+                <div className="lg:ml-0 mt-0 sm:mt-0">
+                  <Select
+                    style={{ width: 120 }}
+                    onChange={handleChange}
+                    defaultValue="Published"
+                    className="w-full sm:w-40"
+                  >
+                    <Option value={"Published"}>Unpublished</Option>
+                    <Option value={"Unpublished"}>Published</Option>
+                  </Select>
+                </div>
+                <Button size="large" className="px-0 mx-0">
+                  <EditOutlined />
+                  Edit Info
+                </Button>
+              </div>
+              <div className="flex">
+                <div className="physicianStatus">
+                  {status ? <Tag>Published</Tag> : <Tag>Unpublished</Tag>}
+                </div>
+              </div>
             </div>
           </div>
           <div className="w-full">

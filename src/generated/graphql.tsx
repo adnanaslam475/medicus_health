@@ -812,6 +812,13 @@ export type UpdateDoctorProfileMutationVariables = Exact<{
 
 export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, contact_number: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null } | null } };
 
+export type EnableOrDisableDoctorMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type EnableOrDisableDoctorMutation = { __typename?: 'Mutation', enableOrDisableDoctor: { __typename?: 'User', id: number, status: boolean } };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1100,6 +1107,18 @@ export const UpdateDoctorProfileDocument = gql`
 
 export function useUpdateDoctorProfileMutation() {
   return Urql.useMutation<UpdateDoctorProfileMutation, UpdateDoctorProfileMutationVariables>(UpdateDoctorProfileDocument);
+};
+export const EnableOrDisableDoctorDocument = gql`
+    mutation enableOrDisableDoctor($id: Int!) {
+  enableOrDisableDoctor(id: $id) {
+    id
+    status
+  }
+}
+    `;
+
+export function useEnableOrDisableDoctorMutation() {
+  return Urql.useMutation<EnableOrDisableDoctorMutation, EnableOrDisableDoctorMutationVariables>(EnableOrDisableDoctorDocument);
 };
 export const CountriesDocument = gql`
     query countries {
