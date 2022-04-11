@@ -1,15 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
 import CalendarView from "../../../../common/components/CalendarView";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import {
+  Appointment,
+  useGetAllRequestedAppointmentsQuery,
+} from "../../../../../generated/graphql";
 import CalendarModalComponent from "../../../../common/components/CalendarModal";
-import { Router } from "next/router";
+import FullCalendar from "@fullcalendar/react";
 
 type events = {
-  calenderEvents: any;
+  calenderEvents: Appointment | undefined | any;
 };
 function AppointmentCalendar() {
-  const calendarComponentRef = useRef(null);
+  const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
     calenderEvents: [],
   });
@@ -19,7 +22,6 @@ function AppointmentCalendar() {
     variables: {
       filter: {
         doctorId: 520,
-        serviceId: 12,
         status: "Requested",
       },
     },
@@ -64,7 +66,7 @@ function AppointmentCalendar() {
       ),
     });
   };
-  console.log(calendarComponentRef, "g");
+
   useEffect(() => {
     setCalendarData();
   }, [appointments]);
@@ -75,13 +77,14 @@ function AppointmentCalendar() {
     setTimeout(() => {
       // getCalendarData();
     }, 200);
-    // const calenderApi = calendarComponentRef.current?.getApi()?.currentDataManager;
+    const calenderApi: any =
+      calendarComponentRef.current?.getApi()?.currentDataManager;
     switch (arg) {
       case "next":
-        // calenderApi.data.calendarApi.next();
+        calenderApi?.data.calendarApi.next();
         break;
       case "prev":
-        // calenderApi.data.calendarApi.prev();
+        calenderApi?.data.calendarApi.prev();
         break;
       default:
         break;

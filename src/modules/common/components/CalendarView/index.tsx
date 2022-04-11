@@ -6,39 +6,36 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
-import calendarStyle from "./style.module.scss";
+import _Classes from "./CalendarView.module.scss";
 
-
-type Props ={
-  handleDateChange:(arg: any|undefined)=>void;
-  handleDateClick:(arg: any |undefined)=>void;
-  calendarComponentRef:any;
-  calender:any;
-}
-function AdminAimsCalender(props:Props) { 
- const {handleDateChange,calendarComponentRef,calender,handleDateClick}= props;
+type Props = {
+  handleDateChange: (arg: any | undefined) => void;
+  handleDateClick: (arg: any | undefined) => void;
+  calendarComponentRef: React.LegacyRef<FullCalendar> | undefined | any;
+  calender: object | any;
+};
+function AdminAimsCalender(props: Props) {
+  const { handleDateChange, calendarComponentRef, calender, handleDateClick } =
+    props;
   const events = [{ title: "today's event", date: new Date() }];
-
-  
 
   return (
     <div>
-      <div className={`${calendarStyle.css}`}>
+      <div className={`${_Classes["calendarview"]}`}>
         <FullCalendar
-     
           dayHeaderContent={(args) => {
-            const weekShortName = new Date(args.date).toLocaleString("en-us", { weekday: "short" });
+            const weekShortName = new Date(args.date).toLocaleString("en-us", {
+              weekday: "short",
+            });
             const currentDate = new Date(args.date).getDate();
             return (
               <div style={{ flexDirection: "column" }}>
-                <div style={{ color: "#000" }}>{currentDate}</div> 
+                <div style={{ color: "#000" }}>{currentDate}</div>
                 <div style={{ color: "#000" }}>{weekShortName}</div>
               </div>
             );
           }}
           initialView="timeGridWeek"
-          
-
           headerToolbar={{
             left: "customText today customPrev customNext title",
             center: "",
@@ -61,26 +58,24 @@ function AdminAimsCalender(props:Props) {
               text: "Appointment",
             },
             custom1: {
-              text: 'Request an Appointment',
-              click: function() {
-                alert('clicked custom button 1!');
-              }
+              text: "Request an Appointment",
+              click: function () {
+                alert("clicked custom button 1!");
+              },
             },
             listview: {
-              text: 'List View',
-              click: function() {
-                alert('clicked custom button 1!');
-              }
+              text: "List View",
+              click: function () {
+                alert("clicked custom button 1!");
+              },
             },
             search: {
-           
-              text:"Search",
+              text: "Search",
               // click: () => {
               //   handleDateChange("prev");
-              
+
               // },
             },
-
           }}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           ref={calendarComponentRef}

@@ -1,4 +1,4 @@
-.css {
+.calendarview {
     :global .fc-day-number {
       font-size: 1.5em;
       color: #1a82fe;
@@ -87,6 +87,7 @@ border: none;
     :global .fc-event-title-container {
       // width: 100px;
       font-weight: bold;
+      color: #fff;
     }
     // .fc-h-event .fc-event-title
     :global .fc-h-event .fc-event-title {
@@ -199,12 +200,6 @@ border: none;
     // background-color: rgba(55, 142, 83, 0.8);
   }
   
- 
-
-
   .style_css__JiOc_ .fc-button.fc-button-primary {
- 
-    
-    background: transparent;
-   
-}
+     background: transparent;
+   }
