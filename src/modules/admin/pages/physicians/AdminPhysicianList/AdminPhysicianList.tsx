@@ -227,22 +227,17 @@ function AdminPhysicianList() {
     },
     {
       title: "",
-      dataIndex: "",
+      dataIndex: "doctor_id",
       key: "view",
       className: "table-action-icon",
-      render: () => (
+      render: (value: any) => (
         <div className="bg-primary">
-          <Link passHref href={`physicians/ProfileDetail/${533}`}>
-            <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
-              <EyeFilled />
-            </a>
-          </Link>
-          {/* <EyeFilled
+          
+          <EyeFilled
             onClick={() => {
-              return Router.push("physicians/ProfileDetail");
-            }}            
-          /> */}
-          {/* <EyeFilled /> */}
+              return Router.push(`/admin/account/${value}`);
+            }}
+          />
         </div>
       ),
     },

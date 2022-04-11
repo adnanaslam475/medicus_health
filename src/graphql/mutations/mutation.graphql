@@ -46,6 +46,13 @@ mutation UserResetPassword($input: ResetPasswordInput!) {
   }
 }
 
+# SET ADMIN PHYSICIAN PASSWORD
+mutation setDoctorPassword($setPasswordInput: ResetPasswordInput!) {
+  setDoctorPassword(setPasswordInput: $setPasswordInput) {
+    id
+  }
+}
+
 # CREATE CARD MUTATION
 mutation createCard($input: CreatePaymentInput!) {
   createCard(createPaymentInput: $input) {
@@ -117,3 +124,47 @@ mutation createDoctor($createDoctorInput: CreateDoctorInput!) {
     id
   }
 }
+
+# DOCTOR UPDATE MUTATION
+mutation updateDoctorProfile(
+  $updateDoctorProfileInput: UpdateDoctorProfileInput!
+) {
+  updateDoctorProfile(updateDoctorProfileInput: $updateDoctorProfileInput) {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    profile_image
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
+      contact_number
+      streetAddress
+      country_id
+      state_id
+      city_id
+      zip_code
+      password
+      status
+      role
+    }
+  }
+}
+
+#ENABLE OR DISABLE DOCTOR 
+mutation enableOrDisableDoctor($id: Int!) {
+  enableOrDisableDoctor(id: $id) {
+    id
+    status
+  }
+}
+
+
