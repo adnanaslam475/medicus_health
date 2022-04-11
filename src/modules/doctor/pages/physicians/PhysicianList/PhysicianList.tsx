@@ -35,7 +35,6 @@ function Physicians() {
                   professionalExperience={professionalExperience || ""}
                   yearOfExperience={yearOfExperience || 0}
                   conditionTreated={conditionTreated || ""}
-                  // data={profile}
                 />
               );
             })}

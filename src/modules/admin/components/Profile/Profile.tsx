@@ -173,6 +173,7 @@ export const Profile = React.forwardRef(function Profile({
                 </Button>
               </div>
             </Upload>
+
             <div>
               <span>PY-123</span>
               <h2 className="mb-0">{`${first_name} ${last_name}`}</h2>

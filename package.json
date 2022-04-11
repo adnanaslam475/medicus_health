@@ -9,12 +9,12 @@
     "start:uat": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next start -p 8090",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
-    "codegen.yml": "graphql-codegen --config codegen.yml",
-    "setup": "git config core.hooksPath .githooks && yarn",
-    "setup-hook": "cd .git/hooks && mv pre-commit.sample pre-commit && cat /dev/null > pre-commit && echo 'CI=true yarn build'>pre-commit"
+    "codegen.yml": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@babel/preset-react": "^7.16.7",
+    "@fullcalendar/common": "^5.10.1",
     "@fullcalendar/core": "^5.10.1",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/interaction": "^5.10.1",
@@ -28,6 +28,7 @@
     "env-cmd": "^10.1.0",
     "graphql": "^16.3.0",
     "next": "12.0.10",
+    "next-transpile-modules": "^9.0.0",
     "next-intl": "^2.5.0",
     "react": "17.0.2",
     "react-aws-s3": "^1.5.0",

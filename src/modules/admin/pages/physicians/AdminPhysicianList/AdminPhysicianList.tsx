@@ -232,12 +232,12 @@ function AdminPhysicianList() {
       className: "table-action-icon",
       render: (value: any) => (
         <div className="bg-primary">
+          
           <EyeFilled
             onClick={() => {
               return Router.push(`/admin/account/${value}`);
             }}
           />
-          {/* <EyeFilled /> */}
         </div>
       ),
     },

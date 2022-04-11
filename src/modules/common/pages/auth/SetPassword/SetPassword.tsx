@@ -107,5 +107,3 @@ function SetPassword() {
   );
 }
 export default SetPassword;
-
-// some text

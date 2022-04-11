@@ -92,9 +92,6 @@ function DoctorProfileCard(props: Props) {
     setCurrent(current - 1);
   };
 
-  console.log("doctorData", doctorData);
-
-  console.log(doctorData, "doctorData");
   return (
     <>
       <Modal
