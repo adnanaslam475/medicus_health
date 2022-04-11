@@ -29,7 +29,6 @@ import {
 } from "../../../../../generated/graphql";
 import dayjs from "dayjs";
 import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
-import Profile from "../../../components/Profile/Profile";
 import EmailNotification from "../../EmailNotification/EmailNotification";
 import { QuestionnaireForm } from "../../../../../common/components/Questionnary/questionnary";
 import PhysicianProfile from "./AdminDetailTabs/PhysicianProfile";
