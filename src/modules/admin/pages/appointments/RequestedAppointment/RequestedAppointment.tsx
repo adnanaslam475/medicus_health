@@ -16,6 +16,7 @@ function RequestedAppointment() {
   });
 
   const { appointments } = data || {};
+  console.log(appointments, "appointments");
 
   return (
     <AppLayout>

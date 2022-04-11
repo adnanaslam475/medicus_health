@@ -1,10 +1,19 @@
 import {
   convertToUTC,
-  convertBirthDateToUTC,
+  convertStringDateToUTC,
   time24HrConvert,
   dayName,
+  formatMMMMDDYYYY,
+  formathhmma,
 } from "./date";
 
-const date = { convertToUTC, convertBirthDateToUTC, time24HrConvert, dayName };
+const date = {
+  convertToUTC,
+  convertStringDateToUTC,
+  time24HrConvert,
+  dayName,
+  formatMMMMDDYYYY,
+  formathhmma,
+};
 
 export { date };

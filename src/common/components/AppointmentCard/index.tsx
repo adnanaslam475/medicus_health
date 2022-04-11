@@ -4,6 +4,7 @@ import { Card, Button } from "antd";
 import { VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentCard.module.scss";
 import { ButtonType } from "antd/lib/button";
+import { date } from "../../utils";
 
 type StatusName = "confirmed" | "request" | "pending" | "cancelled";
 
@@ -62,7 +63,7 @@ type props = {
   patientId: number;
   doctorId: number;
   serviceId: number;
-  requestedDate: Date;
+  requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
@@ -86,15 +87,16 @@ function AppointmentCard({
   //     type: "primary",
   //   },
   // } = APPOINTMENT_STATUS[status] || {};
+
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <h6 className="mb-0">{id}</h6>
       <h3 className="mb-0">Dr. {doctor}</h3>
       <h5 className="text-gray">{serviceType}</h5>
       <span className="text-sm">Date</span>
-      <h6>{requestedDate}</h6>
+      <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
       <span className="text-sm">Time</span>
-      <h6 className="text-cyan">{requestedDate}</h6>
+      <h6 className="text-cyan">{date.formathhmma(requestedDate)}</h6>
       <span className="text-sm">{status}</span>
       {/* <h6 className={color}>{lable}</h6> */}
       <div className="flex">

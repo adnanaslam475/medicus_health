@@ -34,7 +34,9 @@ export const Payment = (props: Props) => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-md capitalize text-dark font-medium">{title}</div>
+          <div className="text-md capitalize text-dark font-medium">
+            {title}
+          </div>
           <div className="text-gray-2">{description}</div>
         </div>
         <div>
