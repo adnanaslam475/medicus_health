@@ -61,7 +61,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       firstName: user?.first_name,
       lastName: user?.last_name,
       gender: user?.gender,
-      // date_of_birth: convertBirthDateToUTC(user?.date_of_birth),
       date_of_birth: moment(user?.date_of_birth),
       conntactNumber: user?.contact_number,
       email: user?.email,
@@ -194,7 +193,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Password</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item name="password">
+                  <Form.Item
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter your password",
+                      },
+                    ]}
+                  >
                     <Input size="large" placeholder="Password" />
                   </Form.Item>
                 </div>
@@ -249,7 +256,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Postal Code</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item noStyle name="postalCode">
-                    <Input size="large" placeholder="Postal Code" />
+                    <Input
+                      size="large"
+                      placeholder="Postal Code"
+                      type="number"
+                    />
                   </Form.Item>
                 </div>
               </div>

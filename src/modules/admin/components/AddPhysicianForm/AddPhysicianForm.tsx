@@ -254,7 +254,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
             },
           ]}
         >
-          <Input />
+          <Input type="number"/>
         </Form.Item>
       </div>
       <Form.Item>

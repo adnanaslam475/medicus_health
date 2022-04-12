@@ -62,8 +62,7 @@ function AdminPhysicianAdd() {
 
     if (response?.data?.createDoctor) {
       Router.push({
-        pathname: "/successScreen",
-        query: { email: values?.email },
+        pathname: "/admin/physicians",
       });
     }
 

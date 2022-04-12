@@ -8,7 +8,7 @@ import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import Container from "../../../../common/components/Container/Container";
 import { Profile } from "../../components/Profile/Profile";
 import EmailNotification from "../EmailNotification/EmailNotification";
-import { ProfileIcon } from "../../../../../src/common/components/CustomIcon";
+import { ProfileIcon } from "../../../../common/components/CustomIcon";
 import {
   DoctorProfile,
   useDoctorProfileQuery,
@@ -25,8 +25,6 @@ function ProfileDetail() {
   });
 
   const { doctorProfile } = data || {};
-
-
 
   return (
     <AppLayout>
