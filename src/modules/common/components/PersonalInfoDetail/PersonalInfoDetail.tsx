@@ -395,7 +395,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Do you have any pets?</div>
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0" name="pets">
-                    <Radio.Group value="No">
+                    <Radio.Group>
                       <Radio value="Yes">Yes</Radio>
                       <Radio value="No">No</Radio>
                     </Radio.Group>
