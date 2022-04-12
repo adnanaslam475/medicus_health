@@ -2,8 +2,12 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-
-import { ExclamationCircleOutlined, EditOutlined, DownOutlined } from "@ant-design/icons";
+import {
+  ExclamationCircleOutlined,
+  EditOutlined,
+  DownOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
   Table,
@@ -15,24 +19,29 @@ import {
   Button,
   Checkbox,
   Menu,
-   Dropdown,
-   Tabs, Badge, Modal,
-   notification,
-   Select
-
+  Dropdown,
+  Tabs,
+  Badge,
+  Modal,
+  notification,
+  Select,
+  DatePicker,
 } from "antd";
+const { TextArea } = Input;
+const { RangePicker } = DatePicker;
 
 import { useUpdateDoctorProfileMutation } from "../../../../generated/graphql";
 import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import Language from "../../../admin/components/Languague/Language";
+import InputWithLi from "../InputWithLi/InputWithLi";
+import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
 
 export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
 }: any) {
-
   const { Option } = Select;
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -129,22 +138,18 @@ export const Profile = React.forwardRef(function Profile({
   };
 
   function handleMenuClick(e) {
-    console.log('click', e);
+    console.log("click", e);
   }
-  const menu= ( 
-  <Menu onClick={handleMenuClick}>
-  <Menu.Item key="1"  >
-    Published
-  </Menu.Item>
-  <Menu.Item key="2" >
-  UnPublished
-  </Menu.Item>
-
-</Menu>);
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="1">Published</Menu.Item>
+      <Menu.Item key="2">UnPublished</Menu.Item>
+    </Menu>
+  );
   return (
     <div className="w-full">
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
-        <div className="flex flex-col w-full justify-start items-center py-3">
+        <div className="flex flex-col w-full justify-start py-3">
           <div className="w-full mb-10 flex gap-8">
             <Upload
               onChange={fileChange}
@@ -163,23 +168,21 @@ export const Profile = React.forwardRef(function Profile({
                   }}
                   src={userProfileImage}
                 />
-              
               </div>
             </Upload>
             <div>
               <span>PY-123</span>
               <h2 className="mb-0">{`${first_name} ${last_name}`}</h2>
               <span className="block">{email}</span>
-              <Select  defaultValue="published"style={{ width: 200 }} >
-            <Option selected value="published">Published</Option>
-            <Option value="unpublished">UnPublished</Option>
-          </Select>
+              <Select defaultValue="published" style={{ width: 200 }}>
+                <Option selected value="published">
+                  Published
+                </Option>
+                <Option value="unpublished">UnPublished</Option>
+              </Select>
             </div>
-
-
-            
           </div>
-        
+
           <div className="w-full">
             <Form
               form={formInstance}
@@ -256,9 +259,20 @@ export const Profile = React.forwardRef(function Profile({
           </div>
           <div className="mr-auto">Languages</div>
           <div className="flex justify-between mr-auto">
-          <Language/>
-          <Language/>
+            <Language />
+            <Language />
           </div>
+          <div className="mt-5">
+            <TextArea
+              rows={12}
+              placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
+              maxLength={6}
+            />
+          </div>
+
+          <InputWithLi />
+          <div>Availability</div>
+          <MultiRangeDatePicker/>
         </div>
       </div>
     </div>
