@@ -2,8 +2,12 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal, notification, Select } from "antd";
-import { ExclamationCircleOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  ExclamationCircleOutlined,
+  EditOutlined,
+  PlusOutlined,
+  DownOutlined,
+} from "@ant-design/icons";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
   Table,
@@ -14,7 +18,18 @@ import {
   Input,
   Button,
   Checkbox,
+  Menu,
+  Dropdown,
+  Tabs,
+  Badge,
+  Modal,
+  notification,
+  Select,
+  DatePicker,
 } from "antd";
+const { TextArea } = Input;
+const { RangePicker } = DatePicker;
+
 import {
   useEnableOrDisableDoctorMutation,
   useUpdateDoctorProfileMutation,
@@ -22,17 +37,25 @@ import {
 import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
+import Language from "../../../admin/components/Languague/Language";
+import InputWithLi from "../InputWithLi/InputWithLi";
+import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
+
+const { Option } = Select;
 
 export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
 }: any) {
+  const { Option } = Select;
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
   const [ispublish, setIsPublish] = useState(true);
 
   const { first_name, last_name, password, email, contact_number, status } =
     doctorData?.user || {};
+
+  console.log("status", status);
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
@@ -124,7 +147,22 @@ export const Profile = React.forwardRef(function Profile({
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  const { Option } = Select;
+  function handleMenuClick(e: object) {
+    console.log("click", e);
+  }
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="1">Published</Menu.Item>
+      <Menu.Item key="2">UnPublished</Menu.Item>
+    </Menu>
+  );
+  // async function handleChange(value: string) {
+  // 	console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+
+  // 	const res = await EnableOrDisableDoctor({
+  // 		id: Number(doctorId),
+  // 	});
+
   async function handleChange() {
     const res = await EnableOrDisableDoctor({
       id: Number(doctorId),
@@ -196,7 +234,6 @@ export const Profile = React.forwardRef(function Profile({
                   Edit Info
                 </Button>
               </div>
-              
             </div>
           </div>
           <div className="w-full">
@@ -215,7 +252,6 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input />
                 </Form.Item>
-
                 <Form.Item
                   label="Last name"
                   name="lastName"
@@ -236,7 +272,14 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input />
                 </Form.Item>
-                
+                <Form.Item
+                  label="Contact Number"
+                  name="contact"
+                  rules={[{ message: "Contact Number!" }]}
+                  className="flex-1"
+                >
+                  <Input />
+                </Form.Item>
               </div>
               <div className="flex flex-row gap-3">
                 <Form.Item
@@ -266,10 +309,24 @@ export const Profile = React.forwardRef(function Profile({
               </Form.Item>
             </Form>
           </div>
+          <div className="mr-auto">Languages</div>
+          <div className="flex justify-between mr-auto">
+            <Language />
+            <Language />
+          </div>
+          <div className="mt-5">
+            <TextArea
+              rows={12}
+              placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
+              maxLength={6}
+            />
+          </div>
+
+          <InputWithLi />
+          <div>Availability</div>
+          <MultiRangeDatePicker />
         </div>
       </div>
     </div>
   );
 });
-
-// export default Profile;

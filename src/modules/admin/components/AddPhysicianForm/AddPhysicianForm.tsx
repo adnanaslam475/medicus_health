@@ -221,7 +221,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
           name="city_id"
           rules={[
             {
-              required: true,
+              required: false,
               message: "Please enter your city",
             },
           ]}
@@ -254,7 +254,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
             },
           ]}
         >
-          <Input type="number"/>
+          <Input type="number" />
         </Form.Item>
       </div>
       <Form.Item>

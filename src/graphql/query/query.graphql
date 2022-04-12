@@ -188,8 +188,6 @@ query doctorProfile($doctor_id: Int!) {
   }
 }
 
-
-
 # get all appointments
 query getAllRequestedAppointments($filter: GetAppointmentInput!) {
   appointments(filter: $filter) {
@@ -199,18 +197,28 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     serviceId
     requestedDate
     status
-    patient{
-      first_name
-      last_name
-    }
-    serviceType{
-      name
-    }
-    doctor{
-      first_name
-    }
   }
 }
+# query getAllRequestedAppointments($filter: GetAppointmentInput!) {
+#   appointments(filter: $filter) {
+#     id
+#     patientId
+#     doctorId
+#     serviceId
+#     requestedDate
+#     status
+#     patient{
+#       first_name
+#       last_name
+#     }
+#     serviceType{
+#       name
+#     }
+#     doctor{
+#       first_name
+#     }
+#   }
+# }
 # GET DOCTOR PROFILE DETAILS
 query doctorProfileDetails($input: Int!) {
   user(id: $input) {
