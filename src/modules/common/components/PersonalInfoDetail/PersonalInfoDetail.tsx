@@ -54,6 +54,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     }
   }, [user]);
 
+  // console.log(user, "user");
+
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       firstName: user?.first_name,
@@ -63,13 +65,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       date_of_birth: moment(user?.date_of_birth),
       conntactNumber: user?.contact_number,
       email: user?.email,
-      password: user?.password,
+      password: "",
       country_id: user?.country_id,
       state_id: user?.state_id,
       city_id: user?.city_id,
       postalCode: user?.zip_code,
       streetAddress: user?.streetAddress,
+      maritalStatusExist: false,
       maritalStatus: user?.patientProfile?.maritalStatus,
+      childrenExists: false,
       children: user?.patientProfile?.children,
       occupation: user?.patientProfile?.occupation,
       occupationalExposure: user?.patientProfile?.occupationalExposure,
@@ -97,7 +101,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
   return (
     <div className="custom-list mt-4">
-      <Form form={formInstance} onFinish={onFinish}>
+      <Form form={formInstance} onFinish={onFinish} layout="vertical">
         <ul>
           <div className="border border-gray-3 px-0 rounded custom-list-items">
             <li>
@@ -190,7 +194,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Password</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="password">
+                  <Form.Item name="password">
                     <Input size="large" placeholder="Password" />
                   </Form.Item>
                 </div>
@@ -266,14 +270,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0">
+                  <Form.Item className="mb-0" name="maritalStatusExist">
                     <Radio.Group
                       onChange={(e) => {
                         setradioMaritalStatus(e.target.value);
                       }}
                     >
-                      <Radio value={1}>Yes</Radio>
-                      <Radio value={0}>No</Radio>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
                     </Radio.Group>
 
                     {!!radioMaritalStatus && (
@@ -299,14 +303,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   Do You have any children?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0">
+                  <Form.Item className="mb-0" name="childrenExists">
                     <Radio.Group
                       onChange={(e) => {
                         setradioChildren(e.target.value);
                       }}
                     >
-                      <Radio value={1}>Yes</Radio>
-                      <Radio value={0}>No</Radio>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
                     </Radio.Group>
                     {!!radioChildren && (
                       <Form.Item className="mb-0" name="children">
@@ -349,7 +353,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   </Form.Item>
 
                   {!!radioOccupationalExposure && (
-                    <Form.Item className="mb-0" name="exposureDuration">
+                    <Form.Item
+                      className="mb-0"
+                      name="exposureDuration"
+                      label="Occupational Exposure duration?"
+                    >
                       <Select
                         placeholder="Occupational Exposure Duration"
                         size="large"
@@ -376,7 +384,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Do you have any pets?</div>
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0" name="pets">
-                    <Radio.Group>
+                    <Radio.Group value="No">
                       <Radio value="Yes">Yes</Radio>
                       <Radio value="No">No</Radio>
                     </Radio.Group>

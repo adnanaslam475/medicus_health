@@ -53,9 +53,8 @@ function SetPassword() {
                 alt=""
               />
             </div>
-            <h1>ADMIN SET PASSWORD</h1>
             <h1 className="text-center text-secondary mb-3">
-              Confirm Password
+              Set Password
             </h1>
             <h5 className="text-center text-gray font-rubik font-normal">
               Enter your new password
@@ -108,5 +107,3 @@ function SetPassword() {
   );
 }
 export default SetPassword;
-
-// some text

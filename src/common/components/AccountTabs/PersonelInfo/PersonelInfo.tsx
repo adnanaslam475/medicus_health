@@ -54,7 +54,7 @@ const PersonalInfo = () => {
           last_name: values?.lastName,
           email: values?.email,
           gender: values?.gender,
-          date_of_birth: date.convertBirthDateToUTC(values.date_of_birth._i),
+          date_of_birth: date.convertStringDateToUTC(values.date_of_birth._i),
           country_id: Number(values?.country_id),
           contact_number: values?.conntactNumber,
           city_id: Number(values?.city_id),
