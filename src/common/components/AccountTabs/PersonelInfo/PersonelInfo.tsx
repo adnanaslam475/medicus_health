@@ -1,10 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Avatar, Tabs, Button, notification } from "antd";
-import Router from "next/router";
-import Image from "next/image";
-// import S3 from "react-aws-s3-typescript";
+import React, { useRef, useState } from "react";
+import { Avatar, Button, notification } from "antd";
 import ReactS3Client from "react-aws-s3-typescript";
-import yourImage from "../../../../../public/assets/images/your_photo.png";
 import PersonalInfoList from "../../../../modules/common/components/PersonalInfoList/PersonalInfoList";
 import { PersonalInfoDetail } from "../../../../modules/common/components/PersonalInfoDetail/PersonalInfoDetail";
 import {
@@ -13,13 +9,10 @@ import {
   useUpdateUserProfileMutation,
 } from "../../../../generated/graphql";
 import { getUserData } from "../../../utils/userData";
-import { Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Upload } from "antd";
 import { date } from "../../../utils";
 import { UploadChangeParam } from "antd/lib/upload";
 import config from "../../../../../config";
-
-const { TabPane } = Tabs;
 
 const PersonalInfo = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -31,8 +24,6 @@ const PersonalInfo = () => {
 
   const form: any = useRef();
 
-  // GET USER DATA API CALL
-  // const [{ data: createCardsData }, executeCardMutation] =
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: id },
   });
@@ -71,6 +62,19 @@ const PersonalInfo = () => {
           pets: values?.pets,
         },
       });
+
+      if (result) {
+        result?.data?.updateUser &&
+          notification.success({
+            message: "Successfully Updated",
+          });
+      }
+
+      if (error) {
+        notification.error({
+          message: error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+      }
     } catch (error) {
       console.log(error);
     }

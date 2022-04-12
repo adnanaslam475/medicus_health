@@ -12,7 +12,7 @@ import { ProfileIcon } from "../../../../common/components/CustomIcon";
 
 const { TabPane } = Tabs;
 
-function ProfileDetail() {
+function ProfileDetailOld() {
   return (
     <AppLayout>
       <div className="w-full">
@@ -47,4 +47,4 @@ function ProfileDetail() {
   );
 }
 
-export default ProfileDetail;
+export default ProfileDetailOld;

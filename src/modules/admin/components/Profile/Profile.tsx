@@ -34,8 +34,6 @@ export const Profile = React.forwardRef(function Profile({
   const { first_name, last_name, password, email, contact_number, status } =
     doctorData?.user || {};
 
-  console.log("status", status);
-
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
 
@@ -127,20 +125,24 @@ export const Profile = React.forwardRef(function Profile({
   };
 
   const { Option } = Select;
-  async function handleChange(value: string) {
-    console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
-
+  async function handleChange() {
     const res = await EnableOrDisableDoctor({
       id: Number(doctorId),
     });
 
-    // if (res?.data?.enableOrDisableDoctor.status) {
-    //   setIsPublish(true);
-    // } else {
-    //   setIsPublish(false);
-    // }
+    if (res?.data?.enableOrDisableDoctor?.status) {
+      res?.data?.enableOrDisableDoctor?.status &&
+        notification.success({
+          message: "Published",
+        });
+    }
 
-    console.log("EnableOrDisableDoctor", res);
+    if (!res?.data?.enableOrDisableDoctor?.status) {
+      !res?.data?.enableOrDisableDoctor?.status &&
+        notification.success({
+          message: "UnPublished",
+        });
+    }
   }
 
   return (
@@ -157,7 +159,7 @@ export const Profile = React.forwardRef(function Profile({
             >
               <div className="relative">
                 <Avatar
-                  size={50}
+                  size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
                   style={{
                     borderColor: "transparent",
                     borderWidth: 2,
@@ -165,41 +167,36 @@ export const Profile = React.forwardRef(function Profile({
                   }}
                   src={userProfileImage}
                 />
-                <Button
-                  type="link"
-                  className="text-primary underline ml-3 text-xs"
-                >
-                  Update Photo
-                </Button>
               </div>
             </Upload>
 
             <div>
-              <span>PY-123</span>
-              <h2 className="mb-0">{`${first_name} ${last_name}`}</h2>
+              <span>{doctorId}</span>
+              <h2 className="mb-0">
+                {first_name ? `${first_name} ${last_name}` : ""}
+              </h2>
               <span className="block">{email}</span>
               <div className=" grid grid-cols-2 gap-4">
                 <div className="lg:ml-0 mt-0 sm:mt-0">
-                  <Select
-                    style={{ width: 120 }}
-                    onChange={handleChange}
-                    defaultValue="Published"
-                    className="w-full sm:w-40"
+                  <Button
+                    type="primary"
+                    style={{
+                      background: "#E2F8F7",
+                      borderColor: "#E2F8F7",
+                      color: "#30CEC2",
+                    }}
+                    className="pr-0"
+                    onClick={handleChange}
                   >
-                    <Option value={"Published"}>Unpublished</Option>
-                    <Option value={"Unpublished"}>Published</Option>
-                  </Select>
+                    {status ? "Published" : "Unpublished"}
+                  </Button>
                 </div>
-                <Button size="large" className="px-0 mx-0">
+                <Button type="default" className="px-0 mx-0">
                   <EditOutlined />
                   Edit Info
                 </Button>
               </div>
-              <div className="flex">
-                <div className="physicianStatus">
-                  {status ? <Tag>Published</Tag> : <Tag>Unpublished</Tag>}
-                </div>
-              </div>
+              
             </div>
           </div>
           <div className="w-full">
@@ -239,14 +236,7 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item
-                  label="Contact Number"
-                  name="contact"
-                  rules={[{ message: "Contact Number!" }]}
-                  className="flex-1"
-                >
-                  <Input />
-                </Form.Item>
+                
               </div>
               <div className="flex flex-row gap-3">
                 <Form.Item

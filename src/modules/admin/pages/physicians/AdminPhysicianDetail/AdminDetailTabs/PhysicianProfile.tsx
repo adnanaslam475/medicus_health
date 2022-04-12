@@ -17,16 +17,6 @@ import {
 } from "antd";
 import PhysicianProfileForm from "./PhysicianProfileForm";
 
-const props = {
-  // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  onChange({ file, fileList }: any) {
-    if (file.status !== "uploading") {
-      // console.log("fileList", fileList);
-      // console.log("file", file);
-      // setImage(file?.name);
-    }
-  },
-};
 function PhysicianProfile() {
   return (
     <div className="w-full">
