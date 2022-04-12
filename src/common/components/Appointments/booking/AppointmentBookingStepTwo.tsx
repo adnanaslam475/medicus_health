@@ -2,9 +2,11 @@ import React from "react";
 import {
   Layout,
   Checkbox,
+  CheckboxGroup,
   Upload,
   message,
   Form,
+  Image,
   Input,
   Button,
   Select,
@@ -16,7 +18,6 @@ import {
   CloseOutlined,
   InboxOutlined,
 } from "@ant-design/icons";
-
 import { FormInstance } from "antd/es/form";
 
 const { Dragger } = Upload;
@@ -42,26 +43,33 @@ const props = {
 function StepTwo() {
   return (
     <>
+      <h2>Request an Appointment</h2>
       <Form layout="vertical">
-        <Form.Item label="Doctor*">
+        <Form.Item label="Medical History*">
           <Dragger {...props}>
             <p className="ant-upload-drag-icon mb-0">
-              <InboxOutlined />
+              <Image
+                alt=""
+                className=""
+                height={32}
+                width={36}
+                src="/assets/icon/upload-icon.svg"
+              />
             </p>
-            <span className="ant-upload-text block">
+            <span className="ant-upload-text text-sm block">
               Drag your files here or
             </span>
-            <span className="ant-upload-text text-white text-sm p-1 px-3 mt-1 mb-3 rounded inline-block bg-primary">
+            <span className="font-circular text-xs ant-upload-text text-white p-1 px-3 mt-1 mb-3 rounded inline-block bg-primary">
               Upload
             </span>
-            <span className="ant-upload-hint block text-gray-1">
+            <span className="ant-upload-hint block text-xs text-gray-1">
               Max 3 files and 10mb upload limit.
             </span>
           </Dragger>
           <div className="w-full bg-gray-4 border border-gray-3 rounded-lg flex items-center justify-between p-3 mt-3 mr-3 mb-3">
             <span className="flex items-center">
               <FileJpgOutlined />
-              <span className="ml-2">test_reports.pdf</span>
+              <span className="text-sm ml-2">test_reports.pdf</span>
             </span>
             <button className="text-xs">
               <CloseOutlined />
@@ -70,13 +78,14 @@ function StepTwo() {
           <div className="w-full bg-gray-4 border border-gray-3 rounded-lg flex items-center justify-between p-3 mt-3 mr-3 mb-3">
             <span className="flex items-center">
               <FilePdfOutlined />
-              <span className="ml-2">test_reports.pdf</span>
+              <span className="text-sm ml-2">test_reports.pdf</span>
             </span>
             <button className="text-xs">
               <CloseOutlined />
             </button>
           </div>
         </Form.Item>
+
         <Form.Item label="General Health Questionnaire*">
           <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
             <Checkbox value="0">

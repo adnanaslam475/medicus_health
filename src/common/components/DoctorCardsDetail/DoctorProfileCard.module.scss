@@ -94,7 +94,7 @@
         right: 0;
         bottom: 20px;
         .ant-steps-item {
-            padding-left: 10px;
+            padding-left: 8px;
             flex: inherit;
             &.ant-steps-item-active {
                 .ant-steps-item-container {
@@ -105,8 +105,8 @@
             }
             .ant-steps-item-container {
                 .ant-steps-item-icon {
-                    width: 12px;
-                    height: 12px;
+                    width: 9px;
+                    height: 9px;
                     margin: 0px;
                     background-color: #D1DEF0;
                     border: none;
@@ -120,11 +120,15 @@
             }
        }
     }
+    :global .steps-content {
+        .mb-0 {
+            margin-bottom: 0px !important;
+        }
+    }
     :global .steps-action {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 30px;
         .ant-btn-link {
             display: flex !important;
             align-items: center;
@@ -138,6 +142,6 @@
     border-color: #1a82fe !important;
     background: #1A82FE !important; 
     margin-left: auto;
+    margin-bottom: 30px;
     height: 48px !important;
 }
-

@@ -6,9 +6,16 @@
 
 // for default button
 button.ant-btn {
+  font-family: Circular Std;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+// for all modal headers
+.ant-modal-header {
+  padding: 16px 24px 0px 24px !important;
+  border-bottom: none !important;
 }
 
 // for all tags
@@ -289,10 +296,16 @@ label.ant-radio-wrapper {
   background-color: #30cec2 !important;
 }
 
+  .ant-checkbox-checked .ant-checkbox-inner {
+  border-color: #30cec2 !important;
+  background-color: #30cec2 !important;
+}
+
 .ant-checkbox-checked::after {
   border-color: transparent !important;
 }
-
+.ant-input {
+}
 // Faizan CSS
 .ant-table-wrapper {
   .ant-table-content {

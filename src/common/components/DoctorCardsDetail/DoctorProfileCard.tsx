@@ -95,18 +95,19 @@ function DoctorProfileCard(props: Props) {
   return (
     <>
       <Modal
-        title="Request an Appointment"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
         className={`${_classes["steps-style"]}`}
       >
-        <Steps current={current}>
+        {current < steps.length - 1 && (
+        <Steps>
           {steps.map((item) => (
             <Step key={item.title} title={item.title} />
           ))}
         </Steps>
+        )}
         <div className="steps-content">{steps[current].content}</div>
         <div className="steps-action">
           {current > 0 && current < steps.length - 1 && (
