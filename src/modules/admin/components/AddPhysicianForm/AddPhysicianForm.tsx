@@ -19,8 +19,8 @@ type Props = {
     streetAddress: string;
     profileImage: string;
   }) => void;
-    // user?: User;
-    // loading?: boolean;
+  // user?: User;
+  // loading?: boolean;
 };
 
 export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(

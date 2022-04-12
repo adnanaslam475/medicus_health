@@ -147,7 +147,9 @@ function DoctorProfileCard(props: Props) {
           <div className="lg:pr-5 w-full mb-5">
             <div className="flex-row md:flex items-center">
               <h2 className="font-bold mb-0 mr-3">
-                <span>Dr. {doctorData ? first_name + " " + last_name : ""}</span>
+                <span>
+                  Dr. {doctorData ? first_name + " " + last_name : ""}
+                </span>
               </h2>
               <div className="flex">
                 <div className="flagAvatar engFlag pr-2">
