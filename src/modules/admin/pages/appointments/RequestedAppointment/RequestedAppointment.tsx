@@ -9,14 +9,13 @@ function RequestedAppointment() {
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        doctorId: 520,
         status: "Requested",
       },
     },
   });
 
   const { appointments } = data || {};
-  console.log(appointments, "appointments");
+  console.log(data, "appointments");
 
   return (
     <AppLayout>
