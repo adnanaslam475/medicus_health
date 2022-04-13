@@ -1,12 +1,14 @@
 /* eslint-disable no-else-return */
 /* eslint-disable camelcase */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from "react";
+import React, { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import _Classes from "./CalendarView.module.scss";
+import { Select } from "antd";
+import { useDoctorProfilesQuery } from "../../../../generated/graphql";
 
 type Props = {
   handleDateChange: (arg: any | undefined) => void;
@@ -18,10 +20,44 @@ function AdminAimsCalender(props: Props) {
   const { handleDateChange, calendarComponentRef, calender, handleDateClick } =
     props;
   const events = [{ title: "today's event", date: new Date() }];
+  const [isSearch, setIsSearch] = useState<boolean>(false);
+
+  const [{ data }] = useDoctorProfilesQuery();
+  const { doctorProfiles } = data || {};
+
+  function handleSearch() {
+    setIsSearch(!isSearch);
+  }
 
   return (
     <div>
       <div className={`${_Classes["calendarview"]}`}>
+        {isSearch ? (
+          <div className="my-2">
+            {/* <SearchFilters /> */}
+            <div className="lg:ml-3 mt-3 sm:mt-0">
+              <Select
+                placeholder="Search by ID Physician Name"
+                className="w-full sm:w-2/5"
+                showArrow
+                showSearch
+                // onSearch={onSearchPatient}
+                filterOption={(inputValue, option : any) =>
+                  option.props.children
+                    .toString()
+                    .toLowerCase()
+                    .includes(inputValue.toLowerCase())
+                }
+              >
+                {doctorProfiles?.map((item) => (
+                  <Select.Option key={item?.id} value={item?.id}>
+                    {item?.user?.first_name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </div>
+          </div>
+        ) : null}
         <FullCalendar
           dayHeaderContent={(args) => {
             const weekShortName = new Date(args.date).toLocaleString("en-us", {
@@ -71,10 +107,9 @@ function AdminAimsCalender(props: Props) {
             },
             search: {
               text: "Search",
-              // click: () => {
-              //   handleDateChange("prev");
-
-              // },
+              click: () => {
+                handleSearch();
+              },
             },
           }}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

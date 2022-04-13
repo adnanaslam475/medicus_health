@@ -21,6 +21,7 @@ export type Scalars = {
 
 export type Appointment = {
   __typename?: 'Appointment';
+  appointmentTimeSlots?: Maybe<Array<AppointmentTimeSlots>>;
   doctor: User;
   doctorId: Scalars['Int'];
   id: Scalars['Int'];
@@ -53,11 +54,21 @@ export type AppointmentServiceType = {
   price: Scalars['Float'];
 };
 
+export type AppointmentTimeSlots = {
+  __typename?: 'AppointmentTimeSlots';
+  appointment?: Maybe<Appointment>;
+  endTime: Scalars['Int'];
+  id: Scalars['Int'];
+  selected: Scalars['Boolean'];
+  startTime: Scalars['Int'];
+};
+
 export type BookAppointmentInput = {
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
   requestedDate: Scalars['DateTime'];
   scheduleId: Scalars['Int'];
+  selectedSlotId: Scalars['Float'];
 };
 
 export type BookingDate = {
@@ -467,11 +478,14 @@ export type ProfessionalExperience = {
 
 export type ProposeNewTimeInput = {
   charges: Scalars['Int'];
-  endTime: Scalars['String'];
   id: Scalars['Int'];
-  requestedDate: Scalars['DateTime'];
+  proposedTimeSlots: Array<ProposedTimeSlots>;
   serviceId: Scalars['Int'];
-  startTime: Scalars['String'];
+};
+
+export type ProposedTimeSlots = {
+  endTime: Scalars['Int'];
+  startTime: Scalars['Int'];
 };
 
 export type Query = {
@@ -1392,6 +1406,21 @@ export default {
         "name": "Appointment",
         "fields": [
           {
+            "name": "appointmentTimeSlots",
+            "type": {
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "AppointmentTimeSlots",
+                  "ofType": null
+                }
+              }
+            },
+            "args": []
+          },
+          {
             "name": "doctor",
             "type": {
               "kind": "NON_NULL",
@@ -1628,6 +1657,66 @@ export default {
           },
           {
             "name": "price",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AppointmentTimeSlots",
+        "fields": [
+          {
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "endTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "selected",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "startTime",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
