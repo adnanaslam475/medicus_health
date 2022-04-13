@@ -111,13 +111,33 @@ const PersonalInfo = () => {
       <div className="w-4/6">
         <div className="flex justify-between items-center">
           <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
-            <Upload
-              onChange={fileChange}
-              maxCount={1}
-              beforeUpload={onBeforeUpload}
-              itemRender={() => <div />}
-              customRequest={() => null}
-            >
+            {isEdit ? (
+              <Upload
+                onChange={fileChange}
+                maxCount={1}
+                beforeUpload={onBeforeUpload}
+                itemRender={() => <div />}
+                customRequest={() => null}
+              >
+                <div className="relative">
+                  <Avatar
+                    size={50}
+                    style={{
+                      borderColor: "transparent",
+                      borderWidth: 2,
+                      lineHeight: "40px",
+                    }}
+                    src={image ? image : userProfileImage}
+                  />
+                  <Button
+                    type="link"
+                    className="text-primary underline ml-3 text-xs"
+                  >
+                    Update Photo
+                  </Button>
+                </div>
+              </Upload>
+            ) : (
               <div className="relative">
                 <Avatar
                   size={50}
@@ -126,16 +146,11 @@ const PersonalInfo = () => {
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
-                  src={userProfileImage}
+                  // src={userProfileImage}
+                  src={image ? image : userProfileImage}
                 />
-                <Button
-                  type="link"
-                  className="text-primary underline ml-3 text-xs"
-                >
-                  Update Photo
-                </Button>
               </div>
-            </Upload>
+            )}
           </div>
 
           <div className="edit-btn flex justify-end">

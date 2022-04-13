@@ -165,7 +165,7 @@ export const Profile = React.forwardRef(function Profile({
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
-                  src={userProfileImage}
+                  src={image ? image : userProfileImage}
                 />
               </div>
             </Upload>
@@ -196,7 +196,6 @@ export const Profile = React.forwardRef(function Profile({
                   Edit Info
                 </Button>
               </div>
-              
             </div>
           </div>
           <div className="w-full">
@@ -236,7 +235,6 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input />
                 </Form.Item>
-                
               </div>
               <div className="flex flex-row gap-3">
                 <Form.Item
