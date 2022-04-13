@@ -28,6 +28,7 @@ import AppointmentBookingStepFour from "../../../common/components/Appointments/
 import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
 import { DoctorProfile, DoctorSchedule } from "../../../generated/graphql";
 import { date } from "../../utils";
+import RequestAppointmentModal from "../RequestAppointmentModal/RequestAppointmentModal";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -95,7 +96,7 @@ function DoctorProfileCard(props: Props) {
 
   return (
     <>
-      <Modal
+      {/* <Modal
         title="Request an Appointment"
         visible={isModalVisible}
         onOk={handleOk}
@@ -134,8 +135,8 @@ function DoctorProfileCard(props: Props) {
             </Button>
           )}
         </div>
-      </Modal>
-
+      </Modal> */}
+      <RequestAppointmentModal />
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
