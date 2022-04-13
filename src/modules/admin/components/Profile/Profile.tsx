@@ -189,7 +189,7 @@ export const Profile = React.forwardRef(function Profile({
 	return (
 		<div className="w-full">
 			<div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
-				<div className="flex flex-col w-full justify-start  py-3">
+				<div className="flex flex-col w-full justify-start py-3">
 					<div className="w-full mb-10 flex gap-8">
 						<Upload
 							onChange={fileChange}
