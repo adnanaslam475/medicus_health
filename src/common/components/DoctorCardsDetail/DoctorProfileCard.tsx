@@ -246,31 +246,28 @@ function DoctorProfileCard(props: Props) {
         <div className="text-gray">{doctorData?.about_me}</div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
-        <p className="text-base text-secondary">
+        <p className="text-secondary">
           {doctorData?.condition_treated}
         </p>
         <Divider />
         <h4 className="font-bold mb-1">Professional Background</h4>
-        <div className="text-base text-secondary">
+        <div className="text-secondary">
           {doctorData?.professional_experience &&
             JSON.parse(doctorData?.professional_experience).map((item: any) => (
               <>
                 <b>{item?.institution}</b>
-                <br />
-                <span> {item?.role}</span>
+                <span className="text-secondary block">{item?.role}</span>
               </>
             ))}
         </div>
         <Divider />
         <h4 className="font-bold mb-1">Educational Background</h4>
-        <div className="text-base text-secondary">
+        <div className="text-secondary">
           {doctorData?.educational_background &&
             JSON.parse(doctorData?.educational_background).map((item: any) => (
               <>
                 <b>{item?.institution}</b>
-                <br />
-                <span> {item?.degree}</span>
-                <br />
+                <span className="text-secondary block">{item?.degree}</span>
               </>
             ))}
         </div>
