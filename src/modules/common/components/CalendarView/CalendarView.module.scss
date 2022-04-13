@@ -95,6 +95,9 @@ border: none;
       // color: "red";
       font-weight: 600;
     }
+    :global .fc-daygrid-body{
+      display: none;
+    }
   
     // :global .fc .fc-toolbar {
     //   background-color: gray;
