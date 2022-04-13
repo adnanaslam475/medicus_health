@@ -282,11 +282,6 @@ label.ant-radio-wrapper {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 }
 
-.ant-checkbox-checked .ant-checkbox-inner {
-  border-color: #429eff !important;
-  background-color: #429eff !important;
-}
-
 .ant-tabs
   .ant-form-item-control-input
   .ant-checkbox-group
@@ -296,15 +291,8 @@ label.ant-radio-wrapper {
   background-color: #30cec2 !important;
 }
 
-  .ant-checkbox-checked .ant-checkbox-inner {
-  border-color: #30cec2 !important;
-  background-color: #30cec2 !important;
-}
-
 .ant-checkbox-checked::after {
   border-color: transparent !important;
-}
-.ant-input {
 }
 // Faizan CSS
 .ant-table-wrapper {

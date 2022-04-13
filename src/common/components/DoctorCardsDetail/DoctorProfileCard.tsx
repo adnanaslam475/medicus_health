@@ -187,7 +187,7 @@ function DoctorProfileCard(props: Props) {
                   <div className="flex-none sm:flex flex-grow justify-between">
                     {matchDay ? (
                       <>
-                        <div className="ant-collapse-available">
+                        <div className="text-gray-8 ant-collapse-available">
                           Available Today
                         </div>
                         <span className="ant-collapse-time">
@@ -196,7 +196,7 @@ function DoctorProfileCard(props: Props) {
                         </span>
                       </>
                     ) : (
-                      " Not Available Today "
+                      <span className="text-gray-8">Not Available Today</span>
                     )}
                   </div>
                 }
