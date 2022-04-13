@@ -54,8 +54,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     }
   }, [user]);
 
-  // console.log(user, "user");
-
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       firstName: user?.first_name,

@@ -35,6 +35,7 @@ const FLAG_BY_LANGUAGE = {
 };
 
 const { Panel } = Collapse;
+
 const { Step } = Steps;
 
 const steps = [
