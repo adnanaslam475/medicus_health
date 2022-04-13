@@ -172,7 +172,7 @@ function DoctorProfileCard(props: Props) {
                 </div>
               </div>
             </div>
-            <h5 className="font-rubik text-primary text-xs mb-1">
+            <h5 className="font-rubik text-yellow text-xs mb-1">
               {doctorData?.specialization}
             </h5>
             <span className="font-rubik text-secondary text-sm block mb-2">
