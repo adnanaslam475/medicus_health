@@ -144,6 +144,11 @@ export type CreateDoctorProfileInput = {
   year_of_experience: Scalars['Float'];
 };
 
+export type CreateDoctorQuestionnaireInput = {
+  doctorId: Scalars['Int'];
+  questionnaire?: InputMaybe<Scalars['JSON']>;
+};
+
 export type CreateDoctorScheduleInput = {
   day: Scalars['Float'];
   schedule: Array<Schedule>;
@@ -214,6 +219,15 @@ export type DoctorProfile = {
   year_of_experience?: Maybe<Scalars['Float']>;
 };
 
+export type DoctorQuestionnaire = {
+  __typename?: 'DoctorQuestionnaire';
+  doctor: User;
+  doctorId: Scalars['Int'];
+  id: Scalars['Int'];
+  questionnaire?: Maybe<Scalars['JSON']>;
+  user?: Maybe<User>;
+};
+
 export type DoctorSchedule = {
   __typename?: 'DoctorSchedule';
   createdAt: Scalars['DateTime'];
@@ -270,6 +284,7 @@ export type Mutation = {
   createDoctor: User;
   createDoctorBillingMethod: DoctorBillingMethod;
   createDoctorProfile: DoctorProfile;
+  createOrUpdateDoctorQuestionnaire: DoctorQuestionnaire;
   createOrUpdateDoctorSchedule: Array<DoctorSchedule>;
   createPatientHealthHistory: PatientHealthHistory;
   createServiceType: AppointmentServiceType;
@@ -281,6 +296,7 @@ export type Mutation = {
   removeCard: UserCard;
   removeDoctorBillingMethod: DoctorBillingMethod;
   removeDoctorProfile: DoctorProfile;
+  removeDoctorQuestionnaire: DoctorQuestionnaire;
   removeDoctorSchedule: DoctorSchedule;
   removePatientHealthHistory: PatientHealthHistory;
   removeUser: User;
@@ -345,6 +361,11 @@ export type MutationCreateDoctorProfileArgs = {
 };
 
 
+export type MutationCreateOrUpdateDoctorQuestionnaireArgs = {
+  createDoctorQuestionnaireInput: CreateDoctorQuestionnaireInput;
+};
+
+
 export type MutationCreateOrUpdateDoctorScheduleArgs = {
   createDoctorScheduleInput: Array<CreateDoctorScheduleInput>;
   doctorId: Scalars['Int'];
@@ -397,6 +418,11 @@ export type MutationRemoveDoctorBillingMethodArgs = {
 
 
 export type MutationRemoveDoctorProfileArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationRemoveDoctorQuestionnaireArgs = {
   id: Scalars['Int'];
 };
 
@@ -512,6 +538,7 @@ export type Query = {
   doctorBillingMethods: Array<DoctorBillingMethod>;
   doctorProfile: DoctorProfile;
   doctorProfiles: Array<DoctorProfile>;
+  doctorQuestionnaire: DoctorQuestionnaire;
   doctorSchedules: Array<DoctorSchedule>;
   getAllCards: Array<UserCard>;
   getCard: UserCard;
@@ -573,6 +600,11 @@ export type QueryDoctorBillingMethodsArgs = {
 
 export type QueryDoctorProfileArgs = {
   doctor_id: Scalars['Int'];
+};
+
+
+export type QueryDoctorQuestionnaireArgs = {
+  doctorId: Scalars['Int'];
 };
 
 
@@ -699,6 +731,7 @@ export type User = {
   date_of_birth: Scalars['DateTime'];
   doctorBillingMethods?: Maybe<Array<DoctorBillingMethod>>;
   doctorProfile?: Maybe<DoctorProfile>;
+  doctorQuestionnaire?: Maybe<DoctorQuestionnaire>;
   doctorSchedules?: Maybe<Array<DoctorSchedule>>;
   email: Scalars['String'];
   first_name: Scalars['String'];
@@ -890,7 +923,7 @@ export type DoctorProfileQueryVariables = Exact<{
 }>;
 
 
-export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, contact_number: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
+export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
 
 export type GetAllRequestedAppointmentsQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -1304,7 +1337,6 @@ export const DoctorProfileDocument = gql`
       last_name
       email
       gender
-      contact_number
       country_id
       state_id
       city_id
@@ -2072,6 +2104,64 @@ export default {
       },
       {
         "kind": "OBJECT",
+        "name": "DoctorQuestionnaire",
+        "fields": [
+          {
+            "name": "doctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "questionnaire",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
         "name": "DoctorSchedule",
         "fields": [
           {
@@ -2439,6 +2529,29 @@ export default {
             ]
           },
           {
+            "name": "createOrUpdateDoctorQuestionnaire",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorQuestionnaire",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createDoctorQuestionnaireInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "createOrUpdateDoctorSchedule",
             "type": {
               "kind": "NON_NULL",
@@ -2697,6 +2810,29 @@ export default {
               "ofType": {
                 "kind": "OBJECT",
                 "name": "DoctorProfile",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "removeDoctorQuestionnaire",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorQuestionnaire",
                 "ofType": null
               }
             },
@@ -3452,6 +3588,29 @@ export default {
             "args": []
           },
           {
+            "name": "doctorQuestionnaire",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorQuestionnaire",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "doctorSchedules",
             "type": {
               "kind": "NON_NULL",
@@ -3833,6 +3992,15 @@ export default {
             "type": {
               "kind": "OBJECT",
               "name": "DoctorProfile",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "doctorQuestionnaire",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorQuestionnaire",
               "ofType": null
             },
             "args": []

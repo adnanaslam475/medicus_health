@@ -197,6 +197,17 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
           <li>
             <div className="flex w-full  border-b border-gray-3 p-4">
+              <div className="w-1/2 text-gray-1">
+                Do you have any Occupational Duration?
+              </div>
+              <div className="w-1/2">
+                {patientProfile?.exposureDuration}
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div className="flex w-full  border-b border-gray-3 p-4">
               <div className="w-1/2 text-gray-1">Do you have any pets?</div>
               <div className="w-1/2">{patientProfile?.pets}</div>
             </div>

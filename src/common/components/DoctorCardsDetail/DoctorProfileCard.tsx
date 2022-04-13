@@ -94,6 +94,13 @@ function DoctorProfileCard(props: Props) {
     setCurrent(current - 1);
   };
 
+  const todayDate = new Date();
+  let today = todayDate.getDay();
+
+  let matchDay = doctorData?.user?.doctorSchedules?.find(
+    (item) => item.day == today
+  );
+
   return (
     <>
       <Modal
@@ -142,7 +149,7 @@ function DoctorProfileCard(props: Props) {
           <div className="docAvatarCover pr-3">
             <Avatar
               size={150}
-              src="../assets/images/doc-pic.png"
+              src="../../../assets/images/doc-pic.png"
               className=""
             ></Avatar>
           </div>
@@ -179,12 +186,19 @@ function DoctorProfileCard(props: Props) {
                 key="1"
                 header={
                   <div className="flex-none sm:flex flex-grow justify-between">
-                    <div className="ant-collapse-available">
-                      Available Today
-                    </div>
-                    <span className="ant-collapse-time">
-                      12:00 pm - 09:00 pm
-                    </span>
+                    {matchDay ? (
+                      <>
+                        <div className="ant-collapse-available">
+                          Available Today
+                        </div>
+                        <span className="ant-collapse-time">
+                          {`${date.time24HrConvert(matchDay?.startTime)} -
+                          ${date.time24HrConvert(matchDay?.endTime)}`}
+                        </span>
+                      </>
+                    ) : (
+                      " Not Available Today "
+                    )}
                   </div>
                 }
               >

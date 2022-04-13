@@ -42,8 +42,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
   const { loading, user, onFinish } = props || {};
   const [radioChildren, setradioChildren] = useState(true);
   const [radioMaritalStatus, setradioMaritalStatus] = useState(true);
-  const [radioOccupationalExposure, setradioOccupationalExposure] =
-    useState(true);
+  const [radioOccupationalExposure, setradioOccupationalExposure] = useState(
+    user?.patientProfile?.occupationalExposure
+  );
 
   useEffect(() => {
     if (ref) {
@@ -279,28 +280,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0" name="maritalStatusExist">
-                    <Radio.Group
-                      onChange={(e) => {
-                        setradioMaritalStatus(e.target.value);
-                      }}
-                    >
-                      <Radio value="Yes">Yes</Radio>
-                      <Radio value="No">No</Radio>
-                    </Radio.Group>
-
-                    {!!radioMaritalStatus && (
-                      <Form.Item className="mb-0" name="maritalStatus">
-                        <Select placeholder="Marital Status" size="large">
-                          <Select.Option value="Single">Single</Select.Option>
-                          <Select.Option value="Married">Married</Select.Option>
-                          <Select.Option value="Widower">Widower</Select.Option>
-                          <Select.Option value="Divorced">
-                            Divorced
-                          </Select.Option>
-                        </Select>
-                      </Form.Item>
-                    )}
+                  <Form.Item className="mb-0">
+                    <Form.Item className="mb-0" name="maritalStatus">
+                      <Select placeholder="Marital Status" size="large">
+                        <Select.Option value="Single">Single</Select.Option>
+                        <Select.Option value="Married">Married</Select.Option>
+                        <Select.Option value="Widower">Widower</Select.Option>
+                        <Select.Option value="Divorced">Divorced</Select.Option>
+                      </Select>
+                    </Form.Item>
                   </Form.Item>
                 </div>
               </div>
@@ -361,7 +349,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     </Radio.Group>
                   </Form.Item>
 
-                  {!!radioOccupationalExposure && (
+                  {radioOccupationalExposure === "Yes" ? (
                     <Form.Item
                       className="mb-0"
                       name="exposureDuration"
@@ -371,7 +359,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         placeholder="Occupational Exposure Duration"
                         size="large"
                       >
-                        <Select.Option value="None">None</Select.Option>
                         <Select.Option value="Less than a year (<1)">
                           Less than a year
                         </Select.Option>
@@ -383,7 +370,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         </Select.Option>
                       </Select>
                     </Form.Item>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </li>
