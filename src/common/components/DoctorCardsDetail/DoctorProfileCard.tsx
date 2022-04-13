@@ -96,7 +96,7 @@ function DoctorProfileCard(props: Props) {
 
   return (
     <>
-      {/* <Modal
+      <Modal
         title="Request an Appointment"
         visible={isModalVisible}
         onOk={handleOk}
@@ -135,8 +135,8 @@ function DoctorProfileCard(props: Props) {
             </Button>
           )}
         </div>
-      </Modal> */}
-      <RequestAppointmentModal />
+      </Modal>
+      {/* <RequestAppointmentModal /> */}
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
