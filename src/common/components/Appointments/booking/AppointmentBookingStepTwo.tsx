@@ -1,24 +1,16 @@
 import React from "react";
 import {
-  Layout,
   Checkbox,
-  CheckboxGroup,
   Upload,
   message,
   Form,
   Image,
-  Input,
-  Button,
-  Select,
-  DatePicker,
 } from "antd";
 import {
   FilePdfOutlined,
   FileJpgOutlined,
   CloseOutlined,
-  InboxOutlined,
 } from "@ant-design/icons";
-import { FormInstance } from "antd/es/form";
 
 const { Dragger } = Upload;
 const props = {
