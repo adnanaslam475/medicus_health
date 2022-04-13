@@ -231,8 +231,7 @@ function AdminPhysicianList() {
       key: "view",
       className: "table-action-icon",
       render: (value: any) => (
-        <div className="bg-primary">
-          
+        <div>
           <EyeFilled
             onClick={() => {
               return Router.push(`/admin/account/${value}`);
