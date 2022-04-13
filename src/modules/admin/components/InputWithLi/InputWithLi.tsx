@@ -3,7 +3,12 @@ import { Input, Button } from "antd";
 import _Classes from "./InputWitLi.module.scss";
 import { PlusOutlined, CloseOutlined } from "@ant-design/icons";
 
-function InputWithLi() {
+
+type IMyProps={
+  disable: boolean,
+}
+function InputWithLi(props:IMyProps) {
+  const disable={props}
   const [treated, setTreated] = useState<string>();
   const [treatedList, setTreatedList] = useState<Array<string>>();
 
@@ -12,10 +17,12 @@ function InputWithLi() {
     arrayData.push(treated);
     // setTreatedList([...treatedList, arrayData]);
   };
+  console.log(treatedList)
   return (
     <div className="mt-3">
       <span>Conditions Treated</span>
-      <div className={`${_Classes["input-with-li"]}  relative`}>
+      <div className={`${_Classes["input-with-li"]} relative`}>
+        {!disable && <div>
         <Input
           placeholder="Basic usage"
           className=""
@@ -32,6 +39,7 @@ function InputWithLi() {
             ADD
           </Button>
         </div>
+        </div>}
         <div>
           <ul className="gap-2 flex flex-wrap">
             <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
