@@ -21,6 +21,7 @@ export type Scalars = {
 
 export type Appointment = {
   __typename?: 'Appointment';
+  appointmentTimeSlots?: Maybe<Array<AppointmentTimeSlots>>;
   doctor: User;
   doctorId: Scalars['Int'];
   id: Scalars['Int'];
@@ -53,11 +54,21 @@ export type AppointmentServiceType = {
   price: Scalars['Float'];
 };
 
+export type AppointmentTimeSlots = {
+  __typename?: 'AppointmentTimeSlots';
+  appointment?: Maybe<Appointment>;
+  endTime: Scalars['Int'];
+  id: Scalars['Int'];
+  selected: Scalars['Boolean'];
+  startTime: Scalars['Int'];
+};
+
 export type BookAppointmentInput = {
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
   requestedDate: Scalars['DateTime'];
   scheduleId: Scalars['Int'];
+  selectedSlotId: Scalars['Float'];
 };
 
 export type BookingDate = {
@@ -467,11 +478,14 @@ export type ProfessionalExperience = {
 
 export type ProposeNewTimeInput = {
   charges: Scalars['Int'];
-  endTime: Scalars['String'];
   id: Scalars['Int'];
-  requestedDate: Scalars['DateTime'];
+  proposedTimeSlots: Array<ProposedTimeSlots>;
   serviceId: Scalars['Int'];
-  startTime: Scalars['String'];
+};
+
+export type ProposedTimeSlots = {
+  endTime: Scalars['Int'];
+  startTime: Scalars['Int'];
 };
 
 export type Query = {
@@ -876,7 +890,7 @@ export type DoctorProfileQueryVariables = Exact<{
 }>;
 
 
-export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, contact_number: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
+export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
 
 export type GetAllRequestedAppointmentsQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -1290,7 +1304,6 @@ export const DoctorProfileDocument = gql`
       last_name
       email
       gender
-      contact_number
       country_id
       state_id
       city_id
@@ -1391,6 +1404,21 @@ export default {
         "kind": "OBJECT",
         "name": "Appointment",
         "fields": [
+          {
+            "name": "appointmentTimeSlots",
+            "type": {
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "AppointmentTimeSlots",
+                  "ofType": null
+                }
+              }
+            },
+            "args": []
+          },
           {
             "name": "doctor",
             "type": {
@@ -1628,6 +1656,66 @@ export default {
           },
           {
             "name": "price",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AppointmentTimeSlots",
+        "fields": [
+          {
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "endTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "selected",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "startTime",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
