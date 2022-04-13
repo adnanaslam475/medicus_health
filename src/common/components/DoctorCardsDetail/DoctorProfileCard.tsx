@@ -163,10 +163,10 @@ function DoctorProfileCard(props: Props) {
                 </div>
               </div>
             </div>
-            <h5 className="text-primary text-xs mb-1">
+            <h5 className="font-rubik text-primary text-xs mb-1">
               {doctorData?.specialization}
             </h5>
-            <span className="text-secondary text-sm block mb-2">
+            <span className="font-rubik text-secondary text-sm block mb-2">
               {doctorData?.year_of_experience
                 ? `${doctorData?.year_of_experience}  years of experience`
                 : "experience not available"}
@@ -227,7 +227,7 @@ function DoctorProfileCard(props: Props) {
         </div>
         <Divider />
         <h4 className="font-bold mb-1">About Me</h4>
-        <div className="text-base">{doctorData?.about_me}</div>
+        <div className="text-gray">{doctorData?.about_me}</div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
         <p className="text-base text-secondary">
