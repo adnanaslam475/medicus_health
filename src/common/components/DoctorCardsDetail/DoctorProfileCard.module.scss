@@ -43,28 +43,45 @@
     }
     :global .ant-btn {
         &.highlighted-button {
-            width: 57px;
+            width: 60px;
+            padding: 0px !important;
             transition: width 0.5s;
             justify-content: flex-start;
             white-space: nowrap;
             .hidden {
                 display: none;
+                padding-left: 50px;
             }
             &:hover {
-                width: 175px;
+                width: 185px;
                 color: #fff;
                 background-color: #1a82fe !important;
-                svg {
-                    color: #fff;
-                }
                 .hidden {
                     display: block;
+                }
+            }
+            &.highlighted-button-headphone {
+                background: url(../../../../public/assets/icon/support.svg);
+                background-repeat: no-repeat;
+                background-position-x: 17px;
+                background-position-y: 12px;
+                &:hover {
+                    background-image: url(../../../../public/assets/icon/support-hover.svg);
+                }
+            }
+            &.highlighted-button-message {
+                background: url(../../../../public/assets/icon/chat-bubble.svg);
+                background-repeat: no-repeat;
+                background-position-x: 20px;
+                background-position-y: 15px;
+                &:hover {
+                    background-image: url(../../../../public/assets/icon/chat-bubble-hover.svg);
                 }
             }
         }
         &.button-phy {
             &:hover {
-                width: 197px;
+                width: 205px;
             }
         }
     }
