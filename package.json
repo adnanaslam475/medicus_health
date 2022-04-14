@@ -14,12 +14,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@babel/preset-react": "^7.16.7",
-    "@fullcalendar/common": "^5.10.1",
-    "@fullcalendar/core": "^5.10.1",
-    "@fullcalendar/daygrid": "^5.10.1",
-    "@fullcalendar/interaction": "^5.10.1",
-    "@fullcalendar/react": "^5.10.1",
-    "@fullcalendar/timegrid": "^5.10.1",
+    
     "antd": "^4.18.5",
     "clsx": "^1.1.1",
     "cross-env": "^7.0.3",
