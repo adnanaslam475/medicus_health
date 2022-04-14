@@ -335,7 +335,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Hospital/Clinic/Institution",
                     },
                   ]}
@@ -346,7 +346,7 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Role"
                   name="role"
-                  rules={[{ required: true, message: "role" }]}
+                  rules={[{ required: false, message: "role" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -358,7 +358,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Hospital/Clinic/Institution",
                     },
                   ]}
@@ -369,7 +369,7 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Role"
                   name="role"
-                  rules={[{ required: true, message: "role" }]}
+                  rules={[{ required: false, message: "role" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -381,7 +381,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Hospital/Clinic/Institution",
                     },
                   ]}
@@ -392,7 +392,7 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Role"
                   name="role"
-                  rules={[{ required: true, message: "role" }]}
+                  rules={[{ required: false, message: "role" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -408,7 +408,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "University/Institution",
                     },
                   ]}
@@ -421,7 +421,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Degree/Diploma/Certification",
                     },
                   ]}
@@ -436,7 +436,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "University/Institution",
                     },
                   ]}
@@ -449,7 +449,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Degree/Diploma/Certification",
                     },
                   ]}

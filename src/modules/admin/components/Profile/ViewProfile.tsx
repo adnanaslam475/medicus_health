@@ -255,7 +255,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="First Name"
                   name="firstName"
-                  rules={[{ required: true, message: "First Name!" }]}
                   className="flex-1"
                 >
                   <Input disabled defaultValue="usama" />
@@ -263,7 +262,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Last name"
                   name="lastName"
-                  rules={[{ required: true, message: "Last Name!" }]}
                   className="flex-1"
                 >
                   <Input disabled defaultValue="khan" />
@@ -275,7 +273,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                   name="email"
                   // name={["user", "email"]}
                   label="Email"
-                  rules={[{ type: "email" }]}
                   className="flex-1"
                 >
                   <Input disabled defaultValue="usama@gmail.com" />
@@ -283,7 +280,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Contact Number"
                   name="contact"
-                  rules={[{ message: "Contact Number!" }]}
                   className="flex-1"
                 >
                   <Input disabled defaultValue="090078601" />
@@ -293,7 +289,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Password"
                   name="password"
-                  rules={[{ required: true, message: "Password" }]}
                   className="flex-1"
                 >
                   <Input.Password disabled />
@@ -302,7 +297,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Confirm Password"
                   name="confirmPassword"
-                  rules={[{ required: true, message: "Confirm password!" }]}
                   className="flex-1"
                 >
                   <Input.Password disabled />
@@ -345,12 +339,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Hospital/Clinic/Institution"
                   name="institute"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Hospital/Clinic/Institution",
-                    },
-                  ]}
                   className="flex-1"
                 >
                   <Input
@@ -362,7 +350,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Role"
                   name="role"
-                  rules={[{ required: true, message: "role" }]}
                   className="flex-1"
                 >
                   <Input defaultValue="University" disabled />
@@ -372,12 +359,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Hospital/Clinic/Institution"
                   name="institute"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Hospital/Clinic/Institution",
-                    },
-                  ]}
                   className="flex-1"
                 >
                   <Input
@@ -389,7 +370,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Role"
                   name="role"
-                  rules={[{ required: true, message: "role" }]}
                   className="flex-1"
                 >
                   <Input defaultValue="University" disabled />
@@ -399,12 +379,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Hospital/Clinic/Institution"
                   name="institute"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Hospital/Clinic/Institution",
-                    },
-                  ]}
                   className="flex-1"
                 >
                   <Input
@@ -430,12 +404,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="University/Institution"
                   name="institute"
-                  rules={[
-                    {
-                      required: true,
-                      message: "University/Institution",
-                    },
-                  ]}
                   className="flex-1"
                 >
                   <Input
@@ -447,12 +415,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Degree/Diploma/Certification"
                   name="institute"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Degree/Diploma/Certification",
-                    },
-                  ]}
                   className="flex-1"
                 >
                   <Input
@@ -466,12 +428,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="University/Institution"
                   name="institute"
-                  rules={[
-                    {
-                      required: true,
-                      message: "University/Institution",
-                    },
-                  ]}
                   className="flex-1"
                 >
                   <Input
@@ -483,12 +439,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Degree/Diploma/Certification"
                   name="institute"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Degree/Diploma/Certification",
-                    },
-                  ]}
                   className="flex-1"
                 >
                   <Input
