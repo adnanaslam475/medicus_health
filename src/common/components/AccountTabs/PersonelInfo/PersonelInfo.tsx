@@ -118,6 +118,7 @@ const PersonalInfo = () => {
                 beforeUpload={onBeforeUpload}
                 itemRender={() => <div />}
                 customRequest={() => null}
+                accept="image/jpg, image/jpeg,"
               >
                 <div className="relative">
                   <Avatar

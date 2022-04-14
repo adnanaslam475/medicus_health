@@ -26,9 +26,13 @@ import AppointmentBookingStepTwo from "../../../common/components/Appointments/b
 import AppointmentBookingStepThree from "../../../common/components/Appointments/booking/AppointmentBookingStepThree";
 import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
 import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
-import { DoctorProfile, DoctorSchedule } from "../../../generated/graphql";
+import {
+  AppointmentServiceType,
+  DoctorProfile,
+  DoctorSchedule,
+  useGetAllAppointmentServiceTypesQuery,
+} from "../../../generated/graphql";
 import { date } from "../../utils";
-import RequestAppointmentModal from "../RequestAppointmentModal/RequestAppointmentModal";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -39,29 +43,6 @@ const { Panel } = Collapse;
 
 const { Step } = Steps;
 
-const steps = [
-  {
-    title: "",
-    content: <AppointmentBookingStepOne />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepTwo />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepThree />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepFour />,
-  },
-  {
-    title: "",
-    content: <SuccessMessage />,
-  },
-];
-
 type Props = {
   doctorData: DoctorProfile;
 };
@@ -69,6 +50,36 @@ type Props = {
 function DoctorProfileCard(props: Props) {
   const { doctorData } = props || {};
   const { first_name, last_name } = doctorData?.user || {};
+
+  const [data] = useGetAllAppointmentServiceTypesQuery();
+
+  const steps = [
+    {
+      title: "",
+      content: (
+        <AppointmentBookingStepOne
+          physicianData={doctorData}
+          allAppoinments={data?.data?.appointmentServiceTypes}
+        />
+      ),
+    },
+    {
+      title: "",
+      content: <AppointmentBookingStepTwo />,
+    },
+    {
+      title: "",
+      content: <AppointmentBookingStepThree />,
+    },
+    {
+      title: "",
+      content: <AppointmentBookingStepFour />,
+    },
+    {
+      title: "",
+      content: <SuccessMessage />,
+    },
+  ];
 
   const { language } = doctorData || "english";
 
@@ -143,8 +154,7 @@ function DoctorProfileCard(props: Props) {
             </Button>
           )}
         </div>
-      </Modal>
-      {/* <RequestAppointmentModal /> */}
+      </Modal>      
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
