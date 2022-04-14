@@ -50,6 +50,7 @@ function ProfileDetail() {
                   doctorId={query?.id}
                   doctorData={doctorProfile}
                   edit={editData}
+                  setIsEdit={setIsEdit}
                 />
               ) : (
                 <ViewProfile

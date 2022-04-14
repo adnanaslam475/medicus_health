@@ -49,6 +49,7 @@ const { Option } = Select;
 export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
+  setIsEdit
 }: any) {
   const { Option } = Select;
   const [formInstance] = Form.useForm();
@@ -90,7 +91,10 @@ export const Profile = React.forwardRef(function Profile({
   const onFinish = async (values: any) => {
     try {
       updateDoctorProfile(values);
-    } catch (error) {}
+      setIsEdit(false)
+    } catch (error) {
+      setIsEdit(true)
+    }
   };
 
   const updateDoctorProfile = async (values: any) => {
