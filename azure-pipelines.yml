@@ -27,13 +27,16 @@ stages:
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: "16.x"
+              versionSpec: "17.x"
             displayName: "Install Node.js"
+            
+          - script: npm -g install yarn
+            displayName: "Installing  Yarn"
 
-          - script: npm install
+          - script: yarn install
             displayName: "Install Dependencies"
 
-          - script: npm run lint
+          - script: yarn lint
             displayName: "Code Analysis"
 
           - task: SonarQubePrepare@5
