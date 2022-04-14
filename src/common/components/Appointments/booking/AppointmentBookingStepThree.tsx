@@ -4,8 +4,9 @@ import { Divider, Radio, Checkbox, Form, Input, Button, Select, DatePicker } fro
 function StepThree() {
   return (
     <>
+    <h2>Request an Appointment</h2>
     <Form layout="vertical">
-        <Form.Item label="General Health Questionnaire*">
+        <Form.Item>
             <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
                 <Checkbox value="0">
                     <span className="text-gray-2">I want to use my last filled form</span>
