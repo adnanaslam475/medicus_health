@@ -259,3 +259,13 @@ query doctorProfileDetails($input: Int!) {
     }
   }
 }
+
+#GET APPOINMENT SERVICE TYPES
+query getAllAppointmentServiceTypes{
+  appointmentServiceTypes{
+    id
+    name
+    price
+  }
+}
+

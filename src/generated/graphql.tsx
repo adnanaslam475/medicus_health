@@ -300,7 +300,6 @@ export type Mutation = {
   removeDoctorSchedule: DoctorSchedule;
   removePatientHealthHistory: PatientHealthHistory;
   removeUser: User;
-  setAsDefaultAccount: DoctorBillingMethod;
   setAsDefaultCard: UserCard;
   setDoctorPassword: User;
   updateAppointment: Appointment;
@@ -438,11 +437,6 @@ export type MutationRemovePatientHealthHistoryArgs = {
 
 
 export type MutationRemoveUserArgs = {
-  id: Scalars['Int'];
-};
-
-
-export type MutationSetAsDefaultAccountArgs = {
   id: Scalars['Int'];
 };
 
@@ -857,7 +851,7 @@ export type UpdateDoctorProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, contact_number: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null } | null } };
+export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null } | null } };
 
 export type EnableOrDisableDoctorMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -938,6 +932,11 @@ export type DoctorProfileDetailsQueryVariables = Exact<{
 
 
 export type DoctorProfileDetailsQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', day: number, startTime: string, endTime: string }> | null } };
+
+export type GetAllAppointmentServiceTypesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllAppointmentServiceTypesQuery = { __typename?: 'Query', appointmentServiceTypes: Array<{ __typename?: 'AppointmentServiceType', id: number, name: string, price: number }> };
 
 
 export const CreateUserDocument = gql`
@@ -1145,7 +1144,6 @@ export const UpdateDoctorProfileDocument = gql`
       last_name
       email
       gender
-      contact_number
       streetAddress
       country_id
       state_id
@@ -1421,6 +1419,19 @@ export const DoctorProfileDetailsDocument = gql`
 
 export function useDoctorProfileDetailsQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileDetailsQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorProfileDetailsQuery>({ query: DoctorProfileDetailsDocument, ...options });
+};
+export const GetAllAppointmentServiceTypesDocument = gql`
+    query getAllAppointmentServiceTypes {
+  appointmentServiceTypes {
+    id
+    name
+    price
+  }
+}
+    `;
+
+export function useGetAllAppointmentServiceTypesQuery(options?: Omit<Urql.UseQueryArgs<GetAllAppointmentServiceTypesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllAppointmentServiceTypesQuery>({ query: GetAllAppointmentServiceTypesDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
@@ -2902,29 +2913,6 @@ export default {
               "ofType": {
                 "kind": "OBJECT",
                 "name": "User",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "id",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "setAsDefaultAccount",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "DoctorBillingMethod",
                 "ofType": null
               }
             },

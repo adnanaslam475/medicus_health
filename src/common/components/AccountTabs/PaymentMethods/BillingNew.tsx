@@ -41,12 +41,7 @@ export const Payment = (props: Props) => {
         </div>
         <div>
           {isDefault && (
-            <Tag
-              color="#30CEC2"
-              className={`${_classes["btn-stripe-card "]} rounded-full`}
-            >
-              DEFAULT
-            </Tag>
+            <Tag>DEFAULT</Tag>
           )}
         </div>
       </div>

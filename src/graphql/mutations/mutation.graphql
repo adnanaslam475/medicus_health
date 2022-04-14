@@ -146,7 +146,6 @@ mutation updateDoctorProfile(
       last_name
       email
       gender
-      contact_number
       streetAddress
       country_id
       state_id

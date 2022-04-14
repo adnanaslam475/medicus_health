@@ -268,14 +268,6 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item
-                  label="Contact Number"
-                  name="contact"
-                  rules={[{ message: "Contact Number!" }]}
-                  className="flex-1"
-                >
-                  <Input />
-                </Form.Item>
               </div>
               <div className="flex flex-row gap-3">
                 <Form.Item
@@ -303,176 +295,179 @@ export const Profile = React.forwardRef(function Profile({
                   </Button>
                 </div>
               </Form.Item>
+            </Form>
 
-              <div className="mr-auto">Languages</div>
-              <div className="flex mr-auto">
-                <Language
-                  end={end}
-                  title="English"
-                  check={true}
-                  disable={false}
-                />
-                <Language
-                  end={esp}
-                  title="Spanish"
-                  check={false}
-                  disable={false}
-                />
-              </div>
-              <div className="mt-5">
-                <TextArea
-                  rows={12}
-                  placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
-                  maxLength={6}
-                />
-              </div>
+            <div className="mr-auto">Languages</div>
+            <div className="flex mr-auto">
+              <Language
+                end={end}
+                title="English"
+                check={true}
+                disable={false}
+              />
+              <Language
+                end={esp}
+                title="Spanish"
+                check={false}
+                disable={false}
+              />
+            </div>
+            <div className="mt-5">
+              <TextArea
+                rows={12}
+                placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
+                maxLength={6}
+              />
+            </div>
 
-              <InputWithLi disable={false} />
-              <div>Availability</div>
-              <MultiRangeDatePicker />
-              <div className="my-6">
-                <h5>Professional Background</h5>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: true, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: true, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: true, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-              </div>
-
-              <div className="my-6">
-                <h6>Educational Background</h6>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-                <div className="my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-              </div>
-              <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
-                <Form.Item className="">
-                  <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-                    <Button className="">Cancel</Button>
-                    <Button type="primary" htmlType="submit" className="">
-                      Save Changes
-                    </Button>
-                  </div>
+            <InputWithLi disable={false} />
+            <div>Availability</div>
+            <MultiRangeDatePicker />
+            <div className="my-6">
+              <h5>Professional Background</h5>
+              <div className="border-b border-gray-4 my-3">
+                <Form.Item
+                  label="Hospital/Clinic/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Hospital/Clinic/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Role"
+                  name="role"
+                  rules={[{ required: true, message: "role" }]}
+                  className="flex-1"
+                >
+                  <Input />
                 </Form.Item>
               </div>
-            </Form>
+              <div className="border-b border-gray-4 my-3">
+                <Form.Item
+                  label="Hospital/Clinic/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Hospital/Clinic/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Role"
+                  name="role"
+                  rules={[{ required: true, message: "role" }]}
+                  className="flex-1"
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+              <div className="border-b border-gray-4 my-3">
+                <Form.Item
+                  label="Hospital/Clinic/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Hospital/Clinic/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Role"
+                  name="role"
+                  rules={[{ required: true, message: "role" }]}
+                  className="flex-1"
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+            </div>
+
+            <div className="my-6">
+              <h6>Educational Background</h6>
+              <div className="border-b border-gray-4 my-3">
+                <Form.Item
+                  label="University/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: true,
+                      message: "University/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Degree/Diploma/Certification"
+                  name="institute"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Degree/Diploma/Certification",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+              </div>
+              <div className="my-3">
+                <Form.Item
+                  label="University/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: true,
+                      message: "University/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Degree/Diploma/Certification"
+                  name="institute"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Degree/Diploma/Certification",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+              </div>
+            </div>
+            <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
+              <Form.Item className="">
+                <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
+                  {/* <Button htmlType="submit" className="">
+                      Cancel
+                    </Button> */}
+                  {/* <Button type="primary" htmlType="submit" className="">
+                      Save Changes
+                    </Button> */}
+                </div>
+              </Form.Item>
+            </div>
+            {/* </Form> */}
           </div>
         </div>
       </div>

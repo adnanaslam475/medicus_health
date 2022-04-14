@@ -192,16 +192,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Password</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter your password",
-                      },
-                    ]}
-                  >
-                    <Input size="large" placeholder="Password" />
+                  <Form.Item name="password">
+                    <Input.Password size="large" placeholder="Password" />
                   </Form.Item>
                 </div>
               </div>
