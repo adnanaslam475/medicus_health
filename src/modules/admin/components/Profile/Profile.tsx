@@ -270,14 +270,7 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item
-                  label="Contact Number"
-                  name="contact"
-                  rules={[{ message: "Contact Number!" }]}
-                  className="flex-1"
-                >
-                  <Input />
-                </Form.Item>
+                
               </div>
               <div className="flex flex-row gap-3">
                 <Form.Item
@@ -305,6 +298,8 @@ export const Profile = React.forwardRef(function Profile({
                   </Button>
                 </div>
               </Form.Item>
+            </Form>
+
 
               <div className="mr-auto">Languages</div>
               <div className="flex mr-auto">
@@ -467,16 +462,16 @@ export const Profile = React.forwardRef(function Profile({
               <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
                 <Form.Item className="">
                   <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-                    <Button htmlType="submit" className="">
+                    {/* <Button htmlType="submit" className="">
                       Cancel
-                    </Button>
-                    <Button type="primary" htmlType="submit" className="">
+                    </Button> */}
+                    {/* <Button type="primary" htmlType="submit" className="">
                       Save Changes
-                    </Button>
+                    </Button> */}
                   </div>
                 </Form.Item>
               </div>
-            </Form>
+            {/* </Form> */}
           </div>
         </div>
       </div>
