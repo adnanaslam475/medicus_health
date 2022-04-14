@@ -1,7 +1,7 @@
 /* eslint-disable no-else-return */
 /* eslint-disable camelcase */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -21,6 +21,8 @@ function AdminAimsCalender(props: Props) {
     props;
   const events = [{ title: "today's event", date: new Date() }];
   const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [selectedItems, setSelectedItems] = useState<string>("");
+  const [calenderEvent, setCalenderEvent] = useState([]);
 
   const [{ data }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
@@ -28,6 +30,21 @@ function AdminAimsCalender(props: Props) {
   function handleSearch() {
     setIsSearch(!isSearch);
   }
+
+  // useEffect(() => {
+  //   setCalenderEvent(calender?.calenderEvents);
+  // }, [calender?.calenderEvents]);
+
+  const handleChange = (selectedItems: any) => {
+    const filterData = calender?.calenderEvents.filter(
+      (item: { doctor: string; }) => item?.doctor.toLowerCase() === selectedItems.toLowerCase()
+    );
+    console.log(filterData, "filterData");
+    if (filterData?.length !== 0) {
+      setCalenderEvent(filterData);
+    }
+    setSelectedItems(selectedItems);
+  };
 
   return (
     <div>
@@ -41,8 +58,9 @@ function AdminAimsCalender(props: Props) {
                 className="w-full sm:w-2/5"
                 showArrow
                 showSearch
-                // onSearch={onSearchPatient}
-                filterOption={(inputValue, option : any) =>
+                value={selectedItems}
+                onChange={handleChange}
+                filterOption={(inputValue, option: any) =>
                   option.props.children
                     .toString()
                     .toLowerCase()
@@ -50,7 +68,7 @@ function AdminAimsCalender(props: Props) {
                 }
               >
                 {doctorProfiles?.map((item) => (
-                  <Select.Option key={item?.id} value={item?.id}>
+                  <Select.Option key={item?.id} value={item?.user?.first_name}>
                     {item?.user?.first_name}
                   </Select.Option>
                 ))}
