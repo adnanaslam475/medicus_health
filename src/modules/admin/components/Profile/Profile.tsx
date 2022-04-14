@@ -224,10 +224,10 @@ export const Profile = React.forwardRef(function Profile({
                     {status ? "Published" : "Unpublished"}
                   </Button>
                 </div>
-                <Button type="default" className="px-0 mx-0">
+                {/* <Button type="default" className="px-0 mx-0">
                   <EditOutlined />
                   Edit Info
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>
@@ -455,18 +455,18 @@ export const Profile = React.forwardRef(function Profile({
                 </Form.Item>
               </div>
             </div>
-            <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
+            {/* <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
               <Form.Item className="">
                 <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-                  {/* <Button htmlType="submit" className="">
-                      Cancel
-                    </Button> */}
-                  {/* <Button type="primary" htmlType="submit" className="">
-                      Save Changes
-                    </Button> */}
+                  <Button htmlType="submit" className="">
+                    Cancel
+                  </Button>
+                  <Button type="primary" htmlType="submit" className="">
+                    Save Changes
+                  </Button>
                 </div>
               </Form.Item>
-            </div>
+            </div> */}
             {/* </Form> */}
           </div>
         </div>
