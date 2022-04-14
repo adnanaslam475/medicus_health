@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Input, Button, Select, DatePicker } from "antd";
 import {
   AppointmentServiceType,
@@ -10,18 +10,33 @@ const { Option } = Select;
 type Props = {
   physicianData: DoctorProfile;
   allAppoinments?: AppointmentServiceType[];
+  onFinish:any;
 };
 
 function StepOne(props: Props) {
-  const { physicianData, allAppoinments } = props || {};
+  // const FormItem = Form.Item;
+  const { physicianData, allAppoinments, onFinish } = props || {};
   console.log("physicianData", physicianData);
   const { first_name, last_name } = physicianData?.user || {};
   console.log("allAppoinments", allAppoinments);
+  // console.log("FormItem",FormItem.service)
+  const [form] = Form.useForm();
+
+  // let serviceValue = form.getFieldValue();
+  // console.log("serviceValue", serviceValue);
+  // if (serviceValue === "Second Opinion") {
+  //   console.log("value occur");
+  // }
+
+  function handleServiceChange() {
+    let serviceValue = form.getFieldValue("service");
+    console.log("serviceValue", serviceValue);
+  }
 
   return (
     <>
       <h2>Request an Appointment</h2>
-      <Form layout="vertical">
+      <Form form={form} layout="vertical" onFinish={onFinish}>
         <Form.Item label="Physician*" name="physicianName">
           <Select
             defaultValue={`${first_name}${last_name}`}
@@ -36,7 +51,11 @@ function StepOne(props: Props) {
         <div className="flex">
           <div className="w-5/6">
             <Form.Item label="Service*" name="service">
-              <Select placeholder="Dr. Paul Wallner" className="w-full">
+              <Select
+                placeholder="Dr. Paul Wallner"
+                className="w-full"
+                onChange={handleServiceChange}
+              >
                 {allAppoinments?.map((item) => (
                   <Option key={item?.id} value={item.name}>
                     {item.name}
@@ -54,7 +73,11 @@ function StepOne(props: Props) {
           </div>
         </div>
         <Form.Item label="Requested Date*">
-          {<DatePicker className="w-full" />}
+          <DatePicker
+            placeholder="mm/dd/yy"
+            format={"MM-DD-YYYY"}
+            className="w-full"
+          />
         </Form.Item>
         <Form.Item label="Availability">
           <div className="flex flex-wrap">
