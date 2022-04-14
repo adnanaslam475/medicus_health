@@ -164,14 +164,12 @@ export const Profile = React.forwardRef(function Profile({
     const res = await EnableOrDisableDoctor({
       id: Number(doctorId),
     });
-
     if (res?.data?.enableOrDisableDoctor?.status) {
       res?.data?.enableOrDisableDoctor?.status &&
         notification.success({
           message: "Published",
         });
     }
-
     if (!res?.data?.enableOrDisableDoctor?.status) {
       !res?.data?.enableOrDisableDoctor?.status &&
         notification.success({

@@ -8,8 +8,8 @@ import {
 	PlusOutlined,
 	DownOutlined,
 } from "@ant-design/icons";
-import end from './../../../../../public/assets/images/engFlag.png';
-import esp from './../../../../../public/assets/images/espanolFlag.png';
+import end from "./../../../../../public/assets/images/engFlag.png";
+import esp from "./../../../../../public/assets/images/espanolFlag.png";
 
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
@@ -49,7 +49,7 @@ const { Option } = Select;
 export const ViewProfile = React.forwardRef(function Profile({
 	doctorId,
 	doctorData,
-    setIsEdit
+	setIsEdit,
 }: any) {
 	const { Option } = Select;
 	const [formInstance] = Form.useForm();
@@ -190,7 +190,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 	return (
 		<div className="w-full">
 			<div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
-				<div className="flex flex-col w-full justify-start  py-3">
+				<div className="flex flex-col w-full justify-start py-3">
 					<div className="w-full mb-10 flex gap-8">
 						<Upload
 							onChange={fileChange}
@@ -228,12 +228,16 @@ export const ViewProfile = React.forwardRef(function Profile({
 											color: "#30CEC2",
 										}}
 										className="pr-0"
-										onClick={handleChange}
+										// onClick={handleChange}
 									>
 										{status ? "Published" : "Unpublished"}
 									</Button>
 								</div>
-								<Button type="default" className="px-0 mx-0" onClick={()=>setIsEdit(true)}>
+								<Button
+									type="default"
+									className="px-0 mx-0"
+									onClick={() => setIsEdit(true)}
+								>
 									<EditOutlined />
 									Edit Info
 								</Button>
@@ -254,7 +258,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 									rules={[{ required: true, message: "First Name!" }]}
 									className="flex-1"
 								>
-									<Input disabled  defaultValue="usama"/>
+									<Input disabled defaultValue="usama" />
 								</Form.Item>
 								<Form.Item
 									label="Last name"
@@ -262,7 +266,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 									rules={[{ required: true, message: "Last Name!" }]}
 									className="flex-1"
 								>
-									<Input disabled  defaultValue="khan" />
+									<Input disabled defaultValue="khan" />
 								</Form.Item>
 							</div>
 
@@ -273,9 +277,8 @@ export const ViewProfile = React.forwardRef(function Profile({
 									label="Email"
 									rules={[{ type: "email" }]}
 									className="flex-1"
-                                    
 								>
-									<Input disabled  defaultValue="usama@gmail.com" />
+									<Input disabled defaultValue="usama@gmail.com" />
 								</Form.Item>
 								<Form.Item
 									label="Contact Number"
@@ -283,7 +286,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 									rules={[{ message: "Contact Number!" }]}
 									className="flex-1"
 								>
-									<Input  disabled  defaultValue="090078601"/>
+									<Input disabled defaultValue="090078601" />
 								</Form.Item>
 							</div>
 							<div className="flex flex-row gap-3">
@@ -315,15 +318,25 @@ export const ViewProfile = React.forwardRef(function Profile({
 
 							<div className="mr-auto">Languages</div>
 							<div className="flex mr-auto">
-								<Language end={end} title="English" check={true} disable={true}/>
-								<Language end={esp} title="Spanish" check={false} disable={true}/>
+								<Language
+									end={end}
+									title="English"
+									check={true}
+									disable={true}
+								/>
+								<Language
+									end={esp}
+									title="Spanish"
+									check={false}
+									disable={true}
+								/>
 							</div>
 							<div className="mt-5">
 								<TextArea
 									rows={12}
 									placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
 									maxLength={6}
-                                    disabled
+									disabled
 								/>
 							</div>
 
@@ -344,7 +357,11 @@ export const ViewProfile = React.forwardRef(function Profile({
 										]}
 										className="flex-1"
 									>
-										<Input value="University of Oklahoma College of Medicine" defaultValue="University of Oklahoma College of Medicine" disabled />
+										<Input
+											value="University of Oklahoma College of Medicine"
+											defaultValue="University of Oklahoma College of Medicine"
+											disabled
+										/>
 									</Form.Item>
 									<Form.Item
 										label="Role"
@@ -367,7 +384,11 @@ export const ViewProfile = React.forwardRef(function Profile({
 										]}
 										className="flex-1"
 									>
-										<Input value="University of Oklahoma College of Medicine" defaultValue="University of Oklahoma College of Medicine" disabled  />
+										<Input
+											value="University of Oklahoma College of Medicine"
+											defaultValue="University of Oklahoma College of Medicine"
+											disabled
+										/>
 									</Form.Item>
 									<Form.Item
 										label="Role"
@@ -375,7 +396,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 										rules={[{ required: true, message: "role" }]}
 										className="flex-1"
 									>
-										<Input  defaultValue="University" disabled/>
+										<Input defaultValue="University" disabled />
 									</Form.Item>
 								</div>
 								<div className="border-b border-gray-4 my-3">
@@ -390,7 +411,11 @@ export const ViewProfile = React.forwardRef(function Profile({
 										]}
 										className="flex-1"
 									>
-										<Input value="University of Oklahoma College of Medicine" defaultValue="University of Oklahoma College of Medicine" disabled />
+										<Input
+											value="University of Oklahoma College of Medicine"
+											defaultValue="University of Oklahoma College of Medicine"
+											disabled
+										/>
 									</Form.Item>
 									<Form.Item
 										label="Role"
@@ -398,7 +423,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 										rules={[{ required: true, message: "role" }]}
 										className="flex-1"
 									>
-										<Input  defaultValue="University" disabled />
+										<Input defaultValue="University" disabled />
 									</Form.Item>
 								</div>
 							</div>
@@ -417,7 +442,11 @@ export const ViewProfile = React.forwardRef(function Profile({
 										]}
 										className="flex-1"
 									>
-										<Input value="University of Oklahoma College of Medicine" defaultValue="University of Oklahoma College of Medicine" disabled />
+										<Input
+											value="University of Oklahoma College of Medicine"
+											defaultValue="University of Oklahoma College of Medicine"
+											disabled
+										/>
 									</Form.Item>
 									<Form.Item
 										label="Degree/Diploma/Certification"
@@ -430,7 +459,11 @@ export const ViewProfile = React.forwardRef(function Profile({
 										]}
 										className="flex-1"
 									>
-										<Input value="University of Oklahoma College of Medicine" defaultValue="University of Oklahoma College of Medicine" disabled  />
+										<Input
+											value="University of Oklahoma College of Medicine"
+											defaultValue="University of Oklahoma College of Medicine"
+											disabled
+										/>
 									</Form.Item>
 								</div>
 								<div className="my-3">
@@ -445,7 +478,11 @@ export const ViewProfile = React.forwardRef(function Profile({
 										]}
 										className="flex-1"
 									>
-										<Input value="University of Oklahoma College of Medicine"  defaultValue="University of Oklahoma College of Medicine" disabled />
+										<Input
+											value="University of Oklahoma College of Medicine"
+											defaultValue="University of Oklahoma College of Medicine"
+											disabled
+										/>
 									</Form.Item>
 									<Form.Item
 										label="Degree/Diploma/Certification"
@@ -458,17 +495,21 @@ export const ViewProfile = React.forwardRef(function Profile({
 										]}
 										className="flex-1"
 									>
-										<Input value="University of Oklahoma College of Medicine" defaultValue="University of Oklahoma College of Medicine" disabled />
+										<Input
+											value="University of Oklahoma College of Medicine"
+											defaultValue="University of Oklahoma College of Medicine"
+											disabled
+										/>
 									</Form.Item>
 								</div>
 							</div>
-							<div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
+							<div className=" bg-white -ml-7 fixed bottom-0 w-full border-t border-gray-4 items-center ">
 								<Form.Item className="">
-									<div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-										<Button  htmlType="submit" className="">
+									<div className="items-center -mb-5 mt-2 w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
+										<Button htmlType="submit" className="">
 											Cancel
 										</Button>
-                    <Button type="primary" htmlType="submit" className="">
+										<Button type="primary" htmlType="submit" className="">
 											Save Changes
 										</Button>
 									</div>

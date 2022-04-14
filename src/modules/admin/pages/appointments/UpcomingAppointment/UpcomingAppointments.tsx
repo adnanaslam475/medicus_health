@@ -6,6 +6,7 @@ import SearchFilters from "../../../../../common/components/SearchFilters/Search
 import { Button, Select } from "antd";
 import Link from "next/link";
 import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import AppointmentModal from "../../../../patient/components/AppointmentModal/AppointmentModal";
 
 const { Option } = Select;
 function UpcomingAppointments() {
@@ -80,6 +81,7 @@ function UpcomingAppointments() {
             })}
           </div>
         </div>
+        <AppointmentModal/>
       </div>
     </AppLayout>
   );
