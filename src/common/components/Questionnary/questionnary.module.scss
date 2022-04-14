@@ -1,0 +1,22 @@
+.questionnary-css {
+  :global .ant-form-item {
+    .ant-form-item-label {
+      padding-bottom: 0;
+    }
+    .ant-form-item-control:nth-child(1),
+    .ant-form-item-control:nth-child(2) {
+      min-height: 15px;
+    }
+
+    .ant-form-item-control {
+      .ant-form-item-control-input {
+        .ant-form-item-control-input-content {
+          input.ant-input {
+            // height: 36px;
+            color: #1a82fe !important;
+          }
+        }
+      }
+    }
+  }
+}
