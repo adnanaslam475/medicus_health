@@ -12,7 +12,6 @@ function UpcomingAppointments() {
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        doctorId: 520,
         status: "Requested",
       },
     },

@@ -69,4 +69,5 @@ CalendarModalComponent.defaultProps = {
   data: {},
   onOk: () => null,
   okText: "OK",
+  footer:{}
 };

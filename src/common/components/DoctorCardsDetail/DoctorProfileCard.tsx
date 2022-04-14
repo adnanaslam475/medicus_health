@@ -28,6 +28,7 @@ import AppointmentBookingStepFour from "../../../common/components/Appointments/
 import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
 import { DoctorProfile, DoctorSchedule } from "../../../generated/graphql";
 import { date } from "../../utils";
+import RequestAppointmentModal from "../RequestAppointmentModal/RequestAppointmentModal";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -35,6 +36,7 @@ const FLAG_BY_LANGUAGE = {
 };
 
 const { Panel } = Collapse;
+
 const { Step } = Steps;
 
 const steps = [
@@ -142,7 +144,7 @@ function DoctorProfileCard(props: Props) {
           )}
         </div>
       </Modal>
-
+      {/* <RequestAppointmentModal /> */}
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">

@@ -592,55 +592,6 @@
   dependencies:
     tslib "^2.1.0"
 
-"@fullcalendar/common@^5.10.1", "@fullcalendar/common@~5.11.0":
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/common/-/common-5.11.0.tgz#d7e47b4272ba6824f95581fb7fb630c5880f4212"
-  integrity sha512-gWjbMAnN1u73Oqlgjbyky7i+3bY0hvFSnGT0YBPx44n874AkQa9e9OU12PMLTMOPy0tXPb8DEwRelFQ7CJNbcw==
-  dependencies:
-    tslib "^2.1.0"
-
-"@fullcalendar/core@^5.10.1":
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/core/-/core-5.11.0.tgz#336fcfb9799cf0c2d1ee15c110dce26a9e14881c"
-  integrity sha512-cF/d9LuJb/6xw14ms0urv1H4BiA70c4jrufe/EuVzLR6qTDpK92IZ3JK7GVtZtzptfTYZ/NQgDV9YCzIaO9Blw==
-  dependencies:
-    "@fullcalendar/common" "~5.11.0"
-    preact "^10.0.5"
-    tslib "^2.1.0"
-
-"@fullcalendar/daygrid@^5.10.1", "@fullcalendar/daygrid@~5.11.0":
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/daygrid/-/daygrid-5.11.0.tgz#fd10391dfc2b6caa3538e0826f8d8f3e83e0e22a"
-  integrity sha512-Ybh/dfHn/VL0qOVIRVyJc9I8oYiqqHl6xQONk8xXCe456QbPzAQLsAxpLLJLH+3smWNCfoQgvDKzR9e9XTzLMQ==
-  dependencies:
-    "@fullcalendar/common" "~5.11.0"
-    tslib "^2.1.0"
-
-"@fullcalendar/interaction@^5.10.1":
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/interaction/-/interaction-5.11.0.tgz#9cfb46cc5f75690394ef553d2c5cf4955782ff05"
-  integrity sha512-9XTI5+ydqrSX+IL3iWgKBURXfnPewn57Tmsv9mJZhiqrUEF7/+qtftLoKEAc8ZdWk/+01aBe67PFL16uPXj2Jg==
-  dependencies:
-    "@fullcalendar/common" "~5.11.0"
-    tslib "^2.1.0"
-
-"@fullcalendar/react@^5.10.1":
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/react/-/react-5.11.0.tgz#175e8b204ccc3c8202395b4c38401e74db08e369"
-  integrity sha512-DkMFQ94ZDi95A6+4g8k2jdVVMIEBCQBqWLNXSi8i39GNiNoadnl2FRn6t2BJBVQTYtI6JDOOLllP34LVmQJVOQ==
-  dependencies:
-    "@fullcalendar/common" "~5.11.0"
-    tslib "^2.1.0"
-
-"@fullcalendar/timegrid@^5.10.1":
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/timegrid/-/timegrid-5.11.0.tgz#b41153ef301f21f8c1e19a65023493c48c8bacf5"
-  integrity sha512-GNy+/PwAj510PS4Fu18Mf/CytNBVftFU7M8XwsUXOCJ6ouyroHZje0a7k5cH/nE5IQ6NJZfH2eAPBlxGath1MQ==
-  dependencies:
-    "@fullcalendar/common" "~5.11.0"
-    "@fullcalendar/daygrid" "~5.11.0"
-    tslib "^2.1.0"
-
 "@graphql-codegen/cli@2.6.2":
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.6.2.tgz#a9aa4656141ee0998cae8c7ad7d0bf9ca8e0c9ae"
@@ -4469,11 +4420,6 @@ postcss@^8.4.12, postcss@^8.4.6:
     nanoid "^3.3.1"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
-
-preact@^10.0.5:
-  version "10.7.1"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.7.1.tgz#bdd2b2dce91a5842c3b9b34dfe050e5401068c9e"
-  integrity sha512-MufnRFz39aIhs9AMFisonjzTud1PK1bY+jcJLo6m2T9Uh8AqjD77w11eAAawmjUogoGOnipECq7e/1RClIKsxg==
 
 prelude-ls@^1.2.1:
   version "1.2.1"
