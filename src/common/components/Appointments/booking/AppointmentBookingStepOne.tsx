@@ -1,23 +1,66 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Input, Button, Select, DatePicker } from "antd";
+import {
+  AppointmentServiceType,
+  DoctorProfile,
+} from "../../../../generated/graphql";
 
 const { Option } = Select;
 
-function StepOne() {
+type Props = {
+  physicianData: DoctorProfile;
+  allAppoinments?: AppointmentServiceType[];
+  onFinish:any;
+};
+
+function StepOne(props: Props) {
+  // const FormItem = Form.Item;
+  const { physicianData, allAppoinments, onFinish } = props || {};
+  console.log("physicianData", physicianData);
+  const { first_name, last_name } = physicianData?.user || {};
+  console.log("allAppoinments", allAppoinments);
+  // console.log("FormItem",FormItem.service)
+  const [form] = Form.useForm();
+
+  // let serviceValue = form.getFieldValue();
+  // console.log("serviceValue", serviceValue);
+  // if (serviceValue === "Second Opinion") {
+  //   console.log("value occur");
+  // }
+
+  function handleServiceChange() {
+    let serviceValue = form.getFieldValue("service");
+    console.log("serviceValue", serviceValue);
+  }
+
   return (
     <>
       <h2>Request an Appointment</h2>
-      <Form layout="vertical">
-        <Form.Item label="Physician*">
-          <Select disabled placeholder="Dr. Paul Wallner" className="w-full">
-            <Option value="Dr.Paul Wallner">Dr.Paul Wallner</Option>
+      <Form form={form} layout="vertical" onFinish={onFinish}>
+        <Form.Item label="Physician*" name="physicianName">
+          <Select
+            defaultValue={`${first_name}${last_name}`}
+            placeholder="Dr. name"
+            className="w-full"
+          >
+            <Option value={`${first_name}${last_name}`}>
+              {physicianData ? `${first_name}  ${last_name}` : ""}
+            </Option>
           </Select>
         </Form.Item>
         <div className="flex">
           <div className="w-5/6">
-            <Form.Item label="Service*">
-              <Select placeholder="Dr. Paul Wallner" className="w-full">
-                <Option value="Dr.Paul Wallner">Dr.Paul Wallner</Option>
+            <Form.Item label="Service*" name="service">
+              <Select
+                placeholder="Dr. Paul Wallner"
+                className="w-full"
+                onChange={handleServiceChange}
+              >
+                {allAppoinments?.map((item) => (
+                  <Option key={item?.id} value={item.name}>
+                    {item.name}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
           </div>
@@ -30,7 +73,11 @@ function StepOne() {
           </div>
         </div>
         <Form.Item label="Requested Date*">
-          {<DatePicker className="w-full" />}
+          <DatePicker
+            placeholder="mm/dd/yy"
+            format={"MM-DD-YYYY"}
+            className="w-full"
+          />
         </Form.Item>
         <Form.Item label="Availability">
           <div className="flex flex-wrap">

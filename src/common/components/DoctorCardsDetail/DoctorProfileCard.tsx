@@ -26,9 +26,13 @@ import AppointmentBookingStepTwo from "../../../common/components/Appointments/b
 import AppointmentBookingStepThree from "../../../common/components/Appointments/booking/AppointmentBookingStepThree";
 import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
 import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
-import { DoctorProfile, DoctorSchedule } from "../../../generated/graphql";
+import {
+  AppointmentServiceType,
+  DoctorProfile,
+  DoctorSchedule,
+  useGetAllAppointmentServiceTypesQuery,
+} from "../../../generated/graphql";
 import { date } from "../../utils";
-import RequestAppointmentModal from "../RequestAppointmentModal/RequestAppointmentModal";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -39,29 +43,6 @@ const { Panel } = Collapse;
 
 const { Step } = Steps;
 
-const steps = [
-  {
-    title: "",
-    content: <AppointmentBookingStepOne />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepTwo />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepThree />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepFour />,
-  },
-  {
-    title: "",
-    content: <SuccessMessage />,
-  },
-];
-
 type Props = {
   doctorData: DoctorProfile;
 };
@@ -69,6 +50,42 @@ type Props = {
 function DoctorProfileCard(props: Props) {
   const { doctorData } = props || {};
   const { first_name, last_name } = doctorData?.user || {};
+
+  const [data] = useGetAllAppointmentServiceTypesQuery();
+  const [stepOne, setStepOne] = useState();
+
+  function getStepOneValue() {
+    console.log("Setp one value");
+  }
+
+  const steps = [
+    {
+      title: "",
+      content: (
+        <AppointmentBookingStepOne
+          physicianData={doctorData}
+          allAppoinments={data?.data?.appointmentServiceTypes}
+          onFinish={getStepOneValue}
+        />
+      ),
+    },
+    {
+      title: "",
+      content: <AppointmentBookingStepTwo />,
+    },
+    {
+      title: "",
+      content: <AppointmentBookingStepThree />,
+    },
+    {
+      title: "",
+      content: <AppointmentBookingStepFour />,
+    },
+    {
+      title: "",
+      content: <SuccessMessage />,
+    },
+  ];
 
   const { language } = doctorData || "english";
 
@@ -89,6 +106,9 @@ function DoctorProfileCard(props: Props) {
   const [current, setCurrent] = React.useState(0);
   const next = () => {
     setCurrent(current + 1);
+    if (current===4) {
+      getStepOneValue()
+    }
   };
   const prev = () => {
     setCurrent(current - 1);
@@ -111,11 +131,11 @@ function DoctorProfileCard(props: Props) {
         className={`${_classes["steps-style"]}`}
       >
         {current < steps.length - 1 && (
-        <Steps>
-          {steps.map((item) => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
+          <Steps>
+            {steps.map((item) => (
+              <Step key={item.title} title={item.title} />
+            ))}
+          </Steps>
         )}
         <div className="steps-content">{steps[current].content}</div>
         <div className="steps-action">
@@ -144,7 +164,6 @@ function DoctorProfileCard(props: Props) {
           )}
         </div>
       </Modal>
-      {/* <RequestAppointmentModal /> */}
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
@@ -231,12 +250,10 @@ function DoctorProfileCard(props: Props) {
                 <span className="ml-2">Request an Appointment</span>
               </Button>
               <div className="flex-none sm:flex">
-                <Button
-                  className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3">
+                <Button className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3">
                   <span className="hidden">Message Admin</span>
                 </Button>
-                <Button
-                  className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3">
+                <Button className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3">
                   <span className="hidden">Message Physician</span>
                 </Button>
               </div>
@@ -248,9 +265,7 @@ function DoctorProfileCard(props: Props) {
         <div className="text-gray">{doctorData?.about_me}</div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
-        <p className="text-secondary">
-          {doctorData?.condition_treated}
-        </p>
+        <p className="text-secondary">{doctorData?.condition_treated}</p>
         <Divider />
         <h4 className="font-bold mb-1">Professional Background</h4>
         <div className="text-secondary">
