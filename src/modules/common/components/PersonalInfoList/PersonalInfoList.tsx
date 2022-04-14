@@ -122,9 +122,6 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
               <div className="w-1/2 text-gray-1">Password</div>
               <div className="w-1/2 text-secondary">
                 <div className="w-1/2 text-secondary">******</div>
-                {/* <div className="word-wrap bg-transparent">
-                  <input type="password" disabled value={password} />
-                </div> */}
               </div>
             </div>
           </li>

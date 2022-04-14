@@ -7,6 +7,7 @@ import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import Container from "../../../../common/components/Container/Container";
 import { Profile } from "../../components/Profile/Profile";
+import { ViewProfile } from "../../components/Profile/ViewProfile";
 import EmailNotification from "../EmailNotification/EmailNotification";
 import { ProfileIcon } from "../../../../common/components/CustomIcon";
 import {
@@ -17,6 +18,10 @@ import {
 const { TabPane } = Tabs;
 
 function ProfileDetail() {
+  const [isEdit,setIsEdit]=useState(false);
+  const editData=()=>{
+    setIsEdit(!isEdit)
+  }
   //   GET ID FROM URL
   const { query } = useRouter();
 
@@ -40,7 +45,8 @@ function ProfileDetail() {
               }
               key="1"
             >
-              <Profile doctorId={query?.id} doctorData={doctorProfile} />
+              {isEdit? (<Profile doctorId={query?.id} doctorData={doctorProfile} edit={editData}/>): 
+              (<ViewProfile doctorId={query?.id} doctorData={doctorProfile} setIsEdit={setIsEdit}/>)}
             </TabPane>
             <TabPane
               tab={

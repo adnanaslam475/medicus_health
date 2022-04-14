@@ -69,7 +69,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       city_id: user?.city_id,
       postalCode: user?.zip_code,
       streetAddress: user?.streetAddress,
+      maritalStatusExist: false,
       maritalStatus: user?.patientProfile?.maritalStatus,
+      childrenExists: false,
       children: user?.patientProfile?.children,
       occupation: user?.patientProfile?.occupation,
       occupationalExposure: user?.patientProfile?.occupationalExposure,
@@ -298,14 +300,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   Do You have any children?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0">
+                  <Form.Item className="mb-0" name="childrenExists">
                     <Radio.Group
                       onChange={(e) => {
                         setradioChildren(e.target.value);
                       }}
                     >
-                      <Radio value={1}>Yes</Radio>
-                      <Radio value={0}>No</Radio>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
                     </Radio.Group>
                     {!!radioChildren && (
                       <Form.Item className="mb-0" name="children">
