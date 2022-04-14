@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import Router, { useRouter } from "next/router";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import { Button, Select } from "antd";
 import Link from "next/link";
-import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import { Appointment, useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 
 const { Option } = Select;
 function UpcomingAppointments() {
@@ -16,8 +16,14 @@ function UpcomingAppointments() {
       },
     },
   });
+  const [dataList, setDataList] = useState<undefined | Appointment[]>([]);
 
   const { appointments } = data || {};
+
+  useEffect(() => {
+    setDataList(appointments);
+  }, [appointments]);
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -51,10 +57,10 @@ function UpcomingAppointments() {
             </Button>
           </div>
         </div>
-        <SearchFilters />
+        <SearchFilters appointments={appointments} setDataList={setDataList} />
         <div className="w-full">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            {appointments?.map((appointmentDetail, i) => {
+            {dataList?.map((appointmentDetail, i) => {
               const {
                 id,
                 patientId,
