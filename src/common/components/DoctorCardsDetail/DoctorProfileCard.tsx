@@ -1,47 +1,25 @@
 import React, { useState } from "react";
-import Link from "next/link";
-import {
-  Steps,
-  message,
-  Modal,
-  Card,
-  Button,
-  Divider,
-  Avatar,
-  Collapse,
-} from "antd";
-import Router, { useRouter } from "next/router";
-import {
-  LeftOutlined,
-  VideoCameraFilled,
-  ArrowLeftOutlined,
-} from "@ant-design/icons";
+import { Card, Button, Divider, Collapse } from "antd";
+import Router from "next/router";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import VideoCamera from "../../../../public/assets/icon/video.svg";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorProfileCard.module.scss";
-import AppointmentBookingStepOne from "../../../common/components/Appointments/booking/AppointmentBookingStepOne";
-import AppointmentBookingStepTwo from "../../../common/components/Appointments/booking/AppointmentBookingStepTwo";
-import AppointmentBookingStepThree from "../../../common/components/Appointments/booking/AppointmentBookingStepThree";
-import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
-import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
 import {
-  AppointmentServiceType,
+  // AppointmentServiceType,
   DoctorProfile,
-  DoctorSchedule,
+  // DoctorSchedule,
   useGetAllAppointmentServiceTypesQuery,
 } from "../../../generated/graphql";
 import { date } from "../../utils";
+import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
   ["Spanish" as string]: espanolFlag,
 };
-
-const { Panel } = Collapse;
-
-const { Step } = Steps;
 
 type Props = {
   doctorData: DoctorProfile;
@@ -51,41 +29,7 @@ function DoctorProfileCard(props: Props) {
   const { doctorData } = props || {};
   const { first_name, last_name } = doctorData?.user || {};
 
-  const [data] = useGetAllAppointmentServiceTypesQuery();
-  const [stepOne, setStepOne] = useState();
-
-  function getStepOneValue() {
-    console.log("Setp one value");
-  }
-
-  const steps = [
-    {
-      title: "",
-      content: (
-        <AppointmentBookingStepOne
-          physicianData={doctorData}
-          allAppoinments={data?.data?.appointmentServiceTypes}
-          onFinish={getStepOneValue}
-        />
-      ),
-    },
-    {
-      title: "",
-      content: <AppointmentBookingStepTwo />,
-    },
-    {
-      title: "",
-      content: <AppointmentBookingStepThree />,
-    },
-    {
-      title: "",
-      content: <AppointmentBookingStepFour />,
-    },
-    {
-      title: "",
-      content: <SuccessMessage />,
-    },
-  ];
+  // const [data] = useGetAllAppointmentServiceTypesQuery();
 
   const { language } = doctorData || "english";
 
@@ -103,17 +47,6 @@ function DoctorProfileCard(props: Props) {
     setIsModalVisible(false);
   };
 
-  const [current, setCurrent] = React.useState(0);
-  const next = () => {
-    setCurrent(current + 1);
-    if (current===4) {
-      getStepOneValue()
-    }
-  };
-  const prev = () => {
-    setCurrent(current - 1);
-  };
-
   const todayDate = new Date();
   let today = todayDate.getDay();
 
@@ -123,55 +56,18 @@ function DoctorProfileCard(props: Props) {
 
   return (
     <>
-      <Modal
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        className={`${_classes["steps-style"]}`}
-      >
-        {current < steps.length - 1 && (
-          <Steps>
-            {steps.map((item) => (
-              <Step key={item.title} title={item.title} />
-            ))}
-          </Steps>
-        )}
-        <div className="steps-content">{steps[current].content}</div>
-        <div className="steps-action">
-          {current > 0 && current < steps.length - 1 && (
-            <Button type="link" onClick={() => prev()}>
-              <LeftOutlined /> <span>Back</span>
-            </Button>
-          )}
-          {current < steps.length - 2 && (
-            <Button
-              type="primary"
-              className={`${_classes["btn-next"]}`}
-              onClick={() => next()}
-            >
-              Next
-            </Button>
-          )}
-          {current === steps.length - 2 && (
-            <Button
-              type="primary"
-              className={`${_classes["btn-next"]}`}
-              onClick={() => next()}
-            >
-              Request an Appointment
-            </Button>
-          )}
-        </div>
-      </Modal>
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
-            <Avatar
-              size={150}
-              src="../../../assets/images/doc-pic.png"
-              className=""
-            ></Avatar>
+            <div className="rounded-full flex items-center justify-center overflow-hidden">
+              <Image
+                alt={language || "flag"}
+                width={150}
+                height={150}
+                src="/assets/images/doc-pic.png"
+                className=""
+              />
+            </div>
           </div>
           <div className="lg:pr-5 w-full mb-5">
             <div className="flex-row md:flex items-center">
@@ -202,7 +98,7 @@ function DoctorProfileCard(props: Props) {
                 : "experience not available"}
             </span>
             <Collapse className="lg:w-4/5">
-              <Panel
+              <Collapse.Panel
                 key="1"
                 header={
                   <div className="flex-none sm:flex flex-grow justify-between">
@@ -237,7 +133,7 @@ function DoctorProfileCard(props: Props) {
                       ))
                     : "Doctor Schedules not available"}
                 </div>
-              </Panel>
+              </Collapse.Panel>
             </Collapse>
             <div className="flex-none md:flex mt-3">
               <Button type="primary" onClick={showModal}>
@@ -297,6 +193,11 @@ function DoctorProfileCard(props: Props) {
           <ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span>
         </a>
       </Card>
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      />
     </>
   );
 }

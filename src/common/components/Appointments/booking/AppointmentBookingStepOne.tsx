@@ -8,9 +8,9 @@ import {
 const { Option } = Select;
 
 type Props = {
-  physicianData: DoctorProfile;
+  physicianData?: DoctorProfile;
   allAppoinments?: AppointmentServiceType[];
-  onFinish:any;
+  onFinish?: ((values: any) => void) | undefined;
 };
 
 function StepOne(props: Props) {
