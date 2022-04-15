@@ -30,6 +30,7 @@ import {
   Select,
   DatePicker,
 } from "antd";
+import _classes from "./PhysicianProfile.module.scss";
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
@@ -171,7 +172,7 @@ export const Profile = React.forwardRef(function Profile({
   }
 
   return (
-    <div className="w-full">
+    <div className={`${_classes["physician-profile"]} w-full`}>
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
         <div className="flex flex-col w-full justify-start items-center py-3">
           <div className="w-full mb-10 flex gap-8">
@@ -205,12 +206,7 @@ export const Profile = React.forwardRef(function Profile({
                 <div className="lg:ml-0 mt-0 sm:mt-0">
                   <Button
                     type="primary"
-                    style={{
-                      background: "#E2F8F7",
-                      borderColor: "#E2F8F7",
-                      color: "#30CEC2",
-                    }}
-                    className="pr-0"
+                    className={`${_classes["calendar-btn-style"]} pr-0`}
                     onClick={handleChange}
                   >
                     {status ? "Published" : "Unpublished"}

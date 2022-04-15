@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import end from "./../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../public/assets/images/espanolFlag.png";
+import _classes from "./PhysicianProfile.module.scss";
 
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
@@ -158,12 +159,6 @@ export const ViewProfile = React.forwardRef(function Profile({
       <Menu.Item key="2">UnPublished</Menu.Item>
     </Menu>
   );
-  // async function handleChange(value: string) {
-  // 	console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
-
-  // 	const res = await EnableOrDisableDoctor({
-  // 		id: Number(doctorId),
-  // 	});
 
   async function handleChange() {
     const res = await EnableOrDisableDoctor({
@@ -186,7 +181,7 @@ export const ViewProfile = React.forwardRef(function Profile({
   }
 
   return (
-    <div className="w-full">
+    <div className={`${_classes["physician-profile"]} w-full`}>
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
         <div className="flex flex-col w-full justify-start  py-3">
           <div className="w-full mb-10 flex gap-8">
@@ -209,7 +204,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                 />
               </div>
             </Upload>
-
             <div>
               <span>{doctorId}</span>
               <h2 className="mb-0">
@@ -220,13 +214,8 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <div className="lg:ml-0 mt-0 sm:mt-0">
                   <Button
                     type="primary"
-                    style={{
-                      background: "#E2F8F7",
-                      borderColor: "#E2F8F7",
-                      color: "#30CEC2",
-                    }}
-                    className="pr-0"
-                    // onClick={handleChange}
+                    className={`${_classes["calendar-btn-style"]} pr-0`}
+                    onClick={handleChange}
                   >
                     {status ? "Published" : "Unpublished"}
                   </Button>
@@ -269,14 +258,14 @@ export const ViewProfile = React.forwardRef(function Profile({
                   label="Email"
                   className="flex-1"
                 >
-                  <Input disabled defaultValue="usama@gmail.com" />
+                  <Input disabled />
                 </Form.Item>
                 <Form.Item
                   label="Contact Number"
                   name="contact"
                   className="flex-1"
                 >
-                  <Input disabled defaultValue="090078601" />
+                  <Input disabled />
                 </Form.Item>
               </div>
               <div className="flex flex-row gap-3">
