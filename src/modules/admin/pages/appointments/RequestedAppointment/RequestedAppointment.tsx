@@ -1,15 +1,24 @@
 import React, { useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import { Button } from "antd";
+import { Button, Empty } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
-import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import { Appointment, useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 
 function RequestedAppointment() {
+  const [dataList, setDataList] = useState<undefined | Appointment[]>([]);
+  const [dataListPhysician, setDataListPhysician] = useState<string>();
+  const [doctorIds, setDoctorId] = useState<number>();
+  const [appointmentIds, setAppointmentIds] = useState<number>();
+  const [serviceIds, setServiceIds] = useState<number>();
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
         status: "Requested",
+        physicianName: dataListPhysician,
+        doctorId: doctorIds,
+        appointmentId: appointmentIds,
+        serviceId: serviceIds,
       },
     },
   });
@@ -26,7 +35,14 @@ function RequestedAppointment() {
           </div>
           <Button type="primary">Request an Appointment</Button>
         </div>
-        <SearchFilters />
+        <SearchFilters
+          appointments={appointments}
+          setDataList={setDataList}
+          setDataListPhysician={setDataListPhysician}
+          setDoctorId={setDoctorId}
+          setAppointmentIds={setAppointmentIds}
+          setServiceIds={setServiceIds}
+        />
         <div className="w-full">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
             {appointments?.map((appointmentDetail, i) => {
@@ -40,7 +56,7 @@ function RequestedAppointment() {
                 serviceType,
                 doctor,
               } = appointmentDetail || {};
-              return (
+              return appointments.length !== 0 ? (
                 <AppointmentCard
                   id={id}
                   patientId={patientId}
@@ -51,7 +67,7 @@ function RequestedAppointment() {
                   serviceType={serviceType?.name}
                   doctor={doctor?.first_name}
                 />
-              );
+              ) : <Empty />;
             })}
           </div>
         </div>
