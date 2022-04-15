@@ -30,6 +30,7 @@ import {
 	Select,
 	DatePicker,
 } from "antd";
+import _classes from "./PhysicianProfile.module.scss";
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
@@ -59,10 +60,8 @@ export const Profile = React.forwardRef(function Profile({
 	const { first_name, last_name, password, email, contact_number, status } =
 		doctorData?.user || {};
 
-	console.log("status", status);
-
-	//GET USER PROFILE IMAGE FROM useGetUserQuery
-	const { profile_image: userProfileImage } = doctorData || {};
+  //GET USER PROFILE IMAGE FROM useGetUserQuery
+  const { profile_image: userProfileImage } = doctorData || {};
 
 	const [result, updateDoctor] = useUpdateDoctorProfileMutation();
 	const { error } = result || {};
@@ -97,25 +96,18 @@ export const Profile = React.forwardRef(function Profile({
 		}
 	};
 
-	const updateDoctorProfile = async (values: any) => {
-		if (doctorData) {
-			const res = await updateDoctor({
-				updateDoctorProfileInput: {
-					doctor_id: Number(doctorId),
-					first_name: values?.firstName,
-					last_name: values?.lastName,
-					email: values?.email,
-					password: values?.password,
-					profile_image: image ? image : userProfileImage,
-					year_of_experience: 0,
-					specialization: "",
-					condition_treated: "",
-					educational_background: [],
-					professional_experience: [],
-					language: "",
-					about_me: "",
-				},
-			});
+  const updateDoctorProfile = async (values: any) => {
+    if (doctorData) {
+      const res = await updateDoctor({
+        updateDoctorProfileInput: {
+          doctor_id: Number(doctorId),
+          first_name: values?.firstName,
+          last_name: values?.lastName,
+          email: values?.email,
+          password: values?.password,
+          profile_image: image ? image : userProfileImage,
+        },
+      });
 
 			if (res?.data) {
 				res?.data?.updateDoctorProfile &&

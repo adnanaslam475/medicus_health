@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import end from "./../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../public/assets/images/espanolFlag.png";
+import _classes from "./PhysicianProfile.module.scss";
 
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
@@ -59,10 +60,8 @@ export const ViewProfile = React.forwardRef(function Profile({
 	const { first_name, last_name, password, email, contact_number, status } =
 		doctorData?.user || {};
 
-	console.log("status", status);
-
-	//GET USER PROFILE IMAGE FROM useGetUserQuery
-	const { profile_image: userProfileImage } = doctorData || {};
+  //GET USER PROFILE IMAGE FROM useGetUserQuery
+  const { profile_image: userProfileImage } = doctorData || {};
 
 	const [result, updateDoctor] = useUpdateDoctorProfileMutation();
 	const { error } = result || {};
@@ -151,21 +150,15 @@ export const ViewProfile = React.forwardRef(function Profile({
 		return isPNG || isJPG || Upload.LIST_IGNORE;
 	};
 
-	function handleMenuClick(e: object) {
-		console.log("click", e);
-	}
-	const menu = (
-		<Menu onClick={handleMenuClick}>
-			<Menu.Item key="1">Published</Menu.Item>
-			<Menu.Item key="2">UnPublished</Menu.Item>
-		</Menu>
-	);
-	// async function handleChange(value: string) {
-	// 	console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
-
-	// 	const res = await EnableOrDisableDoctor({
-	// 		id: Number(doctorId),
-	// 	});
+  function handleMenuClick(e: object) {
+    console.log("click", e);
+  }
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="1">Published</Menu.Item>
+      <Menu.Item key="2">UnPublished</Menu.Item>
+    </Menu>
+  );
 
 	async function handleChange() {
 		const res = await EnableOrDisableDoctor({

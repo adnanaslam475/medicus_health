@@ -6,7 +6,7 @@ import HealthQuestionnaryData from "../../constants/healthQuestionnary";
 
 import { Form, Input, Button, Radio, Checkbox, FormInstance } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
-import _classes from "./questionnary.module.scss";
+import _classes from "./Questionnary.module.scss";
 const CheckboxGroup = Checkbox.Group;
 
 interface HealthQuesType {
@@ -237,16 +237,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
     setShowSurgicalOthers(checkedValue.includes("Others"));
   }
-
-  // function prepareEditPayload(tipLocal) {
-  //   const { name, video, target_users: targetUsers } = tipLocal || {};
-  //   form.setFieldsValue({
-  //     [HealthQuestionnaryData.q1.name] : "this is name",
-
-  //     // role_id: targetUsers?.map(({ id }) => id),
-  //   });
-
-  // }
 
   return (
     <Form
