@@ -17,7 +17,11 @@ export function useBookAppointment() {
 
 export const BookAppointmentConsumer = BookAppointmentContext.Consumer;
 
-export function ThemeProvider({ children }: { children: JSX.Element }) {
+export function BookAppointmentProvider({
+  children,
+}: {
+  children: JSX.Element;
+}) {
   const [data, setData] = useState({});
 
   function saveStepOne(values: any) {
@@ -29,6 +33,7 @@ export function ThemeProvider({ children }: { children: JSX.Element }) {
   function saveStepThree(values: any) {
     setData({ ...data, stepOne: values });
   }
+
 
   return (
     <BookAppointmentContext.Provider

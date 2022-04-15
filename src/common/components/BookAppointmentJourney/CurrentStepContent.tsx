@@ -1,21 +1,25 @@
 import React from "react";
+import {
+  DoctorProfile,
+  useGetAllAppointmentServiceTypesQuery,
+} from "../../../generated/graphql";
 import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
-import AppointmentBookingStepOne from "../Appointments/booking/AppointmentBookingStepOne";
+import { AppointmentBookingStepOne } from "../Appointments/booking/AppointmentBookingStepOne";
 import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
 import AppointmentBookingStepTwo from "../Appointments/booking/AppointmentBookingStepTwo";
-import SuccessMessage from "../Appointments/booking/SuccessMessage";
 
-type Props = { stepName: string };
+type Props = { stepName: string; doctorData: DoctorProfile | undefined };
 
-function CurrentStepContent({ stepName }: Props) {
+function CurrentStepContent({ stepName, doctorData }: Props) {
+
+  const [data] = useGetAllAppointmentServiceTypesQuery();
 
   switch (stepName) {
     case "stepOne":
       return (
         <AppointmentBookingStepOne
-        //   physicianData={doctorData}
-        //   allAppoinments={data?.data?.appointmentServiceTypes}
-        //   onFinish={getStepOneValue}
+          physicianData={doctorData}
+          allAppoinments={data?.data?.appointmentServiceTypes}
         />
       );
     case "stepTwo":

@@ -1,10 +1,16 @@
 import { LeftOutlined } from "@ant-design/icons";
 import { Button, Modal, Steps } from "antd";
-import React, { useState } from "react";
-import { useGetAllAppointmentServiceTypesQuery } from "../../../generated/graphql";
+import React, { useRef, useState } from "react";
+import {
+  DoctorProfile,
+  useGetAllAppointmentServiceTypesQuery,
+} from "../../../generated/graphql";
 import CurrentStepContent from "./CurrentStepContent";
 import _classes from "./BookAppointmentJourney.module.scss";
-import { BookAppointmentConsumer } from "./BookAppointmentContext";
+import {
+  BookAppointmentProvider,
+  useBookAppointment,
+} from "./BookAppointmentContext";
 
 type Props = {
   visible?: boolean | undefined;
@@ -12,9 +18,17 @@ type Props = {
   onCancel?:
     | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
+  doctorData?: DoctorProfile;
 };
 
-function BookAppointmentJourney({ visible, onOk, onCancel }: Props) {
+function BookAppointmentJourneyWithContext({
+  visible,
+  onOk,
+  onCancel,
+  doctorData,
+}: Props) {
+  const form: any = useRef();
+
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
 
@@ -29,6 +43,7 @@ function BookAppointmentJourney({ visible, onOk, onCancel }: Props) {
     }
     setCurrentStepNumber((prev) => prev + 1);
   };
+
   const prev = (stepName: string) => {
     if (stepName === "stepOne") return;
     if (stepName === "stepOne") {
@@ -43,34 +58,43 @@ function BookAppointmentJourney({ visible, onOk, onCancel }: Props) {
     setCurrentStepNumber((prev) => prev - 1);
   };
 
-  const [data] = useGetAllAppointmentServiceTypesQuery();
+  // const [data] = useGetAllAppointmentServiceTypesQuery();
 
+  const { data } = useBookAppointment();
+  console.log("abc", { data });
   return (
-    <Modal
-      centered
-      maskClosable={false}
-      visible
-      onOk={onOk}
-      onCancel={onCancel}
-      footer={null}
-      className={`${_classes["steps-style"]}`}
-    >
-      <StepDots current={currentStepNumber} />
-      <div className="steps-content">
-        {/* <BookAppointmentConsumer>
-          <CurrentStepContent stepName={currentStepName} />
-        </BookAppointmentConsumer> */}
-      </div>
-      <BookAppointmentFooter
-        stepName={currentStepName}
-        onNext={() => next(currentStepName)}
-        onPrevious={() => prev(currentStepName)}
-      />
-    </Modal>
+    <BookAppointmentJourney>
+      <Modal
+        centered
+        maskClosable={false}
+        visible
+        onOk={onOk}
+        onCancel={onCancel}
+        footer={null}
+        className={`${_classes["steps-style"]}`}
+      >
+        <StepDots current={currentStepNumber} />
+        <div className="steps-content">
+          <CurrentStepContent
+            stepName={currentStepName}
+            doctorData={doctorData}
+          />
+        </div>
+        <BookAppointmentFooter
+          stepName={currentStepName}
+          onNext={() => next(currentStepName)}
+          onPrevious={() => prev(currentStepName)}
+        />
+      </Modal>
+    </BookAppointmentJourney>
   );
 }
 
-export default BookAppointmentJourney;
+function BookAppointmentJourney({ children }: { children: JSX.Element }) {
+  return <BookAppointmentProvider>{children}</BookAppointmentProvider>;
+}
+
+export default BookAppointmentJourneyWithContext;
 
 function BookAppointmentFooter({
   onNext,
