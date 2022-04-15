@@ -146,7 +146,6 @@ mutation updateDoctorProfile(
       last_name
       email
       gender
-      contact_number
       streetAddress
       country_id
       state_id
@@ -159,12 +158,10 @@ mutation updateDoctorProfile(
   }
 }
 
-#ENABLE OR DISABLE DOCTOR 
+#ENABLE OR DISABLE DOCTOR
 mutation enableOrDisableDoctor($id: Int!) {
   enableOrDisableDoctor(id: $id) {
     id
     status
   }
 }
-
-

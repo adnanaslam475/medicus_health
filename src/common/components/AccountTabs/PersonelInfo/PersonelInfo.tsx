@@ -108,7 +108,7 @@ const PersonalInfo = () => {
 
   return (
     <>
-      <div className="w-1/2">
+      <div className="w-4/6">
         <div className="flex justify-between items-center">
           <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
             {isEdit ? (
@@ -118,6 +118,7 @@ const PersonalInfo = () => {
                 beforeUpload={onBeforeUpload}
                 itemRender={() => <div />}
                 customRequest={() => null}
+                accept="image/jpg, image/jpeg,"
               >
                 <div className="relative">
                   <Avatar

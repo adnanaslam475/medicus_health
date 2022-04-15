@@ -6,9 +6,16 @@
 
 // for default button
 button.ant-btn {
+  font-family: Circular Std;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+// for all modal headers
+.ant-modal-header {
+  padding: 16px 24px 0px 24px !important;
+  border-bottom: none !important;
 }
 
 // for all tags
@@ -275,11 +282,6 @@ label.ant-radio-wrapper {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 }
 
-.ant-checkbox-checked .ant-checkbox-inner {
-  border-color: #429eff !important;
-  background-color: #429eff !important;
-}
-
 .ant-tabs
   .ant-form-item-control-input
   .ant-checkbox-group
@@ -292,7 +294,6 @@ label.ant-radio-wrapper {
 .ant-checkbox-checked::after {
   border-color: transparent !important;
 }
-
 // Faizan CSS
 .ant-table-wrapper {
   .ant-table-content {
@@ -337,6 +338,7 @@ label.ant-radio-wrapper {
     }
   }
 }
+
 .btn-transparent{
   background-color: transparent !important;
 }
@@ -355,6 +357,7 @@ label.ant-radio-wrapper {
     }
   }
 }
+
 .ant-btn {
   padding: 0 20px !important;
 }
