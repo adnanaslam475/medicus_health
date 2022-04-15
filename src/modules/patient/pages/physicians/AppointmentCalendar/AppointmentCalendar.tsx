@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import CalendarView from "../../../../common/components/CalendarView";
+import CalendarView from "../../../../common/components/CalendarView/CalendarView";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import {
   Appointment,

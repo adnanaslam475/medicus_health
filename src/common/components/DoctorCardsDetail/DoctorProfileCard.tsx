@@ -26,7 +26,12 @@ import AppointmentBookingStepTwo from "../../../common/components/Appointments/b
 import AppointmentBookingStepThree from "../../../common/components/Appointments/booking/AppointmentBookingStepThree";
 import AppointmentBookingStepFour from "../../../common/components/Appointments/booking/AppointmentBookingStepFour";
 import SuccessMessage from "../../../common/components/Appointments/booking/SuccessMessage";
-import { DoctorProfile, DoctorSchedule } from "../../../generated/graphql";
+import {
+  AppointmentServiceType,
+  DoctorProfile,
+  DoctorSchedule,
+  useGetAllAppointmentServiceTypesQuery,
+} from "../../../generated/graphql";
 import { date } from "../../utils";
 
 const FLAG_BY_LANGUAGE = {
@@ -35,30 +40,8 @@ const FLAG_BY_LANGUAGE = {
 };
 
 const { Panel } = Collapse;
-const { Step } = Steps;
 
-const steps = [
-  {
-    title: "",
-    content: <AppointmentBookingStepOne />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepTwo />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepThree />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepFour />,
-  },
-  {
-    title: "",
-    content: <SuccessMessage />,
-  },
-];
+const { Step } = Steps;
 
 type Props = {
   doctorData: DoctorProfile;
@@ -67,6 +50,42 @@ type Props = {
 function DoctorProfileCard(props: Props) {
   const { doctorData } = props || {};
   const { first_name, last_name } = doctorData?.user || {};
+
+  const [data] = useGetAllAppointmentServiceTypesQuery();
+  const [stepOne, setStepOne] = useState();
+
+  function getStepOneValue() {
+    console.log("Setp one value");
+  }
+
+  const steps = [
+    {
+      title: "",
+      content: (
+        <AppointmentBookingStepOne
+          physicianData={doctorData}
+          allAppoinments={data?.data?.appointmentServiceTypes}
+          onFinish={getStepOneValue}
+        />
+      ),
+    },
+    {
+      title: "",
+      content: <AppointmentBookingStepTwo />,
+    },
+    {
+      title: "",
+      content: <AppointmentBookingStepThree />,
+    },
+    {
+      title: "",
+      content: <AppointmentBookingStepFour />,
+    },
+    {
+      title: "",
+      content: <SuccessMessage />,
+    },
+  ];
 
   const { language } = doctorData || "english";
 
@@ -87,26 +106,37 @@ function DoctorProfileCard(props: Props) {
   const [current, setCurrent] = React.useState(0);
   const next = () => {
     setCurrent(current + 1);
+    if (current===4) {
+      getStepOneValue()
+    }
   };
   const prev = () => {
     setCurrent(current - 1);
   };
 
+  const todayDate = new Date();
+  let today = todayDate.getDay();
+
+  let matchDay = doctorData?.user?.doctorSchedules?.find(
+    (item) => item.day == today
+  );
+
   return (
     <>
       <Modal
-        title="Request an Appointment"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
         className={`${_classes["steps-style"]}`}
       >
-        <Steps current={current}>
-          {steps.map((item) => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
+        {current < steps.length - 1 && (
+          <Steps>
+            {steps.map((item) => (
+              <Step key={item.title} title={item.title} />
+            ))}
+          </Steps>
+        )}
         <div className="steps-content">{steps[current].content}</div>
         <div className="steps-action">
           {current > 0 && current < steps.length - 1 && (
@@ -134,20 +164,21 @@ function DoctorProfileCard(props: Props) {
           )}
         </div>
       </Modal>
-
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
             <Avatar
               size={150}
-              src="../assets/images/doc-pic.png"
+              src="../../../assets/images/doc-pic.png"
               className=""
             ></Avatar>
           </div>
           <div className="lg:pr-5 w-full mb-5">
             <div className="flex-row md:flex items-center">
               <h2 className="font-bold mb-0 mr-3">
-                <span>Dr. {doctorData ? first_name + " " + last_name : ""}</span>
+                <span>
+                  Dr. {doctorData ? first_name + " " + last_name : ""}
+                </span>
               </h2>
               <div className="flex">
                 <div className="flagAvatar engFlag pr-2">
@@ -162,10 +193,10 @@ function DoctorProfileCard(props: Props) {
                 </div>
               </div>
             </div>
-            <h5 className="text-primary text-xs mb-1">
+            <h5 className="font-rubik text-yellow text-xs mb-1">
               {doctorData?.specialization}
             </h5>
-            <span className="text-secondary text-sm block mb-2">
+            <span className="font-rubik text-secondary text-sm block mb-2">
               {doctorData?.year_of_experience
                 ? `${doctorData?.year_of_experience}  years of experience`
                 : "experience not available"}
@@ -175,12 +206,19 @@ function DoctorProfileCard(props: Props) {
                 key="1"
                 header={
                   <div className="flex-none sm:flex flex-grow justify-between">
-                    <div className="ant-collapse-available">
-                      Available Today
-                    </div>
-                    <span className="ant-collapse-time">
-                      12:00 pm - 09:00 pm
-                    </span>
+                    {matchDay ? (
+                      <>
+                        <div className="text-gray-8 ant-collapse-available">
+                          Available Today
+                        </div>
+                        <span className="ant-collapse-time">
+                          {`${date.time24HrConvert(matchDay?.startTime)} -
+                          ${date.time24HrConvert(matchDay?.endTime)}`}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-gray-8">Not Available Today</span>
+                    )}
                   </div>
                 }
               >
@@ -212,16 +250,10 @@ function DoctorProfileCard(props: Props) {
                 <span className="ml-2">Request an Appointment</span>
               </Button>
               <div className="flex-none sm:flex">
-                <Button
-                  className="highlighted-button btn-transparent mt-3 md:mt-0 md:ml-3"
-                  icon={<VideoCameraFilled />}
-                >
+                <Button className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3">
                   <span className="hidden">Message Admin</span>
                 </Button>
-                <Button
-                  className="highlighted-button button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
-                  icon={<VideoCameraFilled />}
-                >
+                <Button className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3">
                   <span className="hidden">Message Physician</span>
                 </Button>
               </div>
@@ -230,34 +262,29 @@ function DoctorProfileCard(props: Props) {
         </div>
         <Divider />
         <h4 className="font-bold mb-1">About Me</h4>
-        <div className="text-base">{doctorData?.about_me}</div>
+        <div className="text-gray">{doctorData?.about_me}</div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
-        <p className="text-base text-secondary">
-          {doctorData?.condition_treated}
-        </p>
+        <p className="text-secondary">{doctorData?.condition_treated}</p>
         <Divider />
         <h4 className="font-bold mb-1">Professional Background</h4>
-        <div className="text-base text-secondary">
+        <div className="text-secondary">
           {doctorData?.professional_experience &&
             JSON.parse(doctorData?.professional_experience).map((item: any) => (
               <>
                 <b>{item?.institution}</b>
-                <br />
-                <span> {item?.role}</span>
+                <span className="text-secondary block">{item?.role}</span>
               </>
             ))}
         </div>
         <Divider />
         <h4 className="font-bold mb-1">Educational Background</h4>
-        <div className="text-base text-secondary">
+        <div className="text-secondary">
           {doctorData?.educational_background &&
             JSON.parse(doctorData?.educational_background).map((item: any) => (
               <>
                 <b>{item?.institution}</b>
-                <br />
-                <span> {item?.degree}</span>
-                <br />
+                <span className="text-secondary block">{item?.degree}</span>
               </>
             ))}
         </div>

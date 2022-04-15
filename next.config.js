@@ -4,6 +4,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
+
 const withTM = require("next-transpile-modules")([
   "@fullcalendar/common",
   "@babel/preset-react",
@@ -14,9 +15,7 @@ const withTM = require("next-transpile-modules")([
   "@fullcalendar/timegrid",
 ]);
 
-// module.exports = withBundleAnalyzer({
-//   reactStrictMode: true,
-// })
+
 module.exports = withTM(
   // your custom config goes here
   withBundleAnalyzer({

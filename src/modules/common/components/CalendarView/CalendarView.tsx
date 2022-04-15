@@ -9,6 +9,7 @@ import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClic
 import _Classes from "./CalendarView.module.scss";
 import { Select } from "antd";
 import { useDoctorProfilesQuery } from "../../../../generated/graphql";
+import Router from "next/router";
 
 type Props = {
   handleDateChange: (arg: any | undefined) => void;
@@ -116,7 +117,7 @@ function AdminAimsCalender(props: Props) {
             listview: {
               text: "List View",
               click: function () {
-                alert("clicked custom button 1!");
+               Router.push("/patient/appointments/requested")
               },
             },
             search: {

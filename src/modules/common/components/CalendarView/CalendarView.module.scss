@@ -10,25 +10,28 @@
     color: #00b294;
   }
 
+ 
   :global .fc-button.fc-button-primary {
     background-color: #f9f6f9;
     color: #ffffff;
   }
   :global .fc-button.fc-button-primary {
     background-color: #f9f6f9;
-    border: none;
+ border: none;
     color: #7d7888;
     font-size: 14px;
     font-weight: 300;
   }
-  :global .fc-customText-button {
-    background: transparent !important;
-    border: none;
-  }
-  :global .fc-custom1-button {
-    background-color: #1a82fe !important;
-    color: #fff !important;
-  }
+:global .fc-customText-button{
+background: transparent !important; 
+border: none;
+}
+:global .fc-custom1-button{
+background-color: #1a82fe !important;
+color:#fff !important
+
+}
+
 
   :global .fc-button.fc-button-primary.fc-button-active {
     background-color: #1a82fe;
@@ -40,6 +43,14 @@
     background-color: #1a82fe;
     color: #ffffff;
   }
+
+:global .fc-v-event {
+background-color: #E7F0FA !important;
+color:black;
+border:none;
+padding: 5px 10px;
+}
+
   :global .fc .fc-button:disabled {
     color: #7d7888;
     border-color: #7d7888;
@@ -47,16 +58,17 @@
   :global .fc .fc-toolbar-title {
     font-size: 1.75em;
     margin: 0;
-    color: black;
+    color:black;
     display: inline;
     padding-left: 20px;
-    padding-top: 10px;
+    padding-top:10px
+
   }
   :global .fc-button:focus {
     outline: 0;
     border: none !important;
     box-shadow: none;
-  }
+}
   :global .fc .fc-col-header-cell-cushion {
     display: inline-block;
     padding: 2px 4px;
@@ -67,6 +79,11 @@
     :global .fc-event-title.fc-sticky {
       color: #ffffff;
     }
+  }
+  :global .fc-event-title.fc-sticky {
+    font-size: 12px ;
+    font-weight: 500 !important;
+   
   }
   :global .fc-daygrid-event-dot {
     display: none;
@@ -83,13 +100,16 @@
   :global .fc-event-title-container {
     // width: 100px;
     font-weight: bold;
-    color: #fff;
+    color: #000000;
   }
   // .fc-h-event .fc-event-title
   :global .fc-h-event .fc-event-title {
     // background-color: "red";
     // color: "red";
     font-weight: 600;
+  }
+  :global .fc-daygrid-body{
+    display: none;
   }
 
   // :global .fc .fc-toolbar {
@@ -197,13 +217,18 @@
 }
 
 .style_css__JiOc_ .fc-button.fc-button-primary {
-  background: transparent;
-}
+   background: transparent;
+ }
+ .placeholderColor {
 
-.placeholderColor {
   :global .ant-select-selector {
+
     .ant-select-selection-item {
+
       color: #9295AF;
+
     }
+
   }
+
 }

@@ -10,7 +10,7 @@ import {
   CreateUserInput,
 } from "../../../../../generated/graphql";
 import Container from "../../../../../common/components/Container/Container";
-import HealthQuestionnary from "../../../../../common/components/Questionnary/questionnary";
+import HealthQuestionnary from "../../../../../common/components/Questionnary/Questionnary";
 import PersonalInfo from "./components/PersonalInfo/PersonalInfo";
 import { date } from "../../../../../common/utils";
 import { getToken } from "../../../../../common/utils/userData";
