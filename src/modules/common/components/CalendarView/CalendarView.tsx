@@ -1,0 +1,120 @@
+/* eslint-disable no-else-return */
+/* eslint-disable camelcase */
+/* eslint-disable react-hooks/rules-of-hooks */
+import React from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import _Classes from "./CalendarView.module.scss";
+import Router from "next/router";
+
+type Props = {
+  handleDateChange: (arg: any | undefined) => void;
+  handleDateClick: (arg: any | undefined) => void;
+  calendarComponentRef: React.LegacyRef<FullCalendar> | undefined | any;
+  calender: object | any;
+};
+
+// type Props = {
+//   handleDateChange: (arg: any | undefined) => void;
+//   handleDateClick: (arg: any | undefined) => void;
+//   calendarComponentRef: React.LegacyRef<FullCalendar> | undefined | any;
+//   calender: object | any;
+//   };
+//   function AdminAimsCalender(props: Props) {
+//   const { handleDateChange, calendarComponentRef, calender, handleDateClick } =
+//   props;
+//   const events = [{ title: "today's event", date: new Date() }];
+
+// },
+
+function CalendarView(props: Props) {
+  const { handleDateChange, calendarComponentRef, calender, handleDateClick } =
+    props;
+  const events = [{ title: "today's event", date: new Date() }];
+
+  return (
+    <div>
+      <div className={`${_Classes["calendarview"]}`}>
+        <FullCalendar
+          dayHeaderContent={(args) => {
+            const weekShortName = new Date(args.date).toLocaleString("en-us", {
+              weekday: "short",
+            });
+            const currentDate = new Date(args.date).getDate();
+            return (
+              <div style={{ flexDirection: "column" }}>
+                <div style={{ color: "#000" }}>{currentDate}</div>
+                <div style={{ color: "#000" }}>{weekShortName}</div>
+              </div>
+            );
+          }}
+          initialView="timeGridWeek"
+          headerToolbar={{
+            left: "customText today customPrev customNext title",
+            center: "",
+            right: "listview search custom1",
+          }}
+          customButtons={{
+            customNext: {
+              icon: "chevron-right",
+              click: () => {
+                handleDateChange("next");
+              },
+            },
+            customPrev: {
+              icon: "chevron-left",
+              click: () => {
+                handleDateChange("prev");
+              },
+            },
+            customText: {
+              text: "Appointment",
+            },
+            custom1: {
+              text: "Request an Appointment",
+              click: function () {
+                alert("clicked custom button 1!");
+              },
+            },
+            listview: {
+              text: "List View",
+              click: function () {
+               Router.push("/patient/appointments/requested")
+              },
+            },
+            search: {
+              text: "Search",
+              // click: () => {
+              //   handleDateChange("prev");
+            },
+          }}
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          ref={calendarComponentRef}
+          // weekends={calender.calendarWeekends}
+          events={calender?.calenderEvents}
+          eventClick={handleDateClick}
+          eventTextColor="black"
+          displayEventTime={false}
+          // eslint-disable-next-line consistent-return
+          // eventClassNames={(arg) => {
+          //   if (arg?.isToday || arg.event.extendedProps?.startingToday) {
+          //     return [`${calendarStyle.clsToday}`];
+          //   } else if (arg.event.extendedProps?.status === "Completed") {
+          //     return [`${calendarStyle.clsComplete}`];
+          //   } else if (arg.event.extendedProps?.status === "Ongoing") {
+          //     return [`${calendarStyle.clsOngoing}`];
+          //   } else if (arg.event.extendedProps?.status === "Upcoming") {
+          //     return [`${calendarStyle.clsUpcoming}`];
+          //   } else if (arg.event.extendedProps?.status === "Cancelled") {
+          //     return [`${calendarStyle.clsCancel}`];
+          //   }
+          // }}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default CalendarView;
