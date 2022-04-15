@@ -70,7 +70,6 @@ function SearchFilters(props: Props) {
             placeholder="Physician"
             className="w-full sm:w-40"
             onChange={handlePhysicianChange}
-            // value={selectedPhysicianItems}
           >
             {physicianData?.map((item) => (
               <Select.Option key={item} value={item}>
@@ -86,7 +85,6 @@ function SearchFilters(props: Props) {
             placeholder="Service"
             className="w-full sm:w-64"
             onChange={handleServiceChange}
-            // value={selectedServiceItems}
           >
             {serviceData?.map((item) => (
               <Select.Option key={item} value={item}>
