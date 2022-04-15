@@ -259,11 +259,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 >
                   <Input disabled defaultValue="usama" />
                 </Form.Item>
-                <Form.Item
-                  label="Last name"
-                  name="lastName"
-                  className="flex-1"
-                >
+                <Form.Item label="Last name" name="lastName" className="flex-1">
                   <Input disabled defaultValue="khan" />
                 </Form.Item>
               </div>
@@ -286,11 +282,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 </Form.Item>
               </div>
               <div className="flex flex-row gap-3">
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  className="flex-1"
-                >
+                <Form.Item label="Password" name="password" className="flex-1">
                   <Input.Password disabled />
                 </Form.Item>
 
@@ -347,11 +339,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                     disabled
                   />
                 </Form.Item>
-                <Form.Item
-                  label="Role"
-                  name="role"
-                  className="flex-1"
-                >
+                <Form.Item label="Role" name="role" className="flex-1">
                   <Input defaultValue="University" disabled />
                 </Form.Item>
               </div>
@@ -367,11 +355,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                     disabled
                   />
                 </Form.Item>
-                <Form.Item
-                  label="Role"
-                  name="role"
-                  className="flex-1"
-                >
+                <Form.Item label="Role" name="role" className="flex-1">
                   <Input defaultValue="University" disabled />
                 </Form.Item>
               </div>
@@ -449,18 +433,16 @@ export const ViewProfile = React.forwardRef(function Profile({
                 </Form.Item>
               </div>
             </div>
-            {/* <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
-                <Form.Item className="">
-                  <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-                    <Button htmlType="submit" className="">
-                      Cancel
-                    </Button>
-                    <Button type="primary" htmlType="submit" className="">
-                      Save Changes
-                    </Button>
-                  </div>
-                </Form.Item>
-              </div> */}
+            <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
+              <Form.Item className="">
+                <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
+                  <Button className="">Cancel</Button>
+                  <Button type="primary" className="">
+                    Save Changes
+                  </Button>
+                </div>
+              </Form.Item>
+            </div>
             {/* </Form> */}
           </div>
         </div>

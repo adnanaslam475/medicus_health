@@ -154,16 +154,6 @@ export const Profile = React.forwardRef(function Profile({
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  // function handleMenuClick(e: object) {
-  //   console.log("click", e);
-  // }
-  // const menu = (
-  //   <Menu onClick={handleMenuClick}>
-  //     <Menu.Item key="1">Published</Menu.Item>
-  //     <Menu.Item key="2">UnPublished</Menu.Item>
-  //   </Menu>
-  // );
-
   async function handleChange() {
     const res = await EnableOrDisableDoctor({
       id: Number(doctorId),
@@ -228,10 +218,6 @@ export const Profile = React.forwardRef(function Profile({
                     {status ? "Published" : "Unpublished"}
                   </Button>
                 </div>
-                {/* <Button type="default" className="px-0 mx-0">
-                  <EditOutlined />
-                  Edit Info
-                </Button> */}
               </div>
             </div>
           </div>
