@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import { Button, Empty } from "antd";
-import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import { Appointment, useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import { Button, Empty, Select } from "antd";
+import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
+import Link from "next/link";
+import Router from "next/router";
 
 function RequestedAppointment() {
   const [dataList, setDataList] = useState<undefined | Appointment[]>([]);
@@ -24,7 +26,7 @@ function RequestedAppointment() {
   });
 
   const { appointments } = data || {};
-  console.log(data, "appointments");
+  const { Option } = Select;
 
   return (
     <AppLayout>
@@ -33,7 +35,28 @@ function RequestedAppointment() {
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">Requested Appointments</h2>
           </div>
-          <Button type="primary">Request an Appointment</Button>
+          {/* <Button type="primary">Request an Appointment</Button> */}
+          <div className="flex gap-3">
+            <div className="lg:ml-3 mt-0 sm:mt-0">
+              <Select defaultValue="Calendar View" className="w-full sm:w-40">
+                <Option value="Calendar View">
+                  <Link href="/patient/calendar">
+                    <a>Calendar View</a>
+                  </Link>
+                </Option>
+                <Option value="List View">List View</Option>
+              </Select>
+            </div>
+            <Button
+              type="primary"
+              className="text-sm"
+              onClick={() => Router.push("/patient/calendar")}
+            >
+              <span className="text-xs sm:text-base">
+                Request an Appointment
+              </span>
+            </Button>
+          </div>
         </div>
         <SearchFilters
           appointments={appointments}

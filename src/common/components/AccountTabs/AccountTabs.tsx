@@ -8,7 +8,7 @@ import PaymentMethods from "./PaymentMethods/PaymentMethods";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
 import HealthQuestionnary, {
   QuestionnaireForm,
-} from "../Questionnary/questionnary";
+} from "../Questionnary/Questionnary";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
   useUpdatePatientHealthHistoryMutation,

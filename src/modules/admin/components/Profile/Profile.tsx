@@ -30,6 +30,7 @@ import {
   Select,
   DatePicker,
 } from "antd";
+import _classes from "./PhysicianProfile.module.scss";
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
@@ -49,6 +50,7 @@ const { Option } = Select;
 export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
+  setIsEdit,
 }: any) {
   const { Option } = Select;
   const [formInstance] = Form.useForm();
@@ -57,8 +59,6 @@ export const Profile = React.forwardRef(function Profile({
 
   const { first_name, last_name, password, email, contact_number, status } =
     doctorData?.user || {};
-
-  console.log("status", status);
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
@@ -90,7 +90,10 @@ export const Profile = React.forwardRef(function Profile({
   const onFinish = async (values: any) => {
     try {
       updateDoctorProfile(values);
-    } catch (error) {}
+      setIsEdit(false);
+    } catch (error) {
+      setIsEdit(true);
+    }
   };
 
   const updateDoctorProfile = async (values: any) => {
@@ -150,28 +153,16 @@ export const Profile = React.forwardRef(function Profile({
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  function handleMenuClick(e: object) {
-    console.log("click", e);
-  }
-  const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">Published</Menu.Item>
-      <Menu.Item key="2">UnPublished</Menu.Item>
-    </Menu>
-  );
-
   async function handleChange() {
     const res = await EnableOrDisableDoctor({
       id: Number(doctorId),
     });
-
     if (res?.data?.enableOrDisableDoctor?.status) {
       res?.data?.enableOrDisableDoctor?.status &&
         notification.success({
           message: "Published",
         });
     }
-
     if (!res?.data?.enableOrDisableDoctor?.status) {
       !res?.data?.enableOrDisableDoctor?.status &&
         notification.success({
@@ -181,7 +172,7 @@ export const Profile = React.forwardRef(function Profile({
   }
 
   return (
-    <div className="w-full">
+    <div className={`${_classes["physician-profile"]} w-full`}>
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
         <div className="flex flex-col w-full justify-start items-center py-3">
           <div className="w-full mb-10 flex gap-8">
@@ -215,21 +206,12 @@ export const Profile = React.forwardRef(function Profile({
                 <div className="lg:ml-0 mt-0 sm:mt-0">
                   <Button
                     type="primary"
-                    style={{
-                      background: "#E2F8F7",
-                      borderColor: "#E2F8F7",
-                      color: "#30CEC2",
-                    }}
-                    className="pr-0"
+                    className={`${_classes["calendar-btn-style"]} pr-0`}
                     onClick={handleChange}
                   >
                     {status ? "Published" : "Unpublished"}
                   </Button>
                 </div>
-                <Button type="default" className="px-0 mx-0">
-                  <EditOutlined />
-                  Edit Info
-                </Button>
               </div>
             </div>
           </div>
@@ -270,7 +252,6 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input />
                 </Form.Item>
-                
               </div>
               <div className="flex flex-row gap-3">
                 <Form.Item
@@ -300,177 +281,176 @@ export const Profile = React.forwardRef(function Profile({
               </Form.Item>
             </Form>
 
+            <div className="mr-auto">Languages</div>
+            <div className="flex mr-auto">
+              <Language
+                end={end}
+                title="English"
+                check={true}
+                disable={false}
+              />
+              <Language
+                end={esp}
+                title="Spanish"
+                check={false}
+                disable={false}
+              />
+            </div>
+            <div className="mt-5">
+              <TextArea
+                rows={12}
+                placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
+                maxLength={6}
+              />
+            </div>
 
-              <div className="mr-auto">Languages</div>
-              <div className="flex mr-auto">
-                <Language
-                  end={end}
-                  title="English"
-                  check={true}
-                  disable={false}
-                />
-                <Language
-                  end={esp}
-                  title="Spanish"
-                  check={false}
-                  disable={false}
-                />
-              </div>
-              <div className="mt-5">
-                <TextArea
-                  rows={12}
-                  placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
-                  maxLength={6}
-                />
-              </div>
-
-              <InputWithLi disable={false} />
-              <div>Availability</div>
-              <MultiRangeDatePicker />
-              <div className="my-6">
-                <h5>Professional Background</h5>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: true, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: true, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: true, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-              </div>
-
-              <div className="my-6">
-                <h6>Educational Background</h6>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-                <div className="my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-              </div>
-              <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
-                <Form.Item className="">
-                  <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-                    {/* <Button htmlType="submit" className="">
-                      Cancel
-                    </Button> */}
-                    {/* <Button type="primary" htmlType="submit" className="">
-                      Save Changes
-                    </Button> */}
-                  </div>
+            <InputWithLi disable={false} />
+            <div>Availability</div>
+            <MultiRangeDatePicker />
+            <div className="my-6">
+              <h5>Professional Background</h5>
+              <div className="border-b border-gray-4 my-3">
+                <Form.Item
+                  label="Hospital/Clinic/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: false,
+                      message: "Hospital/Clinic/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Role"
+                  name="role"
+                  rules={[{ required: false, message: "role" }]}
+                  className="flex-1"
+                >
+                  <Input />
                 </Form.Item>
               </div>
+              <div className="border-b border-gray-4 my-3">
+                <Form.Item
+                  label="Hospital/Clinic/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: false,
+                      message: "Hospital/Clinic/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Role"
+                  name="role"
+                  rules={[{ required: false, message: "role" }]}
+                  className="flex-1"
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+              <div className="border-b border-gray-4 my-3">
+                <Form.Item
+                  label="Hospital/Clinic/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: false,
+                      message: "Hospital/Clinic/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Role"
+                  name="role"
+                  rules={[{ required: false, message: "role" }]}
+                  className="flex-1"
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+            </div>
+
+            <div className="my-6">
+              <h6>Educational Background</h6>
+              <div className="border-b border-gray-4 my-3">
+                <Form.Item
+                  label="University/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: false,
+                      message: "University/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Degree/Diploma/Certification"
+                  name="institute"
+                  rules={[
+                    {
+                      required: false,
+                      message: "Degree/Diploma/Certification",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+              </div>
+              <div className="my-3">
+                <Form.Item
+                  label="University/Institution"
+                  name="institute"
+                  rules={[
+                    {
+                      required: false,
+                      message: "University/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+                <Form.Item
+                  label="Degree/Diploma/Certification"
+                  name="institute"
+                  rules={[
+                    {
+                      required: false,
+                      message: "Degree/Diploma/Certification",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input value="University of Oklahoma College of Medicine" />
+                </Form.Item>
+              </div>
+            </div>
+            {/* <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
+              <Form.Item className="">
+                <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
+                  <Button htmlType="submit" className="">
+                    Cancel
+                  </Button>
+                  <Button type="primary" htmlType="submit" className="">
+                    Save Changes
+                  </Button>
+                </div>
+              </Form.Item>
+            </div> */}
             {/* </Form> */}
           </div>
         </div>
@@ -478,3 +458,6 @@ export const Profile = React.forwardRef(function Profile({
     </div>
   );
 });
+function updateDoctorProfileInput(updateDoctorProfileInput: any, arg1: string) {
+  throw new Error("Function not implemented.");
+}
