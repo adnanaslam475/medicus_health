@@ -35,7 +35,9 @@ function RequestedAppointment() {
                     <a>Calendar View</a>
                   </Link>
                 </Option>
-                <Option selected value="List View">List View</Option>
+                <Option selected value="List View">
+                  List View
+                </Option>
               </Select>
             </div>
             <Button
