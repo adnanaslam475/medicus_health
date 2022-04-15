@@ -15,14 +15,20 @@ type Props = {
   handleDateClick: (arg: any | undefined) => void;
   calendarComponentRef: React.LegacyRef<FullCalendar> | undefined | any;
   calender: object | any;
+  setDoctorId: number | any;
 };
+
 function AdminAimsCalender(props: Props) {
-  const { handleDateChange, calendarComponentRef, calender, handleDateClick } =
-    props;
+  const {
+    handleDateChange,
+    calendarComponentRef,
+    calender,
+    handleDateClick,
+    setDoctorId,
+  } = props;
   const events = [{ title: "today's event", date: new Date() }];
   const [isSearch, setIsSearch] = useState<boolean>(false);
-  const [selectedItems, setSelectedItems] = useState<string>("");
-  const [calenderEvent, setCalenderEvent] = useState([]);
+  const [selectedItems, setSelectedItems] = useState<string>("Search by Physician Name");
 
   const [{ data }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
@@ -31,19 +37,9 @@ function AdminAimsCalender(props: Props) {
     setIsSearch(!isSearch);
   }
 
-  // useEffect(() => {
-  //   setCalenderEvent(calender?.calenderEvents);
-  // }, [calender?.calenderEvents]);
-
   const handleChange = (selectedItems: any) => {
-    const filterData = calender?.calenderEvents.filter(
-      (item: { doctor: string; }) => item?.doctor.toLowerCase() === selectedItems.toLowerCase()
-    );
-    console.log(filterData, "filterData");
-    if (filterData?.length !== 0) {
-      setCalenderEvent(filterData);
-    }
     setSelectedItems(selectedItems);
+    setDoctorId(selectedItems)
   };
 
   return (
@@ -54,8 +50,8 @@ function AdminAimsCalender(props: Props) {
             {/* <SearchFilters /> */}
             <div className="lg:ml-3 mt-3 sm:mt-0">
               <Select
-                placeholder="Search by ID Physician Name"
-                className="w-full sm:w-2/5"
+                placeholder="Search by Physician Name"
+                className={`${_Classes.placeholderColor} w-full sm:w-2/5`}
                 showArrow
                 showSearch
                 value={selectedItems}
@@ -68,7 +64,7 @@ function AdminAimsCalender(props: Props) {
                 }
               >
                 {doctorProfiles?.map((item) => (
-                  <Select.Option key={item?.id} value={item?.user?.first_name}>
+                  <Select.Option key={item?.id} value={item?.doctor_id}>
                     {item?.user?.first_name}
                   </Select.Option>
                 ))}

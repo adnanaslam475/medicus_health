@@ -199,3 +199,11 @@
 .style_css__JiOc_ .fc-button.fc-button-primary {
   background: transparent;
 }
+
+.placeholderColor {
+  :global .ant-select-selector {
+    .ant-select-selection-item {
+      color: #9295AF;
+    }
+  }
+}

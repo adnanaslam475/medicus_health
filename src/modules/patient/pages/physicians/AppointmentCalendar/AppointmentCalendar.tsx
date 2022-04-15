@@ -18,11 +18,12 @@ function AppointmentCalendar() {
   });
   const [modalData, setModalData] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [doctorIds, setDoctorId] = useState<number>();
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        doctorId: 520,
         status: "Requested",
+        doctorId: doctorIds,
       },
     },
   });
@@ -99,6 +100,7 @@ function AppointmentCalendar() {
             handleDateChange={handleDateChange}
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
+            setDoctorId={setDoctorId}
           />
         </div>
         <CalendarModalComponent
