@@ -43,6 +43,14 @@ border: none;
       background-color: #1a82fe;
       color: #ffffff;
     }
+
+:global .fc-v-event {
+  background-color: #E7F0FA !important;
+  color:black;
+  border:none;
+  padding: 5px 10px;
+}
+
     :global .fc .fc-button:disabled {
       color: #7d7888;
       border-color: #7d7888;
@@ -72,6 +80,11 @@ border: none;
         color: #ffffff;
       }
     }
+    :global .fc-event-title.fc-sticky {
+      font-size: 12px ;
+      font-weight: 500 !important;
+     
+    }
     :global .fc-daygrid-event-dot {
       display: none;
     }
@@ -87,7 +100,7 @@ border: none;
     :global .fc-event-title-container {
       // width: 100px;
       font-weight: bold;
-      color: #fff;
+      color: #000000;
     }
     // .fc-h-event .fc-event-title
     :global .fc-h-event .fc-event-title {

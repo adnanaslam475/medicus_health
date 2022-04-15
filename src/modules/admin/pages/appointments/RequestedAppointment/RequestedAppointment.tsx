@@ -29,13 +29,13 @@ function RequestedAppointment() {
           {/* <Button type="primary">Request an Appointment</Button> */}
           <div className="flex gap-3">
             <div className="lg:ml-3 mt-0 sm:mt-0">
-              <Select defaultValue="Calendar View" className="w-full sm:w-40">
+              <Select defaultValue="List View" className="w-full sm:w-40">
                 <Option value="Calendar View">
                   <Link href="/patient/calendar">
                     <a>Calendar View</a>
                   </Link>
                 </Option>
-                <Option value="List View">List View</Option>
+                <Option selected value="List View">List View</Option>
               </Select>
             </div>
             <Button

@@ -7,6 +7,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import _Classes from "./CalendarView.module.scss";
+import Router from "next/router";
 
 type Props = {
   handleDateChange: (arg: any | undefined) => void;
@@ -80,7 +81,7 @@ function CalendarView(props: Props) {
             listview: {
               text: "List View",
               click: function () {
-                alert("clicked custom button 1!");
+               Router.push("/patient/appointments/requested")
               },
             },
             search: {

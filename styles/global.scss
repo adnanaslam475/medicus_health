@@ -10,6 +10,8 @@ button.ant-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  word-spacing: -4px;
+  letter-spacing: 0px;
 }
 
 // for all modal headers
@@ -99,7 +101,7 @@ label.ant-radio-wrapper {
 .ant-modal {
   .ant-modal-header {
     .ant-modal-title {
-      font-family: 'Circular Std';
+      font-family: "Circular Std";
       font-weight: medium;
     }
   }
@@ -331,7 +333,7 @@ label.ant-radio-wrapper {
     .ant-checkbox-group {
       .ant-checkbox-wrapper {
         &.ant-checkbox-group-item {
-          color: #9295AF;
+          color: #9295af;
           width: 100%;
         }
       }
@@ -339,7 +341,7 @@ label.ant-radio-wrapper {
   }
 }
 
-.btn-transparent{
+.btn-transparent {
   background-color: transparent !important;
 }
 .page-filters {
@@ -366,6 +368,3 @@ label.ant-radio-wrapper {
     padding: 20px;
   }
 }
-
-
-
