@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import { Button } from "antd";
+import { Button, Select } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import Link from "next/link";
+import Router from "next/router";
 
 function RequestedAppointment() {
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
@@ -17,6 +19,7 @@ function RequestedAppointment() {
 
   const { appointments } = data || {};
   console.log(appointments, "appointments");
+  const { Option } = Select;
 
   return (
     <AppLayout>
@@ -29,7 +32,28 @@ function RequestedAppointment() {
               ullamcorperequesty tortor a fringilla tempus.
             </p>
           </div>
-          <Button type="primary">Request an Appointment</Button>
+          {/* <Button type="primary">Request an Appointment</Button> */}
+          <div className="flex gap-3">
+            <div className="lg:ml-3 mt-0 sm:mt-0">
+              <Select defaultValue="Calendar View" className="w-full sm:w-40">
+                <Option value="Calendar View">
+                  <Link href="/patient/calendar">
+                    <a>Calendar View</a>
+                  </Link>
+                </Option>
+                <Option value="List View">List View</Option>
+              </Select>
+            </div>
+            <Button
+              type="primary"
+              className="text-sm"
+              onClick={() => Router.push("/patient/calendar")}
+            >
+              <span className="text-xs sm:text-base">
+                Request an Appointment
+              </span>
+            </Button>
+          </div>
         </div>
         <SearchFilters />
         <div className="w-full">
