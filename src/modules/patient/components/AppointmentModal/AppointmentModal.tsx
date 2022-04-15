@@ -17,7 +17,7 @@ function AppointmentModal() {
     className={`${_Classes['modal-header']}`}
   >
     {/* <AppointmentReschedule/> */}
-    <MakePayment/>
+    {/* <MakePayment/> */}
     </Modal>
   )
 }
