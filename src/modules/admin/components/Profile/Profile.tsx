@@ -107,13 +107,6 @@ export const Profile = React.forwardRef(function Profile({
           email: values?.email,
           password: values?.password,
           profile_image: image ? image : userProfileImage,
-          year_of_experience: 0,
-          specialization: "",
-          condition_treated: "",
-          educational_background: [],
-          professional_experience: [],
-          language: "",
-          about_me: "",
         },
       });
 
