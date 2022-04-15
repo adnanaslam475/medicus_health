@@ -294,13 +294,6 @@ export const ViewProfile = React.forwardRef(function Profile({
                   <Input.Password disabled />
                 </Form.Item>
               </div>
-              {/* <Form.Item>
-                <div className="flex items-center justify-end">
-                  <Button type="primary" htmlType="submit">
-                    Save Changes
-                  </Button>
-                </div>
-              </Form.Item> */}
             </Form>
 
             <div className="mr-auto">Languages</div>
