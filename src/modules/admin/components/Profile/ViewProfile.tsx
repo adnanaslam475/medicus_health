@@ -59,8 +59,6 @@ export const ViewProfile = React.forwardRef(function Profile({
   const { first_name, last_name, password, email, contact_number, status } =
     doctorData?.user || {};
 
-  console.log("status", status);
-
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
 
