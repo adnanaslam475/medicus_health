@@ -60,8 +60,7 @@ function BookAppointmentJourneyWithContext({
 
   // const [data] = useGetAllAppointmentServiceTypesQuery();
 
-  const { data } = useBookAppointment();
-  console.log("abc", { data });
+  const { saveStepOne } = useBookAppointment();
   return (
     <BookAppointmentJourney>
       <Modal
@@ -105,6 +104,9 @@ function BookAppointmentFooter({
   onPrevious: () => void;
   stepName: string;
 }) {
+  const { data } = useBookAppointment();
+  console.log("data", { data });
+
   return (
     <div className="steps-action">
       {stepName !== "stepOne" && (

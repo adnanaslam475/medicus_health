@@ -45,7 +45,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
     return (
       <>
         <h2>Request an Appointment</h2>
-        <Form form={formInstance} layout="vertical" onFinish={onFinishLocal}>
+        <Form form={formInstance} layout="vertical" onFinish={onFinishLocal} >
           <Form.Item label="Physician*" name="physicianName">
             <Select
               placeholder="Dr. name"
