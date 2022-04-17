@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Divider,
   Radio,
@@ -11,18 +11,26 @@ import {
 } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 
-function StepThree() {
+const StepThree = React.forwardRef(function StepThree({}, ref: any) {
   const { saveStepThree } = useBookAppointment();
+  const [formInstance] = Form.useForm();
 
   function onFinishLocal(values: any) {
     console.log("onFinishLocal called", values);
     saveStepThree?.(values);
+    debugger;
   }
+
+  useEffect(() => {
+    if (ref) {
+      ref.current = formInstance;
+    }
+  }, []);
 
   return (
     <>
       <h2>Request an Appointment</h2>
-      <Form layout="vertical" onFinish={onFinishLocal}>
+      <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         <Form.Item>
           <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
             <Checkbox value="0">
@@ -356,5 +364,5 @@ function StepThree() {
       </Form>
     </>
   );
-}
+});
 export default StepThree;

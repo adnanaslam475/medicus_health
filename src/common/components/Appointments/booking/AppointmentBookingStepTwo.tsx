@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox, Upload, message, Form, Image, Button } from "antd";
 import {
   FilePdfOutlined,
@@ -12,8 +12,9 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 
 const { Dragger } = Upload;
 
-function StepTwo() {
+const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
   const { saveStepTwo } = useBookAppointment();
+  const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
   const props = {
@@ -76,10 +77,17 @@ function StepTwo() {
     console.log("onFinishLocal called", values);
     saveStepTwo?.(fileList);
   }
+
+  useEffect(() => {
+    if (ref) {
+      ref.current = formInstance;
+    }
+  }, []);
+
   return (
     <>
       <h2>Request an Appointment</h2>
-      <Form layout="vertical" onFinish={onFinishLocal}>
+      <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         <Form.Item label="Medical History*">
           <Dragger {...props}>
             <p className="ant-upload-drag-icon mb-0">
@@ -103,23 +111,23 @@ function StepTwo() {
           </Dragger>
 
           {/* <Upload
-            onChange={fileChange}
-            // maxCount={1}
-            // beforeUpload={onBeforeUpload}
-            itemRender={() => <div />}
-            customRequest={() => null}
-            accept=".doc, .pdf, image/jpg, image/jpeg,"
-            multiple={true}
-          >
-            <div className="relative">
-              <Button
-                type="link"
-                className="text-primary underline ml-3 text-xs"
-              >
-                upload file
-              </Button>
-            </div>
-          </Upload> */}
+              onChange={fileChange}
+              // maxCount={1}
+              // beforeUpload={onBeforeUpload}
+              itemRender={() => <div />}
+              customRequest={() => null}
+              accept=".doc, .pdf, image/jpg, image/jpeg,"
+              multiple={true}
+            >
+              <div className="relative">
+                <Button
+                  type="link"
+                  className="text-primary underline ml-3 text-xs"
+                >
+                  upload file
+                </Button>
+              </div>
+            </Upload> */}
           <div className="w-full bg-gray-4 border border-gray-3 rounded-lg flex items-center justify-between p-3 mt-3 mr-3 mb-3">
             <span className="flex items-center">
               <FileJpgOutlined />
@@ -162,5 +170,6 @@ function StepTwo() {
       </Form>
     </>
   );
-}
+});
+
 export default StepTwo;

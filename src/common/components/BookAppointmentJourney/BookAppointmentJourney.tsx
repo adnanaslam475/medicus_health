@@ -1,10 +1,8 @@
-import { LeftOutlined } from "@ant-design/icons";
-import { Button, Modal, Steps } from "antd";
+import { FormInstance, Modal } from "antd";
 import React, { useRef, useState } from "react";
 import {
   DoctorProfile,
   useCreateAppointmentMutation,
-  useGetAllAppointmentServiceTypesQuery,
 } from "../../../generated/graphql";
 import CurrentStepContent from "./CurrentStepContent";
 import _classes from "./BookAppointmentJourney.module.scss";
@@ -12,12 +10,12 @@ import {
   BookAppointmentProvider,
   useBookAppointment,
 } from "./BookAppointmentContext";
-import { UploadChangeParam } from "antd/lib/upload";
 import config from "../../../../config";
 import ReactS3Client from "react-aws-s3-typescript";
-import { AnyARecord } from "node:dns";
 import { date } from "../../utils";
 import { useRouter } from "next/router";
+import StepDots from "../StepDots/StepDots";
+import BookAppointmentFooter from "./BookAppointmentFooter";
 
 type Props = {
   visible?: boolean | undefined;
@@ -28,16 +26,32 @@ type Props = {
   doctorData?: DoctorProfile;
 };
 
-function BookAppointmentJourneyWithContext({
+function BookAppointmentJourney({
   visible,
   onOk,
   onCancel,
   doctorData,
 }: Props) {
-  const form: any = useRef();
+  return (
+    <BookAppointmentProvider>
+      <BookAppointmentModal
+        visible={true || visible}
+        onOk={onOk}
+        onCancel={onCancel}
+        doctorData={doctorData}
+      />
+    </BookAppointmentProvider>
+  );
+}
 
+function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
+  const form = useRef<FormInstance>();
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
+  const { data: appoinmentData } = useBookAppointment();
+
+  const [data, executeCreateAppointmentMutation] =
+    useCreateAppointmentMutation();
 
   const next = (stepName: string) => {
     if (stepName === "stepFour") return;
@@ -49,13 +63,11 @@ function BookAppointmentJourneyWithContext({
       setCurrentStepName("stepFour");
     }
     setCurrentStepNumber((prev) => prev + 1);
+    form.current?.submit();
   };
-
   const prev = (stepName: string) => {
     if (stepName === "stepOne") return;
-    if (stepName === "stepOne") {
-      //   setCurrentStepName("stepTwo");
-    } else if (stepName === "stepTwo") {
+    else if (stepName === "stepTwo") {
       setCurrentStepName("stepOne");
     } else if (stepName === "stepThree") {
       setCurrentStepName("stepTwo");
@@ -65,52 +77,6 @@ function BookAppointmentJourneyWithContext({
     setCurrentStepNumber((prev) => prev - 1);
   };
 
-  // const [data] = useGetAllAppointmentServiceTypesQuery();
-
-  const { saveStepOne } = useBookAppointment();
-  return (
-    <BookAppointmentJourney>
-      <Modal
-        centered
-        maskClosable={false}
-        visible
-        onOk={onOk}
-        onCancel={onCancel}
-        footer={null}
-        className={`${_classes["steps-style"]}`}
-      >
-        <StepDots current={currentStepNumber} />
-        <div className="steps-content">
-          <CurrentStepContent
-            stepName={currentStepName}
-            doctorData={doctorData}
-          />
-        </div>
-        <BookAppointmentFooter
-          stepName={currentStepName}
-          onNext={() => next(currentStepName)}
-          onPrevious={() => prev(currentStepName)}
-        />
-      </Modal>
-    </BookAppointmentJourney>
-  );
-}
-
-function BookAppointmentJourney({ children }: { children: JSX.Element }) {
-  return <BookAppointmentProvider>{children}</BookAppointmentProvider>;
-}
-
-export default BookAppointmentJourneyWithContext;
-
-function BookAppointmentFooter({
-  onNext,
-  onPrevious,
-  stepName,
-}: {
-  onNext: () => void;
-  onPrevious: () => void;
-  stepName: string;
-}) {
   const configS3 = {
     region: config?.region || "",
     bucketName: config?.bucketName || "",
@@ -118,9 +84,7 @@ function BookAppointmentFooter({
     secretAccessKey: config?.secertAccessKey || "",
   };
 
-  const { data: appoinmentData } = useBookAppointment();
-  console.log("data", appoinmentData);
-  const { service: serviceId, requestedDate } = appoinmentData?.stepOne;
+  const { service: serviceId, requestedDate } = appoinmentData?.stepOne || {};
   //   GET ID FROM URL
   const { query } = useRouter();
 
@@ -149,10 +113,7 @@ function BookAppointmentFooter({
     // }
   };
 
-  const [data, executeCreateAppointmentMutation] =
-    useCreateAppointmentMutation();
-
-  async function createAppoinment() {
+  async function onRequestAppointment() {
     try {
       const urls = await fileUpload(appoinmentData?.stepTwo);
       console.log("fileUpload", urls);
@@ -176,42 +137,31 @@ function BookAppointmentFooter({
   }
 
   return (
-    <div className="steps-action">
-      {stepName !== "stepOne" && (
-        <Button type="link" onClick={onPrevious}>
-          <LeftOutlined /> <span>Back</span>
-        </Button>
-      )}
-      {stepName !== "stepFour" && (
-        <Button
-          type="primary"
-          className={`${_classes["btn-next"]}`}
-          onClick={onNext}
-        >
-          Next
-        </Button>
-      )}
-      {stepName === "stepFour" && (
-        <Button
-          type="primary"
-          className={`${_classes["btn-next"]}`}
-          // onClick={onNext}
-          onClick={createAppoinment}
-        >
-          Request an Appointment
-        </Button>
-      )}
-    </div>
+    <Modal
+      centered
+      maskClosable={false}
+      visible={visible}
+      onOk={onOk}
+      onCancel={onCancel}
+      footer={null}
+      className={`${_classes["steps-style"]}`}
+    >
+      <StepDots current={currentStepNumber} />
+      <div className="steps-content">
+        <CurrentStepContent
+          stepName={currentStepName}
+          doctorData={doctorData}
+          ref={form}
+        />
+      </div>
+      <BookAppointmentFooter
+        stepName={currentStepName}
+        onNext={() => next(currentStepName)}
+        onPrevious={() => prev(currentStepName)}
+        onRequestAppointment={onRequestAppointment}
+      />
+    </Modal>
   );
 }
 
-function StepDots({ current }: { current: number }) {
-  return (
-    <Steps current={current}>
-      <Steps.Step />
-      <Steps.Step />
-      <Steps.Step />
-      <Steps.Step />
-    </Steps>
-  );
-}
+export default BookAppointmentJourney;

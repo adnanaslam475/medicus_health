@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { Form, Input, Button, Select, DatePicker } from "antd";
+import { Form, Button, Select, DatePicker } from "antd";
 import {
   AppointmentServiceType,
   DoctorProfile,
+  useGetAllAppointmentServiceTypesQuery,
 } from "../../../../generated/graphql";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 
@@ -17,40 +18,29 @@ type Props = {
 export const AppointmentBookingStepOne = React.forwardRef(
   function AppointmentBookingStepOne(props: Props, ref: any) {
     const [formInstance] = Form.useForm();
+    const [data] = useGetAllAppointmentServiceTypesQuery();
 
     useEffect(() => {
       if (ref) {
         ref.current = formInstance;
       }
-    }, [props]);
-    // const FormItem = Form.Item;
+    }, []);
+
     const { saveStepOne } = useBookAppointment();
-    const { physicianData, allAppoinments, onFinish } = props || {};
-    // console.log("physicianData", physicianData);
+    const { physicianData, onFinish } = props || {};
     const { first_name, last_name } = physicianData?.user || {};
-    // console.log("allAppoinments", allAppoinments);
-    // console.log("FormItem",FormItem.service)
-    const [form] = Form.useForm();
 
     function onFinishLocal(values: any) {
-      console.log("onFinishLocal called",values)
+      console.log("onFinishLocal called", values);
       saveStepOne?.(values);
     }
-
-    // function handleServiceChange() {
-    //   let serviceValue = form.getFieldValue("service");
-    //   console.log("serviceValue", serviceValue);
-    // }
-
+    const allAppoinments = data?.data?.appointmentServiceTypes;
     return (
       <>
         <h2>Request an Appointment</h2>
-        <Form form={formInstance} layout="vertical" onFinish={onFinishLocal} >
+        <Form form={formInstance} layout="vertical" onFinish={onFinishLocal}>
           <Form.Item label="Physician*" name="physicianName">
-            <Select
-              placeholder="Dr. name"
-              className="w-full"
-            >
+            <Select placeholder="Dr. name" className="w-full">
               <Option value={`${first_name}${last_name}`}>
                 {physicianData ? `${first_name}  ${last_name}` : ""}
               </Option>
@@ -100,7 +90,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
               </div>
             </div>
           </Form.Item>
-
           <Form.Item>
             <div className="flex items-center justify-end">
               <Button type="primary" htmlType="submit">

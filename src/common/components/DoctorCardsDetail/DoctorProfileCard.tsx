@@ -6,15 +6,12 @@ import VideoCamera from "../../../../public/assets/icon/video.svg";
 import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
+import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import _classes from "./DoctorProfileCard.module.scss";
 import {
-  // AppointmentServiceType,
   DoctorProfile,
-  // DoctorSchedule,
-  useGetAllAppointmentServiceTypesQuery,
 } from "../../../generated/graphql";
 import { date } from "../../utils";
-import BookAppointmentJourneyWithContext from "../BookAppointmentJourney/BookAppointmentJourney";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -28,11 +25,7 @@ type Props = {
 function DoctorProfileCard(props: Props) {
   const { doctorData } = props || {};
   const { first_name, last_name } = doctorData?.user || {};
-
-  // const [data] = useGetAllAppointmentServiceTypesQuery();
-
   const { language } = doctorData || "english";
-
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -193,7 +186,7 @@ function DoctorProfileCard(props: Props) {
           <ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span>
         </a>
       </Card>
-      <BookAppointmentJourneyWithContext
+      <BookAppointmentJourney
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
