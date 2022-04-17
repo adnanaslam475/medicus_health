@@ -1,208 +1,234 @@
 .calendarview {
-    :global .fc-day-number {
-      font-size: 1.5em;
-      color: #1a82fe;
-      border: 1px solid #1a82fe;
-    }
-  
-    :global .fc-day-header {
-      font-size: 1.5em;
-      color: #00b294;
-    }
-  
-   
-    :global .fc-button.fc-button-primary {
-      background-color: #f9f6f9;
-      color: #ffffff;
-    }
-    :global .fc-button.fc-button-primary {
-      background-color: #f9f6f9;
-   border: none;
-      color: #7d7888;
-      font-size: 14px;
-      font-weight: 300;
-    }
+  :global .fc-day-number {
+    font-size: 1.5em;
+    color: #1a82fe;
+    border: 1px solid #1a82fe;
+  }
+
+  :global .fc-day-header {
+    font-size: 1.5em;
+    color: #00b294;
+  }
+
+ 
+  :global .fc-button.fc-button-primary {
+    background-color: #f9f6f9;
+    color: #ffffff;
+  }
+  :global .fc-button.fc-button-primary {
+    background-color: #f9f6f9;
+ border: none;
+    color: #7d7888;
+    font-size: 14px;
+    font-weight: 300;
+  }
 :global .fc-customText-button{
 background: transparent !important; 
 border: none;
 }
 :global .fc-custom1-button{
-  background-color: #1a82fe !important;
-  color:#fff !important
+background-color: #1a82fe !important;
+color:#fff !important
 
 }
 
 
-    :global .fc-button.fc-button-primary.fc-button-active {
-      background-color: #1a82fe;
-      color: #f9f6f9;
-    }
-    :global .fc-button-primary:not(:disabled):active:focus,
-    :global .fc-button-primary:not(:disabled).fc-button-active:focus {
-      box-shadow: none;
-      background-color: #1a82fe;
+  :global .fc-button.fc-button-primary.fc-button-active {
+    background-color: #1a82fe;
+    color: #f9f6f9;
+  }
+  :global .fc-button-primary:not(:disabled):active:focus,
+  :global .fc-button-primary:not(:disabled).fc-button-active:focus {
+    box-shadow: none;
+    background-color: #1a82fe;
+    color: #ffffff;
+  }
+
+:global .fc-v-event {
+background-color: #E7F0FA !important;
+color:black;
+border:none;
+padding: 5px 10px;
+}
+
+  :global .fc .fc-button:disabled {
+    color: #7d7888;
+    border-color: #7d7888;
+  }
+  :global .fc .fc-toolbar-title {
+    font-size: 1.75em;
+    margin: 0;
+    color:black;
+    display: inline;
+    padding-left: 20px;
+    padding-top:10px
+
+  }
+  :global .fc-button:focus {
+    outline: 0;
+    border: none !important;
+    box-shadow: none;
+}
+  :global .fc .fc-col-header-cell-cushion {
+    display: inline-block;
+    padding: 2px 4px;
+    font-weight: 500;
+  }
+
+  :global .fc-event-today {
+    :global .fc-event-title.fc-sticky {
       color: #ffffff;
     }
-    :global .fc .fc-button:disabled {
-      color: #7d7888;
-      border-color: #7d7888;
-    }
-    :global .fc .fc-toolbar-title {
-      font-size: 1.75em;
-      margin: 0;
-      color:black;
-      display: inline;
-      padding-left: 20px;
-      padding-top:10px
+  }
+  :global .fc-event-title.fc-sticky {
+    font-size: 12px ;
+    font-weight: 500 !important;
+   
+  }
+  :global .fc-daygrid-event-dot {
+    display: none;
+  }
+  // :global .fc-event-main {
+  //   height: 25px;
+  //   // padding: 10px;
+  //   // border-left: 5px solid blue;
+  //   justify-content: center;
+  //   align-items: center;
+  //   // border-left-color: #642574;
+  //   // background-color: rgba(82, 204, 120, 0.5);
+  // }
+  :global .fc-event-title-container {
+    // width: 100px;
+    font-weight: bold;
+    color: #000000;
+  }
+  // .fc-h-event .fc-event-title
+  :global .fc-h-event .fc-event-title {
+    // background-color: "red";
+    // color: "red";
+    font-weight: 600;
+  }
+  :global .fc-daygrid-body{
+    display: none;
+  }
+
+  // :global .fc .fc-toolbar {
+  //   background-color: gray;
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
+  // }
+  // :global .fc-header-toolbar > .fc-toolbar-chunk:nth-child(1)::after {
+  //   font-size: 1.75em;
+  //   content: "My Custom Header Text";
+  //   justify-content: center;
+  //   align-items: center;
+  // }
+  // :global .fc-toolbar-chunk {
+  //   background-color: red;
+  //   flex-direction: row;
+  //   width: 600px;
+  // }
+}
+
+.clsUpcoming {
+  height: 30px;
+  padding: 5px;
+  margin: 3px;
+  border-left: 5px solid #ff8061;
+  justify-content: center;
+  align-items: center;
+
+  border-top: #fff7f4;
+  border-right: #fff7f4;
+  border-bottom: #fff7f4;
+  // border-color: #fff7f4;
+  // border-left-color: #642574;
+  background-color: #fff7f4;
+}
+
+.clsOngoing {
+  height: 30px;
+  padding: 5px;
+  margin: 3px;
+
+  border-left: 5px solid #642574;
+  justify-content: center;
+  align-items: center;
+  border-top: #f9f6f9;
+  border-right: #f9f6f9;
+  border-bottom: #f9f6f9;
+  // border-color: #f9f6f9;
+  // border-left-color: #642574;
+  background-color: #f9f6f9;
+  // background-color: rgba(55, 142, 83, 0.8);
+}
+
+.clsComplete {
+  height: 30px;
+  padding: 5px;
+  margin: 3px;
+
+  border-left: 5px solid #378e53;
+  justify-content: center;
+  align-items: center;
+  border-top: #e2f6e9;
+  border-right: #e2f6e9;
+  border-bottom: #e2f6e9;
+  // border-left-color: #642574;
+  background-color: #e2f6e9;
+  // background-color: rgba(55, 142, 83, 0.8);
+}
+
+.clsToday {
+  height: 30px;
+
+  padding: 5px;
+  margin: 3px;
+
+  border-left: 5px solid #bababa;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-top: #642574;
+  border-right: #642574;
+  border-bottom: #642574;
+  // border-left-color: #642574;
+  background-color: #642574;
+  // background-color: rgba(55, 142, 83, 0.8);
+}
+
+.clsCancel {
+  height: 30px;
+
+  padding: 5px;
+  margin: 3px;
+
+  border-left: 5px solid #dedede;
+  justify-content: center;
+  align-items: center;
+
+  border-top: #f8f8f8;
+  border-right: #f8f8f8;
+  border-bottom: #f8f8f8;
+  // border-left-color: #642574;
+  background-color: #f8f8f8;
+  // background-color: rgba(55, 142, 83, 0.8);
+}
+
+.style_css__JiOc_ .fc-button.fc-button-primary {
+   background: transparent;
+ }
+ .placeholderColor {
+
+  :global .ant-select-selector {
+
+    .ant-select-selection-item {
+
+      color: #9295AF;
 
     }
-    :global .fc-button:focus {
-      outline: 0;
-      border: none !important;
-      box-shadow: none;
+
   }
-    :global .fc .fc-col-header-cell-cushion {
-      display: inline-block;
-      padding: 2px 4px;
-      font-weight: 500;
-    }
-  
-    :global .fc-event-today {
-      :global .fc-event-title.fc-sticky {
-        color: #ffffff;
-      }
-    }
-    :global .fc-daygrid-event-dot {
-      display: none;
-    }
-    // :global .fc-event-main {
-    //   height: 25px;
-    //   // padding: 10px;
-    //   // border-left: 5px solid blue;
-    //   justify-content: center;
-    //   align-items: center;
-    //   // border-left-color: #642574;
-    //   // background-color: rgba(82, 204, 120, 0.5);
-    // }
-    :global .fc-event-title-container {
-      // width: 100px;
-      font-weight: bold;
-      color: #fff;
-    }
-    // .fc-h-event .fc-event-title
-    :global .fc-h-event .fc-event-title {
-      // background-color: "red";
-      // color: "red";
-      font-weight: 600;
-    }
-    :global .fc-daygrid-body{
-      display: none;
-    }
-  
-    // :global .fc .fc-toolbar {
-    //   background-color: gray;
-    //   display: flex;
-    //   justify-content: space-between;
-    //   align-items: center;
-    // }
-    // :global .fc-header-toolbar > .fc-toolbar-chunk:nth-child(1)::after {
-    //   font-size: 1.75em;
-    //   content: "My Custom Header Text";
-    //   justify-content: center;
-    //   align-items: center;
-    // }
-    // :global .fc-toolbar-chunk {
-    //   background-color: red;
-    //   flex-direction: row;
-    //   width: 600px;
-    // }
-  }
-  
-  .clsUpcoming {
-    height: 30px;
-    padding: 5px;
-    margin: 3px;
-    border-left: 5px solid #ff8061;
-    justify-content: center;
-    align-items: center;
-  
-    border-top: #fff7f4;
-    border-right: #fff7f4;
-    border-bottom: #fff7f4;
-    // border-color: #fff7f4;
-    // border-left-color: #642574;
-    background-color: #fff7f4;
-  }
-  
-  .clsOngoing {
-    height: 30px;
-    padding: 5px;
-    margin: 3px;
-  
-    border-left: 5px solid #642574;
-    justify-content: center;
-    align-items: center;
-    border-top: #f9f6f9;
-    border-right: #f9f6f9;
-    border-bottom: #f9f6f9;
-    // border-color: #f9f6f9;
-    // border-left-color: #642574;
-    background-color: #f9f6f9;
-    // background-color: rgba(55, 142, 83, 0.8);
-  }
-  
-  .clsComplete {
-    height: 30px;
-    padding: 5px;
-    margin: 3px;
-  
-    border-left: 5px solid #378e53;
-    justify-content: center;
-    align-items: center;
-    border-top: #e2f6e9;
-    border-right: #e2f6e9;
-    border-bottom: #e2f6e9;
-    // border-left-color: #642574;
-    background-color: #e2f6e9;
-    // background-color: rgba(55, 142, 83, 0.8);
-  }
-  
-  .clsToday {
-    height: 30px;
-  
-    padding: 5px;
-    margin: 3px;
-  
-    border-left: 5px solid #bababa;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    border-top: #642574;
-    border-right: #642574;
-    border-bottom: #642574;
-    // border-left-color: #642574;
-    background-color: #642574;
-    // background-color: rgba(55, 142, 83, 0.8);
-  }
-  
-  .clsCancel {
-    height: 30px;
-  
-    padding: 5px;
-    margin: 3px;
-  
-    border-left: 5px solid #dedede;
-    justify-content: center;
-    align-items: center;
-  
-    border-top: #f8f8f8;
-    border-right: #f8f8f8;
-    border-bottom: #f8f8f8;
-    // border-left-color: #642574;
-    background-color: #f8f8f8;
-    // background-color: rgba(55, 142, 83, 0.8);
-  }
-  
-  .style_css__JiOc_ .fc-button.fc-button-primary {
-     background: transparent;
-   }
+
+}

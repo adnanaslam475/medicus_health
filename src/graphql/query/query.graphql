@@ -268,4 +268,3 @@ query getAllAppointmentServiceTypes{
     price
   }
 }
-
