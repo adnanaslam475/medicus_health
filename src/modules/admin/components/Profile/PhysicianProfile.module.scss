@@ -1,3 +1,17 @@
+.profile{
+  
+    :global .ant-form-item-label{
+      label{
+        color: #272B4C !important;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    
+     
+    
+
+}
+}
 .physician-profile {
   .calendar-btn-style {
     background-color: #e2f8f7 !important;
@@ -5,3 +19,27 @@
     color: #30cec2;
   }
 }
+.professional,.educational{
+  :global .ant-form-item-label{
+    label{
+      color: #272B4C !important;
+      font-size: 14px !important;
+      font-weight: 400  !important;
+      
+    }
+
+}
+}
+
+.published-button{
+  height: 34px;
+  background: "#E2F8F7";
+	border-color: "#E2F8F7";
+	color: "#30CEC2";
+}
+.edit-button{
+  height: 34px;
+  
+}
+
+

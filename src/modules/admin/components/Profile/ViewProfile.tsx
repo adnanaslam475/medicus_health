@@ -181,17 +181,17 @@ export const ViewProfile = React.forwardRef(function Profile({
 	}
 
 	return (
-		<div className="w-full">
-			<div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
+		<div className={`w-full ${_classes["profile"]}`}>
+			<div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
 				<div className="flex flex-col w-full justify-start  py-3">
 					<div className="w-full mb-10 flex gap-8">
-						<Upload
+						{/* <Upload
 							onChange={fileChange}
 							maxCount={1}
 							beforeUpload={onBeforeUpload}
 							itemRender={() => <div />}
 							customRequest={() => null}
-						>
+						> */}
 							<div className="relative">
 								<Avatar
 									// size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
@@ -204,7 +204,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 									src={userProfileImage}
 								/>
 							</div>
-						</Upload>
+						{/* </Upload> */}
 
 						<div>
 							<span>{doctorId}</span>
@@ -212,7 +212,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 								{first_name ? `${first_name} ${last_name}` : ""}
 							</h2>
 							<span className="block">{email}</span>
-							<div className="flex gap-2">
+							<div className="flex gap-2 pt-2">
 								<Button
 									type="primary"
 									style={{
@@ -220,14 +220,14 @@ export const ViewProfile = React.forwardRef(function Profile({
 										borderColor: "#E2F8F7",
 										color: "#30CEC2",
 									}}
-									className="pr-0 mr-0"
+									className={`${_classes["published-button"]}`}
 								>
 									{status ? "Published" : "Unpublished"}
 								</Button>
 
 								<Button
 									type="default"
-									className="px-0 mx-0"
+									className={`${_classes["edit-button"]}`}
 									onClick={() => setIsEdit(true)}
 								>
 									<EditOutlined />
@@ -295,7 +295,7 @@ export const ViewProfile = React.forwardRef(function Profile({
               </Form.Item> */}
 						</Form>
 						<Form layout="vertical">
-							<div className="mr-auto">Languages</div>
+							<div className="mr-auto font-medium text-lightBold-1">Languages</div>
 							<div className="flex mr-auto">
 								<Language
 									end={end}
@@ -311,18 +311,23 @@ export const ViewProfile = React.forwardRef(function Profile({
 								/>
 							</div>
 							<div className="mt-5">
+							<Form.Item
+										label="About me"
+										name="about"
+										className="flex-1"
+									>
 								<TextArea
-									rows={12}
+									rows={10}
 									placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
 									maxLength={6}
 									disabled
 								/>
+								</Form.Item>
 							</div>
 
 							<InputWithLi disable={true} />
-							<div>Availability</div>
-							<MultiRangeDatePicker />
-							<div className="my-6">
+							<MultiRangeDatePicker disable={true} />
+							<div className={`my-6 ${_classes["professional"]}`}>
 								<h5>Professional Background</h5>
 								<div className="border-b border-gray-4 my-3">
 									<Form.Item
@@ -379,8 +384,8 @@ export const ViewProfile = React.forwardRef(function Profile({
 								</div>
 							</div>
 
-							<div className="my-6">
-								<h6>Educational Background</h6>
+							<div className={`my-6 ${_classes["educational"]}`}>
+								<h6 >Educational Background</h6>
 								<div className="border-b border-gray-4 my-3">
 									<Form.Item
 										label="University/Institution"
