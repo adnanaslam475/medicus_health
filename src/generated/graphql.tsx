@@ -251,6 +251,11 @@ export type EducationalBackground = {
   institution: Scalars['String'];
 };
 
+export type EducationalBackgroundUpdate = {
+  degree: Scalars['String'];
+  institution: Scalars['String'];
+};
+
 export type GetAppointmentInput = {
   appointmentId?: InputMaybe<Scalars['Int']>;
   bookingDate?: InputMaybe<BookingDate>;
@@ -504,6 +509,11 @@ export type ProfessionalExperience = {
   role: Scalars['String'];
 };
 
+export type ProfessionalExperience2 = {
+  institution: Scalars['String'];
+  role: Scalars['String'];
+};
+
 export type ProposeNewTimeInput = {
   charges: Scalars['Int'];
   id: Scalars['Int'];
@@ -672,14 +682,14 @@ export type UpdateAppointmentInput = {
 export type UpdateDoctorProfileInput = {
   about_me?: InputMaybe<Scalars['String']>;
   condition_treated?: InputMaybe<Scalars['String']>;
-  doctor_id?: InputMaybe<Scalars['Float']>;
-  educational_background?: InputMaybe<Array<EducationalBackground>>;
+  doctor_id: Scalars['Float'];
+  educational_background?: InputMaybe<Array<EducationalBackgroundUpdate>>;
   email: Scalars['String'];
   first_name: Scalars['String'];
   language?: InputMaybe<Scalars['String']>;
   last_name: Scalars['String'];
   password?: InputMaybe<Scalars['String']>;
-  professional_experience?: InputMaybe<Array<ProfessionalExperience>>;
+  professional_experience?: InputMaybe<Array<ProfessionalExperience2>>;
   profile_image?: InputMaybe<Scalars['String']>;
   specialization?: InputMaybe<Scalars['String']>;
   year_of_experience?: InputMaybe<Scalars['Float']>;
@@ -859,6 +869,13 @@ export type EnableOrDisableDoctorMutationVariables = Exact<{
 
 
 export type EnableOrDisableDoctorMutation = { __typename?: 'Mutation', enableOrDisableDoctor: { __typename?: 'User', id: number, status: boolean } };
+
+export type CreateAppointmentMutationVariables = Exact<{
+  createAppointment: CreateAppointmentInput;
+}>;
+
+
+export type CreateAppointmentMutation = { __typename?: 'Mutation', createAppointment: { __typename?: 'Appointment', patientId: number, doctorId: number, serviceId: number, requestedDate: any, scheduleId: number, reportUrl?: any | null } };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1171,6 +1188,22 @@ export const EnableOrDisableDoctorDocument = gql`
 
 export function useEnableOrDisableDoctorMutation() {
   return Urql.useMutation<EnableOrDisableDoctorMutation, EnableOrDisableDoctorMutationVariables>(EnableOrDisableDoctorDocument);
+};
+export const CreateAppointmentDocument = gql`
+    mutation createAppointment($createAppointment: CreateAppointmentInput!) {
+  createAppointment(createAppointmentInput: $createAppointment) {
+    patientId
+    doctorId
+    serviceId
+    requestedDate
+    scheduleId
+    reportUrl
+  }
+}
+    `;
+
+export function useCreateAppointmentMutation() {
+  return Urql.useMutation<CreateAppointmentMutation, CreateAppointmentMutationVariables>(CreateAppointmentDocument);
 };
 export const CountriesDocument = gql`
     query countries {

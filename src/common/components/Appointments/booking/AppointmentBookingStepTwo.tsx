@@ -23,7 +23,6 @@ function StepTwo() {
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
       setFileList(info.fileList);
-      console.log("info", info);
       const { status } = info.file;
       if (status !== "uploading") {
         console.log(info.file, info.fileList);
@@ -33,7 +32,6 @@ function StepTwo() {
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
-      console.log("fileList", fileList);
     },
     onDrop(e: { dataTransfer: { files: any } }) {
       console.log("Dropped files", e.dataTransfer.files);
@@ -52,9 +50,15 @@ function StepTwo() {
     const s3 = new ReactS3Client(configS3);
 
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
+      let allUrl = [];
+      // const url = await s3.uploadFile(info.file.originFileObj as File);
+      const url = await Promise.all(
+        info?.fileList?.map((file) => s3.uploadFile(file.originFileObj as File))
+      );
       console.log("url", url);
+      allUrl.push(url?.map((url) => url.location));
       // setImage(url?.location);
+      console.log("allUrl", allUrl);
     } catch (error) {}
     // if (error) {
     //   notification.error({

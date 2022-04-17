@@ -65,7 +65,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                   // onChange={handleServiceChange}
                 >
                   {allAppoinments?.map((item) => (
-                    <Option key={item?.id} value={item.name}>
+                    <Option key={item?.id} value={item.id}>
                       {item.name}
                     </Option>
                   ))}

@@ -3,6 +3,7 @@ import { Button, Modal, Steps } from "antd";
 import React, { useRef, useState } from "react";
 import {
   DoctorProfile,
+  useCreateAppointmentMutation,
   useGetAllAppointmentServiceTypesQuery,
 } from "../../../generated/graphql";
 import CurrentStepContent from "./CurrentStepContent";
@@ -11,6 +12,12 @@ import {
   BookAppointmentProvider,
   useBookAppointment,
 } from "./BookAppointmentContext";
+import { UploadChangeParam } from "antd/lib/upload";
+import config from "../../../../config";
+import ReactS3Client from "react-aws-s3-typescript";
+import { AnyARecord } from "node:dns";
+import { date } from "../../utils";
+import { useRouter } from "next/router";
 
 type Props = {
   visible?: boolean | undefined;
@@ -104,8 +111,69 @@ function BookAppointmentFooter({
   onPrevious: () => void;
   stepName: string;
 }) {
-  const { data } = useBookAppointment();
-  console.log("data", { data });
+  const configS3 = {
+    region: config?.region || "",
+    bucketName: config?.bucketName || "",
+    accessKeyId: config?.accessKeyId || "",
+    secretAccessKey: config?.secertAccessKey || "",
+  };
+
+  const { data: appoinmentData } = useBookAppointment();
+  console.log("data", appoinmentData);
+  const { service: serviceId, requestedDate } = appoinmentData?.stepOne;
+  //   GET ID FROM URL
+  const { query } = useRouter();
+
+  const fileUpload = async (info: any) => {
+    console.log("info", info);
+    const s3 = new ReactS3Client(configS3);
+    try {
+      if (info) {
+        let allUrl: any = [];
+
+        const urls = await Promise.all(
+          info.map((file: any) => s3.uploadFile(file.originFileObj as File))
+        );
+        console.log("urls", urls);
+        allUrl.push(urls?.map((url: any) => url.location));
+        console.log("allUrl", allUrl);
+        return allUrl;
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+    // if (error) {
+    //   notification.error({
+    //     message: error?.graphQLErrors[0]?.message || "Something went wrong",
+    //   });
+    // }
+  };
+
+  const [data, executeCreateAppointmentMutation] =
+    useCreateAppointmentMutation();
+
+  async function createAppoinment() {
+    try {
+      const urls = await fileUpload(appoinmentData?.stepTwo);
+      console.log("fileUpload", urls);
+
+      const res = await executeCreateAppointmentMutation({
+        createAppointment: {
+          patientId: 401,
+          doctorId: Number(query?.id),
+          serviceId: serviceId,
+          scheduleId: 1,
+          requestedDate: date?.convertToUTC(requestedDate),
+          reportUrl: urls,
+          questionnair: [
+            '{question:"questionno1",type:"radio",options:["yes","no"],answer:"yes"}',
+          ],
+        },
+      });
+
+      // console.log("res", res);
+    } catch (error) {}
+  }
 
   return (
     <div className="steps-action">
@@ -127,7 +195,8 @@ function BookAppointmentFooter({
         <Button
           type="primary"
           className={`${_classes["btn-next"]}`}
-          onClick={onNext}
+          // onClick={onNext}
+          onClick={createAppoinment}
         >
           Request an Appointment
         </Button>
