@@ -251,6 +251,11 @@ export type EducationalBackground = {
   institution: Scalars['String'];
 };
 
+export type EducationalBackgroundUpdate = {
+  degree: Scalars['String'];
+  institution: Scalars['String'];
+};
+
 export type GetAppointmentInput = {
   appointmentId?: InputMaybe<Scalars['Int']>;
   bookingDate?: InputMaybe<BookingDate>;
@@ -504,6 +509,11 @@ export type ProfessionalExperience = {
   role: Scalars['String'];
 };
 
+export type ProfessionalExperience2 = {
+  institution: Scalars['String'];
+  role: Scalars['String'];
+};
+
 export type ProposeNewTimeInput = {
   charges: Scalars['Int'];
   id: Scalars['Int'];
@@ -672,14 +682,14 @@ export type UpdateAppointmentInput = {
 export type UpdateDoctorProfileInput = {
   about_me?: InputMaybe<Scalars['String']>;
   condition_treated?: InputMaybe<Scalars['String']>;
-  doctor_id?: InputMaybe<Scalars['Float']>;
-  educational_background?: InputMaybe<Array<EducationalBackground>>;
+  doctor_id: Scalars['Float'];
+  educational_background?: InputMaybe<Array<EducationalBackgroundUpdate>>;
   email: Scalars['String'];
   first_name: Scalars['String'];
   language?: InputMaybe<Scalars['String']>;
   last_name: Scalars['String'];
   password?: InputMaybe<Scalars['String']>;
-  professional_experience?: InputMaybe<Array<ProfessionalExperience>>;
+  professional_experience?: InputMaybe<Array<ProfessionalExperience2>>;
   profile_image?: InputMaybe<Scalars['String']>;
   specialization?: InputMaybe<Scalars['String']>;
   year_of_experience?: InputMaybe<Scalars['Float']>;

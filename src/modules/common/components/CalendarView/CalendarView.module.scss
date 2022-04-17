@@ -24,7 +24,7 @@
     }
     :global .fc-day-today{
       // background-color: #F9FAFC !important;
-      background-color: transparent !important;
+      background-color: transparent  !important;
     border-bottom:2px solid #1a82fe ;
     }
    
@@ -69,7 +69,7 @@ font-weight: 500 !important;
     :global .fc-button-primary:not(:disabled):active:focus,
     :global .fc-button-primary:not(:disabled).fc-button-active:focus {
       box-shadow: none;
-      background-color: #1a82fe;
+      background-color: #1a82fe !important;
       color: #ffffff;
     }
 

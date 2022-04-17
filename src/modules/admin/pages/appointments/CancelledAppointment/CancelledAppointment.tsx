@@ -1,15 +1,27 @@
-import { Button } from "antd";
-import React from "react";
+import { Button, Empty } from "antd";
+import React, { useState } from "react";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
-import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import {
+  Appointment,
+  useGetAllRequestedAppointmentsQuery,
+} from "../../../../../generated/graphql";
 
 function CancelledAppointment() {
+  const [dataList, setDataList] = useState<undefined | Appointment[]>([]);
+  const [dataListPhysician, setDataListPhysician] = useState<string>();
+  const [doctorIds, setDoctorId] = useState<number>();
+  const [appointmentIds, setAppointmentIds] = useState<number>();
+  const [serviceIds, setServiceIds] = useState<number>();
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
         status: "Cancelled",
+        physicianName: dataListPhysician,
+        doctorId: doctorIds,
+        appointmentId: appointmentIds,
+        serviceId: serviceIds,
       },
     },
   });
@@ -31,7 +43,14 @@ function CancelledAppointment() {
         </h5>
 
         <div className="w-5/6">
-          <SearchFilters />
+          <SearchFilters
+            appointments={appointments}
+            setDataList={setDataList}
+            setDataListPhysician={setDataListPhysician}
+            setDoctorId={setDoctorId}
+            setAppointmentIds={setAppointmentIds}
+            setServiceIds={setServiceIds}
+          />
         </div>
 
         <div className="w-full">
@@ -48,7 +67,7 @@ function CancelledAppointment() {
                   serviceType,
                   doctor,
                 } = appointmentDetail || {};
-                return (
+                return appointments.length !== 0 ? (
                   <AppointmentCard
                     id={id}
                     patientId={patientId}
@@ -59,7 +78,7 @@ function CancelledAppointment() {
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
                   />
-                );
+                ) : <Empty />;
               })}
             </div>
           </div>
