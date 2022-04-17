@@ -78,7 +78,12 @@ font-weight: 500 !important;
   color:black;
   border:none;
   padding: 5px 10px;
+  border-left: 2px solid #1a82fe;
+  border-radius: initial;
+  box-sizing: border-box;
+  margin-left: 3px;
 }
+
 
     :global .fc .fc-button:disabled {
       color: #7d7888;
