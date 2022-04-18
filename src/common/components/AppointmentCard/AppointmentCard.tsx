@@ -84,10 +84,6 @@ function AppointmentCard({
       <span className="text-sm">Time</span>
       <h6 className="text-cyan">{date.formathhmma(requestedDate)}</h6>
       <span className="text-base text-primary font-bold ">{status}</span>
-      {/* <h6 className={color}>{lable}</h6> */}
-      {/* <div className="flex">
-   
-      </div> */}
     </Card>
   );
 }
