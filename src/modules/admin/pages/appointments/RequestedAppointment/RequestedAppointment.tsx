@@ -5,7 +5,6 @@ import { Appointment, useGetAllRequestedAppointmentsQuery } from "../../../../..
 import { Button, Empty, Select } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import Link from "next/link";
-import Router from "next/router";
 
 function RequestedAppointment() {
   const [dataList, setDataList] = useState<undefined | Appointment[]>([]);
@@ -52,7 +51,6 @@ function RequestedAppointment() {
             <Button
               type="primary"
               className="text-sm"
-              onClick={() => Router.push("/patient/calendar")}
             >
               <span className="text-xs sm:text-base">
                 Request an Appointment
