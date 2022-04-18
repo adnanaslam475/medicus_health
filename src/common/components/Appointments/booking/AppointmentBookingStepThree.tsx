@@ -12,7 +12,7 @@ import {
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 
 const StepThree = React.forwardRef(function StepThree({}, ref: any) {
-  const { saveStepThree } = useBookAppointment();
+  const { saveStepThree, data } = useBookAppointment();
   const [formInstance] = Form.useForm();
 
   function onFinishLocal(values: any) {
@@ -24,6 +24,9 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
     if (ref) {
       ref.current = formInstance;
     }
+    formInstance.setFieldsValue({
+      ...data.stepThree,
+    });
   }, []);
 
   return (

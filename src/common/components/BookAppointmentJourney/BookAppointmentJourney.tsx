@@ -127,13 +127,12 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
           reportUrl: urls,
-          questionnair: [
-            '{question:"questionno1",type:"radio",options:["yes","no"],answer:"yes"}',
-          ],
+          questionnair: JSON.stringify(appoinmentData?.stepThree),
         },
       });
-      setSuccessModal(true);
+      
       if (res?.data?.createAppointment) {
+        setSuccessModal(true);
       }
     } catch (error) {}
   }
