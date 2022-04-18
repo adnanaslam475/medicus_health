@@ -8,9 +8,7 @@ import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import _classes from "./DoctorProfileCard.module.scss";
-import {
-  DoctorProfile,
-} from "../../../generated/graphql";
+import { DoctorProfile } from "../../../generated/graphql";
 import { date } from "../../utils";
 
 const FLAG_BY_LANGUAGE = {
