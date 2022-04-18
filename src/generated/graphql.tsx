@@ -870,6 +870,13 @@ export type EnableOrDisableDoctorMutationVariables = Exact<{
 
 export type EnableOrDisableDoctorMutation = { __typename?: 'Mutation', enableOrDisableDoctor: { __typename?: 'User', id: number, status: boolean } };
 
+export type CreateAppointmentMutationVariables = Exact<{
+  createAppointment: CreateAppointmentInput;
+}>;
+
+
+export type CreateAppointmentMutation = { __typename?: 'Mutation', createAppointment: { __typename?: 'Appointment', patientId: number, doctorId: number, serviceId: number, requestedDate: any, scheduleId: number, reportUrl?: any | null } };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1181,6 +1188,22 @@ export const EnableOrDisableDoctorDocument = gql`
 
 export function useEnableOrDisableDoctorMutation() {
   return Urql.useMutation<EnableOrDisableDoctorMutation, EnableOrDisableDoctorMutationVariables>(EnableOrDisableDoctorDocument);
+};
+export const CreateAppointmentDocument = gql`
+    mutation createAppointment($createAppointment: CreateAppointmentInput!) {
+  createAppointment(createAppointmentInput: $createAppointment) {
+    patientId
+    doctorId
+    serviceId
+    requestedDate
+    scheduleId
+    reportUrl
+  }
+}
+    `;
+
+export function useCreateAppointmentMutation() {
+  return Urql.useMutation<CreateAppointmentMutation, CreateAppointmentMutationVariables>(CreateAppointmentDocument);
 };
 export const CountriesDocument = gql`
     query countries {
