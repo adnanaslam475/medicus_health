@@ -9,7 +9,7 @@ import {
 } from "../../../../../generated/graphql";
 
 function CancelledAppointment() {
-  const [dataList, setDataList] = useState<undefined | Appointment[]>([]);
+  const [dueDates, setDueDates] = useState<Date | null>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
@@ -22,6 +22,7 @@ function CancelledAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
+        // dueDate: dueDates,
       },
     },
   });
@@ -45,7 +46,7 @@ function CancelledAppointment() {
         <div className="w-5/6">
           <SearchFilters
             appointments={appointments}
-            setDataList={setDataList}
+            setDueDates={setDueDates}
             setDataListPhysician={setDataListPhysician}
             setDoctorId={setDoctorId}
             setAppointmentIds={setAppointmentIds}
@@ -56,7 +57,8 @@ function CancelledAppointment() {
         <div className="w-full">
           <div className="appointment-cards flex flex-wrap">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-              {appointments?.map((appointmentDetail, i) => {
+            {appointments?.length !== 0 && appointments ? (
+              appointments?.map((appointmentDetail, i) => {
                 const {
                   id,
                   patientId,
@@ -67,7 +69,7 @@ function CancelledAppointment() {
                   serviceType,
                   doctor,
                 } = appointmentDetail || {};
-                return appointments.length !== 0 ? (
+                return (
                   <AppointmentCard
                     id={id}
                     patientId={patientId}
@@ -78,8 +80,13 @@ function CancelledAppointment() {
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
                   />
-                ) : <Empty />;
-              })}
+                );
+              })
+            ) : (
+              <div className="flex lg:my-80 lg:mx-96">
+                <Empty />
+              </div>
+            )}
             </div>
           </div>
         </div>

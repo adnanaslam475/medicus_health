@@ -71,6 +71,7 @@ function AppointmentCalendar() {
   useEffect(() => {
     setCalendarData();
   }, [appointments]);
+
   const handleDateChange = (arg: string) => {
     setCalender({
       ...calender,
@@ -91,6 +92,7 @@ function AppointmentCalendar() {
         break;
     }
   };
+
   return (
     <AppLayout>
       <div className="w-full">

@@ -1,14 +1,17 @@
 import React, { useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
-import { Appointment, useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import {
+  Appointment,
+  useGetAllRequestedAppointmentsQuery,
+} from "../../../../../generated/graphql";
 import { Button, Empty, Select } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import Link from "next/link";
 import Router from "next/router";
 
 function RequestedAppointment() {
-  const [dataList, setDataList] = useState<undefined | Appointment[]>([]);
+  const [dueDates, setDueDates] = useState<Date | null>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
@@ -21,6 +24,7 @@ function RequestedAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
+        // dueDate: dueDates,
       },
     },
   });
@@ -44,7 +48,9 @@ function RequestedAppointment() {
                     <a>Calendar View</a>
                   </Link>
                 </Option>
-                <Option selected value="List View">List View</Option>
+                <Option selected value="List View">
+                  List View
+                </Option>
               </Select>
             </div>
             <Button
@@ -60,7 +66,7 @@ function RequestedAppointment() {
         </div>
         <SearchFilters
           appointments={appointments}
-          setDataList={setDataList}
+          setDueDates={setDueDates}
           setDataListPhysician={setDataListPhysician}
           setDoctorId={setDoctorId}
           setAppointmentIds={setAppointmentIds}
@@ -68,30 +74,36 @@ function RequestedAppointment() {
         />
         <div className="w-full">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            {appointments?.map((appointmentDetail, i) => {
-              const {
-                id,
-                patientId,
-                doctorId,
-                serviceId,
-                requestedDate,
-                status,
-                serviceType,
-                doctor,
-              } = appointmentDetail || {};
-              return appointments.length !== 0 ? (
-                <AppointmentCard
-                  id={id}
-                  patientId={patientId}
-                  doctorId={doctorId}
-                  serviceId={serviceId}
-                  requestedDate={requestedDate}
-                  status={status}
-                  serviceType={serviceType?.name}
-                  doctor={doctor?.first_name}
-                />
-              ) : <Empty />;
-            })}
+            {appointments?.length !== 0 && appointments ? (
+              appointments?.map((appointmentDetail, i) => {
+                const {
+                  id,
+                  patientId,
+                  doctorId,
+                  serviceId,
+                  requestedDate,
+                  status,
+                  serviceType,
+                  doctor,
+                } = appointmentDetail || {};
+                return (
+                  <AppointmentCard
+                    id={id}
+                    patientId={patientId}
+                    doctorId={doctorId}
+                    serviceId={serviceId}
+                    requestedDate={requestedDate}
+                    status={status}
+                    serviceType={serviceType?.name}
+                    doctor={doctor?.first_name}
+                  />
+                );
+              })
+            ) : (
+              <div className="flex lg:my-80 lg:mx-96">
+                <Empty />
+              </div>
+            )}
           </div>
         </div>
       </div>
