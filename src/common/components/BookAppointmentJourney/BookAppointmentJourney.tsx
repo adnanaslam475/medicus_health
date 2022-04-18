@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import StepDots from "../StepDots/StepDots";
 import BookAppointmentFooter from "./BookAppointmentFooter";
 import { getUserData } from "../../utils/userData";
+import SuccessMessage from "../Appointments/booking/SuccessMessage";
 
 type Props = {
   visible?: boolean | undefined;
@@ -50,12 +51,12 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const form = useRef<FormInstance>();
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
+  const [successModal, setSuccessModal] = React.useState<boolean>(false);
 
   //   GET ID FROM URL
   const { query } = useRouter();
 
   const { data: appoinmentData } = useBookAppointment();
-  console.log("dataaa", appoinmentData);
 
   // GET USER ID
   const { user } = getUserData();
@@ -131,8 +132,8 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
           ],
         },
       });
-      if(res?.data?.createAppointment){
-
+      setSuccessModal(true);
+      if (res?.data?.createAppointment) {
       }
     } catch (error) {}
   }
@@ -147,20 +148,26 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
       footer={null}
       className={`${_classes["steps-style"]}`}
     >
-      <StepDots current={currentStepNumber} />
-      <div className="steps-content">
-        <CurrentStepContent
-          stepName={currentStepName}
-          doctorData={doctorData}
-          ref={form}
-        />
-      </div>
-      <BookAppointmentFooter
-        stepName={currentStepName}
-        onNext={() => next(currentStepName)}
-        onPrevious={() => prev(currentStepName)}
-        onRequestAppointment={onRequestAppointment}
-      />
+      {successModal ? (
+        <SuccessMessage />
+      ) : (
+        <>
+          <StepDots current={currentStepNumber} />
+          <div className="steps-content">
+            <CurrentStepContent
+              stepName={currentStepName}
+              doctorData={doctorData}
+              ref={form}
+            />
+          </div>
+          <BookAppointmentFooter
+            stepName={currentStepName}
+            onNext={() => next(currentStepName)}
+            onPrevious={() => prev(currentStepName)}
+            onRequestAppointment={onRequestAppointment}
+          />
+        </>
+      )}
     </Modal>
   );
 }
