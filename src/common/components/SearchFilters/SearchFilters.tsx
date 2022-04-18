@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Card, Input, Button, Select, Space, DatePicker } from "antd";
-import { CaretDownOutlined, CloseOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  CaretDownOutlined,
+  CloseOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import {
   Appointment,
   useDoctorProfilesQuery,
@@ -38,12 +42,14 @@ function SearchFilters(props: Props) {
     setAppointmentIds,
     setDoctorId,
     setEndDate,
-    setStartDate
+    setStartDate,
   } = props;
-  const [selectedPhysicianItems, setSelectedPhysicianItems] =
-    useState<string | null>();
-  const [selectedServiceItems, setSelectedServiceItems] =
-    useState<string | null>();
+  const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
+    string | null
+  >();
+  const [selectedServiceItems, setSelectedServiceItems] = useState<
+    string | null
+  >();
   const [dateRangeValues, selectDateRangeValues] = useState(null);
   const [openDateRange, setOpenDateRange] = useState(false);
   const [dateRange, selectDateRange] = useState(null);
@@ -68,7 +74,7 @@ function SearchFilters(props: Props) {
     console.log(date, dateString);
     selectDateRangeValues(date);
     setStartDate(dateString[0]);
-    setEndDate((dateString[1]));
+    setEndDate(dateString[1]);
     selectDateRange(date);
   }
 
@@ -125,7 +131,7 @@ function SearchFilters(props: Props) {
         <Space direction="vertical" size={12} className="sm:ml-3 mt-3 sm:mt-0">
           <div className="relative w-64 -mt-7">
             <RangePicker
-              dateRange={dateRange}
+              // dateRange={dateRange}
               value={dateRangeValues}
               onChange={onChange}
               open={openDateRange}
