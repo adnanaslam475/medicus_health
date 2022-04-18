@@ -175,7 +175,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 		if (!res?.data?.enableOrDisableDoctor?.status) {
 			!res?.data?.enableOrDisableDoctor?.status &&
 				notification.success({
-					message: "UnPublished",
+					message: "Unpublished",
 				});
 		}
 	}

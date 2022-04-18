@@ -18,7 +18,6 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
   function onFinishLocal(values: any) {
     console.log("onFinishLocal called", values);
     saveStepThree?.(values);
-    debugger;
   }
 
   useEffect(() => {
