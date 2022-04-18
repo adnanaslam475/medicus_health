@@ -35,7 +35,7 @@ function BookAppointmentJourney({
   return (
     <BookAppointmentProvider>
       <BookAppointmentModal
-        visible={true || visible}
+        visible={visible}
         onOk={onOk}
         onCancel={onCancel}
         doctorData={doctorData}
