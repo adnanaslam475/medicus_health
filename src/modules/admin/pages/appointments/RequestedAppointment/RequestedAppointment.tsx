@@ -10,7 +10,8 @@ import SearchFilters from "../../../../../common/components/SearchFilters/Search
 import Link from "next/link";
 
 function RequestedAppointment() {
-  const [dueDates, setDueDates] = useState<Date | null>();
+  const [dueStartDate, setStartDate] = useState<Date | null>();
+  const [dueEndDate, setEndDate] = useState<Date | null>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
@@ -23,7 +24,10 @@ function RequestedAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
-        // dueDate: dueDates,
+        dueDate:{
+          startDate: dueStartDate,
+          endDate: dueEndDate,
+        }
       },
     },
   });
@@ -64,7 +68,8 @@ function RequestedAppointment() {
         </div>
         <SearchFilters
           appointments={appointments}
-          setDueDates={setDueDates}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
           setDataListPhysician={setDataListPhysician}
           setDoctorId={setDoctorId}
           setAppointmentIds={setAppointmentIds}

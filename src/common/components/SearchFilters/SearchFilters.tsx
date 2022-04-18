@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Card, Input, Button, Select, Space, DatePicker } from "antd";
-import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  CaretDownOutlined,
+  CloseOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import {
   Appointment,
   useDoctorProfilesQuery,
@@ -8,6 +12,9 @@ import {
   useGetAllRequestedAppointmentsQuery,
 } from "../../../generated/graphql";
 import searchStyle from "./style.module.scss";
+import Image from "next/image";
+import { aimsCalendarIcon } from "../../../utils/images";
+import { getDateInFormat } from "../../utils/date";
 
 const { Option } = Select;
 
@@ -23,7 +30,8 @@ type Props = {
   setDoctorId: number | any;
   setAppointmentIds: number | any;
   setServiceIds: number | any;
-  setDueDates: Date | null | any;
+  setStartDate: Date | null | any;
+  setEndDate: Date | null | any;
 };
 
 function SearchFilters(props: Props) {
@@ -33,13 +41,18 @@ function SearchFilters(props: Props) {
     setServiceIds,
     setAppointmentIds,
     setDoctorId,
-    setDueDates,
+    setEndDate,
+    setStartDate,
   } = props;
-  const [selectedPhysicianItems, setSelectedPhysicianItems] =
-    useState<string | null>();
-  const [selectedServiceItems, setSelectedServiceItems] =
-    useState<string | null>();
+  const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
+    string | null
+  >();
+  const [selectedServiceItems, setSelectedServiceItems] = useState<
+    string | null
+  >();
   const [dateRangeValues, selectDateRangeValues] = useState(null);
+  const [openDateRange, setOpenDateRange] = useState(false);
+  const [dateRange, selectDateRange] = useState(null);
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
@@ -60,7 +73,9 @@ function SearchFilters(props: Props) {
   function onChange(date: any, dateString: any) {
     console.log(date, dateString);
     selectDateRangeValues(date);
-    setDueDates(date);
+    setStartDate(dateString[0]);
+    setEndDate(dateString[1]);
+    selectDateRange(date);
   }
 
   const onClear = () => {
@@ -69,7 +84,14 @@ function SearchFilters(props: Props) {
     setDoctorId(undefined);
     setServiceIds(undefined);
     selectDateRangeValues(null);
-    setDueDates(null);
+    setEndDate(null);
+    setStartDate(null);
+    setOpenDateRange(false);
+    selectDateRange(null);
+  };
+
+  const applyDateRange = () => {
+    setOpenDateRange(false);
   };
 
   return (
@@ -107,10 +129,67 @@ function SearchFilters(props: Props) {
           </Select>
         </div>
         <Space direction="vertical" size={12} className="sm:ml-3 mt-3 sm:mt-0">
-          <RangePicker
-            value={dateRangeValues}
-            onChange={onChange}
-          />
+          <div className="relative w-64 -mt-7">
+            <RangePicker
+              // dateRange={dateRange}
+              value={dateRangeValues}
+              onChange={onChange}
+              open={openDateRange}
+              className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
+              renderExtraFooter={() => (
+                <div className="flex gap-3 justify-end p-3">
+                  <Button
+                    className="bg-gray-300"
+                    onClick={() => {
+                      setOpenDateRange(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className=" text-white"
+                    type="primary"
+                    onClick={() => {
+                      applyDateRange();
+                    }}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              )}
+            />
+            <Button
+              className="flex date-btn"
+              block
+              type="default"
+              onClick={() => setOpenDateRange?.(!openDateRange)}
+            >
+              {dateRange ? (
+                <div>
+                  {dateRange
+                    ? `${getDateInFormat(dateRange?.[0])} -> ${getDateInFormat(
+                        dateRange?.[1]
+                      )}`
+                    : "Creation Date"}
+                </div>
+              ) : (
+                <div className="flex justify-between items-center w-full px-3">
+                  {/* <div className="self-center">
+                    <Image
+                      width={15}
+                      height={15}
+                      src={aimsCalendarIcon}
+                      alt=""
+                    />
+                  </div> */}
+                  <div>Creation Date</div>
+                  <div>
+                    <CaretDownOutlined style={{ color: `primary` }} />
+                  </div>
+                </div>
+              )}
+            </Button>
+          </div>
           {/* <DatePicker onChange={onChange} /> */}
         </Space>
         <Button onClick={onClear} type="text" className="sm:ml-3">

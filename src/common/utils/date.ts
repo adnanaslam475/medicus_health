@@ -20,6 +20,11 @@ export function formathhmma(date: string) {
   return dayjs.utc(date).format("hh:mm a");
 }
 
+export const getDateInFormat = (getDate: string | number | Date | dayjs.Dayjs | null | undefined) => {
+  const getDateUseingDayjs = dayjs(getDate);
+  return getDate && getDateUseingDayjs.isValid() ? getDateUseingDayjs.format("MM-DD-YYYY") : "";
+};
+
 export function time24HrConvert(time: any) {
   // Check correct time format and split into components
   time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [

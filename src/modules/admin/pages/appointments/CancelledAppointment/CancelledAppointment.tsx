@@ -10,6 +10,8 @@ import {
 
 function CancelledAppointment() {
   const [dueDates, setDueDates] = useState<Date | null>();
+  const [dueStartDate, setStartDate] = useState<Date | null>();
+  const [dueEndDate, setEndDate] = useState<Date | null>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
@@ -46,7 +48,8 @@ function CancelledAppointment() {
         <div className="w-5/6">
           <SearchFilters
             appointments={appointments}
-            setDueDates={setDueDates}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
             setDataListPhysician={setDataListPhysician}
             setDoctorId={setDoctorId}
             setAppointmentIds={setAppointmentIds}
