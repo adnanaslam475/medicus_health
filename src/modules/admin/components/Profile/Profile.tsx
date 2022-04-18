@@ -82,8 +82,8 @@ export const Profile = React.forwardRef(function Profile({
 			lastName: last_name,
 			contact: contact_number,
 			email: email,
-			password: password,
-			confirmPassword: password,
+			password: "",
+			confirmPassword: "",
 		});
 	}
 
@@ -185,7 +185,7 @@ export const Profile = React.forwardRef(function Profile({
 		<div className={`w-full ${_classes["profile"]}`}>
 			<div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
 				<div className="flex flex-col w-full justify-start items-center py-3">
-					<div className="w-full mb-10 flex gap-8">
+					<div className="w-full mb-10 flex gap-8 items-center">
 						<Upload
 							onChange={fileChange}
 							maxCount={1}
@@ -216,7 +216,7 @@ export const Profile = React.forwardRef(function Profile({
 						</Upload>
 
 						<div>
-							<span>{doctorId}</span>
+							{/* <span>{doctorId}</span> */}
 							<h2 className="mb-0">
 								{first_name ? `${first_name} ${last_name}` : ""}
 							</h2>
@@ -285,7 +285,7 @@ export const Profile = React.forwardRef(function Profile({
 								<Form.Item
 									label="Password"
 									name="password"
-									rules={[{ required: true, message: "Password" }]}
+									// rules={[{ required: true, message: "Password" }]}
 									className="flex-1"
 								>
 									<Input.Password />
@@ -294,7 +294,7 @@ export const Profile = React.forwardRef(function Profile({
 								<Form.Item
 									label="Confirm Password"
 									name="confirmPassword"
-									rules={[{ required: true, message: "Confirm password!" }]}
+									// rules={[{ required: true, message: "Confirm password!" }]}
 									className="flex-1"
 								>
 									<Input.Password />
@@ -312,7 +312,7 @@ export const Profile = React.forwardRef(function Profile({
 							</Form.Item>
 						</Form>
 						<Form layout="vertical">
-							<div className="font-medium text-lightBlue-1">Languages</div>
+							<div className="font-medium text-lightBlue-1 my-2">Languages</div>
 							<div className="flex mr-auto">
 								<Language
 									end={end}
