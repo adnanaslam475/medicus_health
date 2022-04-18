@@ -28,10 +28,10 @@ export function BookAppointmentProvider({
     setData({ ...data, stepOne: values });
   }
   function saveStepTwo(values: any) {
-    setData({ ...data, stepOne: values });
+    setData({ ...data, stepTwo: values });
   }
   function saveStepThree(values: any) {
-    setData({ ...data, stepOne: values });
+    setData({ ...data, stepThree: values });
   }
 
 

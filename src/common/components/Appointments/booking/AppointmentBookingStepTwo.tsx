@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox, Upload, message, Form, Image, Button } from "antd";
 import {
   FilePdfOutlined,
@@ -12,8 +12,9 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 
 const { Dragger } = Upload;
 
-function StepTwo() {
+const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
   const { saveStepTwo } = useBookAppointment();
+  const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
   const props = {
@@ -23,7 +24,6 @@ function StepTwo() {
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
       setFileList(info.fileList);
-      console.log("info", info);
       const { status } = info.file;
       if (status !== "uploading") {
         console.log(info.file, info.fileList);
@@ -33,7 +33,6 @@ function StepTwo() {
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
-      console.log("fileList", fileList);
     },
     onDrop(e: { dataTransfer: { files: any } }) {
       console.log("Dropped files", e.dataTransfer.files);
@@ -52,9 +51,15 @@ function StepTwo() {
     const s3 = new ReactS3Client(configS3);
 
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
+      let allUrl = [];
+      // const url = await s3.uploadFile(info.file.originFileObj as File);
+      const url = await Promise.all(
+        info?.fileList?.map((file) => s3.uploadFile(file.originFileObj as File))
+      );
       console.log("url", url);
+      allUrl.push(url?.map((url) => url.location));
       // setImage(url?.location);
+      console.log("allUrl", allUrl);
     } catch (error) {}
     // if (error) {
     //   notification.error({
@@ -72,10 +77,17 @@ function StepTwo() {
     console.log("onFinishLocal called", values);
     saveStepTwo?.(fileList);
   }
+
+  useEffect(() => {
+    if (ref) {
+      ref.current = formInstance;
+    }
+  }, []);
+
   return (
     <>
       <h2>Request an Appointment</h2>
-      <Form layout="vertical" onFinish={onFinishLocal}>
+      <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         <Form.Item label="Medical History*">
           <Dragger {...props}>
             <p className="ant-upload-drag-icon mb-0">
@@ -99,23 +111,23 @@ function StepTwo() {
           </Dragger>
 
           {/* <Upload
-            onChange={fileChange}
-            // maxCount={1}
-            // beforeUpload={onBeforeUpload}
-            itemRender={() => <div />}
-            customRequest={() => null}
-            accept=".doc, .pdf, image/jpg, image/jpeg,"
-            multiple={true}
-          >
-            <div className="relative">
-              <Button
-                type="link"
-                className="text-primary underline ml-3 text-xs"
-              >
-                upload file
-              </Button>
-            </div>
-          </Upload> */}
+              onChange={fileChange}
+              // maxCount={1}
+              // beforeUpload={onBeforeUpload}
+              itemRender={() => <div />}
+              customRequest={() => null}
+              accept=".doc, .pdf, image/jpg, image/jpeg,"
+              multiple={true}
+            >
+              <div className="relative">
+                <Button
+                  type="link"
+                  className="text-primary underline ml-3 text-xs"
+                >
+                  upload file
+                </Button>
+              </div>
+            </Upload> */}
           <div className="w-full bg-gray-4 border border-gray-3 rounded-lg flex items-center justify-between p-3 mt-3 mr-3 mb-3">
             <span className="flex items-center">
               <FileJpgOutlined />
@@ -158,5 +170,6 @@ function StepTwo() {
       </Form>
     </>
   );
-}
+});
+
 export default StepTwo;

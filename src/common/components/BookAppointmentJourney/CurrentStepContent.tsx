@@ -1,7 +1,6 @@
 import React from "react";
 import {
   DoctorProfile,
-  useGetAllAppointmentServiceTypesQuery,
 } from "../../../generated/graphql";
 import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
 import { AppointmentBookingStepOne } from "../Appointments/booking/AppointmentBookingStepOne";
@@ -10,28 +9,23 @@ import AppointmentBookingStepTwo from "../Appointments/booking/AppointmentBookin
 
 type Props = { stepName: string; doctorData: DoctorProfile | undefined };
 
-function CurrentStepContent({ stepName, doctorData }: Props) {
-
-  const [data] = useGetAllAppointmentServiceTypesQuery();
-
+const CurrentStepContent = React.forwardRef(function CurrentStepContent(
+  { stepName, doctorData }: Props,
+  ref: any
+) {
   switch (stepName) {
     case "stepOne":
-      return (
-        <AppointmentBookingStepOne
-          physicianData={doctorData}
-          allAppoinments={data?.data?.appointmentServiceTypes}
-        />
-      );
+      return <AppointmentBookingStepOne physicianData={doctorData} ref={ref} />;
     case "stepTwo":
-      return <AppointmentBookingStepTwo />;
+      return <AppointmentBookingStepTwo ref={ref} />;
     case "stepThree":
-      return <AppointmentBookingStepThree />;
+      return <AppointmentBookingStepThree ref={ref} />;
     case "stepFour":
       return <AppointmentBookingStepFour />;
 
     default:
       return null;
   }
-}
+});
 
 export default CurrentStepContent;

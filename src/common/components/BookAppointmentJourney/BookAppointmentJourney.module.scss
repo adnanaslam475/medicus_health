@@ -32,20 +32,16 @@
       }
     }
   }
-  :global .steps-content {
-    .mb-0 {
-      margin-bottom: 0px !important;
-    }
-  }
-  :global .steps-action {
-    display: flex;
-    justify-content: space-between;
+}
+
+.book-appointment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  :global .ant-btn-link {
+    display: flex !important;
     align-items: center;
-    .ant-btn-link {
-      display: flex !important;
-      align-items: center;
-      border: none;
-      padding: 0px !important;
-    }
+    border: none;
+    padding: 0px !important;
   }
 }
