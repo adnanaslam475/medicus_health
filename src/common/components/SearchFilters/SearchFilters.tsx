@@ -161,6 +161,7 @@ function SearchFilters(props: Props) {
             <Button
               className="flex date-btn"
               block
+              type="default"
               onClick={() => setOpenDateRange?.(!openDateRange)}
             >
               {dateRange ? (
@@ -172,15 +173,15 @@ function SearchFilters(props: Props) {
                     : "Creation Date"}
                 </div>
               ) : (
-                <div className="flex justify-between items-center">
-                  <div className="self-center">
+                <div className="flex justify-between items-center w-full px-3">
+                  {/* <div className="self-center">
                     <Image
                       width={15}
                       height={15}
                       src={aimsCalendarIcon}
                       alt=""
                     />
-                  </div>
+                  </div> */}
                   <div>Creation Date</div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
