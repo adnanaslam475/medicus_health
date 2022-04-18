@@ -153,7 +153,6 @@ const PersonalInfo = () => {
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
-                  // src={userProfileImage}
                   src={image ? image : userProfileImage}
                 />
               </div>
@@ -175,7 +174,6 @@ const PersonalInfo = () => {
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
                   className="text-xs p-5"
                   size="large"
-                  // loading={fetching}
                   onClick={onSave}
                 >
                   <span className="text-xs text-white">SAVE</span>
