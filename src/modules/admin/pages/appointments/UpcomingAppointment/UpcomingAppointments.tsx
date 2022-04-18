@@ -53,9 +53,9 @@ function UpcomingAppointments() {
           setServiceIds={setServiceIds}
         />
         <div className="w-full">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            {appointments?.length !== 0 && appointments ? (
-              appointments?.map((appointmentDetail, i) => {
+          {appointments?.length !== 0 && appointments ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              {appointments?.map((appointmentDetail, i) => {
                 const {
                   id,
                   patientId,
@@ -78,13 +78,13 @@ function UpcomingAppointments() {
                     doctor={doctor?.first_name}
                   />
                 );
-              })
-            ) : (
-              <div className="flex lg:my-80 lg:mx-96">
-                <Empty />
-              </div>
-            )}
-          </div>
+              })}
+            </div>
+          ) : (
+            <div className="flex items-center justify-center w-full">
+              <Empty />
+            </div>
+          )}
         </div>
       </div>
     </AppLayout>

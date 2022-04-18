@@ -176,7 +176,7 @@ const PersonalInfo = () => {
                   className="text-xs p-5"
                   size="large"
                   // loading={fetching}
-                  onClick={() => onSave}
+                  onClick={onSave}
                 >
                   <span className="text-xs text-white">SAVE</span>
                 </Button>
