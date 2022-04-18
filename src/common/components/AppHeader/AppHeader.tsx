@@ -26,6 +26,39 @@ const AppHeader = () => {
     setVisible(!visible);
   };
 
+  const onClick = ({ key }) => {
+    message.info(`Click on item ${key}`);
+  };
+  
+  const menu = (
+    <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
+      <Menu.Item className="border-b border-gray-4">
+        Accounts Settings
+      </Menu.Item>
+
+      <Menu.Item className="border-b border-gray-4">
+        Payment Settings
+      </Menu.Item>
+
+      <Menu.Item>
+        <Link
+          href={{ pathname, query }}
+          as={asPath}
+          locale={otherLocales?.[0]}
+        >
+          {`switch to ${otherLocales?.[0]}`}
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item onClick={logout}>
+        <span className="text-red">Logout</span>
+      </Menu.Item>
+    </Menu>
+  );
+
+
+
+
   const notificationMenu = (
     <div className="notification-menu-cover border border-gray-3 rounded">
       <div className="px-3 py-2 bg-white">
@@ -76,19 +109,25 @@ const AppHeader = () => {
   );
 
   return (
+    <>
     <Header
       className={`${_classes["bg-white"]} border-b border-gray-5 bg-white flex w-full justify-end items-center h-25 px-0 md:px-0`}
     >
+      <span className="flex items-center block lg:hidden mr-5">
+        <Image
+            alt=""
+            width={80}
+            height={43}
+            src="/assets/images/loaderLogo.png"
+        />
+      </span>
       <div className="w-full flex px-0 justify-between items-center">
-        <div className="w-full ">
+        <div className="hidden md:block w-full ">
           <InfoMessage />
         </div>
-        <div className="avatar-and-notification-area inline-flex h-10 items-center text-right justify-end w-full md:w-1/2">
-          <span className="hidden sm:block">
-            <SidebarDrawer />
-          </span>
-          <span className="mt-7 mr-8">
-            <Dropdown overlay={notificationMenu} placement="bottomLeft">
+        <div className="flex items-center text-right justify-end w-full md:w-1/2">
+          <span className="flex mt-3 pr-5">
+            <Dropdown overlay={notificationMenu} placement="bottomLeft" className="flex items-center">
               <a
                 className="ant-dropdown-link"
                 onClick={(e) => e.preventDefault()}
@@ -106,47 +145,35 @@ const AppHeader = () => {
             </Dropdown>
           </span>
 
-          <Avatar
-            className="ml-3"
-            size="large"
-            src="https://joeschmoe.io/api/v1/jess"
-          />
-          <span className="justify-center px-4">Mark Mansion</span>
+
           <Dropdown
-            overlay={
-              // eslint-disable-next-line react/jsx-wrap-multilines
-              <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
-                <Menu.Item className="border-b border-gray-4">
-                  Accounts Settings
-                </Menu.Item>
-
-                <Menu.Item className="border-b border-gray-4">
-                  Payment Settings
-                </Menu.Item>
-
-                <Menu.Item>
-                  <Link
-                    href={{ pathname, query }}
-                    as={asPath}
-                    locale={otherLocales?.[0]}
-                  >
-                    {`switch to ${otherLocales?.[0]}`}
-                  </Link>
-                </Menu.Item>
-
-                <Menu.Item onClick={logout}>
-                  <span className="text-red">Logout</span>
-                </Menu.Item>
-              </Menu>
-            }
-            placement="bottomRight"
-            trigger={["click"]}
+          className="flex items-center"
+          overlay={menu}
+          placement="bottomRight"
+          trigger={["click"]}          
           >
-            <CaretDownOutlined onClick={showPopover} />
+            <div onClick={showPopover}>
+              <Avatar
+              className="ml-3"
+              size="large"
+              src="https://joeschmoe.io/api/v1/jess"
+              />
+              <span className="justify-center px-2 hidden xl:block">Mark Mansion</span>
+              <div className="hidden md:block">
+                <CaretDownOutlined />
+              </div>
+            </div>
           </Dropdown>
+          <span className="mt-2 pl-5 lg:hidden">
+            <SidebarDrawer />
+          </span>
         </div>
       </div>
     </Header>
+      <div className="bg-white md:hidden p-2 w-full">
+          <InfoMessage />
+      </div>
+      </>
   );
 };
 

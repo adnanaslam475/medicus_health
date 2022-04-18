@@ -196,6 +196,4 @@ function DoctorProfileCard(props: Props) {
   );
 }
 
-// some txt
-
 export default DoctorProfileCard;

@@ -15,10 +15,10 @@ function AdminSideMenu() {
       onBreakpoint={(broken) => setCollapsed(broken)}
       collapsed={collapsed}
       collapsedWidth="5rem"
-      breakpoint="xl"
+      breakpoint="lg"
       
       theme="light"
-      className={`${_classes["admin-side-menu"]} hidden md:block bg-gray overflow-x-hidden`}
+      className={`${_classes["admin-side-menu"]} hidden lg:block bg-gray overflow-x-hidden`}
       width="18rem"
     >
       <Layout.Header
