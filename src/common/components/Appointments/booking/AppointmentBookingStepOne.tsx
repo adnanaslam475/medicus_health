@@ -43,8 +43,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
     function disabledDate(current: any) {
       if (serviceInfo?.name === "Consultation" || "consultation") {
         return current && current < dayjs().add(1, "day");
-      }
-      else if (serviceInfo?.name === "Second Opinion") {
+      } else if (serviceInfo?.name === "Second Opinion") {
         return current && current < dayjs().add(3, "day");
       }
       // return current && current > dayjs().startOf("day");
@@ -112,13 +111,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
               </div>
             </div>
           </Form.Item>
-          {/* <Form.Item>
-            <div className="flex items-center justify-end">
-              <Button type="primary" htmlType="submit">
-                Save
-              </Button>
-            </div>
-          </Form.Item> */}
         </Form>
       </>
     );
