@@ -38,7 +38,7 @@ function AppointmentCalendar() {
       patient: data?.title,
       doctor: data?.extendedProps.doctor,
       serviceType: data?.extendedProps?.serviceType,
-      date: data.start,
+      dateValue: data.start,
       className: data?.extendedProps?.extraData?.class_name,
       startDate: data?.extendedProps?.extraData?.start,
       endDate: data?.extendedProps?.extraData?.end,

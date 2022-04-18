@@ -52,7 +52,6 @@ function RequestedAppointment() {
             <Button
               type="primary"
               className="text-sm"
-              onClick={() => Router.push("/patient/calendar")}
             >
               <span className="text-xs sm:text-base">
                 Request an Appointment
