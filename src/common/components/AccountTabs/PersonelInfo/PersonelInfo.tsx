@@ -100,11 +100,17 @@ const PersonalInfo = () => {
       });
     }
   };
+
   const onBeforeUpload = (file: File) => {
     const isPNG = file.type === "image/png";
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
+
+  const onSave = () => {
+    form?.current?.submit()
+    setIsEdit(false)
+  }
 
   return (
     <>
@@ -147,7 +153,6 @@ const PersonalInfo = () => {
                     borderWidth: 2,
                     lineHeight: "40px",
                   }}
-                  // src={userProfileImage}
                   src={image ? image : userProfileImage}
                 />
               </div>
@@ -169,8 +174,7 @@ const PersonalInfo = () => {
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
                   className="text-xs p-5"
                   size="large"
-                  // loading={fetching}
-                  onClick={() => form?.current?.submit()}
+                  onClick={onSave}
                 >
                   <span className="text-xs text-white">SAVE</span>
                 </Button>

@@ -12,11 +12,11 @@ import {
 
 const { Option } = Select;
 function UpcomingAppointments() {
-  const [dataList, setDataList] = useState<undefined | Appointment[]>([]);
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
+  const [dueDates, setDueDates] = useState<Date | null>();
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
@@ -25,10 +25,10 @@ function UpcomingAppointments() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
+        // dueDate: dueDates,
       },
     },
   });
-
 
   const { appointments } = data || {};
 
@@ -43,43 +43,48 @@ function UpcomingAppointments() {
               ullamcorperequesty tortor a fringilla tempus.
             </p>
           </div>
-          
         </div>
         <SearchFilters
           appointments={appointments}
-          setDataList={setDataList}
+          setDueDates={setDueDates}
           setDataListPhysician={setDataListPhysician}
           setDoctorId={setDoctorId}
           setAppointmentIds={setAppointmentIds}
           setServiceIds={setServiceIds}
         />
         <div className="w-full">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            {appointments?.map((appointmentDetail, i) => {
-              const {
-                id,
-                patientId,
-                doctorId,
-                serviceId,
-                requestedDate,
-                status,
-                serviceType,
-                doctor,
-              } = appointmentDetail || {};
-              return appointments.length !== 0 ? (
-                <AppointmentCard
-                  id={id}
-                  patientId={patientId}
-                  doctorId={doctorId}
-                  serviceId={serviceId}
-                  requestedDate={requestedDate}
-                  status={status}
-                  serviceType={serviceType?.name}
-                  doctor={doctor?.first_name}
-                />
-              ) : <Empty />;
-            })}
-          </div>
+          {appointments?.length !== 0 && appointments ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              {appointments?.map((appointmentDetail, i) => {
+                const {
+                  id,
+                  patientId,
+                  doctorId,
+                  serviceId,
+                  requestedDate,
+                  status,
+                  serviceType,
+                  doctor,
+                } = appointmentDetail || {};
+                return (
+                  <AppointmentCard
+                    id={id}
+                    patientId={patientId}
+                    doctorId={doctorId}
+                    serviceId={serviceId}
+                    requestedDate={requestedDate}
+                    status={status}
+                    serviceType={serviceType?.name}
+                    doctor={doctor?.first_name}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <div className="flex items-center justify-center w-full">
+              <Empty />
+            </div>
+          )}
         </div>
       </div>
     </AppLayout>
