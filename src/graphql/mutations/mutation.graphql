@@ -165,3 +165,16 @@ mutation enableOrDisableDoctor($id: Int!) {
     status
   }
 }
+
+#CREATE APPOINMENT 
+mutation createAppointment($createAppointment: CreateAppointmentInput!) {
+  createAppointment(createAppointmentInput: $createAppointment) {
+    patientId
+    doctorId
+    serviceId
+    requestedDate
+    scheduleId
+    reportUrl
+  }
+}
+

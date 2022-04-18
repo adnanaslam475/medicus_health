@@ -10,7 +10,7 @@ import {
 } from "@ant-design/icons";
 import end from "./../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../public/assets/images/espanolFlag.png";
-
+import editicon from "../../../../../public/assets/icon/edit.svg";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
 	Table,
@@ -60,8 +60,8 @@ export const Profile = React.forwardRef(function Profile({
 	const { first_name, last_name, password, email, contact_number, status } =
 		doctorData?.user || {};
 
-  //GET USER PROFILE IMAGE FROM useGetUserQuery
-  const { profile_image: userProfileImage } = doctorData || {};
+	//GET USER PROFILE IMAGE FROM useGetUserQuery
+	const { profile_image: userProfileImage } = doctorData || {};
 
 	const [result, updateDoctor] = useUpdateDoctorProfileMutation();
 	const { error } = result || {};
@@ -96,18 +96,18 @@ export const Profile = React.forwardRef(function Profile({
 		}
 	};
 
-  const updateDoctorProfile = async (values: any) => {
-    if (doctorData) {
-      const res = await updateDoctor({
-        updateDoctorProfileInput: {
-          doctor_id: Number(doctorId),
-          first_name: values?.firstName,
-          last_name: values?.lastName,
-          email: values?.email,
-          password: values?.password,
-          profile_image: image ? image : userProfileImage,
-        },
-      });
+	const updateDoctorProfile = async (values: any) => {
+		if (doctorData) {
+			const res = await updateDoctor({
+				updateDoctorProfileInput: {
+					doctor_id: Number(doctorId),
+					first_name: values?.firstName,
+					last_name: values?.lastName,
+					email: values?.email,
+					password: values?.password,
+					profile_image: image ? image : userProfileImage,
+				},
+			});
 
 			if (res?.data) {
 				res?.data?.updateDoctorProfile &&
@@ -182,8 +182,8 @@ export const Profile = React.forwardRef(function Profile({
 	}
 
 	return (
-		<div className="w-full">
-			<div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-3">
+		<div className={`w-full ${_classes["profile"]}`}>
+			<div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
 				<div className="flex flex-col w-full justify-start items-center py-3">
 					<div className="w-full mb-10 flex gap-8">
 						<Upload
@@ -195,8 +195,7 @@ export const Profile = React.forwardRef(function Profile({
 						>
 							<div className="relative">
 								<Avatar
-									// size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
-                  size={130}
+									size={130}
 									style={{
 										borderColor: "transparent",
 										borderWidth: 2,
@@ -204,6 +203,15 @@ export const Profile = React.forwardRef(function Profile({
 									}}
 									src={image ? image : userProfileImage}
 								/>
+								<span className="rounded-full absolute p-1 right-0 bottom-0">
+									<Image
+										alt=""
+										src={editicon}
+										width={30}
+										height={30}
+										className="border rounded border-gray-2"
+									/>
+								</span>
 							</div>
 						</Upload>
 
@@ -214,7 +222,7 @@ export const Profile = React.forwardRef(function Profile({
 							</h2>
 							<span className="block">{email}</span>
 							<div className=" grid grid-cols-2 gap-3">
-								<div className="lg:ml-0 mt-0 sm:mt-0">
+								<div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
 									<Button
 										type="primary"
 										style={{
@@ -222,7 +230,7 @@ export const Profile = React.forwardRef(function Profile({
 											borderColor: "#E2F8F7",
 											color: "#30CEC2",
 										}}
-										className="pr-0"
+										className={`${_classes["published-button"]}`}
 										onClick={handleChange}
 									>
 										{status ? "Published" : "Unpublished"}
@@ -243,7 +251,7 @@ export const Profile = React.forwardRef(function Profile({
 							onFinish={onFinish}
 							layout="vertical"
 						>
-							<div className="flex flex-row gap-3">
+							<div className="flex flex-col sm:flex-row sm:gap-3">
 								<Form.Item
 									label="First Name"
 									name="firstName"
@@ -262,7 +270,7 @@ export const Profile = React.forwardRef(function Profile({
 								</Form.Item>
 							</div>
 
-							<div className="flex flex-row gap-3">
+							<div className="flex flex-col sm:flex-row  sm:gap-3">
 								<Form.Item
 									name="email"
 									// name={["user", "email"]}
@@ -273,7 +281,7 @@ export const Profile = React.forwardRef(function Profile({
 									<Input />
 								</Form.Item>
 							</div>
-							<div className="flex flex-row gap-3">
+							<div className="flex flex-col sm:flex-row  sm:gap-3">
 								<Form.Item
 									label="Password"
 									name="password"
@@ -294,7 +302,7 @@ export const Profile = React.forwardRef(function Profile({
 							</div>
 							<Form.Item>
 								<div className="flex items-center justify-end gap-2">
-                <Button type="default" onClick={()=>setIsEdit(false)}>
+									<Button type="default" onClick={() => setIsEdit(false)}>
 										Close
 									</Button>
 									<Button type="primary" htmlType="submit">
@@ -304,7 +312,7 @@ export const Profile = React.forwardRef(function Profile({
 							</Form.Item>
 						</Form>
 						<Form layout="vertical">
-							<div className="mr-auto">Languages</div>
+							<div className="font-medium text-lightBlue-1">Languages</div>
 							<div className="flex mr-auto">
 								<Language
 									end={end}
@@ -320,17 +328,23 @@ export const Profile = React.forwardRef(function Profile({
 								/>
 							</div>
 							<div className="mt-5">
-								<TextArea
-									rows={12}
-									placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
-									maxLength={6}
-								/>
+								<Form.Item
+									label="About me"
+									name="about"
+									className={`{${_classes["font-size-custom"]}}`}
+								>
+									<TextArea
+										rows={10}
+										placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
+										maxLength={6}
+									/>
+								</Form.Item>
 							</div>
 
 							<InputWithLi disable={false} />
-							<div>Availability</div>
-							<MultiRangeDatePicker />
-							<div className="my-6">
+
+							<MultiRangeDatePicker disable={false} />
+							<div className={`my-6 ${_classes["professional"]}`}>
 								<h5>Professional Background</h5>
 								<div className="border-b border-gray-4 my-3">
 									<Form.Item
@@ -403,7 +417,7 @@ export const Profile = React.forwardRef(function Profile({
 								</div>
 							</div>
 
-							<div className="my-6">
+							<div className={`my-6 ${_classes["educational"]}`}>
 								<h6>Educational Background</h6>
 								<div className="border-b border-gray-4 my-3">
 									<Form.Item
