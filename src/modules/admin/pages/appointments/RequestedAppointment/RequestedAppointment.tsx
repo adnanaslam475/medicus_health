@@ -8,7 +8,6 @@ import {
 import { Button, Empty, Select } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import Link from "next/link";
-import Router from "next/router";
 
 function RequestedAppointment() {
   const [dueDates, setDueDates] = useState<Date | null>();
@@ -56,7 +55,6 @@ function RequestedAppointment() {
             <Button
               type="primary"
               className="text-sm"
-              onClick={() => Router.push("/patient/calendar")}
             >
               <span className="text-xs sm:text-base">
                 Request an Appointment

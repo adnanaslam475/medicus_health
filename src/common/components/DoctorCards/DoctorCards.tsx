@@ -9,11 +9,11 @@ import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorCard.module.scss";
 import { date } from "../../utils";
 import { LeftOutlined } from "@ant-design/icons";
-import AppointmentBookingStepOne from "../Appointments/booking/AppointmentBookingStepOne";
-import AppointmentBookingStepTwo from "../Appointments/booking/AppointmentBookingStepTwo";
-import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
-import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
-import SuccessMessage from "../Appointments/booking/SuccessMessage";
+// import AppointmentBookingStepOne from "../Appointments/booking/AppointmentBookingStepOne";
+// import AppointmentBookingStepTwo from "../Appointments/booking/AppointmentBookingStepTwo";
+// import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
+// import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
+// import SuccessMessage from "../Appointments/booking/SuccessMessage";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,

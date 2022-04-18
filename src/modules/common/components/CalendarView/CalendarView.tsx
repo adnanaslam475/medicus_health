@@ -122,7 +122,7 @@ function AdminAimsCalender(props: Props) {
             custom1: {
               text: "Request an Appointment",
               click: function () {
-                alert("clicked custom button 1!");
+              
               },
             },
             listview: {
