@@ -24,7 +24,7 @@ function CalendarModalComponent(props: Props) {
   const { modalVisible, closeModal, data, okText } = props;
   const { id, doctor, patient, serviceType, date } = data;
   return (
-    <Modal title="" centered visible={modalVisible} onCancel={closeModal}>
+    <Modal title="" centered visible={modalVisible} onCancel={closeModal} footer={null}>
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">ID</p>
         <h4 className="text-base">{id}</h4>
