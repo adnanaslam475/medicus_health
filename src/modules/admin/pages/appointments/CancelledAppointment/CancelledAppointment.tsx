@@ -9,7 +9,7 @@ import {
 } from "../../../../../generated/graphql";
 
 function CancelledAppointment() {
-  const [dataList, setDataList] = useState<undefined | Appointment[]>([]);
+  const [dueDates, setDueDates] = useState<Date | null>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
@@ -22,6 +22,7 @@ function CancelledAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
+        // dueDate: dueDates,
       },
     },
   });
@@ -45,7 +46,7 @@ function CancelledAppointment() {
         <div className="w-5/6">
           <SearchFilters
             appointments={appointments}
-            setDataList={setDataList}
+            setDueDates={setDueDates}
             setDataListPhysician={setDataListPhysician}
             setDoctorId={setDoctorId}
             setAppointmentIds={setAppointmentIds}
@@ -54,7 +55,7 @@ function CancelledAppointment() {
         </div>
 
         <div className="w-full">
-          <div className="appointment-cards flex flex-wrap">
+          {appointments?.length !== 0 && appointments ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {appointments?.map((appointmentDetail, i) => {
                 const {
@@ -67,7 +68,7 @@ function CancelledAppointment() {
                   serviceType,
                   doctor,
                 } = appointmentDetail || {};
-                return appointments.length !== 0 ? (
+                return (
                   <AppointmentCard
                     id={id}
                     patientId={patientId}
@@ -78,10 +79,14 @@ function CancelledAppointment() {
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
                   />
-                ) : <Empty />;
+                );
               })}
             </div>
-          </div>
+          ) : (
+            <div className="flex items-center justify-center w-full">
+              <Empty />
+            </div>
+          )}
         </div>
       </div>
     </AppLayout>

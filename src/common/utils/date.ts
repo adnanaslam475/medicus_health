@@ -13,7 +13,7 @@ export function convertStringDateToUTC(date: string) {
 }
 
 export function formatMMMMDDYYYY(date: string) {
-  return dayjs.utc(date).format("MMMM, M, YYYY");
+  return dayjs.utc(date).format("MMMM, D, YYYY");
 }
 
 export function formathhmma(date: string) {
