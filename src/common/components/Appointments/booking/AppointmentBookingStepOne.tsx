@@ -20,6 +20,10 @@ export const AppointmentBookingStepOne = React.forwardRef(
   function AppointmentBookingStepOne(props: Props, ref: any) {
     const [formInstance] = Form.useForm();
     const [data] = useGetAllAppointmentServiceTypesQuery();
+    const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
+    const { physicianData, onFinish } = props || {};
+    const { first_name, last_name } = physicianData?.user || {};
+    const [serviceInfo, setServiceInfo] = useState<any>();
 
     useEffect(() => {
       if (ref) {
@@ -27,27 +31,38 @@ export const AppointmentBookingStepOne = React.forwardRef(
       }
     }, []);
 
-    const { saveStepOne } = useBookAppointment();
-    const { physicianData, onFinish } = props || {};
-    const { first_name, last_name } = physicianData?.user || {};
-    const [serviceInfo, setServiceInfo] = useState<any>();
+    useEffect(() => {
+      if (appoinmentDetails) {
+        prepareAndSetEditPayload();
+      }
+    }, [appoinmentDetails]);
+
+    function prepareAndSetEditPayload() {
+      formInstance.setFieldsValue({
+        physicianName: appoinmentDetails?.stepOne?.physicianName,
+        service: appoinmentDetails?.stepOne?.service,
+        // charges: appoinmentDetails?.stepOne?.serviceInfo?.price,
+        requestedDate: appoinmentDetails?.stepOne?.requestedDate,
+      });
+    }
 
     function handleServiceChange(event: any) {
       let charge = allAppoinments?.find(
         (serviceType) => serviceType.id === event
       );
       setServiceInfo(charge);
-      console.log("serviceInfo", charge);
     }
 
     function disabledDate(current: any) {
-      if (serviceInfo?.name === "Consultation" || "consultation") {
-        return current && current < dayjs().add(1, "day");
+      if (
+        serviceInfo?.name === "Consultation" ||
+        serviceInfo?.name === "consultation"
+      ) {
+        return dayjs(current).isBefore(dayjs().add(1, "day"));
+      } else if (serviceInfo?.name === "Second Opinion") {
+        return dayjs(current).isBefore(dayjs().add(4, "day"));
       }
-      else if (serviceInfo?.name === "Second Opinion") {
-        return current && current < dayjs().add(3, "day");
-      }
-      // return current && current > dayjs().startOf("day");
+      return true;
     }
 
     function onFinishLocal(values: any) {

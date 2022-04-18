@@ -4,10 +4,8 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 
 function StepFour() {
   const { data } = useBookAppointment();
-  const { physicianName, requestedDate, serviceInfo } = data?.stepOne;
-  const { price, name } = serviceInfo;
-  console.log("physicianName", physicianName);
-  console.log("price", price);
+  const { physicianName, requestedDate, serviceInfo } = data?.stepOne || {};
+  const { price, name } = serviceInfo || {};
   return (
     <>
       <h2>Summary</h2>
@@ -27,10 +25,8 @@ function StepFour() {
       </div>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
         <label className="block">Requested Date & Time</label>
-        {/* <span>February 4, 2022</span> */}
         <span>{date.formatMMMMDDYYYY(requestedDate)}</span>
         <span className="text-sm"></span>
-        {/* <span className="ml-3">07:45 am - 08:30 am</span> */}
         <span className="ml-3">{date.formathhmma(requestedDate)}</span>
       </div>
       <p className="text-gray">

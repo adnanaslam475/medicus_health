@@ -50,8 +50,6 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
   const { data: appoinmentData } = useBookAppointment();
 
-  console.log("data",appoinmentData)
-
   const [data, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
 
@@ -91,7 +89,6 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const { query } = useRouter();
 
   const fileUpload = async (info: any) => {
-    console.log("info", info);
     const s3 = new ReactS3Client(configS3);
     try {
       if (info) {
@@ -100,25 +97,17 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
         const urls = await Promise.all(
           info.map((file: any) => s3.uploadFile(file.originFileObj as File))
         );
-        console.log("urls", urls);
         allUrl.push(urls?.map((url: any) => url.location));
-        console.log("allUrl", allUrl);
         return allUrl;
       }
     } catch (error) {
-      console.log("error", error);
+      console.log(error);
     }
-    // if (error) {
-    //   notification.error({
-    //     message: error?.graphQLErrors[0]?.message || "Something went wrong",
-    //   });
-    // }
   };
 
   async function onRequestAppointment() {
     try {
       const urls = await fileUpload(appoinmentData?.stepTwo);
-      console.log("fileUpload", urls);
 
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
@@ -133,8 +122,6 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
           ],
         },
       });
-
-      // console.log("res", res);
     } catch (error) {}
   }
 
