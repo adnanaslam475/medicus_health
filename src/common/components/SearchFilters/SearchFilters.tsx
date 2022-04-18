@@ -17,32 +17,29 @@ function handleChange(value: any) {
 
 const { RangePicker } = DatePicker;
 
-function onChange(date: any, dateString: any) {
-  console.log(date, dateString);
-}
-
 type Props = {
   appointments: Appointment | undefined | any;
-  setDataList: any;
   setDataListPhysician: string | any;
   setDoctorId: number | any;
   setAppointmentIds: number | any;
   setServiceIds: number | any;
+  setDueDates: Date | null | any;
 };
 
 function SearchFilters(props: Props) {
   const {
     appointments,
-    setDataList,
     setDataListPhysician,
     setServiceIds,
     setAppointmentIds,
     setDoctorId,
+    setDueDates,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] =
-    useState<string>("Physician");
+    useState<string | null>();
   const [selectedServiceItems, setSelectedServiceItems] =
-    useState<string>("Service");
+    useState<string | null>();
+  const [dateRangeValues, selectDateRangeValues] = useState(null);
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
@@ -60,21 +57,25 @@ function SearchFilters(props: Props) {
     setServiceIds(selectedItem);
   };
 
+  function onChange(date: any, dateString: any) {
+    console.log(date, dateString);
+    selectDateRangeValues(date);
+    setDueDates(date);
+  }
+
   const onClear = () => {
-    setSelectedPhysicianItems("Physician");
-    setSelectedServiceItems("Service");
+    setSelectedPhysicianItems(null);
+    setSelectedServiceItems(null);
+    setDoctorId(undefined);
+    setServiceIds(undefined);
+    selectDateRangeValues(null);
+    setDueDates(null);
   };
 
   return (
     <div className="page-filters flex-none lg:flex items-center mb-5">
       <span className="text-gray-1">Filter</span>
       <div className="flex-none sm:flex sm:mb-3 lg:mb-0">
-        <div className="lg:ml-3 sm:w-full md:w-full lg:w-70">
-          <Input
-            placeholder="Search by ID or physician name"
-            prefix={<SearchOutlined />}
-          />
-        </div>
         <div className="sm:ml-3 mt-3 sm:mt-0">
           <Select
             placeholder="Physician"
@@ -106,7 +107,10 @@ function SearchFilters(props: Props) {
           </Select>
         </div>
         <Space direction="vertical" size={12} className="sm:ml-3 mt-3 sm:mt-0">
-          <RangePicker />
+          <RangePicker
+            value={dateRangeValues}
+            onChange={onChange}
+          />
           {/* <DatePicker onChange={onChange} /> */}
         </Space>
         <Button onClick={onClear} type="text" className="sm:ml-3">

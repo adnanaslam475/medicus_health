@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import {
   DoctorProfile,
   useCreateAppointmentMutation,
+  useDoctorSchedulesQuery,
 } from "../../../generated/graphql";
 import CurrentStepContent from "./CurrentStepContent";
 import _classes from "./BookAppointmentJourney.module.scss";
@@ -16,6 +17,7 @@ import { date } from "../../utils";
 import { useRouter } from "next/router";
 import StepDots from "../StepDots/StepDots";
 import BookAppointmentFooter from "./BookAppointmentFooter";
+import { getUserData } from "../../utils/userData";
 
 type Props = {
   visible?: boolean | undefined;
@@ -35,7 +37,7 @@ function BookAppointmentJourney({
   return (
     <BookAppointmentProvider>
       <BookAppointmentModal
-        visible={true || visible}
+        visible={visible}
         onOk={onOk}
         onCancel={onCancel}
         doctorData={doctorData}
@@ -48,7 +50,16 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const form = useRef<FormInstance>();
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
+
+  //   GET ID FROM URL
+  const { query } = useRouter();
+
   const { data: appoinmentData } = useBookAppointment();
+  console.log("dataaa", appoinmentData);
+
+  // GET USER ID
+  const { user } = getUserData();
+  const id: number = user?.id;
 
   const [data, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
@@ -85,8 +96,6 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   };
 
   const { service: serviceId, requestedDate } = appoinmentData?.stepOne || {};
-  //   GET ID FROM URL
-  const { query } = useRouter();
 
   const fileUpload = async (info: any) => {
     const s3 = new ReactS3Client(configS3);
@@ -111,10 +120,10 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
 
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
-          patientId: 401,
+          patientId: id,
           doctorId: Number(query?.id),
           serviceId: serviceId,
-          scheduleId: 1,
+          scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
           reportUrl: urls,
           questionnair: [
@@ -122,6 +131,9 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
           ],
         },
       });
+      if(res?.data?.createAppointment){
+
+      }
     } catch (error) {}
   }
 

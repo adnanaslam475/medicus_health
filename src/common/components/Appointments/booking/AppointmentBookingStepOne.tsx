@@ -3,10 +3,14 @@ import { Form, Button, Select, DatePicker, Input } from "antd";
 import {
   AppointmentServiceType,
   DoctorProfile,
+  useDoctorSchedulesQuery,
   useGetAllAppointmentServiceTypesQuery,
 } from "../../../../generated/graphql";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import dayjs from "dayjs";
+import { getUserData } from "../../../utils/userData";
+import { useRouter } from "next/router";
+import { date } from "../../../utils";
 
 const { Option } = Select;
 
@@ -24,6 +28,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const { physicianData, onFinish } = props || {};
     const { first_name, last_name } = physicianData?.user || {};
     const [serviceInfo, setServiceInfo] = useState<any>();
+
+    //   GET ID FROM URL
+    const { query } = useRouter();
+
+    const [{ data: scheduleDetails }] = useDoctorSchedulesQuery({
+      variables: { doctorId: Number(query?.id) },
+    });
 
     useEffect(() => {
       if (ref) {
@@ -66,7 +77,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }
 
     function onFinishLocal(values: any) {
-      console.log("onFinishLocal called", values);
       saveStepOne?.({ ...values, serviceInfo });
     }
 
@@ -126,14 +136,17 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 07:00 am - 09:00 am
               </div>
             </div>
+            <Form.Item label="Availability*" name="availability">
+              <Select placeholder="Availability" className="w-full">
+                {scheduleDetails?.doctorSchedules?.map((item: any) => (
+                  <Option key={item?.id} value={item?.id}>
+                    {`${date.time24HrConvert(item?.startTime)} -
+                  ${date.time24HrConvert(item?.endTime)}`}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
           </Form.Item>
-          {/* <Form.Item>
-            <div className="flex items-center justify-end">
-              <Button type="primary" htmlType="submit">
-                Save
-              </Button>
-            </div>
-          </Form.Item> */}
         </Form>
       </>
     );

@@ -7,9 +7,10 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import _Classes from "./CalendarView.module.scss";
-import { Select } from "antd";
+import { Button, Select } from "antd";
 import { useDoctorProfilesQuery } from "../../../../generated/graphql";
 import Router from "next/router";
+import { CloseOutlined } from "@ant-design/icons";
 
 type Props = {
   handleDateChange: (arg: any | undefined) => void;
@@ -29,7 +30,7 @@ function AdminAimsCalender(props: Props) {
   } = props;
   const events = [{ title: "today's event", date: new Date() }];
   const [isSearch, setIsSearch] = useState<boolean>(false);
-  const [selectedItems, setSelectedItems] = useState<string>("Search by Physician Name");
+  const [selectedItems, setSelectedItems] = useState<string | null>(null);
 
   const [{ data }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
@@ -40,19 +41,23 @@ function AdminAimsCalender(props: Props) {
 
   const handleChange = (selectedItems: any) => {
     setSelectedItems(selectedItems);
-    setDoctorId(selectedItems)
+    setDoctorId(selectedItems);
+  };
+
+  const onClear = () => {
+    setSelectedItems(null);
+    setDoctorId(undefined)
   };
 
   return (
     <div>
       <div className={`${_Classes["calendarview"]}`}>
         {isSearch ? (
-          <div className="my-2">
-            {/* <SearchFilters /> */}
-            <div className="lg:ml-3 mt-3 sm:mt-0">
+          <div className="my-2 flex flex-row">
+            <div className="lg:ml-3 mt-3 sm:mt-0 sm:w-2/5">
               <Select
                 placeholder="Search by Physician Name"
-                className={`${_Classes.placeholderColor} w-full sm:w-2/5`}
+                className={`w-full`}
                 showArrow
                 showSearch
                 value={selectedItems}
@@ -70,6 +75,12 @@ function AdminAimsCalender(props: Props) {
                   </Select.Option>
                 ))}
               </Select>
+            </div>
+            <div>
+              <Button onClick={onClear} type="text" className="sm:ml-3">
+                <CloseOutlined className="text-sm" />
+                <span className="text-gray-1">Clear</span>
+              </Button>
             </div>
           </div>
         ) : null}
@@ -111,13 +122,13 @@ function AdminAimsCalender(props: Props) {
             custom1: {
               text: "Request an Appointment",
               click: function () {
-                alert("clicked custom button 1!");
+              
               },
             },
             listview: {
               text: "List View",
               click: function () {
-               Router.push("/patient/appointments/requested")
+                Router.push("/patient/appointments/requested");
               },
             },
             search: {
