@@ -50,8 +50,6 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
   const { data: appoinmentData } = useBookAppointment();
 
-  console.log("data", appoinmentData);
-
   const [data, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
 
