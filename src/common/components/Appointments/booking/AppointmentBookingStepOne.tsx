@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import { Form, Button, Select, DatePicker } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Button, Select, DatePicker, Input } from "antd";
 import {
   AppointmentServiceType,
   DoctorProfile,
   useGetAllAppointmentServiceTypesQuery,
 } from "../../../../generated/graphql";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
+import dayjs from "dayjs";
 
 const { Option } = Select;
 
@@ -29,11 +30,31 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const { saveStepOne } = useBookAppointment();
     const { physicianData, onFinish } = props || {};
     const { first_name, last_name } = physicianData?.user || {};
+    const [serviceInfo, setServiceInfo] = useState<any>();
+
+    function handleServiceChange(event: any) {
+      let charge = allAppoinments?.find(
+        (serviceType) => serviceType.id === event
+      );
+      setServiceInfo(charge);
+      console.log("serviceInfo", charge);
+    }
+
+    function disabledDate(current: any) {
+      if (serviceInfo?.name === "Consultation" || "consultation") {
+        return current && current < dayjs().add(1, "day");
+      }
+      else if (serviceInfo?.name === "Second Opinion") {
+        return current && current < dayjs().add(3, "day");
+      }
+      // return current && current > dayjs().startOf("day");
+    }
 
     function onFinishLocal(values: any) {
       console.log("onFinishLocal called", values);
-      saveStepOne?.(values);
+      saveStepOne?.({ ...values, serviceInfo });
     }
+
     const allAppoinments = data?.data?.appointmentServiceTypes;
     return (
       <>
@@ -50,9 +71,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
             <div className="w-5/6">
               <Form.Item label="Service*" name="service">
                 <Select
-                  placeholder="Dr. Paul Wallner"
+                  placeholder="Service Type"
                   className="w-full"
-                  // onChange={handleServiceChange}
+                  onChange={(event) => handleServiceChange(event)}
                 >
                   {allAppoinments?.map((item) => (
                     <Option key={item?.id} value={item.id}>
@@ -65,7 +86,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  $59.00
+                  {`$${serviceInfo?.price ? serviceInfo?.price : ""}`}
                 </div>
               </Form.Item>
             </div>
@@ -75,6 +96,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
               className="w-full"
+              disabledDate={disabledDate}
             />
           </Form.Item>
           <Form.Item label="Availability">
@@ -90,13 +112,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
               </div>
             </div>
           </Form.Item>
-          <Form.Item>
+          {/* <Form.Item>
             <div className="flex items-center justify-end">
               <Button type="primary" htmlType="submit">
                 Save
               </Button>
             </div>
-          </Form.Item>
+          </Form.Item> */}
         </Form>
       </>
     );
