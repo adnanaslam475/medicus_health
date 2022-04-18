@@ -30,6 +30,7 @@ import {
   Select,
   DatePicker,
 } from "antd";
+import _classes from "./PhysicianProfile.module.scss";
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
@@ -49,6 +50,7 @@ const { Option } = Select;
 export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
+  setIsEdit,
 }: any) {
   const { Option } = Select;
   const [formInstance] = Form.useForm();
@@ -88,7 +90,10 @@ export const Profile = React.forwardRef(function Profile({
   const onFinish = async (values: any) => {
     try {
       updateDoctorProfile(values);
-    } catch (error) {}
+      setIsEdit(false);
+    } catch (error) {
+      setIsEdit(true);
+    }
   };
 
   const updateDoctorProfile = async (values: any) => {
@@ -148,28 +153,16 @@ export const Profile = React.forwardRef(function Profile({
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  function handleMenuClick(e: object) {
-    console.log("click", e);
-  }
-  const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">Published</Menu.Item>
-      <Menu.Item key="2">UnPublished</Menu.Item>
-    </Menu>
-  );
-
   async function handleChange() {
     const res = await EnableOrDisableDoctor({
       id: Number(doctorId),
     });
-
     if (res?.data?.enableOrDisableDoctor?.status) {
       res?.data?.enableOrDisableDoctor?.status &&
         notification.success({
           message: "Published",
         });
     }
-
     if (!res?.data?.enableOrDisableDoctor?.status) {
       !res?.data?.enableOrDisableDoctor?.status &&
         notification.success({
@@ -179,7 +172,7 @@ export const Profile = React.forwardRef(function Profile({
   }
 
   return (
-    <div className="w-full">
+    <div className={`${_classes["physician-profile"]} w-full`}>
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
         <div className="flex flex-col w-full justify-start items-center py-3">
           <div className="w-full mb-10 flex gap-8">
@@ -213,21 +206,12 @@ export const Profile = React.forwardRef(function Profile({
                 <div className="lg:ml-0 mt-0 sm:mt-0">
                   <Button
                     type="primary"
-                    style={{
-                      background: "#E2F8F7",
-                      borderColor: "#E2F8F7",
-                      color: "#30CEC2",
-                    }}
-                    className="pr-0"
+                    className={`${_classes["calendar-btn-style"]} pr-0`}
                     onClick={handleChange}
                   >
                     {status ? "Published" : "Unpublished"}
                   </Button>
                 </div>
-                <Button type="default" className="px-0 mx-0">
-                  <EditOutlined />
-                  Edit Info
-                </Button>
               </div>
             </div>
           </div>
@@ -331,7 +315,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Hospital/Clinic/Institution",
                     },
                   ]}
@@ -342,7 +326,7 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Role"
                   name="role"
-                  rules={[{ required: true, message: "role" }]}
+                  rules={[{ required: false, message: "role" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -354,7 +338,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Hospital/Clinic/Institution",
                     },
                   ]}
@@ -365,7 +349,7 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Role"
                   name="role"
-                  rules={[{ required: true, message: "role" }]}
+                  rules={[{ required: false, message: "role" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -377,7 +361,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Hospital/Clinic/Institution",
                     },
                   ]}
@@ -388,7 +372,7 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Role"
                   name="role"
-                  rules={[{ required: true, message: "role" }]}
+                  rules={[{ required: false, message: "role" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -404,7 +388,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "University/Institution",
                     },
                   ]}
@@ -417,7 +401,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Degree/Diploma/Certification",
                     },
                   ]}
@@ -432,7 +416,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "University/Institution",
                     },
                   ]}
@@ -445,7 +429,7 @@ export const Profile = React.forwardRef(function Profile({
                   name="institute"
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       message: "Degree/Diploma/Certification",
                     },
                   ]}
@@ -455,18 +439,18 @@ export const Profile = React.forwardRef(function Profile({
                 </Form.Item>
               </div>
             </div>
-            <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
+            {/* <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
               <Form.Item className="">
                 <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-                  {/* <Button htmlType="submit" className="">
-                      Cancel
-                    </Button> */}
-                  {/* <Button type="primary" htmlType="submit" className="">
-                      Save Changes
-                    </Button> */}
+                  <Button htmlType="submit" className="">
+                    Cancel
+                  </Button>
+                  <Button type="primary" htmlType="submit" className="">
+                    Save Changes
+                  </Button>
                 </div>
               </Form.Item>
-            </div>
+            </div> */}
             {/* </Form> */}
           </div>
         </div>
@@ -474,3 +458,6 @@ export const Profile = React.forwardRef(function Profile({
     </div>
   );
 });
+function updateDoctorProfileInput(updateDoctorProfileInput: any, arg1: string) {
+  throw new Error("Function not implemented.");
+}

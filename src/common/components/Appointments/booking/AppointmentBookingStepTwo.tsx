@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Checkbox, Upload, message, Form, Image, Button } from "antd";
 import {
   FilePdfOutlined,
@@ -8,14 +8,16 @@ import {
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import ReactS3Client from "react-aws-s3-typescript";
+import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 
 const { Dragger } = Upload;
 
 function StepTwo() {
+  const { saveStepTwo } = useBookAppointment();
 
   const [fileList, setFileList] = useState([]);
   const props = {
-    accept:".doc, .pdf, image/jpg, image/jpeg,",
+    accept: ".doc, .pdf, image/jpg, image/jpeg,",
     name: "file",
     multiple: true,
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
@@ -31,12 +33,11 @@ function StepTwo() {
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
-      console.log("fileList",fileList)
+      console.log("fileList", fileList);
     },
     onDrop(e: { dataTransfer: { files: any } }) {
       console.log("Dropped files", e.dataTransfer.files);
     },
-
   };
 
   const configS3 = {
@@ -66,10 +67,15 @@ function StepTwo() {
   //   const isJPG = file.type === "image/jpeg";
   //   return isPNG || isJPG || Upload.LIST_IGNORE;
   // };
+
+  function onFinishLocal(values: any) {
+    console.log("onFinishLocal called", values);
+    saveStepTwo?.(fileList);
+  }
   return (
     <>
       <h2>Request an Appointment</h2>
-      <Form layout="vertical">
+      <Form layout="vertical" onFinish={onFinishLocal}>
         <Form.Item label="Medical History*">
           <Dragger {...props}>
             <p className="ant-upload-drag-icon mb-0">
@@ -141,6 +147,14 @@ function StepTwo() {
           If you wish to update the make changes in your current Health
           questionnaire, <a href="#">Click Here.</a>
         </p>
+
+        <Form.Item>
+          <div className="flex items-center justify-end">
+            <Button type="primary" htmlType="submit">
+              Save
+            </Button>
+          </div>
+        </Form.Item>
       </Form>
     </>
   );
