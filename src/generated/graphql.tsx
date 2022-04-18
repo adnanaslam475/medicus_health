@@ -21,6 +21,7 @@ export type Scalars = {
 
 export type Appointment = {
   __typename?: 'Appointment';
+  appointmentSchedule: DoctorSchedule;
   appointmentTimeSlots?: Maybe<Array<AppointmentTimeSlots>>;
   doctor: User;
   doctorId: Scalars['Int'];
@@ -30,10 +31,12 @@ export type Appointment = {
   questionnair: Scalars['JSON'];
   reportUrl?: Maybe<Scalars['JSON']>;
   requestedDate: Scalars['DateTime'];
+  schedule?: Maybe<DoctorSchedule>;
   scheduleId: Scalars['Int'];
   serviceId: Scalars['Int'];
   serviceType?: Maybe<AppointmentServiceType>;
   status?: Maybe<Scalars['String']>;
+  transection?: Maybe<Transection>;
   user?: Maybe<User>;
 };
 
@@ -236,6 +239,7 @@ export type DoctorSchedule = {
   doctorId: Scalars['Float'];
   endTime: Scalars['String'];
   id: Scalars['ID'];
+  schedule?: Maybe<DoctorSchedule>;
   startTime: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   user?: Maybe<User>;
@@ -307,7 +311,6 @@ export type Mutation = {
   removeUser: User;
   setAsDefaultCard: UserCard;
   setDoctorPassword: User;
-  updateAppointment: Appointment;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
   updateUser: User;
@@ -456,11 +459,6 @@ export type MutationSetDoctorPasswordArgs = {
 };
 
 
-export type MutationUpdateAppointmentArgs = {
-  updateAppointmentInput: UpdateAppointmentInput;
-};
-
-
 export type MutationUpdateDoctorProfileArgs = {
   updateDoctorProfileInput: UpdateDoctorProfileInput;
 };
@@ -552,6 +550,8 @@ export type Query = {
   patientHealthHistorys: Array<PatientHealthHistory>;
   state: State;
   states: Array<State>;
+  transection: Transection;
+  transections: Array<Transection>;
   user: User;
   users: Array<User>;
 };
@@ -647,6 +647,11 @@ export type QueryStateArgs = {
 };
 
 
+export type QueryTransectionArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type QueryUserArgs = {
   id: Scalars['Int'];
 };
@@ -668,15 +673,15 @@ export type State = {
   state_name: Scalars['String'];
 };
 
-export type UpdateAppointmentInput = {
-  doctorId?: InputMaybe<Scalars['Int']>;
+export type Transection = {
+  __typename?: 'Transection';
+  amountReceived: Scalars['Int'];
+  appointment?: Maybe<Appointment>;
+  appointmentId: Scalars['Int'];
+  cardId: Scalars['Int'];
   id: Scalars['Int'];
-  patientId?: InputMaybe<Scalars['Int']>;
-  questionnair?: InputMaybe<Scalars['JSON']>;
-  reportUrl?: InputMaybe<Scalars['JSON']>;
-  requestedDate?: InputMaybe<Scalars['DateTime']>;
-  scheduleId?: InputMaybe<Scalars['Int']>;
-  serviceId?: InputMaybe<Scalars['Int']>;
+  status: Scalars['String'];
+  transectionId: Scalars['String'];
 };
 
 export type UpdateDoctorProfileInput = {
@@ -954,6 +959,13 @@ export type GetAllAppointmentServiceTypesQueryVariables = Exact<{ [key: string]:
 
 
 export type GetAllAppointmentServiceTypesQuery = { __typename?: 'Query', appointmentServiceTypes: Array<{ __typename?: 'AppointmentServiceType', id: number, name: string, price: number }> };
+
+export type DoctorSchedulesQueryVariables = Exact<{
+  doctorId: Scalars['Int'];
+}>;
+
+
+export type DoctorSchedulesQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string }> };
 
 
 export const CreateUserDocument = gql`
@@ -1466,6 +1478,21 @@ export const GetAllAppointmentServiceTypesDocument = gql`
 export function useGetAllAppointmentServiceTypesQuery(options?: Omit<Urql.UseQueryArgs<GetAllAppointmentServiceTypesQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAllAppointmentServiceTypesQuery>({ query: GetAllAppointmentServiceTypesDocument, ...options });
 };
+export const DoctorSchedulesDocument = gql`
+    query doctorSchedules($doctorId: Int!) {
+  doctorSchedules(doctorId: $doctorId) {
+    id
+    doctorId
+    day
+    startTime
+    endTime
+  }
+}
+    `;
+
+export function useDoctorSchedulesQuery(options: Omit<Urql.UseQueryArgs<DoctorSchedulesQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorSchedulesQuery>({ query: DoctorSchedulesDocument, ...options });
+};
 import { IntrospectionQuery } from 'graphql';
 export default {
   "__schema": {
@@ -1481,6 +1508,18 @@ export default {
         "kind": "OBJECT",
         "name": "Appointment",
         "fields": [
+          {
+            "name": "appointmentSchedule",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorSchedule",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
           {
             "name": "appointmentTimeSlots",
             "type": {
@@ -1584,6 +1623,15 @@ export default {
             "args": []
           },
           {
+            "name": "schedule",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorSchedule",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "scheduleId",
             "type": {
               "kind": "NON_NULL",
@@ -1619,6 +1667,15 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "transection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Transection",
+              "ofType": null
             },
             "args": []
           },
@@ -2271,6 +2328,15 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "schedule",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorSchedule",
+              "ofType": null
             },
             "args": []
           },
@@ -2998,29 +3064,6 @@ export default {
             "args": [
               {
                 "name": "setPasswordInput",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "updateAppointment",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Appointment",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "updateAppointmentInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -3853,6 +3896,47 @@ export default {
             "args": []
           },
           {
+            "name": "transection",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Transection",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "transections",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Transection",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
             "name": "user",
             "type": {
               "kind": "NON_NULL",
@@ -3924,6 +4008,88 @@ export default {
           },
           {
             "name": "state_name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Transection",
+        "fields": [
+          {
+            "name": "amountReceived",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "appointmentId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "cardId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "status",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "transectionId",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

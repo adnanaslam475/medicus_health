@@ -4,10 +4,8 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 
 function StepFour() {
   const { data } = useBookAppointment();
-  const { physicianName, requestedDate, serviceInfo } = data?.stepOne;
-  const { price, name } = serviceInfo;
-  console.log("physicianName", physicianName);
-  console.log("price", price);
+  const { physicianName, requestedDate, serviceInfo } = data?.stepOne || {};
+  const { price, name } = serviceInfo || {};
   return (
     <>
       <h2>Summary</h2>
