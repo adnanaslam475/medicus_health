@@ -35,7 +35,7 @@ function BookAppointmentJourney({
   return (
     <BookAppointmentProvider>
       <BookAppointmentModal
-        visible={true || visible}
+        visible={visible}
         onOk={onOk}
         onCancel={onCancel}
         doctorData={doctorData}
@@ -50,7 +50,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
   const { data: appoinmentData } = useBookAppointment();
 
-  console.log("data",appoinmentData)
+  console.log("data", appoinmentData);
 
   const [data, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
