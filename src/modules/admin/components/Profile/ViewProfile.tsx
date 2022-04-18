@@ -82,8 +82,8 @@ export const ViewProfile = React.forwardRef(function Profile({
 			lastName: last_name,
 			contact: contact_number,
 			email: email,
-			password: password,
-			confirmPassword: password,
+			password: "",
+			confirmPassword: "",
 		});
 	}
 
@@ -184,7 +184,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 		<div className={`w-full ${_classes["profile"]}`}>
 			<div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
 				<div className="flex flex-col w-full justify-start  py-3">
-					<div className="w-full mb-10 flex gap-8">
+					<div className="w-full mb-10 flex gap-8 items-center">
 						{/* <Upload
 							onChange={fileChange}
 							maxCount={1}
@@ -207,7 +207,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 						{/* </Upload> */}
 
 						<div>
-							<span>{doctorId}</span>
+							{/* <span>{doctorId}</span> */}
 							<h2 className="mb-0">
 								{first_name ? `${first_name} ${last_name}` : ""}
 							</h2>
@@ -295,7 +295,7 @@ export const ViewProfile = React.forwardRef(function Profile({
               </Form.Item> */}
 						</Form>
 						<Form layout="vertical">
-							<div className="mr-auto font-medium text-lightBold-1">Languages</div>
+							<div className="mr-auto font-medium text-lightBold-1 my-2">Languages</div>
 							<div className="flex mr-auto">
 								<Language
 									end={end}

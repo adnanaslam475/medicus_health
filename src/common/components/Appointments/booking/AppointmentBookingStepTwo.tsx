@@ -21,18 +21,18 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
     accept: ".doc, .pdf, image/jpg, image/jpeg,",
     name: "file",
     multiple: true,
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+    // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
       setFileList(info.fileList);
       const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
+      // if (status !== "uploading") {
+      //   console.log(info.file, info.fileList);
+      // }
+      // if (status === "done") {
+      //   message.success(`${info.file.name} file uploaded successfully.`);
+      // } else if (status === "error") {
+      //   message.error(`${info.file.name} file upload failed.`);
+      // }
     },
     onDrop(e: { dataTransfer: { files: any } }) {
       console.log("Dropped files", e.dataTransfer.files);
@@ -89,7 +89,10 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
       <h2>Request an Appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         <Form.Item label="Medical History*">
-          <Dragger {...props}>
+          <Dragger
+            {...props}
+            customRequest={({ onSuccess }) => onSuccess?.({})}
+          >
             <p className="ant-upload-drag-icon mb-0">
               <Image
                 alt=""
@@ -128,7 +131,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
                 </Button>
               </div>
             </Upload> */}
-          <div className="w-full bg-gray-4 border border-gray-3 rounded-lg flex items-center justify-between p-3 mt-3 mr-3 mb-3">
+          {/* <div className="w-full bg-gray-4 border border-gray-3 rounded-lg flex items-center justify-between p-3 mt-3 mr-3 mb-3">
             <span className="flex items-center">
               <FileJpgOutlined />
               <span className="text-sm ml-2">test_reports.pdf</span>
@@ -145,7 +148,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
             <button className="text-xs">
               <CloseOutlined />
             </button>
-          </div>
+          </div> */}
         </Form.Item>
 
         <Form.Item label="General Health Questionnaire*">
@@ -160,13 +163,13 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
           questionnaire, <a href="#">Click Here.</a>
         </p>
 
-        <Form.Item>
+        {/* <Form.Item>
           <div className="flex items-center justify-end">
             <Button type="primary" htmlType="submit">
               Save
             </Button>
           </div>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </>
   );
