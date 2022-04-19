@@ -35,8 +35,8 @@ function AppointmentCalendar() {
 
     setModalData({
       id: data?.id,
-      patient: data?.title,
-      doctor: data?.extendedProps.doctor,
+      patient: data?.extendedProps?.patient,
+      doctor: data?.title,
       serviceType: data?.extendedProps?.serviceType,
       dateValue: data.start,
       className: data?.extendedProps?.extraData?.class_name,
@@ -59,9 +59,9 @@ function AppointmentCalendar() {
       calenderEvents: appointments?.map(
         ({ id, patient, requestedDate, doctor, serviceType }) => ({
           id: id,
-          title: patient.first_name + patient.last_name,
+          title: doctor.first_name,
           start: requestedDate,
-          doctor: doctor.first_name,
+          patient: patient.first_name + " " + patient.last_name,
           serviceType: serviceType?.name,
         })
       ),

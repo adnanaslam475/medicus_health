@@ -8,26 +8,26 @@ import Link from "next/link";
 
 const InfoMessage = () => {
   return (
-      <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-2 rounded text-xs text-nowr">
-        {/* <span className="mr-3 mb-0"><WarningFilled style={{ color: 'white' backgroundColor: 'red' }} /></span> */}
-        <Image
-          alt=""
-          className="warning-small mx-3 shadow-none border-0"
-          height={34}
-          width={34}
-          src="/assets/icon/warning-small.svg"
-        />
-        <span className="ml-3 min-h-max hidden md:block">
-          Please complete the health questionnaire in order to book appointments
-          with our Physicians.
-        </span>
-        <span className="ml-3 min-h-max block md:hidden">Questionnaire</span>
-        <Link href="/">
-          <a className="underline text-primary px-3 whitespace-nowrap">
-            Complete Now
-          </a>
-        </Link>
-      </div>
+    <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-2 rounded text-xs text-nowr">
+      {/* <span className="mr-3 mb-0"><WarningFilled style={{ color: 'white' backgroundColor: 'red' }} /></span> */}
+      <Image
+        alt=""
+        className="warning-small mx-3 shadow-none border-0"
+        height={34}
+        width={34}
+        src="/assets/icon/warning-small.svg"
+      />
+      <span className="ml-3 min-h-max hidden md:block">
+        Please complete the health questionnaire in order to book appointments
+        with our Physicians.
+      </span>
+      <span className="ml-3 min-h-max block md:hidden">Questionnaire</span>
+      <Link href="/">
+        <a className="underline text-primary px-3 whitespace-nowrap">
+          Complete Now
+        </a>
+      </Link>
+    </div>
   );
 };
 
