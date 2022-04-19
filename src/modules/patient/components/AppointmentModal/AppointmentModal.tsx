@@ -1,6 +1,7 @@
 import { Modal } from 'antd'
 import React from 'react'
 import AppointmentReschedule from '../AppointmentReschedule/AppointmentReschedule'
+import AppointmentSuccess from '../AppointmentSuccess/AppointmentSuccess';
 import MakePayment from '../MakePayment/MakePayment';
 import _Classes from './AppointmentModal.module.scss';
 
@@ -17,7 +18,8 @@ function AppointmentModal() {
     className={`${_Classes['modal-header']}`}
   >
     {/* <AppointmentReschedule/> */}
-    {/* <MakePayment/> */}
+    <MakePayment/>
+    {/* <AppointmentSuccess/> */}
     </Modal>
   )
 }
