@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Select, DatePicker, Input } from "antd";
+import { Form, Radio, Button, Select, DatePicker, Input } from "antd";
 import {
   AppointmentServiceType,
   DoctorProfile,
@@ -125,16 +125,12 @@ export const AppointmentBookingStepOne = React.forwardRef(
             />
           </Form.Item>
           <Form.Item label="Availability">
-            <div className="flex flex-wrap">
-              <div className="w-44 bg-gray-4 rounded flex items-center justify-center h-8 w-full mr-3 mb-3">
-                07:00 am - 09:00 am
-              </div>
-              <div className="w-44 bg-cyan text-white rounded flex items-center justify-center h-8 w-full mr-3 mb-3">
-                07:00 am - 09:00 am
-              </div>
-              <div className="w-44 bg-gray-4 rounded flex items-center justify-center h-8 w-full mr-3 mb-3">
-                07:00 am - 09:00 am
-              </div>
+            <div className="flex flex-wrap availability-label">
+              <Radio.Group defaultValue="a">
+              <Radio.Button value="a">07:00 am - 09:00 am</Radio.Button>
+              <Radio.Button value="b">07:00 am - 09:00 am</Radio.Button>
+              <Radio.Button value="c">07:00 am - 09:00 am</Radio.Button>
+              </Radio.Group>
             </div>
             <Form.Item label="Availability*" name="availability">
               <Select placeholder="Availability" className="w-full">
