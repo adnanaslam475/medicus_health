@@ -108,9 +108,9 @@ const PersonalInfo = () => {
   };
 
   const onSave = () => {
-    form?.current?.submit()
-    setIsEdit(false)
-  }
+    form?.current?.submit();
+    setIsEdit(false);
+  };
 
   return (
     <>
@@ -118,7 +118,7 @@ const PersonalInfo = () => {
         <div className="flex justify-between items-center">
           <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
             <Avatar
-              size={50}
+              size={62}
               style={{
                 borderColor: "transparent",
                 borderWidth: 2,
@@ -144,9 +144,7 @@ const PersonalInfo = () => {
                   </Button>
                 </div>
               </Upload>
-            ) : (
-              null
-            )}
+            ) : null}
           </div>
 
           <div className="edit-btn flex justify-end">
