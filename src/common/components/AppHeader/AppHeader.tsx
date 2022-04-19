@@ -124,15 +124,15 @@ const AppHeader = () => {
                   Payment Settings
                 </Menu.Item>
 
-                <Menu.Item>
+                {/* <Menu.Item>
                   <Link
                     href={{ pathname, query }}
                     as={asPath}
                     locale={otherLocales?.[0]}
                   >
-                    {`switch to ${otherLocales?.[0]}`}
+                    {`switch to ${otherLocales?.[I want to use my last filled form0]}`}
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
 
                 <Menu.Item onClick={logout}>
                   <span className="text-red">Logout</span>
