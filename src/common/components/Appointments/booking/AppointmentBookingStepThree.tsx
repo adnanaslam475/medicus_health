@@ -33,7 +33,7 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
     <>
       <h2>Request an Appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
-        <Form.Item>
+        {/* <Form.Item>
           <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
             <Checkbox value="0">
               <span className="text-gray-2">
@@ -41,7 +41,7 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
               </span>
             </Checkbox>
           </div>
-        </Form.Item>
+        </Form.Item> */}
 
         <Divider />
 
