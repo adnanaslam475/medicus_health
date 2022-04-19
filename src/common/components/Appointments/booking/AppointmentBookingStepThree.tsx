@@ -10,8 +10,20 @@ import {
   DatePicker,
 } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
+import { useDoctorProfileQuery, useDoctorQuestionnaireQuery, useGetAllRequestedAppointmentsQuery } from "../../../../generated/graphql";
+import { useRouter } from "next/router";
 
 const StepThree = React.forwardRef(function StepThree({}, ref: any) {
+  const { query } = useRouter();
+
+  const [{data: dataList}] = useDoctorQuestionnaireQuery({
+    variables: {
+      doctorId: Number(query?.id)
+    }
+  });
+  const { doctorQuestionnaire } = dataList || {};
+  console.log(doctorQuestionnaire, "doctorQuestionnaire")
+
   const { saveStepThree, data } = useBookAppointment();
   const [formInstance] = Form.useForm();
 
@@ -27,8 +39,30 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
     formInstance.setFieldsValue({
       ...data.stepThree,
     });
+    prepareAndSetEditPayload();
   }, []);
 
+  function prepareAndSetEditPayload() {
+    formInstance.setFieldsValue({
+      doctorId: doctorQuestionnaire?.doctorId,
+      id: doctorQuestionnaire?.id,
+      // questionnaire: doctorQuestionnaire?.questionnaire,
+    });
+  }
+
+  function parseJson(jsonString:string){
+    let obj = null;
+    try{
+        obj= JSON.parse(jsonString)
+    } catch(error){
+      console.log(error)
+      obj = null
+    }
+    return obj
+  }
+
+
+  console.log(parseJson(doctorQuestionnaire?.questionnaire))
   return (
     <>
       <h2>Request an Appointment</h2>
