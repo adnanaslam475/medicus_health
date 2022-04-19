@@ -7,6 +7,8 @@ import InfoMessage from "../InfoMessage/InfoMessage";
 import Image from "next/image";
 import _classes from "./AppHeader.module.scss";
 import SidebarDrawer from "../../../modules/common/components/SidebarDrawer";
+import { getRole } from "../../utils/userData";
+
 const { Header } = Layout;
 
 const AppHeader = () => {
@@ -38,11 +40,11 @@ const AppHeader = () => {
 
       <Menu.Item className="border-b border-gray-4">Payment Settings</Menu.Item>
 
-      <Menu.Item>
+      {/* <Menu.Item>
         <Link href={{ pathname, query }} as={asPath} locale={otherLocales?.[0]}>
           {`switch to ${otherLocales?.[0]}`}
         </Link>
-      </Menu.Item>
+      </Menu.Item> */}
 
       <Menu.Item onClick={logout}>
         <span className="text-red">Logout</span>
@@ -114,7 +116,7 @@ const AppHeader = () => {
         </span>
         <div className="w-full flex px-0 justify-between items-center">
           <div className="hidden md:block w-full ">
-            <InfoMessage />
+            {getRole() === "User" && <InfoMessage />}
           </div>
           <div className="flex items-center text-right justify-end w-full md:w-1/2">
             <span className="flex mt-3 pr-5">
@@ -167,7 +169,7 @@ const AppHeader = () => {
         </div>
       </Header>
       <div className="bg-white md:hidden p-2 w-full">
-        <InfoMessage />
+        {getRole() === "User" && <InfoMessage />}
       </div>
     </>
   );
