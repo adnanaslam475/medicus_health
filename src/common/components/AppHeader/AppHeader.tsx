@@ -26,9 +26,9 @@ const AppHeader = () => {
     setVisible(!visible);
   };
 
-  const onClick = ({ key }) => {
-    message.info(`Click on item ${key}`);
-  };
+  // const onClick = ({ key }) => {
+  //   message.info(`Click on item ${key}`);
+  // };
   
   const menu = (
     <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
