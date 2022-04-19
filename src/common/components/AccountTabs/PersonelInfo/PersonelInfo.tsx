@@ -126,7 +126,7 @@ const PersonalInfo = () => {
               }}
               src={image ? image : userProfileImage}
             />
-            {isEdit ? (
+            {!isEdit ? (
               <Upload
                 onChange={fileChange}
                 maxCount={1}
@@ -145,17 +145,7 @@ const PersonalInfo = () => {
                 </div>
               </Upload>
             ) : (
-              <div className="relative">
-                <Avatar
-                  size={50}
-                  style={{
-                    borderColor: "transparent",
-                    borderWidth: 2,
-                    lineHeight: "40px",
-                  }}
-                  src={image ? image : userProfileImage}
-                />
-              </div>
+              null
             )}
           </div>
 

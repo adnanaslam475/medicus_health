@@ -12,6 +12,8 @@ import {
 
 const { Option } = Select;
 function UpcomingAppointments() {
+  const [dueStartDate, setStartDate] = useState<Date | null>();
+  const [dueEndDate, setEndDate] = useState<Date | null>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
@@ -46,11 +48,13 @@ function UpcomingAppointments() {
         </div>
         <SearchFilters
           appointments={appointments}
-          setDueDates={setDueDates}
+          // setDueDates={setDueDates}
           setDataListPhysician={setDataListPhysician}
           setDoctorId={setDoctorId}
           setAppointmentIds={setAppointmentIds}
           setServiceIds={setServiceIds}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
         />
         <div className="w-full">
           {appointments?.length !== 0 && appointments ? (

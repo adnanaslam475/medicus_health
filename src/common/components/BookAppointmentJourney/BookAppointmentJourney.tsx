@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import {
   DoctorProfile,
   useCreateAppointmentMutation,
+  useDoctorSchedulesQuery,
 } from "../../../generated/graphql";
 import CurrentStepContent from "./CurrentStepContent";
 import _classes from "./BookAppointmentJourney.module.scss";
@@ -16,6 +17,8 @@ import { date } from "../../utils";
 import { useRouter } from "next/router";
 import StepDots from "../StepDots/StepDots";
 import BookAppointmentFooter from "./BookAppointmentFooter";
+import { getUserData } from "../../utils/userData";
+import SuccessMessage from "../Appointments/booking/SuccessMessage";
 
 type Props = {
   visible?: boolean | undefined;
@@ -48,7 +51,16 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const form = useRef<FormInstance>();
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
+  const [successModal, setSuccessModal] = React.useState<boolean>(false);
+
+  //   GET ID FROM URL
+  const { query } = useRouter();
+
   const { data: appoinmentData } = useBookAppointment();
+
+  // GET USER ID
+  const { user } = getUserData();
+  const id: number = user?.id;
 
   const [data, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
@@ -85,11 +97,8 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   };
 
   const { service: serviceId, requestedDate } = appoinmentData?.stepOne || {};
-  //   GET ID FROM URL
-  const { query } = useRouter();
 
   const fileUpload = async (info: any) => {
-    console.log("info", info);
     const s3 = new ReactS3Client(configS3);
     try {
       if (info) {
@@ -98,41 +107,34 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
         const urls = await Promise.all(
           info.map((file: any) => s3.uploadFile(file.originFileObj as File))
         );
-        console.log("urls", urls);
         allUrl.push(urls?.map((url: any) => url.location));
-        console.log("allUrl", allUrl);
         return allUrl;
       }
     } catch (error) {
-      console.log("error", error);
+      console.log(error);
     }
-    // if (error) {
-    //   notification.error({
-    //     message: error?.graphQLErrors[0]?.message || "Something went wrong",
-    //   });
-    // }
   };
 
   async function onRequestAppointment() {
     try {
       const urls = await fileUpload(appoinmentData?.stepTwo);
-      console.log("fileUpload", urls);
 
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
-          patientId: 401,
+          patientId: id,
           doctorId: Number(query?.id),
           serviceId: serviceId,
-          scheduleId: 1,
+          scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
           reportUrl: urls,
-          questionnair: [
-            '{question:"questionno1",type:"radio",options:["yes","no"],answer:"yes"}',
-          ],
+          // questionnair: JSON.stringify(appoinmentData?.stepThree),
+          questionnair: ['{question:"questionno1",type:"radio",options:["yes","no"],answer:"yes"}',]
         },
       });
 
-      // console.log("res", res);
+      if (res?.data?.createAppointment) {
+        setSuccessModal(true);
+      }
     } catch (error) {}
   }
 
@@ -146,20 +148,26 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
       footer={null}
       className={`${_classes["steps-style"]}`}
     >
-      <StepDots current={currentStepNumber} />
-      <div className="steps-content">
-        <CurrentStepContent
-          stepName={currentStepName}
-          doctorData={doctorData}
-          ref={form}
-        />
-      </div>
-      <BookAppointmentFooter
-        stepName={currentStepName}
-        onNext={() => next(currentStepName)}
-        onPrevious={() => prev(currentStepName)}
-        onRequestAppointment={onRequestAppointment}
-      />
+      {successModal ? (
+        <SuccessMessage />
+      ) : (
+        <>
+          <StepDots current={currentStepNumber} />
+          <div className="steps-content">
+            <CurrentStepContent
+              stepName={currentStepName}
+              doctorData={doctorData}
+              ref={form}
+            />
+          </div>
+          <BookAppointmentFooter
+            stepName={currentStepName}
+            onNext={() => next(currentStepName)}
+            onPrevious={() => prev(currentStepName)}
+            onRequestAppointment={onRequestAppointment}
+          />
+        </>
+      )}
     </Modal>
   );
 }

@@ -3,10 +3,14 @@ import { Form, Button, Select, DatePicker, Input } from "antd";
 import {
   AppointmentServiceType,
   DoctorProfile,
+  useDoctorSchedulesQuery,
   useGetAllAppointmentServiceTypesQuery,
 } from "../../../../generated/graphql";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import dayjs from "dayjs";
+import { getUserData } from "../../../utils/userData";
+import { useRouter } from "next/router";
+import { date } from "../../../utils";
 
 const { Option } = Select;
 
@@ -20,6 +24,17 @@ export const AppointmentBookingStepOne = React.forwardRef(
   function AppointmentBookingStepOne(props: Props, ref: any) {
     const [formInstance] = Form.useForm();
     const [data] = useGetAllAppointmentServiceTypesQuery();
+    const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
+    const { physicianData, onFinish } = props || {};
+    const { first_name, last_name } = physicianData?.user || {};
+    const [serviceInfo, setServiceInfo] = useState<any>();
+
+    //   GET ID FROM URL
+    const { query } = useRouter();
+
+    const [{ data: scheduleDetails }] = useDoctorSchedulesQuery({
+      variables: { doctorId: Number(query?.id) },
+    });
 
     useEffect(() => {
       if (ref) {
@@ -27,30 +42,41 @@ export const AppointmentBookingStepOne = React.forwardRef(
       }
     }, []);
 
-    const { saveStepOne } = useBookAppointment();
-    const { physicianData, onFinish } = props || {};
-    const { first_name, last_name } = physicianData?.user || {};
-    const [serviceInfo, setServiceInfo] = useState<any>();
+    useEffect(() => {
+      if (appoinmentDetails) {
+        prepareAndSetEditPayload();
+      }
+    }, [appoinmentDetails]);
+
+    function prepareAndSetEditPayload() {
+      formInstance.setFieldsValue({
+        physicianName: appoinmentDetails?.stepOne?.physicianName,
+        service: appoinmentDetails?.stepOne?.service,
+        // charges: appoinmentDetails?.stepOne?.serviceInfo?.price,
+        requestedDate: appoinmentDetails?.stepOne?.requestedDate,
+      });
+    }
 
     function handleServiceChange(event: any) {
       let charge = allAppoinments?.find(
         (serviceType) => serviceType.id === event
       );
       setServiceInfo(charge);
-      console.log("serviceInfo", charge);
     }
 
     function disabledDate(current: any) {
-      if (serviceInfo?.name === "Consultation" || "consultation") {
-        return current && current < dayjs().add(1, "day");
+      if (
+        serviceInfo?.name === "Consultation" ||
+        serviceInfo?.name === "consultation"
+      ) {
+        return dayjs(current).isBefore(dayjs().add(1, "day"));
       } else if (serviceInfo?.name === "Second Opinion") {
-        return current && current < dayjs().add(3, "day");
+        return dayjs(current).isBefore(dayjs().add(4, "day"));
       }
-      // return current && current > dayjs().startOf("day");
+      return true;
     }
 
     function onFinishLocal(values: any) {
-      console.log("onFinishLocal called", values);
       saveStepOne?.({ ...values, serviceInfo });
     }
 
@@ -110,6 +136,16 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 07:00 am - 09:00 am
               </div>
             </div>
+            <Form.Item label="Availability*" name="availability">
+              <Select placeholder="Availability" className="w-full">
+                {scheduleDetails?.doctorSchedules?.map((item: any) => (
+                  <Option key={item?.id} value={item?.id}>
+                    {`${date.time24HrConvert(item?.startTime)} -
+                  ${date.time24HrConvert(item?.endTime)}`}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
           </Form.Item>
         </Form>
       </>

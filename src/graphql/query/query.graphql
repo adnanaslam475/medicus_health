@@ -268,3 +268,13 @@ query getAllAppointmentServiceTypes{
     price
   }
 }
+
+#GET DOCTOR SCHEDULES
+query doctorSchedules ($doctorId: Int!) {
+    doctorSchedules (doctorId: $doctorId) {
+        id
+        doctorId
+        day
+        startTime
+        endTime
+    }}
