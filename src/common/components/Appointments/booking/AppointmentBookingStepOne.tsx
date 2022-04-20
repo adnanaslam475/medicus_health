@@ -52,8 +52,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
       formInstance.setFieldsValue({
         physicianName: appoinmentDetails?.stepOne?.physicianName,
         service: appoinmentDetails?.stepOne?.service,
-        // charges: appoinmentDetails?.stepOne?.serviceInfo?.price,
+        charges: appoinmentDetails?.stepOne?.serviceInfo?.price,
         requestedDate: appoinmentDetails?.stepOne?.requestedDate,
+        availability: appoinmentDetails?.stepOne?.availability,
       });
     }
 
@@ -109,7 +110,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
               </Form.Item>
             </div>
             <div className="w-1/6 ml-4">
-              <Form.Item label="Charges">
+              <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
                   {`$${serviceInfo?.price ? serviceInfo?.price : ""}`}
                 </div>
@@ -124,24 +125,25 @@ export const AppointmentBookingStepOne = React.forwardRef(
               disabledDate={disabledDate}
             />
           </Form.Item>
-          <Form.Item label="Availability">
+          <Form.Item label="Availability" name="availability">
             <div className="flex flex-wrap availability-label">
-              <Radio.Group defaultValue="a">
-              <Radio.Button value="a">07:00 am - 09:00 am</Radio.Button>
-              <Radio.Button value="b">07:00 am - 09:00 am</Radio.Button>
-              <Radio.Button value="c">07:00 am - 09:00 am</Radio.Button>
-              </Radio.Group>
+              {scheduleDetails?.doctorSchedules &&
+              scheduleDetails?.doctorSchedules.length > 0 ? (
+                <Radio.Group
+                  defaultValue={appoinmentDetails?.stepOne?.availability}
+                >
+                  {scheduleDetails?.doctorSchedules?.map((item: any) => (
+                    <Radio.Button
+                      key={item?.id}
+                      value={item?.id}
+                    >{`${date.time24HrConvert(item?.startTime)} -
+              ${date.time24HrConvert(item?.endTime)}`}</Radio.Button>
+                  ))}
+                </Radio.Group>
+              ) : (
+                "No Time Slots Available"
+              )}
             </div>
-            <Form.Item label="Availability*" name="availability">
-              <Select placeholder="Availability" className="w-full">
-                {scheduleDetails?.doctorSchedules?.map((item: any) => (
-                  <Option key={item?.id} value={item?.id}>
-                    {`${date.time24HrConvert(item?.startTime)} -
-                  ${date.time24HrConvert(item?.endTime)}`}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
           </Form.Item>
         </Form>
       </>
