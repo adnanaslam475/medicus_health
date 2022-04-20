@@ -78,12 +78,13 @@ function AppointmentCard({
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <h3 className="mb-0">Dr. {doctor}</h3>
-      <span className="text-gray text-base block">{serviceType}</span>
-      <span className="text-sm">Date</span>
+      <span className="font-circular text-base text-gray block">{serviceType}</span>
+      <span className="text-sm mt-4 block">Date</span>
       <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
-      <span className="text-sm">Time</span>
-      <h6 className="text-cyan">{date.formathhmma(requestedDate)}</h6>
-      <span className="text-base text-primary font-bold ">{status}</span>
+      <span className="text-sm mt-4 block">Time</span>
+      <h6 className="text-gray-8">{date.formathhmma(requestedDate)}</h6>
+      <span className="text-sm mt-4 block">Status</span>
+      <span className="text-base text-gray-8 ">{status}</span>
     </Card>
   );
 }

@@ -70,9 +70,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
   }
 
   return (
-    <div className="custom-list mt-4">
-      <ul>
-        <div className="border border-gray-5 px-0 rounded custom-list-items">
+      <ul className="custom-list mt-4 border border-gray-5 px-0 rounded custom-list-items">
           <li>
             <div className="flex w-full  border-b border-gray-5 p-4">
               <div className="w-1/2 text-gray-1">First Name</div>
@@ -212,9 +210,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
               <div className="w-1/2">{patientProfile?.pets}</div>
             </div>
           </li>
-        </div>
       </ul>
-    </div>
   );
 }
 export default PersonalInfoList;
