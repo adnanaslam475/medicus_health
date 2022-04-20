@@ -260,7 +260,7 @@ function AdminPhysicianList() {
           </Link>
         </div>
         {/* <SearchFilters /> */}
-        <AdminPhysicianSearchFilters />
+        {/* <AdminPhysicianSearchFilters /> */}
         <div className="w-full">
           <div className="">
             <Table

@@ -21,6 +21,7 @@ export type Scalars = {
 
 export type Appointment = {
   __typename?: 'Appointment';
+  appointmentSchedule: DoctorSchedule;
   appointmentTimeSlots?: Maybe<Array<AppointmentTimeSlots>>;
   doctor: User;
   doctorId: Scalars['Int'];
@@ -30,10 +31,12 @@ export type Appointment = {
   questionnair: Scalars['JSON'];
   reportUrl?: Maybe<Scalars['JSON']>;
   requestedDate: Scalars['DateTime'];
+  schedule?: Maybe<DoctorSchedule>;
   scheduleId: Scalars['Int'];
   serviceId: Scalars['Int'];
   serviceType?: Maybe<AppointmentServiceType>;
   status?: Maybe<Scalars['String']>;
+  transection?: Maybe<Transection>;
   user?: Maybe<User>;
 };
 
@@ -236,6 +239,7 @@ export type DoctorSchedule = {
   doctorId: Scalars['Float'];
   endTime: Scalars['String'];
   id: Scalars['ID'];
+  schedule?: Maybe<DoctorSchedule>;
   startTime: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   user?: Maybe<User>;
@@ -247,6 +251,11 @@ export type DueDate = {
 };
 
 export type EducationalBackground = {
+  degree: Scalars['String'];
+  institution: Scalars['String'];
+};
+
+export type EducationalBackgroundUpdate = {
   degree: Scalars['String'];
   institution: Scalars['String'];
 };
@@ -300,10 +309,8 @@ export type Mutation = {
   removeDoctorSchedule: DoctorSchedule;
   removePatientHealthHistory: PatientHealthHistory;
   removeUser: User;
-  setAsDefaultAccount: DoctorBillingMethod;
   setAsDefaultCard: UserCard;
   setDoctorPassword: User;
-  updateAppointment: Appointment;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
   updateUser: User;
@@ -442,11 +449,6 @@ export type MutationRemoveUserArgs = {
 };
 
 
-export type MutationSetAsDefaultAccountArgs = {
-  id: Scalars['Int'];
-};
-
-
 export type MutationSetAsDefaultCardArgs = {
   id: Scalars['Int'];
 };
@@ -454,11 +456,6 @@ export type MutationSetAsDefaultCardArgs = {
 
 export type MutationSetDoctorPasswordArgs = {
   setPasswordInput: ResetPasswordInput;
-};
-
-
-export type MutationUpdateAppointmentArgs = {
-  updateAppointmentInput: UpdateAppointmentInput;
 };
 
 
@@ -510,6 +507,11 @@ export type ProfessionalExperience = {
   role: Scalars['String'];
 };
 
+export type ProfessionalExperience2 = {
+  institution: Scalars['String'];
+  role: Scalars['String'];
+};
+
 export type ProposeNewTimeInput = {
   charges: Scalars['Int'];
   id: Scalars['Int'];
@@ -548,6 +550,8 @@ export type Query = {
   patientHealthHistorys: Array<PatientHealthHistory>;
   state: State;
   states: Array<State>;
+  transection: Transection;
+  transections: Array<Transection>;
   user: User;
   users: Array<User>;
 };
@@ -643,6 +647,11 @@ export type QueryStateArgs = {
 };
 
 
+export type QueryTransectionArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type QueryUserArgs = {
   id: Scalars['Int'];
 };
@@ -664,28 +673,28 @@ export type State = {
   state_name: Scalars['String'];
 };
 
-export type UpdateAppointmentInput = {
-  doctorId?: InputMaybe<Scalars['Int']>;
+export type Transection = {
+  __typename?: 'Transection';
+  amountReceived: Scalars['Int'];
+  appointment?: Maybe<Appointment>;
+  appointmentId: Scalars['Int'];
+  cardId: Scalars['Int'];
   id: Scalars['Int'];
-  patientId?: InputMaybe<Scalars['Int']>;
-  questionnair?: InputMaybe<Scalars['JSON']>;
-  reportUrl?: InputMaybe<Scalars['JSON']>;
-  requestedDate?: InputMaybe<Scalars['DateTime']>;
-  scheduleId?: InputMaybe<Scalars['Int']>;
-  serviceId?: InputMaybe<Scalars['Int']>;
+  status: Scalars['String'];
+  transectionId: Scalars['String'];
 };
 
 export type UpdateDoctorProfileInput = {
   about_me?: InputMaybe<Scalars['String']>;
   condition_treated?: InputMaybe<Scalars['String']>;
-  doctor_id?: InputMaybe<Scalars['Float']>;
-  educational_background?: InputMaybe<Array<EducationalBackground>>;
+  doctor_id: Scalars['Float'];
+  educational_background?: InputMaybe<Array<EducationalBackgroundUpdate>>;
   email: Scalars['String'];
   first_name: Scalars['String'];
   language?: InputMaybe<Scalars['String']>;
   last_name: Scalars['String'];
   password?: InputMaybe<Scalars['String']>;
-  professional_experience?: InputMaybe<Array<ProfessionalExperience>>;
+  professional_experience?: InputMaybe<Array<ProfessionalExperience2>>;
   profile_image?: InputMaybe<Scalars['String']>;
   specialization?: InputMaybe<Scalars['String']>;
   year_of_experience?: InputMaybe<Scalars['Float']>;
@@ -857,7 +866,7 @@ export type UpdateDoctorProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, contact_number: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null } | null } };
+export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null } | null } };
 
 export type EnableOrDisableDoctorMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -865,6 +874,13 @@ export type EnableOrDisableDoctorMutationVariables = Exact<{
 
 
 export type EnableOrDisableDoctorMutation = { __typename?: 'Mutation', enableOrDisableDoctor: { __typename?: 'User', id: number, status: boolean } };
+
+export type CreateAppointmentMutationVariables = Exact<{
+  createAppointment: CreateAppointmentInput;
+}>;
+
+
+export type CreateAppointmentMutation = { __typename?: 'Mutation', createAppointment: { __typename?: 'Appointment', patientId: number, doctorId: number, serviceId: number, requestedDate: any, scheduleId: number, reportUrl?: any | null } };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -938,6 +954,18 @@ export type DoctorProfileDetailsQueryVariables = Exact<{
 
 
 export type DoctorProfileDetailsQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', day: number, startTime: string, endTime: string }> | null } };
+
+export type GetAllAppointmentServiceTypesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllAppointmentServiceTypesQuery = { __typename?: 'Query', appointmentServiceTypes: Array<{ __typename?: 'AppointmentServiceType', id: number, name: string, price: number }> };
+
+export type DoctorSchedulesQueryVariables = Exact<{
+  doctorId: Scalars['Int'];
+}>;
+
+
+export type DoctorSchedulesQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string }> };
 
 
 export const CreateUserDocument = gql`
@@ -1145,7 +1173,6 @@ export const UpdateDoctorProfileDocument = gql`
       last_name
       email
       gender
-      contact_number
       streetAddress
       country_id
       state_id
@@ -1173,6 +1200,22 @@ export const EnableOrDisableDoctorDocument = gql`
 
 export function useEnableOrDisableDoctorMutation() {
   return Urql.useMutation<EnableOrDisableDoctorMutation, EnableOrDisableDoctorMutationVariables>(EnableOrDisableDoctorDocument);
+};
+export const CreateAppointmentDocument = gql`
+    mutation createAppointment($createAppointment: CreateAppointmentInput!) {
+  createAppointment(createAppointmentInput: $createAppointment) {
+    patientId
+    doctorId
+    serviceId
+    requestedDate
+    scheduleId
+    reportUrl
+  }
+}
+    `;
+
+export function useCreateAppointmentMutation() {
+  return Urql.useMutation<CreateAppointmentMutation, CreateAppointmentMutationVariables>(CreateAppointmentDocument);
 };
 export const CountriesDocument = gql`
     query countries {
@@ -1422,6 +1465,34 @@ export const DoctorProfileDetailsDocument = gql`
 export function useDoctorProfileDetailsQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileDetailsQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorProfileDetailsQuery>({ query: DoctorProfileDetailsDocument, ...options });
 };
+export const GetAllAppointmentServiceTypesDocument = gql`
+    query getAllAppointmentServiceTypes {
+  appointmentServiceTypes {
+    id
+    name
+    price
+  }
+}
+    `;
+
+export function useGetAllAppointmentServiceTypesQuery(options?: Omit<Urql.UseQueryArgs<GetAllAppointmentServiceTypesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllAppointmentServiceTypesQuery>({ query: GetAllAppointmentServiceTypesDocument, ...options });
+};
+export const DoctorSchedulesDocument = gql`
+    query doctorSchedules($doctorId: Int!) {
+  doctorSchedules(doctorId: $doctorId) {
+    id
+    doctorId
+    day
+    startTime
+    endTime
+  }
+}
+    `;
+
+export function useDoctorSchedulesQuery(options: Omit<Urql.UseQueryArgs<DoctorSchedulesQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorSchedulesQuery>({ query: DoctorSchedulesDocument, ...options });
+};
 import { IntrospectionQuery } from 'graphql';
 export default {
   "__schema": {
@@ -1437,6 +1508,18 @@ export default {
         "kind": "OBJECT",
         "name": "Appointment",
         "fields": [
+          {
+            "name": "appointmentSchedule",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorSchedule",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
           {
             "name": "appointmentTimeSlots",
             "type": {
@@ -1540,6 +1623,15 @@ export default {
             "args": []
           },
           {
+            "name": "schedule",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorSchedule",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "scheduleId",
             "type": {
               "kind": "NON_NULL",
@@ -1575,6 +1667,15 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "transection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Transection",
+              "ofType": null
             },
             "args": []
           },
@@ -2227,6 +2328,15 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "schedule",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorSchedule",
+              "ofType": null
             },
             "args": []
           },
@@ -2919,29 +3029,6 @@ export default {
             ]
           },
           {
-            "name": "setAsDefaultAccount",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "DoctorBillingMethod",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "id",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
             "name": "setAsDefaultCard",
             "type": {
               "kind": "NON_NULL",
@@ -2977,29 +3064,6 @@ export default {
             "args": [
               {
                 "name": "setPasswordInput",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "updateAppointment",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Appointment",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "updateAppointmentInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -3832,6 +3896,47 @@ export default {
             "args": []
           },
           {
+            "name": "transection",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Transection",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "transections",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Transection",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
             "name": "user",
             "type": {
               "kind": "NON_NULL",
@@ -3903,6 +4008,88 @@ export default {
           },
           {
             "name": "state_name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Transection",
+        "fields": [
+          {
+            "name": "amountReceived",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "appointmentId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "cardId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "status",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "transectionId",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

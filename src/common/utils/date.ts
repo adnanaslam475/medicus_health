@@ -13,12 +13,17 @@ export function convertStringDateToUTC(date: string) {
 }
 
 export function formatMMMMDDYYYY(date: string) {
-  return dayjs.utc(date).format("MMMM, M, YYYY");
+  return dayjs.utc(date).format("MMMM, D, YYYY");
 }
 
 export function formathhmma(date: string) {
   return dayjs.utc(date).format("hh:mm a");
 }
+
+export const getDateInFormat = (getDate: string | number | Date | dayjs.Dayjs | null | undefined) => {
+  const getDateUseingDayjs = dayjs(getDate);
+  return getDate && getDateUseingDayjs.isValid() ? getDateUseingDayjs.format("MM-DD-YYYY") : "";
+};
 
 export function time24HrConvert(time: any) {
   // Check correct time format and split into components

@@ -4,6 +4,6 @@ function physiciansDetail() {
   return <PhysiciansDetail />;
 }
 
-physiciansDetail.getInitialProps = async () => ({});
+// physiciansDetail.getInitialProps = async () => ({});
 
 export default physiciansDetail;

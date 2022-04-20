@@ -259,3 +259,22 @@ query doctorProfileDetails($input: Int!) {
     }
   }
 }
+
+#GET APPOINMENT SERVICE TYPES
+query getAllAppointmentServiceTypes{
+  appointmentServiceTypes{
+    id
+    name
+    price
+  }
+}
+
+#GET DOCTOR SCHEDULES
+query doctorSchedules ($doctorId: Int!) {
+    doctorSchedules (doctorId: $doctorId) {
+        id
+        doctorId
+        day
+        startTime
+        endTime
+    }}

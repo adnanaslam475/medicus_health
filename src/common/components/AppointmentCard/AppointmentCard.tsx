@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Router, { useRouter } from "next/router";
 import { Card, Button } from "antd";
 import { VideoCameraFilled } from "@ant-design/icons";
@@ -63,6 +63,8 @@ type props = {
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
+  setShowModal: (data:boolean)=>void;
+  // visible:(a:boolean)=>void
 };
 
 function AppointmentCard({
@@ -74,33 +76,19 @@ function AppointmentCard({
   status,
   serviceType,
   doctor,
+  setShowModal,
+  // visible,
 }: props) {
   return (
     <Card className={`${_classes["appointment-card"]}`}>
-      <h6 className="mb-0">{id}</h6>
       <h3 className="mb-0">Dr. {doctor}</h3>
-      <h5 className="text-gray">{serviceType}</h5>
+      <span className="text-gray text-base block">{serviceType}</span>
       <span className="text-sm">Date</span>
       <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
       <span className="text-sm">Time</span>
       <h6 className="text-cyan">{date.formathhmma(requestedDate)}</h6>
-      <span className="text-sm">{status}</span>
-      {/* <h6 className={color}>{lable}</h6> */}
-      <div className="flex">
-        <Button
-          // type={button.type}
-          icon={<VideoCameraFilled />}
-          className={`${_classes["card-btn"]} mr-3`}
-        >
-          Join Now
-        </Button>
-        <Button
-          className={`${_classes["card-btn"]} bg-transparent`}
-          onClick={() => Router.push("/patient/appointments/details")}
-        >
-          Details
-        </Button>
-      </div>
+      <span className="text-base text-primary font-bold block ">{status}</span>
+      <Button type="primary" className={`${_classes["card-btn"]} my-3 mb-1`} onClick={()=>setShowModal(true)}>View Suggested Slots</Button>
     </Card>
   );
 }

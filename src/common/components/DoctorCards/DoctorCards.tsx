@@ -9,41 +9,16 @@ import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorCard.module.scss";
 import { date } from "../../utils";
 import { LeftOutlined } from "@ant-design/icons";
-import AppointmentBookingStepOne from "../Appointments/booking/AppointmentBookingStepOne";
-import AppointmentBookingStepTwo from "../Appointments/booking/AppointmentBookingStepTwo";
-import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
-import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
-import SuccessMessage from "../Appointments/booking/SuccessMessage";
+// import AppointmentBookingStepOne from "../Appointments/booking/AppointmentBookingStepOne";
+// import AppointmentBookingStepTwo from "../Appointments/booking/AppointmentBookingStepTwo";
+// import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
+// import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
+// import SuccessMessage from "../Appointments/booking/SuccessMessage";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
   ["Spanish" as string]: espanolFlag,
 };
-
-const { Step } = Steps;
-
-const steps = [
-  {
-    title: "",
-    content: <AppointmentBookingStepOne />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepTwo />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepThree />,
-  },
-  {
-    title: "",
-    content: <AppointmentBookingStepFour />,
-  },
-  {
-    title: "",
-    content: <SuccessMessage />,
-  },
-];
 
 type props = {
   id: number;
@@ -91,46 +66,7 @@ function DoctorCard({
 
   return (
     <>
-      <Modal
-        title="Request an Appointment"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        className={`${_classes["steps-style"]}`}
-      >
-        <Steps current={current}>
-          {steps.map((item) => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
-        <div className="steps-content">{steps[current].content}</div>
-        <div className="steps-action">
-          {current > 0 && current < steps.length - 1 && (
-            <Button type="link" onClick={() => prev()}>
-              <LeftOutlined /> <span>Back</span>
-            </Button>
-          )}
-          {current < steps.length - 2 && (
-            <Button
-              type="primary"
-              className={`${_classes["btn-next"]}`}
-              onClick={() => next()}
-            >
-              Next
-            </Button>
-          )}
-          {current === steps.length - 2 && (
-            <Button
-              type="primary"
-              className={`${_classes["btn-next"]}`}
-              onClick={() => next()}
-            >
-              Request an Appointment
-            </Button>
-          )}
-        </div>
-      </Modal>
+      
       <Card className={`${_classes["doctorCard"]} rounded-xl`}>
         <div className="flex-none lg:flex">
           <div className="lg:w-4/6 flex-none sm:flex">
@@ -179,7 +115,7 @@ function DoctorCard({
               </a>
             </Link>
 
-            <Button type="primary" className="w-full" onClick={showModal}>
+            <Button type="primary" className="w-full">
               <Image
                 src={VideoCameraFilled}
                 alt="espanolFlag"

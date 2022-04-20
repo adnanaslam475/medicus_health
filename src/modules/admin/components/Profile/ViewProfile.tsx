@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import end from "./../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../public/assets/images/espanolFlag.png";
+import _classes from "./PhysicianProfile.module.scss";
 
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
@@ -59,10 +60,8 @@ export const ViewProfile = React.forwardRef(function Profile({
 	const { first_name, last_name, password, email, contact_number, status } =
 		doctorData?.user || {};
 
-	console.log("status", status);
-
-	//GET USER PROFILE IMAGE FROM useGetUserQuery
-	const { profile_image: userProfileImage } = doctorData || {};
+  //GET USER PROFILE IMAGE FROM useGetUserQuery
+  const { profile_image: userProfileImage } = doctorData || {};
 
 	const [result, updateDoctor] = useUpdateDoctorProfileMutation();
 	const { error } = result || {};
@@ -83,8 +82,8 @@ export const ViewProfile = React.forwardRef(function Profile({
 			lastName: last_name,
 			contact: contact_number,
 			email: email,
-			password: password,
-			confirmPassword: password,
+			password: "",
+			confirmPassword: "",
 		});
 	}
 
@@ -151,21 +150,15 @@ export const ViewProfile = React.forwardRef(function Profile({
 		return isPNG || isJPG || Upload.LIST_IGNORE;
 	};
 
-	function handleMenuClick(e: object) {
-		console.log("click", e);
-	}
-	const menu = (
-		<Menu onClick={handleMenuClick}>
-			<Menu.Item key="1">Published</Menu.Item>
-			<Menu.Item key="2">UnPublished</Menu.Item>
-		</Menu>
-	);
-	// async function handleChange(value: string) {
-	// 	console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
-
-	// 	const res = await EnableOrDisableDoctor({
-	// 		id: Number(doctorId),
-	// 	});
+  function handleMenuClick(e: object) {
+    console.log("click", e);
+  }
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="1">Published</Menu.Item>
+      <Menu.Item key="2">UnPublished</Menu.Item>
+    </Menu>
+  );
 
 	async function handleChange() {
 		const res = await EnableOrDisableDoctor({
@@ -182,26 +175,27 @@ export const ViewProfile = React.forwardRef(function Profile({
 		if (!res?.data?.enableOrDisableDoctor?.status) {
 			!res?.data?.enableOrDisableDoctor?.status &&
 				notification.success({
-					message: "UnPublished",
+					message: "Unpublished",
 				});
 		}
 	}
 
 	return (
-		<div className="w-full">
-			<div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
-				<div className="flex flex-col w-full justify-start py-3">
-					<div className="w-full mb-10 flex gap-8">
-						<Upload
+		<div className={`w-full ${_classes["profile"]}`}>
+			<div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
+				<div className="flex flex-col w-full justify-start  py-3">
+					<div className="w-full mb-10 flex gap-8 items-center">
+						{/* <Upload
 							onChange={fileChange}
 							maxCount={1}
 							beforeUpload={onBeforeUpload}
 							itemRender={() => <div />}
 							customRequest={() => null}
-						>
+						> */}
 							<div className="relative">
 								<Avatar
-									size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+									// size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+									size={130}
 									style={{
 										borderColor: "transparent",
 										borderWidth: 2,
@@ -210,32 +204,30 @@ export const ViewProfile = React.forwardRef(function Profile({
 									src={userProfileImage}
 								/>
 							</div>
-						</Upload>
+						{/* </Upload> */}
 
 						<div>
-							<span>{doctorId}</span>
+							{/* <span>{doctorId}</span> */}
 							<h2 className="mb-0">
 								{first_name ? `${first_name} ${last_name}` : ""}
 							</h2>
 							<span className="block">{email}</span>
-							<div className=" grid grid-cols-2 gap-4">
-								<div className="lg:ml-0 mt-0 sm:mt-0">
-									<Button
-										type="primary"
-										style={{
-											background: "#E2F8F7",
-											borderColor: "#E2F8F7",
-											color: "#30CEC2",
-										}}
-										className="pr-0"
-										// onClick={handleChange}
-									>
-										{status ? "Published" : "Unpublished"}
-									</Button>
-								</div>
+							<div className="flex gap-2 pt-2">
+								<Button
+									type="primary"
+									style={{
+										background: "#E2F8F7",
+										borderColor: "#E2F8F7",
+										color: "#30CEC2",
+									}}
+									className={`${_classes["published-button"]}`}
+								>
+									{status ? "Published" : "Unpublished"}
+								</Button>
+
 								<Button
 									type="default"
-									className="px-0 mx-0"
+									className={`${_classes["edit-button"]}`}
 									onClick={() => setIsEdit(true)}
 								>
 									<EditOutlined />
@@ -255,17 +247,11 @@ export const ViewProfile = React.forwardRef(function Profile({
 								<Form.Item
 									label="First Name"
 									name="firstName"
-									rules={[{ required: true, message: "First Name!" }]}
 									className="flex-1"
 								>
 									<Input disabled defaultValue="usama" />
 								</Form.Item>
-								<Form.Item
-									label="Last name"
-									name="lastName"
-									rules={[{ required: true, message: "Last Name!" }]}
-									className="flex-1"
-								>
+								<Form.Item label="Last name" name="lastName" className="flex-1">
 									<Input disabled defaultValue="khan" />
 								</Form.Item>
 							</div>
@@ -275,7 +261,6 @@ export const ViewProfile = React.forwardRef(function Profile({
 									name="email"
 									// name={["user", "email"]}
 									label="Email"
-									rules={[{ type: "email" }]}
 									className="flex-1"
 								>
 									<Input disabled defaultValue="usama@gmail.com" />
@@ -283,40 +268,34 @@ export const ViewProfile = React.forwardRef(function Profile({
 								<Form.Item
 									label="Contact Number"
 									name="contact"
-									rules={[{ message: "Contact Number!" }]}
 									className="flex-1"
 								>
 									<Input disabled defaultValue="090078601" />
 								</Form.Item>
 							</div>
 							<div className="flex flex-row gap-3">
-								<Form.Item
-									label="Password"
-									name="password"
-									rules={[{ required: true, message: "Password" }]}
-									className="flex-1"
-								>
+								<Form.Item label="Password" name="password" className="flex-1">
 									<Input.Password disabled />
 								</Form.Item>
 
 								<Form.Item
 									label="Confirm Password"
 									name="confirmPassword"
-									rules={[{ required: true, message: "Confirm password!" }]}
 									className="flex-1"
 								>
 									<Input.Password disabled />
 								</Form.Item>
 							</div>
-							<Form.Item>
-								<div className="flex items-center justify-end">
-									<Button type="primary" htmlType="submit">
-										Save Changes
-									</Button>
-								</div>
-							</Form.Item>
-
-							<div className="mr-auto">Languages</div>
+							{/* <Form.Item>
+                <div className="flex items-center justify-end">
+                  <Button type="primary" htmlType="submit">
+                    Save Changes
+                  </Button>
+                </div>
+              </Form.Item> */}
+						</Form>
+						<Form layout="vertical">
+							<div className="mr-auto font-medium text-lightBold-1 my-2">Languages</div>
 							<div className="flex mr-auto">
 								<Language
 									end={end}
@@ -332,29 +311,28 @@ export const ViewProfile = React.forwardRef(function Profile({
 								/>
 							</div>
 							<div className="mt-5">
+							<Form.Item
+										label="About me"
+										name="about"
+										className="flex-1"
+									>
 								<TextArea
-									rows={12}
+									rows={10}
 									placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
 									maxLength={6}
 									disabled
 								/>
+								</Form.Item>
 							</div>
 
 							<InputWithLi disable={true} />
-							<div>Availability</div>
-							<MultiRangeDatePicker />
-							<div className="my-6">
+							<MultiRangeDatePicker disable={true} />
+							<div className={`my-6 ${_classes["professional"]}`}>
 								<h5>Professional Background</h5>
 								<div className="border-b border-gray-4 my-3">
 									<Form.Item
 										label="Hospital/Clinic/Institution"
 										name="institute"
-										rules={[
-											{
-												required: true,
-												message: "Hospital/Clinic/Institution",
-											},
-										]}
 										className="flex-1"
 									>
 										<Input
@@ -363,12 +341,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 											disabled
 										/>
 									</Form.Item>
-									<Form.Item
-										label="Role"
-										name="role"
-										rules={[{ required: true, message: "role" }]}
-										className="flex-1"
-									>
+									<Form.Item label="Role" name="role" className="flex-1">
 										<Input defaultValue="University" disabled />
 									</Form.Item>
 								</div>
@@ -376,12 +349,6 @@ export const ViewProfile = React.forwardRef(function Profile({
 									<Form.Item
 										label="Hospital/Clinic/Institution"
 										name="institute"
-										rules={[
-											{
-												required: true,
-												message: "Hospital/Clinic/Institution",
-											},
-										]}
 										className="flex-1"
 									>
 										<Input
@@ -390,12 +357,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 											disabled
 										/>
 									</Form.Item>
-									<Form.Item
-										label="Role"
-										name="role"
-										rules={[{ required: true, message: "role" }]}
-										className="flex-1"
-									>
+									<Form.Item label="Role" name="role" className="flex-1">
 										<Input defaultValue="University" disabled />
 									</Form.Item>
 								</div>
@@ -403,12 +365,6 @@ export const ViewProfile = React.forwardRef(function Profile({
 									<Form.Item
 										label="Hospital/Clinic/Institution"
 										name="institute"
-										rules={[
-											{
-												required: true,
-												message: "Hospital/Clinic/Institution",
-											},
-										]}
 										className="flex-1"
 									>
 										<Input
@@ -428,18 +384,12 @@ export const ViewProfile = React.forwardRef(function Profile({
 								</div>
 							</div>
 
-							<div className="my-6">
-								<h6>Educational Background</h6>
+							<div className={`my-6 ${_classes["educational"]}`}>
+								<h6 >Educational Background</h6>
 								<div className="border-b border-gray-4 my-3">
 									<Form.Item
 										label="University/Institution"
 										name="institute"
-										rules={[
-											{
-												required: true,
-												message: "University/Institution",
-											},
-										]}
 										className="flex-1"
 									>
 										<Input
@@ -451,12 +401,6 @@ export const ViewProfile = React.forwardRef(function Profile({
 									<Form.Item
 										label="Degree/Diploma/Certification"
 										name="institute"
-										rules={[
-											{
-												required: true,
-												message: "Degree/Diploma/Certification",
-											},
-										]}
 										className="flex-1"
 									>
 										<Input
@@ -470,12 +414,6 @@ export const ViewProfile = React.forwardRef(function Profile({
 									<Form.Item
 										label="University/Institution"
 										name="institute"
-										rules={[
-											{
-												required: true,
-												message: "University/Institution",
-											},
-										]}
 										className="flex-1"
 									>
 										<Input
@@ -487,12 +425,6 @@ export const ViewProfile = React.forwardRef(function Profile({
 									<Form.Item
 										label="Degree/Diploma/Certification"
 										name="institute"
-										rules={[
-											{
-												required: true,
-												message: "Degree/Diploma/Certification",
-											},
-										]}
 										className="flex-1"
 									>
 										<Input
@@ -503,19 +435,20 @@ export const ViewProfile = React.forwardRef(function Profile({
 									</Form.Item>
 								</div>
 							</div>
-							<div className=" bg-white -ml-7 fixed bottom-0 w-full border-t border-gray-4 items-center ">
-								<Form.Item className="">
-									<div className="items-center -mb-5 mt-2 w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-										<Button htmlType="submit" className="">
-											Cancel
-										</Button>
-										<Button type="primary" htmlType="submit" className="">
-											Save Changes
-										</Button>
-									</div>
-								</Form.Item>
-							</div>
 						</Form>
+						{/* <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
+                <Form.Item className="">
+                  <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
+                    <Button htmlType="submit" className="">
+                      Cancel
+                    </Button>
+                    <Button type="primary" htmlType="submit" className="">
+                      Save Changes
+                    </Button>
+                  </div>
+                </Form.Item>
+              </div> */}
+						{/* </Form> */}
 					</div>
 				</div>
 			</div>

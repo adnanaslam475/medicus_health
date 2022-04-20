@@ -1,15 +1,30 @@
-import { Button } from "antd";
-import React from "react";
+import { Button, Empty } from "antd";
+import React, { useState } from "react";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
-import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import {
+  Appointment,
+  useGetAllRequestedAppointmentsQuery,
+} from "../../../../../generated/graphql";
 
 function CancelledAppointment() {
+  const [dueDates, setDueDates] = useState<Date | null>();
+  const [dueStartDate, setStartDate] = useState<Date | null>();
+  const [dueEndDate, setEndDate] = useState<Date | null>();
+  const [dataListPhysician, setDataListPhysician] = useState<string>();
+  const [doctorIds, setDoctorId] = useState<number>();
+  const [appointmentIds, setAppointmentIds] = useState<number>();
+  const [serviceIds, setServiceIds] = useState<number>();
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
         status: "Cancelled",
+        physicianName: dataListPhysician,
+        doctorId: doctorIds,
+        appointmentId: appointmentIds,
+        serviceId: serviceIds,
+        // dueDate: dueDates,
       },
     },
   });
@@ -31,11 +46,19 @@ function CancelledAppointment() {
         </h5>
 
         <div className="w-5/6">
-          <SearchFilters />
+          <SearchFilters
+            appointments={appointments}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setDataListPhysician={setDataListPhysician}
+            setDoctorId={setDoctorId}
+            setAppointmentIds={setAppointmentIds}
+            setServiceIds={setServiceIds}
+          />
         </div>
 
         <div className="w-full">
-          <div className="appointment-cards flex flex-wrap">
+          {appointments?.length !== 0 && appointments ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {appointments?.map((appointmentDetail, i) => {
                 const {
@@ -58,11 +81,16 @@ function CancelledAppointment() {
                     status={status}
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
+                    setShowModal={null}
                   />
                 );
               })}
             </div>
-          </div>
+          ) : (
+            <div className="flex items-center justify-center w-full">
+              <Empty />
+            </div>
+          )}
         </div>
       </div>
     </AppLayout>

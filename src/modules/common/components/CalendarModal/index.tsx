@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Button } from "antd";
+import { date } from "../../../../../src/common/utils";
 
 type Props =
   | {
@@ -14,7 +15,7 @@ type Props =
         serviceType: {
           name: string;
         };
-        date: Date;
+        dateValue: Date;
       };
       okText: string;
     }
@@ -22,9 +23,9 @@ type Props =
   | any;
 function CalendarModalComponent(props: Props) {
   const { modalVisible, closeModal, data, okText } = props;
-  const { id, doctor, patient, serviceType, date } = data;
+  const { id, doctor, patient, serviceType, dateValue } = data;
   return (
-    <Modal title="" centered visible={modalVisible} onCancel={closeModal}>
+    <Modal title="" centered visible={modalVisible} onCancel={closeModal} footer={null}>
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">ID</p>
         <h4 className="text-base">{id}</h4>
@@ -47,7 +48,7 @@ function CalendarModalComponent(props: Props) {
         <p className="text-grey-4 ">Date</p>
         <div className="flex justify-between font-semibold">
           <div className="flex items-center">
-            <p className="pl-2 ">{date}</p>
+            <p className="pl-2 ">{date.formatMMMMDDYYYY(dateValue)}</p>
           </div>
         </div>
       </div>

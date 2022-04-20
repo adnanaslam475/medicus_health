@@ -146,7 +146,6 @@ mutation updateDoctorProfile(
       last_name
       email
       gender
-      contact_number
       streetAddress
       country_id
       state_id
@@ -159,7 +158,7 @@ mutation updateDoctorProfile(
   }
 }
 
-#ENABLE OR DISABLE DOCTOR 
+#ENABLE OR DISABLE DOCTOR
 mutation enableOrDisableDoctor($id: Int!) {
   enableOrDisableDoctor(id: $id) {
     id
@@ -167,4 +166,15 @@ mutation enableOrDisableDoctor($id: Int!) {
   }
 }
 
+#CREATE APPOINMENT 
+mutation createAppointment($createAppointment: CreateAppointmentInput!) {
+  createAppointment(createAppointmentInput: $createAppointment) {
+    patientId
+    doctorId
+    serviceId
+    requestedDate
+    scheduleId
+    reportUrl
+  }
+}
 

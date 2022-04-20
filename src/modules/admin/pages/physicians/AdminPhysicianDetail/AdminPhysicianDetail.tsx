@@ -30,7 +30,7 @@ import {
 import dayjs from "dayjs";
 import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
 import EmailNotification from "../../EmailNotification/EmailNotification";
-import { QuestionnaireForm } from "../../../../../common/components/Questionnary/questionnary";
+import { QuestionnaireForm } from "../../../../../common/components/Questionnary/Questionnary";
 import PhysicianProfile from "./AdminDetailTabs/PhysicianProfile";
 
 type props = {

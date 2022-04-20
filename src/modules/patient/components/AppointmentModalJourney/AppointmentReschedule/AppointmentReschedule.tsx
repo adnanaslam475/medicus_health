@@ -5,6 +5,7 @@ function AppointmentReschedule() {
   return (
   
     <div>
+            <h2>Appointment Reschedule</h2>
         <div>
         <div className='border-b border-gray-4 '>
           <h5>Physician</h5>
@@ -32,10 +33,10 @@ function AppointmentReschedule() {
             </Space>
           </Radio.Group>
         </div>
-        <div className='flex justify-end gap-2'>
+        {/* <div className='flex justify-end gap-2'>
           <Button  className={`${_Classes['button-border']}`}>Reject</Button>
           <Button type="primary" className={`${_Classes['button-background-color']}`}>Proceed To Payment</Button>
-        </div>
+        </div> */}
     </div>
   )
 }

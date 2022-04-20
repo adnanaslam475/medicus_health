@@ -100,35 +100,42 @@ const PersonalInfo = () => {
       });
     }
   };
+
   const onBeforeUpload = (file: File) => {
     const isPNG = file.type === "image/png";
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
+  const onSave = () => {
+    form?.current?.submit()
+    setIsEdit(false)
+  }
+
   return (
     <>
       <div className="w-4/6">
         <div className="flex justify-between items-center">
           <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
-            {isEdit ? (
+            <Avatar
+              size={50}
+              style={{
+                borderColor: "transparent",
+                borderWidth: 2,
+                lineHeight: "40px",
+              }}
+              src={image ? image : userProfileImage}
+            />
+            {!isEdit ? (
               <Upload
                 onChange={fileChange}
                 maxCount={1}
                 beforeUpload={onBeforeUpload}
                 itemRender={() => <div />}
                 customRequest={() => null}
+                accept="image/jpg, image/jpeg,"
               >
                 <div className="relative">
-                  <Avatar
-                    size={50}
-                    style={{
-                      borderColor: "transparent",
-                      borderWidth: 2,
-                      lineHeight: "40px",
-                    }}
-                    src={image ? image : userProfileImage}
-                  />
                   <Button
                     type="link"
                     className="text-primary underline ml-3 text-xs"
@@ -138,18 +145,7 @@ const PersonalInfo = () => {
                 </div>
               </Upload>
             ) : (
-              <div className="relative">
-                <Avatar
-                  size={50}
-                  style={{
-                    borderColor: "transparent",
-                    borderWidth: 2,
-                    lineHeight: "40px",
-                  }}
-                  // src={userProfileImage}
-                  src={image ? image : userProfileImage}
-                />
-              </div>
+              null
             )}
           </div>
 
@@ -168,8 +164,7 @@ const PersonalInfo = () => {
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
                   className="text-xs p-5"
                   size="large"
-                  // loading={fetching}
-                  onClick={() => form?.current?.submit()}
+                  onClick={onSave}
                 >
                   <span className="text-xs text-white">SAVE</span>
                 </Button>
