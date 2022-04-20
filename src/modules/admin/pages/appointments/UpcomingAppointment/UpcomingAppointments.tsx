@@ -23,12 +23,11 @@ function UpcomingAppointments() {
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        status: "Requested",
+        status: "Confirmed",
         physicianName: dataListPhysician,
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
-        // dueDate: dueDates,
       },
     },
   });
@@ -50,7 +49,6 @@ function UpcomingAppointments() {
         </div>
         <SearchFilters
           appointments={appointments}
-          // setDueDates={setDueDates}
           setDataListPhysician={setDataListPhysician}
           setDoctorId={setDoctorId}
           setAppointmentIds={setAppointmentIds}
@@ -93,7 +91,6 @@ function UpcomingAppointments() {
             </div>
           )}
         </div>
-         {/* <AppointmentModal/>  */}
       </div>
     </AppLayout>
   );

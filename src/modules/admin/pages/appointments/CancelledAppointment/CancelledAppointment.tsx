@@ -82,7 +82,6 @@ function CancelledAppointment() {
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
                     setShowModal={setShowModal}
-                    
                   />
                 );
               })}

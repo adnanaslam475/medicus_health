@@ -3,95 +3,84 @@ import React, { useState } from "react";
 import AppointmentReschedule from "./AppointmentReschedule/AppointmentReschedule";
 import AppointmentSuccess from "./AppointmentSuccess/AppointmentSuccess";
 import MakePayment from "./MakePayment/MakePayment";
-import _Classes from "./AppointmentModal.module.scss";
 import AppointmentModalFooter from "./AppointmentModalFooter/AppointmentModalFooter";
 import CurrentStepContent from "./CurrentStepContent/CurrentStepContent";
 
 type Props = {
-	visible?: boolean | undefined;
-	onOk?: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
-	onCancel?:
-		| ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
-		| undefined;
+  visible?: boolean | undefined;
+  onOk?: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
+  onCancel?:
+    | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
+    | undefined;
 };
 function AppointmentModalJourney({ visible, onOk, onCancel }: Props) {
-	return (
-		<AppointmentModal visible={visible} onOk={onOk} onCancel={onCancel} />
-	);
+  return <AppointmentModal visible={visible} onOk={onOk} onCancel={onCancel} />;
 }
 
 function AppointmentModal({ visible, onOk, onCancel }: Props) {
-	const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
-	const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
-	const [successModal, setSuccessModal] = React.useState<boolean>(false);
+  const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
+  const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
+  const [successModal, setSuccessModal] = React.useState<boolean>(false);
 
-	//   GET ID FROM URL
-	// const { query } = useRouter();
+  //   GET ID FROM URL
+  // const { query } = useRouter();
 
-	// GET USER ID
+  // GET USER ID
 
-	const next = (stepName: string) => {
-		if (stepName === "stepFour") return;
-		if (stepName === "stepOne") {
-			setCurrentStepName("stepTwo");
-		} else if (stepName === "stepTwo") {
-			setCurrentStepName("stepThree");
-		} else if (stepName === "stepThree") {
-			setCurrentStepName("stepFour");
-		}
-		setCurrentStepNumber((prev) => prev + 1);
-	};
-	const prev = (stepName: string) => {
-		if (stepName === "stepOne") return;
-		else if (stepName === "stepTwo") {
-			setCurrentStepName("stepOne");
-		} else if (stepName === "stepThree") {
-			setCurrentStepName("stepTwo");
-		} else if (stepName === "stepFour") {
-			setCurrentStepName("stepThree");
-		}
-		setCurrentStepNumber((prev) => prev - 1);
-	};
+  const next = (stepName: string) => {
+    if (stepName === "stepFour") return;
+    if (stepName === "stepOne") {
+      setCurrentStepName("stepTwo");
+    } else if (stepName === "stepTwo") {
+      setCurrentStepName("stepThree");
+    } else if (stepName === "stepThree") {
+      setCurrentStepName("stepFour");
+    }
+    setCurrentStepNumber((prev) => prev + 1);
+  };
+  const prev = (stepName: string) => {
+    if (stepName === "stepOne") return;
+    else if (stepName === "stepTwo") {
+      setCurrentStepName("stepOne");
+    } else if (stepName === "stepThree") {
+      setCurrentStepName("stepTwo");
+    } else if (stepName === "stepFour") {
+      setCurrentStepName("stepThree");
+    }
+    setCurrentStepNumber((prev) => prev - 1);
+  };
 
-	async function onRequestAppointment() {
-		try {
-		} catch (error) {}
-	}
+  async function onRequestAppointment() {
+    try {
+    } catch (error) {}
+  }
 
-	return (
-		<Modal
-			centered
-			maskClosable={false}
-			visible={visible}
-			onOk={onOk}
-			onCancel={onCancel}
-			footer={null}
+  return (
+    <Modal
+      centered
+      maskClosable={false}
+      visible={visible}
+      onOk={onOk}
+      onCancel={onCancel}
+      footer={null}
       width={368}
+    >
+      <>
+        <h1>{}</h1>
+        <div className="steps-content">
+          <CurrentStepContent stepName={currentStepName} />
+        </div>
 
-			// className={`${_classes["steps-style"]}`}
-		>
-			<>
-			<h1>{}</h1>
-				{/* <StepDots current={currentStepNumber} /> */}
-				<div className="steps-content">
-					<CurrentStepContent
-						stepName={currentStepName}
-
-						// ref={form}
-					/>
-				</div>
-
-				<AppointmentModalFooter
-					stepName={currentStepName}
-					onNext={() => next(currentStepName)}
-					onPrevious={() => prev(currentStepName)}
-					onRequestAppointment={onRequestAppointment}
+        <AppointmentModalFooter
+          stepName={currentStepName}
+          onNext={() => next(currentStepName)}
+          onPrevious={() => prev(currentStepName)}
+          onRequestAppointment={onRequestAppointment}
           setCurrentStepName={setCurrentStepName}
-				/>
-			</>
-			
-		</Modal>
-	);
+        />
+      </>
+    </Modal>
+  );
 }
 
 export default AppointmentModalJourney;

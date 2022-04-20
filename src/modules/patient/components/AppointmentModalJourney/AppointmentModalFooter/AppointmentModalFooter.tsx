@@ -8,7 +8,7 @@ type Props = {
   onPrevious: () => void;
   onRequestAppointment: () => void;
   stepName: string;
-  setCurrentStepName:(param:any) => void;
+  setCurrentStepName: (param: any) => void;
 };
 function AppointmentModalFooter({
   onNext,
@@ -18,74 +18,67 @@ function AppointmentModalFooter({
   stepName,
 }: Props) {
   return (
-    <div >
+    <div>
       {stepName === "stepOne" && (
-          <div className="flex justify-end gap-2">
-            <Button
+        <div className="flex justify-end gap-2">
+          <Button
             type="primary"
-         className={`${_Classes['button-border']}`}
+            className={`${_Classes["button-border"]}`}
             onClick={onNext}
           >
             Reject
           </Button>
-         <Button
-         type="primary"
-         className={`${_Classes["button-background-color"]}`}
-         onClick={onNext}
-       >
-         Proceed To Payment
-       </Button>
-       </div>
+          <Button
+            type="primary"
+            className={`${_Classes["button-background-color"]}`}
+            onClick={onNext}
+          >
+            Proceed To Payment
+          </Button>
+        </div>
       )}
       {stepName == "stepTwo" && (
-          <div className="flex justify-between ">
-              <div className="flex items-center text-primary" onClick={()=>setCurrentStepName("stepThree")}>
-					<PlusOutlined className={`${_Classes["icon-color"]}`} />
-					<span className="text-primary">Add Payment Method</span>
-				</div>
-        <Button
-          type="primary"
-         
-          onClick={onNext}
-          className={`${_Classes["button-background-color"]}`}
-        >
-          Pay $5900
-        </Button>
+        <div className="flex justify-between ">
+          <div
+            className="flex items-center text-primary"
+            onClick={() => setCurrentStepName("stepThree")}
+          >
+            <PlusOutlined className={`${_Classes["icon-color"]}`} />
+            <span className="text-primary">Add Payment Method</span>
+          </div>
+          <Button
+            type="primary"
+            onClick={onNext}
+            className={`${_Classes["button-background-color"]}`}
+          >
+            Pay $5900
+          </Button>
         </div>
       )}
       {stepName === "stepThree" && (
-          <div className="flex justify-end">
-        <Button
-          type="primary"
-          className={`${_Classes["button-background-color"]}`}
-          onClick={onNext}
-        >
-          Pay $5900
-        </Button>
+        <div className="flex justify-end">
+          <Button
+            type="primary"
+            className={`${_Classes["button-background-color"]}`}
+            onClick={onNext}
+          >
+            Pay $5900
+          </Button>
         </div>
       )}
-       {/* {stepName == "stepOne" && (
-        <Button
-          type="primary"
-          
-          onClick={onNext}
-        >
-          Proceed To Payment
-        </Button>
-      )} */}
+
       {stepName === "stepFour" && (
-          <div className="flex justify-center mt-5">
-        <Button
-          type="primary"
-          onClick={onRequestAppointment}
-          className={`${_Classes["button-background-color"]}`}
-        >
-          Upcoming Appointments
-        </Button>
+        <div className="flex justify-center mt-5">
+          <Button
+            type="primary"
+            onClick={onRequestAppointment}
+            className={`${_Classes["button-background-color"]}`}
+          >
+            Upcoming Appointments
+          </Button>
         </div>
       )}
     </div>
- 
   );
 }
 

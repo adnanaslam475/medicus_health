@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Router, { useRouter } from "next/router";
 import { Card, Button } from "antd";
 import { VideoCameraFilled } from "@ant-design/icons";
@@ -63,8 +63,7 @@ type props = {
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
-  setShowModal: (data:boolean)=>void;
-  // visible:(a:boolean)=>void
+  setShowModal: (data: boolean) => void;
 };
 
 function AppointmentCard({
@@ -77,8 +76,8 @@ function AppointmentCard({
   serviceType,
   doctor,
   setShowModal,
-  // visible,
-}: props) {
+}: // visible,
+props) {
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <h3 className="mb-0">Dr. {doctor}</h3>
@@ -88,7 +87,13 @@ function AppointmentCard({
       <span className="text-sm">Time</span>
       <h6 className="text-cyan">{date.formathhmma(requestedDate)}</h6>
       <span className="text-base text-primary font-bold block ">{status}</span>
-      <Button type="primary" className={`${_classes["card-btn"]} my-3 mb-1`} onClick={()=>setShowModal(true)}>View Suggested Slots</Button>
+      <Button
+        type="primary"
+        className={`${_classes["card-btn"]} my-3 mb-1`}
+        onClick={() => setShowModal(true)}
+      >
+        View Suggested Slots
+      </Button>
     </Card>
   );
 }
