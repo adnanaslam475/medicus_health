@@ -23,6 +23,7 @@ export type Appointment = {
   __typename?: 'Appointment';
   appointmentSchedule: DoctorSchedule;
   appointmentTimeSlots?: Maybe<Array<AppointmentTimeSlots>>;
+  createdAt: Scalars['DateTime'];
   doctor: User;
   doctorId: Scalars['Int'];
   id: Scalars['Int'];
@@ -172,6 +173,14 @@ export type CreatePaymentInput = {
   user_id: Scalars['Float'];
 };
 
+export type CreateStaffInput = {
+  contact_number: Scalars['String'];
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  role?: InputMaybe<Scalars['String']>;
+};
+
 export type CreateUserInput = {
   city_id: Scalars['Float'];
   contact_number: Scalars['String'];
@@ -297,6 +306,7 @@ export type Mutation = {
   createOrUpdateDoctorSchedule: Array<DoctorSchedule>;
   createPatientHealthHistory: PatientHealthHistory;
   createServiceType: AppointmentServiceType;
+  createStaff: User;
   createUser: User;
   enableOrDisableDoctor: User;
   login: LoginResponse;
@@ -386,6 +396,11 @@ export type MutationCreatePatientHealthHistoryArgs = {
 
 export type MutationCreateServiceTypeArgs = {
   createAppointmentServiceTypeInput: CreateAppointmentServiceTypeInput;
+};
+
+
+export type MutationCreateStaffArgs = {
+  createStaffInput: CreateStaffInput;
 };
 
 
@@ -548,6 +563,7 @@ export type Query = {
   getStatesByCountry: Array<State>;
   patientHealthHistory: PatientHealthHistory;
   patientHealthHistorys: Array<PatientHealthHistory>;
+  staffDetail: User;
   state: State;
   states: Array<State>;
   transection: Transection;
@@ -642,6 +658,11 @@ export type QueryPatientHealthHistoryArgs = {
 };
 
 
+export type QueryStaffDetailArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type QueryStateArgs = {
   id: Scalars['Int'];
 };
@@ -679,6 +700,7 @@ export type Transection = {
   appointment?: Maybe<Appointment>;
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   status: Scalars['String'];
   transectionId: Scalars['String'];
@@ -737,6 +759,7 @@ export type User = {
   city_id: Scalars['Int'];
   contact_number: Scalars['String'];
   country_id: Scalars['Int'];
+  createdBy?: Maybe<Scalars['Int']>;
   date_of_birth: Scalars['DateTime'];
   doctorBillingMethods?: Maybe<Array<DoctorBillingMethod>>;
   doctorProfile?: Maybe<DoctorProfile>;
@@ -966,6 +989,20 @@ export type DoctorSchedulesQueryVariables = Exact<{
 
 
 export type DoctorSchedulesQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string }> };
+
+export type DoctorQuestionnaireQueryVariables = Exact<{
+  doctorId: Scalars['Int'];
+}>;
+
+
+export type DoctorQuestionnaireQuery = { __typename?: 'Query', doctorQuestionnaire: { __typename?: 'DoctorQuestionnaire', id: number, doctorId: number, questionnaire?: any | null } };
+
+export type GetAppointmentByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, scheduleId: number, doctorId: number, patientId: number, requestedDate: any, doctor: { __typename?: 'User', id: number, first_name: string, last_name: string }, patient: { __typename?: 'User', id: number, first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule: { __typename?: 'DoctorSchedule', id: string, day: number, doctorId: number, startTime: string, endTime: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null } };
 
 
 export const CreateUserDocument = gql`
@@ -1493,6 +1530,63 @@ export const DoctorSchedulesDocument = gql`
 export function useDoctorSchedulesQuery(options: Omit<Urql.UseQueryArgs<DoctorSchedulesQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorSchedulesQuery>({ query: DoctorSchedulesDocument, ...options });
 };
+export const DoctorQuestionnaireDocument = gql`
+    query doctorQuestionnaire($doctorId: Int!) {
+  doctorQuestionnaire(doctorId: $doctorId) {
+    id
+    doctorId
+    questionnaire
+  }
+}
+    `;
+
+export function useDoctorQuestionnaireQuery(options: Omit<Urql.UseQueryArgs<DoctorQuestionnaireQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorQuestionnaireQuery>({ query: DoctorQuestionnaireDocument, ...options });
+};
+export const GetAppointmentByIdDocument = gql`
+    query getAppointmentById($id: Int!) {
+  appointment(id: $id) {
+    id
+    status
+    scheduleId
+    doctorId
+    patientId
+    requestedDate
+    doctor {
+      id
+      first_name
+      last_name
+    }
+    patient {
+      id
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    appointmentSchedule {
+      id
+      day
+      doctorId
+      startTime
+      endTime
+    }
+    serviceType {
+      id
+      name
+      price
+    }
+  }
+}
+    `;
+
+export function useGetAppointmentByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAppointmentByIdQuery>({ query: GetAppointmentByIdDocument, ...options });
+};
 import { IntrospectionQuery } from 'graphql';
 export default {
   "__schema": {
@@ -1531,6 +1625,17 @@ export default {
                   "name": "AppointmentTimeSlots",
                   "ofType": null
                 }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
               }
             },
             "args": []
@@ -2753,6 +2858,29 @@ export default {
             ]
           },
           {
+            "name": "createStaff",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createStaffInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "createUser",
             "type": {
               "kind": "NON_NULL",
@@ -3855,6 +3983,29 @@ export default {
             "args": []
           },
           {
+            "name": "staffDetail",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "state",
             "type": {
               "kind": "NON_NULL",
@@ -4067,6 +4218,17 @@ export default {
             "args": []
           },
           {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "id",
             "type": {
               "kind": "NON_NULL",
@@ -4145,6 +4307,14 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "createdBy",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },

@@ -261,8 +261,8 @@ query doctorProfileDetails($input: Int!) {
 }
 
 #GET APPOINMENT SERVICE TYPES
-query getAllAppointmentServiceTypes{
-  appointmentServiceTypes{
+query getAllAppointmentServiceTypes {
+  appointmentServiceTypes {
     id
     name
     price
@@ -270,11 +270,61 @@ query getAllAppointmentServiceTypes{
 }
 
 #GET DOCTOR SCHEDULES
-query doctorSchedules ($doctorId: Int!) {
-    doctorSchedules (doctorId: $doctorId) {
-        id
-        doctorId
-        day
-        startTime
-        endTime
-    }}
+query doctorSchedules($doctorId: Int!) {
+  doctorSchedules(doctorId: $doctorId) {
+    id
+    doctorId
+    day
+    startTime
+    endTime
+  }
+}
+
+#GET DOCTOR QUESTIONAIRES
+query doctorQuestionnaire($doctorId: Int!) {
+  doctorQuestionnaire(doctorId: $doctorId) {
+    id
+    doctorId
+    questionnaire
+  }
+}
+
+#GET APPOINMENT BY ID
+query getAppointmentById($id: Int!) {
+  appointment(id: $id) {
+    id
+    status
+    scheduleId
+    doctorId
+    patientId
+    requestedDate
+    doctor {
+      id
+      first_name
+      last_name
+    }
+    patient {
+      id
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    appointmentSchedule {
+      id
+      day
+      doctorId
+      startTime
+      endTime
+    }
+    serviceType {
+      id
+      name
+      price
+    }
+  }
+}
