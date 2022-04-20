@@ -35,8 +35,6 @@ function RequestedAppointment() {
   const { appointments } = data || {};
   const { Option } = Select;
   const [showModal, setShowModal] = useState<boolean>(false);
-
-  console.log("showModal", showModal);
   return (
     <AppLayout>
       <>

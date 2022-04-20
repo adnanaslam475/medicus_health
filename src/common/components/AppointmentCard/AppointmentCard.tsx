@@ -76,7 +76,7 @@ function AppointmentCard({
   serviceType,
   doctor,
   setShowModal,
-}: // visible,
+}: 
 props) {
   return (
     <Card className={`${_classes["appointment-card"]}`}>

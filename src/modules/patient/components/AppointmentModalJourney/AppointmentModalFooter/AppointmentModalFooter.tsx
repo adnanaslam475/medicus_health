@@ -1,5 +1,6 @@
 import { LeftOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import { StringValueNode } from "graphql";
 import React from "react";
 import _Classes from "../AppointmentReschedule/AppointmentReschedule.module.scss";
 
@@ -8,7 +9,7 @@ type Props = {
   onPrevious: () => void;
   onRequestAppointment: () => void;
   stepName: string;
-  setCurrentStepName: (param: any) => void;
+  setCurrentStepName: (param: string) => void;
 };
 function AppointmentModalFooter({
   onNext,
@@ -56,8 +57,16 @@ function AppointmentModalFooter({
         </div>
       )}
       {stepName === "stepThree" && (
-        <div className="flex justify-end">
+        <div className="flex justify-between items-center">
+           <div
+            className="flex items-center text-primary"
+            onClick={onPrevious}
+          >
+            <LeftOutlined className={`${_Classes["icon-color"]}`} />
+            <span className="text-primary">Previous</span>
+          </div>
           <Button
+
             type="primary"
             className={`${_Classes["button-background-color"]}`}
             onClick={onNext}
