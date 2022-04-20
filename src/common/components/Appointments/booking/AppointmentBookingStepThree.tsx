@@ -10,19 +10,23 @@ import {
   DatePicker,
 } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
-import { useDoctorProfileQuery, useDoctorQuestionnaireQuery, useGetAllRequestedAppointmentsQuery } from "../../../../generated/graphql";
+import {
+  useDoctorProfileQuery,
+  useDoctorQuestionnaireQuery,
+  useGetAllRequestedAppointmentsQuery,
+} from "../../../../generated/graphql";
 import { useRouter } from "next/router";
 
 const StepThree = React.forwardRef(function StepThree({}, ref: any) {
   const { query } = useRouter();
 
-  const [{data: dataList}] = useDoctorQuestionnaireQuery({
+  const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
-      doctorId: Number(query?.id)
-    }
+      doctorId: Number(query?.id),
+    },
   });
   const { doctorQuestionnaire } = dataList || {};
-  console.log(doctorQuestionnaire, "doctorQuestionnaire")
+  console.log(doctorQuestionnaire, "doctorQuestionnaire");
 
   const { saveStepThree, data } = useBookAppointment();
   const [formInstance] = Form.useForm();
@@ -50,19 +54,390 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
     });
   }
 
-  function parseJson(jsonString:string){
+  function parseJson(jsonString: string) {
     let obj = null;
-    try{
-        obj= JSON.parse(jsonString)
-    } catch(error){
-      console.log(error)
-      obj = null
+    try {
+      obj = JSON.parse(jsonString);
+    } catch (error) {
+      console.log(error);
+      obj = null;
     }
-    return obj
+    return obj;
   }
 
-
-  console.log(parseJson(doctorQuestionnaire?.questionnaire))
+  console.log(parseJson(doctorQuestionnaire?.questionnaire));
+  let questionnair = [
+    {
+      label: "Please describe your main respiratory concern today?",
+      name: "respiratoryConcern",
+      type: "text",
+    },
+    {
+      label: "How long have you had these symptoms?",
+      name: "symptoms",
+      type: "text",
+    },
+    {
+      label: "How long have you had these symptoms?",
+      name: "longSymptoms",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Improved",
+        },
+        {
+          value: 1,
+          label: "Worsened",
+        },
+        {
+          value: 2,
+          label: "Stayed the same",
+        },
+      ],
+    },
+    {
+      label: "On a scale of 0-5 (0 is not at all, 5 is intolerable) how badly does your problem bother you?",
+      name: "problem",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: 5,
+        },
+        {
+          value: 1,
+          label: 4,
+        },
+        {
+          value: 2,
+          label: 3,
+        },
+        {
+          value: 3,
+          label: 2,
+        },
+        {
+          value: 4,
+          label: 1,
+        },
+        {
+          value: 5,
+          label: 0,
+        },
+      ],
+    },
+    {
+      label: "Does anything make the problem better?",
+      name: "problemBetter",
+      type: "text",
+    },
+    {
+      label: "Does anything make the problem worse?",
+      name: "problemWorse",
+      type: "text",
+    },
+    {
+      label: "Have you changed your lifestyle or activities because of your respiratory problem?",
+      name: "respiratoryProblem",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Please explain",
+      name: "pleaseExplain",
+      type: "text",
+    },
+    {
+      label: "Do you have a cough?",
+      name: "problem",
+      type: "",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Do you cough anything up?",
+      name: "coughAnything",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Describe what you are coughing up?",
+      name: "coughingUp",
+      type: "text",
+    },
+    {
+      label: "How far can you walk on level ground before you are winded?",
+      name: "winded",
+      type: "text",
+    },
+    {
+      label: "Do you have a problem with acid reflux (heartburn)?",
+      name: "acidReflux",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Do you have a problem with sinus or post-nasal drip?",
+      name: "sinusOrPost",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Are you short of breath?",
+      name: "breath",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Does it occur at rest?",
+      name: "rest",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Does it occur when walking?",
+      name: "walking",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Does it occur when climbing a flight of stairs?",
+      name: "flightOfStairs",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Please describe.",
+      name: "PleaseDescribe",
+      type: "text",
+    },
+    {
+      label: "Do you wheeze?",
+      name: "wheeze",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Can you lie flat at night to sleep?",
+      name: "sleep",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Do you get chest pain when you exercise or work hard?",
+      name: "workHard",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "What is your country of birth?",
+      name: "birth",
+      type: "text",
+    },
+    {
+      label: "Have you traveled out of the country recently?",
+      name: "countryRecently",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Where did you travel to?",
+      name: "travel",
+      type: "text",
+    },
+    {
+      label: "Do you have a history of, or have you been exposed to, tuberculosis (TB)?",
+      name: "tuberculosis",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Please explain",
+      name: "explain",
+      type: "text",
+    },
+    {
+      label: "Do you have any pets or other animals?",
+      name: "animals",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Have you ever smoked anything besides cigarettes?",
+      name: "cigarettes",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "What and for how long?",
+      name: "howLong",
+      type: "text",
+    },
+    {
+      label: "Have you ever been in the hospital because of breathing problems?",
+      name: "knownExposure",
+      type: "radio",
+      options: [
+        {
+          value: 0,
+          label: "Yes",
+        },
+        {
+          value: 1,
+          label: "No",
+        },
+      ],
+    },
+    {
+      label: "Please list any known exposure to asbestos, fumes, toxins, heavy metals, grinding, solvents, etc.:",
+      name: "howLong",
+      type: "text",
+    },
+  ];
   return (
     <>
       <h2>Request an Appointment</h2>
@@ -76,319 +451,35 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
             </Checkbox>
           </div>
         </Form.Item> */}
+        {questionnair.map((item, index) => {
+          if (item.type === "text") {
+            return (
+              <Form.Item
+                label={item.label}
+                className="text-secondary"
+                name={item.type}
+              >
+                <Input />
+              </Form.Item>
+            );
+          } else if (item.type === "radio") {
+            return (
+              <Form.Item
+                label={item.label}
+                className="text-secondary"
+                name={item.name}
+              >
+                <Radio.Group>
+                  {item?.options?.map(({ value, label }) => {
+                    return <Radio value={value}>{label}</Radio>;
+                  })}
+                </Radio.Group>
+              </Form.Item>
+            );
+          }
+        })}
 
         <Divider />
-
-        <Form.Item
-          label="Please describe your main respiratory concern today?"
-          className="text-secondary"
-          name="respiratoryConcern"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="How long have you had these symptoms?"
-          className="text-secondary"
-          name="symptoms"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="How long have you had these symptoms?"
-          className="text-secondary"
-          name="longSymptoms"
-        >
-          <Radio.Group>
-            <Radio value={0}>Improved</Radio>
-            <Radio value={1}>Worsened</Radio>
-            <Radio value={2}>Stayed the same</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="On a scale of 0-5 (0 is not at all, 5 is intolerable) how badly does your problem bother you?"
-          className="text-secondary"
-          name="problem"
-        >
-          <Radio.Group>
-            <Radio value={0}>5</Radio>
-            <Radio value={1}>4</Radio>
-            <Radio value={2}>3</Radio>
-            <Radio value={3}>2</Radio>
-            <Radio value={4}>1</Radio>
-            <Radio value={5}>0</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Does anything make the problem better?"
-          className="text-secondary"
-          name="problemBetter"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Does anything make the problem worse?"
-          className="text-secondary"
-          name="problemWorse"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Have you changed your lifestyle or activities because of your respiratory problem?"
-          className="text-secondary mb-0"
-          name="respiratoryProblem"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Please explain"
-          className="text-secondary"
-          name="pleaseExplain"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Do you have a cough?"
-          className="text-secondary mb-0"
-          name="cough"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Do you cough anything up?"
-          className="text-secondary mb-0"
-          name="coughAnything"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Describe what you are coughing up?"
-          className="text-secondary"
-          name="coughingUp"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Do you have a problem with acid reflux (heartburn)?"
-          className="text-secondary"
-          name="acidReflux"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Do you have a problem with sinus or post-nasal drip?"
-          className="text-secondary"
-          name="sinusOrPost"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Are you short of breath?"
-          className="text-secondary mb-0"
-          name="breath"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Does it occur at rest?"
-          className="text-secondary mb-0"
-          name="rest"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Does it occur when walking?"
-          className="text-secondary mb-0"
-          name="walking"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Does it occur when climbing a flight of stairs?"
-          className="text-secondary"
-          name="flightOfStairs"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="How far can you walk on level ground before you are winded?"
-          className="text-secondary"
-          name="winded"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Do you wheeze?"
-          className="text-secondary"
-          name="wheeze"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
-          label="Can you lie flat at night to sleep?"
-          className="text-secondary"
-          name="sleep"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
-          label="Do you get chest pain when you exercise or work hard?"
-          className="text-secondary"
-          name="workHard"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
-          label="What is your country of birth?"
-          className="text-secondary"
-          name="birth"
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Have you traveled out of the country recently?"
-          className="text-secondary mb-0"
-          name="countryRecently"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Where did you travel to?"
-          className="text-secondary"
-          name="travel"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Do you have a history of, or have you been exposed to, tuberculosis (TB)?"
-          className="text-secondary mb-0"
-          name="tuberculosis"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
-          label="Please explain."
-          className="text-secondary"
-          name="explain"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Do you have any pets or other animals?"
-          className="text-secondary"
-          name="animals"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Have you ever smoked anything besides cigarettes?"
-          className="text-secondary mb-0"
-          name="cigarettes"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
-          label="What and for how long?"
-          className="text-secondary"
-          name="howLong"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Have you ever been in the hospital because of breathing problems?"
-          className="text-secondary mb-0"
-          name="breathingProblems"
-        >
-          <Radio.Group>
-            <Radio value={0}>Yes</Radio>
-            <Radio value={1}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
-          label="Please describe."
-          className="text-secondary"
-          name="PleaseDescribe"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Please list any known exposure to asbestos, fumes, toxins, heavy metals, grinding, solvents, etc.:"
-          className="text-secondary"
-          name="knownExposure"
-        >
-          <Input />
-        </Form.Item>
 
         {/* <Form.Item>
           <div className="flex items-center justify-end">
