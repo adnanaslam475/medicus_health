@@ -101,7 +101,7 @@ function SearchFilters(props: Props) {
         <div className="sm:ml-3 mt-3 sm:mt-0">
           <Select
             placeholder="Physician"
-            className={`${searchStyle.placeholderColor} w-full sm:w-40`}
+            className={`${searchStyle.placeholderColor} w-full sm:w-64`}
             onChange={handlePhysicianChange}
             value={selectedPhysicianItems}
           >
