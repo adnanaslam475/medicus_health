@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Form, Radio, Button, Select, DatePicker, Input } from "antd";
 import {
   AppointmentServiceType,
@@ -25,9 +25,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const [formInstance] = Form.useForm();
     const [data] = useGetAllAppointmentServiceTypesQuery();
     const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
+    const { physicianName, service, price, requestedDate, availability } =
+      appoinmentDetails?.stepOne || {};
     const { physicianData, onFinish } = props || {};
     const { first_name, last_name } = physicianData?.user || {};
-    const [serviceInfo, setServiceInfo] = useState<any>();
+    const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
 
     //   GET ID FROM URL
     const { query } = useRouter();
@@ -50,29 +52,32 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     function prepareAndSetEditPayload() {
       formInstance.setFieldsValue({
-        physicianName: appoinmentDetails?.stepOne?.physicianName,
-        service: appoinmentDetails?.stepOne?.service,
-        charges: appoinmentDetails?.stepOne?.serviceInfo?.price,
-        requestedDate: appoinmentDetails?.stepOne?.requestedDate,
-        availability: appoinmentDetails?.stepOne?.availability,
+        physicianName: physicianName,
+        service: service,
+        charges: price,
+        requestedDate: requestedDate,
+        availability: availability,
       });
     }
 
-    function handleServiceChange(event: any) {
-      let charge = allAppoinments?.find(
-        (serviceType) => serviceType.id === event
+    function handleServiceChange(value: any) {
+      let charge = allAppoinments?.filter(
+        (serviceType) => serviceType.id === value
       );
+      console.log("charge", charge);
       setServiceInfo(charge);
     }
 
     function disabledDate(current: any) {
-      if (
-        serviceInfo?.name === "Consultation" ||
-        serviceInfo?.name === "consultation"
-      ) {
-        return dayjs(current).isBefore(dayjs().add(1, "day"));
-      } else if (serviceInfo?.name === "Second Opinion") {
-        return dayjs(current).isBefore(dayjs().add(4, "day"));
+      if (serviceInfo) {
+        if (
+          serviceInfo[0]?.name === "Consultation" ||
+          serviceInfo[0]?.name === "consultation"
+        ) {
+          return dayjs(current).isBefore(dayjs().add(1, "day"));
+        } else if (serviceInfo[0]?.name === "Second Opinion") {
+          return dayjs(current).isBefore(dayjs().add(4, "day"));
+        }
       }
       return true;
     }
@@ -82,6 +87,10 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }
 
     const allAppoinments = data?.data?.appointmentServiceTypes;
+
+    const isShow =
+      scheduleDetails?.doctorSchedules &&
+      scheduleDetails?.doctorSchedules.length > 0;
     return (
       <>
         <h2>Request an Appointment</h2>
@@ -99,7 +108,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 <Select
                   placeholder="Service Type"
                   className="w-full"
-                  onChange={(event) => handleServiceChange(event)}
+                  onChange={handleServiceChange}
                 >
                   {allAppoinments?.map((item) => (
                     <Option key={item?.id} value={item.id}>
@@ -112,7 +121,10 @@ export const AppointmentBookingStepOne = React.forwardRef(
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  {`$${serviceInfo?.price ? serviceInfo?.price : ""}`}
+                  {serviceInfo &&
+                    `${serviceInfo?.map((item) =>
+                      item?.price ? item?.price : ""
+                    )}`}
                 </div>
               </Form.Item>
             </div>
@@ -127,8 +139,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
           </Form.Item>
           <Form.Item label="Availability" name="availability">
             <div className="flex flex-wrap availability-label">
-              {scheduleDetails?.doctorSchedules &&
-              scheduleDetails?.doctorSchedules.length > 0 ? (
+              {isShow ? (
                 <Radio.Group
                   defaultValue={appoinmentDetails?.stepOne?.availability}
                 >
