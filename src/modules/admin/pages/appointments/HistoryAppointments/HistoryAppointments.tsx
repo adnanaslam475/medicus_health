@@ -13,7 +13,7 @@ function CancelledAppointment() {
       <div className="w-full">
         <h2 className="mb-4">History</h2>
         <div className="w-5/6">
-          <SearchFilters />
+          {/* <SearchFilters /> */}
         </div>
         
         <div className="custom-table-ui">
