@@ -53,9 +53,9 @@ function DoctorProfileCard(props: Props) {
             <div className="rounded-full flex items-center justify-center overflow-hidden">
               <Image
                 alt={language || "flag"}
-                width={150}
-                height={150}
-                src="/assets/images/doc-pic.png"
+                width={200}
+                height={200}
+                src="/assets/images/doc-pic-big.png"
                 className=""
               />
             </div>

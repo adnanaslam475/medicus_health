@@ -34,7 +34,6 @@ function BookAppointmentFooter({
       {stepName === "stepFour" && (
         <Button
           type="primary"
-          className={`${_classes["btn-next"]}`}
           onClick={onRequestAppointment}
         >
           Request an Appointment

@@ -36,6 +36,7 @@ module.exports = {
         6: "#F4F4F8",
         7: "#E5E5E5",
         8: "#30CEC2",
+        9: "#DEE2EA",
       },     
       lightBlue: {
         DEFAULT: "#ebf3ff",
