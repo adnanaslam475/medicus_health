@@ -27,6 +27,9 @@ function AuthProvider({ children }: any) {
     router.events.on("routeChangeComplete", authCheck);
 
     // unsubscribe from events in useEffect return function
+    window?.setTimeout(() => {
+      router.events.off("routeChangeStart", hideContent);
+    }, 3000);
     return () => {
       router.events.off("routeChangeStart", hideContent);
       router.events.off("routeChangeComplete", authCheck);
@@ -77,6 +80,7 @@ function AuthProvider({ children }: any) {
   ) {
     return children;
   }
+  
   if (
     router.pathname.startsWith("/login") ||
     router.pathname.startsWith("/signup") ||
