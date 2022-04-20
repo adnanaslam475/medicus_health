@@ -22,7 +22,7 @@ function UpcomingAppointments() {
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        status: "Requested",
+        status: "Confirmed",
         physicianName: dataListPhysician,
         doctorId: doctorIds,
         appointmentId: appointmentIds,
