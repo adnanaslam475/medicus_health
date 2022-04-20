@@ -990,6 +990,13 @@ export type DoctorSchedulesQueryVariables = Exact<{
 
 export type DoctorSchedulesQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string }> };
 
+export type DoctorQuestionnaireQueryVariables = Exact<{
+  doctorId: Scalars['Int'];
+}>;
+
+
+export type DoctorQuestionnaireQuery = { __typename?: 'Query', doctorQuestionnaire: { __typename?: 'DoctorQuestionnaire', id: number, doctorId: number, questionnaire?: any | null } };
+
 export type GetAppointmentByIdQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -1522,6 +1529,19 @@ export const DoctorSchedulesDocument = gql`
 
 export function useDoctorSchedulesQuery(options: Omit<Urql.UseQueryArgs<DoctorSchedulesQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorSchedulesQuery>({ query: DoctorSchedulesDocument, ...options });
+};
+export const DoctorQuestionnaireDocument = gql`
+    query doctorQuestionnaire($doctorId: Int!) {
+  doctorQuestionnaire(doctorId: $doctorId) {
+    id
+    doctorId
+    questionnaire
+  }
+}
+    `;
+
+export function useDoctorQuestionnaireQuery(options: Omit<Urql.UseQueryArgs<DoctorQuestionnaireQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorQuestionnaireQuery>({ query: DoctorQuestionnaireDocument, ...options });
 };
 export const GetAppointmentByIdDocument = gql`
     query getAppointmentById($id: Int!) {

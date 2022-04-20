@@ -280,6 +280,15 @@ query doctorSchedules($doctorId: Int!) {
   }
 }
 
+#GET DOCTOR QUESTIONAIRES
+query doctorQuestionnaire($doctorId: Int!) {
+  doctorQuestionnaire(doctorId: $doctorId) {
+    id
+    doctorId
+    questionnaire
+  }
+}
+
 #GET APPOINMENT BY ID
 query getAppointmentById($id: Int!) {
   appointment(id: $id) {
