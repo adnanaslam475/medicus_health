@@ -278,3 +278,11 @@ query doctorSchedules ($doctorId: Int!) {
         startTime
         endTime
     }}
+#GET DOCTOR QUESTIONAIRES
+query doctorQuestionnaire ($doctorId: Int!) {
+    doctorQuestionnaire (doctorId: $doctorId) {
+        id
+        doctorId
+        questionnaire
+    }
+}
