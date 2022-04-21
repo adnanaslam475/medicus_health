@@ -66,7 +66,7 @@ function DoctorCard({
 
   return (
     <>
-      <Card className={`${_classes["doctorCard"]} rounded-xl`}>
+      <Card className={`${_classes["doctorCard"]} rounded-lg`}>
         <div className="flex-none lg:flex">
           <div className="lg:w-4/6 flex-none sm:flex">
             <div className="docAvatarCover pr-3">

@@ -72,142 +72,142 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
   return (
       <ul className="custom-list mt-4 border border-gray-5 px-0 rounded custom-list-items">
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">First Name</div>
-              <div className="w-1/2 text-secondary">{first_name}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">First Name</div>
+              <div className="md:w-1/2 text-secondary">{first_name}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Last Name</div>
-              <div className="w-1/2 text-secondary">{last_name}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Last Name</div>
+              <div className="md:w-1/2 text-secondary">{last_name}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Gender</div>
-              <div className="w-1/2 text-secondary">{gender}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Gender</div>
+              <div className="md:w-1/2 text-secondary">{gender}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Date of Birth</div>
-              <div className="w-1/2 text-secondary">
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Date of Birth</div>
+              <div className="md:w-1/2 text-secondary">
                 {date.convertStringDateToUTC(date_of_birth)}
               </div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Contact Number</div>
-              <div className="w-1/2 text-secondary">{contact_number}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Contact Number</div>
+              <div className="md:w-1/2 text-secondary">{contact_number}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Email Address</div>
-              <div className="w-1/2 text-secondary">{email}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Email Address</div>
+              <div className="md:w-1/2 text-secondary">{email}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Password</div>
-              <div className="w-1/2 text-secondary">
-                <div className="w-1/2 text-secondary">******</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Password</div>
+              <div className="md:w-1/2 text-secondary">
+                <div className="md:w-1/2 text-secondary">******</div>
               </div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Country</div>
-              <div className="w-1/2 text-secondary">{countryName}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Country</div>
+              <div className="md:w-1/2 text-secondary">{countryName}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">State</div>
-              <div className="w-1/2 text-secondary">{state}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">State</div>
+              <div className="md:w-1/2 text-secondary">{state}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">City</div>
-              <div className="w-1/2 text-secondary">
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">City</div>
+              <div className="md:w-1/2 text-secondary">
                 {cityName[0]?.city_name}
               </div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Postal Code</div>
-              <div className="w-1/2 text-secondary">{zip_code}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Postal Code</div>
+              <div className="md:w-1/2 text-secondary">{zip_code}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Street Address</div>
-              <div className="w-1/2 text-secondary">{streetAddress}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Street Address</div>
+              <div className="md:w-1/2 text-secondary">{streetAddress}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Marital Status</div>
-              <div className="w-1/2">{patientProfile?.maritalStatus}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Marital Status</div>
+              <div className="md:w-1/2">{patientProfile?.maritalStatus}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Do You have any children?</div>
-              <div className="w-1/2">{patientProfile?.children}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Do You have any children?</div>
+              <div className="md:w-1/2">{patientProfile?.children}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">What is your Occupation?</div>
-              <div className="w-1/2">{patientProfile?.occupation}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">What is your Occupation?</div>
+              <div className="md:w-1/2">{patientProfile?.occupation}</div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">
                 Do you have any Occupational Exposure?
               </div>
-              <div className="w-1/2">
+              <div className="md:w-1/2">
                 {patientProfile?.occupationalExposure}
               </div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">
                 Do you have any Occupational Duration?
               </div>
-              <div className="w-1/2">
+              <div className="md:w-1/2">
                 {patientProfile?.exposureDuration}
               </div>
             </div>
           </li>
 
           <li>
-            <div className="flex w-full  border-b border-gray-5 p-4">
-              <div className="w-1/2 text-gray-1">Do you have any pets?</div>
-              <div className="w-1/2">{patientProfile?.pets}</div>
+            <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+              <div className="md:w-1/2 text-gray-1">Do you have any pets?</div>
+              <div className="md:w-1/2">{patientProfile?.pets}</div>
             </div>
           </li>
       </ul>
