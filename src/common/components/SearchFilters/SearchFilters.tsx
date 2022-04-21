@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Input, Button, Select, Space, DatePicker } from "antd";
 import {
   CaretDownOutlined,
@@ -32,6 +32,7 @@ type Props = {
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
+  setStatus: (data: string) => void | string;
 };
 
 function SearchFilters(props: Props) {
@@ -43,6 +44,7 @@ function SearchFilters(props: Props) {
     setDoctorId,
     setEndDate,
     setStartDate,
+    setStatus,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -64,6 +66,20 @@ function SearchFilters(props: Props) {
     setSelectedPhysicianItems(name.children);
     setDoctorId(selectedItem);
   };
+
+  useEffect(() => {
+    appointments?.map((item: { status: string; }) => {
+      if (item?.status === "Requested") {
+        setStatus(item?.status)
+      } else if (item?.status === "Suggested") {
+        setStatus(item?.status)
+      } else if (item?.status === "Cancelled") {
+        setStatus(item?.status)
+      } else if (item?.status === "Upcoming") {
+        setStatus(item?.status)
+      }
+    })
+  }, [appointments])
 
   const handleServiceChange = (selectedItem: any, name: any) => {
     setSelectedServiceItems(name.children);

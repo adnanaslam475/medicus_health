@@ -7,6 +7,7 @@ import { Button, Empty, Select } from "antd";
 import Link from "next/link";
 import {
   Appointment,
+  AppointmentTimeSlots,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
 
@@ -18,16 +19,15 @@ function UpcomingAppointments() {
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
-  const [dueDates, setDueDates] = useState<Date | null>();
+  const [status, setStatus] = useState<string>("Confirmed");
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        status: "Requested",
+        status: status,
         physicianName: dataListPhysician,
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
-        // dueDate: dueDates,
       },
     },
   });
@@ -48,38 +48,34 @@ function UpcomingAppointments() {
         </div>
         <SearchFilters
           appointments={appointments}
-          // setDueDates={setDueDates}
           setDataListPhysician={setDataListPhysician}
           setDoctorId={setDoctorId}
           setAppointmentIds={setAppointmentIds}
           setServiceIds={setServiceIds}
           setStartDate={setStartDate}
           setEndDate={setEndDate}
+          setStatus={setStatus}
         />
         <div className="w-full">
           {appointments?.length !== 0 && appointments ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {appointments?.map((appointmentDetail, i) => {
                 const {
-                  id,
-                  patientId,
-                  doctorId,
-                  serviceId,
                   requestedDate,
                   status,
                   serviceType,
                   doctor,
+                  appointmentTimeSlots
                 } = appointmentDetail || {};
                 return (
                   <AppointmentCard
-                    id={id}
-                    patientId={patientId}
-                    doctorId={doctorId}
-                    serviceId={serviceId}
                     requestedDate={requestedDate}
                     status={status}
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
+                    appointmentTimeSlots={
+                      appointmentTimeSlots as AppointmentTimeSlots[]
+                    }
                   />
                 );
               })}
