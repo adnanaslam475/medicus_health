@@ -66,6 +66,7 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
 
   console.log(parseJson(doctorQuestionnaire?.questionnaire));
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire)
+  
   // let questionnair = [
   //   {
   //     label: "Please describe your main respiratory concern today?",
