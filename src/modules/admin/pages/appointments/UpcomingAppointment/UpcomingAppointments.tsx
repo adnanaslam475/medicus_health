@@ -7,6 +7,7 @@ import { Button, Empty, Select } from "antd";
 import Link from "next/link";
 import {
   Appointment,
+  AppointmentTimeSlots,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
 import AppointmentModal from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
@@ -19,11 +20,11 @@ function UpcomingAppointments() {
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
-  const [dueDates, setDueDates] = useState<Date | null>();
+  const [status, setStatus] = useState<string>("Confirmed");
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        status: "Confirmed",
+        status: status,
         physicianName: dataListPhysician,
         doctorId: doctorIds,
         appointmentId: appointmentIds,
@@ -55,31 +56,28 @@ function UpcomingAppointments() {
           setServiceIds={setServiceIds}
           setStartDate={setStartDate}
           setEndDate={setEndDate}
+          setStatus={setStatus}
         />
         <div className="w-full">
           {appointments?.length !== 0 && appointments ? (
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {appointments?.map((appointmentDetail, i) => {
                 const {
-                  id,
-                  patientId,
-                  doctorId,
-                  serviceId,
                   requestedDate,
                   status,
                   serviceType,
                   doctor,
+                  appointmentTimeSlots
                 } = appointmentDetail || {};
                 return (
                   <AppointmentCard
-                    id={id}
-                    patientId={patientId}
-                    doctorId={doctorId}
-                    serviceId={serviceId}
                     requestedDate={requestedDate}
                     status={status}
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
+                    appointmentTimeSlots={
+                      appointmentTimeSlots as AppointmentTimeSlots[]
+                    }
                     setShowModal={setShowModal}
                   />
                 );

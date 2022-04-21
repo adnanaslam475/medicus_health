@@ -206,6 +206,12 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     doctor {
       first_name
     }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
   }
 }
 # query getAllRequestedAppointments($filter: GetAppointmentInput!) {
