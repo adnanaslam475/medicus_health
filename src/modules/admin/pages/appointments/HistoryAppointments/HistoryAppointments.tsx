@@ -44,40 +44,6 @@ function CancelledAppointment() {
             setServiceIds={setServiceIds}
           />
         </div>
-        <div className="w-full">
-          {appointments?.length !== 0 && appointments ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-              {appointments?.map((appointmentDetail, i) => {
-                const {
-                  id,
-                  patientId,
-                  doctorId,
-                  serviceId,
-                  requestedDate,
-                  status,
-                  serviceType,
-                  doctor,
-                } = appointmentDetail || {};
-                return (
-                  <AppointmentCard
-                    id={id}
-                    patientId={patientId}
-                    doctorId={doctorId}
-                    serviceId={serviceId}
-                    requestedDate={requestedDate}
-                    status={status}
-                    serviceType={serviceType?.name}
-                    doctor={doctor?.first_name}
-                  />
-                );
-              })}
-            </div>
-          ) : (
-            <div className="flex items-center justify-center w-full">
-              <Empty />
-            </div>
-          )}
-        </div>
 
         <div className="custom-table-ui">
           <TransactionHistory />

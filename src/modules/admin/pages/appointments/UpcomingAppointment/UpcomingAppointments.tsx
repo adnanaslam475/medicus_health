@@ -9,6 +9,7 @@ import {
   Appointment,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
+import AppointmentModal from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
 
 const { Option } = Select;
 function UpcomingAppointments() {
@@ -27,12 +28,12 @@ function UpcomingAppointments() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
-        // dueDate: dueDates,
       },
     },
   });
 
   const { appointments } = data || {};
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <AppLayout>
@@ -48,7 +49,6 @@ function UpcomingAppointments() {
         </div>
         <SearchFilters
           appointments={appointments}
-          // setDueDates={setDueDates}
           setDataListPhysician={setDataListPhysician}
           setDoctorId={setDoctorId}
           setAppointmentIds={setAppointmentIds}
@@ -80,6 +80,7 @@ function UpcomingAppointments() {
                     status={status}
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
+                    setShowModal={setShowModal}
                   />
                 );
               })}

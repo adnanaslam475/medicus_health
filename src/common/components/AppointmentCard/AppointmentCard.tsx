@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Router, { useRouter } from "next/router";
 import { Card, Button } from "antd";
 import { VideoCameraFilled } from "@ant-design/icons";
@@ -63,6 +63,7 @@ type props = {
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
+  setShowModal: (data: boolean) => void;
 };
 
 function AppointmentCard({
@@ -74,6 +75,7 @@ function AppointmentCard({
   status,
   serviceType,
   doctor,
+  setShowModal,
 }: props) {
   return (
     <Card className={`${_classes["appointment-card"]}`}>
@@ -87,6 +89,13 @@ function AppointmentCard({
       <h6 className="text-cyan-1">{date.formathhmma(requestedDate)}</h6>
       <span className="text-sm mt-4 block">Status</span>
       <span className="text-base text-cyan-1 ">{status}</span>
+      <Button
+        type="primary"
+        className={`${_classes["card-btn"]} my-3 mb-1`}
+        onClick={() => setShowModal(true)}
+      >
+        View Suggested Slots
+      </Button>
     </Card>
   );
 }

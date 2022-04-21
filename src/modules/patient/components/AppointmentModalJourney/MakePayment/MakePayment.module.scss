@@ -1,0 +1,17 @@
+.icon-color{
+    color:#1A82FE;
+    font-size: 16px;
+   margin-bottom: 4px;
+   padding: 0px 10px;
+}
+.button-color{
+    background-color:#1A82FE !important;
+    color:white !important
+}
+.custom-width{
+   
+  
+    :global .ant-select-selector{
+        min-width: 130px !important;
+    }
+}
