@@ -104,7 +104,7 @@ function DoctorProfileCard(props: Props) {
                         </span>
                       </>
                     ) : (
-                      <span className="text-gray-8">Not Available Today</span>
+                      <span className="text-cyan-1">Not Available Today</span>
                     )}
                   </div>
                 }
