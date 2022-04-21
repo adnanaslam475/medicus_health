@@ -62,6 +62,7 @@ type props = {
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
+  setShowModal: (data: boolean) => void;
 };
 
 function AppointmentCard({
@@ -70,6 +71,7 @@ function AppointmentCard({
   serviceType,
   doctor,
   appointmentTimeSlots,
+  setShowModal
 }: props) {
   function getStatus() {
     const { user } = getUserData();

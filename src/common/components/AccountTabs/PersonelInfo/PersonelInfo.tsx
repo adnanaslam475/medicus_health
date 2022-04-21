@@ -38,7 +38,7 @@ const PersonalInfo = () => {
 
   const updateUserDetail = async (values: any) => {
     try {
-      await updateUserProfile({
+      const res = await updateUserProfile({
         id: id,
         updateUserInput: {
           first_name: values?.firstName,
@@ -63,16 +63,17 @@ const PersonalInfo = () => {
         },
       });
 
-      if (result) {
-        result?.data?.updateUser &&
+      if (res) {
+        res?.data?.updateUser &&
           notification.success({
             message: "Successfully Updated",
           });
       }
 
-      if (error) {
+      if (res?.error) {
         notification.error({
-          message: error?.graphQLErrors[0]?.message || "Something went wrong",
+          message:
+            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
         });
       }
     } catch (error) {

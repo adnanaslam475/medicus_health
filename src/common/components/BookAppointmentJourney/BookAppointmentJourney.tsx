@@ -126,7 +126,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
           serviceId: serviceId,
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
-          reportUrl: urls,
+          reportUrl: JSON.stringify(urls),
           questionnair: [JSON.stringify(appoinmentData?.stepThree)],
         },
       });

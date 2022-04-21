@@ -15,6 +15,7 @@ import searchStyle from "./style.module.scss";
 import Image from "next/image";
 import { aimsCalendarIcon } from "../../../utils/images";
 import { getDateInFormat } from "../../utils/date";
+import _classes from "./SearchFilters.module.scss";
 
 const { Option } = Select;
 
@@ -111,13 +112,13 @@ function SearchFilters(props: Props) {
   };
 
   return (
-    <div className="page-filters flex-none lg:flex items-center mb-5">
-      <span className="text-gray-1">Filter</span>
-      <div className="flex-none sm:flex sm:mb-3 lg:mb-0">
-        <div className="sm:ml-3 mt-3 sm:mt-0">
+    <div className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}>
+      <span className="text-gray-1 mr-3 mb-3">Filter</span>
+      <div className="flex-none sm:flex">
+        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
             placeholder="Physician"
-            className={`${searchStyle.placeholderColor} w-full sm:w-64`}
+            className={`${searchStyle.placeholderColor} w-full`}
             onChange={handlePhysicianChange}
             value={selectedPhysicianItems}
           >
@@ -128,12 +129,10 @@ function SearchFilters(props: Props) {
             ))}
           </Select>
         </div>
-      </div>
-      <div className="flex-none sm:flex">
-        <div className="lg:ml-3 mt-3 sm:mt-0">
+        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
             placeholder="Service"
-            className={`${searchStyle.placeholderColor} w-full sm:w-64`}
+            className={`${searchStyle.placeholderColor} w-full`}
             onChange={handleServiceChange}
             value={selectedServiceItems}
           >
@@ -144,8 +143,10 @@ function SearchFilters(props: Props) {
             ))}
           </Select>
         </div>
-        <Space direction="vertical" size={12} className="sm:ml-3 mt-3 sm:mt-0">
-          <div className="relative w-64 -mt-7">
+      </div>
+      <div className="flex-none sm:flex">
+        <Space direction="vertical" size={0} className="w-full md:w-44 xl:w-60 sm:mb-3">
+          <div className="relative">
             <RangePicker
               // dateRange={dateRange}
               value={dateRangeValues}
@@ -208,7 +209,7 @@ function SearchFilters(props: Props) {
           </div>
           {/* <DatePicker onChange={onChange} /> */}
         </Space>
-        <Button onClick={onClear} type="text" className="sm:ml-3">
+        <Button onClick={onClear} type="text" className={`${_classes["btn-clear"]} sm:ml-3`}>
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1">Clear</span>
         </Button>
