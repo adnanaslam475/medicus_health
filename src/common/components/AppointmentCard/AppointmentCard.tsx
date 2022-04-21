@@ -89,13 +89,15 @@ function AppointmentCard({
       <h6 className="text-cyan-1">{date.formathhmma(requestedDate)}</h6>
       <span className="text-sm mt-4 block">Status</span>
       <span className="text-base text-cyan-1 ">{status}</span>
-      <Button
-        type="primary"
-        className={`${_classes["card-btn"]} my-3 mb-1`}
-        onClick={() => setShowModal(true)}
-      >
-        View Suggested Slots
-      </Button>
+      <div className="my-5">
+        <Button
+          type="primary"
+          className={`${_classes["card-btn"]} my-3 mb-1`}
+          onClick={() => setShowModal(true)}
+        >
+          View Suggested Slots
+        </Button>
+      </div>
     </Card>
   );
 }
