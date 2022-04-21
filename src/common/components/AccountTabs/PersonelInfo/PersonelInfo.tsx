@@ -115,9 +115,9 @@ const PersonalInfo = () => {
 
   return (
     <>
-      <div className="w-4/6">
+      <div className="w-full md:w-4/6">
         <div className="flex justify-between items-center">
-          <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
+          <div>
             <Avatar
               size={62}
               style={{
@@ -139,7 +139,7 @@ const PersonalInfo = () => {
                 <div className="relative">
                   <Button
                     type="link"
-                    className="text-primary underline ml-3 text-xs"
+                    className="text-primary underline text-xs"
                   >
                     Update Photo
                   </Button>
@@ -148,7 +148,7 @@ const PersonalInfo = () => {
             ) : null}
           </div>
 
-          <div className="edit-btn flex justify-end">
+          <div className="edit-btn">
             {isEdit ? (
               <div className="flex gap-4">
                 <Button

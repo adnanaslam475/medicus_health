@@ -476,9 +476,6 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
             );
           }
         })}
-
-        <Divider />
-
         {/* <Form.Item>
           <div className="flex items-center justify-end">
             <Button type="primary" htmlType="submit">

@@ -106,7 +106,9 @@ label.ant-radio-wrapper {
     }
   }
   .ant-modal-content {
+    border-radius: 13px;
     .ant-modal-body {
+      padding: 30px 45px;
       button.ant-btn {
         line-height: 1;
         position: relative;
