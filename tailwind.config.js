@@ -35,9 +35,8 @@ module.exports = {
         5: "#E7E9ED",
         6: "#F4F4F8",
         7: "#E5E5E5",
-        8: "#30CEC2",
-        9: "#DEE2EA",
-      },     
+        8: "#DEE2EA",
+      },
       lightBlue: {
         DEFAULT: "#ebf3ff",
         1: "#272B4C",
@@ -47,10 +46,11 @@ module.exports = {
       },
       cyan: {
         DEFAULT: "#30cec2",
+        1: "#30CEC2",
       },
       red: {
         DEFAULT: "#D53E4F",
-      },      
+      },
 
     },
     extend: {},
