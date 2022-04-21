@@ -2,7 +2,7 @@ import { LeftOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { StringValueNode } from "graphql";
 import React from "react";
-import _Classes from "../AppointmentReschedule/AppointmentReschedule.module.scss";
+import _classes from "../AppointmentReschedule/AppointmentReschedule.module.scss";
 
 type Props = {
   onNext: () => void;
@@ -24,14 +24,14 @@ function AppointmentModalFooter({
         <div className="flex justify-end gap-2">
           <Button
             type="primary"
-            className={`${_Classes["button-border"]}`}
+            className={`${_classes["button-border"]}`}
             onClick={onNext}
           >
             Reject
           </Button>
           <Button
             type="primary"
-            className={`${_Classes["button-background-color"]}`}
+            className={`${_classes["button-background-color"]}`}
             onClick={onNext}
           >
             Proceed To Payment
@@ -40,18 +40,14 @@ function AppointmentModalFooter({
       )}
       {stepName == "stepTwo" && (
         <div className="flex justify-between ">
-          <div
-            className="flex items-center text-primary"
-            onClick={onNext}
-          >
-            <PlusOutlined className={`${_Classes["icon-color"]}`} />
+          <div className="flex items-center text-primary" onClick={onNext}>
+            <PlusOutlined className={`${_classes["icon-color"]}`} />
             <span className="text-primary">Add Payment Method</span>
           </div>
           <Button
             type="primary"
-            
             onClick={() => setCurrentStepName("stepFour")}
-            className={`${_Classes["button-background-color"]}`}
+            className={`${_classes["button-background-color"]}`}
           >
             Pay $5900
           </Button>
@@ -59,17 +55,13 @@ function AppointmentModalFooter({
       )}
       {stepName === "stepThree" && (
         <div className="flex justify-between items-center">
-           <div
-            className="flex items-center text-primary"
-            onClick={onPrevious}
-          >
-            <LeftOutlined className={`${_Classes["icon-color"]}`} />
+          <div className="flex items-center text-primary" onClick={onPrevious}>
+            <LeftOutlined className={`${_classes["icon-color"]}`} />
             <span className="text-primary">Previous</span>
           </div>
           <Button
-
             type="primary"
-            className={`${_Classes["button-background-color"]}`}
+            className={`${_classes["button-background-color"]}`}
             onClick={onNext}
           >
             Pay $5900
@@ -82,7 +74,7 @@ function AppointmentModalFooter({
           <Button
             type="primary"
             onClick={onRequestAppointment}
-            className={`${_Classes["button-background-color"]}`}
+            className={`${_classes["button-background-color"]}`}
           >
             Upcoming Appointments
           </Button>
