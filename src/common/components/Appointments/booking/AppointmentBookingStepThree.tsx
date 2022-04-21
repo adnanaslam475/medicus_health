@@ -26,13 +26,11 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
     },
   });
   const { doctorQuestionnaire } = dataList || {};
-  console.log(doctorQuestionnaire, "doctorQuestionnaire");
 
   const { saveStepThree, data } = useBookAppointment();
   const [formInstance] = Form.useForm();
 
   function onFinishLocal(values: any) {
-    console.log("onFinishLocal called", values);
     saveStepThree?.(values);
   }
 

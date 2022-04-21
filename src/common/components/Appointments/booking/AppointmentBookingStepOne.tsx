@@ -64,7 +64,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
       let charge = allAppoinments?.filter(
         (serviceType) => serviceType.id === value
       );
-      console.log("charge", charge);
       setServiceInfo(charge);
     }
 
