@@ -209,11 +209,6 @@ export const Profile = React.forwardRef(function Profile({
                 <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
                   <Button
                     type="primary"
-                    style={{
-                      background: "#E2F8F7",
-                      borderColor: "#E2F8F7",
-                      color: "#30CEC2",
-                    }}
                     className={`${_classes["published-button"]}`}
                     onClick={handleChange}
                   >
