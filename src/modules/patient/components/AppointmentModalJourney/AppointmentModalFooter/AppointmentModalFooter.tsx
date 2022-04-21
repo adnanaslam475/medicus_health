@@ -42,14 +42,15 @@ function AppointmentModalFooter({
         <div className="flex justify-between ">
           <div
             className="flex items-center text-primary"
-            onClick={() => setCurrentStepName("stepThree")}
+            onClick={onNext}
           >
             <PlusOutlined className={`${_Classes["icon-color"]}`} />
             <span className="text-primary">Add Payment Method</span>
           </div>
           <Button
             type="primary"
-            onClick={onNext}
+            
+            onClick={() => setCurrentStepName("stepFour")}
             className={`${_Classes["button-background-color"]}`}
           >
             Pay $5900
