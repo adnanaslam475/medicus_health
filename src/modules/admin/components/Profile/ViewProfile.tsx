@@ -185,29 +185,15 @@ export const ViewProfile = React.forwardRef(function Profile({
       <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
         <div className="flex flex-col w-full justify-start  py-3">
           <div className="w-full mb-10 flex gap-8 items-center">
-            {/* <Upload
-							onChange={fileChange}
-							maxCount={1}
-							beforeUpload={onBeforeUpload}
-							itemRender={() => <div />}
-							customRequest={() => null}
-						> */}
             <div className="relative">
               <Avatar
-                // size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
                 size={130}
-                style={{
-                  borderColor: "transparent",
-                  borderWidth: 2,
-                  lineHeight: "40px",
-                }}
+                className="border-transparent border-2 leading-10"
                 src={userProfileImage}
               />
             </div>
-            {/* </Upload> */}
 
             <div>
-              {/* <span>{doctorId}</span> */}
               <h2 className="mb-0">
                 {first_name ? `${first_name} ${last_name}` : ""}
               </h2>

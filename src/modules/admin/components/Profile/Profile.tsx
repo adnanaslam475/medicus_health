@@ -184,11 +184,7 @@ export const Profile = React.forwardRef(function Profile({
               <div className="relative">
                 <Avatar
                   size={130}
-                  style={{
-                    borderColor: "transparent",
-                    borderWidth: 2,
-                    lineHeight: "40px",
-                  }}
+                  className="border-transparent border-2 leading-10"
                   src={image ? image : userProfileImage}
                 />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
