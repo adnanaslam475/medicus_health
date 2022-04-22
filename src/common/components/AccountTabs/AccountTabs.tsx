@@ -15,6 +15,7 @@ import {
   usePatientHealthHistoryQuery,
 } from "../../../generated/graphql";
 import { getUserData } from "../../utils/userData";
+import _classes from "./AccountTabs.module.scss";
 
 const { TabPane } = Tabs;
 
@@ -63,9 +64,9 @@ const AccountTabs = () => {
 
   return (
     <div>
-      <div className="card-container profile-tabs">
+      <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
         <Tabs type="card">
-          <TabPane
+          <TabPane className="w-full"
             tab={
               <span className="font-Circular font-medium">
                 Personal Information
@@ -83,7 +84,7 @@ const AccountTabs = () => {
             }
             key="2"
           >
-            <div className="w-3/6">
+            <div className="md:w-3/6">
               <QuestionnaireForm
                 ref={form}
                 data={data?.patientHealthHistory.history}

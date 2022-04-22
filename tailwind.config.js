@@ -14,6 +14,10 @@ module.exports = {
       xl: "1200px",
       "2xl": "1600px",
     },
+    borderRadius: {
+      DEFAULT: '4px',
+      'lg': '14px !important',
+    },    
     colors: {
       transparent: "transparent",
       current: "currentColor",
@@ -36,6 +40,7 @@ module.exports = {
         6: "#F4F4F8",
         7: "#E5E5E5",
         8: "#DEE2EA",
+        9: "#E0EEFD",
       },
       lightBlue: {
         DEFAULT: "#ebf3ff",

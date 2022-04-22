@@ -207,7 +207,7 @@ function SearchFilters(props: Props) {
           className={`${_classes["btn-clear"]} sm:ml-3`}
         >
           <CloseOutlined className="text-sm" />
-          <span className="text-gray-1">Clear</span>
+          <span className="text-gray-1 text-sm">Clear</span>
         </Button>
       </div>
     </div>
