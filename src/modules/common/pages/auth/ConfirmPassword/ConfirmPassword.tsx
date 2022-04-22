@@ -65,14 +65,13 @@ function ConfirmPassword() {
                 loading={fetching}
                 response={error}
               />
-              {error?.message &&
-                (
-                  <Alert
-                    className=""
-                    message={error?.message.split("]")[1].trim()}
-                    type="error"
-                  />
-                ))}
+              {error?.message && (
+                <Alert
+                  className=""
+                  message={error?.message.split("]")[1].trim()}
+                  type="error"
+                />
+              )}
               {data && (
                 <Alert
                   className=""
