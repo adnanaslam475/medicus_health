@@ -85,7 +85,7 @@ function DoctorProfileCard(props: Props) {
             </h5>
             <span className="font-rubik text-secondary text-sm block mb-2">
               {doctorData?.year_of_experience
-                ? `${doctorData?.year_of_experience}  years of experience`
+                ? `${doctorData?.year_of_experience} + years of experience`
                 : "experience not available"}
             </span>
             <Collapse className="lg:w-4/5">
@@ -104,7 +104,7 @@ function DoctorProfileCard(props: Props) {
                         </span>
                       </>
                     ) : (
-                      <span className="text-gray-8">Not Available Today</span>
+                      <span className="text-cyan-1">Not Available Today</span>
                     )}
                   </div>
                 }

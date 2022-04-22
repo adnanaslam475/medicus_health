@@ -1,0 +1,10 @@
+.message-input{
+    :global .ant-input{
+        border-radius: inherit !important;
+        border: none !important;
+        background-color: #E7E9ED;
+    }
+    ::-webkit-input-placeholder {
+        color: #9295AF !important;
+      }
+}

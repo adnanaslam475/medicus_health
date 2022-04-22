@@ -108,7 +108,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
             <span className="font-circular text-xs ant-upload-text text-white p-1 px-3 mt-1 mb-3 rounded inline-block bg-primary">
               Upload
             </span>
-            <span className="ant-upload-hint block text-xs text-gray-1">
+            <span className="hidden ant-upload-hint block text-xs text-gray-1">
               Max 3 files and 10mb upload limit.
             </span>
           </Dragger>
@@ -152,7 +152,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
         </Form.Item>
 
         <Form.Item label="General Health Questionnaire*">
-          <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
+          <div className="w-full bg-gray-4 rounded flex items-center p-3">
             <Checkbox value="0">
               <span className="text-gray-2">Health Questionnaire attached</span>
             </Checkbox>

@@ -8,7 +8,8 @@ const data = [
     // name: "John Brown",
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    booked_on: "Jan 30, 2022",
+    type: "First Consultation",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -21,7 +22,8 @@ const data = [
     key: "2",
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    booked_on: "Jan 30, 2022",
+    type: "First Consultation",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -33,7 +35,8 @@ const data = [
     key: "3",
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    booked_on: "Jan 30, 2022",
+    type: "First Consultation",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -45,7 +48,8 @@ const data = [
     key: "4",
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    booked_on: "Jan 30, 2022",
+    type: "First Consultation",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -57,7 +61,8 @@ const data = [
     key: "5",
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    booked_on: "Jan 30, 2022",
+    type: "First Consultation",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -69,7 +74,8 @@ const data = [
   {
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    tYpe: "First Consultation",
+    booked_on: "Jan 30, 2022",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -80,7 +86,8 @@ const data = [
   {
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    booked_on: "Jan 30, 2022",
+    type: "First Consultation",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -91,7 +98,8 @@ const data = [
   {
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    booked_on: "Jan 30, 2022",
+    type: "First Consultation",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -102,7 +110,8 @@ const data = [
   {
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    booked_on: "Jan 30, 2022",
+    type: "First Consultation",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -113,7 +122,8 @@ const data = [
   {
     transactionid: "MD-2312",
     doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
+    booked_on: "Jan 30, 2022",
+    type: "First Consultation",
     timeslot: "09:00 AM - 09:30 AM",
     date: "Jan 30, 2022",
     totalamount: "$40.00",
@@ -133,7 +143,7 @@ interface col {
 const TransactionHistory = () => {
   const columns = [
     {
-      title: "Transaction ID",
+      title: "ID",
       dataIndex: "transactionid",
       key: "name",
       sorter: {
@@ -142,7 +152,17 @@ const TransactionHistory = () => {
       },
     },
     {
-      title: "Doctor",
+      title: "Booked On",
+      dataIndex: "booked_on",
+      key: "booked_on",
+      sorter: {
+        compare: (a: any, b: any) => a.doctor - b.doctor,
+        multiple: 3,
+      },
+    },
+    
+    {
+      title: "Physician",
       dataIndex: "doctor",
       key: "doctor",
       sorter: {
@@ -151,29 +171,30 @@ const TransactionHistory = () => {
       },
     },
     {
-      title: "Service",
-      dataIndex: "service",
-      key: "service",
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
       sorter: {
         compare: (a: any, b: any) => a.service - b.service,
         multiple: 3,
       },
     },
-    {
-      title: "Time Slot",
-      dataIndex: "timeslot",
-      key: "timeslot",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-    },
+  
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
       sorter: {
         compare: (a: any, b: any) => a.date - b.date,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Time",
+      dataIndex: "timeslot",
+      key: "timeslot",
+      sorter: {
+        compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
       },
     },

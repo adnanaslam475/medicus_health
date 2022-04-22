@@ -10,8 +10,15 @@ function CancelledAppointment() {
   return (
     <AppLayout>
       <div className="w-full">
-        <h2 className="mb-4">History</h2>
-        <div className="w-3/5 mb-10">
+        <div className="flex-none sm:flex items-center justify-between mb-5">
+          <div className="pr-3 mb-3 sm:mb-0">
+            <h2 className="mb-0">History</h2>
+          </div>
+          <Button type="primary" size="large">
+            Request an Appointment
+          </Button>
+        </div>
+        <div className="w-5/6 mb-10">
           <div className="flex items-center">
             <span className="mx-3">Filter</span>
             <div className="mx-3">
@@ -51,7 +58,7 @@ function CancelledAppointment() {
         </div>
         {/* Transaction History table */}
         <div className="custom-table-ui">
-        <TransactionHistory />
+          <TransactionHistory />
         </div>
       </div>
     </AppLayout>

@@ -64,7 +64,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
       let charge = allAppoinments?.filter(
         (serviceType) => serviceType.id === value
       );
-      console.log("charge", charge);
       setServiceInfo(charge);
     }
 
@@ -121,7 +120,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  {serviceInfo &&
+                  $ {serviceInfo &&
                     `${serviceInfo?.map((item) =>
                       item?.price ? item?.price : ""
                     )}`}
@@ -137,7 +136,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
               disabledDate={disabledDate}
             />
           </Form.Item>
-          <Form.Item label="Availability" name="availability">
+          <Form.Item label="Availability*" name="availability">
             <div className="flex flex-wrap availability-label">
               {isShow ? (
                 <Radio.Group
