@@ -11,6 +11,7 @@ import {
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
 import AppointmentModal from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
+import CancelledAppointment from "../CancelledAppointment/CancelledAppointment";
 
 const { Option } = Select;
 function UpcomingAppointments() {
@@ -49,14 +50,12 @@ function UpcomingAppointments() {
           </div>
         </div>
         <SearchFilters
-          appointments={appointments}
           setDataListPhysician={setDataListPhysician}
           setDoctorId={setDoctorId}
           setAppointmentIds={setAppointmentIds}
           setServiceIds={setServiceIds}
           setStartDate={setStartDate}
           setEndDate={setEndDate}
-          setStatus={setStatus}
         />
         <div className="w-full">
           {appointments?.length !== 0 && appointments ? (
@@ -67,7 +66,7 @@ function UpcomingAppointments() {
                   status,
                   serviceType,
                   doctor,
-                  appointmentTimeSlots
+                  appointmentTimeSlots,
                 } = appointmentDetail || {};
                 return (
                   <AppointmentCard

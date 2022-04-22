@@ -39,8 +39,8 @@ function CancelledAppointment() {
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">Cancelled Appointments</h2>
             <h5 className="text-gray">
-            Suspendisse ac nulla non ante viverra feugiat. Duis ullamcorperequesty
-            tortor a fringilla tempus.
+              Suspendisse ac nulla non ante viverra feugiat. Duis
+              ullamcorperequesty tortor a fringilla tempus.
             </h5>
           </div>
           <Button type="primary" size="large">
@@ -50,14 +50,12 @@ function CancelledAppointment() {
 
         <div className="w-5/6">
           <SearchFilters
-            appointments={appointments}
             setStartDate={setStartDate}
             setEndDate={setEndDate}
             setDataListPhysician={setDataListPhysician}
             setDoctorId={setDoctorId}
             setAppointmentIds={setAppointmentIds}
             setServiceIds={setServiceIds}
-            setStatus={setStatus}
           />
         </div>
 
