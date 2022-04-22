@@ -26,27 +26,16 @@ function handleChange(value: any) {
 const { RangePicker } = DatePicker;
 
 type Props = {
-  // appointments: Appointment | undefined | any;
   setDataListPhysician: string | any;
   setDoctorId: number | any;
   setAppointmentIds: number | any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
-  // setStatus: (data: string) => void | string;
 };
 
 function SearchFilters(props: Props) {
-  const {
-    // appointments,
-    // setDataListPhysician,
-    setServiceIds,
-    // setAppointmentIds,
-    setDoctorId,
-    setEndDate,
-    setStartDate,
-    // setStatus,
-  } = props;
+  const { setServiceIds, setDoctorId, setEndDate, setStartDate } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
   >();
@@ -140,7 +129,6 @@ function SearchFilters(props: Props) {
         >
           <div className="relative">
             <RangePicker
-              // dateRange={dateRange}
               value={dateRangeValues}
               onChange={onChange}
               open={openDateRange}
