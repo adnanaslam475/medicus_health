@@ -51,8 +51,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }, [appoinmentDetails]);
 
     function prepareAndSetEditPayload() {
+      console.log(physicianName);
       formInstance.setFieldsValue({
-        physicianName: physicianName,
+        physicianName: `${first_name}${last_name}`,
         service: service,
         charges: price,
         requestedDate: requestedDate,
@@ -95,17 +96,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         <h2>Request an Appointment</h2>
         <Form form={formInstance} layout="vertical" onFinish={onFinishLocal}>
           <Form.Item label="Physician*" name="physicianName">
-            {/* <Select placeholder="Dr. name" className="w-full">
-              <Option value={`${first_name}${last_name}`}>
-                {physicianData ? `${first_name}  ${last_name}` : ""}
-              </Option>
-            </Select> */}
-            <Input
-              placeholder="Dr. name"
-              className="w-full"
-              disabled
-              value={`${first_name}${last_name}`}
-            />
+            <Input placeholder="Dr. name" className="w-full" readOnly />
           </Form.Item>
           <div className="flex">
             <div className="w-5/6">
@@ -126,7 +117,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  $ {serviceInfo &&
+                  ${" "}
+                  {serviceInfo &&
                     `${serviceInfo?.map((item) =>
                       item?.price ? item?.price : ""
                     )}`}
