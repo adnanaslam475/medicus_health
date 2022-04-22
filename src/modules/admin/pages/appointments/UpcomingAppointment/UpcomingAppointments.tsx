@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import AppointmentCard from "../../../../../common/components/AppointmentCard";
+import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
+import Router, { useRouter } from "next/router";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
-import { Button } from "antd";
+import { Button, Empty, Select } from "antd";
+import Link from "next/link";
+import {
+  Appointment,
+  AppointmentTimeSlots,
+  useGetAllRequestedAppointmentsQuery,
+} from "../../../../../generated/graphql";
+import AppointmentModal from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
+import CancelledAppointment from "../CancelledAppointment/CancelledAppointment";
 
+const { Option } = Select;
 function UpcomingAppointments() {
+  const [dueStartDate, setStartDate] = useState<Date | null>();
+  const [dueEndDate, setEndDate] = useState<Date | null>();
+  const [dataListPhysician, setDataListPhysician] = useState<string>();
+  const [doctorIds, setDoctorId] = useState<number>();
+  const [appointmentIds, setAppointmentIds] = useState<number>();
+  const [serviceIds, setServiceIds] = useState<number>();
+  const [status, setStatus] = useState<string>("Confirmed");
+  const [{ data }] = useGetAllRequestedAppointmentsQuery({
+    variables: {
+      filter: {
+        status: status,
+        physicianName: dataListPhysician,
+        doctorId: doctorIds,
+        appointmentId: appointmentIds,
+        serviceId: serviceIds,
+      },
+    },
+  });
+
+  const { appointments } = data || {};
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -16,18 +48,45 @@ function UpcomingAppointments() {
               ullamcorperequesty tortor a fringilla tempus.
             </p>
           </div>
-          <Button type="primary">Request an Appointment</Button>
         </div>
-        <SearchFilters />
+        <SearchFilters
+          setDataListPhysician={setDataListPhysician}
+          setDoctorId={setDoctorId}
+          setAppointmentIds={setAppointmentIds}
+          setServiceIds={setServiceIds}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+        />
         <div className="w-full">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-          </div>
+          {appointments?.length !== 0 && appointments ? (
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              {appointments?.map((appointmentDetail, i) => {
+                const {
+                  requestedDate,
+                  status,
+                  serviceType,
+                  doctor,
+                  appointmentTimeSlots,
+                } = appointmentDetail || {};
+                return (
+                  <AppointmentCard
+                    requestedDate={requestedDate}
+                    status={status}
+                    serviceType={serviceType?.name}
+                    doctor={doctor?.first_name}
+                    appointmentTimeSlots={
+                      appointmentTimeSlots as AppointmentTimeSlots[]
+                    }
+                    setShowModal={setShowModal}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <div className="flex items-center justify-center w-full">
+              <Empty />
+            </div>
+          )}
         </div>
       </div>
     </AppLayout>

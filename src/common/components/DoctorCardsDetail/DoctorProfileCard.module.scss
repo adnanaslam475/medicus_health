@@ -1,7 +1,12 @@
 .doctorProfileCard {
     background-color: #f6f8fa;
+    border: none;
     :global .ant-collapse {
+        font-family: Circular Std;
         background-color: #fff;
+        border: none;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.07);
+        border-radius: 6px;        
         .ant-collapse-item {
             .ant-collapse-header {
                 background-color: #fff;
@@ -11,6 +16,9 @@
                     position: absolute;
                     right: 0px;
                     top: 17px;
+                    svg {
+                        transform: rotate(90deg);
+                    }
                 }
                 .ant-collapse-available {
                     color: #30cec2;
@@ -43,28 +51,45 @@
     }
     :global .ant-btn {
         &.highlighted-button {
-            width: 57px;
+            width: 60px;
+            padding: 0px !important;
             transition: width 0.5s;
             justify-content: flex-start;
             white-space: nowrap;
             .hidden {
                 display: none;
+                padding-left: 50px;
             }
             &:hover {
-                width: 175px;
+                width: 185px;
                 color: #fff;
                 background-color: #1a82fe !important;
-                svg {
-                    color: #fff;
-                }
                 .hidden {
                     display: block;
+                }
+            }
+            &.highlighted-button-headphone {
+                background: url(../../../../public/assets/icon/support.svg);
+                background-repeat: no-repeat;
+                background-position-x: 17px;
+                background-position-y: 12px;
+                &:hover {
+                    background-image: url(../../../../public/assets/icon/support-hover.svg);
+                }
+            }
+            &.highlighted-button-message {
+                background: url(../../../../public/assets/icon/chat-bubble.svg);
+                background-repeat: no-repeat;
+                background-position-x: 20px;
+                background-position-y: 15px;
+                &:hover {
+                    background-image: url(../../../../public/assets/icon/chat-bubble-hover.svg);
                 }
             }
         }
         &.button-phy {
             &:hover {
-                width: 197px;
+                width: 205px;
             }
         }
     }
@@ -86,57 +111,12 @@
     }
 }
 
-.steps-style {
-    :global .ant-steps {
-        justify-content: center;
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 20px;
-        .ant-steps-item {
-            padding-left: 10px;
-            flex: inherit;
-            &.ant-steps-item-active {
-                .ant-steps-item-container {
-                    .ant-steps-item-icon {
-                        background-color: #1A82FE;
-                    }
-                }
-            }
-            .ant-steps-item-container {
-                .ant-steps-item-icon {
-                    width: 12px;
-                    height: 12px;
-                    margin: 0px;
-                    background-color: #D1DEF0;
-                    border: none;
-                    .ant-steps-icon {
-                        display: none;
-                    }
-                }
-                .ant-steps-item-content {
-                    display: none;
-                }
-            }
-       }
-    }
-    :global .steps-action {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        .ant-btn-link {
-            display: flex !important;
-            align-items: center;
-            border: none;
-            padding: 0px !important;       
-        }
-    }
-}
+
 .btn-next {
     color: #fff !important;
     border-color: #1a82fe !important;
     background: #1A82FE !important; 
     margin-left: auto;
+    margin-bottom: 30px;
     height: 48px !important;
 }

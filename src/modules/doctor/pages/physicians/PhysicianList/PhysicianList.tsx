@@ -6,6 +6,7 @@ import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
 function Physicians() {
   const [{ data }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -28,13 +29,12 @@ function Physicians() {
                   key={id}
                   id={id}
                   name={user?.first_name + " " + user?.last_name}
-                  language={language}
-                  specialization={specialization}
-                  aboutMe={aboutMe}
-                  professionalExperience={professionalExperience}
-                  yearOfExperience={yearOfExperience}
-                  conditionTreated={conditionTreated}
-                  // data={profile}
+                  language={language || ""}
+                  specialization={specialization || ""}
+                  aboutMe={aboutMe || ""}
+                  professionalExperience={professionalExperience || ""}
+                  yearOfExperience={yearOfExperience || 0}
+                  conditionTreated={conditionTreated || ""}
                 />
               );
             })}

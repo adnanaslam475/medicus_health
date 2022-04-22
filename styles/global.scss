@@ -6,9 +6,18 @@
 
 // for default button
 button.ant-btn {
+  font-family: Circular Std;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  word-spacing: -4px;
+  letter-spacing: 0px;
+}
+
+// for all modal headers
+.ant-modal-header {
+  padding: 16px 24px 0px 24px !important;
+  border-bottom: none !important;
 }
 
 // for all tags
@@ -90,8 +99,16 @@ label.ant-radio-wrapper {
 // CSS FOR ANT MODAL
 
 .ant-modal {
+  .ant-modal-header {
+    .ant-modal-title {
+      font-family: "Circular Std";
+      font-weight: medium;
+    }
+  }
   .ant-modal-content {
+    border-radius: 13px;
     .ant-modal-body {
+      padding: 30px 45px;
       button.ant-btn {
         line-height: 1;
         position: relative;
@@ -175,7 +192,7 @@ label.ant-radio-wrapper {
     font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
 
   h1,
@@ -188,7 +205,7 @@ label.ant-radio-wrapper {
       Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
       "Noto Color Emoji";
-    word-spacing: -5px;
+    word-spacing: -10px;
     margin-bottom: 0px;
   }
 
@@ -269,11 +286,6 @@ label.ant-radio-wrapper {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 }
 
-.ant-checkbox-checked .ant-checkbox-inner {
-  border-color: #429eff !important;
-  background-color: #429eff !important;
-}
-
 .ant-tabs
   .ant-form-item-control-input
   .ant-checkbox-group
@@ -286,31 +298,32 @@ label.ant-radio-wrapper {
 .ant-checkbox-checked::after {
   border-color: transparent !important;
 }
-
 // Faizan CSS
-.ant-table-wrapper {
-  .ant-table-content {
-    table {
-      .ant-table-thead {
-        tr > {
-          th {
-            // white-space: nowrap;
+.custom-table-ui {
+  .ant-table-wrapper {
+    .ant-table-content {
+      table {
+        .ant-table-thead {
+          tr > {
+            th {
+              // white-space: nowrap;
+            }
           }
         }
-      }
-      .ant-table-tbody {
-        .ant-table-cell {
-          &.table-action-icon {
-            span {
-              background: #f5f5f5;
-              border-radius: 50px;
-              color: #fff;
-              font-size: 14px;
-              width: 25px;
-              height: 25px;
-              line-height: 25px;
-              svg {
-                color: #1a82fe;
+        .ant-table-tbody {
+          .ant-table-cell {
+            &.table-action-icon {
+              span {
+                background: #f5f5f5;
+                border-radius: 50px;
+                color: #fff;
+                font-size: 14px;
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+                svg {
+                  color: #1a82fe;
+                }
               }
             }
           }
@@ -324,30 +337,16 @@ label.ant-radio-wrapper {
     .ant-checkbox-group {
       .ant-checkbox-wrapper {
         &.ant-checkbox-group-item {
-          color: #9295AF;
+          color: #9295af;
           width: 100%;
         }
       }
     }
   }
 }
-.btn-transparent{
+
+.btn-transparent {
   background-color: transparent !important;
-}
-.page-filters {
-  .ant-btn {
-    padding: 0px !important;
-    &:hover {
-      color: rgba(0, 0, 0, 0.85);
-      background-color: transparent;
-      span {
-        color: rgba(0, 0, 0, 0.85);
-      }
-    }
-    &:focus {
-      background-color: transparent;
-    }
-  }
 }
 .ant-btn {
   padding: 0 20px !important;

@@ -1,0 +1,21 @@
+.radio-div{
+    padding: 6px 3px;
+    border-radius: 10px;
+    color: black;
+}
+.button-border{
+    border-color: red !important; 
+    color: red !important;
+}
+.button-background-color{
+    background-color:#1a82fe !important ;
+    color:white !important
+}
+.button-background-transparent{
+    background-color:transparent !important ;
+    color:#1a82fe !important;
+    border:none !important;
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+}

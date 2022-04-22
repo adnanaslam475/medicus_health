@@ -72,7 +72,7 @@ query getUser($input: Int!) {
     password
     zip_code
     streetAddress
-    patientProfile{
+    patientProfile {
       maritalStatus
       profileImage
       children
@@ -167,7 +167,6 @@ query doctorProfile($doctor_id: Int!) {
       last_name
       email
       gender
-      date_of_birth
       country_id
       state_id
       city_id
@@ -184,6 +183,155 @@ query doctorProfile($doctor_id: Int!) {
         createdAt
         updatedAt
       }
+    }
+  }
+}
+
+# get all appointments
+query getAllRequestedAppointments($filter: GetAppointmentInput!) {
+  appointments(filter: $filter) {
+    id
+    patientId
+    doctorId
+    serviceId
+    requestedDate
+    status
+    patient {
+      first_name
+      last_name
+    }
+    serviceType {
+      name
+    }
+    doctor {
+      first_name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+  }
+}
+# query getAllRequestedAppointments($filter: GetAppointmentInput!) {
+#   appointments(filter: $filter) {
+#     id
+#     patientId
+#     doctorId
+#     serviceId
+#     requestedDate
+#     status
+#     patient{
+#       first_name
+#       last_name
+#     }
+#     serviceType{
+#       name
+#     }
+#     doctor{
+#       first_name
+#     }
+#   }
+# }
+# GET DOCTOR PROFILE DETAILS
+query doctorProfileDetails($input: Int!) {
+  user(id: $input) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    country_id
+    state_id
+    city_id
+    zip_code
+
+    doctorProfile {
+      id
+      year_of_experience
+      specialization
+      condition_treated
+      educational_background
+      professional_experience
+      language
+      about_me
+      profile_image
+    }
+    doctorSchedules {
+      day
+      startTime
+      endTime
+    }
+  }
+}
+
+#GET APPOINMENT SERVICE TYPES
+query getAllAppointmentServiceTypes {
+  appointmentServiceTypes {
+    id
+    name
+    price
+  }
+}
+
+#GET DOCTOR SCHEDULES
+query doctorSchedules($doctorId: Int!) {
+  doctorSchedules(doctorId: $doctorId) {
+    id
+    doctorId
+    day
+    startTime
+    endTime
+  }
+}
+
+#GET DOCTOR QUESTIONAIRES
+query doctorQuestionnaire($doctorId: Int!) {
+  doctorQuestionnaire(doctorId: $doctorId) {
+    id
+    doctorId
+    questionnaire
+  }
+}
+
+#GET APPOINMENT BY ID
+query getAppointmentById($id: Int!) {
+  appointment(id: $id) {
+    id
+    status
+    scheduleId
+    doctorId
+    patientId
+    requestedDate
+    reportUrl
+    doctor {
+      id
+      first_name
+      last_name
+    }
+    patient {
+      id
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    appointmentSchedule {
+      id
+      day
+      doctorId
+      startTime
+      endTime
+    }
+    serviceType {
+      id
+      name
+      price
     }
   }
 }

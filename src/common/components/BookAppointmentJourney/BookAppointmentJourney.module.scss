@@ -1,0 +1,108 @@
+.steps-style {
+  :global .ant-steps {
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    .ant-steps-item {
+      padding-left: 8px;
+      flex: inherit;
+      &.ant-steps-item-active {
+        .ant-steps-item-container {
+          .ant-steps-item-icon {
+            background-color: #1a82fe;
+          }
+        }
+      }
+      .ant-steps-item-container {
+        .ant-steps-item-icon {
+          width: 9px;
+          height: 9px;
+          margin: 0px;
+          background-color: #d1def0;
+          border: none;
+          .ant-steps-icon {
+            display: none;
+          }
+        }
+        .ant-steps-item-content {
+          display: none;
+        }
+      }
+    }
+  }
+  :global .ant-radio-group {
+    .ant-radio-button-wrapper {
+      color: rgba(0, 0, 0, 0.85);
+      height: inherit;
+      background: #F6F8FA;
+      padding: 8px 15px;
+      border: none !important;
+      border-radius: 0.25rem !important;
+      border: 1px solid #d9d9d9;
+      margin: 0 10px 10px 0;
+      &:before {
+        display: none;
+      }
+      &.ant-radio-button-wrapper-checked {
+        color: #fff;
+        background: #30cec2;
+      }
+    }
+  }
+  :global .ant-upload-list {
+    .ant-upload-list-text-container {
+      background-color: #F6F8FA;
+      border: 1px solid #DEE2EA;
+      border-radius: 6px;
+      margin-top: 10px;
+      .ant-upload-list-item {
+        height: auto;
+        margin-top: 0px;
+        font-size: 14px;
+        padding: 0 5px;
+        .ant-upload-text-icon {
+          margin-top: -4px;
+        }
+        .ant-upload-list-item-card-actions {
+          button {
+            background: transparent;
+            border: none;
+            padding: 0px !important;
+            .anticon {
+              display: block;
+              svg {
+                color: #D53E4F;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.book-appointment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  :global .ant-btn-primary {
+    color: #fff !important;
+    background: #1a82fe !important;
+    border: none;
+    height: 40px !important;
+  }
+  :global .ant-btn-link {
+    display: flex !important;
+    align-items: center;
+    border: none;
+    padding: 0px !important;
+    .anticon {
+      margin: -4px 0 0 0 !important;
+    }
+  }
+}
+.btn-next {
+  margin-left: auto !important;
+}

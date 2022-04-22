@@ -27,13 +27,16 @@ stages:
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: "16.x"
+              versionSpec: "17.x"
             displayName: "Install Node.js"
+            
+          - script: npm -g install yarn
+            displayName: "Installing  Yarn"
 
-          - script: npm install
+          - script: yarn install
             displayName: "Install Dependencies"
 
-          - script: npm run lint
+          - script: yarn lint
             displayName: "Code Analysis"
 
           - task: SonarQubePrepare@5
@@ -45,10 +48,16 @@ stages:
               configMode: "manual"
               cliProjectKey: "medicus"
               cliProjectName: "Medicus FrontEnd"
-              cliSources: "."
+              cliSources: "src"
               extraProperties: |
                 sonar.sourceEncoding=UTF-8
                 sonar.scm.provider=git
+                sonar.profile=node
+                sonar.coverage.exclusions=cypress,src/models/index.js,src/pages/api/coverage.js
+                sonar.dynamicAnalysis=reuseReports
+                sonar.javascript.lcov.reportPaths=coverage/lcov.info
+                sonar.javascript.coverage.reportPaths=coverage/clover.xml
+                sonar.clover.reportPath=coverage/clover.xml
 
           - task: SonarQubeAnalyze@5
             condition: eq(variables['Build.SourceBranchName'], 'master')
@@ -59,7 +68,6 @@ stages:
             displayName: "Publish SonarQube Analysis"
             inputs:
               pollingTimeoutSec: "300"
-
           - script: npm run build
             displayName: "Build Package"
 

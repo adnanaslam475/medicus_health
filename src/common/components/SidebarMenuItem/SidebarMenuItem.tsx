@@ -20,26 +20,27 @@ import {
 
 const IconsList = [
   <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+  <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
   <ChatBubbleIcon className={_classes["sidebar-icon-hover"]} />,
   <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
-  <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
 ];
 
 function SidebarMenuItem() {
   const router = useRouter();
 
   return (
+    <div className={`${_classes["side-menu-cover"]} w-full`}>
+
     <Menu
       defaultSelectedKeys={["/"]}
       selectedKeys={[router.pathname]}
       mode="inline"
-      className={`${_classes["side-menu-cover"]} bg-gray-4 border-r-0`}
     >
       {getRole() === "User" &&
         PATIENT_ROUTES?.map((el, i) => {
           return el.submenu && el.submenu.length > 0 ? (
             <Menu.SubMenu
-              className={_classes["side-bar-submenu-item"]}
+              className={_classes[""]}
               key="sub1"
               icon={
                 <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
@@ -60,7 +61,7 @@ function SidebarMenuItem() {
           ) : (
             <Menu.Item
               key={el.route}
-              className={_classes["side-bar-submenu-item"]}
+              
               icon={IconsList[i]}
             >
               <Link href={el.route}>{el.name}</Link>
@@ -71,7 +72,7 @@ function SidebarMenuItem() {
         ADMIN_ROUTES?.map((el, i) => {
           return el.submenu && el.submenu.length > 0 ? (
             <Menu.SubMenu
-              className={_classes["side-bar-submenu-item"]}
+              
               key="sub1"
               icon={
                 <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
@@ -82,7 +83,7 @@ function SidebarMenuItem() {
                 return (
                   <Menu.Item
                     key={el2.route}
-                    className={_classes["side-bar-submenu-item"]}
+                    
                     // icon={IconsList[i2]}
                   >
                     <Link href={el2.route}>{el2.name}</Link>
@@ -94,7 +95,7 @@ function SidebarMenuItem() {
             <Menu.Item
               key={el.route}
               icon={IconsList[i]}
-              className={_classes["side-bar-submenu-item"]}
+              
             >
               <Link href={el.route}>{el.name}</Link>
             </Menu.Item>
@@ -104,7 +105,7 @@ function SidebarMenuItem() {
         DOCTOR_ROUTES?.map((el, i) => {
           return el.submenu && el.submenu.length > 0 ? (
             <Menu.SubMenu
-              className={_classes["side-bar-submenu-item"]}
+              
               key="sub1"
               icon={
                 <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
@@ -119,7 +120,7 @@ function SidebarMenuItem() {
                   <Menu.Item
                     key={el2.route}
                     // icon={IconsList[i2]}
-                    className={_classes["side-bar-submenu-item"]}
+                    
                   >
                     <Link href={el2.route}>{el2.name}</Link>
                   </Menu.Item>
@@ -130,13 +131,15 @@ function SidebarMenuItem() {
             <Menu.Item
               key={el.route}
               icon={IconsList[i]}
-              className={_classes["side-bar-submenu-item"]}
+              
             >
               <Link href={el.route}>{el.name}</Link>
             </Menu.Item>
           );
         })}
     </Menu>
+    </div>
+
   );
 }
 

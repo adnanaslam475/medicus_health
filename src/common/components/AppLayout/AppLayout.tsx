@@ -1,4 +1,4 @@
-import { Layout } from "antd";
+import { Layout, Affix } from "antd";
 import React from "react";
 import AdminSideMenu from "../../../modules/admin/components/AdminSideMenu/AdminSideMenu";
 import AppHeader from "../AppHeader/AppHeader";
@@ -12,10 +12,10 @@ function AppLayout({ children }: props) {
   return (
     <Layout className="h-full">
       <AdminSideMenu />
-      <Layout className="ml-0 md:ml-20 xl:ml-72">
-        <div className="border-b border-gray-5 bg-white">
+      <Layout className="ml-0 md:ml-0 lg:ml-72">
+        <Affix>
           <AppHeader />
-        </div>
+        </Affix>
         <Layout.Content className="flex w-full" style={{ overflow: "auto" }}>
           <Container fluid className="md:px-2 lg:px-3 w-full bg-white">
             {typeof children === "function" ? (

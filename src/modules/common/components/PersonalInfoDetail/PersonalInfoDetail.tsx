@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { DatePicker, Form, Input, Radio, Select } from "antd";
 import { User } from "../../../../generated/graphql";
-import { convertBirthDateToUTC } from "../../../../common/utils/date";
 import dayjs from "dayjs";
 import moment from "moment";
+import CitySelectDropDown from "./CitySelectDropDown";
+import StateSelectDropDown from "./StateSelectDropDown";
+import CountrySelectDropDown from "./CountrySelectDropDown";
 
 type Props = {
   onFinish?: (values: {
@@ -40,8 +42,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
   const { loading, user, onFinish } = props || {};
   const [radioChildren, setradioChildren] = useState(true);
   const [radioMaritalStatus, setradioMaritalStatus] = useState(true);
-  const [radioOccupationalExposure, setradioOccupationalExposure] =
-    useState(true);
+  const [radioOccupationalExposure, setradioOccupationalExposure] = useState(
+    user?.patientProfile?.occupationalExposure
+  );
 
   useEffect(() => {
     if (ref) {
@@ -57,17 +60,18 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       firstName: user?.first_name,
       lastName: user?.last_name,
       gender: user?.gender,
-      // date_of_birth: convertBirthDateToUTC(user?.date_of_birth),
       date_of_birth: moment(user?.date_of_birth),
       conntactNumber: user?.contact_number,
       email: user?.email,
-      password: user?.password,
-      country: user?.country_id,
-      state: user?.state_id,
-      city: user?.city_id,
+      password: "",
+      country_id: user?.country_id,
+      state_id: user?.state_id,
+      city_id: user?.city_id,
       postalCode: user?.zip_code,
       streetAddress: user?.streetAddress,
+      maritalStatusExist: false,
       maritalStatus: user?.patientProfile?.maritalStatus,
+      childrenExists: false,
       children: user?.patientProfile?.children,
       occupation: user?.patientProfile?.occupation,
       occupationalExposure: user?.patientProfile?.occupationalExposure,
@@ -80,9 +84,22 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     return current && current > dayjs().startOf("day");
   }
 
+  const [countryId, setCountryId] = useState<number | undefined>(
+    user?.country_id
+  );
+  const [stateId, setStateId] = useState<number | undefined>(user?.state_id);
+
+  function selectCountryId(id: number): void {
+    setCountryId(id);
+  }
+
+  function selectStateId(id: number): void {
+    setStateId(id);
+  }
+
   return (
     <div className="custom-list mt-4">
-      <Form form={formInstance} onFinish={onFinish}>
+      <Form form={formInstance} onFinish={onFinish} layout="vertical">
         <ul>
           <div className="border border-gray-3 px-0 rounded custom-list-items">
             <li>
@@ -128,13 +145,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Date of Birth</div>
                 <div className="w-1/2 text-secondary">
-                  {/* <Form.Item noStyle name="dateOfbirth">
-                    <Input size="large" placeholder="Date of Birth" />
-                  </Form.Item> */}
-
                   <Form.Item
                     className="flex-1"
-                    // label="Date of Birth"
                     name="date_of_birth"
                     rules={[
                       {
@@ -180,8 +192,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Password</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="password">
-                    <Input size="large" placeholder="Password" />
+                  <Form.Item name="password">
+                    <Input.Password size="large" placeholder="Password" />
                   </Form.Item>
                 </div>
               </div>
@@ -191,9 +203,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Country</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="country">
-                    <Input size="large" placeholder="Country" />
-                  </Form.Item>
+                  <CountrySelectDropDown
+                    onChange={(e) => {
+                      selectCountryId(e);
+                      formInstance.setFieldsValue({
+                        state_id: null,
+                        city_id: null,
+                      });
+                    }}
+                  />
                 </div>
               </div>
             </li>
@@ -202,9 +220,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">State</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="state">
-                    <Input size="large" placeholder="State" />
-                  </Form.Item>
+                  <StateSelectDropDown
+                    countryId={countryId}
+                    onChange={(e) => {
+                      selectStateId(e);
+                      formInstance.setFieldsValue({
+                        city_id: null,
+                      });
+                    }}
+                  />
                 </div>
               </div>
             </li>
@@ -213,9 +237,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">City</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="city">
-                    <Input size="large" placeholder="City" />
-                  </Form.Item>
+                  <CitySelectDropDown stateId={stateId} />
                 </div>
               </div>
             </li>
@@ -225,7 +247,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Postal Code</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item noStyle name="postalCode">
-                    <Input size="large" placeholder="Postal Code" />
+                    <Input
+                      size="large"
+                      placeholder="Postal Code"
+                      type="number"
+                    />
                   </Form.Item>
                 </div>
               </div>
@@ -247,27 +273,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Marital Status</div>
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0">
-                    <Radio.Group
-                      onChange={(e) => {
-                        setradioMaritalStatus(e.target.value);
-                      }}
-                    >
-                      <Radio value={1}>Yes</Radio>
-                      <Radio value={0}>No</Radio>
-                    </Radio.Group>
-
-                    {!!radioMaritalStatus && (
-                      <Form.Item className="mb-0" name="maritalStatus">
-                        <Select placeholder="Marital Status" size="large">
-                          <Select.Option value="Single">Single</Select.Option>
-                          <Select.Option value="Married">Married</Select.Option>
-                          <Select.Option value="Widower">Widower</Select.Option>
-                          <Select.Option value="Divorced">
-                            Divorced
-                          </Select.Option>
-                        </Select>
-                      </Form.Item>
-                    )}
+                    <Form.Item className="mb-0" name="maritalStatus">
+                      <Select placeholder="Marital Status" size="large">
+                        <Select.Option value="Single">Single</Select.Option>
+                        <Select.Option value="Married">Married</Select.Option>
+                        <Select.Option value="Widower">Widower</Select.Option>
+                        <Select.Option value="Divorced">Divorced</Select.Option>
+                      </Select>
+                    </Form.Item>
                   </Form.Item>
                 </div>
               </div>
@@ -279,14 +292,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   Do You have any children?
                 </div>
                 <div className="w-1/2 text-gray-1">
-                  <Form.Item className="mb-0">
+                  <Form.Item className="mb-0" name="childrenExists">
                     <Radio.Group
                       onChange={(e) => {
                         setradioChildren(e.target.value);
                       }}
                     >
-                      <Radio value={1}>Yes</Radio>
-                      <Radio value={0}>No</Radio>
+                      <Radio value="Yes">Yes</Radio>
+                      <Radio value="No">No</Radio>
                     </Radio.Group>
                     {!!radioChildren && (
                       <Form.Item className="mb-0" name="children">
@@ -328,13 +341,16 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     </Radio.Group>
                   </Form.Item>
 
-                  {!!radioOccupationalExposure && (
-                    <Form.Item className="mb-0" name="exposureDuration">
+                  {radioOccupationalExposure === "Yes" ? (
+                    <Form.Item
+                      className="mb-0"
+                      name="exposureDuration"
+                      label="Occupational Exposure duration?"
+                    >
                       <Select
                         placeholder="Occupational Exposure Duration"
                         size="large"
                       >
-                        <Select.Option value="None">None</Select.Option>
                         <Select.Option value="Less than a year (<1)">
                           Less than a year
                         </Select.Option>
@@ -346,7 +362,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         </Select.Option>
                       </Select>
                     </Form.Item>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </li>
@@ -355,9 +371,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Do you have any pets?</div>
                 <div className="w-1/2 text-gray-1">
-                  {/* <Form.Item noStyle name="pets">
-                    <Input size="large" placeholder="Any Pets" />
-                  </Form.Item> */}
                   <Form.Item className="mb-0" name="pets">
                     <Radio.Group>
                       <Radio value="Yes">Yes</Radio>
