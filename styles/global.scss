@@ -356,3 +356,14 @@ label.ant-radio-wrapper {
     padding: 20px;
   }
 }
+
+
+.ant-tooltip{
+  .ant-tooltip-content{
+      .ant-tooltip-inner{
+          color:#272B4C !important;
+          text-transform: capitalize;
+          box-shadow: 0 3px 4px -4px rgb(0 0 0 / 8%), 0 6px 10px 0 rgb(0 0 0 / 6%), 0 9px 15px 6px rgb(0 0 0 / 4%) !important;
+      }
+  }
+}

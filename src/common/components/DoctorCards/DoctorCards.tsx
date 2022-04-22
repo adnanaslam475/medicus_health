@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Divider, Avatar, Button, Steps, Modal } from "antd";
+import { Tooltip, Card, Divider, Avatar, Button, Steps, Modal } from "antd";
 import Router, { useRouter } from "next/router";
 import Link from "next/link";
 import VideoCameraFilled from "../../../../public/assets/icon/video.svg";
@@ -9,11 +9,7 @@ import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorCard.module.scss";
 import { date } from "../../utils";
 import { LeftOutlined } from "@ant-design/icons";
-// import AppointmentBookingStepOne from "../Appointments/booking/AppointmentBookingStepOne";
-// import AppointmentBookingStepTwo from "../Appointments/booking/AppointmentBookingStepTwo";
-// import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
-// import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
-// import SuccessMessage from "../Appointments/booking/SuccessMessage";
+import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -56,6 +52,7 @@ function DoctorCard({
     setIsModalVisible(false);
   };
 
+
   const [current, setCurrent] = React.useState(0);
   const next = () => {
     setCurrent(current + 1);
@@ -84,12 +81,14 @@ function DoctorCard({
                 <div className="flex">
                   <div className="flagAvatar engFlag pr-2">
                     {FLAG_BY_LANGUAGE[language] && (
-                      <Image
-                        src={FLAG_BY_LANGUAGE[language]}
-                        alt={language || "flag"}
-                        width={25}
-                        height={25}
-                      />
+                      <Tooltip title={language || "flag"} color="#FFF">
+                        <Image
+                          src={FLAG_BY_LANGUAGE[language]}
+                          alt={language || "flag"}
+                          width={25}
+                          height={25}
+                        />
+                      </Tooltip>
                     )}
                   </div>
                 </div>
@@ -114,7 +113,7 @@ function DoctorCard({
               </a>
             </Link>
 
-            <Button type="primary" className="w-full">
+            <Button type="primary" className="w-full" onClick={showModal}>
               <Image
                 src={VideoCameraFilled}
                 alt="espanolFlag"
@@ -126,6 +125,12 @@ function DoctorCard({
           </div>
         </div>
       </Card>
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        // doctorData={doctorData}
+      />      
     </>
   );
 }

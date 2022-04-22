@@ -106,6 +106,7 @@ function AppointmentCard({
           serviceType={serviceType}
           doctor={doctor}
           appointmentTimeSlots={appointmentTimeSlots}
+          onClick={()=>setShowModal(true)}
         />
       );
     case "Cancelled":

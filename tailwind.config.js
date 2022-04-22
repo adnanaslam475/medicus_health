@@ -16,6 +16,7 @@ module.exports = {
     },
     borderRadius: {
       DEFAULT: '4px',
+      'md': '6px !important',
       'lg': '14px !important',
     },    
     colors: {
