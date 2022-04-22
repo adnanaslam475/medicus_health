@@ -18,7 +18,7 @@ function RequestedAppointment() {
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
-  const [status, setStatus] = useState<string>();
+  const [status, setStatus] = useState<string>("Requested");
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
@@ -36,6 +36,7 @@ function RequestedAppointment() {
   });
 
   const { appointments } = data || {};
+  console.log(appointments, "appointments");
   const { Option } = Select;
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
@@ -46,7 +47,6 @@ function RequestedAppointment() {
             <div className="pr-3 mb-3 sm:mb-0">
               <h2 className="mb-0">Requested Appointments</h2>
             </div>
-            {/* <Button type="primary">Request an Appointment</Button> */}
             <div className="flex gap-3">
               <div className="lg:ml-3 mt-0 sm:mt-0">
                 <Select defaultValue="List View" className="w-full sm:w-40">
@@ -70,14 +70,12 @@ function RequestedAppointment() {
 
           <div className="w-5/6">
             <SearchFilters
-              appointments={appointments}
               setStartDate={setStartDate}
               setEndDate={setEndDate}
               setDataListPhysician={setDataListPhysician}
               setDoctorId={setDoctorId}
               setAppointmentIds={setAppointmentIds}
               setServiceIds={setServiceIds}
-              setStatus={setStatus}
             />
           </div>
 

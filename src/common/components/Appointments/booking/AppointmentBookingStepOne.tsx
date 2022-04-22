@@ -95,11 +95,17 @@ export const AppointmentBookingStepOne = React.forwardRef(
         <h2>Request an Appointment</h2>
         <Form form={formInstance} layout="vertical" onFinish={onFinishLocal}>
           <Form.Item label="Physician*" name="physicianName">
-            <Select placeholder="Dr. name" className="w-full">
+            {/* <Select placeholder="Dr. name" className="w-full">
               <Option value={`${first_name}${last_name}`}>
                 {physicianData ? `${first_name}  ${last_name}` : ""}
               </Option>
-            </Select>
+            </Select> */}
+            <Input
+              placeholder="Dr. name"
+              className="w-full"
+              disabled
+              value={`${first_name}${last_name}`}
+            />
           </Form.Item>
           <div className="flex">
             <div className="w-5/6">

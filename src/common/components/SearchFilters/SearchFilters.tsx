@@ -26,26 +26,26 @@ function handleChange(value: any) {
 const { RangePicker } = DatePicker;
 
 type Props = {
-  appointments: Appointment | undefined | any;
+  // appointments: Appointment | undefined | any;
   setDataListPhysician: string | any;
   setDoctorId: number | any;
   setAppointmentIds: number | any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
-  setStatus: (data: string) => void | string;
+  // setStatus: (data: string) => void | string;
 };
 
 function SearchFilters(props: Props) {
   const {
-    appointments,
-    setDataListPhysician,
+    // appointments,
+    // setDataListPhysician,
     setServiceIds,
-    setAppointmentIds,
+    // setAppointmentIds,
     setDoctorId,
     setEndDate,
     setStartDate,
-    setStatus,
+    // setStatus,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -67,20 +67,6 @@ function SearchFilters(props: Props) {
     setSelectedPhysicianItems(name.children);
     setDoctorId(selectedItem);
   };
-
-  useEffect(() => {
-    appointments?.map((item: { status: string; }) => {
-      if (item?.status === "Requested") {
-        setStatus(item?.status)
-      } else if (item?.status === "Suggested") {
-        setStatus(item?.status)
-      } else if (item?.status === "Cancelled") {
-        setStatus(item?.status)
-      } else if (item?.status === "Upcoming") {
-        setStatus(item?.status)
-      }
-    })
-  }, [appointments])
 
   const handleServiceChange = (selectedItem: any, name: any) => {
     setSelectedServiceItems(name.children);
@@ -112,7 +98,9 @@ function SearchFilters(props: Props) {
   };
 
   return (
-    <div className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}>
+    <div
+      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}
+    >
       <span className="text-gray-1 mr-3 mb-3">Filter</span>
       <div className="flex-none sm:flex">
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
@@ -145,7 +133,11 @@ function SearchFilters(props: Props) {
         </div>
       </div>
       <div className="flex-none sm:flex">
-        <Space direction="vertical" size={0} className="w-full md:w-44 xl:w-60 sm:mb-3">
+        <Space
+          direction="vertical"
+          size={0}
+          className="w-full md:w-44 xl:w-60 sm:mb-3"
+        >
           <div className="relative">
             <RangePicker
               // dateRange={dateRange}
@@ -209,7 +201,11 @@ function SearchFilters(props: Props) {
           </div>
           {/* <DatePicker onChange={onChange} /> */}
         </Space>
-        <Button onClick={onClear} type="text" className={`${_classes["btn-clear"]} sm:ml-3`}>
+        <Button
+          onClick={onClear}
+          type="text"
+          className={`${_classes["btn-clear"]} sm:ml-3`}
+        >
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1">Clear</span>
         </Button>
