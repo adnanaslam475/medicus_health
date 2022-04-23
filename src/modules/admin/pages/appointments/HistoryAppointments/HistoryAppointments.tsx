@@ -3,10 +3,26 @@ import React from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { CloseOutlined } from "@ant-design/icons";
 import TransactionHistory from "../../../../../common/components/AccountTabs/TransactionHistory/TransactionHistory";
+import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 
 const { RangePicker } = DatePicker;
 
 function CancelledAppointment() {
+
+  // GET ALL APPOINMENTS
+  const [{ data }] = useGetAllRequestedAppointmentsQuery({
+    variables: {
+      filter: {
+        status: "Confirmed",
+        // physicianName: dataListPhysician,
+        // doctorId: doctorIds,
+        // appointmentId: appointmentIds,
+        // serviceId: serviceIds,
+      },
+    },
+  });
+
+  console.log("data",data)
   return (
     <AppLayout>
       <div className="w-full">
@@ -58,7 +74,7 @@ function CancelledAppointment() {
         </div>
         {/* Transaction History table */}
         <div className="custom-table-ui">
-          <TransactionHistory />
+          <TransactionHistory appoinmentHistory={data} />
         </div>
       </div>
     </AppLayout>
