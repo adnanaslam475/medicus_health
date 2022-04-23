@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Tabs, Button, Alert, notification } from "antd";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import Image from "next/image";
 import yourImage from "../../../../public/assets/images/your_photo.png";
 import PersonalInfo from "./PersonelInfo/PersonelInfo";
@@ -66,7 +66,8 @@ const AccountTabs = () => {
     <div>
       <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
         <Tabs type="card">
-          <TabPane className="w-full"
+          <TabPane
+            className="w-full"
             tab={
               <span className="font-Circular font-medium">
                 Personal Information
