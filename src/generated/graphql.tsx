@@ -1054,7 +1054,7 @@ export type GetAllRequestedAppointmentsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, requestedDate: any, status?: string | null, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, doctor: { __typename?: 'User', first_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null }> };
+export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, requestedDate: any, status?: string | null, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, transection?: { __typename?: 'Transection', createdAt: any } | null }> };
 
 export type DoctorProfileDetailsQueryVariables = Exact<{
   input: Scalars['Int'];
@@ -1087,7 +1087,12 @@ export type GetAppointmentByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, scheduleId: number, doctorId: number, patientId: number, requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', id: number, first_name: string, last_name: string }, patient: { __typename?: 'User', id: number, first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule: { __typename?: 'DoctorSchedule', id: string, day: number, doctorId: number, startTime: string, endTime: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null } };
+export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, scheduleId: number, doctorId: number, patientId: number, requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', id: number, first_name: string, last_name: string }, patient: { __typename?: 'User', id: number, first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule: { __typename?: 'DoctorSchedule', id: string, day: number, doctorId: number, startTime: string, endTime: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transection?: { __typename?: 'Transection', createdAt: any } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null } };
+
+export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllTransactionsQuery = { __typename?: 'Query', transections: Array<{ __typename?: 'Transection', id: number, transectionId: string, appointmentId: number, amountReceived: number, status: string, createdAt: any, appointment?: { __typename?: 'Appointment', requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', first_name: string, last_name: string }, patient: { __typename?: 'User', first_name: string, last_name: string } } | null }> };
 
 
 export const CreateUserDocument = gql`
@@ -1541,9 +1546,20 @@ export const GetAllRequestedAppointmentsDocument = gql`
     }
     serviceType {
       name
+      price
     }
     doctor {
       first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    transection {
+      createdAt
     }
     appointmentTimeSlots {
       id
@@ -1672,12 +1688,46 @@ export const GetAppointmentByIdDocument = gql`
       name
       price
     }
+    transection {
+      createdAt
+    }
+    appointmentHealthHistory {
+      history
+    }
   }
 }
     `;
 
 export function useGetAppointmentByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentByIdQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAppointmentByIdQuery>({ query: GetAppointmentByIdDocument, ...options });
+};
+export const GetAllTransactionsDocument = gql`
+    query getAllTransactions {
+  transections {
+    id
+    transectionId
+    appointmentId
+    amountReceived
+    status
+    createdAt
+    appointment {
+      requestedDate
+      reportUrl
+      doctor {
+        first_name
+        last_name
+      }
+      patient {
+        first_name
+        last_name
+      }
+    }
+  }
+}
+    `;
+
+export function useGetAllTransactionsQuery(options?: Omit<Urql.UseQueryArgs<GetAllTransactionsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllTransactionsQuery>({ query: GetAllTransactionsDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {

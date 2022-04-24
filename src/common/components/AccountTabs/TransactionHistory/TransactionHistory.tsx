@@ -1,137 +1,8 @@
 import React, { useState } from "react";
 import { Table, Input, Button, Space, Tag } from "antd";
 import { EyeFilled } from "@ant-design/icons";
-
-const data = [
-  {
-    key: "1",
-    // name: "John Brown",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    booked_on: "Jan 30, 2022",
-    type: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    // status: ['completed', 'pending'],
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    key: "2",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    booked_on: "Jan 30, 2022",
-    type: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    key: "3",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    booked_on: "Jan 30, 2022",
-    type: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    key: "4",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    booked_on: "Jan 30, 2022",
-    type: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    key: "5",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    booked_on: "Jan 30, 2022",
-    type: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-
-  {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    tYpe: "First Consultation",
-    booked_on: "Jan 30, 2022",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    booked_on: "Jan 30, 2022",
-    type: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    booked_on: "Jan 30, 2022",
-    type: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    booked_on: "Jan 30, 2022",
-    type: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    booked_on: "Jan 30, 2022",
-    type: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-];
+import { GetAllRequestedAppointmentsQuery } from "../../../../generated/graphql";
+import { date } from "../../../utils";
 
 interface col {
   title: string;
@@ -140,27 +11,38 @@ interface col {
   width: "30%";
 }
 
-const TransactionHistory = () => {
+type Props = {
+  appoinmentHistory?: GetAllRequestedAppointmentsQuery | undefined;
+};
+
+const TransactionHistory = (props: Props) => {
+  const { appoinmentHistory } = props || {};
+
   const columns = [
     {
       title: "ID",
-      dataIndex: "transactionid",
-      key: "name",
+      dataIndex: "id",
+      key: "id",
       sorter: {
-        compare: (a: any, b: any) => a.transactionid - b.transactionid,
+        compare: (a: any, b: any) => a.id - b.id,
         multiple: 3,
       },
     },
     {
       title: "Booked On",
-      dataIndex: "booked_on",
-      key: "booked_on",
+      dataIndex: "requestedDate",
+      key: "requestedDate",
       sorter: {
-        compare: (a: any, b: any) => a.doctor - b.doctor,
+        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
         multiple: 3,
       },
+      render: (value: any) => {
+        return (
+          <div className="someclass">{`${date?.formatMMMMDDYYYY(value)} `}</div>
+        );
+      },
     },
-    
+
     {
       title: "Physician",
       dataIndex: "doctor",
@@ -169,51 +51,85 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.doctor - b.doctor,
         multiple: 3,
       },
+      render: (value: any) => {
+        return (
+          <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
+        );
+      },
     },
     {
       title: "Type",
-      dataIndex: "type",
-      key: "type",
+      dataIndex: "serviceType",
+      key: "serviceType",
       sorter: {
         compare: (a: any, b: any) => a.service - b.service,
         multiple: 3,
       },
+      render: (value: any) => {
+        return <div className="someclass">{`${value?.name}`}</div>;
+      },
     },
-  
+
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "appointmentTimeSlots",
+      key: "appointmentTimeSlots",
       sorter: {
-        compare: (a: any, b: any) => a.date - b.date,
+        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
         multiple: 3,
+      },
+      render: (value: any) => {
+        let time = value?.find((time: any) => time.selected == true);
+        return (
+          <div className="someclass">{`${date?.formatMMMMDDYYYY(
+            time?.startTime
+          )} `}</div>
+        );
       },
     },
     {
       title: "Time",
-      dataIndex: "timeslot",
-      key: "timeslot",
+      dataIndex: "appointmentTimeSlots",
+      key: "appointmentTimeSlots",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
       },
+      render: (value: any) => {
+        let time = value?.find((time: any) => time.selected == true);
+        return (
+          <div className="someclass">{`${date?.formathhmma(
+            time?.startTime
+          )} - ${date?.formathhmma(time?.endTime)}`}</div>
+        );
+      },
     },
     {
       title: "Total Amount",
-      dataIndex: "totalamount",
-      key: "city",
+      dataIndex: "serviceType",
+      key: "serviceType",
       sorter: {
         compare: (a: any, b: any) => a.totalamount - b.totalamount,
         multiple: 3,
       },
+      render: (value: any) => {
+        return <div className="someclass">{`${value?.price}`}</div>;
+      },
     },
     {
       title: "Transaction Date",
-      dataIndex: "transactiondate",
-      key: "transactiondate",
+      dataIndex: "transection",
+      key: "transection",
       sorter: {
-        compare: (a: any, b: any) => a.transactiondate - b.transactiondate,
+        compare: (a: any, b: any) => a.transection - b.transection,
         multiple: 3,
+      },
+      render: (value: any) => {
+        return (
+          <div className="someclass">{`${
+            value?.createdAt ? value?.createdAt : "--"
+          }`}</div>
+        );
       },
     },
     {
@@ -224,10 +140,10 @@ const TransactionHistory = () => {
         compare: (a: any, b: any) => a.status - b.status,
         multiple: 3,
       },
-      render: () => {
+      render: (value: any) => {
         return (
           <div className="someclass">
-            <Tag color="cyan">completed</Tag>
+            <Tag color="cyan">{value}</Tag>
           </div>
         );
       },
@@ -243,7 +159,13 @@ const TransactionHistory = () => {
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
     console.log("params", pagination, filters, sorter, extra);
   }
-  return <Table columns={columns} dataSource={data} onChange={onChange} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={appoinmentHistory?.appointments}
+      onChange={onChange}
+    />
+  );
 };
 
 export default TransactionHistory;

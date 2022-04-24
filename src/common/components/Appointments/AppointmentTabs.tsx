@@ -9,8 +9,10 @@ import { useGetAppointmentByIdQuery } from "../../../generated/graphql";
 
 const AppointmentTabs = () => {
   const [{ data }] = useGetAppointmentByIdQuery({
-    variables: { id: 228 },
+    variables: { id: 249 },
   });
+
+  const { appointmentHealthHistory } = data?.appointment || {};
 
   return (
     <div className="profile-tabs">
@@ -19,7 +21,9 @@ const AppointmentTabs = () => {
           <AppointmentInfo appoinmentDetails={data} />
         </TabPane>
         <TabPane tab="Physician Questionnaire" key="2">
-          <PhysicianQuestionnaire />
+          <PhysicianQuestionnaire
+            appointmentHealthHistory={appointmentHealthHistory?.history}
+          />
         </TabPane>
         <TabPane tab="Attachments" key="3">
           <Attachments appoinmentDetails={data} />
