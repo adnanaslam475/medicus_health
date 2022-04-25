@@ -26,16 +26,16 @@ function AppointmentReschedule() {
         <Radio.Group value={1} className="">
           <Space direction="vertical">
             <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              February 4, 2022 07:30 am - 08:00 am{" "}
+              February 4, 2022 07:30 am - 08:00 am
             </Radio>
             <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              February 4, 2022 07:30 am - 08:00 am{" "}
+              February 4, 2022 07:30 am - 08:00 am
             </Radio>
             <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              February 4, 2022 07:30 am - 08:00 am{" "}
+              February 4, 2022 07:30 am - 08:00 am
             </Radio>
             <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              February 4, 2022 07:30 am - 08:00 am{" "}
+              February 4, 2022 07:30 am - 08:00 am
             </Radio>
           </Space>
         </Radio.Group>

@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { Button, Card } from "antd";
 import React from "react";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
 import { date } from "../../../utils";
@@ -10,6 +10,7 @@ type Props = {
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
+  setShowModal: (id: boolean) => void;
 };
 
 function AppointmnetSuggestedCard({
@@ -17,9 +18,10 @@ function AppointmnetSuggestedCard({
   status,
   serviceType,
   doctor,
-  appointmentTimeSlots
+  appointmentTimeSlots,
+  setShowModal,
 }: Props) {
-  console.log(appointmentTimeSlots)
+  console.log(appointmentTimeSlots);
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <h3 className="mb-0">Dr. {doctor}</h3>
@@ -38,6 +40,15 @@ function AppointmnetSuggestedCard({
       )}
       {/* <div className="text-cyan font-semibold">{`${date.formathhmma(appointmentTimeSlots.startTime)} - ${date.formathhmma(appointmentTimeSlots.endTime)}`}</div> */}
       <span className="text-base text-primary font-bold ">{status}</span>
+      <div className="flex">
+        <Button
+          type={"primary"}
+          className={`${_classes["card-btn"]} mt-4`}
+          onClick={() => setShowModal(true)}
+        >
+          View Suggested Slots
+        </Button>
+      </div>
     </Card>
   );
 }

@@ -71,7 +71,7 @@ function AppointmentCard({
   serviceType,
   doctor,
   appointmentTimeSlots,
-  setShowModal
+  setShowModal,
 }: props) {
   function getStatus() {
     const { user } = getUserData();
@@ -127,6 +127,7 @@ function AppointmentCard({
           serviceType={serviceType}
           doctor={doctor}
           appointmentTimeSlots={appointmentTimeSlots}
+          setShowModal={setShowModal}
         />
       );
     default:
