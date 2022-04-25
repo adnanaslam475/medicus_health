@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Tabs, Button, Alert, notification } from "antd";
-import Router, { useRouter } from "next/router";
-import Image from "next/image";
-import yourImage from "../../../../public/assets/images/your_photo.png";
 import PersonalInfo from "./PersonelInfo/PersonelInfo";
 import PaymentMethods from "./PaymentMethods/PaymentMethods";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
 import HealthQuestionnary, {
   QuestionnaireForm,
 } from "../Questionnary/Questionnary";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
   useUpdatePatientHealthHistoryMutation,
   usePatientHealthHistoryQuery,

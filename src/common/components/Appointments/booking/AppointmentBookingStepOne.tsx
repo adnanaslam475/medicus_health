@@ -117,7 +117,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  {serviceInfo &&
+                  ${serviceInfo &&
                     `${serviceInfo?.map((item) =>
                       item?.price ? item?.price : ""
                     )}`}

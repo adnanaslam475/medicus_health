@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button, Divider, Collapse } from "antd";
+import { Tooltip, Card, Button, Divider, Collapse } from "antd";
 import Router from "next/router";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import VideoCamera from "../../../../public/assets/icon/video.svg";
@@ -68,14 +68,16 @@ function DoctorProfileCard(props: Props) {
                 </span>
               </h2>
               <div className="flex">
-                <div className="flagAvatar engFlag pr-2">
+                <div className="flagAvatar engFlag pr-2">  
                   {language && FLAG_BY_LANGUAGE[language] && (
-                    <Image
-                      src={FLAG_BY_LANGUAGE[language]}
-                      alt={language || "flag"}
-                      width={25}
-                      height={25}
-                    />
+                      <Tooltip title={language || "flag"} color="#FFF">
+                        <Image
+                          src={FLAG_BY_LANGUAGE[language]}
+                          alt={language || "flag"}
+                          width={25}
+                          height={25}
+                        />
+                      </Tooltip>
                   )}
                 </div>
               </div>
