@@ -11,7 +11,7 @@ type Props = {
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
-  setShowModal:any
+  setShowModal: any;
 };
 
 function AppointmnetRequestedCard({
@@ -20,7 +20,7 @@ function AppointmnetRequestedCard({
   serviceType,
   doctor,
   appointmentTimeSlots,
-  setShowModal
+  setShowModal,
 }: Props) {
   return (
     <Card className={`${_classes["appointment-card"]}`}>
@@ -40,15 +40,6 @@ function AppointmnetRequestedCard({
       )}
       <span className="text-sm mt-4 block font-normal">Status</span>
       <span className="text-base text-yellow font-bold ">{status}</span>
-      <div className="flex">
-        <Button
-          type={"primary"}
-          className={`${_classes["card-btn"]} mt-4`}
-          onClick={()=>setShowModal(true)}
-        >
-          View Suggested Slots
-        </Button>
-      </div>
     </Card>
   );
 }

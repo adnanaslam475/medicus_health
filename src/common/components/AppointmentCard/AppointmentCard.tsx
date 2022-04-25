@@ -130,6 +130,7 @@ function AppointmentCard({
           serviceType={serviceType}
           doctor={doctor}
           appointmentTimeSlots={appointmentTimeSlots}
+          setShowModal={setShowModal}
         />
       );
     default:
