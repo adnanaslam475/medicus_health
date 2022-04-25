@@ -408,5 +408,10 @@ query ViewSuggestedTimeSlots($id: Int!) {
       endTime
       selected
     }
+    serviceType {
+      name
+      price
+    }
+    doctor
   }
 }

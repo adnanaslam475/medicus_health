@@ -2,27 +2,19 @@ import React from "react";
 import { Button, Radio, Space } from "antd";
 import _classes from "./AppointmentReschedule.module.scss";
 import {
+  Appointment,
   useGetAllCardsQuery,
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../../generated/graphql";
 import { getUserData } from "../../../../../common/utils/userData";
 
-function AppointmentReschedule() {
-  // const [{ data }] = useViewSuggestedTimeSlotsQuery();
-  // const { ViewSuggestedTimeSlotsQueryVariables } = data || {};
+type Props = {
+  appointmentId: number;
+  appointmentDetails: Appointment;
+};
 
-  // GET ALL CARDS API CALL
-  const [, executeGetAllCardsQuery] = useGetAllCardsQuery({
-    variables: { userId: getUserData()?.user?.id as number },
-  });
-
-  // Get patient Health History
-  const [{ data }] = useViewSuggestedTimeSlotsQuery({
-    // variables: { id: id },
-  });
-
-  // console.log(ViewSuggestedTimeSlotsQueryVariables, "sdasds");
-
+function AppointmentReschedule(props: Props) {
+  console.log(props, "usama");
   return (
     <div>
       <h2>Appointment Reschedule</h2>

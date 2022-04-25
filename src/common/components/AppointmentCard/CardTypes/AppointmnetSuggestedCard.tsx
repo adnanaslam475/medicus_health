@@ -5,21 +5,25 @@ import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 
 type Props = {
+  appointmentId: Number | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal: (id: boolean) => void;
+  onViewSuggestedSlots: () => void;
 };
 
 function AppointmnetSuggestedCard({
+  appointmentId,
   requestedDate,
   status,
   serviceType,
   doctor,
   appointmentTimeSlots,
   setShowModal,
+  onViewSuggestedSlots,
 }: Props) {
   console.log(appointmentTimeSlots);
   return (
@@ -44,7 +48,12 @@ function AppointmnetSuggestedCard({
         <Button
           type={"primary"}
           className={`${_classes["card-btn"]} mt-4`}
-          onClick={() => setShowModal(true)}
+          onClick={() =>
+            // setShowModal(true)
+            onViewSuggestedSlots()
+          }
+          // appointmentId={appointmentId}
+          // onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
         >
           View Suggested Slots
         </Button>
