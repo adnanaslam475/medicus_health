@@ -1,7 +1,11 @@
-import { Button, Tabs } from 'antd'
+import { Badge, Button, Tabs } from 'antd'
+import Image from 'next/image';
 import React from 'react'
 import AccountsProfile from './AccountsProfile/AccountsProfile';
+import profile from './../../../../../../public/assets/icon/profile.svg'
+import { ProfileIcon } from '../../../../../common/components/CustomIcon';
 
+import _classes from './Account.module.scss'
 function Accounts() {
     const { TabPane } = Tabs;
   return (
@@ -10,12 +14,15 @@ function Accounts() {
 
     
     <div>
-      <div className="card-container profile-tabs">
-        <Tabs type="card">
+      <div className="">
+        <Tabs >
           <TabPane
             tab={
-              <span className="font-Circular font-medium">
-                Profile
+              <span className="font-Circular font-medium flex">
+              <ProfileIcon className={_classes["sidebar-icon-hover"]} />
+               <span className="ml-3 text-xs sm:text-base">
+                            Profile
+                          </span>
               </span>
             }
             key="1"
@@ -25,7 +32,10 @@ function Accounts() {
           <TabPane
             tab={
               <span className="font-Circular font-medium">
+               
+                 <span className="ml-3 text-xs sm:text-base">
                 Bank Info
+                </span>
               </span>
             }
             key="2"

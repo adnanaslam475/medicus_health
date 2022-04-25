@@ -9,14 +9,21 @@ type IMyProps={
 }
 function InputWithLi(props:IMyProps) {
   const {disable}=props
-  const [treated, setTreated] = useState<string>();
-  const [treatedList, setTreatedList] = useState<Array<string>>();
+  const [treated, setTreated] = useState<string>("");
+  const [treatedList, setTreatedList] = useState<string[]>([]);
+  const handleName=(event:ChangeEvent<HTMLInputElement>):void =>{
+    setTreated(event.target.value)
+      }
 
   const ShowData = () => {
-    const arrayData = [];
-    arrayData.push(treated);
-    // setTreatedList([...treatedList, arrayData]);
+     setTreatedList([...treatedList, treated]);
+     setTreated("")
   };
+  const removeFunction=(i:string)=>{
+
+ setTreatedList(treatedList.filter(a=>a!=i))
+}
+  
   console.log(treatedList)
   return (
     <div className="mt-3">
@@ -26,7 +33,8 @@ function InputWithLi(props:IMyProps) {
         <Input
           placeholder="Basic usage"
           className=""
-          onChange={({ target }) => setTreated(target?.value)}
+          onChange={handleName}
+          value={treated}
         />
         <div className="absolute top-2 right-2 ">
           <Button
@@ -41,6 +49,17 @@ function InputWithLi(props:IMyProps) {
         </div>
         </div>}
         <div>
+        <ul className="gap-2 flex flex-wrap">
+          {treatedList.map((a,i)=>(
+         <li key={i} className=" rounded flex items-center inline-flex bg-gray-4 my-2">
+         {disable ==false? (<CloseOutlined className="pl-2 pr-0 py-3" style={{ color: "#D53E4F" }} onClick={()=>removeFunction(a)}/>):
+        ( <CheckOutlined className="pl-2 pr-0 py-3 font-black" style={{ color: "#30cec2" }} />)}
+         <span className="px-2">{a}</span>
+       </li>)
+          )
+            
+          }
+          </ul>
           <ul className="gap-2 flex flex-wrap">
             <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
               {disable ==false? (<CloseOutlined className="pl-2 pr-0 py-3" style={{ color: "#D53E4F" }} />):
