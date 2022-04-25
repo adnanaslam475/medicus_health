@@ -13,57 +13,46 @@ import { StripeCardNumberElement } from "@stripe/stripe-js/types/stripe-js/eleme
 import { CreateSourceData, StripeElement } from "@stripe/stripe-js";
 import _classes from "./StripeCard.module.scss";
 
-
-
 function MakePaymentMore() {
-
-  const handleSubmit = async () => {
-  
-  };
+  const handleSubmit = async () => {};
   return (
-    
     <Form className="" onFinish={handleSubmit} layout="vertical">
-   <h1>Make Payment</h1>
-    <span className="text-base text-secondary my-2">Card Number*</span>
-    <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-      <CardNumberElement
-        options={{
-          placeholder: "",
-          style: {
-            base: {
-              "::placeholder": {
-                color: "gray",
+      <h1>Make Payment</h1>
+      <span className="text-base text-secondary my-2">Card Number*</span>
+      <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+        <CardNumberElement
+          options={{
+            placeholder: "",
+            style: {
+              base: {
+                "::placeholder": {
+                  color: "gray",
+                },
               },
             },
-          },
-        }}
-      />
-    </div>
-    <div className="sm:grid grid-cols-2 gap-4">
-      <div>
-        <span className="text-base text-secondary">CVV*</span>
-        <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-          <CardCvcElement
-            options={{
-              placeholder: "",
-            }}
-          />
+          }}
+        />
+      </div>
+      <div className="sm:grid grid-cols-2 gap-4">
+        <div>
+          <span className="text-base text-secondary">CVV*</span>
+          <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+            <CardCvcElement
+              options={{
+                placeholder: "",
+              }}
+            />
+          </div>
+        </div>
+        <div>
+          <span className="text-base text-secondary my-2">Expiry*</span>
+          <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+            <CardExpiryElement />
+          </div>
         </div>
       </div>
-      <div>
-        <span className="text-base text-secondary my-2">Expiry*</span>
-        <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-          <CardExpiryElement />
-        </div>
-      </div>
-    </div>
-  
-  </Form>
-
-
-
-
-  )
+    </Form>
+  );
 }
 
-export default MakePaymentMore
+export default MakePaymentMore;

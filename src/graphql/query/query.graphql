@@ -376,3 +376,37 @@ query getAllTransactions {
     }
   }
 }
+
+# query GetAllAppointment($id: Int!) {
+#   appointment(id: $id) {
+#     status
+#     appointmentTimeSlots {
+#       id
+#       startTime
+#       endTime
+#       selected
+#     }
+#   }
+# }
+
+#VIEW SUGGESTED TIME SLOTS
+
+query ViewSuggestedTimeSlots($id: Int!) {
+  appointment(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    reportUrl
+    status
+    createdAt
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+  }
+}

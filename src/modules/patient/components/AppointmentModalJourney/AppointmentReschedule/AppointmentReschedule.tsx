@@ -1,7 +1,28 @@
 import React from "react";
 import { Button, Radio, Space } from "antd";
 import _classes from "./AppointmentReschedule.module.scss";
+import {
+  useGetAllCardsQuery,
+  useViewSuggestedTimeSlotsQuery,
+} from "../../../../../generated/graphql";
+import { getUserData } from "../../../../../common/utils/userData";
+
 function AppointmentReschedule() {
+  // const [{ data }] = useViewSuggestedTimeSlotsQuery();
+  // const { ViewSuggestedTimeSlotsQueryVariables } = data || {};
+
+  // GET ALL CARDS API CALL
+  const [, executeGetAllCardsQuery] = useGetAllCardsQuery({
+    variables: { userId: getUserData()?.user?.id as number },
+  });
+
+  // Get patient Health History
+  const [{ data }] = useViewSuggestedTimeSlotsQuery({
+    // variables: { id: id },
+  });
+
+  // console.log(ViewSuggestedTimeSlotsQueryVariables, "sdasds");
+
   return (
     <div>
       <h2>Appointment Reschedule</h2>
@@ -28,7 +49,7 @@ function AppointmentReschedule() {
             <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
               February 4, 2022 07:30 am - 08:00 am
             </Radio>
-            <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
+            {/* <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
               February 4, 2022 07:30 am - 08:00 am
             </Radio>
             <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
@@ -36,7 +57,7 @@ function AppointmentReschedule() {
             </Radio>
             <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
               February 4, 2022 07:30 am - 08:00 am
-            </Radio>
+            </Radio> */}
           </Space>
         </Radio.Group>
       </div>
