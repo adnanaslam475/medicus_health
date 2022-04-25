@@ -40,6 +40,7 @@ function AppointmentReschedule() {
           </Space>
         </Radio.Group>
       </div>
+
       {/* <div className='flex justify-end gap-2'>
           <Button  className={`${_Classes['button-border']}`}>Reject</Button>
           <Button type="primary" className={`${_Classes['button-background-color']}`}>Proceed To Payment</Button>
