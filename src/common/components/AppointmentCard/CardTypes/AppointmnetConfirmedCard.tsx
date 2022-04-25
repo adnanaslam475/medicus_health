@@ -7,14 +7,16 @@ import Router, { useRouter } from "next/router";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
 
 type Props = {
+  appointmentId: Number | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
-  appointmentTimeSlots: AppointmentTimeSlots[] | undefined  | null;
+  appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
 };
 
 function AppointmnetConfirmedCard({
+  appointmentId,
   requestedDate,
   status,
   serviceType,
@@ -39,20 +41,20 @@ function AppointmnetConfirmedCard({
       )}
       <span className="text-base text-primary font-bold ">{status}</span>
       <div className="flex">
-          <Button
-            type={"primary"}
-            icon={<VideoCameraFilled />}
-            className={`${_classes["card-btn"]} mr-3`}
-          >
-            Join Now
-          </Button>
-          <Button
-            className={`${_classes["card-btn"]} bg-transparent`}
-            onClick={() => Router.push("/patient/appointments/details")}
-          >
-            Details
-          </Button>
-        </div>
+        <Button
+          type={"primary"}
+          icon={<VideoCameraFilled />}
+          className={`${_classes["card-btn"]} mr-3`}
+        >
+          Join Now
+        </Button>
+        <Button
+          className={`${_classes["card-btn"]} bg-transparent`}
+          onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
+        >
+          Details
+        </Button>
+      </div>
     </Card>
   );
 }

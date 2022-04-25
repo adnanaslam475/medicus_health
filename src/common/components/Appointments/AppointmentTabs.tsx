@@ -7,9 +7,15 @@ import PhysicianQuestionnaire from "../../../common/components/Appointments/Phys
 import Attachments from "../../../common/components/Appointments/Attachments";
 import { useGetAppointmentByIdQuery } from "../../../generated/graphql";
 
-const AppointmentTabs = () => {
+type Props = {
+  appointmentId?: Number;
+};
+
+const AppointmentTabs = (props: Props) => {
+  const { appointmentId } = props;
+
   const [{ data }] = useGetAppointmentByIdQuery({
-    variables: { id: 249 },
+    variables: { id: Number(appointmentId) },
   });
 
   const { appointmentHealthHistory } = data?.appointment || {};

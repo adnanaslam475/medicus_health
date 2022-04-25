@@ -79,7 +79,7 @@ export type AppointmentServiceType = {
 
 export type AppointmentTimeSlots = {
   __typename?: 'AppointmentTimeSlots';
-  appointment: Appointment;
+  appointment?: Appointment;
   endTime: Scalars['DateTime'];
   id: Scalars['Int'];
   selected: Scalars['Boolean'];

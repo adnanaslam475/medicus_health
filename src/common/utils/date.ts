@@ -40,6 +40,7 @@ export function time24HrConvert(time: any) {
   return time.join(""); // return adjusted time or original string
 }
 
+// to get day name from date day
 export function dayName(date: number) {
   return dayjs().day(date).format("dddd");
 }
