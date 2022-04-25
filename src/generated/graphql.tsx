@@ -1,16 +1,10 @@
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -26,314 +20,314 @@ export type Scalars = {
 };
 
 export type Appointment = {
-  __typename?: "Appointment";
+  __typename?: 'Appointment';
   appointmentHealthHistory?: Maybe<AppointmentHealthHistory>;
   appointmentSchedule: DoctorSchedule;
   appointmentTimeSlots?: Maybe<Array<AppointmentTimeSlots>>;
-  createdAt: Scalars["DateTime"];
+  createdAt: Scalars['DateTime'];
   doctor: User;
-  doctorId: Scalars["Int"];
+  doctorId: Scalars['Int'];
   doctorNote?: Maybe<AppointmentNote>;
-  id: Scalars["Int"];
+  id: Scalars['Int'];
   patient: User;
-  patientId: Scalars["Int"];
-  questionnair: Scalars["JSON"];
-  reportUrl?: Maybe<Scalars["JSON"]>;
-  requestedDate: Scalars["DateTime"];
+  patientId: Scalars['Int'];
+  questionnair: Scalars['JSON'];
+  reportUrl?: Maybe<Scalars['JSON']>;
+  requestedDate: Scalars['DateTime'];
   schedule?: Maybe<DoctorSchedule>;
-  scheduleId: Scalars["Int"];
-  serviceId: Scalars["Int"];
+  scheduleId: Scalars['Int'];
+  serviceId: Scalars['Int'];
   serviceType?: Maybe<AppointmentServiceType>;
-  status?: Maybe<Scalars["String"]>;
+  status?: Maybe<Scalars['String']>;
   transection?: Maybe<Transection>;
   user?: Maybe<User>;
 };
 
 export type AppointmentHealthHistory = {
-  __typename?: "AppointmentHealthHistory";
+  __typename?: 'AppointmentHealthHistory';
   appointment?: Maybe<Appointment>;
-  appointmentId: Scalars["Int"];
-  doctorId: Scalars["Int"];
-  history: Scalars["JSON"];
-  id: Scalars["Int"];
-  patientId: Scalars["Int"];
+  appointmentId: Scalars['Int'];
+  doctorId: Scalars['Int'];
+  history: Scalars['JSON'];
+  id: Scalars['Int'];
+  patientId: Scalars['Int'];
 };
 
 export type AppointmentNote = {
-  __typename?: "AppointmentNote";
+  __typename?: 'AppointmentNote';
   appointment?: Maybe<Appointment>;
-  appointmentId: Scalars["Int"];
-  assessment?: Maybe<Scalars["String"]>;
-  createdAt: Scalars["DateTime"];
-  id: Scalars["Int"];
-  isPublished: Scalars["Boolean"];
-  note?: Maybe<Scalars["String"]>;
-  noteType?: Maybe<Scalars["String"]>;
-  objective?: Maybe<Scalars["String"]>;
-  plan?: Maybe<Scalars["String"]>;
-  subjective?: Maybe<Scalars["String"]>;
-  updatedAt: Scalars["DateTime"];
+  appointmentId: Scalars['Int'];
+  assessment?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['Int'];
+  isPublished: Scalars['Boolean'];
+  note?: Maybe<Scalars['String']>;
+  noteType?: Maybe<Scalars['String']>;
+  objective?: Maybe<Scalars['String']>;
+  plan?: Maybe<Scalars['String']>;
+  subjective?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
 };
 
 export type AppointmentServiceType = {
-  __typename?: "AppointmentServiceType";
+  __typename?: 'AppointmentServiceType';
   appointment?: Maybe<Appointment>;
-  id: Scalars["Int"];
-  name: Scalars["String"];
-  price: Scalars["Float"];
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  price: Scalars['Float'];
 };
 
 export type AppointmentTimeSlots = {
-  __typename?: "AppointmentTimeSlots";
+  __typename?: 'AppointmentTimeSlots';
   appointment: Appointment;
-  endTime: Scalars["DateTime"];
-  id: Scalars["Int"];
-  selected: Scalars["Boolean"];
-  startTime: Scalars["DateTime"];
+  endTime: Scalars['DateTime'];
+  id: Scalars['Int'];
+  selected: Scalars['Boolean'];
+  startTime: Scalars['DateTime'];
 };
 
 export type BookAppointmentInput = {
-  appointmentId: Scalars["Int"];
-  cardId: Scalars["Int"];
-  requestedDate: Scalars["DateTime"];
-  scheduleId: Scalars["Int"];
-  selectedSlotId: Scalars["Float"];
+  appointmentId: Scalars['Int'];
+  cardId: Scalars['Int'];
+  requestedDate: Scalars['DateTime'];
+  scheduleId: Scalars['Int'];
+  selectedSlotId: Scalars['Float'];
 };
 
 export type BookingDate = {
-  endDate?: InputMaybe<Scalars["DateTime"]>;
-  startDate?: InputMaybe<Scalars["DateTime"]>;
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type City = {
-  __typename?: "City";
-  city_name: Scalars["String"];
-  id: Scalars["Float"];
-  state_id: Scalars["Float"];
+  __typename?: 'City';
+  city_name: Scalars['String'];
+  id: Scalars['Float'];
+  state_id: Scalars['Float'];
 };
 
 export type Country = {
-  __typename?: "Country";
-  country_name: Scalars["String"];
-  country_phone_code: Scalars["Float"];
-  country_short_name: Scalars["String"];
-  id: Scalars["Float"];
+  __typename?: 'Country';
+  country_name: Scalars['String'];
+  country_phone_code: Scalars['Float'];
+  country_short_name: Scalars['String'];
+  id: Scalars['Float'];
 };
 
 export type CreateAppointmentInput = {
-  doctorId: Scalars["Int"];
-  patientId: Scalars["Int"];
-  questionnair: Scalars["JSON"];
-  reportUrl: Scalars["JSON"];
-  requestedDate: Scalars["DateTime"];
-  scheduleId: Scalars["Int"];
-  serviceId: Scalars["Int"];
+  doctorId: Scalars['Int'];
+  patientId: Scalars['Int'];
+  questionnair: Scalars['JSON'];
+  reportUrl: Scalars['JSON'];
+  requestedDate: Scalars['DateTime'];
+  scheduleId: Scalars['Int'];
+  serviceId: Scalars['Int'];
 };
 
 export type CreateAppointmentNoteInput = {
-  appointmentId: Scalars["Int"];
-  assessment?: InputMaybe<Scalars["String"]>;
-  isPublished: Scalars["Boolean"];
-  note?: InputMaybe<Scalars["String"]>;
-  noteType?: InputMaybe<Scalars["String"]>;
-  objective?: InputMaybe<Scalars["String"]>;
-  plan?: InputMaybe<Scalars["String"]>;
-  subjective?: InputMaybe<Scalars["String"]>;
+  appointmentId: Scalars['Int'];
+  assessment?: InputMaybe<Scalars['String']>;
+  isPublished: Scalars['Boolean'];
+  note?: InputMaybe<Scalars['String']>;
+  noteType?: InputMaybe<Scalars['String']>;
+  objective?: InputMaybe<Scalars['String']>;
+  plan?: InputMaybe<Scalars['String']>;
+  subjective?: InputMaybe<Scalars['String']>;
 };
 
 export type CreateAppointmentServiceTypeInput = {
-  name: Scalars["String"];
-  price: Scalars["Float"];
+  name: Scalars['String'];
+  price: Scalars['Float'];
 };
 
 export type CreateDoctorBillingMethodInput = {
-  accountTitle: Scalars["String"];
-  bankAccountNumber: Scalars["String"];
-  bankId: Scalars["String"];
-  bankName: Scalars["String"];
-  doctorId: Scalars["Float"];
-  is_default: Scalars["Boolean"];
-  routingNumber: Scalars["String"];
-  source: Scalars["String"];
+  accountTitle: Scalars['String'];
+  bankAccountNumber: Scalars['String'];
+  bankId: Scalars['String'];
+  bankName: Scalars['String'];
+  doctorId: Scalars['Float'];
+  is_default: Scalars['Boolean'];
+  routingNumber: Scalars['String'];
+  source: Scalars['String'];
 };
 
 export type CreateDoctorInput = {
-  city_id: Scalars["Float"];
-  country_id: Scalars["Float"];
-  date_of_birth?: InputMaybe<Scalars["DateTime"]>;
-  email: Scalars["String"];
-  email_token?: InputMaybe<Scalars["String"]>;
-  first_name: Scalars["String"];
-  last_name: Scalars["String"];
-  role?: InputMaybe<Scalars["String"]>;
-  state_id: Scalars["Float"];
-  streetAddress: Scalars["String"];
-  stripe_customer_id?: InputMaybe<Scalars["String"]>;
-  zip_code: Scalars["String"];
+  city_id: Scalars['Float'];
+  country_id: Scalars['Float'];
+  date_of_birth?: InputMaybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  email_token?: InputMaybe<Scalars['String']>;
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  role?: InputMaybe<Scalars['String']>;
+  state_id: Scalars['Float'];
+  streetAddress: Scalars['String'];
+  stripe_customer_id?: InputMaybe<Scalars['String']>;
+  zip_code: Scalars['String'];
 };
 
 export type CreateDoctorProfileInput = {
-  about_me: Scalars["String"];
-  condition_treated: Scalars["String"];
-  doctor_id: Scalars["Float"];
+  about_me: Scalars['String'];
+  condition_treated: Scalars['String'];
+  doctor_id: Scalars['Float'];
   educational_background: Array<EducationalBackground>;
-  language: Scalars["String"];
+  language: Scalars['String'];
   professional_experience: Array<ProfessionalExperience>;
-  profile_image?: InputMaybe<Scalars["String"]>;
-  specialization: Scalars["String"];
-  year_of_experience: Scalars["Float"];
+  profile_image?: InputMaybe<Scalars['String']>;
+  specialization: Scalars['String'];
+  year_of_experience: Scalars['Float'];
 };
 
 export type CreateDoctorQuestionnaireInput = {
-  doctorId: Scalars["Int"];
-  questionnaire?: InputMaybe<Scalars["JSON"]>;
+  doctorId: Scalars['Int'];
+  questionnaire?: InputMaybe<Scalars['JSON']>;
 };
 
 export type CreateDoctorScheduleInput = {
-  day: Scalars["Float"];
+  day: Scalars['Float'];
   schedule: Array<Schedule>;
 };
 
 export type CreatePatientHealthHistoryInput = {
-  history?: InputMaybe<Scalars["JSON"]>;
-  user_id: Scalars["Int"];
+  history?: InputMaybe<Scalars['JSON']>;
+  user_id: Scalars['Int'];
 };
 
 export type CreatePaymentInput = {
-  card_digits: Scalars["Float"];
-  card_type: Scalars["String"];
-  exp_month: Scalars["String"];
-  exp_year: Scalars["String"];
-  is_default: Scalars["Boolean"];
-  source_id: Scalars["String"];
-  user_id: Scalars["Float"];
+  card_digits: Scalars['Float'];
+  card_type: Scalars['String'];
+  exp_month: Scalars['String'];
+  exp_year: Scalars['String'];
+  is_default: Scalars['Boolean'];
+  source_id: Scalars['String'];
+  user_id: Scalars['Float'];
 };
 
 export type CreateStaffInput = {
-  contact_number: Scalars["String"];
-  deleted: Scalars["Boolean"];
-  email: Scalars["String"];
-  first_name: Scalars["String"];
-  last_name: Scalars["String"];
-  role?: InputMaybe<Scalars["String"]>;
+  contact_number: Scalars['String'];
+  deleted: Scalars['Boolean'];
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  role?: InputMaybe<Scalars['String']>;
 };
 
 export type CreateUserInput = {
-  city_id: Scalars["Float"];
-  contact_number: Scalars["String"];
-  country_id: Scalars["Float"];
-  date_of_birth?: InputMaybe<Scalars["DateTime"]>;
-  email: Scalars["String"];
-  email_token?: InputMaybe<Scalars["String"]>;
-  first_name: Scalars["String"];
-  gender: Scalars["String"];
-  last_name: Scalars["String"];
-  password: Scalars["String"];
-  role?: InputMaybe<Scalars["String"]>;
-  state_id: Scalars["Float"];
-  streetAddress: Scalars["String"];
-  stripe_customer_id?: InputMaybe<Scalars["String"]>;
-  zip_code: Scalars["String"];
+  city_id: Scalars['Float'];
+  contact_number: Scalars['String'];
+  country_id: Scalars['Float'];
+  date_of_birth?: InputMaybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  email_token?: InputMaybe<Scalars['String']>;
+  first_name: Scalars['String'];
+  gender: Scalars['String'];
+  last_name: Scalars['String'];
+  password: Scalars['String'];
+  role?: InputMaybe<Scalars['String']>;
+  state_id: Scalars['Float'];
+  streetAddress: Scalars['String'];
+  stripe_customer_id?: InputMaybe<Scalars['String']>;
+  zip_code: Scalars['String'];
 };
 
 export type DoctorBillingMethod = {
-  __typename?: "DoctorBillingMethod";
-  accountTitle: Scalars["String"];
-  bankAccountNumber: Scalars["String"];
-  bankId: Scalars["String"];
-  bankName: Scalars["String"];
-  createdAt: Scalars["DateTime"];
-  deletedAt: Scalars["DateTime"];
+  __typename?: 'DoctorBillingMethod';
+  accountTitle: Scalars['String'];
+  bankAccountNumber: Scalars['String'];
+  bankId: Scalars['String'];
+  bankName: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  deletedAt: Scalars['DateTime'];
   doctor?: Maybe<User>;
-  doctorId: Scalars["Int"];
-  id: Scalars["ID"];
-  is_default?: Maybe<Scalars["Boolean"]>;
-  routingNumber: Scalars["String"];
-  source: Scalars["String"];
-  updatedAt: Scalars["DateTime"];
+  doctorId: Scalars['Int'];
+  id: Scalars['ID'];
+  is_default?: Maybe<Scalars['Boolean']>;
+  routingNumber: Scalars['String'];
+  source: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type DoctorProfile = {
-  __typename?: "DoctorProfile";
-  about_me?: Maybe<Scalars["String"]>;
-  condition_treated?: Maybe<Scalars["String"]>;
-  doctor_id: Scalars["Int"];
-  educational_background?: Maybe<Scalars["String"]>;
-  id: Scalars["Int"];
-  language?: Maybe<Scalars["String"]>;
-  professional_experience?: Maybe<Scalars["String"]>;
-  profile_image?: Maybe<Scalars["String"]>;
-  specialization?: Maybe<Scalars["String"]>;
+  __typename?: 'DoctorProfile';
+  about_me?: Maybe<Scalars['String']>;
+  condition_treated?: Maybe<Scalars['String']>;
+  doctor_id: Scalars['Int'];
+  educational_background?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  language?: Maybe<Scalars['String']>;
+  professional_experience?: Maybe<Scalars['String']>;
+  profile_image?: Maybe<Scalars['String']>;
+  specialization?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
-  year_of_experience?: Maybe<Scalars["Float"]>;
+  year_of_experience?: Maybe<Scalars['Float']>;
 };
 
 export type DoctorQuestionnaire = {
-  __typename?: "DoctorQuestionnaire";
+  __typename?: 'DoctorQuestionnaire';
   doctor: User;
-  doctorId: Scalars["Int"];
-  id: Scalars["Int"];
-  questionnaire?: Maybe<Scalars["JSON"]>;
+  doctorId: Scalars['Int'];
+  id: Scalars['Int'];
+  questionnaire?: Maybe<Scalars['JSON']>;
   user?: Maybe<User>;
 };
 
 export type DoctorSchedule = {
-  __typename?: "DoctorSchedule";
-  createdAt: Scalars["DateTime"];
-  day: Scalars["Float"];
-  deletedAt: Scalars["DateTime"];
-  doctorId: Scalars["Float"];
-  endTime: Scalars["String"];
-  id: Scalars["ID"];
+  __typename?: 'DoctorSchedule';
+  createdAt: Scalars['DateTime'];
+  day: Scalars['Float'];
+  deletedAt: Scalars['DateTime'];
+  doctorId: Scalars['Float'];
+  endTime: Scalars['String'];
+  id: Scalars['ID'];
   schedule?: Maybe<DoctorSchedule>;
-  startTime: Scalars["String"];
-  updatedAt: Scalars["DateTime"];
+  startTime: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
   user?: Maybe<User>;
 };
 
 export type DueDate = {
-  endDate?: InputMaybe<Scalars["DateTime"]>;
-  startDate?: InputMaybe<Scalars["DateTime"]>;
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type EducationalBackground = {
-  degree: Scalars["String"];
-  institution: Scalars["String"];
+  degree: Scalars['String'];
+  institution: Scalars['String'];
 };
 
 export type EducationalBackgroundUpdate = {
-  degree: Scalars["String"];
-  institution: Scalars["String"];
+  degree: Scalars['String'];
+  institution: Scalars['String'];
 };
 
 export type GetAppointmentInput = {
-  appointmentId?: InputMaybe<Scalars["Int"]>;
+  appointmentId?: InputMaybe<Scalars['Int']>;
   bookingDate?: InputMaybe<BookingDate>;
-  doctorId?: InputMaybe<Scalars["Int"]>;
+  doctorId?: InputMaybe<Scalars['Int']>;
   dueDate?: InputMaybe<DueDate>;
-  physicianName?: InputMaybe<Scalars["String"]>;
-  serviceId?: InputMaybe<Scalars["Int"]>;
-  status?: InputMaybe<Scalars["String"]>;
+  physicianName?: InputMaybe<Scalars['String']>;
+  serviceId?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['String']>;
 };
 
 export type GetPhysiciansPatientsInput = {
-  countryId?: InputMaybe<Scalars["Int"]>;
-  searchField?: InputMaybe<Scalars["String"]>;
+  countryId?: InputMaybe<Scalars['Int']>;
+  searchField?: InputMaybe<Scalars['String']>;
 };
 
 export type LoginResponse = {
-  __typename?: "LoginResponse";
-  access_token: Scalars["String"];
+  __typename?: 'LoginResponse';
+  access_token: Scalars['String'];
   user: User;
 };
 
 export type LoginUserInput = {
-  email: Scalars["String"];
-  password: Scalars["String"];
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type Mutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   UserForgotPassword: User;
   UserResetPassword: User;
   bookAppointment: Appointment;
@@ -374,208 +368,246 @@ export type Mutation = {
   userVerifyEmail: User;
 };
 
+
 export type MutationUserForgotPasswordArgs = {
-  email: Scalars["String"];
+  email: Scalars['String'];
 };
+
 
 export type MutationUserResetPasswordArgs = {
   resetPasswordInput: ResetPasswordInput;
 };
 
+
 export type MutationBookAppointmentArgs = {
   bookAppointmentInput: BookAppointmentInput;
 };
 
+
 export type MutationCancelAppointmentArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
 
+
 export type MutationCancelAppointmentByPatientArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationCreateAppointmentArgs = {
   createAppointmentInput: CreateAppointmentInput;
 };
 
+
 export type MutationCreateCardArgs = {
   createPaymentInput: CreatePaymentInput;
 };
+
 
 export type MutationCreateDoctorArgs = {
   createDoctorInput: CreateDoctorInput;
 };
 
+
 export type MutationCreateDoctorBillingMethodArgs = {
   createDoctorBillingMethodInput: CreateDoctorBillingMethodInput;
 };
+
 
 export type MutationCreateDoctorProfileArgs = {
   createDoctorProfileInput: CreateDoctorProfileInput;
 };
 
+
 export type MutationCreateOrUpdateAppointmentNoteArgs = {
   createAppointmentNoteInput: CreateAppointmentNoteInput;
 };
+
 
 export type MutationCreateOrUpdateDoctorQuestionnaireArgs = {
   createDoctorQuestionnaireInput: CreateDoctorQuestionnaireInput;
 };
 
+
 export type MutationCreateOrUpdateDoctorScheduleArgs = {
   createDoctorScheduleInput: Array<CreateDoctorScheduleInput>;
-  doctorId: Scalars["Int"];
+  doctorId: Scalars['Int'];
 };
+
 
 export type MutationCreatePatientHealthHistoryArgs = {
   createPatientHealthHistoryInput: CreatePatientHealthHistoryInput;
 };
 
+
 export type MutationCreateServiceTypeArgs = {
   createAppointmentServiceTypeInput: CreateAppointmentServiceTypeInput;
 };
+
 
 export type MutationCreateStaffArgs = {
   createStaffInput: CreateStaffInput;
 };
 
+
 export type MutationCreateUserArgs = {
   createUserInput: CreateUserInput;
 };
 
+
 export type MutationEnableOrDisableDoctorArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationLoginArgs = {
   loginUserInput: LoginUserInput;
 };
 
+
 export type MutationPaymentArgs = {
-  appointmentId: Scalars["Int"];
+  appointmentId: Scalars['Int'];
 };
+
 
 export type MutationProposeNewTimeArgs = {
   proposeNewTimeInput: ProposeNewTimeInput;
 };
 
+
 export type MutationRemoveAppointmentArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationRemoveAppointmentNoteArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationRemoveCardArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationRemoveDoctorBillingMethodArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationRemoveDoctorProfileArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationRemoveDoctorQuestionnaireArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationRemoveDoctorScheduleArgs = {
-  doctorId: Scalars["Int"];
+  doctorId: Scalars['Int'];
 };
+
 
 export type MutationRemovePatientHealthHistoryArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationRemoveStaffArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationRemoveUserArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
 
+
 export type MutationSetAsDefaultCardArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type MutationSetDoctorPasswordArgs = {
   setPasswordInput: ResetPasswordInput;
 };
 
+
 export type MutationUpdateDoctorProfileArgs = {
   updateDoctorProfileInput: UpdateDoctorProfileInput;
 };
+
 
 export type MutationUpdatePatientHealthHistoryArgs = {
   updatePatientHealthHistoryInput: UpdatePatientHealthHistoryInput;
 };
 
+
 export type MutationUpdateStaffArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
   updateStaffInput: UpdateStaffInput;
 };
 
+
 export type MutationUpdateUserArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
   updateUserInput: UpdateUserInput;
 };
 
+
 export type MutationUserVerifyEmailArgs = {
-  token: Scalars["String"];
+  token: Scalars['String'];
 };
 
 export type PatientHealthHistory = {
-  __typename?: "PatientHealthHistory";
-  history?: Maybe<Scalars["JSON"]>;
-  id: Scalars["Int"];
+  __typename?: 'PatientHealthHistory';
+  history?: Maybe<Scalars['JSON']>;
+  id: Scalars['Int'];
   user?: Maybe<User>;
-  user_id: Scalars["Int"];
+  user_id: Scalars['Int'];
 };
 
 export type PatientProfile = {
-  __typename?: "PatientProfile";
-  children?: Maybe<Scalars["Int"]>;
-  exposureDuration?: Maybe<Scalars["String"]>;
-  id: Scalars["Int"];
-  maritalStatus?: Maybe<Scalars["String"]>;
-  occupation?: Maybe<Scalars["String"]>;
-  occupationalExposure?: Maybe<Scalars["String"]>;
-  pets?: Maybe<Scalars["String"]>;
-  petsAnswer?: Maybe<Scalars["String"]>;
-  profileImage?: Maybe<Scalars["String"]>;
+  __typename?: 'PatientProfile';
+  children?: Maybe<Scalars['Int']>;
+  exposureDuration?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  maritalStatus?: Maybe<Scalars['String']>;
+  occupation?: Maybe<Scalars['String']>;
+  occupationalExposure?: Maybe<Scalars['String']>;
+  pets?: Maybe<Scalars['String']>;
+  petsAnswer?: Maybe<Scalars['String']>;
+  profileImage?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
-  userId: Scalars["Float"];
+  userId: Scalars['Float'];
 };
 
 export type ProfessionalExperience = {
-  institution: Scalars["String"];
-  role: Scalars["String"];
+  institution: Scalars['String'];
+  role: Scalars['String'];
 };
 
 export type ProfessionalExperience2 = {
-  institution: Scalars["String"];
-  role: Scalars["String"];
+  institution: Scalars['String'];
+  role: Scalars['String'];
 };
 
 export type ProposeNewTimeInput = {
-  charges: Scalars["Int"];
-  id: Scalars["Int"];
+  charges: Scalars['Int'];
+  id: Scalars['Int'];
   proposedTimeSlots: Array<ProposedTimeSlots>;
-  serviceId: Scalars["Int"];
+  serviceId: Scalars['Int'];
 };
 
 export type ProposedTimeSlots = {
-  endTime: Scalars["String"];
-  startTime: Scalars["String"];
+  endTime: Scalars['String'];
+  startTime: Scalars['String'];
 };
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: 'Query';
   appointment: Appointment;
   appointmentBanner: Array<Appointment>;
   appointmentNote: AppointmentNote;
@@ -612,5110 +644,4561 @@ export type Query = {
   users: Array<User>;
 };
 
+
 export type QueryAppointmentArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type QueryAppointmentBannerArgs = {
-  dcotorId: Scalars["Int"];
+  dcotorId: Scalars['Int'];
 };
+
 
 export type QueryAppointmentNoteArgs = {
-  appointmentId: Scalars["Int"];
+  appointmentId: Scalars['Int'];
 };
+
 
 export type QueryAppointmentQuestionnerArgs = {
-  appointmentId: Scalars["Int"];
+  appointmentId: Scalars['Int'];
 };
 
+
 export type QueryAppointmentServiceTypeArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type QueryAppointmentsArgs = {
   filter: GetAppointmentInput;
 };
 
+
 export type QueryCityArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type QueryCountryArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type QueryDoctorBillingMethodArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type QueryDoctorBillingMethodsArgs = {
-  doctorId: Scalars["Int"];
+  doctorId: Scalars['Int'];
 };
+
 
 export type QueryDoctorProfileArgs = {
-  doctor_id: Scalars["Int"];
+  doctor_id: Scalars['Int'];
 };
+
 
 export type QueryDoctorQuestionnaireArgs = {
-  doctorId: Scalars["Int"];
+  doctorId: Scalars['Int'];
 };
+
 
 export type QueryDoctorSchedulesArgs = {
-  doctorId: Scalars["Int"];
+  doctorId: Scalars['Int'];
 };
+
 
 export type QueryGetAllCardsArgs = {
-  user_id: Scalars["Int"];
+  user_id: Scalars['Int'];
 };
+
 
 export type QueryGetCardArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type QueryGetCitiesByStateArgs = {
-  state_id: Scalars["Int"];
+  state_id: Scalars['Int'];
 };
+
 
 export type QueryGetStatesByCountryArgs = {
-  country_id: Scalars["Int"];
+  country_id: Scalars['Int'];
 };
 
+
 export type QueryPatientHealthHistoryArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type QueryPhysiciansPatientsArgs = {
   filter: GetPhysiciansPatientsInput;
 };
 
+
 export type QueryStaffDetailArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type QueryStateArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type QueryTransectionArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
 
+
 export type QueryUserArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
 
 export type ResetPasswordInput = {
-  password: Scalars["String"];
-  password_token?: InputMaybe<Scalars["String"]>;
+  password: Scalars['String'];
+  password_token?: InputMaybe<Scalars['String']>;
 };
 
 export type Schedule = {
-  endTime: Scalars["String"];
-  startTime: Scalars["String"];
+  endTime: Scalars['String'];
+  startTime: Scalars['String'];
 };
 
 export type State = {
-  __typename?: "State";
-  country_id: Scalars["Float"];
-  id: Scalars["Float"];
-  state_name: Scalars["String"];
+  __typename?: 'State';
+  country_id: Scalars['Float'];
+  id: Scalars['Float'];
+  state_name: Scalars['String'];
 };
 
 export type Transection = {
-  __typename?: "Transection";
-  amountReceived: Scalars["Int"];
+  __typename?: 'Transection';
+  amountReceived: Scalars['Int'];
   appointment?: Maybe<Appointment>;
-  appointmentId: Scalars["Int"];
-  cardId: Scalars["Int"];
-  createdAt: Scalars["DateTime"];
-  doctor_percentage: Scalars["String"];
-  id: Scalars["Int"];
-  payment_status?: Maybe<Scalars["String"]>;
-  status: Scalars["String"];
-  transectionId: Scalars["String"];
+  appointmentId: Scalars['Int'];
+  cardId: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  doctor_percentage: Scalars['String'];
+  id: Scalars['Int'];
+  payment_status?: Maybe<Scalars['String']>;
+  status: Scalars['String'];
+  transectionId: Scalars['String'];
 };
 
 export type UpdateDoctorProfileInput = {
-  about_me?: InputMaybe<Scalars["String"]>;
-  condition_treated?: InputMaybe<Scalars["String"]>;
-  doctor_id: Scalars["Float"];
+  about_me?: InputMaybe<Scalars['String']>;
+  condition_treated?: InputMaybe<Scalars['String']>;
+  doctor_id: Scalars['Float'];
   educational_background?: InputMaybe<Array<EducationalBackgroundUpdate>>;
-  email: Scalars["String"];
-  first_name: Scalars["String"];
-  language?: InputMaybe<Scalars["String"]>;
-  last_name: Scalars["String"];
-  password?: InputMaybe<Scalars["String"]>;
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  language?: InputMaybe<Scalars['String']>;
+  last_name: Scalars['String'];
+  password?: InputMaybe<Scalars['String']>;
   professional_experience?: InputMaybe<Array<ProfessionalExperience2>>;
-  profile_image?: InputMaybe<Scalars["String"]>;
-  specialization?: InputMaybe<Scalars["String"]>;
-  year_of_experience?: InputMaybe<Scalars["Float"]>;
+  profile_image?: InputMaybe<Scalars['String']>;
+  specialization?: InputMaybe<Scalars['String']>;
+  year_of_experience?: InputMaybe<Scalars['Float']>;
 };
 
 export type UpdatePatientHealthHistoryInput = {
-  history?: InputMaybe<Scalars["JSON"]>;
-  user_id: Scalars["Int"];
+  history?: InputMaybe<Scalars['JSON']>;
+  user_id: Scalars['Int'];
 };
 
 export type UpdateStaffInput = {
-  contact_number: Scalars["String"];
-  deleted: Scalars["Boolean"];
-  email: Scalars["String"];
-  first_name: Scalars["String"];
-  last_name: Scalars["String"];
+  contact_number: Scalars['String'];
+  deleted: Scalars['Boolean'];
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
 };
 
 export type UpdateUserInput = {
-  children?: InputMaybe<Scalars["Int"]>;
-  city_id: Scalars["Float"];
-  contact_number: Scalars["String"];
-  country_id: Scalars["Float"];
-  date_of_birth?: InputMaybe<Scalars["DateTime"]>;
-  email?: InputMaybe<Scalars["String"]>;
-  email_token?: InputMaybe<Scalars["String"]>;
-  exposureDuration?: InputMaybe<Scalars["String"]>;
-  first_name: Scalars["String"];
-  gender: Scalars["String"];
-  last_name: Scalars["String"];
-  maritalStatus?: InputMaybe<Scalars["String"]>;
-  occupation?: InputMaybe<Scalars["String"]>;
-  occupationalExposure?: InputMaybe<Scalars["String"]>;
-  password?: InputMaybe<Scalars["String"]>;
-  pets?: InputMaybe<Scalars["String"]>;
-  petsAnswer?: InputMaybe<Scalars["String"]>;
-  profileImage?: InputMaybe<Scalars["String"]>;
-  role?: InputMaybe<Scalars["String"]>;
-  state_id: Scalars["Float"];
-  streetAddress: Scalars["String"];
-  stripe_customer_id?: InputMaybe<Scalars["String"]>;
-  zip_code: Scalars["String"];
+  children?: InputMaybe<Scalars['Int']>;
+  city_id: Scalars['Float'];
+  contact_number: Scalars['String'];
+  country_id: Scalars['Float'];
+  date_of_birth?: InputMaybe<Scalars['DateTime']>;
+  email?: InputMaybe<Scalars['String']>;
+  email_token?: InputMaybe<Scalars['String']>;
+  exposureDuration?: InputMaybe<Scalars['String']>;
+  first_name: Scalars['String'];
+  gender: Scalars['String'];
+  last_name: Scalars['String'];
+  maritalStatus?: InputMaybe<Scalars['String']>;
+  occupation?: InputMaybe<Scalars['String']>;
+  occupationalExposure?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  pets?: InputMaybe<Scalars['String']>;
+  petsAnswer?: InputMaybe<Scalars['String']>;
+  profileImage?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
+  state_id: Scalars['Float'];
+  streetAddress: Scalars['String'];
+  stripe_customer_id?: InputMaybe<Scalars['String']>;
+  zip_code: Scalars['String'];
 };
 
 export type User = {
-  __typename?: "User";
+  __typename?: 'User';
   appointment?: Maybe<Appointment>;
-  city_id: Scalars["Int"];
-  contact_number: Scalars["String"];
-  country_id: Scalars["Int"];
-  createdBy?: Maybe<Scalars["Int"]>;
-  date_of_birth: Scalars["DateTime"];
-  deleted: Scalars["Boolean"];
+  city_id: Scalars['Int'];
+  contact_number: Scalars['String'];
+  country_id: Scalars['Int'];
+  createdBy?: Maybe<Scalars['Int']>;
+  date_of_birth: Scalars['DateTime'];
+  deleted: Scalars['Boolean'];
   doctorBillingMethods?: Maybe<Array<DoctorBillingMethod>>;
   doctorProfile?: Maybe<DoctorProfile>;
   doctorQuestionnaire?: Maybe<DoctorQuestionnaire>;
   doctorSchedules?: Maybe<Array<DoctorSchedule>>;
-  email: Scalars["String"];
-  first_name: Scalars["String"];
-  gender?: Maybe<Scalars["String"]>;
-  id: Scalars["Int"];
-  last_name: Scalars["String"];
-  password?: Maybe<Scalars["String"]>;
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  gender?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  last_name: Scalars['String'];
+  password?: Maybe<Scalars['String']>;
   patientHealthHistory?: Maybe<PatientHealthHistory>;
   patientProfile?: Maybe<PatientProfile>;
-  role?: Maybe<Scalars["String"]>;
-  state_id: Scalars["Int"];
-  status: Scalars["Boolean"];
-  streetAddress: Scalars["String"];
-  zip_code: Scalars["String"];
+  role?: Maybe<Scalars['String']>;
+  state_id: Scalars['Int'];
+  status: Scalars['Boolean'];
+  streetAddress: Scalars['String'];
+  zip_code: Scalars['String'];
 };
 
 export type UserCard = {
-  __typename?: "UserCard";
-  card_digits: Scalars["Int"];
-  card_id: Scalars["String"];
-  card_type: Scalars["String"];
-  exp_month: Scalars["String"];
-  exp_year: Scalars["String"];
-  id: Scalars["Int"];
-  is_default: Scalars["Boolean"];
-  user_id: Scalars["Int"];
+  __typename?: 'UserCard';
+  card_digits: Scalars['Int'];
+  card_id: Scalars['String'];
+  card_type: Scalars['String'];
+  exp_month: Scalars['String'];
+  exp_year: Scalars['String'];
+  id: Scalars['Int'];
+  is_default: Scalars['Boolean'];
+  user_id: Scalars['Int'];
 };
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
 }>;
 
-export type CreateUserMutation = {
-  __typename?: "Mutation";
-  createUser: { __typename?: "User"; id: number; email: string };
-};
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: number, email: string } };
 
 export type CreatePatientHealthHistoryMutationVariables = Exact<{
   input: CreatePatientHealthHistoryInput;
 }>;
 
-export type CreatePatientHealthHistoryMutation = {
-  __typename?: "Mutation";
-  createPatientHealthHistory: {
-    __typename?: "PatientHealthHistory";
-    id: number;
-  };
-};
+
+export type CreatePatientHealthHistoryMutation = { __typename?: 'Mutation', createPatientHealthHistory: { __typename?: 'PatientHealthHistory', id: number } };
 
 export type UpdatePatientHealthHistoryMutationVariables = Exact<{
   input: UpdatePatientHealthHistoryInput;
 }>;
 
-export type UpdatePatientHealthHistoryMutation = {
-  __typename?: "Mutation";
-  updatePatientHealthHistory: {
-    __typename?: "PatientHealthHistory";
-    id: number;
-  };
-};
+
+export type UpdatePatientHealthHistoryMutation = { __typename?: 'Mutation', updatePatientHealthHistory: { __typename?: 'PatientHealthHistory', id: number } };
 
 export type UserVerifyEmailMutationVariables = Exact<{
-  input: Scalars["String"];
+  input: Scalars['String'];
 }>;
 
-export type UserVerifyEmailMutation = {
-  __typename?: "Mutation";
-  userVerifyEmail: { __typename?: "User"; id: number };
-};
+
+export type UserVerifyEmailMutation = { __typename?: 'Mutation', userVerifyEmail: { __typename?: 'User', id: number } };
 
 export type LoginMutationVariables = Exact<{
   input: LoginUserInput;
 }>;
 
-export type LoginMutation = {
-  __typename?: "Mutation";
-  login: {
-    __typename?: "LoginResponse";
-    access_token: string;
-    user: {
-      __typename?: "User";
-      id: number;
-      email: string;
-      role?: string | null;
-    };
-  };
-};
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string, role?: string | null } } };
 
 export type UserForgotPasswordMutationVariables = Exact<{
-  input: Scalars["String"];
+  input: Scalars['String'];
 }>;
 
-export type UserForgotPasswordMutation = {
-  __typename?: "Mutation";
-  UserForgotPassword: { __typename?: "User"; id: number };
-};
+
+export type UserForgotPasswordMutation = { __typename?: 'Mutation', UserForgotPassword: { __typename?: 'User', id: number } };
 
 export type UserResetPasswordMutationVariables = Exact<{
   input: ResetPasswordInput;
 }>;
 
-export type UserResetPasswordMutation = {
-  __typename?: "Mutation";
-  UserResetPassword: { __typename?: "User"; id: number };
-};
+
+export type UserResetPasswordMutation = { __typename?: 'Mutation', UserResetPassword: { __typename?: 'User', id: number } };
 
 export type SetDoctorPasswordMutationVariables = Exact<{
   setPasswordInput: ResetPasswordInput;
 }>;
 
-export type SetDoctorPasswordMutation = {
-  __typename?: "Mutation";
-  setDoctorPassword: { __typename?: "User"; id: number };
-};
+
+export type SetDoctorPasswordMutation = { __typename?: 'Mutation', setDoctorPassword: { __typename?: 'User', id: number } };
 
 export type CreateCardMutationVariables = Exact<{
   input: CreatePaymentInput;
 }>;
 
-export type CreateCardMutation = {
-  __typename?: "Mutation";
-  createCard: {
-    __typename?: "UserCard";
-    id: number;
-    user_id: number;
-    card_id: string;
-    card_type: string;
-    card_digits: number;
-    is_default: boolean;
-    exp_month: string;
-    exp_year: string;
-  };
-};
+
+export type CreateCardMutation = { __typename?: 'Mutation', createCard: { __typename?: 'UserCard', id: number, user_id: number, card_id: string, card_type: string, card_digits: number, is_default: boolean, exp_month: string, exp_year: string } };
 
 export type RemoveCardMutationVariables = Exact<{
-  input: Scalars["Int"];
+  input: Scalars['Int'];
 }>;
 
-export type RemoveCardMutation = {
-  __typename?: "Mutation";
-  removeCard: {
-    __typename?: "UserCard";
-    id: number;
-    user_id: number;
-    card_id: string;
-    card_type: string;
-    card_digits: number;
-    is_default: boolean;
-  };
-};
+
+export type RemoveCardMutation = { __typename?: 'Mutation', removeCard: { __typename?: 'UserCard', id: number, user_id: number, card_id: string, card_type: string, card_digits: number, is_default: boolean } };
 
 export type DefaultCardMutationVariables = Exact<{
-  input: Scalars["Int"];
+  input: Scalars['Int'];
 }>;
 
-export type DefaultCardMutation = {
-  __typename?: "Mutation";
-  setAsDefaultCard: {
-    __typename?: "UserCard";
-    id: number;
-    user_id: number;
-    card_id: string;
-    card_type: string;
-    card_digits: number;
-    is_default: boolean;
-  };
-};
+
+export type DefaultCardMutation = { __typename?: 'Mutation', setAsDefaultCard: { __typename?: 'UserCard', id: number, user_id: number, card_id: string, card_type: string, card_digits: number, is_default: boolean } };
 
 export type UpdateUserProfileMutationVariables = Exact<{
-  id: Scalars["Int"];
+  id: Scalars['Int'];
   updateUserInput: UpdateUserInput;
 }>;
 
-export type UpdateUserProfileMutation = {
-  __typename?: "Mutation";
-  updateUser: {
-    __typename?: "User";
-    first_name: string;
-    last_name: string;
-    email: string;
-    gender?: string | null;
-    date_of_birth: any;
-    country_id: number;
-    contact_number: string;
-    city_id: number;
-    password?: string | null;
-    state_id: number;
-    role?: string | null;
-    zip_code: string;
-    streetAddress: string;
-  };
-};
+
+export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth: any, country_id: number, contact_number: string, city_id: number, password?: string | null, state_id: number, role?: string | null, zip_code: string, streetAddress: string } };
 
 export type CreateDoctorMutationVariables = Exact<{
   createDoctorInput: CreateDoctorInput;
 }>;
 
-export type CreateDoctorMutation = {
-  __typename?: "Mutation";
-  createDoctor: {
-    __typename?: "User";
-    first_name: string;
-    last_name: string;
-    email: string;
-    streetAddress: string;
-    country_id: number;
-    state_id: number;
-    city_id: number;
-    zip_code: string;
-    id: number;
-  };
-};
+
+export type CreateDoctorMutation = { __typename?: 'Mutation', createDoctor: { __typename?: 'User', first_name: string, last_name: string, email: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, id: number } };
 
 export type UpdateDoctorProfileMutationVariables = Exact<{
   updateDoctorProfileInput: UpdateDoctorProfileInput;
 }>;
 
-export type UpdateDoctorProfileMutation = {
-  __typename?: "Mutation";
-  updateDoctorProfile: {
-    __typename?: "DoctorProfile";
-    id: number;
-    doctor_id: number;
-    year_of_experience?: number | null;
-    specialization?: string | null;
-    condition_treated?: string | null;
-    educational_background?: string | null;
-    professional_experience?: string | null;
-    language?: string | null;
-    about_me?: string | null;
-    profile_image?: string | null;
-    user?: {
-      __typename?: "User";
-      id: number;
-      first_name: string;
-      last_name: string;
-      email: string;
-      gender?: string | null;
-      streetAddress: string;
-      country_id: number;
-      state_id: number;
-      city_id: number;
-      zip_code: string;
-      password?: string | null;
-      status: boolean;
-      role?: string | null;
-    } | null;
-  };
-};
+
+export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null } | null } };
 
 export type EnableOrDisableDoctorMutationVariables = Exact<{
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 }>;
 
-export type EnableOrDisableDoctorMutation = {
-  __typename?: "Mutation";
-  enableOrDisableDoctor: { __typename?: "User"; id: number; status: boolean };
-};
+
+export type EnableOrDisableDoctorMutation = { __typename?: 'Mutation', enableOrDisableDoctor: { __typename?: 'User', id: number, status: boolean } };
 
 export type CreateAppointmentMutationVariables = Exact<{
   createAppointment: CreateAppointmentInput;
 }>;
 
-export type CreateAppointmentMutation = {
-  __typename?: "Mutation";
-  createAppointment: {
-    __typename?: "Appointment";
-    patientId: number;
-    doctorId: number;
-    serviceId: number;
-    requestedDate: any;
-    scheduleId: number;
-    reportUrl?: any | null;
-  };
-};
 
-export type CountriesQueryVariables = Exact<{ [key: string]: never }>;
+export type CreateAppointmentMutation = { __typename?: 'Mutation', createAppointment: { __typename?: 'Appointment', patientId: number, doctorId: number, serviceId: number, requestedDate: any, scheduleId: number, reportUrl?: any | null } };
 
-export type CountriesQuery = {
-  __typename?: "Query";
-  countries: Array<{
-    __typename?: "Country";
-    id: number;
-    country_name: string;
-  }>;
-};
+export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CountriesQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', id: number, country_name: string }> };
 
 export type GetStatesByCountryQueryVariables = Exact<{
-  input: Scalars["Int"];
+  input: Scalars['Int'];
 }>;
 
-export type GetStatesByCountryQuery = {
-  __typename?: "Query";
-  getStatesByCountry: Array<{
-    __typename?: "State";
-    id: number;
-    country_id: number;
-    state_name: string;
-  }>;
-};
+
+export type GetStatesByCountryQuery = { __typename?: 'Query', getStatesByCountry: Array<{ __typename?: 'State', id: number, country_id: number, state_name: string }> };
 
 export type GetCitiesByStateQueryVariables = Exact<{
-  input: Scalars["Int"];
+  input: Scalars['Int'];
 }>;
 
-export type GetCitiesByStateQuery = {
-  __typename?: "Query";
-  getCitiesByState: Array<{
-    __typename?: "City";
-    id: number;
-    state_id: number;
-    city_name: string;
-  }>;
-};
+
+export type GetCitiesByStateQuery = { __typename?: 'Query', getCitiesByState: Array<{ __typename?: 'City', id: number, state_id: number, city_name: string }> };
 
 export type PatientHealthHistoryQueryVariables = Exact<{
-  input: Scalars["Int"];
+  input: Scalars['Int'];
 }>;
 
-export type PatientHealthHistoryQuery = {
-  __typename?: "Query";
-  patientHealthHistory: {
-    __typename?: "PatientHealthHistory";
-    id: number;
-    history?: any | null;
-  };
-};
+
+export type PatientHealthHistoryQuery = { __typename?: 'Query', patientHealthHistory: { __typename?: 'PatientHealthHistory', id: number, history?: any | null } };
 
 export type GetAllCardsQueryVariables = Exact<{
-  userId: Scalars["Int"];
+  userId: Scalars['Int'];
 }>;
 
-export type GetAllCardsQuery = {
-  __typename?: "Query";
-  getAllCards: Array<{
-    __typename?: "UserCard";
-    id: number;
-    user_id: number;
-    card_id: string;
-    card_type: string;
-    card_digits: number;
-    is_default: boolean;
-    exp_month: string;
-    exp_year: string;
-  }>;
-};
+
+export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'UserCard', id: number, user_id: number, card_id: string, card_type: string, card_digits: number, is_default: boolean, exp_month: string, exp_year: string }> };
 
 export type GetCardQueryVariables = Exact<{
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 }>;
 
-export type GetCardQuery = {
-  __typename?: "Query";
-  getCard: {
-    __typename?: "UserCard";
-    id: number;
-    user_id: number;
-    card_id: string;
-    card_type: string;
-    card_digits: number;
-    is_default: boolean;
-  };
-};
+
+export type GetCardQuery = { __typename?: 'Query', getCard: { __typename?: 'UserCard', id: number, user_id: number, card_id: string, card_type: string, card_digits: number, is_default: boolean } };
 
 export type GetUserQueryVariables = Exact<{
-  input: Scalars["Int"];
+  input: Scalars['Int'];
 }>;
 
-export type GetUserQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    id: number;
-    first_name: string;
-    last_name: string;
-    gender?: string | null;
-    date_of_birth: any;
-    contact_number: string;
-    email: string;
-    country_id: number;
-    city_id: number;
-    state_id: number;
-    password?: string | null;
-    zip_code: string;
-    streetAddress: string;
-    patientProfile?: {
-      __typename?: "PatientProfile";
-      maritalStatus?: string | null;
-      profileImage?: string | null;
-      children?: number | null;
-      occupation?: string | null;
-      occupationalExposure?: string | null;
-      pets?: string | null;
-      petsAnswer?: string | null;
-      exposureDuration?: string | null;
-      userId: number;
-    } | null;
-  };
-};
 
-export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never }>;
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, password?: string | null, zip_code: string, streetAddress: string, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null } };
 
-export type DoctorProfilesQuery = {
-  __typename?: "Query";
-  doctorProfiles: Array<{
-    __typename?: "DoctorProfile";
-    id: number;
-    doctor_id: number;
-    year_of_experience?: number | null;
-    specialization?: string | null;
-    condition_treated?: string | null;
-    educational_background?: string | null;
-    professional_experience?: string | null;
-    language?: string | null;
-    about_me?: string | null;
-    user?: {
-      __typename?: "User";
-      id: number;
-      first_name: string;
-      last_name: string;
-      email: string;
-      gender?: string | null;
-    } | null;
-  }>;
-};
+export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DoctorProfilesQuery = { __typename?: 'Query', doctorProfiles: Array<{ __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null } | null }> };
 
 export type DoctorProfileQueryVariables = Exact<{
-  doctor_id: Scalars["Int"];
+  doctor_id: Scalars['Int'];
 }>;
 
-export type DoctorProfileQuery = {
-  __typename?: "Query";
-  doctorProfile: {
-    __typename?: "DoctorProfile";
-    id: number;
-    doctor_id: number;
-    year_of_experience?: number | null;
-    specialization?: string | null;
-    condition_treated?: string | null;
-    educational_background?: string | null;
-    professional_experience?: string | null;
-    language?: string | null;
-    about_me?: string | null;
-    profile_image?: string | null;
-    user?: {
-      __typename?: "User";
-      id: number;
-      first_name: string;
-      last_name: string;
-      email: string;
-      gender?: string | null;
-      country_id: number;
-      state_id: number;
-      city_id: number;
-      zip_code: string;
-      password?: string | null;
-      status: boolean;
-      role?: string | null;
-      doctorSchedules?: Array<{
-        __typename?: "DoctorSchedule";
-        id: string;
-        doctorId: number;
-        day: number;
-        startTime: string;
-        endTime: string;
-        createdAt: any;
-        updatedAt: any;
-      }> | null;
-    } | null;
-  };
-};
+
+export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
 
 export type GetAllRequestedAppointmentsQueryVariables = Exact<{
   filter: GetAppointmentInput;
 }>;
 
-export type GetAllRequestedAppointmentsQuery = {
-  __typename?: "Query";
-  appointments: Array<{
-    __typename?: "Appointment";
-    id: number;
-    patientId: number;
-    doctorId: number;
-    serviceId: number;
-    requestedDate: any;
-    status?: string | null;
-    patient: { __typename?: "User"; first_name: string; last_name: string };
-    serviceType?: {
-      __typename?: "AppointmentServiceType";
-      name: string;
-      price: number;
-    } | null;
-    doctor: { __typename?: "User"; first_name: string; last_name: string };
-    appointmentTimeSlots?: Array<{
-      __typename?: "AppointmentTimeSlots";
-      id: number;
-      startTime: any;
-      endTime: any;
-      selected: boolean;
-    }> | null;
-    transection?: { __typename?: "Transection"; createdAt: any } | null;
-  }>;
-};
+
+export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, requestedDate: any, status?: string | null, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, transection?: { __typename?: 'Transection', createdAt: any } | null }> };
 
 export type DoctorProfileDetailsQueryVariables = Exact<{
-  input: Scalars["Int"];
+  input: Scalars['Int'];
 }>;
 
-export type DoctorProfileDetailsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    streetAddress: string;
-    country_id: number;
-    state_id: number;
-    city_id: number;
-    zip_code: string;
-    doctorProfile?: {
-      __typename?: "DoctorProfile";
-      id: number;
-      year_of_experience?: number | null;
-      specialization?: string | null;
-      condition_treated?: string | null;
-      educational_background?: string | null;
-      professional_experience?: string | null;
-      language?: string | null;
-      about_me?: string | null;
-      profile_image?: string | null;
-    } | null;
-    doctorSchedules?: Array<{
-      __typename?: "DoctorSchedule";
-      day: number;
-      startTime: string;
-      endTime: string;
-    }> | null;
-  };
-};
 
-export type GetAllAppointmentServiceTypesQueryVariables = Exact<{
-  [key: string]: never;
-}>;
+export type DoctorProfileDetailsQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress: string, country_id: number, state_id: number, city_id: number, zip_code: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', day: number, startTime: string, endTime: string }> | null } };
 
-export type GetAllAppointmentServiceTypesQuery = {
-  __typename?: "Query";
-  appointmentServiceTypes: Array<{
-    __typename?: "AppointmentServiceType";
-    id: number;
-    name: string;
-    price: number;
-  }>;
-};
+export type GetAllAppointmentServiceTypesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllAppointmentServiceTypesQuery = { __typename?: 'Query', appointmentServiceTypes: Array<{ __typename?: 'AppointmentServiceType', id: number, name: string, price: number }> };
 
 export type DoctorSchedulesQueryVariables = Exact<{
-  doctorId: Scalars["Int"];
+  doctorId: Scalars['Int'];
 }>;
 
-export type DoctorSchedulesQuery = {
-  __typename?: "Query";
-  doctorSchedules: Array<{
-    __typename?: "DoctorSchedule";
-    id: string;
-    doctorId: number;
-    day: number;
-    startTime: string;
-    endTime: string;
-  }>;
-};
+
+export type DoctorSchedulesQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string }> };
 
 export type DoctorQuestionnaireQueryVariables = Exact<{
-  doctorId: Scalars["Int"];
+  doctorId: Scalars['Int'];
 }>;
 
-export type DoctorQuestionnaireQuery = {
-  __typename?: "Query";
-  doctorQuestionnaire: {
-    __typename?: "DoctorQuestionnaire";
-    id: number;
-    doctorId: number;
-    questionnaire?: any | null;
-  };
-};
+
+export type DoctorQuestionnaireQuery = { __typename?: 'Query', doctorQuestionnaire: { __typename?: 'DoctorQuestionnaire', id: number, doctorId: number, questionnaire?: any | null } };
 
 export type GetAppointmentByIdQueryVariables = Exact<{
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 }>;
 
-export type GetAppointmentByIdQuery = {
-  __typename?: "Query";
-  appointment: {
-    __typename?: "Appointment";
-    id: number;
-    status?: string | null;
-    scheduleId: number;
-    doctorId: number;
-    patientId: number;
-    requestedDate: any;
-    reportUrl?: any | null;
-    doctor: {
-      __typename?: "User";
-      id: number;
-      first_name: string;
-      last_name: string;
-    };
-    patient: {
-      __typename?: "User";
-      id: number;
-      first_name: string;
-      last_name: string;
-    };
-    appointmentTimeSlots?: Array<{
-      __typename?: "AppointmentTimeSlots";
-      id: number;
-      startTime: any;
-      endTime: any;
-      selected: boolean;
-    }> | null;
-    appointmentSchedule: {
-      __typename?: "DoctorSchedule";
-      id: string;
-      day: number;
-      doctorId: number;
-      startTime: string;
-      endTime: string;
-    };
-    serviceType?: {
-      __typename?: "AppointmentServiceType";
-      id: number;
-      name: string;
-      price: number;
-    } | null;
-    transection?: { __typename?: "Transection"; createdAt: any } | null;
-    appointmentHealthHistory?: {
-      __typename?: "AppointmentHealthHistory";
-      history: any;
-    } | null;
-  };
-};
 
-export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, scheduleId: number, doctorId: number, patientId: number, requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', id: number, first_name: string, last_name: string }, patient: { __typename?: 'User', id: number, first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule: { __typename?: 'DoctorSchedule', id: string, day: number, doctorId: number, startTime: string, endTime: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transection?: { __typename?: 'Transection', createdAt: any } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null } };
 
-export type GetAllTransactionsQuery = {
-  __typename?: "Query";
-  transections: Array<{
-    __typename?: "Transection";
-    id: number;
-    transectionId: string;
-    appointmentId: number;
-    amountReceived: number;
-    status: string;
-    createdAt: any;
-    appointment?: {
-      __typename?: "Appointment";
-      requestedDate: any;
-      reportUrl?: any | null;
-      doctor: { __typename?: "User"; first_name: string; last_name: string };
-      patient: { __typename?: "User"; first_name: string; last_name: string };
-    } | null;
-  }>;
-};
+export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllTransactionsQuery = { __typename?: 'Query', transections: Array<{ __typename?: 'Transection', id: number, transectionId: string, appointmentId: number, amountReceived: number, status: string, createdAt: any, appointment?: { __typename?: 'Appointment', requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', first_name: string, last_name: string }, patient: { __typename?: 'User', first_name: string, last_name: string } } | null }> };
 
 export type ViewSuggestedTimeSlotsQueryVariables = Exact<{
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 }>;
 
-export type ViewSuggestedTimeSlotsQuery = {
-  __typename?: "Query";
-  appointment: {
-    __typename?: "Appointment";
-    id: number;
-    patientId: number;
-    doctorId: number;
-    serviceId: number;
-    scheduleId: number;
-    requestedDate: any;
-    reportUrl?: any | null;
-    status?: string | null;
-    createdAt: any;
-    appointmentTimeSlots?: Array<{
-      __typename?: "AppointmentTimeSlots";
-      id: number;
-      startTime: any;
-      endTime: any;
-      selected: boolean;
-    }> | null;
-  };
-};
+
+export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number, requestedDate: any, reportUrl?: any | null, status?: string | null, createdAt: any, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null } };
+
 
 export const CreateUserDocument = gql`
-  mutation createUser($input: CreateUserInput!) {
-    createUser(createUserInput: $input) {
-      id
-      email
-    }
+    mutation createUser($input: CreateUserInput!) {
+  createUser(createUserInput: $input) {
+    id
+    email
   }
-`;
+}
+    `;
 
 export function useCreateUserMutation() {
-  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
-    CreateUserDocument
-  );
-}
+  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
+};
 export const CreatePatientHealthHistoryDocument = gql`
-  mutation CreatePatientHealthHistory(
-    $input: CreatePatientHealthHistoryInput!
-  ) {
-    createPatientHealthHistory(createPatientHealthHistoryInput: $input) {
-      id
-    }
+    mutation CreatePatientHealthHistory($input: CreatePatientHealthHistoryInput!) {
+  createPatientHealthHistory(createPatientHealthHistoryInput: $input) {
+    id
   }
-`;
+}
+    `;
 
 export function useCreatePatientHealthHistoryMutation() {
-  return Urql.useMutation<
-    CreatePatientHealthHistoryMutation,
-    CreatePatientHealthHistoryMutationVariables
-  >(CreatePatientHealthHistoryDocument);
-}
+  return Urql.useMutation<CreatePatientHealthHistoryMutation, CreatePatientHealthHistoryMutationVariables>(CreatePatientHealthHistoryDocument);
+};
 export const UpdatePatientHealthHistoryDocument = gql`
-  mutation UpdatePatientHealthHistory(
-    $input: UpdatePatientHealthHistoryInput!
-  ) {
-    updatePatientHealthHistory(updatePatientHealthHistoryInput: $input) {
-      id
-    }
+    mutation UpdatePatientHealthHistory($input: UpdatePatientHealthHistoryInput!) {
+  updatePatientHealthHistory(updatePatientHealthHistoryInput: $input) {
+    id
   }
-`;
+}
+    `;
 
 export function useUpdatePatientHealthHistoryMutation() {
-  return Urql.useMutation<
-    UpdatePatientHealthHistoryMutation,
-    UpdatePatientHealthHistoryMutationVariables
-  >(UpdatePatientHealthHistoryDocument);
-}
+  return Urql.useMutation<UpdatePatientHealthHistoryMutation, UpdatePatientHealthHistoryMutationVariables>(UpdatePatientHealthHistoryDocument);
+};
 export const UserVerifyEmailDocument = gql`
-  mutation userVerifyEmail($input: String!) {
-    userVerifyEmail(token: $input) {
-      id
-    }
+    mutation userVerifyEmail($input: String!) {
+  userVerifyEmail(token: $input) {
+    id
   }
-`;
+}
+    `;
 
 export function useUserVerifyEmailMutation() {
-  return Urql.useMutation<
-    UserVerifyEmailMutation,
-    UserVerifyEmailMutationVariables
-  >(UserVerifyEmailDocument);
-}
+  return Urql.useMutation<UserVerifyEmailMutation, UserVerifyEmailMutationVariables>(UserVerifyEmailDocument);
+};
 export const LoginDocument = gql`
-  mutation login($input: LoginUserInput!) {
-    login(loginUserInput: $input) {
-      access_token
-      user {
-        id
-        email
-        role
-      }
+    mutation login($input: LoginUserInput!) {
+  login(loginUserInput: $input) {
+    access_token
+    user {
+      id
+      email
+      role
     }
   }
-`;
+}
+    `;
 
 export function useLoginMutation() {
   return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
-}
+};
 export const UserForgotPasswordDocument = gql`
-  mutation UserForgotPassword($input: String!) {
-    UserForgotPassword(email: $input) {
-      id
-    }
+    mutation UserForgotPassword($input: String!) {
+  UserForgotPassword(email: $input) {
+    id
   }
-`;
+}
+    `;
 
 export function useUserForgotPasswordMutation() {
-  return Urql.useMutation<
-    UserForgotPasswordMutation,
-    UserForgotPasswordMutationVariables
-  >(UserForgotPasswordDocument);
-}
+  return Urql.useMutation<UserForgotPasswordMutation, UserForgotPasswordMutationVariables>(UserForgotPasswordDocument);
+};
 export const UserResetPasswordDocument = gql`
-  mutation UserResetPassword($input: ResetPasswordInput!) {
-    UserResetPassword(resetPasswordInput: $input) {
-      id
-    }
+    mutation UserResetPassword($input: ResetPasswordInput!) {
+  UserResetPassword(resetPasswordInput: $input) {
+    id
   }
-`;
+}
+    `;
 
 export function useUserResetPasswordMutation() {
-  return Urql.useMutation<
-    UserResetPasswordMutation,
-    UserResetPasswordMutationVariables
-  >(UserResetPasswordDocument);
-}
+  return Urql.useMutation<UserResetPasswordMutation, UserResetPasswordMutationVariables>(UserResetPasswordDocument);
+};
 export const SetDoctorPasswordDocument = gql`
-  mutation setDoctorPassword($setPasswordInput: ResetPasswordInput!) {
-    setDoctorPassword(setPasswordInput: $setPasswordInput) {
-      id
-    }
+    mutation setDoctorPassword($setPasswordInput: ResetPasswordInput!) {
+  setDoctorPassword(setPasswordInput: $setPasswordInput) {
+    id
   }
-`;
+}
+    `;
 
 export function useSetDoctorPasswordMutation() {
-  return Urql.useMutation<
-    SetDoctorPasswordMutation,
-    SetDoctorPasswordMutationVariables
-  >(SetDoctorPasswordDocument);
-}
+  return Urql.useMutation<SetDoctorPasswordMutation, SetDoctorPasswordMutationVariables>(SetDoctorPasswordDocument);
+};
 export const CreateCardDocument = gql`
-  mutation createCard($input: CreatePaymentInput!) {
-    createCard(createPaymentInput: $input) {
-      id
-      user_id
-      card_id
-      card_type
-      card_digits
-      is_default
-      exp_month
-      exp_year
-    }
+    mutation createCard($input: CreatePaymentInput!) {
+  createCard(createPaymentInput: $input) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+    exp_month
+    exp_year
   }
-`;
+}
+    `;
 
 export function useCreateCardMutation() {
-  return Urql.useMutation<CreateCardMutation, CreateCardMutationVariables>(
-    CreateCardDocument
-  );
-}
+  return Urql.useMutation<CreateCardMutation, CreateCardMutationVariables>(CreateCardDocument);
+};
 export const RemoveCardDocument = gql`
-  mutation removeCard($input: Int!) {
-    removeCard(id: $input) {
-      id
-      user_id
-      card_id
-      card_type
-      card_digits
-      is_default
-    }
+    mutation removeCard($input: Int!) {
+  removeCard(id: $input) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
   }
-`;
+}
+    `;
 
 export function useRemoveCardMutation() {
-  return Urql.useMutation<RemoveCardMutation, RemoveCardMutationVariables>(
-    RemoveCardDocument
-  );
-}
+  return Urql.useMutation<RemoveCardMutation, RemoveCardMutationVariables>(RemoveCardDocument);
+};
 export const DefaultCardDocument = gql`
-  mutation DefaultCard($input: Int!) {
-    setAsDefaultCard(id: $input) {
-      id
-      user_id
-      card_id
-      card_type
-      card_digits
-      is_default
-    }
+    mutation DefaultCard($input: Int!) {
+  setAsDefaultCard(id: $input) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
   }
-`;
+}
+    `;
 
 export function useDefaultCardMutation() {
-  return Urql.useMutation<DefaultCardMutation, DefaultCardMutationVariables>(
-    DefaultCardDocument
-  );
-}
+  return Urql.useMutation<DefaultCardMutation, DefaultCardMutationVariables>(DefaultCardDocument);
+};
 export const UpdateUserProfileDocument = gql`
-  mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {
-    updateUser(id: $id, updateUserInput: $updateUserInput) {
-      first_name
-      last_name
-      email
-      gender
-      date_of_birth
-      country_id
-      contact_number
-      city_id
-      password
-      state_id
-      role
-      zip_code
-      streetAddress
-    }
+    mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {
+  updateUser(id: $id, updateUserInput: $updateUserInput) {
+    first_name
+    last_name
+    email
+    gender
+    date_of_birth
+    country_id
+    contact_number
+    city_id
+    password
+    state_id
+    role
+    zip_code
+    streetAddress
   }
-`;
+}
+    `;
 
 export function useUpdateUserProfileMutation() {
-  return Urql.useMutation<
-    UpdateUserProfileMutation,
-    UpdateUserProfileMutationVariables
-  >(UpdateUserProfileDocument);
-}
+  return Urql.useMutation<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>(UpdateUserProfileDocument);
+};
 export const CreateDoctorDocument = gql`
-  mutation createDoctor($createDoctorInput: CreateDoctorInput!) {
-    createDoctor(createDoctorInput: $createDoctorInput) {
-      first_name
-      last_name
-      email
-      streetAddress
-      country_id
-      state_id
-      city_id
-      zip_code
-      id
-    }
+    mutation createDoctor($createDoctorInput: CreateDoctorInput!) {
+  createDoctor(createDoctorInput: $createDoctorInput) {
+    first_name
+    last_name
+    email
+    streetAddress
+    country_id
+    state_id
+    city_id
+    zip_code
+    id
   }
-`;
+}
+    `;
 
 export function useCreateDoctorMutation() {
-  return Urql.useMutation<CreateDoctorMutation, CreateDoctorMutationVariables>(
-    CreateDoctorDocument
-  );
-}
+  return Urql.useMutation<CreateDoctorMutation, CreateDoctorMutationVariables>(CreateDoctorDocument);
+};
 export const UpdateDoctorProfileDocument = gql`
-  mutation updateDoctorProfile(
-    $updateDoctorProfileInput: UpdateDoctorProfileInput!
-  ) {
-    updateDoctorProfile(updateDoctorProfileInput: $updateDoctorProfileInput) {
+    mutation updateDoctorProfile($updateDoctorProfileInput: UpdateDoctorProfileInput!) {
+  updateDoctorProfile(updateDoctorProfileInput: $updateDoctorProfileInput) {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    profile_image
+    user {
       id
-      doctor_id
-      year_of_experience
-      specialization
-      condition_treated
-      educational_background
-      professional_experience
-      language
-      about_me
-      profile_image
-      user {
-        id
-        first_name
-        last_name
-        email
-        gender
-        streetAddress
-        country_id
-        state_id
-        city_id
-        zip_code
-        password
-        status
-        role
-      }
+      first_name
+      last_name
+      email
+      gender
+      streetAddress
+      country_id
+      state_id
+      city_id
+      zip_code
+      password
+      status
+      role
     }
   }
-`;
+}
+    `;
 
 export function useUpdateDoctorProfileMutation() {
-  return Urql.useMutation<
-    UpdateDoctorProfileMutation,
-    UpdateDoctorProfileMutationVariables
-  >(UpdateDoctorProfileDocument);
-}
+  return Urql.useMutation<UpdateDoctorProfileMutation, UpdateDoctorProfileMutationVariables>(UpdateDoctorProfileDocument);
+};
 export const EnableOrDisableDoctorDocument = gql`
-  mutation enableOrDisableDoctor($id: Int!) {
-    enableOrDisableDoctor(id: $id) {
-      id
-      status
-    }
+    mutation enableOrDisableDoctor($id: Int!) {
+  enableOrDisableDoctor(id: $id) {
+    id
+    status
   }
-`;
+}
+    `;
 
 export function useEnableOrDisableDoctorMutation() {
-  return Urql.useMutation<
-    EnableOrDisableDoctorMutation,
-    EnableOrDisableDoctorMutationVariables
-  >(EnableOrDisableDoctorDocument);
-}
+  return Urql.useMutation<EnableOrDisableDoctorMutation, EnableOrDisableDoctorMutationVariables>(EnableOrDisableDoctorDocument);
+};
 export const CreateAppointmentDocument = gql`
-  mutation createAppointment($createAppointment: CreateAppointmentInput!) {
-    createAppointment(createAppointmentInput: $createAppointment) {
-      patientId
-      doctorId
-      serviceId
-      requestedDate
-      scheduleId
-      reportUrl
-    }
+    mutation createAppointment($createAppointment: CreateAppointmentInput!) {
+  createAppointment(createAppointmentInput: $createAppointment) {
+    patientId
+    doctorId
+    serviceId
+    requestedDate
+    scheduleId
+    reportUrl
   }
-`;
+}
+    `;
 
 export function useCreateAppointmentMutation() {
-  return Urql.useMutation<
-    CreateAppointmentMutation,
-    CreateAppointmentMutationVariables
-  >(CreateAppointmentDocument);
-}
+  return Urql.useMutation<CreateAppointmentMutation, CreateAppointmentMutationVariables>(CreateAppointmentDocument);
+};
 export const CountriesDocument = gql`
-  query countries {
-    countries {
-      id
-      country_name
-    }
+    query countries {
+  countries {
+    id
+    country_name
   }
-`;
-
-export function useCountriesQuery(
-  options?: Omit<Urql.UseQueryArgs<CountriesQueryVariables>, "query">
-) {
-  return Urql.useQuery<CountriesQuery>({
-    query: CountriesDocument,
-    ...options,
-  });
 }
+    `;
+
+export function useCountriesQuery(options?: Omit<Urql.UseQueryArgs<CountriesQueryVariables>, 'query'>) {
+  return Urql.useQuery<CountriesQuery>({ query: CountriesDocument, ...options });
+};
 export const GetStatesByCountryDocument = gql`
-  query getStatesByCountry($input: Int!) {
-    getStatesByCountry(country_id: $input) {
-      id
-      country_id
-      state_name
-    }
+    query getStatesByCountry($input: Int!) {
+  getStatesByCountry(country_id: $input) {
+    id
+    country_id
+    state_name
   }
-`;
-
-export function useGetStatesByCountryQuery(
-  options: Omit<Urql.UseQueryArgs<GetStatesByCountryQueryVariables>, "query">
-) {
-  return Urql.useQuery<GetStatesByCountryQuery>({
-    query: GetStatesByCountryDocument,
-    ...options,
-  });
 }
+    `;
+
+export function useGetStatesByCountryQuery(options: Omit<Urql.UseQueryArgs<GetStatesByCountryQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetStatesByCountryQuery>({ query: GetStatesByCountryDocument, ...options });
+};
 export const GetCitiesByStateDocument = gql`
-  query getCitiesByState($input: Int!) {
-    getCitiesByState(state_id: $input) {
-      id
-      state_id
-      city_name
-    }
+    query getCitiesByState($input: Int!) {
+  getCitiesByState(state_id: $input) {
+    id
+    state_id
+    city_name
   }
-`;
-
-export function useGetCitiesByStateQuery(
-  options: Omit<Urql.UseQueryArgs<GetCitiesByStateQueryVariables>, "query">
-) {
-  return Urql.useQuery<GetCitiesByStateQuery>({
-    query: GetCitiesByStateDocument,
-    ...options,
-  });
 }
+    `;
+
+export function useGetCitiesByStateQuery(options: Omit<Urql.UseQueryArgs<GetCitiesByStateQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetCitiesByStateQuery>({ query: GetCitiesByStateDocument, ...options });
+};
 export const PatientHealthHistoryDocument = gql`
-  query patientHealthHistory($input: Int!) {
-    patientHealthHistory(id: $input) {
-      id
-      history
-    }
+    query patientHealthHistory($input: Int!) {
+  patientHealthHistory(id: $input) {
+    id
+    history
   }
-`;
-
-export function usePatientHealthHistoryQuery(
-  options: Omit<Urql.UseQueryArgs<PatientHealthHistoryQueryVariables>, "query">
-) {
-  return Urql.useQuery<PatientHealthHistoryQuery>({
-    query: PatientHealthHistoryDocument,
-    ...options,
-  });
 }
+    `;
+
+export function usePatientHealthHistoryQuery(options: Omit<Urql.UseQueryArgs<PatientHealthHistoryQueryVariables>, 'query'>) {
+  return Urql.useQuery<PatientHealthHistoryQuery>({ query: PatientHealthHistoryDocument, ...options });
+};
 export const GetAllCardsDocument = gql`
-  query getAllCards($userId: Int!) {
-    getAllCards(user_id: $userId) {
-      id
-      user_id
-      card_id
-      card_type
-      card_digits
-      is_default
-      exp_month
-      exp_year
-    }
+    query getAllCards($userId: Int!) {
+  getAllCards(user_id: $userId) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
+    exp_month
+    exp_year
   }
-`;
-
-export function useGetAllCardsQuery(
-  options: Omit<Urql.UseQueryArgs<GetAllCardsQueryVariables>, "query">
-) {
-  return Urql.useQuery<GetAllCardsQuery>({
-    query: GetAllCardsDocument,
-    ...options,
-  });
 }
+    `;
+
+export function useGetAllCardsQuery(options: Omit<Urql.UseQueryArgs<GetAllCardsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllCardsQuery>({ query: GetAllCardsDocument, ...options });
+};
 export const GetCardDocument = gql`
-  query getCard($id: Int!) {
-    getCard(id: $id) {
-      id
-      user_id
-      card_id
-      card_type
-      card_digits
-      is_default
-    }
+    query getCard($id: Int!) {
+  getCard(id: $id) {
+    id
+    user_id
+    card_id
+    card_type
+    card_digits
+    is_default
   }
-`;
+}
+    `;
 
-export function useGetCardQuery(
-  options: Omit<Urql.UseQueryArgs<GetCardQueryVariables>, "query">
-) {
+export function useGetCardQuery(options: Omit<Urql.UseQueryArgs<GetCardQueryVariables>, 'query'>) {
   return Urql.useQuery<GetCardQuery>({ query: GetCardDocument, ...options });
-}
+};
 export const GetUserDocument = gql`
-  query getUser($input: Int!) {
-    user(id: $input) {
-      id
-      first_name
-      last_name
-      gender
-      date_of_birth
-      contact_number
-      email
-      country_id
-      city_id
-      state_id
-      password
-      zip_code
-      streetAddress
-      patientProfile {
-        maritalStatus
-        profileImage
-        children
-        occupation
-        occupationalExposure
-        pets
-        petsAnswer
-        exposureDuration
-        userId
-      }
+    query getUser($input: Int!) {
+  user(id: $input) {
+    id
+    first_name
+    last_name
+    gender
+    date_of_birth
+    contact_number
+    email
+    country_id
+    city_id
+    state_id
+    password
+    zip_code
+    streetAddress
+    patientProfile {
+      maritalStatus
+      profileImage
+      children
+      occupation
+      occupationalExposure
+      pets
+      petsAnswer
+      exposureDuration
+      userId
     }
   }
-`;
+}
+    `;
 
-export function useGetUserQuery(
-  options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, "query">
-) {
+export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
   return Urql.useQuery<GetUserQuery>({ query: GetUserDocument, ...options });
-}
+};
 export const DoctorProfilesDocument = gql`
-  query doctorProfiles {
-    doctorProfiles {
-      id
-      doctor_id
-      year_of_experience
-      specialization
-      condition_treated
-      educational_background
-      professional_experience
-      language
-      about_me
-      user {
-        id
-        first_name
-        last_name
-        email
-        gender
-      }
-    }
-  }
-`;
-
-export function useDoctorProfilesQuery(
-  options?: Omit<Urql.UseQueryArgs<DoctorProfilesQueryVariables>, "query">
-) {
-  return Urql.useQuery<DoctorProfilesQuery>({
-    query: DoctorProfilesDocument,
-    ...options,
-  });
-}
-export const DoctorProfileDocument = gql`
-  query doctorProfile($doctor_id: Int!) {
-    doctorProfile(doctor_id: $doctor_id) {
-      id
-      doctor_id
-      year_of_experience
-      specialization
-      condition_treated
-      educational_background
-      professional_experience
-      language
-      about_me
-      profile_image
-      user {
-        id
-        first_name
-        last_name
-        email
-        gender
-        country_id
-        state_id
-        city_id
-        zip_code
-        password
-        status
-        role
-        doctorSchedules {
-          id
-          doctorId
-          day
-          startTime
-          endTime
-          createdAt
-          updatedAt
-        }
-      }
-    }
-  }
-`;
-
-export function useDoctorProfileQuery(
-  options: Omit<Urql.UseQueryArgs<DoctorProfileQueryVariables>, "query">
-) {
-  return Urql.useQuery<DoctorProfileQuery>({
-    query: DoctorProfileDocument,
-    ...options,
-  });
-}
-export const GetAllRequestedAppointmentsDocument = gql`
-  query getAllRequestedAppointments($filter: GetAppointmentInput!) {
-    appointments(filter: $filter) {
-      id
-      patientId
-      doctorId
-      serviceId
-      requestedDate
-      status
-      patient {
-        first_name
-        last_name
-      }
-      serviceType {
-        name
-        price
-      }
-      doctor {
-        first_name
-        last_name
-      }
-      appointmentTimeSlots {
-        id
-        startTime
-        endTime
-        selected
-      }
-      transection {
-        createdAt
-      }
-      appointmentTimeSlots {
-        id
-        startTime
-        endTime
-        selected
-      }
-    }
-  }
-`;
-
-export function useGetAllRequestedAppointmentsQuery(
-  options: Omit<
-    Urql.UseQueryArgs<GetAllRequestedAppointmentsQueryVariables>,
-    "query"
-  >
-) {
-  return Urql.useQuery<GetAllRequestedAppointmentsQuery>({
-    query: GetAllRequestedAppointmentsDocument,
-    ...options,
-  });
-}
-export const DoctorProfileDetailsDocument = gql`
-  query doctorProfileDetails($input: Int!) {
-    user(id: $input) {
+    query doctorProfiles {
+  doctorProfiles {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    user {
       id
       first_name
       last_name
       email
-      streetAddress
+      gender
+    }
+  }
+}
+    `;
+
+export function useDoctorProfilesQuery(options?: Omit<Urql.UseQueryArgs<DoctorProfilesQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorProfilesQuery>({ query: DoctorProfilesDocument, ...options });
+};
+export const DoctorProfileDocument = gql`
+    query doctorProfile($doctor_id: Int!) {
+  doctorProfile(doctor_id: $doctor_id) {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    language
+    about_me
+    profile_image
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
       country_id
       state_id
       city_id
       zip_code
-      doctorProfile {
-        id
-        year_of_experience
-        specialization
-        condition_treated
-        educational_background
-        professional_experience
-        language
-        about_me
-        profile_image
-      }
+      password
+      status
+      role
       doctorSchedules {
+        id
+        doctorId
         day
         startTime
         endTime
+        createdAt
+        updatedAt
       }
     }
   }
-`;
-
-export function useDoctorProfileDetailsQuery(
-  options: Omit<Urql.UseQueryArgs<DoctorProfileDetailsQueryVariables>, "query">
-) {
-  return Urql.useQuery<DoctorProfileDetailsQuery>({
-    query: DoctorProfileDetailsDocument,
-    ...options,
-  });
 }
-export const GetAllAppointmentServiceTypesDocument = gql`
-  query getAllAppointmentServiceTypes {
-    appointmentServiceTypes {
-      id
+    `;
+
+export function useDoctorProfileQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorProfileQuery>({ query: DoctorProfileDocument, ...options });
+};
+export const GetAllRequestedAppointmentsDocument = gql`
+    query getAllRequestedAppointments($filter: GetAppointmentInput!) {
+  appointments(filter: $filter) {
+    id
+    patientId
+    doctorId
+    serviceId
+    requestedDate
+    status
+    patient {
+      first_name
+      last_name
+    }
+    serviceType {
       name
       price
     }
-  }
-`;
-
-export function useGetAllAppointmentServiceTypesQuery(
-  options?: Omit<
-    Urql.UseQueryArgs<GetAllAppointmentServiceTypesQueryVariables>,
-    "query"
-  >
-) {
-  return Urql.useQuery<GetAllAppointmentServiceTypesQuery>({
-    query: GetAllAppointmentServiceTypesDocument,
-    ...options,
-  });
-}
-export const DoctorSchedulesDocument = gql`
-  query doctorSchedules($doctorId: Int!) {
-    doctorSchedules(doctorId: $doctorId) {
+    doctor {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
       id
-      doctorId
+      startTime
+      endTime
+      selected
+    }
+    transection {
+      createdAt
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+  }
+}
+    `;
+
+export function useGetAllRequestedAppointmentsQuery(options: Omit<Urql.UseQueryArgs<GetAllRequestedAppointmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllRequestedAppointmentsQuery>({ query: GetAllRequestedAppointmentsDocument, ...options });
+};
+export const DoctorProfileDetailsDocument = gql`
+    query doctorProfileDetails($input: Int!) {
+  user(id: $input) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    country_id
+    state_id
+    city_id
+    zip_code
+    doctorProfile {
+      id
+      year_of_experience
+      specialization
+      condition_treated
+      educational_background
+      professional_experience
+      language
+      about_me
+      profile_image
+    }
+    doctorSchedules {
       day
       startTime
       endTime
     }
   }
-`;
-
-export function useDoctorSchedulesQuery(
-  options: Omit<Urql.UseQueryArgs<DoctorSchedulesQueryVariables>, "query">
-) {
-  return Urql.useQuery<DoctorSchedulesQuery>({
-    query: DoctorSchedulesDocument,
-    ...options,
-  });
 }
+    `;
+
+export function useDoctorProfileDetailsQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileDetailsQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorProfileDetailsQuery>({ query: DoctorProfileDetailsDocument, ...options });
+};
+export const GetAllAppointmentServiceTypesDocument = gql`
+    query getAllAppointmentServiceTypes {
+  appointmentServiceTypes {
+    id
+    name
+    price
+  }
+}
+    `;
+
+export function useGetAllAppointmentServiceTypesQuery(options?: Omit<Urql.UseQueryArgs<GetAllAppointmentServiceTypesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllAppointmentServiceTypesQuery>({ query: GetAllAppointmentServiceTypesDocument, ...options });
+};
+export const DoctorSchedulesDocument = gql`
+    query doctorSchedules($doctorId: Int!) {
+  doctorSchedules(doctorId: $doctorId) {
+    id
+    doctorId
+    day
+    startTime
+    endTime
+  }
+}
+    `;
+
+export function useDoctorSchedulesQuery(options: Omit<Urql.UseQueryArgs<DoctorSchedulesQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorSchedulesQuery>({ query: DoctorSchedulesDocument, ...options });
+};
 export const DoctorQuestionnaireDocument = gql`
-  query doctorQuestionnaire($doctorId: Int!) {
-    doctorQuestionnaire(doctorId: $doctorId) {
+    query doctorQuestionnaire($doctorId: Int!) {
+  doctorQuestionnaire(doctorId: $doctorId) {
+    id
+    doctorId
+    questionnaire
+  }
+}
+    `;
+
+export function useDoctorQuestionnaireQuery(options: Omit<Urql.UseQueryArgs<DoctorQuestionnaireQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorQuestionnaireQuery>({ query: DoctorQuestionnaireDocument, ...options });
+};
+export const GetAppointmentByIdDocument = gql`
+    query getAppointmentById($id: Int!) {
+  appointment(id: $id) {
+    id
+    status
+    scheduleId
+    doctorId
+    patientId
+    requestedDate
+    reportUrl
+    doctor {
       id
+      first_name
+      last_name
+    }
+    patient {
+      id
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    appointmentSchedule {
+      id
+      day
       doctorId
-      questionnaire
+      startTime
+      endTime
+    }
+    serviceType {
+      id
+      name
+      price
+    }
+    transection {
+      createdAt
+    }
+    appointmentHealthHistory {
+      history
     }
   }
-`;
-
-export function useDoctorQuestionnaireQuery(
-  options: Omit<Urql.UseQueryArgs<DoctorQuestionnaireQueryVariables>, "query">
-) {
-  return Urql.useQuery<DoctorQuestionnaireQuery>({
-    query: DoctorQuestionnaireDocument,
-    ...options,
-  });
 }
-export const GetAppointmentByIdDocument = gql`
-  query getAppointmentById($id: Int!) {
-    appointment(id: $id) {
-      id
-      status
-      scheduleId
-      doctorId
-      patientId
+    `;
+
+export function useGetAppointmentByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAppointmentByIdQuery>({ query: GetAppointmentByIdDocument, ...options });
+};
+export const GetAllTransactionsDocument = gql`
+    query getAllTransactions {
+  transections {
+    id
+    transectionId
+    appointmentId
+    amountReceived
+    status
+    createdAt
+    appointment {
       requestedDate
       reportUrl
       doctor {
-        id
         first_name
         last_name
       }
       patient {
-        id
         first_name
         last_name
       }
-      appointmentTimeSlots {
-        id
-        startTime
-        endTime
-        selected
-      }
-      appointmentSchedule {
-        id
-        day
-        doctorId
-        startTime
-        endTime
-      }
-      serviceType {
-        id
-        name
-        price
-      }
-      transection {
-        createdAt
-      }
-      appointmentHealthHistory {
-        history
-      }
     }
   }
-`;
-
-export function useGetAppointmentByIdQuery(
-  options: Omit<Urql.UseQueryArgs<GetAppointmentByIdQueryVariables>, "query">
-) {
-  return Urql.useQuery<GetAppointmentByIdQuery>({
-    query: GetAppointmentByIdDocument,
-    ...options,
-  });
 }
-export const GetAllTransactionsDocument = gql`
-  query getAllTransactions {
-    transections {
-      id
-      transectionId
-      appointmentId
-      amountReceived
-      status
-      createdAt
-      appointment {
-        requestedDate
-        reportUrl
-        doctor {
-          first_name
-          last_name
-        }
-        patient {
-          first_name
-          last_name
-        }
-      }
-    }
-  }
-`;
+    `;
 
-export function useGetAllTransactionsQuery(
-  options?: Omit<Urql.UseQueryArgs<GetAllTransactionsQueryVariables>, "query">
-) {
-  return Urql.useQuery<GetAllTransactionsQuery>({
-    query: GetAllTransactionsDocument,
-    ...options,
-  });
-}
+export function useGetAllTransactionsQuery(options?: Omit<Urql.UseQueryArgs<GetAllTransactionsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllTransactionsQuery>({ query: GetAllTransactionsDocument, ...options });
+};
 export const ViewSuggestedTimeSlotsDocument = gql`
-  query ViewSuggestedTimeSlots($id: Int!) {
-    appointment(id: $id) {
+    query ViewSuggestedTimeSlots($id: Int!) {
+  appointment(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    reportUrl
+    status
+    createdAt
+    appointmentTimeSlots {
       id
-      patientId
-      doctorId
-      serviceId
-      scheduleId
-      requestedDate
-      reportUrl
-      status
-      createdAt
-      appointmentTimeSlots {
-        id
-        startTime
-        endTime
-        selected
-      }
+      startTime
+      endTime
+      selected
     }
   }
-`;
-
-export function useViewSuggestedTimeSlotsQuery(
-  options: Omit<
-    Urql.UseQueryArgs<ViewSuggestedTimeSlotsQueryVariables>,
-    "query"
-  >
-) {
-  return Urql.useQuery<ViewSuggestedTimeSlotsQuery>({
-    query: ViewSuggestedTimeSlotsDocument,
-    ...options,
-  });
 }
-import { IntrospectionQuery } from "graphql";
+    `;
+
+export function useViewSuggestedTimeSlotsQuery(options: Omit<Urql.UseQueryArgs<ViewSuggestedTimeSlotsQueryVariables>, 'query'>) {
+  return Urql.useQuery<ViewSuggestedTimeSlotsQuery>({ query: ViewSuggestedTimeSlotsDocument, ...options });
+};
+import { IntrospectionQuery } from 'graphql';
 export default {
-  __schema: {
-    queryType: {
-      name: "Query",
+  "__schema": {
+    "queryType": {
+      "name": "Query"
     },
-    mutationType: {
-      name: "Mutation",
+    "mutationType": {
+      "name": "Mutation"
     },
-    subscriptionType: null,
-    types: [
+    "subscriptionType": null,
+    "types": [
       {
-        kind: "OBJECT",
-        name: "Appointment",
-        fields: [
+        "kind": "OBJECT",
+        "name": "Appointment",
+        "fields": [
           {
-            name: "appointmentHealthHistory",
-            type: {
-              kind: "OBJECT",
-              name: "AppointmentHealthHistory",
-              ofType: null,
+            "name": "appointmentHealthHistory",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AppointmentHealthHistory",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "appointmentSchedule",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorSchedule",
-                ofType: null,
-              },
+            "name": "appointmentSchedule",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorSchedule",
+                "ofType": null
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "appointmentTimeSlots",
-            type: {
-              kind: "LIST",
-              ofType: {
-                kind: "NON_NULL",
-                ofType: {
-                  kind: "OBJECT",
-                  name: "AppointmentTimeSlots",
-                  ofType: null,
-                },
-              },
+            "name": "appointmentTimeSlots",
+            "type": {
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "AppointmentTimeSlots",
+                  "ofType": null
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "createdAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctor",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "doctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorNote",
-            type: {
-              kind: "OBJECT",
-              name: "AppointmentNote",
-              ofType: null,
+            "name": "doctorNote",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AppointmentNote",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "patient",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "patient",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "patientId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "patientId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "questionnair",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "questionnair",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "reportUrl",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "reportUrl",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "requestedDate",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "requestedDate",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "schedule",
-            type: {
-              kind: "OBJECT",
-              name: "DoctorSchedule",
-              ofType: null,
+            "name": "schedule",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorSchedule",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "scheduleId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "scheduleId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "serviceId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "serviceId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "serviceType",
-            type: {
-              kind: "OBJECT",
-              name: "AppointmentServiceType",
-              ofType: null,
+            "name": "serviceType",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AppointmentServiceType",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "status",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "status",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "transection",
-            type: {
-              kind: "OBJECT",
-              name: "Transection",
-              ofType: null,
+            "name": "transection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Transection",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user",
-            type: {
-              kind: "OBJECT",
-              name: "User",
-              ofType: null,
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "AppointmentHealthHistory",
-        fields: [
+        "kind": "OBJECT",
+        "name": "AppointmentHealthHistory",
+        "fields": [
           {
-            name: "appointment",
-            type: {
-              kind: "OBJECT",
-              name: "Appointment",
-              ofType: null,
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "appointmentId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "appointmentId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "history",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "history",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "patientId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "patientId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "AppointmentNote",
-        fields: [
+        "kind": "OBJECT",
+        "name": "AppointmentNote",
+        "fields": [
           {
-            name: "appointment",
-            type: {
-              kind: "OBJECT",
-              name: "Appointment",
-              ofType: null,
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "appointmentId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "appointmentId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "assessment",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "assessment",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "createdAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "isPublished",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "isPublished",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "note",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "note",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "noteType",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "noteType",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "objective",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "objective",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "plan",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "plan",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "subjective",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "subjective",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "updatedAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "updatedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "AppointmentServiceType",
-        fields: [
+        "kind": "OBJECT",
+        "name": "AppointmentServiceType",
+        "fields": [
           {
-            name: "appointment",
-            type: {
-              kind: "OBJECT",
-              name: "Appointment",
-              ofType: null,
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "name",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "price",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "price",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "AppointmentTimeSlots",
-        fields: [
+        "kind": "OBJECT",
+        "name": "AppointmentTimeSlots",
+        "fields": [
           {
-            name: "appointment",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Appointment",
-                ofType: null,
-              },
+            "name": "appointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "endTime",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "endTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "selected",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "selected",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "startTime",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "startTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "City",
-        fields: [
+        "kind": "OBJECT",
+        "name": "City",
+        "fields": [
           {
-            name: "city_name",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "city_name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "state_id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "state_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "Country",
-        fields: [
+        "kind": "OBJECT",
+        "name": "Country",
+        "fields": [
           {
-            name: "country_name",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "country_name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "country_phone_code",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "country_phone_code",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "country_short_name",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "country_short_name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "DoctorBillingMethod",
-        fields: [
+        "kind": "OBJECT",
+        "name": "DoctorBillingMethod",
+        "fields": [
           {
-            name: "accountTitle",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "accountTitle",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "bankAccountNumber",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "bankAccountNumber",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "bankId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "bankId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "bankName",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "bankName",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "createdAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "deletedAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "deletedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctor",
-            type: {
-              kind: "OBJECT",
-              name: "User",
-              ofType: null,
+            "name": "doctor",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "is_default",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "is_default",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "routingNumber",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "routingNumber",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "source",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "source",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "updatedAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "updatedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "DoctorProfile",
-        fields: [
+        "kind": "OBJECT",
+        "name": "DoctorProfile",
+        "fields": [
           {
-            name: "about_me",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "about_me",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "condition_treated",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "condition_treated",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctor_id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "doctor_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "educational_background",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "educational_background",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "language",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "language",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "professional_experience",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "professional_experience",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "profile_image",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "profile_image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "specialization",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "specialization",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user",
-            type: {
-              kind: "OBJECT",
-              name: "User",
-              ofType: null,
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "year_of_experience",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "year_of_experience",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "DoctorQuestionnaire",
-        fields: [
+        "kind": "OBJECT",
+        "name": "DoctorQuestionnaire",
+        "fields": [
           {
-            name: "doctor",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "doctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "questionnaire",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "questionnaire",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user",
-            type: {
-              kind: "OBJECT",
-              name: "User",
-              ofType: null,
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "DoctorSchedule",
-        fields: [
+        "kind": "OBJECT",
+        "name": "DoctorSchedule",
+        "fields": [
           {
-            name: "createdAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "day",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "day",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "deletedAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "deletedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "endTime",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "endTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "schedule",
-            type: {
-              kind: "OBJECT",
-              name: "DoctorSchedule",
-              ofType: null,
+            "name": "schedule",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorSchedule",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "startTime",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "startTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "updatedAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "updatedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user",
-            type: {
-              kind: "OBJECT",
-              name: "User",
-              ofType: null,
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "LoginResponse",
-        fields: [
+        "kind": "OBJECT",
+        "name": "LoginResponse",
+        "fields": [
           {
-            name: "access_token",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "access_token",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "user",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "Mutation",
-        fields: [
+        "kind": "OBJECT",
+        "name": "Mutation",
+        "fields": [
           {
-            name: "UserForgotPassword",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "UserForgotPassword",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "email",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "email",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "UserResetPassword",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "UserResetPassword",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "resetPasswordInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "resetPasswordInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "bookAppointment",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Appointment",
-                ofType: null,
-              },
+            "name": "bookAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "bookAppointmentInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "bookAppointmentInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "cancelAppointment",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Appointment",
-                ofType: null,
-              },
+            "name": "cancelAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "cancelAppointmentByPatient",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Appointment",
-                ofType: null,
-              },
+            "name": "cancelAppointmentByPatient",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createAppointment",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Appointment",
-                ofType: null,
-              },
+            "name": "createAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createAppointmentInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createAppointmentInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createCard",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "UserCard",
-                ofType: null,
-              },
+            "name": "createCard",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserCard",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createPaymentInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createPaymentInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createDoctor",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "createDoctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createDoctorInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createDoctorInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createDoctorBillingMethod",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorBillingMethod",
-                ofType: null,
-              },
+            "name": "createDoctorBillingMethod",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorBillingMethod",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createDoctorBillingMethodInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createDoctorBillingMethodInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createDoctorProfile",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorProfile",
-                ofType: null,
-              },
+            "name": "createDoctorProfile",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorProfile",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createDoctorProfileInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createDoctorProfileInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createOrUpdateAppointmentNote",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "AppointmentNote",
-                ofType: null,
-              },
+            "name": "createOrUpdateAppointmentNote",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentNote",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createAppointmentNoteInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createAppointmentNoteInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createOrUpdateDoctorQuestionnaire",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorQuestionnaire",
-                ofType: null,
-              },
+            "name": "createOrUpdateDoctorQuestionnaire",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorQuestionnaire",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createDoctorQuestionnaireInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createDoctorQuestionnaireInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createOrUpdateDoctorSchedule",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "DoctorSchedule",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "createOrUpdateDoctorSchedule",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "DoctorSchedule",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createDoctorScheduleInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "LIST",
-                    ofType: {
-                      kind: "NON_NULL",
-                      ofType: {
-                        kind: "SCALAR",
-                        name: "Any",
-                      },
-                    },
-                  },
-                },
+                "name": "createDoctorScheduleInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "Any"
+                      }
+                    }
+                  }
+                }
               },
               {
-                name: "doctorId",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createPatientHealthHistory",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "PatientHealthHistory",
-                ofType: null,
-              },
+            "name": "createPatientHealthHistory",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PatientHealthHistory",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createPatientHealthHistoryInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createPatientHealthHistoryInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createServiceType",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "AppointmentServiceType",
-                ofType: null,
-              },
+            "name": "createServiceType",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentServiceType",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createAppointmentServiceTypeInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createAppointmentServiceTypeInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createStaff",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "createStaff",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createStaffInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createStaffInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "createUser",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "createUser",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "createUserInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "createUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "enableOrDisableDoctor",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "enableOrDisableDoctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "login",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "LoginResponse",
-                ofType: null,
-              },
+            "name": "login",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "LoginResponse",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "loginUserInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "loginUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "payment",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Transection",
-                ofType: null,
-              },
+            "name": "payment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Transection",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "appointmentId",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "appointmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "proposeNewTime",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Appointment",
-                ofType: null,
-              },
+            "name": "proposeNewTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "proposeNewTimeInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "proposeNewTimeInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removeAppointment",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Appointment",
-                ofType: null,
-              },
+            "name": "removeAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removeAppointmentNote",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "AppointmentNote",
-                ofType: null,
-              },
+            "name": "removeAppointmentNote",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentNote",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removeCard",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "UserCard",
-                ofType: null,
-              },
+            "name": "removeCard",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserCard",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removeDoctorBillingMethod",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorBillingMethod",
-                ofType: null,
-              },
+            "name": "removeDoctorBillingMethod",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorBillingMethod",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removeDoctorProfile",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorProfile",
-                ofType: null,
-              },
+            "name": "removeDoctorProfile",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorProfile",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removeDoctorQuestionnaire",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorQuestionnaire",
-                ofType: null,
-              },
+            "name": "removeDoctorQuestionnaire",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorQuestionnaire",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removeDoctorSchedule",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorSchedule",
-                ofType: null,
-              },
+            "name": "removeDoctorSchedule",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorSchedule",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "doctorId",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removePatientHealthHistory",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "PatientHealthHistory",
-                ofType: null,
-              },
+            "name": "removePatientHealthHistory",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PatientHealthHistory",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removeStaff",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "removeStaff",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "removeUser",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "removeUser",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "setAsDefaultCard",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "UserCard",
-                ofType: null,
-              },
+            "name": "setAsDefaultCard",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserCard",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "setDoctorPassword",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "setDoctorPassword",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "setPasswordInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "setPasswordInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "updateDoctorProfile",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorProfile",
-                ofType: null,
-              },
+            "name": "updateDoctorProfile",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorProfile",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "updateDoctorProfileInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "updateDoctorProfileInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "updatePatientHealthHistory",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "PatientHealthHistory",
-                ofType: null,
-              },
+            "name": "updatePatientHealthHistory",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PatientHealthHistory",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "updatePatientHealthHistoryInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "updatePatientHealthHistoryInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "updateStaff",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "updateStaff",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
               },
               {
-                name: "updateStaffInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "updateStaffInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "updateUser",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "updateUser",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
               },
               {
-                name: "updateUserInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "updateUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "userVerifyEmail",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "userVerifyEmail",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "token",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
-          },
+                "name": "token",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "PatientHealthHistory",
-        fields: [
+        "kind": "OBJECT",
+        "name": "PatientHealthHistory",
+        "fields": [
           {
-            name: "history",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "history",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user",
-            type: {
-              kind: "OBJECT",
-              name: "User",
-              ofType: null,
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user_id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "user_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "PatientProfile",
-        fields: [
+        "kind": "OBJECT",
+        "name": "PatientProfile",
+        "fields": [
           {
-            name: "children",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "children",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "exposureDuration",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "exposureDuration",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "maritalStatus",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "maritalStatus",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "occupation",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "occupation",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "occupationalExposure",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "occupationalExposure",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "pets",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "pets",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "petsAnswer",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "petsAnswer",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "profileImage",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "profileImage",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user",
-            type: {
-              kind: "OBJECT",
-              name: "User",
-              ofType: null,
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "userId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "userId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "Query",
-        fields: [
+        "kind": "OBJECT",
+        "name": "Query",
+        "fields": [
           {
-            name: "appointment",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Appointment",
-                ofType: null,
-              },
+            "name": "appointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "appointmentBanner",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "Appointment",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "appointmentBanner",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Appointment",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [
+            "args": [
               {
-                name: "dcotorId",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "dcotorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "appointmentNote",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "AppointmentNote",
-                ofType: null,
-              },
+            "name": "appointmentNote",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentNote",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "appointmentId",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "appointmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "appointmentNotes",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "AppointmentNote",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "appointmentNotes",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "AppointmentNote",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "appointmentQuestionner",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "AppointmentHealthHistory",
-                ofType: null,
-              },
+            "name": "appointmentQuestionner",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentHealthHistory",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "appointmentId",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "appointmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "appointmentServiceType",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "AppointmentServiceType",
-                ofType: null,
-              },
+            "name": "appointmentServiceType",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentServiceType",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "appointmentServiceTypes",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "AppointmentServiceType",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "appointmentServiceTypes",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "AppointmentServiceType",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "appointments",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "Appointment",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "appointments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Appointment",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [
+            "args": [
               {
-                name: "filter",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "cities",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "City",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "cities",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "City",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "city",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "City",
-                ofType: null,
-              },
+            "name": "city",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "City",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "countries",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "Country",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "countries",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Country",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "country",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Country",
-                ofType: null,
-              },
+            "name": "country",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Country",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "doctorBillingMethod",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorBillingMethod",
-                ofType: null,
-              },
+            "name": "doctorBillingMethod",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorBillingMethod",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "doctorBillingMethods",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "DoctorBillingMethod",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "doctorBillingMethods",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "DoctorBillingMethod",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [
+            "args": [
               {
-                name: "doctorId",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "doctorProfile",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorProfile",
-                ofType: null,
-              },
+            "name": "doctorProfile",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorProfile",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "doctor_id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "doctor_id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "doctorProfiles",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "DoctorProfile",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "doctorProfiles",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "DoctorProfile",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorQuestionnaire",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "DoctorQuestionnaire",
-                ofType: null,
-              },
+            "name": "doctorQuestionnaire",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorQuestionnaire",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "doctorId",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "doctorQuestionnaires",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "DoctorQuestionnaire",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "doctorQuestionnaires",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "DoctorQuestionnaire",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorSchedules",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "DoctorSchedule",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "doctorSchedules",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "DoctorSchedule",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [
+            "args": [
               {
-                name: "doctorId",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "getAllCards",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "UserCard",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "getAllCards",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserCard",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [
+            "args": [
               {
-                name: "user_id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "user_id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "getCard",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "UserCard",
-                ofType: null,
-              },
+            "name": "getCard",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserCard",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "getCitiesByState",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "City",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "getCitiesByState",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "City",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [
+            "args": [
               {
-                name: "state_id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "state_id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "getStatesByCountry",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "State",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "getStatesByCountry",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "State",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [
+            "args": [
               {
-                name: "country_id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "country_id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "patientHealthHistory",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "PatientHealthHistory",
-                ofType: null,
-              },
+            "name": "patientHealthHistory",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PatientHealthHistory",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "patientHealthHistorys",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "PatientHealthHistory",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "patientHealthHistorys",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "PatientHealthHistory",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "physiciansPatients",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "User",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "physiciansPatients",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [
+            "args": [
               {
-                name: "filter",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "staff",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "User",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "staff",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "staffDetail",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "staffDetail",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "state",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "State",
-                ofType: null,
-              },
+            "name": "state",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "State",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "states",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "State",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "states",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "State",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "transection",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "Transection",
-                ofType: null,
-              },
+            "name": "transection",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Transection",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "transections",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "Transection",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "transections",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Transection",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null,
-              },
+            "name": "user",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            args: [
+            "args": [
               {
-                name: "id",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any",
-                  },
-                },
-              },
-            ],
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
-            name: "users",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "User",
-                    ofType: null,
-                  },
-                },
-              },
+            "name": "users",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "State",
-        fields: [
+        "kind": "OBJECT",
+        "name": "State",
+        "fields": [
           {
-            name: "country_id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "country_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "state_name",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "state_name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "Transection",
-        fields: [
+        "kind": "OBJECT",
+        "name": "Transection",
+        "fields": [
           {
-            name: "amountReceived",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "amountReceived",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "appointment",
-            type: {
-              kind: "OBJECT",
-              name: "Appointment",
-              ofType: null,
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "appointmentId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "appointmentId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "cardId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "cardId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "createdAt",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctor_percentage",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "doctor_percentage",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "payment_status",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "payment_status",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "status",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "status",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "transectionId",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "transectionId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "User",
-        fields: [
+        "kind": "OBJECT",
+        "name": "User",
+        "fields": [
           {
-            name: "appointment",
-            type: {
-              kind: "OBJECT",
-              name: "Appointment",
-              ofType: null,
+            "name": "appointment",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "city_id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "city_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "contact_number",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "contact_number",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "country_id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "country_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "createdBy",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "createdBy",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "date_of_birth",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "date_of_birth",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "deleted",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "deleted",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorBillingMethods",
-            type: {
-              kind: "LIST",
-              ofType: {
-                kind: "NON_NULL",
-                ofType: {
-                  kind: "OBJECT",
-                  name: "DoctorBillingMethod",
-                  ofType: null,
-                },
-              },
+            "name": "doctorBillingMethods",
+            "type": {
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "DoctorBillingMethod",
+                  "ofType": null
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorProfile",
-            type: {
-              kind: "OBJECT",
-              name: "DoctorProfile",
-              ofType: null,
+            "name": "doctorProfile",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorProfile",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorQuestionnaire",
-            type: {
-              kind: "OBJECT",
-              name: "DoctorQuestionnaire",
-              ofType: null,
+            "name": "doctorQuestionnaire",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorQuestionnaire",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "doctorSchedules",
-            type: {
-              kind: "LIST",
-              ofType: {
-                kind: "NON_NULL",
-                ofType: {
-                  kind: "OBJECT",
-                  name: "DoctorSchedule",
-                  ofType: null,
-                },
-              },
+            "name": "doctorSchedules",
+            "type": {
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "DoctorSchedule",
+                  "ofType": null
+                }
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "email",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "email",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "first_name",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "first_name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "gender",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "gender",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "last_name",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "last_name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "password",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "password",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "patientHealthHistory",
-            type: {
-              kind: "OBJECT",
-              name: "PatientHealthHistory",
-              ofType: null,
+            "name": "patientHealthHistory",
+            "type": {
+              "kind": "OBJECT",
+              "name": "PatientHealthHistory",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "patientProfile",
-            type: {
-              kind: "OBJECT",
-              name: "PatientProfile",
-              ofType: null,
+            "name": "patientProfile",
+            "type": {
+              "kind": "OBJECT",
+              "name": "PatientProfile",
+              "ofType": null
             },
-            args: [],
+            "args": []
           },
           {
-            name: "role",
-            type: {
-              kind: "SCALAR",
-              name: "Any",
+            "name": "role",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
-            args: [],
+            "args": []
           },
           {
-            name: "state_id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "state_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "status",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "status",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "streetAddress",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "streetAddress",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "zip_code",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "zip_code",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "OBJECT",
-        name: "UserCard",
-        fields: [
+        "kind": "OBJECT",
+        "name": "UserCard",
+        "fields": [
           {
-            name: "card_digits",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "card_digits",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "card_id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "card_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "card_type",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "card_type",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "exp_month",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "exp_month",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "exp_year",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "exp_year",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "is_default",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "is_default",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
+            "args": []
           },
           {
-            name: "user_id",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any",
-              },
+            "name": "user_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
-            args: [],
-          },
+            "args": []
+          }
         ],
-        interfaces: [],
+        "interfaces": []
       },
       {
-        kind: "SCALAR",
-        name: "Any",
-      },
+        "kind": "SCALAR",
+        "name": "Any"
+      }
     ],
-    directives: [],
-  },
+    "directives": []
+  }
 } as unknown as IntrospectionQuery;

@@ -57,6 +57,7 @@ type StatusType<K extends StatusName> = {
 // };
 
 type props = {
+  appointmentId?: Number | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
@@ -66,6 +67,7 @@ type props = {
 };
 
 function AppointmentCard({
+  appointmentId,
   requestedDate,
   status,
   serviceType,
@@ -91,6 +93,7 @@ function AppointmentCard({
     case "Confirmed":
       return (
         <AppointmnetConfirmedCard
+          appointmentId={appointmentId}
           requestedDate={requestedDate}
           status={getStatus()}
           serviceType={serviceType}

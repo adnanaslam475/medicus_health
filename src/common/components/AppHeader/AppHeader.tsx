@@ -8,6 +8,7 @@ import Image from "next/image";
 import _classes from "./AppHeader.module.scss";
 import SidebarDrawer from "../../../modules/common/components/SidebarDrawer";
 import { getRole } from "../../utils/userData";
+import InfoMessageBannerReminder from "../InfoMessageBannerReminder/InfoMessageBannerReminder";
 
 const { Header } = Layout;
 
@@ -116,7 +117,7 @@ const AppHeader = () => {
         </span>
         <div className="w-full flex px-0 justify-between items-center">
           <div className="hidden md:block w-full ">
-            {getRole() === "User" && <InfoMessage />}
+            {getRole() === "User" && <InfoMessageBannerReminder />}
           </div>
           <div className="flex items-center text-right justify-end w-full md:w-1/2">
             <span className="flex mt-3 pr-5">

@@ -16,25 +16,33 @@ function PhysicianQuestionnaire(props: Props) {
   const [formInstance] = Form.useForm();
   const { appointmentHealthHistory } = props || {};
 
-
   let History = JSON.parse(appointmentHealthHistory);
-  
 
   useEffect(() => {
-  
     prepareAndSetEditPayload();
-  }, []);
+  }, [History]);
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
-     
+      respiratoryConcern: History?.respiratoryConcern,
+      symptoms: History?.symptoms,
+      problemBetter: History?.problemBetter,
+      problemWorse: History?.problemWorse,
+      pleaseExplain: History?.pleaseExplain,
+      coughingUp: History?.coughingUp,
+      winded: History?.winded,
+      birth: History?.birth,
+      travel: History?.travel,
+      explain: History?.explain,
+      knownExposure: History?.knownExposure,
+      howLong: History?.howLong,
+      PleaseDescribe: History?.PleaseDescribe,
     });
   }
-  
 
   return (
     <React.Fragment>
       <div className="w-3/6">
-        <Form layout="vertical">
+        <Form layout="vertical" form={formInstance}>
           <Form.Item
             label="Please describe your main respiratory concern today?"
             className="text-secondary"
@@ -116,9 +124,9 @@ function PhysicianQuestionnaire(props: Props) {
           <Form.Item
             label="Do you have a cough?"
             className="text-secondary"
-            name="problem"
+            name="coughProblem"
           >
-            <Radio.Group >
+            <Radio.Group defaultValue={History?.coughProblem}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -325,7 +333,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary mb-0"
             name="breathingProblems"
           >
-            <Radio.Group defaultValue={History?.animals}>
+            <Radio.Group defaultValue={History?.breathingProblems}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -333,7 +341,7 @@ function PhysicianQuestionnaire(props: Props) {
           <Form.Item
             label="Please describe."
             className="text-secondary"
-            name="howLongDescribe"
+            name="PleaseDescribe"
           >
             <Input />
           </Form.Item>

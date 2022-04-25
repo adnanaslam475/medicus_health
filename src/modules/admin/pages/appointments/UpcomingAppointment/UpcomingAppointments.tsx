@@ -36,6 +36,7 @@ function UpcomingAppointments() {
 
   const { appointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
+  console.log("UpcomingAppointments", appointments);
 
   return (
     <AppLayout>
@@ -62,6 +63,7 @@ function UpcomingAppointments() {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {appointments?.map((appointmentDetail, i) => {
                 const {
+                  id,
                   requestedDate,
                   status,
                   serviceType,
@@ -70,6 +72,7 @@ function UpcomingAppointments() {
                 } = appointmentDetail || {};
                 return (
                   <AppointmentCard
+                    appointmentId={id}
                     requestedDate={requestedDate}
                     status={status}
                     serviceType={serviceType?.name}
