@@ -7,6 +7,7 @@ import {
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../../generated/graphql";
 import { getUserData } from "../../../../../common/utils/userData";
+import { date } from "../../../../../common/utils";
 
 type Props = {
   appointmentId: number;
@@ -14,6 +15,9 @@ type Props = {
 };
 
 function AppointmentReschedule(props: Props) {
+  const { appointmentDetails } = props;
+  // const { appointmentTimeSlots } = appointmentDetails;
+  console.log(appointmentDetails?.appointmentTimeSlots, "nad");
   console.log(props, "usama");
   return (
     <div>
@@ -38,9 +42,26 @@ function AppointmentReschedule(props: Props) {
         <h5>Available Slots (select one)</h5>
         <Radio.Group value={1} className="">
           <Space direction="vertical">
-            <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
+            {/* <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
               February 4, 2022 07:30 am - 08:00 am
+            </Radio> */}
+            <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
+              {appointmentDetails?.appointmentTimeSlots?.length === 0 ? (
+                <div className="text-secondary">{" - "}</div>
+              ) : (
+                appointmentDetails?.appointmentTimeSlots?.map((item) => (
+                  <div className="text-secondary">
+                    <span className="mr-3">
+                      {date.formatMMMMDDYYYY(item.startTime)}
+                    </span>
+                    {`${date.formathhmma(item.startTime)} - ${date.formathhmma(
+                      item.endTime
+                    )}`}
+                  </div>
+                ))
+              )}
             </Radio>
+
             {/* <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
               February 4, 2022 07:30 am - 08:00 am
             </Radio>

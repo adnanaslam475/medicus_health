@@ -54,6 +54,7 @@ function AppointmentModalJourney({
     } catch (error) {}
   }
 
+  // API CALL VIEW SUGGESTED TIME SLOTS
   const [{ data }] = useViewSuggestedTimeSlotsQuery({
     variables: { id: appointmentId as number },
     pause: !appointmentId,
@@ -61,7 +62,7 @@ function AppointmentModalJourney({
 
   const { appointment } = data || {};
 
-  console.log(data, "sdasds");
+  console.log(appointment, "sdasds");
 
   return (
     <Modal

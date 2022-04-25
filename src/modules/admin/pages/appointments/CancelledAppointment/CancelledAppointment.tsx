@@ -16,6 +16,7 @@ function CancelledAppointment() {
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
+  const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Cancelled");
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
@@ -29,6 +30,11 @@ function CancelledAppointment() {
       },
     },
   });
+
+  function onViewSuggestedSlots(id: number) {
+    setCurrentAppointmentId(id);
+    setShowModal(true);
+  }
 
   const { appointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -79,6 +85,9 @@ function CancelledAppointment() {
                     appointmentTimeSlots={
                       appointmentTimeSlots as AppointmentTimeSlots[]
                     }
+                    onViewSuggestedSlots={() =>
+                      onViewSuggestedSlots(appointmentDetail?.id)
+                    }
                     setShowModal={setShowModal}
                   />
                 );
@@ -95,3 +104,6 @@ function CancelledAppointment() {
   );
 }
 export default CancelledAppointment;
+function setCurrentAppointmentId(id: number) {
+  throw new Error("Function not implemented.");
+}

@@ -1,6 +1,6 @@
 #!/bin/bash
 
 echo "Running Pre-Commit Checks"
-# yarn build
+yarn build
 
 
