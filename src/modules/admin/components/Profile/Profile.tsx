@@ -42,11 +42,8 @@ import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import Language from "../../../admin/components/Languague/Language";
-// import InputWithLi from "../InputWithLi/InputWithLi";
-// import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
-// import MultiRangeDatePicker from "../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 
 const { Option } = Select;
 
@@ -73,9 +70,7 @@ export const Profile = React.forwardRef(function Profile({
 
   useEffect(() => {
     if (doctorData) {
-      if (doctorData) {
-        prepareAndSetEditPayload();
-      }
+      prepareAndSetEditPayload();
     }
   }, [doctorData]);
 
@@ -108,7 +103,7 @@ export const Profile = React.forwardRef(function Profile({
           last_name: values?.lastName,
           email: values?.email,
           password: values?.password,
-          profile_image: image ? image : userProfileImage,
+          profile_image: image || userProfileImage,
         },
       });
 
@@ -156,16 +151,6 @@ export const Profile = React.forwardRef(function Profile({
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  // function handleMenuClick(e: object) {
-  //   console.log("click", e);
-  // }
-  // const menu = (
-  //   <Menu onClick={handleMenuClick}>
-  //     <Menu.Item key="1">Published</Menu.Item>
-  //     <Menu.Item key="2">UnPublished</Menu.Item>
-  //   </Menu>
-  // );
-
   async function handleChange() {
     const res = await EnableOrDisableDoctor({
       id: Number(doctorId),
@@ -179,7 +164,7 @@ export const Profile = React.forwardRef(function Profile({
     if (!res?.data?.enableOrDisableDoctor?.status) {
       !res?.data?.enableOrDisableDoctor?.status &&
         notification.success({
-          message: "UnPublished",
+          message: "Unpublished",
         });
     }
   }
@@ -199,11 +184,7 @@ export const Profile = React.forwardRef(function Profile({
               <div className="relative">
                 <Avatar
                   size={130}
-                  style={{
-                    borderColor: "transparent",
-                    borderWidth: 2,
-                    lineHeight: "40px",
-                  }}
+                  className="border-transparent border-2 leading-10"
                   src={image ? image : userProfileImage}
                 />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
@@ -228,11 +209,6 @@ export const Profile = React.forwardRef(function Profile({
                 <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
                   <Button
                     type="primary"
-                    style={{
-                      background: "#E2F8F7",
-                      borderColor: "#E2F8F7",
-                      color: "#30CEC2",
-                    }}
                     className={`${_classes["published-button"]}`}
                     onClick={handleChange}
                   >

@@ -5,7 +5,7 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 function StepFour() {
   const { data } = useBookAppointment();
   const { physicianName, requestedDate, serviceInfo } = data?.stepOne || {};
-  const [{ price, name }] = serviceInfo || [];
+  const [{ price, name }] = serviceInfo || [{}];
 
   return (
     <>
@@ -21,7 +21,7 @@ function StepFour() {
         </div>
         <div className="w-2/6 ml-4 border-b border-gray-5 pb-2 mb-5">
           <label className="block">Charges</label>
-          <span>{price}</span>
+          <span>${price}</span>
         </div>
       </div>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
@@ -30,7 +30,7 @@ function StepFour() {
         <span className="text-sm"></span>
         <span className="ml-3">{date.formathhmma(requestedDate)}</span>
       </div>
-      <p className="text-gray">
+      <p className="font-rubik text-gray">
         Please note that your payment will only be charged once the physician
         will confirm the appointment. This is only an appointment request.
       </p>

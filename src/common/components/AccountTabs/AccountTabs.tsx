@@ -1,20 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Tabs, Button, Alert, notification } from "antd";
-import Router from "next/router";
-import Image from "next/image";
-import yourImage from "../../../../public/assets/images/your_photo.png";
 import PersonalInfo from "./PersonelInfo/PersonelInfo";
 import PaymentMethods from "./PaymentMethods/PaymentMethods";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
 import HealthQuestionnary, {
   QuestionnaireForm,
 } from "../Questionnary/Questionnary";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
   useUpdatePatientHealthHistoryMutation,
   usePatientHealthHistoryQuery,
 } from "../../../generated/graphql";
 import { getUserData } from "../../utils/userData";
+import _classes from "./AccountTabs.module.scss";
 
 const { TabPane } = Tabs;
 
@@ -63,9 +60,10 @@ const AccountTabs = () => {
 
   return (
     <div>
-      <div className="card-container profile-tabs">
+      <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
         <Tabs type="card">
           <TabPane
+            className="w-full"
             tab={
               <span className="font-Circular font-medium">
                 Personal Information
@@ -83,7 +81,7 @@ const AccountTabs = () => {
             }
             key="2"
           >
-            <div className="w-3/6">
+            <div className="md:w-3/6">
               <QuestionnaireForm
                 ref={form}
                 data={data?.patientHealthHistory.history}

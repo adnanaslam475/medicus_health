@@ -2,9 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
-import {
-  Avatar,
-} from "antd";
+import { Avatar } from "antd";
 import EmailNotification from "../../../common/components/EmailNotification/EmailNotification";
 import ThinLine from "../../../../common/components/ThinLine/ThinLine";
 
