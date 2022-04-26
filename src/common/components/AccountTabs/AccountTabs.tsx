@@ -36,7 +36,6 @@ const AccountTabs = () => {
 
   //GET ALL TRANSACTIONS
   const [{ data: allTransactions }] = useGetAllTransactionsQuery();
-  console.log("allTransactions", allTransactions);
 
   // UPDATE PATIENT HEALTH HISTORY
 

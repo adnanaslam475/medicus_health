@@ -12,11 +12,10 @@ interface col {
 
 type Props = {
   data?: any;
-  columns?: any;
 };
 
 const AppointmentHistoryTable = (props: Props) => {
-  const { data, columns } = props || {};
+  const { data } = props || {};
 
   const historyColumns = [
     {
