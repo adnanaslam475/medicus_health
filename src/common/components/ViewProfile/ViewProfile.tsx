@@ -3,35 +3,25 @@ import React, { useState, useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
 
 import _classes from "./PhysicianProfile.module.scss";
-import { Avatar, Upload, Form, Input, Button, Menu, notification } from "antd";
+import { Avatar, Upload, Form, Button, Menu, notification } from "antd";
 
 import ReactS3Client from "react-aws-s3-typescript";
 import { UploadChangeParam } from "antd/lib/upload";
-
-import InputWithLi from "common/components/InputWithLi/InputWithLi";
-import AboutMe from "common/components/AboutMe/AboutMe";
-import LanguageList from "common/components/Languages/LanguageList";
-import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import {
   useEnableOrDisableDoctorMutation,
   useUpdateDoctorProfileMutation,
 } from "generated/graphql";
-import {
-  bioForm,
-  configS3,
-  educationalBGData,
-  professionalBGData,
-} from "utils/helper";
+import { configS3 } from "utils/helper";
+import ProfileForm from "./ProfileForm";
 
 export const ViewProfile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
   setIsEdit,
-  loginInfo 
+  showLoginInfo,
 }: any) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
-  const [ispublish, setIsPublish] = useState(true);
 
   const { first_name, last_name, password, email, contact_number, status } =
     doctorData?.user || {};
@@ -196,141 +186,11 @@ export const ViewProfile = React.forwardRef(function Profile({
               </div>
             </div>
           </div>
-          <div className="w-full pb-10">
-            <Form
-              form={formInstance}
-              name="basic"
-              onFinish={onFinish}
-              layout="vertical"
-            >
-              {bioForm.map((item, index) => {
-                return (
-                  <div className="flex flex-row gap-3" key={index}>
-                    {item.map((val, index) => {
-                      return (
-                        <Form.Item
-                          label={val?.label || ""}
-                          name={val?.name || ""}
-                          className="flex-1"
-                        >
-                          {val.name === "password" ||
-                          val.name === "confirmPassword" ? (
-                            <Input.Password
-                              // value={val || ""}
-                              defaultValue={val.defaultValue || ""}
-                              disabled={true}
-                            />
-                          ) : (
-                            <Input
-                              // value={val || ""}
-                              defaultValue={val.defaultValue || ""}
-                              disabled={true}
-                            />
-                          )}
-                        </Form.Item>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </Form>
-            <Form layout="vertical">
-              <LanguageList />
-              <AboutMe />
-
-              <InputWithLi disable={true} />
-              <MultiRangeDatePicker disable={true} />
-              <div className={`my-6 ${_classes["professional"]}`}>
-                <h5>Professional Background</h5>
-                {professionalBGData.map((item) => {
-                  return item.map((val, index) => {
-                    return (
-                      <div className="border-b border-gray-4 my-3" key={index}>
-                        <Form.Item
-                          label={val?.label || ""}
-                          name={val?.name || ""}
-                          className="flex-1"
-                        >
-                          <Input
-                            value={val.value || ""}
-                            defaultValue={val.defaultValue || ""}
-                            disabled={true}
-                          />
-                        </Form.Item>
-                      </div>
-                    );
-                  });
-                })}
-              </div>
-
-              <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Educational Background</h6>
-                {educationalBGData.map((item, index) => {
-                  return item.map((val, valIndex) => {
-                    return (
-                      <div
-                        className={`${
-                          index === 0 && "border-b border-gray-4"
-                        } my-3`}
-                        key={index}
-                      >
-                        <Form.Item
-                          label={val?.label || ""}
-                          name={val?.name || ""}
-                          className="flex-1"
-                        >
-                          <Input
-                            value={val.value || ""}
-                            defaultValue={val.defaultValue || ""}
-                            disabled={true}
-                          />
-                        </Form.Item>
-                      </div>
-                    );
-                  });
-                })}
-                {loginInfo && (
-                  <div className={`my-6 ${_classes["educational"]}`}>
-                    <h6>Login Information</h6>
-                    <div className="border-b border-gray-4 my-3">
-                      <Form.Item
-                        label="Email Address"
-                        name="institute"
-                        rules={[
-                          {
-                            required: false,
-                            message: "University/Institution",
-                          },
-                        ]}
-                        className="flex-1"
-                      >
-                        <Input value="University of Oklahoma College of Medicine" />
-                      </Form.Item>
-                      <div className="flex flex-col sm:flex-row  sm:gap-3">
-                        <Form.Item
-                          label="Password"
-                          name="password"
-                          // rules={[{ required: true, message: "Password" }]}
-                          className="flex-1"
-                        >
-                          <Input.Password />
-                        </Form.Item>
-
-                        <Form.Item
-                          label="Confirm Password"
-                          name="confirmPassword"
-                          // rules={[{ required: true, message: "Confirm password!" }]}
-                          className="flex-1"
-                        >
-                          <Input.Password />
-                        </Form.Item>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </Form>
-          </div>
+          <ProfileForm
+            doctorId={doctorId}
+            doctorData={doctorData}
+            showLoginInfo={showLoginInfo}
+          />
         </div>
       </div>
     </div>
