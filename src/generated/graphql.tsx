@@ -300,6 +300,15 @@ export type EducationalBackgroundUpdate = {
   institution: Scalars['String'];
 };
 
+export type EmailAvailableInput = {
+  email: Scalars['String'];
+};
+
+export type EmailAvailableResponse = {
+  __typename?: 'EmailAvailableResponse';
+  isEmailAvailable: Scalars['Boolean'];
+};
+
 export type GetAppointmentInput = {
   appointmentId?: InputMaybe<Scalars['Int']>;
   bookingDate?: InputMaybe<BookingDate>;
@@ -616,6 +625,7 @@ export type Query = {
   appointmentServiceType: AppointmentServiceType;
   appointmentServiceTypes: Array<AppointmentServiceType>;
   appointments: Array<Appointment>;
+  checkEmailAvailability: EmailAvailableResponse;
   cities: Array<City>;
   city: City;
   countries: Array<Country>;
@@ -672,6 +682,11 @@ export type QueryAppointmentServiceTypeArgs = {
 
 export type QueryAppointmentsArgs = {
   filter: GetAppointmentInput;
+};
+
+
+export type QueryCheckEmailAvailabilityArgs = {
+  emailAvailableInput: EmailAvailableInput;
 };
 
 
@@ -1107,7 +1122,7 @@ export type ViewSuggestedTimeSlotsQueryVariables = Exact<{
 }>;
 
 
-export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number, requestedDate: any, reportUrl?: any | null, status?: string | null, createdAt: any, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null } };
+export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number, requestedDate: any, reportUrl?: any | null, status?: string | null, createdAt: any, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor: { __typename?: 'User', first_name: string, last_name: string } } };
 
 
 export const CreateUserDocument = gql`
@@ -1761,6 +1776,14 @@ export const ViewSuggestedTimeSlotsDocument = gql`
       startTime
       endTime
       selected
+    }
+    serviceType {
+      name
+      price
+    }
+    doctor {
+      first_name
+      last_name
     }
   }
 }
@@ -2801,6 +2824,24 @@ export default {
               "kind": "OBJECT",
               "name": "User",
               "ofType": null
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EmailAvailableResponse",
+        "fields": [
+          {
+            "name": "isEmailAvailable",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           }
@@ -4088,6 +4129,29 @@ export default {
             "args": [
               {
                 "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "checkEmailAvailability",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EmailAvailableResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "emailAvailableInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

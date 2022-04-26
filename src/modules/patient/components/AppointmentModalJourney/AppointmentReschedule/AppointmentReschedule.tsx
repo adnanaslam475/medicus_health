@@ -19,22 +19,28 @@ function AppointmentReschedule(props: Props) {
   // const { appointmentTimeSlots } = appointmentDetails;
   console.log(appointmentDetails?.appointmentTimeSlots, "nad");
   console.log(props, "usama");
+
+  const { doctor, serviceType } = appointmentDetails || {};
+  const { first_name, last_name } = doctor || {};
+  const { name, price } = serviceType || {};
+  const doctorName = first_name + " " + last_name;
+
   return (
     <div>
       <h2>Appointment Reschedule</h2>
       <div>
         <div className="border-b border-gray-4 ">
           <h5>Physician</h5>
-          <p>Dr. Paul Wallner</p>
+          <p>Dr. {doctorName}</p>
         </div>
         <div className="grid grid-cols-3 gap-4">
           <div className="border-b col-span-2 border-gray-4 pt-4 ">
             <h5>Service</h5>
-            <p>First Consultation</p>
+            <p>{name}</p>
           </div>
           <div className="border-b border-gray-4  pt-4">
             <h5>Charges</h5>
-            <p>$59.00</p>
+            <p>${price}</p>
           </div>
         </div>
       </div>
