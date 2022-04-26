@@ -4,6 +4,7 @@ import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
 import { ButtonType } from "antd/lib/button";
 import { GetAppointmentByIdQuery } from "../../../generated/graphql";
+import { date } from "../../utils";
 
 type Props = {
   appoinmentDetails: GetAppointmentByIdQuery | undefined;
@@ -14,19 +15,33 @@ function AppointmentInfo(props: Props) {
   const { first_name, last_name } =
     appoinmentDetails?.appointment?.doctor || {};
 
-  const { status } = appoinmentDetails?.appointment || {};
+  const { id, status, requestedDate, appointmentTimeSlots } =
+    appoinmentDetails?.appointment || {};
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
+
+  function timeSlots() {
+    if (appointmentTimeSlots) {
+      let selectedTimeSlots = appointmentTimeSlots?.find(
+        (item) => item?.selected == true
+      );
+
+      return selectedTimeSlots;
+    }
+  }
+
   return (
     <React.Fragment>
       <ul className="w-4/6">
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">ID</div>
-          <div className="w-full text-secondary">A-0001</div>
+          <div className="w-full text-secondary">{id}</div>
         </li>
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Booked on</div>
-          <div className="w-full text-secondary">February 1, 2022</div>
+          <div className="w-full text-secondary">
+            {date?.convertStringDateToUTC(requestedDate)}
+          </div>
         </li>
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Doctor</div>
@@ -40,11 +55,15 @@ function AppointmentInfo(props: Props) {
         </li>
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Date</div>
-          <div className="w-full text-secondary">February 5, 2022</div>
+          <div className="w-full text-secondary">
+            {date?.formatMMMMDDYYYY(timeSlots()?.startTime)}
+          </div>
         </li>
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Time</div>
-          <div className="w-full text-secondary">08:00 am - 08:30 am</div>
+          <div className="w-full text-secondary">{`${date?.formathhmma(
+            timeSlots()?.startTime
+          )} - ${date?.formathhmma(timeSlots()?.endTime)}`}</div>
         </li>
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Total Amount</div>

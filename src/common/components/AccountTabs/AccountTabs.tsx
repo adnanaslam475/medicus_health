@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Tabs, Button, Alert, notification } from "antd";
-import Router from "next/router";
-import Image from "next/image";
-import yourImage from "../../../../public/assets/images/your_photo.png";
+import { Tabs, Button, Alert, notification, Tag } from "antd";
 import PersonalInfo from "./PersonelInfo/PersonelInfo";
 import PaymentMethods from "./PaymentMethods/PaymentMethods";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
 import HealthQuestionnary, {
   QuestionnaireForm,
 } from "../Questionnary/Questionnary";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
   useUpdatePatientHealthHistoryMutation,
   usePatientHealthHistoryQuery,
+  useGetAllTransactionsQuery,
+  Transection,
 } from "../../../generated/graphql";
 import { getUserData } from "../../utils/userData";
+import _classes from "./AccountTabs.module.scss";
+import { date } from "../../utils";
+import { EyeFilled } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 
@@ -33,6 +34,10 @@ const AccountTabs = () => {
   const [{ data }] = usePatientHealthHistoryQuery({
     variables: { input: id },
   });
+
+  //GET ALL TRANSACTIONS
+  const [{ data: allTransactions }] = useGetAllTransactionsQuery();
+  const { transections } = allTransactions || {};
 
   // UPDATE PATIENT HEALTH HISTORY
 
@@ -63,9 +68,10 @@ const AccountTabs = () => {
 
   return (
     <div>
-      <div className="card-container profile-tabs">
+      <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
         <Tabs type="card">
           <TabPane
+            className="w-full"
             tab={
               <span className="font-Circular font-medium">
                 Personal Information
@@ -83,7 +89,7 @@ const AccountTabs = () => {
             }
             key="2"
           >
-            <div className="w-3/6">
+            <div className="md:w-3/6">
               <QuestionnaireForm
                 ref={form}
                 data={data?.patientHealthHistory.history}
@@ -119,7 +125,7 @@ const AccountTabs = () => {
             }
             key="4"
           >
-            <TransactionHistory />
+            <TransactionHistory data={transections as Transection[]} />
           </TabPane>
         </Tabs>
       </div>

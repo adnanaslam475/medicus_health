@@ -202,9 +202,26 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     }
     serviceType {
       name
+      price
     }
     doctor {
       first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    transection {
+      createdAt
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
     }
   }
 }
@@ -298,6 +315,7 @@ query getAppointmentById($id: Int!) {
     doctorId
     patientId
     requestedDate
+    reportUrl
     doctor {
       id
       first_name
@@ -325,6 +343,87 @@ query getAppointmentById($id: Int!) {
       id
       name
       price
+    }
+    transection {
+      createdAt
+    }
+    appointmentHealthHistory {
+      history
+    }
+  }
+}
+
+# GET ALL TRANSACTIONS
+query getAllTransactions {
+  transections {
+    id
+    transectionId
+    appointmentId
+    amountReceived
+    status
+    createdAt
+    appointment {
+      requestedDate
+      reportUrl
+      doctor {
+        first_name
+        last_name
+      }
+      patient {
+        first_name
+        last_name
+      }
+      serviceType {
+        id
+        name
+      }
+      appointmentTimeSlots {
+        selected
+        startTime
+        endTime
+      }
+    }
+  }
+}
+
+# query GetAllAppointment($id: Int!) {
+#   appointment(id: $id) {
+#     status
+#     appointmentTimeSlots {
+#       id
+#       startTime
+#       endTime
+#       selected
+#     }
+#   }
+# }
+
+#VIEW SUGGESTED TIME SLOTS
+
+query ViewSuggestedTimeSlots($id: Int!) {
+  appointment(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    reportUrl
+    status
+    createdAt
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    serviceType {
+      name
+      price
+    }
+    doctor {
+      first_name
+      last_name
     }
   }
 }

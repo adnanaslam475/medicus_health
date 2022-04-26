@@ -7,8 +7,11 @@ import { Button, Empty, Select } from "antd";
 import Link from "next/link";
 import {
   Appointment,
+  AppointmentTimeSlots,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
+import AppointmentModal from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
+import CancelledAppointment from "../CancelledAppointment/CancelledAppointment";
 
 const { Option } = Select;
 function UpcomingAppointments() {
@@ -18,21 +21,28 @@ function UpcomingAppointments() {
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
-  const [dueDates, setDueDates] = useState<Date | null>();
+  const [status, setStatus] = useState<string>("Confirmed");
+  const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        status: "Requested",
+        status: status,
         physicianName: dataListPhysician,
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
-        // dueDate: dueDates,
       },
     },
   });
 
+  function onViewSuggestedSlots(id: number) {
+    setCurrentAppointmentId(id);
+    setShowModal(true);
+  }
+
   const { appointments } = data || {};
+  const [showModal, setShowModal] = useState<boolean>(false);
+  console.log("UpcomingAppointments", appointments);
 
   return (
     <AppLayout>
@@ -47,8 +57,6 @@ function UpcomingAppointments() {
           </div>
         </div>
         <SearchFilters
-          appointments={appointments}
-          // setDueDates={setDueDates}
           setDataListPhysician={setDataListPhysician}
           setDoctorId={setDoctorId}
           setAppointmentIds={setAppointmentIds}
@@ -58,28 +66,30 @@ function UpcomingAppointments() {
         />
         <div className="w-full">
           {appointments?.length !== 0 && appointments ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {appointments?.map((appointmentDetail, i) => {
                 const {
                   id,
-                  patientId,
-                  doctorId,
-                  serviceId,
                   requestedDate,
                   status,
                   serviceType,
                   doctor,
+                  appointmentTimeSlots,
                 } = appointmentDetail || {};
                 return (
                   <AppointmentCard
-                    id={id}
-                    patientId={patientId}
-                    doctorId={doctorId}
-                    serviceId={serviceId}
+                    appointmentId={id}
                     requestedDate={requestedDate}
                     status={status}
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
+                    appointmentTimeSlots={
+                      appointmentTimeSlots as AppointmentTimeSlots[]
+                    }
+                    setShowModal={setShowModal}
+                    onViewSuggestedSlots={() =>
+                      onViewSuggestedSlots(appointmentDetail?.id)
+                    }
                   />
                 );
               })}

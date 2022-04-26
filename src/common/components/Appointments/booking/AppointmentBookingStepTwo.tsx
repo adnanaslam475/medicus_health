@@ -46,35 +46,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
     secretAccessKey: config?.secertAccessKey || "",
   };
 
-  const fileChange = async (info: UploadChangeParam) => {
-    console.log("info", info);
-    const s3 = new ReactS3Client(configS3);
-
-    try {
-      let allUrl = [];
-      // const url = await s3.uploadFile(info.file.originFileObj as File);
-      const url = await Promise.all(
-        info?.fileList?.map((file) => s3.uploadFile(file.originFileObj as File))
-      );
-      console.log("url", url);
-      allUrl.push(url?.map((url) => url.location));
-      // setImage(url?.location);
-      console.log("allUrl", allUrl);
-    } catch (error) {}
-    // if (error) {
-    //   notification.error({
-    //     message: error?.graphQLErrors[0]?.message || "Something went wrong",
-    //   });
-    // }
-  };
-  // const onBeforeUpload = (file: File) => {
-  //   const isPNG = file.type === "image/png";
-  //   const isJPG = file.type === "image/jpeg";
-  //   return isPNG || isJPG || Upload.LIST_IGNORE;
-  // };
-
   function onFinishLocal(values: any) {
-    console.log("onFinishLocal called", values);
     saveStepTwo?.(fileList);
   }
 
@@ -108,51 +80,14 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
             <span className="font-circular text-xs ant-upload-text text-white p-1 px-3 mt-1 mb-3 rounded inline-block bg-primary">
               Upload
             </span>
-            <span className="ant-upload-hint block text-xs text-gray-1">
+            <span className="hidden ant-upload-hint block text-xs text-gray-1">
               Max 3 files and 10mb upload limit.
             </span>
           </Dragger>
-
-          {/* <Upload
-              onChange={fileChange}
-              // maxCount={1}
-              // beforeUpload={onBeforeUpload}
-              itemRender={() => <div />}
-              customRequest={() => null}
-              accept=".doc, .pdf, image/jpg, image/jpeg,"
-              multiple={true}
-            >
-              <div className="relative">
-                <Button
-                  type="link"
-                  className="text-primary underline ml-3 text-xs"
-                >
-                  upload file
-                </Button>
-              </div>
-            </Upload> */}
-          {/* <div className="w-full bg-gray-4 border border-gray-3 rounded-lg flex items-center justify-between p-3 mt-3 mr-3 mb-3">
-            <span className="flex items-center">
-              <FileJpgOutlined />
-              <span className="text-sm ml-2">test_reports.pdf</span>
-            </span>
-            <button className="text-xs">
-              <CloseOutlined />
-            </button>
-          </div>
-          <div className="w-full bg-gray-4 border border-gray-3 rounded-lg flex items-center justify-between p-3 mt-3 mr-3 mb-3">
-            <span className="flex items-center">
-              <FilePdfOutlined />
-              <span className="text-sm ml-2">test_reports.pdf</span>
-            </span>
-            <button className="text-xs">
-              <CloseOutlined />
-            </button>
-          </div> */}
         </Form.Item>
 
         <Form.Item label="General Health Questionnaire*">
-          <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
+          <div className="w-full bg-gray-4 rounded flex items-center p-3">
             <Checkbox value="0">
               <span className="text-gray-2">Health Questionnaire attached</span>
             </Checkbox>

@@ -1,7 +1,7 @@
-import Messages from "../../src/modules/admin/pages/messages/MessageDetail/messagesDetail";
+import MessagesDetail from "../../src/modules/admin/pages/messages/MessageDetail/MessagesDetail";
 
 function messages() {
-  return <Messages />;
+  return <MessagesDetail />;
 }
 
 export default messages;

@@ -16,6 +16,9 @@
                     position: absolute;
                     right: 0px;
                     top: 17px;
+                    svg {
+                        transform: rotate(90deg);
+                    }
                 }
                 .ant-collapse-available {
                     color: #30cec2;

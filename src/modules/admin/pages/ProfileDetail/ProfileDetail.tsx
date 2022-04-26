@@ -7,13 +7,13 @@ import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import Container from "../../../../common/components/Container/Container";
 import { Profile } from "../../components/Profile/Profile";
-import { ViewProfile } from "../../components/Profile/ViewProfile";
 import EmailNotification from "../EmailNotification/EmailNotification";
 import { ProfileIcon } from "../../../../common/components/CustomIcon";
 import {
   DoctorProfile,
   useDoctorProfileQuery,
 } from "../../../../generated/graphql";
+import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 
 const { TabPane } = Tabs;
 
@@ -57,6 +57,7 @@ function ProfileDetail() {
                   doctorId={query?.id}
                   doctorData={doctorProfile}
                   setIsEdit={setIsEdit}
+                  loginInfo={false}
                 />
               )}
             </TabPane>

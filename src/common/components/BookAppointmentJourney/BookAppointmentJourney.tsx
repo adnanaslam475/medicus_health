@@ -57,6 +57,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const { query } = useRouter();
 
   const { data: appoinmentData } = useBookAppointment();
+  
 
   // GET USER ID
   const { user } = getUserData();
@@ -126,8 +127,8 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
           serviceId: serviceId,
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
-          reportUrl: urls,
-          questionnair: [JSON.stringify(appoinmentData?.stepThree)],
+          reportUrl: JSON.stringify(urls),
+          questionnair: JSON.stringify(appoinmentData?.stepThree),
         },
       });
 

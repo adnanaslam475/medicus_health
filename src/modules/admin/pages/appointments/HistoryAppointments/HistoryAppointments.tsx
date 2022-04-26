@@ -1,17 +1,38 @@
-import { Select, DatePicker, Space, Button } from "antd";
+import { Select, DatePicker, Space, Button, Tag } from "antd";
 import React from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, EyeFilled } from "@ant-design/icons";
 import TransactionHistory from "../../../../../common/components/AccountTabs/TransactionHistory/TransactionHistory";
+import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import { date } from "../../../../../common/utils";
+import AppointmentHistoryTable from "../../../../../common/components/AppointmentHistoryTable/AppointmentHistoryTable";
 
 const { RangePicker } = DatePicker;
 
 function CancelledAppointment() {
+  // GET ALL APPOINMENTS
+  const [{ data }] = useGetAllRequestedAppointmentsQuery({
+    variables: {
+      filter: {
+        status: "Completed",
+      },
+    },
+  });
+
+  const { appointments } = data || {};
+
   return (
     <AppLayout>
       <div className="w-full">
-        <h2 className="mb-4">History</h2>
-        <div className="w-3/5 mb-10">
+        <div className="flex-none sm:flex items-center justify-between mb-5">
+          <div className="pr-3 mb-3 sm:mb-0">
+            <h2 className="mb-0">History</h2>
+          </div>
+          <Button type="primary" size="large">
+            Request an Appointment
+          </Button>
+        </div>
+        <div className="w-5/6 mb-10">
           <div className="flex items-center">
             <span className="mx-3">Filter</span>
             <div className="mx-3">
@@ -51,7 +72,7 @@ function CancelledAppointment() {
         </div>
         {/* Transaction History table */}
         <div className="custom-table-ui">
-        <TransactionHistory />
+          <AppointmentHistoryTable data={appointments} />
         </div>
       </div>
     </AppLayout>

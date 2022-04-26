@@ -7,10 +7,18 @@ import PhysicianQuestionnaire from "../../../common/components/Appointments/Phys
 import Attachments from "../../../common/components/Appointments/Attachments";
 import { useGetAppointmentByIdQuery } from "../../../generated/graphql";
 
-const AppointmentTabs = () => {
+type Props = {
+  appointmentId?: Number;
+};
+
+const AppointmentTabs = (props: Props) => {
+  const { appointmentId } = props;
+
   const [{ data }] = useGetAppointmentByIdQuery({
-    variables: { id: 133 },
+    variables: { id: Number(appointmentId) },
   });
+
+  const { appointmentHealthHistory } = data?.appointment || {};
 
   return (
     <div className="profile-tabs">
@@ -19,10 +27,12 @@ const AppointmentTabs = () => {
           <AppointmentInfo appoinmentDetails={data} />
         </TabPane>
         <TabPane tab="Physician Questionnaire" key="2">
-          <PhysicianQuestionnaire />
+          <PhysicianQuestionnaire
+            appointmentHealthHistory={appointmentHealthHistory?.history}
+          />
         </TabPane>
         <TabPane tab="Attachments" key="3">
-          <Attachments />
+          <Attachments appoinmentDetails={data} />
         </TabPane>
       </Tabs>
     </div>

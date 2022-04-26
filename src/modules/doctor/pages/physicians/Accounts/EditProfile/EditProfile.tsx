@@ -31,20 +31,17 @@ import {
 	DatePicker,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
+import Language from "../../../../../admin/components/Languague/Language";
+import InputWithLi from "common/components/InputWithLi/InputWithLi";
+import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+
+
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
-import Language from "../../../../../admin/components/Languague/Language";
-import InputWithLi from "../../../../../admin/components/InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "../../../../../admin/components/MultiRangeDatePicker/MultiRangeDatePicker";
-
 const { Option } = Select;
 
-function EditProfile({
-	doctorId,
-	doctorData,
-	setIsEdit,
-}: any) {
+function EditProfile({ doctorId, doctorData, setIsEdit }: any) {
 	const { Option } = Select;
 	const [formInstance] = Form.useForm();
 	const [image, setImage] = useState<string>("");
@@ -55,10 +52,6 @@ function EditProfile({
 
 	//GET USER PROFILE IMAGE FROM useGetUserQuery
 	const { profile_image: userProfileImage } = doctorData || {};
-
-
-
-
 
 	function prepareAndSetEditPayload() {
 		formInstance.setFieldsValue({
@@ -80,15 +73,11 @@ function EditProfile({
 		}
 	};
 
-
-
-
 	const onBeforeUpload = (file: File) => {
 		const isPNG = file.type === "image/png";
 		const isJPG = file.type === "image/jpeg";
 		return isPNG || isJPG || Upload.LIST_IGNORE;
 	};
-
 
 	return (
 		<div className={`w-full ${_classes["profile"]}`}>
@@ -103,15 +92,7 @@ function EditProfile({
 							customRequest={() => null}
 						>
 							<div className="relative">
-								<Avatar
-									size={130}
-									style={{
-										borderColor: "transparent",
-										borderWidth: 2,
-										lineHeight: "40px",
-									}}
-									src={image ? image : userProfileImage}
-								/>
+								<Avatar size={130} src={image || userProfileImage} />
 								<span className="rounded-full absolute p-1 right-0 bottom-0">
 									<Image
 										alt=""
@@ -123,32 +104,23 @@ function EditProfile({
 								</span>
 							</div>
 						</Upload>
-
 						<div>
 							{/* <span>{doctorId}</span> */}
 							<h2 className="mb-0">
-								{first_name ? `${first_name} ${last_name}` : ""}
+								{/* {first_name ? `${first_name} ${last_name}` : ""} */}
+								{`${first_name && first_name} ${last_name && last_name}` || ""}
 							</h2>
 							<span className="block">{email}</span>
 							<div className=" grid grid-cols-2 gap-3">
 								<div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
 									<Button
 										type="primary"
-										style={{
-											background: "#E2F8F7",
-											borderColor: "#E2F8F7",
-											color: "#30CEC2",
-										}}
 										className={`${_classes["published-button"]}`}
 										// onClick={handleChange}
 									>
 										{status ? "Published" : "Unpublished"}
 									</Button>
 								</div>
-								{/* <Button type="default" className="px-0 mx-0">
-                  <EditOutlined />
-                  Edit Info
-                </Button> */}
 							</div>
 						</div>
 					</div>
@@ -240,7 +212,7 @@ function EditProfile({
 								<Form.Item
 									label="About me"
 									name="about"
-									className={`{${_classes["font-size-custom"]}}`}
+
 								>
 									<TextArea
 										rows={10}
@@ -385,7 +357,7 @@ function EditProfile({
 									</Form.Item>
 								</div>
 							</div>
-                            <div className={`my-6 ${_classes["educational"]}`}>
+							<div className={`my-6 ${_classes["educational"]}`}>
 								<h6>Login Information</h6>
 								<div className="border-b border-gray-4 my-3">
 									<Form.Item
@@ -401,32 +373,32 @@ function EditProfile({
 									>
 										<Input value="University of Oklahoma College of Medicine" />
 									</Form.Item>
-                                    <div className="flex flex-col sm:flex-row  sm:gap-3">
-								<Form.Item
-									label="Password"
-									name="password"
-									// rules={[{ required: true, message: "Password" }]}
-									className="flex-1"
-								>
-									<Input.Password />
-								</Form.Item>
+									<div className="flex flex-col sm:flex-row  sm:gap-3">
+										<Form.Item
+											label="Password"
+											name="password"
+											// rules={[{ required: true, message: "Password" }]}
+											className="flex-1"
+										>
+											<Input.Password />
+										</Form.Item>
 
-								<Form.Item
-									label="Confirm Password"
-									name="confirmPassword"
-									// rules={[{ required: true, message: "Confirm password!" }]}
-									className="flex-1"
-								>
-									<Input.Password />
-								</Form.Item>
-							</div>
+										<Form.Item
+											label="Confirm Password"
+											name="confirmPassword"
+											// rules={[{ required: true, message: "Confirm password!" }]}
+											className="flex-1"
+										>
+											<Input.Password />
+										</Form.Item>
+									</div>
 								</div>
-                               </div>
+							</div>
 						</Form>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
-        }
+}
 export default EditProfile;
