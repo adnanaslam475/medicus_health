@@ -5,6 +5,7 @@ import { CloseOutlined, EyeFilled } from "@ant-design/icons";
 import TransactionHistory from "../../../../../common/components/AccountTabs/TransactionHistory/TransactionHistory";
 import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 import { date } from "../../../../../common/utils";
+import AppointmentHistoryTable from "../../../../../common/components/AppointmentHistoryTable/AppointmentHistoryTable";
 
 const { RangePicker } = DatePicker;
 
@@ -13,149 +14,10 @@ function CancelledAppointment() {
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        status: "Confirmed",
+        status: "Completed",
       },
     },
   });
-
-  const historyColumns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Booked On",
-      dataIndex: "requestedDate",
-      key: "requestedDate",
-      sorter: {
-        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(value)} `}</div>
-        );
-      },
-    },
-
-    {
-      title: "Physician",
-      dataIndex: "doctor",
-      key: "doctor",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor - b.doctor,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return (
-          <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
-        );
-      },
-    },
-    {
-      title: "Type",
-      dataIndex: "serviceType",
-      key: "serviceType",
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return <div className="someclass">{`${value?.name}`}</div>;
-      },
-    },
-
-    {
-      title: "Date",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
-      sorter: {
-        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        let time = value?.find((time: any) => time.selected == true);
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            time?.startTime
-          )} `}</div>
-        );
-      },
-    },
-    {
-      title: "Time",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        let time = value?.find((time: any) => time.selected == true);
-        return (
-          <div className="someclass">{`${date?.formathhmma(
-            time?.startTime
-          )} - ${date?.formathhmma(time?.endTime)}`}</div>
-        );
-      },
-    },
-    {
-      title: "Total Amount",
-      dataIndex: "serviceType",
-      key: "serviceType",
-      sorter: {
-        compare: (a: any, b: any) => a.totalamount - b.totalamount,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return <div className="someclass">{`${value?.price}`}</div>;
-      },
-    },
-    {
-      title: "Transaction Date",
-      dataIndex: "transection",
-      key: "transection",
-      sorter: {
-        compare: (a: any, b: any) => a.transection - b.transection,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return (
-          <div className="someclass">{`${
-            value?.createdAt ? date?.formatMMMMDDYYYY(value?.createdAt) : "--"
-          }`}</div>
-        );
-      },
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.status - b.status,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return (
-          <div className="someclass">
-            <Tag color="cyan">{value}</Tag>
-          </div>
-        );
-      },
-    },
-    {
-      title: "",
-      dataIndex: "",
-      key: "view",
-      className: "table-action-icon",
-      render: () => <EyeFilled />,
-    },
-  ];
 
   return (
     <AppLayout>
@@ -208,10 +70,7 @@ function CancelledAppointment() {
         </div>
         {/* Transaction History table */}
         <div className="custom-table-ui">
-          <TransactionHistory
-            data={data?.appointments}
-            columns={historyColumns}
-          />
+          <AppointmentHistoryTable data={data?.appointments} />
         </div>
       </div>
     </AppLayout>
