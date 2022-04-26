@@ -373,6 +373,15 @@ query getAllTransactions {
         first_name
         last_name
       }
+      serviceType {
+        id
+        name
+      }
+      appointmentTimeSlots {
+        selected
+        startTime
+        endTime
+      }
     }
   }
 }

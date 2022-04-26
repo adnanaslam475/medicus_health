@@ -19,7 +19,6 @@ function AppointmnetCancelledCard({
   doctor,
   appointmentTimeSlots
 }: Props) {
-  console.log(appointmentTimeSlots)
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <h3 className="mb-0">Dr. {doctor}</h3>

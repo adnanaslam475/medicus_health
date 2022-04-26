@@ -25,24 +25,6 @@ const InfoMessageBannerReminder = () => {
 
   const { appointments } = data || {};
 
-  useEffect(() => {
-    if (appointments) {
-      let selectedTimeSlot = appointments[0]?.appointmentTimeSlots?.find(
-        (item) => item?.selected == true
-      );
-      // setTimeSlot(selectedTimeSlot);
-    }
-  }, [appointments]);
-
-  var startTime = new Date(timeSlot?.startTime);
-
-  // console.log("timeSlot Time",startTime.getTime())
-
-  // console.log("appointments", appointments);
-  // const currentDate = new Date();
-  // console.log("currentDate", currentDate.getTime());
-
-  // console.log("date matched",currentDate == startTime );
   return (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-2 rounded text-xs text-nowr">
       {/* <span className="mr-3 mb-0"><WarningFilled style={{ color: 'white' backgroundColor: 'red' }} /></span> */}

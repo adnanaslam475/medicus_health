@@ -1115,7 +1115,7 @@ export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __t
 export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllTransactionsQuery = { __typename?: 'Query', transections: Array<{ __typename?: 'Transection', id: number, transectionId: string, appointmentId: number, amountReceived: number, status: string, createdAt: any, appointment?: { __typename?: 'Appointment', requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', first_name: string, last_name: string }, patient: { __typename?: 'User', first_name: string, last_name: string } } | null }> };
+export type GetAllTransactionsQuery = { __typename?: 'Query', transections: Array<{ __typename?: 'Transection', id: number, transectionId: string, appointmentId: number, amountReceived: number, status: string, createdAt: any, appointment?: { __typename?: 'Appointment', requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', first_name: string, last_name: string }, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }> };
 
 export type ViewSuggestedTimeSlotsQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -1750,6 +1750,15 @@ export const GetAllTransactionsDocument = gql`
       patient {
         first_name
         last_name
+      }
+      serviceType {
+        id
+        name
+      }
+      appointmentTimeSlots {
+        selected
+        startTime
+        endTime
       }
     }
   }
