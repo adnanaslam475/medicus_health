@@ -10,6 +10,7 @@ import {
   useUpdatePatientHealthHistoryMutation,
   usePatientHealthHistoryQuery,
   useGetAllTransactionsQuery,
+  Transection,
 } from "../../../generated/graphql";
 import { getUserData } from "../../utils/userData";
 import _classes from "./AccountTabs.module.scss";
@@ -124,7 +125,7 @@ const AccountTabs = () => {
             }
             key="4"
           >
-            <TransactionHistory data={transections} />
+            <TransactionHistory data={transections as Transection[]} />
           </TabPane>
         </Tabs>
       </div>

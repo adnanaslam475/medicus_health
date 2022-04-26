@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Table, Input, Button, Space, Tag } from "antd";
 import { date } from "../../../utils";
 import { EyeFilled } from "@ant-design/icons";
-import { Appointment } from "../../../../generated/graphql";
+import {
+  Appointment,
+  GetAllTransactionsQuery,
+  Transection,
+} from "../../../../generated/graphql";
 
 interface col {
   title: string;
@@ -12,7 +16,7 @@ interface col {
 }
 
 type Props = {
-  data?: any;
+  data: Transection[] | undefined;
 };
 
 const TransactionHistory = (props: Props) => {
