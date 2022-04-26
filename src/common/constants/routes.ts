@@ -36,4 +36,7 @@ export const DOCTOR_ROUTES: routes = [
   { name: "Dashboard", route: "/doctor/dashboard" },
   { name: "Doctor Listing", route: "/doctor/listing" },
   { name: "Physicians", route: "/doctor/physicians" },
+  { name: "Staff", route: "/doctor/physicians" },
+  { name: "Messages", route: "/doctor/physicians" },
+  { name: "Account", route: "/doctor/account" },
 ];

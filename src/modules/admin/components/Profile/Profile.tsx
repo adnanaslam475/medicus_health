@@ -42,8 +42,8 @@ import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import Language from "../../../admin/components/Languague/Language";
-import InputWithLi from "../InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
+import InputWithLi from "common/components/InputWithLi/InputWithLi";
+import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 
 const { Option } = Select;
 
