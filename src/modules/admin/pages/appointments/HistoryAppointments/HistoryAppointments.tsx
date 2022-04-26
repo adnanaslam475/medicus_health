@@ -19,6 +19,8 @@ function CancelledAppointment() {
     },
   });
 
+  const { appointments } = data || {};
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -70,7 +72,7 @@ function CancelledAppointment() {
         </div>
         {/* Transaction History table */}
         <div className="custom-table-ui">
-          <AppointmentHistoryTable data={data?.appointments} />
+          <AppointmentHistoryTable data={appointments} />
         </div>
       </div>
     </AppLayout>

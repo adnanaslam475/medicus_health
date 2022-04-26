@@ -36,6 +36,7 @@ const AccountTabs = () => {
 
   //GET ALL TRANSACTIONS
   const [{ data: allTransactions }] = useGetAllTransactionsQuery();
+  const { transections } = allTransactions || {};
 
   // UPDATE PATIENT HEALTH HISTORY
 
@@ -123,7 +124,7 @@ const AccountTabs = () => {
             }
             key="4"
           >
-            <TransactionHistory data={allTransactions?.transections} />
+            <TransactionHistory data={transections} />
           </TabPane>
         </Tabs>
       </div>

@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { Table, Input, Button, Space, Tag } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "../../utils";
+import {
+  AppointmentServiceType,
+  AppointmentTimeSlots,
+  Transection,
+  User,
+} from "../../../generated/graphql";
 
 interface col {
   title: string;
@@ -35,13 +41,10 @@ const AppointmentHistoryTable = (props: Props) => {
       //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
       //   multiple: 3,
       // },
-      render: (value: any) => {
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(value)} `}</div>
-        );
+      render: (value: string) => {
+        return <div>{`${date?.formatMMMMDDYYYY(value)} `}</div>;
       },
     },
-
     {
       title: "Physician",
       dataIndex: "doctor",
@@ -50,10 +53,8 @@ const AppointmentHistoryTable = (props: Props) => {
       //   compare: (a: any, b: any) => a.doctor - b.doctor,
       //   multiple: 3,
       // },
-      render: (value: any) => {
-        return (
-          <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
-        );
+      render: (value: User) => {
+        return <div>{`${value.first_name} ${value.last_name}`}</div>;
       },
     },
     {
@@ -64,11 +65,10 @@ const AppointmentHistoryTable = (props: Props) => {
       //   compare: (a: any, b: any) => a.service - b.service,
       //   multiple: 3,
       // },
-      render: (value: any) => {
-        return <div className="someclass">{`${value?.name}`}</div>;
+      render: (value: AppointmentServiceType) => {
+        return <div>{`${value.name}`}</div>;
       },
     },
-
     {
       title: "Date",
       dataIndex: "appointmentTimeSlots",
@@ -77,13 +77,9 @@ const AppointmentHistoryTable = (props: Props) => {
       //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
       //   multiple: 3,
       // },
-      render: (value: any) => {
-        let time = value?.find((time: any) => time.selected == true);
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            time?.startTime
-          )} `}</div>
-        );
+      render: (value: AppointmentTimeSlots[]) => {
+        let time = value?.find((time) => time.selected);
+        return <div>{`${date?.formatMMMMDDYYYY(time?.startTime)} `}</div>;
       },
     },
     {
@@ -94,12 +90,12 @@ const AppointmentHistoryTable = (props: Props) => {
       //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
       //   multiple: 3,
       // },
-      render: (value: any) => {
-        let time = value?.find((time: any) => time.selected == true);
+      render: (value: AppointmentTimeSlots[]) => {
+        let time = value?.find((time) => time.selected);
         return (
-          <div className="someclass">{`${date?.formathhmma(
-            time?.startTime
-          )} - ${date?.formathhmma(time?.endTime)}`}</div>
+          <div>{`${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
+            time?.endTime
+          )}`}</div>
         );
       },
     },
@@ -111,8 +107,8 @@ const AppointmentHistoryTable = (props: Props) => {
       //   compare: (a: any, b: any) => a.totalamount - b.totalamount,
       //   multiple: 3,
       // },
-      render: (value: any) => {
-        return <div className="someclass">{`${value?.price}`}</div>;
+      render: (value: AppointmentServiceType) => {
+        return <div>{`${value?.price}`}</div>;
       },
     },
     {
@@ -123,9 +119,9 @@ const AppointmentHistoryTable = (props: Props) => {
       //   compare: (a: any, b: any) => a.transection - b.transection,
       //   multiple: 3,
       // },
-      render: (value: any) => {
+      render: (value: Transection) => {
         return (
-          <div className="someclass">{`${
+          <div>{`${
             value?.createdAt ? date?.formatMMMMDDYYYY(value?.createdAt) : "--"
           }`}</div>
         );
@@ -139,9 +135,9 @@ const AppointmentHistoryTable = (props: Props) => {
       //   compare: (a: any, b: any) => a.status - b.status,
       //   multiple: 3,
       // },
-      render: (value: any) => {
+      render: (value: string) => {
         return (
-          <div className="someclass">
+          <div>
             <Tag color="cyan">{value}</Tag>
           </div>
         );

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Table, Input, Button, Space, Tag } from "antd";
 import { date } from "../../../utils";
 import { EyeFilled } from "@ant-design/icons";
+import { Appointment } from "../../../../generated/graphql";
 
 interface col {
   title: string;
@@ -35,7 +36,7 @@ const TransactionHistory = (props: Props) => {
       //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
       //   multiple: 3,
       // },
-      render: (value: any) => {
+      render: (value: Appointment) => {
         return (
           <div className="someclass">{`${date?.formatMMMMDDYYYY(
             value?.requestedDate
@@ -43,7 +44,6 @@ const TransactionHistory = (props: Props) => {
         );
       },
     },
-
     {
       title: "Physician",
       dataIndex: "appointment",
@@ -52,7 +52,7 @@ const TransactionHistory = (props: Props) => {
       //   compare: (a: any, b: any) => a.appointment - b.appointment,
       //   multiple: 3,
       // },
-      render: (value: any) => {
+      render: (value: Appointment) => {
         return (
           <div className="someclass">{`${value?.doctor?.first_name} ${value?.doctor?.last_name}`}</div>
         );
@@ -66,11 +66,10 @@ const TransactionHistory = (props: Props) => {
       //   compare: (a: any, b: any) => a.service - b.service,
       //   multiple: 3,
       // },
-      render: (value: any) => {
+      render: (value: Appointment) => {
         return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
       },
     },
-
     {
       title: "Date",
       dataIndex: "appointment",
@@ -79,10 +78,8 @@ const TransactionHistory = (props: Props) => {
       //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
       //   multiple: 3,
       // },
-      render: (value: any) => {
-        let time = value?.appointmentTimeSlots?.find(
-          (time: any) => time.selected == true
-        );
+      render: (value: Appointment) => {
+        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
         return (
           <div className="someclass">{`${date?.formatMMMMDDYYYY(
             time?.startTime
@@ -98,10 +95,8 @@ const TransactionHistory = (props: Props) => {
       //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
       //   multiple: 3,
       // },
-      render: (value: any) => {
-        let time = value?.appointmentTimeSlots?.find(
-          (time: any) => time.selected == true
-        );
+      render: (value: Appointment) => {
+        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
         return (
           <div className="someclass">{`${date?.formathhmma(
             time?.startTime
@@ -117,7 +112,7 @@ const TransactionHistory = (props: Props) => {
       //   compare: (a: any, b: any) => a.totalamount - b.totalamount,
       //   multiple: 3,
       // },
-      render: (value: any) => {
+      render: (value: number) => {
         return <div className="someclass">{`${value}`}</div>;
       },
     },
@@ -129,7 +124,7 @@ const TransactionHistory = (props: Props) => {
       //   compare: (a: any, b: any) => a.createdAt - b.createdAt,
       //   multiple: 3,
       // },
-      render: (value: any) => {
+      render: (value: string) => {
         return (
           <div className="someclass">{`${
             value ? date?.formatMMMMDDYYYY(value) : "--"
@@ -145,7 +140,7 @@ const TransactionHistory = (props: Props) => {
       //   compare: (a: any, b: any) => a.status - b.status,
       //   multiple: 3,
       // },
-      render: (value: any) => {
+      render: (value: string) => {
         return (
           <div className="someclass">
             <Tag color="cyan">{value}</Tag>
