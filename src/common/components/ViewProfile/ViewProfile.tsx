@@ -19,6 +19,7 @@ export const ViewProfile = React.forwardRef(function Profile({
   doctorData,
   setIsEdit,
   showLoginInfo,
+  schedules
 }: any) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -190,6 +191,7 @@ export const ViewProfile = React.forwardRef(function Profile({
             doctorId={doctorId}
             doctorData={doctorData}
             showLoginInfo={showLoginInfo}
+            schedules={schedules}
           />
         </div>
       </div>

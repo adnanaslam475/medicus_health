@@ -20,9 +20,13 @@ export function formathhmma(date: string) {
   return dayjs.utc(date).format("hh:mm a");
 }
 
-export const getDateInFormat = (getDate: string | number | Date | dayjs.Dayjs | null | undefined) => {
+export const getDateInFormat = (
+  getDate: string | number | Date | dayjs.Dayjs | null | undefined
+) => {
   const getDateUseingDayjs = dayjs(getDate);
-  return getDate && getDateUseingDayjs.isValid() ? getDateUseingDayjs.format("MM-DD-YYYY") : "";
+  return getDate && getDateUseingDayjs.isValid()
+    ? getDateUseingDayjs.format("MM-DD-YYYY")
+    : "";
 };
 
 export function time24HrConvert(time: any) {
@@ -43,4 +47,8 @@ export function time24HrConvert(time: any) {
 // to get day name from date day
 export function dayName(date: number) {
   return dayjs().day(date).format("dddd");
+}
+
+export function twelveHourTime(date: string) {
+  return dayjs("1/1/1 " + date).format("hh:mm a");
 }

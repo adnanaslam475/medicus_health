@@ -385,3 +385,12 @@ query getAllTransactions {
     }
   }
 }
+
+# Get Doctor Schedules
+query schedule($doctorId: Int!) {
+  doctorSchedules(doctorId: $doctorId) {
+    startTime
+    endTime
+    day
+  }
+}
