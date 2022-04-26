@@ -20,10 +20,12 @@ function AppointmentReschedule(props: Props) {
   console.log(appointmentDetails?.appointmentTimeSlots, "nad");
   console.log(props, "usama");
 
-  const { doctor, serviceType } = appointmentDetails || {};
+  const { doctor, serviceType, appointmentTimeSlots } =
+    appointmentDetails || {};
   const { first_name, last_name } = doctor || {};
   const { name, price } = serviceType || {};
   const doctorName = first_name + " " + last_name;
+  // const appointmentTimeSlots = "";
 
   return (
     <div>
@@ -48,14 +50,11 @@ function AppointmentReschedule(props: Props) {
         <h5>Available Slots (select one)</h5>
         <Radio.Group value={1} className="">
           <Space direction="vertical">
-            {/* <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              February 4, 2022 07:30 am - 08:00 am
-            </Radio> */}
             <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              {appointmentDetails?.appointmentTimeSlots?.length === 0 ? (
+              {appointmentTimeSlots?.length === 0 ? (
                 <div className="text-secondary">{" - "}</div>
               ) : (
-                appointmentDetails?.appointmentTimeSlots?.map((item) => (
+                appointmentTimeSlots?.map((item) => (
                   <div className="text-secondary">
                     <span className="mr-3">
                       {date.formatMMMMDDYYYY(item.startTime)}
@@ -67,24 +66,9 @@ function AppointmentReschedule(props: Props) {
                 ))
               )}
             </Radio>
-
-            {/* <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              February 4, 2022 07:30 am - 08:00 am
-            </Radio>
-            <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              February 4, 2022 07:30 am - 08:00 am
-            </Radio>
-            <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              February 4, 2022 07:30 am - 08:00 am
-            </Radio> */}
           </Space>
         </Radio.Group>
       </div>
-
-      {/* <div className='flex justify-end gap-2'>
-          <Button  className={`${_Classes['button-border']}`}>Reject</Button>
-          <Button type="primary" className={`${_Classes['button-background-color']}`}>Proceed To Payment</Button>
-        </div> */}
     </div>
   );
 }
