@@ -51,7 +51,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }, [appoinmentDetails]);
 
     function prepareAndSetEditPayload() {
-      console.log(physicianName);
       formInstance.setFieldsValue({
         physicianName: `${first_name}${last_name}`,
         service: service,

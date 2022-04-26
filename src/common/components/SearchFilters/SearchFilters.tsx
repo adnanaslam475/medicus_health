@@ -20,7 +20,6 @@ import _classes from "./SearchFilters.module.scss";
 const { Option } = Select;
 
 function handleChange(value: any) {
-  console.log(`selected ${value}`);
 }
 
 const { RangePicker } = DatePicker;

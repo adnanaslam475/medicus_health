@@ -154,7 +154,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   }
 
   const onFinishHealthQuestionnary = async (values: any) => {
-    console.log(values);
     if (values.radio_drink) {
       HealthQuestionnaryData.q1["ans"] = 1;
       HealthQuestionnaryData.q1.q.ans = values.drinks;

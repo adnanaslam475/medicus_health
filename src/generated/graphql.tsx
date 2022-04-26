@@ -79,7 +79,7 @@ export type AppointmentServiceType = {
 
 export type AppointmentTimeSlots = {
   __typename?: 'AppointmentTimeSlots';
-  appointment?: Appointment;
+  appointment: Appointment;
   endTime: Scalars['DateTime'];
   id: Scalars['Int'];
   selected: Scalars['Boolean'];
@@ -205,6 +205,7 @@ export type CreatePaymentInput = {
 
 export type CreateStaffInput = {
   contact_number: Scalars['String'];
+  deleted: Scalars['Boolean'];
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
@@ -356,6 +357,7 @@ export type Mutation = {
   removeDoctorQuestionnaire: DoctorQuestionnaire;
   removeDoctorSchedule: DoctorSchedule;
   removePatientHealthHistory: PatientHealthHistory;
+  removeStaff: User;
   removeUser: User;
   setAsDefaultCard: UserCard;
   setDoctorPassword: User;
@@ -509,6 +511,11 @@ export type MutationRemoveDoctorScheduleArgs = {
 
 
 export type MutationRemovePatientHealthHistoryArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationRemoveStaffArgs = {
   id: Scalars['Int'];
 };
 
@@ -846,6 +853,7 @@ export type User = {
   country_id: Scalars['Int'];
   createdBy?: Maybe<Scalars['Int']>;
   date_of_birth: Scalars['DateTime'];
+  deleted: Scalars['Boolean'];
   doctorBillingMethods?: Maybe<Array<DoctorBillingMethod>>;
   doctorProfile?: Maybe<DoctorProfile>;
   doctorQuestionnaire?: Maybe<DoctorQuestionnaire>;
@@ -1092,7 +1100,7 @@ export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __t
 export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllTransactionsQuery = { __typename?: 'Query', transections: Array<{ __typename?: 'Transection', id: number, transectionId: string, appointmentId: number, amountReceived: number, status: string, createdAt: any, appointment?: { __typename?: 'Appointment', requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', first_name: string, last_name: string }, patient: { __typename?: 'User', first_name: string, last_name: string } } | null }> };
+export type GetAllTransactionsQuery = { __typename?: 'Query', transections: Array<{ __typename?: 'Transection', id: number, transectionId: string, appointmentId: number, amountReceived: number, status: string, createdAt: any, appointment?: { __typename?: 'Appointment', requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', first_name: string, last_name: string }, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }> };
 
 
 export const CreateUserDocument = gql`
@@ -1720,6 +1728,15 @@ export const GetAllTransactionsDocument = gql`
       patient {
         first_name
         last_name
+      }
+      serviceType {
+        id
+        name
+      }
+      appointmentTimeSlots {
+        selected
+        startTime
+        endTime
       }
     }
   }
@@ -3491,6 +3508,29 @@ export default {
             ]
           },
           {
+            "name": "removeStaff",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "removeUser",
             "type": {
               "kind": "NON_NULL",
@@ -4835,6 +4875,17 @@ export default {
           },
           {
             "name": "date_of_birth",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "deleted",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

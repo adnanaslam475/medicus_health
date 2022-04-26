@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { Table, Input, Button, Space, Tag } from "antd";
-import { EyeFilled } from "@ant-design/icons";
-import { GetAllRequestedAppointmentsQuery } from "../../../../generated/graphql";
-import { date } from "../../../utils";
 
 interface col {
   title: string;
@@ -12,160 +9,17 @@ interface col {
 }
 
 type Props = {
-  appoinmentHistory?: GetAllRequestedAppointmentsQuery | undefined;
+  data?: any;
+  columns?: any;
 };
 
 const TransactionHistory = (props: Props) => {
-  const { appoinmentHistory } = props || {};
+  const { data, columns } = props || {};
 
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Booked On",
-      dataIndex: "requestedDate",
-      key: "requestedDate",
-      sorter: {
-        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(value)} `}</div>
-        );
-      },
-    },
-
-    {
-      title: "Physician",
-      dataIndex: "doctor",
-      key: "doctor",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor - b.doctor,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return (
-          <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
-        );
-      },
-    },
-    {
-      title: "Type",
-      dataIndex: "serviceType",
-      key: "serviceType",
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return <div className="someclass">{`${value?.name}`}</div>;
-      },
-    },
-
-    {
-      title: "Date",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
-      sorter: {
-        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        let time = value?.find((time: any) => time.selected == true);
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            time?.startTime
-          )} `}</div>
-        );
-      },
-    },
-    {
-      title: "Time",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        let time = value?.find((time: any) => time.selected == true);
-        return (
-          <div className="someclass">{`${date?.formathhmma(
-            time?.startTime
-          )} - ${date?.formathhmma(time?.endTime)}`}</div>
-        );
-      },
-    },
-    {
-      title: "Total Amount",
-      dataIndex: "serviceType",
-      key: "serviceType",
-      sorter: {
-        compare: (a: any, b: any) => a.totalamount - b.totalamount,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return <div className="someclass">{`${value?.price}`}</div>;
-      },
-    },
-    {
-      title: "Transaction Date",
-      dataIndex: "transection",
-      key: "transection",
-      sorter: {
-        compare: (a: any, b: any) => a.transection - b.transection,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return (
-          <div className="someclass">{`${
-            value?.createdAt ? value?.createdAt : "--"
-          }`}</div>
-        );
-      },
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.status - b.status,
-        multiple: 3,
-      },
-      render: (value: any) => {
-        return (
-          <div className="someclass">
-            <Tag color="cyan">{value}</Tag>
-          </div>
-        );
-      },
-    },
-    {
-      title: "",
-      dataIndex: "",
-      key: "view",
-      className: "table-action-icon",
-      render: () => <EyeFilled />,
-    },
-  ];
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
     console.log("params", pagination, filters, sorter, extra);
   }
-  return (
-    <Table
-      columns={columns}
-      dataSource={appoinmentHistory?.appointments}
-      onChange={onChange}
-    />
-  );
+  return <Table columns={columns} dataSource={data} onChange={onChange} />;
 };
 
 export default TransactionHistory;

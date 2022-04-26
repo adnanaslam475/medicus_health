@@ -33,7 +33,6 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
 
   function onFinishLocal(values: any) {
     saveStepThree?.(values);
-    console.log("values",values)
   }
 
   useEffect(() => {
@@ -65,10 +64,7 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
     return obj;
   }
 
-  console.log(
-    "doctorQuestionnaire",
-    parseJson(doctorQuestionnaire?.questionnaire)
-  );
+ 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
 
   return (
