@@ -22,6 +22,7 @@ function UpcomingAppointments() {
   const [appointmentIds, setAppointmentIds] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Confirmed");
+  const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
@@ -33,6 +34,11 @@ function UpcomingAppointments() {
       },
     },
   });
+
+  function onViewSuggestedSlots(id: number) {
+    setCurrentAppointmentId(id);
+    setShowModal(true);
+  }
 
   const { appointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -81,6 +87,9 @@ function UpcomingAppointments() {
                       appointmentTimeSlots as AppointmentTimeSlots[]
                     }
                     setShowModal={setShowModal}
+                    onViewSuggestedSlots={() =>
+                      onViewSuggestedSlots(appointmentDetail?.id)
+                    }
                   />
                 );
               })}

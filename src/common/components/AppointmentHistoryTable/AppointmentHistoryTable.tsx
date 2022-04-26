@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Table, Input, Button, Space, Tag } from "antd";
-import { date } from "../../../utils";
 import { EyeFilled } from "@ant-design/icons";
+import { date } from "../../utils";
 import {
-  Appointment,
-  GetAllTransactionsQuery,
+  AppointmentServiceType,
+  AppointmentTimeSlots,
   Transection,
-} from "../../../../generated/graphql";
+  User,
+} from "../../../generated/graphql";
 
 interface col {
   title: string;
@@ -16,13 +17,13 @@ interface col {
 }
 
 type Props = {
-  data: Transection[] | undefined;
+  data?: any;
 };
 
-const TransactionHistory = (props: Props) => {
+const AppointmentHistoryTable = (props: Props) => {
   const { data } = props || {};
 
-  const transactionsColumns = [
+  const historyColumns = [
     {
       title: "ID",
       dataIndex: "id",
@@ -34,104 +35,94 @@ const TransactionHistory = (props: Props) => {
     },
     {
       title: "Booked On",
-      dataIndex: "appointment",
-      key: "appointment",
+      dataIndex: "requestedDate",
+      key: "requestedDate",
       // sorter: {
       //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
       //   multiple: 3,
       // },
-      render: (value: Appointment) => {
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            value?.requestedDate
-          )} `}</div>
-        );
+      render: (value: string) => {
+        return <div>{`${date?.formatMMMMDDYYYY(value)} `}</div>;
       },
     },
     {
       title: "Physician",
-      dataIndex: "appointment",
-      key: "appointment",
+      dataIndex: "doctor",
+      key: "doctor",
       // sorter: {
-      //   compare: (a: any, b: any) => a.appointment - b.appointment,
+      //   compare: (a: any, b: any) => a.doctor - b.doctor,
       //   multiple: 3,
       // },
-      render: (value: Appointment) => {
-        return (
-          <div className="someclass">{`${value?.doctor?.first_name} ${value?.doctor?.last_name}`}</div>
-        );
+      render: (value: User) => {
+        return <div>{`${value.first_name} ${value.last_name}`}</div>;
       },
     },
     {
       title: "Type",
-      dataIndex: "appointment",
-      key: "appointment",
+      dataIndex: "serviceType",
+      key: "serviceType",
       // sorter: {
       //   compare: (a: any, b: any) => a.service - b.service,
       //   multiple: 3,
       // },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+      render: (value: AppointmentServiceType) => {
+        return <div>{`${value.name}`}</div>;
       },
     },
     {
       title: "Date",
-      dataIndex: "appointment",
-      key: "appointment",
+      dataIndex: "appointmentTimeSlots",
+      key: "appointmentTimeSlots",
       // sorter: {
       //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
       //   multiple: 3,
       // },
-      render: (value: Appointment) => {
-        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            time?.startTime
-          )} `}</div>
-        );
+      render: (value: AppointmentTimeSlots[]) => {
+        let time = value?.find((time) => time.selected);
+        return <div>{`${date?.formatMMMMDDYYYY(time?.startTime)} `}</div>;
       },
     },
     {
       title: "Time",
-      dataIndex: "appointment",
-      key: "appointment",
+      dataIndex: "appointmentTimeSlots",
+      key: "appointmentTimeSlots",
       // sorter: {
       //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
       //   multiple: 3,
       // },
-      render: (value: Appointment) => {
-        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      render: (value: AppointmentTimeSlots[]) => {
+        let time = value?.find((time) => time.selected);
         return (
-          <div className="someclass">{`${date?.formathhmma(
-            time?.startTime
-          )} - ${date?.formathhmma(time?.endTime)}`}</div>
+          <div>{`${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
+            time?.endTime
+          )}`}</div>
         );
       },
     },
     {
       title: "Total Amount",
-      dataIndex: "amountReceived",
-      key: "amountReceived",
+      dataIndex: "serviceType",
+      key: "serviceType",
       // sorter: {
       //   compare: (a: any, b: any) => a.totalamount - b.totalamount,
       //   multiple: 3,
       // },
-      render: (value: number) => {
-        return <div className="someclass">{`${value}`}</div>;
+      render: (value: AppointmentServiceType) => {
+        return <div>{`${value?.price}`}</div>;
       },
     },
     {
       title: "Transaction Date",
-      dataIndex: "createdAt",
-      key: "createdAt",
+      dataIndex: "transection",
+      key: "transection",
       // sorter: {
-      //   compare: (a: any, b: any) => a.createdAt - b.createdAt,
+      //   compare: (a: any, b: any) => a.transection - b.transection,
       //   multiple: 3,
       // },
-      render: (value: string) => {
+      render: (value: Transection) => {
         return (
-          <div className="someclass">{`${
-            value ? date?.formatMMMMDDYYYY(value) : "--"
+          <div>{`${
+            value?.createdAt ? date?.formatMMMMDDYYYY(value?.createdAt) : "--"
           }`}</div>
         );
       },
@@ -146,7 +137,7 @@ const TransactionHistory = (props: Props) => {
       // },
       render: (value: string) => {
         return (
-          <div className="someclass">
+          <div>
             <Tag color="cyan">{value}</Tag>
           </div>
         );
@@ -165,12 +156,8 @@ const TransactionHistory = (props: Props) => {
     console.log("params", pagination, filters, sorter, extra);
   }
   return (
-    <Table
-      columns={transactionsColumns}
-      dataSource={data}
-      onChange={onChange}
-    />
+    <Table columns={historyColumns} dataSource={data} onChange={onChange} />
   );
 };
 
-export default TransactionHistory;
+export default AppointmentHistoryTable;
