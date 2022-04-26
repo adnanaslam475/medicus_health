@@ -63,7 +63,7 @@ type props = {
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
-  setShowModal: (data: boolean) => void;
+  setShowModal?: (data: boolean) => void;
   onViewSuggestedSlots: () => void;
 };
 

@@ -85,10 +85,7 @@ function CancelledAppointment() {
                     appointmentTimeSlots={
                       appointmentTimeSlots as AppointmentTimeSlots[]
                     }
-                    onViewSuggestedSlots={() =>
-                      onViewSuggestedSlots(appointmentDetail?.id)
-                    }
-                    setShowModal={setShowModal}
+                    onViewSuggestedSlots={() => {}}
                   />
                 );
               })}

@@ -62,8 +62,6 @@ function AppointmentModalJourney({
 
   const { appointment } = data || {};
 
-  console.log(appointment, "sdasds");
-
   return (
     <Modal
       forceRender={false}

@@ -16,16 +16,12 @@ type Props = {
 
 function AppointmentReschedule(props: Props) {
   const { appointmentDetails } = props;
-  // const { appointmentTimeSlots } = appointmentDetails;
-  console.log(appointmentDetails?.appointmentTimeSlots, "nad");
-  console.log(props, "usama");
 
   const { doctor, serviceType, appointmentTimeSlots } =
     appointmentDetails || {};
   const { first_name, last_name } = doctor || {};
   const { name, price } = serviceType || {};
   const doctorName = first_name + " " + last_name;
-  // const appointmentTimeSlots = "";
 
   return (
     <div>
