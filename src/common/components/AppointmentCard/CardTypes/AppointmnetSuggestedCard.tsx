@@ -5,7 +5,7 @@ import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 
 type Props = {
-  appointmentId: Number | undefined;
+  appointmentId: number | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
@@ -25,7 +25,6 @@ function AppointmnetSuggestedCard({
   setShowModal,
   onViewSuggestedSlots,
 }: Props) {
-  console.log(appointmentTimeSlots);
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <h3 className="mb-0">Dr. {doctor}</h3>
@@ -42,18 +41,13 @@ function AppointmnetSuggestedCard({
           )} - ${date.formathhmma(item.endTime)}`}</div>
         ))
       )}
-      {/* <div className="text-cyan font-semibold">{`${date.formathhmma(appointmentTimeSlots.startTime)} - ${date.formathhmma(appointmentTimeSlots.endTime)}`}</div> */}
+
       <span className="text-base text-primary font-bold ">{status}</span>
       <div className="flex">
         <Button
           type={"primary"}
           className={`${_classes["card-btn"]} mt-4`}
-          onClick={() =>
-            // setShowModal(true)
-            onViewSuggestedSlots()
-          }
-          // appointmentId={appointmentId}
-          // onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
+          onClick={() => onViewSuggestedSlots()}
         >
           View Suggested Slots
         </Button>

@@ -57,7 +57,7 @@ type StatusType<K extends StatusName> = {
 // };
 
 type props = {
-  appointmentId?: Number | undefined;
+  appointmentId?: number | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;

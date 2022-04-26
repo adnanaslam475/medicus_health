@@ -6,7 +6,7 @@ import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 
 type Props = {
-  appointmentId: Number | undefined;
+  appointmentId: number | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;

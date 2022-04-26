@@ -7,7 +7,7 @@ import Router, { useRouter } from "next/router";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
 
 type Props = {
-  appointmentId: Number | undefined;
+  appointmentId: number | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
