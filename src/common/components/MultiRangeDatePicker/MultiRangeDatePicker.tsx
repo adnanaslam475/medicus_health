@@ -5,12 +5,12 @@ import MultiRangeListing from "./MultiRangeListing";
 import { TimePicker } from "antd";
 const { RangePicker } = TimePicker;
 import _Classes from "./MultiRangeDatePicker.module.scss";
-import { Schedule, singleSchedule } from "utils/types";
-import DayPicker from "utils/DayPicker";
+import DayPicker from "../../../utils/DayPicker";
+import { Schedule, singleSchedule } from "../../../utils/types";
 
 type Props = {
   disable: boolean;
-  schedules: Schedule[];
+  schedules?: Schedule[];
 };
 
 function MultiRangeDatePicker(props: Props) {

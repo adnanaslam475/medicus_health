@@ -57,13 +57,14 @@ type StatusType<K extends StatusName> = {
 // };
 
 type props = {
-  appointmentId?: Number | undefined;
+  appointmentId?: number | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
-  setShowModal: (data: boolean) => void;
+  setShowModal?: (data: boolean) => void;
+  onViewSuggestedSlots: () => void;
 };
 
 function AppointmentCard({
@@ -74,6 +75,7 @@ function AppointmentCard({
   doctor,
   appointmentTimeSlots,
   setShowModal,
+  onViewSuggestedSlots,
 }: props) {
   function getStatus() {
     const { user } = getUserData();
@@ -104,6 +106,7 @@ function AppointmentCard({
     case "Requested":
       return (
         <AppointmnetRequestedCard
+          appointmentId={appointmentId}
           requestedDate={requestedDate}
           status={getStatus()}
           serviceType={serviceType}
@@ -125,12 +128,14 @@ function AppointmentCard({
     case "Suggested":
       return (
         <AppointmnetSuggestedCard
+          appointmentId={appointmentId}
           requestedDate={requestedDate}
           status={getStatus()}
           serviceType={serviceType}
           doctor={doctor}
           appointmentTimeSlots={appointmentTimeSlots}
           setShowModal={setShowModal}
+          onViewSuggestedSlots={onViewSuggestedSlots}
         />
       );
     default:

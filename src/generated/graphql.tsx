@@ -625,6 +625,7 @@ export type Query = {
   appointmentServiceType: AppointmentServiceType;
   appointmentServiceTypes: Array<AppointmentServiceType>;
   appointments: Array<Appointment>;
+  appointmentsReminderBanner: Appointment;
   checkEmailAvailability: EmailAvailableResponse;
   cities: Array<City>;
   city: City;
@@ -1013,6 +1014,13 @@ export type CreateAppointmentMutationVariables = Exact<{
 
 export type CreateAppointmentMutation = { __typename?: 'Mutation', createAppointment: { __typename?: 'Appointment', patientId: number, doctorId: number, serviceId: number, requestedDate: any, scheduleId: number, reportUrl?: any | null } };
 
+export type CancelAppointmentByPatientMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type CancelAppointmentByPatientMutation = { __typename?: 'Mutation', cancelAppointmentByPatient: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number, requestedDate: any, reportUrl?: any | null, status?: string | null, createdAt: any } };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1123,6 +1131,18 @@ export type ScheduleQueryVariables = Exact<{
 
 
 export type ScheduleQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', startTime: string, endTime: string, day: number }> };
+
+export type ViewSuggestedTimeSlotsQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number, requestedDate: any, reportUrl?: any | null, status?: string | null, createdAt: any, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor: { __typename?: 'User', first_name: string, last_name: string } } };
+
+export type GetAppointmentsReminderBannerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id: number, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
 
 
 export const CreateUserDocument = gql`
@@ -1373,6 +1393,25 @@ export const CreateAppointmentDocument = gql`
 
 export function useCreateAppointmentMutation() {
   return Urql.useMutation<CreateAppointmentMutation, CreateAppointmentMutationVariables>(CreateAppointmentDocument);
+};
+export const CancelAppointmentByPatientDocument = gql`
+    mutation cancelAppointmentByPatient($id: Int!) {
+  cancelAppointmentByPatient(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    reportUrl
+    status
+    createdAt
+  }
+}
+    `;
+
+export function useCancelAppointmentByPatientMutation() {
+  return Urql.useMutation<CancelAppointmentByPatientMutation, CancelAppointmentByPatientMutationVariables>(CancelAppointmentByPatientDocument);
 };
 export const CountriesDocument = gql`
     query countries {
@@ -1780,6 +1819,59 @@ export const ScheduleDocument = gql`
 
 export function useScheduleQuery(options: Omit<Urql.UseQueryArgs<ScheduleQueryVariables>, 'query'>) {
   return Urql.useQuery<ScheduleQuery>({ query: ScheduleDocument, ...options });
+};
+export const ViewSuggestedTimeSlotsDocument = gql`
+    query ViewSuggestedTimeSlots($id: Int!) {
+  appointment(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    reportUrl
+    status
+    createdAt
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    serviceType {
+      name
+      price
+    }
+    doctor {
+      first_name
+      last_name
+    }
+  }
+}
+    `;
+
+export function useViewSuggestedTimeSlotsQuery(options: Omit<Urql.UseQueryArgs<ViewSuggestedTimeSlotsQueryVariables>, 'query'>) {
+  return Urql.useQuery<ViewSuggestedTimeSlotsQuery>({ query: ViewSuggestedTimeSlotsDocument, ...options });
+};
+export const GetAppointmentsReminderBannerDocument = gql`
+    query getAppointmentsReminderBanner {
+  appointmentsReminderBanner {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+  }
+}
+    `;
+
+export function useGetAppointmentsReminderBannerQuery(options?: Omit<Urql.UseQueryArgs<GetAppointmentsReminderBannerQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAppointmentsReminderBannerQuery>({ query: GetAppointmentsReminderBannerDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
@@ -4127,6 +4219,18 @@ export default {
                 }
               }
             ]
+          },
+          {
+            "name": "appointmentsReminderBanner",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": []
           },
           {
             "name": "checkEmailAvailability",

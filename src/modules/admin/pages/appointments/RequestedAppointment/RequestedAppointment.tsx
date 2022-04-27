@@ -19,6 +19,7 @@ function RequestedAppointment() {
   const [appointmentIds, setAppointmentIds] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Requested");
+
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
@@ -36,9 +37,20 @@ function RequestedAppointment() {
   });
 
   const { appointments } = data || {};
-  console.log(appointments, "appointments");
-  const { Option } = Select;
+
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
+
+  function onViewSuggestedSlots(id: number) {
+    setCurrentAppointmentId(id);
+    setShowModal(true);
+  }
+
+  function onCancel() {
+    setShowModal(false);
+    setCurrentAppointmentId(undefined);
+  }
+
   return (
     <AppLayout>
       <>
@@ -50,14 +62,14 @@ function RequestedAppointment() {
             <div className="flex gap-3">
               <div className="lg:ml-3 mt-0 sm:mt-0">
                 <Select defaultValue="List View" className="w-full sm:w-40">
-                  <Option value="Calendar View">
+                  <Select.Option value="Calendar View">
                     <Link href="/patient/calendar">
                       <a>Calendar View</a>
                     </Link>
-                  </Option>
-                  <Option selected value="List View">
+                  </Select.Option>
+                  <Select.Option selected value="List View">
                     List View
-                  </Option>
+                  </Select.Option>
                 </Select>
               </div>
               <Button type="primary" className="text-sm">
@@ -84,6 +96,7 @@ function RequestedAppointment() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
                 {appointments?.map((appointmentDetail, i) => {
                   const {
+                    id,
                     requestedDate,
                     status,
                     serviceType,
@@ -92,12 +105,16 @@ function RequestedAppointment() {
                   } = appointmentDetail || {};
                   return (
                     <AppointmentCard
+                      appointmentId={id}
                       requestedDate={requestedDate}
                       status={status}
                       serviceType={serviceType?.name}
                       doctor={doctor?.first_name}
                       appointmentTimeSlots={
                         appointmentTimeSlots as AppointmentTimeSlots[]
+                      }
+                      onViewSuggestedSlots={() =>
+                        onViewSuggestedSlots(appointmentDetail?.id)
                       }
                       setShowModal={setShowModal}
                     />
@@ -113,7 +130,8 @@ function RequestedAppointment() {
         </div>
         <AppointmentModalJourney
           visible={showModal}
-          onCancel={() => setShowModal(false)}
+          onCancel={onCancel}
+          appointmentId={currentAppointmentId}
         />
       </>
     </AppLayout>

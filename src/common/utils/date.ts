@@ -52,3 +52,9 @@ export function dayName(date: number) {
 export function twelveHourTime(date: string) {
   return dayjs("1/1/1 " + date).format("hh:mm a");
 }
+
+export function isAppoinentDateIsSame(date: string) {
+  const today = dayjs(new Date());
+  let isAppoinmetnStartTime = today.isAfter(date, "seconds");
+  return isAppoinmetnStartTime;
+}

@@ -6,6 +6,7 @@ import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 
 type Props = {
+  appointmentId: number | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 function AppointmnetRequestedCard({
+  appointmentId,
   requestedDate,
   status,
   serviceType,

@@ -166,7 +166,7 @@ mutation enableOrDisableDoctor($id: Int!) {
   }
 }
 
-#CREATE APPOINMENT 
+#CREATE APPOINMENT
 mutation createAppointment($createAppointment: CreateAppointmentInput!) {
   createAppointment(createAppointmentInput: $createAppointment) {
     patientId
@@ -178,3 +178,17 @@ mutation createAppointment($createAppointment: CreateAppointmentInput!) {
   }
 }
 
+#CANCEL APPOINTMENT BY APPOINMENT
+mutation cancelAppointmentByPatient($id: Int!) {
+  cancelAppointmentByPatient(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    reportUrl
+    status
+    createdAt
+  }
+}

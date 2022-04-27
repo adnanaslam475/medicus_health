@@ -1,33 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Layout, Avatar, Dropdown, Menu, Space } from "antd";
-import Router from "next/router";
+import React from "react";
+import { Button } from "antd";
 import Image from "next/image";
-import link from "next/link";
-import { WarningFilled } from "@ant-design/icons";
-import Link from "next/link";
-import {
-  AppointmentTimeSlots,
-  useGetAllRequestedAppointmentsQuery,
-} from "../../../generated/graphql";
-import { date } from "../../utils";
+import { useGetAppointmentsReminderBannerQuery } from "generated/graphql";
+import { date } from "common/utils";
 
 const InfoMessageBannerReminder = () => {
-  const [status, setStatus] = useState<string>("Confirmed");
-  const [timeSlot, setTimeSlot] = useState<AppointmentTimeSlots>();
+  const [{ data }] = useGetAppointmentsReminderBannerQuery();
+  const { appointmentsReminderBanner } = data || {};
 
-  const [{ data }] = useGetAllRequestedAppointmentsQuery({
-    variables: {
-      filter: {
-        status: status,
-      },
-    },
-  });
+  const { patient } = appointmentsReminderBanner || {};
 
-  const { appointments } = data || {};
+  const { first_name, last_name } = patient || {};
 
-  return (
-    <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-2 rounded text-xs text-nowr">
-      {/* <span className="mr-3 mb-0"><WarningFilled style={{ color: 'white' backgroundColor: 'red' }} /></span> */}
+  const { appointmentTimeSlots } = appointmentsReminderBanner || {};
+
+  let selectedTime = appointmentTimeSlots?.find((time) => time.selected);
+
+  //checking is appointment time is same as current datetime
+  let isAppoinmetnStartTime = date?.isAppoinentDateIsSame(
+    selectedTime?.startTime
+  );
+
+  return data?.appointmentsReminderBanner ? (
+    <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-2 rounded text-xs text-nowr gap-2">
       <Image
         alt=""
         className="warning-small mx-3 shadow-none border-0"
@@ -36,17 +31,26 @@ const InfoMessageBannerReminder = () => {
         src="/assets/icon/warning-small.svg"
       />
       <span className="ml-3 min-h-max hidden md:block">
-        Please complete the health questionnaire in order to book appointments
-        with our Physicians.
+        You Have An Upcomming Appointment With {`${first_name} ${last_name}`} At
       </span>
-      <span className="ml-3 min-h-max block md:hidden">Questionnaire</span>
-      <Link href="/">
-        <a className="underline text-primary px-3 whitespace-nowrap">
-          Complete Now
-        </a>
-      </Link>
+      <span>{date?.formatMMMMDDYYYY(selectedTime?.startTime)}</span>
+      <span>
+        {`${date?.formathhmma(selectedTime?.startTime)} -  ${date?.formathhmma(
+          selectedTime?.endTime
+        )}`}
+      </span>
+
+      {isAppoinmetnStartTime && (
+        <Button
+          className="bg-primary text-primary px-3 whitespace-nowrap ml-auto"
+          type="default"
+          size="small"
+        >
+          Join Now
+        </Button>
+      )}
     </div>
-  );
+  ) : null;
 };
 
 export default InfoMessageBannerReminder;

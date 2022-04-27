@@ -40,7 +40,7 @@ function AppointmentInfo(props: Props) {
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Booked on</div>
           <div className="w-full text-secondary">
-            {date?.convertStringDateToUTC(requestedDate)}
+            {date?.formatMMMMDDYYYY(requestedDate)}
           </div>
         </li>
         <li className="flex border-b border-gray-5 py-3">

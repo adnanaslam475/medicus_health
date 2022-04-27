@@ -1,7 +1,7 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { dayName, twelveHourTime } from "common/utils/date";
 import React from "react";
-import { singleSchedule } from "utils/types";
+import { singleSchedule } from "../../../utils/types";
+import { dayName, twelveHourTime } from "../../utils/date";
 
 type Props = {
   disable: boolean;

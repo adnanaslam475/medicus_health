@@ -394,3 +394,61 @@ query schedule($doctorId: Int!) {
     day
   }
 }
+
+# query GetAllAppointment($id: Int!) {
+#   appointment(id: $id) {
+#     status
+#     appointmentTimeSlots {
+#       id
+#       startTime
+#       endTime
+#       selected
+#     }
+#   }
+# }
+
+#VIEW SUGGESTED TIME SLOTS
+
+query ViewSuggestedTimeSlots($id: Int!) {
+  appointment(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    reportUrl
+    status
+    createdAt
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    serviceType {
+      name
+      price
+    }
+    doctor {
+      first_name
+      last_name
+    }
+  }
+}
+
+#GET APPOINTMENT FOR REMINDER
+query getAppointmentsReminderBanner {
+  appointmentsReminderBanner {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+  }
+}
