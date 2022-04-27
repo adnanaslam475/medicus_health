@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Radio, Space } from "antd";
+import React, { ChangeEvent } from "react";
+import { Button, Radio, RadioChangeEvent, Space } from "antd";
 import _classes from "./AppointmentReschedule.module.scss";
 import {
   Appointment,
@@ -23,6 +23,12 @@ function AppointmentReschedule(props: Props) {
   const { name, price } = serviceType || {};
   const doctorName = first_name + " " + last_name;
 
+  const [value, setValue] = React.useState("");
+
+  const onChange = (e: RadioChangeEvent) => {
+    setValue(e.target.value);
+  };
+
   return (
     <div>
       <h2>Appointment Reschedule</h2>
@@ -44,13 +50,18 @@ function AppointmentReschedule(props: Props) {
       </div>
       <div className="py-4">
         <h5>Available Slots (select one)</h5>
-        <Radio.Group value={1} className="">
+        <Radio.Group className="" onChange={onChange} value={value}>
           <Space direction="vertical">
-            <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={1}>
-              {appointmentTimeSlots?.length === 0 ? (
-                <div className="text-secondary">{" - "}</div>
-              ) : (
-                appointmentTimeSlots?.map((item) => (
+            {appointmentTimeSlots?.length === 0 ? (
+              <div className="text-secondary">{" - "}</div>
+            ) : (
+              appointmentTimeSlots?.map((item) => (
+                <Radio
+                  className={`bg-gray-4 ${_classes["radio-div"]}`}
+                  value={`${date.formathhmma(
+                    item.startTime
+                  )} - ${date.formathhmma(item.endTime)}`}
+                >
                   <div className="text-secondary">
                     <span className="mr-3">
                       {date.formatMMMMDDYYYY(item.startTime)}
@@ -59,9 +70,9 @@ function AppointmentReschedule(props: Props) {
                       item.endTime
                     )}`}
                   </div>
-                ))
-              )}
-            </Radio>
+                </Radio>
+              ))
+            )}
           </Space>
         </Radio.Group>
       </div>

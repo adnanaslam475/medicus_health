@@ -1013,6 +1013,13 @@ export type CreateAppointmentMutationVariables = Exact<{
 
 export type CreateAppointmentMutation = { __typename?: 'Mutation', createAppointment: { __typename?: 'Appointment', patientId: number, doctorId: number, serviceId: number, requestedDate: any, scheduleId: number, reportUrl?: any | null } };
 
+export type CancelAppointmentByPatientMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type CancelAppointmentByPatientMutation = { __typename?: 'Mutation', cancelAppointmentByPatient: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number, requestedDate: any, reportUrl?: any | null, status?: string | null, createdAt: any } };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1373,6 +1380,25 @@ export const CreateAppointmentDocument = gql`
 
 export function useCreateAppointmentMutation() {
   return Urql.useMutation<CreateAppointmentMutation, CreateAppointmentMutationVariables>(CreateAppointmentDocument);
+};
+export const CancelAppointmentByPatientDocument = gql`
+    mutation cancelAppointmentByPatient($id: Int!) {
+  cancelAppointmentByPatient(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    reportUrl
+    status
+    createdAt
+  }
+}
+    `;
+
+export function useCancelAppointmentByPatientMutation() {
+  return Urql.useMutation<CancelAppointmentByPatientMutation, CancelAppointmentByPatientMutationVariables>(CancelAppointmentByPatientDocument);
 };
 export const CountriesDocument = gql`
     query countries {
