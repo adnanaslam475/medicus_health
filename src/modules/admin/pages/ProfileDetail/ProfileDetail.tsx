@@ -12,6 +12,7 @@ import { ProfileIcon } from "../../../../common/components/CustomIcon";
 import {
   DoctorProfile,
   useDoctorProfileQuery,
+  useScheduleQuery,
 } from "../../../../generated/graphql";
 import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 
@@ -24,12 +25,19 @@ function ProfileDetail() {
   };
   //   GET ID FROM URL
   const { query } = useRouter();
+  const docId = query?.id;
 
   const [{ data }] = useDoctorProfileQuery({
-    variables: { doctor_id: Number(query?.id) },
+    variables: { doctor_id: Number(docId) },
   });
 
   const { doctorProfile } = data || {};
+
+  const [doctorSchedules] = useScheduleQuery({
+    variables: { doctorId: Number(docId) },
+  });
+  const schedules = doctorSchedules?.data?.doctorSchedules;
+
 
   return (
     <AppLayout>
@@ -51,6 +59,7 @@ function ProfileDetail() {
                   doctorData={doctorProfile}
                   edit={editData}
                   setIsEdit={setIsEdit}
+                  schedules={schedules}
                 />
               ) : (
                 <ViewProfile
@@ -58,6 +67,7 @@ function ProfileDetail() {
                   doctorData={doctorProfile}
                   setIsEdit={setIsEdit}
                   loginInfo={false}
+                  schedules={schedules}
                 />
               )}
             </TabPane>

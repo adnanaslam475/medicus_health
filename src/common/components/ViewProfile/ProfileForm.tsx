@@ -2,6 +2,7 @@ import { Form, Input, notification } from "antd";
 import { useUpdateDoctorProfileMutation } from "generated/graphql";
 import { useState } from "react";
 import { bioForm, educationalBGData, professionalBGData } from "utils/helper";
+import { Schedule } from "utils/types";
 import AboutMe from "../AboutMe/AboutMe";
 import InputWithLi from "../InputWithLi/InputWithLi";
 import LanguageList from "../Languages/LanguageList";
@@ -12,9 +13,15 @@ interface Props {
   doctorId: string;
   doctorData: any;
   showLoginInfo: boolean;
+  schedules: Schedule[];
 }
 
-function ProfileForm({ doctorId, doctorData, showLoginInfo }: Props) {
+function ProfileForm({
+  doctorId,
+  doctorData,
+  showLoginInfo,
+  schedules,
+}: Props) {
   const [formInstance] = Form.useForm();
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const [image, setImage] = useState<string>("");
@@ -97,7 +104,7 @@ function ProfileForm({ doctorId, doctorData, showLoginInfo }: Props) {
         <AboutMe />
 
         <InputWithLi disable={true} />
-        <MultiRangeDatePicker disable={true} />
+        <MultiRangeDatePicker disable={true} schedules={schedules} />
         <div className={`my-6 ${_classes["professional"]}`}>
           <h5>Professional Background</h5>
           {professionalBGData.map((item) => {

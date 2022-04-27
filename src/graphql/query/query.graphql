@@ -386,6 +386,15 @@ query getAllTransactions {
   }
 }
 
+# Get Doctor Schedules
+query schedule($doctorId: Int!) {
+  doctorSchedules(doctorId: $doctorId) {
+    startTime
+    endTime
+    day
+  }
+}
+
 # query GetAllAppointment($id: Int!) {
 #   appointment(id: $id) {
 #     status
@@ -429,14 +438,14 @@ query ViewSuggestedTimeSlots($id: Int!) {
 }
 
 #GET APPOINTMENT FOR REMINDER
-query getAppointmentsReminderBanner{
-  appointmentsReminderBanner{
+query getAppointmentsReminderBanner {
+  appointmentsReminderBanner {
     id
-    patient{
+    patient {
       first_name
       last_name
     }
-    appointmentTimeSlots{
+    appointmentTimeSlots {
       startTime
       endTime
       selected

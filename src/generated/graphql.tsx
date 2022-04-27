@@ -1125,6 +1125,13 @@ export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllTransactionsQuery = { __typename?: 'Query', transections: Array<{ __typename?: 'Transection', id: number, transectionId: string, appointmentId: number, amountReceived: number, status: string, createdAt: any, appointment?: { __typename?: 'Appointment', requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', first_name: string, last_name: string }, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }> };
 
+export type ScheduleQueryVariables = Exact<{
+  doctorId: Scalars['Int'];
+}>;
+
+
+export type ScheduleQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', startTime: string, endTime: string, day: number }> };
+
 export type ViewSuggestedTimeSlotsQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -1799,6 +1806,19 @@ export const GetAllTransactionsDocument = gql`
 
 export function useGetAllTransactionsQuery(options?: Omit<Urql.UseQueryArgs<GetAllTransactionsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAllTransactionsQuery>({ query: GetAllTransactionsDocument, ...options });
+};
+export const ScheduleDocument = gql`
+    query schedule($doctorId: Int!) {
+  doctorSchedules(doctorId: $doctorId) {
+    startTime
+    endTime
+    day
+  }
+}
+    `;
+
+export function useScheduleQuery(options: Omit<Urql.UseQueryArgs<ScheduleQueryVariables>, 'query'>) {
+  return Urql.useQuery<ScheduleQuery>({ query: ScheduleDocument, ...options });
 };
 export const ViewSuggestedTimeSlotsDocument = gql`
     query ViewSuggestedTimeSlots($id: Int!) {
