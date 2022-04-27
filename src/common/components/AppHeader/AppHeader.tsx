@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Avatar, Dropdown, Menu, Badge } from "antd";
+import { Layout, Avatar, Dropdown, Menu, Badge, Divider } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
 import Link from "next/link";
@@ -117,8 +117,15 @@ const AppHeader = () => {
         </span>
         <div className="w-full flex px-0 justify-between items-center">
           <div className="hidden md:block w-full ">
-            {getRole() === "User" && <InfoMessageBannerReminder />}
+            <div className="p-0">{getRole() === "User" && <InfoMessage />}</div>
+
+            <div className="p-0">
+              {getRole() === "Doctor" || getRole() === "User" ? (
+                <InfoMessageBannerReminder />
+              ) : null}
+            </div>
           </div>
+
           <div className="flex items-center text-right justify-end w-full md:w-1/2">
             <span className="flex mt-3 pr-5">
               <Dropdown

@@ -44,3 +44,10 @@ export function time24HrConvert(time: any) {
 export function dayName(date: number) {
   return dayjs().day(date).format("dddd");
 }
+
+export function isAppoinentDateIsSame(date:string){
+  const today = dayjs(new Date());
+  let isAppoinmetnStartTime = today.isAfter(date, "seconds");
+  return isAppoinmetnStartTime;
+
+}

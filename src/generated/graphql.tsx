@@ -625,6 +625,7 @@ export type Query = {
   appointmentServiceType: AppointmentServiceType;
   appointmentServiceTypes: Array<AppointmentServiceType>;
   appointments: Array<Appointment>;
+  appointmentsReminderBanner: Appointment;
   checkEmailAvailability: EmailAvailableResponse;
   cities: Array<City>;
   city: City;
@@ -1130,6 +1131,11 @@ export type ViewSuggestedTimeSlotsQueryVariables = Exact<{
 
 
 export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number, requestedDate: any, reportUrl?: any | null, status?: string | null, createdAt: any, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor: { __typename?: 'User', first_name: string, last_name: string } } };
+
+export type GetAppointmentsReminderBannerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id: number, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
 
 
 export const CreateUserDocument = gql`
@@ -1826,6 +1832,26 @@ export const ViewSuggestedTimeSlotsDocument = gql`
 
 export function useViewSuggestedTimeSlotsQuery(options: Omit<Urql.UseQueryArgs<ViewSuggestedTimeSlotsQueryVariables>, 'query'>) {
   return Urql.useQuery<ViewSuggestedTimeSlotsQuery>({ query: ViewSuggestedTimeSlotsDocument, ...options });
+};
+export const GetAppointmentsReminderBannerDocument = gql`
+    query getAppointmentsReminderBanner {
+  appointmentsReminderBanner {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+  }
+}
+    `;
+
+export function useGetAppointmentsReminderBannerQuery(options?: Omit<Urql.UseQueryArgs<GetAppointmentsReminderBannerQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAppointmentsReminderBannerQuery>({ query: GetAppointmentsReminderBannerDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
@@ -4173,6 +4199,18 @@ export default {
                 }
               }
             ]
+          },
+          {
+            "name": "appointmentsReminderBanner",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": []
           },
           {
             "name": "checkEmailAvailability",
