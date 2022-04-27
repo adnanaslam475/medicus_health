@@ -25,6 +25,7 @@ function AppointmentModalJourney({
 }: Props) {
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const next = (stepName: string) => {
     if (stepName === "stepFour") return;
@@ -87,6 +88,8 @@ function AppointmentModalJourney({
         onPrevious={() => prev(currentStepName)}
         onRequestAppointment={onRequestAppointment}
         setCurrentStepName={setCurrentStepName}
+        appointmentId={appointmentId}
+        // setModalVisible={setModalVisible}
       />
     </Modal>
   );
