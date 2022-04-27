@@ -5,7 +5,7 @@ import visa from "./../../../../../../public/assets/images/visa.svg";
 import mastercard from "./../../../../../../public/assets/images/mastercard.svg";
 import _Classes from "./MakePayment.module.scss";
 import { useGetAllCardsQuery } from "../../../../../generated/graphql";
-import { getUserData } from "common/utils/userData";
+import { getUserData } from "../../../../../common/utils/userData";
 
 const CARD_TYPE = {
   ["visa" as string]: visa,

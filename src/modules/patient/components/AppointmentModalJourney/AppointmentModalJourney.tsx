@@ -11,9 +11,7 @@ import {
 type Props = {
   visible?: boolean | undefined;
   onOk?: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
-  onCancel?:
-    | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
-    | undefined;
+  onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   appointmentId: number | undefined;
 };
 
@@ -25,6 +23,7 @@ function AppointmentModalJourney({
 }: Props) {
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const next = (stepName: string) => {
     if (stepName === "stepFour") return;
@@ -87,6 +86,8 @@ function AppointmentModalJourney({
         onPrevious={() => prev(currentStepName)}
         onRequestAppointment={onRequestAppointment}
         setCurrentStepName={setCurrentStepName}
+        appointmentId={appointmentId}
+        onReject={onCancel}
       />
     </Modal>
   );

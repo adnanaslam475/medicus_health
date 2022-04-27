@@ -1,7 +1,8 @@
 import { LeftOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { StringValueNode } from "graphql";
-import React from "react";
+import React, { useState } from "react";
+import { useCancelAppointmentByPatientMutation } from "../../../../../generated/graphql";
 import _classes from "../AppointmentReschedule/AppointmentReschedule.module.scss";
 
 type Props = {
@@ -10,14 +11,40 @@ type Props = {
   onRequestAppointment: () => void;
   stepName: string;
   setCurrentStepName: (param: string) => void;
+  appointmentId: number | undefined;
+  onReject?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };
+
 function AppointmentModalFooter({
   onNext,
   onPrevious,
   onRequestAppointment,
   setCurrentStepName,
   stepName,
+  appointmentId,
+  onReject,
 }: Props) {
+  // CANCEL Appointment By Patient API CALL
+  const [
+    { data: cancelAppointmentByPatientData },
+    executeCancelAppointmentByPatientData,
+  ] = useCancelAppointmentByPatientMutation();
+  const { cancelAppointmentByPatient } = cancelAppointmentByPatientData || {};
+
+  const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
+
+  function onRejectAppointment(
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    id: number | undefined
+  ) {
+    // setCurrentAppointmentId(id);
+    // executeCancelAppointmentByPatientData({
+    //   id: Number(id),
+    // });
+    // closeModal();
+    onReject?.(e);
+  }
+
   return (
     <div>
       {stepName === "stepOne" && (
@@ -25,7 +52,9 @@ function AppointmentModalFooter({
           <Button
             type="primary"
             className={`${_classes["button-border"]}`}
-            onClick={onNext}
+            onClick={(e) => {
+              onRejectAppointment(e, appointmentId);
+            }}
           >
             Reject
           </Button>
