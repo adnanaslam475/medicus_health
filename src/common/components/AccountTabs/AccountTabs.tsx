@@ -17,13 +17,7 @@ import _classes from "./AccountTabs.module.scss";
 import { date } from "../../utils";
 import { EyeFilled } from "@ant-design/icons";
 
-const { TabPane } = Tabs;
-
-const AccountTabs = () => {
-  type Props = {
-    loading?: boolean;
-  };
-
+function AccountTabs() {
   const form: any = useRef();
 
   // GET USER ID
@@ -70,7 +64,7 @@ const AccountTabs = () => {
     <div>
       <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
         <Tabs type="card">
-          <TabPane
+          <Tabs.TabPane
             className="w-full"
             tab={
               <span className="font-Circular font-medium">
@@ -80,8 +74,8 @@ const AccountTabs = () => {
             key="1"
           >
             <PersonalInfo />
-          </TabPane>
-          <TabPane
+          </Tabs.TabPane>
+          <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">
                 Health Questionnaire
@@ -108,16 +102,16 @@ const AccountTabs = () => {
                 </Button>
               </div>
             </div>
-          </TabPane>
-          <TabPane
+          </Tabs.TabPane>
+          <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">Payment Methods</span>
             }
             key="3"
           >
             <PaymentMethods />
-          </TabPane>
-          <TabPane
+          </Tabs.TabPane>
+          <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">
                 Transaction History
@@ -126,11 +120,11 @@ const AccountTabs = () => {
             key="4"
           >
             <TransactionHistory data={transections as Transection[]} />
-          </TabPane>
+          </Tabs.TabPane>
         </Tabs>
       </div>
     </div>
   );
-};
+}
 
 export default AccountTabs;

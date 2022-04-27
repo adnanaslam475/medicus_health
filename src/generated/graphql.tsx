@@ -1014,12 +1014,33 @@ export type CreateAppointmentMutationVariables = Exact<{
 
 export type CreateAppointmentMutation = { __typename?: 'Mutation', createAppointment: { __typename?: 'Appointment', patientId: number, doctorId: number, serviceId: number, requestedDate: any, scheduleId: number, reportUrl?: any | null } };
 
+export type CreateDoctorBillingMethodMutationVariables = Exact<{
+  createDoctorBillingMethodInput: CreateDoctorBillingMethodInput;
+}>;
+
+
+export type CreateDoctorBillingMethodMutation = { __typename?: 'Mutation', createDoctorBillingMethod: { __typename?: 'DoctorBillingMethod', id: string, bankId: string, bankName: string, bankAccountNumber: string, accountTitle: string, routingNumber: string } };
+
+export type RemoveDoctorBillingMethodMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type RemoveDoctorBillingMethodMutation = { __typename?: 'Mutation', removeDoctorBillingMethod: { __typename?: 'DoctorBillingMethod', id: string } };
+
 export type CancelAppointmentByPatientMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
 
 export type CancelAppointmentByPatientMutation = { __typename?: 'Mutation', cancelAppointmentByPatient: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number, requestedDate: any, reportUrl?: any | null, status?: string | null, createdAt: any } };
+
+export type DoctorBillingMethodsQueryVariables = Exact<{
+  doctorId: Scalars['Int'];
+}>;
+
+
+export type DoctorBillingMethodsQuery = { __typename?: 'Query', doctorBillingMethods: Array<{ __typename?: 'DoctorBillingMethod', id: string, bankId: string, bankName: string, bankAccountNumber: string, accountTitle: string, routingNumber: string }> };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1394,6 +1415,35 @@ export const CreateAppointmentDocument = gql`
 export function useCreateAppointmentMutation() {
   return Urql.useMutation<CreateAppointmentMutation, CreateAppointmentMutationVariables>(CreateAppointmentDocument);
 };
+export const CreateDoctorBillingMethodDocument = gql`
+    mutation createDoctorBillingMethod($createDoctorBillingMethodInput: CreateDoctorBillingMethodInput!) {
+  createDoctorBillingMethod(
+    createDoctorBillingMethodInput: $createDoctorBillingMethodInput
+  ) {
+    id
+    bankId
+    bankName
+    bankAccountNumber
+    accountTitle
+    routingNumber
+  }
+}
+    `;
+
+export function useCreateDoctorBillingMethodMutation() {
+  return Urql.useMutation<CreateDoctorBillingMethodMutation, CreateDoctorBillingMethodMutationVariables>(CreateDoctorBillingMethodDocument);
+};
+export const RemoveDoctorBillingMethodDocument = gql`
+    mutation removeDoctorBillingMethod($id: Int!) {
+  removeDoctorBillingMethod(id: $id) {
+    id
+  }
+}
+    `;
+
+export function useRemoveDoctorBillingMethodMutation() {
+  return Urql.useMutation<RemoveDoctorBillingMethodMutation, RemoveDoctorBillingMethodMutationVariables>(RemoveDoctorBillingMethodDocument);
+};
 export const CancelAppointmentByPatientDocument = gql`
     mutation cancelAppointmentByPatient($id: Int!) {
   cancelAppointmentByPatient(id: $id) {
@@ -1412,6 +1462,22 @@ export const CancelAppointmentByPatientDocument = gql`
 
 export function useCancelAppointmentByPatientMutation() {
   return Urql.useMutation<CancelAppointmentByPatientMutation, CancelAppointmentByPatientMutationVariables>(CancelAppointmentByPatientDocument);
+};
+export const DoctorBillingMethodsDocument = gql`
+    query doctorBillingMethods($doctorId: Int!) {
+  doctorBillingMethods(doctorId: $doctorId) {
+    id
+    bankId
+    bankName
+    bankAccountNumber
+    accountTitle
+    routingNumber
+  }
+}
+    `;
+
+export function useDoctorBillingMethodsQuery(options: Omit<Urql.UseQueryArgs<DoctorBillingMethodsQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorBillingMethodsQuery>({ query: DoctorBillingMethodsDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {

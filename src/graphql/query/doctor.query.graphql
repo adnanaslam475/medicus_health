@@ -1,0 +1,10 @@
+query doctorBillingMethods($doctorId: Int!) {
+  doctorBillingMethods(doctorId: $doctorId) {
+    id
+    bankId
+    bankName
+    bankAccountNumber
+    accountTitle
+    routingNumber
+  }
+}

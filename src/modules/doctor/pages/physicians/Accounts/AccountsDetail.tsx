@@ -1,55 +1,52 @@
-import { Badge, Button, Tabs } from "antd";
-import Image from "next/image";
 import React from "react";
+import { Tabs } from "antd";
 import AccountsProfile from "./AccountsProfile/AccountsProfile";
-import profile from "./../../../../../../public/assets/icon/profile.svg";
-import { ProfileIcon } from "../../../../../common/components/CustomIcon";
-import { DollarIcon } from "../../../../../common/components/CustomIcon";
-
-import _classes from "./Account.module.scss";
 import BankInfo from "./BankInfo/BankInfo";
+
+// scss
+import _classes from "./Account.module.scss";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import config from "../../../../../../config";
+
 function Accounts() {
-	const { TabPane } = Tabs;
-	return (
-		<div>
-			<div className="">
-				<Tabs>
-					<TabPane
-						tab={
-							<span className="font-Circular font-medium flex">
-								<ProfileIcon className={_classes["sidebar-icon-hover"]} />
-								<span className="ml-3 text-xs sm:text-base">Profile</span>
-							</span>
-						}
-						key="1"
-					>
-						<AccountsProfile />
-					</TabPane>
-					<TabPane
-						tab={
-							<span className="font-Circular font-medium flex">
-                <DollarIcon className={_classes["sidebar-icon-hover"]} />
-								<span className="ml-3 text-xs sm:text-base">Bank Info</span>
-							</span>
-						}
-						key="2"
-					>
-						<div className="w-2/6">
-							<BankInfo />
-						</div>
-					</TabPane>
-					<TabPane
-						tab={
-							<span className="font-Circular font-medium">Questionnaire</span>
-						}
-						key="3"
-					>
-						{/* <PaymentMethods /> */}
-					</TabPane>
-				</Tabs>
-			</div>
-		</div>
-	);
+  return (
+    <div>
+      <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
+        <Tabs type="card">
+          <Tabs.TabPane
+            className="w-full"
+            tab={
+              <span className="font-Circular font-medium flex">Profile</span>
+            }
+            key="1"
+          >
+            <AccountsProfile />
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            tab={
+              <span className="font-Circular font-medium flex">Bank Info</span>
+            }
+            key="2"
+          >
+            <div className="w-2/6">
+              <Elements stripe={loadStripe(config.stripeKey || "")}>
+                <BankInfo />
+              </Elements>
+            </div>
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            tab={
+              <span className="font-Circular font-medium">Questionnaire</span>
+            }
+            key="3"
+          >
+            {/* <PaymentMethods /> */}
+          </Tabs.TabPane>
+        </Tabs>
+      </div>
+    </div>
+  );
 }
 
 export default Accounts;
