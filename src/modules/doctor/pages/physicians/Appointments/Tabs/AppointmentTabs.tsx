@@ -2,7 +2,6 @@ import React from "react";
 import Router from "next/router";
 import { Tabs } from "antd";
 const { TabPane } = Tabs;
-import AppointmentInfo from "../../../../../../../src/modules/doctor/pages/physicians/Appointments/Tabs/AppointmentInfo";
 
 function AppointmentTabs() {
   return (
