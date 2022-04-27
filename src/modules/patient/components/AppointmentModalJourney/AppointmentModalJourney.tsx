@@ -7,6 +7,7 @@ import {
   Appointment,
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../generated/graphql";
+import _classes from ".//AppointmentModal.module.scss";
 
 type Props = {
   visible?: boolean | undefined;
@@ -70,7 +71,8 @@ function AppointmentModalJourney({
       onOk={onOk}
       onCancel={onCancel}
       footer={null}
-      width={368}
+      width={400}
+      className={`${_classes["appointment-journey-modal"]}`}
     >
       <div className="steps-content">
         <CurrentStepContent
