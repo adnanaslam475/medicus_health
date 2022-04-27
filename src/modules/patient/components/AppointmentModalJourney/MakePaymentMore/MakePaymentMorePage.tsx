@@ -22,10 +22,11 @@ function MakePaymentMore() {
   const stripe = useStripe();
   const elements = useElements();
 
-  // // GET ALL CARDS API CALL
-  // const [, executeGetAllCardsQuery] = useGetAllCardsQuery({
-  //   variables: { userId: getUserData()?.user?.id as number },
-  // });
+  // GET ALL CARDS API CALL
+  const [{ data: getAllCardsData }, executeGetAllCardsQuery] =
+    useGetAllCardsQuery({
+      variables: { userId: getUserData()?.user?.id as number },
+    });
 
   const [, executeCardMutation] = useCreateCardMutation();
 
@@ -52,7 +53,7 @@ function MakePaymentMore() {
         input: {
           card_digits: Number(source?.card?.last4) || 0,
           card_type: source?.card?.brand || "",
-          is_default: false, //data?.length === 0,
+          is_default: getAllCardsData?.getAllCards.length === 0,
           source_id: source?.id as string,
           user_id: user?.id as number,
           exp_month: String(source?.card?.exp_month),
@@ -80,7 +81,11 @@ function MakePaymentMore() {
     }
   };
   return (
-    <Form className="" onFinish={handleSubmit} layout="vertical">
+    <Form
+      className=""
+      // onFinish={handleSubmit}
+      layout="vertical"
+    >
       <h1>Make Payment</h1>
       <span className="text-base text-secondary my-2">Card Number*</span>
       <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
