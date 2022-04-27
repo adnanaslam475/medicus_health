@@ -12,7 +12,7 @@ type Props = {
   stepName: string;
   setCurrentStepName: (param: string) => void;
   appointmentId: number | undefined;
-  // setModalVisible: boolean;
+  onReject?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };
 
 function AppointmentModalFooter({
@@ -22,16 +22,9 @@ function AppointmentModalFooter({
   setCurrentStepName,
   stepName,
   appointmentId,
-}: // setModalVisible,
-Props) {
-  function onRejectAppointment(id: number | undefined) {
-    setCurrentAppointmentId(id);
-    executeCancelAppointmentByPatientData({
-      id: Number(id),
-    });
-  }
-
-  // CANCEL appointment by patient API CALL
+  onReject,
+}: Props) {
+  // CANCEL Appointment By Patient API CALL
   const [
     { data: cancelAppointmentByPatientData },
     executeCancelAppointmentByPatientData,
@@ -39,6 +32,19 @@ Props) {
   const { cancelAppointmentByPatient } = cancelAppointmentByPatientData || {};
 
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
+
+  function onRejectAppointment(
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    id: number | undefined
+  ) {
+    // setCurrentAppointmentId(id);
+    // executeCancelAppointmentByPatientData({
+    //   id: Number(id),
+    // });
+    // closeModal();
+    onReject?.(e);
+  }
+
   return (
     <div>
       {stepName === "stepOne" && (
@@ -46,8 +52,9 @@ Props) {
           <Button
             type="primary"
             className={`${_classes["button-border"]}`}
-            // onClick={onNext}
-            onClick={() => onRejectAppointment(appointmentId)}
+            onClick={(e) => {
+              onRejectAppointment(e, appointmentId);
+            }}
           >
             Reject
           </Button>
