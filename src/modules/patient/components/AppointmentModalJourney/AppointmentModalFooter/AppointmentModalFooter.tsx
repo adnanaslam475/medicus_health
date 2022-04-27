@@ -8,26 +8,22 @@ import _classes from "../AppointmentReschedule/AppointmentReschedule.module.scss
 type Props = {
   onNext: () => void;
   onPrevious: () => void;
-  // closeModal: () => void;
   onRequestAppointment: () => void;
   stepName: string;
   setCurrentStepName: (param: string) => void;
   appointmentId: number | undefined;
   onReject?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-  // setModalVisible: boolean;
 };
 
 function AppointmentModalFooter({
   onNext,
   onPrevious,
   onRequestAppointment,
-  // closeModal,
   setCurrentStepName,
   stepName,
   appointmentId,
   onReject,
-}: // setModalVisible,
-Props) {
+}: Props) {
   // CANCEL Appointment By Patient API CALL
   const [
     { data: cancelAppointmentByPatientData },
