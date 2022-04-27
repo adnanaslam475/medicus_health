@@ -7,6 +7,7 @@ import {
   Appointment,
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../generated/graphql";
+import _classes from ".//AppointmentModal.module.scss";
 import { AppointmentModalProvider } from "./AppointmentModalProvider";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -80,7 +81,8 @@ function AppointmentModalJourney({
       onOk={onOk}
       onCancel={onCancel}
       footer={null}
-      width={368}
+      width={400}
+      className={`${_classes["appointment-journey-modal"]}`}
     >
       <Elements stripe={loadStripe(config.stripeKey || "")}>
         <AppointmentModalProvider>
