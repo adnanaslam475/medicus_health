@@ -1,6 +1,7 @@
 import { Radio } from "antd";
 import Image from "next/image";
 import React from "react";
+import _classes from "./Payment.module.scss";
 
 type Props = {
   visa: StaticImageData;
@@ -12,19 +13,27 @@ function Payment(props: Props) {
 
   return (
     <div className="bg-gray-4 flex items-center py-3 px-3 pr-10 rounded my-3">
-      <div className="bg-white rounded px-2 pb-0 mb-0 pt-2">
-        <Image
-          alt=""
-          src={visa}
-          width={46}
-          height={24}
-          className="border rounded border-gray-2"
-        />
-      </div>
-      <div className="px-2">
-        <h6 className="text-md capitalize text-dark font-medium">{title}</h6>
-        <p className="text-gray-2">{description}</p>
-      </div>
+      <Radio
+        className={`bg-gray-4 ${_classes["radio-div"]}`}
+        value={title}
+        // value={`${date.formathhmma(item.startTime)} - ${date.formathhmma(
+        //   item.endTime
+        // )}`}
+      >
+        <div className="bg-white rounded px-2 pb-0 mb-0 pt-2">
+          <Image
+            alt=""
+            src={visa}
+            width={46}
+            height={24}
+            className="border rounded border-gray-2"
+          />
+        </div>
+        <div className="px-2">
+          <h6 className="text-md capitalize text-dark font-medium">{title}</h6>
+          <p className="text-gray-2">{description}</p>
+        </div>
+      </Radio>
     </div>
   );
 }
