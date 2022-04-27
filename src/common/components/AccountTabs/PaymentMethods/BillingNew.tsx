@@ -8,9 +8,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { StripeCardNumberElement } from "@stripe/stripe-js/types/stripe-js/elements";
 import {
-  GetAllCardsQuery,
   useCreateCardMutation,
   useGetAllCardsQuery,
   UserCard,
@@ -23,11 +21,12 @@ type Props = {
   title: string;
   description: string;
   isDefault: boolean;
-  onRemove: () => void;
-  onMakeDefault: () => void;
+  onRemove?: (() => void) | undefined;
+  onMakeDefault?: (() => void) | undefined;
 };
 export const Payment = (props: Props) => {
   const { title, description, isDefault, onRemove, onMakeDefault } = props;
+
   return (
     <div
       className={`${_classes["stripeCard"]} bg-gray-4 p-5 rounded-md border-primary mb-4`}
@@ -39,42 +38,40 @@ export const Payment = (props: Props) => {
           </div>
           <div className="text-gray-2">{description}</div>
         </div>
-        <div>
-          {isDefault && (
-            <Tag>DEFAULT</Tag>
-          )}
-        </div>
+        <div>{isDefault && <Tag>DEFAULT</Tag>}</div>
       </div>
       {!isDefault && (
-        <div className={`${_classes["btn-stripe-card"]} mt-3`}>
+        <div className={`${_classes["btn-stripe-card"]} mt-3 flex gap-2`}>
+          {onMakeDefault && (
+            <Button
+              type="link"
+              size="small"
+              className="text-primary p-0"
+              onClick={() => {
+                Modal.confirm({
+                  content: "Do you want to make this card default?",
+                  okText: "Yes",
+                  onOk() {
+                    onMakeDefault?.();
+                  },
+                  onCancel() {},
+                });
+              }}
+            >
+              Make Default
+            </Button>
+          )}
           <Button
             type="link"
             size="small"
-            className="text-primary p-0"
-            onClick={() => {
-              Modal.confirm({
-                content: "Do you want to make this card default?",
-                okText: "Yes",
-                onOk() {
-                  onMakeDefault();
-                },
-                onCancel() {},
-              });
-            }}
-          >
-            Make Default
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            className="text-danger ml-2 p-0"
+            className="text-danger p-0"
             danger
             onClick={() => {
               Modal.confirm({
                 content: "Do you want to remove this card?",
                 okText: "Remove",
                 onOk() {
-                  onRemove();
+                  onRemove?.();
                 },
                 onCancel() {},
               });
@@ -92,8 +89,8 @@ Payment.defaultProps = {
   title: "Visa Ending with ****",
   description: "MM/YYYY",
   isDefault: false,
-  onRemove: () => {},
-  onMakeDefault: () => {},
+  // onRemove: () => {},
+  // onMakeDefault: () => {},
 };
 
 type propsBilling = {
@@ -134,10 +131,6 @@ function Billing({
         return;
       }
       const cardElement = elements.getElement(CardNumberElement);
-
-      const { token } =
-        (await stripe?.createToken(cardElement as StripeCardNumberElement)) ||
-        {};
 
       const { source, error } =
         (await stripe?.createSource(
@@ -285,8 +278,6 @@ function Billing({
 
 Billing.defaultProps = {
   data: [],
-  onRemove: () => {},
-  onMakeDefault: () => {},
   onSubmit: async () => {},
   loading: false,
 };

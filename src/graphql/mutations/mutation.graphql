@@ -178,6 +178,27 @@ mutation createAppointment($createAppointment: CreateAppointmentInput!) {
   }
 }
 
+mutation createDoctorBillingMethod(
+  $createDoctorBillingMethodInput: CreateDoctorBillingMethodInput!
+) {
+  createDoctorBillingMethod(
+    createDoctorBillingMethodInput: $createDoctorBillingMethodInput
+  ) {
+    id
+    bankId
+    bankName
+    bankAccountNumber
+    accountTitle
+    routingNumber
+  }
+}
+
+mutation removeDoctorBillingMethod($id: Int!) {
+  removeDoctorBillingMethod(id: $id) {
+    id
+  }
+}
+
 #CANCEL APPOINTMENT BY APPOINMENT
 mutation cancelAppointmentByPatient($id: Int!) {
   cancelAppointmentByPatient(id: $id) {

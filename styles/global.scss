@@ -183,10 +183,6 @@ label.ant-radio-wrapper {
   }
 }
 
-// .ant-modal-footer button {
-//   display: inline-block;
-// }
-
 @layer base {
   body {
     font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -357,13 +353,13 @@ label.ant-radio-wrapper {
   }
 }
 
-
-.ant-tooltip{
-  .ant-tooltip-content{
-      .ant-tooltip-inner{
-          color:#272B4C !important;
-          text-transform: capitalize;
-          box-shadow: 0 3px 4px -4px rgb(0 0 0 / 8%), 0 6px 10px 0 rgb(0 0 0 / 6%), 0 9px 15px 6px rgb(0 0 0 / 4%) !important;
-      }
+.ant-tooltip {
+  .ant-tooltip-content {
+    .ant-tooltip-inner {
+      color: #272b4c !important;
+      text-transform: capitalize;
+      box-shadow: 0 3px 4px -4px rgb(0 0 0 / 8%), 0 6px 10px 0 rgb(0 0 0 / 6%),
+        0 9px 15px 6px rgb(0 0 0 / 4%) !important;
+    }
   }
 }

@@ -1,69 +1,159 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
-import React, { useState } from "react";
-import _classes from './BankInfo.module.scss'
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Form, FormInstance, notification } from "antd";
+import {
+  DoctorBillingMethod,
+  useCreateDoctorBillingMethodMutation,
+  useDoctorBillingMethodsQuery,
+  useRemoveDoctorBillingMethodMutation,
+} from "generated/graphql";
+import AddPaymentForm from "./AddPaymentForm";
+import { getUserData } from "common/utils/userData";
+import { Payment } from "common/components/AccountTabs/PaymentMethods/BillingNew";
+import { useStripe } from "@stripe/react-stripe-js";
+
+// scss
+import _classes from "./BankInfo.module.scss";
+
 function BankInfo() {
-    const [data, setData] = useState(false);
-    const handleFormVisible = () => {
-        setData(!data);
-    };
+  const stripe = useStripe();
+  const [isShowForm, setShowForm] = useState<boolean>(false);
+  const formRef = useRef<FormInstance>();
+  const [{ fetching }, executeCreateDoctorBillingMethodMutation] =
+    useCreateDoctorBillingMethodMutation();
 
-    return (
-        <div className="w-full pb-10">
-           {data ===false && 
-             <Button
-             icon={<PlusOutlined />}
-             className="text-primary"
-             onClick={handleFormVisible}
-           >
-             Add Account
-           </Button>}
-          
+  // GET USER ID
+  const { user } = getUserData();
+  const id: number = user?.id;
 
-            {data && (
-                <Form
-                    // form={formInstance}
-                    name="basic"
-                    // onFinish={onFinish}
-                    layout="vertical"
-                >
-                    <Form.Item label="Bank Name" name="firstName" className="flex-1">
-                        <Input defaultValue="Capital Bank" />
-                    </Form.Item>
-                    <Form.Item label="Account Number" name="account" className="flex-1">
-                        <Input defaultValue="123345453" />
-                    </Form.Item>
-                    <Form.Item label="Routing Number" name="routing" className="flex-1">
-                        <Input defaultValue="312123" />
-                    </Form.Item>
-                </Form>
-            )}
-            {data ===true &&
-            <div className="flex justify-end">
-            <Button
+  const [, executeRemoveDoctorBillingMethodMutation] =
+    useRemoveDoctorBillingMethodMutation();
+
+  const [
+    { data, fetching: billingQueryFetching },
+    executeDoctorBillingMethodsQuery,
+  ] = useDoctorBillingMethodsQuery({
+    variables: {
+      doctorId: id,
+    },
+  });
+
+  const { doctorBillingMethods } = data || {};
+  const billingMethods: DoctorBillingMethod =
+    (doctorBillingMethods?.[0] as DoctorBillingMethod) || {};
+
+  useEffect(() => {
+    if (billingMethods?.id) {
+      setShowForm(false);
+    } else {
+      setShowForm(true);
+    }
+  }, [billingMethods?.id]);
+
+  async function onAddPayment(values: {
+    bankName: string;
+    accountTitle: string;
+    bankAccountNumber: string;
+    routingNumber: string;
+  }) {
+    try {
+      // @ts-ignore
+      const { token } = await stripe?.createToken("bank_account", {
+        country: "US",
+        currency: "USD",
+        routing_number: values.routingNumber,
+        account_number: values.bankAccountNumber,
+        account_holder_name: values.accountTitle,
+        account_holder_type: "individual",
+      });
+      if (!token) {
+        throw new Error("Something went wrong! Please try again.");
+      }
+      const { error } = await executeCreateDoctorBillingMethodMutation(
+        {
+          createDoctorBillingMethodInput: {
+            ...values,
+            doctorId: id,
+            source: token.id,
+            bankId: token.bank_account.id,
+            is_default: true,
+          },
+        },
+        { requestPolicy: "network-only" }
+      );
+      if (error && error?.message) {
+        throw new Error(error.message);
+      }
+      executeDoctorBillingMethodsQuery({
+        requestPolicy: "network-only",
+      });
+      setShowForm(false);
+    } catch (error: any) {
+      notification.error({
+        message: error?.message,
+      });
+    }
+  }
+
+  async function onRemoveCard(id: number) {
+    try {
+      const { error } = await executeRemoveDoctorBillingMethodMutation({
+        id,
+      });
+      setShowForm(true);
+      if (error && error?.message) {
+        throw new Error(error.message);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message,
+      });
+    }
+  }
+
+  if (billingQueryFetching) {
+    return null;
+  }
+
+  const isCreateMode = isShowForm;
+
+  return (
+    <div className="w-full pb-10">
+      {isCreateMode && (
+        <AddPaymentForm
+          ref={formRef}
+          loading={fetching}
+          onFinish={onAddPayment}
+        />
+      )}
+      {!isCreateMode && (
+        <div>
+          <Payment
+            title={billingMethods.accountTitle}
+            description={`${billingMethods.bankName} - ${billingMethods.bankAccountNumber}`}
+            onRemove={() => onRemoveCard(Number(billingMethods.id))}
+          />
+        </div>
+      )}
+
+      {isCreateMode && (
+        <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
+          <Form.Item className="">
+            <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
+              <Button
+                onClick={() => formRef.current?.submit()}
                 type="primary"
-                onClick={handleFormVisible}
-                
-            >
-                Remove Account
-            </Button>
-            </div>}
-
-            <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
-              <Form.Item className="">
-                <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-                  <Button htmlType="submit" className="">
-                    Cancel
-                  </Button>
-                  <Button type="primary" htmlType="submit" className="">
-                    Save Changes
-                  </Button>
-                </div>
-              </Form.Item>
-            </div> 
-        
+                htmlType="submit"
+                className=""
+                loading={fetching}
+              >
+                Save Changes
+              </Button>
             </div>
-    );
+          </Form.Item>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default BankInfo;
