@@ -134,3 +134,13 @@ export const educationalBGData = [
     },
   ],
 ];
+
+export const days = [
+  { key: 1, value: "Monday" },
+  { key: 2, value: "Tuesday" },
+  { key: 3, value: "Wednesday" },
+  { key: 4, value: "Thursday" },
+  { key: 5, value: "Friday" },
+  { key: 6, value: "Saturday" },
+  { key: 7, value: "Sunday" },
+];

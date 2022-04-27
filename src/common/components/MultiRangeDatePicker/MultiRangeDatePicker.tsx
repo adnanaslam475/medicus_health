@@ -1,10 +1,12 @@
-import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, DatePicker } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import React from "react";
 import MultiRangeListing from "./MultiRangeListing";
-const { RangePicker } = DatePicker;
+import { TimePicker } from "antd";
+const { RangePicker } = TimePicker;
 import _Classes from "./MultiRangeDatePicker.module.scss";
 import { Schedule, singleSchedule } from "utils/types";
+import DayPicker from "utils/DayPicker";
 
 type Props = {
   disable: boolean;
@@ -13,11 +15,10 @@ type Props = {
 
 function MultiRangeDatePicker(props: Props) {
   const { disable, schedules } = props;
-  const changeHandler = (dates: any, dateStrings: any) => {
-    console.log("From: ", dates[0], ", to: ", dates[1]);
-    console.log("From: ", dateStrings[0], ", to: ", dateStrings[1]);
-    console.log("john", disable == false, !disable);
-  };
+
+  function onChange(unUsed: any, timeString: [string, string]) {
+    console.log("time change is", timeString);
+  }
 
   return (
     <>
@@ -26,11 +27,12 @@ function MultiRangeDatePicker(props: Props) {
         <div
           className={`${_Classes["multiRange-date"]}  border flex flex-1 rounded-lg`}
         >
+          <DayPicker />
           <RangePicker
-            showTime
-            format="YYYY/MM/DD HH:mm:ss"
-            className={`${_Classes["multiRange"]}`}
-            onChange={changeHandler}
+            bordered={false}
+            use12Hours
+            format="h:mm A"
+            onChange={onChange}
           />
           <Button
             icon={<PlusOutlined className="font-bold text-sm pb-0.5" />}
