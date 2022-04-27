@@ -11,9 +11,7 @@ import {
 type Props = {
   visible?: boolean | undefined;
   onOk?: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
-  onCancel?:
-    | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
-    | undefined;
+  onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   appointmentId: number | undefined;
 };
 
@@ -89,7 +87,7 @@ function AppointmentModalJourney({
         onRequestAppointment={onRequestAppointment}
         setCurrentStepName={setCurrentStepName}
         appointmentId={appointmentId}
-        // setModalVisible={setModalVisible}
+        onReject={onCancel}
       />
     </Modal>
   );
