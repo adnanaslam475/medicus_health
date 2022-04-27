@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AppointmentModalFooter from "./AppointmentModalFooter/AppointmentModalFooter";
 import CurrentStepContent from "./CurrentStepContent/CurrentStepContent";
@@ -7,6 +7,11 @@ import {
   Appointment,
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../generated/graphql";
+import _classes from ".//AppointmentModal.module.scss";
+import { AppointmentModalProvider } from "./AppointmentModalProvider";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import config from "./../../../../../config";
 
 type Props = {
   visible?: boolean | undefined;
@@ -24,6 +29,12 @@ function AppointmentModalJourney({
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    if (visible) {
+      setCurrentStepName("stepOne");
+    }
+  }, [visible]);
 
   const next = (stepName: string) => {
     if (stepName === "stepFour") return;
@@ -70,25 +81,32 @@ function AppointmentModalJourney({
       onOk={onOk}
       onCancel={onCancel}
       footer={null}
-      width={368}
+      width={400}
+      className={`${_classes["appointment-journey-modal"]}`}
     >
-      <div className="steps-content">
-        <CurrentStepContent
-          appointmentId={appointmentId}
-          appointmentDetails={appointment as Appointment}
-          stepName={currentStepName}
-        />
-      </div>
+      <Elements stripe={loadStripe(config.stripeKey || "")}>
+        <AppointmentModalProvider>
+          <>
+            <div className="steps-content">
+              <CurrentStepContent
+                appointmentId={appointmentId}
+                appointmentDetails={appointment as Appointment}
+                stepName={currentStepName}
+              />
+            </div>
 
-      <AppointmentModalFooter
-        stepName={currentStepName}
-        onNext={() => next(currentStepName)}
-        onPrevious={() => prev(currentStepName)}
-        onRequestAppointment={onRequestAppointment}
-        setCurrentStepName={setCurrentStepName}
-        appointmentId={appointmentId}
-        onReject={onCancel}
-      />
+            <AppointmentModalFooter
+              stepName={currentStepName}
+              onNext={() => next(currentStepName)}
+              onPrevious={() => prev(currentStepName)}
+              onRequestAppointment={onRequestAppointment}
+              setCurrentStepName={setCurrentStepName}
+              appointmentId={appointmentId}
+              onReject={onCancel}
+            />
+          </>
+        </AppointmentModalProvider>
+      </Elements>
     </Modal>
   );
 }

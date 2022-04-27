@@ -8,6 +8,7 @@ import {
 } from "../../../../../generated/graphql";
 import { getUserData } from "../../../../../common/utils/userData";
 import { date } from "../../../../../common/utils";
+import { useAppointmentModal } from "../AppointmentModalProvider";
 
 type Props = {
   appointmentId: number;
@@ -24,9 +25,11 @@ function AppointmentReschedule(props: Props) {
   const doctorName = first_name + " " + last_name;
 
   const [value, setValue] = React.useState("");
+  const { saveStepOne } = useAppointmentModal();
 
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
+    saveStepOne?.(e.target.value);
   };
 
   return (

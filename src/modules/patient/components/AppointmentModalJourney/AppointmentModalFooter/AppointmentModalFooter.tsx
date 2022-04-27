@@ -1,8 +1,23 @@
 import { LeftOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button } from "antd";
-import { StringValueNode } from "graphql";
+import {
+  CardNumberElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
+import {
+  CreateSourceData,
+  StripeCardNumberElement,
+  StripeElement,
+} from "@stripe/stripe-js";
+import { Button, notification } from "antd";
+import { getUserData } from "common/utils/userData";
+// import { StringValueNode } from "graphql";
 import React, { useState } from "react";
-import { useCancelAppointmentByPatientMutation } from "../../../../../generated/graphql";
+import {
+  useCancelAppointmentByPatientMutation,
+  useCreateCardMutation,
+  useGetAllCardsQuery,
+} from "../../../../../generated/graphql";
 import _classes from "../AppointmentReschedule/AppointmentReschedule.module.scss";
 
 type Props = {
@@ -30,10 +45,30 @@ function AppointmentModalFooter({
     executeCancelAppointmentByPatientData,
   ] = useCancelAppointmentByPatientMutation();
   const { cancelAppointmentByPatient } = cancelAppointmentByPatientData || {};
-
+  const [, executeCardMutation] = useCreateCardMutation();
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
 
+  const stripe = useStripe();
+  const elements = useElements();
+
+  // GET ALL CARDS API CALL
+  const [{ data: getAllCardsData }, executeGetAllCardsQuery] =
+    useGetAllCardsQuery({
+      variables: { userId: getUserData()?.user?.id as number },
+    });
+
   function onRejectAppointment(
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    id: number | undefined
+  ) {
+    setCurrentAppointmentId(id);
+    executeCancelAppointmentByPatientData({
+      id: Number(id),
+    });
+    onReject?.(e);
+  }
+
+  function onPay(
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     id: number | undefined
   ) {
@@ -42,7 +77,57 @@ function AppointmentModalFooter({
     //   id: Number(id),
     // });
     // closeModal();
-    onReject?.(e);
+    setCurrentStepName("stepFour");
+  }
+
+  async function onAddAndPay(
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    id: number | undefined
+  ) {
+    try {
+      if (elements == null) {
+        return;
+      }
+      const cardElement = elements.getElement(CardNumberElement);
+
+      const { token } =
+        (await stripe?.createToken(cardElement as StripeCardNumberElement)) ||
+        {};
+
+      const { source, error } =
+        (await stripe?.createSource(
+          cardElement as StripeElement,
+          {} as CreateSourceData
+        )) || {};
+
+      const { user } = getUserData();
+      const { data } = await executeCardMutation({
+        input: {
+          card_digits: Number(source?.card?.last4) || 0,
+          card_type: source?.card?.brand || "",
+          is_default: getAllCardsData?.getAllCards.length === 0,
+          source_id: source?.id as string,
+          user_id: user?.id as number,
+          exp_month: String(source?.card?.exp_month),
+          exp_year: String(source?.card?.exp_year),
+        },
+      });
+
+      // executeGetAllCardsQuery({ requestPolicy: "network-only" });
+
+      if (error) {
+        notification.error({
+          message: error?.message || "Something went wrong",
+        });
+      } else {
+        console.log(source?.id);
+        cardElement?.clear();
+      }
+    } catch (error) {
+      onReject?.(e);
+    }
+
+    setCurrentStepName("stepFour");
   }
 
   return (
@@ -75,7 +160,9 @@ function AppointmentModalFooter({
           </div>
           <Button
             type="primary"
-            onClick={() => setCurrentStepName("stepFour")}
+            onClick={(e) => {
+              onPay(e, appointmentId);
+            }}
             className={`${_classes["button-background-color"]}`}
           >
             Pay $5900
@@ -91,7 +178,9 @@ function AppointmentModalFooter({
           <Button
             type="primary"
             className={`${_classes["button-background-color"]}`}
-            onClick={onNext}
+            onClick={(e) => {
+              onAddAndPay(e, appointmentId);
+            }}
           >
             Pay $5900
           </Button>
