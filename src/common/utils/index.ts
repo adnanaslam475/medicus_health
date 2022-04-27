@@ -5,6 +5,7 @@ import {
   dayName,
   formatMMMMDDYYYY,
   formathhmma,
+  isAppoinentDateIsSame
 } from "./date";
 
 const date = {
@@ -14,6 +15,7 @@ const date = {
   dayName,
   formatMMMMDDYYYY,
   formathhmma,
+  isAppoinentDateIsSame
 };
 
 export { date };

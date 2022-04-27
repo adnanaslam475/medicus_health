@@ -427,3 +427,19 @@ query ViewSuggestedTimeSlots($id: Int!) {
     }
   }
 }
+
+#GET APPOINTMENT FOR REMINDER
+query getAppointmentsReminderBanner{
+  appointmentsReminderBanner{
+    id
+    patient{
+      first_name
+      last_name
+    }
+    appointmentTimeSlots{
+      startTime
+      endTime
+      selected
+    }
+  }
+}

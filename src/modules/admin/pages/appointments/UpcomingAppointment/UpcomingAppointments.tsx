@@ -42,7 +42,6 @@ function UpcomingAppointments() {
 
   const { appointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
-  console.log("UpcomingAppointments", appointments);
 
   return (
     <AppLayout>
