@@ -61,11 +61,10 @@ function AppointmentModalFooter({
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     id: number | undefined
   ) {
-    // setCurrentAppointmentId(id);
-    // executeCancelAppointmentByPatientData({
-    //   id: Number(id),
-    // });
-    // closeModal();
+    setCurrentAppointmentId(id);
+    executeCancelAppointmentByPatientData({
+      id: Number(id),
+    });
     onReject?.(e);
   }
 
