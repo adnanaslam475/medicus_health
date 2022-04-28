@@ -4,4 +4,4 @@ function requestedAppointments() {
   return <RequestedAppointment />;
 }
 
-export default RequestedAppointment;
+export default requestedAppointments;

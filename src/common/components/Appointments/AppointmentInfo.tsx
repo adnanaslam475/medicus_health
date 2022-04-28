@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Tag } from "antd";
+import { Avatar, Button, Tag } from "antd";
 import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
 import { ButtonType } from "antd/lib/button";
@@ -7,28 +7,28 @@ import { GetAppointmentByIdQuery } from "../../../generated/graphql";
 import { date } from "../../utils";
 
 type Props = {
-  appoinmentDetails: GetAppointmentByIdQuery | undefined;
+	appoinmentDetails?: GetAppointmentByIdQuery | undefined;
 };
 
 function AppointmentInfo(props: Props) {
-  const { appoinmentDetails } = props;
-  const { first_name, last_name } =
-    appoinmentDetails?.appointment?.doctor || {};
+	const { appoinmentDetails } = props;
+	const { first_name, last_name } =
+		appoinmentDetails?.appointment?.doctor || {};
 
-  const { id, status, requestedDate, appointmentTimeSlots } =
-    appoinmentDetails?.appointment || {};
+	const { id, status, requestedDate, appointmentTimeSlots } =
+		appoinmentDetails?.appointment || {};
 
-  const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
+	const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
 
-  function timeSlots() {
-    if (appointmentTimeSlots) {
-      let selectedTimeSlots = appointmentTimeSlots?.find(
-        (item) => item?.selected == true
-      );
+	function timeSlots() {
+		if (appointmentTimeSlots) {
+			let selectedTimeSlots = appointmentTimeSlots?.find(
+				(item) => item?.selected == true
+			);
 
-      return selectedTimeSlots;
-    }
-  }
+			return selectedTimeSlots;
+		}
+	}
 
   return (
     <React.Fragment>

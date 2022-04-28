@@ -3,14 +3,19 @@ import { Button } from "antd";
 import Image from "next/image";
 import { useGetAppointmentsReminderBannerQuery } from "generated/graphql";
 import { date } from "common/utils";
+import { getRole } from "common/utils/userData";
 
 const InfoMessageBannerReminder = () => {
   const [{ data }] = useGetAppointmentsReminderBannerQuery();
   const { appointmentsReminderBanner } = data || {};
 
   const { patient } = appointmentsReminderBanner || {};
+  const { doctor } = appointmentsReminderBanner || {};
 
-  const { first_name, last_name } = patient || {};
+  const { first_name: patient_first_name, last_name: patient_last_name } =
+    patient || {};
+  const { first_name: doctor_first_name, last_name: doctor_last_name } =
+    doctor || {};
 
   const { appointmentTimeSlots } = appointmentsReminderBanner || {};
 
@@ -31,7 +36,14 @@ const InfoMessageBannerReminder = () => {
         src="/assets/icon/warning-small.svg"
       />
       <span className="ml-3 min-h-max hidden md:block">
-        You Have An Upcomming Appointment With {`${first_name} ${last_name}`} At
+        You Have An Upcomming Appointment With
+        {getRole() === "Doctor" && (
+          <span> {`${patient_first_name} ${patient_last_name}`} </span>
+        )}
+        {getRole() === "User" && (
+          <span> {`${doctor_first_name} ${doctor_last_name}`} </span>
+        )}
+        At
       </span>
       <span>{date?.formatMMMMDDYYYY(selectedTime?.startTime)}</span>
       <span>

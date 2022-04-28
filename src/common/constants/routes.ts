@@ -33,17 +33,13 @@ export const ADMIN_ROUTES: routes = [
 ];
 
 export const DOCTOR_ROUTES: routes = [
-  {
-    name: "Appointments",
-    route: "+",
-    submenu: [
-      // { name: "Upcoming", route: "/doctor/appointments/upcoming" },
-      { name: "Requested", route: "/doctor/appointments/requested" },
-      // { name: "Cancelled", route: "/doctor/appointments/cancelled" },
-      // { name: "History", route: "/doctor/appointments/history" },
-    ],
-  },
-  { name: "Dashboard", route: "/doctor/dashboard" },
+  { name: "Dashboard", route: "/doctor/dashboard",
+   submenu: [
+    { name: "Upcoming", route: "/doctor/appointments/upcoming" },
+    { name: "Requested", route: "/doctor/appointments/requested" },
+    { name: "Cancelled", route: "/doctor/appointments/cancelled" },
+    { name: "History", route: "/doctor/appointments/history" },
+  ], },
   { name: "Doctor Listing", route: "/doctor/listing" },
   { name: "Physicians", route: "/doctor/physicians" },
   { name: "Staff", route: "/doctor/physicians" },
