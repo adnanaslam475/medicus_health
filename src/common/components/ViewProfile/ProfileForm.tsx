@@ -13,7 +13,7 @@ interface Props {
   doctorId: string;
   doctorData: any;
   showLoginInfo: boolean;
-  schedules: Schedule[];
+  schedules: Schedule[] | undefined;
 }
 
 function ProfileForm({
@@ -104,7 +104,7 @@ function ProfileForm({
         <AboutMe />
 
         <InputWithLi disable={true} />
-        <MultiRangeDatePicker disable={true} schedules={schedules} />
+        <MultiRangeDatePicker disable={true} schedules={schedules} setAddScheduleClick={()=>null}/>
         <div className={`my-6 ${_classes["professional"]}`}>
           <h5>Professional Background</h5>
           {professionalBGData.map((item) => {
