@@ -27,7 +27,6 @@ function ProfileDetail() {
   const [addScheduleClick, setAddScheduleClick] = useState(false);
   const [addScheduleTime, setAddScheduleTime] = useState("");
 
-  const [viewSchedule, setViewSchedule] = useState("");
   const editData = () => {
     setIsEdit(!isEdit);
   };
@@ -41,18 +40,20 @@ function ProfileDetail() {
 
   const { doctorProfile } = data || {};
 
-  const [doctorSchedules] = useScheduleQuery({
+  const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
     variables: { doctorId: Number(docId) },
   });
   const schedules = doctorSchedules?.data?.doctorSchedules;
 
-  const [__, executeCreateDoctorScheduleMutation] =
+  useEffect(() => {
+    executeDoctorSchedules({ requestPolicy: "network-only" });
+  }, [addScheduleClick]);
+
+  const [, executeCreateDoctorScheduleMutation] =
     useCreateDocScheduleMutation();
-  const [_, executeRemoveDoctorScheduleMutation] =
+  const [, executeRemoveDoctorScheduleMutation] =
     useRemoveDoctorScheduleMutation();
 
-    
-  console.log("result is", addScheduleClick);
   useEffect(() => {
     if (isEdit && addScheduleDay && addScheduleTime) {
       const variable = {

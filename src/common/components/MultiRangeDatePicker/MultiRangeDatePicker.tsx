@@ -29,7 +29,6 @@ function MultiRangeDatePicker(props: Props) {
 
   function onChange(unUsed: any, timeString: [string, string]) {
     setAddScheduleTime(timeString);
-    console.log("time change is", timeString);
   }
   return (
     <>
@@ -50,26 +49,27 @@ function MultiRangeDatePicker(props: Props) {
             type="primary"
             size="large"
             className={`my-auto ml-auto mr-2 ${_Classes["button-custom"]}`}
-            onClick={()=>setAddScheduleClick((prev: boolean) => !prev)}
+            onClick={() => setAddScheduleClick((prev: boolean) => !prev)}
           >
             ADD
           </Button>
         </div>
       )}
-      {!schedules?.length ? (
-        <div>No Data</div>
-      ) : (
-        schedules?.map((item: singleSchedule, index: number) => {
-          return (
-            <MultiRangeListing
-              disable={disable}
-              item={item}
-              index={index}
-              setDeleteScheduleId={setDeleteScheduleId}
-            />
-          );
-        })
-      )}
+      {!!schedules?.length &&
+        schedules
+          ?.sort((a, b) => {
+            return a.day - b.day;
+          })
+          .map((item: singleSchedule, index: number) => {
+            return (
+              <MultiRangeListing
+                disable={disable}
+                item={item}
+                index={index}
+                setDeleteScheduleId={setDeleteScheduleId}
+              />
+            );
+          })}
     </>
   );
 }
