@@ -7,7 +7,7 @@ type Props = {
   disable: boolean;
   item: singleSchedule;
   index: number;
-  setDeleteScheduleId: any;
+  setDeleteScheduleId: (e: string) => void;
 };
 function MultiRangeListing(props: Props) {
   const { disable, item, index, setDeleteScheduleId } = props;

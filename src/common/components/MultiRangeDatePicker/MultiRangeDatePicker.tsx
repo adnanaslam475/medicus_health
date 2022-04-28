@@ -10,11 +10,11 @@ import { Schedule, singleSchedule } from "../../../utils/types";
 
 type Props = {
   disable: boolean;
-  schedules: Schedule[];
-  setDeleteScheduleId?: any;
-  setAddScheduleTime?: any;
-  setAddScheduleDay?: any;
-  setAddScheduleClick?: any;
+  schedules: Schedule[] | undefined;
+  setDeleteScheduleId: (e: string) => void;
+  setAddScheduleTime: (e: [string, string]) => void;
+  setAddScheduleDay: (e: string) => void;
+  setAddScheduleClick: any;
 };
 
 function MultiRangeDatePicker(props: Props) {
@@ -29,47 +29,51 @@ function MultiRangeDatePicker(props: Props) {
 
   function onChange(unUsed: any, timeString: [string, string]) {
     setAddScheduleTime(timeString);
-    console.log("time change is", timeString);
   }
   return (
     <>
       <div className="font-medium text-lightBlue-1">Availability</div>
       {!disable && (
         <div
-          className={`${_Classes["multiRange-date"]}  border flex flex-1 rounded-lg`}
+          className={`${_Classes["multiRange-date"]}  flex flex-1 rounded-lg`}
         >
-          <DayPicker setAddScheduleDay={setAddScheduleDay} />
+          <DayPicker
+            setAddScheduleDay={setAddScheduleDay}
+            className={`${_Classes["dayRangePicker"]} flex flex-1 rounded-lg`}
+          />
           <RangePicker
             bordered={false}
             use12Hours
             format="h:mm A"
             onChange={onChange}
+            className={`${_Classes["timeRangePicker"]} flex flex-1 rounded-lg`}
           />
           <Button
             icon={<PlusOutlined className="font-bold text-sm pb-0.5" />}
             type="primary"
             size="large"
             className={`my-auto ml-auto mr-2 ${_Classes["button-custom"]}`}
-            onClick={()=>setAddScheduleClick((prev: boolean) => !prev)}
+            onClick={() => setAddScheduleClick((prev: boolean) => !prev)}
           >
             ADD
           </Button>
         </div>
       )}
-      {!schedules?.length ? (
-        <div>No Data</div>
-      ) : (
-        schedules?.map((item: singleSchedule, index: number) => {
-          return (
-            <MultiRangeListing
-              disable={disable}
-              item={item}
-              index={index}
-              setDeleteScheduleId={setDeleteScheduleId}
-            />
-          );
-        })
-      )}
+      {!!schedules?.length &&
+        schedules
+          ?.sort((a, b) => {
+            return a.day - b.day;
+          })
+          .map((item: singleSchedule, index: number) => {
+            return (
+              <MultiRangeListing
+                disable={disable}
+                item={item}
+                index={index}
+                setDeleteScheduleId={setDeleteScheduleId}
+              />
+            );
+          })}
     </>
   );
 }
