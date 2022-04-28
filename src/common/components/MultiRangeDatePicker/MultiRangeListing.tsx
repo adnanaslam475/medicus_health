@@ -7,9 +7,10 @@ type Props = {
   disable: boolean;
   item: singleSchedule;
   index: number;
+  setDeleteScheduleId: any;
 };
 function MultiRangeListing(props: Props) {
-  const { disable, item, index } = props;
+  const { disable, item, index, setDeleteScheduleId } = props;
   return (
     <div className="flex  items-center" key={index}>
       <div className="bg-gray-4 rounded-lg flex my-2 flex-1">
@@ -27,7 +28,11 @@ function MultiRangeListing(props: Props) {
         </div>
       </div>
       {disable == false && (
-        <CloseOutlined className="pl-1 " style={{ color: "#D53E4F" }} />
+        <CloseOutlined
+          className="pl-1 "
+          style={{ color: "#D53E4F" }}
+          onClick={() => setDeleteScheduleId(item.id)}
+        />
       )}
     </div>
   );

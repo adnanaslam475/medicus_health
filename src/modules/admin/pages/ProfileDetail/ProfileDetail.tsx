@@ -11,7 +11,9 @@ import EmailNotification from "../EmailNotification/EmailNotification";
 import { ProfileIcon } from "../../../../common/components/CustomIcon";
 import {
   DoctorProfile,
+  useCreateDocScheduleMutation,
   useDoctorProfileQuery,
+  useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../generated/graphql";
 import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
@@ -20,6 +22,12 @@ const { TabPane } = Tabs;
 
 function ProfileDetail() {
   const [isEdit, setIsEdit] = useState(false);
+  const [deleteScheduleId, setDeleteScheduleId] = useState("");
+  const [addScheduleDay, setAddScheduleDay] = useState("");
+  const [addScheduleClick, setAddScheduleClick] = useState(false);
+  const [addScheduleTime, setAddScheduleTime] = useState("");
+
+  const [viewSchedule, setViewSchedule] = useState("");
   const editData = () => {
     setIsEdit(!isEdit);
   };
@@ -38,7 +46,32 @@ function ProfileDetail() {
   });
   const schedules = doctorSchedules?.data?.doctorSchedules;
 
+  const [__, executeCreateDoctorScheduleMutation] =
+    useCreateDocScheduleMutation();
+  const [_, executeRemoveDoctorScheduleMutation] =
+    useRemoveDoctorScheduleMutation();
 
+    
+  console.log("result is", addScheduleClick);
+  useEffect(() => {
+    if (isEdit && addScheduleDay && addScheduleTime) {
+      const variable = {
+        doctorId: Number(docId),
+        day: Number(addScheduleDay),
+        startTime: addScheduleTime[0],
+        endTime: addScheduleTime[1],
+      };
+      executeCreateDoctorScheduleMutation(variable);
+    }
+  }, [addScheduleClick]);
+  useEffect(() => {
+    if (deleteScheduleId) {
+      executeRemoveDoctorScheduleMutation({ id: Number(deleteScheduleId) });
+    }
+  }, [deleteScheduleId]);
+  // useEffect(() => {
+
+  // }, []);
   return (
     <AppLayout>
       <div className="w-full">
@@ -60,6 +93,10 @@ function ProfileDetail() {
                   edit={editData}
                   setIsEdit={setIsEdit}
                   schedules={schedules}
+                  setDeleteScheduleId={setDeleteScheduleId}
+                  setAddScheduleDay={setAddScheduleDay}
+                  setAddScheduleTime={setAddScheduleTime}
+                  setAddScheduleClick={setAddScheduleClick}
                 />
               ) : (
                 <ViewProfile

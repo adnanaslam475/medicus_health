@@ -10,16 +10,27 @@ import { Schedule, singleSchedule } from "../../../utils/types";
 
 type Props = {
   disable: boolean;
-  schedules?: Schedule[];
+  schedules: Schedule[];
+  setDeleteScheduleId?: any;
+  setAddScheduleTime?: any;
+  setAddScheduleDay?: any;
+  setAddScheduleClick?: any;
 };
 
 function MultiRangeDatePicker(props: Props) {
-  const { disable, schedules } = props;
+  const {
+    disable,
+    schedules,
+    setDeleteScheduleId,
+    setAddScheduleTime,
+    setAddScheduleDay,
+    setAddScheduleClick,
+  } = props;
 
   function onChange(unUsed: any, timeString: [string, string]) {
+    setAddScheduleTime(timeString);
     console.log("time change is", timeString);
   }
-
   return (
     <>
       <div className="font-medium text-lightBlue-1">Availability</div>
@@ -27,7 +38,7 @@ function MultiRangeDatePicker(props: Props) {
         <div
           className={`${_Classes["multiRange-date"]}  border flex flex-1 rounded-lg`}
         >
-          <DayPicker />
+          <DayPicker setAddScheduleDay={setAddScheduleDay} />
           <RangePicker
             bordered={false}
             use12Hours
@@ -39,6 +50,7 @@ function MultiRangeDatePicker(props: Props) {
             type="primary"
             size="large"
             className={`my-auto ml-auto mr-2 ${_Classes["button-custom"]}`}
+            onClick={()=>setAddScheduleClick((prev: boolean) => !prev)}
           >
             ADD
           </Button>
@@ -49,7 +61,12 @@ function MultiRangeDatePicker(props: Props) {
       ) : (
         schedules?.map((item: singleSchedule, index: number) => {
           return (
-            <MultiRangeListing disable={disable} item={item} index={index} />
+            <MultiRangeListing
+              disable={disable}
+              item={item}
+              index={index}
+              setDeleteScheduleId={setDeleteScheduleId}
+            />
           );
         })
       )}

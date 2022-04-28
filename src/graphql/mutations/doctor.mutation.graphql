@@ -1,0 +1,26 @@
+mutation createDoctorSchedule(
+  $doctorId: Int!
+  $day: Int!
+  $startTime: String!
+  $endTime: String!
+) {
+  createdoctorSchedule(
+    createDoctorScheduleNewInput: {
+      doctorId: $doctorId
+      day: $day
+      startTime: $startTime
+      endTime: $endTime
+    }
+  ) {
+    id
+    startTime
+    endTime
+    day
+  }
+}
+
+mutation removeDoctorSchedule($id: Int!) {
+  removeOneDoctorSchedule(id: $id) {
+    day
+  }
+}

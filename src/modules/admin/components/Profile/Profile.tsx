@@ -51,7 +51,11 @@ export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
   setIsEdit,
-  schedules
+  schedules,
+  setDeleteScheduleId,
+  setAddScheduleTime,
+  setAddScheduleDay,
+  setAddScheduleClick
 }: any) {
   const { Option } = Select;
   const [formInstance] = Form.useForm();
@@ -323,7 +327,14 @@ export const Profile = React.forwardRef(function Profile({
 
               <InputWithLi disable={false} />
 
-              <MultiRangeDatePicker disable={false} schedules={schedules} />
+              <MultiRangeDatePicker
+                disable={false}
+                schedules={schedules}
+                setDeleteScheduleId={setDeleteScheduleId}
+                setAddScheduleTime={setAddScheduleTime}
+                setAddScheduleDay={setAddScheduleDay}
+                setAddScheduleClick={setAddScheduleClick}
+              />
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
                 <div className="border-b border-gray-4 my-3">
