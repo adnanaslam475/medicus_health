@@ -6,19 +6,22 @@ import { Tabs, Badge, Modal } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import Container from "../../../../common/components/Container/Container";
-import { Profile } from "../../components/Profile/Profile";
-import EmailNotification from "../EmailNotification/EmailNotification";
+// import { Profile } from "../Profile/Profile";
+// import EmailNotification from "../EmailNotification/EmailNotification";
 import { ProfileIcon } from "../../../../common/components/CustomIcon";
 import {
   DoctorProfile,
   useDoctorProfileQuery,
   useScheduleQuery,
 } from "../../../../generated/graphql";
+import EmailNotification from "../../pages/EmailNotification/EmailNotification";
 import { ViewProfile } from "../../../../common/components/ViewProfile/ViewProfile";
+import { Profile } from "../Profile/Profile";
+// import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 
 const { TabPane } = Tabs;
 
-function ProfileDetail() {
+function AdminAccount() {
   const [isEdit, setIsEdit] = useState(false);
   const editData = () => {
     setIsEdit(!isEdit);
@@ -88,4 +91,4 @@ function ProfileDetail() {
   );
 }
 
-export default ProfileDetail;
+export default AdminAccount;

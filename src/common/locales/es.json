@@ -5,5 +5,8 @@
   },
   "AccountDetail": {
     "title": "Cuenta"
+  },
+  "AdminAccountDetail": {
+    "title": "Cuenta"
   }
 }

@@ -42,8 +42,10 @@ import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import Language from "../../../admin/components/Languague/Language";
-import InputWithLi from "common/components/InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+import InputWithLi from "../../../../common/components/InputWithLi/InputWithLi";
+import MultiRangeDatePicker from "../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+// import InputWithLi from "common/components/InputWithLi/InputWithLi";
+// import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 
 const { Option } = Select;
 
@@ -51,7 +53,7 @@ export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
   setIsEdit,
-  schedules
+  schedules,
 }: any) {
   const { Option } = Select;
   const [formInstance] = Form.useForm();
