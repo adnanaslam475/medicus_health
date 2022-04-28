@@ -57,11 +57,10 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const { query } = useRouter();
 
   const { data: appoinmentData } = useBookAppointment();
-  
 
   // GET USER ID
   const { user } = getUserData();
-  const id: number = user?.id;
+  const id = user?.id;
 
   const [data, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
@@ -122,7 +121,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
 
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
-          patientId: id,
+          patientId: id as number,
           doctorId: Number(query?.id),
           serviceId: serviceId,
           scheduleId: Number(appoinmentData?.stepOne?.availability),

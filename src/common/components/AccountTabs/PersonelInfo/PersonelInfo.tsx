@@ -20,12 +20,12 @@ const PersonalInfo = () => {
 
   // GET USER ID
   const { user } = getUserData();
-  const id: number = user?.id;
+  const id = user?.id;
 
   const form: any = useRef();
 
   const [{ data: userData }] = useGetUserQuery({
-    variables: { input: id },
+    variables: { input: id as number },
   });
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
@@ -39,7 +39,7 @@ const PersonalInfo = () => {
   const updateUserDetail = async (values: any) => {
     try {
       const res = await updateUserProfile({
-        id: id,
+        id: id as number,
         updateUserInput: {
           first_name: values?.firstName,
           last_name: values?.lastName,
