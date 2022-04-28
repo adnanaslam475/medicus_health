@@ -14,7 +14,7 @@ import { PageLoader } from "../../../../../common/components/PageLoader/PageLoad
 
 function Login() {
   const t = useTranslations("Login");
-  const [authToken, setAuthToken] = useState(false);
+  const [authToken, setAuthToken] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function Login() {
         router.push("/admin/dashboard");
       }
     } else {
-      setAuthToken(false);
+      setAuthToken("");
     }
   }, []);
 

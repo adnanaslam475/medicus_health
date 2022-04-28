@@ -445,6 +445,10 @@ query getAppointmentsReminderBanner {
       first_name
       last_name
     }
+    doctor {
+      first_name
+      last_name
+    }
     appointmentTimeSlots {
       startTime
       endTime

@@ -28,7 +28,7 @@ function Signup() {
   const router = useRouter();
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
-  const [authToken, setAuthToken] = useState(false);
+  const [authToken, setAuthToken] = useState("");
 
   const [signUpPayload, setSignUpPaylod] = useState<CreateUserPayload>();
 
@@ -40,7 +40,7 @@ function Signup() {
       setAuthToken(token);
       router.push("/");
     } else {
-      setAuthToken(false);
+      setAuthToken("");
     }
   }, []);
 
