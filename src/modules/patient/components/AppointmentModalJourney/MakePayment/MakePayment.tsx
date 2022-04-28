@@ -16,7 +16,7 @@ const CARD_TYPE = {
 
 function MakePayment() {
   // GET ALL CARDS API CALL
-  const { saveStepThree } = useAppointmentModal();
+  const { saveStepTwo } = useAppointmentModal();
   const [{ data: allCardsData }] = useGetAllCardsQuery({
     variables: { userId: getUserData()?.user?.id as number },
   });
@@ -27,14 +27,16 @@ function MakePayment() {
       <Form layout="vertical">
         <div className="mt-8">
           <Radio.Group
+            defaultValue={allCardsData?.getAllCards[0].id}
             onChange={(e) => {
-              saveStepThree?.({
-                name: e.target.value,
+              saveStepTwo?.({
+                cardId: e.target.value,
               });
             }}
           >
             {allCardsData?.getAllCards.map((card) => (
               <Payment
+                cardId={card.id}
                 visa={CARD_TYPE[card?.card_type] || defaultCard}
                 title={`${card?.card_type} Ending with ${card?.card_digits}`}
                 description={`Expires at: ${card?.exp_month}/${card?.exp_year}`}

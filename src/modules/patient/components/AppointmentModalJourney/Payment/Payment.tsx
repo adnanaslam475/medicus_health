@@ -4,23 +4,18 @@ import React from "react";
 import _classes from "./Payment.module.scss";
 
 type Props = {
+  cardId: number;
   visa: StaticImageData;
   title?: string;
   description?: string;
 };
 function Payment(props: Props) {
-  const { visa, title, description } = props;
+  const { cardId, visa, title, description } = props;
 
   return (
     <div className="bg-gray-4 flex items-center py-3 px-3 pr-10 rounded my-3">
-      <Radio
-        className={`bg-gray-4 ${_classes["radio-div"]}`}
-        value={title}
-        // value={`${date.formathhmma(item.startTime)} - ${date.formathhmma(
-        //   item.endTime
-        // )}`}
-      >
-        <div className="bg-white rounded px-2 pb-0 mb-0 pt-2">
+      <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={cardId}>
+        <div className="rounded px-2 pb-0 mb-0 pt-2">
           <Image
             alt=""
             src={visa}
