@@ -23,7 +23,7 @@ function BankInfo() {
 
   // GET USER ID
   const { user } = getUserData();
-  const id: number = user?.id;
+  const id = user?.id;
 
   const [, executeRemoveDoctorBillingMethodMutation] =
     useRemoveDoctorBillingMethodMutation();
@@ -33,7 +33,7 @@ function BankInfo() {
     executeDoctorBillingMethodsQuery,
   ] = useDoctorBillingMethodsQuery({
     variables: {
-      doctorId: id,
+      doctorId: id as number,
     },
   });
 
@@ -72,7 +72,7 @@ function BankInfo() {
         {
           createDoctorBillingMethodInput: {
             ...values,
-            doctorId: id,
+            doctorId: id as number,
             source: token.id,
             bankId: token.bank_account.id,
             is_default: true,

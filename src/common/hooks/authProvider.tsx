@@ -1,3 +1,4 @@
+import { UserDataInLocalStorage } from "common/types/auth";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { User } from "../../generated/graphql";
@@ -12,7 +13,7 @@ type userAuth = {
 
 function AuthProvider({ children }: any) {
   const router = useRouter();
-  const [user, setUser] = useState<userAuth>();
+  const [user, setUser] = useState<UserDataInLocalStorage>();
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {

@@ -8,12 +8,7 @@ import {
   Transection,
 } from "../../../../generated/graphql";
 
-interface col {
-  title: string;
-  dataIndex: string;
-  key: "string";
-  width: "30%";
-}
+
 
 type Props = {
   data: Transection[] | undefined;
@@ -24,7 +19,7 @@ const TransactionHistory = (props: Props) => {
 
   const transactionsColumns = [
     {
-      title: "ID",
+      title: "Transaction ID",
       dataIndex: "id",
       key: "id",
       // sorter: {
@@ -32,24 +27,9 @@ const TransactionHistory = (props: Props) => {
       //   multiple: 3,
       // },
     },
+   
     {
-      title: "Booked On",
-      dataIndex: "appointment",
-      key: "appointment",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      //   multiple: 3,
-      // },
-      render: (value: Appointment) => {
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            value?.requestedDate
-          )} `}</div>
-        );
-      },
-    },
-    {
-      title: "Physician",
+      title: "Doctor",
       dataIndex: "appointment",
       key: "appointment",
       // sorter: {
@@ -63,7 +43,7 @@ const TransactionHistory = (props: Props) => {
       },
     },
     {
-      title: "Type",
+      title: "Service",
       dataIndex: "appointment",
       key: "appointment",
       // sorter: {
@@ -72,6 +52,23 @@ const TransactionHistory = (props: Props) => {
       // },
       render: (value: Appointment) => {
         return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+      },
+    },
+    {
+      title: "Time Slot",
+      dataIndex: "appointment",
+      key: "appointment",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
+      //   multiple: 3,
+      // },
+      render: (value: Appointment) => {
+        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+        return (
+          <div className="someclass">{`${date?.formathhmma(
+            time?.startTime
+          )} - ${date?.formathhmma(time?.endTime)}`}</div>
+        );
       },
     },
     {
@@ -91,33 +88,18 @@ const TransactionHistory = (props: Props) => {
         );
       },
     },
-    {
-      title: "Time",
-      dataIndex: "appointment",
-      key: "appointment",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
-      //   multiple: 3,
-      // },
-      render: (value: Appointment) => {
-        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-        return (
-          <div className="someclass">{`${date?.formathhmma(
-            time?.startTime
-          )} - ${date?.formathhmma(time?.endTime)}`}</div>
-        );
-      },
-    },
+    
     {
       title: "Total Amount",
       dataIndex: "amountReceived",
       key: "amountReceived",
+      
       // sorter: {
       //   compare: (a: any, b: any) => a.totalamount - b.totalamount,
       //   multiple: 3,
       // },
       render: (value: number) => {
-        return <div className="someclass">{`${value}`}</div>;
+        return <div className="someclass">{`$${value}`}</div>;
       },
     },
     {

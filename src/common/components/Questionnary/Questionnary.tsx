@@ -10,12 +10,13 @@ import _classes from "./Questionnary.module.scss";
 const CheckboxGroup = Checkbox.Group;
 
 interface HealthQuesType {
-  isUpdateMode: boolean;
-  onFinishSuccess: (value: any) => void;
-  onFinishedFailed: (value: any) => void;
-  skipHealthQues: (value: any) => void;
-  handleBackChange: (value: any) => void;
-  isLoading: boolean;
+  isUpdateMode?: boolean;
+  onFinishSuccess?: (value: any) => void;
+  onFinishedFailed?: (value: any) => void;
+  skipHealthQues?: (value: any) => void;
+  handleBackChange?: (value: any) => void;
+  isLoading?: boolean;
+  disable?:boolean;
 }
 
 const HealthQuestionnary = ({
@@ -25,11 +26,12 @@ const HealthQuestionnary = ({
   handleBackChange,
   skipHealthQues,
   isLoading,
+  disable,
 }: HealthQuesType) => {
   const [terms, setTerms] = useState(false);
   const form: any = useRef();
   const handleChange = (e: any) => {
-    handleBackChange(e);
+    // handleBackChange(e);
   };
 
   useEffect(() => {
@@ -37,7 +39,7 @@ const HealthQuestionnary = ({
   }, []);
   return (
     <div>
-      {!isUpdateMode && (
+      {!isUpdateMode && disable && (
         <Button className="mb-4" block onClick={skipHealthQues}>
           Skip This For Now & Fill This Later
         </Button>
@@ -50,7 +52,7 @@ const HealthQuestionnary = ({
       />
 
       <div className="flex justify-between items-center">
-        {!isUpdateMode && (
+        {!isUpdateMode && disable && (
           <Checkbox
             value={terms}
             onChange={(e) => {
@@ -62,7 +64,7 @@ const HealthQuestionnary = ({
             </span>
           </Checkbox>
         )}
-        <Button
+        {disable && <Button
           loading={isLoading}
           disabled={!terms || isLoading}
           className="ant-btn ant-btn-primary ant-btn mb-0"
@@ -71,9 +73,9 @@ const HealthQuestionnary = ({
           // htmlType="submit"
         >
           {isUpdateMode ? "Update" : "Complete"}
-        </Button>
+        </Button>}
       </div>
-      {!isUpdateMode && (
+      {!isUpdateMode && disable &&(
         <div className="flex justify-center">
           <div className="inline-flex items-center">
             <div className="mb-0">

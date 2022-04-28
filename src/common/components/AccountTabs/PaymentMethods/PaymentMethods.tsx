@@ -25,7 +25,7 @@ const stripePromise = loadStripe(config.stripeKey || "");
 const PaymentMethods = () => {
   // GET USER ID
   const { user } = getUserData();
-  const id: number = user?.id;
+  const id = user?.id;
 
   const [{ data: createCardsData }, executeCardMutation] =
     useCreateCardMutation();
@@ -33,7 +33,7 @@ const PaymentMethods = () => {
 
   // GET ALL CARDS API CALL
   const [{ data: allCardsData }] = useGetAllCardsQuery({
-    variables: { userId: id },
+    variables: { userId: id as number },
   });
   const { getAllCards } = allCardsData || {};
 
