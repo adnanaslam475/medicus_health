@@ -1,16 +1,12 @@
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal } from "antd";
+import  { useRouter } from "next/router";
+import { Tabs } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
-import Container from "../../../../common/components/Container/Container";
 import { Profile } from "../../components/Profile/Profile";
 import EmailNotification from "../EmailNotification/EmailNotification";
-import { ProfileIcon } from "../../../../common/components/CustomIcon";
 import {
-  DoctorProfile,
   useCreateDocScheduleMutation,
   useDoctorProfileQuery,
   useRemoveDoctorScheduleMutation,
@@ -25,7 +21,7 @@ function ProfileDetail() {
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
   const [addScheduleDay, setAddScheduleDay] = useState("");
   const [addScheduleClick, setAddScheduleClick] = useState(false);
-  const [addScheduleTime, setAddScheduleTime] = useState("");
+  const [addScheduleTime, setAddScheduleTime] = useState([""]);
 
   const editData = () => {
     setIsEdit(!isEdit);
@@ -70,9 +66,7 @@ function ProfileDetail() {
       executeRemoveDoctorScheduleMutation({ id: Number(deleteScheduleId) });
     }
   }, [deleteScheduleId]);
-  // useEffect(() => {
 
-  // }, []);
   return (
     <AppLayout>
       <div className="w-full">
@@ -89,7 +83,7 @@ function ProfileDetail() {
             >
               {isEdit ? (
                 <Profile
-                  doctorId={query?.id}
+                  doctorId={String(query?.id)}
                   doctorData={doctorProfile}
                   edit={editData}
                   setIsEdit={setIsEdit}
@@ -101,10 +95,10 @@ function ProfileDetail() {
                 />
               ) : (
                 <ViewProfile
-                  doctorId={query?.id}
+                  doctorId={String(query?.id)}
                   doctorData={doctorProfile}
                   setIsEdit={setIsEdit}
-                  loginInfo={false}
+                  showLoginInfo={false}
                   schedules={schedules}
                 />
               )}

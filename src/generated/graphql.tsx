@@ -264,7 +264,7 @@ export type DoctorEarningsResponse = {
 };
 
 export type DoctorProfile = {
-  __typename?: 'DoctorProfile';
+  __typename?: 'DoctorProfile' | undefined;
   about_me?: Maybe<Scalars['String']>;
   condition_treated?: Maybe<Scalars['String']>;
   doctor_id: Scalars['Int'];
