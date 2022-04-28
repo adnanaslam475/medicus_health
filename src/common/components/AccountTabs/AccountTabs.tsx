@@ -22,11 +22,11 @@ function AccountTabs() {
 
   // GET USER ID
   const { user } = getUserData();
-  const id: number = user?.id;
+  const id = user?.id;
 
   // Get patient Health History
   const [{ data }] = usePatientHealthHistoryQuery({
-    variables: { input: id },
+    variables: { input: id as number },
   });
 
   //GET ALL TRANSACTIONS
@@ -46,7 +46,7 @@ function AccountTabs() {
       await updatePatientHealthHistory({
         input: {
           history: healthQuesJson,
-          user_id: id,
+          user_id: id as number,
         },
       });
       {
