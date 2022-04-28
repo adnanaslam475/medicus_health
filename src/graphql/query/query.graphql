@@ -194,6 +194,7 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     patientId
     doctorId
     serviceId
+    charges
     requestedDate
     status
     patient {
@@ -214,7 +215,7 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
       endTime
       selected
     }
-    transection {
+    transaction {
       createdAt
     }
     appointmentTimeSlots {
@@ -344,7 +345,7 @@ query getAppointmentById($id: Int!) {
       name
       price
     }
-    transection {
+    transaction {
       createdAt
     }
     appointmentHealthHistory {
@@ -355,9 +356,9 @@ query getAppointmentById($id: Int!) {
 
 # GET ALL TRANSACTIONS
 query getAllTransactions {
-  transections {
+  transactions {
     id
-    transectionId
+    transactionId
     appointmentId
     amountReceived
     status

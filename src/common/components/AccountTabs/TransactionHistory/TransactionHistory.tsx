@@ -5,13 +5,13 @@ import { EyeFilled } from "@ant-design/icons";
 import {
   Appointment,
   GetAllTransactionsQuery,
-  Transection,
+  Transaction,
 } from "../../../../generated/graphql";
 
 
 
 type Props = {
-  data: Transection[] | undefined;
+  data: Transaction[] | undefined;
 };
 
 const TransactionHistory = (props: Props) => {

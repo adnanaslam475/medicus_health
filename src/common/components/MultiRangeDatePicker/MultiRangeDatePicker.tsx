@@ -10,11 +10,11 @@ import { Schedule, singleSchedule } from "../../../utils/types";
 
 type Props = {
   disable: boolean;
-  schedules: Schedule[] | undefined;
-  setDeleteScheduleId: (e: string) => void;
-  setAddScheduleTime: (e: [string, string]) => void;
-  setAddScheduleDay: (e: string) => void;
-  setAddScheduleClick: any;
+  schedules?: Schedule[] | undefined;
+  setDeleteScheduleId?: (e: string) => void;
+  setAddScheduleTime?: (e: [string, string]) => void;
+  setAddScheduleDay?: (e: string) => void;
+  setAddScheduleClick?: any;
 };
 
 function MultiRangeDatePicker(props: Props) {
@@ -28,7 +28,7 @@ function MultiRangeDatePicker(props: Props) {
   } = props;
 
   function onChange(unUsed: any, timeString: [string, string]) {
-    setAddScheduleTime(timeString);
+    setAddScheduleTime?.(timeString);
   }
   return (
     <>

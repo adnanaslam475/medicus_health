@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import { Button, Radio, RadioChangeEvent, Space } from "antd";
 import _classes from "./AppointmentReschedule.module.scss";
 import {
@@ -17,20 +17,36 @@ type Props = {
 
 function AppointmentReschedule(props: Props) {
   const { appointmentDetails } = props;
+  const {
+    doctor,
+    serviceType,
+    appointmentTimeSlots,
+    requestedDate,
+    scheduleId,
+  } = appointmentDetails || {};
 
-  const { doctor, serviceType, appointmentTimeSlots } =
-    appointmentDetails || {};
   const { first_name, last_name } = doctor || {};
   const { name, price } = serviceType || {};
   const doctorName = first_name + " " + last_name;
 
   const [value, setValue] = React.useState("");
-  const { saveStepOne } = useAppointmentModal();
+  const { data, saveStepOne } = useAppointmentModal();
 
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
-    saveStepOne?.(e.target.value);
+    saveStepOne?.({
+      selectedSlotId: e.target.value,
+    });
   };
+
+  useEffect(() => {
+    saveStepOne?.({
+      price,
+      requestedDate,
+      scheduleId,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [price, appointmentDetails]);
 
   return (
     <div>
@@ -61,9 +77,7 @@ function AppointmentReschedule(props: Props) {
               appointmentTimeSlots?.map((item) => (
                 <Radio
                   className={`bg-gray-4 ${_classes["radio-div"]}`}
-                  value={`${date.formathhmma(
-                    item.startTime
-                  )} - ${date.formathhmma(item.endTime)}`}
+                  value={item.id}
                 >
                   <div className="text-secondary">
                     <span className="mr-3">

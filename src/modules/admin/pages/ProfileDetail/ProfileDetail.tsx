@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from "react";
-import  { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { Tabs } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import { Profile } from "../../components/Profile/Profile";
 import EmailNotification from "../EmailNotification/EmailNotification";
 import {
-  useCreateDocScheduleMutation,
+  useCreateDoctorScheduleMutation,
   useDoctorProfileQuery,
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
@@ -46,7 +46,7 @@ function ProfileDetail() {
   }, [addScheduleClick]);
 
   const [, executeCreateDoctorScheduleMutation] =
-    useCreateDocScheduleMutation();
+    useCreateDoctorScheduleMutation();
   const [, executeRemoveDoctorScheduleMutation] =
     useRemoveDoctorScheduleMutation();
 

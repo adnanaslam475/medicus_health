@@ -7,7 +7,7 @@ type Props = {
   disable: boolean;
   item: singleSchedule;
   index: number;
-  setDeleteScheduleId: (e: string) => void;
+  setDeleteScheduleId?: (e: string) => void;
 };
 function MultiRangeListing(props: Props) {
   const { disable, item, index, setDeleteScheduleId } = props;
@@ -31,7 +31,7 @@ function MultiRangeListing(props: Props) {
         <CloseOutlined
           className="pl-1 "
           style={{ color: "#D53E4F" }}
-          onClick={() => setDeleteScheduleId(item.id)}
+          onClick={() => setDeleteScheduleId?.(item.id)}
         />
       )}
     </div>
