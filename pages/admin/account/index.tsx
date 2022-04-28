@@ -1,7 +1,7 @@
-import AdminAccountDetail from "../../../src/modules/admin/pages/accounts/AdminAccountDetail/AdminAccountDetail";
+import AdminAccount from "../../../src/modules/admin/components/AdminAccount/AdminAccount";
 
 function account() {
-  return <AdminAccountDetail />;
+  return <AdminAccount />;
 }
 
 export default account;
