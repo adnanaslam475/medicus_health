@@ -93,6 +93,7 @@ const TransactionHistory = (props: Props) => {
       title: "Total Amount",
       dataIndex: "amountReceived",
       key: "amountReceived",
+      
       // sorter: {
       //   compare: (a: any, b: any) => a.totalamount - b.totalamount,
       //   multiple: 3,
