@@ -1,8 +1,0 @@
-.mobile-tabs {
-    width: 100%;
-    @media screen and (max-width: 767px) {
-        :global .ant-tabs-nav {
-            width: 280px;
-        }
-    }
-}
