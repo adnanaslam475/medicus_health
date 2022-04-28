@@ -12,7 +12,7 @@ import { useUserForgotPasswordMutation } from "../../../../../generated/graphql"
 const ForgotPassword = () => {
   const [form] = Form.useForm();
   const router = useRouter();
-  const [authToken, setAuthToken] = useState(false);
+  const [authToken, setAuthToken] = useState("");
 
   useEffect(() => {
     const token = getToken();
@@ -20,7 +20,7 @@ const ForgotPassword = () => {
       setAuthToken(token);
       router.push("/");
     } else {
-      setAuthToken(false);
+      setAuthToken("");
     }
   }, []);
 
