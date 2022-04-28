@@ -188,6 +188,13 @@ export type CreateDoctorScheduleInput = {
   schedule: Array<Schedule>;
 };
 
+export type CreateDoctorScheduleNewInput = {
+  day: Scalars['Int'];
+  doctorId: Scalars['Int'];
+  endTime: Scalars['String'];
+  startTime: Scalars['String'];
+};
+
 export type CreatePatientHealthHistoryInput = {
   history?: InputMaybe<Scalars['JSON']>;
   user_id: Scalars['Int'];
@@ -205,7 +212,7 @@ export type CreatePaymentInput = {
 
 export type CreateStaffInput = {
   contact_number: Scalars['String'];
-  deleted: Scalars['Boolean'];
+  doctorId: Scalars['Float'];
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
@@ -245,6 +252,15 @@ export type DoctorBillingMethod = {
   routingNumber: Scalars['String'];
   source: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type DoctorEarningsResponse = {
+  __typename?: 'DoctorEarningsResponse';
+  total_earnings_from_consultation?: Maybe<Scalars['Float']>;
+  total_earnings_from_second_opinions?: Maybe<Scalars['Float']>;
+  total_number_of_consultation?: Maybe<Scalars['Float']>;
+  total_number_of_patients?: Maybe<Scalars['Float']>;
+  total_number_of_second_opinions?: Maybe<Scalars['Float']>;
 };
 
 export type DoctorProfile = {
@@ -354,6 +370,7 @@ export type Mutation = {
   createServiceType: AppointmentServiceType;
   createStaff: User;
   createUser: User;
+  createdoctorSchedule: DoctorSchedule;
   enableOrDisableDoctor: User;
   login: LoginResponse;
   payment: Transection;
@@ -365,6 +382,7 @@ export type Mutation = {
   removeDoctorProfile: DoctorProfile;
   removeDoctorQuestionnaire: DoctorQuestionnaire;
   removeDoctorSchedule: DoctorSchedule;
+  removeOneDoctorSchedule: DoctorSchedule;
   removePatientHealthHistory: PatientHealthHistory;
   removeStaff: User;
   removeUser: User;
@@ -464,6 +482,11 @@ export type MutationCreateUserArgs = {
 };
 
 
+export type MutationCreatedoctorScheduleArgs = {
+  createDoctorScheduleNewInput: CreateDoctorScheduleNewInput;
+};
+
+
 export type MutationEnableOrDisableDoctorArgs = {
   id: Scalars['Int'];
 };
@@ -516,6 +539,11 @@ export type MutationRemoveDoctorQuestionnaireArgs = {
 
 export type MutationRemoveDoctorScheduleArgs = {
   doctorId: Scalars['Int'];
+};
+
+
+export type MutationRemoveOneDoctorScheduleArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -641,6 +669,7 @@ export type Query = {
   getAllCards: Array<UserCard>;
   getCard: UserCard;
   getCitiesByState: Array<City>;
+  getDoctorEarnings: DoctorEarningsResponse;
   getStatesByCountry: Array<State>;
   patientHealthHistory: PatientHealthHistory;
   patientHealthHistorys: Array<PatientHealthHistory>;
@@ -741,6 +770,11 @@ export type QueryGetCitiesByStateArgs = {
 };
 
 
+export type QueryGetDoctorEarningsArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type QueryGetStatesByCountryArgs = {
   country_id: Scalars['Int'];
 };
@@ -830,6 +864,7 @@ export type UpdatePatientHealthHistoryInput = {
 export type UpdateStaffInput = {
   contact_number: Scalars['String'];
   deleted: Scalars['Boolean'];
+  doctorId: Scalars['Float'];
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
@@ -867,10 +902,10 @@ export type User = {
   city_id: Scalars['Int'];
   contact_number: Scalars['String'];
   country_id: Scalars['Int'];
-  createdBy?: Maybe<Scalars['Int']>;
   date_of_birth: Scalars['DateTime'];
   deleted: Scalars['Boolean'];
   doctorBillingMethods?: Maybe<Array<DoctorBillingMethod>>;
+  doctorId?: Maybe<Scalars['Int']>;
   doctorProfile?: Maybe<DoctorProfile>;
   doctorQuestionnaire?: Maybe<DoctorQuestionnaire>;
   doctorSchedules?: Maybe<Array<DoctorSchedule>>;
@@ -1163,7 +1198,7 @@ export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: {
 export type GetAppointmentsReminderBannerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id: number, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
+export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id: number, patient: { __typename?: 'User', first_name: string, last_name: string }, doctor: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
 
 
 export const CreateUserDocument = gql`
@@ -1924,6 +1959,10 @@ export const GetAppointmentsReminderBannerDocument = gql`
   appointmentsReminderBanner {
     id
     patient {
+      first_name
+      last_name
+    }
+    doctor {
       first_name
       last_name
     }
@@ -2706,6 +2745,53 @@ export default {
       },
       {
         "kind": "OBJECT",
+        "name": "DoctorEarningsResponse",
+        "fields": [
+          {
+            "name": "total_earnings_from_consultation",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_earnings_from_second_opinions",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_consultation",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_patients",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_second_opinions",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
         "name": "DoctorProfile",
         "fields": [
           {
@@ -3443,6 +3529,29 @@ export default {
             ]
           },
           {
+            "name": "createdoctorSchedule",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorSchedule",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createDoctorScheduleNewInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "enableOrDisableDoctor",
             "type": {
               "kind": "NON_NULL",
@@ -3685,6 +3794,29 @@ export default {
             "args": [
               {
                 "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "removeOneDoctorSchedule",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorSchedule",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -4648,6 +4780,29 @@ export default {
             ]
           },
           {
+            "name": "getDoctorEarnings",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorEarningsResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "getStatesByCountry",
             "type": {
               "kind": "NON_NULL",
@@ -5112,14 +5267,6 @@ export default {
             "args": []
           },
           {
-            "name": "createdBy",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
             "name": "date_of_birth",
             "type": {
               "kind": "NON_NULL",
@@ -5153,6 +5300,14 @@ export default {
                   "ofType": null
                 }
               }
+            },
+            "args": []
+          },
+          {
+            "name": "doctorId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
