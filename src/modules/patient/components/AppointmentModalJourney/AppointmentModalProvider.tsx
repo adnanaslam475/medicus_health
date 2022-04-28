@@ -22,16 +22,16 @@ export function AppointmentModalProvider({
 }: {
   children: JSX.Element;
 }) {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({ stepOne: {}, stepTwo: {}, stepThree: {} });
 
   function saveStepOne(values: any) {
-    setData({ ...data, stepOne: values });
+    setData({ ...data, stepOne: { ...data.stepOne, ...values } });
   }
   function saveStepTwo(values: any) {
-    setData({ ...data, stepTwo: values });
+    setData({ ...data, stepTwo: { ...data.stepTwo, ...values } });
   }
   function saveStepThree(values: any) {
-    setData({ ...data, stepThree: values });
+    setData({ ...data, stepThree: { ...data.stepThree, ...values } });
   }
 
   return (
