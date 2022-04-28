@@ -265,7 +265,7 @@ export type DoctorEarningsResponse = {
 };
 
 export type DoctorProfile = {
-  __typename?: 'DoctorProfile' | undefined;
+  __typename?: 'DoctorProfile';
   about_me?: Maybe<Scalars['String']>;
   condition_treated?: Maybe<Scalars['String']>;
   doctor_id: Scalars['Int'];
@@ -1102,16 +1102,6 @@ export type DoctorBillingMethodsQueryVariables = Exact<{
 
 export type DoctorBillingMethodsQuery = { __typename?: 'Query', doctorBillingMethods: Array<{ __typename?: 'DoctorBillingMethod', id: string, bankId: string, bankName: string, bankAccountNumber: string, accountTitle: string, routingNumber: string }> };
 
-export type CreateDocScheduleMutationVariables = Exact<{
-  doctorId: Scalars['Int'];
-  day: Scalars['Int'];
-  startTime: Scalars['String'];
-  endTime: Scalars['String'];
-}>;
-
-
-export type CreateDocScheduleMutation = { __typename?: 'Mutation', createdoctorSchedule: { __typename?: 'DoctorSchedule', id: string, startTime: string, endTime: string, day: number } };
-
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1233,7 +1223,7 @@ export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: {
 export type GetAppointmentsReminderBannerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id: number, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
+export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id: number, patient: { __typename?: 'User', first_name: string, last_name: string }, doctor: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
 
 
 export const CreateDoctorScheduleDocument = gql`
@@ -1587,22 +1577,6 @@ export const DoctorBillingMethodsDocument = gql`
 
 export function useDoctorBillingMethodsQuery(options: Omit<Urql.UseQueryArgs<DoctorBillingMethodsQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorBillingMethodsQuery>({ query: DoctorBillingMethodsDocument, ...options });
-};
-export const CreateDocScheduleDocument = gql`
-    mutation createDocSchedule($doctorId: Int!, $day: Int!, $startTime: String!, $endTime: String!) {
-  createdoctorSchedule(
-    createDoctorScheduleNewInput: {doctorId: $doctorId, day: $day, startTime: $startTime, endTime: $endTime}
-  ) {
-    id
-    startTime
-    endTime
-    day
-  }
-}
-    `;
-
-export function useCreateDocScheduleMutation() {
-  return Urql.useMutation<CreateDocScheduleMutation, CreateDocScheduleMutationVariables>(CreateDocScheduleDocument);
 };
 export const CountriesDocument = gql`
     query countries {
@@ -2051,6 +2025,10 @@ export const GetAppointmentsReminderBannerDocument = gql`
   appointmentsReminderBanner {
     id
     patient {
+      first_name
+      last_name
+    }
+    doctor {
       first_name
       last_name
     }

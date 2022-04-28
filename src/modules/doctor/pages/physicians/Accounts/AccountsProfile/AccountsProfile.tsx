@@ -6,7 +6,6 @@ function AccountsProfile() {
   const [isEdit, setIsEdit] = useState(false);
   return (
     <div>
-      {" "}
       {isEdit ? (
         <EditProfile
           //   doctorId={query?.id}
@@ -15,7 +14,7 @@ function AccountsProfile() {
           setIsEdit={setIsEdit}
         />
       ) : (
-        <ViewProfile setIsEdit={setIsEdit} loginInfo />
+        <ViewProfile setIsEdit={setIsEdit} showLoginInfo />
       )}
     </div>
   );

@@ -10,9 +10,9 @@ import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
 
 import _classes from "./PhysicianProfile.module.scss";
 interface Props {
-  doctorId: string;
+  doctorId?: string;
   doctorData: any;
-  showLoginInfo: boolean;
+  showLoginInfo?: boolean;
   schedules: Schedule[] | undefined;
 }
 

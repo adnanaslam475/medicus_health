@@ -16,11 +16,11 @@ import ProfileForm from "./ProfileForm";
 import { Schedule } from "utils/types";
 
 type props = {
-  doctorId: string;
-  doctorData: any;
-  setIsEdit: (e: boolean) => void;
-  showLoginInfo: boolean;
-  schedules: Schedule[] | undefined;
+  doctorId?: string;
+  doctorData?: any;
+  setIsEdit?: (e: boolean) => void;
+  showLoginInfo?: boolean;
+  schedules?: Schedule[] | undefined;
 };
 
 export const ViewProfile = React.forwardRef(function Profile({
@@ -187,7 +187,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Button
                   type="default"
                   className={`${_classes["edit-button"]}`}
-                  onClick={() => setIsEdit(true)}
+                  onClick={() => setIsEdit?.(true)}
                 >
                   <EditOutlined />
                   Edit Info
