@@ -213,3 +213,11 @@ mutation cancelAppointmentByPatient($id: Int!) {
     createdAt
   }
 }
+
+#Book and Appointment
+mutation bookAppointment($bookAppointmentInput: BookAppointmentInput!) {
+  bookAppointment(bookAppointmentInput: $bookAppointmentInput) {
+    id
+    status
+  }
+}

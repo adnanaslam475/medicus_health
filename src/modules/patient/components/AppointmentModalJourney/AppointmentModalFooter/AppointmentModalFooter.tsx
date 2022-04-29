@@ -11,13 +11,16 @@ import {
 } from "@stripe/stripe-js";
 import { Button, notification } from "antd";
 import { getUserData } from "common/utils/userData";
+import Router from "next/router";
 // import { StringValueNode } from "graphql";
 import React, { useState } from "react";
 import {
+  useBookAppointmentMutation,
   useCancelAppointmentByPatientMutation,
   useCreateCardMutation,
   useGetAllCardsQuery,
 } from "../../../../../generated/graphql";
+import { useAppointmentModal } from "../AppointmentModalProvider";
 import _classes from "../AppointmentReschedule/AppointmentReschedule.module.scss";
 
 type Props = {
@@ -46,7 +49,9 @@ function AppointmentModalFooter({
   ] = useCancelAppointmentByPatientMutation();
   const { cancelAppointmentByPatient } = cancelAppointmentByPatientData || {};
   const [, executeCardMutation] = useCreateCardMutation();
-  const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
+  const { data: contextData } = useAppointmentModal();
+  const [{ data: bookAppointment }, executeBookAppointmentMutation] =
+    useBookAppointmentMutation();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -61,23 +66,34 @@ function AppointmentModalFooter({
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     id: number | undefined
   ) {
-    setCurrentAppointmentId(id);
     executeCancelAppointmentByPatientData({
       id: Number(id),
     });
     onReject?.(e);
   }
 
-  function onPay(
+  async function onPay(
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     id: number | undefined
   ) {
-    // setCurrentAppointmentId(id);
-    // executeCancelAppointmentByPatientData({
-    //   id: Number(id),
-    // });
-    // closeModal();
-    setCurrentStepName("stepFour");
+    const { data: bookData } = await executeBookAppointmentMutation({
+      bookAppointmentInput: {
+        appointmentId: appointmentId as number,
+        cardId: contextData.stepTwo.cardId as number,
+        requestedDate: contextData.stepOne?.requestedDate,
+        selectedSlotId: contextData.stepOne?.selectedSlotId,
+        scheduleId: contextData.stepOne?.scheduleId,
+      },
+    });
+
+    console.log(bookData);
+    if (bookData?.bookAppointment.status === "Confirmed") {
+      setCurrentStepName("stepFour");
+    } else {
+      notification.error({
+        message: "Something went wrong",
+      });
+    }
   }
 
   async function onAddAndPay(
@@ -113,21 +129,34 @@ function AppointmentModalFooter({
         },
       });
 
+      const { data: bookData } = await executeBookAppointmentMutation({
+        bookAppointmentInput: {
+          appointmentId: appointmentId as number,
+          cardId: data?.createCard.id as number,
+          requestedDate: contextData.stepOne?.requestedDate,
+          selectedSlotId: contextData.stepOne?.selectedSlotId,
+          scheduleId: contextData.stepOne?.scheduleId,
+        },
+      });
+
+      console.log(bookData);
+      if (bookData?.bookAppointment.status === "Confirmed") {
+        setCurrentStepName("stepFour");
+      } else {
+        notification.error({
+          message: "Something went wrong",
+        });
+      }
       // executeGetAllCardsQuery({ requestPolicy: "network-only" });
 
       if (error) {
         notification.error({
           message: error?.message || "Something went wrong",
         });
-      } else {
-        console.log(source?.id);
-        cardElement?.clear();
       }
     } catch (error) {
       onReject?.(e);
     }
-
-    setCurrentStepName("stepFour");
   }
 
   return (
@@ -165,7 +194,7 @@ function AppointmentModalFooter({
             }}
             className={`${_classes["button-background-color"]}`}
           >
-            Pay $5900
+            Pay ${contextData?.stepOne?.price}
           </Button>
         </div>
       )}
@@ -182,7 +211,7 @@ function AppointmentModalFooter({
               onAddAndPay(e, appointmentId);
             }}
           >
-            Pay $5900
+            Pay ${contextData?.stepOne?.price}
           </Button>
         </div>
       )}
@@ -191,7 +220,7 @@ function AppointmentModalFooter({
         <div className="flex justify-center mt-5">
           <Button
             type="primary"
-            onClick={onRequestAppointment}
+            onClick={() => Router.push(`/patient/appointments/upcoming`)}
             className={`${_classes["button-background-color"]}`}
           >
             Upcoming Appointments

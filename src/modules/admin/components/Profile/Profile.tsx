@@ -1,40 +1,24 @@
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Router, { useRouter } from "next/router";
-import {
-  ExclamationCircleOutlined,
-  EditOutlined,
-  PlusOutlined,
-  DownOutlined,
-} from "@ant-design/icons";
 import end from "./../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../public/assets/images/espanolFlag.png";
 import editicon from "../../../../../public/assets/icon/edit.svg";
-import yourImage from "../../../../../public/assets/images/your_photo.png";
 import {
-  Table,
-  Tag,
   Avatar,
   Upload,
   Form,
   Input,
   Button,
-  Checkbox,
-  Menu,
-  Dropdown,
-  Tabs,
-  Badge,
-  Modal,
   notification,
   Select,
   DatePicker,
 } from "antd";
 import _classes from "./PhysicianProfile.module.scss";
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
 
 import {
+  DoctorProfile,
   useEnableOrDisableDoctorMutation,
   useUpdateDoctorProfileMutation,
 } from "../../../../generated/graphql";
@@ -44,16 +28,31 @@ import { UploadChangeParam } from "antd/lib/upload";
 import Language from "../../../admin/components/Languague/Language";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+import { configS3 } from "utils/helper";
+import { Schedule } from "utils/types";
 
-const { Option } = Select;
+type profileType = {
+  doctorId: string;
+  doctorData: any;
+  setIsEdit: (e: boolean) => void;
+  schedules: Schedule[] | undefined;
+  setDeleteScheduleId: (e: string) => void;
+  setAddScheduleTime: (e: [string, string]) => void;
+  setAddScheduleDay: (e: string) => void;
+  setAddScheduleClick: (e: boolean) => void;
+  edit: () => void;
+};
 
 export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
   setIsEdit,
-  schedules
-}: any) {
-  const { Option } = Select;
+  schedules,
+  setDeleteScheduleId,
+  setAddScheduleTime,
+  setAddScheduleDay,
+  setAddScheduleClick,
+}: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
   const [ispublish, setIsPublish] = useState(true);
@@ -74,6 +73,7 @@ export const Profile = React.forwardRef(function Profile({
       prepareAndSetEditPayload();
     }
   }, [doctorData]);
+  console.log("doctorDatadoctorDatadoctorData", doctorData);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -123,13 +123,6 @@ export const Profile = React.forwardRef(function Profile({
           });
       }
     }
-  };
-
-  const configS3 = {
-    region: config?.region || "",
-    bucketName: config?.bucketName || "",
-    accessKeyId: config?.accessKeyId || "",
-    secretAccessKey: config?.secertAccessKey || "",
   };
 
   const fileChange = async (info: UploadChangeParam) => {
@@ -323,7 +316,14 @@ export const Profile = React.forwardRef(function Profile({
 
               <InputWithLi disable={false} />
 
-              <MultiRangeDatePicker disable={false} schedules={schedules} />
+              <MultiRangeDatePicker
+                disable={false}
+                schedules={schedules}
+                setDeleteScheduleId={setDeleteScheduleId}
+                setAddScheduleTime={setAddScheduleTime}
+                setAddScheduleDay={setAddScheduleDay}
+                setAddScheduleClick={setAddScheduleClick}
+              />
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
                 <div className="border-b border-gray-4 my-3">

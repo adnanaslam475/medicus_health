@@ -27,7 +27,7 @@ function ProfileDetailOld() {
               }
               key="1"
             >
-              <Profile />
+              {/* <Profile /> */}
             </TabPane>
             <TabPane
               tab={
