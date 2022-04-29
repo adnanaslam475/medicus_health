@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Button, Radio, RadioChangeEvent, Space } from "antd";
 import _classes from "./AppointmentReschedule.module.scss";
 import {
@@ -23,14 +23,17 @@ function AppointmentReschedule(props: Props) {
     appointmentTimeSlots,
     requestedDate,
     scheduleId,
+    charges,
   } = appointmentDetails || {};
 
   const { first_name, last_name } = doctor || {};
-  const { name, price } = serviceType || {};
+  const { name } = serviceType || {};
   const doctorName = first_name + " " + last_name;
 
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState(0);
   const { data, saveStepOne } = useAppointmentModal();
+
+  console.log({ appointmentDetails });
 
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
@@ -40,13 +43,15 @@ function AppointmentReschedule(props: Props) {
   };
 
   useEffect(() => {
+    setValue(appointmentTimeSlots?.[0].id as number);
     saveStepOne?.({
-      price,
+      charges,
       requestedDate,
       scheduleId,
+      selectedSlotId: appointmentTimeSlots?.[0].id as number,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [price, appointmentDetails]);
+  }, [charges, appointmentDetails, appointmentTimeSlots]);
 
   return (
     <div>
@@ -63,7 +68,7 @@ function AppointmentReschedule(props: Props) {
           </div>
           <div className="border-b border-gray-4  pt-4">
             <h5>Charges</h5>
-            <p>${price}</p>
+            <p>${charges}</p>
           </div>
         </div>
       </div>

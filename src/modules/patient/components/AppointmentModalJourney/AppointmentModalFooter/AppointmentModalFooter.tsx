@@ -85,8 +85,6 @@ function AppointmentModalFooter({
         scheduleId: contextData.stepOne?.scheduleId,
       },
     });
-
-    console.log(bookData);
     if (bookData?.bookAppointment.status === "Confirmed") {
       setCurrentStepName("stepFour");
     } else {
@@ -159,6 +157,7 @@ function AppointmentModalFooter({
     }
   }
 
+  console.log({ contextData });
   return (
     <div>
       {stepName === "stepOne" && (
@@ -194,7 +193,7 @@ function AppointmentModalFooter({
             }}
             className={`${_classes["button-background-color"]}`}
           >
-            Pay ${contextData?.stepOne?.price}
+            Pay ${contextData?.stepOne?.charges}
           </Button>
         </div>
       )}
@@ -211,7 +210,7 @@ function AppointmentModalFooter({
               onAddAndPay(e, appointmentId);
             }}
           >
-            Pay ${contextData?.stepOne?.price}
+            Pay ${contextData?.stepOne?.charges}
           </Button>
         </div>
       )}
