@@ -316,6 +316,7 @@ export const Profile = React.forwardRef(function Profile({
 
               <InputWithLi disable={false} />
 
+              {/* Its editable component so all props are required */}
               <MultiRangeDatePicker
                 disable={false}
                 schedules={schedules}
