@@ -157,7 +157,6 @@ function AppointmentModalFooter({
     }
   }
 
-  console.log({ contextData });
   return (
     <div>
       {stepName === "stepOne" && (

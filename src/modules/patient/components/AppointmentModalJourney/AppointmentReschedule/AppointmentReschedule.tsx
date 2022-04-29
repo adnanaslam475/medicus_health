@@ -33,8 +33,6 @@ function AppointmentReschedule(props: Props) {
   const [value, setValue] = useState(0);
   const { data, saveStepOne } = useAppointmentModal();
 
-  console.log({ appointmentDetails });
-
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
     saveStepOne?.({
