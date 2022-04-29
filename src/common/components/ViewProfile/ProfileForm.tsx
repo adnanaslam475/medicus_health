@@ -1,8 +1,17 @@
 import { Form, Input, notification } from "antd";
-import { useUpdateDoctorProfileMutation } from "generated/graphql";
+// import { useUpdateDoctorProfileMutation } from "generated/graphql";
 import { useState } from "react";
-import { bioForm, educationalBGData, professionalBGData } from "utils/helper";
-import { Schedule } from "utils/types";
+import {
+  Schedule,
+  useUpdateDoctorProfileMutation,
+} from "../../../generated/graphql";
+import {
+  bioForm,
+  professionalBGData,
+  educationalBGData,
+} from "../../../utils/helper";
+// import { bioForm, educationalBGData, professionalBGData } from "utils/helper";
+// import { Schedule } from "utils/types";
 import AboutMe from "../AboutMe/AboutMe";
 import InputWithLi from "../InputWithLi/InputWithLi";
 import LanguageList from "../Languages/LanguageList";
@@ -10,10 +19,10 @@ import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
 
 import _classes from "./PhysicianProfile.module.scss";
 interface Props {
-  doctorId: string;
+  doctorId?: string;
   doctorData: any;
-  showLoginInfo: boolean;
-  schedules: Schedule[];
+  showLoginInfo?: boolean;
+  schedules?: Schedule[] | undefined;
 }
 
 function ProfileForm({
@@ -104,7 +113,11 @@ function ProfileForm({
         <AboutMe />
 
         <InputWithLi disable={true} />
-        <MultiRangeDatePicker disable={true} schedules={schedules} />
+        {/* <MultiRangeDatePicker
+          disable={true}
+          schedules={schedules}
+          setAddScheduleClick={() => null}
+        /> */}
         <div className={`my-6 ${_classes["professional"]}`}>
           <h5>Professional Background</h5>
           {professionalBGData.map((item) => {

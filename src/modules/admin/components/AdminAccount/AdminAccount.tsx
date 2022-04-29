@@ -113,10 +113,10 @@ function AdminAccount() {
                 />
               ) : (
                 <ViewProfile
-                  doctorId={query?.id}
+                  // doctorId={query?.id}
                   doctorData={doctorProfile}
                   setIsEdit={setIsEdit}
-                  loginInfo={false}
+                  // loginInfo={false}
                   schedules={schedules}
                 />
               )}

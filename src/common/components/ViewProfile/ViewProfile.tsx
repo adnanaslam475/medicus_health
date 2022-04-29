@@ -8,19 +8,28 @@ import { Avatar, Upload, Form, Button, Menu, notification } from "antd";
 import ReactS3Client from "react-aws-s3-typescript";
 import { UploadChangeParam } from "antd/lib/upload";
 import {
-  useEnableOrDisableDoctorMutation,
+  Schedule,
   useUpdateDoctorProfileMutation,
-} from "generated/graphql";
-import { configS3 } from "utils/helper";
+  useEnableOrDisableDoctorMutation,
+} from "../../../generated/graphql";
+import { configS3 } from "../../../utils/helper";
 import ProfileForm from "./ProfileForm";
+
+type props = {
+  doctorId?: string;
+  doctorData?: any;
+  setIsEdit?: (e: boolean) => void;
+  showLoginInfo?: boolean;
+  schedules?: Schedule[] | undefined;
+};
 
 export const ViewProfile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
   setIsEdit,
   showLoginInfo,
-  schedules
-}: any) {
+  schedules,
+}: props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
 
@@ -156,11 +165,10 @@ export const ViewProfile = React.forwardRef(function Profile({
                 src={userProfileImage}
               />
             </div>
-          
 
             <div>
               <h2 className="mb-0">
-                { `${first_name && first_name} ${last_name && last_name}` || ""}
+                {`${first_name && first_name} ${last_name && last_name}` || ""}
               </h2>
               <span className="block">{email}</span>
               <div className="flex gap-2 pt-2">
@@ -179,7 +187,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 <Button
                   type="default"
                   className={`${_classes["edit-button"]}`}
-                  onClick={() => setIsEdit(true)}
+                  onClick={() => setIsEdit?.(true)}
                 >
                   <EditOutlined />
                   Edit Info

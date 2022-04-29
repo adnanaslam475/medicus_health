@@ -5,7 +5,7 @@ import { date } from "../../utils";
 import {
   AppointmentServiceType,
   AppointmentTimeSlots,
-  Transection,
+  Transaction,
   User,
 } from "../../../generated/graphql";
 
@@ -119,7 +119,7 @@ const AppointmentHistoryTable = (props: Props) => {
       //   compare: (a: any, b: any) => a.transection - b.transection,
       //   multiple: 3,
       // },
-      render: (value: Transection) => {
+      render: (value: Transaction) => {
         return (
           <div>{`${
             value?.createdAt ? date?.formatMMMMDDYYYY(value?.createdAt) : "--"

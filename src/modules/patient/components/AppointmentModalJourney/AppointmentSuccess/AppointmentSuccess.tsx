@@ -17,7 +17,6 @@ const AppointmentSuccess = () => {
 	};
 
 	const { query } = useRouter();
-	console.log(query, "query");
 
 	return (
 		<>

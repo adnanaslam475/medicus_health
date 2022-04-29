@@ -3,10 +3,11 @@ import { days } from "./helper";
 
 const { Option } = Select;
 
-function DayPicker() {
+function DayPicker({ setAddScheduleDay }: any) {
   // function created to send data on api from parent
   function handleChange(value: any) {
     console.log(`selected ${value}`);
+    setAddScheduleDay(value);
   }
   return (
     <Select
