@@ -1,5 +1,5 @@
 import { Form, Radio } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import Payment from "../Payment/Payment";
 import visa from "./../../../../../../public/assets/images/visa.svg";
 import mastercard from "./../../../../../../public/assets/images/mastercard.svg";
@@ -21,13 +21,20 @@ function MakePayment() {
     variables: { userId: getUserData()?.user?.id as number },
   });
 
+  useEffect(() => {
+    saveStepTwo?.({
+      cardId: allCardsData?.getAllCards[0].id,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allCardsData?.getAllCards]);
+
   return (
     <>
       <h2>Make Payment</h2>
       <Form layout="vertical">
         <div className="mt-8">
           <Radio.Group
-            defaultValue={allCardsData?.getAllCards[0].id}
+            value={allCardsData?.getAllCards[0].id}
             onChange={(e) => {
               saveStepTwo?.({
                 cardId: e.target.value,
