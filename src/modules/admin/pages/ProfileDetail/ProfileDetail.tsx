@@ -12,7 +12,7 @@ import {
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../generated/graphql";
-import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
+import { ViewProfile } from "../../../../common/components/ViewProfile/ViewProfile";
 
 const { TabPane } = Tabs;
 

@@ -1,14 +1,21 @@
-import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
-import { getUserData } from "common/utils/userData";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { ViewProfile } from "../../../../../../common/components/ViewProfile/ViewProfile";
+import { getUserData } from "../../../../../../common/utils/userData";
 import {
+  DoctorProfile,
   useCreateDoctorScheduleMutation,
+  useDoctorProfileQuery,
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
-} from "generated/graphql";
-import React, { useEffect, useState } from "react";
+} from "../../../../../../generated/graphql";
 import EditProfile from "../EditProfile/EditProfile";
 
 function AccountsProfile() {
+  const editData = () => {
+    setIsEdit(!isEdit);
+  };
+
   const [isEdit, setIsEdit] = useState(false);
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
   const [addScheduleDay, setAddScheduleDay] = useState("");
@@ -53,6 +60,14 @@ function AccountsProfile() {
     }
   }, [deleteScheduleId]);
 
+  const [{ data }] = useDoctorProfileQuery({
+    variables: { doctor_id: id as number },
+  });
+
+  const { doctorProfile } = data || {};
+
+  console.log(doctorProfile, "doctorProfile");
+
   return (
     <div>
       {isEdit ? (
@@ -65,6 +80,9 @@ function AccountsProfile() {
           setAddScheduleTime={setAddScheduleTime}
           setAddScheduleClick={setAddScheduleClick}
           schedules={schedules}
+          doctorId={id}
+          doctorData={doctorProfile}
+          edit={editData}
           setIsEdit={setIsEdit}
         />
       ) : (
@@ -72,6 +90,8 @@ function AccountsProfile() {
           setIsEdit={setIsEdit}
           showLoginInfo
           schedules={schedules}
+          doctorId={String(id)}
+          doctorData={doctorProfile}
         />
       )}
     </div>

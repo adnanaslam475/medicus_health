@@ -34,6 +34,16 @@ import _classes from "./EditProfile.module.scss";
 import Language from "../../../../../admin/components/Languague/Language";
 import InputWithLi from "../../../../../../common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "../../../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+import ReactS3Client from "react-aws-s3-typescript";
+import error from "next/error";
+import { info } from "sass";
+import {
+  useEnableOrDisableDoctorMutation,
+  useUpdateDoctorProfileMutation,
+} from "../../../../../../generated/graphql";
+import { configS3 } from "../../../../../../utils/helper";
+import config from "../../../../../../../config";
+import { UploadChangeParam } from "antd/lib/upload";
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -58,8 +68,14 @@ function EditProfile({
   const { first_name, last_name, password, email, contact_number, status } =
     doctorData?.user || {};
 
+  console.log(doctorData, "doctorData");
+
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
+  const [result, updateDoctor] = useUpdateDoctorProfileMutation();
+  const { error } = result || {};
+
+  const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -69,15 +85,73 @@ function EditProfile({
       email: email,
       password: "",
       confirmPassword: "",
+      institute: "abcde",
     });
   }
 
+  const updateDoctorProfile = async (values: any) => {
+    if (doctorData) {
+      const res = await updateDoctor({
+        updateDoctorProfileInput: {
+          doctor_id: Number(doctorId),
+          first_name: values?.firstName,
+          last_name: values?.lastName,
+          email: values?.email,
+          password: values?.password,
+          profile_image: image || userProfileImage,
+        },
+      });
+
+      if (res?.data) {
+        res?.data?.updateDoctorProfile &&
+          notification.success({
+            message: "Updated Successfully",
+          });
+      }
+
+      if (res?.error) {
+        res?.error?.graphQLErrors[0]?.message &&
+          notification.error({
+            message:
+              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+          });
+      }
+    }
+  };
+
   const onFinish = async (values: any) => {
     try {
-      // updateDoctorProfile(values);
+      updateDoctorProfile(values);
       setIsEdit(false);
     } catch (error) {
       setIsEdit(true);
+    }
+  };
+
+  useEffect(() => {
+    if (doctorData) {
+      prepareAndSetEditPayload();
+    }
+  }, [doctorData]);
+
+  const configS3 = {
+    region: config?.region || "",
+    bucketName: config?.bucketName || "",
+    accessKeyId: config?.accessKeyId || "",
+    secretAccessKey: config?.secertAccessKey || "",
+  };
+
+  const fileChange = async (info: UploadChangeParam) => {
+    const s3 = new ReactS3Client(configS3);
+
+    try {
+      const url = await s3.uploadFile(info.file.originFileObj as File);
+      setImage(url?.location);
+    } catch (error) {}
+    if (error) {
+      notification.error({
+        message: error?.graphQLErrors[0]?.message || "Something went wrong",
+      });
     }
   };
 
@@ -86,6 +160,24 @@ function EditProfile({
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
+
+  async function handleChange() {
+    const res = await EnableOrDisableDoctor({
+      id: Number(doctorId),
+    });
+    if (res?.data?.enableOrDisableDoctor?.status) {
+      res?.data?.enableOrDisableDoctor?.status &&
+        notification.success({
+          message: "Published",
+        });
+    }
+    if (!res?.data?.enableOrDisableDoctor?.status) {
+      !res?.data?.enableOrDisableDoctor?.status &&
+        notification.success({
+          message: "Unpublished",
+        });
+    }
+  }
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -189,6 +281,80 @@ function EditProfile({
                   <Input.Password />
                 </Form.Item>
               </div>
+
+              <div className={`my-6 ${_classes["professional"]}`}>
+                <h5>Professional Background</h5>
+                <div className="border-b border-gray-4 my-3">
+                  <Form.Item
+                    label="Hospital/Clinic/Institution"
+                    name="institute"
+                    rules={[
+                      {
+                        required: false,
+                        message: "Hospital/Clinic/Institution",
+                      },
+                    ]}
+                    className="flex-1"
+                  >
+                    <Input value="University of Oklahoma College of Medicine" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Role"
+                    name="role"
+                    rules={[{ required: false, message: "role" }]}
+                    className="flex-1"
+                  >
+                    <Input />
+                  </Form.Item>
+                </div>
+                <div className="border-b border-gray-4 my-3">
+                  <Form.Item
+                    label="Hospital/Clinic/Institution"
+                    name="institute"
+                    rules={[
+                      {
+                        required: false,
+                        message: "Hospital/Clinic/Institution",
+                      },
+                    ]}
+                    className="flex-1"
+                  >
+                    <Input value="University of Oklahoma College of Medicine" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Role"
+                    name="role"
+                    rules={[{ required: false, message: "role" }]}
+                    className="flex-1"
+                  >
+                    <Input />
+                  </Form.Item>
+                </div>
+                <div className="border-b border-gray-4 my-3">
+                  <Form.Item
+                    label="Hospital/Clinic/Institution"
+                    name="institute"
+                    rules={[
+                      {
+                        required: false,
+                        message: "Hospital/Clinic/Institution",
+                      },
+                    ]}
+                    className="flex-1"
+                  >
+                    <Input value="University of Oklahoma College of Medicine" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Role"
+                    name="role"
+                    rules={[{ required: false, message: "role" }]}
+                    className="flex-1"
+                  >
+                    <Input />
+                  </Form.Item>
+                </div>
+              </div>
+
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
                   <Button type="default" onClick={() => setIsEdit(false)}>

@@ -19,6 +19,7 @@ const { TextArea } = Input;
 
 import {
   DoctorProfile,
+  // Schedule,
   useEnableOrDisableDoctorMutation,
   useUpdateDoctorProfileMutation,
 } from "../../../../generated/graphql";
@@ -26,10 +27,10 @@ import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import Language from "../../../admin/components/Languague/Language";
-import InputWithLi from "common/components/InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
-import { configS3 } from "utils/helper";
-import { Schedule } from "utils/types";
+import { configS3 } from "../../../../utils/helper";
+import InputWithLi from "../../../../common/components/InputWithLi/InputWithLi";
+import MultiRangeDatePicker from "../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+import { Schedule } from "../../../../utils/types";
 
 type profileType = {
   doctorId: string;
@@ -73,7 +74,7 @@ export const Profile = React.forwardRef(function Profile({
       prepareAndSetEditPayload();
     }
   }, [doctorData]);
-  console.log("doctorDatadoctorDatadoctorData", doctorData);
+  console.log("doctorData", doctorData);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
