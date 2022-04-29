@@ -194,7 +194,6 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     patientId
     doctorId
     serviceId
-    charges
     requestedDate
     status
     patient {
@@ -217,12 +216,6 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     }
     transaction {
       createdAt
-    }
-    appointmentTimeSlots {
-      id
-      startTime
-      endTime
-      selected
     }
   }
 }
@@ -416,6 +409,7 @@ query ViewSuggestedTimeSlots($id: Int!) {
     id
     patientId
     doctorId
+    charges
     serviceId
     scheduleId
     requestedDate
