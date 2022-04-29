@@ -101,20 +101,20 @@ const AppointmentHistoryTable = (props: Props) => {
     },
     {
       title: "Total Amount",
-      dataIndex: "serviceType",
-      key: "serviceType",
+      dataIndex: "charges",
+      key: "charges",
       // sorter: {
       //   compare: (a: any, b: any) => a.totalamount - b.totalamount,
       //   multiple: 3,
       // },
       render: (value: AppointmentServiceType) => {
-        return <div>{`${value?.price}`}</div>;
+        return <div>{`$ ${value}`}</div>;
       },
     },
     {
       title: "Transaction Date",
-      dataIndex: "transection",
-      key: "transection",
+      dataIndex: "transaction",
+      key: "transaction",
       // sorter: {
       //   compare: (a: any, b: any) => a.transection - b.transection,
       //   multiple: 3,
