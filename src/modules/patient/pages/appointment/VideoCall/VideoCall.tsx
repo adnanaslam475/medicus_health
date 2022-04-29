@@ -1,5 +1,4 @@
 //@ts-nocheck
-import AppLayout from "common/components/AppLayout/AppLayout";
 import React, { useEffect, useState } from "react";
 import Controls from "./Controls";
 import Video from "./Video";
@@ -10,10 +9,13 @@ import {
   channelName,
 } from "./settings";
 
-type Props = {};
+// scss
+import _classes from "./VideoCall.module.scss";
+import { Result } from "antd";
+import { SmileOutlined } from "@ant-design/icons";
 
-function VideoCall(props: Props) {
-  const { setInCall } = props;
+function VideoCall() {
+  const [inCall, setInCall] = useState(true);
   const [users, setUsers] = useState([]);
   const [start, setStart] = useState(false);
   const client = useClient();
@@ -70,22 +72,24 @@ function VideoCall(props: Props) {
   }, [channelName, client, ready, tracks]);
 
   return (
-    <AppLayout>
-      <div className="h-[1000px] flex flex-col">
-        <div>
-          {ready && tracks && (
-            <Controls
-              tracks={tracks}
-              setStart={setStart}
-              setInCall={setInCall}
-            />
-          )}
-        </div>
-        <div className="flex-1" >
-          {start && tracks && <Video tracks={tracks} users={users} />}
-        </div>
-      </div>
-    </AppLayout>
+    <div className={`flex flex-col relative ${_classes["video-call"]}`}>
+      {inCall ? (
+        <>
+          <div className="absolute bottom-0 w-full flex items-center justify-center z-10 p-4">
+            {ready && tracks && (
+              <Controls
+                tracks={tracks}
+                setStart={setStart}
+                setInCall={setInCall}
+              />
+            )}
+          </div>
+          <>{start && tracks && <Video tracks={tracks} users={users} />}</>
+        </>
+      ) : (
+        <Result icon={<SmileOutlined />} title="Your Call has ended" />
+      )}
+    </div>
   );
 }
 
