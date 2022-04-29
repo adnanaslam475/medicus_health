@@ -13,6 +13,7 @@ import jpg from '../../../../../public/assets/images/jpg.svg';
 import word from '../../../../../public/assets/images/word-file.svg'
 import Notes from "common/components/Notes/Notes";
 import { useGetAppointmentByIdQuery } from "generated/graphql";
+import DoctorAppointmentInfo from "../DoctorAppointmentInfo/DoctorAppointmentInfo";
 
 
 type Props = {
@@ -37,7 +38,8 @@ console.log(appointmentHealthHistory,"appointmentHealthHistory")
       <Tabs type="card">
         <TabPane tab="Appointment Info" key="1" className="">
         <ProfileImageWithInfo/>
-          <AppointmentInfo />
+          {/* <AppointmentInfo /> */}
+          <DoctorAppointmentInfo/>
         </TabPane>
         <TabPane tab="Patient Info" key="2">
         <ProfileImageWithInfo/>
@@ -66,7 +68,6 @@ console.log(appointmentHealthHistory,"appointmentHealthHistory")
         <TabPane tab="Notes" key="6">
           <div className="max-w-1/2">
         <ProfileImageWithInfo/>
-
        <Notes/>
           </div>
         </TabPane>
