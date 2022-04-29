@@ -104,7 +104,9 @@ function ProfileForm({
         <AboutMe />
 
         <InputWithLi disable={true} />
-        <MultiRangeDatePicker disable={true} schedules={schedules} setAddScheduleClick={()=>null}/>
+        
+        {/* Its readonly component only schedule is provided to view schedules and disabled from editing*/}
+        <MultiRangeDatePicker disable={true} schedules={schedules} />
         <div className={`my-6 ${_classes["professional"]}`}>
           <h5>Professional Background</h5>
           {professionalBGData.map((item) => {

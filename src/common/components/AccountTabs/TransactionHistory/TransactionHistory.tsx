@@ -8,8 +8,6 @@ import {
   Transaction,
 } from "../../../../generated/graphql";
 
-
-
 type Props = {
   data: Transaction[] | undefined;
 };
@@ -22,20 +20,20 @@ const TransactionHistory = (props: Props) => {
       title: "Transaction ID",
       dataIndex: "id",
       key: "id",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.id - b.id,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.id - b.id,
+        multiple: 3,
+      },
     },
-   
+
     {
       title: "Doctor",
       dataIndex: "appointment",
       key: "appointment",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.appointment - b.appointment,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.appointment - b.appointment,
+        multiple: 3,
+      },
       render: (value: Appointment) => {
         return (
           <div className="someclass">{`${value?.doctor?.first_name} ${value?.doctor?.last_name}`}</div>
@@ -46,10 +44,10 @@ const TransactionHistory = (props: Props) => {
       title: "Service",
       dataIndex: "appointment",
       key: "appointment",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.service - b.service,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.service - b.service,
+        multiple: 3,
+      },
       render: (value: Appointment) => {
         return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
       },
@@ -58,10 +56,10 @@ const TransactionHistory = (props: Props) => {
       title: "Time Slot",
       dataIndex: "appointment",
       key: "appointment",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.timeslot - b.timeslot,
+        multiple: 3,
+      },
       render: (value: Appointment) => {
         let time = value?.appointmentTimeSlots?.find((time) => time.selected);
         return (
@@ -75,10 +73,10 @@ const TransactionHistory = (props: Props) => {
       title: "Date",
       dataIndex: "appointment",
       key: "appointment",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
+        multiple: 3,
+      },
       render: (value: Appointment) => {
         let time = value?.appointmentTimeSlots?.find((time) => time.selected);
         return (
@@ -88,16 +86,15 @@ const TransactionHistory = (props: Props) => {
         );
       },
     },
-    
+
     {
       title: "Total Amount",
       dataIndex: "amountReceived",
       key: "amountReceived",
-      
-      // sorter: {
-      //   compare: (a: any, b: any) => a.totalamount - b.totalamount,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.totalamount - b.totalamount,
+        multiple: 3,
+      },
       render: (value: number) => {
         return <div className="someclass">{`$${value}`}</div>;
       },
@@ -106,10 +103,10 @@ const TransactionHistory = (props: Props) => {
       title: "Transaction Date",
       dataIndex: "createdAt",
       key: "createdAt",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.createdAt - b.createdAt,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.createdAt - b.createdAt,
+        multiple: 3,
+      },
       render: (value: string) => {
         return (
           <div className="someclass">{`${
@@ -122,10 +119,10 @@ const TransactionHistory = (props: Props) => {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.status - b.status,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.status - b.status,
+        multiple: 3,
+      },
       render: (value: string) => {
         return (
           <div className="someclass">

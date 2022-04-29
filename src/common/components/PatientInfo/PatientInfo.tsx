@@ -30,8 +30,9 @@ function AppointmentInfo(props: Props) {
 
 	return (
 		<div className="">
+			
 		
-			<Form layout="vertical" className="w-1/2">
+			{/* <Form layout="vertical" className="w-1/2">
 				<div className="grid grid-cols-2 gap-4">
 					<Form.Item
 						label="First Name"
@@ -128,7 +129,7 @@ function AppointmentInfo(props: Props) {
 						<Input disabled />
 					</Form.Item>
 				</div>
-			</Form>
+			</Form> */}
 		</div>
 	);
 }
