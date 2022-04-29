@@ -76,7 +76,7 @@ function AppointmentModalFooter({
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     id: number | undefined
   ) {
-    const { data: bookData } = await executeBookAppointmentMutation({
+    const { data: bookData, error } = await executeBookAppointmentMutation({
       bookAppointmentInput: {
         appointmentId: appointmentId as number,
         cardId: contextData.stepTwo.cardId as number,
@@ -86,12 +86,12 @@ function AppointmentModalFooter({
       },
     });
 
-    console.log(bookData);
     if (bookData?.bookAppointment.status === "Confirmed") {
       setCurrentStepName("stepFour");
     } else {
       notification.error({
-        message: "Something went wrong",
+        message:
+          (error && error.message.split("]")[1]) || "Something went wrong",
       });
     }
   }
