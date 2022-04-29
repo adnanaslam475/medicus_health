@@ -1,5 +1,5 @@
 import { Form, Radio } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Payment from "../Payment/Payment";
 import visa from "./../../../../../../public/assets/images/visa.svg";
 import mastercard from "./../../../../../../public/assets/images/mastercard.svg";
@@ -17,11 +17,13 @@ const CARD_TYPE = {
 function MakePayment() {
   // GET ALL CARDS API CALL
   const { saveStepTwo } = useAppointmentModal();
+  const [value, setValue] = useState(0);
   const [{ data: allCardsData }] = useGetAllCardsQuery({
     variables: { userId: getUserData()?.user?.id as number },
   });
 
   useEffect(() => {
+    setValue(allCardsData?.getAllCards[0].id as number);
     saveStepTwo?.({
       cardId: allCardsData?.getAllCards[0].id,
     });
@@ -34,8 +36,9 @@ function MakePayment() {
       <Form layout="vertical">
         <div className="mt-8">
           <Radio.Group
-            value={allCardsData?.getAllCards[0].id}
+            value={value}
             onChange={(e) => {
+              setValue(e.target.value);
               saveStepTwo?.({
                 cardId: e.target.value,
               });
