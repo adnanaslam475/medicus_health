@@ -42,6 +42,8 @@ function Notes() {
         >
           <Input />
         </Form.Item>
+        <h2>SOAP</h2>
+        <span className='px-3'> S</span>
         </Form>
         </Modal>
         </>
