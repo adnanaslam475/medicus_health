@@ -1,5 +1,7 @@
 //@ts-nocheck
 import {
+  AudioMutedOutlined,
+  AudioOutlined,
   CloseCircleOutlined,
   VideoCameraFilled,
   VideoCameraOutlined,
@@ -41,12 +43,13 @@ function Controls(props: Props) {
   return (
     <div className="flex gap-2">
       <div>
-        <Button onClick={() => mute("audio")}>
-          {trackState.audio ? <VideoCameraOutlined /> : <VideoCameraFilled />}
+        <Button onClick={() => mute("audio")} size="small">
+          {trackState.audio ? <AudioMutedOutlined /> : <AudioOutlined />}
         </Button>
       </div>
       <div>
         <Button
+          size="small"
           color={trackState.video ? "primary" : "secondary"}
           onClick={() => mute("video")}
         >
@@ -54,9 +57,8 @@ function Controls(props: Props) {
         </Button>
       </div>
       <div>
-        <Button color="default" onClick={() => leaveChannel()}>
+        <Button size="small" color="default" onClick={() => leaveChannel()}>
           Leave
-          <CloseCircleOutlined />
         </Button>
       </div>
     </div>
