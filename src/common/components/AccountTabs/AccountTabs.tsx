@@ -16,6 +16,8 @@ import { getUserData } from "../../utils/userData";
 import _classes from "./AccountTabs.module.scss";
 import { date } from "../../utils";
 import { EyeFilled } from "@ant-design/icons";
+import EmailNotification from "modules/common/components/EmailNotification/EmailNotification";
+import EmailNotificationPage from "modules/patient/pages/EmailNotification/EmailNotification";
 
 function AccountTabs() {
   const form: any = useRef();
@@ -120,6 +122,17 @@ function AccountTabs() {
             key="4"
           >
             <TransactionHistory data={transactions as Transaction[]} />
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            tab={
+              <span className="font-Circular font-medium">
+                Email Notification
+              </span>
+            }
+            key="5"
+          >
+           <EmailNotificationPage/>
+
           </Tabs.TabPane>
         </Tabs>
       </div>
