@@ -1,40 +1,36 @@
 //@ts-nocheck
 import { AgoraVideoPlayer } from "agora-rtc-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
+
+// scss
+import _classes from "./VideoCall.module.scss";
 
 type Props = {};
 
 function Video(props: Props) {
   const { users, tracks } = props;
-  const [gridSpacing, setGridSpacing] = useState(12);
-
-  useEffect(() => {
-    setGridSpacing(Math.max(Math.floor(12 / (users.length + 1)), 4));
-  }, [users, tracks]);
-
+  const isShowParticipant = users.length > 0;
+  const participant = users?.[0];
+  console.log(participant);
   return (
-    <div className="h-full">
-      <div className="h-full">
-        <AgoraVideoPlayer
-          videoTrack={tracks[1]}
-          style={{ height: "100%", width: "100%" }}
-        />
+    <>
+      <div className=" absolute right-4 top-4 z-10">
+        <AgoraVideoPlayer videoTrack={tracks[1]} className="flex-1 h-[300px] w-[400px]" />
       </div>
-      {users.length > 0 &&
-        users.map((user) => {
-          if (user.videoTrack) {
-            return (
-              <div xs={gridSpacing}>
-                <AgoraVideoPlayer
-                  videoTrack={user.videoTrack}
-                  key={user.uid}
-                  style={{ height: "100%", width: "100%" }}
-                />
-              </div>
-            );
-          } else return null;
-        })}
-    </div>
+      {isShowParticipant && (
+        <>
+          {participant.videoTrack && (
+            <div className={`${_classes["participant-video"]} flex-1 flex`}>
+              <AgoraVideoPlayer
+                videoTrack={participant.videoTrack}
+                key={participant.uid}
+                className="flex-1"
+              />
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 }
 
