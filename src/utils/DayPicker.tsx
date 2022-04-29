@@ -3,11 +3,15 @@ import { days } from "./helper";
 
 const { Option } = Select;
 
-function DayPicker({ setAddScheduleDay }: any) {
+type props = {
+  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function DayPicker({ setAddScheduleDay }: props) {
   // function created to send data on api from parent
   function handleChange(value: any) {
     console.log(`selected ${value}`);
-    setAddScheduleDay(value);
+    setAddScheduleDay?.(value);
   }
   return (
     <Select
