@@ -58,8 +58,7 @@ function MultiRangeDatePicker(props: Props) {
       )}
       {!!schedules?.length &&
         schedules
-          ?.sort((a, b) => {
-            //@ts-ignore
+          ?.sort((a: any, b: any) => {
             return a?.day - b?.day;
           })
           .map((item: singleSchedule, index: number) => {
