@@ -1,6 +1,4 @@
 import React from "react";
-import _classes from "./AppointmentCard.module.scss";
-import { ButtonType } from "antd/lib/button";
 import AppointmnetConfirmedCard from "./CardTypes/AppointmnetConfirmedCard";
 import AppointmnetRequestedCard from "./CardTypes/AppointmnetRequestedCard";
 import AppointmnetCancelledCard from "./CardTypes/AppointmnetCancelledCard";
@@ -8,53 +6,8 @@ import AppointmnetSuggestedCard from "./CardTypes/AppointmnetSuggestedCard";
 import { getUserData } from "../../utils/userData";
 import { AppointmentTimeSlots } from "../../../generated/graphql";
 
-type StatusName = "confirmed" | "request" | "pending" | "cancelled";
-
-type StatusType<K extends StatusName> = {
-  [k in K]: {
-    lable: string;
-    color: string;
-    button: {
-      show: boolean;
-      type: ButtonType;
-    };
-  };
-};
-
-// const APPOINTMENT_STATUS: StatusType<StatusName> = {
-//   confirmed: {
-//     lable: "Confirmed",
-//     color: "text-cyan",
-//     button: {
-//       show: false,
-//       type: "primary",
-//     },
-//   },
-//   request: {
-//     lable: "Request",
-//     color: "text-primary",
-//     button: {
-//       show: false,
-//       type: "primary",
-//     },
-//   },
-//   pending: {
-//     lable: "pending",
-//     color: "text-yellow",
-//     button: {
-//       show: false,
-//       type: "default",
-//     },
-//   },
-//   cancelled: {
-//     lable: "cancelled",
-//     color: "text-red",
-//     button: {
-//       show: false,
-//       type: "default",
-//     },
-//   },
-// };
+// scss
+import _classes from "./AppointmentCard.module.scss";
 
 type props = {
   appointmentId?: number | undefined;
