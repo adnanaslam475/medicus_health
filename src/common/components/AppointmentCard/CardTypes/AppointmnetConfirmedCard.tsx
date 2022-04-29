@@ -45,6 +45,7 @@ function AppointmnetConfirmedCard({
           type={"primary"}
           icon={<VideoCameraFilled />}
           className={`${_classes["card-btn"]} mr-3`}
+          onClick={() => Router.push("/patient/appointments/call")}
         >
           Join Now
         </Button>

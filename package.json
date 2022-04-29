@@ -7,7 +7,9 @@
     "start": "lessc --js ./styles/settings/theme.less ./styles/cutomized-antd.css && next start",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
-    "codegen.yml": "graphql-codegen --config codegen.yml"
+    "codegen.yml": "graphql-codegen --config codegen.yml",
+    "setup": "git config core.hooksPath .githooks && yarn",
+    "setup-hook": "cd .git/hooks && mv pre-commit.sample pre-commit && cat /dev/null > pre-commit && echo 'CI=true yarn build'>pre-commit"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -18,6 +20,7 @@
     "@fullcalendar/interaction": "^5.10.1",
     "@fullcalendar/react": "^5.10.1",
     "@fullcalendar/timegrid": "^5.10.1",
+    "agora-rtc-react": "^1.1.1",
     "antd": "^4.18.5",
     "clsx": "^1.1.1",
     "cross-env": "^7.0.3",
