@@ -4,6 +4,7 @@ import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
 import { date } from "../../utils";
 import yourImage from "../../../../public/assets/images/doc-pic-big.png";
 import { GetAppointmentByIdQuery } from "generated/graphql";
+import LabelWithTextDiv from "../LabelWithTextDiv/LabelWithTextDiv";
 type Props = {
 	appoinmentDetails?: GetAppointmentByIdQuery | undefined;
 };
@@ -29,9 +30,39 @@ function AppointmentInfo(props: Props) {
 	}
 
 	return (
-		<div className="">
-			
-		
+		<div className="max-w-[800px]">
+			<div className="flex flex-col md:flex-row gap-2">
+				<LabelWithTextDiv label="first Name" value="mark" />
+				<LabelWithTextDiv label="Last Name" value="mark" />
+			</div>
+			<div className="flex flex-col md:flex-row gap-2">
+				<LabelWithTextDiv label="Gender" value="mark" />
+				<LabelWithTextDiv label="Date of birth" value="mark" />
+			</div>
+			<div className="flex flex-col md:flex-row gap-2">
+				<LabelWithTextDiv label="fEmail Address" value="mark" />
+				<LabelWithTextDiv label="Cell Number" value="mark" />
+			</div>
+			<div className="flex flex-col md:flex-row gap-2">
+				<LabelWithTextDiv label="Country" value="mark" />
+				<LabelWithTextDiv label="City" value="mark" />
+			</div>
+			<div className="flex flex-col md:flex-row gap-2">
+				<LabelWithTextDiv label="Material Status" value="mark" />
+				<LabelWithTextDiv label="Do you have any Children?" value="mark" />
+			</div>
+			<div className="flex flex-col md:flex-row gap-2">
+				<LabelWithTextDiv label="What is your Occupation?" value="mark" />
+				<LabelWithTextDiv
+					label="Do you have any Occupational Exposure?"
+					value="mark"
+				/>
+			</div>
+			<div className="flex gap-2">
+				<LabelWithTextDiv label="Do you have any pets?" value="mark" />
+				<div className="w-full" />
+			</div>
+
 			{/* <Form layout="vertical" className="w-1/2">
 				<div className="grid grid-cols-2 gap-4">
 					<Form.Item
