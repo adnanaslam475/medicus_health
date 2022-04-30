@@ -117,7 +117,7 @@ const AppHeader = () => {
         </span>
         <div className="w-full flex px-0 justify-between items-center">
           <div className="hidden md:block w-full ">
-            <div className="p-0">{getRole() === "User" && <InfoMessage />}</div>
+            {/* <div className="p-0">{getRole() === "User" && <InfoMessage />}</div> */}
 
             <div className="p-0">
               {getRole() === "Doctor" || getRole() === "User" ? (

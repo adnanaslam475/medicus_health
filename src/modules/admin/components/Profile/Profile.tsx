@@ -44,8 +44,8 @@ type profileType = {
   schedules: Schedule[] | undefined;
   setDeleteScheduleId: (e: string) => void;
   setAddScheduleTime: (e: [string, string]) => void;
-  setAddScheduleDay: (e: string) => void;
-  setAddScheduleClick: (e: boolean) => void;
+  setAddScheduleDay: React.Dispatch<React.SetStateAction<string>>;
+  setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
   edit: () => void;
 };
 
@@ -323,6 +323,7 @@ export const Profile = React.forwardRef(function Profile({
 
               <InputWithLi disable={false} />
 
+              {/* Its editable component so all props are required */}
               <MultiRangeDatePicker
                 disable={false}
                 schedules={schedules}
