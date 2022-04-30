@@ -5,6 +5,7 @@ import LabelWithText from "common/components/LabelWithText/LabelWithText";
 
 // scss
 import _classes from "./DoctorAppointmentInfo.module.scss";
+import Router from "next/router";
 
 function DoctorAppointmentInfo() {
 	return (
@@ -23,12 +24,14 @@ function DoctorAppointmentInfo() {
 					<Button
 						icon={<MessageOutlined />}
 						className={`${_classes["appointments-btn"]} mr-3`}
+						onClick={() => Router.push("/admin/messages")}
 					>
 						Message Admin
 					</Button>
 					<Button
 						icon={<MessageOutlined />}
 						className={`${_classes["appointments-btn"]}`}
+						onClick={() => Router.push("/doctor/messages")}
 					>
 						Message Physician
 					</Button>
