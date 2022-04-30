@@ -5,6 +5,7 @@ import _classes from "./AppointmentButtons.module.scss";
 import { ButtonType } from "antd/lib/button";
 import { GetAppointmentByIdQuery } from "../../../generated/graphql";
 import { date } from "../../utils";
+import Router  from "next/router";
 
 type Props = {
 	appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -86,12 +87,14 @@ function AppointmentInfo(props: Props) {
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]} mr-3`}
+            onClick={() => Router.push("/admin/messages")}
           >
             Message Admin
           </Button>
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]}`}
+            onClick={() => Router.push("/doctor/messages")}
           >
             Message Physician
           </Button>
