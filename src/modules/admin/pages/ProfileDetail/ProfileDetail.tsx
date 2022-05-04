@@ -13,15 +13,15 @@ import {
   useScheduleQuery,
 } from "../../../../generated/graphql";
 import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
+import {RangeValue} from 'rc-picker/lib/interface'
 
 const { TabPane } = Tabs;
 
 function ProfileDetail() {
   const [isEdit, setIsEdit] = useState(false);
+  const [addScheduleDay, setAddScheduleDay] = useState("Select Day");
+  const [addScheduleTime, setAddScheduleTime] = useState<{time:RangeValue<moment.Moment> | null,timeString:string[]}>({ timeString: [], time: null });
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
-  const [addScheduleDay, setAddScheduleDay] = useState("");
-  const [addScheduleClick, setAddScheduleClick] = useState(false);
-  const [addScheduleTime, setAddScheduleTime] = useState([""]);
 
   const editData = () => {
     setIsEdit(!isEdit);
@@ -41,26 +41,31 @@ function ProfileDetail() {
   });
   const schedules = doctorSchedules?.data?.doctorSchedules;
 
-  useEffect(() => {
-    executeDoctorSchedules({ requestPolicy: "network-only" });
-  }, [addScheduleClick]);
 
-  const [, executeCreateDoctorScheduleMutation] =
+  const [createDoctorScheduleResponse, executeCreateDoctorScheduleMutation] =
     useCreateDoctorScheduleMutation();
+    const { fetching } = createDoctorScheduleResponse;
+
   const [, executeRemoveDoctorScheduleMutation] =
     useRemoveDoctorScheduleMutation();
 
-  useEffect(() => {
-    if (isEdit && addScheduleDay && addScheduleTime) {
+
+  function onAddClick() {
+    if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length) {
       const variable = {
         doctorId: Number(docId),
         day: Number(addScheduleDay),
-        startTime: addScheduleTime[0],
-        endTime: addScheduleTime[1],
+        startTime: addScheduleTime.timeString[0],
+        endTime: addScheduleTime.timeString[1],
       };
-      executeCreateDoctorScheduleMutation(variable);
+
+      executeCreateDoctorScheduleMutation(variable).then(() => {
+        executeDoctorSchedules({ requestPolicy: "network-only" });
+        setAddScheduleDay("Select Day");
+        setAddScheduleTime({ timeString: [],time:null });
+      });
     }
-  }, [addScheduleClick]);
+  }
   useEffect(() => {
     if (deleteScheduleId) {
       executeRemoveDoctorScheduleMutation({ id: Number(deleteScheduleId) });
@@ -90,8 +95,11 @@ function ProfileDetail() {
                   schedules={schedules}
                   setDeleteScheduleId={setDeleteScheduleId}
                   setAddScheduleDay={setAddScheduleDay}
+                  addScheduleDay={addScheduleDay}
                   setAddScheduleTime={setAddScheduleTime}
-                  setAddScheduleClick={setAddScheduleClick}
+                  addScheduleTime={addScheduleTime}
+                  onAddClick={onAddClick}
+                  fetching={fetching}
                 />
               ) : (
                 <ViewProfile

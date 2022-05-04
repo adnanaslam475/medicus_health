@@ -5,10 +5,10 @@ const { Option } = Select;
 
 type props = {
   setAddScheduleDay?: React.Dispatch<React.SetStateAction<string>>;
+  addScheduleDay?: string;
 };
 
-function DayPicker({ setAddScheduleDay }: props) {
-  // function created to send data on api from parent
+function DayPicker({ setAddScheduleDay, addScheduleDay }: props) {
   function handleChange(value: any) {
     console.log(`selected ${value}`);
     setAddScheduleDay?.(value);
@@ -16,7 +16,8 @@ function DayPicker({ setAddScheduleDay }: props) {
   return (
     <Select
       bordered={false}
-      defaultValue="Select Day"
+      value={addScheduleDay}
+      defaultValue={"Select Day"}
       style={{ width: 120 }}
       onChange={handleChange}
     >
