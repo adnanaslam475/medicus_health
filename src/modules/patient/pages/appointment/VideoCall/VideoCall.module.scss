@@ -1,0 +1,9 @@
+.video-call {
+  min-height: 100vh;
+
+  .participant-video {
+    video {
+      object-fit: contain !important;
+    }
+  }
+}

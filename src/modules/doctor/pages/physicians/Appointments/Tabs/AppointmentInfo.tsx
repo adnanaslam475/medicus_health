@@ -61,41 +61,39 @@ function AppointmentInfo() {
       </ul>
       <div className="w-4/6 flex justify-between mt-4">
         <div className="flex flex-auto justify-between">
-          <Button
-            className="border border-red"
-          >
-            Reject
-          </Button>
+          <Button className="border border-red">Reject</Button>
           <div>
             <Button
-            icon={<MessageOutlined />}
-            className={`${_classes["appointments-btn"]}`}
-            onClick={showModal}
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]}`}
+              onClick={showModal}
             >
-            Propose Time
+              Propose Time
             </Button>
             <Button
-            type="primary"
-            icon={<VideoCameraFilled />}
-            className={`${_classes["appointments-btn"]} bg-current ml-3`}
-            onClick={() => Router.push("/doctor/calendar")}
+              type="primary"
+              icon={<VideoCameraFilled />}
+              className={`${_classes["appointments-btn"]} bg-current ml-3`}
+              onClick={() => Router.push("/doctor/calendar")}
             >
-            Accept Appointment
+              Accept Appointment
             </Button>
           </div>
         </div>
       </div>
-      <Modal visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+      <Modal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
         <h2>Propose New Time</h2>
         <Form layout="vertical">
           <div className="flex">
             <div className="w-5/6">
               <Form.Item label="Service*" name="service">
-                <Select
-                  placeholder="Service*"
-                  className="w-full"
-                >
-                    <Option>First Consultation</Option>
+                <Select placeholder="Service*" className="w-full">
+                  <Select.Option>First Consultation</Select.Option>
                 </Select>
               </Form.Item>
             </div>
@@ -116,65 +114,53 @@ function AppointmentInfo() {
           <div className="flex mt-2">
             <div className="w-32">
               <Form.Item label="Start Time" name="Start Time">
-                <Select
-                  placeholder="Select"
-                  className="w-full"
-                >
-                    <Option>08:00 AM</Option>
-                    <Option>08:30 AM</Option>
-                    <Option>09:00 AM</Option>
-                    <Option>08:30 AM</Option>
-                    <Option>10:00 AM</Option>
+                <Select placeholder="Select" className="w-full">
+                  <Select.Option>08:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>09:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>10:00 AM</Select.Option>
                 </Select>
               </Form.Item>
             </div>
             <div className="w-32 ml-4">
               <Form.Item label="End Time" name="End Time">
-                  <Select
-                    placeholder="Select"
-                    className="w-full"
-                  >
-                      <Option>08:00 AM</Option>
-                      <Option>08:30 AM</Option>
-                      <Option>09:00 AM</Option>
-                      <Option>08:30 AM</Option>
-                      <Option>10:00 AM</Option>
-                  </Select>
-                </Form.Item>
+                <Select placeholder="Select" className="w-full">
+                  <Select.Option>08:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>09:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>10:00 AM</Select.Option>
+                </Select>
+              </Form.Item>
             </div>
           </div>
           <div className="flex mt-2">
             <div className="w-32">
               <Form.Item label="Start Time" name="Start Time">
-                <Select
-                  placeholder="Select"
-                  className="w-full"
-                >
-                    <Option>08:00 AM</Option>
-                    <Option>08:30 AM</Option>
-                    <Option>09:00 AM</Option>
-                    <Option>08:30 AM</Option>
-                    <Option>10:00 AM</Option>
+                <Select placeholder="Select" className="w-full">
+                  <Select.Option>08:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>09:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>10:00 AM</Select.Option>
                 </Select>
               </Form.Item>
             </div>
             <div className="w-32 ml-4">
               <Form.Item label="End Time" name="End Time">
-                  <Select
-                    placeholder="Select"
-                    className="w-full"
-                  >
-                      <Option>08:00 AM</Option>
-                      <Option>08:30 AM</Option>
-                      <Option>09:00 AM</Option>
-                      <Option>08:30 AM</Option>
-                      <Option>10:00 AM</Option>
-                  </Select>
-                </Form.Item>
+                <Select placeholder="Select" className="w-full">
+                  <Select.Option>08:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>09:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>10:00 AM</Select.Option>
+                </Select>
+              </Form.Item>
             </div>
-          </div>          
-        </Form>        
-      </Modal>      
+          </div>
+        </Form>
+      </Modal>
     </React.Fragment>
   );
 }
