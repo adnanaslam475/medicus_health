@@ -189,12 +189,7 @@ function DoctorProfileCard(props: Props) {
           <ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span>
         </a>
       </Card>
-      <BookAppointmentJourney
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        doctorData={doctorData}
-      />
+      
     </>
   );
 }

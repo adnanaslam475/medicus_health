@@ -76,7 +76,7 @@ function AppointmentModalFooter({
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     id: number | undefined
   ) {
-    const { data: bookData } = await executeBookAppointmentMutation({
+    const { data: bookData, error } = await executeBookAppointmentMutation({
       bookAppointmentInput: {
         appointmentId: appointmentId as number,
         cardId: contextData.stepTwo.cardId as number,
@@ -85,13 +85,12 @@ function AppointmentModalFooter({
         scheduleId: contextData.stepOne?.scheduleId,
       },
     });
-
-    console.log(bookData);
     if (bookData?.bookAppointment.status === "Confirmed") {
       setCurrentStepName("stepFour");
     } else {
       notification.error({
-        message: "Something went wrong",
+        message:
+          (error && error.message.split("]")[1]) || "Something went wrong",
       });
     }
   }
@@ -194,7 +193,7 @@ function AppointmentModalFooter({
             }}
             className={`${_classes["button-background-color"]}`}
           >
-            Pay ${contextData?.stepOne?.price}
+            Pay ${contextData?.stepOne?.charges}
           </Button>
         </div>
       )}
@@ -211,7 +210,7 @@ function AppointmentModalFooter({
               onAddAndPay(e, appointmentId);
             }}
           >
-            Pay ${contextData?.stepOne?.price}
+            Pay ${contextData?.stepOne?.charges}
           </Button>
         </div>
       )}
