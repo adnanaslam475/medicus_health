@@ -1,35 +1,51 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import React from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import MultiRangeListing from "./MultiRangeListing";
 import { TimePicker } from "antd";
 const { RangePicker } = TimePicker;
 import _Classes from "./MultiRangeDatePicker.module.scss";
 import DayPicker from "../../../utils/DayPicker";
 import { Schedule, singleSchedule } from "../../../utils/types";
-
+import {RangeValue} from 'rc-picker/lib/interface'
 type Props = {
   disable: boolean;
   schedules?: Schedule[] | undefined;
   setDeleteScheduleId?: (e: string) => void;
-  setAddScheduleTime?: (e: [string, string]) => void;
-  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string>>;
+  setAddScheduleTime?: React.Dispatch<
+    React.SetStateAction<{ time: RangeValue<moment.Moment> | null; timeString: string[] }>
+  >;
+  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string | number>>;
   setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
+  loading?: boolean;
+  addScheduleDay?: string | undefined;
+  onAddClick?: () => void;
+  addScheduleTime?: {
+    timeString: string[];
+    time: RangeValue<moment.Moment> | null;
+  };
 };
 
 function MultiRangeDatePicker(props: Props) {
   const {
     disable,
     schedules,
-    setDeleteScheduleId,
-    setAddScheduleTime,
+    loading,
+    addScheduleDay,
     setAddScheduleDay,
-    setAddScheduleClick,
+    addScheduleTime,
+    setAddScheduleTime,
+    setDeleteScheduleId,
+    onAddClick,
   } = props;
 
-  function onChange(unUsed: any, timeString: [string, string]) {
-    setAddScheduleTime?.(timeString);
+  function onChange(
+    time: RangeValue<moment.Moment> | null,
+    timeString: [string, string]
+  ) {
+    setAddScheduleTime?.({ time, timeString });
   }
+
   return (
     <>
       <div className="font-medium text-lightBlue-1">Availability</div>
@@ -37,8 +53,12 @@ function MultiRangeDatePicker(props: Props) {
         <div
           className={`${_Classes["multiRange-date"]}  flex flex-1 rounded-lg`}
         >
-          <DayPicker setAddScheduleDay={setAddScheduleDay} />
+          <DayPicker
+            setAddScheduleDay={setAddScheduleDay}
+            addScheduleDay={addScheduleDay}
+          />
           <RangePicker
+            value={addScheduleTime?.time}
             bordered={false}
             use12Hours
             format="h:mm A"
@@ -50,7 +70,9 @@ function MultiRangeDatePicker(props: Props) {
             type="primary"
             size="large"
             className={`my-auto ml-auto mr-2 ${_Classes["button-custom"]}`}
-            onClick={() => setAddScheduleClick?.((prev: boolean) => !prev)}
+            onClick={onAddClick}
+            disabled={loading}
+            loading={loading}
           >
             ADD
           </Button>
