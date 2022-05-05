@@ -74,7 +74,6 @@ export const Profile = React.forwardRef(function Profile({
       prepareAndSetEditPayload();
     }
   }, [doctorData]);
-  console.log("doctorData", doctorData);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({

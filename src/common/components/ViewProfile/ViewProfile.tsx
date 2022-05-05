@@ -46,8 +46,6 @@ export const ViewProfile = React.forwardRef(function Profile({
     educational_background,
   } = doctorData?.user || {};
 
-  console.log(schedules, "schedules");
-
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
 
