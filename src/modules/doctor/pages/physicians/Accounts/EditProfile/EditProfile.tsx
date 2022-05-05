@@ -65,18 +65,8 @@ function EditProfile({
   const [image, setImage] = useState<string>("");
   const [ispublish, setIsPublish] = useState(true);
 
-  const {
-    first_name,
-    last_name,
-    password,
-    email,
-    contact_number,
-    status,
-    language,
-    professional_experience,
-    about_me,
-    educational_background,
-  } = doctorData?.user || {};
+  const { first_name, last_name, password, email, contact_number, status } =
+    doctorData?.user || {};
 
   console.log(doctorData, "doctorData");
 
@@ -95,12 +85,7 @@ function EditProfile({
       email: email,
       password: "",
       confirmPassword: "",
-      language: language,
-      about: "some text written here",
-      institute: "my institue khi",
-      // institute: professional_experience?.institutions,
-      // about: about_me,
-      // educational_background,
+      institute: "abcde",
     });
   }
 
@@ -114,13 +99,6 @@ function EditProfile({
           email: values?.email,
           password: values?.password,
           profile_image: image || userProfileImage,
-          language: values?.language,
-          // about: values?.about_me,
-          // institute: values?.professional_experience[0]?.institutions,
-          // institute: JSON.parse(
-          //   values?.professional_experience[0]?.institutions
-          // ),
-          // educational_background,
         },
       });
 
@@ -272,6 +250,7 @@ function EditProfile({
                   <Input />
                 </Form.Item>
               </div>
+
               <div className="flex flex-col sm:flex-row  sm:gap-3">
                 <Form.Item
                   name="email"
@@ -302,6 +281,7 @@ function EditProfile({
                   <Input.Password />
                 </Form.Item>
               </div>
+
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
                 <div className="border-b border-gray-4 my-3">
@@ -374,131 +354,7 @@ function EditProfile({
                   </Form.Item>
                 </div>
               </div>
-              {/* LANGUAGES */}
-              {/* <div className="font-medium text-lightBlue-1 my-2">Languages</div>
-              <div className="flex mr-auto">
-                <Language
-                  end={end}
-                  title="English"
-                  check={true}
-                  disable={false}
-                />
-                <Language
-                  end={esp}
-                  title="Spanish"
-                  check={false}
-                  disable={false}
-                />
-              </div> */}
-              {/* ABOUT ME */}
-              <div className="mt-5">
-                <Form.Item label="About me" name="about">
-                  <TextArea
-                    rows={10}
-                    placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
-                    maxLength={400}
-                  />
-                </Form.Item>
-              </div>
-              {/* EDUCATIONAL BACKGOUND BLOCK */}
-              <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Educational Background</h6>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-                <div className="my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-              </div>
-              {/* LOGIN INFORMATION BLOCK */}
-              <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Login Information</h6>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Email Address"
-                    name="loginEmail"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <div className="flex flex-col sm:flex-row  sm:gap-3">
-                    <Form.Item
-                      label="Password"
-                      name="loginpassword"
-                      // rules={[{ required: true, message: "Password" }]}
-                      className="flex-1"
-                    >
-                      <Input.Password />
-                    </Form.Item>
 
-                    <Form.Item
-                      label="Confirm Password"
-                      name="loginconfirmPassword"
-                      // rules={[{ required: true, message: "Confirm password!" }]}
-                      className="flex-1"
-                    >
-                      <Input.Password />
-                    </Form.Item>
-                  </div>
-                </div>
-              </div>
-              {/* FORM UPDATE BUTTONS STARTS*/}
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
                   <Button type="default" onClick={() => setIsEdit(false)}>
@@ -509,9 +365,7 @@ function EditProfile({
                   </Button>
                 </div>
               </Form.Item>
-              {/* FORM UPDATE BUTTONS ENDS */}
             </Form>
-            {/* REAL FORM ENDS */}
             <Form layout="vertical">
               <div className="font-medium text-lightBlue-1 my-2">Languages</div>
               <div className="flex mr-auto">
@@ -528,8 +382,6 @@ function EditProfile({
                   disable={false}
                 />
               </div>
-              {/* <div className="font-medium text-lightBlue-1 my-2">Languages</div>
-              
               <div className="mt-5">
                 <Form.Item label="About me" name="about">
                   <TextArea
@@ -538,7 +390,7 @@ function EditProfile({
                     maxLength={6}
                   />
                 </Form.Item>
-              </div> */}
+              </div>
 
               <InputWithLi disable={false} />
 
@@ -550,7 +402,7 @@ function EditProfile({
                 setAddScheduleDay={setAddScheduleDay}
                 setAddScheduleClick={setAddScheduleClick}
               />
-              {/* <div className={`my-6 ${_classes["professional"]}`}>
+              <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
@@ -621,9 +473,9 @@ function EditProfile({
                     <Input />
                   </Form.Item>
                 </div>
-              </div> */}
+              </div>
 
-              {/* <div className={`my-6 ${_classes["educational"]}`}>
+              <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Educational Background</h6>
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
@@ -687,7 +539,7 @@ function EditProfile({
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
                     label="Email Address"
-                    name="loginEmail"
+                    name="institute"
                     rules={[
                       {
                         required: false,
@@ -701,7 +553,7 @@ function EditProfile({
                   <div className="flex flex-col sm:flex-row  sm:gap-3">
                     <Form.Item
                       label="Password"
-                      name="loginpassword"
+                      name="password"
                       // rules={[{ required: true, message: "Password" }]}
                       className="flex-1"
                     >
@@ -710,7 +562,7 @@ function EditProfile({
 
                     <Form.Item
                       label="Confirm Password"
-                      name="loginconfirmPassword"
+                      name="confirmPassword"
                       // rules={[{ required: true, message: "Confirm password!" }]}
                       className="flex-1"
                     >
@@ -718,7 +570,7 @@ function EditProfile({
                     </Form.Item>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </Form>
           </div>
         </div>

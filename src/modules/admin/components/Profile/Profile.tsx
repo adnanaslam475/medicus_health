@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Image from "next/image";
 import end from "./../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../public/assets/images/espanolFlag.png";
@@ -27,10 +27,11 @@ import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import Language from "../../../admin/components/Languague/Language";
-import { configS3 } from "../../../../utils/helper";
-import InputWithLi from "../../../../common/components/InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
-import { Schedule } from "../../../../utils/types";
+import InputWithLi from "common/components/InputWithLi/InputWithLi";
+import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+import { configS3 } from "utils/helper";
+import { Schedule } from "utils/types";
+import { RangeValue } from "rc-picker/lib/interface";
 
 type profileType = {
   doctorId: string;
@@ -38,10 +39,21 @@ type profileType = {
   setIsEdit: (e: boolean) => void;
   schedules: Schedule[] | undefined;
   setDeleteScheduleId: (e: string) => void;
-  setAddScheduleTime: (e: [string, string]) => void;
+  setAddScheduleTime: React.Dispatch<
+    React.SetStateAction<{
+      time: RangeValue<moment.Moment> | null;
+      timeString: string[];
+    }>
+  >;
   setAddScheduleDay: React.Dispatch<React.SetStateAction<string>>;
-  setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
+  onAddClick?: () => void;
   edit: () => void;
+  addScheduleTime?: {
+    timeString: string[];
+    time: RangeValue<moment.Moment> | null;
+  };
+  addScheduleDay: string;
+  fetching?: boolean;
 };
 
 export const Profile = React.forwardRef(function Profile({
@@ -52,7 +64,10 @@ export const Profile = React.forwardRef(function Profile({
   setDeleteScheduleId,
   setAddScheduleTime,
   setAddScheduleDay,
-  setAddScheduleClick,
+  onAddClick,
+  addScheduleTime,
+  addScheduleDay,
+  fetching,
 }: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -316,14 +331,17 @@ export const Profile = React.forwardRef(function Profile({
 
               <InputWithLi disable={false} />
 
-              {/* Its editable component so all props are required */}
+              {/* Admin - Edit Profile Component - Its editable component so all props are required */}
               <MultiRangeDatePicker
+                fetching={fetching}
                 disable={false}
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}
                 setAddScheduleTime={setAddScheduleTime}
+                addScheduleTime={addScheduleTime}
+                addScheduleDay={addScheduleDay}
                 setAddScheduleDay={setAddScheduleDay}
-                setAddScheduleClick={setAddScheduleClick}
+                onAddClick={onAddClick}
               />
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
