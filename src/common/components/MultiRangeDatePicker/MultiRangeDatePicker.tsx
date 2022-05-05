@@ -59,8 +59,10 @@ function MultiRangeDatePicker(props: Props) {
       {!!schedules?.length &&
         schedules
           ?.sort((a: any, b: any) => {
+            console.log(a.day, "day");
             return a?.day - b?.day;
           })
+
           .map((item: singleSchedule, index: number) => {
             return (
               <MultiRangeListing
