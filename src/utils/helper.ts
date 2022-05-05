@@ -1,3 +1,5 @@
+import { date } from "common/utils";
+import { DoctorSchedule } from "generated/graphql";
 import config from "../../config";
 
 export const configS3 = {
@@ -144,3 +146,6 @@ export const days = [
   { key: 6, value: "Saturday" },
   { key: 7, value: "Sunday" },
 ];
+export function Sorter(a: DoctorSchedule, b: DoctorSchedule) {
+  return a.day - b.day || a.startTime.localeCompare(b.startTime);
+}
