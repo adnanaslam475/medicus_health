@@ -1,0 +1,21 @@
+mutation toggleEmailPreferences {
+  toggleEmailPreferences(
+    toggleEmailPreferencesInput: {
+      patient_registration_update: false
+      physician_registration_update: false
+      appointment_accepted_by_doctor: false
+      appointment_rescheduled_by_doctor: true
+      appointment_reminder: true
+      admin_appointment_create_update: true
+      new_message_received: true
+    }
+  ) {
+    patient_registration_update
+    physician_registration_update
+    appointment_accepted_by_doctor
+    appointment_rescheduled_by_doctor
+    appointment_reminder
+    admin_appointment_create_update
+    new_message_received
+  }
+}
