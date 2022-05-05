@@ -3,6 +3,7 @@ import { Button, Form, Input, Modal } from 'antd'
 import Image from 'next/image'
 import React,{useState} from 'react'
 import smile from '../../../../public/assets/images/smile.svg'
+import Acromyum from '../Acronyum/Acromyum'
 function Notes() {
     const [modalvisible,setModalVisible]=useState<boolean>(false)
   return (
@@ -27,24 +28,12 @@ function Notes() {
       <Modal
       title="Add Note"
       centered
-      visible={false}
+      visible={true}
     //   onOk={closeModal}
     //   onCancel={closeModal}
       footer={null}
     >
-         <Form name="basic" layout="vertical">
-   
-        <Form.Item
-          label=""
-          name="firstName"
-          rules={[{ required: true, message: "First Name!" }]}
-          className="flex-1"
-        >
-          <Input />
-        </Form.Item>
-        <h2>SOAP</h2>
-        <span className='px-3'> S</span>
-        </Form>
+        <Acromyum/>
         </Modal>
         </>
   )
