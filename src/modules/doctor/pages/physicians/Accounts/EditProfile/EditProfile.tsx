@@ -1,65 +1,72 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
-import Router, { useRouter } from "next/router";
-import {
-  ExclamationCircleOutlined,
-  EditOutlined,
-  PlusOutlined,
-  DownOutlined,
-} from "@ant-design/icons";
 import end from "./../../../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../../../public/assets/images/espanolFlag.png";
 import editicon from "../../../../../../../public/assets/icon/edit.svg";
-import yourImage from "../../../../../../../public/assets/images/your_photo.png";
 import {
-  Table,
-  Tag,
   Avatar,
   Upload,
   Form,
   Input,
   Button,
-  Checkbox,
-  Menu,
-  Dropdown,
-  Tabs,
-  Badge,
-  Modal,
-  notification,
   Select,
-  DatePicker,
+  notification,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
 import Language from "../../../../../admin/components/Languague/Language";
-import InputWithLi from "../../../../../../common/components/InputWithLi/InputWithLi";
+import InputWithLi from "common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "../../../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import ReactS3Client from "react-aws-s3-typescript";
 import error from "next/error";
 import { info } from "sass";
 import {
+  DoctorProfile,
   useEnableOrDisableDoctorMutation,
   useUpdateDoctorProfileMutation,
 } from "../../../../../../generated/graphql";
 import { configS3 } from "../../../../../../utils/helper";
 import config from "../../../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
+import { Schedule } from "utils/types";
+import { RangeValue } from "rc-picker/lib/interface";
 
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
 
-const { Option } = Select;
-
+type Props = {
+  doctorId?: string;
+  doctorData?: DoctorProfile | any;
+  setIsEdit: (e: boolean) => void;
+  schedules: Schedule[] | undefined;
+  setDeleteScheduleId: (e: string) => void;
+  setAddScheduleTime: React.Dispatch<
+    React.SetStateAction<{
+      time: RangeValue<moment.Moment> | null;
+      timeString: string[];
+    }>
+  >;
+  setAddScheduleDay: React.Dispatch<React.SetStateAction<string | number>>;
+  onAddClick?: () => void;
+  edit?: () => void;
+  addScheduleTime?: {
+    timeString: string[];
+    time: RangeValue<moment.Moment> | null;
+  };
+  addScheduleDay: string;
+  loading?: boolean;
+};
 function EditProfile({
-  doctorId,
   doctorData,
   setIsEdit,
   schedules,
   setDeleteScheduleId,
   setAddScheduleTime,
   setAddScheduleDay,
-  setAddScheduleClick,
-}: any) {
+  loading,
+  addScheduleDay,
+  onAddClick,
+  addScheduleTime,
+}: Props) {
   const { Option } = Select;
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -101,6 +108,7 @@ function EditProfile({
           profile_image: image || userProfileImage,
         },
       });
+      console.log({ doctorData, res });
 
       if (res?.data) {
         res?.data?.updateDoctorProfile &&
@@ -393,14 +401,17 @@ function EditProfile({
               </div>
 
               <InputWithLi disable={false} />
-
+              {/* Physician - Account - Its editable component so all props are required */}
               <MultiRangeDatePicker
+                loading={loading}
                 disable={false}
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}
                 setAddScheduleTime={setAddScheduleTime}
+                addScheduleTime={addScheduleTime}
+                addScheduleDay={addScheduleDay}
                 setAddScheduleDay={setAddScheduleDay}
-                setAddScheduleClick={setAddScheduleClick}
+                onAddClick={onAddClick}
               />
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>

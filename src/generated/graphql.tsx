@@ -32,7 +32,7 @@ export type Appointment = {
   id: Scalars['Int'];
   patient: User;
   patientId: Scalars['Int'];
-  questionnair: Scalars['JSON'];
+  questionnaire: Scalars['JSON'];
   reportUrl?: Maybe<Scalars['JSON']>;
   requestedDate: Scalars['DateTime'];
   schedule?: Maybe<DoctorSchedule>;
@@ -118,7 +118,7 @@ export type Country = {
 export type CreateAppointmentInput = {
   doctorId: Scalars['Int'];
   patientId: Scalars['Int'];
-  questionnair: Scalars['JSON'];
+  questionnaire: Scalars['JSON'];
   reportUrl: Scalars['JSON'];
   requestedDate: Scalars['DateTime'];
   scheduleId: Scalars['Int'];
@@ -257,6 +257,7 @@ export type DoctorBillingMethod = {
 
 export type DoctorEarningsResponse = {
   __typename?: 'DoctorEarningsResponse';
+  total_earnings?: Maybe<Scalars['Float']>;
   total_earnings_from_consultation?: Maybe<Scalars['Float']>;
   total_earnings_from_second_opinions?: Maybe<Scalars['Float']>;
   total_number_of_consultation?: Maybe<Scalars['Float']>;
@@ -364,6 +365,7 @@ export type Mutation = {
   createDoctor: User;
   createDoctorBillingMethod: DoctorBillingMethod;
   createDoctorProfile: DoctorProfile;
+  createDoctorSchedule: DoctorSchedule;
   createOrUpdateAppointmentNote: AppointmentNote;
   createOrUpdateDoctorQuestionnaire: DoctorQuestionnaire;
   createOrUpdateDoctorSchedule: Array<DoctorSchedule>;
@@ -371,7 +373,6 @@ export type Mutation = {
   createServiceType: AppointmentServiceType;
   createStaff: User;
   createUser: User;
-  createdoctorSchedule: DoctorSchedule;
   enableOrDisableDoctor: User;
   login: LoginResponse;
   payment: Transaction;
@@ -389,6 +390,7 @@ export type Mutation = {
   removeUser: User;
   setAsDefaultCard: UserCard;
   setDoctorPassword: User;
+  toggleEmailPreferences: UserEmailPreferencesResponse;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
   updateStaff: User;
@@ -447,6 +449,11 @@ export type MutationCreateDoctorProfileArgs = {
 };
 
 
+export type MutationCreateDoctorScheduleArgs = {
+  createDoctorScheduleNewInput: CreateDoctorScheduleNewInput;
+};
+
+
 export type MutationCreateOrUpdateAppointmentNoteArgs = {
   createAppointmentNoteInput: CreateAppointmentNoteInput;
 };
@@ -480,11 +487,6 @@ export type MutationCreateStaffArgs = {
 
 export type MutationCreateUserArgs = {
   createUserInput: CreateUserInput;
-};
-
-
-export type MutationCreatedoctorScheduleArgs = {
-  createDoctorScheduleNewInput: CreateDoctorScheduleNewInput;
 };
 
 
@@ -573,6 +575,11 @@ export type MutationSetDoctorPasswordArgs = {
 };
 
 
+export type MutationToggleEmailPreferencesArgs = {
+  toggleEmailPreferencesInput: TogglePreference;
+};
+
+
 export type MutationUpdateDoctorProfileArgs = {
   updateDoctorProfileInput: UpdateDoctorProfileInput;
 };
@@ -650,7 +657,7 @@ export type Query = {
   appointmentBanner: Array<Appointment>;
   appointmentNote: AppointmentNote;
   appointmentNotes: Array<AppointmentNote>;
-  appointmentQuestionner: AppointmentHealthHistory;
+  appointmentQuestionnaire: AppointmentHealthHistory;
   appointmentServiceType: AppointmentServiceType;
   appointmentServiceTypes: Array<AppointmentServiceType>;
   appointments: Array<Appointment>;
@@ -682,6 +689,7 @@ export type Query = {
   transaction: Transaction;
   transactions: Array<Transaction>;
   user: User;
+  userEmailPreferences: UserEmailPreferencesResponse;
   users: Array<User>;
 };
 
@@ -692,7 +700,7 @@ export type QueryAppointmentArgs = {
 
 
 export type QueryAppointmentBannerArgs = {
-  dcotorId: Scalars['Int'];
+  doctorId: Scalars['Int'];
 };
 
 
@@ -701,7 +709,7 @@ export type QueryAppointmentNoteArgs = {
 };
 
 
-export type QueryAppointmentQuestionnerArgs = {
+export type QueryAppointmentQuestionnaireArgs = {
   appointmentId: Scalars['Int'];
 };
 
@@ -827,6 +835,16 @@ export type State = {
   state_name: Scalars['String'];
 };
 
+export type TogglePreference = {
+  admin_appointment_create_update: Scalars['Boolean'];
+  appointment_accepted_by_doctor: Scalars['Boolean'];
+  appointment_reminder: Scalars['Boolean'];
+  appointment_rescheduled_by_doctor: Scalars['Boolean'];
+  new_message_received: Scalars['Boolean'];
+  patient_registration_update: Scalars['Boolean'];
+  physician_registration_update: Scalars['Boolean'];
+};
+
 export type Transaction = {
   __typename?: 'Transaction';
   amountReceived: Scalars['Int'];
@@ -937,6 +955,17 @@ export type UserCard = {
   user_id: Scalars['Int'];
 };
 
+export type UserEmailPreferencesResponse = {
+  __typename?: 'UserEmailPreferencesResponse';
+  admin_appointment_create_update: Scalars['Boolean'];
+  appointment_accepted_by_doctor: Scalars['Boolean'];
+  appointment_reminder: Scalars['Boolean'];
+  appointment_rescheduled_by_doctor: Scalars['Boolean'];
+  new_message_received: Scalars['Boolean'];
+  patient_registration_update: Scalars['Boolean'];
+  physician_registration_update: Scalars['Boolean'];
+};
+
 export type CreateDoctorScheduleMutationVariables = Exact<{
   doctorId: Scalars['Int'];
   day: Scalars['Int'];
@@ -945,7 +974,7 @@ export type CreateDoctorScheduleMutationVariables = Exact<{
 }>;
 
 
-export type CreateDoctorScheduleMutation = { __typename?: 'Mutation', createdoctorSchedule: { __typename?: 'DoctorSchedule', id: string, startTime: string, endTime: string, day: number } };
+export type CreateDoctorScheduleMutation = { __typename?: 'Mutation', createDoctorSchedule: { __typename?: 'DoctorSchedule', id: string, startTime: string, endTime: string, day: number } };
 
 export type RemoveDoctorScheduleMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -1228,7 +1257,7 @@ export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appoint
 
 export const CreateDoctorScheduleDocument = gql`
     mutation createDoctorSchedule($doctorId: Int!, $day: Int!, $startTime: String!, $endTime: String!) {
-  createdoctorSchedule(
+  createDoctorSchedule(
     createDoctorScheduleNewInput: {doctorId: $doctorId, day: $day, startTime: $startTime, endTime: $endTime}
   ) {
     id
@@ -2178,7 +2207,7 @@ export default {
             "args": []
           },
           {
-            "name": "questionnair",
+            "name": "questionnaire",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -2819,6 +2848,14 @@ export default {
         "name": "DoctorEarningsResponse",
         "fields": [
           {
+            "name": "total_earnings",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "total_earnings_from_consultation",
             "type": {
               "kind": "SCALAR",
@@ -3417,6 +3454,29 @@ export default {
             ]
           },
           {
+            "name": "createDoctorSchedule",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorSchedule",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createDoctorScheduleNewInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "createOrUpdateAppointmentNote",
             "type": {
               "kind": "NON_NULL",
@@ -3589,29 +3649,6 @@ export default {
             "args": [
               {
                 "name": "createUserInput",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "createdoctorSchedule",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "DoctorSchedule",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "createDoctorScheduleNewInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -4014,6 +4051,29 @@ export default {
             ]
           },
           {
+            "name": "toggleEmailPreferences",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserEmailPreferencesResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "toggleEmailPreferencesInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "updateDoctorProfile",
             "type": {
               "kind": "NON_NULL",
@@ -4344,7 +4404,7 @@ export default {
             },
             "args": [
               {
-                "name": "dcotorId",
+                "name": "doctorId",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -4397,7 +4457,7 @@ export default {
             "args": []
           },
           {
-            "name": "appointmentQuestionner",
+            "name": "appointmentQuestionnaire",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -5119,6 +5179,18 @@ export default {
             ]
           },
           {
+            "name": "userEmailPreferences",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserEmailPreferencesResponse",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "users",
             "type": {
               "kind": "NON_NULL",
@@ -5631,6 +5703,90 @@ export default {
           },
           {
             "name": "user_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserEmailPreferencesResponse",
+        "fields": [
+          {
+            "name": "admin_appointment_create_update",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "appointment_accepted_by_doctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "appointment_reminder",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "appointment_rescheduled_by_doctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "new_message_received",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "patient_registration_update",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "physician_registration_update",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
