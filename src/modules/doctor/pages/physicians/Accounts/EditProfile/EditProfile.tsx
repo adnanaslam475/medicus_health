@@ -27,7 +27,7 @@ type Props = {
       timeString: string[];
     }>
   >;
-  setAddScheduleDay: React.Dispatch<React.SetStateAction<string>>;
+  setAddScheduleDay: React.Dispatch<React.SetStateAction<string | number>>;
   onAddClick?: () => void;
   edit?: () => void;
   addScheduleTime?: {
@@ -35,7 +35,7 @@ type Props = {
     time: RangeValue<moment.Moment> | null;
   };
   addScheduleDay: string;
-  fetching?: boolean;
+  loading?: boolean;
 };
 function EditProfile({
   doctorData,
@@ -44,7 +44,7 @@ function EditProfile({
   setDeleteScheduleId,
   setAddScheduleTime,
   setAddScheduleDay,
-  fetching,
+  loading,
   addScheduleDay,
   onAddClick,
   addScheduleTime,
@@ -227,7 +227,7 @@ function EditProfile({
               <InputWithLi disable={false} />
               {/* Physician - Account - Its editable component so all props are required */}
               <MultiRangeDatePicker
-                fetching={fetching}
+                loading={loading}
                 disable={false}
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}

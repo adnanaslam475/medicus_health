@@ -15,9 +15,9 @@ type Props = {
   setAddScheduleTime?: React.Dispatch<
     React.SetStateAction<{ time: RangeValue<moment.Moment> | null; timeString: string[] }>
   >;
-  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string>>;
+  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string | number>>;
   setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
-  fetching?: boolean;
+  loading?: boolean;
   addScheduleDay?: string | undefined;
   onAddClick?: () => void;
   addScheduleTime?: {
@@ -30,7 +30,7 @@ function MultiRangeDatePicker(props: Props) {
   const {
     disable,
     schedules,
-    fetching,
+    loading,
     addScheduleDay,
     setAddScheduleDay,
     addScheduleTime,
@@ -46,7 +46,6 @@ function MultiRangeDatePicker(props: Props) {
     setAddScheduleTime?.({ time, timeString });
   }
 
-  console.log("addScheduleTimeaddScheduleTimeaddScheduleTime", addScheduleTime);
   return (
     <>
       <div className="font-medium text-lightBlue-1">Availability</div>
@@ -72,8 +71,8 @@ function MultiRangeDatePicker(props: Props) {
             size="large"
             className={`my-auto ml-auto mr-2 ${_Classes["button-custom"]}`}
             onClick={onAddClick}
-            disabled={fetching}
-            loading={fetching}
+            disabled={loading}
+            loading={loading}
           >
             ADD
           </Button>

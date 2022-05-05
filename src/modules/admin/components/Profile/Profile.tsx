@@ -39,12 +39,12 @@ type profileType = {
   schedules: Schedule[] | undefined;
   setDeleteScheduleId: (e: string) => void;
   setAddScheduleTime: React.Dispatch<React.SetStateAction<{time: RangeValue<moment.Moment> | null, timeString: string[]}>>;
-  setAddScheduleDay: React.Dispatch<React.SetStateAction<string>>;
+  setAddScheduleDay: React.Dispatch<React.SetStateAction<string | number>>;
   onAddClick?: () => void;
   edit: () => void;
   addScheduleTime?: { timeString: string[]; time: RangeValue<moment.Moment> | null };
   addScheduleDay: string;
-  fetching?: boolean;
+  loading?: boolean;
 };
 
 export const Profile = React.forwardRef(function Profile({
@@ -58,7 +58,7 @@ export const Profile = React.forwardRef(function Profile({
   onAddClick,
   addScheduleTime,
   addScheduleDay,
-  fetching,
+  loading,
 }: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -325,7 +325,7 @@ export const Profile = React.forwardRef(function Profile({
 
               {/* Admin - Edit Profile Component - Its editable component so all props are required */}
               <MultiRangeDatePicker
-                fetching={fetching}
+                loading={loading}
                 disable={false}
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}

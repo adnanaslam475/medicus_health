@@ -113,7 +113,10 @@ function DoctorProfileCard(props: Props) {
               >
                 <div className="ant-collapse-time-body">
                   {doctorData?.user?.doctorSchedules?.length !== 0
-                    ? doctorData?.user?.doctorSchedules?.map((item, index) => (
+                    ? doctorData?.user?.doctorSchedules
+                        ?.sort((a, b) => {
+                          return a.day - b.day;
+                        }).map((item, index) => (
                         <div className="flex-none sm:flex flex-grow justify-between mb-2">
                           <span>{date?.dayName(item.day)}</span>
                           <div>

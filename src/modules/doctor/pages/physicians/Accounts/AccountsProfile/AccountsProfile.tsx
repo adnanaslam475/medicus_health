@@ -7,12 +7,17 @@ import {
 } from "generated/graphql";
 import React, { useEffect, useState } from "react";
 import EditProfile from "../EditProfile/EditProfile";
-import {RangeValue} from 'rc-picker/lib/interface'
+import { RangeValue } from "rc-picker/lib/interface";
 
 function AccountsProfile() {
   const [isEdit, setIsEdit] = useState(false);
-  const [addScheduleDay, setAddScheduleDay] = useState("Select Day");
-  const [addScheduleTime, setAddScheduleTime] = useState<{time:RangeValue<moment.Moment> | null,timeString:string[]}>({ timeString: [], time: null });
+  const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
+    "Select Day"
+  );
+  const [addScheduleTime, setAddScheduleTime] = useState<{
+    time: RangeValue<moment.Moment> | null;
+    timeString: string[];
+  }>({ timeString: [], time: null });
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
 
   // GET USER ID
@@ -30,7 +35,7 @@ function AccountsProfile() {
   const [, executeRemoveDoctorScheduleMutation] =
     useRemoveDoctorScheduleMutation();
 
-  function onAddClick() {
+  async function onAddClick() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length) {
       const variable = {
         doctorId: Number(id),
@@ -39,11 +44,10 @@ function AccountsProfile() {
         endTime: addScheduleTime?.timeString[1],
       };
 
-      executeCreateDoctorScheduleMutation(variable).then(() => {
-        executeDoctorSchedules({ requestPolicy: "network-only" });
-        setAddScheduleDay("Select Day");
-        setAddScheduleTime({ timeString: [], time: null });
-      });
+      await executeCreateDoctorScheduleMutation(variable);
+      executeDoctorSchedules({ requestPolicy: "network-only" });
+      setAddScheduleDay("Select Day");
+      setAddScheduleTime({ timeString: [], time: null });
     }
   }
   useEffect(() => {
@@ -60,11 +64,11 @@ function AccountsProfile() {
           schedules={schedules}
           setDeleteScheduleId={setDeleteScheduleId}
           setAddScheduleDay={setAddScheduleDay}
-          addScheduleDay={addScheduleDay}
+          addScheduleDay={String(addScheduleDay)}
           setAddScheduleTime={setAddScheduleTime}
           addScheduleTime={addScheduleTime}
           onAddClick={onAddClick}
-          fetching={fetching}
+          loading={fetching}
         />
       ) : (
         <ViewProfile
