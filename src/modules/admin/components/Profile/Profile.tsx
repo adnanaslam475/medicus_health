@@ -19,7 +19,6 @@ const { TextArea } = Input;
 
 import {
   DoctorProfile,
-  Schedule,
   useEnableOrDisableDoctorMutation,
   useUpdateDoctorProfileMutation,
 } from "../../../../generated/graphql";
@@ -30,21 +29,16 @@ import Language from "../../../admin/components/Languague/Language";
 import InputWithLi from "../../../../common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import { configS3 } from "../../../../utils/helper";
-// import InputWithLi from "../../../../common/components/InputWithLi/InputWithLi";
-// import MultiRangeDatePicker from "../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
-// import InputWithLi from "common/components/InputWithLi/InputWithLi";
-// import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
-// import { configS3 } from "utils/helper";
-// import { Schedule } from "utils/types";
+import { Schedule } from "../../../../utils/types";
 
 type profileType = {
-  doctorId: string;
+  doctorId: string | string[] | undefined;
   doctorData: any;
   setIsEdit: (e: boolean) => void;
   schedules: Schedule[] | undefined;
-  setDeleteScheduleId: (e: string) => void;
-  setAddScheduleTime: (e: [string, string]) => void;
-  setAddScheduleDay: React.Dispatch<React.SetStateAction<string>>;
+  setDeleteScheduleId?: (e: string) => void;
+  setAddScheduleTime?: (e: [string, string]) => void;
+  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string>>;
   setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
   edit: () => void;
 };
@@ -58,8 +52,7 @@ export const Profile = React.forwardRef(function Profile({
   setAddScheduleTime,
   setAddScheduleDay,
   setAddScheduleClick,
-}: any) {
-  const { Option } = Select;
+}: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
   const [ispublish, setIsPublish] = useState(true);

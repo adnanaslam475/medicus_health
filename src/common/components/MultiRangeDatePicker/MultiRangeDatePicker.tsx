@@ -56,10 +56,10 @@ function MultiRangeDatePicker(props: Props) {
           </Button>
         </div>
       )}
-      {/* {!!schedules?.length &&
+      {!!schedules?.length &&
         schedules
           ?.sort((a, b) => {
-            return a.day - b.day;
+            return Number(a?.day) - Number(b?.day);
           })
           .map((item: singleSchedule, index: number) => {
             return (
@@ -70,7 +70,7 @@ function MultiRangeDatePicker(props: Props) {
                 setDeleteScheduleId={setDeleteScheduleId}
               />
             );
-          })} */}
+          })}
     </>
   );
 }
