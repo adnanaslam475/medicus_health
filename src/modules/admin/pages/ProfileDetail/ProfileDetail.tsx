@@ -19,7 +19,9 @@ const { TabPane } = Tabs;
 
 function ProfileDetail() {
   const [isEdit, setIsEdit] = useState(false);
-  const [addScheduleDay, setAddScheduleDay] = useState<number | string >("Select Day");
+  const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
+    "Select Day"
+  );
   const [addScheduleTime, setAddScheduleTime] = useState<{
     time: RangeValue<moment.Moment> | null;
     timeString: string[];
@@ -61,7 +63,7 @@ function ProfileDetail() {
       };
 
       await executeCreateDoctorScheduleMutation(variable);
-      executeDoctorSchedules({ requestPolicy: "network-only" });
+      await executeDoctorSchedules({ requestPolicy: "network-only" });
       setAddScheduleDay("Select Day");
       setAddScheduleTime({ timeString: [], time: null });
     }

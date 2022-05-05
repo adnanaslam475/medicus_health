@@ -45,7 +45,7 @@ function AccountsProfile() {
       };
 
       await executeCreateDoctorScheduleMutation(variable);
-      executeDoctorSchedules({ requestPolicy: "network-only" });
+      await executeDoctorSchedules({ requestPolicy: "network-only" });
       setAddScheduleDay("Select Day");
       setAddScheduleTime({ timeString: [], time: null });
     }
