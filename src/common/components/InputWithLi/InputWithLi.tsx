@@ -5,21 +5,30 @@ import { PlusOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons";
 
 type IMyProps = {
   disable: boolean;
+  loading?: boolean;
+  initialValue?: string[];
+  onChange?: (list: string[]) => void;
 };
 function InputWithLi(props: IMyProps) {
-  const { disable } = props;
+  const { disable, initialValue, onChange } = props;
   const [treated, setTreated] = useState<string>("");
-  const [treatedList, setTreatedList] = useState<string[]>([]);
+  const [treatedList, setTreatedList] = useState<string[]>(initialValue || []);
   const handleName = (event: ChangeEvent<HTMLInputElement>): void => {
     setTreated(event.target.value);
   };
 
   const ShowData = () => {
-    setTreatedList([...treatedList, treated]);
-    setTreated("");
+    if (treated) {
+      setTreatedList([...treatedList, treated]);
+      onChange?.([...treatedList, treated]);
+      setTreated("");
+    }
   };
+
   const removeFunction = (i: string) => {
-    setTreatedList(treatedList.filter((a) => a != i));
+    const updatedList = treatedList.filter((a) => a != i);
+    setTreatedList(updatedList);
+    onChange?.(updatedList);
   };
 
   return (
@@ -69,134 +78,6 @@ function InputWithLi(props: IMyProps) {
                 <span className="px-2">{a}</span>
               </li>
             ))}
-          </ul>
-          <ul className="gap-2 flex flex-wrap">
-            <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
-              {disable == false ? (
-                <CloseOutlined
-                  className="pl-2 pr-0 py-3"
-                  style={{ color: "#D53E4F" }}
-                />
-              ) : (
-                <CheckOutlined
-                  className="pl-2 pr-0 py-3 font-black"
-                  style={{ color: "#30cec2" }}
-                />
-              )}
-              <span className="px-2">das</span>
-            </li>
-            <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
-              {disable == false ? (
-                <CloseOutlined
-                  className="pl-2 pr-0 py-3"
-                  style={{ color: "#D53E4F" }}
-                />
-              ) : (
-                <CheckOutlined
-                  className="pl-2 pr-0 py-3 font-black"
-                  style={{ color: "#30cec2" }}
-                />
-              )}
-              <span className="px-2">das</span>
-            </li>
-            <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
-              {disable == false ? (
-                <CloseOutlined
-                  className="pl-2 pr-0 py-3"
-                  style={{ color: "#D53E4F" }}
-                />
-              ) : (
-                <CheckOutlined
-                  className="pl-2 pr-0 py-3 font-black"
-                  style={{ color: "#30cec2" }}
-                />
-              )}
-              <span className="px-2">das</span>
-            </li>
-            <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
-              {disable == false ? (
-                <CloseOutlined
-                  className="pl-2 pr-0 py-3"
-                  style={{ color: "#D53E4F" }}
-                />
-              ) : (
-                <CheckOutlined
-                  className="pl-2 pr-0 py-3 font-black"
-                  style={{ color: "#30cec2" }}
-                />
-              )}
-              <span className="px-2">das</span>
-            </li>
-            <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
-              {disable == false ? (
-                <CloseOutlined
-                  className="pl-2 pr-0 py-3"
-                  style={{ color: "#D53E4F" }}
-                />
-              ) : (
-                <CheckOutlined
-                  className="pl-2 pr-0 py-3 font-black"
-                  style={{ color: "#30cec2" }}
-                />
-              )}
-              <span className="px-2">das</span>
-            </li>
-            <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
-              {disable == false ? (
-                <CloseOutlined
-                  className="pl-2 pr-0 py-3"
-                  style={{ color: "#D53E4F" }}
-                />
-              ) : (
-                <CheckOutlined
-                  className="pl-2 pr-0 py-3 font-black"
-                  style={{ color: "#30cec2" }}
-                />
-              )}
-              <span className="px-2">das</span>
-            </li>
-            <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
-              {disable == false ? (
-                <CloseOutlined
-                  className="pl-2 pr-0 py-3"
-                  style={{ color: "#D53E4F" }}
-                />
-              ) : (
-                <CheckOutlined
-                  className="pl-2 pr-0 py-3 font-black"
-                  style={{ color: "#30cec2" }}
-                />
-              )}
-              <span className="px-2">das</span>
-            </li>
-            <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
-              {disable == false ? (
-                <CloseOutlined
-                  className="pl-2 pr-0 py-3"
-                  style={{ color: "#D53E4F" }}
-                />
-              ) : (
-                <CheckOutlined
-                  className="pl-2 pr-0 py-3 font-black"
-                  style={{ color: "#30cec2" }}
-                />
-              )}
-              <span className="px-2">das</span>
-            </li>
-            <li className=" rounded flex items-center inline-flex bg-gray-4 my-2">
-              {disable == false ? (
-                <CloseOutlined
-                  className="pl-2 pr-0 py-3"
-                  style={{ color: "#D53E4F" }}
-                />
-              ) : (
-                <CheckOutlined
-                  className="pl-2 pr-0 py-3 font-black"
-                  style={{ color: "#30cec2" }}
-                />
-              )}
-              <span className="px-2">das</span>
-            </li>
           </ul>
         </div>
       </div>

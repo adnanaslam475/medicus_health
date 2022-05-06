@@ -239,6 +239,34 @@ function EditProfile({
     }
   }
 
+  const handleConditionTreated = async (list: string[]) => {
+    console.log({ list });
+    const values = formInstance.getFieldsValue();
+    const res = await updateDoctor({
+      updateDoctorProfileInput: {
+        doctor_id: doctor_id,
+        first_name: values?.firstName,
+        last_name: values?.lastName,
+        email: values?.email,
+        condition_treated: list.toString(),
+      },
+    });
+    // if (res?.data) {
+    //   res?.data?.updateDoctorProfile &&
+    //     notification.success({
+    //       message: "Updated Successfully",
+    //     });
+    // }
+
+    if (res?.error) {
+      res?.error?.graphQLErrors[0]?.message &&
+        notification.error({
+          message:
+            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+    }
+  };
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -510,7 +538,13 @@ function EditProfile({
                 </Form.Item>
               </div> */}
 
-              <InputWithLi disable={false} />
+              <InputWithLi
+                disable={false}
+                onChange={(list) => {
+                  handleConditionTreated(list);
+                }}
+                initialValue={condition_treated.split(",")}
+              />
               {/* Physician - Account - Its editable component so all props are required */}
               <MultiRangeDatePicker
                 loading={loading}
@@ -524,7 +558,7 @@ function EditProfile({
                 onAddClick={onAddClick}
               />
 
-              <div className={`my-6 ${_classes["educational"]}`}>
+              <div className={`my-6 hidden ${_classes["educational"]}`}>
                 <h6>Login Information</h6>
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
