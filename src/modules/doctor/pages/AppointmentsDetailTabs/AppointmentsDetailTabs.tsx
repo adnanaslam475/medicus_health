@@ -34,9 +34,7 @@ const AppointmentsDetailTabs = (props: Props) => {
     <div className="profile-tabs">
       <Tabs type="card">
         <TabPane tab="Appointment Info" key="1" className="">
-          <ProfileImageWithInfo />
-          {/* <AppointmentInfo /> */}
-          <DoctorAppointmentInfo />
+          <AppointmentInfo />
         </TabPane>
         <TabPane tab="Patient Info" key="2">
           <ProfileImageWithInfo />

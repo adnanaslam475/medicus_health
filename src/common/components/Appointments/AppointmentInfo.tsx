@@ -1,49 +1,73 @@
 import React from "react";
-import { Avatar, Button, Tag } from "antd";
+import { Avatar, Button, Checkbox, Form, Input, Tag } from "antd";
 import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
 import { ButtonType } from "antd/lib/button";
 import { GetAppointmentByIdQuery } from "../../../generated/graphql";
 import { date } from "../../utils";
 import Router  from "next/router";
+import ProfileImageWithInfo from "../ProfleImageWithInfo/ProfileImageWithInfo";
 
 type Props = {
-	appoinmentDetails?: GetAppointmentByIdQuery | undefined;
+  appoinmentDetails?: GetAppointmentByIdQuery | undefined;
 };
 
 function AppointmentInfo(props: Props) {
-	const { appoinmentDetails } = props;
-	const { first_name, last_name } =
-		appoinmentDetails?.appointment?.doctor || {};
+  const { appoinmentDetails } = props;
+  const { first_name, last_name } =
+    appoinmentDetails?.appointment?.doctor || {};
 
-	const { id, status, requestedDate, appointmentTimeSlots } =
-		appoinmentDetails?.appointment || {};
+  const { id, status, requestedDate, appointmentTimeSlots } =
+    appoinmentDetails?.appointment || {};
 
-	const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
+  const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
 
-	function timeSlots() {
-		if (appointmentTimeSlots) {
-			let selectedTimeSlots = appointmentTimeSlots?.find(
-				(item) => item?.selected == true
-			);
+  function timeSlots() {
+    if (appointmentTimeSlots) {
+      let selectedTimeSlots = appointmentTimeSlots?.find(
+        (item) => item?.selected == true
+      );
 
-			return selectedTimeSlots;
-		}
-	}
+      return selectedTimeSlots;
+    }
+  }
 
   return (
     <React.Fragment>
+      <ProfileImageWithInfo />
+      <div className="max-w-[800px]">
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow
+          label="Booked on"
+          value={date?.formatMMMMDDYYYY(requestedDate)}
+        />
+        <LabelValueRow
+          label="Doctor"
+          value={`Dr. ${first_name} ${last_name}`}
+        />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={id} />
+      </div>
       <ul className="w-4/6">
-        <li className="flex border-b border-gray-5 py-3">
+        {/* <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">ID</div>
           <div className="w-full text-secondary">{id}</div>
-        </li>
-        <li className="flex border-b border-gray-5 py-3">
+        </li> */}
+        {/* <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Booked on</div>
           <div className="w-full text-secondary">
             {date?.formatMMMMDDYYYY(requestedDate)}
           </div>
-        </li>
+        </li> */}
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Doctor</div>
           <div className="w-full text-secondary">
@@ -82,7 +106,7 @@ function AppointmentInfo(props: Props) {
           </div>
         </li>
       </ul>
-      <div className="w-4/6 flex justify-between mt-4">
+      {/* <div className="w-4/6 flex justify-between mt-4">
         <div className="flex">
           <Button
             icon={<MessageOutlined />}
@@ -106,8 +130,23 @@ function AppointmentInfo(props: Props) {
         >
           Join Now
         </Button>
-      </div>
+      </div> */}
     </React.Fragment>
   );
 }
 export default AppointmentInfo;
+
+function LabelValueRow({
+  label,
+  value,
+}: {
+  label: string | number | undefined;
+  value: string | number | undefined;
+}) {
+  return (
+    <div className="flex border-b border-gray-5 py-3 ">
+      <div className="w-full text-gray-1 max-w-[300px]">{label}</div>
+      <div className="w-full text-secondary">{value}</div>
+    </div>
+  );
+}
