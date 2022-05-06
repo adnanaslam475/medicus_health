@@ -1,10 +1,11 @@
-import AppointmentsDetail from 'modules/doctor/pages/physicians/AppointmentsDetail/AppointmentsDetail'
-import React from 'react'
+import AppointmentsDetail from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/UpcomingAppointmentsDetailDoctor";
+import React from "react";
 
 function AppointmentDetail() {
   return (
-    <AppointmentsDetail/>
-  )
+    <div />
+    // <AppointmentsDetail/>
+  );
 }
 
-export default AppointmentDetail
+export default AppointmentDetail;

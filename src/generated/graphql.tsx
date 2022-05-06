@@ -78,6 +78,11 @@ export type AppointmentServiceType = {
   price: Scalars['Float'];
 };
 
+export type AppointmentTime = {
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+};
+
 export type AppointmentTimeSlots = {
   __typename?: 'AppointmentTimeSlots';
   appointment: Appointment;
@@ -333,6 +338,19 @@ export type GetAppointmentInput = {
   doctorId?: InputMaybe<Scalars['Int']>;
   dueDate?: InputMaybe<DueDate>;
   physicianName?: InputMaybe<Scalars['String']>;
+  serviceId?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['String']>;
+};
+
+export type GetPhysicianAppointmentInput = {
+  appointmentId?: InputMaybe<Scalars['Int']>;
+  appointmentTime?: InputMaybe<AppointmentTime>;
+  appointmentType?: InputMaybe<Scalars['String']>;
+  bookingDate?: InputMaybe<BookingDate>;
+  doctorId?: InputMaybe<Scalars['Int']>;
+  dueDate?: InputMaybe<DueDate>;
+  patientName?: InputMaybe<Scalars['String']>;
+  paymentStatus?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
 };
@@ -681,6 +699,7 @@ export type Query = {
   getStatesByCountry: Array<State>;
   patientHealthHistory: PatientHealthHistory;
   patientHealthHistorys: Array<PatientHealthHistory>;
+  physicianAppointments: Array<Appointment>;
   physiciansPatients: Array<User>;
   staff: Array<User>;
   staffDetail: User;
@@ -794,6 +813,11 @@ export type QueryPatientHealthHistoryArgs = {
 };
 
 
+export type QueryPhysicianAppointmentsArgs = {
+  filter: GetPhysicianAppointmentInput;
+};
+
+
 export type QueryPhysiciansPatientsArgs = {
   filter: GetPhysiciansPatientsInput;
 };
@@ -836,13 +860,15 @@ export type State = {
 };
 
 export type TogglePreference = {
-  admin_appointment_create_update: Scalars['Boolean'];
-  appointment_accepted_by_doctor: Scalars['Boolean'];
-  appointment_reminder: Scalars['Boolean'];
-  appointment_rescheduled_by_doctor: Scalars['Boolean'];
-  new_message_received: Scalars['Boolean'];
-  patient_registration_update: Scalars['Boolean'];
-  physician_registration_update: Scalars['Boolean'];
+  admin_appointment_create_update?: InputMaybe<Scalars['Boolean']>;
+  appointment_accepted_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  appointment_accepted_by_patient?: InputMaybe<Scalars['Boolean']>;
+  appointment_reminder?: InputMaybe<Scalars['Boolean']>;
+  appointment_requested?: InputMaybe<Scalars['Boolean']>;
+  appointment_rescheduled_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  appointment_slot_suggested_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  new_message_received?: InputMaybe<Scalars['Boolean']>;
+  transaction_successful_alert?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Transaction = {
@@ -929,6 +955,7 @@ export type User = {
   doctorQuestionnaire?: Maybe<DoctorQuestionnaire>;
   doctorSchedules?: Maybe<Array<DoctorSchedule>>;
   email: Scalars['String'];
+  emailPreferences: UserEmailPreferencesResponse;
   first_name: Scalars['String'];
   gender?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
@@ -957,13 +984,17 @@ export type UserCard = {
 
 export type UserEmailPreferencesResponse = {
   __typename?: 'UserEmailPreferencesResponse';
-  admin_appointment_create_update: Scalars['Boolean'];
-  appointment_accepted_by_doctor: Scalars['Boolean'];
-  appointment_reminder: Scalars['Boolean'];
-  appointment_rescheduled_by_doctor: Scalars['Boolean'];
-  new_message_received: Scalars['Boolean'];
-  patient_registration_update: Scalars['Boolean'];
-  physician_registration_update: Scalars['Boolean'];
+  admin_appointment_create_update?: Maybe<Scalars['Boolean']>;
+  appointment_accepted_by_doctor?: Maybe<Scalars['Boolean']>;
+  appointment_accepted_by_patient?: Maybe<Scalars['Boolean']>;
+  appointment_reminder?: Maybe<Scalars['Boolean']>;
+  appointment_requested?: Maybe<Scalars['Boolean']>;
+  appointment_rescheduled_by_doctor?: Maybe<Scalars['Boolean']>;
+  appointment_slot_suggested_by_doctor?: Maybe<Scalars['Boolean']>;
+  new_message_received?: Maybe<Scalars['Boolean']>;
+  patient_registration_update?: Maybe<Scalars['Boolean']>;
+  physician_registration_update?: Maybe<Scalars['Boolean']>;
+  transaction_successful_alert?: Maybe<Scalars['Boolean']>;
 };
 
 export type CreateDoctorScheduleMutationVariables = Exact<{
@@ -1130,6 +1161,27 @@ export type DoctorBillingMethodsQueryVariables = Exact<{
 
 
 export type DoctorBillingMethodsQuery = { __typename?: 'Query', doctorBillingMethods: Array<{ __typename?: 'DoctorBillingMethod', id: string, bankId: string, bankName: string, bankAccountNumber: string, accountTitle: string, routingNumber: string }> };
+
+export type DoctorAppointmentDetailQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DoctorAppointmentDetailQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, scheduleId: number, doctorId: number, patientId: number, requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', id: number, first_name: string, last_name: string }, patient: { __typename?: 'User', id: number, first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transaction?: { __typename?: 'Transaction', createdAt: any } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null } };
+
+export type DoctorAppointmentDetailAppointmentInfoQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DoctorAppointmentDetailAppointmentInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, requestedDate: any, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null } };
+
+export type DoctorAppointmentDetailPatientInfoQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DoctorAppointmentDetailPatientInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth: any, contact_number: string, streetAddress: string, country_id: number, city_id: number, patientProfile?: { __typename?: 'PatientProfile', id: number, maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null } } };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1606,6 +1658,105 @@ export const DoctorBillingMethodsDocument = gql`
 
 export function useDoctorBillingMethodsQuery(options: Omit<Urql.UseQueryArgs<DoctorBillingMethodsQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorBillingMethodsQuery>({ query: DoctorBillingMethodsDocument, ...options });
+};
+export const DoctorAppointmentDetailDocument = gql`
+    query doctorAppointmentDetail($id: Int!) {
+  appointment(id: $id) {
+    id
+    status
+    scheduleId
+    doctorId
+    patientId
+    requestedDate
+    reportUrl
+    doctor {
+      id
+      first_name
+      last_name
+    }
+    patient {
+      id
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    serviceType {
+      id
+      name
+      price
+    }
+    transaction {
+      createdAt
+    }
+    appointmentHealthHistory {
+      history
+    }
+  }
+}
+    `;
+
+export function useDoctorAppointmentDetailQuery(options: Omit<Urql.UseQueryArgs<DoctorAppointmentDetailQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorAppointmentDetailQuery>({ query: DoctorAppointmentDetailDocument, ...options });
+};
+export const DoctorAppointmentDetailAppointmentInfoDocument = gql`
+    query doctorAppointmentDetailAppointmentInfo($id: Int!) {
+  appointment(id: $id) {
+    id
+    status
+    requestedDate
+    charges
+    patient {
+      first_name
+      last_name
+    }
+    serviceType {
+      name
+    }
+  }
+}
+    `;
+
+export function useDoctorAppointmentDetailAppointmentInfoQuery(options: Omit<Urql.UseQueryArgs<DoctorAppointmentDetailAppointmentInfoQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorAppointmentDetailAppointmentInfoQuery>({ query: DoctorAppointmentDetailAppointmentInfoDocument, ...options });
+};
+export const DoctorAppointmentDetailPatientInfoDocument = gql`
+    query doctorAppointmentDetailPatientInfo($id: Int!) {
+  appointment(id: $id) {
+    serviceType {
+      name
+    }
+    patient {
+      id
+      first_name
+      last_name
+      email
+      gender
+      date_of_birth
+      contact_number
+      contact_number
+      streetAddress
+      country_id
+      city_id
+      patientProfile {
+        id
+        maritalStatus
+        children
+        occupation
+        occupationalExposure
+        pets
+      }
+    }
+  }
+}
+    `;
+
+export function useDoctorAppointmentDetailPatientInfoQuery(options: Omit<Urql.UseQueryArgs<DoctorAppointmentDetailPatientInfoQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorAppointmentDetailPatientInfoQuery>({ query: DoctorAppointmentDetailPatientInfoDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {
@@ -5004,6 +5155,35 @@ export default {
             "args": []
           },
           {
+            "name": "physicianAppointments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Appointment",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "physiciansPatients",
             "type": {
               "kind": "NON_NULL",
@@ -5499,6 +5679,18 @@ export default {
             "args": []
           },
           {
+            "name": "emailPreferences",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserEmailPreferencesResponse",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "first_name",
             "type": {
               "kind": "NON_NULL",
@@ -5722,77 +5914,88 @@ export default {
           {
             "name": "admin_appointment_create_update",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
           {
             "name": "appointment_accepted_by_doctor",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "appointment_accepted_by_patient",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
           {
             "name": "appointment_reminder",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "appointment_requested",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
           {
             "name": "appointment_rescheduled_by_doctor",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "appointment_slot_suggested_by_doctor",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
           {
             "name": "new_message_received",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
           {
             "name": "patient_registration_update",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
           {
             "name": "physician_registration_update",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "transaction_successful_alert",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           }
