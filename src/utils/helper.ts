@@ -170,11 +170,15 @@ export const patientEmailPreferencesData = [
   },
   {
     key: "patient_registration_update",
-    value: "patient_registration_update",
+    value: "Patient registration update",
   },
   {
     key: "physician_registration_update",
-    value: "physician_registration_update",
+    value: "Physician registration update",
+  },
+  {
+    key: "appointment_slot_suggested_by_doctor",
+    value: "Appointment slot suggested by doctor",
   },
 ];
 

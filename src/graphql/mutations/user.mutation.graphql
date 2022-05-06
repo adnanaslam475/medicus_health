@@ -1,8 +1,6 @@
 mutation toggleEmailPreferences {
   toggleEmailPreferences(
     toggleEmailPreferencesInput: {
-      patient_registration_update: false
-      physician_registration_update: false
       appointment_accepted_by_doctor: false
       appointment_rescheduled_by_doctor: true
       appointment_reminder: true
@@ -10,8 +8,6 @@ mutation toggleEmailPreferences {
       new_message_received: true
     }
   ) {
-    patient_registration_update
-    physician_registration_update
     appointment_accepted_by_doctor
     appointment_rescheduled_by_doctor
     appointment_reminder

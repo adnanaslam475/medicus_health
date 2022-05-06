@@ -836,13 +836,12 @@ export type State = {
 };
 
 export type TogglePreference = {
-  admin_appointment_create_update: Scalars['Boolean'];
-  appointment_accepted_by_doctor: Scalars['Boolean'];
-  appointment_reminder: Scalars['Boolean'];
-  appointment_rescheduled_by_doctor: Scalars['Boolean'];
-  new_message_received: Scalars['Boolean'];
-  patient_registration_update: Scalars['Boolean'];
-  physician_registration_update: Scalars['Boolean'];
+  admin_appointment_create_update?: InputMaybe<Scalars['Boolean']>;
+  appointment_accepted_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  appointment_reminder?: InputMaybe<Scalars['Boolean']>;
+  appointment_rescheduled_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  appointment_slot_suggested_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  new_message_received?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Transaction = {
@@ -929,6 +928,7 @@ export type User = {
   doctorQuestionnaire?: Maybe<DoctorQuestionnaire>;
   doctorSchedules?: Maybe<Array<DoctorSchedule>>;
   email: Scalars['String'];
+  emailPreferences: UserEmailPreferencesResponse;
   first_name: Scalars['String'];
   gender?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
@@ -961,6 +961,7 @@ export type UserEmailPreferencesResponse = {
   appointment_accepted_by_doctor: Scalars['Boolean'];
   appointment_reminder: Scalars['Boolean'];
   appointment_rescheduled_by_doctor: Scalars['Boolean'];
+  appointment_slot_suggested_by_doctor: Scalars['Boolean'];
   new_message_received: Scalars['Boolean'];
   patient_registration_update: Scalars['Boolean'];
   physician_registration_update: Scalars['Boolean'];
@@ -1127,7 +1128,7 @@ export type BookAppointmentMutation = { __typename?: 'Mutation', bookAppointment
 export type ToggleEmailPreferencesMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', patient_registration_update: boolean, physician_registration_update: boolean, appointment_accepted_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, admin_appointment_create_update: boolean, new_message_received: boolean } };
+export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, admin_appointment_create_update: boolean, new_message_received: boolean } };
 
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -1262,7 +1263,7 @@ export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appoint
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', patient_registration_update: boolean, physician_registration_update: boolean, appointment_accepted_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, admin_appointment_create_update: boolean, new_message_received: boolean } };
+export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor: boolean, appointment_slot_suggested_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, admin_appointment_create_update: boolean, new_message_received: boolean } };
 
 
 export const CreateDoctorScheduleDocument = gql`
@@ -1604,10 +1605,8 @@ export function useBookAppointmentMutation() {
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences {
   toggleEmailPreferences(
-    toggleEmailPreferencesInput: {patient_registration_update: false, physician_registration_update: false, appointment_accepted_by_doctor: false, appointment_rescheduled_by_doctor: true, appointment_reminder: true, admin_appointment_create_update: true, new_message_received: true}
+    toggleEmailPreferencesInput: {appointment_accepted_by_doctor: false, appointment_rescheduled_by_doctor: true, appointment_reminder: true, admin_appointment_create_update: true, new_message_received: true}
   ) {
-    patient_registration_update
-    physician_registration_update
     appointment_accepted_by_doctor
     appointment_rescheduled_by_doctor
     appointment_reminder
@@ -2099,9 +2098,8 @@ export function useGetAppointmentsReminderBannerQuery(options?: Omit<Urql.UseQue
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {
   userEmailPreferences {
-    patient_registration_update
-    physician_registration_update
     appointment_accepted_by_doctor
+    appointment_slot_suggested_by_doctor
     appointment_rescheduled_by_doctor
     appointment_reminder
     admin_appointment_create_update
@@ -5545,6 +5543,18 @@ export default {
             "args": []
           },
           {
+            "name": "emailPreferences",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserEmailPreferencesResponse",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "first_name",
             "type": {
               "kind": "NON_NULL",
@@ -5800,6 +5810,17 @@ export default {
           },
           {
             "name": "appointment_rescheduled_by_doctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "appointment_slot_suggested_by_doctor",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

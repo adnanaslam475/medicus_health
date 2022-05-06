@@ -2,6 +2,7 @@ import React from "react";
 import EmailNotification from "../../../common/components/EmailNotification/EmailNotification";
 import ThinLine from "../../../../common/components/ThinLine/ThinLine";
 import {
+  TogglePreference,
   UserEmailPreferencesResponse,
   useUserEmailPreferencesQuery,
 } from "generated/graphql";
@@ -28,7 +29,7 @@ function EmailNotificationPage() {
                     onChange={(e: boolean) => ChangeHandler(item.key, e)}
                     checked={
                       !!userEmailPreferences[
-                        item?.key as keyof UserEmailPreferencesResponse
+                        item?.key as keyof TogglePreference
                       ]
                     }
                   />
