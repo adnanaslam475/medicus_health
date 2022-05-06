@@ -13,10 +13,14 @@ import { Upload } from "antd";
 import { date } from "../../../utils";
 import { UploadChangeParam } from "antd/lib/upload";
 import config from "../../../../../config";
+import { useMediaUploader } from "common/hooks/media";
 
 const PersonalInfo = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
+
+  // File Upload Hook
+  const mediaUploader = useMediaUploader();
 
   // GET USER ID
   const { user } = getUserData();
@@ -81,19 +85,13 @@ const PersonalInfo = () => {
     }
   };
 
-  const configS3 = {
-    region: config?.region || "",
-    bucketName: config?.bucketName || "",
-    accessKeyId: config?.accessKeyId || "",
-    secretAccessKey: config?.secertAccessKey || "",
-  };
-
   const fileChange = async (info: UploadChangeParam) => {
-    const s3 = new ReactS3Client(configS3);
-
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
-      setImage(url?.location);
+      const url = await mediaUploader.upload(info.file.originFileObj as File);
+      console.log("url", url);
+      if (url) {
+        setImage(url?.location);
+      }
     } catch (error) {}
     if (error) {
       notification.error({

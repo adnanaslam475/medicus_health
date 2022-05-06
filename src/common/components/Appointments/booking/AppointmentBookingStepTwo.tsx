@@ -39,13 +39,6 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
     },
   };
 
-  const configS3 = {
-    region: config?.region || "",
-    bucketName: config?.bucketName || "",
-    accessKeyId: config?.accessKeyId || "",
-    secretAccessKey: config?.secertAccessKey || "",
-  };
-
   function onFinishLocal(values: any) {
     saveStepTwo?.(fileList);
   }

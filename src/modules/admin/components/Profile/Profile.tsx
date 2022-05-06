@@ -30,7 +30,8 @@ import InputWithLi from "common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import { configS3 } from "utils/helper";
 import { Schedule } from "utils/types";
-import {RangeValue} from 'rc-picker/lib/interface'
+import { RangeValue } from "rc-picker/lib/interface";
+import { useMediaUploader } from "common/hooks/media";
 
 type profileType = {
   doctorId: string;
@@ -38,11 +39,19 @@ type profileType = {
   setIsEdit: (e: boolean) => void;
   schedules: Schedule[] | undefined;
   setDeleteScheduleId: (e: string) => void;
-  setAddScheduleTime: React.Dispatch<React.SetStateAction<{time: RangeValue<moment.Moment> | null, timeString: string[]}>>;
+  setAddScheduleTime: React.Dispatch<
+    React.SetStateAction<{
+      time: RangeValue<moment.Moment> | null;
+      timeString: string[];
+    }>
+  >;
   setAddScheduleDay: React.Dispatch<React.SetStateAction<string | number>>;
   onAddClick?: () => void;
   edit: () => void;
-  addScheduleTime?: { timeString: string[]; time: RangeValue<moment.Moment> | null };
+  addScheduleTime?: {
+    timeString: string[];
+    time: RangeValue<moment.Moment> | null;
+  };
   addScheduleDay: string;
   loading?: boolean;
 };
@@ -70,6 +79,9 @@ export const Profile = React.forwardRef(function Profile({
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
 
+  // File Upload Hook
+  const mediaUploader = useMediaUploader();
+
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error } = result || {};
 
@@ -80,7 +92,6 @@ export const Profile = React.forwardRef(function Profile({
       prepareAndSetEditPayload();
     }
   }, [doctorData]);
-  console.log("doctorDatadoctorDatadoctorData", doctorData);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -136,8 +147,10 @@ export const Profile = React.forwardRef(function Profile({
     const s3 = new ReactS3Client(configS3);
 
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
-      setImage(url?.location);
+      const url = await mediaUploader.upload(info.file.originFileObj as File);
+      if (url) {
+        setImage(url?.location);
+      }
     } catch (error) {}
     if (error) {
       notification.error({
