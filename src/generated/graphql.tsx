@@ -1125,10 +1125,12 @@ export type BookAppointmentMutationVariables = Exact<{
 
 export type BookAppointmentMutation = { __typename?: 'Mutation', bookAppointment: { __typename?: 'Appointment', id: number, status?: string | null } };
 
-export type ToggleEmailPreferencesMutationVariables = Exact<{ [key: string]: never; }>;
+export type ToggleEmailPreferencesMutationVariables = Exact<{
+  toggleEmailPreferencesInput: TogglePreference;
+}>;
 
 
-export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, admin_appointment_create_update: boolean, new_message_received: boolean } };
+export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', admin_appointment_create_update: boolean, appointment_slot_suggested_by_doctor: boolean, appointment_accepted_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, new_message_received: boolean } };
 
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -1603,14 +1605,15 @@ export function useBookAppointmentMutation() {
   return Urql.useMutation<BookAppointmentMutation, BookAppointmentMutationVariables>(BookAppointmentDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
-    mutation toggleEmailPreferences {
+    mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
   toggleEmailPreferences(
-    toggleEmailPreferencesInput: {appointment_accepted_by_doctor: false, appointment_rescheduled_by_doctor: true, appointment_reminder: true, admin_appointment_create_update: true, new_message_received: true}
+    toggleEmailPreferencesInput: $toggleEmailPreferencesInput
   ) {
+    admin_appointment_create_update
+    appointment_slot_suggested_by_doctor
     appointment_accepted_by_doctor
     appointment_rescheduled_by_doctor
     appointment_reminder
-    admin_appointment_create_update
     new_message_received
   }
 }
