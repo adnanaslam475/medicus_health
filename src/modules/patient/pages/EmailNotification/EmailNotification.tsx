@@ -3,7 +3,7 @@ import EmailNotification from "../../../common/components/EmailNotification/Emai
 import ThinLine from "../../../../common/components/ThinLine/ThinLine";
 import {
   TogglePreference,
-  UserEmailPreferencesResponse,
+  useToggleEmailPreferencesMutation,
   useUserEmailPreferencesQuery,
 } from "generated/graphql";
 import { patientEmailPreferencesData } from "utils/helper";
@@ -13,8 +13,18 @@ function EmailNotificationPage() {
     useUserEmailPreferencesQuery();
   const { userEmailPreferences } = data || {};
 
-  // below function will be used for mutation call
-  async function ChangeHandler(value: string, valStatus: boolean) {}
+  const [
+    toggleEmailPreferencesMutation,
+    executeToggleEmailPreferencesMutation,
+  ] = useToggleEmailPreferencesMutation();
+
+  async function ChangeHandler(value: string, valStatus: boolean) {
+    const variables = {
+      toggleEmailPreferencesInput: { [value]: valStatus },
+    };
+    await executeToggleEmailPreferencesMutation(variables);
+    await executeUserEmailPreferencesQuery({ requestPolicy: "network-only" });
+  }
   return (
     <div>
       <div className="flex md:flex-row gap-0 max-w-[60%]">
