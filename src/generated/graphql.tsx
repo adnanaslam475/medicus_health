@@ -836,13 +836,12 @@ export type State = {
 };
 
 export type TogglePreference = {
-  admin_appointment_create_update: Scalars['Boolean'];
-  appointment_accepted_by_doctor: Scalars['Boolean'];
-  appointment_reminder: Scalars['Boolean'];
-  appointment_rescheduled_by_doctor: Scalars['Boolean'];
-  new_message_received: Scalars['Boolean'];
-  patient_registration_update: Scalars['Boolean'];
-  physician_registration_update: Scalars['Boolean'];
+  admin_appointment_create_update?: InputMaybe<Scalars['Boolean']>;
+  appointment_accepted_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  appointment_reminder?: InputMaybe<Scalars['Boolean']>;
+  appointment_rescheduled_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  appointment_slot_suggested_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  new_message_received?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Transaction = {
@@ -929,6 +928,7 @@ export type User = {
   doctorQuestionnaire?: Maybe<DoctorQuestionnaire>;
   doctorSchedules?: Maybe<Array<DoctorSchedule>>;
   email: Scalars['String'];
+  emailPreferences: UserEmailPreferencesResponse;
   first_name: Scalars['String'];
   gender?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
@@ -961,6 +961,7 @@ export type UserEmailPreferencesResponse = {
   appointment_accepted_by_doctor: Scalars['Boolean'];
   appointment_reminder: Scalars['Boolean'];
   appointment_rescheduled_by_doctor: Scalars['Boolean'];
+  appointment_slot_suggested_by_doctor: Scalars['Boolean'];
   new_message_received: Scalars['Boolean'];
   patient_registration_update: Scalars['Boolean'];
   physician_registration_update: Scalars['Boolean'];
@@ -1124,6 +1125,11 @@ export type BookAppointmentMutationVariables = Exact<{
 
 export type BookAppointmentMutation = { __typename?: 'Mutation', bookAppointment: { __typename?: 'Appointment', id: number, status?: string | null } };
 
+export type ToggleEmailPreferencesMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, admin_appointment_create_update: boolean, new_message_received: boolean } };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -1253,6 +1259,11 @@ export type GetAppointmentsReminderBannerQueryVariables = Exact<{ [key: string]:
 
 
 export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id: number, patient: { __typename?: 'User', first_name: string, last_name: string }, doctor: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
+
+export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor: boolean, appointment_slot_suggested_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, admin_appointment_create_update: boolean, new_message_received: boolean } };
 
 
 export const CreateDoctorScheduleDocument = gql`
@@ -1590,6 +1601,23 @@ export const BookAppointmentDocument = gql`
 
 export function useBookAppointmentMutation() {
   return Urql.useMutation<BookAppointmentMutation, BookAppointmentMutationVariables>(BookAppointmentDocument);
+};
+export const ToggleEmailPreferencesDocument = gql`
+    mutation toggleEmailPreferences {
+  toggleEmailPreferences(
+    toggleEmailPreferencesInput: {appointment_accepted_by_doctor: false, appointment_rescheduled_by_doctor: true, appointment_reminder: true, admin_appointment_create_update: true, new_message_received: true}
+  ) {
+    appointment_accepted_by_doctor
+    appointment_rescheduled_by_doctor
+    appointment_reminder
+    admin_appointment_create_update
+    new_message_received
+  }
+}
+    `;
+
+export function useToggleEmailPreferencesMutation() {
+  return Urql.useMutation<ToggleEmailPreferencesMutation, ToggleEmailPreferencesMutationVariables>(ToggleEmailPreferencesDocument);
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
@@ -2066,6 +2094,22 @@ export const GetAppointmentsReminderBannerDocument = gql`
 
 export function useGetAppointmentsReminderBannerQuery(options?: Omit<Urql.UseQueryArgs<GetAppointmentsReminderBannerQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAppointmentsReminderBannerQuery>({ query: GetAppointmentsReminderBannerDocument, ...options });
+};
+export const UserEmailPreferencesDocument = gql`
+    query userEmailPreferences {
+  userEmailPreferences {
+    appointment_accepted_by_doctor
+    appointment_slot_suggested_by_doctor
+    appointment_rescheduled_by_doctor
+    appointment_reminder
+    admin_appointment_create_update
+    new_message_received
+  }
+}
+    `;
+
+export function useUserEmailPreferencesQuery(options?: Omit<Urql.UseQueryArgs<UserEmailPreferencesQueryVariables>, 'query'>) {
+  return Urql.useQuery<UserEmailPreferencesQuery>({ query: UserEmailPreferencesDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
@@ -5499,6 +5543,18 @@ export default {
             "args": []
           },
           {
+            "name": "emailPreferences",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserEmailPreferencesResponse",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "first_name",
             "type": {
               "kind": "NON_NULL",
@@ -5754,6 +5810,17 @@ export default {
           },
           {
             "name": "appointment_rescheduled_by_doctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "appointment_slot_suggested_by_doctor",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
