@@ -77,6 +77,19 @@ function EditProfile({
 
   console.log(doctorData, "doctorData");
 
+  const {
+    about_me,
+    condition_treated,
+    doctor_id,
+    language,
+    educational_background,
+    professional_experience,
+  } = doctorData || {};
+
+  const educationalBackground = JSON.parse(educational_background) || [];
+
+  const professionalExperience = JSON.parse(professional_experience) || [];
+
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -92,7 +105,18 @@ function EditProfile({
       email: email,
       password: "",
       confirmPassword: "",
-      institute: "abcde",
+      ["eb-institution-0"]: educationalBackground[0]?.institution,
+      ["eb-degree-0"]: educationalBackground[0]?.degree,
+      ["eb-institution-1"]: educationalBackground[1]?.institution,
+      ["eb-degree-1"]: educationalBackground[1]?.degree,
+
+      ["pe-institution-0"]: professionalExperience[0]?.institution,
+      ["pe-role-0"]: professionalExperience[0]?.role,
+      ["pe-institution-1"]: professionalExperience[1]?.institution,
+      ["pe-role-1"]: professionalExperience[1]?.role,
+      ["pe-institution-2"]: professionalExperience[2]?.institution,
+      ["pe-role-2"]: professionalExperience[2]?.role,
+      about_me: about_me,
     });
   }
 
@@ -100,12 +124,40 @@ function EditProfile({
     if (doctorData) {
       const res = await updateDoctor({
         updateDoctorProfileInput: {
-          doctor_id: Number(doctorId),
+          doctor_id: doctor_id,
           first_name: values?.firstName,
           last_name: values?.lastName,
           email: values?.email,
           password: values?.password,
           profile_image: image || userProfileImage,
+          about_me: values?.about_me,
+          condition_treated: condition_treated,
+          language: language,
+          educational_background: [
+            {
+              institution: values["eb-institution-0"],
+              degree: values["eb-degree-0"],
+            },
+            {
+              institution: values["eb-institution-1"],
+              degree: values["eb-degree-1"],
+            },
+          ],
+          // year_of_experience: year_of_experience,
+          professional_experience: [
+            {
+              institution: values["pe-institution-0"],
+              role: values["pe-role-0"],
+            },
+            {
+              institution: values["pe-institution-1"],
+              role: values["pe-role-1"],
+            },
+            {
+              institution: values["pe-institution-2"],
+              role: values["pe-role-2"],
+            },
+          ],
         },
       });
       console.log({ doctorData, res });
@@ -171,7 +223,7 @@ function EditProfile({
 
   async function handleChange() {
     const res = await EnableOrDisableDoctor({
-      id: Number(doctorId),
+      id: Number(doctor_id),
     });
     if (res?.data?.enableOrDisableDoctor?.status) {
       res?.data?.enableOrDisableDoctor?.status &&
@@ -193,7 +245,6 @@ function EditProfile({
         <div className="flex flex-col w-full justify-start items-center py-3">
           <div className="w-full mb-10 flex gap-8 items-center">
             <Upload
-              // onChange={fileChange}
               maxCount={1}
               beforeUpload={onBeforeUpload}
               itemRender={() => <div />}
@@ -213,9 +264,7 @@ function EditProfile({
               </div>
             </Upload>
             <div>
-              {/* <span>{doctorId}</span> */}
               <h2 className="mb-0">
-                {/* {first_name ? `${first_name} ${last_name}` : ""} */}
                 {`${first_name && first_name} ${last_name && last_name}` || ""}
               </h2>
               <span className="block">{email}</span>
@@ -262,7 +311,6 @@ function EditProfile({
               <div className="flex flex-col sm:flex-row  sm:gap-3">
                 <Form.Item
                   name="email"
-                  // name={["user", "email"]}
                   label="Email"
                   rules={[{ type: "email" }]}
                   className="flex-1"
@@ -271,19 +319,13 @@ function EditProfile({
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  // rules={[{ required: true, message: "Password" }]}
-                  className="flex-1"
-                >
+                <Form.Item label="Password" name="password" className="flex-1">
                   <Input.Password />
                 </Form.Item>
 
                 <Form.Item
                   label="Confirm Password"
                   name="confirmPassword"
-                  // rules={[{ required: true, message: "Confirm password!" }]}
                   className="flex-1"
                 >
                   <Input.Password />
@@ -295,7 +337,7 @@ function EditProfile({
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
                     label="Hospital/Clinic/Institution"
-                    name="institute"
+                    name="pe-institution-0"
                     rules={[
                       {
                         required: false,
@@ -308,7 +350,7 @@ function EditProfile({
                   </Form.Item>
                   <Form.Item
                     label="Role"
-                    name="role"
+                    name="pe-role-0"
                     rules={[{ required: false, message: "role" }]}
                     className="flex-1"
                   >
@@ -318,7 +360,7 @@ function EditProfile({
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
                     label="Hospital/Clinic/Institution"
-                    name="institute"
+                    name="pe-institution-1"
                     rules={[
                       {
                         required: false,
@@ -331,7 +373,7 @@ function EditProfile({
                   </Form.Item>
                   <Form.Item
                     label="Role"
-                    name="role"
+                    name="pe-role-1"
                     rules={[{ required: false, message: "role" }]}
                     className="flex-1"
                   >
@@ -341,7 +383,7 @@ function EditProfile({
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
                     label="Hospital/Clinic/Institution"
-                    name="institute"
+                    name="pe-institution-2"
                     rules={[
                       {
                         required: false,
@@ -354,13 +396,82 @@ function EditProfile({
                   </Form.Item>
                   <Form.Item
                     label="Role"
-                    name="role"
+                    name="pe-role-2"
                     rules={[{ required: false, message: "role" }]}
                     className="flex-1"
                   >
                     <Input />
                   </Form.Item>
                 </div>
+              </div>
+
+              <div className={`my-6 ${_classes["educational"]}`}>
+                <h6>Educational Background</h6>
+                <div className="border-b border-gray-4 my-3">
+                  <Form.Item
+                    label="University/Institution"
+                    name="eb-institution-0"
+                    rules={[
+                      {
+                        required: false,
+                        message: "University/Institution",
+                      },
+                    ]}
+                    className="flex-1"
+                  >
+                    <Input value="University of Oklahoma College of Medicine" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Degree/Diploma/Certification"
+                    name="eb-degree-0"
+                    rules={[
+                      {
+                        required: false,
+                        message: "Degree/Diploma/Certification",
+                      },
+                    ]}
+                    className="flex-1"
+                  >
+                    <Input value="University of Oklahoma College of Medicine" />
+                  </Form.Item>
+                </div>
+                <div className="my-3">
+                  <Form.Item
+                    label="University/Institution"
+                    name="eb-institution-1"
+                    rules={[
+                      {
+                        required: false,
+                        message: "University/Institution",
+                      },
+                    ]}
+                    className="flex-1"
+                  >
+                    <Input value="University of Oklahoma College of Medicine" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Degree/Diploma/Certification"
+                    name="eb-degree-1"
+                    rules={[
+                      {
+                        required: false,
+                        message: "Degree/Diploma/Certification",
+                      },
+                    ]}
+                    className="flex-1"
+                  >
+                    <Input value="University of Oklahoma College of Medicine" />
+                  </Form.Item>
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <Form.Item label="About me" name="about_me">
+                  <TextArea
+                    rows={10}
+                    placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
+                  />
+                </Form.Item>
               </div>
 
               <Form.Item>
@@ -390,15 +501,14 @@ function EditProfile({
                   disable={false}
                 />
               </div>
-              <div className="mt-5">
+              {/* <div className="mt-5">
                 <Form.Item label="About me" name="about">
                   <TextArea
                     rows={10}
                     placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
-                    maxLength={6}
                   />
                 </Form.Item>
-              </div>
+              </div> */}
 
               <InputWithLi disable={false} />
               {/* Physician - Account - Its editable component so all props are required */}
@@ -413,138 +523,7 @@ function EditProfile({
                 setAddScheduleDay={setAddScheduleDay}
                 onAddClick={onAddClick}
               />
-              <div className={`my-6 ${_classes["professional"]}`}>
-                <h5>Professional Background</h5>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-              </div>
 
-              <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Educational Background</h6>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-                <div className="my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-              </div>
               <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Login Information</h6>
                 <div className="border-b border-gray-4 my-3">
