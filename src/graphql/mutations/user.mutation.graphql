@@ -1,17 +1,14 @@
-mutation toggleEmailPreferences {
+mutation toggleEmailPreferences(
+  $toggleEmailPreferencesInput: TogglePreference!
+) {
   toggleEmailPreferences(
-    toggleEmailPreferencesInput: {
-      appointment_accepted_by_doctor: false
-      appointment_rescheduled_by_doctor: true
-      appointment_reminder: true
-      admin_appointment_create_update: true
-      new_message_received: true
-    }
+    toggleEmailPreferencesInput: $toggleEmailPreferencesInput
   ) {
+    admin_appointment_create_update
+    appointment_slot_suggested_by_doctor
     appointment_accepted_by_doctor
     appointment_rescheduled_by_doctor
     appointment_reminder
-    admin_appointment_create_update
     new_message_received
   }
 }
