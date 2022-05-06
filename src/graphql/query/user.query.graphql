@@ -1,8 +1,7 @@
 query userEmailPreferences {
   userEmailPreferences {
-    patient_registration_update
-    physician_registration_update
     appointment_accepted_by_doctor
+    appointment_slot_suggested_by_doctor
     appointment_rescheduled_by_doctor
     appointment_reminder
     admin_appointment_create_update
