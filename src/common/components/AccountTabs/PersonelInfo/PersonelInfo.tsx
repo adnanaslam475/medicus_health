@@ -88,7 +88,6 @@ const PersonalInfo = () => {
   const fileChange = async (info: UploadChangeParam) => {
     try {
       const url = await mediaUploader.upload(info.file.originFileObj as File);
-      console.log("url", url);
       if (url) {
         setImage(url?.location);
       }
