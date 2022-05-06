@@ -836,12 +836,12 @@ export type State = {
 };
 
 export type TogglePreference = {
-  admin_appointment_create_update: Scalars['Boolean'];
-  appointment_accepted_by_doctor: Scalars['Boolean'];
-  appointment_reminder: Scalars['Boolean'];
-  appointment_rescheduled_by_doctor: Scalars['Boolean'];
-  appointment_slot_suggested_by_doctor: Scalars['Boolean'];
-  new_message_received: Scalars['Boolean'];
+  admin_appointment_create_update?: InputMaybe<Scalars['Boolean']>;
+  appointment_accepted_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  appointment_reminder?: InputMaybe<Scalars['Boolean']>;
+  appointment_rescheduled_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  appointment_slot_suggested_by_doctor?: InputMaybe<Scalars['Boolean']>;
+  new_message_received?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Transaction = {

@@ -1,5 +1,5 @@
 import React from "react";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
+import AppLayout from "common/components/AppLayout/AppLayout";
 import AccountsDetail from "./AccountsDetail";
 
 function Accounts() {
