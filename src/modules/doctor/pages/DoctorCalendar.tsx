@@ -1,17 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
-import CalendarView from "../../../../common/components/CalendarView/CalendarView";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
+import CalendarView from "../../common/components/CalendarView/CalendarView";
+import AppLayout from "common/components/AppLayout/AppLayout";
 import {
   Appointment,
   useGetAllRequestedAppointmentsQuery,
-} from "../../../../../generated/graphql";
-import CalendarModalComponent from "../../../../common/components/CalendarModal";
+} from "../../../generated/graphql";
+import CalendarModalComponent from "../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
 
 type events = {
   calenderEvents: Appointment | undefined | any;
 };
-function AppointmentCalendar() {
+function DoctorCalendar() {
   const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
     calenderEvents: [],
@@ -103,7 +103,7 @@ function AppointmentCalendar() {
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
             setDoctorId={setDoctorId}
-            path="/patient/appointments/requested"
+            path="/doctor/appointments/upcoming"
           />
         </div>
         <CalendarModalComponent
@@ -117,4 +117,4 @@ function AppointmentCalendar() {
   );
 }
 
-export default AppointmentCalendar;
+export default DoctorCalendar;
