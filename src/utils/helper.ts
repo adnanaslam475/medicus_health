@@ -146,6 +146,6 @@ export const days = [
   { key: 6, value: "Saturday" },
   { key: 7, value: "Sunday" },
 ];
-export function Sorter(a: DoctorSchedule, b: DoctorSchedule) {
+export function sorter(a: DoctorSchedule, b: DoctorSchedule) {
   return a.day - b.day || a.startTime.localeCompare(b.startTime);
 }
