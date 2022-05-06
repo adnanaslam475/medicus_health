@@ -196,6 +196,7 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     serviceId
     requestedDate
     status
+    charges
     patient {
       first_name
       last_name
@@ -216,6 +217,7 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     }
     transaction {
       createdAt
+      amountReceived
     }
   }
 }

@@ -10,6 +10,7 @@ import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJou
 import _classes from "./DoctorProfileCard.module.scss";
 import { DoctorProfile } from "../../../generated/graphql";
 import { date } from "../../utils";
+import { sorter } from "utils/helper";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -115,7 +116,7 @@ function DoctorProfileCard(props: Props) {
                   {doctorData?.user?.doctorSchedules?.length !== 0
                     ? doctorData?.user?.doctorSchedules
                         ?.sort((a, b) => {
-                          return a.day - b.day;
+                          return sorter(a, b);
                         }).map((item, index) => (
                         <div className="flex-none sm:flex flex-grow justify-between mb-2">
                           <span>{date?.dayName(item.day)}</span>
