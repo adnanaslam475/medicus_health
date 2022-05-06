@@ -4,7 +4,7 @@ mutation createDoctorSchedule(
   $startTime: String!
   $endTime: String!
 ) {
-  createdoctorSchedule(
+  createDoctorSchedule(
     createDoctorScheduleNewInput: {
       doctorId: $doctorId
       day: $day

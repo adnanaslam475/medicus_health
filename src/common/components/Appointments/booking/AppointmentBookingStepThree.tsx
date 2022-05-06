@@ -64,7 +64,7 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
     return obj;
   }
 
- 
+
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
 
   return (
