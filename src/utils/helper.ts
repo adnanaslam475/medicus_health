@@ -1,3 +1,5 @@
+import { date } from "common/utils";
+import { DoctorSchedule } from "generated/graphql";
 import config from "../../config";
 
 export const configS3 = {
@@ -144,3 +146,34 @@ export const days = [
   { key: 6, value: "Saturday" },
   { key: 7, value: "Sunday" },
 ];
+
+export const patientEmailPreferencesData = [
+  {
+    key: "admin_appointment_create_update",
+    value: "Admin Creates/Update Appointment",
+  },
+  {
+    key: "appointment_accepted_by_doctor",
+    value: "Appointment Accepted by Doctor",
+  },
+  {
+    key: "appointment_reminder",
+    value: "Appointment Reminder (24 hours before the appointment)",
+  },
+  {
+    key: "appointment_rescheduled_by_doctor",
+    value: "Appointment rescheduled by Doctor",
+  },
+  {
+    key: "new_message_received",
+    value: "The Patient/Physician/Administrator receives a chat message",
+  },
+  {
+    key: "appointment_slot_suggested_by_doctor",
+    value: "Appointment slot suggested by doctor",
+  },
+];
+
+export function sorter(a: DoctorSchedule, b: DoctorSchedule) {
+  return a.day - b.day || a.startTime.localeCompare(b.startTime);
+}

@@ -1125,6 +1125,13 @@ export type BookAppointmentMutationVariables = Exact<{
 
 export type BookAppointmentMutation = { __typename?: 'Mutation', bookAppointment: { __typename?: 'Appointment', id: number, status?: string | null } };
 
+export type ToggleEmailPreferencesMutationVariables = Exact<{
+  toggleEmailPreferencesInput: TogglePreference;
+}>;
+
+
+export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', admin_appointment_create_update: boolean, appointment_slot_suggested_by_doctor: boolean, appointment_accepted_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, new_message_received: boolean } };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -1254,6 +1261,11 @@ export type GetAppointmentsReminderBannerQueryVariables = Exact<{ [key: string]:
 
 
 export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id: number, patient: { __typename?: 'User', first_name: string, last_name: string }, doctor: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
+
+export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor: boolean, appointment_slot_suggested_by_doctor: boolean, appointment_rescheduled_by_doctor: boolean, appointment_reminder: boolean, admin_appointment_create_update: boolean, new_message_received: boolean } };
 
 
 export const CreateDoctorScheduleDocument = gql`
@@ -1591,6 +1603,24 @@ export const BookAppointmentDocument = gql`
 
 export function useBookAppointmentMutation() {
   return Urql.useMutation<BookAppointmentMutation, BookAppointmentMutationVariables>(BookAppointmentDocument);
+};
+export const ToggleEmailPreferencesDocument = gql`
+    mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
+  toggleEmailPreferences(
+    toggleEmailPreferencesInput: $toggleEmailPreferencesInput
+  ) {
+    admin_appointment_create_update
+    appointment_slot_suggested_by_doctor
+    appointment_accepted_by_doctor
+    appointment_rescheduled_by_doctor
+    appointment_reminder
+    new_message_received
+  }
+}
+    `;
+
+export function useToggleEmailPreferencesMutation() {
+  return Urql.useMutation<ToggleEmailPreferencesMutation, ToggleEmailPreferencesMutationVariables>(ToggleEmailPreferencesDocument);
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
@@ -2069,6 +2099,22 @@ export const GetAppointmentsReminderBannerDocument = gql`
 
 export function useGetAppointmentsReminderBannerQuery(options?: Omit<Urql.UseQueryArgs<GetAppointmentsReminderBannerQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAppointmentsReminderBannerQuery>({ query: GetAppointmentsReminderBannerDocument, ...options });
+};
+export const UserEmailPreferencesDocument = gql`
+    query userEmailPreferences {
+  userEmailPreferences {
+    appointment_accepted_by_doctor
+    appointment_slot_suggested_by_doctor
+    appointment_rescheduled_by_doctor
+    appointment_reminder
+    admin_appointment_create_update
+    new_message_received
+  }
+}
+    `;
+
+export function useUserEmailPreferencesQuery(options?: Omit<Urql.UseQueryArgs<UserEmailPreferencesQueryVariables>, 'query'>) {
+  return Urql.useQuery<UserEmailPreferencesQuery>({ query: UserEmailPreferencesDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
