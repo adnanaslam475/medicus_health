@@ -1313,6 +1313,20 @@ export type GetAppointmentsReminderBannerQueryVariables = Exact<{ [key: string]:
 
 export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id: number, patient: { __typename?: 'User', first_name: string, last_name: string }, doctor: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
 
+export type GetCountryByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetCountryByIdQuery = { __typename?: 'Query', country: { __typename?: 'Country', id: number, country_name: string, country_short_name: string, country_phone_code: number } };
+
+export type GetCityByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetCityByIdQuery = { __typename?: 'Query', city: { __typename?: 'City', id: number, state_id: number, city_name: string } };
+
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2249,6 +2263,33 @@ export const GetAppointmentsReminderBannerDocument = gql`
 
 export function useGetAppointmentsReminderBannerQuery(options?: Omit<Urql.UseQueryArgs<GetAppointmentsReminderBannerQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAppointmentsReminderBannerQuery>({ query: GetAppointmentsReminderBannerDocument, ...options });
+};
+export const GetCountryByIdDocument = gql`
+    query getCountryById($id: Int!) {
+  country(id: $id) {
+    id
+    country_name
+    country_short_name
+    country_phone_code
+  }
+}
+    `;
+
+export function useGetCountryByIdQuery(options: Omit<Urql.UseQueryArgs<GetCountryByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetCountryByIdQuery>({ query: GetCountryByIdDocument, ...options });
+};
+export const GetCityByIdDocument = gql`
+    query getCityById($id: Int!) {
+  city(id: $id) {
+    id
+    state_id
+    city_name
+  }
+}
+    `;
+
+export function useGetCityByIdQuery(options: Omit<Urql.UseQueryArgs<GetCityByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetCityByIdQuery>({ query: GetCityByIdDocument, ...options });
 };
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {
