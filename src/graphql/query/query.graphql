@@ -454,3 +454,22 @@ query getAppointmentsReminderBanner {
     }
   }
 }
+
+#GET COUNTRY BY ID
+query getCountryById($id: Int!) {
+  country(id: $id) {
+    id
+    country_name
+    country_short_name
+    country_phone_code
+  }
+}
+
+#GET CITY BY ID
+query getCityById($id: Int!) {
+  city(id: $id) {
+    id
+    state_id
+    city_name
+  }
+}
