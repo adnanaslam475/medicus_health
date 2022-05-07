@@ -81,13 +81,10 @@ function AccountsProfile() {
           setAddScheduleDay={setAddScheduleDay}
           addScheduleDay={String(addScheduleDay)}
           setAddScheduleTime={setAddScheduleTime}
-<<<<<<< HEAD
           // setAddScheduleClick={setAddScheduleClick}
           doctorId={String(id)}
           doctorData={doctorProfile}
           edit={editData}
-=======
->>>>>>> 3ae93539d891c586ce876d1b9bffd953b63ee316
           addScheduleTime={addScheduleTime}
           onAddClick={onAddClick}
           loading={fetching}
