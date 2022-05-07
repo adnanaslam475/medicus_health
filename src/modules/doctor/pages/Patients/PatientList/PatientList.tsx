@@ -1,19 +1,16 @@
 import React from "react";
-import DoctorCard from "common/components/DoctorCards/DoctorCards";
-import AppLayout from "common/components/AppLayout/AppLayout";
+import DoctorCard from "../../../../../common/components/DoctorCards/DoctorCards";
+import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { Button, Table, Tag, Modal } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 
-import AdminPhysicianSearchFilters from "./UpcomingAppointmentFilter";
+import PatientSearchFilters from "./PatientSearchFilters";
 import Router from "next/router";
-
+import { useDoctorProfilesQuery, User } from "../../../../../generated/graphql";
 import Image from "next/image";
-import engFlag from "../../../../../public/assets/images/engFlag.png";
-import espanolFlag from "../../../../../public/assets/images/espanolFlag.png";
-import UpcomingAppointmentFilter from "./UpcomingAppointmentFilter";
-import SearchFilters from "common/components/SearchFilters/SearchFilters";
-import { User } from "generated/graphql";
+import engFlag from "../../../../../../public/assets//images/engFlag.png";
+import espanolFlag from "../../../../../../public/assets//images/espanolFlag.png";
 
 const Ddata = [
   {
@@ -153,10 +150,10 @@ type props = {
   language: string;
 };
 
-function UpcommingAppointmentList() {
+function PatientList() {
   // const [{ data }] = useDoctorProfilesQuery();
-
-
+  const [{ data }] = useDoctorProfilesQuery();
+  const { doctorProfiles } = data || {};
 
   const columns = [
     {
@@ -169,7 +166,7 @@ function UpcommingAppointmentList() {
       },
     },
     {
-      title: "Patient",
+      title: "Name",
       dataIndex: "user",
       key: "user",
       render: (value: User) => {
@@ -184,7 +181,7 @@ function UpcommingAppointmentList() {
       },
     },
     {
-      title: "Service",
+      title: "Email",
       dataIndex: "user",
       key: "email",
       render: (value: User) => {
@@ -196,7 +193,7 @@ function UpcommingAppointmentList() {
       },
     },
     {
-      title: "Date",
+      title: "Specialization",
       dataIndex: "specialization",
       key: "timeslot",
       sorter: {
@@ -205,7 +202,7 @@ function UpcommingAppointmentList() {
       },
     },
     {
-      title: "Time",
+      title: "Language",
       dataIndex: "language",
       key: "language",
       render: (language: string) => {
@@ -229,30 +226,6 @@ function UpcommingAppointmentList() {
       },
     },
     {
-        title: "Total Amount",
-        dataIndex: "language",
-        key: "language",
-        render: (language: string) => {
-          return (
-            <div className="flagAvatar engFlag pr-2">
-              {FLAG_BY_LANGUAGE[language] && (
-                <Image
-                  src={FLAG_BY_LANGUAGE[language]}
-                  // src={espanolFlag}
-                  alt={language || "flag"}
-                  width={25}
-                  height={25}
-                />
-              )}
-            </div>
-          );
-        },
-        sorter: {
-          compare: (a: any, b: any) => a.date - b.date,
-          multiple: 3,
-        },
-      },
-    {
       title: "",
       dataIndex: "doctor_id",
       key: "view",
@@ -261,7 +234,7 @@ function UpcommingAppointmentList() {
         <div>
           <EyeFilled
             onClick={() => {
-              return Router.push(`/doctor/appointments/detail`);
+              return Router.push(`/admin/account/${value}`);
             }}
           />
         </div>
@@ -275,23 +248,16 @@ function UpcommingAppointmentList() {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex justify-between">
-          <h2 className="mb-4">Upcoming Appointments</h2>
-          <Link passHref href={`/doctor/calendar`}>
-            <a>
-              <Button >
-                Calendar View
-              </Button>
-            </a>
-          </Link>
+        <div className="flex justify-between mb-10">
+          <h2 className="mb-4">Patients</h2>
         </div>
-        
-       <UpcomingAppointmentFilter /> 
+        {/* <SearchFilters /> */}
+        {/* <PatientSearchFilters /> */}
         <div className="w-full">
           <div className="">
             <Table
               columns={columns}
-               dataSource={Ddata}
+              dataSource={doctorProfiles}
               onChange={onChange}
             />
           </div>
@@ -300,4 +266,4 @@ function UpcommingAppointmentList() {
     </AppLayout>
   );
 }
-export default UpcommingAppointmentList;
+export default PatientList;

@@ -10,6 +10,7 @@ import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJou
 import _classes from "./DoctorProfileCard.module.scss";
 import { DoctorProfile } from "../../../generated/graphql";
 import { date } from "../../utils";
+import { sorter } from "utils/helper";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -68,16 +69,16 @@ function DoctorProfileCard(props: Props) {
                 </span>
               </h2>
               <div className="flex">
-                <div className="flagAvatar engFlag pr-2">  
+                <div className="flagAvatar engFlag pr-2">
                   {language && FLAG_BY_LANGUAGE[language] && (
-                      <Tooltip title={language || "flag"} color="#FFF">
-                        <Image
-                          src={FLAG_BY_LANGUAGE[language]}
-                          alt={language || "flag"}
-                          width={25}
-                          height={25}
-                        />
-                      </Tooltip>
+                    <Tooltip title={language || "flag"} color="#FFF">
+                      <Image
+                        src={FLAG_BY_LANGUAGE[language]}
+                        alt={language || "flag"}
+                        width={25}
+                        height={25}
+                      />
+                    </Tooltip>
                   )}
                 </div>
               </div>
@@ -113,17 +114,21 @@ function DoctorProfileCard(props: Props) {
               >
                 <div className="ant-collapse-time-body">
                   {doctorData?.user?.doctorSchedules?.length !== 0
-                    ? doctorData?.user?.doctorSchedules?.map((item, index) => (
-                        <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                          <span>{date?.dayName(item.day)}</span>
-                          <div>
-                            <span>
-                              {`${date.time24HrConvert(item?.startTime)} -
+                    ? doctorData?.user?.doctorSchedules
+                        ?.sort((a, b) => {
+                          return sorter(a, b);
+                        })
+                        .map((item, index) => (
+                          <div className="flex-none sm:flex flex-grow justify-between mb-2">
+                            <span>{date?.dayName(item.day)}</span>
+                            <div>
+                              <span>
+                                {`${date.time24HrConvert(item?.startTime)} -
                           ${date.time24HrConvert(item?.endTime)}`}
-                            </span>
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      ))
+                        ))
                     : "Doctor Schedules not available"}
                 </div>
               </Collapse.Panel>
@@ -186,7 +191,12 @@ function DoctorProfileCard(props: Props) {
           <ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span>
         </a>
       </Card>
-      
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        doctorData={doctorData}
+      />
     </>
   );
 }

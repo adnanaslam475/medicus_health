@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/router";
 import { Tabs } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
@@ -12,14 +12,16 @@ import {
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../generated/graphql";
-import { ViewProfile } from "../../../../common/components/ViewProfile/ViewProfile";
+import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 import { RangeValue } from "rc-picker/lib/interface";
 
 const { TabPane } = Tabs;
 
 function ProfileDetail() {
   const [isEdit, setIsEdit] = useState(false);
-  const [addScheduleDay, setAddScheduleDay] = useState("Select Day");
+  const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
+    "Select Day"
+  );
   const [addScheduleTime, setAddScheduleTime] = useState<{
     time: RangeValue<moment.Moment> | null;
     timeString: string[];
@@ -51,7 +53,7 @@ function ProfileDetail() {
   const [, executeRemoveDoctorScheduleMutation] =
     useRemoveDoctorScheduleMutation();
 
-  function onAddClick() {
+  async function onAddClick() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length) {
       const variable = {
         doctorId: Number(docId),
@@ -60,11 +62,10 @@ function ProfileDetail() {
         endTime: addScheduleTime.timeString[1],
       };
 
-      executeCreateDoctorScheduleMutation(variable).then(() => {
-        executeDoctorSchedules({ requestPolicy: "network-only" });
-        setAddScheduleDay("Select Day");
-        setAddScheduleTime({ timeString: [], time: null });
-      });
+      await executeCreateDoctorScheduleMutation(variable);
+      await executeDoctorSchedules({ requestPolicy: "network-only" });
+      setAddScheduleDay("Select Day");
+      setAddScheduleTime({ timeString: [], time: null });
     }
   }
   useEffect(() => {
@@ -96,11 +97,11 @@ function ProfileDetail() {
                   schedules={schedules}
                   setDeleteScheduleId={setDeleteScheduleId}
                   setAddScheduleDay={setAddScheduleDay}
-                  addScheduleDay={addScheduleDay}
+                  addScheduleDay={String(addScheduleDay)}
                   setAddScheduleTime={setAddScheduleTime}
                   addScheduleTime={addScheduleTime}
                   onAddClick={onAddClick}
-                  fetching={fetching}
+                  loading={fetching}
                 />
               ) : (
                 <ViewProfile

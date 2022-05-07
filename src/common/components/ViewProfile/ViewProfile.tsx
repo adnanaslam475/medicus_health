@@ -56,9 +56,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 
   useEffect(() => {
     if (doctorData) {
-      if (doctorData) {
-        prepareAndSetEditPayload();
-      }
+      prepareAndSetEditPayload();
     }
   }, [doctorData]);
 

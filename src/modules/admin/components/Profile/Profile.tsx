@@ -32,6 +32,7 @@ import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRa
 import { configS3 } from "utils/helper";
 import { Schedule } from "utils/types";
 import { RangeValue } from "rc-picker/lib/interface";
+import { useMediaUploader } from "common/hooks/media";
 
 type profileType = {
   doctorId: string;
@@ -45,7 +46,7 @@ type profileType = {
       timeString: string[];
     }>
   >;
-  setAddScheduleDay: React.Dispatch<React.SetStateAction<string>>;
+  setAddScheduleDay: React.Dispatch<React.SetStateAction<string | number>>;
   onAddClick?: () => void;
   edit: () => void;
   addScheduleTime?: {
@@ -53,7 +54,7 @@ type profileType = {
     time: RangeValue<moment.Moment> | null;
   };
   addScheduleDay: string;
-  fetching?: boolean;
+  loading?: boolean;
 };
 
 export const Profile = React.forwardRef(function Profile({
@@ -67,7 +68,7 @@ export const Profile = React.forwardRef(function Profile({
   onAddClick,
   addScheduleTime,
   addScheduleDay,
-  fetching,
+  loading,
 }: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -78,6 +79,9 @@ export const Profile = React.forwardRef(function Profile({
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
+
+  // File Upload Hook
+  const mediaUploader = useMediaUploader();
 
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error } = result || {};
@@ -144,8 +148,10 @@ export const Profile = React.forwardRef(function Profile({
     const s3 = new ReactS3Client(configS3);
 
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
-      setImage(url?.location);
+      const url = await mediaUploader.upload(info.file.originFileObj as File);
+      if (url) {
+        setImage(url?.location);
+      }
     } catch (error) {}
     if (error) {
       notification.error({
@@ -333,7 +339,7 @@ export const Profile = React.forwardRef(function Profile({
 
               {/* Admin - Edit Profile Component - Its editable component so all props are required */}
               <MultiRangeDatePicker
-                fetching={fetching}
+                loading={loading}
                 disable={false}
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}
