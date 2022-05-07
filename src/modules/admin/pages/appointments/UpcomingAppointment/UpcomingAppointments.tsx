@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
-import Router, { useRouter } from "next/router";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
-import { Button, Empty, Select } from "antd";
-import Link from "next/link";
+import { Empty, Select } from "antd";
 import {
-  Appointment,
   AppointmentTimeSlots,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
-import AppointmentModal from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
-import CancelledAppointment from "../CancelledAppointment/CancelledAppointment";
 
 const { Option } = Select;
 function UpcomingAppointments() {

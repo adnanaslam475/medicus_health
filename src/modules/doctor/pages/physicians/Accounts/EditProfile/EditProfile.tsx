@@ -20,11 +20,12 @@ import MultiRangeDatePicker from "../../../../../../common/components/MultiRange
 import ReactS3Client from "react-aws-s3-typescript";
 import error from "next/error";
 import { info } from "sass";
+
 import {
   DoctorProfile,
   useEnableOrDisableDoctorMutation,
   useUpdateDoctorProfileMutation,
-} from "../../../../../../generated/graphql";
+} from "generated/graphql";
 import { configS3 } from "../../../../../../utils/helper";
 import config from "../../../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
@@ -332,6 +333,19 @@ function EditProfile({
                 </Form.Item>
               </div>
 
+              <InputWithLi disable={false} />
+              {/* Physician - Account - Its editable component so all props are required */}
+              <MultiRangeDatePicker
+                loading={loading}
+                disable={false}
+                schedules={schedules}
+                setDeleteScheduleId={setDeleteScheduleId}
+                setAddScheduleTime={setAddScheduleTime}
+                addScheduleTime={addScheduleTime}
+                addScheduleDay={addScheduleDay}
+                setAddScheduleDay={setAddScheduleDay}
+                onAddClick={onAddClick}
+              />
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
                 <div className="border-b border-gray-4 my-3">

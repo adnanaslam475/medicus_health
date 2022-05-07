@@ -32,6 +32,7 @@ import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRa
 import { configS3 } from "utils/helper";
 import { Schedule } from "utils/types";
 import { RangeValue } from "rc-picker/lib/interface";
+import { useMediaUploader } from "common/hooks/media";
 
 type profileType = {
   doctorId: string;
@@ -79,6 +80,9 @@ export const Profile = React.forwardRef(function Profile({
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
 
+  // File Upload Hook
+  const mediaUploader = useMediaUploader();
+
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error } = result || {};
 
@@ -89,7 +93,6 @@ export const Profile = React.forwardRef(function Profile({
       prepareAndSetEditPayload();
     }
   }, [doctorData]);
-  console.log("doctorData", doctorData);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -145,8 +148,10 @@ export const Profile = React.forwardRef(function Profile({
     const s3 = new ReactS3Client(configS3);
 
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
-      setImage(url?.location);
+      const url = await mediaUploader.upload(info.file.originFileObj as File);
+      if (url) {
+        setImage(url?.location);
+      }
     } catch (error) {}
     if (error) {
       notification.error({
