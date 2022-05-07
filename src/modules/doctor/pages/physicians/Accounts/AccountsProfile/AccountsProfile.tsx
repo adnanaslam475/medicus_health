@@ -92,7 +92,7 @@ function AccountsProfile() {
       ) : (
         <ViewProfile
           setIsEdit={setIsEdit}
-          showLoginInfo
+          // showLoginInfo
           schedules={schedules}
           doctorId={String(id)}
           doctorData={doctorProfile}
