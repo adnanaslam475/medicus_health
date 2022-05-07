@@ -39,6 +39,7 @@ function EmailNotificationPage() {
                     onChange={(e: boolean) => ChangeHandler(item.key, e)}
                     checked={
                       !!userEmailPreferences[
+                        //@ts-ignore
                         item?.key as keyof TogglePreference
                       ]
                     }

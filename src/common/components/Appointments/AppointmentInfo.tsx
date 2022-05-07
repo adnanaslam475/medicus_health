@@ -34,7 +34,7 @@ function AppointmentInfo(props: Props) {
 
   return (
     <React.Fragment>
-      <ProfileImageWithInfo />
+      {/* <ProfileImageWithInfo /> */}
       <div className="max-w-[800px]">
         <LabelValueRow label="ID" value={id} />
         <LabelValueRow
