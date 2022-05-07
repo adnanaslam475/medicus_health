@@ -1,15 +1,22 @@
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 import { getUserData } from "common/utils/userData";
 import {
+  DoctorProfile,
   useCreateDoctorScheduleMutation,
+  useDoctorProfileQuery,
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
-} from "generated/graphql";
-import React, { useEffect, useState } from "react";
+} from "../../../../../../generated/graphql";
 import EditProfile from "../EditProfile/EditProfile";
 import { RangeValue } from "rc-picker/lib/interface";
 
 function AccountsProfile() {
+  const editData = () => {
+    setIsEdit(!isEdit);
+  };
+
   const [isEdit, setIsEdit] = useState(false);
   const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
     "Select Day"
@@ -56,6 +63,14 @@ function AccountsProfile() {
     }
   }, [deleteScheduleId]);
 
+  const [{ data }] = useDoctorProfileQuery({
+    variables: { doctor_id: id as number },
+  });
+
+  const { doctorProfile } = data || {};
+
+  console.log(doctorProfile, "doctorProfile");
+
   return (
     <div>
       {isEdit ? (
@@ -66,6 +81,10 @@ function AccountsProfile() {
           setAddScheduleDay={setAddScheduleDay}
           addScheduleDay={String(addScheduleDay)}
           setAddScheduleTime={setAddScheduleTime}
+          // setAddScheduleClick={setAddScheduleClick}
+          doctorId={String(id)}
+          doctorData={doctorProfile}
+          edit={editData}
           addScheduleTime={addScheduleTime}
           onAddClick={onAddClick}
           loading={fetching}
@@ -73,8 +92,10 @@ function AccountsProfile() {
       ) : (
         <ViewProfile
           setIsEdit={setIsEdit}
-          showLoginInfo
+          // showLoginInfo
           schedules={schedules}
+          doctorId={String(id)}
+          doctorData={doctorProfile}
         />
       )}
     </div>
