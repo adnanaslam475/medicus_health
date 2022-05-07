@@ -8,12 +8,12 @@ import { Avatar, Upload, Form, Button, Menu, notification } from "antd";
 import ReactS3Client from "react-aws-s3-typescript";
 import { UploadChangeParam } from "antd/lib/upload";
 import {
-  useEnableOrDisableDoctorMutation,
+  Schedule,
   useUpdateDoctorProfileMutation,
-} from "generated/graphql";
-import { configS3 } from "utils/helper";
+  useEnableOrDisableDoctorMutation,
+} from "../../../generated/graphql";
+import { configS3 } from "../../../utils/helper";
 import ProfileForm from "./ProfileForm";
-import { Schedule } from "utils/types";
 
 type props = {
   doctorId?: string;
@@ -36,6 +36,8 @@ export const ViewProfile = React.forwardRef(function Profile({
   const { first_name, last_name, password, email, contact_number, status } =
     doctorData?.user || {};
 
+  console.log(schedules, "schedules");
+
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
 
@@ -46,9 +48,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 
   useEffect(() => {
     if (doctorData) {
-      if (doctorData) {
-        prepareAndSetEditPayload();
-      }
+      prepareAndSetEditPayload();
     }
   }, [doctorData]);
 

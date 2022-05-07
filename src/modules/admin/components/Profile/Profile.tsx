@@ -19,6 +19,7 @@ const { TextArea } = Input;
 
 import {
   DoctorProfile,
+  // Schedule,
   useEnableOrDisableDoctorMutation,
   useUpdateDoctorProfileMutation,
 } from "../../../../generated/graphql";

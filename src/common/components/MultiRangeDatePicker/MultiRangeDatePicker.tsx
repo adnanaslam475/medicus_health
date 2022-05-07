@@ -80,8 +80,8 @@ function MultiRangeDatePicker(props: Props) {
       )}
       {!!schedules?.length &&
         schedules
-          ?.sort((a, b) => {
-            return a.day - b.day;
+          ?.sort((a: any, b: any) => {
+            return a?.day - b?.day;
           })
           .map((item: singleSchedule, index: number) => {
             return (

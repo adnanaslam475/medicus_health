@@ -69,16 +69,16 @@ function DoctorProfileCard(props: Props) {
                 </span>
               </h2>
               <div className="flex">
-                <div className="flagAvatar engFlag pr-2">  
+                <div className="flagAvatar engFlag pr-2">
                   {language && FLAG_BY_LANGUAGE[language] && (
-                      <Tooltip title={language || "flag"} color="#FFF">
-                        <Image
-                          src={FLAG_BY_LANGUAGE[language]}
-                          alt={language || "flag"}
-                          width={25}
-                          height={25}
-                        />
-                      </Tooltip>
+                    <Tooltip title={language || "flag"} color="#FFF">
+                      <Image
+                        src={FLAG_BY_LANGUAGE[language]}
+                        alt={language || "flag"}
+                        width={25}
+                        height={25}
+                      />
+                    </Tooltip>
                   )}
                 </div>
               </div>
@@ -117,17 +117,18 @@ function DoctorProfileCard(props: Props) {
                     ? doctorData?.user?.doctorSchedules
                         ?.sort((a, b) => {
                           return sorter(a, b);
-                        }).map((item, index) => (
-                        <div className="flex-none sm:flex flex-grow justify-between mb-2">
-                          <span>{date?.dayName(item.day)}</span>
-                          <div>
-                            <span>
-                              {`${date.time24HrConvert(item?.startTime)} -
+                        })
+                        .map((item, index) => (
+                          <div className="flex-none sm:flex flex-grow justify-between mb-2">
+                            <span>{date?.dayName(item.day)}</span>
+                            <div>
+                              <span>
+                                {`${date.time24HrConvert(item?.startTime)} -
                           ${date.time24HrConvert(item?.endTime)}`}
-                            </span>
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      ))
+                        ))
                     : "Doctor Schedules not available"}
                 </div>
               </Collapse.Panel>
@@ -196,7 +197,6 @@ function DoctorProfileCard(props: Props) {
         onCancel={handleCancel}
         doctorData={doctorData}
       />
-      
     </>
   );
 }
