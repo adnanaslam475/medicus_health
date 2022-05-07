@@ -3,9 +3,10 @@ import React from "react";
 
 type Props = {
   src: StaticImageData;
+  name?: string | null | undefined;
 };
 function Attachment(props: Props) {
-  const { src } = props;
+  const { src, name } = props;
 
   return (
     <div className="block">
@@ -18,7 +19,7 @@ function Attachment(props: Props) {
           className="border rounded border-gray-2"
         />
 
-        <span className="pl-3">test_report.pdf</span>
+        <span className="pl-3">{name}</span>
       </div>
     </div>
   );

@@ -38,11 +38,11 @@ function UpcomingAppointmentDoctor() {
     },
   });
   const { appointments } = data || {};
-  console.log(appointments);
+
   const columns = [
     {
       title: "ID",
-      dataIndex: "doctorId",
+      dataIndex: "doctidorId",
       sorter: {
         compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
         multiple: 3,
