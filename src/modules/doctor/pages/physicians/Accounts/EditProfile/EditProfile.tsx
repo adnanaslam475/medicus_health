@@ -393,6 +393,7 @@ function EditProfile({
                 setDeleteScheduleId={setDeleteScheduleId}
                 setAddScheduleTime={setAddScheduleTime}
                 setAddScheduleDay={setAddScheduleDay}
+                onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
               />
               <div className={`my-6 ${_classes["professional"]}`}>
