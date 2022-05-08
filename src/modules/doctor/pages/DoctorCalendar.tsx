@@ -7,11 +7,18 @@ import {
 } from "../../../generated/graphql";
 import CalendarModalComponent from "../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
+import Router  from "next/router";
 
 type events = {
-  calenderEvents: Appointment | undefined | any;
+  calenderEvents: Appointment | undefined | Array<object>;
 };
 function DoctorCalendar() {
+
+  const redirectToUpcoming =function () {
+    Router.push("/doctor/appointments/upcoming");
+  }
+
+
   const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
     calenderEvents: [],
@@ -103,7 +110,7 @@ function DoctorCalendar() {
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
             setDoctorId={setDoctorId}
-            path="/doctor/appointments/upcoming"
+            redirectToListing={redirectToUpcoming}
           />
         </div>
         <CalendarModalComponent

@@ -18,7 +18,7 @@ type Props = {
   calendarComponentRef: React.LegacyRef<FullCalendar> | undefined | any;
   calender: object | any;
   setDoctorId: number | any;
-  path:string
+  redirectToListing:()=>void
 };
 
 function AdminAimsCalender(props: Props) {
@@ -28,7 +28,7 @@ function AdminAimsCalender(props: Props) {
     calender,
     handleDateClick,
     setDoctorId,
-    path
+    redirectToListing
   } = props;
   const events = [{ title: "today's event", date: new Date() }];
   const [isSearch, setIsSearch] = useState<boolean>(false);
@@ -129,10 +129,7 @@ function AdminAimsCalender(props: Props) {
             },
             listview: {
               text: "List View",
-              click: function () {
-                Router.push(path);
-                // Router.push(`/patient/appointments/requested`);
-              },
+              click:redirectToListing,
             },
             search: {
               text: "Search",
