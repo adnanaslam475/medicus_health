@@ -21,6 +21,7 @@ import jpg from "../../../../../../public/assets/images/jpg.svg";
 import word from "../../../../../../public/assets/images/word-file.svg";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
+import PhysicianQuestionnaire from "../../../../../common/components/Appointments/PhysicianQuestionnaire";
 
 function UpcomingAppointmentsDetailDoctor() {
   const { query } = useRouter();
@@ -41,8 +42,8 @@ function UpcomingAppointmentsDetailDoctor() {
 
   const { reportUrl } = appoinmentUrl?.appointment || {};
 
-  let urlArr = JSON.parse(reportUrl);
-  urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+  //  let urlArr = JSON.parse(reportUrl);
+  //  urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
 
   //Get Patient ID
   const { patientId } = appointment || {};
@@ -51,6 +52,7 @@ function UpcomingAppointmentsDetailDoctor() {
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: patientId as number },
   });
+  const { appointmentHealthHistory } = data?.appointment || {};
 
   return (
     <AppLayout>
@@ -76,13 +78,16 @@ function UpcomingAppointmentsDetailDoctor() {
               </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician Questionnaire" key="4">
-              <div className=""></div>
+              <div className="">
+              {/* <ProfileImageWithInfo /> */}
++             <PhysicianQuestionnaire     appointmentHealthHistory={appointmentHealthHistory?.history}/> 
+              </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachement" key="5">
               <div className="">
-                {urlArr?.map((item: any) => (
+                {/* {urlArr?.map((item: any) => (
                   <Attachment src={word} name={item} />
-                ))}
+                ))} */}
               </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Notes" key="6">
