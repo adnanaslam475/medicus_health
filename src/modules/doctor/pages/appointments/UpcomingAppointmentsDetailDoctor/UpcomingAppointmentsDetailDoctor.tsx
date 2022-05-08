@@ -3,12 +3,18 @@ import AppointmentTabs from "../../../../../common/components/Appointments/Appoi
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
 import AppointmentsDetailTabs from "../../AppointmentsDetailTabs/AppointmentsDetailTabs";
-import { useDoctorAppointmentDetailQuery } from "generated/graphql";
+import {
+  useDoctorAppointmentDetailQuery,
+  useGetAppointmentReportUrlByIdQuery,
+  usePatientHealthHistoryQuery,
+} from "generated/graphql";
 import { Tabs } from "antd";
 import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
 import DoctorAppointmentInfo from "../../../../../common/components/DoctorAppointmentInfo/DoctorAppointmentInfo";
 import PatientInfo from "common/components/PatientInfo/PatientInfo";
-import Questionnary from "common/components/Questionnary/Questionnary";
+import Questionnary, {
+  QuestionnaireForm,
+} from "common/components/Questionnary/Questionnary";
 import Attachment from "common/components/Attachment/Attachment";
 import Notes from "common/components/Notes/Notes";
 import jpg from "../../../../../../public/assets/images/jpg.svg";
@@ -27,6 +33,25 @@ function UpcomingAppointmentsDetailDoctor() {
   });
   const { appointment } = data || {};
 
+  const [{ data: appoinmentUrl }] = useGetAppointmentReportUrlByIdQuery({
+    variables: {
+      id: Number(appointment?.id),
+    },
+  });
+
+  const { reportUrl } = appoinmentUrl?.appointment || {};
+
+  let urlArr = JSON.parse(reportUrl);
+  urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+
+  //Get Patient ID
+  const { patientId } = appointment || {};
+
+  // Get patient Health History
+  const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
+    variables: { input: patientId as number },
+  });
+
   return (
     <AppLayout>
       <>
@@ -41,7 +66,13 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <div className="max-w-1/2">
-                <Questionnary disable={true} />
+                {/* <Questionnary
+                  disable={true}
+                  data={patientHealthHistory?.patientHealthHistory?.history}
+                /> */}
+                <QuestionnaireForm
+                  data={patientHealthHistory?.patientHealthHistory.history}
+                />
               </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician Questionnaire" key="4">
@@ -49,8 +80,9 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachement" key="5">
               <div className="">
-                <Attachment src={jpg} />
-                <Attachment src={word} />
+                {urlArr?.map((item: any) => (
+                  <Attachment src={word} name={item} />
+                ))}
               </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Notes" key="6">

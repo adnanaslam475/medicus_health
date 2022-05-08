@@ -1327,6 +1327,13 @@ export type GetCityByIdQueryVariables = Exact<{
 
 export type GetCityByIdQuery = { __typename?: 'Query', city: { __typename?: 'City', id: number, state_id: number, city_name: string } };
 
+export type GetAppointmentReportUrlByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetAppointmentReportUrlByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, doctorId: number, patientId: number, reportUrl?: any | null } };
+
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2290,6 +2297,20 @@ export const GetCityByIdDocument = gql`
 
 export function useGetCityByIdQuery(options: Omit<Urql.UseQueryArgs<GetCityByIdQueryVariables>, 'query'>) {
   return Urql.useQuery<GetCityByIdQuery>({ query: GetCityByIdDocument, ...options });
+};
+export const GetAppointmentReportUrlByIdDocument = gql`
+    query getAppointmentReportUrlById($id: Int!) {
+  appointment(id: $id) {
+    id
+    doctorId
+    patientId
+    reportUrl
+  }
+}
+    `;
+
+export function useGetAppointmentReportUrlByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentReportUrlByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAppointmentReportUrlByIdQuery>({ query: GetAppointmentReportUrlByIdDocument, ...options });
 };
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {

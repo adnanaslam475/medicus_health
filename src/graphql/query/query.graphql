@@ -473,3 +473,13 @@ query getCityById($id: Int!) {
     city_name
   }
 }
+
+#GET APPOINMENT BY ID
+query getAppointmentReportUrlById($id: Int!) {
+  appointment(id: $id) {
+    id
+    doctorId
+    patientId
+    reportUrl
+  }
+}

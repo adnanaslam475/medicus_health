@@ -1,5 +1,4 @@
 import { Form, Input, notification } from "antd";
-// import { useUpdateDoctorProfileMutation } from "generated/graphql";
 import { useState } from "react";
 import { useUpdateDoctorProfileMutation } from "../../../generated/graphql";
 import {
@@ -8,8 +7,7 @@ import {
   educationalBGData,
 } from "../../../utils/helper";
 import { Schedule } from "../../../utils/types";
-// import { bioForm, educationalBGData, professionalBGData } from "utils/helper";
-// import { Schedule } from "utils/types";
+
 import AboutMe from "../AboutMe/AboutMe";
 import InputWithLi from "../InputWithLi/InputWithLi";
 import LanguageList from "../Languages/LanguageList";
@@ -112,7 +110,6 @@ function ProfileForm({
 
         <InputWithLi disable={true} />
 
-        {/* Its readonly component only schedule is provided to view schedules and disabled from editing*/}
         <MultiRangeDatePicker disable={true} schedules={schedules} />
         <div className={`my-6 ${_classes["professional"]}`}>
           <h5>Professional Background</h5>
