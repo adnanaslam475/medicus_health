@@ -20,7 +20,7 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
   const columns = [
     {
       title: "ID",
-      dataIndex: "doctorId",
+      dataIndex: "id",
       sorter: {
         compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
         multiple: 3,
