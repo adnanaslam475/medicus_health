@@ -41,8 +41,8 @@ function UpcomingAppointmentsDetailDoctor() {
 
   const { reportUrl } = appoinmentUrl?.appointment || {};
 
-  let urlArr = JSON.parse(reportUrl);
-  urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+  // let urlArr = JSON.parse(reportUrl);
+  // urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
 
   //Get Patient ID
   const { patientId } = appointment || {};
@@ -80,9 +80,9 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachement" key="5">
               <div className="">
-                {urlArr?.map((item: any) => (
+                {/* {urlArr?.map((item: any) => (
                   <Attachment src={word} name={item} />
-                ))}
+                ))} */}
               </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Notes" key="6">
