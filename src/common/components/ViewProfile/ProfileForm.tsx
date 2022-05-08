@@ -19,6 +19,7 @@ interface Props {
   doctorData: any;
   showLoginInfo?: boolean;
   schedules: Schedule[] | undefined;
+  formInstance?: any;
 }
 
 function ProfileForm({
@@ -26,8 +27,9 @@ function ProfileForm({
   doctorData,
   showLoginInfo,
   schedules,
+  formInstance,
 }: Props) {
-  const [formInstance] = Form.useForm();
+  // const [formInstance] = Form.useForm();
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const [image, setImage] = useState<string>("");
   //GET USER PROFILE IMAGE FROM useGetUserQuery
