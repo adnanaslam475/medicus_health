@@ -248,8 +248,15 @@ function PatientList() {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex justify-between mb-10">
-          <h2 className="mb-4">Patients</h2>
+        <div className="flex justify-between">
+          <h2 className="mb-4">Upcoming Appointments</h2>
+          <Link passHref href={`/doctor/appointments/calendar`}>
+            <a>
+              <Button >
+                Calendar View
+              </Button>
+            </a>
+          </Link>
         </div>
         {/* <SearchFilters /> */}
         {/* <PatientSearchFilters /> */}

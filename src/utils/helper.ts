@@ -58,14 +58,14 @@ export const professionalBGData = [
   [
     {
       label: "Hospital/Clinic/Institution",
-      name: "institute",
+      name: "pe-institution-0",
       value: "University of Oklahoma College of Medicine",
       defaultValue: "University of Oklahoma College of Medicine",
       disabled: true,
     },
     {
       label: "Role",
-      name: "role",
+      name: "pe-role-0",
       defaultValue: "University",
       disabled: true,
     },
@@ -73,14 +73,14 @@ export const professionalBGData = [
   [
     {
       label: "Hospital/Clinic/Institution",
-      name: "institute",
+      name: "pe-institution-1",
       value: "University of Oklahoma College of Medicine",
       defaultValue: "University of Oklahoma College of Medicine",
       disabled: true,
     },
     {
       label: "Role",
-      name: "role",
+      name: "pe-role-1",
       defaultValue: "University",
       disabled: true,
     },
@@ -88,14 +88,14 @@ export const professionalBGData = [
   [
     {
       label: "Hospital/Clinic/Institution",
-      name: "institute",
+      name: "pe-institution-2",
       value: "University of Oklahoma College of Medicine",
       defaultValue: "University of Oklahoma College of Medicine",
       disabled: true,
     },
     {
       label: "Role",
-      name: "role",
+      name: "pe-role-2",
       defaultValue: "University",
       disabled: true,
     },
@@ -106,14 +106,14 @@ export const educationalBGData = [
   [
     {
       label: "University/Institution",
-      name: "institute",
+      name: "eb-institution-0",
       value: "University of Oklahoma College of Medicine",
       defaultValue: "University of Oklahoma College of Medicine",
       disabled: true,
     },
     {
       label: "Degree/Diploma/Certification",
-      name: "institute",
+      name: "eb-degree-0",
       value: "University of Oklahoma College of Medicine",
       defaultValue: "University of Oklahoma College of Medicine",
       disabled: true,
@@ -122,14 +122,14 @@ export const educationalBGData = [
   [
     {
       label: "University/Institution",
-      name: "institute",
+      name: "eb-institution-1",
       value: "University of Oklahoma College of Medicine",
       defaultValue: "University of Oklahoma College of Medicine",
       disabled: true,
     },
     {
       label: "Degree/Diploma/Certification",
-      name: "institute",
+      name: "eb-degree-1",
       value: "University of Oklahoma College of Medicine",
       defaultValue: "University of Oklahoma College of Medicine",
       disabled: true,
