@@ -102,15 +102,16 @@ function AdminAccount() {
             >
               {isEdit ? (
                 <Profile
-                  doctorId={query?.id}
+                  doctorId={String(query?.id)}
                   doctorData={doctorProfile}
                   edit={editData}
                   setIsEdit={setIsEdit}
                   schedules={schedules}
+                  addScheduleDay={""}
                 />
               ) : (
                 <ViewProfile
-                  // doctorId={query?.id}
+                  doctorId={String(query?.id)}
                   doctorData={doctorProfile}
                   setIsEdit={setIsEdit}
                   // loginInfo={false}

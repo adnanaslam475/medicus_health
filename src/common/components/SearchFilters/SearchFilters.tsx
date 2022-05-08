@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Button, Select, Space, DatePicker } from "antd";
+import { Card, Input, Button, Select, Space, DatePicker, Form } from "antd";
 import {
   CaretDownOutlined,
   CloseOutlined,
@@ -19,8 +19,7 @@ import _classes from "./SearchFilters.module.scss";
 
 const { Option } = Select;
 
-function handleChange(value: any) {
-}
+function handleChange(value: any) {}
 
 const { RangePicker } = DatePicker;
 
@@ -31,10 +30,17 @@ type Props = {
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
+  isFromPhysician?: boolean | null | any;
 };
 
 function SearchFilters(props: Props) {
-  const { setServiceIds, setDoctorId, setEndDate, setStartDate } = props;
+  const {
+    setServiceIds,
+    setDoctorId,
+    setEndDate,
+    setStartDate,
+    isFromPhysician,
+  } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
   >();
@@ -91,20 +97,23 @@ function SearchFilters(props: Props) {
     >
       <span className="text-gray-1 mr-3 mb-3">Filter</span>
       <div className="flex-none sm:flex">
-        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
-          <Select
-            placeholder="Physician"
-            className={`${searchStyle.placeholderColor} w-full`}
-            onChange={handlePhysicianChange}
-            value={selectedPhysicianItems}
-          >
-            {doctorProfiles?.map((item) => (
-              <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
-                {item?.user?.first_name}
-              </Select.Option>
-            ))}
-          </Select>
-        </div>
+        {isFromPhysician ? null : (
+          <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
+            <Select
+              placeholder="Physician"
+              className={`${searchStyle.placeholderColor} w-full`}
+              onChange={handlePhysicianChange}
+              value={selectedPhysicianItems}
+            >
+              {doctorProfiles?.map((item) => (
+                <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
+                  {item?.user?.first_name}
+                </Select.Option>
+              ))}
+            </Select>
+          </div>
+        )}
+
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
             placeholder="Service"

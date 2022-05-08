@@ -1,40 +1,63 @@
 import { UserDataInLocalStorage } from "common/types/auth";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { User } from "../../generated/graphql";
 import { PageLoader } from "../components/PageLoader/PageLoader";
 import { getRole, getUserData } from "../utils/userData";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css"; //styles of nprogress
 
-type userAuth = {
-  user: User;
-  remember: boolean;
-  access_token: string;
-};
+NProgress.configure({ showSpinner: false });
 
 function AuthProvider({ children }: any) {
   const router = useRouter();
   const [user, setUser] = useState<UserDataInLocalStorage>();
   const [authorized, setAuthorized] = useState(false);
 
+  function firstRouteChange() {
+    setAuthorized(false);
+  }
+
+  function firstRouteChangeComplete(url: string) {
+    authCheck(url);
+    removeFirstEventHandlers();
+    router.events.on("routeChangeStart", subsequentRouteChange);
+    router.events.on("routeChangeComplete", subsequentRouteChangeCompleted);
+  }
+  function removeFirstEventHandlers() {
+    router.events.off("routeChangeStart", firstRouteChange);
+    router.events.off("routeChangeComplete", firstRouteChangeComplete);
+  }
+
+  function subsequentRouteChange(url: string) {
+    NProgress.start();
+  }
+
+  function subsequentRouteChangeCompleted(url: string) {
+    authCheck(url);
+    NProgress.done();
+  }
+  function removeSubsequentEventHandlers() {
+    router.events.off("routeChangeStart", subsequentRouteChange);
+    router.events.off("routeChangeComplete", subsequentRouteChangeCompleted);
+  }
   useEffect(() => {
     // on initial load - run auth check
     authCheck(router.asPath);
 
     // on route change start - hide page content by setting authorized to false
-    const hideContent = () => setAuthorized(false);
-    router.events.on("routeChangeStart", hideContent);
+    router.events.on("routeChangeStart", firstRouteChange);
 
     // on route change complete - run auth check
-    router.events.on("routeChangeComplete", authCheck);
+    router.events.on("routeChangeComplete", firstRouteChangeComplete);
 
     // unsubscribe from events in useEffect return function
     return () => {
-      router.events.off("routeChangeStart", hideContent);
-      router.events.off("routeChangeComplete", authCheck);
+      removeSubsequentEventHandlers();
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   function authCheck(url: any) {
     let userData = getUserData();
     setUser(userData);

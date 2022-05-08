@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Switch } from "antd";
 
-
 type Props = {
-  title:string;
-  defaultChecked: any;
-  onChange: () => void;
+  title: string;
+  checked?: boolean | undefined;
+  onChange: (e:boolean) => void;
+  defaultChecked?:number
 };
 
 function EmailNotification(props: Props) {
- const { title, defaultChecked, onChange }=props;
-  const [checked, setChecked] = useState(defaultChecked);
+  const { title, onChange, checked } = props;
   return (
     <div className="flex flex-row justify-between items-center px-5 py-5">
       <div className="inline-block w-full">
@@ -19,7 +18,7 @@ function EmailNotification(props: Props) {
         </div>
       </div>
       <div className="text-primary">
-        <Switch checked={checked}  />
+        <Switch checked={checked} onChange={onChange} />
       </div>
     </div>
   );

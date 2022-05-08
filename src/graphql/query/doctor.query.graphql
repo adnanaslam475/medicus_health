@@ -8,3 +8,87 @@ query doctorBillingMethods($doctorId: Int!) {
     routingNumber
   }
 }
+
+query doctorAppointmentDetail($id: Int!) {
+  appointment(id: $id) {
+    id
+    status
+    scheduleId
+    doctorId
+    patientId
+    requestedDate
+    reportUrl
+    doctor {
+      id
+      first_name
+      last_name
+    }
+    patient {
+      id
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
+    serviceType {
+      id
+      name
+      price
+    }
+    transaction {
+      createdAt
+    }
+    appointmentHealthHistory {
+      history
+    }
+  }
+}
+
+query doctorAppointmentDetailAppointmentInfo($id: Int!) {
+  appointment(id: $id) {
+    id
+    status
+    requestedDate
+    charges
+    patient {
+      first_name
+      last_name
+    }
+    serviceType {
+      name
+    }
+  }
+}
+
+query doctorAppointmentDetailPatientInfo($id: Int!) {
+  appointment(id: $id) {
+    serviceType {
+      name
+    }
+    patient {
+      id
+      first_name
+      last_name
+      email
+      gender
+      date_of_birth
+      contact_number
+      contact_number
+      streetAddress
+      country_id
+      city_id
+      patientProfile {
+        id
+        maritalStatus
+        children
+        occupation
+        occupationalExposure
+        pets
+      }
+    }
+  }
+}

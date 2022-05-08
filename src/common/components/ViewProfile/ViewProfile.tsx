@@ -33,8 +33,18 @@ export const ViewProfile = React.forwardRef(function Profile({
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
 
-  const { first_name, last_name, password, email, contact_number, status } =
-    doctorData?.user || {};
+  const {
+    first_name,
+    last_name,
+    password,
+    email,
+    contact_number,
+    status,
+    language,
+    professional_experience,
+    about_me,
+    educational_background,
+  } = doctorData?.user || {};
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
@@ -46,9 +56,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 
   useEffect(() => {
     if (doctorData) {
-      if (doctorData) {
-        prepareAndSetEditPayload();
-      }
+      prepareAndSetEditPayload();
     }
   }, [doctorData]);
 
@@ -60,6 +68,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       email: email,
       password: "",
       confirmPassword: "",
+      about: about_me,
     });
   }
 

@@ -19,6 +19,7 @@ import StepDots from "../StepDots/StepDots";
 import BookAppointmentFooter from "./BookAppointmentFooter";
 import { getUserData } from "../../utils/userData";
 import SuccessMessage from "../Appointments/booking/SuccessMessage";
+import { useMediaUploader } from "common/hooks/media";
 
 type Props = {
   visible?: boolean | undefined;
@@ -52,6 +53,9 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
   const [successModal, setSuccessModal] = React.useState<boolean>(false);
+
+  // File Upload Hook
+  const mediaUploader = useMediaUploader();
 
   //   GET ID FROM URL
   const { query } = useRouter();
@@ -89,24 +93,13 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
     setCurrentStepNumber((prev) => prev - 1);
   };
 
-  const configS3 = {
-    region: config?.region || "",
-    bucketName: config?.bucketName || "",
-    accessKeyId: config?.accessKeyId || "",
-    secretAccessKey: config?.secertAccessKey || "",
-  };
-
   const { service: serviceId, requestedDate } = appoinmentData?.stepOne || {};
 
-  const fileUpload = async (info: any) => {
-    const s3 = new ReactS3Client(configS3);
+  const fileUpload = async (files: File[]) => {
     try {
-      if (info) {
+      if (files) {
         let allUrl: any = [];
-
-        const urls = await Promise.all(
-          info.map((file: any) => s3.uploadFile(file.originFileObj as File))
-        );
+        const urls = await mediaUploader.uploadMultiple(files);
         allUrl.push(urls?.map((url: any) => url.location));
         return allUrl;
       }
@@ -117,7 +110,11 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
 
   async function onRequestAppointment() {
     try {
-      const urls = await fileUpload(appoinmentData?.stepTwo);
+      const urls = await fileUpload(
+        appoinmentData?.stepTwo?.map(
+          ({ originFileObj }: { originFileObj: File }) => originFileObj
+        )
+      );
 
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
@@ -127,7 +124,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
           reportUrl: JSON.stringify(urls),
-          questionnair: JSON.stringify(appoinmentData?.stepThree),
+          questionnaire: JSON.stringify(appoinmentData?.stepThree),
         },
       });
 

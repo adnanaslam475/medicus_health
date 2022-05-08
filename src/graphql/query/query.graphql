@@ -196,6 +196,7 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     serviceId
     requestedDate
     status
+    charges
     patient {
       first_name
       last_name
@@ -216,6 +217,7 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     }
     transaction {
       createdAt
+      amountReceived
     }
   }
 }
@@ -450,5 +452,34 @@ query getAppointmentsReminderBanner {
       endTime
       selected
     }
+  }
+}
+
+#GET COUNTRY BY ID
+query getCountryById($id: Int!) {
+  country(id: $id) {
+    id
+    country_name
+    country_short_name
+    country_phone_code
+  }
+}
+
+#GET CITY BY ID
+query getCityById($id: Int!) {
+  city(id: $id) {
+    id
+    state_id
+    city_name
+  }
+}
+
+#GET APPOINMENT BY ID
+query getAppointmentReportUrlById($id: Int!) {
+  appointment(id: $id) {
+    id
+    doctorId
+    patientId
+    reportUrl
   }
 }

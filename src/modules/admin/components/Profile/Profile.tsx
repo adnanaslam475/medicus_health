@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Image from "next/image";
 import end from "./../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../public/assets/images/espanolFlag.png";
@@ -19,6 +19,7 @@ const { TextArea } = Input;
 
 import {
   DoctorProfile,
+  // Schedule,
   useEnableOrDisableDoctorMutation,
   useUpdateDoctorProfileMutation,
 } from "../../../../generated/graphql";
@@ -26,10 +27,12 @@ import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import Language from "../../../admin/components/Languague/Language";
-import InputWithLi from "../../../../common/components/InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
-import { configS3 } from "../../../../utils/helper";
-import { Schedule } from "../../../../utils/types";
+import InputWithLi from "common/components/InputWithLi/InputWithLi";
+import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+import { configS3 } from "utils/helper";
+import { Schedule } from "utils/types";
+import { RangeValue } from "rc-picker/lib/interface";
+import { useMediaUploader } from "common/hooks/media";
 
 type profileType = {
   doctorId: string | string[] | undefined;
@@ -37,10 +40,22 @@ type profileType = {
   setIsEdit: (e: boolean) => void;
   schedules: Schedule[] | undefined;
   setDeleteScheduleId?: (e: string) => void;
-  setAddScheduleTime?: (e: [string, string]) => void;
-  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string>>;
   setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddScheduleTime?: React.Dispatch<
+    React.SetStateAction<{
+      time: RangeValue<moment.Moment> | null;
+      timeString: string[];
+    }>
+  >;
+  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string | number>>;
+  onAddClick?: () => void;
   edit: () => void;
+  addScheduleTime?: {
+    timeString: string[];
+    time: RangeValue<moment.Moment> | null;
+  };
+  addScheduleDay: string;
+  loading?: boolean;
 };
 
 export const Profile = React.forwardRef(function Profile({
@@ -51,7 +66,10 @@ export const Profile = React.forwardRef(function Profile({
   setDeleteScheduleId,
   setAddScheduleTime,
   setAddScheduleDay,
-  setAddScheduleClick,
+  onAddClick,
+  addScheduleTime,
+  addScheduleDay,
+  loading,
 }: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -63,6 +81,9 @@ export const Profile = React.forwardRef(function Profile({
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
 
+  // File Upload Hook
+  const mediaUploader = useMediaUploader();
+
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error } = result || {};
 
@@ -73,7 +94,6 @@ export const Profile = React.forwardRef(function Profile({
       prepareAndSetEditPayload();
     }
   }, [doctorData]);
-  console.log("doctorDatadoctorDatadoctorData", doctorData);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -129,8 +149,10 @@ export const Profile = React.forwardRef(function Profile({
     const s3 = new ReactS3Client(configS3);
 
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
-      setImage(url?.location);
+      const url = await mediaUploader.upload(info.file.originFileObj as File);
+      if (url) {
+        setImage(url?.location);
+      }
     } catch (error) {}
     if (error) {
       notification.error({
@@ -316,14 +338,17 @@ export const Profile = React.forwardRef(function Profile({
 
               <InputWithLi disable={false} />
 
-              {/* Its editable component so all props are required */}
+              {/* Admin - Edit Profile Component - Its editable component so all props are required */}
               <MultiRangeDatePicker
+                loading={loading}
                 disable={false}
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}
                 setAddScheduleTime={setAddScheduleTime}
+                addScheduleTime={addScheduleTime}
+                addScheduleDay={addScheduleDay}
                 setAddScheduleDay={setAddScheduleDay}
-                setAddScheduleClick={setAddScheduleClick}
+                onAddClick={onAddClick}
               />
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>

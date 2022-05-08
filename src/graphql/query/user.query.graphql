@@ -1,0 +1,10 @@
+query userEmailPreferences {
+  userEmailPreferences {
+    appointment_accepted_by_doctor
+    appointment_slot_suggested_by_doctor
+    appointment_rescheduled_by_doctor
+    appointment_reminder
+    admin_appointment_create_update
+    new_message_received
+  }
+}
