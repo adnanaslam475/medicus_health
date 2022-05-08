@@ -7,13 +7,16 @@ const { RangePicker } = TimePicker;
 import _Classes from "./MultiRangeDatePicker.module.scss";
 import DayPicker from "../../../utils/DayPicker";
 import { Schedule, singleSchedule } from "../../../utils/types";
-import {RangeValue} from 'rc-picker/lib/interface'
+import { RangeValue } from "rc-picker/lib/interface";
 type Props = {
   disable: boolean;
   schedules?: Schedule[] | undefined;
   setDeleteScheduleId?: (e: string) => void;
   setAddScheduleTime?: React.Dispatch<
-    React.SetStateAction<{ time: RangeValue<moment.Moment> | null; timeString: string[] }>
+    React.SetStateAction<{
+      time: RangeValue<moment.Moment> | null;
+      timeString: string[];
+    }>
   >;
   setAddScheduleDay?: React.Dispatch<React.SetStateAction<string | number>>;
   setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -80,8 +83,8 @@ function MultiRangeDatePicker(props: Props) {
       )}
       {!!schedules?.length &&
         schedules
-          ?.sort((a: any, b: any) => {
-            return a?.day - b?.day;
+          ?.sort((a, b) => {
+            return Number(a?.day) - Number(b?.day);
           })
           .map((item: singleSchedule, index: number) => {
             return (
