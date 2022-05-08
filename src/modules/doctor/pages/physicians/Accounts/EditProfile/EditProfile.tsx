@@ -227,7 +227,7 @@ function EditProfile({
 
   const fileChange = async (info: UploadChangeParam) => {
     const s3 = new ReactS3Client(configS3);
-
+    console.log({ s3 });
     try {
       const url = await s3.uploadFile(info.file.originFileObj as File);
       setImage(url?.location);
@@ -299,6 +299,7 @@ function EditProfile({
             <Upload
               maxCount={1}
               beforeUpload={onBeforeUpload}
+              onChange={fileChange}
               itemRender={() => <div />}
               customRequest={() => null}
             >
@@ -379,6 +380,26 @@ function EditProfile({
                   label="Confirm Password"
                   name="confirmPassword"
                   className="flex-1"
+                  dependencies={["password"]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please confirm your password!",
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                          return Promise.resolve();
+                        }
+
+                        return Promise.reject(
+                          new Error(
+                            "The two passwords that you entered do not match!"
+                          )
+                        );
+                      },
+                    }),
+                  ]}
                 >
                   <Input.Password />
                 </Form.Item>
