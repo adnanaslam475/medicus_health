@@ -22,6 +22,7 @@ import word from "../../../../../../public/assets/images/word-file.svg";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
+import { parseJson } from "common/utils/helper";
 
 function UpcomingAppointmentsDetailDoctor() {
   const { query } = useRouter();
@@ -41,17 +42,6 @@ function UpcomingAppointmentsDetailDoctor() {
   });
 
   const { reportUrl } = appoinmentUrl?.appointment || {};
-
-  function parseJson(jsonString: string) {
-    let obj = null;
-    try {
-      obj = JSON.parse(jsonString);
-    } catch (error) {
-      console.log(error);
-      obj = null;
-    }
-    return obj;
-  }
 
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {

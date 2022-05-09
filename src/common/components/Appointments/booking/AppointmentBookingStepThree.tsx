@@ -18,6 +18,7 @@ import {
 } from "../../../../generated/graphql";
 import { useRouter } from "next/router";
 import { NamePath } from "antd/lib/form/interface";
+import { parseJson } from "common/utils/helper";
 
 type Props = {
   physicianData?: DoctorProfile;
@@ -57,17 +58,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       id: doctorQuestionnaire?.id,
       // questionnaire: doctorQuestionnaire?.questionnaire,
     });
-  }
-
-  function parseJson(jsonString: string) {
-    let obj = null;
-    try {
-      obj = JSON.parse(jsonString);
-    } catch (error) {
-      console.log(error);
-      obj = null;
-    }
-    return obj;
   }
 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
