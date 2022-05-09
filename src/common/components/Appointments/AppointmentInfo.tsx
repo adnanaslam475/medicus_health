@@ -49,9 +49,8 @@ function AppointmentInfo(props: Props) {
           value={`Dr. ${first_name} ${last_name}`}
         />
         <LabelValueRow label="Type" value={name} />
-        <LabelValueRow label="Date" value={id} />
         <LabelValueRow
-          label="ID"
+          label="Date"
           value={date?.formatMMMMDDYYYY(timeSlots()?.startTime)}
         />
         <LabelValueRow

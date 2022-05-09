@@ -8,13 +8,32 @@ import _classes from "./DoctorAppointmentInfo.module.scss";
 import Router from "next/router";
 import { Appointment } from "generated/graphql";
 import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
+import { date } from "common/utils";
 
 type props = {
   data: Appointment | undefined;
 };
 function DoctorAppointmentInfo({ data }: props) {
-  const { id, patient, serviceType, charges, status, requestedDate } =
-    data || {};
+  const {
+    id,
+    patient,
+    serviceType,
+    charges,
+    status,
+    requestedDate,
+    appointmentTimeSlots,
+  } = data || {};
+
+  function timeSlots() {
+    if (appointmentTimeSlots) {
+      let selectedTimeSlots = appointmentTimeSlots?.find(
+        (item) => item?.selected == true
+      );
+
+      return selectedTimeSlots;
+    }
+  }
+
   return (
     <div className="max-w-[700px]">
       <div>
@@ -30,7 +49,9 @@ function DoctorAppointmentInfo({ data }: props) {
         />
         <LabelWithText
           label="Time"
-          text={formatMMMM_Dcoma_YYYY(requestedDate)}
+          text={`${date?.formathhmma(
+            timeSlots()?.startTime
+          )} - ${date?.formathhmma(timeSlots()?.endTime)}`}
         />
         <LabelWithText label="Total Amount" text={charges} />
         {/* <LabelWithText label="Status" text={status as string} /> */}
