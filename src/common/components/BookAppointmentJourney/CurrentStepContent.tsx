@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  DoctorProfile,
-} from "../../../generated/graphql";
+import { DoctorProfile } from "../../../generated/graphql";
 import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
 import { AppointmentBookingStepOne } from "../Appointments/booking/AppointmentBookingStepOne";
 import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
@@ -19,7 +17,9 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
     case "stepTwo":
       return <AppointmentBookingStepTwo ref={ref} />;
     case "stepThree":
-      return <AppointmentBookingStepThree ref={ref} />;
+      return (
+        <AppointmentBookingStepThree physicianData={doctorData} ref={ref} />
+      );
     case "stepFour":
       return <AppointmentBookingStepFour />;
 

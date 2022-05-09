@@ -1,5 +1,5 @@
 import { FormInstance, Modal } from "antd";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   DoctorProfile,
   useCreateAppointmentMutation,
@@ -68,6 +68,13 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
 
   const [data, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
+
+  useEffect(() => {
+    if (visible) {
+      setCurrentStepName("stepOne");
+      setCurrentStepNumber(0);
+    }
+  }, [visible]);
 
   const next = (stepName: string) => {
     if (stepName === "stepFour") return;
