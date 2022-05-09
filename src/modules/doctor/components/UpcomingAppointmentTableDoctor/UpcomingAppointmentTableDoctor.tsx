@@ -68,7 +68,7 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
     },
     {
       title: "Time",
-      dataIndex: "language",
+      dataIndex: "appointmentTimeSlots",
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time?.selected);
         return (
