@@ -30,6 +30,7 @@ function AppointmentCard({
   status,
   serviceType,
   doctor,
+  doctorProfile,
   appointmentTimeSlots,
   setShowModal,
   onViewSuggestedSlots,
@@ -79,6 +80,7 @@ function AppointmentCard({
           status={getStatus()}
           serviceType={serviceType}
           doctor={doctor}
+          doctorProfile={doctorProfile}
           appointmentTimeSlots={appointmentTimeSlots}
         />
       );

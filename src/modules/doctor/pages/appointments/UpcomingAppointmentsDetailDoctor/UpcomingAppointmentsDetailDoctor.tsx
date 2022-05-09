@@ -41,8 +41,21 @@ function UpcomingAppointmentsDetailDoctor() {
 
   const { reportUrl } = appoinmentUrl?.appointment || {};
 
-  // let urlArr = JSON.parse(reportUrl);
-  // urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+  function parseJson(jsonString: string) {
+    let obj = null;
+    try {
+      obj = JSON.parse(jsonString);
+    } catch (error) {
+      console.log(error);
+      obj = null;
+    }
+    return obj;
+  }
+
+  let urlArr = parseJson(reportUrl);
+  if (urlArr && urlArr.length > 0) {
+    urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+  }
 
   //Get Patient ID
   const { patientId } = appointment || {};

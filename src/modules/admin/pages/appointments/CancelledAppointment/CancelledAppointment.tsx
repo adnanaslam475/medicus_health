@@ -6,6 +6,7 @@ import SearchFilters from "../../../../../common/components/SearchFilters/Search
 import {
   Appointment,
   AppointmentTimeSlots,
+  DoctorProfile,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
 
@@ -84,7 +85,7 @@ function CancelledAppointment() {
                     status={status}
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
-                    // doctorProfile={doctor?.doctorProfile}
+                    doctorProfile={doctor?.doctorProfile as DoctorProfile}
                     appointmentTimeSlots={
                       appointmentTimeSlots as AppointmentTimeSlots[]
                     }

@@ -1,7 +1,10 @@
 import { Button, Card } from "antd";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import React, { useState } from "react";
-import { AppointmentTimeSlots } from "../../../../generated/graphql";
+import {
+  AppointmentTimeSlots,
+  DoctorProfile,
+} from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 
@@ -10,6 +13,7 @@ type Props = {
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
+  doctorProfile?: DoctorProfile | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
 };
 
@@ -18,6 +22,7 @@ function AppointmnetCancelledCard({
   status,
   serviceType,
   doctor,
+  doctorProfile,
   appointmentTimeSlots,
 }: Props) {
   // function onRebookAppointment(id: number) {
@@ -26,7 +31,7 @@ function AppointmnetCancelledCard({
   //   setIsModalVisible(true);
   // }
 
-  console.log(doctor, "doctor,doctor,");
+  console.log({ doctorProfile });
 
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   // const [showModal, setShowModal] = useState<boolean>(false);
@@ -87,7 +92,7 @@ function AppointmnetCancelledCard({
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        // doctorData={doctorData}
+        doctorData={doctorProfile}
       />
     </>
   );
