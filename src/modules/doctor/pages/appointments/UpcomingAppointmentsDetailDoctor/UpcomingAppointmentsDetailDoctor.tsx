@@ -4,16 +4,16 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
 import AppointmentsDetailTabs from "../../AppointmentsDetailTabs/AppointmentsDetailTabs";
 import {
-	useDoctorAppointmentDetailQuery,
-	useGetAppointmentReportUrlByIdQuery,
-	usePatientHealthHistoryQuery,
+  useDoctorAppointmentDetailQuery,
+  useGetAppointmentReportUrlByIdQuery,
+  usePatientHealthHistoryQuery,
 } from "generated/graphql";
 import { Tabs } from "antd";
 import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
 import DoctorAppointmentInfo from "../../../../../common/components/DoctorAppointmentInfo/DoctorAppointmentInfo";
 import PatientInfo from "common/components/PatientInfo/PatientInfo";
 import Questionnary, {
-	QuestionnaireForm,
+  QuestionnaireForm,
 } from "common/components/Questionnary/Questionnary";
 import Attachment from "common/components/Attachment/Attachment";
 import Notes from "common/components/Notes/Notes";
@@ -24,97 +24,97 @@ import PatientInfoTab from "./PatientInfoTab";
 import PhysicianQuestionnaire from "../../../../../common/components/Appointments/PhysicianQuestionnaire";
 
 function UpcomingAppointmentsDetailDoctor() {
-	const { query } = useRouter();
+  const { query } = useRouter();
 
-	const [{ data }] = useDoctorAppointmentDetailQuery({
-		variables: {
-			id: Number(query.appointmentId),
-		},
-		pause: !query.appointmentId,
-	});
-	const { appointment } = data || {};
+  const [{ data }] = useDoctorAppointmentDetailQuery({
+    variables: {
+      id: Number(query.appointmentId),
+    },
+    pause: !query.appointmentId,
+  });
+  const { appointment } = data || {};
 
-	const [{ data: appoinmentUrl }] = useGetAppointmentReportUrlByIdQuery({
-		variables: {
-			id: Number(appointment?.id),
-		},
-	});
+  const [{ data: appoinmentUrl }] = useGetAppointmentReportUrlByIdQuery({
+    variables: {
+      id: Number(appointment?.id),
+    },
+  });
 
-	const { reportUrl } = appoinmentUrl?.appointment || {};
+  const { reportUrl } = appoinmentUrl?.appointment || {};
 
-	function parseJson(jsonString: string) {
-		let obj = null;
-		try {
-			obj = JSON.parse(jsonString);
-		} catch (error) {
-			console.log(error);
-			obj = null;
-		}
-		return obj;
-	}
+  function parseJson(jsonString: string) {
+    let obj = null;
+    try {
+      obj = JSON.parse(jsonString);
+    } catch (error) {
+      console.log(error);
+      obj = null;
+    }
+    return obj;
+  }
 
-	let urlArr = parseJson(reportUrl);
-	if (urlArr && urlArr.length > 0) {
-		urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
-	}
+  let urlArr = parseJson(reportUrl);
+  if (urlArr && urlArr.length > 0) {
+    urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+  }
 
-	//Get Patient ID
-	const { patientId } = appointment || {};
+  //Get Patient ID
+  const { patientId } = appointment || {};
 
-	// Get patient Health History
-	const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
-		variables: { input: patientId as number },
-	});
-	const { appointmentHealthHistory } = data?.appointment || {};
+  // Get patient Health History
+  const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
+    variables: { input: patientId as number },
+  });
+  const { appointmentHealthHistory } = data?.appointment || {};
 
-	return (
-		<AppLayout>
-			<>
-				<h2 className="mb-4">Appointment Detail</h2>
-				<div className="profile-tabs">
-					<Tabs type="card">
-						<Tabs.TabPane tab="Appointment Info" key="1" className="">
-							<AppointmentInfoTab />
-						</Tabs.TabPane>
-						<Tabs.TabPane tab="Patient Info" key="2">
-							<PatientInfoTab />
-						</Tabs.TabPane>
-						<Tabs.TabPane tab="Health Questionnaire" key="3">
-							<div className="max-w-1/2">
-								{/* <Questionnary
+  return (
+    <AppLayout>
+      <>
+        <h2 className="mb-4">Appointment Detail</h2>
+        <div className="profile-tabs">
+          <Tabs type="card">
+            <Tabs.TabPane tab="Appointment Info" key="1" className="">
+              <AppointmentInfoTab />
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Patient Info" key="2">
+              <PatientInfoTab />
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Health Questionnaire" key="3">
+              <div className="max-w-1/2">
+                {/* <Questionnary
                   disable={true}
                   data={patientHealthHistory?.patientHealthHistory?.history}
                 /> */}
-								<QuestionnaireForm
-									data={patientHealthHistory?.patientHealthHistory.history}
-								/>
-							</div>
-						</Tabs.TabPane>
-						<Tabs.TabPane tab="Physician Questionnaire" key="4">
-							<div className="">
-								{/* <ProfileImageWithInfo /> */}
-								<PhysicianQuestionnaire
-									appointmentHealthHistory={appointmentHealthHistory?.history}
-								/>
-							</div>
-						</Tabs.TabPane>
-						<Tabs.TabPane tab="Attachement" key="5">
-							<div className="">
-								{urlArr?.map((item: any) => (
-									<Attachment src={word} name={item} />
-								))}
-							</div>
-						</Tabs.TabPane>
-						<Tabs.TabPane tab="Notes" key="6">
-							<div className="max-w-1/2">
-								{/* <ProfileImageWithInfo /> */}
-								<Notes />
-							</div>
-						</Tabs.TabPane>
-					</Tabs>
-				</div>
-			</>
-		</AppLayout>
-	);
+                <QuestionnaireForm
+                  data={patientHealthHistory?.patientHealthHistory.history}
+                />
+              </div>
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Physician Questionnaire" key="4">
+              <div className="">
+                {/* <ProfileImageWithInfo /> */}
+                <PhysicianQuestionnaire
+                  appointmentHealthHistory={appointmentHealthHistory?.history}
+                />
+              </div>
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Attachement" key="5">
+              <div className="">
+                {urlArr?.map((item: any) => (
+                  <Attachment src={word} name={item} />
+                ))}
+              </div>
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Notes" key="6">
+              <div className="max-w-1/2">
+                {/* <ProfileImageWithInfo /> */}
+                <Notes />
+              </div>
+            </Tabs.TabPane>
+          </Tabs>
+        </div>
+      </>
+    </AppLayout>
+  );
 }
 export default UpcomingAppointmentsDetailDoctor;

@@ -6,6 +6,7 @@ import SearchFilters from "../../../../../common/components/SearchFilters/Search
 import {
   Appointment,
   AppointmentTimeSlots,
+  DoctorProfile,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
 
@@ -38,6 +39,8 @@ function CancelledAppointment() {
 
   const { appointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  console.log(appointments, "appointments");
   return (
     <AppLayout>
       <div className="w-full">
@@ -82,6 +85,7 @@ function CancelledAppointment() {
                     status={status}
                     serviceType={serviceType?.name}
                     doctor={doctor?.first_name}
+                    doctorProfile={doctor?.doctorProfile as DoctorProfile}
                     appointmentTimeSlots={
                       appointmentTimeSlots as AppointmentTimeSlots[]
                     }
