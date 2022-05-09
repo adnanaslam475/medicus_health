@@ -16,13 +16,13 @@ import Questionnary, {
   QuestionnaireForm,
 } from "common/components/Questionnary/Questionnary";
 import Attachment from "common/components/Attachment/Attachment";
-import Notes from "common/components/Notes/Notes";
 import jpg from "../../../../../../public/assets/images/jpg.svg";
 import word from "../../../../../../public/assets/images/word-file.svg";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import { parseJson } from "common/utils/helper";
+import NotesTab from "./NotesTab";
 
 function UpcomingAppointmentsDetailDoctor() {
   const { query } = useRouter();
@@ -98,8 +98,8 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Notes" key="6">
               <div className="max-w-1/2">
-                {/* <ProfileImageWithInfo /> */}
-                <Notes />
+                {/* <ProfileImageWithInfo />s */}
+                <NotesTab />
               </div>
             </Tabs.TabPane>
           </Tabs>

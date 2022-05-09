@@ -338,6 +338,7 @@ export type GetAppointmentInput = {
   doctorId?: InputMaybe<Scalars['Int']>;
   dueDate?: InputMaybe<DueDate>;
   physicianName?: InputMaybe<Scalars['String']>;
+  searchPatient?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
 };
@@ -1155,6 +1156,13 @@ export type BookAppointmentMutationVariables = Exact<{
 
 export type BookAppointmentMutation = { __typename?: 'Mutation', bookAppointment: { __typename?: 'Appointment', id: number, status?: string | null } };
 
+export type CreateOrUpdateAppointmentNoteMutationVariables = Exact<{
+  createAppointmentNoteInput: CreateAppointmentNoteInput;
+}>;
+
+
+export type CreateOrUpdateAppointmentNoteMutation = { __typename?: 'Mutation', createOrUpdateAppointmentNote: { __typename?: 'AppointmentNote', id: number } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -1675,6 +1683,19 @@ export const BookAppointmentDocument = gql`
 
 export function useBookAppointmentMutation() {
   return Urql.useMutation<BookAppointmentMutation, BookAppointmentMutationVariables>(BookAppointmentDocument);
+};
+export const CreateOrUpdateAppointmentNoteDocument = gql`
+    mutation createOrUpdateAppointmentNote($createAppointmentNoteInput: CreateAppointmentNoteInput!) {
+  createOrUpdateAppointmentNote(
+    createAppointmentNoteInput: $createAppointmentNoteInput
+  ) {
+    id
+  }
+}
+    `;
+
+export function useCreateOrUpdateAppointmentNoteMutation() {
+  return Urql.useMutation<CreateOrUpdateAppointmentNoteMutation, CreateOrUpdateAppointmentNoteMutationVariables>(CreateOrUpdateAppointmentNoteDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
