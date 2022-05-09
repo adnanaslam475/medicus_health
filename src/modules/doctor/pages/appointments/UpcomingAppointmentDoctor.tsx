@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DoctorCard from "common/components/DoctorCards/DoctorCards";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { Button, Table, Tag, Modal } from "antd";
@@ -30,10 +30,26 @@ const FLAG_BY_LANGUAGE = {
 function UpcomingAppointmentDoctor() {
   // const [{ data }] = useDoctorProfilesQuery();
   const { user } = getUserData();
+
+  const [dueStartDate, setStartDate] = useState<Date | null>();
+  const [dueEndDate, setEndDate] = useState<Date | null>();
+  const [dataListPhysician, setDataListPhysician] = useState<string>();
+  const [doctorIds, setDoctorId] = useState<number>();
+  const [appointmentIds, setAppointmentIds] = useState<number>();
+  const [serviceIds, setServiceIds] = useState<number>();
+  const [status, setStatus] = useState<string>("Confirmed");
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        doctorId: user?.id,
+        status: status,
+        physicianName: dataListPhysician,
+        doctorId: doctorIds,
+        appointmentId: appointmentIds,
+        serviceId: serviceIds,
+        dueDate: {
+          startDate: dueStartDate,
+          endDate: dueEndDate,
+        },
       },
     },
   });
@@ -143,7 +159,16 @@ function UpcomingAppointmentDoctor() {
           </Link>
         </div>
 
-        <UpcomingAppointmentFilter />
+        {/* <UpcomingAppointmentFilter /> */}
+        <SearchFilters
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          setDataListPhysician={setDataListPhysician}
+          setDoctorId={setDoctorId}
+          setAppointmentIds={setAppointmentIds}
+          setServiceIds={setServiceIds}
+          isFromPhysician
+        />
         <UpcomingAppointmentTableDoctor
           dataSource={appointments as Appointment[]}
         />

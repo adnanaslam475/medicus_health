@@ -97,7 +97,14 @@ function SearchFilters(props: Props) {
     >
       <span className="text-gray-1 mr-3 mb-3">Filter</span>
       <div className="flex-none sm:flex">
-        {isFromPhysician ? null : (
+        {isFromPhysician ? (
+          <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
+            <Input
+              placeholder="Search by ID or patient name"
+              prefix={<SearchOutlined />}
+            />
+          </div>
+        ) : (
           <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
             <Select
               placeholder="Physician"

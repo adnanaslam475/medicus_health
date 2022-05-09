@@ -1,6 +1,6 @@
 import React from "react";
 import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Tag } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
 
 // scss
@@ -33,7 +33,19 @@ function DoctorAppointmentInfo({ data }: props) {
           text={formatMMMM_Dcoma_YYYY(requestedDate)}
         />
         <LabelWithText label="Total Amount" text={charges} />
-        <LabelWithText label="Status" text={status as string} />
+        {/* <LabelWithText label="Status" text={status as string} /> */}
+
+        <li className="flex border-b border-gray-5 py-3">
+          <div className="w-full text-gray-1 max-w-[300px]">Status</div>
+          <div className="w-full text-secondary">
+            <Tag
+              color="#e2f8f7"
+              className="ant-typography ant-typography-secondary"
+            >
+              {status}
+            </Tag>
+          </div>
+        </li>
       </div>
       <DoctorAppointmentInfoFooter />
     </div>
@@ -65,6 +77,7 @@ function DoctorAppointmentInfoFooter() {
         type="primary"
         icon={<VideoCameraFilled />}
         className={`${_classes["appointments-btn"]} bg-current`}
+        onClick={() => Router.push("/doctor/appointments/call")}
       >
         Join Now
       </Button>

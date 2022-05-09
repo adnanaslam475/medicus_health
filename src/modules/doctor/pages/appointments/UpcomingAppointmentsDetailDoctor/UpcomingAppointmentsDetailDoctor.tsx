@@ -21,7 +21,7 @@ import jpg from "../../../../../../public/assets/images/jpg.svg";
 import word from "../../../../../../public/assets/images/word-file.svg";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
-import PhysicianQuestionnaire from "../../../../../common/components/Appointments/PhysicianQuestionnaire";
+import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 
 function UpcomingAppointmentsDetailDoctor() {
   const { query } = useRouter();
@@ -92,9 +92,10 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician Questionnaire" key="4">
               <div className="">
-                {/* <ProfileImageWithInfo /> */}
                 <PhysicianQuestionnaire
-                  appointmentHealthHistory={appointmentHealthHistory?.history}
+                  appointmentHealthHistory={
+                    appointment?.appointmentHealthHistory?.history
+                  }
                 />
               </div>
             </Tabs.TabPane>
