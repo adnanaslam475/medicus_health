@@ -25,7 +25,7 @@ function Payment(props: Props) {
           />
         </div>
         <div className="px-2">
-          <h6 className="text-md capitalize text-dark font-medium">{title}</h6>
+          <h6 className={`text-md capitalize text-dark font-medium ${_classes["wordspacing-5"]}`}>{title}</h6>
           <p className="text-gray-2">{description}</p>
         </div>
       </Radio>
