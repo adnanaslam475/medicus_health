@@ -105,13 +105,13 @@ const RequestedList = (props: Props) => {
 
     {
       title: "",
-      dataIndex: "",
-      key: "view",
+      dataIndex: "id",
+      key: "id",
       className: "table-action-icon",
-      render: () => (
+      render: (appointmentId: number) => (
         <EyeFilled
           onClick={() => {
-            return Router.push(`/doctor/appointments/requested/detail`);
+            return Router.push(`/doctor/appointments/requested/${appointmentId}`);
           }}
         />
       ),
