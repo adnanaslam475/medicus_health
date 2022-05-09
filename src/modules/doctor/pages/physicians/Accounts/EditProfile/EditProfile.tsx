@@ -417,6 +417,8 @@ function EditProfile({
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}
                 setAddScheduleTime={setAddScheduleTime}
+                addScheduleTime={addScheduleTime}
+                addScheduleDay={addScheduleDay}
                 setAddScheduleDay={setAddScheduleDay}
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
