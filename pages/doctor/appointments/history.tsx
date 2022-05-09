@@ -1,7 +1,7 @@
-import HistoryAppointments from "../../../src/modules/admin/pages/appointments/HistoryAppointments/HistoryAppointments";
+import PhysicianAppointmentHistory from "../../../src/modules/doctor/pages/PhysicianAppointmentHistory/PhysicianAppointmentHistory";
 
-function historyAppointments() {
-  return <HistoryAppointments />;
+function PhysicianAppointmentsHistoryPage() {
+  return <PhysicianAppointmentHistory />;
 }
 
-export default historyAppointments;
+export default PhysicianAppointmentsHistoryPage;
