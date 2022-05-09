@@ -101,13 +101,13 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                   label={item.label}
                   className="text-secondary"
                   name={item.name}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please fill the blank",
-                      whitespace: true,
-                    },
-                  ]}
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //     message: "Please fill the blank",
+                  //     whitespace: true,
+                  //   },
+                  // ]}
                 >
                   <Input />
                 </Form.Item>
@@ -118,13 +118,13 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                   label={item.label}
                   className="text-secondary"
                   name={item.name}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please select the option",
-                      whitespace: true,
-                    },
-                  ]}
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //     message: "Please select the option",
+                  //     whitespace: true,
+                  //   },
+                  // ]}
                 >
                   <Radio.Group>
                     {item?.options?.map(({ value, label }) => {
