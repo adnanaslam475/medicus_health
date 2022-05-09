@@ -221,3 +221,14 @@ mutation bookAppointment($bookAppointmentInput: BookAppointmentInput!) {
     status
   }
 }
+
+#Add Note Appointment
+mutation createOrUpdateAppointmentNote(
+  $createAppointmentNoteInput: CreateAppointmentNoteInput!
+) {
+  createOrUpdateAppointmentNote(
+    createAppointmentNoteInput: $createAppointmentNoteInput
+  ) {
+    id
+  }
+}
