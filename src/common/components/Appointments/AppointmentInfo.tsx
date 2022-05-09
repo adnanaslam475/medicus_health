@@ -32,6 +32,9 @@ function AppointmentInfo(props: Props) {
     }
   }
 
+  const redirectVideo=()=>{
+    Router.push("/patient/appointments/call")
+  }
   return (
     <React.Fragment>
       {/* <ProfileImageWithInfo /> */}
@@ -72,7 +75,7 @@ function AppointmentInfo(props: Props) {
         </li>
       </div>
 
-      {/* <div className="w-4/6 flex justify-between mt-4">
+       <div className="w-4/6 flex justify-between mt-4">
         <div className="flex">
           <Button
             icon={<MessageOutlined />}
@@ -93,10 +96,11 @@ function AppointmentInfo(props: Props) {
           type="primary"
           icon={<VideoCameraFilled />}
           className={`${_classes["appointments-btn"]} bg-current`}
+          onClick={redirectVideo}
         >
           Join Now
         </Button>
-      </div> */}
+      </div> 
     </React.Fragment>
   );
 }
