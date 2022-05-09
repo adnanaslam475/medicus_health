@@ -114,7 +114,7 @@ function ProfileForm({
 
         <MultiRangeDatePicker disable={true} schedules={schedules} />
         <div className={`my-6 ${_classes["professional"]}`}>
-          <h5>Professional Background</h5>
+          <h5 className={`${_classes["wordspacing-5"]}`}>Professional Background</h5>
           {professionalBGData.map((item) => {
             return item.map((val, index) => {
               return (
@@ -137,7 +137,7 @@ function ProfileForm({
         </div>
 
         <div className={`my-6 ${_classes["educational"]}`}>
-          <h6>Educational Background</h6>
+          <h6 className={`${_classes["wordspacing-5"]}`}>Educational Background</h6>
           {educationalBGData.map((item, index) => {
             return item.map((val) => {
               return (

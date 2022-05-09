@@ -29,7 +29,7 @@ export const Payment = (props: Props) => {
 
   return (
     <div
-      className={`${_classes["stripeCard"]} bg-gray-4 p-5 rounded-md border-primary mb-4`}
+      className={`${_classes["stripeCard"]} dfdfsdfs bg-gray-4 p-5 rounded-md border-primary mb-4`}
     >
       <div className="flex items-center justify-between">
         <div>
