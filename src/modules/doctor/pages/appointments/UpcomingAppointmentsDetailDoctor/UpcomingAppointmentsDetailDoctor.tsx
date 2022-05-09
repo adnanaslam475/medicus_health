@@ -34,7 +34,6 @@ function UpcomingAppointmentsDetailDoctor() {
   });
   const { appointment } = data || {};
 
-
   const [{ data: appoinmentUrl }] = useGetAppointmentReportUrlByIdQuery({
     variables: {
       id: Number(appointment?.id),
@@ -66,6 +65,7 @@ function UpcomingAppointmentsDetailDoctor() {
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: patientId as number },
   });
+  const { appointmentHealthHistory } = data?.appointment || {};
 
   return (
     <AppLayout>
