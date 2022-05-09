@@ -383,7 +383,6 @@ function EditProfile({
                   dependencies={["password"]}
                   rules={[
                     {
-                      required: true,
                       message: "Please confirm your password!",
                     },
                     ({ getFieldValue }) => ({
@@ -600,7 +599,7 @@ function EditProfile({
                 onChange={(list) => {
                   handleConditionTreated(list);
                 }}
-                initialValue={condition_treated.split(",")}
+                initialValue={condition_treated?.split(",")}
               />
               {/* Physician - Account - Its editable component so all props are required */}
               <MultiRangeDatePicker
