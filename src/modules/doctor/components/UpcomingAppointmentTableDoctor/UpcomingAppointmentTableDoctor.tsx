@@ -1,11 +1,17 @@
 import { Table } from "antd";
-import { Appointment, AppointmentServiceType, User } from "generated/graphql";
+import {
+  Appointment,
+  AppointmentServiceType,
+  AppointmentTimeSlots,
+  User,
+} from "generated/graphql";
 import React from "react";
 import Image from "next/image";
 import engFlag from "../../../../../public/assets/images/engFlag.png";
 import espanolFlag from "../../../../../public/assets/images/espanolFlag.png";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
+import { date } from "common/utils";
 
 type Props = {
   dataSource: Appointment[] | undefined;
@@ -56,22 +62,22 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
       },
+      render: (value: string) => {
+        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      },
     },
     {
       title: "Time",
       dataIndex: "language",
-      render: (language: string) => {
+      render: (value: AppointmentTimeSlots[]) => {
+        let time = value?.find((time) => time?.selected);
         return (
-          <div className="flagAvatar engFlag pr-2">
-            {FLAG_BY_LANGUAGE[language] && (
-              <Image
-                src={FLAG_BY_LANGUAGE[language]}
-                // src={espanolFlag}
-                alt={language || "flag"}
-                width={25}
-                height={25}
-              />
-            )}
+          <div className="someclass">
+            {time?.startTime
+              ? `${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
+                  time?.endTime
+                )}`
+              : "--"}
           </div>
         );
       },
@@ -82,11 +88,13 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
     },
     {
       title: "Total Amount",
-      dataIndex: "serviceType",
-      render: (value: AppointmentServiceType) => value.price,
+      dataIndex: "charges",
       sorter: {
         compare: (a: any, b: any) => a.date - b.date,
         multiple: 3,
+      },
+      render: (value: number) => {
+        return <div className="someclass">{value ? `$ ${value}` : ""}</div>;
       },
     },
     {

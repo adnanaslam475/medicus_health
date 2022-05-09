@@ -16,7 +16,18 @@ function PhysicianQuestionnaire(props: Props) {
   const [formInstance] = Form.useForm();
   const { appointmentHealthHistory } = props || {};
 
-  let History = JSON.parse(appointmentHealthHistory);
+  function parseJson(jsonString: string) {
+    let obj = null;
+    try {
+      obj = JSON.parse(jsonString);
+    } catch (error) {
+      console.log(error);
+      obj = null;
+    }
+    return obj;
+  }
+
+  let History = parseJson(appointmentHealthHistory);
 
   useEffect(() => {
     prepareAndSetEditPayload();
@@ -359,12 +370,3 @@ function PhysicianQuestionnaire(props: Props) {
   );
 }
 export default PhysicianQuestionnaire;
-
-
-
-
-
-
-
-
-

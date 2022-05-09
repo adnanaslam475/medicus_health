@@ -21,6 +21,7 @@ import jpg from "../../../../../../public/assets/images/jpg.svg";
 import word from "../../../../../../public/assets/images/word-file.svg";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
+import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 
 function UpcomingAppointmentsDetailDoctor() {
   const { query } = useRouter();
@@ -32,6 +33,7 @@ function UpcomingAppointmentsDetailDoctor() {
     pause: !query.appointmentId,
   });
   const { appointment } = data || {};
+
 
   const [{ data: appoinmentUrl }] = useGetAppointmentReportUrlByIdQuery({
     variables: {
@@ -79,17 +81,19 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <div className="max-w-1/2">
-                {/* <Questionnary
-                  disable={true}
-                  data={patientHealthHistory?.patientHealthHistory?.history}
-                /> */}
                 <QuestionnaireForm
                   data={patientHealthHistory?.patientHealthHistory.history}
                 />
               </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician Questionnaire" key="4">
-              <div className=""></div>
+              <div className="">
+                <PhysicianQuestionnaire
+                  appointmentHealthHistory={
+                    appointment?.appointmentHealthHistory?.history
+                  }
+                />
+              </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachement" key="5">
               <div className="">
