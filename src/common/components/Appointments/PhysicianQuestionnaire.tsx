@@ -6,6 +6,7 @@ import {
 } from "../../../generated/graphql";
 import { useRouter } from "next/router";
 import { NamePath } from "rc-field-form/lib/interface";
+import { parseJson } from "common/utils/helper";
 
 type Props = {
   appointmentHealthHistory: string;
@@ -16,16 +17,7 @@ function PhysicianQuestionnaire(props: Props) {
   const [formInstance] = Form.useForm();
   const { appointmentHealthHistory } = props || {};
 
-  function parseJson(jsonString: string) {
-    let obj = null;
-    try {
-      obj = JSON.parse(jsonString);
-    } catch (error) {
-      console.log(error);
-      obj = null;
-    }
-    return obj;
-  }
+  
 
   let History = parseJson(appointmentHealthHistory);
 

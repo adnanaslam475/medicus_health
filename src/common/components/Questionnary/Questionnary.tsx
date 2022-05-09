@@ -7,6 +7,7 @@ import HealthQuestionnaryData from "../../constants/healthQuestionnary";
 import { Form, Input, Button, Radio, Checkbox, FormInstance } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import _classes from "./Questionnary.module.scss";
+import { parseJson } from "common/utils/helper";
 const CheckboxGroup = Checkbox.Group;
 
 interface HealthQuesType {
@@ -126,17 +127,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       prepareAndSetEditPayload(parseJson(data));
     }
   }, [data]);
-
-  function parseJson(jsonString: string) {
-    let obj = null;
-    try {
-      obj = JSON.parse(jsonString);
-    } catch (error) {
-      console.log(error);
-      obj = null;
-    }
-    return obj;
-  }
 
   function prepareAndSetEditPayload(parsedData: any) {
     setRadioDrink(parsedData?.q1.ans);
