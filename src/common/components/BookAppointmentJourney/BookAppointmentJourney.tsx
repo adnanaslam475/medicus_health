@@ -126,7 +126,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
           patientId: id as number,
-          doctorId: Number(query?.id),
+          doctorId: Number(query?.id) || Number(doctorData?.doctor_id),
           serviceId: serviceId,
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
