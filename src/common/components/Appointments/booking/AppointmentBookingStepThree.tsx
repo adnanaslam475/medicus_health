@@ -11,6 +11,7 @@ import {
 } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import {
+  DoctorProfile,
   useDoctorProfileQuery,
   useDoctorQuestionnaireQuery,
   useGetAllRequestedAppointmentsQuery,
@@ -18,12 +19,17 @@ import {
 import { useRouter } from "next/router";
 import { NamePath } from "antd/lib/form/interface";
 
-const StepThree = React.forwardRef(function StepThree({}, ref: any) {
-  const { query } = useRouter();
+type Props = {
+  physicianData?: DoctorProfile;
+};
 
+const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
+  const { query } = useRouter();
+  const { physicianData } = props || {};
+  const { id } = physicianData?.user || {};
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
-      doctorId: Number(query?.id),
+      doctorId: Number(query?.id) || Number(id),
     },
   });
   const { doctorQuestionnaire } = dataList || {};
@@ -63,7 +69,6 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
     }
     return obj;
   }
-
 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
 

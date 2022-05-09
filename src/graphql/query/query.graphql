@@ -219,6 +219,29 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
         language
         about_me
         profile_image
+        user {
+          id
+          first_name
+          last_name
+          email
+          gender
+          country_id
+          state_id
+          city_id
+          zip_code
+          password
+          status
+          role
+          doctorSchedules {
+            id
+            doctorId
+            day
+            startTime
+            endTime
+            createdAt
+            updatedAt
+          }
+        }
       }
     }
     appointmentTimeSlots {
