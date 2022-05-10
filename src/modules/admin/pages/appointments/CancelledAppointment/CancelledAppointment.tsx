@@ -105,6 +105,3 @@ function CancelledAppointment() {
   );
 }
 export default CancelledAppointment;
-function setCurrentAppointmentId(id: number) {
-  throw new Error("Function not implemented.");
-}
