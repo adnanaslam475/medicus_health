@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  MessageOutlined,
+  RetweetOutlined,
+  VideoCameraFilled,
+} from "@ant-design/icons";
 import {
   Button,
   DatePicker,
@@ -106,11 +111,13 @@ function DoctorAppointmentInfo({ data }: props) {
           </div>
         </li>
       </div>
-      <DoctorAppointmentInfoFooter />
 
-      <DoctorRequestedAppointmentInfoFooter
-        onCancelRequestedAppointment={onCancelRequestedAppointment}
-      />
+      {getRole() === "User" && <DoctorAppointmentInfoFooter />}
+      {getRole() === "Doctor" && (
+        <DoctorRequestedAppointmentInfoFooter
+          onCancelRequestedAppointment={onCancelRequestedAppointment}
+        />
+      )}
     </div>
   );
 }
@@ -169,33 +176,33 @@ function DoctorRequestedAppointmentInfoFooter({
 
   return (
     <>
-      <div className="w-4/6 flex justify-between mt-4">
-        <div className="flex flex-auto justify-between">
+      <div className="flex justify-between mt-6">
+        <Button
+          danger
+          className="border border-red outline"
+          onClick={onCancelRequestedAppointment}
+        >
+          Reject
+        </Button>
+        <div className="flex">
           <Button
-            className="border border-red"
-            onClick={onCancelRequestedAppointment}
+            icon={<RetweetOutlined />}
+            className={`${_classes["appointments-btn"]}`}
+            onClick={showModal}
           >
-            Reject
+            Propose Time
           </Button>
-          <div>
-            <Button
-              icon={<MessageOutlined />}
-              className={`${_classes["appointments-btn"]}`}
-              onClick={showModal}
-            >
-              Propose Time
-            </Button>
-            <Button
-              type="primary"
-              icon={<VideoCameraFilled />}
-              className={`${_classes["appointments-btn"]} bg-current ml-3`}
-              onClick={() => Router.push("/doctor/calendar")}
-            >
-              Accept Appointment
-            </Button>
-          </div>
+          <Button
+            type="primary"
+            icon={<CheckOutlined />}
+            className={`${_classes["appointments-btn"]} bg-current ml-3`}
+            onClick={() => Router.push("/doctor/calendar")}
+          >
+            Accept Appointment
+          </Button>
         </div>
       </div>
+
       <Modal
         visible={isModalVisible}
         onOk={handleOk}
