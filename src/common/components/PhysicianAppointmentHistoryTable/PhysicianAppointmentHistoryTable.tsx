@@ -8,6 +8,7 @@ import {
   Transaction,
   User,
 } from "../../../generated/graphql";
+import Router  from "next/router";
 
 interface col {
   title: string;
@@ -54,9 +55,9 @@ const PhysicianAppointmentHistoryTable = (props: Props) => {
         compare: (a: any, b: any) => a.service - b.service,
         multiple: 3,
       },
-      render: (value: AppointmentServiceType) => {
-        return <div>{`${value.name}`}</div>;
-      },
+      // render: (value: AppointmentServiceType) => {
+      //   return <div>{`${value.name}`}</div>;
+      // },
     },
     {
       title: "Physician Name",
@@ -134,15 +135,44 @@ const PhysicianAppointmentHistoryTable = (props: Props) => {
       dataIndex: "",
       key: "view",
       className: "table-action-icon",
-      render: () => <EyeFilled />,
+      render: () => <EyeFilled  onClick={() => {
+        return Router.push(`/doctor/appointments/history/detail`);
+      }} />,
     },
   ];
+  const staticData = [
+    {
+      id: "1",
+      // name: "John Brown",
+      transactionid: "MD-2312",
+      doctor: "Dr. Paul Wallner",
+      service: "First Consultation",
+      timeslot: "09:00 AM - 09:30 AM",
+      date: "Jan 30, 2022",
+      totalamount: "$40.00",
+      transactiondate: "Jan 24, 2022",
+      // status: ["completed", "pending"],
+      status: ["completed", "pending"],
+      view: "Eye",
+    },
+    {
+      id: "2",
+      transactionid: "MD-2312",
+      doctor: "Dr. Paul Wallner",
+      service: "First Consultation",
+      timeslot: "09:00 AM - 09:30 AM",
+      date: "Jan 30, 2022",
+      totalamount: "$40.00",
+      transactiondate: "Jan 24, 2022",
+      status: ["completed", "pending"],
+      view: "Eye",
+    },]
 
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
     console.log("params", pagination, filters, sorter, extra);
   }
   return (
-    <Table columns={historyColumns} dataSource={data} onChange={onChange} />
+    <Table columns={historyColumns} dataSource={staticData} onChange={onChange} />
   );
 };
 
