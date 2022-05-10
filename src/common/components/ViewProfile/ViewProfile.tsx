@@ -41,18 +41,26 @@ export const ViewProfile = React.forwardRef(function Profile({
     contact_number,
     status,
     language,
-    professional_experience,
-    about_me,
-    educational_background,
   } = doctorData?.user || {};
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
-  const { profile_image: userProfileImage } = doctorData || {};
+  const {
+    profile_image: userProfileImage,
+    about_me,
+    educational_background,
+    professional_experience,
+  } = doctorData || {};
 
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error } = result || {};
 
   const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
+
+  const educationalBackground =
+    JSON.parse(educational_background || "[]") || [];
+
+  const professionalExperience =
+    JSON.parse(professional_experience || "[]") || [];
 
   useEffect(() => {
     if (doctorData) {
@@ -61,6 +69,14 @@ export const ViewProfile = React.forwardRef(function Profile({
   }, [doctorData]);
 
   function prepareAndSetEditPayload() {
+    console.log({
+      first_name,
+      last_name,
+      email,
+      contact_number,
+      status,
+      about_me,
+    });
     formInstance.setFieldsValue({
       firstName: first_name,
       lastName: last_name,
@@ -68,7 +84,18 @@ export const ViewProfile = React.forwardRef(function Profile({
       email: email,
       password: "",
       confirmPassword: "",
-      about: about_me,
+      ["eb-institution-0"]: educationalBackground[0]?.institution,
+      ["eb-degree-0"]: educationalBackground[0]?.degree,
+      ["eb-institution-1"]: educationalBackground[1]?.institution,
+      ["eb-degree-1"]: educationalBackground[1]?.degree,
+
+      ["pe-institution-0"]: professionalExperience[0]?.institution,
+      ["pe-role-0"]: professionalExperience[0]?.role,
+      ["pe-institution-1"]: professionalExperience[1]?.institution,
+      ["pe-role-1"]: professionalExperience[1]?.role,
+      ["pe-institution-2"]: professionalExperience[2]?.institution,
+      ["pe-role-2"]: professionalExperience[2]?.role,
+      about_me: about_me,
     });
   }
 
@@ -209,6 +236,7 @@ export const ViewProfile = React.forwardRef(function Profile({
             doctorData={doctorData}
             showLoginInfo={showLoginInfo}
             schedules={schedules}
+            formInstance={formInstance}
           />
         </div>
       </div>

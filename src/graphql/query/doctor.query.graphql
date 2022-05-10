@@ -61,6 +61,12 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
     serviceType {
       name
     }
+     appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
+    }
   }
 }
 

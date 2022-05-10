@@ -1,18 +1,23 @@
 import React, { useRef, useState, useEffect } from "react";
-import CalendarView from "../../../../common/components/CalendarView/CalendarView";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
+import CalendarView from "../../common/components/CalendarView/CalendarView";
+import AppLayout from "common/components/AppLayout/AppLayout";
 import {
   Appointment,
   useGetAllRequestedAppointmentsQuery,
-} from "../../../../../generated/graphql";
-import CalendarModalComponent from "../../../../common/components/CalendarModal";
+} from "../../../generated/graphql";
+import CalendarModalComponent from "../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
-import Router from "next/router";
+import Router  from "next/router";
 
 type events = {
-  calenderEvents: Appointment | undefined | any;
+  calenderEvents: Appointment | undefined | Array<object>;
 };
-function AppointmentCalendar() {
+function DoctorCalendar() {
+
+  const redirectToUpcoming =function () {
+    Router.push("/doctor/appointments/upcoming");
+  }
+
 
   const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
@@ -29,10 +34,6 @@ function AppointmentCalendar() {
       },
     },
   });
-  const redirectToRequested =function () {
-    Router.push("/patient/appointments/requested");
-  }
-
 
   const { appointments } = data || {};
 
@@ -109,7 +110,7 @@ function AppointmentCalendar() {
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
             setDoctorId={setDoctorId}
-            redirectToListing={redirectToRequested}
+            redirectToListing={redirectToUpcoming}
           />
         </div>
         <CalendarModalComponent
@@ -123,4 +124,4 @@ function AppointmentCalendar() {
   );
 }
 
-export default AppointmentCalendar;
+export default DoctorCalendar;

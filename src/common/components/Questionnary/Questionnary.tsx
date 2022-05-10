@@ -7,6 +7,7 @@ import HealthQuestionnaryData from "../../constants/healthQuestionnary";
 import { Form, Input, Button, Radio, Checkbox, FormInstance } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import _classes from "./Questionnary.module.scss";
+import { parseJson } from "common/utils/helper";
 const CheckboxGroup = Checkbox.Group;
 
 interface HealthQuesType {
@@ -16,7 +17,7 @@ interface HealthQuesType {
   skipHealthQues?: (value: any) => void;
   handleBackChange?: (value: any) => void;
   isLoading?: boolean;
-  disable?:boolean;
+  disable?: boolean;
 }
 
 const HealthQuestionnary = ({
@@ -64,18 +65,20 @@ const HealthQuestionnary = ({
             </span>
           </Checkbox>
         )}
-        {disable && <Button
-          loading={isLoading}
-          disabled={!terms || isLoading}
-          className="ant-btn ant-btn-primary ant-btn mb-0"
-          type="primary"
-          onClick={() => form?.current?.submit()}
-          // htmlType="submit"
-        >
-          {isUpdateMode ? "Update" : "Complete"}
-        </Button>}
+        {disable && (
+          <Button
+            loading={isLoading}
+            disabled={!terms || isLoading}
+            className="ant-btn ant-btn-primary ant-btn mb-0"
+            type="primary"
+            onClick={() => form?.current?.submit()}
+            // htmlType="submit"
+          >
+            {isUpdateMode ? "Update" : "Complete"}
+          </Button>
+        )}
       </div>
-      {!isUpdateMode && disable &&(
+      {!isUpdateMode && disable && (
         <div className="flex justify-center">
           <div className="inline-flex items-center">
             <div className="mb-0">
@@ -121,7 +124,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       ref.current = formInstance;
     }
     if (data) {
-      prepareAndSetEditPayload(JSON.parse(data));
+      prepareAndSetEditPayload(parseJson(data));
     }
   }, [data]);
 

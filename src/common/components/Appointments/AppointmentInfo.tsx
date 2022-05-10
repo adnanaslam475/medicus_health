@@ -5,7 +5,7 @@ import _classes from "./AppointmentButtons.module.scss";
 import { ButtonType } from "antd/lib/button";
 import { GetAppointmentByIdQuery } from "../../../generated/graphql";
 import { date } from "../../utils";
-import Router  from "next/router";
+import Router from "next/router";
 import ProfileImageWithInfo from "../ProfleImageWithInfo/ProfileImageWithInfo";
 
 type Props = {
@@ -32,6 +32,9 @@ function AppointmentInfo(props: Props) {
     }
   }
 
+  const redirectVideo=()=>{
+    Router.push("/patient/appointments/call")
+  }
   return (
     <React.Fragment>
       {/* <ProfileImageWithInfo /> */}
@@ -45,57 +48,21 @@ function AppointmentInfo(props: Props) {
           label="Doctor"
           value={`Dr. ${first_name} ${last_name}`}
         />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-        <LabelValueRow label="ID" value={id} />
-      </div>
-      <ul className="w-4/6">
-        {/* <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">ID</div>
-          <div className="w-full text-secondary">{id}</div>
-        </li> */}
-        {/* <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">Booked on</div>
-          <div className="w-full text-secondary">
-            {date?.formatMMMMDDYYYY(requestedDate)}
-          </div>
-        </li> */}
-        <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">Doctor</div>
-          <div className="w-full text-secondary">
-            Dr. {`${first_name} ${last_name}`}
-          </div>
-        </li>
-        <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">Type</div>
-          <div className="w-full text-secondary">{name}</div>
-        </li>
-        <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">Date</div>
-          <div className="w-full text-secondary">
-            {date?.formatMMMMDDYYYY(timeSlots()?.startTime)}
-          </div>
-        </li>
-        <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">Time</div>
-          <div className="w-full text-secondary">{`${date?.formathhmma(
+        <LabelValueRow label="Type" value={name} />
+        <LabelValueRow
+          label="Date"
+          value={date?.formatMMMMDDYYYY(timeSlots()?.startTime)}
+        />
+        <LabelValueRow
+          label="Time"
+          value={`${date?.formathhmma(
             timeSlots()?.startTime
-          )} - ${date?.formathhmma(timeSlots()?.endTime)}`}</div>
-        </li>
+          )} - ${date?.formathhmma(timeSlots()?.endTime)}`}
+        />
+        <LabelValueRow label="Total Amount" value={price} />
+
         <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">Total Amount</div>
-          <div className="w-full text-secondary">${price}</div>
-        </li>
-        <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">Status</div>
+          <div className="w-full text-gray-1 max-w-[300px]">Status</div>
           <div className="w-full text-secondary">
             <Tag
               color="#e2f8f7"
@@ -105,8 +72,9 @@ function AppointmentInfo(props: Props) {
             </Tag>
           </div>
         </li>
-      </ul>
-      {/* <div className="w-4/6 flex justify-between mt-4">
+      </div>
+
+       <div className="w-4/6 flex justify-between mt-4">
         <div className="flex">
           <Button
             icon={<MessageOutlined />}
@@ -127,10 +95,11 @@ function AppointmentInfo(props: Props) {
           type="primary"
           icon={<VideoCameraFilled />}
           className={`${_classes["appointments-btn"]} bg-current`}
+          onClick={redirectVideo}
         >
           Join Now
         </Button>
-      </div> */}
+      </div> 
     </React.Fragment>
   );
 }

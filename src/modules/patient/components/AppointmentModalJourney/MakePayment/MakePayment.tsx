@@ -32,8 +32,8 @@ function MakePayment() {
 
   return (
     <>
-      <h2>Make Payment</h2>
-      <Form layout="vertical">
+      <h2 >Make Payment</h2>
+      <Form layout="vertical" className={`${_Classes['payment-form']}`}>
         <div className="mt-8">
           <Radio.Group
             value={value}
