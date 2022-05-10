@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
-import { Button, DatePicker, Form, Input, Modal, Select, Tag } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  notification,
+  Select,
+  Tag,
+} from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
 
 // scss
@@ -12,6 +21,7 @@ import {
 } from "generated/graphql";
 import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
 import { date } from "common/utils";
+import { getRole } from "common/utils/userData";
 
 type props = {
   data: Appointment | undefined;
@@ -46,7 +56,15 @@ function DoctorAppointmentInfo({ data }: props) {
         id: Number(id),
       });
 
-      console.log("respnseeee", res);
+      if (res?.data?.cancelAppointment) {
+        notification.success({
+          message: "Appointment Cancelled",
+        });
+      } else {
+        notification.error({
+          message: "Something went wrong",
+        });
+      }
     } catch (error) {}
   }
 
@@ -89,7 +107,10 @@ function DoctorAppointmentInfo({ data }: props) {
         </li>
       </div>
       <DoctorAppointmentInfoFooter />
-      <DoctorRequestedAppointmentInfoFooter />
+
+      <DoctorRequestedAppointmentInfoFooter
+        onCancelRequestedAppointment={onCancelRequestedAppointment}
+      />
     </div>
   );
 }
@@ -127,7 +148,11 @@ function DoctorAppointmentInfoFooter() {
   );
 }
 
-function DoctorRequestedAppointmentInfoFooter() {
+function DoctorRequestedAppointmentInfoFooter({
+  onCancelRequestedAppointment,
+}: {
+  onCancelRequestedAppointment: () => void;
+}) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -146,7 +171,10 @@ function DoctorRequestedAppointmentInfoFooter() {
     <>
       <div className="w-4/6 flex justify-between mt-4">
         <div className="flex flex-auto justify-between">
-          <Button className="border border-red" onClick={() => null}>
+          <Button
+            className="border border-red"
+            onClick={onCancelRequestedAppointment}
+          >
             Reject
           </Button>
           <div>
