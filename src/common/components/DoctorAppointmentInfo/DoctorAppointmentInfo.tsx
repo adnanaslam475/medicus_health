@@ -112,12 +112,16 @@ function DoctorAppointmentInfo({ data }: props) {
         </li>
       </div>
 
-      {getRole() === "User" && <DoctorAppointmentInfoFooter />}
+      {/* {getRole() === "User" && <DoctorAppointmentInfoFooter />}
       {getRole() === "Doctor" && (
         <DoctorRequestedAppointmentInfoFooter
           onCancelRequestedAppointment={onCancelRequestedAppointment}
         />
-      )}
+      )} */}
+      <DoctorAppointmentInfoFooter />
+      <DoctorRequestedAppointmentInfoFooter
+        onCancelRequestedAppointment={onCancelRequestedAppointment}
+      />
     </div>
   );
 }
