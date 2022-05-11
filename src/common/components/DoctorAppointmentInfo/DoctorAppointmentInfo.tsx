@@ -28,10 +28,11 @@ import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 
-type props = {
+type Props = {
   data: Appointment | undefined;
+  onCancelRequestedAppointment?: () => void;
 };
-function DoctorAppointmentInfo({ data }: props) {
+function DoctorAppointmentInfo({ data }: Props) {
   const {
     id,
     patient,
@@ -112,16 +113,13 @@ function DoctorAppointmentInfo({ data }: props) {
         </li>
       </div>
 
-      {/* {getRole() === "User" && <DoctorAppointmentInfoFooter />}
-      {getRole() === "Doctor" && (
+      {status === "Confirmed" && <DoctorAppointmentInfoFooter />}
+      {status === "Requested" && (
         <DoctorRequestedAppointmentInfoFooter
           onCancelRequestedAppointment={onCancelRequestedAppointment}
+          data={data}
         />
-      )} */}
-      <DoctorAppointmentInfoFooter />
-      <DoctorRequestedAppointmentInfoFooter
-        onCancelRequestedAppointment={onCancelRequestedAppointment}
-      />
+      )}
     </div>
   );
 }
@@ -159,11 +157,8 @@ function DoctorAppointmentInfoFooter() {
   );
 }
 
-function DoctorRequestedAppointmentInfoFooter({
-  onCancelRequestedAppointment,
-}: {
-  onCancelRequestedAppointment: () => void;
-}) {
+function DoctorRequestedAppointmentInfoFooter(props: Props) {
+  const { onCancelRequestedAppointment, data } = props || {};
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
