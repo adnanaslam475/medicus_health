@@ -46,7 +46,7 @@ import {
 import { configS3 } from "../../../../../../utils/helper";
 import config from "../../../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
-import { Schedule } from "utils/types";
+import { Schedule } from "common/types/types";
 import { RangeValue } from "rc-picker/lib/interface";
 
 const { TextArea } = Input;

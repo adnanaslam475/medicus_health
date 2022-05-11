@@ -6,7 +6,7 @@ import { TimePicker } from "antd";
 const { RangePicker } = TimePicker;
 import _Classes from "./MultiRangeDatePicker.module.scss";
 import DayPicker from "../../../utils/DayPicker";
-import { Schedule, singleSchedule } from "../../../utils/types";
+import { Schedule, singleSchedule } from "../../types/types";
 import { RangeValue } from "rc-picker/lib/interface";
 type Props = {
   disable: boolean;

@@ -11,3 +11,12 @@ export type singleSchedule = {
   day?: number;
   id?: string;
 };
+
+export type physicianFilterType = {
+  patientName?: string;
+  appointmentType?: string;
+  bookingDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
