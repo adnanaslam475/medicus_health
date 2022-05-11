@@ -338,6 +338,7 @@ export type GetAppointmentInput = {
   doctorId?: InputMaybe<Scalars['Int']>;
   dueDate?: InputMaybe<DueDate>;
   physicianName?: InputMaybe<Scalars['String']>;
+  searchPatient?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
 };
@@ -1155,6 +1156,13 @@ export type BookAppointmentMutationVariables = Exact<{
 
 export type BookAppointmentMutation = { __typename?: 'Mutation', bookAppointment: { __typename?: 'Appointment', id: number, status?: string | null } };
 
+export type CreateOrUpdateAppointmentNoteMutationVariables = Exact<{
+  createAppointmentNoteInput: CreateAppointmentNoteInput;
+}>;
+
+
+export type CreateOrUpdateAppointmentNoteMutation = { __typename?: 'Mutation', createOrUpdateAppointmentNote: { __typename?: 'AppointmentNote', id: number } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -1181,7 +1189,7 @@ export type DoctorAppointmentDetailAppointmentInfoQueryVariables = Exact<{
 }>;
 
 
-export type DoctorAppointmentDetailAppointmentInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, requestedDate: any, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null } };
+export type DoctorAppointmentDetailAppointmentInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, requestedDate: any, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null } };
 
 export type DoctorAppointmentDetailPatientInfoQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -1676,6 +1684,19 @@ export const BookAppointmentDocument = gql`
 export function useBookAppointmentMutation() {
   return Urql.useMutation<BookAppointmentMutation, BookAppointmentMutationVariables>(BookAppointmentDocument);
 };
+export const CreateOrUpdateAppointmentNoteDocument = gql`
+    mutation createOrUpdateAppointmentNote($createAppointmentNoteInput: CreateAppointmentNoteInput!) {
+  createOrUpdateAppointmentNote(
+    createAppointmentNoteInput: $createAppointmentNoteInput
+  ) {
+    id
+  }
+}
+    `;
+
+export function useCreateOrUpdateAppointmentNoteMutation() {
+  return Urql.useMutation<CreateOrUpdateAppointmentNoteMutation, CreateOrUpdateAppointmentNoteMutationVariables>(CreateOrUpdateAppointmentNoteDocument);
+};
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
   toggleEmailPreferences(
@@ -1767,6 +1788,12 @@ export const DoctorAppointmentDetailAppointmentInfoDocument = gql`
     }
     serviceType {
       name
+    }
+    appointmentTimeSlots {
+      id
+      startTime
+      endTime
+      selected
     }
   }
 }

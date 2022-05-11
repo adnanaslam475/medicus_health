@@ -144,10 +144,10 @@ function DoctorProfileCard(props: Props) {
                 <span className="ml-2">Request an Appointment</span>
               </Button>
               <div className="flex-none sm:flex">
-                <Button className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3">
+                <Button className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3" onClick={() => Router.push("/admin/messages")}>
                   <span className="hidden">Message Admin</span>
                 </Button>
-                <Button className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3">
+                <Button className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3" onClick={() => Router.push("/doctor/messages")}>
                   <span className="hidden">Message Physician</span>
                 </Button>
               </div>
