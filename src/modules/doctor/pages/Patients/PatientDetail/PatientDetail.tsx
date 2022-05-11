@@ -32,6 +32,7 @@ import dayjs from "dayjs";
 import { QuestionnaireForm } from "../../../../../common/components/Questionnary/Questionnary";
 import PhysicianProfile from "./PatientDetailTabs/PatientProfile";
 import EmailNotification from "../../../../patient/pages/EmailNotification/EmailNotification";
+import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -60,6 +61,7 @@ function PatientDetail() {
 
   const { TabPane } = Tabs;
 
+  
   return (
     <AppLayout>
       <div className="w-full">
@@ -78,7 +80,7 @@ function PatientDetail() {
                 }
                 key="1"
               >
-                <PhysicianProfile />
+               <AppointmentInfo/>
               </TabPane>
 
               <TabPane
