@@ -5,7 +5,7 @@ import CardWithProfileImageInfo from "modules/doctor/pages/PhysicianAppointmentH
 import Image from "next/image";
 import React, { useState } from "react";
 import smile from "../../../../public/assets/images/smile.svg";
-import AcromyumWithText from "../AcronyumWitText/AcromyumWitText";
+import AcromyumWithText from "../AcronyumWithText/AcromyumWithText";
 import _classes from "./NotesWithText.module.scss";
 function Notes() {
 	const [modalvisible, setModalVisible] = useState<boolean>(false);

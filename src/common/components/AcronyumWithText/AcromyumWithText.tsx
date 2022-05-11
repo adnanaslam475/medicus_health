@@ -1,5 +1,5 @@
 import React from "react";
-import _classes from "./AcronyumWitText.module.scss";
+import _classes from "./AcronyumWithText.module.scss";
 
 type Props = {
 	character: string;

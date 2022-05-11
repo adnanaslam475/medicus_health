@@ -1,7 +1,7 @@
-import PhysicianAppointmentHistory from "../../../../src/modules/doctor/pages/PhysicianAppointmentHistory/PhysicianAppointmentHistory";
+import PhysicianAppointmentHistory from "modules/doctor/pages/PhysicianAppointmentHistory/PhysicianAppointmentHistory";
 
-function PhysicianAppointmentsHistoryPage() {
+function index() {
   return <PhysicianAppointmentHistory />;
 }
 
-export default PhysicianAppointmentsHistoryPage;
+export default index;

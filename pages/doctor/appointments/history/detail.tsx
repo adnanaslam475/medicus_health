@@ -1,8 +1,8 @@
 import React from "react";
 import PhysicianAppointmentHistoryDetail from "modules/doctor/pages/PhysicianAppointmentHistoryDetail/PhysicianAppointmentHistoryDetail";
 
-function appointmentId() {
+function detail() {
   return <PhysicianAppointmentHistoryDetail/>;
 }
 
-export default appointmentId;
+export default detail;
