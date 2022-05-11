@@ -30,7 +30,7 @@ import Language from "../../../admin/components/Languague/Language";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import { configS3 } from "utils/helper";
-import { Schedule } from "utils/types";
+import { Schedule } from "common/types/types";
 import { RangeValue } from "rc-picker/lib/interface";
 import { useMediaUploader } from "common/hooks/media";
 

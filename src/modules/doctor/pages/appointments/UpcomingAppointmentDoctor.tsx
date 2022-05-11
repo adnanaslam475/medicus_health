@@ -5,7 +5,7 @@ import Link from "next/link";
 import UpcomingAppointmentFilter from "./UpcomingAppointmentFilter";
 import { Appointment, usePhysicianAppointmentsQuery } from "generated/graphql";
 import UpcomingAppointmentTableDoctor from "modules/doctor/components/UpcomingAppointmentTableDoctor/UpcomingAppointmentTableDoctor";
-import { physicianFilterType } from "utils/types";
+import { physicianFilterType } from "common/types/types";
 
 function UpcomingAppointmentDoctor() {
   const [filterValues, setFilterValues] = useState<physicianFilterType>({});

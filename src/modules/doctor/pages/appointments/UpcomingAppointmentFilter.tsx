@@ -5,7 +5,7 @@ import {
   CloseOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { physicianFilterType } from "utils/types";
+import { physicianFilterType } from "common/types/types";
 
 const { Option } = Select;
 
