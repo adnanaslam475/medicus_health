@@ -1,19 +1,18 @@
 import { Table } from "antd";
-import { Appointment, AppointmentServiceType, User } from "generated/graphql";
+import {
+  Appointment,
+  AppointmentServiceType,
+  AppointmentTimeSlots,
+  PhysicianAppointmentsQuery,
+  User,
+} from "generated/graphql";
 import React from "react";
-import Image from "next/image";
-import engFlag from "../../../../../public/assets/images/engFlag.png";
-import espanolFlag from "../../../../../public/assets/images/espanolFlag.png";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
+import { date } from "common/utils";
 
 type Props = {
-  dataSource: Appointment[] | undefined;
-};
-
-const FLAG_BY_LANGUAGE = {
-  ["english" as string]: engFlag,
-  ["Spanish" as string]: espanolFlag,
+  dataSource: PhysicianAppointmentsQuery["physicianAppointments"];
 };
 
 function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
@@ -22,7 +21,7 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
       title: "ID",
       dataIndex: "id",
       sorter: {
-        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
+        compare: (a: any, b: any) => a.id - b.id,
         multiple: 3,
       },
     },
@@ -32,60 +31,55 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
       render: (value: User) => {
         return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
       },
-
-      sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
-      },
     },
     {
       title: "Service",
       dataIndex: "serviceType",
+      sorter: {
+        compare: (a: any, b: any) =>
+          ("" + a?.serviceType?.name).localeCompare(b.serviceType.name),
+        multiple: 3,
+      },
       render: (value: AppointmentServiceType) => {
         return <div>{value?.name}</div>;
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
       },
     },
     {
       title: "Date",
-      dataIndex: "requestedDate",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
+      dataIndex: "appointmentTimeSlots",
+      render: (value: any) => {
+        let filteredVal = value.filter((val: any) => val.selected);
+        return (
+          <div>
+            {filteredVal[0]?.startTime &&
+              date.formatMMMMDDYYYY(filteredVal[0]?.startTime)}
+          </div>
+        );
       },
     },
     {
       title: "Time",
-      dataIndex: "language",
-      render: (language: string) => {
+      dataIndex: "appointmentTimeSlots",
+      render: (value: [AppointmentTimeSlots]) => {
+        let filteredVal = value?.filter((val: any) => val?.selected);
         return (
-          <div className="flagAvatar engFlag pr-2">
-            {FLAG_BY_LANGUAGE[language] && (
-              <Image
-                src={FLAG_BY_LANGUAGE[language]}
-                // src={espanolFlag}
-                alt={language || "flag"}
-                width={25}
-                height={25}
-              />
-            )}
+          <div>
+            {filteredVal[0]?.startTime &&
+              `${date.formathhmma(
+                filteredVal[0]?.startTime
+              )} - ${date.formathhmma(filteredVal[0]?.endTime)}`}
           </div>
         );
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.date - b.date,
-        multiple: 3,
       },
     },
     {
       title: "Total Amount",
-      dataIndex: "serviceType",
-      render: (value: AppointmentServiceType) => value.price,
+      dataIndex: "charges",
+      render: (value: number) => {
+        return <div>{value}</div>;
+      },
       sorter: {
-        compare: (a: any, b: any) => a.date - b.date,
+        compare: (a: any, b: any) => a.charges - b.charges,
         multiple: 3,
       },
     },
@@ -105,6 +99,7 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
       ),
     },
   ];
+
   return <Table columns={columns} dataSource={dataSource} />;
 }
 

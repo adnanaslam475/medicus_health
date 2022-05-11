@@ -1,134 +1,58 @@
-import React from "react";
-import DoctorCard from "common/components/DoctorCards/DoctorCards";
+import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { Button, Table, Tag, Modal } from "antd";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
+import { Button } from "antd";
 import Link from "next/link";
-
-import AdminPhysicianSearchFilters from "./UpcomingAppointmentFilter";
-import Router from "next/router";
-
-import Image from "next/image";
-import engFlag from "../../../../../public/assets/images/engFlag.png";
-import espanolFlag from "../../../../../public/assets/images/espanolFlag.png";
 import UpcomingAppointmentFilter from "./UpcomingAppointmentFilter";
-import SearchFilters from "common/components/SearchFilters/SearchFilters";
 import {
-  Appointment,
-  AppointmentServiceType,
-  useGetAllRequestedAppointmentsQuery,
-  User,
+  GetPhysicianAppointmentInput,
+  PhysicianAppointmentsQuery,
+  usePhysicianAppointmentsQuery,
 } from "generated/graphql";
-import { getUserData } from "common/utils/userData";
 import UpcomingAppointmentTableDoctor from "modules/doctor/components/UpcomingAppointmentTableDoctor/UpcomingAppointmentTableDoctor";
-
-const FLAG_BY_LANGUAGE = {
-  ["english" as string]: engFlag,
-  ["Spanish" as string]: espanolFlag,
-};
+import { useDebounce } from "use-debounce";
 
 function UpcomingAppointmentDoctor() {
-  // const [{ data }] = useDoctorProfilesQuery();
-  const { user } = getUserData();
-  const [{ data }] = useGetAllRequestedAppointmentsQuery({
-    variables: {
-      filter: {
-        doctorId: user?.id,
-      },
-    },
-  });
-  const { appointments } = data || {};
+  const [idOrName, setIdOrName] = useState();
+  const [serviceType, setServiceType] = useState();
+  const [creationDate, setCreationDate] = useState<string[]>([]);
 
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "doctidorId",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Patient",
-      dataIndex: "patient",
-      render: (value: User) => {
-        return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
-      },
+  const [debouncedIdOrName] = useDebounce(idOrName, 1000);
 
-      sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
+  const filter: GetPhysicianAppointmentInput = {};
+
+  if (idOrName && debouncedIdOrName) {
+    if (isNaN(debouncedIdOrName)) {
+      filter.patientName = debouncedIdOrName;
+    } else filter.doctorId = Number(debouncedIdOrName);
+  }
+
+  if (serviceType) {
+    filter.appointmentType = serviceType;
+  }
+
+  if (creationDate.length) {
+    filter.bookingDate = {
+      startDate: creationDate[0],
+      endDate: creationDate[1],
+    };
+  }
+
+  const [{ data: physicialData }, executeUsePhysicianAppointmentsQuery] =
+    usePhysicianAppointmentsQuery({
+      variables: {
+        filter: filter,
       },
-    },
-    {
-      title: "Service",
-      dataIndex: "serviceType",
-      render: (value: AppointmentServiceType) => {
-        return <div>{value?.name}</div>;
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Date",
-      dataIndex: "requestedDate",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Time",
-      dataIndex: "language",
-      render: (language: string) => {
-        return (
-          <div className="flagAvatar engFlag pr-2">
-            {FLAG_BY_LANGUAGE[language] && (
-              <Image
-                src={FLAG_BY_LANGUAGE[language]}
-                // src={espanolFlag}
-                alt={language || "flag"}
-                width={25}
-                height={25}
-              />
-            )}
-          </div>
-        );
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.date - b.date,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Total Amount",
-      dataIndex: "serviceType",
-      render: (value: AppointmentServiceType) => value.price,
-      sorter: {
-        compare: (a: any, b: any) => a.date - b.date,
-        multiple: 3,
-      },
-    },
-    {
-      title: "",
-      dataIndex: "doctor_id",
-      key: "view",
-      className: "table-action-icon",
-      render: (value: any) => (
-        <div>
-          <EyeFilled
-            onClick={() => {
-              return Router.push(`/doctor/appointments/detail`);
-            }}
-          />
-        </div>
-      ),
-    },
-  ];
-  function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-    console.log("params", pagination, filters, sorter, extra);
+    });
+  const { physicianAppointments } = physicialData || {};
+
+  function clearFilter() {
+    setIdOrName(undefined);
+    setServiceType(undefined);
+    setCreationDate([]);
+    executeUsePhysicianAppointmentsQuery({
+      requestPolicy: "network-only",
+      variables: { filter: filter },
+    });
   }
 
   return (
@@ -143,9 +67,19 @@ function UpcomingAppointmentDoctor() {
           </Link>
         </div>
 
-        <UpcomingAppointmentFilter />
+        <UpcomingAppointmentFilter
+          idOrName={idOrName}
+          setIdOrName={setIdOrName}
+          creationDate={creationDate}
+          setCreationDate={setCreationDate}
+          serviceType={serviceType}
+          setServiceType={setServiceType}
+          clearFilter={clearFilter}
+        />
         <UpcomingAppointmentTableDoctor
-          dataSource={appointments as Appointment[]}
+          dataSource={
+            physicianAppointments as PhysicianAppointmentsQuery["physicianAppointments"]
+          }
         />
       </div>
     </AppLayout>
