@@ -3,55 +3,25 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import { Button } from "antd";
 import Link from "next/link";
 import UpcomingAppointmentFilter from "./UpcomingAppointmentFilter";
-import {
-  GetPhysicianAppointmentInput,
-  PhysicianAppointmentsQuery,
-  usePhysicianAppointmentsQuery,
-} from "generated/graphql";
+import { Appointment, usePhysicianAppointmentsQuery } from "generated/graphql";
 import UpcomingAppointmentTableDoctor from "modules/doctor/components/UpcomingAppointmentTableDoctor/UpcomingAppointmentTableDoctor";
-import { useDebounce } from "use-debounce";
+import { physicianFilterType } from "utils/types";
 
 function UpcomingAppointmentDoctor() {
-  const [idOrName, setIdOrName] = useState();
-  const [serviceType, setServiceType] = useState();
-  const [creationDate, setCreationDate] = useState<string[]>([]);
-
-  const [debouncedIdOrName] = useDebounce(idOrName, 1000);
-
-  const filter: GetPhysicianAppointmentInput = {};
-
-  if (idOrName && debouncedIdOrName) {
-    if (isNaN(debouncedIdOrName)) {
-      filter.patientName = debouncedIdOrName;
-    } else filter.doctorId = Number(debouncedIdOrName);
-  }
-
-  if (serviceType) {
-    filter.appointmentType = serviceType;
-  }
-
-  if (creationDate.length) {
-    filter.bookingDate = {
-      startDate: creationDate[0],
-      endDate: creationDate[1],
-    };
-  }
-
+  const [filterValues, setFilterValues] = useState<physicianFilterType>({});
   const [{ data: physicialData }, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
       variables: {
-        filter: filter,
+        filter: filterValues,
       },
     });
   const { physicianAppointments } = physicialData || {};
 
-  function clearFilter() {
-    setIdOrName(undefined);
-    setServiceType(undefined);
-    setCreationDate([]);
+  function onChangeFilters(values: any) {
+    setFilterValues(values);
     executeUsePhysicianAppointmentsQuery({
+      filter: filterValues,
       requestPolicy: "network-only",
-      variables: { filter: filter },
     });
   }
 
@@ -67,19 +37,9 @@ function UpcomingAppointmentDoctor() {
           </Link>
         </div>
 
-        <UpcomingAppointmentFilter
-          idOrName={idOrName}
-          setIdOrName={setIdOrName}
-          creationDate={creationDate}
-          setCreationDate={setCreationDate}
-          serviceType={serviceType}
-          setServiceType={setServiceType}
-          clearFilter={clearFilter}
-        />
+        <UpcomingAppointmentFilter onChange={onChangeFilters} />
         <UpcomingAppointmentTableDoctor
-          dataSource={
-            physicianAppointments as PhysicianAppointmentsQuery["physicianAppointments"]
-          }
+          dataSource={physicianAppointments as Array<Appointment>}
         />
       </div>
     </AppLayout>

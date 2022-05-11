@@ -1,58 +1,77 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { Input, Button, Select, DatePicker } from "antd";
 import {
   CaretDownOutlined,
   CloseOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { physicianFilterType } from "utils/types";
 
 const { Option } = Select;
 
 const { RangePicker } = DatePicker;
 
 type Props = {
-  setIdOrName: (e: any) => void;
-  setServiceType: (e: any) => any;
-  setCreationDate: (e: string[]) => void;
-  clearFilter: () => void;
-  idOrName: string | number | undefined;
-  serviceType: string | number | undefined;
-  creationDate: string[];
+  onChange: (value: physicianFilterType) => void;
 };
 
-function UpcomingAppointmentFilter({
-  setIdOrName,
-  setCreationDate,
-  setServiceType,
-  clearFilter,
-  idOrName,
-  serviceType,
-  creationDate,
-}: Props) {
+function UpcomingAppointmentFilter({ onChange }: Props) {
+  const [filterState, setFilterState] = useState<physicianFilterType>({});
+
+  function clear() {
+    setFilterState({});
+    onChange({});
+  }
+
   const [openDateRange, setOpenDateRange] = useState(false);
+
   const applyDateRange = () => {
     setOpenDateRange(false);
   };
 
-  function onChange(date: any, dateString: string[]) {
-    setCreationDate(dateString);
+  function onChangeFields(key: string, value: string | object) {
+    const filters = {
+      ...filterState,
+      [key]: value,
+    };
+    setFilterState(filters);
+
+    if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
+      delete filters.bookingDate;
+    }
+    if (!filters.patientName) {
+      delete filters.patientName;
+    }
+    if (!filters.appointmentType) {
+      delete filters.appointmentType;
+    }
+
+    onChange(filters);
   }
+
   return (
     <div className="page-filters flex-none lg:flex items-center mb-5">
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
           <Input
-            placeholder="Search by ID or physician name"
+            value={filterState.patientName}
+            placeholder="Search by ID or patient name"
             prefix={<SearchOutlined />}
-            value={idOrName}
-            onChange={(e) => setIdOrName(e.target.value)}
+            onChange={(e) => {
+              onChangeFields("patientName", e.target.value);
+            }}
           />
         </div>
 
         <div className="relative mb-6 pl-2 ">
           <RangePicker
             value={null}
-            onChange={onChange}
+            onChange={(_, dateString: string[]) =>
+              onChangeFields("bookingDate", {
+                startDate: dateString[0],
+                endDate: dateString[1],
+              })
+            }
             open={openDateRange}
             className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
             renderExtraFooter={() => (
@@ -83,10 +102,10 @@ function UpcomingAppointmentFilter({
             type="default"
             onClick={() => setOpenDateRange?.(!openDateRange)}
           >
-            {creationDate.length ? (
+            {filterState.bookingDate?.startDate ? (
               <div>
-                {creationDate
-                  ? `${creationDate[0]} -> ${creationDate[1]}`
+                {filterState.bookingDate
+                  ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
                   : "Creation Date"}
               </div>
             ) : (
@@ -105,14 +124,14 @@ function UpcomingAppointmentFilter({
           <Select
             placeholder="Service"
             className="w-full sm:w-40"
-            onChange={(value) => setServiceType(String(value))}
-            value={serviceType || "Service"}
+            onChange={(value) => onChangeFields("appointmentType", value)}
+            value={filterState.appointmentType || "Service"}
           >
             <Option value="consultation">Consultation</Option>
             <Option value="second opinion">Second Opinion</Option>
           </Select>
         </div>
-        <Button type="text" className="sm:ml-3" onClick={() => clearFilter()}>
+        <Button type="text" className="sm:ml-3" onClick={clear}>
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1">Clear</span>
         </Button>
