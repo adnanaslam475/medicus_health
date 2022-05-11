@@ -27,7 +27,7 @@ function SuccessMessage() {
         </p>
         <button 
           className="text-white bg-primary text-sm rounded-md p-3 px-8"
-          onClick={() => Router.push("/patient/appointments/upcoming")}
+          onClick={() => Router.push("/patient/appointments/requested")}
           >
           Back to Appointments
         </button>

@@ -1,5 +1,5 @@
 import { FormInstance, Modal } from "antd";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   DoctorProfile,
   useCreateAppointmentMutation,
@@ -69,6 +69,13 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   const [data, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
 
+  useEffect(() => {
+    if (visible) {
+      setCurrentStepName("stepOne");
+      setCurrentStepNumber(0);
+    }
+  }, [visible]);
+
   const next = (stepName: string) => {
     if (stepName === "stepFour") return;
     if (stepName === "stepOne") {
@@ -119,7 +126,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
           patientId: id as number,
-          doctorId: Number(query?.id),
+          doctorId: Number(query?.id) || Number(doctorData?.doctor_id),
           serviceId: serviceId,
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),

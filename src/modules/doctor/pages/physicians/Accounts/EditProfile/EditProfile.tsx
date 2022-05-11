@@ -227,7 +227,6 @@ function EditProfile({
 
   const fileChange = async (info: UploadChangeParam) => {
     const s3 = new ReactS3Client(configS3);
-    console.log({ s3 });
     try {
       const url = await s3.uploadFile(info.file.originFileObj as File);
       setImage(url?.location);
@@ -383,7 +382,6 @@ function EditProfile({
                   dependencies={["password"]}
                   rules={[
                     {
-                      required: true,
                       message: "Please confirm your password!",
                     },
                     ({ getFieldValue }) => ({
@@ -405,7 +403,13 @@ function EditProfile({
                 </Form.Item>
               </div>
 
-              <InputWithLi disable={false} />
+              <InputWithLi
+                disable={false}
+                onChange={(list) => {
+                  handleConditionTreated(list);
+                }}
+                initialValue={condition_treated?.split(",")}
+              />
 
               <MultiRangeDatePicker
                 loading={loading}
@@ -413,6 +417,8 @@ function EditProfile({
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}
                 setAddScheduleTime={setAddScheduleTime}
+                addScheduleTime={addScheduleTime}
+                addScheduleDay={addScheduleDay}
                 setAddScheduleDay={setAddScheduleDay}
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
@@ -595,15 +601,15 @@ function EditProfile({
                 </Form.Item>
               </div> */}
 
-              <InputWithLi
+              {/* <InputWithLi
                 disable={false}
                 onChange={(list) => {
                   handleConditionTreated(list);
                 }}
-                initialValue={condition_treated.split(",")}
-              />
+                initialValue={condition_treated?.split(",")}
+              /> */}
               {/* Physician - Account - Its editable component so all props are required */}
-              <MultiRangeDatePicker
+              {/* <MultiRangeDatePicker
                 loading={loading}
                 disable={false}
                 schedules={schedules}
@@ -613,7 +619,7 @@ function EditProfile({
                 addScheduleDay={addScheduleDay}
                 setAddScheduleDay={setAddScheduleDay}
                 onAddClick={onAddClick}
-              />
+              /> */}
 
               <div className={`my-6 hidden ${_classes["educational"]}`}>
                 <h6>Login Information</h6>

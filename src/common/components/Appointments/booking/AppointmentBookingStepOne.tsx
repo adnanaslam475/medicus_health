@@ -28,14 +28,14 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const { physicianName, service, price, requestedDate, availability } =
       appoinmentDetails?.stepOne || {};
     const { physicianData, onFinish } = props || {};
-    const { first_name, last_name } = physicianData?.user || {};
+    const { first_name, last_name, id } = physicianData?.user || {};
     const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
 
     //   GET ID FROM URL
     const { query } = useRouter();
 
     const [{ data: scheduleDetails }] = useDoctorSchedulesQuery({
-      variables: { doctorId: Number(query?.id) },
+      variables: { doctorId: Number(query?.id) || Number(id) },
     });
 
     useEffect(() => {
@@ -116,7 +116,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  ${serviceInfo &&
+                  $
+                  {serviceInfo &&
                     `${serviceInfo?.map((item) =>
                       item?.price ? item?.price : ""
                     )}`}

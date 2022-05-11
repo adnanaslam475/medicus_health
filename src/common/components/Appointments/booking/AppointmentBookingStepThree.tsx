@@ -11,19 +11,26 @@ import {
 } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import {
+  DoctorProfile,
   useDoctorProfileQuery,
   useDoctorQuestionnaireQuery,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../generated/graphql";
 import { useRouter } from "next/router";
 import { NamePath } from "antd/lib/form/interface";
+import { parseJson } from "common/utils/helper";
 
-const StepThree = React.forwardRef(function StepThree({}, ref: any) {
+type Props = {
+  physicianData?: DoctorProfile;
+};
+
+const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const { query } = useRouter();
-
+  const { physicianData } = props || {};
+  const { id } = physicianData?.user || {};
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
-      doctorId: Number(query?.id),
+      doctorId: Number(query?.id) || Number(id),
     },
   });
   const { doctorQuestionnaire } = dataList || {};
@@ -52,18 +59,6 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
       // questionnaire: doctorQuestionnaire?.questionnaire,
     });
   }
-
-  function parseJson(jsonString: string) {
-    let obj = null;
-    try {
-      obj = JSON.parse(jsonString);
-    } catch (error) {
-      console.log(error);
-      obj = null;
-    }
-    return obj;
-  }
-
 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
 
@@ -96,13 +91,13 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
                   label={item.label}
                   className="text-secondary"
                   name={item.name}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please fill the blank",
-                      whitespace: true,
-                    },
-                  ]}
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //     message: "Please fill the blank",
+                  //     whitespace: true,
+                  //   },
+                  // ]}
                 >
                   <Input />
                 </Form.Item>
@@ -113,13 +108,13 @@ const StepThree = React.forwardRef(function StepThree({}, ref: any) {
                   label={item.label}
                   className="text-secondary"
                   name={item.name}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please select the option",
-                      whitespace: true,
-                    },
-                  ]}
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //     message: "Please select the option",
+                  //     whitespace: true,
+                  //   },
+                  // ]}
                 >
                   <Radio.Group>
                     {item?.options?.map(({ value, label }) => {

@@ -6,6 +6,7 @@ import {
 } from "../../../generated/graphql";
 import { useRouter } from "next/router";
 import { NamePath } from "rc-field-form/lib/interface";
+import { parseJson } from "common/utils/helper";
 
 type Props = {
   appointmentHealthHistory: string;
@@ -16,7 +17,9 @@ function PhysicianQuestionnaire(props: Props) {
   const [formInstance] = Form.useForm();
   const { appointmentHealthHistory } = props || {};
 
-  let History = JSON.parse(appointmentHealthHistory);
+  
+
+  let History = parseJson(appointmentHealthHistory);
 
   useEffect(() => {
     prepareAndSetEditPayload();
@@ -359,12 +362,3 @@ function PhysicianQuestionnaire(props: Props) {
   );
 }
 export default PhysicianQuestionnaire;
-
-
-
-
-
-
-
-
-

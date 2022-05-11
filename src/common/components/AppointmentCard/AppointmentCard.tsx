@@ -4,7 +4,10 @@ import AppointmnetRequestedCard from "./CardTypes/AppointmnetRequestedCard";
 import AppointmnetCancelledCard from "./CardTypes/AppointmnetCancelledCard";
 import AppointmnetSuggestedCard from "./CardTypes/AppointmnetSuggestedCard";
 import { getUserData } from "../../utils/userData";
-import { AppointmentTimeSlots } from "../../../generated/graphql";
+import {
+  AppointmentTimeSlots,
+  DoctorProfile,
+} from "../../../generated/graphql";
 
 // scss
 import _classes from "./AppointmentCard.module.scss";
@@ -15,6 +18,7 @@ type props = {
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
+  doctorProfile?: DoctorProfile | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal?: (data: boolean) => void;
   onViewSuggestedSlots: () => void;
@@ -26,6 +30,7 @@ function AppointmentCard({
   status,
   serviceType,
   doctor,
+  doctorProfile,
   appointmentTimeSlots,
   setShowModal,
   onViewSuggestedSlots,
@@ -75,6 +80,7 @@ function AppointmentCard({
           status={getStatus()}
           serviceType={serviceType}
           doctor={doctor}
+          doctorProfile={doctorProfile}
           appointmentTimeSlots={appointmentTimeSlots}
         />
       );

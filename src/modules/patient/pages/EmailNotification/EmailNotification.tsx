@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EmailNotification from "../../../common/components/EmailNotification/EmailNotification";
 import ThinLine from "../../../../common/components/ThinLine/ThinLine";
 import {
@@ -18,6 +18,10 @@ function EmailNotificationPage() {
     executeToggleEmailPreferencesMutation,
   ] = useToggleEmailPreferencesMutation();
 
+  useEffect(() => {
+    executeUserEmailPreferencesQuery({ requestPolicy: "network-only" });
+  }, []);
+
   async function ChangeHandler(value: string, valStatus: boolean) {
     const variables = {
       toggleEmailPreferencesInput: { [value]: valStatus },
@@ -29,25 +33,26 @@ function EmailNotificationPage() {
     <div>
       <div className="flex md:flex-row gap-0 max-w-[60%]">
         <div className=" w-full border py-0 rounded-lg border-gray-7">
-          {userEmailPreferences &&
-            patientEmailPreferencesData?.map((item) => {
-              return (
-                <>
-                  <EmailNotification
-                    title={item.value}
-                    key={item.key}
-                    onChange={(e: boolean) => ChangeHandler(item.key, e)}
-                    checked={
-                      !!userEmailPreferences[
-                        //@ts-ignore
-                        item?.key as keyof TogglePreference
-                      ]
-                    }
-                  />
-                  <ThinLine />
-                </>
-              );
-            })}
+          {patientEmailPreferencesData?.map((item) => {
+            return (
+              <>
+                <EmailNotification
+                  title={item.value}
+                  key={item.key}
+                  onChange={(e: boolean) => ChangeHandler(item.key, e)}
+                  disabled={!userEmailPreferences}
+                  checked={
+                    userEmailPreferences &&
+                    userEmailPreferences[
+                      //@ts-ignore
+                      item?.key as keyof TogglePreference
+                    ]
+                  }
+                />
+                <ThinLine />
+              </>
+            );
+          })}
         </div>
       </div>
     </div>
