@@ -343,6 +343,17 @@ export type GetAppointmentInput = {
   status?: InputMaybe<Scalars['String']>;
 };
 
+export type GetCancelledAppointmentInput = {
+  appointmentId?: InputMaybe<Scalars['Int']>;
+  bookingDate?: InputMaybe<BookingDate>;
+  doctorId?: InputMaybe<Scalars['Int']>;
+  dueDate?: InputMaybe<DueDate>;
+  physicianName?: InputMaybe<Scalars['String']>;
+  searchPatient?: InputMaybe<Scalars['String']>;
+  serviceId?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['String']>;
+};
+
 export type GetPhysicianAppointmentInput = {
   appointmentId?: InputMaybe<Scalars['Int']>;
   appointmentTime?: InputMaybe<AppointmentTime>;
@@ -741,6 +752,11 @@ export type QueryAppointmentServiceTypeArgs = {
 
 export type QueryAppointmentsArgs = {
   filter: GetAppointmentInput;
+};
+
+
+export type QueryCancelledAppointmentsArgs = {
+  filter: GetCancelledAppointmentInput;
 };
 
 
@@ -1261,8 +1277,13 @@ export type GetAllRequestedAppointmentsQueryVariables = Exact<{
   filter: GetAppointmentInput;
 }>;
 
+export type GetAllCancelledAppointmentsQueryVariables = Exact<{
+  filter: GetCancelledAppointmentInput;
+}>;
+
 
 export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, requestedDate: any, status?: string | null, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', createdAt: any, amountReceived: number } | null }> };
+export type GetAllCancelledAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, requestedDate: any, status?: string | null, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id: number, state_id: number, city_id: number, zip_code: string, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', createdAt: any, amountReceived: number } | null }> };
 
 export type DoctorProfileDetailsQueryVariables = Exact<{
   input: Scalars['Int'];
@@ -2094,9 +2115,46 @@ export const GetAllRequestedAppointmentsDocument = gql`
 }
     `;
 
+export const GetAllCancelledAppointmentsDocument = gql`
+query{
+  appointments(
+    filter:{ 
+      status: "Cancelled"
+    }
+  ){
+    id
+    requestedDate
+    schedule{
+      startTime
+      endTime
+    }
+    serviceType {
+      id
+      name
+      price
+    }
+    doctor{
+      first_name
+      last_name
+    }
+    patient{
+      first_name
+      last_name
+      contact_number
+    }
+    createdAt
+  }
+}
+    `;
+
 export function useGetAllRequestedAppointmentsQuery(options: Omit<Urql.UseQueryArgs<GetAllRequestedAppointmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAllRequestedAppointmentsQuery>({ query: GetAllRequestedAppointmentsDocument, ...options });
 };
+
+export function useGetAllCancelledAppointmentsQuery(options: Omit<Urql.UseQueryArgs<GetAllCancelledAppointmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllCancelledAppointmentsQuery>({ query: GetAllCancelledAppointmentsDocument, ...options });
+};
+
 export const DoctorProfileDetailsDocument = gql`
     query doctorProfileDetails($input: Int!) {
   user(id: $input) {

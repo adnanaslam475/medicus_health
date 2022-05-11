@@ -1,13 +1,12 @@
 import { Button, Empty } from "antd";
 import React, { useState } from "react";
-import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
+// import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
+import SearchFilters from "common/components/SearchFilters/SearchFilters";
+import Table from './CancelledAppointmentTable'
 import {
   Appointment,
-  AppointmentTimeSlots,
-  DoctorProfile,
-  useGetAllRequestedAppointmentsQuery,
+  useGetAllCancelledAppointmentsQuery,
 } from "../../../../../generated/graphql";
 
 function CancelledAppointment() {
@@ -20,7 +19,7 @@ function CancelledAppointment() {
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Cancelled");
-  const [{ data }] = useGetAllRequestedAppointmentsQuery({
+  const [{ data }] = useGetAllCancelledAppointmentsQuery({
     variables: {
       filter: {
         status: status,
@@ -28,19 +27,23 @@ function CancelledAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
+        dueDate: {
+          startDate: dueStartDate,
+          endDate: dueEndDate,
+        },
       },
     },
   });
 
-  function onViewSuggestedSlots(id: number) {
-    setCurrentAppointmentId(id);
-    setShowModal(true);
-  }
+  // function onViewSuggestedSlots(id: number) {
+  //   setCurrentAppointmentId(id);
+  //   setShowModal(true);
+  // }
 
   const { appointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  console.log(appointments, "appointments");
+  console.log(data, "<============cancelledappointments", dueStartDate,serviceIds,dueEndDate,doctorIds);
   return (
     <AppLayout>
       <div className="w-full">
@@ -58,42 +61,19 @@ function CancelledAppointment() {
         </div>
 
         <div className="w-5/6">
-          <SearchFilters
+           <SearchFilters
             setStartDate={setStartDate}
             setEndDate={setEndDate}
             setDataListPhysician={setDataListPhysician}
             setDoctorId={setDoctorId}
             setAppointmentIds={setAppointmentIds}
             setServiceIds={setServiceIds}
+            isFromPhysician
           />
         </div>
-
         <div className="w-full">
           {appointments?.length !== 0 && appointments ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-              {appointments?.map((appointmentDetail, i) => {
-                const {
-                  requestedDate,
-                  status,
-                  serviceType,
-                  doctor,
-                  appointmentTimeSlots,
-                } = appointmentDetail || {};
-                return (
-                  <AppointmentCard
-                    requestedDate={requestedDate}
-                    status={status}
-                    serviceType={serviceType?.name}
-                    doctor={doctor?.first_name}
-                    doctorProfile={doctor?.doctorProfile as DoctorProfile}
-                    appointmentTimeSlots={
-                      appointmentTimeSlots as AppointmentTimeSlots[]
-                    }
-                    onViewSuggestedSlots={() => {}}
-                  />
-                );
-              })}
-            </div>
+            <Table dataSource={appointments as Appointment[]} />
           ) : (
             <div className="flex items-center justify-center w-full">
               <Empty />
