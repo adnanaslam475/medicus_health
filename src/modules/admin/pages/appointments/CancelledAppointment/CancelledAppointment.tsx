@@ -1,6 +1,5 @@
 import { Button, Empty } from "antd";
 import React, { useState } from "react";
-// import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import SearchFilters from "common/components/SearchFilters/SearchFilters";
 import Table from './CancelledAppointmentTable'
@@ -85,6 +84,3 @@ function CancelledAppointment() {
   );
 }
 export default CancelledAppointment;
-function setCurrentAppointmentId(id: number) {
-  throw new Error("Function not implemented.");
-}
