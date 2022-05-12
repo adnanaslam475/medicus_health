@@ -243,15 +243,3 @@ mutation cancelAppointmentByDoctor($id: Int!) {
     scheduleId
   }
 }
-
-mutation proposeNewTime($proposeNewTimeInput: ProposeNewTimeInput!) {
-  proposeNewTime(proposeNewTimeInput: $proposeNewTimeInput) {
-    id
-    patientId
-    doctorId
-    serviceId
-    scheduleId
-    requestedDate
-    status
-  }
-}

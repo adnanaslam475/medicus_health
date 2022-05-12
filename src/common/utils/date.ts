@@ -1,7 +1,13 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import duration from "dayjs/plugin/duration";
 
 dayjs.extend(utc);
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(duration);
 
 export function convertToUTC(date: string) {
   return dayjs.utc(date).format();
@@ -60,4 +66,8 @@ export function isAppoinentDateIsSame(date: string) {
 
 export function formatMMMM_Dcoma_YYYY(date: string) {
   return dayjs(date).format("MMMM D, YYYY");
+}
+
+export function getDayJsObject(date: string, format: string = "MMMM D, YYYY") {
+  return dayjs(date, format);
 }

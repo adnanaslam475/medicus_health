@@ -59,9 +59,11 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       last_name
     }
     serviceType {
+      id
       name
+      price
     }
-     appointmentTimeSlots {
+    appointmentTimeSlots {
       id
       startTime
       endTime
@@ -96,5 +98,24 @@ query doctorAppointmentDetailPatientInfo($id: Int!) {
         pets
       }
     }
+  }
+}
+
+query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
+  physicianAppointments(filter: $filter) {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    serviceType {
+      name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    charges
   }
 }

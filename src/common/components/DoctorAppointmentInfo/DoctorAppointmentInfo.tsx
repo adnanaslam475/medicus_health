@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CheckOutlined,
   MessageOutlined,
@@ -13,6 +13,7 @@ import {
   Modal,
   notification,
   Select,
+  Space,
   Tag,
 } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
@@ -25,17 +26,19 @@ import {
   Appointment,
   AppointmentServiceType,
   useCancelAppointmentByDoctorMutation,
+  useGetAllAppointmentServiceTypesQuery,
   useProposeNewTimeMutation,
 } from "generated/graphql";
-import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
+import { formatMMMM_Dcoma_YYYY, getDayJsObject } from "common/utils/date";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 
-type props = {
+type Props = {
   data: Appointment | undefined;
+  onCancelRequestedAppointment?: () => void;
 };
-function DoctorAppointmentInfo({ data }: props) {
+function DoctorAppointmentInfo({ data }: Props) {
   const {
     id,
     patient,
@@ -76,6 +79,8 @@ function DoctorAppointmentInfo({ data }: props) {
       }
     } catch (error) {}
   }
+
+  function onProposeNewTimeSlot() {}
 
   // FOR FOOTER OF APPOINTMENT DETAIL PAGE
   const { pathname } = useRouter();
@@ -118,12 +123,11 @@ function DoctorAppointmentInfo({ data }: props) {
         </li>
       </div>
 
-      {pathname.includes("appointments/upcoming") && (
-        <DoctorAppointmentInfoFooter />
-      )}
-      {pathname.includes("appointments/requested") && (
+      {status === "Confirmed" && <DoctorAppointmentInfoFooter />}
+      {status === "Requested" && (
         <DoctorRequestedAppointmentInfoFooter
           onCancelRequestedAppointment={onCancelRequestedAppointment}
+          data={data}
         />
       )}
     </div>
@@ -163,11 +167,19 @@ function DoctorAppointmentInfoFooter() {
   );
 }
 
-function DoctorRequestedAppointmentInfoFooter({
-  onCancelRequestedAppointment,
-}: {
-  onCancelRequestedAppointment: () => void;
-}) {
+function DoctorRequestedAppointmentInfoFooter(props: Props) {
+  const { onCancelRequestedAppointment, data } = props || {};
+  const {
+    id,
+    patient,
+    serviceType,
+    charges,
+    status,
+    requestedDate,
+    appointmentTimeSlots,
+  } = data || {};
+  console.log("datadata", data);
+
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -183,41 +195,47 @@ function DoctorRequestedAppointmentInfoFooter({
   };
 
   // FOR PROPOSE NEW TIME
+  const [{ data: appointmentServiceTypes }] =
+    useGetAllAppointmentServiceTypesQuery();
+  const allAppoinments = appointmentServiceTypes?.appointmentServiceTypes;
 
   const [formInstance] = Form.useForm();
   // API CALL
-  const [data] = useProposeNewTimeMutation();
-  console.log(data, "dataproposeNewTimeSlots");
+  // const [data] = useProposeNewTimeMutation();
+  // console.log(data, "dataproposeNewTimeSlots");
   // const { physicianData, onFinish } = props || {};
-  const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
-  // const { service, price, requestedDate, availability } = Appointment || {};
 
-  // function prepareAndSetEditPayload() {
-  //   formInstance.setFieldsValue({
-  //     service: service,
-  //     charges: price,
-  //     requestedDate: requestedDate,
-  //     availability: availability,
-  //   });
-  // }
+  const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
 
-  function handleServiceChange(value: any) {
-    // let charge = Appointment?.filter((serviceType) => serviceType.id === value);
-    // setServiceInfo(charge);
+  useEffect(() => {
+    if (data) {
+      prepareAndSetEditPayload();
+    }
+  }, [data]);
+
+  function prepareAndSetEditPayload() {
+    formInstance.setFieldsValue({
+      service: serviceType?.id,
+      requestedDate: getDayJsObject(requestedDate),
+    });
+
+    setServiceInfo(serviceType as AppointmentServiceType);
+    console.log(serviceType);
   }
 
-  function disabledDate(current: any) {
-    if (serviceInfo) {
-      if (
-        serviceInfo[0]?.name === "Consultation" ||
-        serviceInfo[0]?.name === "consultation"
-      ) {
-        return dayjs(current).isBefore(dayjs().add(1, "day"));
-      } else if (serviceInfo[0]?.name === "Second Opinion") {
-        return dayjs(current).isBefore(dayjs().add(4, "day"));
-      }
-    }
-    return true;
+  function handleServiceChange(value: any) {
+    let charge = allAppoinments?.find(
+      (serviceType) => serviceType.id === value
+    );
+    setServiceInfo(charge);
+  }
+
+  function onChangeDatePicker(value: null, dateString: string): void {
+    console.log("Selected Time: ", value);
+    console.log("Formatted Selected Time: ", dateString);
+  }
+  function onOkDatePicker(value: string) {
+    console.log("onOk: ", value);
   }
 
   return (
@@ -256,7 +274,7 @@ function DoctorRequestedAppointmentInfoFooter({
         footer={null}
       >
         <h2>Propose New Time</h2>
-        <Form layout="vertical">
+        <Form layout="vertical" form={formInstance}>
           <div className="flex">
             <div className="w-5/6">
               <Form.Item label="Service*" name="service">
@@ -265,22 +283,18 @@ function DoctorRequestedAppointmentInfoFooter({
                   className="w-full"
                   onChange={handleServiceChange}
                 >
-                  {/* {allAppoinments?.map((item) => (
+                  {allAppoinments?.map((item) => (
                     <Select.Option key={item?.id} value={item.id}>
                       {item.name}
                     </Select.Option>
-                  ))} */}
+                  ))}
                 </Select>
               </Form.Item>
             </div>
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  $
-                  {serviceInfo &&
-                    `${serviceInfo?.map((item) =>
-                      item?.price ? item?.price : ""
-                    )}`}
+                  ${serviceInfo?.price || ""}
                 </div>
               </Form.Item>
             </div>
@@ -289,79 +303,47 @@ function DoctorRequestedAppointmentInfoFooter({
             <DatePicker
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
-              className="w-full"
-              disabledDate={disabledDate}
+              className="w-full pointer-events-none"
             />
           </Form.Item>
-          {/* <div className="flex">
-            <div className="w-5/6">
-              <Form.Item label="Service*" name="service">
-                <Select placeholder="Service*" className="w-full">
-                  <Select.Option>First Consultation</Select.Option>
-                </Select>
-              </Form.Item>
-            </div>
-            <div className="w-1/6 ml-4">
-              <Form.Item label="Amount" name="Amount">
-                <Input placeholder="" className="w-full" />
-              </Form.Item>
-            </div>
-          </div>
-          <Form.Item label="Requested Date*" name="requestedDate">
-            <DatePicker
-              placeholder="mm/dd/yy"
-              format={"MM-DD-YYYY"}
-              className="w-full"
-            />
-          </Form.Item> */}
+
           <label>Availability*</label>
-          <div className="flex mt-2 mb-5 border-gray-8">
-            <div className="w-32 ">
+          <div className="flex mt-2 mb-3 border-gray-8">
+            <div className="w-50">
               <Form.Item label="Start Time" name="Start Time">
-                <Select placeholder="Select" className="w-full">
-                  <Select.Option>08:00 AM</Select.Option>
-                  <Select.Option>08:30 AM</Select.Option>
-                  <Select.Option>09:00 AM</Select.Option>
-                  <Select.Option>08:30 AM</Select.Option>
-                  <Select.Option>10:00 AM</Select.Option>
-                </Select>
-              </Form.Item>
-            </div>
-            <div className="w-32 ml-4">
-              <Form.Item label="End Time" name="End Time">
-                <Select placeholder="Select" className="w-full">
-                  <Select.Option>08:00 AM</Select.Option>
-                  <Select.Option>08:30 AM</Select.Option>
-                  <Select.Option>09:00 AM</Select.Option>
-                  <Select.Option>08:30 AM</Select.Option>
-                  <Select.Option>10:00 AM</Select.Option>
-                </Select>
+                <Space direction="vertical" size={12}>
+                  <DatePicker
+                    showTime
+                    // onChange={onChangeDatePicker}
+                    // onOk={onOkDatePicker}
+                  />
+                </Space>
               </Form.Item>
             </div>
           </div>
-          <div className="flex mt-2 mb-5 border-b border-gray-8">
-            <div className="w-32">
+          <div className="flex mt-2 mb-3 border-b border-gray-8">
+            <div className="w-50">
               <Form.Item label="Start Time" name="Start Time">
-                <Select placeholder="Select" className="w-full">
-                  <Select.Option>08:00 AM</Select.Option>
-                  <Select.Option>08:30 AM</Select.Option>
-                  <Select.Option>09:00 AM</Select.Option>
-                  <Select.Option>08:30 AM</Select.Option>
-                  <Select.Option>10:00 AM</Select.Option>
-                </Select>
+                <Space direction="vertical" size={12}>
+                  <DatePicker
+                    showTime
+                    // onChange={onChangeDatePicker}
+                    // onOk={onOkDatePicker}
+                  />
+                </Space>
               </Form.Item>
             </div>
-            <div className="w-32 ml-4">
-              <Form.Item label="End Time" name="End Time">
-                <Select placeholder="Select" className="w-full">
-                  <Select.Option>08:00 AM</Select.Option>
-                  <Select.Option>08:30 AM</Select.Option>
-                  <Select.Option>09:00 AM</Select.Option>
-                  <Select.Option>08:30 AM</Select.Option>
-                  <Select.Option>10:00 AM</Select.Option>
-                </Select>
-              </Form.Item>
-            </div>
+          </div>
+          <div className="text-primary text-left">
+            <Button type="link">+ Add Slot</Button>
+          </div>
+          <div className="flex justify-end">
+            <Button
+            // className={`${_classes["appointments-btn"]}`}
+            // onClick={onProposeNewTimeSlot}
+            >
+              Propose Time
+            </Button>
           </div>
         </Form>
       </Modal>
