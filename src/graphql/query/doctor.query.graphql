@@ -59,9 +59,11 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       last_name
     }
     serviceType {
+      id
       name
+      price
     }
-     appointmentTimeSlots {
+    appointmentTimeSlots {
       id
       startTime
       endTime
