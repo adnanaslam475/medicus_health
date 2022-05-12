@@ -114,6 +114,8 @@ query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
       endTime
       selected
     }
+    createdAt
+    requestedDate
     charges
   }
 }
