@@ -25,7 +25,6 @@ import {
   Appointment,
   AppointmentServiceType,
   useCancelAppointmentByDoctorMutation,
-  useProposeNewTimeMutation,
 } from "generated/graphql";
 import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
 import { date } from "common/utils";
@@ -186,8 +185,8 @@ function DoctorRequestedAppointmentInfoFooter({
 
   const [formInstance] = Form.useForm();
   // API CALL
-  const [data] = useProposeNewTimeMutation();
-  console.log(data, "dataproposeNewTimeSlots");
+  // const [data] = useProposeNewTimeMutation();
+  // console.log(data, "dataproposeNewTimeSlots");
   // const { physicianData, onFinish } = props || {};
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
   // const { service, price, requestedDate, availability } = Appointment || {};
