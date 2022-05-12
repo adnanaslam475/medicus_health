@@ -7,9 +7,12 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import _Classes from "./CalendarView.module.scss";
-import { Button, Select } from "antd";
-import { useDoctorProfilesQuery } from "../../../../generated/graphql";
-import Router from "next/router";
+import { Input, Button, Select } from "antd";
+import {
+  Appointment,
+  useDoctorProfilesQuery,
+  usePhysicianAppointmentsQuery,
+} from "../../../../generated/graphql";
 import { CloseOutlined } from "@ant-design/icons";
 
 type Props = {
@@ -17,8 +20,11 @@ type Props = {
   handleDateClick: (arg: any | undefined) => void;
   calendarComponentRef: React.LegacyRef<FullCalendar> | undefined | any;
   calender: object | any;
-  setDoctorId: number | any;
-  redirectToListing:()=>void
+  redirectToListing: () => void;
+};
+
+type events = {
+  calenderEvents: Appointment | undefined | Array<object>;
 };
 
 function AdminAimsCalender(props: Props) {
@@ -27,28 +33,53 @@ function AdminAimsCalender(props: Props) {
     calendarComponentRef,
     calender,
     handleDateClick,
-    setDoctorId,
-    redirectToListing
+    redirectToListing,
   } = props;
-  const events = [{ title: "today's event", date: new Date() }];
+
   const [isSearch, setIsSearch] = useState<boolean>(false);
-  const [selectedItems, setSelectedItems] = useState<string | null>(null);
-
-  const [{ data }] = useDoctorProfilesQuery();
-  const { doctorProfiles } = data || {};
-
+  const [searchText, setSearchText] = useState<string | undefined>("");
+  const [filterCalender, setFilterCalender] = useState<events>({
+    calenderEvents: [],
+  });
   function handleSearch() {
     setIsSearch(!isSearch);
   }
 
-  const handleChange = (selectedItems: any) => {
-    setSelectedItems(selectedItems);
-    setDoctorId(selectedItems);
+  const [{ data: physicianData }] = usePhysicianAppointmentsQuery({
+    variables: {
+      filter: {
+        patientName: searchText,
+      },
+    },
+  });
+  const { physicianAppointments } = physicianData || {};
+
+  const setCalendarData = () => {
+    setFilterCalender({
+      ...calender,
+      calenderEvents: physicianAppointments?.map(
+        ({ id, patient, requestedDate, serviceType, charges }) => ({
+          id: id,
+          title: patient.first_name,
+          start: requestedDate,
+          patient: patient.first_name + " " + patient.last_name,
+          serviceType: serviceType?.name,
+          charges: charges,
+        })
+      ),
+    });
+  };
+
+  useEffect(() => {
+    setCalendarData();
+  }, [physicianAppointments]);
+
+  const handleChange = (searchText: string) => {
+    setSearchText(searchText);
   };
 
   const onClear = () => {
-    setSelectedItems(null);
-    setDoctorId(undefined)
+    setSearchText("");
   };
 
   return (
@@ -57,26 +88,11 @@ function AdminAimsCalender(props: Props) {
         {isSearch ? (
           <div className="my-2 flex flex-row">
             <div className="lg:ml-3 mt-3 sm:mt-0 sm:w-2/5">
-              <Select
-                placeholder="Search by Physician Name"
-                className={`w-full`}
-                showArrow
-                showSearch
-                value={selectedItems}
-                onChange={handleChange}
-                filterOption={(inputValue, option: any) =>
-                  option.props.children
-                    .toString()
-                    .toLowerCase()
-                    .includes(inputValue.toLowerCase())
-                }
-              >
-                {doctorProfiles?.map((item) => (
-                  <Select.Option key={item?.id} value={item?.doctor_id}>
-                    {item?.user?.first_name}
-                  </Select.Option>
-                ))}
-              </Select>
+              <Input
+                value={searchText}
+                placeholder="Search by ID or patient name"
+                onChange={(e) => handleChange(e.target.value)}
+              />
             </div>
             <div>
               <Button onClick={onClear} type="text" className="sm:ml-3">
@@ -123,13 +139,11 @@ function AdminAimsCalender(props: Props) {
             },
             custom1: {
               text: "Request an Appointment",
-              click: function () {
-              
-              },
+              click: function () {},
             },
             listview: {
               text: "List View",
-              click:redirectToListing,
+              click: redirectToListing,
             },
             search: {
               text: "Search",
@@ -140,25 +154,10 @@ function AdminAimsCalender(props: Props) {
           }}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           ref={calendarComponentRef}
-          // weekends={calender.calendarWeekends}
-          events={calender?.calenderEvents}
+          events={filterCalender?.calenderEvents || calender?.calenderEvents}
           eventClick={handleDateClick}
           eventTextColor="black"
           displayEventTime={false}
-          // eslint-disable-next-line consistent-return
-          // eventClassNames={(arg) => {
-          //   if (arg?.isToday || arg.event.extendedProps?.startingToday) {
-          //     return [`${calendarStyle.clsToday}`];
-          //   } else if (arg.event.extendedProps?.status === "Completed") {
-          //     return [`${calendarStyle.clsComplete}`];
-          //   } else if (arg.event.extendedProps?.status === "Ongoing") {
-          //     return [`${calendarStyle.clsOngoing}`];
-          //   } else if (arg.event.extendedProps?.status === "Upcoming") {
-          //     return [`${calendarStyle.clsUpcoming}`];
-          //   } else if (arg.event.extendedProps?.status === "Cancelled") {
-          //     return [`${calendarStyle.clsCancel}`];
-          //   }
-          // }}
         />
       </div>
     </div>

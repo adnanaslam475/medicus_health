@@ -4,6 +4,7 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import {
   Appointment,
   useGetAllRequestedAppointmentsQuery,
+  usePhysicianAppointmentsQuery,
 } from "../../../generated/graphql";
 import CalendarModalComponent from "../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
@@ -24,16 +25,12 @@ function DoctorCalendar() {
   const [modalData, setModalData] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [doctorIds, setDoctorId] = useState<number>();
-  const [{ data }] = useGetAllRequestedAppointmentsQuery({
+  const [{ data }] = usePhysicianAppointmentsQuery({
     variables: {
-      filter: {
-        status: "Requested",
-        doctorId: doctorIds,
-      },
+      filter: {},
     },
   });
-
-  const { appointments } = data || {};
+  const { physicianAppointments } = data || {};
 
   const handleDateClick = (arg: any) => {
     const data = arg?.event?.toJSON();
@@ -46,7 +43,7 @@ function DoctorCalendar() {
       startDate: data?.extendedProps?.extraData?.start,
       endDate: data?.extendedProps?.extraData?.end,
       status: data?.extendedProps?.status,
-      charges: "$59.00",
+      charges: data?.extendedProps?.charges,
       type: "Assignment",
     });
 
@@ -60,13 +57,14 @@ function DoctorCalendar() {
   const setCalendarData = () => {
     setCalender({
       ...calender,
-      calenderEvents: appointments?.map(
-        ({ id, patient, requestedDate, doctor, serviceType }) => ({
+      calenderEvents: physicianAppointments?.map(
+        ({ id, patient, requestedDate, serviceType, charges }) => ({
           id: id,
-          title: doctor.first_name,
+          title: patient.first_name,
           start: requestedDate,
           patient: patient.first_name + " " + patient.last_name,
           serviceType: serviceType?.name,
+          charges: charges,
         })
       ),
     });
@@ -74,7 +72,7 @@ function DoctorCalendar() {
 
   useEffect(() => {
     setCalendarData();
-  }, [appointments]);
+  }, [physicianAppointments]);
 
   const handleDateChange = (arg: string) => {
     setCalender({
@@ -106,7 +104,6 @@ function DoctorCalendar() {
             handleDateChange={handleDateChange}
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
-            setDoctorId={setDoctorId}
             redirectToListing={redirectToUpcoming}
           />
         </div>

@@ -62,7 +62,7 @@ function CalendarModalComponent(props: Props) {
 
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">Total</p>
-        <h4 className="text-xl">{charges}</h4>
+        <h4 className="text-xl"> ${charges}</h4>
       </div>
 
       <div className="flex items-center justify-end border-0 pt-4">
