@@ -21,7 +21,7 @@ type Props = {
   data?: any;
 };
 
-const PhysicianAppointmentHistoryTable = (props: Props) => {
+function PhysicianAppointmentHistoryTable(props: Props){
   const { data } = props || {};
 
   const historyColumns = [
