@@ -230,11 +230,11 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setServiceInfo(charge);
   }
 
-  function onChangeDatePicker(value: null, dateString: string): void {
+  function onChangeDatePicker(value: any, dateString: string): void {
     console.log("Selected Time: ", value);
     console.log("Formatted Selected Time: ", dateString);
   }
-  function onOkDatePicker(value: string) {
+  function onOkDatePicker(value: any) {
     console.log("onOk: ", value);
   }
 
@@ -314,8 +314,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
                 <Space direction="vertical" size={12}>
                   <DatePicker
                     showTime
-                    // onChange={onChangeDatePicker}
-                    // onOk={onOkDatePicker}
+                    onChange={onChangeDatePicker}
+                    onOk={onOkDatePicker}
                   />
                 </Space>
               </Form.Item>
@@ -327,8 +327,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
                 <Space direction="vertical" size={12}>
                   <DatePicker
                     showTime
-                    // onChange={onChangeDatePicker}
-                    // onOk={onOkDatePicker}
+                    onChange={onChangeDatePicker}
+                    onOk={onOkDatePicker}
                   />
                 </Space>
               </Form.Item>
