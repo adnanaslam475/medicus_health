@@ -6,7 +6,7 @@ import {
   professionalBGData,
   educationalBGData,
 } from "../../../utils/helper";
-import { Schedule } from "../../../utils/types";
+import { Schedule } from "../../types/types";
 import AboutMe from "../AboutMe/AboutMe";
 import InputWithLi from "../InputWithLi/InputWithLi";
 import LanguageList from "../Languages/LanguageList";

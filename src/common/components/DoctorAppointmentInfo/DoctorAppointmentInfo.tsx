@@ -1,19 +1,38 @@
-import React from "react";
-import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
-import { Button, Tag } from "antd";
+import React, { useState } from "react";
+import {
+  CheckOutlined,
+  MessageOutlined,
+  RetweetOutlined,
+  VideoCameraFilled,
+} from "@ant-design/icons";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  notification,
+  Select,
+  Tag,
+} from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
 
 // scss
 import _classes from "./DoctorAppointmentInfo.module.scss";
 import Router from "next/router";
-import { Appointment } from "generated/graphql";
+import {
+  Appointment,
+  useCancelAppointmentByDoctorMutation,
+} from "generated/graphql";
 import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
 import { date } from "common/utils";
+import { getRole } from "common/utils/userData";
 
-type props = {
+type Props = {
   data: Appointment | undefined;
+  onCancelRequestedAppointment?: () => void;
 };
-function DoctorAppointmentInfo({ data }: props) {
+function DoctorAppointmentInfo({ data }: Props) {
   const {
     id,
     patient,
@@ -24,6 +43,9 @@ function DoctorAppointmentInfo({ data }: props) {
     appointmentTimeSlots,
   } = data || {};
 
+  const [, executeCancelRequestedAppointment] =
+    useCancelAppointmentByDoctorMutation();
+
   function timeSlots() {
     if (appointmentTimeSlots) {
       let selectedTimeSlots = appointmentTimeSlots?.find(
@@ -32,6 +54,24 @@ function DoctorAppointmentInfo({ data }: props) {
 
       return selectedTimeSlots;
     }
+  }
+
+  async function onCancelRequestedAppointment() {
+    try {
+      const res = await executeCancelRequestedAppointment({
+        id: Number(id),
+      });
+
+      if (res?.data?.cancelAppointment) {
+        notification.success({
+          message: "Appointment Cancelled",
+        });
+      } else {
+        notification.error({
+          message: "Something went wrong",
+        });
+      }
+    } catch (error) {}
   }
 
   return (
@@ -49,9 +89,13 @@ function DoctorAppointmentInfo({ data }: props) {
         />
         <LabelWithText
           label="Time"
-          text={`${date?.formathhmma(
+          text={
             timeSlots()?.startTime
-          )} - ${date?.formathhmma(timeSlots()?.endTime)}`}
+              ? `${date?.formathhmma(
+                  timeSlots()?.startTime
+                )} - ${date?.formathhmma(timeSlots()?.endTime)}`
+              : "--"
+          }
         />
         <LabelWithText label="Total Amount" text={charges} />
         {/* <LabelWithText label="Status" text={status as string} /> */}
@@ -68,7 +112,14 @@ function DoctorAppointmentInfo({ data }: props) {
           </div>
         </li>
       </div>
-      <DoctorAppointmentInfoFooter />
+
+      {status === "Confirmed" && <DoctorAppointmentInfoFooter />}
+      {status === "Requested" && (
+        <DoctorRequestedAppointmentInfoFooter
+          onCancelRequestedAppointment={onCancelRequestedAppointment}
+          data={data}
+        />
+      )}
     </div>
   );
 }
@@ -103,5 +154,134 @@ function DoctorAppointmentInfoFooter() {
         Join Now
       </Button>
     </div>
+  );
+}
+
+function DoctorRequestedAppointmentInfoFooter(props: Props) {
+  const { onCancelRequestedAppointment, data } = props || {};
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  return (
+    <>
+      <div className="flex justify-between mt-6">
+        <Button
+          danger
+          className="border border-red outline"
+          onClick={onCancelRequestedAppointment}
+        >
+          Reject
+        </Button>
+        <div className="flex">
+          <Button
+            icon={<RetweetOutlined />}
+            className={`${_classes["appointments-btn"]}`}
+            onClick={showModal}
+          >
+            Propose Time
+          </Button>
+          <Button
+            type="primary"
+            icon={<CheckOutlined />}
+            className={`${_classes["appointments-btn"]} bg-current ml-3`}
+            onClick={() => Router.push("/doctor/calendar")}
+          >
+            Accept Appointment
+          </Button>
+        </div>
+      </div>
+
+      <Modal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <h2>Propose New Time</h2>
+        <Form layout="vertical">
+          <div className="flex">
+            <div className="w-5/6">
+              <Form.Item label="Service*" name="service">
+                <Select placeholder="Service*" className="w-full">
+                  <Select.Option>First Consultation</Select.Option>
+                </Select>
+              </Form.Item>
+            </div>
+            <div className="w-1/6 ml-4">
+              <Form.Item label="Amount" name="Amount">
+                <Input placeholder="" className="w-full" />
+              </Form.Item>
+            </div>
+          </div>
+          <Form.Item label="Requested Date*" name="requestedDate">
+            <DatePicker
+              placeholder="mm/dd/yy"
+              format={"MM-DD-YYYY"}
+              className="w-full"
+            />
+          </Form.Item>
+          <label>Availability*</label>
+          <div className="flex mt-2">
+            <div className="w-32">
+              <Form.Item label="Start Time" name="Start Time">
+                <Select placeholder="Select" className="w-full">
+                  <Select.Option>08:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>09:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>10:00 AM</Select.Option>
+                </Select>
+              </Form.Item>
+            </div>
+            <div className="w-32 ml-4">
+              <Form.Item label="End Time" name="End Time">
+                <Select placeholder="Select" className="w-full">
+                  <Select.Option>08:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>09:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>10:00 AM</Select.Option>
+                </Select>
+              </Form.Item>
+            </div>
+          </div>
+          <div className="flex mt-2">
+            <div className="w-32">
+              <Form.Item label="Start Time" name="Start Time">
+                <Select placeholder="Select" className="w-full">
+                  <Select.Option>08:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>09:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>10:00 AM</Select.Option>
+                </Select>
+              </Form.Item>
+            </div>
+            <div className="w-32 ml-4">
+              <Form.Item label="End Time" name="End Time">
+                <Select placeholder="Select" className="w-full">
+                  <Select.Option>08:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>09:00 AM</Select.Option>
+                  <Select.Option>08:30 AM</Select.Option>
+                  <Select.Option>10:00 AM</Select.Option>
+                </Select>
+              </Form.Item>
+            </div>
+          </div>
+        </Form>
+      </Modal>
+    </>
   );
 }

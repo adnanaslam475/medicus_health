@@ -41,6 +41,7 @@ function UpcomingAppointmentsDetailDoctor() {
     },
   });
 
+  //get appointment URL
   const { reportUrl } = appoinmentUrl?.appointment || {};
 
   let urlArr = parseJson(reportUrl);
@@ -55,7 +56,6 @@ function UpcomingAppointmentsDetailDoctor() {
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: patientId as number },
   });
-  const { appointmentHealthHistory } = data?.appointment || {};
 
   return (
     <AppLayout>
