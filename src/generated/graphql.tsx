@@ -254,6 +254,11 @@ export type CreationDate = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type DateRange = {
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+};
+
 export type DoctorBillingMethod = {
   __typename?: 'DoctorBillingMethod';
   accountTitle: Scalars['String'];
@@ -324,6 +329,11 @@ export type DueDate = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type EarningRange = {
+  final?: InputMaybe<Scalars['Int']>;
+  initial?: InputMaybe<Scalars['Int']>;
+};
+
 export type EducationalBackground = {
   degree: Scalars['String'];
   institution: Scalars['String'];
@@ -385,6 +395,15 @@ export type GetPhysiciansPatientsInput = {
   searchField?: InputMaybe<Scalars['String']>;
 };
 
+export type GetTransectionInput = {
+  DateRange?: InputMaybe<DateRange>;
+  appointmentId?: InputMaybe<Scalars['Int']>;
+  earnings?: InputMaybe<EarningRange>;
+  patientName?: InputMaybe<Scalars['String']>;
+  serviceName?: InputMaybe<Scalars['String']>;
+  transectionId?: InputMaybe<Scalars['Int']>;
+};
+
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   access_token: Scalars['String'];
@@ -436,6 +455,7 @@ export type Mutation = {
   setAsDefaultCard: UserCard;
   setDoctorPassword: User;
   toggleEmailPreferences: UserEmailPreferencesResponse;
+  updateAdminUser: User;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
   updateStaff: User;
@@ -635,6 +655,12 @@ export type MutationToggleEmailPreferencesArgs = {
 };
 
 
+export type MutationUpdateAdminUserArgs = {
+  id: Scalars['Int'];
+  updateAdminUserInput: UpdateAdminUserInput;
+};
+
+
 export type MutationUpdateDoctorProfileArgs = {
   updateDoctorProfileInput: UpdateDoctorProfileInput;
 };
@@ -735,6 +761,7 @@ export type Query = {
   getCitiesByState: Array<City>;
   getDoctorEarnings: DoctorEarningsResponse;
   getStatesByCountry: Array<State>;
+  getTransectionFilter: Array<Transaction>;
   patientHealthHistory: PatientHealthHistory;
   patientHealthHistorys: Array<PatientHealthHistory>;
   physicianAppointments: Array<Appointment>;
@@ -851,6 +878,11 @@ export type QueryGetStatesByCountryArgs = {
 };
 
 
+export type QueryGetTransectionFilterArgs = {
+  filter: GetTransectionInput;
+};
+
+
 export type QueryPatientHealthHistoryArgs = {
   id: Scalars['Int'];
 };
@@ -935,6 +967,13 @@ export type Transaction = {
   transactionId: Scalars['String'];
 };
 
+export type UpdateAdminUserInput = {
+  email?: InputMaybe<Scalars['String']>;
+  first_name?: InputMaybe<Scalars['String']>;
+  last_name?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+};
+
 export type UpdateDoctorProfileInput = {
   about_me?: InputMaybe<Scalars['String']>;
   condition_treated?: InputMaybe<Scalars['String']>;
@@ -997,6 +1036,7 @@ export type User = {
   city_id: Scalars['Int'];
   contact_number: Scalars['String'];
   country_id: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
   date_of_birth: Scalars['DateTime'];
   deleted: Scalars['Boolean'];
   doctorBillingMethods?: Maybe<Array<DoctorBillingMethod>>;
@@ -1259,7 +1299,7 @@ export type PhysicianAppointmentsQueryVariables = Exact<{
 }>;
 
 
-export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: Array<{ __typename?: 'Appointment', id: number, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null }> };
+export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: Array<{ __typename?: 'Appointment', id: number, createdAt: any, requestedDate: any, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null }> };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1930,6 +1970,8 @@ export const PhysicianAppointmentsDocument = gql`
       endTime
       selected
     }
+    createdAt
+    requestedDate
     charges
   }
 }
@@ -4545,6 +4587,39 @@ export default {
             ]
           },
           {
+            "name": "updateAdminUser",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "updateAdminUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "updateDoctorProfile",
             "type": {
               "kind": "NON_NULL",
@@ -5460,6 +5535,35 @@ export default {
             ]
           },
           {
+            "name": "getTransectionFilter",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Transaction",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "patientHealthHistory",
             "type": {
               "kind": "NON_NULL",
@@ -5966,6 +6070,17 @@ export default {
           },
           {
             "name": "country_id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
