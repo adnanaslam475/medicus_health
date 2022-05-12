@@ -1259,6 +1259,13 @@ export type CancelAppointmentByDoctorMutationVariables = Exact<{
 
 export type CancelAppointmentByDoctorMutation = { __typename?: 'Mutation', cancelAppointment: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number } };
 
+export type ProposeNewTimeMutationVariables = Exact<{
+  proposeNewTimeInput: ProposeNewTimeInput;
+}>;
+
+
+export type ProposeNewTimeMutation = { __typename?: 'Mutation', proposeNewTime: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number, requestedDate: any, status?: string | null } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -1814,6 +1821,23 @@ export const CancelAppointmentByDoctorDocument = gql`
 
 export function useCancelAppointmentByDoctorMutation() {
   return Urql.useMutation<CancelAppointmentByDoctorMutation, CancelAppointmentByDoctorMutationVariables>(CancelAppointmentByDoctorDocument);
+};
+export const ProposeNewTimeDocument = gql`
+    mutation proposeNewTime($proposeNewTimeInput: ProposeNewTimeInput!) {
+  proposeNewTime(proposeNewTimeInput: $proposeNewTimeInput) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    status
+  }
+}
+    `;
+
+export function useProposeNewTimeMutation() {
+  return Urql.useMutation<ProposeNewTimeMutation, ProposeNewTimeMutationVariables>(ProposeNewTimeDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
