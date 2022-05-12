@@ -1301,6 +1301,13 @@ export type DoctorAppointmentDetailPatientInfoQueryVariables = Exact<{
 
 export type DoctorAppointmentDetailPatientInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth: any, contact_number: string, streetAddress: string, country_id: number, city_id: number, patientProfile?: { __typename?: 'PatientProfile', id: number, maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null } } };
 
+export type PhysicianAppointmentsQueryVariables = Exact<{
+  filter: GetPhysicianAppointmentInput;
+}>;
+
+
+export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: Array<{ __typename?: 'Appointment', id: number, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null }> };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1977,6 +1984,30 @@ export const DoctorAppointmentDetailPatientInfoDocument = gql`
 
 export function useDoctorAppointmentDetailPatientInfoQuery(options: Omit<Urql.UseQueryArgs<DoctorAppointmentDetailPatientInfoQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorAppointmentDetailPatientInfoQuery>({ query: DoctorAppointmentDetailPatientInfoDocument, ...options });
+};
+export const PhysicianAppointmentsDocument = gql`
+    query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
+  physicianAppointments(filter: $filter) {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    serviceType {
+      name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    charges
+  }
+}
+    `;
+
+export function usePhysicianAppointmentsQuery(options: Omit<Urql.UseQueryArgs<PhysicianAppointmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<PhysicianAppointmentsQuery>({ query: PhysicianAppointmentsDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {

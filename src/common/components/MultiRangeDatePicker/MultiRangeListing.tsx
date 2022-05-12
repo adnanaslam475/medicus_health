@@ -1,6 +1,6 @@
 import { CloseOutlined } from "@ant-design/icons";
 import React from "react";
-import { singleSchedule } from "../../../utils/types";
+import { singleSchedule } from "../../types/types";
 import { dayName, twelveHourTime } from "../../utils/date";
 
 type Props = {
