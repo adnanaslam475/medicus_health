@@ -15,61 +15,53 @@ import {
   Button,
   Checkbox,
 } from "antd";
+import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
 
 const props = {};
 function PatientProfileForm() {
   return (
-    <Form name="basic" layout="vertical">
-      <div className="flex flex-row gap-3">
-        <Form.Item
-          label="First Name"
-          name="firstName"
-          rules={[{ required: true, message: "First Name!" }]}
-          className="flex-1"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Last name"
-          name="lastName"
-          rules={[{ required: true, message: "Last Name!" }]}
-          className="flex-1"
-        >
-          <Input />
-        </Form.Item>
-      </div>
-
-      <div className="flex flex-row gap-3">
-        <Form.Item
-          name={["user", "email"]}
-          label="Email"
-          rules={[{ type: "email" }]}
-          className="flex-1"
-        >
-          <Input />
-        </Form.Item>
-      </div>
-      <div className="flex flex-row gap-3">
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Password" }]}
-          className="flex-1"
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          label="Confirm Password"
-          name="confirmPassword"
-          rules={[{ required: true, message: "Confirm password!" }]}
-          className="flex-1"
-        >
-          <Input.Password />
-        </Form.Item>
-      </div>
-    </Form>
+    <div className="max-w-[800px]">
+    <div className="flex flex-col md:flex-row gap-2">
+      <LabelWithTextDiv label="first Name" value="usama" />
+      <LabelWithTextDiv label="Last Name" value="khan" />
+    </div>
+    <div className="flex flex-col md:flex-row gap-2">
+      <LabelWithTextDiv label="Gender" value="male" />
+      <LabelWithTextDiv
+        label="Date of birth"
+        value="10 march"
+      />
+    </div>
+    <div className="flex flex-col md:flex-row gap-2">
+      <LabelWithTextDiv label="Email Address" value="uhk@gmail.com" />
+      <LabelWithTextDiv label="Cell Number" value="2987213613821" />
+    </div>
+    <div className="flex flex-col md:flex-row gap-2">
+      <LabelWithTextDiv label="Country" value="pak" />
+      <LabelWithTextDiv label="City" value="karachi" />
+    </div>
+    <div className="flex flex-col md:flex-row gap-2">
+      <LabelWithTextDiv label="Material Status" value="single" />
+      <LabelWithTextDiv
+        label="Do you have any Children?"
+        value="no"
+      />
+    </div>
+    <div className="flex flex-col md:flex-row gap-2">
+      <LabelWithTextDiv
+        label="What is your Occupation?"
+        value="doctor"
+      />
+      <LabelWithTextDiv
+        label="Do you have any Occupational Exposure?"
+        value="sdas"
+      />
+    </div>
+    <div className="flex gap-2">
+      <LabelWithTextDiv label="Do you have any pets?" value="dasds" />
+      <div className="w-full" />
+    </div>
+  </div>
   );
 }
 

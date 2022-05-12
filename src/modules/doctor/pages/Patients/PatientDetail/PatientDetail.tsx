@@ -33,6 +33,7 @@ import { QuestionnaireForm } from "../../../../../common/components/Questionnary
 import PhysicianProfile from "./PatientDetailTabs/PatientProfile";
 import EmailNotification from "../../../../patient/pages/EmailNotification/EmailNotification";
 import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
+import PatientProfileForm from "./PatientDetailTabs/PatientProfileForm";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -80,7 +81,7 @@ function PatientDetail() {
                 }
                 key="1"
               >
-               <AppointmentInfo/>
+              <PatientProfileForm/>
               </TabPane>
 
               <TabPane
