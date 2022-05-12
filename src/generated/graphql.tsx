@@ -1452,6 +1452,13 @@ export type GetAppointmentReportUrlByIdQueryVariables = Exact<{
 
 export type GetAppointmentReportUrlByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, doctorId: number, patientId: number, reportUrl?: any | null } };
 
+export type GetDoctorEarningsQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetDoctorEarningsQuery = { __typename?: 'Query', getDoctorEarnings: { __typename?: 'DoctorEarningsResponse', total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null, total_number_of_patients?: number | null, total_earnings_from_consultation?: number | null, total_earnings_from_second_opinions?: number | null, total_earnings?: number | null } };
+
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2541,6 +2548,22 @@ export const GetAppointmentReportUrlByIdDocument = gql`
 
 export function useGetAppointmentReportUrlByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentReportUrlByIdQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAppointmentReportUrlByIdQuery>({ query: GetAppointmentReportUrlByIdDocument, ...options });
+};
+export const GetDoctorEarningsDocument = gql`
+    query getDoctorEarnings($id: Int!) {
+  getDoctorEarnings(id: $id) {
+    total_number_of_consultation
+    total_number_of_second_opinions
+    total_number_of_patients
+    total_earnings_from_consultation
+    total_earnings_from_second_opinions
+    total_earnings
+  }
+}
+    `;
+
+export function useGetDoctorEarningsQuery(options: Omit<Urql.UseQueryArgs<GetDoctorEarningsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetDoctorEarningsQuery>({ query: GetDoctorEarningsDocument, ...options });
 };
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {
