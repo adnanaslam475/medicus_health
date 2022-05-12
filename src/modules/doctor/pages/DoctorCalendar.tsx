@@ -7,17 +7,15 @@ import {
 } from "../../../generated/graphql";
 import CalendarModalComponent from "../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
-import Router  from "next/router";
+import Router from "next/router";
 
 type events = {
   calenderEvents: Appointment | undefined | Array<object>;
 };
 function DoctorCalendar() {
-
-  const redirectToUpcoming =function () {
+  const redirectToUpcoming = function () {
     Router.push("/doctor/appointments/upcoming");
-  }
-
+  };
 
   const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
@@ -39,17 +37,16 @@ function DoctorCalendar() {
 
   const handleDateClick = (arg: any) => {
     const data = arg?.event?.toJSON();
-
     setModalData({
       id: data?.id,
       patient: data?.extendedProps?.patient,
-      doctor: data?.title,
       serviceType: data?.extendedProps?.serviceType,
       dateValue: data.start,
       className: data?.extendedProps?.extraData?.class_name,
       startDate: data?.extendedProps?.extraData?.start,
       endDate: data?.extendedProps?.extraData?.end,
       status: data?.extendedProps?.status,
+      charges: "$59.00",
       type: "Assignment",
     });
 
