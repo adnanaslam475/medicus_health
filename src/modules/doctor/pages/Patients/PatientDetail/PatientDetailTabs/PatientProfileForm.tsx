@@ -16,13 +16,19 @@ import {
   Checkbox,
 } from "antd";
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
+import CardWithProfileImageInfo from "modules/doctor/pages/PhysicianAppointmentHistoryDetail/CardWithProfileImageInfo";
 
 const props = {};
 function PatientProfileForm() {
   return (
+    <CardWithProfileImageInfo
+    name="usama"
+    serviceName="consultation"
+  >
     <div className="max-w-[800px]">
+
     <div className="flex flex-col md:flex-row gap-2">
-      <LabelWithTextDiv label="first Name" value="usama" />
+      <LabelWithTextDiv label="First Name" value="usama" />
       <LabelWithTextDiv label="Last Name" value="khan" />
     </div>
     <div className="flex flex-col md:flex-row gap-2">
@@ -62,6 +68,7 @@ function PatientProfileForm() {
       <div className="w-full" />
     </div>
   </div>
+  </CardWithProfileImageInfo>
   );
 }
 

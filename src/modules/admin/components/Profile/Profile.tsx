@@ -30,23 +30,24 @@ import Language from "../../../admin/components/Languague/Language";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import { configS3 } from "utils/helper";
-import { Schedule } from "utils/types";
+import { Schedule } from "common/types/types";
 import { RangeValue } from "rc-picker/lib/interface";
 import { useMediaUploader } from "common/hooks/media";
 
 type profileType = {
-  doctorId: string;
+  doctorId: string | string[] | undefined;
   doctorData: any;
   setIsEdit: (e: boolean) => void;
   schedules: Schedule[] | undefined;
-  setDeleteScheduleId: (e: string) => void;
-  setAddScheduleTime: React.Dispatch<
+  setDeleteScheduleId?: (e: string) => void;
+  setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddScheduleTime?: React.Dispatch<
     React.SetStateAction<{
       time: RangeValue<moment.Moment> | null;
       timeString: string[];
     }>
   >;
-  setAddScheduleDay: React.Dispatch<React.SetStateAction<string | number>>;
+  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string | number>>;
   onAddClick?: () => void;
   edit: () => void;
   addScheduleTime?: {
