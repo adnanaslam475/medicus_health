@@ -232,3 +232,14 @@ mutation createOrUpdateAppointmentNote(
     id
   }
 }
+
+# cancel Requested Appointment
+mutation cancelAppointmentByDoctor($id: Int!) {
+  cancelAppointment(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+  }
+}

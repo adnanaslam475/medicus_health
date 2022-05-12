@@ -120,6 +120,12 @@ export type Country = {
   id: Scalars['Float'];
 };
 
+export type CreateAdminInput = {
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+};
+
 export type CreateAppointmentInput = {
   doctorId: Scalars['Int'];
   patientId: Scalars['Int'];
@@ -243,6 +249,11 @@ export type CreateUserInput = {
   zip_code: Scalars['String'];
 };
 
+export type CreationDate = {
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+};
+
 export type DoctorBillingMethod = {
   __typename?: 'DoctorBillingMethod';
   accountTitle: Scalars['String'];
@@ -332,6 +343,19 @@ export type EmailAvailableResponse = {
   isEmailAvailable: Scalars['Boolean'];
 };
 
+export type GenerateRtcTokenInput = {
+  channelName: Scalars['String'];
+  role: Scalars['String'];
+  tokenType: Scalars['String'];
+  uId: Scalars['String'];
+};
+
+export type GetAdminUsersFilterInput = {
+  creationDate?: InputMaybe<CreationDate>;
+  searchUser?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+};
+
 export type GetAppointmentInput = {
   appointmentId?: InputMaybe<Scalars['Int']>;
   bookingDate?: InputMaybe<BookingDate>;
@@ -379,6 +403,7 @@ export type Mutation = {
   bookAppointment: Appointment;
   cancelAppointment: Appointment;
   cancelAppointmentByPatient: Appointment;
+  createAdminUser: User;
   createAppointment: Appointment;
   createCard: UserCard;
   createDoctor: User;
@@ -393,6 +418,7 @@ export type Mutation = {
   createStaff: User;
   createUser: User;
   enableOrDisableDoctor: User;
+  generateRTCToken: RtcTokenResponse;
   login: LoginResponse;
   payment: Transaction;
   proposeNewTime: Appointment;
@@ -440,6 +466,11 @@ export type MutationCancelAppointmentArgs = {
 
 export type MutationCancelAppointmentByPatientArgs = {
   id: Scalars['Int'];
+};
+
+
+export type MutationCreateAdminUserArgs = {
+  createAdminInput: CreateAdminInput;
 };
 
 
@@ -511,6 +542,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationEnableOrDisableDoctorArgs = {
   id: Scalars['Int'];
+};
+
+
+export type MutationGenerateRtcTokenArgs = {
+  generateRTCTokenInput: GenerateRtcTokenInput;
 };
 
 
@@ -672,6 +708,7 @@ export type ProposedTimeSlots = {
 
 export type Query = {
   __typename?: 'Query';
+  adminUsers: Array<User>;
   appointment: Appointment;
   appointmentBanner: Array<Appointment>;
   appointmentNote: AppointmentNote;
@@ -711,6 +748,11 @@ export type Query = {
   user: User;
   userEmailPreferences: UserEmailPreferencesResponse;
   users: Array<User>;
+};
+
+
+export type QueryAdminUsersArgs = {
+  filter: GetAdminUsersFilterInput;
 };
 
 
@@ -846,6 +888,13 @@ export type QueryUserArgs = {
 export type ResetPasswordInput = {
   password: Scalars['String'];
   password_token?: InputMaybe<Scalars['String']>;
+};
+
+export type RtcTokenResponse = {
+  __typename?: 'RtcTokenResponse';
+  channelName: Scalars['String'];
+  privilegeExpireTime: Scalars['String'];
+  rtmAccessToken: Scalars['String'];
 };
 
 export type Schedule = {
@@ -1163,6 +1212,13 @@ export type CreateOrUpdateAppointmentNoteMutationVariables = Exact<{
 
 export type CreateOrUpdateAppointmentNoteMutation = { __typename?: 'Mutation', createOrUpdateAppointmentNote: { __typename?: 'AppointmentNote', id: number } };
 
+export type CancelAppointmentByDoctorMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type CancelAppointmentByDoctorMutation = { __typename?: 'Mutation', cancelAppointment: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -1197,6 +1253,13 @@ export type DoctorAppointmentDetailPatientInfoQueryVariables = Exact<{
 
 
 export type DoctorAppointmentDetailPatientInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth: any, contact_number: string, streetAddress: string, country_id: number, city_id: number, patientProfile?: { __typename?: 'PatientProfile', id: number, maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null } } };
+
+export type PhysicianAppointmentsQueryVariables = Exact<{
+  filter: GetPhysicianAppointmentInput;
+}>;
+
+
+export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: Array<{ __typename?: 'Appointment', id: number, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null }> };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1697,6 +1760,21 @@ export const CreateOrUpdateAppointmentNoteDocument = gql`
 export function useCreateOrUpdateAppointmentNoteMutation() {
   return Urql.useMutation<CreateOrUpdateAppointmentNoteMutation, CreateOrUpdateAppointmentNoteMutationVariables>(CreateOrUpdateAppointmentNoteDocument);
 };
+export const CancelAppointmentByDoctorDocument = gql`
+    mutation cancelAppointmentByDoctor($id: Int!) {
+  cancelAppointment(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+  }
+}
+    `;
+
+export function useCancelAppointmentByDoctorMutation() {
+  return Urql.useMutation<CancelAppointmentByDoctorMutation, CancelAppointmentByDoctorMutationVariables>(CancelAppointmentByDoctorDocument);
+};
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
   toggleEmailPreferences(
@@ -1835,6 +1913,30 @@ export const DoctorAppointmentDetailPatientInfoDocument = gql`
 
 export function useDoctorAppointmentDetailPatientInfoQuery(options: Omit<Urql.UseQueryArgs<DoctorAppointmentDetailPatientInfoQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorAppointmentDetailPatientInfoQuery>({ query: DoctorAppointmentDetailPatientInfoDocument, ...options });
+};
+export const PhysicianAppointmentsDocument = gql`
+    query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
+  physicianAppointments(filter: $filter) {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    serviceType {
+      name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    charges
+  }
+}
+    `;
+
+export function usePhysicianAppointmentsQuery(options: Omit<Urql.UseQueryArgs<PhysicianAppointmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<PhysicianAppointmentsQuery>({ query: PhysicianAppointmentsDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {
@@ -3662,6 +3764,29 @@ export default {
             ]
           },
           {
+            "name": "createAdminUser",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createAdminInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "createAppointment",
             "type": {
               "kind": "NON_NULL",
@@ -3995,6 +4120,29 @@ export default {
             "args": [
               {
                 "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "generateRTCToken",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "RtcTokenResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "generateRTCTokenInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -4686,6 +4834,35 @@ export default {
         "kind": "OBJECT",
         "name": "Query",
         "fields": [
+          {
+            "name": "adminUsers",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
           {
             "name": "appointment",
             "type": {
@@ -5553,6 +5730,46 @@ export default {
                     "ofType": null
                   }
                 }
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RtcTokenResponse",
+        "fields": [
+          {
+            "name": "channelName",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "privilegeExpireTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "rtmAccessToken",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
               }
             },
             "args": []
