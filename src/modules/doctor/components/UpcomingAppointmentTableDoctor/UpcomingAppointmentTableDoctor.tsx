@@ -90,7 +90,10 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
     },
   ];
 
-  return <Table columns={columns} dataSource={dataSource} />;
+  const footer = () =>
+    dataSource?.length && `Showing 10 out of ${dataSource?.length} entries`;
+
+  return <Table columns={columns} dataSource={dataSource} footer={footer} />;
 }
 
 export default UpcomingAppointmentTableDoctor;
