@@ -1306,7 +1306,7 @@ export type PhysicianAppointmentsQueryVariables = Exact<{
 }>;
 
 
-export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: Array<{ __typename?: 'Appointment', id: number, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null }> };
+export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: Array<{ __typename?: 'Appointment', id: number, createdAt: any, requestedDate: any, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null }> };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2003,6 +2003,8 @@ export const PhysicianAppointmentsDocument = gql`
       endTime
       selected
     }
+    createdAt
+    requestedDate
     charges
   }
 }
