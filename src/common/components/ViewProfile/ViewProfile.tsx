@@ -10,11 +10,10 @@ import { UploadChangeParam } from "antd/lib/upload";
 import {
   useUpdateDoctorProfileMutation,
   useEnableOrDisableDoctorMutation,
-  Schedule,
 } from "../../../generated/graphql";
 import { configS3 } from "../../../utils/helper";
 import ProfileForm from "./ProfileForm";
-// import { Schedule } from "../../../utils/types";
+import { Schedule } from "../../../common/types/types";
 
 type props = {
   doctorId?: string;
