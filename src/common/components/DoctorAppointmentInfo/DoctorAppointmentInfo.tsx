@@ -80,8 +80,6 @@ function DoctorAppointmentInfo({ data }: Props) {
     } catch (error) {}
   }
 
-  function onProposeNewTimeSlot() {}
-
   // FOR FOOTER OF APPOINTMENT DETAIL PAGE
   const { pathname } = useRouter();
 
@@ -201,8 +199,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   const [formInstance] = Form.useForm();
   // API CALL
-  // const [data] = useProposeNewTimeMutation();
-  // console.log(data, "dataproposeNewTimeSlots");
+  const [{ data: Appointment }] = useProposeNewTimeMutation();
+  console.log(data, "dataproposeNewTimeSlots");
   // const { physicianData, onFinish } = props || {};
 
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
@@ -237,6 +235,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   function onOkDatePicker(value: any) {
     console.log("onOk: ", value);
   }
+
+  function onProposeNewTimeSlot() {}
 
   return (
     <>
@@ -274,7 +274,11 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         footer={null}
       >
         <h2>Propose New Time</h2>
-        <Form layout="vertical" form={formInstance}>
+        <Form
+          layout="vertical"
+          form={formInstance}
+          onFinish={onProposeNewTimeSlot}
+        >
           <div className="flex">
             <div className="w-5/6">
               <Form.Item label="Service*" name="service">
@@ -308,7 +312,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           </Form.Item>
 
           <label>Availability*</label>
-          <div className="flex mt-2 mb-3 border-gray-8">
+          <div className="flex mt-2 mb-3 border-gray-8 gap-3">
             <div className="w-50">
               <Form.Item label="Start Time" name="Start Time">
                 <Space direction="vertical" size={12}>
@@ -320,10 +324,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
                 </Space>
               </Form.Item>
             </div>
-          </div>
-          <div className="flex mt-2 mb-3 border-b border-gray-8">
             <div className="w-50">
-              <Form.Item label="Start Time" name="Start Time">
+              <Form.Item label="End Time" name="End Time">
                 <Space direction="vertical" size={12}>
                   <DatePicker
                     showTime
@@ -337,10 +339,35 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           <div className="text-primary text-left">
             <Button type="link">+ Add Slot</Button>
           </div>
+          {/* <div className="flex mt-2 mb-3 border-b border-gray-8 gap-3">
+            <div className="w-50">
+              <Form.Item label="Start Time" name="Start Time">
+                <Space direction="vertical" size={12}>
+                  <DatePicker
+                    showTime
+                    onChange={onChangeDatePicker}
+                    onOk={onOkDatePicker}
+                  />
+                </Space>
+              </Form.Item>
+            </div>
+            <div className="w-50">
+              <Form.Item label="End Time" name="End Time">
+                <Space direction="vertical" size={12}>
+                  <DatePicker
+                    showTime
+                    onChange={onChangeDatePicker}
+                    onOk={onOkDatePicker}
+                  />
+                </Space>
+              </Form.Item>
+            </div>
+          </div> */}
+
           <div className="flex justify-end">
             <Button
-            // className={`${_classes["appointments-btn"]}`}
-            // onClick={onProposeNewTimeSlot}
+              className={`${_classes["appointments-btn"]}`}
+              // onClick={onProposeNewTimeSlot}
             >
               Propose Time
             </Button>
