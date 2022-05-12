@@ -1,47 +1,77 @@
 import React, { useState } from "react";
-import { Card, Input, Button, Select, Space, DatePicker } from "antd";
+import { Input, Button, Select, DatePicker } from "antd";
 import {
   CaretDownOutlined,
   CloseOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { physicianFilterType } from "common/types/types";
 
-import { getDateInFormat } from "../../../../common/utils/date";
 const { Option } = Select;
-
-function handleChange(value: any) {
-  console.log(`selected ${value}`);
-}
 
 const { RangePicker } = DatePicker;
 
-function onChange(date: any, dateString: any) {
-  console.log(date, dateString);
-}
+type Props = {
+  onChange: (value: physicianFilterType) => void;
+};
 
-function UpcomingAppointmentFilter() {
-  const [dateRangeValues, selectDateRangeValues] = useState(null);
+function UpcomingAppointmentFilter({ onChange }: Props) {
+  const [filterState, setFilterState] = useState<physicianFilterType>({});
+
+  function clear() {
+    setFilterState({});
+    onChange({});
+  }
+
   const [openDateRange, setOpenDateRange] = useState(false);
-  const [dateRange, selectDateRange] = useState(null);
+
   const applyDateRange = () => {
     setOpenDateRange(false);
   };
 
+  function onChangeFields(key: string, value: string | object) {
+    const filters = {
+      ...filterState,
+      [key]: value,
+    };
+    setFilterState(filters);
+
+    if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
+      delete filters.bookingDate;
+    }
+    if (!filters.patientName) {
+      delete filters.patientName;
+    }
+    if (!filters.appointmentType) {
+      delete filters.appointmentType;
+    }
+
+    onChange(filters);
+  }
+
   return (
     <div className="page-filters flex-none lg:flex items-center mb-5">
-      {/* <span className="text-gray-1">Filter</span> */}
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
           <Input
-            placeholder="Search by ID or physician name"
+            value={filterState.patientName}
+            placeholder="Search by ID or patient name"
             prefix={<SearchOutlined />}
+            onChange={(e) => {
+              onChangeFields("patientName", e.target.value);
+            }}
           />
         </div>
 
         <div className="relative mb-6 pl-2 ">
           <RangePicker
-            value={dateRangeValues}
-            onChange={onChange}
+            value={null}
+            onChange={(_, dateString: string[]) =>
+              onChangeFields("bookingDate", {
+                startDate: dateString[0],
+                endDate: dateString[1],
+              })
+            }
             open={openDateRange}
             className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
             renderExtraFooter={() => (
@@ -72,12 +102,10 @@ function UpcomingAppointmentFilter() {
             type="default"
             onClick={() => setOpenDateRange?.(!openDateRange)}
           >
-            {dateRange ? (
+            {filterState.bookingDate?.startDate ? (
               <div>
-                {dateRange
-                  ? `${getDateInFormat(dateRange?.[0])} -> ${getDateInFormat(
-                      dateRange?.[1]
-                    )}`
+                {filterState.bookingDate
+                  ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
                   : "Creation Date"}
               </div>
             ) : (
@@ -93,12 +121,17 @@ function UpcomingAppointmentFilter() {
       </div>
       <div className="flex-none sm:flex">
         <div className="lg:ml-3 mt-3 sm:mt-0">
-          <Select placeholder="Service" className="w-full sm:w-40">
-            <Option value="First Consultation">English</Option>
-            <Option value="Second Opinion">Espanol</Option>
+          <Select
+            placeholder="Service"
+            className="w-full sm:w-40"
+            onChange={(value) => onChangeFields("appointmentType", value)}
+            value={filterState.appointmentType || "Service"}
+          >
+            <Option value="consultation">Consultation</Option>
+            <Option value="second opinion">Second Opinion</Option>
           </Select>
         </div>
-        <Button type="text" className="sm:ml-3">
+        <Button type="text" className="sm:ml-3" onClick={clear}>
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1">Clear</span>
         </Button>

@@ -8,12 +8,12 @@ import { Avatar, Upload, Form, Button, Menu, notification } from "antd";
 import ReactS3Client from "react-aws-s3-typescript";
 import { UploadChangeParam } from "antd/lib/upload";
 import {
-  Schedule,
   useUpdateDoctorProfileMutation,
   useEnableOrDisableDoctorMutation,
 } from "../../../generated/graphql";
 import { configS3 } from "../../../utils/helper";
 import ProfileForm from "./ProfileForm";
+import { Schedule } from "../../../common/types/types";
 
 type props = {
   doctorId?: string;
