@@ -382,6 +382,12 @@ export type GetAppointmentInput = {
   status?: InputMaybe<Scalars['String']>;
 };
 
+export type GetPatientsInput = {
+  countryId?: InputMaybe<Scalars['Int']>;
+  searchField?: InputMaybe<Scalars['String']>;
+  stateId?: InputMaybe<Scalars['Int']>;
+};
+
 export type GetPhysicianAppointmentInput = {
   appointmentId?: InputMaybe<Scalars['Int']>;
   appointmentTime?: InputMaybe<AppointmentTime>;
@@ -390,7 +396,7 @@ export type GetPhysicianAppointmentInput = {
   doctorId?: InputMaybe<Scalars['Int']>;
   dueDate?: InputMaybe<DueDate>;
   paymentStatus?: InputMaybe<Scalars['String']>;
-  searchPatient?: InputMaybe<Scalars['String']>;
+  searchString?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
 };
@@ -410,7 +416,7 @@ export type GetTransectionInput = {
   DateRange?: InputMaybe<DateRange>;
   appointmentId?: InputMaybe<Scalars['Int']>;
   earnings?: InputMaybe<EarningRange>;
-  searchPatient?: InputMaybe<Scalars['String']>;
+  searchString?: InputMaybe<Scalars['String']>;
   serviceName?: InputMaybe<Scalars['String']>;
   transectionId?: InputMaybe<Scalars['Int']>;
 };
@@ -461,6 +467,7 @@ export type Mutation = {
   createStaff: User;
   createUser: User;
   enableOrDisableDoctor: User;
+  enableOrDisablePatient: User;
   generateRTCToken: RtcTokenResponse;
   login: LoginResponse;
   payment: Transaction;
@@ -585,6 +592,11 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationEnableOrDisableDoctorArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationEnableOrDisablePatientArgs = {
   id: Scalars['Int'];
 };
 
@@ -784,6 +796,7 @@ export type Query = {
   getCard: UserCard;
   getCitiesByState: Array<City>;
   getDoctorEarnings: DoctorEarningsResponse;
+  getPatients: Array<User>;
   getPhysicians: Array<User>;
   getStatesByCountry: Array<State>;
   getTransectionFilter: Array<Transaction>;
@@ -896,6 +909,11 @@ export type QueryGetCitiesByStateArgs = {
 
 export type QueryGetDoctorEarningsArgs = {
   id?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryGetPatientsArgs = {
+  filter: GetPatientsInput;
 };
 
 
@@ -4289,6 +4307,29 @@ export default {
             ]
           },
           {
+            "name": "enableOrDisablePatient",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "generateRTCToken",
             "type": {
               "kind": "NON_NULL",
@@ -5617,6 +5658,35 @@ export default {
                 "type": {
                   "kind": "SCALAR",
                   "name": "Any"
+                }
+              }
+            ]
+          },
+          {
+            "name": "getPatients",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
                 }
               }
             ]
