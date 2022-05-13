@@ -108,7 +108,6 @@ function AppointmentCalendar() {
             handleDateChange={handleDateChange}
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
-            setDoctorId={setDoctorId}
             redirectToListing={redirectToRequested}
           />
         </div>
