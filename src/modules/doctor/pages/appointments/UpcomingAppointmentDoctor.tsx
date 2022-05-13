@@ -8,7 +8,9 @@ import UpcomingAppointmentTableDoctor from "modules/doctor/components/UpcomingAp
 import { physicianFilterType } from "common/types/types";
 
 function UpcomingAppointmentDoctor() {
-  const [filterValues, setFilterValues] = useState<physicianFilterType>({});
+  const [filterValues, setFilterValues] = useState<any>({
+    status: "Confirmed",
+  });
   const [{ data: physicialData }, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
       variables: {
