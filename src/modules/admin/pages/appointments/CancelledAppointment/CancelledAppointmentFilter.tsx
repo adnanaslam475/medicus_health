@@ -5,7 +5,7 @@ import {
   CloseOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { physicianFilterType, ServiceTypes } from "common/types/types";
+import { physicianFilterType } from "common/types/types";
 
 const { Option } = Select;
 
@@ -13,9 +13,9 @@ const { RangePicker } = DatePicker;
 
 type Props = {
   onChange: (value: physicianFilterType) => void;
-  serviceTypes: ServiceTypes[] | undefined;
 };
-function UpcomingAppointmentFilter({ onChange, serviceTypes }: Props) {
+
+function CancelledAppointmentFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
 
   function clear() {
@@ -119,7 +119,7 @@ function UpcomingAppointmentFilter({ onChange, serviceTypes }: Props) {
           </Button>
         </div>
       </div>
-      <div className="flex-none sm:flex">
+      <div className="flex-none sm:flex"> 
         <div className="lg:ml-3 mt-3 sm:mt-0">
           <Select
             placeholder="Service"
@@ -127,9 +127,8 @@ function UpcomingAppointmentFilter({ onChange, serviceTypes }: Props) {
             onChange={(value) => onChangeFields("appointmentType", value)}
             value={filterState.appointmentType || "Service"}
           >
-            {serviceTypes?.map(({ id, name }) => (
-              <Option value={id}>{name}</Option>
-            ))}
+            <Option value="consultation">Consultation</Option>
+            <Option value="second opinion">Second Opinion</Option>
           </Select>
         </div>
         <Button type="text" className="sm:ml-3" onClick={clear}>
@@ -141,4 +140,4 @@ function UpcomingAppointmentFilter({ onChange, serviceTypes }: Props) {
   );
 }
 
-export default UpcomingAppointmentFilter;
+export default CancelledAppointmentFilter;

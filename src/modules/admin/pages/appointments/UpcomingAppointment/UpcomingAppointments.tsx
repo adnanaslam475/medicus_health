@@ -26,6 +26,10 @@ function UpcomingAppointments() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
+        dueDate:{
+          startDate:dueStartDate,
+          endDate:dueEndDate,
+        }
       },
     },
   });
