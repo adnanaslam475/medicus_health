@@ -13,7 +13,7 @@ export type singleSchedule = {
 };
 
 export type physicianFilterType = {
-  patientName?: string;
+  searchPatient?: string;
   appointmentType?: string;
   bookingDate?: {
     startDate?: string;

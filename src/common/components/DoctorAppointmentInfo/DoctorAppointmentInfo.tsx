@@ -47,6 +47,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     status,
     requestedDate,
     appointmentTimeSlots,
+    createdAt
   } = data || {};
 
   const [, executeCancelRequestedAppointment] =
@@ -95,8 +96,12 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText label="Type" text={serviceType?.name} />
         <LabelWithText
-          label="Date"
+          label="Due Date"
           text={formatMMMM_Dcoma_YYYY(requestedDate)}
+        />
+        <LabelWithText
+          label="Appointment creation date"
+          text={formatMMMM_Dcoma_YYYY(createdAt)}
         />
         <LabelWithText
           label="Time"
