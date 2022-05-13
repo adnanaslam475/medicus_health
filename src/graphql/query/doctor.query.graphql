@@ -17,6 +17,7 @@ query doctorAppointmentDetail($id: Int!) {
     doctorId
     patientId
     requestedDate
+    createdAt
     reportUrl
     doctor {
       id
@@ -53,6 +54,7 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
     id
     status
     requestedDate
+    createdAt
     charges
     patient {
       first_name

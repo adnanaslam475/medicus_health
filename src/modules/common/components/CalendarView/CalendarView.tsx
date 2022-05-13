@@ -48,7 +48,7 @@ function AdminAimsCalender(props: Props) {
   const [{ data: physicianData }] = usePhysicianAppointmentsQuery({
     variables: {
       filter: {
-        patientName: searchText,
+        searchPatient: searchText,
       },
     },
   });
