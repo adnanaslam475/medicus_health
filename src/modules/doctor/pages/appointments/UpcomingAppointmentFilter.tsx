@@ -16,10 +16,10 @@ type Props = {
 };
 
 function UpcomingAppointmentFilter({ onChange }: Props) {
-  const [filterState, setFilterState] = useState<physicianFilterType>({});
+  const [filterState, setFilterState] = useState<any>({});
 
   function clear() {
-    setFilterState({});
+    setFilterState({ status: "Confirmed" });
     onChange({});
   }
 
@@ -32,6 +32,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
   function onChangeFields(key: string, value: string | object) {
     const filters = {
       ...filterState,
+      status:"Confirmed",
       [key]: value,
     };
     setFilterState(filters);
