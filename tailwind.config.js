@@ -18,12 +18,12 @@ module.exports = {
       '1/4': '25%',
       '1/2': '50%',
       '3/4': '75%',
-     },
-     minWidth: {
+    },
+    minWidth: {
       '1/4': '25%',
       '1/2': '50%',
       '3/4': '75%',
-     },
+    },
     colors: {
       transparent: "transparent",
       current: "currentColor",

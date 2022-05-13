@@ -24,3 +24,15 @@ mutation removeDoctorSchedule($id: Int!) {
     day
   }
 }
+
+mutation proposeNewTime($proposeNewTimeInput: ProposeNewTimeInput!) {
+  proposeNewTime(proposeNewTimeInput: $proposeNewTimeInput) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    status
+  }
+}
