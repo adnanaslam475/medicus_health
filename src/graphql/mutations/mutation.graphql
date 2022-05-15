@@ -243,3 +243,13 @@ mutation cancelAppointmentByDoctor($id: Int!) {
     scheduleId
   }
 }
+
+# video call
+
+mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
+  generateRTCToken(generateRTCTokenInput: $generateRTCTokenInput) {
+    rtmAccessToken
+    channelName
+    privilegeExpireTime
+  }
+}

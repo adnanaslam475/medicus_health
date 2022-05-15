@@ -1331,6 +1331,13 @@ export type CancelAppointmentByDoctorMutationVariables = Exact<{
 
 export type CancelAppointmentByDoctorMutation = { __typename?: 'Mutation', cancelAppointment: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number } };
 
+export type GenerateRtcTokenMutationVariables = Exact<{
+  generateRTCTokenInput: GenerateRtcTokenInput;
+}>;
+
+
+export type GenerateRtcTokenMutation = { __typename?: 'Mutation', generateRTCToken: { __typename?: 'RtcTokenResponse', rtmAccessToken: string, channelName: string, privilegeExpireTime: string } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -1470,7 +1477,7 @@ export type GetAppointmentByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, scheduleId: number, doctorId: number, patientId: number, requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', id: number, first_name: string, last_name: string }, patient: { __typename?: 'User', id: number, first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule: { __typename?: 'DoctorSchedule', id: string, day: number, doctorId: number, startTime: string, endTime: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transaction?: { __typename?: 'Transaction', createdAt: any } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null } };
+export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, scheduleId: number, doctorId: number, patientId: number, requestedDate: any, reportUrl?: any | null, doctor: { __typename?: 'User', id: number, first_name: string, last_name: string }, patient: { __typename?: 'User', id: number, first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transaction?: { __typename?: 'Transaction', createdAt: any } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null } };
 
 export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1910,6 +1917,19 @@ export const CancelAppointmentByDoctorDocument = gql`
 
 export function useCancelAppointmentByDoctorMutation() {
   return Urql.useMutation<CancelAppointmentByDoctorMutation, CancelAppointmentByDoctorMutationVariables>(CancelAppointmentByDoctorDocument);
+};
+export const GenerateRtcTokenDocument = gql`
+    mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
+  generateRTCToken(generateRTCTokenInput: $generateRTCTokenInput) {
+    rtmAccessToken
+    channelName
+    privilegeExpireTime
+  }
+}
+    `;
+
+export function useGenerateRtcTokenMutation() {
+  return Urql.useMutation<GenerateRtcTokenMutation, GenerateRtcTokenMutationVariables>(GenerateRtcTokenDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
@@ -2442,13 +2462,6 @@ export const GetAppointmentByIdDocument = gql`
       startTime
       endTime
       selected
-    }
-    appointmentSchedule {
-      id
-      day
-      doctorId
-      startTime
-      endTime
     }
     serviceType {
       id

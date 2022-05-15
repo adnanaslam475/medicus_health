@@ -13,16 +13,32 @@ import {
 import _classes from "./VideoCall.module.scss";
 import { Result } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
+import {
+  useGenerateRtcTokenMutation,
+  useGetAppointmentByIdQuery,
+} from "generated/graphql";
+import { getUserData } from "common/utils/userData";
+import { useRouter } from "next/router";
 
 function VideoCall() {
+  const { query } = useRouter();
   const [inCall, setInCall] = useState(true);
   const [users, setUsers] = useState([]);
   const [start, setStart] = useState(false);
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks();
+  const [, executeGenerateRtcTokenMutation] = useGenerateRtcTokenMutation();
+  const [{ data }] = useGetAppointmentByIdQuery({
+    variables: {
+      id: Number(query?.id),
+    },
+    pause: !Number(query?.id),
+  });
+  const { appointment } = data || {};
+  const { user } = getUserData();
 
   useEffect(() => {
-    let init = async (name) => {
+    let init = async (channelName) => {
       client.on("user-published", async (user, mediaType) => {
         await client.subscribe(user, mediaType);
         if (mediaType === "video") {
@@ -52,24 +68,40 @@ function VideoCall() {
         });
       });
 
+      const { data } = await executeGenerateRtcTokenMutation({
+        generateRTCTokenInput: {
+          channelName,
+          uId: String(user?.id),
+          role: "audience",
+          tokenType: "uid",
+        },
+      });
+      const { rtmAccessToken, channelName } = data?.generateRTCToken || {};
       try {
-        await client.join(config.appId, name, config.token, null);
-      } catch (error) {
-        console.log("error");
-      }
-
-      if (tracks) await client.publish([tracks[0], tracks[1]]);
-      setStart(true);
-    };
-
-    if (ready && tracks) {
-      try {
-        init(channelName);
+        await client.join(
+          config.appId,
+          channelName,
+          rtmAccessToken,
+          String(user?.id)
+        );
+        if (tracks) await client.publish([tracks[0], tracks[1]]);
+        setStart(true);
       } catch (error) {
         console.log(error);
       }
+    };
+
+    if (ready && tracks) {
+      if (appointment?.id) {
+        const channelName = `${appointment?.id}_${appointment?.patientId}_${appointment?.doctorId}`;
+        try {
+          init(channelName);
+        } catch (error) {
+          console.log(error);
+        }
+      }
     }
-  }, [channelName, client, ready, tracks]);
+  }, [channelName, client, ready, tracks, appointment]);
 
   return (
     <div className={`flex flex-col relative ${_classes["video-call"]}`}>

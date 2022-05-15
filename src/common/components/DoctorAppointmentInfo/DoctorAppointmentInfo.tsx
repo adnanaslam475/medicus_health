@@ -81,8 +81,6 @@ function DoctorAppointmentInfo({ data }: Props) {
     } catch (error) {}
   }
 
-  function onProposeNewTimeSlot() {}
-
   // FOR FOOTER OF APPOINTMENT DETAIL PAGE
   const { pathname } = useRouter();
 
@@ -128,7 +126,9 @@ function DoctorAppointmentInfo({ data }: Props) {
         </li>
       </div>
 
-      {status === "Confirmed" && <DoctorAppointmentInfoFooter />}
+      {status === "Confirmed" && (
+        <DoctorAppointmentInfoFooter appointmentId={id} />
+      )}
       {status === "Requested" && (
         <DoctorRequestedAppointmentInfoFooter
           onCancelRequestedAppointment={onCancelRequestedAppointment}
@@ -141,7 +141,11 @@ function DoctorAppointmentInfo({ data }: Props) {
 
 export default DoctorAppointmentInfo;
 
-function DoctorAppointmentInfoFooter() {
+function DoctorAppointmentInfoFooter({
+  appointmentId,
+}: {
+  appointmentId: number | undefined;
+}) {
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
@@ -164,7 +168,9 @@ function DoctorAppointmentInfoFooter() {
         type="primary"
         icon={<VideoCameraFilled />}
         className={`${_classes["appointments-btn"]} bg-current`}
-        onClick={() => Router.push("/doctor/appointments/call")}
+        onClick={() =>
+          Router.push(`/doctor/appointments/${appointmentId}/call`)
+        }
       >
         Join Now
       </Button>
