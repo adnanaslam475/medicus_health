@@ -16,7 +16,7 @@ import Questionnary, {
 } from "common/components/Questionnary/Questionnary";
 import Attachment from "common/components/Attachment/Attachment";
 import NotesWithText from "common/components/NotesWithText/NotesWithText";
-import jpg from "../../../../../../public/assets/images/jpg.svg";
+import jpgIcon from "../../../../../public/assets/images/jpg.svg";
 import word from "../../../../../public/assets/images/word-file.svg";
 import PatientAppointmentInfoTab from "./PatientAppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
@@ -81,10 +81,7 @@ function PatientAppointmentHistoryDetail() {
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Health Questionnaire" key="3">
 							<div className="max-w-1/2">
-								{/* <Questionnary
-                  disable={true}
-                  data={patientHealthHistory?.patientHealthHistory?.history}
-                /> */}
+				
 								<CardWithProfileImageInfo
 									name="usama"
 									serviceName="consultation"
@@ -110,15 +107,15 @@ function PatientAppointmentHistoryDetail() {
 							</div>
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Attachement" key="5">
-							<div className="">
-								{urlArr?.map((item: any) => (
-									<Attachment src={word} name={item} />
-								))}
+							<div className="flex gap-2">
+								{/* {urlArr?.map((item: any) => ( */}
+									<Attachment src={word} name="test_reports.pdf" enable={true} />
+									<Attachment src={jpgIcon} name="test_reports.jpg" enable={true} />
+								{/* ))} */}
 							</div>
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Notes" key="6">
 							<div className="max-w-1/2">
-								{/* <ProfileImageWithInfo /> */}
 								<NotesWithText />
 							</div>
 						</Tabs.TabPane>

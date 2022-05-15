@@ -56,8 +56,8 @@ const AppointmentsDetailTabs = (props: Props) => {
         <TabPane tab="Attachement" key="5">
           <div className="">
             {/* <ProfileImageWithInfo /> */}
-            <Attachment src={jpg} />
-            <Attachment src={word} />
+            <Attachment src={jpg} enable={false} />
+            <Attachment src={word}  enable={false}/>
           </div>
         </TabPane>
         <TabPane tab="Notes" key="6">

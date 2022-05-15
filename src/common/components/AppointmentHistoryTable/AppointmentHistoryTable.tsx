@@ -8,6 +8,7 @@ import {
   Transaction,
   User,
 } from "../../../generated/graphql";
+import Router  from "next/router";
 
 interface col {
   title: string;
@@ -148,7 +149,10 @@ const AppointmentHistoryTable = (props: Props) => {
       dataIndex: "",
       key: "view",
       className: "table-action-icon",
-      render: () => <EyeFilled />,
+      render: () => <EyeFilled onClick={() => {
+        return Router.push(`/patient/appointments/history/detail`);
+      }}/>,
+     
     },
   ];
 

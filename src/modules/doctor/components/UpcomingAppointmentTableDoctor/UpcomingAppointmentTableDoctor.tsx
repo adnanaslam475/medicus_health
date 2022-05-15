@@ -9,6 +9,7 @@ import React from "react";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import { date } from "common/utils";
+import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 
 type Props = {
   dataSource: Array<Appointment>;
@@ -89,10 +90,21 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
     },
   ];
 
-  const footer = () =>
-    dataSource?.length && `Showing 10 out of ${dataSource?.length} entries`;
+  const footer = (currentPageData: any) => {
+    return dataSource?.length ? (
+      <span>
+        Showing {currentPageData?.length} out of {dataSource?.length} entries
+      </span>
+    ) : (
+      ""
+    );
+  };
 
-  return <Table columns={columns} dataSource={dataSource} footer={footer} />;
+  return (
+    <span className={`${_classes["upcomming-appointment-doctor-table"]}`}>
+      <Table columns={columns} dataSource={dataSource} footer={footer} />
+    </span>
+  );
 }
 
 export default UpcomingAppointmentTableDoctor;
