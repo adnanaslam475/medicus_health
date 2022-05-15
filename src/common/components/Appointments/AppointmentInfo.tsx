@@ -52,7 +52,7 @@ function AppointmentInfo(props: Props) {
         />
         <LabelValueRow label="Type" value={name} />
         <LabelValueRow
-          label="Date"
+          label="Appointment creation date"
           value={date?.formatMMMMDDYYYY(timeSlots()?.startTime)}
         />
         <LabelValueRow

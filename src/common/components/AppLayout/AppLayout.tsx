@@ -1,4 +1,4 @@
-import { Layout, Affix } from "antd";
+import { Layout, Affix, Divider } from "antd";
 import React from "react";
 import AdminSideMenu from "../../../modules/admin/components/AdminSideMenu/AdminSideMenu";
 import AppHeader from "../AppHeader/AppHeader";

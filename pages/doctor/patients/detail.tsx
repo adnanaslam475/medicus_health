@@ -1,10 +1,10 @@
 import PatientDetail from 'modules/doctor/pages/Patients/PatientDetail/PatientDetail'
 import React from 'react'
 
-function PatientDetailPage() {
+function detail() {
   return (
     <PatientDetail/>
   )
 }
 
-export default PatientDetailPage
+export default detail

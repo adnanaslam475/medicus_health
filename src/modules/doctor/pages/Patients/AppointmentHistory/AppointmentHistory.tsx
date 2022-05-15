@@ -1,11 +1,10 @@
 import { Select, DatePicker, Space, Button, Tag } from "antd";
 import React from "react";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { CloseOutlined, EyeFilled } from "@ant-design/icons";
-import TransactionHistory from "../../../../../common/components/AccountTabs/TransactionHistory/TransactionHistory";
+import TransactionHistory from "common/components/AccountTabs/TransactionHistory/TransactionHistory";
 import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
-import { date } from "../../../../../common/utils";
-import AppointmentHistoryTable from "../../../../../common/components/AppointmentHistoryTable/AppointmentHistoryTable";
+import { date } from "common/utils";
+import AppointmentHistoryTable from "common/components/AppointmentHistoryTable/AppointmentHistoryTable";
 import PatientAppointmentHistoryTable from "common/components/PatientAppointmentHistoryTable/PatientAppointmentHistoryTable";
 import CardWithProfileImageInfo from "../../PhysicianAppointmentHistoryDetail/CardWithProfileImageInfo";
 
@@ -22,7 +21,7 @@ function AppointmentHistory() {
   });
 
   const { appointments } = data || {};
-
+console.log(appointments,"dd");
   return (
     <CardWithProfileImageInfo
     name="usama"

@@ -518,3 +518,14 @@ query getAppointmentReportUrlById($id: Int!) {
     reportUrl
   }
 }
+
+query getDoctorEarnings($id:Int!){
+  getDoctorEarnings(id:$id){
+    total_number_of_consultation
+    total_number_of_second_opinions
+    total_number_of_patients
+    total_earnings_from_consultation
+    total_earnings_from_second_opinions
+    total_earnings
+  }
+}
