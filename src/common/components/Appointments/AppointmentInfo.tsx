@@ -38,7 +38,7 @@ function AppointmentInfo(props: Props) {
       <div className="max-w-[800px]">
         <LabelValueRow label="ID" value={id} />
         <LabelValueRow
-          label="Booked on"
+          label="Due date"
           value={date?.formatMMMMDDYYYY(requestedDate)}
         />
         <LabelValueRow
@@ -47,7 +47,7 @@ function AppointmentInfo(props: Props) {
         />
         <LabelValueRow label="Type" value={name} />
         <LabelValueRow
-          label="Date"
+          label="Appointment creation date"
           value={date?.formatMMMMDDYYYY(timeSlots()?.startTime)}
         />
         <LabelValueRow

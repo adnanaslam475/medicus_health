@@ -39,8 +39,8 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
     }
-    if (!filters.patientName) {
-      delete filters.patientName;
+    if (!filters.searchPatient) {
+      delete filters.searchPatient;
     }
     if (!filters.appointmentType) {
       delete filters.appointmentType;
@@ -54,11 +54,11 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
           <Input
-            value={filterState.patientName}
+            value={filterState.searchPatient}
             placeholder="Search by ID or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
-              onChangeFields("patientName", e.target.value);
+              onChangeFields("searchPatient", e.target.value);
             }}
           />
         </div>
