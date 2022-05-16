@@ -47,7 +47,7 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const { getTransectionFilter } = transactionData || {};
 
-  function onChangeFilters(values: any) {
+  function onChangeFilters(values: physicianMyEarningsFilterType) {
     setFilterValues(values);
     executeUseGetTransectionFilterQuery({
       filter: filterValues,
