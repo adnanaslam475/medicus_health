@@ -20,7 +20,6 @@ export type physicianFilterType = {
     startDate?: string;
     endDate?: string;
   };
-  patientName?: string;
 };
 
 export type cancelAppointmentFilterType = {
