@@ -6,7 +6,6 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { physicianFilterType } from "common/types/types";
-import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 
 const { Option } = Select;
 
@@ -15,14 +14,15 @@ const { RangePicker } = DatePicker;
 type Props = {
   onChange: (value: physicianFilterType) => void;
 };
-function UpcomingAppointmentFilter({ onChange }: Props) {
+
+function CancelledAppointmentFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
-  const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
-  const { appointmentServiceTypes } = serviceTypes || {};
+
   function clear() {
     setFilterState({});
     onChange({});
   }
+
   const [openDateRange, setOpenDateRange] = useState(false);
 
   const applyDateRange = () => {
@@ -39,8 +39,8 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
     }
-    if (!filters.searchString) {
-      delete filters.searchString;
+    if (!filters.patientName) {
+      delete filters.patientName;
     }
     if (!filters.appointmentType) {
       delete filters.appointmentType;
@@ -54,11 +54,11 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
           <Input
-            value={filterState.searchString}
+            value={filterState.patientName}
             placeholder="Search by ID or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
-              onChangeFields("searchString", e.target.value);
+              onChangeFields("patientName", e.target.value);
             }}
           />
         </div>
@@ -119,7 +119,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
           </Button>
         </div>
       </div>
-      <div className="flex-none sm:flex">
+      <div className="flex-none sm:flex"> 
         <div className="lg:ml-3 mt-3 sm:mt-0">
           <Select
             placeholder="Service"
@@ -127,9 +127,8 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
             onChange={(value) => onChangeFields("appointmentType", value)}
             value={filterState.appointmentType || "Service"}
           >
-            {appointmentServiceTypes?.map(({ id, name }) => (
-              <Option value={id}>{name}</Option>
-            ))}
+            <Option value="consultation">Consultation</Option>
+            <Option value="second opinion">Second Opinion</Option>
           </Select>
         </div>
         <Button type="text" className="sm:ml-3" onClick={clear}>
@@ -141,4 +140,4 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
   );
 }
 
-export default UpcomingAppointmentFilter;
+export default CancelledAppointmentFilter;
