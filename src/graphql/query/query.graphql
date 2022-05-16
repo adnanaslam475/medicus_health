@@ -363,13 +363,6 @@ query getAppointmentById($id: Int!) {
       endTime
       selected
     }
-    appointmentSchedule {
-      id
-      day
-      doctorId
-      startTime
-      endTime
-    }
     serviceType {
       id
       name

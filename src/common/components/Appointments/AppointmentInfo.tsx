@@ -32,9 +32,6 @@ function AppointmentInfo(props: Props) {
     }
   }
 
-  const redirectVideo=()=>{
-    Router.push("/patient/appointments/call")
-  }
   return (
     <React.Fragment>
       {/* <ProfileImageWithInfo /> */}
@@ -42,22 +39,25 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow label="ID" value={id} />
         <LabelValueRow
           label="Booked on"
-          value={date?.formatMMMMDDYYYY(requestedDate)}
+          // value={date?.formatMMMMDDYYYY(requestedDate)}
+          value="yes"
         />
         <LabelValueRow
           label="Doctor"
-          value={`Dr. ${first_name} ${last_name}`}
+          // value={`Dr. ${first_name} ${last_name}`}
+          value="nice"
         />
         <LabelValueRow label="Type" value={name} />
         <LabelValueRow
-          label="Date"
+          label="Appointment creation date"
           value={date?.formatMMMMDDYYYY(timeSlots()?.startTime)}
         />
         <LabelValueRow
           label="Time"
-          value={`${date?.formathhmma(
-            timeSlots()?.startTime
-          )} - ${date?.formathhmma(timeSlots()?.endTime)}`}
+          // value={`${date?.formathhmma(
+          //   timeSlots()?.startTime
+          // )} - ${date?.formathhmma(timeSlots()?.endTime)}`}
+          value="fffff"
         />
         <LabelValueRow label="Total Amount" value={price} />
 
@@ -68,13 +68,14 @@ function AppointmentInfo(props: Props) {
               color="#e2f8f7"
               className="ant-typography ant-typography-secondary"
             >
-              {status}
+              {/* {status} */}
+              adasdas
             </Tag>
           </div>
         </li>
       </div>
 
-       <div className="w-4/6 flex justify-between mt-4">
+      <div className="w-4/6 flex justify-between mt-4">
         <div className="flex">
           <Button
             icon={<MessageOutlined />}
@@ -95,11 +96,11 @@ function AppointmentInfo(props: Props) {
           type="primary"
           icon={<VideoCameraFilled />}
           className={`${_classes["appointments-btn"]} bg-current`}
-          onClick={redirectVideo}
+          onClick={() => Router.push(`/patient/appointments/${id}/call`)}
         >
           Join Now
         </Button>
-      </div> 
+      </div>
     </React.Fragment>
   );
 }
