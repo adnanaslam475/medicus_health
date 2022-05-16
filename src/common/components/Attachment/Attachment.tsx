@@ -1,7 +1,6 @@
 import { CloseOutlined, MoreOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import threeDot from '../../../../public/assets/images/threedot.svg'
 type Props = {
@@ -37,8 +36,6 @@ function handleFile(){
           }
         
           trigger="click"
-          // visible={this.state.clicked}
-          // onVisibleChange={this.handleClickChange}
         >
         <Image
           alt=""
