@@ -19,6 +19,7 @@ import { useGetAllAppointmentServiceTypesQuery } from "../../../generated/graphq
 import searchStyle from "./style.module.scss";
 import _classes from "./MyEarningsSearchFilters.module.scss";
 import { physicianMyEarningsFilterType } from "common/types/types";
+import AmountDropdown from "../AmountDropdown/AmountDropdown";
 
 const { RangePicker } = DatePicker;
 
@@ -83,24 +84,7 @@ function MyEarningsSearchFilters(props: Props) {
     });
   }
 
-  const rangeFilter = (
-    <Form form={form} layout="vertical" onFinish={onFinishLocal}>
-      <div
-        className={`${_classes["range-filter"]} flex items-center gap-2 p-2`}
-      >
-        <Form.Item name="minValue" className="mb-0">
-          <InputNumber placeholder="From ($)" type="number" min={0} />
-        </Form.Item>
-        <Form.Item name="maxValue">
-          <InputNumber placeholder="To ($)" className="mb-0" type="number" />
-        </Form.Item>
-
-        <Button type="primary" htmlType="submit">
-          Apply
-        </Button>
-      </div>
-    </Form>
-  );
+  const amountRangeFilter = <AmountDropdown onFinishLocal={onFinishLocal} />;
   const onHandleVisible = () => {
     setVisible(!visible);
   };
@@ -175,7 +159,7 @@ function MyEarningsSearchFilters(props: Props) {
                   <div className="flex justify-between items-center w-full px-3">
                     <div>Date</div>
                     <div>
-                      <CaretDownOutlined style={{ color: `primary` }} />
+                      <CaretDownOutlined />
                     </div>
                   </div>
                 )}
@@ -197,7 +181,7 @@ function MyEarningsSearchFilters(props: Props) {
           </div>
           <Dropdown
             className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg ml-0 p-3 border `}
-            overlay={rangeFilter}
+            overlay={amountRangeFilter}
             trigger={["click"]}
             visible={visible}
           >
