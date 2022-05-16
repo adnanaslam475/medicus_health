@@ -84,10 +84,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     return current && current > dayjs().startOf("day");
   }
 
-  const [countryId, setCountryId] = useState<number | undefined>(
-    user?.country_id || undefined
+  const [countryId, setCountryId] = useState<number | undefined | null>(
+    user?.country_id
   );
-  const [stateId, setStateId] = useState<number | undefined>(user?.state_id || undefined);
+  const [stateId, setStateId] = useState<number | undefined | null>(
+    user?.state_id
+  );
 
   function selectCountryId(id: number): void {
     setCountryId(id);

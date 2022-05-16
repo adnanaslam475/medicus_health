@@ -3,7 +3,7 @@ import React from "react";
 import { useGetStatesByCountryQuery } from "../../../../generated/graphql";
 
 type Props = {
-  countryId: number | undefined;
+  countryId: number | null | undefined;
   onChange: ((value: any, option: any) => void) | undefined;
 };
 
