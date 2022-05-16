@@ -194,7 +194,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     requestedDate,
     appointmentTimeSlots,
   } = data || {};
-  // console.log("datadata", data);
+
   const [slot, setSlot] = useState<dateArray>({ startDate: "", endDate: "" });
   const [slots, setSlots] = useState<Array<dateArray>>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -220,8 +220,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   const [datePickerInstance] = Form.useForm();
   // API CALL
   const [{ data: Appointment }] = useProposeNewTimeMutation();
-  // console.log(data, "dataproposeNewTimeSlots");
-  // const { physicianData, onFinish } = props || {};
 
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
   const [visible, setVisible] = useState<boolean>(true);
@@ -239,7 +237,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     });
 
     setServiceInfo(serviceType as AppointmentServiceType);
-    console.log(serviceType);
   }
 
   function handleServiceChange(value: any) {
@@ -250,13 +247,10 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
-    console.log("date", dateString, name);
     setSlot({ ...slot, [name]: dateString });
   };
 
-  function onOkDatePicker(value: any) {
-    // console.log("onOk: ", value);
-  }
+  function onOkDatePicker(value: any) {}
 
   function onProposeNewTimeSlot() {}
 
@@ -266,7 +260,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   function visibleFalse() {
     setVisible(false);
-    console.log("Clicked! But prevent default.");
   }
 
   function addTimeSlot() {
@@ -274,8 +267,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setSlot({ startDate: "", endDate: "" });
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
-
-  // console.log("slot,", slot, slots);
 
   return (
     <>
@@ -401,8 +392,6 @@ function AvailabilityTimeSlots({
   form: FormInstance<any>;
   onChangeDatePicker?: (dateString: string, name: string) => void;
 }) {
-  // console.log("onchangedfaye", onChangeDatePicker);
-
   return (
     <div className="block mb-10">
       <Form
