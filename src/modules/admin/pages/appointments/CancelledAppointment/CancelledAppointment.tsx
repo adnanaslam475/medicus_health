@@ -1,25 +1,22 @@
-import { Empty } from "antd";
 import React from "react";
+import { Empty } from "antd";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import Table from "./CancelledAppointmentTable";
+import UpcomingAppointmentFilter from "modules/doctor/pages/appointments/UpcomingAppointmentFilter";
 import {
   Appointment,
-  useGetAllAppointmentServiceTypesQuery,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
-import UpcomingAppointmentFilter from "modules/doctor/pages/appointments/UpcomingAppointmentFilter";
-import { cancelAppointmentFilterType } from "common/types/types";
+import {
+  cancelAppointmentFilterType,
+  physicianFilterType,
+} from "common/types/types";
 
-type CancelledAppointmentProps = {
-  // onChange: (value: physicianFilterType) => void;
-};
+type CancelledAppointmentProps = {};
 
 function CancelledAppointment({}: CancelledAppointmentProps) {
   const [filterValues, setFilterValues] =
     React.useState<cancelAppointmentFilterType>({});
-
-  const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
-  const { appointmentServiceTypes } = serviceTypes || {};
 
   const [{ data }, executeUseCancelledAppointmentsQuery] =
     useGetAllRequestedAppointmentsQuery({
@@ -31,7 +28,7 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
       },
     });
   const { appointments } = data || {};
-  function onChangeFilters(values: any) {
+  function onChangeFilters(values: physicianFilterType) {
     setFilterValues(values);
     executeUseCancelledAppointmentsQuery({
       filter: filterValues,
@@ -47,10 +44,7 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
           </div>
         </div>
         <div className="w-5/6">
-          <UpcomingAppointmentFilter
-            serviceTypes={appointmentServiceTypes}
-            onChange={onChangeFilters}
-          />
+          <UpcomingAppointmentFilter onChange={onChangeFilters} />
         </div>
         <div className="w-full">
           {appointments?.length !== 0 && appointments ? (

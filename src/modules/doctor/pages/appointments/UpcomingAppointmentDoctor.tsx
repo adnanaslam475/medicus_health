@@ -3,17 +3,11 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import { Button } from "antd";
 import Link from "next/link";
 import UpcomingAppointmentFilter from "./UpcomingAppointmentFilter";
-import {
-  Appointment,
-  useGetAllAppointmentServiceTypesQuery,
-  usePhysicianAppointmentsQuery,
-} from "generated/graphql";
+import { Appointment, usePhysicianAppointmentsQuery } from "generated/graphql";
 import UpcomingAppointmentTableDoctor from "modules/doctor/components/UpcomingAppointmentTableDoctor/UpcomingAppointmentTableDoctor";
 import { physicianFilterType } from "common/types/types";
 
 function UpcomingAppointmentDoctor() {
-  const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
-  const { appointmentServiceTypes } = serviceTypes || {};
   const [filterValues, setFilterValues] = useState<physicianFilterType>({});
   const [{ data: physicialData }, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
@@ -46,10 +40,7 @@ function UpcomingAppointmentDoctor() {
           </Link>
         </div>
 
-        <UpcomingAppointmentFilter
-          serviceTypes={appointmentServiceTypes}
-          onChange={onChangeFilters}
-        />
+        <UpcomingAppointmentFilter onChange={onChangeFilters} />
         <UpcomingAppointmentTableDoctor
           dataSource={physicianAppointments as Array<Appointment>}
         />
