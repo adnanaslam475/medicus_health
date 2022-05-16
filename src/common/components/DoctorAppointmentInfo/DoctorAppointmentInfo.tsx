@@ -220,6 +220,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   const [datePickerInstance] = Form.useForm();
   // API CALL
   const [{ data: Appointment }] = useProposeNewTimeMutation();
+  // const { physicianData, onFinish } = props || {};
 
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
   const [visible, setVisible] = useState<boolean>(true);
@@ -374,7 +375,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           <div className="flex justify-end">
             <Button
               className={`${_classes["appointments-btn"]}`}
-              // onClick={onProposeNewTimeSlot}
+              onClick={onProposeNewTimeSlot}
             >
               Propose Time
             </Button>
