@@ -16,10 +16,10 @@ type Props = {
 };
 
 function UpcomingAppointmentFilter({ onChange }: Props) {
-  const [filterState, setFilterState] = useState<any>({});
+  const [filterState, setFilterState] = useState<physicianFilterType>({});
 
   function clear() {
-    setFilterState({ status: "Confirmed" });
+    setFilterState({});
     onChange({});
   }
 
@@ -32,7 +32,6 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
   function onChangeFields(key: string, value: string | object) {
     const filters = {
       ...filterState,
-      status:"Confirmed",
       [key]: value,
     };
     setFilterState(filters);
@@ -40,8 +39,8 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
     }
-    if (!filters.patientName) {
-      delete filters.patientName;
+    if (!filters.searchString) {
+      delete filters.searchString;
     }
     if (!filters.appointmentType) {
       delete filters.appointmentType;
@@ -55,11 +54,11 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
           <Input
-            value={filterState.patientName}
+            value={filterState.searchString}
             placeholder="Search by ID or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
-              onChangeFields("patientName", e.target.value);
+              onChangeFields("searchString", e.target.value);
             }}
           />
         </div>

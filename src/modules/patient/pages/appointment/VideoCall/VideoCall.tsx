@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React, { useEffect, useState } from "react";
 import Controls from "./Controls";
 import Video from "./Video";
@@ -13,16 +12,33 @@ import {
 import _classes from "./VideoCall.module.scss";
 import { Result } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
+import {
+  useGenerateRtcTokenMutation,
+  useGetAppointmentByIdQuery,
+} from "generated/graphql";
+import { getUserData } from "common/utils/userData";
+import { useRouter } from "next/router";
+import { IAgoraRTCRemoteUser } from "agora-rtc-react";
 
 function VideoCall() {
+  const { query } = useRouter();
   const [inCall, setInCall] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<IAgoraRTCRemoteUser[]>([]);
   const [start, setStart] = useState(false);
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks();
+  const [, executeGenerateRtcTokenMutation] = useGenerateRtcTokenMutation();
+  const [{ data }] = useGetAppointmentByIdQuery({
+    variables: {
+      id: Number(query?.id),
+    },
+    pause: !Number(query?.id),
+  });
+  const { appointment } = data || {};
+  const { user } = getUserData();
 
   useEffect(() => {
-    let init = async (name) => {
+    let init = async (name: string) => {
       client.on("user-published", async (user, mediaType) => {
         await client.subscribe(user, mediaType);
         if (mediaType === "video") {
@@ -31,7 +47,7 @@ function VideoCall() {
           });
         }
         if (mediaType === "audio") {
-          user.audioTrack.play();
+          user.audioTrack?.play();
         }
       });
 
@@ -52,24 +68,39 @@ function VideoCall() {
         });
       });
 
+      const { data } = await executeGenerateRtcTokenMutation({
+        generateRTCTokenInput: {
+          channelName: name,
+          uId: String(user?.id),
+          role: "audience",
+          tokenType: "uid",
+        },
+      });
+      const { rtmAccessToken } = data?.generateRTCToken || {};
       try {
-        await client.join(config.appId, name, config.token, null);
+        await client.join(
+          //@ts-ignore
+          config.appId,
+          name,
+          rtmAccessToken || "",
+          String(user?.id)
+        );
+        if (tracks) await client.publish([tracks[0], tracks[1]]);
+        setStart(true);
       } catch (error) {
-        console.log("error");
+        console.log(error);
       }
-
-      if (tracks) await client.publish([tracks[0], tracks[1]]);
-      setStart(true);
     };
 
-    if (ready && tracks) {
+    if (ready && tracks && appointment?.id) {
+      const channelToBeJoined = `${appointment?.id}_${appointment?.patientId}_${appointment?.doctorId}`;
       try {
-        init(channelName);
+        init(channelToBeJoined);
       } catch (error) {
         console.log(error);
       }
     }
-  }, [channelName, client, ready, tracks]);
+  }, [channelName, client, ready, tracks, appointment]);
 
   return (
     <div className={`flex flex-col relative ${_classes["video-call"]}`}>
@@ -79,12 +110,14 @@ function VideoCall() {
             {ready && tracks && (
               <Controls
                 tracks={tracks}
-                setStart={setStart}
-                setInCall={setInCall}
+                onLeave={() => {
+                  setStart(false);
+                  setInCall(false);
+                }}
               />
             )}
           </div>
-          <>{start && tracks && <Video tracks={tracks} users={users} />}</>
+          <>{start && tracks && <Video tracks={tracks} users={users} />}</>s
         </>
       ) : (
         <Result icon={<SmileOutlined />} title="Your Call has ended" />
