@@ -1,7 +1,6 @@
 import { Button, Form, InputNumber } from "antd";
 import React from "react";
-import _classes from "../../../../src/common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters.module.scss";
-
+import _classes from "../PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters.module.scss";
 type Props = {
   onFinishLocal: (values: { minValue: number; maxValue: number }) => void;
 };
