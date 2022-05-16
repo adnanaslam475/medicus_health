@@ -85,9 +85,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
   }
 
   const [countryId, setCountryId] = useState<number | undefined>(
-    user?.country_id
+    user?.country_id || undefined
   );
-  const [stateId, setStateId] = useState<number | undefined>(user?.state_id);
+  const [stateId, setStateId] = useState<number | undefined>(user?.state_id || undefined);
 
   function selectCountryId(id: number): void {
     setCountryId(id);
