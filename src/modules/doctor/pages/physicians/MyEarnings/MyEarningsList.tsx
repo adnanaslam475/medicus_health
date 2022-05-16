@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Table, Input, Button, Space, Tag, Divider } from "antd";
-import { EyeFilled } from "@ant-design/icons";
+import { Table, Divider } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MyEarningsStats from "../../../../../common/components/MyEarningsStats/MyEarningsStats";
 import {
   Appointment,
-  Transaction,
-  useGetAllTransactionsQuery,
   useGetDoctorEarningsQuery,
+  useGetTransectionFilterQuery,
 } from "generated/graphql";
 import { date, userData } from "common/utils";
 import SearchFilters from "common/components/SearchFilters/SearchFilters";
+import { physicianMyEarningsFilterType } from "common/types/types";
 import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
 
 type Props = {};
@@ -18,12 +17,8 @@ type Props = {};
 const PhysicianMyEarningsList = (props: Props) => {
   const { user } = userData.getUserData();
 
-  const [dueStartDate, setStartDate] = useState<Date | null>();
-  const [dueEndDate, setEndDate] = useState<Date | null>();
-  const [dataListPhysician, setDataListPhysician] = useState<string>();
-  const [doctorIds, setDoctorId] = useState<number>();
-  const [appointmentIds, setAppointmentIds] = useState<number>();
-  const [serviceIds, setServiceIds] = useState<number>();
+  const [filterValues, setFilterValues] =
+    useState<physicianMyEarningsFilterType>({});
 
   // get Doctor Earnings Stats
   const [{ data }] = useGetDoctorEarningsQuery({
@@ -42,9 +37,23 @@ const PhysicianMyEarningsList = (props: Props) => {
     total_number_of_second_opinions,
   } = getDoctorEarnings || {};
 
-  //GET ALL TRANSACTIONS
-  const [{ data: allTransactions }] = useGetAllTransactionsQuery();
-  const { transactions } = allTransactions || {};
+  //GET ALL TRANSACTIONS WITH FILTERS
+  const [{ data: transactionData }, executeUseGetTransectionFilterQuery] =
+    useGetTransectionFilterQuery({
+      variables: {
+        filter: filterValues,
+      },
+    });
+
+  const { getTransectionFilter } = transactionData || {};
+
+  function onChangeFilters(values: any) {
+    setFilterValues(values);
+    executeUseGetTransectionFilterQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
 
   const Columns = [
     {
@@ -158,23 +167,9 @@ const PhysicianMyEarningsList = (props: Props) => {
         <div className="flex justify-between">
           <h2 className="mb-4">My Earnings</h2>
         </div>
-        <MyEarningsSearchFilters
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          setDataListPhysician={setDataListPhysician}
-          setDoctorId={setDoctorId}
-          setAppointmentIds={setAppointmentIds}
-          setServiceIds={setServiceIds}
-        />
-        {/* <PatientSearchFilters /> */}
-        <div className="w-full">
-          <div className="">
-            <Table
-              columns={Columns}
-              dataSource={transactions as Transaction[]}
-            />
-          </div>
-        </div>
+
+        <MyEarningsSearchFilters onChange={onChangeFilters} />
+        <Table columns={Columns} dataSource={getTransectionFilter} />
       </div>
     </AppLayout>
   );

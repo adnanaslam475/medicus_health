@@ -20,3 +20,13 @@ export type physicianFilterType = {
     endDate?: string;
   };
 };
+
+export type physicianMyEarningsFilterType = {
+  searchString?: string;
+  serviceId?: number;
+  earnings?: { initial: number; final: number };
+  DateRange?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
