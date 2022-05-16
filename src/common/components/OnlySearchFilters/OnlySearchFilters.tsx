@@ -3,16 +3,19 @@ import { Input, Button } from "antd";
 import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import _classes from "./SearchFilters.module.scss";
 
-function OnlySearchFilters({ onChange }: any) {
+type Props = {
+  onChange: (e: string) => void;
+};
+function OnlySearchFilters({ onChange }: Props) {
   const [searchValue, setSearchValue] = React.useState("");
   function onClear() {
     onChange("");
     setSearchValue("");
   }
 
-  function onChangeFields(e: string) {
-    setSearchValue(e);
-    onChange(e);
+  function onChangeFields(searchText: string) {
+    setSearchValue(searchText);
+    onChange(searchText);
   }
 
   return (

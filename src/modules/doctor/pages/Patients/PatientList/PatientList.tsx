@@ -28,7 +28,6 @@ function PatientList() {
       render: (value: PatientProfile) => {
         return (
           <div>
-            {" "}
             {value?.profileImage && (
               <Image
                 alt=""
