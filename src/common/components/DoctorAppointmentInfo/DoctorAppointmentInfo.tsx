@@ -218,9 +218,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
-  // API CALL
-  const [{ data: Appointment }] = useProposeNewTimeMutation();
-  // const { physicianData, onFinish } = props || {};
 
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
   const [visible, setVisible] = useState<boolean>(true);
@@ -253,7 +250,29 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   function onOkDatePicker(value: any) {}
 
-  function onProposeNewTimeSlot() {}
+  // API CALL
+
+  const [, executeProposeTimeSlotMutation] = useProposeNewTimeMutation();
+
+  async function onProposeNewTimeSlot() {
+    try {
+      const { error } = await executeProposeTimeSlotMutation({
+        proposeNewTimeInput: {
+          id: id as number,
+          serviceId: serviceType?.id as number,
+          charges: serviceInfo?.price as number,
+          proposedTimeSlots: slots as any,
+        },
+      });
+      if (error && error?.message) {
+        throw new Error(error.message);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message,
+      });
+    }
+  }
 
   function deleteTimeSlot(index: number) {
     setSlots(slots.filter((_, i) => i !== index));
