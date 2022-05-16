@@ -1,4 +1,9 @@
-import { AgoraVideoPlayer, IMicrophoneAudioTrack ,ICameraVideoTrack,IAgoraRTCRemoteUser} from "agora-rtc-react";
+import {
+  AgoraVideoPlayer,
+  IMicrophoneAudioTrack,
+  ICameraVideoTrack,
+  IAgoraRTCRemoteUser,
+} from "agora-rtc-react";
 import React from "react";
 
 // scss
