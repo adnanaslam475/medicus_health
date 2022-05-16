@@ -8,20 +8,13 @@ import {
 	usePatientHealthHistoryQuery,
 } from "generated/graphql";
 import { Tabs } from "antd";
-// import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
-// import DoctorAppointmentInfo from "components/DoctorAppointmentInfo/DoctorAppointmentInfo";
-import PatientInfo from "common/components/PatientInfo/PatientInfo";
-import Questionnary, {
-	QuestionnaireForm,
-} from "common/components/Questionnary/Questionnary";
-import Attachment from "common/components/Attachment/Attachment";
 import NotesWithText from "common/components/NotesWithText/NotesWithText";
-import jpgIcon from "../../../../../public/assets/images/jpg.svg";
-import word from "../../../../../public/assets/images/word-file.svg";
 import PatientAppointmentInfoTab from "./PatientAppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
-import CardWithProfileImageInfo from "./CardWithProfileImageInfo";
+import HealthQuestionnaireFrom from "./HealthQuestionnaireFromTab";
+import PhysicianQuestionnaireForm from "./PhysicianQuestionnaireFormTab";
+import AttachmentTab from "./AttachmentTab";
 
 function PatientAppointmentHistoryDetail() {
 	const { query } = useRouter();
@@ -58,15 +51,6 @@ function PatientAppointmentHistoryDetail() {
 		urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
 	}
 
-	//Get Patient ID
-	const { patientId } = appointment || {};
-
-	// Get patient Health History
-	const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
-		variables: { input: patientId as number },
-	});
-	const { appointmentHealthHistory } = data?.appointment || {};
-
 	return (
 		<AppLayout>
 			<>
@@ -80,39 +64,13 @@ function PatientAppointmentHistoryDetail() {
 							<PatientInfoTab />
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Health Questionnaire" key="3">
-							<div className="max-w-1/2">
-				
-								<CardWithProfileImageInfo
-									name="usama"
-									serviceName="consultation"
-								>
-									<QuestionnaireForm
-										data={patientHealthHistory?.patientHealthHistory.history}
-									/>
-								</CardWithProfileImageInfo>
-							</div>
+							<HealthQuestionnaireFrom />
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Physician Questionnaire" key="4">
-							<div className="">
-								<CardWithProfileImageInfo
-									name="usama"
-									serviceName="consultation"
-								>
-									<PhysicianQuestionnaire
-										appointmentHealthHistory={
-											appointment?.appointmentHealthHistory?.history
-										}
-									/>
-								</CardWithProfileImageInfo>
-							</div>
+							<PhysicianQuestionnaireForm />
 						</Tabs.TabPane>
-						<Tabs.TabPane tab="Attachement" key="5">
-							<div className="flex gap-2">
-								{/* {urlArr?.map((item: any) => ( */}
-									<Attachment src={word} name="test_reports.pdf" enable={true} />
-									<Attachment src={jpgIcon} name="test_reports.jpg" enable={true} />
-								{/* ))} */}
-							</div>
+						<Tabs.TabPane tab="Attachment" key="5">
+							<AttachmentTab/>
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Notes" key="6">
 							<div className="max-w-1/2">

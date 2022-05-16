@@ -1,3 +1,4 @@
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
 import { date } from "common/utils";
 import {
@@ -7,7 +8,6 @@ import {
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
-import CardWithProfileImageInfo from "./CardWithProfileImageInfo";
 
 type Props = {};
 

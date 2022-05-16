@@ -1,4 +1,4 @@
-import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
+
 import {
   Appointment,
   useDoctorAppointmentDetailAppointmentInfoQuery,
@@ -6,7 +6,7 @@ import {
 import { useRouter } from "next/router";
 import React from "react";
 import DoctorAppointmentInfo from "common/components/DoctorAppointmentInfo/DoctorAppointmentInfo";
-import CardWithProfileImageInfo from "./CardWithProfileImageInfo";
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 
 type Props = {};
 

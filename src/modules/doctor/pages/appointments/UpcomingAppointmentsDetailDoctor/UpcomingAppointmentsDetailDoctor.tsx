@@ -71,10 +71,6 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <div className="max-w-1/2">
-                {/* <Questionnary
-                  disable={true}
-                  data={patientHealthHistory?.patientHealthHistory?.history}
-                /> */}
                 <QuestionnaireForm
                   data={patientHealthHistory?.patientHealthHistory.history}
                 />
@@ -98,7 +94,6 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Notes" key="6">
               <div className="max-w-1/2">
-                {/* <ProfileImageWithInfo />s */}
                 <NotesTab />
               </div>
             </Tabs.TabPane>

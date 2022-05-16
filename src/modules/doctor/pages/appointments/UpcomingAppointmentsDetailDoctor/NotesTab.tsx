@@ -1,4 +1,5 @@
 import { notification } from "antd";
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import Notes from "common/components/Notes/Notes";
 import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
 import {
@@ -7,7 +8,6 @@ import {
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
-import CardWithProfileImageInfo from "./CardWithProfileImageInfo";
 
 type Props = {};
 
