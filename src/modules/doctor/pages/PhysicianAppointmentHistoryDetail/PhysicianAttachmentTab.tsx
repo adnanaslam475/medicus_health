@@ -4,6 +4,7 @@ import { useDoctorAppointmentDetailQuery, useGetAppointmentReportUrlByIdQuery } 
 import word from "../../../../../public/assets/images/word-file.svg";
 import { useRouter } from 'next/router';
 import React from 'react'
+import CardWithProfileImageInfo from 'common/components/CardWithProfileImageInfo/CardWithProfileImageInfo';
 
 function PhysicianAttachmentTab() {
     const { query } = useRouter();
@@ -28,13 +29,18 @@ function PhysicianAttachmentTab() {
 	if (urlArr && urlArr.length > 0) {
 		urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
 	}
+    const { patient, serviceType } = appointment || {};
   return (
-
-    <div className="">
-    {urlArr?.map((item: any) => (
+    <CardWithProfileImageInfo
+    name={`${patient?.first_name} ${patient?.last_name}`}
+    serviceName={serviceType?.name}
+  >
+    <div className="flex gap-2">
+    {urlArr?.map((item: string) => (
         <Attachment src={word} name={item}  enable={false}/>
     ))}
 </div>
+</CardWithProfileImageInfo>
   )
 }
 

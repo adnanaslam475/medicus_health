@@ -60,7 +60,7 @@ function PatientInfoTab({}: Props) {
     >
       <div className="max-w-[800px]">
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="first Name" value={first_name} />
+          <LabelWithTextDiv label="First Name" value={first_name} />
           <LabelWithTextDiv label="Last Name" value={last_name} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
