@@ -83,7 +83,7 @@ function AppointmentInfo(props: Props) {
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]}`}
-            onClick={() => Router.push("/doctor/messages")}
+            onClick={() => Router.push("/physician/messages")}
           >
             Message Physician
           </Button>

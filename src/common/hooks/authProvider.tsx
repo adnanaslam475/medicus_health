@@ -83,7 +83,7 @@ function AuthProvider({ children }: any) {
   }
   const role = getRole();
   if (
-    router.pathname.startsWith("/doctor") &&
+    router.pathname.startsWith("/physician") &&
     role === "Doctor" &&
     authorized
   ) {

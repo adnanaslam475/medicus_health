@@ -15,7 +15,7 @@ type events = {
 };
 function DoctorCalendar() {
   const redirectToUpcoming = function () {
-    Router.push("/doctor/appointments/upcoming");
+    Router.push("/physician/appointments/upcoming");
   };
 
   const calendarComponentRef = useRef<FullCalendar>();
