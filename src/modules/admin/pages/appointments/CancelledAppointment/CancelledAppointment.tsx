@@ -5,7 +5,7 @@ import Table from "./CancelledAppointmentTable";
 import {
   Appointment,
   useGetAllAppointmentServiceTypesQuery,
-  useGetAllCancelledAppointmentsQuery,
+  // useGetAllCancelledAppointmentsQuery,
 } from "../../../../../generated/graphql";
 import UpcomingAppointmentFilter from "modules/doctor/pages/appointments/UpcomingAppointmentFilter";
 import { cancelAppointmentFilterType } from "common/types/types";
@@ -20,19 +20,19 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
 
   const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = serviceTypes || {};
-  const [{ data }, executeUseCancelledAppointmentsQuery] =
-    useGetAllCancelledAppointmentsQuery({
-      variables: {
-        filter: { status: "Cancelled", ...filterValues },
-      },
-    });
-  const { appointments } = data || {};
+  // const [{ data }, executeUseCancelledAppointmentsQuery] =
+  // useGetAllCancelledAppointmentsQuery({
+  //   variables: {
+  //     filter: { status: "Cancelled", ...filterValues },
+  //   },
+  // });
+  // const { appointments } = data || {};
   function onChangeFilters(values: any) {
     setFilterValues(values);
-    executeUseCancelledAppointmentsQuery({
-      filter: filterValues,
-      requestPolicy: "network-only",
-    });
+    // executeUseCancelledAppointmentsQuery({
+    //   filter: filterValues,
+    //   requestPolicy: "network-only",
+    // });
   }
   return (
     <AppLayout>
@@ -49,13 +49,13 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
           />
         </div>
         <div className="w-full">
-          {appointments?.length !== 0 && appointments ? (
+          {/* {appointments?.length !== 0 && appointments ? (
             <Table dataSource={appointments as Appointment[]} />
           ) : (
             <div className="flex items-center justify-center w-full">
               <Empty />
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </AppLayout>

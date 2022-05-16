@@ -18,12 +18,15 @@ function UpcomingAppointmentDoctor() {
   const [{ data: physicialData }, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
       variables: {
-        filter: filterValues,
+        filter: {
+          ...filterValues,
+          status: "Confirmed",
+        },
       },
     });
   const { physicianAppointments } = physicialData || {};
 
-  function onChangeFilters(values: any) {
+  function onChangeFilters(values: physicianFilterType) {
     setFilterValues(values);
     executeUsePhysicianAppointmentsQuery({
       filter: filterValues,

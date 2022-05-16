@@ -15,6 +15,7 @@ export type singleSchedule = {
 export type physicianFilterType = {
   searchString?: string;
   appointmentType?: string;
+  patientName?: string;
   bookingDate?: {
     startDate?: string;
     endDate?: string;

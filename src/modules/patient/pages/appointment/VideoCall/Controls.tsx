@@ -1,23 +1,27 @@
-//@ts-nocheck
 import {
   AudioMutedOutlined,
   AudioOutlined,
-  CloseCircleOutlined,
   VideoCameraFilled,
   VideoCameraOutlined,
 } from "@ant-design/icons";
+import { ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
 import { Button } from "antd";
 import React, { useState } from "react";
 import { useClient } from "./settings";
 
-type Props = {};
+type Props = {
+  tracks: [IMicrophoneAudioTrack, ICameraVideoTrack];
+  onLeave: () => void;
+};
 
 function Controls(props: Props) {
   const client = useClient();
-  const { tracks, setStart, setInCall } = props;
+  const {
+    tracks,
+  } = props;
   const [trackState, setTrackState] = useState({ video: true, audio: true });
 
-  const mute = async (type) => {
+  const mute = async (type: string) => {
     if (type === "audio") {
       await tracks[0].setEnabled(!trackState.audio);
       setTrackState((ps) => {
@@ -36,8 +40,6 @@ function Controls(props: Props) {
     client.removeAllListeners();
     tracks[0].close();
     tracks[1].close();
-    setStart(false);
-    setInCall(false);
   };
 
   return (

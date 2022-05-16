@@ -3,7 +3,7 @@ import React from "react";
 import { useGetCitiesByStateQuery } from "../../../../generated/graphql";
 
 type Props = {
-  stateId: number | undefined;
+  stateId: number | undefined | null;
 };
 
 const CitySelectDropDown = (props: Props) => {
