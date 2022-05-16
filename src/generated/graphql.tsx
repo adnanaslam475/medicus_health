@@ -1406,6 +1406,13 @@ export type GetTransectionFilterQueryVariables = Exact<{
 
 export type GetTransectionFilterQuery = { __typename?: 'Query', getTransectionFilter: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, appointment?: { __typename?: 'Appointment', patientId: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }> };
 
+export type PhysiciansPatientsQueryVariables = Exact<{
+  searchField?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type PhysiciansPatientsQuery = { __typename?: 'Query', physiciansPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, streetAddress?: string | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null }> };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2156,6 +2163,25 @@ export const GetTransectionFilterDocument = gql`
 
 export function useGetTransectionFilterQuery(options: Omit<Urql.UseQueryArgs<GetTransectionFilterQueryVariables>, 'query'>) {
   return Urql.useQuery<GetTransectionFilterQuery>({ query: GetTransectionFilterDocument, ...options });
+};
+export const PhysiciansPatientsDocument = gql`
+    query physiciansPatients($searchField: String) {
+  physiciansPatients(filter: {searchField: $searchField}) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+    streetAddress
+    patientProfile {
+      profileImage
+    }
+  }
+}
+    `;
+
+export function usePhysiciansPatientsQuery(options?: Omit<Urql.UseQueryArgs<PhysiciansPatientsQueryVariables>, 'query'>) {
+  return Urql.useQuery<PhysiciansPatientsQuery>({ query: PhysiciansPatientsDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {

@@ -151,3 +151,16 @@ query getTransectionFilter($filter: GetTransectionInput!) {
   }
 }
 
+query physiciansPatients ($searchField:String){
+  physiciansPatients(filter:{searchField:$searchField}){
+    id
+    first_name
+    last_name
+    email
+    contact_number
+		streetAddress
+    patientProfile{
+      profileImage
+    }
+  }
+}
