@@ -26,9 +26,8 @@ function PatientList() {
       dataIndex: "patientProfile",
       key: "patientProfile",
       render: (value: PatientProfile) => {
-        console.log("valuevalue", value);
         return (
-          <div className="someclass">
+          <div>
             {" "}
             {value?.profileImage && (
               <Image
@@ -48,7 +47,7 @@ function PatientList() {
       dataIndex: "first_name",
       key: "first_name",
       render: (value: string) => {
-        return <div className="someclass">{value}</div>;
+        return <div>{value}</div>;
       },
     },
     {
@@ -56,7 +55,7 @@ function PatientList() {
       dataIndex: "last_name",
       key: "last_name",
       render: (value: string) => {
-        return <div className="someclass"> {value}</div>;
+        return <div> {value}</div>;
       },
     },
     {
@@ -64,7 +63,7 @@ function PatientList() {
       dataIndex: "email",
       key: "email",
       render: (email: string) => {
-        return <div className="someclass">{email}</div>;
+        return <div>{email}</div>;
       },
     },
     {
@@ -77,7 +76,7 @@ function PatientList() {
       dataIndex: "streetAddress",
       key: "streetAddress",
       render: (streetAddress: string) => {
-        return <div className="flagAvatar engFlag pr-2">{streetAddress}</div>;
+        return <div className="pr-2">{streetAddress}</div>;
       },
     },
     {
@@ -96,10 +95,10 @@ function PatientList() {
       ),
     },
   ];
-  function changeHandler(e: string) {
-    setSearchValue(e);
+  function onChange(searchText: string) {
+    setSearchValue(searchText);
     executeUsePhysiciansPatientsQuery({
-      variables: { searchField: e },
+      variables: { searchField: searchText },
       requestPolicy: "network-only",
     });
   }
@@ -110,13 +109,10 @@ function PatientList() {
         <div className="flex justify-between">
           <h2 className="mb-4">Patients</h2>
         </div>
-        <OnlySearchFilters changeHandler={changeHandler} />
+        <OnlySearchFilters onChange={onChange} />
         <div className="w-full">
-          <div className="">
-            <Table
-              columns={columns}
-              dataSource={physiciansPatients}
-            />
+          <div>
+            <Table columns={columns} dataSource={physiciansPatients} />
           </div>
         </div>
       </div>
