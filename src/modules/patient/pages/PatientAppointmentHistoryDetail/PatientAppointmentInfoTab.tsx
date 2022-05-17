@@ -1,16 +1,16 @@
-import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
+
 import {
   Appointment,
   useDoctorAppointmentDetailAppointmentInfoQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
-import DoctorAppointmentInfo from "../../../../../common/components/DoctorAppointmentInfo/DoctorAppointmentInfo";
+import DoctorAppointmentInfo from "common/components/DoctorAppointmentInfo/DoctorAppointmentInfo";
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 
 type Props = {};
 
-function AppointmentInfoTab({}: Props) {
+function PatientAppointmentInfoTab({}: Props) {
   const { query } = useRouter();
 
   const [{ data }] = useDoctorAppointmentDetailAppointmentInfoQuery({
@@ -21,7 +21,7 @@ function AppointmentInfoTab({}: Props) {
   });
   const { appointment } = data || {};
   const { patient, serviceType } = appointment || {};
-  
+
   return (
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
@@ -32,4 +32,4 @@ function AppointmentInfoTab({}: Props) {
   );
 }
 
-export default AppointmentInfoTab;
+export default PatientAppointmentInfoTab;

@@ -84,7 +84,7 @@ function CancelledAppointmentsDetailDoctor() {
             <Tabs.TabPane tab="Attachement" key="5">
               <div className="">
                 {urlArr?.map((item: any) => (
-                  <Attachment src={word} name={item} />
+                  <Attachment src={word} name={item} enable />
                 ))}
               </div>
             </Tabs.TabPane>

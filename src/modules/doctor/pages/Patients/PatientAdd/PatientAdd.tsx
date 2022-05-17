@@ -61,7 +61,7 @@ function PatientAdd() {
 
     if (response?.data?.createDoctor) {
       Router.push({
-        pathname: "/doctor/patients",
+        pathname: "/physician/patients",
       });
     }
 

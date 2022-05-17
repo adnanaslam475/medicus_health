@@ -1,51 +1,51 @@
 type routes = {
-  name: string;
-  route: string;
-  submenu?: {
-    name: string;
-    route: string;
-  }[];
+	name: string;
+	route: string;
+	submenu?: {
+		name: string;
+		route: string;
+	}[];
 }[];
 
 export const PATIENT_ROUTES: routes = [
-  {
-    name: "Appointments",
-    route: "+",
-    submenu: [
-      { name: "Upcoming", route: "/patient/appointments/upcoming" },
-      { name: "Requested", route: "/patient/appointments/requested" },
-      { name: "Cancelled", route: "/patient/appointments/cancelled" },
-      { name: "History", route: "/patient/appointments/history" },
-    ],
-  },
+	{
+		name: "Appointments",
+		route: "+",
+		submenu: [
+			{ name: "Upcoming", route: "/patient/appointments/upcoming" },
+			{ name: "Requested", route: "/patient/appointments/requested" },
+			{ name: "Cancelled", route: "/patient/appointments/cancelled" },
+			{ name: "History", route: "/patient/appointments/history" },
+		],
+	},
 
-  { name: "Physicians", route: "/patient/physicians" },
-  { name: "Messages", route: "/patient/messages" },
-  { name: "Account", route: "/patient/account" },
+	{ name: "Physicians", route: "/patient/physicians" },
+	{ name: "Messages", route: "/patient/messages" },
+	{ name: "Account", route: "/patient/account" },
 ];
 
 export const ADMIN_ROUTES: routes = [
-  { name: "Dashboard", route: "/admin/dashboard" },
-  // { name: "Admin Listing", route: "/admin/listing" },
-  { name: "Physicians", route: "/admin/physicians" },
-  { name: "Messages", route: "/admin/messages" },
-  { name: "Account", route: "/admin/account" },
+	{ name: "Dashboard", route: "/admin/dashboard" },
+	// { name: "Admin Listing", route: "/admin/listing" },
+	{ name: "Physicians", route: "/admin/physicians" },
+	{ name: "Messages", route: "/admin/messages" },
+	{ name: "Account", route: "/admin/account" },
 ];
 
 export const DOCTOR_ROUTES: routes = [
-  {
-    name: "Dashboard",
-    route: "/doctor/dashboard",
-    submenu: [
-      { name: "Upcoming", route: "/doctor/appointments/upcoming" },
-      { name: "Requested", route: "/doctor/appointments/requested" },
-      { name: "Cancelled", route: "/doctor/appointments/cancelled" },
-      { name: "History", route: "/doctor/appointments/history" },
-    ],
-  },
-  { name: "My Earnings", route: "/doctor/myEarnings" },
-  { name: "Patients", route: "/doctor/patients" },
-  { name: "Messages", route: "/doctor/messages" },
-  { name: "Account", route: "/doctor/account" },
-  { name: "Staff", route: "/doctor/staff" },
+	{
+		name: "Dashboard",
+		route: "/physician/dashboard",
+		submenu: [
+			{ name: "Upcoming", route: "/physician/appointments/upcoming" },
+			{ name: "Requested", route: "/physician/appointments/requested" },
+			{ name: "Cancelled", route: "/physician/appointments/cancelled" },
+			{ name: "History", route: "/physician/appointments/history" },
+		],
+	},
+	{ name: "My Earnings", route: "/physician/myEarnings" },
+	{ name: "Patients", route: "/physician/patients" },
+	{ name: "Messages", route: "/physician/messages" },
+	{ name: "Account", route: "/physician/account" },
+	{ name: "Staff", route: "/physician/staff" },
 ];

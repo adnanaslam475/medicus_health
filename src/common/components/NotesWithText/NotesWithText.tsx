@@ -1,23 +1,14 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal } from "antd";
-import TextArea from "antd/lib/input/TextArea";
-import CardWithProfileImageInfo from "modules/doctor/pages/PhysicianAppointmentHistoryDetail/CardWithProfileImageInfo";
-import Image from "next/image";
+
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo"
 import React, { useState } from "react";
-import smile from "../../../../public/assets/images/smile.svg";
 import AcromyumWithText from "../AcronyumWithText/AcromyumWithText";
 import _classes from "./NotesWithText.module.scss";
 function Notes() {
-	const [modalvisible, setModalVisible] = useState<boolean>(false);
-	const closeModal = () => {
-		setModalVisible(false);
-	};
 	return (
 		<>
 			<CardWithProfileImageInfo
 				name="usama khan"
 				serviceName="consultatiion"
-				
 			>
 			<h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">SOAP</h4>
 			<AcromyumWithText
