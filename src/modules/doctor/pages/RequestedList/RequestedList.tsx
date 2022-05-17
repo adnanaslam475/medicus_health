@@ -23,19 +23,19 @@ const RequestedList = (props: Props) => {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.id - b.id,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.id - b.id,
+        multiple: 3,
+      },
     },
     {
       title: "Patient",
       dataIndex: "patient",
       key: "patient",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
+        multiple: 3,
+      },
       render: (value: User) => {
         return (
           <div className="someclass">
@@ -44,27 +44,39 @@ const RequestedList = (props: Props) => {
         );
       },
     },
+    {
+      title: "Booking Date",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      sorter: {
+        compare: (a: any, b: any) => a.createdAt - b.createdAt,
+        multiple: 3,
+      },
+      render: (value: string) => {
+        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      },
+    },
 
     {
       title: "Type",
       dataIndex: "serviceType",
       key: "serviceType",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.serviceType - b.serviceType,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.serviceType - b.serviceType,
+        multiple: 3,
+      },
       render: (value: AppointmentServiceType) => {
         return <div className="someclass">{`${value?.name}`}</div>;
       },
     },
     {
-      title: "Date",
+      title: "Due Date ",
       dataIndex: "requestedDate",
       key: "requestedDate",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
+        multiple: 3,
+      },
       render: (value: string) => {
         return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
       },
@@ -73,10 +85,10 @@ const RequestedList = (props: Props) => {
       title: "Time",
       dataIndex: "appointmentTimeSlots",
       key: "appointmentTimeSlots",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.timeslot - b.timeslot,
+        multiple: 3,
+      },
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time?.selected);
         return (
@@ -94,10 +106,10 @@ const RequestedList = (props: Props) => {
       title: "Total Amount",
       dataIndex: "charges",
       key: "charges",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.totalamount - b.totalamount,
-      //   multiple: 3,
-      // },
+      sorter: {
+        compare: (a: any, b: any) => a.totalamount - b.totalamount,
+        multiple: 3,
+      },
       render: (value: number) => {
         return <div className="someclass">{value ? `$ ${value}` : ""}</div>;
       },
