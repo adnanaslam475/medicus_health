@@ -1,76 +1,51 @@
-import { Select, DatePicker, Space, Button, Tag, Input } from "antd";
+import { Button } from "antd";
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import {
-	CaretDownOutlined,
-	CloseOutlined,
-	EyeFilled,
-	SearchOutlined,
-} from "@ant-design/icons";
-import TransactionHistory from "common/components/AccountTabs/TransactionHistory/TransactionHistory";
-import { useGetAllRequestedAppointmentsQuery } from "generated/graphql";
-import { date } from "common/utils";
+import { Appointment, usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
 import PhysicianAppointmentHistoryTable from "common/components/PhysicianAppointmentHistoryTable/PhysicianAppointmentHistoryTable";
-import { aimsCalendarIcon } from "utils/images";
-import { getDateInFormat } from "common/utils/date";
 import PhysicianHistoryFilter from "common/components/PhysicianHistoryFilter/PhysicianHistoryFilter";
+import { PhysicianAppointmentInputFilter } from "common/types/types";
 
 function PatientAppointmentHistory() {
-	// GET ALL APPOINMENTS
-	const [{ data }] = useGetAllRequestedAppointmentsQuery({
-		variables: {
-			filter: {
-				status: "Completed",
-			},
-		},
-	});
-	const [dateRangeValues, selectDateRangeValues] = useState(null);
-	const [openDateRange, setOpenDateRange] = useState(false);
-	const [dateRange, selectDateRange] = useState(null);
-	const { appointments } = data || {};
+  const [filterValues, setFilterValues] = useState({});
+  const [{ data }, executeUsePhysicianAppointmentsHistoryQuery] =
+    usePhysicianAppointmentsHistoryQuery({
+      variables: {
+        filter: { ...filterValues, status: "Completed" },
+      },
+    });
 
-	const [dueStartDate, setStartDate] = useState<Date | null>();
-	const [dueEndDate, setEndDate] = useState<Date | null>();
-	const [dataListPhysician, setDataListPhysician] = useState<string>();
-	const [doctorIds, setDoctorId] = useState<number>();
-	const [appointmentIds, setAppointmentIds] = useState<number>();
-	const [serviceIds, setServiceIds] = useState<number>();
-	const [status, setStatus] = useState<string>("Confirmed");
+  const { appointments } = data || {};
 
-	function onChange(date: any, dateString: any) {
-		console.log(date, dateString);
-		selectDateRangeValues(date);
-		// setStartDate(dateString[0]);
-		// setEndDate(dateString[1]);
-		selectDateRange(date);
-	}
-	return (
-		<AppLayout>
-			<div className="w-full">
-				<div className="flex-none sm:flex items-center justify-between mb-5">
-					<div className="pr-3 mb-3 sm:mb-0">
-						<h2 className="mb-0">History</h2>
-					</div>
-					<Button type="primary" size="large">
-						Request an Appointment
-					</Button>
-				</div>
+  function onChange(filterValue: PhysicianAppointmentInputFilter) {
+    setFilterValues(filterValue);
+    executeUsePhysicianAppointmentsHistoryQuery({
+      variables: {
+        filter: { ...filterValues, status: "Completed" },
+      },
+      requestPolicy: "network-only",
+    });
+  }
 
-				{/* physician History table */}
-				<PhysicianHistoryFilter
-					setStartDate={setStartDate}
-					setEndDate={setEndDate}
-					// setDataListPhysician={setDataListPhysician}
-					setDoctorId={setDoctorId}
-					setAppointmentIds={setAppointmentIds}
-					setServiceIds={setServiceIds}
-					isFromPhysician
-				/>
-				<div className="custom-table-ui">
-					<PhysicianAppointmentHistoryTable data={appointments} />
-				</div>
-			</div>
-		</AppLayout>
-	);
+  return (
+    <AppLayout>
+      <div className="w-full">
+        <div className="flex-none sm:flex items-center justify-between mb-5">
+          <div className="pr-3 mb-3 sm:mb-0">
+            <h2 className="mb-0">History</h2>
+          </div>
+          <Button type="primary" size="large">
+            Request an Appointment
+          </Button>
+        </div>
+
+        {/* physician History table */}
+        <PhysicianHistoryFilter onChange={onChange} />
+        <div className="custom-table-ui">
+          <PhysicianAppointmentHistoryTable data={appointments as Appointment[]} />
+        </div>
+      </div>
+    </AppLayout>
+  );
 }
 export default PatientAppointmentHistory;

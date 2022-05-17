@@ -25,11 +25,12 @@ export const PATIENT_ROUTES: routes = [
 ];
 
 export const ADMIN_ROUTES: routes = [
-	{ name: "Dashboard", route: "/admin/dashboard" },
-	// { name: "Admin Listing", route: "/admin/listing" },
-	{ name: "Physicians", route: "/admin/physicians" },
-	{ name: "Messages", route: "/admin/messages" },
-	{ name: "Account", route: "/admin/account" },
+  { name: "Dashboard", route: "/admin/dashboard" },
+  // { name: "Admin Listing", route: "/admin/listing" },
+  { name: "Physicians", route: "/admin/physicians" },
+  { name: "Messages", route: "/admin/messages" },
+  { name: "User", route: "/admin/user" },
+  { name: "Account", route: "/admin/account" },
 ];
 
 export const DOCTOR_ROUTES: routes = [

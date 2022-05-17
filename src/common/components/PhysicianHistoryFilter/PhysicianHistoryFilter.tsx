@@ -1,270 +1,242 @@
-import React, { useEffect, useState } from "react";
-import { Card, Input, Button, Select, Space, DatePicker, Form } from "antd";
+import React, { useState } from "react";
+import { Input, Button, Select, Space, DatePicker } from "antd";
 import {
-	CaretDownOutlined,
-	CloseOutlined,
-	SearchOutlined,
+  CaretDownOutlined,
+  CloseOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
-import {
-	Appointment,
-	useDoctorProfilesQuery,
-	useGetAllAppointmentServiceTypesQuery,
-	useGetAllRequestedAppointmentsQuery,
-} from "../../../generated/graphql";
-import Image from "next/image";
-import { aimsCalendarIcon } from "../../../utils/images";
+import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 import { getDateInFormat } from "../../utils/date";
 import _classes from "./PhysicianHistoryFilters.module.scss";
 import searchStyle from "./style.module.scss";
-
-const { Option } = Select;
-
-function handleChange(value: any) {}
+import { DateType, PhysicianAppointmentInputFilter } from "common/types/types";
 
 const { RangePicker } = DatePicker;
 
 type Props = {
-	// setDataListPhysician: string | any;
-	setDoctorId: (data: number | undefined) => void;
-	setAppointmentIds: (data: number | undefined) => void;
-	setServiceIds: (data: number | undefined) => void;
-	setStartDate: (data: Date | null) => void;
-	setEndDate: (data: Date | null) => void;
-	isFromPhysician?: boolean;
+  onChange: (e: PhysicianAppointmentInputFilter) => void;
 };
 
 function PhysicianSearchFilters(props: Props) {
-	const {
-		setServiceIds,
-		setDoctorId,
-		setEndDate,
-		setStartDate,
-		isFromPhysician,
-	} = props;
-	const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
-		string | null
-	>();
-	const [selectedServiceItems, setSelectedServiceItems] = useState<
-		string | null
-	>();
-	const [dateRangeValues, selectDateRangeValues] = useState(null);
-	const [openDateRange1, setOpenDateRange1] = useState(false);
-	const [openDateRange2, setOpenDateRange2] = useState(false);
-	const [dateRange, selectDateRange] = useState(null);
+  const [filterState, setFilterState] =
+    useState<PhysicianAppointmentInputFilter>({});
 
-	const [{ data: dataList }] = useDoctorProfilesQuery();
-	const { doctorProfiles } = dataList || {};
+  const { onChange } = props;
 
-	const [{ data }] = useGetAllAppointmentServiceTypesQuery();
-	const { appointmentServiceTypes } = data || {};
+  const [openDateRange1, setOpenDateRange1] = useState(false);
+  const [openDateRange2, setOpenDateRange2] = useState(false);
 
-	const handlePhysicianChange = (selectedItem: any, name: any) => {
-		setSelectedPhysicianItems(name.children);
-		setDoctorId(selectedItem);
-	};
+  const [{ data }] = useGetAllAppointmentServiceTypesQuery();
+  const { appointmentServiceTypes } = data || {};
 
-	const handleServiceChange = (selectedItem: any, name: any) => {
-		setSelectedServiceItems(name.children);
-		setServiceIds(selectedItem);
-	};
+  function onClear() {
+    setFilterState({});
+    onChange({});
+  }
 
-	function onChange(date: Date | null, dateString: Array<Date>) {
-		selectDateRangeValues(null);
-		setStartDate(dateString[0]);
-		setEndDate(dateString[1]);
-		selectDateRange(null);
-	}
+  const applyDateRange = () => {
+    setOpenDateRange1(false);
+  };
 
-	const onClear = () => {
-		setSelectedPhysicianItems(null);
-		setSelectedServiceItems(null);
-		setDoctorId(undefined);
-		setServiceIds(undefined);
-		selectDateRangeValues(null);
-		setEndDate(null);
-		setStartDate(null);
-		setOpenDateRange1(false);
-		selectDateRange(null);
-	};
+  function onFilterValuesChange(
+    key: string,
+    value: string | number | DateType
+  ) {
+    const filters = {
+      ...filterState,
+      [key]: value,
+    };
 
-	const applyDateRange = () => {
-		setOpenDateRange1(false);
-	};
+    setFilterState(filters);
+    onChange(filters);
+  }
 
-	return (
-		<div
-			className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}
-		>
-			<span className="text-gray-1 mr-3 mb-3">Filter</span>
-			<div className="flex-none sm:flex">
-				<div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
-					<Input
-						placeholder="Search by ID or patient name"
-						prefix={<SearchOutlined />}
-					/>
-				</div>
+  return (
+    <div
+      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}
+    >
+      <span className="text-gray-1 mr-3 mb-3">Filter</span>
+      <div className="flex-none sm:flex">
+        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
+          <Input
+            value={filterState.searchPatient || ""}
+            placeholder="Search by ID or patient name"
+            prefix={<SearchOutlined />}
+            onChange={(e) =>
+              onFilterValuesChange("searchPatient", e.target.value)
+            }
+          />
+        </div>
 
-				<div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
-					<Select
-						placeholder="Service"
-						className={`${searchStyle.placeholderColor} w-full`}
-						onChange={handleServiceChange}
-						value={selectedServiceItems}
-					>
-						{appointmentServiceTypes?.map((item) => (
-							<Select.Option key={item?.id} value={item?.id}>
-								{item?.name}
-							</Select.Option>
-						))}
-					</Select>
-				</div>
-			</div>
-			<div className="flex-none sm:flex">
-				<Space
-					direction="vertical"
-					size={0}
-					className="w-full md:w-44 xl:w-60 sm:mb-3"
-				>
-					<div className="relative">
-						<RangePicker
-							value={dateRangeValues}
-							// onChange={onChange}
-							open={openDateRange1}
-							className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
-							renderExtraFooter={() => (
-								<div className="flex gap-3 justify-end p-3">
-									<Button
-										className="bg-gray-300"
-										onClick={() => {
-											setOpenDateRange1(false);
-										}}
-									>
-										Cancel
-									</Button>
-									<Button
-										className=" text-white"
-										type="primary"
-										onClick={() => {
-											applyDateRange();
-										}}
-									>
-										Apply
-									</Button>
-								</div>
-							)}
-						/>
-						<Button
-							className="flex date-btn"
-							block
-							type="default"
-							onClick={() => setOpenDateRange1?.(!openDateRange1)}
-						>
-							{dateRange ? (
-								<div>
-									{dateRange
-										? `${getDateInFormat(dateRange?.[0])} -> ${getDateInFormat(
-												dateRange?.[1]
-										  )}`
-										: "Booking Date"}
-								</div>
-							) : (
-								<div className="flex justify-between items-center w-full px-3">
-									{/* <div className="self-center">
-                    <Image
-                      width={15}
-                      height={15}
-                      src={aimsCalendarIcon}
-                      alt=""
-                    />
-                  </div> */}
-									<div>Booking Date</div>
-									<div>
-										<CaretDownOutlined style={{ color: `primary` }} />
-									</div>
-								</div>
-							)}
-						</Button>
-					</div>
-				</Space>
-			</div>
-			<div className="flex-none sm:flex ml-2">
-				<Space
-					direction="vertical"
-					size={0}
-					className="w-full md:w-44 xl:w-60 sm:mb-3"
-				>
-					<div className="relative">
-						<RangePicker
-							value={dateRangeValues}
-							// onChange={onChange}
-							open={openDateRange2}
-							className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
-							renderExtraFooter={() => (
-								<div className="flex gap-3 justify-end p-3">
-									<Button
-										className="bg-gray-300"
-										onClick={() => {
-											setOpenDateRange2(false);
-										}}
-									>
-										Cancel
-									</Button>
-									<Button
-										className=" text-white"
-										type="primary"
-										onClick={() => {
-											applyDateRange();
-										}}
-									>
-										Apply
-									</Button>
-								</div>
-							)}
-						/>
-						<Button
-							className="flex date-btn"
-							block
-							type="default"
-							onClick={() => setOpenDateRange2?.(!openDateRange2)}
-						>
-							{dateRange ? (
-								<div>
-									{dateRange
-										? `${getDateInFormat(dateRange?.[0])} -> ${getDateInFormat(
-												dateRange?.[1]
-										  )}`
-										: "Due Date"}
-								</div>
-							) : (
-								<div className="flex justify-between items-center w-full px-3">
-									{/* <div className="self-center">
-                    <Image
-                      width={15}
-                      height={15}
-                      src={aimsCalendarIcon}
-                      alt=""
-                    />
-                  </div> */}
-									<div>Due Date</div>
-									<div>
-										<CaretDownOutlined style={{ color: `primary` }} />
-									</div>
-								</div>
-							)}
-						</Button>
-					</div>
-				</Space>
-			</div>
-			<Button
-				onClick={onClear}
-				type="text"
-				className={`${_classes["btn-clear"]} sm:ml-3`}
-			>
-				<CloseOutlined className="text-sm" />
-				<span className="text-gray-1 text-sm">Clear</span>
-			</Button>
-		</div>
-	);
+        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
+          <Select
+            placeholder="Service"
+            className={`${searchStyle.placeholderColor} w-full`}
+            onChange={(e) => onFilterValuesChange("serviceId", e)}
+            value={filterState.serviceId || "Service"}
+          >
+            {appointmentServiceTypes?.map((item) => (
+              <Select.Option key={item?.id} value={item?.id}>
+                {item?.name}
+              </Select.Option>
+            ))}
+          </Select>
+        </div>
+        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
+          <Select
+            placeholder="Payment Status"
+            className={`${searchStyle.placeholderColor} w-full`}
+            onChange={(e) => onFilterValuesChange("paymentStatus", e)}
+            value={filterState.paymentStatus}
+          >
+            <Select.Option value="paid">Paid</Select.Option>
+            <Select.Option value="unpaid">UnPaid</Select.Option>
+          </Select>
+        </div>
+      </div>
+      <div className="flex-none sm:flex">
+        <Space
+          direction="vertical"
+          size={0}
+          className="w-full md:w-44 xl:w-60 sm:mb-3"
+        >
+          <div className="relative">
+            <RangePicker
+              value={null}
+              open={openDateRange1}
+              className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
+              onChange={(_, dateString: string[]) =>
+                onFilterValuesChange("bookingDate", {
+                  startDate: dateString[0],
+                  endDate: dateString[1],
+                })
+              }
+              renderExtraFooter={() => (
+                <div className="flex gap-3 justify-end p-3">
+                  <Button
+                    className="bg-gray-300"
+                    onClick={() => {
+                      setOpenDateRange1(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className=" text-white"
+                    type="primary"
+                    onClick={() => {
+                      applyDateRange();
+                    }}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              )}
+            />
+            <Button
+              className="flex date-btn"
+              block
+              type="default"
+              onClick={() => setOpenDateRange1?.(!openDateRange1)}
+            >
+              {filterState?.bookingDate?.endDate ? (
+                <div>
+                  {filterState?.bookingDate?.endDate
+                    ? `${getDateInFormat(
+                        filterState?.bookingDate?.startDate
+                      )} -> ${getDateInFormat(
+                        filterState?.bookingDate?.endDate
+                      )}`
+                    : "Booking Date"}
+                </div>
+              ) : (
+                <div className="flex justify-between items-center w-full px-3">
+                  <div>Booking Date</div>
+                  <div>
+                    <CaretDownOutlined style={{ color: `primary` }} />
+                  </div>
+                </div>
+              )}
+            </Button>
+          </div>
+        </Space>
+      </div>
+      <div className="flex-none sm:flex ml-2">
+        <Space
+          direction="vertical"
+          size={0}
+          className="w-full md:w-44 xl:w-60 sm:mb-3"
+        >
+          <div className="relative">
+            <RangePicker
+              value={null}
+              open={openDateRange2}
+              onChange={(_, dateString: string[]) =>
+                onFilterValuesChange("dueDate", {
+                  startDate: dateString[0],
+                  endDate: dateString[1],
+                })
+              }
+              className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
+              renderExtraFooter={() => (
+                <div className="flex gap-3 justify-end p-3">
+                  <Button
+                    className="bg-gray-300"
+                    onClick={() => {
+                      setOpenDateRange2(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className=" text-white"
+                    type="primary"
+                    onClick={() => {
+                      applyDateRange();
+                    }}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              )}
+            />
+            <Button
+              className="flex date-btn"
+              block
+              type="default"
+              onClick={() => setOpenDateRange2?.(!openDateRange2)}
+            >
+              {filterState?.dueDate?.endDate ? (
+                <div>
+                  {filterState?.dueDate?.endDate
+                    ? `${getDateInFormat(
+                        filterState.dueDate.startDate
+                      )} -> ${getDateInFormat(filterState.dueDate.endDate)}`
+                    : "Due Date"}
+                </div>
+              ) : (
+                <div className="flex justify-between items-center w-full px-3">
+                  <div>Due Date</div>
+                  <div>
+                    <CaretDownOutlined style={{ color: `primary` }} />
+                  </div>
+                </div>
+              )}
+            </Button>
+          </div>
+        </Space>
+      </div>
+
+      <Button
+        onClick={onClear}
+        type="text"
+        className={`${_classes["btn-clear"]} sm:ml-3`}
+      >
+        <CloseOutlined className="text-sm" />
+        <span className="text-gray-1 text-sm">Clear</span>
+      </Button>
+    </div>
+  );
 }
 
 export default PhysicianSearchFilters;

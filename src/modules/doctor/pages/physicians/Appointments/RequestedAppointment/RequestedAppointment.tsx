@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import AppLayout from "../../../../../../common/components/AppLayout/AppLayout";
 import AppointmentTabs from "../../../../../../../src/modules/doctor/pages/physicians/Appointments/Tabs/AppointmentTabs";
 import RequestedList from "modules/doctor/pages/RequestedList/RequestedList";
-import { Appointment, useGetAllRequestedAppointmentsQuery } from "generated/graphql";
+import {
+  Appointment,
+  useGetAllRequestedAppointmentsQuery,
+} from "generated/graphql";
 import SearchFilters from "common/components/SearchFilters/SearchFilters";
 
 function RequestedAppointment() {
@@ -40,16 +43,16 @@ function RequestedAppointment() {
           </div>
         </div>
         <div className="w-5/6">
-            <SearchFilters
-              setStartDate={setStartDate}
-              setEndDate={setEndDate}
-              setDataListPhysician={setDataListPhysician}
-              setDoctorId={setDoctorId}
-              setAppointmentIds={setAppointmentIds}
-              setServiceIds={setServiceIds}
-              isFromPhysician
-            />
-          </div>
+          <SearchFilters
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setDataListPhysician={setDataListPhysician}
+            setDoctorId={setDoctorId}
+            setAppointmentIds={setAppointmentIds}
+            setServiceIds={setServiceIds}
+            isFromPhysician
+          />
+        </div>
         <RequestedList appointmentsData={appointments as Appointment[]} />
       </div>
     </AppLayout>
