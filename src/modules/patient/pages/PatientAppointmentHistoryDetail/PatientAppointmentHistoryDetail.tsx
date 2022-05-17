@@ -1,15 +1,20 @@
 import React from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
+import { useRouter } from "next/router";
+import {
+	useDoctorAppointmentDetailQuery,
+	useGetAppointmentReportUrlByIdQuery,
+	
+} from "generated/graphql";
 import { Tabs } from "antd";
-import PatientAppointmentInfoTab from "./PatientAppointmentInfoOfPhysicianTab";
+import PatientAppointmentInfoTab from "./PatientAppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
-import PhysicianQuestionnaireFormTab from "./PhysicianQuestionnaireFormTab";
-import HealthQuestionnaireFormTab from "./HealthQuestionnaireFormTab";
-import NotesWithTextTab from "./NotesWithTextTab";
+import HealthQuestionnaireFrom from "./HealthQuestionnaireFromTab";
+import PhysicianQuestionnaireForm from "./PhysicianQuestionnaireFormTab";
+import AttachmentTab from "./AttachmentTab";
+import NoteWithTextTab from "./NoteWithTextTab";
 
-import PhysicianAttachmentTab from "./PhysicianAttachmentTab";
-
-function PhysicianAppointmentHistoryDetail() {
+function PatientAppointmentHistoryDetail() {
 	return (
 		<AppLayout>
 			<>
@@ -23,16 +28,16 @@ function PhysicianAppointmentHistoryDetail() {
 							<PatientInfoTab />
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Health Questionnaire" key="3">
-							<HealthQuestionnaireFormTab />
+							<HealthQuestionnaireFrom />
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Physician Questionnaire" key="4">
-							<PhysicianQuestionnaireFormTab />
+							<PhysicianQuestionnaireForm />
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Attachment" key="5">
-							<PhysicianAttachmentTab />
+							<AttachmentTab/>
 						</Tabs.TabPane>
 						<Tabs.TabPane tab="Notes" key="6">
-							<NotesWithTextTab />
+							<NoteWithTextTab/>
 						</Tabs.TabPane>
 					</Tabs>
 				</div>
@@ -40,4 +45,4 @@ function PhysicianAppointmentHistoryDetail() {
 		</AppLayout>
 	);
 }
-export default PhysicianAppointmentHistoryDetail;
+export default PatientAppointmentHistoryDetail;
