@@ -98,45 +98,45 @@ label.ant-radio-wrapper {
 
 // CSS FOR ANT MODAL
 
-.ant-modal {
-  .ant-modal-header {
-    .ant-modal-title {
-      font-family: "Circular Std";
-      font-weight: medium;
-    }
-  }
-  .ant-modal-content {
-    border-radius: 13px;
-    .ant-modal-body {
-      padding: 30px 45px;
-      button.ant-btn {
-        line-height: 1;
-        position: relative;
-        display: inline-block;
-        font-weight: 400;
-        /* white-space: nowrap; */
-        text-align: center;
-        background-image: none;
-        // border: 1px solid transparent;
-        // box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
-        // cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        touch-action: manipulation;
-        height: 2.2rem;
-        padding: 0 1.5rem;
-        font-size: 14px;
-        border-radius: 0.4rem;
-        color: #1a82fe;
-        border-color: #1a82fe;
-        background: #fff;
-      }
-    }
-  }
-}
+// .ant-modal {
+//   .ant-modal-header {
+//     .ant-modal-title {
+//       font-family: "Circular Std";
+//       font-weight: medium;
+//     }
+//   }
+//   .ant-modal-content {
+//     border-radius: 13px;
+//     .ant-modal-body {
+//       padding: 30px 45px;
+//       button.ant-btn {
+//         line-height: 1;
+//         position: relative;
+//         display: inline-block;
+//         font-weight: 400;
+//         /* white-space: nowrap; */
+//         text-align: center;
+//         background-image: none;
+//         // border: 1px solid transparent;
+//         // box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+//         // cursor: pointer;
+//         transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+//         -webkit-user-select: none;
+//         -moz-user-select: none;
+//         -ms-user-select: none;
+//         user-select: none;
+//         touch-action: manipulation;
+//         height: 2.2rem;
+//         padding: 0 1.5rem;
+//         font-size: 14px;
+//         border-radius: 0.4rem;
+//         color: #1a82fe;
+//         border-color: #1a82fe;
+//         background: #fff;
+//       }
+//     }
+//   }
+// }
 
 .profile-tabs {
   .ant-tabs {
@@ -366,4 +366,7 @@ label.ant-radio-wrapper {
 
 .ant-picker-range-separator {
   margin-right: 30px !important;
+}
+.h-px-48 {
+  height: 48px !important;
 }

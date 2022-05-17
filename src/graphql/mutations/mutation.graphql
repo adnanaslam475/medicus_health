@@ -166,7 +166,7 @@ mutation enableOrDisableDoctor($id: Int!) {
   }
 }
 
-#CREATE APPOINMENT
+#CREATE APPOINTMENT
 mutation createAppointment($createAppointment: CreateAppointmentInput!) {
   createAppointment(createAppointmentInput: $createAppointment) {
     patientId
@@ -199,7 +199,7 @@ mutation removeDoctorBillingMethod($id: Int!) {
   }
 }
 
-#CANCEL APPOINTMENT BY APPOINMENT
+#CANCEL APPOINTMENT BY APPOINTMENT
 mutation cancelAppointmentByPatient($id: Int!) {
   cancelAppointmentByPatient(id: $id) {
     id
@@ -232,6 +232,17 @@ mutation createOrUpdateAppointmentNote(
     id
   }
 }
+# add Staff User
+mutation createStaff($createStaffInput: CreateStaffInput!) {
+  createStaff(createStaffInput: $createStaffInput) {
+    email
+    contact_number
+    first_name
+    last_name
+    email
+    doctorId
+  }
+}
 
 # cancel Requested Appointment
 mutation cancelAppointmentByDoctor($id: Int!) {
@@ -251,5 +262,17 @@ mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
     rtmAccessToken
     channelName
     privilegeExpireTime
+  }
+}
+
+# UPDATE USER MUTATION
+mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
+  updateStaff(id: $id, updateStaffInput: $updateStaffInput) {
+    first_name
+    last_name
+    email
+    contact_number
+    doctorId
+    deleted
   }
 }

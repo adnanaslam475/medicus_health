@@ -3,11 +3,13 @@ import { Button } from "antd";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import MultiRangeListing from "./MultiRangeListing";
 import { TimePicker } from "antd";
-const { RangePicker } = TimePicker;
 import _Classes from "./MultiRangeDatePicker.module.scss";
 import DayPicker from "../../../utils/DayPicker";
 import { Schedule, singleSchedule } from "../../types/types";
 import { RangeValue } from "rc-picker/lib/interface";
+
+const { RangePicker } = TimePicker;
+
 type Props = {
   disable: boolean;
   schedules?: Schedule[] | undefined;

@@ -1345,6 +1345,13 @@ export type CreateOrUpdateAppointmentNoteMutationVariables = Exact<{
 
 export type CreateOrUpdateAppointmentNoteMutation = { __typename?: 'Mutation', createOrUpdateAppointmentNote: { __typename?: 'AppointmentNote', id: number } };
 
+export type CreateStaffMutationVariables = Exact<{
+  createStaffInput: CreateStaffInput;
+}>;
+
+
+export type CreateStaffMutation = { __typename?: 'Mutation', createStaff: { __typename?: 'User', email: string, contact_number?: string | null, first_name: string, last_name: string, doctorId?: number | null } };
+
 export type CancelAppointmentByDoctorMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -1358,6 +1365,14 @@ export type GenerateRtcTokenMutationVariables = Exact<{
 
 
 export type GenerateRtcTokenMutation = { __typename?: 'Mutation', generateRTCToken: { __typename?: 'RtcTokenResponse', rtmAccessToken: string, channelName: string, privilegeExpireTime: string } };
+
+export type UpdateStaffProfileMutationVariables = Exact<{
+  id: Scalars['Int'];
+  updateStaffInput: UpdateStaffInput;
+}>;
+
+
+export type UpdateStaffProfileMutation = { __typename?: 'Mutation', updateStaff: { __typename?: 'User', first_name: string, last_name: string, email: string, contact_number?: string | null, doctorId?: number | null, deleted: boolean } };
 
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
@@ -1572,6 +1587,18 @@ export type GetDoctorEarningsQueryVariables = Exact<{
 
 
 export type GetDoctorEarningsQuery = { __typename?: 'Query', getDoctorEarnings: { __typename?: 'DoctorEarningsResponse', total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null, total_number_of_patients?: number | null, total_earnings_from_consultation?: number | null, total_earnings_from_second_opinions?: number | null, total_earnings?: number | null } };
+
+export type GetAllStaffByDoctorQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null }> };
+
+export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null } };
 
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1945,6 +1972,22 @@ export const CreateOrUpdateAppointmentNoteDocument = gql`
 export function useCreateOrUpdateAppointmentNoteMutation() {
   return Urql.useMutation<CreateOrUpdateAppointmentNoteMutation, CreateOrUpdateAppointmentNoteMutationVariables>(CreateOrUpdateAppointmentNoteDocument);
 };
+export const CreateStaffDocument = gql`
+    mutation createStaff($createStaffInput: CreateStaffInput!) {
+  createStaff(createStaffInput: $createStaffInput) {
+    email
+    contact_number
+    first_name
+    last_name
+    email
+    doctorId
+  }
+}
+    `;
+
+export function useCreateStaffMutation() {
+  return Urql.useMutation<CreateStaffMutation, CreateStaffMutationVariables>(CreateStaffDocument);
+};
 export const CancelAppointmentByDoctorDocument = gql`
     mutation cancelAppointmentByDoctor($id: Int!) {
   cancelAppointment(id: $id) {
@@ -1972,6 +2015,22 @@ export const GenerateRtcTokenDocument = gql`
 
 export function useGenerateRtcTokenMutation() {
   return Urql.useMutation<GenerateRtcTokenMutation, GenerateRtcTokenMutationVariables>(GenerateRtcTokenDocument);
+};
+export const UpdateStaffProfileDocument = gql`
+    mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
+  updateStaff(id: $id, updateStaffInput: $updateStaffInput) {
+    first_name
+    last_name
+    email
+    contact_number
+    doctorId
+    deleted
+  }
+}
+    `;
+
+export function useUpdateStaffProfileMutation() {
+  return Urql.useMutation<UpdateStaffProfileMutation, UpdateStaffProfileMutationVariables>(UpdateStaffProfileDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
@@ -2778,6 +2837,38 @@ export const GetDoctorEarningsDocument = gql`
 
 export function useGetDoctorEarningsQuery(options: Omit<Urql.UseQueryArgs<GetDoctorEarningsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetDoctorEarningsQuery>({ query: GetDoctorEarningsDocument, ...options });
+};
+export const GetAllStaffByDoctorDocument = gql`
+    query getAllStaffByDoctor {
+  staff {
+    id
+    role
+    email
+    first_name
+    last_name
+    contact_number
+    doctorId
+  }
+}
+    `;
+
+export function useGetAllStaffByDoctorQuery(options?: Omit<Urql.UseQueryArgs<GetAllStaffByDoctorQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllStaffByDoctorQuery>({ query: GetAllStaffByDoctorDocument, ...options });
+};
+export const GetStaffDetailsUrlByIdDocument = gql`
+    query getStaffDetailsUrlById($id: Int!) {
+  staffDetail(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+  }
+}
+    `;
+
+export function useGetStaffDetailsUrlByIdQuery(options: Omit<Urql.UseQueryArgs<GetStaffDetailsUrlByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetStaffDetailsUrlByIdQuery>({ query: GetStaffDetailsUrlByIdDocument, ...options });
 };
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {

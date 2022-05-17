@@ -27,6 +27,10 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
       render: (value: User) => {
         return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
       },
+      sorter: {
+        compare: (a: any, b: any) => a.first_name - b.first_name,
+        multiple: 3,
+      },
     },
     {
       title: "Service",
