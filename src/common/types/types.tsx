@@ -22,6 +22,16 @@ export type physicianFilterType = {
   };
 };
 
+export type physicianMyEarningsFilterType = {
+  searchString?: string;
+  serviceId?: number;
+  earnings?: { initial: number; final: number };
+  DateRange?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+
 export type cancelAppointmentFilterType = {
   patientName?: string;
   appointmentType?: string;

@@ -124,6 +124,33 @@ query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
   }
 }
 
+#Get My Earnings Of Doctor
+query getTransectionFilter($filter: GetTransectionInput!) {
+  getTransectionFilter(filter: $filter) {
+    id
+    appointmentId
+    transactionId
+    payment_status
+    amountReceived
+    appointment {
+      patient {
+        first_name
+        last_name
+      }
+      patientId
+      serviceType {
+        id
+        name
+      }
+      appointmentTimeSlots {
+        selected
+        startTime
+        endTime
+      }
+    }
+  }
+}
+
 query physiciansPatients ($searchField:String){
   physiciansPatients(filter:{searchField:$searchField}){
     id
