@@ -261,7 +261,10 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           id: id as number,
           serviceId: serviceType?.id as number,
           charges: serviceInfo?.price as number,
-          proposedTimeSlots: slots as any,
+          proposedTimeSlots: slots.map((slot) => ({
+            startDate: dayjs(slot.startDate).format("YYYY-MM-DD hh:mm A"),
+            endDate: dayjs(slot.endDate).format("YYYY-MM-DD hh:mm A"),
+          })) as any,
         },
       });
       if (error && error?.message) {
