@@ -44,6 +44,18 @@ const RequestedList = (props: Props) => {
         );
       },
     },
+    {
+      title: "Appointment Booking Date",
+      dataIndex: "requestedDate",
+      key: "requestedDate",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
+      //   multiple: 3,
+      // },
+      render: (value: string) => {
+        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      },
+    },
 
     {
       title: "Type",
