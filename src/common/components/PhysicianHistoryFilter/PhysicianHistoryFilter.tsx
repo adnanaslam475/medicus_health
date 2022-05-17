@@ -49,7 +49,7 @@ function PhysicianSearchFilters(props: Props) {
 	>();
 	const [dateRangeValues, selectDateRangeValues] = useState(null);
 	const [openDateRange1, setOpenDateRange1] = useState(false);
-  const [openDateRange2, setOpenDateRange2] = useState(false);
+	const [openDateRange2, setOpenDateRange2] = useState(false);
 	const [dateRange, selectDateRange] = useState(null);
 
 	const [{ data: dataList }] = useDoctorProfilesQuery();
@@ -68,7 +68,7 @@ function PhysicianSearchFilters(props: Props) {
 		setServiceIds(selectedItem);
 	};
 
-	function onChange(date: Date | null , dateString:Array<Date>) {
+	function onChange(date: Date | null, dateString: Array<Date>) {
 		selectDateRangeValues(null);
 		setStartDate(dateString[0]);
 		setEndDate(dateString[1]);
@@ -97,14 +97,12 @@ function PhysicianSearchFilters(props: Props) {
 		>
 			<span className="text-gray-1 mr-3 mb-3">Filter</span>
 			<div className="flex-none sm:flex">
-				
-					<div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
-						<Input
-							placeholder="Search by ID or patient name"
-							prefix={<SearchOutlined />}
-						/>
-					</div>
-				
+				<div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
+					<Input
+						placeholder="Search by ID or patient name"
+						prefix={<SearchOutlined />}
+					/>
+				</div>
 
 				<div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
 					<Select
@@ -118,17 +116,6 @@ function PhysicianSearchFilters(props: Props) {
 								{item?.name}
 							</Select.Option>
 						))}
-					</Select>
-				</div>
-				<div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
-					<Select
-						placeholder="Payment Status"
-						className={`${searchStyle.placeholderColor} w-full`}
-						// onChange={handleServiceChange}
-						// value={selectedServiceItems}
-					>
-						<Select.Option value="paid">Paid</Select.Option>
-						<Select.Option value="unpaid">UnPaid</Select.Option>
 					</Select>
 				</div>
 			</div>
@@ -266,7 +253,6 @@ function PhysicianSearchFilters(props: Props) {
 							)}
 						</Button>
 					</div>
-				
 				</Space>
 			</div>
 			<Button
