@@ -129,6 +129,7 @@ query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
 query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
   appointments(filter: $filter) {
     id
+    patientId
     createdAt
     requestedDate
     serviceType {

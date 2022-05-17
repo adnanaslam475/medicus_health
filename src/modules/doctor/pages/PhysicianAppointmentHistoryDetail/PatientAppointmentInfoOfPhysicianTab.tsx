@@ -1,32 +1,27 @@
-
 import {
   Appointment,
-  useDoctorAppointmentDetailAppointmentInfoQuery,
+  usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
 import DoctorAppointmentInfo from "common/components/DoctorAppointmentInfo/DoctorAppointmentInfo";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 
-
-type Props = {};
-
-function PatientAppointmentInfoOfPhysicianTab({}: Props) {
+function PatientAppointmentInfoOfPhysicianTab() {
   const { query } = useRouter();
 
-  const [{ data }] = useDoctorAppointmentDetailAppointmentInfoQuery({
+  const [{ data: data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      id: Number(query.appointmentId),
+      filter: { searchPatient: String(query?.id), status: "Completed" },
     },
-    pause: !query.appointmentId,
   });
-  const { appointment } = data || {};
-  const { patient, serviceType } = appointment || {};
+  const { appointments } = data || {};
+  const appointment = appointments && appointments[0];
 
   return (
     <CardWithProfileImageInfo
-      name={`${patient?.first_name} ${patient?.last_name}`}
-      serviceName={serviceType?.name}
+      name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
+      serviceName={appointment?.serviceType?.name}
     >
       <DoctorAppointmentInfo data={appointment as Appointment} />
     </CardWithProfileImageInfo>

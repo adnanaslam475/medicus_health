@@ -91,22 +91,22 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     },
     {
       title: "",
-      dataIndex: "",
+      dataIndex: "patientId",
       key: "view",
       className: "table-action-icon",
-      render: () => (
+      render: (patientId: string) => (
         <EyeFilled
           onClick={() => {
-            return Router.push(`/physician/appointments/history/detail`);
+            return Router.push(
+              `/physician/appointments/history/${patientId}`
+            );
           }}
         />
       ),
     },
   ];
 
-  return (
-    <Table columns={historyColumns} dataSource={data} />
-  );
+  return <Table columns={historyColumns} dataSource={data} />;
 }
 
 export default PhysicianAppointmentHistoryTable;

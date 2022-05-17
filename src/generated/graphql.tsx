@@ -1400,6 +1400,13 @@ export type PhysicianAppointmentsQueryVariables = Exact<{
 
 export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: Array<{ __typename?: 'Appointment', id: number, createdAt: any, requestedDate: any, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null }> };
 
+export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
+  filter: GetAppointmentInput;
+}>;
+
+
+export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, createdAt: any, requestedDate: any, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }> };
+
 export type GetTransectionFilterQueryVariables = Exact<{
   filter: GetTransectionInput;
 }>;
@@ -1413,13 +1420,6 @@ export type PhysiciansPatientsQueryVariables = Exact<{
 
 
 export type PhysiciansPatientsQuery = { __typename?: 'Query', physiciansPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, streetAddress?: string | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null }> };
-
-export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
-  filter: GetAppointmentInput;
-}>;
-
-
-export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, createdAt: any, requestedDate: any, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }> };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2141,6 +2141,37 @@ export const PhysicianAppointmentsDocument = gql`
 export function usePhysicianAppointmentsQuery(options: Omit<Urql.UseQueryArgs<PhysicianAppointmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<PhysicianAppointmentsQuery>({ query: PhysicianAppointmentsDocument, ...options });
 };
+export const PhysicianAppointmentsHistoryDocument = gql`
+    query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
+  appointments(filter: $filter) {
+    id
+    patientId
+    createdAt
+    requestedDate
+    serviceType {
+      name
+    }
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    status
+    transaction {
+      status
+      amountReceived
+    }
+  }
+}
+    `;
+
+export function usePhysicianAppointmentsHistoryQuery(options: Omit<Urql.UseQueryArgs<PhysicianAppointmentsHistoryQueryVariables>, 'query'>) {
+  return Urql.useQuery<PhysicianAppointmentsHistoryQuery>({ query: PhysicianAppointmentsHistoryDocument, ...options });
+};
 export const GetTransectionFilterDocument = gql`
     query getTransectionFilter($filter: GetTransectionInput!) {
   getTransectionFilter(filter: $filter) {
@@ -2190,36 +2221,6 @@ export const PhysiciansPatientsDocument = gql`
 
 export function usePhysiciansPatientsQuery(options?: Omit<Urql.UseQueryArgs<PhysiciansPatientsQueryVariables>, 'query'>) {
   return Urql.useQuery<PhysiciansPatientsQuery>({ query: PhysiciansPatientsDocument, ...options });
-};
-export const PhysicianAppointmentsHistoryDocument = gql`
-    query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
-  appointments(filter: $filter) {
-    id
-    createdAt
-    requestedDate
-    serviceType {
-      name
-    }
-    patient {
-      first_name
-      last_name
-    }
-    appointmentTimeSlots {
-      startTime
-      endTime
-      selected
-    }
-    status
-    transaction {
-      status
-      amountReceived
-    }
-  }
-}
-    `;
-
-export function usePhysicianAppointmentsHistoryQuery(options: Omit<Urql.UseQueryArgs<PhysicianAppointmentsHistoryQueryVariables>, 'query'>) {
-  return Urql.useQuery<PhysicianAppointmentsHistoryQuery>({ query: PhysicianAppointmentsHistoryDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {
