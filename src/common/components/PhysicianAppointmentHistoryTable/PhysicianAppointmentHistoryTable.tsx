@@ -3,14 +3,16 @@ import { Table, Tag } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "../../utils";
 import {
+  Appointment,
   AppointmentServiceType,
   AppointmentTimeSlots,
+  Transaction,
   User,
 } from "generated/graphql";
 import Router from "next/router";
 
 type Props = {
-  data?: any;
+  data?: Appointment[];
 };
 
 function PhysicianAppointmentHistoryTable(props: Props) {
@@ -72,7 +74,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       title: "Total Amount",
       dataIndex: "transaction",
       key: "transaction",
-      render: (value: any) => {
+      render: (value: Transaction) => {
         return <div>{`$ ${value?.amountReceived}`}</div>;
       },
     },
@@ -97,9 +99,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       render: (patientId: string) => (
         <EyeFilled
           onClick={() => {
-            return Router.push(
-              `/physician/appointments/history/${patientId}`
-            );
+            return Router.push(`/physician/appointments/history/${patientId}`);
           }}
         />
       ),

@@ -1,14 +1,14 @@
 import { Button } from "antd";
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
+import { Appointment, usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
 import PhysicianAppointmentHistoryTable from "common/components/PhysicianAppointmentHistoryTable/PhysicianAppointmentHistoryTable";
 import PhysicianHistoryFilter from "common/components/PhysicianHistoryFilter/PhysicianHistoryFilter";
 import { PhysicianAppointmentInputFilter } from "common/types/types";
 
 function PatientAppointmentHistory() {
   const [filterValues, setFilterValues] = useState({});
-  const [{ data: data }, executeUsePhysicianAppointmentsHistoryQuery] =
+  const [{ data }, executeUsePhysicianAppointmentsHistoryQuery] =
     usePhysicianAppointmentsHistoryQuery({
       variables: {
         filter: { ...filterValues, status: "Completed" },
@@ -42,7 +42,7 @@ function PatientAppointmentHistory() {
         {/* physician History table */}
         <PhysicianHistoryFilter onChange={onChange} />
         <div className="custom-table-ui">
-          <PhysicianAppointmentHistoryTable data={appointments} />
+          <PhysicianAppointmentHistoryTable data={appointments as Appointment[]} />
         </div>
       </div>
     </AppLayout>
