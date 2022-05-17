@@ -3,6 +3,7 @@ import {
   CheckOutlined,
   MessageOutlined,
   RetweetOutlined,
+  DeleteOutlined,
   VideoCameraFilled,
 } from "@ant-design/icons";
 import {
@@ -33,11 +34,18 @@ import { formatMMMM_Dcoma_YYYY, getDayJsObject } from "common/utils/date";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
+import { FormInstance } from "rc-field-form";
 
 type Props = {
   data: Appointment | undefined;
   onCancelRequestedAppointment?: () => void;
 };
+
+type dateArray = {
+  endDate: string;
+  startDate: string;
+};
+
 function DoctorAppointmentInfo({ data }: Props) {
   const {
     id,
@@ -47,7 +55,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     status,
     requestedDate,
     appointmentTimeSlots,
-    createdAt
+    createdAt,
   } = data || {};
 
   const [, executeCancelRequestedAppointment] =
@@ -80,9 +88,6 @@ function DoctorAppointmentInfo({ data }: Props) {
       }
     } catch (error) {}
   }
-
-  // FOR FOOTER OF APPOINTMENT DETAIL PAGE
-  const { pathname } = useRouter();
 
   return (
     <div className="max-w-[700px]">
@@ -189,8 +194,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     requestedDate,
     appointmentTimeSlots,
   } = data || {};
-  console.log("datadata", data);
 
+  const [slot, setSlot] = useState<dateArray>({ startDate: "", endDate: "" });
+  const [slots, setSlots] = useState<Array<dateArray>>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -211,12 +217,10 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   const allAppoinments = appointmentServiceTypes?.appointmentServiceTypes;
 
   const [formInstance] = Form.useForm();
-  // API CALL
-  // const [data] = useProposeNewTimeMutation();
-  // console.log(data, "dataproposeNewTimeSlots");
-  // const { physicianData, onFinish } = props || {};
+  const [datePickerInstance] = Form.useForm();
 
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
+  const [visible, setVisible] = useState<boolean>(true);
 
   useEffect(() => {
     if (data) {
@@ -231,7 +235,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     });
 
     setServiceInfo(serviceType as AppointmentServiceType);
-    console.log(serviceType);
   }
 
   function handleServiceChange(value: any) {
@@ -241,12 +244,48 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setServiceInfo(charge);
   }
 
-  function onChangeDatePicker(value: any, dateString: string): void {
-    console.log("Selected Time: ", value);
-    console.log("Formatted Selected Time: ", dateString);
+  const onChangeDatePicker = (dateString: string, name: string): void => {
+    setSlot({ ...slot, [name]: dateString });
+  };
+
+  function onOkDatePicker(value: any) {}
+
+  // API CALL
+
+  const [, executeProposeTimeSlotMutation] = useProposeNewTimeMutation();
+
+  async function onProposeNewTimeSlot() {
+    try {
+      const { error } = await executeProposeTimeSlotMutation({
+        proposeNewTimeInput: {
+          id: id as number,
+          serviceId: serviceType?.id as number,
+          charges: serviceInfo?.price as number,
+          proposedTimeSlots: slots as any,
+        },
+      });
+      if (error && error?.message) {
+        throw new Error(error.message);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message,
+      });
+    }
   }
-  function onOkDatePicker(value: any) {
-    console.log("onOk: ", value);
+
+  function deleteTimeSlot(index: number) {
+    setSlots(slots.filter((_, i) => i !== index));
+  }
+
+  function visibleFalse() {
+    setVisible(false);
+  }
+
+  function addTimeSlot() {
+    setSlots([...slots, slot]);
+    setSlot({ startDate: "", endDate: "" });
+    datePickerInstance.resetFields(["start_time", "end_time"]);
   }
 
   return (
@@ -285,7 +324,11 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         footer={null}
       >
         <h2>Propose New Time</h2>
-        <Form layout="vertical" form={formInstance}>
+        <Form
+          layout="vertical"
+          form={formInstance}
+          onFinish={onProposeNewTimeSlot}
+        >
           <div className="flex">
             <div className="w-5/6">
               <Form.Item label="Service*" name="service">
@@ -319,39 +362,39 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           </Form.Item>
 
           <label>Availability*</label>
-          <div className="flex mt-2 mb-3 border-gray-8">
-            <div className="w-50">
-              <Form.Item label="Start Time" name="Start Time">
-                <Space direction="vertical" size={12}>
-                  <DatePicker
-                    showTime
-                    onChange={onChangeDatePicker}
-                    onOk={onOkDatePicker}
-                  />
-                </Space>
-              </Form.Item>
-            </div>
+          {/* Availability Time Slots Starts */}
+          <div className="date-time-picker block mb-3">
+            <AvailabilityTimeSlots
+              form={datePickerInstance}
+              onChangeDatePicker={onChangeDatePicker}
+            />
+            {slots?.map((v, index) => (
+              <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
+                <div className="flex gap-2  rounded leading-3 max-w-max">
+                  <p className="text-sm mb-0">{v?.startDate}</p> -
+                  <p className="text-sm mb-0">{v?.endDate}</p>
+                </div>
+                <span className="hover:bg-white p-2 rounded-xl">
+                  <DeleteOutlined onClick={() => deleteTimeSlot(index)} />
+                </span>
+              </div>
+            ))}
           </div>
-          <div className="flex mt-2 mb-3 border-b border-gray-8">
-            <div className="w-50">
-              <Form.Item label="Start Time" name="Start Time">
-                <Space direction="vertical" size={12}>
-                  <DatePicker
-                    showTime
-                    onChange={onChangeDatePicker}
-                    onOk={onOkDatePicker}
-                  />
-                </Space>
-              </Form.Item>
-            </div>
+          {/* Availability Time Slots Ends */}
+          <div className="text-primary flex">
+            <Button
+              onClick={addTimeSlot}
+              disabled={Object.values(slot).some((value) => value === "")}
+              type="link"
+            >
+              + Add Slot
+            </Button>
           </div>
-          <div className="text-primary text-left">
-            <Button type="link">+ Add Slot</Button>
-          </div>
+
           <div className="flex justify-end">
             <Button
-            // className={`${_classes["appointments-btn"]}`}
-            // onClick={onProposeNewTimeSlot}
+              className={`${_classes["appointments-btn"]}`}
+              onClick={onProposeNewTimeSlot}
             >
               Propose Time
             </Button>
@@ -359,5 +402,46 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         </Form>
       </Modal>
     </>
+  );
+}
+
+function AvailabilityTimeSlots({
+  form,
+  onChangeDatePicker,
+}: {
+  form: FormInstance<any>;
+  onChangeDatePicker?: (dateString: string, name: string) => void;
+}) {
+  return (
+    <div className="block mb-10">
+      <Form
+        layout="horizontal"
+        form={form as any}
+        className="flex mt-2 mb-3 border-gray-8 gap-3"
+      >
+        <div className="w-50">
+          <Form.Item label="Start Time" name="start_time">
+            <Space direction="vertical" size={12}>
+              <DatePicker
+                showTime
+                onChange={(_, date: string) => {
+                  onChangeDatePicker?.(date, "startDate");
+                }}
+              />
+            </Space>
+          </Form.Item>
+        </div>
+        <div className="w-50">
+          <Form.Item label="End Time" name="end_time">
+            <Space direction="vertical" size={12}>
+              <DatePicker
+                showTime
+                onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
+              />
+            </Space>
+          </Form.Item>
+        </div>
+      </Form>
+    </div>
   );
 }

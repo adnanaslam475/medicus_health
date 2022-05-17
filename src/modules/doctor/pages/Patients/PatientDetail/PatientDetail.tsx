@@ -1,37 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
+import { Tabs, notification } from "antd";
 import {
-  Table,
-  Tag,
-  Modal,
-  Avatar,
-  Upload,
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Select,
-  Tabs,
-} from "antd";
-import {
-  PlusOutlined,
-  EyeFilled,
   UserOutlined,
-  BellOutlined,
+  CalendarOutlined,
+  UnorderedListOutlined,
 } from "@ant-design/icons";
-import Link from "next/link";
-import Image from "next/image";
-import yourImage from "../../../../../../public/assets/images/your_photo.png";
+
 import {
-  useCountriesQuery,
-  useGetCitiesByStateQuery,
-  useGetStatesByCountryQuery,
-} from "../../../../../generated/graphql";
-import dayjs from "dayjs";
-// import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
+  useUpdatePatientHealthHistoryMutation,
+  usePatientHealthHistoryQuery,
+  useGetAllTransactionsQuery,
+} from "generated/graphql";
 import { QuestionnaireForm } from "../../../../../common/components/Questionnary/Questionnary";
-import PhysicianProfile from "./PatientDetailTabs/PatientProfile";
-import EmailNotification from "../../../../patient/pages/EmailNotification/EmailNotification";
+import PatientProfileForm from "./PatientDetailTabs/PatientProfileForm";
+import { getUserData } from "common/utils/userData";
+import AppointmentHistory from "../../Patients/AppointmentHistory/AppointmentHistory";
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -39,102 +24,98 @@ type props = {
   onFinish?: (value: any) => void;
 };
 function PatientDetail() {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const [image, setImage] = useState("");
-
-  const props = {
-    onChange({ file, fileList }: any) {
-      if (file.status !== "uploading") {
-      }
-    },
-  };
-
-  const [form] = Form.useForm();
+  const form: any = useRef();
 
   const { TabPane } = Tabs;
+  // GET USER ID
+  const { user } = getUserData();
+  const id = user?.id;
+
+  // Get patient Health History
+  const [{ data }] = usePatientHealthHistoryQuery({
+    variables: { input: id as number },
+  });
+  //GET ALL TRANSACTIONS
+  const [{ data: allTransactions }] = useGetAllTransactionsQuery();
+  const { transactions } = allTransactions || {};
+
+  // UPDATE PATIENT HEALTH HISTORY
+
+  const [result, updatePatientHealthHistory] =
+    useUpdatePatientHealthHistoryMutation();
+
+  const { error, fetching } = result;
+
+  const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
+    const healthQuesJson = JSON.stringify(quesPayload);
+    try {
+      await updatePatientHealthHistory({
+        input: {
+          history: healthQuesJson,
+          user_id: id as number,
+        },
+      });
+      {
+        result?.data?.updatePatientHealthHistory &&
+          notification.success({
+            message: "Successfully Updated",
+          });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex justify-between">
-          <h2 className="mb-4">Edit Physician</h2>
-        </div>
-        <div className="w-full">
-          <div className="w-full py-5">
-            <Tabs defaultActiveKey="1">
-              <TabPane
-                tab={
-                  <span>
-                    <UserOutlined className="" />
-                    Profile
-                  </span>
-                }
-                key="1"
-              >
-                <PhysicianProfile />
-              </TabPane>
+        <Tabs defaultActiveKey="1">
+          <TabPane
+            tab={
+              <span>
+                <UserOutlined className="" />
+                Profile
+              </span>
+            }
+            key="1"
+          >
+            <PatientProfileForm />
+          </TabPane>
 
-              <TabPane
-                tab={
-                  <span>
-                    <BellOutlined />
-                    Questionanaire
-                  </span>
+          <TabPane
+            tab={
+              <span>
+                <UnorderedListOutlined />
+                Health Questionnaire
+              </span>
+            }
+            key="2"
+          >
+            <div className="max-w-[800px]">
+              <CardWithProfileImageInfo name="usama" serviceName="consultation">
+                {
+                  <QuestionnaireForm
+                    ref={form}
+                    data={data?.patientHealthHistory.history}
+                    onFinishSuccess={onFinishHealthQuestionnarySuccess}
+                  />
                 }
-                key="2"
-              >
-                {/* <QuestionnaireForm
-                  ref={form}
-                  data={data?.patientHealthHistory.history}
-                  onFinishSuccess={onFinishHealthQuestionnarySuccess}
-                /> */}
+              </CardWithProfileImageInfo>
+            </div>
+          </TabPane>
 
-                {/* <div className="flex items-center justify-end">
-                  <Button
-                    loading={fetching}
-                    disabled={fetching}
-                    className="ant-btn ant-btn-primary ant-btn mb-0"
-                    type="primary"
-                    onClick={() => form?.current?.submit()}
-                  >
-                    Update
-                  </Button>
-                </div> */}
-              </TabPane>
-
-              <TabPane
-                tab={
-                  <span>
-                    <BellOutlined />
-                    Earnings
-                  </span>
-                }
-                key="3"
-              >
-                <EmailNotification />
-              </TabPane>
-
-              <TabPane
-                tab={
-                  <span>
-                    <BellOutlined />
-                    Staff
-                  </span>
-                }
-                key="4"
-              >
-                <EmailNotification />
-              </TabPane>
-            </Tabs>
-          </div>
-        </div>
+          <TabPane
+            tab={
+              <span>
+                <CalendarOutlined />
+                Appointments History
+              </span>
+            }
+            key="3"
+          >
+            <AppointmentHistory />
+          </TabPane>
+        </Tabs>
       </div>
     </AppLayout>
   );

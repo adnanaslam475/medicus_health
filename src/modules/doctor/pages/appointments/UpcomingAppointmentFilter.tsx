@@ -6,6 +6,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { physicianFilterType } from "common/types/types";
+import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 
 const { Option } = Select;
 
@@ -14,15 +15,14 @@ const { RangePicker } = DatePicker;
 type Props = {
   onChange: (value: physicianFilterType) => void;
 };
-
 function UpcomingAppointmentFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
-
+  const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
+  const { appointmentServiceTypes } = serviceTypes || {};
   function clear() {
     setFilterState({});
     onChange({});
   }
-
   const [openDateRange, setOpenDateRange] = useState(false);
 
   const applyDateRange = () => {
@@ -39,8 +39,8 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
     }
-    if (!filters.searchPatient) {
-      delete filters.searchPatient;
+    if (!filters.searchString) {
+      delete filters.searchString;
     }
     if (!filters.appointmentType) {
       delete filters.appointmentType;
@@ -54,11 +54,11 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
           <Input
-            value={filterState.searchPatient}
+            value={filterState.searchString}
             placeholder="Search by ID or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
-              onChangeFields("searchPatient", e.target.value);
+              onChangeFields("searchString", e.target.value);
             }}
           />
         </div>
@@ -127,8 +127,9 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
             onChange={(value) => onChangeFields("appointmentType", value)}
             value={filterState.appointmentType || "Service"}
           >
-            <Option value="consultation">Consultation</Option>
-            <Option value="second opinion">Second Opinion</Option>
+            {appointmentServiceTypes?.map(({ id, name }) => (
+              <Option value={id}>{name}</Option>
+            ))}
           </Select>
         </div>
         <Button type="text" className="sm:ml-3" onClick={clear}>
