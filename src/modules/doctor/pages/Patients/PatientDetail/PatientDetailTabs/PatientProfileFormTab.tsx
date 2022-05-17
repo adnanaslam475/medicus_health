@@ -4,7 +4,7 @@ import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDi
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 
 const props = {};
-function PatientProfileForm() {
+function PatientProfileFormTab() {
   return (
     <CardWithProfileImageInfo
     name="usama"
@@ -57,4 +57,4 @@ function PatientProfileForm() {
   );
 }
 
-export default PatientProfileForm;
+export default PatientProfileFormTab;

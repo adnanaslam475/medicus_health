@@ -15,8 +15,8 @@ import {
   Button,
   Checkbox,
 } from "antd";
-import PhysicianProfileForm from "./PatientProfileForm";
-import PatientProfileForm from "./PatientProfileForm";
+import PhysicianProfileForm from "./PatientProfileFormTab";
+import PatientProfileForm from "./PatientProfileFormTab";
 
 function PatientProfile() {
   return (

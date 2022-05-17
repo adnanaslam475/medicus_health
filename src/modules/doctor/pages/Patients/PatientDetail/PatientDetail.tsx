@@ -6,17 +6,17 @@ import {
   CalendarOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
-
 import {
   useUpdatePatientHealthHistoryMutation,
   usePatientHealthHistoryQuery,
   useGetAllTransactionsQuery,
 } from "generated/graphql";
-import { QuestionnaireForm } from "../../../../../common/components/Questionnary/Questionnary";
-import PatientProfileForm from "./PatientDetailTabs/PatientProfileForm";
 import { getUserData } from "common/utils/userData";
-import AppointmentHistory from "../../Patients/AppointmentHistory/AppointmentHistory";
-import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
+import AppointmentHistory from "../AppointmentHistory/AppointmentHistory";
+import PatientProfileFormTab from "./PatientDetailTabs/PatientProfileFormTab";
+import QuestionnaireFormTab from "./QuestionnaireFormTab";
+import AppointmentHistoryTab from "./PatientDetailTabs/AppointmentHistoryTab";
+import NotesTab from "./NotesTab";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -79,7 +79,7 @@ function PatientDetail() {
             }
             key="1"
           >
-            <PatientProfileForm />
+            <PatientProfileFormTab/>
           </TabPane>
 
           <TabPane
@@ -91,17 +91,7 @@ function PatientDetail() {
             }
             key="2"
           >
-            <div className="max-w-[800px]">
-              <CardWithProfileImageInfo name="usama" serviceName="consultation">
-                {
-                  <QuestionnaireForm
-                    ref={form}
-                    data={data?.patientHealthHistory.history}
-                    onFinishSuccess={onFinishHealthQuestionnarySuccess}
-                  />
-                }
-              </CardWithProfileImageInfo>
-            </div>
+            <QuestionnaireFormTab/>
           </TabPane>
 
           <TabPane
@@ -113,7 +103,18 @@ function PatientDetail() {
             }
             key="3"
           >
-            <AppointmentHistory />
+            <AppointmentHistoryTab />
+          </TabPane>
+          <TabPane
+            tab={
+              <span>
+                <CalendarOutlined />
+                Notes
+              </span>
+            }
+            key="4"
+          >
+           <NotesTab/>
           </TabPane>
         </Tabs>
       </div>

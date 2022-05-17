@@ -87,7 +87,7 @@ function PatientList() {
         <div>
           <EyeFilled
             onClick={() => {
-              return Router.push(`/doctor/patients/detail`);
+              return Router.push(`/physician/patients/detail`);
             }}
           />
         </div>
