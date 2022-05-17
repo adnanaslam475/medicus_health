@@ -17,6 +17,7 @@ export type singleSchedule = {
 export type physicianFilterType = {
   searchString?: string;
   appointmentType?: string;
+  patientName?: string;
   bookingDate?: {
     startDate?: string;
     endDate?: string;
@@ -39,4 +40,29 @@ export type PhysicianAppointmentInputFilter = {
 export type DateType = {
   startDate: string;
   endDate: string;
+};
+
+export type physicianMyEarningsFilterType = {
+  searchString?: string;
+  serviceId?: number;
+  earnings?: { initial: number; final: number };
+  DateRange?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+
+export type cancelAppointmentFilterType = {
+  patientName?: string;
+  appointmentType?: string;
+  bookingDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+
+export type ServiceTypes = {
+  id?: number;
+  name?: string;
+  price: number;
 };

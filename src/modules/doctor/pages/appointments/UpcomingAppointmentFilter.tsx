@@ -6,6 +6,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { physicianFilterType } from "common/types/types";
+import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 
 const { Option } = Select;
 
@@ -14,15 +15,14 @@ const { RangePicker } = DatePicker;
 type Props = {
   onChange: (value: physicianFilterType) => void;
 };
-
 function UpcomingAppointmentFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
-
+  const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
+  const { appointmentServiceTypes } = serviceTypes || {};
   function clear() {
     setFilterState({});
     onChange({});
   }
-
   const [openDateRange, setOpenDateRange] = useState(false);
 
   const applyDateRange = () => {
@@ -127,8 +127,9 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
             onChange={(value) => onChangeFields("appointmentType", value)}
             value={filterState.appointmentType || "Service"}
           >
-            <Option value="consultation">Consultation</Option>
-            <Option value="second opinion">Second Opinion</Option>
+            {appointmentServiceTypes?.map(({ id, name }) => (
+              <Option value={id}>{name}</Option>
+            ))}
           </Select>
         </div>
         <Button type="text" className="sm:ml-3" onClick={clear}>

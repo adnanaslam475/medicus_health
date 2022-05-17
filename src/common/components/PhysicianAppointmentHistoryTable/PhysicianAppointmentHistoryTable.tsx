@@ -97,7 +97,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       render: () => (
         <EyeFilled
           onClick={() => {
-            return Router.push(`/doctor/appointments/history/detail`);
+            return Router.push(`/physician/appointments/history/detail`);
           }}
         />
       ),

@@ -23,7 +23,7 @@ function Login() {
     if (token) {
       setAuthToken(token);
       if (role === "Doctor") {
-        router.push("/doctor/dashboard");
+        router.push("/physician/dashboard");
       } else if (role === "User") {
         router.push("/patient/appointments/upcoming");
       } else if (role === "Admin") {
@@ -49,7 +49,7 @@ function Login() {
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
         if (userPayload.user.role === "Doctor") {
           Router.replace({
-            pathname: "/doctor/dashboard",
+            pathname: "/physician/dashboard",
           });
         } else if (userPayload.user.role === "User") {
           Router.replace({

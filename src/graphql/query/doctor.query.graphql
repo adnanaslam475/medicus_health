@@ -124,19 +124,7 @@ query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
   }
 }
 
-query physiciansPatients($searchField: String) {
-  physiciansPatients(filter: { searchField: $searchField }) {
-    id
-    first_name
-    last_name
-    email
-    contact_number
-    streetAddress
-    patientProfile {
-      profileImage
-    }
-  }
-}
+
 
 query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
   appointments(filter: $filter) {
@@ -160,6 +148,47 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
     transaction {
       status
       amountReceived
+    }
+  }
+}
+
+#Get My Earnings Of Doctor
+query getTransectionFilter($filter: GetTransectionInput!) {
+  getTransectionFilter(filter: $filter) {
+    id
+    appointmentId
+    transactionId
+    payment_status
+    amountReceived
+    appointment {
+      patient {
+        first_name
+        last_name
+      }
+      patientId
+      serviceType {
+        id
+        name
+      }
+      appointmentTimeSlots {
+        selected
+        startTime
+        endTime
+      }
+    }
+  }
+}
+
+query physiciansPatients ($searchField:String){
+  physiciansPatients(filter:{searchField:$searchField}){
+    id
+    first_name
+    last_name
+    email
+    contact_number
+		streetAddress
+    patientProfile{
+      profileImage
     }
   }
 }

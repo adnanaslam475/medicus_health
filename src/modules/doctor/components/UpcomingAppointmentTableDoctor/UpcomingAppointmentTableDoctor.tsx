@@ -81,7 +81,7 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
           <EyeFilled
             onClick={() => {
               return Router.push(
-                `/doctor/appointments/upcoming/${appointmentId}`
+                `/physician/appointments/upcoming/${appointmentId}`
               );
             }}
           />

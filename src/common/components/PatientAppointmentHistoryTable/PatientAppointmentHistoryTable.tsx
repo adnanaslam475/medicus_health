@@ -58,10 +58,7 @@ function PatientAppointmentHistoryTable(props: Props) {
 				compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
 				multiple: 3,
 			},
-			//   render: (value: AppointmentTimeSlots[]) => {
-			//     let time = value?.find((time) => time.selected);
-			//     return <div>{`${date?.formatMMMMDDYYYY(time?.startTime)} `}</div>;
-			//   },
+		
 		},
 
 		{
@@ -71,7 +68,7 @@ function PatientAppointmentHistoryTable(props: Props) {
 			className: "table-action-icon",
 			render: () => (
 				<EyeFilled
-					onClick={() => Router.push("/doctor/appointments/history/detail")}
+					onClick={() => Router.push("/physician/appointments/history/detail")}
 				/>
 			),
 		},
