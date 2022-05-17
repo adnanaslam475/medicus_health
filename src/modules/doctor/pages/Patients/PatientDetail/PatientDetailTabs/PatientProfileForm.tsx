@@ -1,22 +1,7 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal } from "antd";
-import { ExclamationCircleOutlined, EditOutlined } from "@ant-design/icons";
-import yourImage from "../../../../../../../public/assets/images/your_photo.png";
-import {
-  Table,
-  Tag,
-  Avatar,
-  Upload,
-  Form,
-  Input,
-  Button,
-  Checkbox,
-} from "antd";
+import React from "react";
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
-import CardWithProfileImageInfo from "modules/doctor/pages/PhysicianAppointmentHistoryDetail/CardWithProfileImageInfo";
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 
 const props = {};
 function PatientProfileForm() {
