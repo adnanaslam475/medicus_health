@@ -71,6 +71,10 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       endTime
       selected
     }
+     appointmentSchedule{
+      startTime
+      endTime
+    }
   }
 }
 

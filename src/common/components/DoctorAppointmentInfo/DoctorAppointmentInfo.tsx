@@ -55,6 +55,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     status,
     requestedDate,
     appointmentTimeSlots,
+    appointmentSchedule,
     createdAt,
   } = data || {};
 
@@ -109,10 +110,8 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText
           label="Time"
           text={
-            timeSlots()?.startTime
-              ? `${date?.formathhmma(
-                  timeSlots()?.startTime
-                )} - ${date?.formathhmma(timeSlots()?.endTime)}`
+            appointmentSchedule?.startTime
+              ? `${appointmentSchedule?.startTime} - ${appointmentSchedule?.endTime}`
               : "--"
           }
         />
