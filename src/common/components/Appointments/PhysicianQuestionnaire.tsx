@@ -123,17 +123,6 @@ function PhysicianQuestionnaire(props: Props) {
           </Form.Item>
 
           <Form.Item
-            label="Do you have a cough?"
-            className="text-secondary"
-            name="coughProblem"
-          >
-            <Radio.Group defaultValue={History?.coughProblem}>
-              <Radio value={0}>Yes</Radio>
-              <Radio value={1}>No</Radio>
-            </Radio.Group>
-          </Form.Item>
-
-          <Form.Item
             label="Do you cough anything up?"
             className="text-secondary"
             name="coughAnything"
