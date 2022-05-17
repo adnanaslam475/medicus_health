@@ -17,11 +17,6 @@ type Props = {
   dataSource: Appointment[] | undefined;
 };
 
-const FLAG_BY_LANGUAGE = {
-  ["english" as string]: engFlag,
-  ["Spanish" as string]: espanolFlag,
-};
-
 function CancelledAppointmentTable({ dataSource }: Props) {
   const columns = [
     {
@@ -56,58 +51,51 @@ function CancelledAppointmentTable({ dataSource }: Props) {
       },
     },
     {
-      title: "Contact Number",
-      dataIndex: "patient",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-      render: (value: User) => {
-        return <div className="someclass">{value.contact_number}</div>;
-      },
-    },
-    {
-      title: "Account Creation Date",
-      dataIndex: "createdAt",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
+      title: "Date",
+      dataIndex: "requestedDate",
+      key: "requestedDate",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
+      //   multiple: 3,
+      // },
       render: (value: string) => {
         return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
       },
     },
     {
-      title: "Booking Due Date",
-      dataIndex: "bookingDate",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-      render: (value: string) => {
-        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      title: "Time",
+      dataIndex: "appointmentTimeSlots",
+      key: "appointmentTimeSlots",
+      render: (value: AppointmentTimeSlots[]) => {
+        let time = value?.find((time) => time?.selected);
+        return (
+          <div className="someclass">
+            {time?.startTime
+              ? `${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
+                  time?.endTime
+                )}`
+              : "--"}
+          </div>
+        );
       },
     },
     {
-      title: "Appoinment Time",
-      dataIndex: "appoinmentTime",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-      render: (value: string) => {
-        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      title: "Total Amount",
+      dataIndex: "charges",
+      key: "charges",
+      render: (value: number) => {
+        return <div className="someclass">{value ? `$ ${value}` : ""}</div>;
       },
     },
     {
       dataIndex: "id",
       className: "table-action-icon",
-      render: (cancelledAppointmentId: number) => (
+      render: (appointmentId: number) => (
         <div>
           <EyeFilled
             onClick={() => {
               return Router.push(
-                `/doctor/appointments/cancelled/${cancelledAppointmentId}`
+                `/doctor/appointments/cancelled/${appointmentId}`
               );
             }}
           />
