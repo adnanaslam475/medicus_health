@@ -21,7 +21,7 @@ function AppointmentInfoTab({}: Props) {
   });
   const { appointment } = data || {};
   const { patient, serviceType } = appointment || {};
-
+  
   return (
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}

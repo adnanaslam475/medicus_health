@@ -1,16 +1,14 @@
 import React from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
-import AppointmentsDetailTabs from "../../AppointmentsDetailTabs/AppointmentsDetailTabs";
+// import AppointmentsDetailTabs from "../../AppointmentsDetailTabs/AppointmentsDetailTabs";
 import {
   useDoctorAppointmentDetailQuery,
-  useGetAppointmentReportUrlByIdQuery,
+  // useGetAppointmentReportUrlByIdQuery,
   usePatientHealthHistoryQuery,
 } from "generated/graphql";
 import { Tabs } from "antd";
-import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
-import DoctorAppointmentInfo from "../../../../../common/components/DoctorAppointmentInfo/DoctorAppointmentInfo";
-import PatientInfo from "common/components/PatientInfo/PatientInfo";
+
 import Questionnary, {
   QuestionnaireForm,
 } from "common/components/Questionnary/Questionnary";
@@ -34,27 +32,26 @@ function CancelledAppointmentsDetailDoctor() {
   });
   const { appointment } = data || {};
 
-  const [{ data: appoinmentUrl }] = useGetAppointmentReportUrlByIdQuery({
-    variables: {
-      id: Number(appointment?.id),
-    },
-  });
+  // const [{ data: appoinmentUrl }] = useGetAppointmentReportUrlByIdQuery({
+  //   variables: {
+  //     id: Number(appointment?.id),
+  //   },
+  // });
 
   //get appointment URL
-  const { reportUrl } = appoinmentUrl?.appointment || {};
-
-  let urlArr = parseJson(reportUrl);
-  if (urlArr && urlArr.length > 0) {
-    urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
-  }
-
-  //Get Patient ID
-  const { patientId } = appointment || {};
-
-  // Get patient Health History
+  const { reportUrl, patientId } = appointment || {};
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: patientId as number },
   });
+
+  let urlArr = parseJson(reportUrl);
+  if (urlArr && urlArr?.length > 0) {
+    urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+  }
+
+  // Get patient Health History
+
+  
 
   return (
     <AppLayout>

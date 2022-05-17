@@ -111,7 +111,9 @@ const RequestedList = (props: Props) => {
       render: (appointmentId: number) => (
         <EyeFilled
           onClick={() => {
-            return Router.push(`/doctor/appointments/requested/${appointmentId}`);
+            return Router.push(
+              `/doctor/appointments/requested/${appointmentId}`
+            );
           }}
         />
       ),

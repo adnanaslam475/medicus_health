@@ -7,7 +7,6 @@ type Props = {
 };
 function Attachment(props: Props) {
   const { src, name } = props;
-
   return (
     <div className="block">
       <div className="inline-flex bg-gray-4 p-4 my-3 border-gray-9 border rounded">
