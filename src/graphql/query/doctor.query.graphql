@@ -124,16 +124,42 @@ query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
   }
 }
 
-query physiciansPatients ($searchField:String){
-  physiciansPatients(filter:{searchField:$searchField}){
+query physiciansPatients($searchField: String) {
+  physiciansPatients(filter: { searchField: $searchField }) {
     id
     first_name
     last_name
     email
     contact_number
-		streetAddress
-    patientProfile{
+    streetAddress
+    patientProfile {
       profileImage
+    }
+  }
+}
+
+query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
+  appointments(filter: $filter) {
+    id
+    createdAt
+    requestedDate
+    serviceType {
+      name
+    }
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    status
+
+    transaction {
+      status
+      amountReceived
     }
   }
 }
