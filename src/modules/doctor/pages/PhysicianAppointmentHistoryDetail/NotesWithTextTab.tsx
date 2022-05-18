@@ -1,11 +1,18 @@
-import React from 'react'
+import React from "react";
 import NotesWithText from "common/components/NotesWithText/NotesWithText";
-function NotesWithTextTab() {
+import { Appointment, AppointmentNote } from "generated/graphql";
+
+type Props = {
+  appointment?: Appointment | undefined ;
+  doctorNotes?: [[string,string]];
+};
+
+function NotesWithTextTab({ appointment, doctorNotes }: Props) {
   return (
     <div className="max-w-1/2">
-    <NotesWithText/>
-</div>
-  )
+      <NotesWithText appointment={appointment} doctorNotes={doctorNotes} />
+    </div>
+  );
 }
 
-export default NotesWithTextTab
+export default NotesWithTextTab;
