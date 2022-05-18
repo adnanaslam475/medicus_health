@@ -255,6 +255,10 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
       createdAt
       amountReceived
     }
+     appointmentSchedule{
+      startTime
+      endTime
+    }
   }
 }
 # query getAllRequestedAppointments($filter: GetAppointmentInput!) {
