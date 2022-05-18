@@ -330,7 +330,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           <Radio value={0}>No</Radio>
         </Radio.Group>
       </Form.Item>
-      {!!radioDrug && (
         <>
           <Form.Item
             name={HealthQuestionnaryData.q3.q.name}
@@ -355,7 +354,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             </Form.Item>
           )}
         </>
-      )}
       <Form.Item
         name={HealthQuestionnaryData.q4.name}
         className="text-secondary"
