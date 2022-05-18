@@ -1,6 +1,6 @@
 import StaffListingScreen from "../../../src/modules/doctor/pages/staff/StaffListing/StaffListing";
 
-function StaffListing() {
+function index() {
   return <StaffListingScreen />;
 }
-export default StaffListing;
+export default index;

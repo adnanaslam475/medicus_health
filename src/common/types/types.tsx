@@ -16,7 +16,6 @@ export type singleSchedule = {
 
 
 export type staffFilterType = {
-  // patientName?: string;
   serviceType?: string;
   accountCreationDate?: {
     startDate?: string;

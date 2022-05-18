@@ -3,13 +3,12 @@ import { Button, Empty, Form, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import {
-  Appointment,
   UpdateStaffInput,
   useCreateStaffMutation,
   useGetAllStaffByDoctorQuery,
   User,
 } from "generated/graphql";
-import StaffTable from "modules/doctor/components/StaffTable";
+import StaffTable from "modules/doctor/components/StaffTable/StaffTable";
 import { getUserData } from "common/utils/userData";
 import { staffFilterType } from "common/types/types";
 import AddStaffModal from "./AddStaffModal";
@@ -20,17 +19,15 @@ function StaffListing() {
   const [filterValues, setFilterValues] = React.useState<staffFilterType>({});
   const [{ data: staffData }, executeUseStaffQuery] =
     useGetAllStaffByDoctorQuery();
-  const [loadingSubmit, setLoadingSubmit] = React.useState<boolean>(false);
-  const [showModal, setShowModal] = React.useState<boolean>(false);
-  const [, createStaff] = useCreateStaffMutation();
+  const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
+  const [{ fetching }, createStaff] = useCreateStaffMutation();
 
   const { user } = getUserData();
   const id = user?.id;
 
   const [{ data }] = useGetAllStaffByDoctorQuery();
   const { staff } = data || {};
-  const handleSubmit = async (values: UpdateStaffInput) => {
-    setLoadingSubmit(true);
+  const onFinish = async (values: UpdateStaffInput) => {
     try {
       const response = await createStaff({
         createStaffInput: {
@@ -50,13 +47,11 @@ function StaffListing() {
               "Something went wrong",
           });
       }
-      setLoadingSubmit(false);
       if (response.data) {
-        setShowModal(false);
+        setVisibleModal(false);
         form.resetFields();
       }
     } catch (error) {
-      setLoadingSubmit(false);
       console.log("catch_err", error);
     }
   };
@@ -69,7 +64,7 @@ function StaffListing() {
     });
   }
   const closeModal = () => {
-    setShowModal(false);
+    setVisibleModal(false);
   };
   return (
     <>
@@ -80,7 +75,7 @@ function StaffListing() {
               <h2 className="mb-0">Staff</h2>
             </div>
             <Button
-              onClick={() => setShowModal(true)}
+              onClick={() => setVisibleModal(true)}
               type="primary"
               icon={<PlusOutlined />}
             >
@@ -103,9 +98,9 @@ function StaffListing() {
       </AppLayout>
       <AddStaffModal
         closeModal={closeModal}
-        handleSubmit={handleSubmit}
-        loadingSubmit={loadingSubmit}
-        showModal={showModal}
+        onFinish={onFinish}
+        fetching={fetching}
+        visibleModal={visibleModal}
         form={form}
       />
     </>

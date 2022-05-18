@@ -1,42 +1,31 @@
 import React from "react";
 import { Modal, Form, Button, Input, FormProps, FormInstance } from "antd";
-import { createStaffForm } from "utils/helper";
-import _classes from "./_staff.module.scss";
 import { UpdateStaffInput } from "generated/graphql";
+import { createStaffForm } from "../../../../../constants";
+import _classes from "./_staff.module.scss";
 
 type AddStaffModalProps = {
-  showModal: boolean | undefined;
-  loadingSubmit: boolean | undefined;
-  handleSubmit: (data: UpdateStaffInput) => void;
+  visibleModal: boolean | undefined;
+  fetching: boolean | undefined;
+  onFinish: (data: UpdateStaffInput) => void;
   form?: FormInstance | null;
   closeModal: () => void;
 };
 
 const AddStaffModal = React.forwardRef(
   (
-    {
-      closeModal,
-      form,
-      showModal,
-      handleSubmit,
-      loadingSubmit,
-    }: AddStaffModalProps,
+    { closeModal, form, visibleModal, onFinish, fetching }: AddStaffModalProps,
     ref
   ) => {
     return (
       <Modal
         centered
         width={700}
-        visible={showModal}
-        onOk={closeModal}
+        visible={visibleModal}
         onCancel={closeModal}
         footer={null}
       >
-        <Form
-          onFinish={handleSubmit}
-          form={form as FormInstance}
-          layout="vertical"
-        >
+        <Form onFinish={onFinish} form={form as FormInstance} layout="vertical">
           <h1>Add Staff</h1>
           <div className="md:grid md:grid-cols-2 md:gap-x-4">
             {createStaffForm.map((value, i) => (
@@ -59,8 +48,8 @@ const AddStaffModal = React.forwardRef(
           <div className="flex justify-end pb-0">
             <Form.Item noStyle>
               <Button
-                loading={loadingSubmit}
-                disabled={loadingSubmit}
+                loading={fetching}
+                disabled={fetching}
                 type="primary"
                 htmlType="submit"
                 className={`ml-4 py-2`}

@@ -1,19 +1,12 @@
-import { Table } from "antd";
-import { Appointment, AppointmentServiceType, User } from "generated/graphql";
 import React from "react";
-import engFlag from "../../../../../public/assets/images/engFlag.png";
-import espanolFlag from "../../../../../public/assets/images/espanolFlag.png";
-import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
+import Table from "antd/lib/table";
+import { AppointmentServiceType, User } from "generated/graphql";
+import { EyeFilled } from "@ant-design/icons";
 import { date } from "common/utils";
 
 type Props = {
   dataSource: User[] | undefined;
-};
-
-const FLAG_BY_LANGUAGE = {
-  ["english" as string]: engFlag,
-  ["Spanish" as string]: espanolFlag,
 };
 
 function StaffTable({ dataSource }: Props) {
@@ -22,7 +15,8 @@ function StaffTable({ dataSource }: Props) {
       title: "ID",
       dataIndex: "id",
       sorter: {
-        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
+        compare: (a: any, b: any) =>
+          a.doctor_id - b.doctor_id,
         multiple: 3,
       },
     },
@@ -32,11 +26,12 @@ function StaffTable({ dataSource }: Props) {
       key: "user",
       render: (value: any) => {
         return (
-          <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
+          <div className="">{`${value?.first_name} ${value?.last_name}`}</div>
         );
       },
       sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
+        compare: (a: any, b: any) =>
+          a.first_name - b.first_name,
         multiple: 3,
       },
     },
@@ -59,7 +54,7 @@ function StaffTable({ dataSource }: Props) {
         multiple: 3,
       },
       render: (value: string) => {
-        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+        return <div>{date?.formatMMMMDDYYYY(value)}</div>;
       },
     },
     {
@@ -70,7 +65,7 @@ function StaffTable({ dataSource }: Props) {
         multiple: 3,
       },
       render: (value: string) => {
-        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+        return <div>{date?.formatMMMMDDYYYY(value)}</div>;
       },
     },
     {
@@ -80,7 +75,9 @@ function StaffTable({ dataSource }: Props) {
         <div>
           <EyeFilled
             onClick={() => {
-              return Router.push(`/doctor/staff/StaffDetails/${staffId}`);
+              return Router.push(
+                `/physician/staff/DoctorStaffDetails/${staffId}`
+              );
             }}
           />
         </div>

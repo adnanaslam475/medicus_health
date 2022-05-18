@@ -305,6 +305,14 @@ export type DoctorProfile = {
   user?: Maybe<User>;
   year_of_experience?: Maybe<Scalars['Float']>;
 };
+export type StaffProfile={
+  __typename?: 'StaffProfile';
+  doctor_id: Scalars['Int'];
+  id: Scalars['Int'];
+  email?: InputMaybe<Scalars['String']>;
+  first_name?: InputMaybe<Scalars['String']>;
+  last_name?: InputMaybe<Scalars['String']>;
+}
 
 export type DoctorQuestionnaire = {
   __typename?: 'DoctorQuestionnaire';
@@ -1093,6 +1101,7 @@ export type User = {
   city_id?: Maybe<Scalars['Int']>;
   contact_number?: Maybe<Scalars['String']>;
   country_id?: Maybe<Scalars['Int']>;
+  doctor_id?: Maybe<Scalars['Int']>;
   createdAt: Scalars['DateTime'];
   date_of_birth?: Maybe<Scalars['DateTime']>;
   deleted: Scalars['Boolean'];
