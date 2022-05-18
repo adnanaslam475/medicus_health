@@ -28,7 +28,7 @@ type Props = {
   placeholder?: string;
   setSearchInput?: string | any;
   setDoctorId: number | any;
-  setAppointmentIds: number | any;
+  setAppointmentIds: number|any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
