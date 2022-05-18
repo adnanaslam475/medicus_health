@@ -16,7 +16,10 @@ function HealthQuestionnaireFrom() {
   const appointment = appointments && appointments[0];
   return (
     <div className="max-w-1/2">
-      <CardWithProfileImageInfo name="usama" serviceName="consultation">
+      <CardWithProfileImageInfo
+        name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
+        serviceName={appointment?.serviceType?.name}
+      >
         <QuestionnaireForm
           data={appointment?.patient?.patientHealthHistory?.history}
         />

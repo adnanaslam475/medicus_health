@@ -1406,7 +1406,7 @@ export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
 }>;
 
 
-export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, createdAt: any, requestedDate: any, reportUrl?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient: { __typename?: 'User', first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null }, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }> };
+export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, createdAt: any, requestedDate: any, reportUrl?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient: { __typename?: 'User', first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null }, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, doctorNote?: { __typename?: 'AppointmentNote', subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }> };
 
 export type GetTransectionFilterQueryVariables = Exact<{
   filter: GetTransectionInput;
@@ -2184,6 +2184,12 @@ export const PhysicianAppointmentsHistoryDocument = gql`
       startTime
       endTime
       selected
+    }
+    doctorNote {
+      subjective
+      objective
+      assessment
+      plan
     }
     status
     transaction {
