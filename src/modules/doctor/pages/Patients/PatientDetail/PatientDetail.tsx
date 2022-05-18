@@ -19,6 +19,7 @@ import QuestionnaireFormTab from "./QuestionnaireFormTab";
 import AppointmentHistoryTab from "./PatientDetailTabs/AppointmentHistoryTab";
 import NotesTab from "./NotesTab";
 import { getUserData } from "./../../../../../../src/common/utils/userData";
+import { useRouter } from "next/router";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -28,13 +29,15 @@ type props = {
 function PatientDetail() {
   const form: any = useRef();
 
+  const { query } = useRouter();
+
   const { TabPane } = Tabs;
   // GET USER ID
   const { user } = getUserData();
   const id = user?.id;
 
   const [{ data: userData }] = useGetUserQuery({
-    variables: { input: id as number },
+    variables: { input: Number(query?.id) },
   });
 
   // Get patient Health History

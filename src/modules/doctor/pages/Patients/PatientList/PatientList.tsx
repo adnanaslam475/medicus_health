@@ -80,14 +80,14 @@ function PatientList() {
     },
     {
       title: "",
-      dataIndex: "doctor_id",
-      key: "view",
+      dataIndex: "id",
+      key: "id",
       className: "table-action-icon",
-      render: () => (
+      render: (value: number) => (
         <div>
           <EyeFilled
             onClick={() => {
-              return Router.push(`/physician/patients/detail`);
+              return Router.push(`/physician/patients/${value}`);
             }}
           />
         </div>
