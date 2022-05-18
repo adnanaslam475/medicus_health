@@ -6,7 +6,7 @@ import React from "react";
 
 function HealthQuestionnaireFrom() {
   const { query } = useRouter();
-  const [{ data: data }] = usePhysicianAppointmentsHistoryQuery({
+  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
       filter: { searchPatient: String(query?.id), status: "Completed" },
     },

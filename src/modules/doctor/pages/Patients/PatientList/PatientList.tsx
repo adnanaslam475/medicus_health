@@ -9,7 +9,7 @@ import OnlySearchFilters from "common/components/OnlySearchFilters/OnlySearchFil
 
 function PatientList() {
   const [searchValue, setSearchValue] = React.useState("");
-  const [{ data: data }, executeUsePhysiciansPatientsQuery] =
+  const [{ data }, executeUsePhysiciansPatientsQuery] =
     usePhysiciansPatientsQuery({
       variables: { searchField: searchValue },
     });

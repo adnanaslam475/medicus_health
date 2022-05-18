@@ -10,7 +10,7 @@ import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo
 function PatientAppointmentInfoOfPhysicianTab() {
   const { query } = useRouter();
 
-  const [{ data: data }] = usePhysicianAppointmentsHistoryQuery({
+  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
       filter: { searchPatient: String(query?.id), status: "Completed" },
     },
