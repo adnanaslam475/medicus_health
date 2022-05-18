@@ -6,6 +6,7 @@ import {
   Appointment,
   AppointmentServiceType,
   AppointmentTimeSlots,
+  DoctorSchedule,
   Transaction,
   User,
 } from "generated/graphql";
@@ -83,20 +84,17 @@ const RequestedList = (props: Props) => {
     },
     {
       title: "Time",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
+      dataIndex: "appointmentSchedule",
+      key: "appointmentSchedule",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
       },
-      render: (value: AppointmentTimeSlots[]) => {
-        let time = value?.find((time) => time?.selected);
+      render: (value: DoctorSchedule) => {
         return (
           <div className="someclass">
-            {time?.startTime
-              ? `${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
-                  time?.endTime
-                )}`
+            {value?.startTime
+              ? `${value?.startTime} - ${value?.endTime}`
               : "--"}
           </div>
         );
@@ -119,11 +117,13 @@ const RequestedList = (props: Props) => {
       title: "",
       dataIndex: "id",
       key: "id",
-      className: "table-action-icon",
+      className: "table-action-icon text-primary",
       render: (appointmentId: number) => (
         <EyeFilled
           onClick={() => {
-            return Router.push(`/physician/appointments/requested/${appointmentId}`);
+            return Router.push(
+              `/physician/appointments/requested/${appointmentId}`
+            );
           }}
         />
       ),
