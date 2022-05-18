@@ -115,7 +115,12 @@ function DoctorAppointmentInfo({ data }: Props) {
               : "--"
           }
         />
-        <LabelWithText label="Total Amount" text={`$ ${transaction?.amountReceived}`} />
+        <LabelWithText
+          label="Total Amount"
+          text={
+            transaction?.amountReceived && `$ ${transaction?.amountReceived}`
+          }
+        />
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">Status</div>
@@ -261,14 +266,17 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           serviceId: serviceType?.id as number,
           charges: serviceInfo?.price as number,
           proposedTimeSlots: slots.map((slot) => ({
-            startDate: dayjs(slot.startDate).format("YYYY-MM-DD hh:mm A"),
-            endDate: dayjs(slot.endDate).format("YYYY-MM-DD hh:mm A"),
+            startTime: dayjs(slot.startDate).format("YYYY-MM-DD hh:mm A"),
+            endTime: dayjs(slot.endDate).format("YYYY-MM-DD hh:mm A"),
           })) as any,
         },
       });
       if (error && error?.message) {
         throw new Error(error.message);
       }
+      notification.success({
+        message: "Successfully Updated",
+      });
     } catch (error: any) {
       notification.error({
         message: error?.message,

@@ -17,8 +17,22 @@ import {
 } from "antd";
 import PhysicianProfileForm from "./PatientProfileFormTab";
 import PatientProfileForm from "./PatientProfileFormTab";
+import { useGetUserQuery } from "generated/graphql";
+import { getUserData } from "./../../../../../../../src/common/utils/userData";
 
-function PatientProfile() {
+function PatientProfile({ userDetail }: { userDetail: any }) {
+  // GET USER ID
+  const { user } = getUserData();
+  const id = user?.id;
+
+  const [{ data: userData }] = useGetUserQuery({
+    variables: { input: id as number },
+  });
+
+  //GET USER PROFILE IMAGE FROM useGetUserQuery
+  const { profileImage: userProfileImage } =
+    userData?.user?.patientProfile || {};
+
   return (
     <div className="w-full">
       <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
@@ -48,7 +62,7 @@ function PatientProfile() {
             </div>
           </div>
           <div className="w-full">
-            <PatientProfileForm />
+            <PatientProfileForm userDetail={userData?.user} />
           </div>
         </div>
       </div>

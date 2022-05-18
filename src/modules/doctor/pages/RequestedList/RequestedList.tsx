@@ -117,7 +117,7 @@ const RequestedList = (props: Props) => {
       title: "",
       dataIndex: "id",
       key: "id",
-      className: "table-action-icon",
+      className: "table-action-icon text-primary",
       render: (appointmentId: number) => (
         <EyeFilled
           onClick={() => {
