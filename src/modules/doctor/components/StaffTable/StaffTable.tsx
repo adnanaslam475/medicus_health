@@ -1,22 +1,22 @@
 import React from "react";
 import Router from "next/router";
-import Table from "antd/lib/table";
-import { AppointmentServiceType, User } from "generated/graphql";
+import { Table } from "antd";
+import { AppointmentServiceType, StaffProfile, User } from "generated/graphql";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "common/utils";
+import { ColumnsType } from "antd/lib/table";
 
 type Props = {
   dataSource: User[] | undefined;
 };
 
 function StaffTable({ dataSource }: Props) {
-  const columns = [
+  const columns: ColumnsType<User> = [
     {
       title: "ID",
       dataIndex: "id",
       sorter: {
-        compare: (a: any, b: any) =>
-          a.doctor_id - b.doctor_id,
+        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
         multiple: 3,
       },
     },
@@ -25,13 +25,10 @@ function StaffTable({ dataSource }: Props) {
       dataIndex: "",
       key: "user",
       render: (value: any) => {
-        return (
-          <div className="">{`${value?.first_name} ${value?.last_name}`}</div>
-        );
+        return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
       },
       sorter: {
-        compare: (a: any, b: any) =>
-          a.first_name - b.first_name,
+        compare: (a: any, b: any) => a.first_name - b.first_name,
         multiple: 3,
       },
     },

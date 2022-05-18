@@ -1,8 +1,7 @@
 import React from "react";
 import { Modal, Form, Button, Input, FormProps, FormInstance } from "antd";
-import { UpdateStaffInput } from "generated/graphql";
-import { createStaffForm } from "../../../../../constants";
-import _classes from "./_staff.module.scss";
+import { UpdateStaffInput } from "generated/graphql";import _classes from "./_staff.module.scss";
+import AddStaffFormItems from "common/components/AddStaffFormItems/AddStaffFormItems";
 
 type AddStaffModalProps = {
   visibleModal: boolean | undefined;
@@ -25,25 +24,10 @@ const AddStaffModal = React.forwardRef(
         onCancel={closeModal}
         footer={null}
       >
+        <h1>Add Staff</h1>
         <Form onFinish={onFinish} form={form as FormInstance} layout="vertical">
-          <h1>Add Staff</h1>
           <div className="md:grid md:grid-cols-2 md:gap-x-4">
-            {createStaffForm.map((value, i) => (
-              <Form.Item
-                key={i}
-                label={value.label}
-                rules={[
-                  {
-                    required: value.required,
-                    message: `Please fill ${value.label}`,
-                  },
-                ]}
-                className={`font-bold ${_classes["clr-black"]}`}
-                name={value.name}
-              >
-                <Input placeholder="" className="" />
-              </Form.Item>
-            ))}
+            <AddStaffFormItems />
           </div>
           <div className="flex justify-end pb-0">
             <Form.Item noStyle>

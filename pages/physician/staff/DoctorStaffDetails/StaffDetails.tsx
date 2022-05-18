@@ -3,9 +3,7 @@ import { useRouter } from "next/router";
 import { CloseOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import StaffDetailsFrom from "./StaffdetailsForm";
-import Notification from "antd/lib/notification";
-import Button from "antd/lib/button";
-import Form from "antd/lib/form";
+import { Button, Form, notification } from "antd";
 import {
   UpdateStaffInput,
   useGetStaffDetailsUrlByIdQuery,
@@ -68,7 +66,7 @@ function DoctorStaffDetails() {
         formInstance.resetFields();
       }
     } catch (error: any) {
-      Notification.error({
+      notification.error({
         message: error.message || "Something went wrong",
       });
     }
@@ -80,26 +78,31 @@ function DoctorStaffDetails() {
   const handleResetLink = async () => {
     let { email } = formInstance.getFieldsValue();
     try {
-      await setForgotPass({
+      const response = await setForgotPass({
         input: email as string,
       });
-    } catch (err) {
-      Notification.error({
-        message: "Something Went Wrong",
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
       });
     }
   };
   return (
     <AppLayout>
       <div className="lg:w-5/5">
-        <Button
-          type="link"
-          className="absolute right-0"
-          danger
-          icon={<CloseOutlined />}
-        >
-          Delete profile
-        </Button>
+        <div className="flex">
+          <Button
+            type="link"
+            className="ml-auto"
+            danger
+            icon={<CloseOutlined />}
+          >
+            Delete profile
+          </Button>
+        </div>
         <div className="lg:w-3/5">
           <h6 className="">{staffDetail?.id}</h6>
           <StaffDetailsFrom

@@ -1,13 +1,10 @@
 import React from "react";
-import Button from "antd/lib/button";
-import Form, { FormInstance } from "antd/lib/form";
-import Input from "antd/lib/input";
-import Select from "antd/lib/select";
+import { Button, Select, Form, FormInstance } from "antd";
 import Router from "next/router";
-import { createStaffForm } from "../../../../src/constants";
-import { UpdateStaffInput, User } from "generated/graphql";
+import { UpdateStaffInput } from "generated/graphql";
 
 import _classes from "../../staff/staff.module.scss";
+import AddStaffFormItems from "common/components/AddStaffFormItems/AddStaffFormItems";
 
 interface StaffData {
   first_name: string;
@@ -65,22 +62,7 @@ function StaffDetailsFrom({
         </Button>
       </div>
       <div className="md:grid md:grid-cols-2 md:gap-x-4">
-        {createStaffForm.map((value, i) => (
-          <Form.Item
-            key={i}
-            label={value.label}
-            rules={[
-              {
-                required: value.required,
-                message: `Please fill ${value.label}`,
-              },
-            ]}
-            className={`font-bold ${_classes["clr-black"]}`}
-            name={value.name}
-          >
-            <Input placeholder="" type={value.type} className="" />
-          </Form.Item>
-        ))}
+        <AddStaffFormItems />
       </div>
       <div className="flex justify-end">
         <Form.Item>
