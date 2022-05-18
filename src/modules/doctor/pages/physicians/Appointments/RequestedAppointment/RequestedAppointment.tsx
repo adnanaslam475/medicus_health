@@ -16,6 +16,8 @@ function RequestedAppointment() {
   const [appointmentIds, setAppointmentIds] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Requested");
+  const [searchPatient, setSearchPatient] = useState<string>();
+
 
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
@@ -29,6 +31,7 @@ function RequestedAppointment() {
           startDate: dueStartDate,
           endDate: dueEndDate,
         },
+        searchPatient:searchPatient
       },
     },
   });
@@ -50,6 +53,7 @@ function RequestedAppointment() {
             setDoctorId={setDoctorId}
             setAppointmentIds={setAppointmentIds}
             setServiceIds={setServiceIds}
+            setSearchPatient={setSearchPatient}
             isFromPhysician
           />
         </div>

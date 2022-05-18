@@ -93,13 +93,13 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     },
     {
       title: "",
-      dataIndex: "patientId",
-      key: "view",
+      dataIndex: "id",
+      key: "id",
       className: "table-action-icon",
-      render: (patientId: string) => (
+      render: (id: string) => (
         <EyeFilled
           onClick={() => {
-            return Router.push(`/physician/appointments/history/${patientId}`);
+            return Router.push(`/physician/appointments/history/${id}`);
           }}
         />
       ),
