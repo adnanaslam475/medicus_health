@@ -4,9 +4,9 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
 import AppointmentsDetailTabs from "../../AppointmentsDetailTabs/AppointmentsDetailTabs";
 import {
-	useDoctorAppointmentDetailQuery,
-	useGetAppointmentReportUrlByIdQuery,
-	usePatientHealthHistoryQuery,
+  useDoctorAppointmentDetailQuery,
+  useGetAppointmentReportUrlByIdQuery,
+  usePatientHealthHistoryQuery,
 } from "generated/graphql";
 import { Tabs } from "antd";
 import AppointmentInfoTab from "./AppointmentInfoTab";
