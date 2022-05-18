@@ -45,14 +45,14 @@ function AccountTabs() {
   const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
     const healthQuesJson = JSON.stringify(quesPayload);
     try {
-      await updatePatientHealthHistory({
+      const res = await updatePatientHealthHistory({
         input: {
           history: healthQuesJson,
           user_id: id as number,
         },
       });
       {
-        result?.data?.updatePatientHealthHistory &&
+        res?.data?.updatePatientHealthHistory &&
           notification.success({
             message: "Successfully Updated",
           });
@@ -131,8 +131,7 @@ function AccountTabs() {
             }
             key="5"
           >
-           <EmailNotificationPage/>
-
+            <EmailNotificationPage />
           </Tabs.TabPane>
         </Tabs>
       </div>
