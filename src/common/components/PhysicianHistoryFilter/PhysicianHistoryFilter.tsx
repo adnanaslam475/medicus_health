@@ -5,21 +5,21 @@ import {
   CloseOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
+import { GetAppointmentInput, useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 import { getDateInFormat } from "../../utils/date";
 import _classes from "./PhysicianHistoryFilters.module.scss";
 import searchStyle from "./style.module.scss";
-import { DateType, PhysicianAppointmentInputFilter } from "common/types/types";
+import { DateType } from "common/types/types";
 
 const { RangePicker } = DatePicker;
 
 type Props = {
-  onChange: (e: PhysicianAppointmentInputFilter) => void;
+  onChange: (e: GetAppointmentInput) => void;
 };
 
 function PhysicianSearchFilters(props: Props) {
   const [filterState, setFilterState] =
-    useState<PhysicianAppointmentInputFilter>({});
+    useState<GetAppointmentInput>({});
 
   const { onChange } = props;
 
