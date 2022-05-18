@@ -5,6 +5,7 @@ import {
   useDoctorAppointmentDetailPatientInfoQuery,
   useGetCityByIdQuery,
   useGetCountryByIdQuery,
+  usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
@@ -14,13 +15,15 @@ type Props = {};
 function PatientInfoTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data }] = useDoctorAppointmentDetailPatientInfoQuery({
+  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      id: Number(query.appointmentId),
+      filter: { searchPatient: String(query?.id), status: "Completed" },
     },
-    pause: !query.appointmentId,
   });
-  const { appointment } = data || {};
+
+  const { appointments } = data || {};
+  const appointment = appointments && appointments[0];
+
   const { patient, serviceType } = appointment || {};
   const {
     first_name,

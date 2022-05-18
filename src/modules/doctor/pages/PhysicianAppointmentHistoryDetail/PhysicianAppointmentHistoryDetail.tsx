@@ -6,10 +6,23 @@ import PatientInfoTab from "./PatientInfoTab";
 import PhysicianQuestionnaireFormTab from "./PhysicianQuestionnaireFormTab";
 import HealthQuestionnaireFormTab from "./HealthQuestionnaireFormTab";
 import NotesWithTextTab from "./NotesWithTextTab";
+import { useRouter } from "next/router";
 
 import PhysicianAttachmentTab from "./PhysicianAttachmentTab";
+import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
 
 function PhysicianAppointmentHistoryDetail() {
+  
+const { query } = useRouter();
+
+  const [{ data: data }] = usePhysicianAppointmentsHistoryQuery({
+    variables: {
+      filter: { searchPatient: String(query?.id), status: "Completed" },
+    },
+  });
+  const { appointments } = data || {};
+  const appointment = appointments && appointments[0];
+
 	return (
 		<AppLayout>
 			<>
