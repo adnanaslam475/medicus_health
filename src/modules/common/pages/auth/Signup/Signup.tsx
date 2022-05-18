@@ -214,6 +214,7 @@ function Signup() {
                       handleBackChange={handleChange}
                       skipHealthQues={skipHealthQuestions}
                       isLoading={fetching}
+                      disable={true}
                     />
                   </TabPane>
                 </Tabs>

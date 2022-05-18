@@ -14,6 +14,14 @@ export type singleSchedule = {
   id?: string;
 };
 
+
+export type staffFilterType = {
+  serviceType?: string;
+  accountCreationDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
 export type physicianFilterType = {
   searchString?: string;
   appointmentType?: string;

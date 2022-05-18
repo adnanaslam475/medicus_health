@@ -24,8 +24,7 @@ function AppointmentCalendar() {
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
-        status: "Requested",
-        doctorId: doctorIds,
+       
       },
     },
   });
