@@ -1,12 +1,13 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { CloseOutlined } from "@ant-design/icons";
+import { Button, Form, notification } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import StaffDetailsFrom from "./StaffdetailsForm";
-import { Button, Form, notification } from "antd";
 import {
   UpdateStaffInput,
   useGetStaffDetailsUrlByIdQuery,
+  User,
   useUpdateStaffProfileMutation,
   useUserForgotPasswordMutation,
 } from "generated/graphql";
@@ -112,7 +113,7 @@ function DoctorStaffDetails() {
             handleChange={handleChange}
             fetching={fetching}
             handleResetLink={handleResetLink}
-            staffDetail={staffDetail}
+            staffDetail={staffDetail as User}
           />
         </div>
       </div>

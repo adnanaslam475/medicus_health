@@ -1,19 +1,14 @@
 import React from "react";
 import { Button, Select, Form, FormInstance } from "antd";
 import Router from "next/router";
-import { UpdateStaffInput } from "generated/graphql";
-
-import _classes from "../../staff/staff.module.scss";
+import { UpdateStaffInput, User } from "generated/graphql";
 import AddStaffFormItems from "common/components/AddStaffFormItems/AddStaffFormItems";
 
-interface StaffData {
-  first_name: string;
-  email: string;
-  last_name: string;
-}
+import _classes from "../../staff/staff.module.scss";
+
 type Props = {
   form: FormInstance<any> | undefined;
-  staffDetail: StaffData | undefined;
+  staffDetail: User | undefined;
   handleChange: (value: boolean) => void;
   loading: boolean;
   fetching: boolean;
