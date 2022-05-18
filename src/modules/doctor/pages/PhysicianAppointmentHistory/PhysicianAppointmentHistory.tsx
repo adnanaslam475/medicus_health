@@ -1,10 +1,9 @@
 import { Button } from "antd";
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { Appointment, usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
+import { Appointment, GetAppointmentInput, usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
 import PhysicianAppointmentHistoryTable from "common/components/PhysicianAppointmentHistoryTable/PhysicianAppointmentHistoryTable";
 import PhysicianHistoryFilter from "common/components/PhysicianHistoryFilter/PhysicianHistoryFilter";
-import { PhysicianAppointmentInputFilter } from "common/types/types";
 
 function PatientAppointmentHistory() {
   const [filterValues, setFilterValues] = useState({});
@@ -17,7 +16,7 @@ function PatientAppointmentHistory() {
 
   const { appointments } = data || {};
 
-  function onChange(filterValue: PhysicianAppointmentInputFilter) {
+  function onChange(filterValue: GetAppointmentInput) {
     setFilterValues(filterValue);
     executeUsePhysicianAppointmentsHistoryQuery({
       variables: {
