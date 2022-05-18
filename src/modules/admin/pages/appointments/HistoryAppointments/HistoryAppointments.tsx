@@ -1,11 +1,9 @@
-import { Select, DatePicker, Space, Button, Tag } from "antd";
+import { Select, DatePicker, Space, Button } from "antd";
 import React from "react";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import { CloseOutlined, EyeFilled } from "@ant-design/icons";
-import TransactionHistory from "../../../../../common/components/AccountTabs/TransactionHistory/TransactionHistory";
-import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
-import { date } from "../../../../../common/utils";
-import AppointmentHistoryTable from "../../../../../common/components/AppointmentHistoryTable/AppointmentHistoryTable";
+import AppLayout from "common/components/AppLayout/AppLayout";
+import { CloseOutlined } from "@ant-design/icons";
+import { Appointment, useGetAllRequestedAppointmentsQuery } from "generated/graphql";
+import AppointmentHistoryTable from "common/components/AppointmentHistoryTable/AppointmentHistoryTable";
 
 const { RangePicker } = DatePicker;
 
@@ -72,7 +70,7 @@ function CancelledAppointment() {
         </div>
         {/* Transaction History table */}
         <div className="custom-table-ui">
-          <AppointmentHistoryTable data={appointments} />
+          <AppointmentHistoryTable data={appointments as Appointment[]} />
         </div>
       </div>
     </AppLayout>

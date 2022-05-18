@@ -55,6 +55,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     status,
     requestedDate,
     appointmentTimeSlots,
+    appointmentSchedule,
     createdAt,
   } = data || {};
 
@@ -109,14 +110,17 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText
           label="Time"
           text={
-            timeSlots()?.startTime
-              ? `${date?.formathhmma(
-                  timeSlots()?.startTime
-                )} - ${date?.formathhmma(timeSlots()?.endTime)}`
+            appointmentSchedule?.startTime
+              ? `${appointmentSchedule?.startTime} - ${appointmentSchedule?.endTime}`
               : "--"
           }
         />
-        <LabelWithText label="Total Amount" text={`$ ${transaction?.amountReceived}`} />
+        <LabelWithText
+          label="Total Amount"
+          text={
+            transaction?.amountReceived && `$ ${transaction?.amountReceived}`
+          }
+        />
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">Status</div>
