@@ -22,11 +22,13 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       title: "ID",
       dataIndex: "id",
       key: "id",
+      sorter: true,
     },
     {
       title: "Booking Date",
       dataIndex: "requestedDate",
       key: "requestedDate",
+      sorter: true,
       render: (value: string) => {
         return <div>{`${date?.formatMMMMDDYYYY(value)} `}</div>;
       },
@@ -36,6 +38,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       title: "Type",
       dataIndex: "serviceType",
       key: "serviceType",
+      sorter: true,
       render: (value: AppointmentServiceType) => {
         return <div>{`${value.name}`}</div>;
       },
@@ -44,6 +47,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       title: "Physician Name",
       dataIndex: "patient",
       key: "patient",
+      sorter: true,
       render: (value: User) => {
         return <div>{`${value.first_name} ${value.last_name}`}</div>;
       },
@@ -52,6 +56,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       title: "Appointment Due Date",
       dataIndex: "appointmentTimeSlots",
       key: "appointmentTimeSlots",
+      sorter: true,
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time.selected);
         return <div>{`${date?.formatMMMMDDYYYY(time?.startTime)} `}</div>;
@@ -61,6 +66,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       title: "Appointment Time",
       dataIndex: "appointmentTimeSlots",
       key: "appointmentTimeSlots",
+      sorter: true,
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time.selected);
         return (
@@ -74,6 +80,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       title: "Total Amount",
       dataIndex: "transaction",
       key: "transaction",
+      sorter: true,
       render: (value: Transaction) => {
         return <div>{`$ ${value?.amountReceived}`}</div>;
       },
@@ -83,6 +90,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       title: "Payment Status",
       dataIndex: "status",
       key: "status",
+      sorter: true,
       render: (value: string) => {
         return (
           <div>
