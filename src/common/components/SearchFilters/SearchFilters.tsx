@@ -25,8 +25,10 @@ const { RangePicker } = DatePicker;
 
 type Props = {
   setDataListPhysician: string | any;
+  placeholder?: string;
+  setSearchInput?: string | any;
   setDoctorId: number | any;
-  setAppointmentIds: number | any;
+  setAppointmentIds: number|any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
@@ -39,9 +41,11 @@ function SearchFilters(props: Props) {
     setServiceIds,
     setDoctorId,
     setEndDate,
+    placeholder,
     setStartDate,
     setSearchPatient,
     isFromPhysician,
+    setSearchInput,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -92,6 +96,7 @@ function SearchFilters(props: Props) {
     setEndDate(null);
     setStartDate(null);
     setOpenDateRange(false);
+    setSearchInput("");
     selectDateRange(null);
     setPatientName("");
     setSearchPatient(null);
@@ -110,7 +115,7 @@ function SearchFilters(props: Props) {
         {isFromPhysician ? (
           <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
             <Input
-              placeholder="Search by ID or patient name"
+              placeholder={placeholder || "Search by ID or patient name"}
               prefix={<SearchOutlined />}
               onChange={(event) => handlePaitentName_ID(event)}
               value={patientName}

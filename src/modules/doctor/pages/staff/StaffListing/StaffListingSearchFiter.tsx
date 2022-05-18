@@ -15,7 +15,7 @@ type Props = {
   onChange: (value: physicianFilterType) => void;
 };
 
-function CancelledAppointmentFilter({ onChange }: Props) {
+function StaffListingSearchFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
 
   function clear() {
@@ -48,7 +48,6 @@ function CancelledAppointmentFilter({ onChange }: Props) {
 
     onChange(filters);
   }
-
   return (
     <div className="page-filters flex-none lg:flex items-center mb-5">
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
@@ -106,7 +105,7 @@ function CancelledAppointmentFilter({ onChange }: Props) {
               <div>
                 {filterState.bookingDate
                   ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-                  : "Creation Date"}
+                  : "Account Creation Date"}
               </div>
             ) : (
               <div className="flex justify-between items-center w-full px-3">
@@ -119,7 +118,7 @@ function CancelledAppointmentFilter({ onChange }: Props) {
           </Button>
         </div>
       </div>
-      <div className="flex-none sm:flex"> 
+      <div className="flex-none sm:flex">
         <div className="lg:ml-3 mt-3 sm:mt-0">
           <Select
             placeholder="Service"
@@ -140,4 +139,4 @@ function CancelledAppointmentFilter({ onChange }: Props) {
   );
 }
 
-export default CancelledAppointmentFilter;
+export default StaffListingSearchFilter;

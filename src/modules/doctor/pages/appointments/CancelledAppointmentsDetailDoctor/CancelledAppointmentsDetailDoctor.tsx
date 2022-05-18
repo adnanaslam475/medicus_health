@@ -32,11 +32,6 @@ function CancelledAppointmentsDetailDoctor() {
   });
   const { appointment } = data || {};
 
-  // const [{ data: appoinmentUrl }] = useGetAppointmentReportUrlByIdQuery({
-  //   variables: {
-  //     id: Number(appointment?.id),
-  //   },
-  // });
 
   //get appointment URL
   const { reportUrl, patientId } = appointment || {};
