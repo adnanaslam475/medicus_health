@@ -25,10 +25,9 @@ const { RangePicker } = DatePicker;
 
 type Props = {
   setDataListPhysician: string | any;
-  placeholder?: string | any;
+  placeholder?: string;
   setSearchInput?: string | any;
   setDoctorId: number | any;
-  // setDoctorId: number | any;
   setAppointmentIds: number | any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
