@@ -2,22 +2,14 @@ import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo
 import React from "react";
 import AcronymWithText from "common/components/AcronymWithText/AcronymWithText";
 import _classes from "./NotesWithText.module.scss";
-import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
-import { useRouter } from "next/router";
+import { Appointment } from "generated/graphql";
 
-function Notes() {
-  const { query } = useRouter();
+type Props = {
+  appointment?: Appointment | undefined;
+  doctorNotes?: [[string,string]];
+};
 
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
-    variables: {
-      filter: { searchPatient: String(query?.id), status: "Completed" },
-    },
-  });
-  const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
-
-  let doctorNotes =
-    appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
+function NotesWithText({ appointment, doctorNotes }: Props) {
   return (
     <>
       <CardWithProfileImageInfo
@@ -43,4 +35,4 @@ function Notes() {
   );
 }
 
-export default Notes;
+export default NotesWithText;

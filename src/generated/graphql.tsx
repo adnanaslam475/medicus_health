@@ -454,6 +454,7 @@ export type Mutation = {
   UserResetPassword: User;
   bookAppointment: Appointment;
   cancelAppointment: Appointment;
+  cancelAppointmentByAdmin: Appointment;
   cancelAppointmentByPatient: Appointment;
   createAdminUser: User;
   createAppointment: Appointment;
@@ -514,6 +515,11 @@ export type MutationBookAppointmentArgs = {
 
 
 export type MutationCancelAppointmentArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationCancelAppointmentByAdminArgs = {
   id: Scalars['Int'];
 };
 
@@ -4048,6 +4054,29 @@ export default {
           },
           {
             "name": "cancelAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "cancelAppointmentByAdmin",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
