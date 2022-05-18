@@ -52,6 +52,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     patient,
     serviceType,
     transaction,
+    charges,
     status,
     requestedDate,
     appointmentTimeSlots,
@@ -115,12 +116,21 @@ function DoctorAppointmentInfo({ data }: Props) {
               : "--"
           }
         />
-        <LabelWithText
-          label="Total Amount"
-          text={
-            transaction?.amountReceived && `$ ${transaction?.amountReceived}`
-          }
-        />
+        {status === "Confirmed" && (
+          <LabelWithText
+            label="Total Amount"
+            text={
+              transaction?.amountReceived && `$ ${transaction?.amountReceived}`
+            }
+          />
+        )}
+
+        {status === "Requested" && (
+          <LabelWithText
+            label="Total Amount"
+            text={charges && `$ ${charges}`}
+          />
+        )}
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">Status</div>
