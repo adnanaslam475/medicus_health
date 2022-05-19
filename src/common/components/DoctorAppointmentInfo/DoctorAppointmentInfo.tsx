@@ -110,8 +110,10 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText
           label="Time"
           text={
-            appointmentSchedule?.startTime
-              ? `${appointmentSchedule?.startTime} - ${appointmentSchedule?.endTime}`
+            timeSlots()?.startTime
+              ? `${date?.formathhmma(
+                  timeSlots()?.startTime
+                )} - ${date?.formathhmma(timeSlots()?.endTime)}`
               : "--"
           }
         />
