@@ -25,6 +25,7 @@ type props = {
   yearOfExperience: number;
   professionalExperience: string;
   conditionTreated: string;
+  profile_image?: string | null | undefined;
 };
 
 function DoctorCard({
@@ -36,6 +37,7 @@ function DoctorCard({
   yearOfExperience,
   professionalExperience,
   conditionTreated,
+  profile_image,
 }: props) {
   // FOR REQUEST AN APPOINTMENT
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -52,7 +54,6 @@ function DoctorCard({
     setIsModalVisible(false);
   };
 
-
   const [current, setCurrent] = React.useState(0);
   const next = () => {
     setCurrent(current + 1);
@@ -67,11 +68,7 @@ function DoctorCard({
         <div className="flex-none lg:flex">
           <div className="lg:w-4/6 flex-none sm:flex">
             <div className="docAvatarCover pr-3">
-              <Avatar
-                size={86}
-                src="../assets/images/doc-pic.png"
-                className=""
-              ></Avatar>
+              <Avatar size={86} src={profile_image} className=""></Avatar>
             </div>
             <div className="lg:pr-5">
               <div className="flex-row md:flex">
@@ -130,7 +127,7 @@ function DoctorCard({
         onOk={handleOk}
         onCancel={handleCancel}
         // doctorData={doctorData}
-      />      
+      />
     </>
   );
 }
