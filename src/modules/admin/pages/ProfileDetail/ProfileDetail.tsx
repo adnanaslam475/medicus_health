@@ -2,10 +2,11 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/router";
 import { Tabs } from "antd";
-import { BellOutlined, UserOutlined } from "@ant-design/icons";
+import { BellOutlined, CalendarOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import { Profile } from "../../components/Profile/Profile";
 import EmailNotification from "../EmailNotification/EmailNotification";
+import AdminPhysicianPatientAppointment from "../AdminPhysicianPatientAppointment/AdminPhysicianPatientAppointment"
 import {
   useCreateDoctorScheduleMutation,
   useDoctorProfileQuery,
@@ -14,6 +15,7 @@ import {
 } from "../../../../generated/graphql";
 import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 import { RangeValue } from "rc-picker/lib/interface";
+import AdminPhysicianPatientAppointmentTab from "./AdminPhysicianPatientAppointmentTab";
 
 const { TabPane } = Tabs;
 
@@ -123,6 +125,17 @@ function ProfileDetail() {
               key="2"
             >
               <EmailNotification />
+            </TabPane>
+            <TabPane
+              tab={
+                <span>
+                 <CalendarOutlined/>
+                  Appointment
+                </span>
+              }
+              key="3"
+            >
+              <AdminPhysicianPatientAppointmentTab/>
             </TabPane>
           </Tabs>
         </div>
