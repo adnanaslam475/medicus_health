@@ -90,7 +90,6 @@ function DoctorAppointmentInfo({ data }: Props) {
       }
     } catch (error) {}
   }
-
   return (
     <div className="max-w-[700px]">
       <div>
@@ -126,6 +125,12 @@ function DoctorAppointmentInfo({ data }: Props) {
         )}
 
         {status === "Requested" && (
+          <LabelWithText
+            label="Total Amount"
+            text={charges && `$ ${charges}`}
+          />
+        )}
+        {status === "Cancelled" && (
           <LabelWithText
             label="Total Amount"
             text={charges && `$ ${charges}`}

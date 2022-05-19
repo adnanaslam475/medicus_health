@@ -241,7 +241,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
     setShowSurgicalOthers(checkedValue.includes("Others"));
   }
-
   return (
     <Form
       initialValues={{
