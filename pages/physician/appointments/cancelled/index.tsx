@@ -1,8 +1,7 @@
-import CancelledAppointment from "../../../../src/modules/doctor/pages/physicians/Appointments/CancelledAppointment/CancelledAppointment";
+import PhysicianCancelledAppointments from "../../../../src/modules/doctor/pages/physicians/Appointments/CancelledAppointment/CancelledAppointment";
 
-function cancelledAppointment() {
-  console.log("physican_cancelled");
-  return <CancelledAppointment />;
+function physicianCancelledAppointments() {
+  return <PhysicianCancelledAppointments />;
 }
 
-export default cancelledAppointment;
+export default physicianCancelledAppointments;

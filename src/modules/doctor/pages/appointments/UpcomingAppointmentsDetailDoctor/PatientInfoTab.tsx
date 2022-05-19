@@ -21,6 +21,7 @@ function PatientInfoTab({}: Props) {
     pause: !query.appointmentId,
   });
   const { appointment } = data || {};
+  console.log("patientinfotab", appointment);
   const { patient, serviceType } = appointment || {};
   const {
     first_name,
@@ -79,7 +80,7 @@ function PatientInfoTab({}: Props) {
           <LabelWithTextDiv label="City" value={city_name} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Material Status" value={maritalStatus} />
+          <LabelWithTextDiv label="Marital Status" value={maritalStatus} />
           <LabelWithTextDiv
             label="Do you have any Children?"
             value={children}

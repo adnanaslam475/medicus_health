@@ -35,6 +35,7 @@ import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
+import moment from "moment";
 
 type Props = {
   data: Appointment | undefined;
@@ -52,6 +53,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     patient,
     serviceType,
     transaction,
+    charges,
     status,
     requestedDate,
     appointmentTimeSlots,
@@ -89,7 +91,6 @@ function DoctorAppointmentInfo({ data }: Props) {
       }
     } catch (error) {}
   }
-
   return (
     <div className="max-w-[700px]">
       <div>
@@ -115,12 +116,27 @@ function DoctorAppointmentInfo({ data }: Props) {
               : "--"
           }
         />
-        <LabelWithText
-          label="Total Amount"
-          text={
-            transaction?.amountReceived && `$ ${transaction?.amountReceived}`
-          }
-        />
+        {status === "Confirmed" && (
+          <LabelWithText
+            label="Total Amount"
+            text={
+              transaction?.amountReceived && `$ ${transaction?.amountReceived}`
+            }
+          />
+        )}
+
+        {status === "Requested" && (
+          <LabelWithText
+            label="Total Amount"
+            text={charges && `$ ${charges}`}
+          />
+        )}
+        {status === "Cancelled" && (
+          <LabelWithText
+            label="Total Amount"
+            text={charges && `$ ${charges}`}
+          />
+        )}
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">Status</div>
@@ -266,14 +282,17 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           serviceId: serviceType?.id as number,
           charges: serviceInfo?.price as number,
           proposedTimeSlots: slots.map((slot) => ({
-            startDate: dayjs(slot.startDate).format("YYYY-MM-DD hh:mm A"),
-            endDate: dayjs(slot.endDate).format("YYYY-MM-DD hh:mm A"),
+            startTime: dayjs(slot.startDate).format("YYYY-MM-DD hh:mm A"),
+            endTime: dayjs(slot.endDate).format("YYYY-MM-DD hh:mm A"),
           })) as any,
         },
       });
       if (error && error?.message) {
         throw new Error(error.message);
       }
+      notification.success({
+        message: "Successfully Updated",
+      });
     } catch (error: any) {
       notification.error({
         message: error?.message,
@@ -419,6 +438,7 @@ function AvailabilityTimeSlots({
   form: FormInstance<any>;
   onChangeDatePicker?: (dateString: string, name: string) => void;
 }) {
+  const format = "YYYY-MM-DD hh:mm A";
   return (
     <div className="block mb-10">
       <Form
@@ -430,7 +450,11 @@ function AvailabilityTimeSlots({
           <Form.Item label="Start Time" name="start_time">
             <Space direction="vertical" size={12}>
               <DatePicker
+                className="w-full"
                 showTime
+                defaultValue={moment("12:08", format)}
+                format={format}
+                showNow={false}
                 onChange={(_, date: string) => {
                   onChangeDatePicker?.(date, "startDate");
                 }}
@@ -442,7 +466,11 @@ function AvailabilityTimeSlots({
           <Form.Item label="End Time" name="end_time">
             <Space direction="vertical" size={12}>
               <DatePicker
+                className="w-full"
                 showTime
+                defaultValue={moment("12:08", format)}
+                format={format}
+                showNow={false}
                 onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
               />
             </Space>

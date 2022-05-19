@@ -1,26 +1,28 @@
+import React from "react";
+import { useRouter } from "next/router";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
 import { date } from "common/utils";
 import {
-  useDoctorAppointmentDetailPatientInfoQuery,
   useGetCityByIdQuery,
   useGetCountryByIdQuery,
+  usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
-import { useRouter } from "next/router";
-import React from "react";
 
 type Props = {};
 
 function PatientInfoTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data }] = useDoctorAppointmentDetailPatientInfoQuery({
+  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      id: Number(query.appointmentId),
+      filter: { searchPatient: String(query?.id), status: "Completed" },
     },
-    pause: !query.appointmentId,
   });
-  const { appointment } = data || {};
+
+  const { appointments } = data || {};
+  const appointment = appointments && appointments[0];
+
   const { patient, serviceType } = appointment || {};
   const {
     first_name,
@@ -79,7 +81,7 @@ function PatientInfoTab({}: Props) {
           <LabelWithTextDiv label="City" value={city_name} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Material Status" value={maritalStatus} />
+          <LabelWithTextDiv label="Marital Status" value={maritalStatus} />
           <LabelWithTextDiv
             label="Do you have any Children?"
             value={children}

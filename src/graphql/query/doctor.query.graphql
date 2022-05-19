@@ -71,7 +71,7 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       endTime
       selected
     }
-     appointmentSchedule{
+    appointmentSchedule {
       startTime
       endTime
     }
@@ -128,8 +128,6 @@ query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
   }
 }
 
-
-
 query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
   appointments(filter: $filter) {
     id
@@ -142,11 +140,37 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
     patient {
       first_name
       last_name
+      gender
+      email
+      date_of_birth
+      contact_number
+      country_id
+      city_id
+      patientProfile {
+        maritalStatus
+        children
+        occupation
+        occupationalExposure
+        pets
+      }
+      patientHealthHistory {
+        history
+      }
     }
+    appointmentHealthHistory {
+      history
+    }
+    reportUrl
     appointmentTimeSlots {
       startTime
       endTime
       selected
+    }
+    doctorNote {
+      subjective
+      objective
+      assessment
+      plan
     }
     status
 
@@ -184,15 +208,15 @@ query getTransectionFilter($filter: GetTransectionInput!) {
   }
 }
 
-query physiciansPatients ($searchField:String){
-  physiciansPatients(filter:{searchField:$searchField}){
+query physiciansPatients($searchField: String) {
+  physiciansPatients(filter: { searchField: $searchField }) {
     id
     first_name
     last_name
     email
     contact_number
-		streetAddress
-    patientProfile{
+    streetAddress
+    patientProfile {
       profileImage
     }
   }

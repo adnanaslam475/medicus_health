@@ -71,10 +71,6 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <div className="max-w-1/2">
-                {/* <Questionnary
-                  disable={true}
-                  data={patientHealthHistory?.patientHealthHistory?.history}
-                /> */}
                 <QuestionnaireForm
                   data={patientHealthHistory?.patientHealthHistory.history}
                 />

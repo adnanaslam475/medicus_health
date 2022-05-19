@@ -7,8 +7,6 @@ import {
 } from "generated/graphql";
 import React from "react";
 
-import engFlag from "../../../../../../public/assets/images/engFlag.png";
-import espanolFlag from "../../../../../../public/assets/images/espanolFlag.png";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import { date } from "common/utils";

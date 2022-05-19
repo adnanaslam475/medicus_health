@@ -25,12 +25,15 @@ const { RangePicker } = DatePicker;
 
 type Props = {
   setDataListPhysician: string | any;
+  placeholder?: string;
+  setSearchInput?: string | any;
   setDoctorId: number | any;
-  setAppointmentIds: number | any;
+  setAppointmentIds: number|any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
   isFromPhysician?: boolean | null | any;
+  setSearchPatient?: string | any;
 };
 
 function SearchFilters(props: Props) {
@@ -38,8 +41,11 @@ function SearchFilters(props: Props) {
     setServiceIds,
     setDoctorId,
     setEndDate,
+    placeholder,
     setStartDate,
+    setSearchPatient,
     isFromPhysician,
+    setSearchInput,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -50,12 +56,18 @@ function SearchFilters(props: Props) {
   const [dateRangeValues, selectDateRangeValues] = useState(null);
   const [openDateRange, setOpenDateRange] = useState(false);
   const [dateRange, selectDateRange] = useState(null);
+  const [patientName, setPatientName] = useState<string>();
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
 
   const [{ data }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = data || {};
+
+  function handlePaitentName_ID(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearchPatient(event.target.value);
+    setPatientName(event.target.value);
+  }
 
   const handlePhysicianChange = (selectedItem: any, name: any) => {
     setSelectedPhysicianItems(name.children);
@@ -84,7 +96,10 @@ function SearchFilters(props: Props) {
     setEndDate(null);
     setStartDate(null);
     setOpenDateRange(false);
+    setSearchInput("");
     selectDateRange(null);
+    setPatientName("");
+    setSearchPatient(null);
   };
 
   const applyDateRange = () => {
@@ -100,8 +115,10 @@ function SearchFilters(props: Props) {
         {isFromPhysician ? (
           <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
             <Input
-              placeholder="Search by ID or patient name"
+              placeholder={placeholder || "Search by ID or patient name"}
               prefix={<SearchOutlined />}
+              onChange={(event) => handlePaitentName_ID(event)}
+              value={patientName}
             />
           </div>
         ) : (

@@ -39,7 +39,7 @@ function PhysicianQuestionnaire(props: Props) {
       PleaseDescribe: History?.PleaseDescribe,
     });
   }
-
+  console.log("appointmentHealthHistory", JSON.parse(appointmentHealthHistory));
   return (
     <React.Fragment>
       <div className="w-3/6">

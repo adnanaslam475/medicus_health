@@ -10,13 +10,16 @@ import {
   useUpdatePatientHealthHistoryMutation,
   usePatientHealthHistoryQuery,
   useGetAllTransactionsQuery,
+  useGetUserQuery,
+  User,
 } from "generated/graphql";
-import { getUserData } from "common/utils/userData";
 import AppointmentHistory from "../AppointmentHistory/AppointmentHistory";
 import PatientProfileFormTab from "./PatientDetailTabs/PatientProfileFormTab";
 import QuestionnaireFormTab from "./QuestionnaireFormTab";
 import AppointmentHistoryTab from "./PatientDetailTabs/AppointmentHistoryTab";
 import NotesTab from "./NotesTab";
+import { getUserData } from "./../../../../../../src/common/utils/userData";
+import { useRouter } from "next/router";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -26,10 +29,16 @@ type props = {
 function PatientDetail() {
   const form: any = useRef();
 
+  const { query } = useRouter();
+
   const { TabPane } = Tabs;
   // GET USER ID
   const { user } = getUserData();
   const id = user?.id;
+
+  const [{ data: userData }] = useGetUserQuery({
+    variables: { input: Number(query?.id) },
+  });
 
   // Get patient Health History
   const [{ data }] = usePatientHealthHistoryQuery({
@@ -79,7 +88,7 @@ function PatientDetail() {
             }
             key="1"
           >
-            <PatientProfileFormTab/>
+            <PatientProfileFormTab userDetail={userData?.user} />
           </TabPane>
 
           <TabPane
@@ -91,7 +100,7 @@ function PatientDetail() {
             }
             key="2"
           >
-            <QuestionnaireFormTab/>
+            <QuestionnaireFormTab />
           </TabPane>
 
           <TabPane
@@ -114,7 +123,7 @@ function PatientDetail() {
             }
             key="4"
           >
-           <NotesTab/>
+            <NotesTab />
           </TabPane>
         </Tabs>
       </div>

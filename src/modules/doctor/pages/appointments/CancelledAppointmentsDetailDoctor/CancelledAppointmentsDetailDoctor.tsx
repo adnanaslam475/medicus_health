@@ -1,25 +1,17 @@
 import React from "react";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
-// import AppointmentsDetailTabs from "../../AppointmentsDetailTabs/AppointmentsDetailTabs";
-import {
-  useDoctorAppointmentDetailQuery,
-  // useGetAppointmentReportUrlByIdQuery,
-  usePatientHealthHistoryQuery,
-} from "generated/graphql";
 import { Tabs } from "antd";
-
-import Questionnary, {
-  QuestionnaireForm,
-} from "common/components/Questionnary/Questionnary";
-import Attachment from "common/components/Attachment/Attachment";
-// import jpg from "../../../../../../public/assets/images/jpg.svg";
-import word from "../../../../../../public/assets/images/word-file.svg";
+import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
-import { parseJson } from "common/utils/helper";
-// import NotesTab from "../UpcomingAppointmentsDetailDoctor/NotesTab";
 import PatientInfoTab from "../UpcomingAppointmentsDetailDoctor/PatientInfoTab";
 import AppointmentInfoTab from "../UpcomingAppointmentsDetailDoctor/AppointmentInfoTab";
+import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
+import { parseJson } from "common/utils/helper";
+import {
+  useDoctorAppointmentDetailQuery,
+  usePatientHealthHistoryQuery,
+} from "generated/graphql";
+
 
 function CancelledAppointmentsDetailDoctor() {
   const { query } = useRouter();
@@ -43,9 +35,6 @@ function CancelledAppointmentsDetailDoctor() {
     urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
   }
 
-  // Get patient Health History
-
-  console.log("hterere", query.appointmentId);
   return (
     <AppLayout>
       <>
@@ -76,9 +65,9 @@ function CancelledAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachement" key="5">
               <div className="">
-                {urlArr?.map((item: any) => (
+                {/* {urlArr?.map((item: any) => (
                   <Attachment src={word} name={item} enable />
-                ))}
+                ))} */}
               </div>
             </Tabs.TabPane>
           </Tabs>

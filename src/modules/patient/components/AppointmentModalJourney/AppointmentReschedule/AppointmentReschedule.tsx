@@ -41,12 +41,12 @@ function AppointmentReschedule(props: Props) {
   };
 
   useEffect(() => {
-    setValue(appointmentTimeSlots?.[0].id as number);
+    setValue(appointmentTimeSlots?.[0]?.id as number);
     saveStepOne?.({
       charges,
       requestedDate,
       scheduleId,
-      selectedSlotId: appointmentTimeSlots?.[0].id as number,
+      selectedSlotId: appointmentTimeSlots?.[0]?.id as number,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [charges, appointmentDetails, appointmentTimeSlots]);
