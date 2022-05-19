@@ -10,7 +10,6 @@ export function SelectStatusTypeFilter({
 }) {
 	// const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
 	// const { appointmentServiceTypes } = serviceTypes || {};
-	const { Option } = Select;
 	return (
 		<Select
 			placeholder="Status"
@@ -21,10 +20,10 @@ export function SelectStatusTypeFilter({
 			{/* {appointmentServiceTypes?.map(({ id, name }) => (
 				<Option value={id}>{name}</Option>
 			))} */}
-				<Option value="Upcoming">Upcoming</Option>
-				<Option value="Requested">Requested</Option>
-				<Option value="Cancelled">Cancelled</Option>
-				<Option value="Completed">Completed</Option>
+				<Select.Option value="Upcoming">Upcoming</Select.Option>
+				<Select.Option value="Requested">Requested</Select.Option>
+				<Select.Option value="Cancelled">Cancelled</Select.Option>
+				<Select.Option value="Completed">Completed</Select.Option>
 		</Select>
 	);
 }

@@ -19,10 +19,9 @@ export function FilterRangePicker({
 	onApply: () => void;
 	onOpen: () => void;
 }) {
-	const { RangePicker } = DatePicker;
 	return (
 		<div className="relative mb-6 my-0 pl-2 ">
-			<RangePicker
+			<DatePicker.RangePicker
 				value={null}
 				onChange={(_, formatString) => onChange(formatString)}
 				open={open}

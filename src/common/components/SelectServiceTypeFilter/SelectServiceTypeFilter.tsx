@@ -10,7 +10,6 @@ export function SelectServiceTypeFilter({
 }) {
 	const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
 	const { appointmentServiceTypes } = serviceTypes || {};
-	const { Option } = Select;
 	return (
 		<Select
 			placeholder="Service"
@@ -19,7 +18,7 @@ export function SelectServiceTypeFilter({
 			value={value || "Service"}
 		>
 			{appointmentServiceTypes?.map(({ id, name }) => (
-				<Option value={id}>{name}</Option>
+				<Select.Option value={id}>{name}</Select.Option>
 			))}
 		</Select>
 	);

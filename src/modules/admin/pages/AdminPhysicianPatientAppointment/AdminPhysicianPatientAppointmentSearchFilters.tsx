@@ -14,8 +14,6 @@ import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter
 
 const { Option } = Select;
 
-const { RangePicker } = DatePicker;
-
 type Props = {
 	onChange: (value: physicianFilterType) => void;
 };
@@ -86,7 +84,6 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 							</div>
 						)
 					}
-					
 				/>
 			</div>
 			<div className="flex-none sm:flex">
@@ -113,4 +110,3 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 }
 
 export default AdminPhysicianPatientAppointmentSearchFilters;
-
