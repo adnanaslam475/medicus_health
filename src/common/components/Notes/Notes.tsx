@@ -52,12 +52,7 @@ function Notes(props: Props) {
         footer={null}
         className={`${_classes["modal-custom"]}`}
       >
-        <Form
-          layout="vertical"
-          form={formInstance}
-          className="notesModalForm"
-          onFinish={onFinishLocal}
-        >
+        <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
           <h4 className="font-bold pt-4">Add Note</h4>
           <Form.Item name="note">
             <TextArea />
