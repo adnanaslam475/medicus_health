@@ -40,7 +40,6 @@ function CancelledAppointment() {
   const { appointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  console.log(appointments, "appointments");
   return (
     <AppLayout>
       <div className="w-full">

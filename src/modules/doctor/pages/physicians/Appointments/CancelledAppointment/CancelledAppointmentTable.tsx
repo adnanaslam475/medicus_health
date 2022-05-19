@@ -3,6 +3,7 @@ import {
   Appointment,
   AppointmentServiceType,
   AppointmentTimeSlots,
+  DoctorSchedule,
   User,
 } from "generated/graphql";
 import React from "react";
@@ -63,17 +64,16 @@ function CancelledAppointmentTable({ dataSource }: Props) {
     },
     {
       title: "Time",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
-      render: (value: AppointmentTimeSlots[]) => {
-        let time = value?.find((time) => time?.selected);
+      dataIndex: "appointmentSchedule",
+      key: "appointmentSchedule",
+      sorter: {
+        compare: (a: any, b: any) => a.timeslot - b.timeslot,
+        multiple: 3,
+      },
+      render: (value: DoctorSchedule) => {
         return (
           <div className="someclass">
-            {time?.startTime
-              ? `${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
-                  time?.endTime
-                )}`
-              : "--"}
+            {value?.startTime} - {value?.endTime}
           </div>
         );
       },

@@ -21,7 +21,6 @@ function PatientInfoTab({}: Props) {
     pause: !query.appointmentId,
   });
   const { appointment } = data || {};
-  console.log("patientinfotab", appointment);
   const { patient, serviceType } = appointment || {};
   const {
     first_name,
