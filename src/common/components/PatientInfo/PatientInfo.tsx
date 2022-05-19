@@ -84,7 +84,7 @@ function AppointmentInfo(props: Props) {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <Form.Item
-            label="Material Status"
+            label="Marital Status"
             className="text-secondary"
             name="status"
           >
