@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Table, Divider } from "antd";
+import { Table, Divider, Button } from "antd";
+import Router from "next/router";
+
 import AppLayout from "common/components/AppLayout/AppLayout";
 import {
   Appointment,
@@ -11,6 +13,7 @@ import SearchFilters from "common/components/SearchFilters/SearchFilters";
 import { physicianMyEarningsFilterType } from "common/types/types";
 import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
 import MyEarningsStats from "common/components/MyEarningsStats/MyEarningsStats";
+import { EyeFilled } from "@ant-design/icons";
 
 type Props = {};
 
@@ -110,6 +113,20 @@ const UserList = (props: Props) => {
         multiple: 3,
       },
     },
+    {
+      dataIndex: "id",
+      className: "table-action-icon",
+      key: "id",
+      render: (appointmentId: number) => (
+        <div>
+          <EyeFilled
+            onClick={() => {
+              return Router.push(`/physician/appointments/cancelled/`);
+            }}
+          />
+        </div>
+      ),
+    },
   ];
 
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
@@ -120,9 +137,17 @@ const UserList = (props: Props) => {
     <AppLayout>
       <div className="w-full">
         <div className="flex justify-between">
-          <h2 className="mb-4">My Earnings</h2>
+          <h2 className="mb-4">Users</h2>
+          <div className="flex">
+            <Button
+              className="ml-auto"
+              onClick={() => Router.push("/admin/adduser")}
+              type="primary"
+            >
+              Add User
+            </Button>
+          </div>
         </div>
-
         <MyEarningsSearchFilters onChange={onChangeFilters} />
         <Table columns={Columns} dataSource={getTransectionFilter} />
       </div>
