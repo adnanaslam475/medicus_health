@@ -29,7 +29,7 @@ function Signup() {
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
   const [authToken, setAuthToken] = useState("");
-  const [signupError, setSignupError] = useState<String | undefined>();
+  const [signupError, setSignupError] = useState<string | undefined>();
   const [signUpPayload, setSignUpPaylod] = useState<CreateUserPayload>();
 
   const [result, createUser] = useCreateUserMutation();

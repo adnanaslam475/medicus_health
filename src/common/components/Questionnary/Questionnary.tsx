@@ -18,7 +18,7 @@ interface HealthQuesType {
   handleBackChange?: (value: any) => void;
   isLoading?: boolean;
   disable?: boolean;
-  signupError?: String | undefined;
+  signupError?: string | undefined;
 }
 
 const HealthQuestionnary = ({
