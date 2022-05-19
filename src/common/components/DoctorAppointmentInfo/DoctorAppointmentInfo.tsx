@@ -35,6 +35,7 @@ import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
+import { formatDateTimeWithAmPm } from "common/constants/date";
 
 type Props = {
   data: Appointment | undefined;
@@ -433,7 +434,6 @@ function AvailabilityTimeSlots({
   form: FormInstance<any>;
   onChangeDatePicker?: (dateString: string, name: string) => void;
 }) {
-  const format = "YYYY-MM-DD hh:mm A";
   return (
     <div className="block mb-10">
       <Form
@@ -447,7 +447,7 @@ function AvailabilityTimeSlots({
               <DatePicker
                 className="w-full"
                 showTime
-                format={format}
+                format={formatDateTimeWithAmPm}
                 showNow={false}
                 onChange={(_, date: string) => {
                   onChangeDatePicker?.(date, "startDate");
@@ -462,7 +462,7 @@ function AvailabilityTimeSlots({
               <DatePicker
                 className="w-full"
                 showTime
-                format={format}
+                format={formatDateTimeWithAmPm}
                 showNow={false}
                 onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
               />
