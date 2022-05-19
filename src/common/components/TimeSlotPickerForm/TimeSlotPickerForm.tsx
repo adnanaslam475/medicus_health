@@ -1,6 +1,6 @@
 import React from "react";
 import { DatePicker, Form, FormInstance, Space } from "antd";
-import { FORMAT_DATE_TIME_WIHT_AM_PM } from "common/constants";
+import { FORMAT_DATE_TIME_WITH_AM_PM } from "common/constants";
 
 type Props = {
   onChangeDatePicker?: (dateString: string, name: string) => void;
@@ -22,7 +22,7 @@ const TimeSlotPickerForm = (props: Props) => {
               <DatePicker
                 className="w-full"
                 showTime
-                format={FORMAT_DATE_TIME_WIHT_AM_PM}
+                format={FORMAT_DATE_TIME_WITH_AM_PM}
                 showNow={false}
                 onChange={(_, date: string) => {
                   onChangeDatePicker?.(date, "startDate");
@@ -37,7 +37,7 @@ const TimeSlotPickerForm = (props: Props) => {
               <DatePicker
                 className="w-full"
                 showTime
-                format={FORMAT_DATE_TIME_WIHT_AM_PM}
+                format={FORMAT_DATE_TIME_WITH_AM_PM}
                 showNow={false}
                 onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
               />

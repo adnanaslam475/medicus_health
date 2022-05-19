@@ -35,7 +35,7 @@ import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
-import { FORMAT_DATE_TIME_WIHT_AM_PM } from "common/constants/date";
+import { FORMAT_DATE_TIME_WITH_AM_PM } from "common/constants/date";
 import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
 
 type Props = {
@@ -457,7 +457,7 @@ function AvailabilityTimeSlots({
                 <DatePicker
                   className="w-full"
                   showTime
-                  format={FORMAT_DATE_TIME_WIHT_AM_PM}
+                  format={FORMAT_DATE_TIME_WITH_AM_PM}
                   showNow={false}
                   onChange={(_, date: string) => {
                     onChangeDatePicker?.(date, "startDate");
@@ -472,7 +472,7 @@ function AvailabilityTimeSlots({
                 <DatePicker
                   className="w-full"
                   showTime
-                  format={FORMAT_DATE_TIME_WIHT_AM_PM}
+                  format={FORMAT_DATE_TIME_WITH_AM_PM}
                   showNow={false}
                   onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
                 />
