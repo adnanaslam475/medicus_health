@@ -1,10 +1,12 @@
-import MessagesDetail from "../../src/modules/common/pages/messages/MessageDetail/MessagesDetail";
+import dynamic from "next/dynamic";
 
-function messages() {
-  return <MessagesDetail />;
-}
+const messages = dynamic(
+  () => {
+    return import(
+      "../../src/modules/admin/pages/Messages/MessageDetail/MessageDetail"
+    );
+  },
+  { ssr: false }
+);
 
 export default messages;
-
-
-
