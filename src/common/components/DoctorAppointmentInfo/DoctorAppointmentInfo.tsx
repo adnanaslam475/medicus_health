@@ -35,7 +35,6 @@ import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
-import moment from "moment";
 
 type Props = {
   data: Appointment | undefined;
@@ -421,8 +420,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <Button
               className={`${_classes["appointments-btn"]}`}
               onClick={onProposeNewTimeSlot}
+              type="primary"
             >
-              Propose Time
+              Submit
             </Button>
           </div>
         </Form>
@@ -452,7 +452,6 @@ function AvailabilityTimeSlots({
               <DatePicker
                 className="w-full"
                 showTime
-                defaultValue={moment("12:08", format)}
                 format={format}
                 showNow={false}
                 onChange={(_, date: string) => {
@@ -468,7 +467,6 @@ function AvailabilityTimeSlots({
               <DatePicker
                 className="w-full"
                 showTime
-                defaultValue={moment("12:08", format)}
                 format={format}
                 showNow={false}
                 onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
