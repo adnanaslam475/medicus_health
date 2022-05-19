@@ -2,7 +2,6 @@
 import React from "react";
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-// import { date } from "./../../../../../../utils/DayPicker";
 import {
   useCountriesQuery,
   useGetCitiesByStateQuery,
@@ -30,7 +29,14 @@ function PatientProfileFormTab({ userDetail }: { userDetail: any }) {
     patientProfile,
   } = userDetail || {};
 
-  console.log(userDetail, "userDetail");
+  const {
+    maritalStatus,
+    children,
+    occupation,
+    occupationalExposure,
+    exposureDuration,
+    pets,
+  } = patientProfile || {};
 
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
@@ -92,30 +98,24 @@ function PatientProfileFormTab({ userDetail }: { userDetail: any }) {
           <LabelWithTextDiv label="City" value={cityName[0]?.city_name} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv
-            label="Marital Status"
-            value={patientProfile?.maritalStatus}
-          />
+          <LabelWithTextDiv label="Marital Status" value={maritalStatus} />
           <LabelWithTextDiv
             label="Do you have any Children?"
-            value={patientProfile?.children}
+            value={children}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv
             label="What is your Occupation?"
-            value={patientProfile?.occupation}
+            value={occupation}
           />
           <LabelWithTextDiv
             label="Do you have any Occupational Exposure?"
-            value={`${patientProfile?.occupationalExposure} ${patientProfile?.exposureDuration}`}
+            value={`${occupationalExposure} ${exposureDuration}`}
           />
         </div>
         <div className="flex gap-2">
-          <LabelWithTextDiv
-            label="Do you have any pets?"
-            value={patientProfile?.pets}
-          />
+          <LabelWithTextDiv label="Do you have any pets?" value={pets} />
           <div className="w-full" />
         </div>
       </div>

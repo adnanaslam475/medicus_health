@@ -110,6 +110,16 @@ export type BookingDate = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type ChatChannels = {
+  __typename?: 'ChatChannels';
+  channelName: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  doctorId: Scalars['Int'];
+  id: Scalars['Int'];
+  isAdminChat: Scalars['Boolean'];
+  patientId: Scalars['Int'];
+};
+
 export type City = {
   __typename?: 'City';
   city_name: Scalars['String'];
@@ -155,6 +165,13 @@ export type CreateAppointmentNoteInput = {
 export type CreateAppointmentServiceTypeInput = {
   name: Scalars['String'];
   price: Scalars['Float'];
+};
+
+export type CreateChatChannelInput = {
+  channelName: Scalars['String'];
+  doctorId: Scalars['Int'];
+  isAdminChat: Scalars['Boolean'];
+  patientId: Scalars['Int'];
 };
 
 export type CreateDoctorBillingMethodInput = {
@@ -454,10 +471,12 @@ export type Mutation = {
   UserResetPassword: User;
   bookAppointment: Appointment;
   cancelAppointment: Appointment;
+  cancelAppointmentByAdmin: Appointment;
   cancelAppointmentByPatient: Appointment;
   createAdminUser: User;
   createAppointment: Appointment;
   createCard: UserCard;
+  createChatChannel: ChatChannels;
   createDoctor: User;
   createDoctorBillingMethod: DoctorBillingMethod;
   createDoctorProfile: DoctorProfile;
@@ -518,6 +537,11 @@ export type MutationCancelAppointmentArgs = {
 };
 
 
+export type MutationCancelAppointmentByAdminArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationCancelAppointmentByPatientArgs = {
   id: Scalars['Int'];
 };
@@ -535,6 +559,11 @@ export type MutationCreateAppointmentArgs = {
 
 export type MutationCreateCardArgs = {
   createPaymentInput: CreatePaymentInput;
+};
+
+
+export type MutationCreateChatChannelArgs = {
+  createChatChannelInput: CreateChatChannelInput;
 };
 
 
@@ -796,6 +825,7 @@ export type Query = {
   doctorQuestionnaires: Array<DoctorQuestionnaire>;
   doctorSchedules: Array<DoctorSchedule>;
   getAllCards: Array<UserCard>;
+  getAllChatChannels: Array<ChatChannels>;
   getCard: UserCard;
   getCitiesByState: Array<City>;
   getDoctorEarnings: DoctorEarningsResponse;
@@ -1345,6 +1375,13 @@ export type CreateOrUpdateAppointmentNoteMutationVariables = Exact<{
 
 export type CreateOrUpdateAppointmentNoteMutation = { __typename?: 'Mutation', createOrUpdateAppointmentNote: { __typename?: 'AppointmentNote', id: number } };
 
+export type CreateStaffMutationVariables = Exact<{
+  createStaffInput: CreateStaffInput;
+}>;
+
+
+export type CreateStaffMutation = { __typename?: 'Mutation', createStaff: { __typename?: 'User', email: string, contact_number?: string | null, first_name: string, last_name: string, doctorId?: number | null } };
+
 export type CancelAppointmentByDoctorMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -1358,6 +1395,14 @@ export type GenerateRtcTokenMutationVariables = Exact<{
 
 
 export type GenerateRtcTokenMutation = { __typename?: 'Mutation', generateRTCToken: { __typename?: 'RtcTokenResponse', rtmAccessToken: string, channelName: string, privilegeExpireTime: string } };
+
+export type UpdateStaffProfileMutationVariables = Exact<{
+  id: Scalars['Int'];
+  updateStaffInput: UpdateStaffInput;
+}>;
+
+
+export type UpdateStaffProfileMutation = { __typename?: 'Mutation', updateStaff: { __typename?: 'User', first_name: string, last_name: string, email: string, contact_number?: string | null, doctorId?: number | null, deleted: boolean } };
 
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
@@ -1406,7 +1451,7 @@ export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
 }>;
 
 
-export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, createdAt: any, requestedDate: any, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }> };
+export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, createdAt: any, requestedDate: any, reportUrl?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient: { __typename?: 'User', first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null }, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, doctorNote?: { __typename?: 'AppointmentNote', subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }> };
 
 export type GetTransectionFilterQueryVariables = Exact<{
   filter: GetTransectionInput;
@@ -1472,7 +1517,7 @@ export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', 
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DoctorProfilesQuery = { __typename?: 'Query', doctorProfiles: Array<{ __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null } | null }> };
+export type DoctorProfilesQuery = { __typename?: 'Query', doctorProfiles: Array<{ __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null } | null }> };
 
 export type DoctorProfileQueryVariables = Exact<{
   doctor_id: Scalars['Int'];
@@ -1572,6 +1617,18 @@ export type GetDoctorEarningsQueryVariables = Exact<{
 
 
 export type GetDoctorEarningsQuery = { __typename?: 'Query', getDoctorEarnings: { __typename?: 'DoctorEarningsResponse', total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null, total_number_of_patients?: number | null, total_earnings_from_consultation?: number | null, total_earnings_from_second_opinions?: number | null, total_earnings?: number | null } };
+
+export type GetAllStaffByDoctorQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null }> };
+
+export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null } };
 
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1945,6 +2002,22 @@ export const CreateOrUpdateAppointmentNoteDocument = gql`
 export function useCreateOrUpdateAppointmentNoteMutation() {
   return Urql.useMutation<CreateOrUpdateAppointmentNoteMutation, CreateOrUpdateAppointmentNoteMutationVariables>(CreateOrUpdateAppointmentNoteDocument);
 };
+export const CreateStaffDocument = gql`
+    mutation createStaff($createStaffInput: CreateStaffInput!) {
+  createStaff(createStaffInput: $createStaffInput) {
+    email
+    contact_number
+    first_name
+    last_name
+    email
+    doctorId
+  }
+}
+    `;
+
+export function useCreateStaffMutation() {
+  return Urql.useMutation<CreateStaffMutation, CreateStaffMutationVariables>(CreateStaffDocument);
+};
 export const CancelAppointmentByDoctorDocument = gql`
     mutation cancelAppointmentByDoctor($id: Int!) {
   cancelAppointment(id: $id) {
@@ -1972,6 +2045,22 @@ export const GenerateRtcTokenDocument = gql`
 
 export function useGenerateRtcTokenMutation() {
   return Urql.useMutation<GenerateRtcTokenMutation, GenerateRtcTokenMutationVariables>(GenerateRtcTokenDocument);
+};
+export const UpdateStaffProfileDocument = gql`
+    mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
+  updateStaff(id: $id, updateStaffInput: $updateStaffInput) {
+    first_name
+    last_name
+    email
+    contact_number
+    doctorId
+    deleted
+  }
+}
+    `;
+
+export function useUpdateStaffProfileMutation() {
+  return Urql.useMutation<UpdateStaffProfileMutation, UpdateStaffProfileMutationVariables>(UpdateStaffProfileDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
@@ -2159,11 +2248,37 @@ export const PhysicianAppointmentsHistoryDocument = gql`
     patient {
       first_name
       last_name
+      gender
+      email
+      date_of_birth
+      contact_number
+      country_id
+      city_id
+      patientProfile {
+        maritalStatus
+        children
+        occupation
+        occupationalExposure
+        pets
+      }
+      patientHealthHistory {
+        history
+      }
     }
+    appointmentHealthHistory {
+      history
+    }
+    reportUrl
     appointmentTimeSlots {
       startTime
       endTime
       selected
+    }
+    doctorNote {
+      subjective
+      objective
+      assessment
+      plan
     }
     status
     transaction {
@@ -2357,6 +2472,7 @@ export const DoctorProfilesDocument = gql`
     professional_experience
     language
     about_me
+    profile_image
     user {
       id
       first_name
@@ -2778,6 +2894,38 @@ export const GetDoctorEarningsDocument = gql`
 
 export function useGetDoctorEarningsQuery(options: Omit<Urql.UseQueryArgs<GetDoctorEarningsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetDoctorEarningsQuery>({ query: GetDoctorEarningsDocument, ...options });
+};
+export const GetAllStaffByDoctorDocument = gql`
+    query getAllStaffByDoctor {
+  staff {
+    id
+    role
+    email
+    first_name
+    last_name
+    contact_number
+    doctorId
+  }
+}
+    `;
+
+export function useGetAllStaffByDoctorQuery(options?: Omit<Urql.UseQueryArgs<GetAllStaffByDoctorQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllStaffByDoctorQuery>({ query: GetAllStaffByDoctorDocument, ...options });
+};
+export const GetStaffDetailsUrlByIdDocument = gql`
+    query getStaffDetailsUrlById($id: Int!) {
+  staffDetail(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+  }
+}
+    `;
+
+export function useGetStaffDetailsUrlByIdQuery(options: Omit<Urql.UseQueryArgs<GetStaffDetailsUrlByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetStaffDetailsUrlByIdQuery>({ query: GetStaffDetailsUrlByIdDocument, ...options });
 };
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {
@@ -3323,6 +3471,79 @@ export default {
           },
           {
             "name": "startTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ChatChannels",
+        "fields": [
+          {
+            "name": "channelName",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "isAdminChat",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "patientId",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -4044,6 +4265,29 @@ export default {
             ]
           },
           {
+            "name": "cancelAppointmentByAdmin",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "cancelAppointmentByPatient",
             "type": {
               "kind": "NON_NULL",
@@ -4125,6 +4369,29 @@ export default {
             "args": [
               {
                 "name": "createPaymentInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createChatChannel",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ChatChannels",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createChatChannelInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -5716,6 +5983,24 @@ export default {
                 }
               }
             ]
+          },
+          {
+            "name": "getAllChatChannels",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ChatChannels",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
           },
           {
             "name": "getCard",

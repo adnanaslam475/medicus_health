@@ -3,7 +3,7 @@ import _classes from "./AcronymWithText.module.scss";
 
 type Props = {
 	character: string;
-	sentence: string;
+	sentence: string | null;
     word:string
 };
 function AcronymWithText(props: Props) {

@@ -1,37 +1,31 @@
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import  {
-	QuestionnaireForm,
-} from "common/components/Questionnary/Questionnary";
+import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
 import { useRouter } from "next/router";
-import {
-	useDoctorAppointmentDetailQuery,
-	useGetAppointmentReportUrlByIdQuery,
-	usePatientHealthHistoryQuery,
-} from "generated/graphql";
+import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
 import React from "react";
 
 function HealthQuestionnaireFrom() {
-	const { query } = useRouter();
-	const [{ data }] = useDoctorAppointmentDetailQuery({
-		variables: {
-			id: Number(query.appointmentId),
-		},
-		pause: !query.appointmentId,
-	});
-	const { appointment } = data || {};
-	const { patientId } = appointment || {};
-	const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
-		variables: { input: patientId as number },
-	});
-	return (
-		<div className="max-w-1/2">
-			<CardWithProfileImageInfo name="usama" serviceName="consultation">
-				<QuestionnaireForm
-					data={patientHealthHistory?.patientHealthHistory.history}
-				/>
-			</CardWithProfileImageInfo>
-		</div>
-	);
+  const { query } = useRouter();
+  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
+    variables: {
+      filter: { searchPatient: String(query?.id), status: "Completed" },
+    },
+    requestPolicy: "network-only",
+  });
+  const { appointments } = data || {};
+  const appointment = appointments && appointments[0];
+  return (
+    <div className="max-w-1/2">
+      <CardWithProfileImageInfo
+        name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
+        serviceName={appointment?.serviceType?.name}
+      >
+        <QuestionnaireForm
+          data={appointment?.patient?.patientHealthHistory?.history}
+        />
+      </CardWithProfileImageInfo>
+    </div>
+  );
 }
 
 export default HealthQuestionnaireFrom;

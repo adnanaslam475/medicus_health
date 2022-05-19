@@ -502,6 +502,3 @@ export const Profile = React.forwardRef(function Profile({
     </div>
   );
 });
-function updateDoctorProfileInput(updateDoctorProfileInput: any, arg1: string) {
-  throw new Error("Function not implemented.");
-}

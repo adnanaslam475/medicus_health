@@ -98,6 +98,7 @@ query doctorProfiles {
     professional_experience
     language
     about_me
+    profile_image
     user {
       id
       first_name
@@ -255,7 +256,7 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
       createdAt
       amountReceived
     }
-     appointmentSchedule{
+    appointmentSchedule {
       startTime
       endTime
     }
@@ -313,7 +314,7 @@ query doctorProfileDetails($input: Int!) {
   }
 }
 
-#GET APPOINMENT SERVICE TYPES
+#GET APPOINTMENT SERVICE TYPES
 query getAllAppointmentServiceTypes {
   appointmentServiceTypes {
     id
@@ -342,7 +343,7 @@ query doctorQuestionnaire($doctorId: Int!) {
   }
 }
 
-#GET APPOINMENT BY ID
+#GET APPOINTMENT BY ID
 query getAppointmentById($id: Int!) {
   appointment(id: $id) {
     id
@@ -507,7 +508,7 @@ query getCityById($id: Int!) {
   }
 }
 
-#GET APPOINMENT BY ID
+#GET APPOINTMENT BY ID
 query getAppointmentReportUrlById($id: Int!) {
   appointment(id: $id) {
     id
@@ -517,13 +518,37 @@ query getAppointmentReportUrlById($id: Int!) {
   }
 }
 
-query getDoctorEarnings($id:Int!){
-  getDoctorEarnings(id:$id){
+query getDoctorEarnings($id: Int!) {
+  getDoctorEarnings(id: $id) {
     total_number_of_consultation
     total_number_of_second_opinions
     total_number_of_patients
     total_earnings_from_consultation
     total_earnings_from_second_opinions
     total_earnings
+  }
+}
+
+# get staff listing
+query getAllStaffByDoctor {
+  staff {
+    id
+    role
+    email
+    first_name
+    last_name
+    contact_number
+    doctorId
+  }
+}
+
+#GET APPOINTMENT BY ID
+query getStaffDetailsUrlById($id: Int!) {
+  staffDetail(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
   }
 }

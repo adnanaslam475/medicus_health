@@ -29,7 +29,7 @@ function Signup() {
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
   const [authToken, setAuthToken] = useState("");
-
+  const [signupError, setSignupError] = useState<string | undefined>();
   const [signUpPayload, setSignUpPaylod] = useState<CreateUserPayload>();
 
   const [result, createUser] = useCreateUserMutation();
@@ -74,15 +74,17 @@ function Signup() {
     const user = await submitPersonalInfo();
     const healthQuesJson = JSON.stringify(quesPayload);
     try {
-      await createPatientHealthHistory({
-        input: {
-          history: healthQuesJson,
-          user_id: user?.data?.createUser.id as number,
-        },
-      });
-      handleChange();
-      setActiveKey("2");
-      setNextTab(false);
+      if (user?.data?.createUser.id) {
+        await createPatientHealthHistory({
+          input: {
+            history: healthQuesJson,
+            user_id: user?.data?.createUser.id as number,
+          },
+        });
+        handleChange();
+        setActiveKey("2");
+        setNextTab(false);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -99,10 +101,13 @@ function Signup() {
       user = await createUser({
         input: pyaload as CreateUserInput,
       });
-      Router.push({
-        pathname: "/successScreen",
-        query: { email: pyaload?.email },
-      });
+      if (!user.error?.message) {
+        Router.push({
+          pathname: "/successScreen",
+          query: { email: pyaload?.email },
+        });
+      }
+      setSignupError(user?.error?.graphQLErrors[0]?.message);
       return user;
     } catch (err) {
       console.log(err);
@@ -214,6 +219,8 @@ function Signup() {
                       handleBackChange={handleChange}
                       skipHealthQues={skipHealthQuestions}
                       isLoading={fetching}
+                      disable={true}
+                      signupError={signupError}
                     />
                   </TabPane>
                 </Tabs>

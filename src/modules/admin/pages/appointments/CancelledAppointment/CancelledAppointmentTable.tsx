@@ -7,8 +7,6 @@ import {
 } from "generated/graphql";
 import React from "react";
 
-import engFlag from "../../../../../../public/assets/images/engFlag.png";
-import espanolFlag from "../../../../../../public/assets/images/espanolFlag.png";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import { date } from "common/utils";
@@ -90,12 +88,13 @@ function CancelledAppointmentTable({ dataSource }: Props) {
     {
       dataIndex: "id",
       className: "table-action-icon",
+      key: "id",
       render: (appointmentId: number) => (
         <div>
           <EyeFilled
             onClick={() => {
               return Router.push(
-                `/doctor/appointments/cancelled/${appointmentId}`
+                `/physician/appointments/cancelled/${appointmentId}`
               );
             }}
           />
