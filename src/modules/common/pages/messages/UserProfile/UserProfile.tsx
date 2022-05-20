@@ -1,17 +1,83 @@
-import { Avatar } from "antd";
+import { Avatar, notification } from "antd";
+import { getUserData } from "common/utils/userData";
+import { ChatChannels, useGenerateRtcTokenMutation } from "generated/graphql";
 import Image from "next/image";
-import React from "react";
+import React, { useRef } from "react";
+import Client from "../MessageDetail/client";
 import profile from "./../../../../../../public/assets/images/doc-pic.png";
 import loaderLogo from "./../../../../../../public/assets/images/loaderLogo.png";
 
 type Props = {
-  bgcolor: string;
+  thread: ChatChannels;
 };
-function UserProfile(props: Props) {
-  const { bgcolor } = props;
+function UserProfile({ thread }: Props) {
+  const rtmRef = useRef<Client>();
+  const rtm = rtmRef.current;
+
+  const [, executeGenerateRtcTokenMutation] = useGenerateRtcTokenMutation();
+  const { user } = getUserData();
+
+  async function onLogin() {
+    const { data } = await executeGenerateRtcTokenMutation({
+      generateRTCTokenInput: {
+        channelName: thread.channelName,
+        uId: String(user?.id),
+        role: "audience",
+        tokenType: "uid",
+      },
+    });
+    const { rtmAccessToken } = data?.generateRTCToken || {};
+
+    let rtm = rtmRef.current;
+
+    if (!rtm) {
+      rtm = new Client();
+      rtmRef.current = rtm;
+      try {
+        await rtm.login(String(user?.id), rtmAccessToken || "");
+        notification.success({
+          message: "user logged in successfully",
+        });
+
+        await rtm?.joinChannel(thread.channelName);
+        if (rtm) {
+          rtm.channels[thread.channelName].joined = true;
+        }
+        console.log({ rtm });
+        notification.success({
+          message: "joined successfully",
+        });
+      } catch (error) {
+        console.log(error);
+        notification.error({
+          message: "login failed",
+        });
+      }
+      // try {
+      //   await rtm?.joinChannel(thread.channelName);
+      //   if (rtm) {
+      //     rtm.channels[thread.channelName].joined = true;
+      //   }
+      //   notification.success({
+      //     message: "joined successfully",
+      //   });
+      // } catch (error) {
+      //   console.log(error);
+      //   notification.error({
+      //     message: "join failed",
+      //   });
+      // }
+    }
+  }
+
+  async function onJoinChat() {
+    onLogin();
+  }
+
   return (
     <div
-      className={`flex px-5 py-4 items-center border border-gray-4 ${bgcolor}`}
+      onClick={onJoinChat}
+      className={`flex px-5 py-4 items-center border border-gray-4 cursor-pointer hover:bg-gray-4`}
     >
       <div className="relative">
         <Image alt="" width={70} height={70} src={profile} />
@@ -22,6 +88,7 @@ function UserProfile(props: Props) {
             width={20}
             height={20}
             className="border rounded border-gray-2"
+            objectFit="contain"
           />
         </span>
       </div>

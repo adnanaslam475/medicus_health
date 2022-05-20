@@ -1,0 +1,10 @@
+query getAllChatChannels{
+  getAllChatChannels {
+    id
+    channelName
+    doctorId
+    patientId
+    isAdminChat
+    createdAt
+  }
+}

@@ -1,10 +1,14 @@
 import React from "react";
 import _classes from "./Message-detail.module.scss";
 import UserProfile from "../UserProfile/UserProfile";
+import { useMessageContext } from "./MessageContext";
 
 type Props = {};
 
 function MessageConversationSider({}: Props) {
+  const { getAllChatChannels } = useMessageContext();
+  console.log(getAllChatChannels);
+
   return (
     <div
       style={{
@@ -12,18 +16,9 @@ function MessageConversationSider({}: Props) {
         overflowY: "auto",
       }}
     >
-      <UserProfile bgcolor="bg-gray-4" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
-      <UserProfile bgcolor="bg-white" />
+      {getAllChatChannels?.map((thread) => {
+        return <UserProfile thread={thread} />;
+      })}
     </div>
   );
 }

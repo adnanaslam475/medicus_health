@@ -1,49 +1,35 @@
+import { ChatChannels, useGetAllChatChannelsQuery } from "generated/graphql";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type state = {
-  data?: any;
-  saveStepOne?: (values: any) => void;
-  saveStepTwo?: (values: any) => void;
-  saveStepThree?: (values: any) => void;
+  getAllChatChannels?: ChatChannels[];
 };
 
 const initialState: state = {};
 
-const BookAppointmentContext = createContext(initialState);
+const MessageContext = createContext(initialState);
 
-export function useBookAppointment() {
-  return useContext(BookAppointmentContext);
+export function useMessageContext() {
+  return useContext(MessageContext);
 }
 
-export const BookAppointmentConsumer = BookAppointmentContext.Consumer;
+export const MessageConsumer = MessageContext.Consumer;
 
-export function BookAppointmentProvider({
+export function MessageContextProvider({
   children,
 }: {
   children: JSX.Element;
 }) {
-  const [data, setData] = useState({});
-
-  function saveStepOne(values: any) {
-    setData({ ...data, stepOne: values });
-  }
-  function saveStepTwo(values: any) {
-    setData({ ...data, stepTwo: values });
-  }
-  function saveStepThree(values: any) {
-    setData({ ...data, stepThree: values });
-  }
+  const [{ data }] = useGetAllChatChannelsQuery();
+  const { getAllChatChannels } = data || {};
 
   return (
-    <BookAppointmentContext.Provider
+    <MessageContext.Provider
       value={{
-        data,
-        saveStepOne,
-        saveStepTwo,
-        saveStepThree,
+        getAllChatChannels,
       }}
     >
       {children}
-    </BookAppointmentContext.Provider>
+    </MessageContext.Provider>
   );
 }

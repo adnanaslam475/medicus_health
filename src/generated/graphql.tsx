@@ -110,6 +110,16 @@ export type BookingDate = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type ChatChannels = {
+  __typename?: 'ChatChannels';
+  channelName: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  doctorId: Scalars['Int'];
+  id: Scalars['Int'];
+  isAdminChat: Scalars['Boolean'];
+  patientId: Scalars['Int'];
+};
+
 export type City = {
   __typename?: 'City';
   city_name: Scalars['String'];
@@ -155,6 +165,13 @@ export type CreateAppointmentNoteInput = {
 export type CreateAppointmentServiceTypeInput = {
   name: Scalars['String'];
   price: Scalars['Float'];
+};
+
+export type CreateChatChannelInput = {
+  channelName: Scalars['String'];
+  doctorId: Scalars['Int'];
+  isAdminChat: Scalars['Boolean'];
+  patientId: Scalars['Int'];
 };
 
 export type CreateDoctorBillingMethodInput = {
@@ -305,14 +322,6 @@ export type DoctorProfile = {
   user?: Maybe<User>;
   year_of_experience?: Maybe<Scalars['Float']>;
 };
-export type StaffProfile={
-  __typename?: 'StaffProfile';
-  doctor_id: Scalars['Int'];
-  id: Scalars['Int'];
-  email?: InputMaybe<Scalars['String']>;
-  first_name?: InputMaybe<Scalars['String']>;
-  last_name?: InputMaybe<Scalars['String']>;
-}
 
 export type DoctorQuestionnaire = {
   __typename?: 'DoctorQuestionnaire';
@@ -467,6 +476,7 @@ export type Mutation = {
   createAdminUser: User;
   createAppointment: Appointment;
   createCard: UserCard;
+  createChatChannel: ChatChannels;
   createDoctor: User;
   createDoctorBillingMethod: DoctorBillingMethod;
   createDoctorProfile: DoctorProfile;
@@ -549,6 +559,11 @@ export type MutationCreateAppointmentArgs = {
 
 export type MutationCreateCardArgs = {
   createPaymentInput: CreatePaymentInput;
+};
+
+
+export type MutationCreateChatChannelArgs = {
+  createChatChannelInput: CreateChatChannelInput;
 };
 
 
@@ -810,6 +825,7 @@ export type Query = {
   doctorQuestionnaires: Array<DoctorQuestionnaire>;
   doctorSchedules: Array<DoctorSchedule>;
   getAllCards: Array<UserCard>;
+  getAllChatChannels: Array<ChatChannels>;
   getCard: UserCard;
   getCitiesByState: Array<City>;
   getDoctorEarnings: DoctorEarningsResponse;
@@ -1104,10 +1120,11 @@ export type UpdateUserInput = {
 export type User = {
   __typename?: 'User';
   appointment?: Maybe<Appointment>;
+  city: City;
   city_id?: Maybe<Scalars['Int']>;
   contact_number?: Maybe<Scalars['String']>;
+  country: Country;
   country_id?: Maybe<Scalars['Int']>;
-  doctor_id?: Maybe<Scalars['Int']>;
   createdAt: Scalars['DateTime'];
   date_of_birth?: Maybe<Scalars['DateTime']>;
   deleted: Scalars['Boolean'];
@@ -1126,6 +1143,7 @@ export type User = {
   patientHealthHistory?: Maybe<PatientHealthHistory>;
   patientProfile?: Maybe<PatientProfile>;
   role?: Maybe<Scalars['String']>;
+  state: State;
   state_id?: Maybe<Scalars['Int']>;
   status: Scalars['Boolean'];
   streetAddress?: Maybe<Scalars['String']>;
@@ -1395,6 +1413,11 @@ export type ToggleEmailPreferencesMutationVariables = Exact<{
 
 
 export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', admin_appointment_create_update?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_accepted_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, new_message_received?: boolean | null } };
+
+export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any }> };
 
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -2064,6 +2087,22 @@ export const ToggleEmailPreferencesDocument = gql`
 
 export function useToggleEmailPreferencesMutation() {
   return Urql.useMutation<ToggleEmailPreferencesMutation, ToggleEmailPreferencesMutationVariables>(ToggleEmailPreferencesDocument);
+};
+export const GetAllChatChannelsDocument = gql`
+    query getAllChatChannels {
+  getAllChatChannels {
+    id
+    channelName
+    doctorId
+    patientId
+    isAdminChat
+    createdAt
+  }
+}
+    `;
+
+export function useGetAllChatChannelsQuery(options?: Omit<Urql.UseQueryArgs<GetAllChatChannelsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllChatChannelsQuery>({ query: GetAllChatChannelsDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
@@ -3469,6 +3508,79 @@ export default {
       },
       {
         "kind": "OBJECT",
+        "name": "ChatChannels",
+        "fields": [
+          {
+            "name": "channelName",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "doctorId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "isAdminChat",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "patientId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
         "name": "City",
         "fields": [
           {
@@ -4280,6 +4392,29 @@ export default {
             "args": [
               {
                 "name": "createPaymentInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createChatChannel",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ChatChannels",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createChatChannelInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -5873,6 +6008,24 @@ export default {
             ]
           },
           {
+            "name": "getAllChatChannels",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ChatChannels",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
             "name": "getCard",
             "type": {
               "kind": "NON_NULL",
@@ -6573,6 +6726,18 @@ export default {
             "args": []
           },
           {
+            "name": "city",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "City",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "city_id",
             "type": {
               "kind": "SCALAR",
@@ -6585,6 +6750,18 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "country",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Country",
+                "ofType": null
+              }
             },
             "args": []
           },
@@ -6777,6 +6954,18 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "state",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "State",
+                "ofType": null
+              }
             },
             "args": []
           },

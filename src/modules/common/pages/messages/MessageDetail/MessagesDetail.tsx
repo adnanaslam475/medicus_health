@@ -4,6 +4,7 @@ import MessageLayout from "./MessageLayout";
 import MessageConversationSider from "./MessageConversationSider";
 import MessageHeader from "./MessageHeader";
 import MessageContent from "./MessageContent";
+import { MessageContextProvider } from "./MessageContext";
 
 // scss
 import _classes from "./Message-detail.module.scss";
@@ -11,11 +12,13 @@ import _classes from "./Message-detail.module.scss";
 function Messages() {
   return (
     <AppLayout>
-      <MessageLayout>
-        <MessageHeader />
-        <MessageConversationSider />
-        <MessageContent />
-      </MessageLayout>
+      <MessageContextProvider>
+        <MessageLayout>
+          <MessageHeader />
+          <MessageConversationSider />
+          <MessageContent />
+        </MessageLayout>
+      </MessageContextProvider>
     </AppLayout>
   );
 }

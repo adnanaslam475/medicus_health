@@ -11,7 +11,7 @@ export default class Client extends EventEmitter {
     super();
     this.channels = {};
     this._logined = false;
-    this.client = AgoraRTM.createInstance("e7a8c2cd212b4d4f93eb20a2b97c66f1");
+    this.client = AgoraRTM.createInstance("df3bc65dd6df4f75b0b448b9cbba2bac");
     this.subscribeClientEvents();
   }
 
