@@ -8,7 +8,6 @@ import {
   useGetStatesByCountryQuery,
   User,
 } from "../../../../../../generated/graphql";
-
 // const props = {};
 type Props = {
   userDetail?: User | undefined;
