@@ -13,8 +13,9 @@ export const config: ClientConfig = {
   codec: "vp8",
   //@ts-ignore
   appId: appId,
-  token: token,
+  // token:
+  //   "006df3bc65dd6df4f75b0b448b9cbba2bacIADKHFgdWuGAX/2IYB8aX/yraerihVdiHFsvJ7p0rHToU+6DyJEM+nziEACpiq08ePWIYgEAAQAIsodi",
 };
 export const useClient = createClient(config);
 export const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
-export const channelName = "aims";
+// export const channelName = "aims";
