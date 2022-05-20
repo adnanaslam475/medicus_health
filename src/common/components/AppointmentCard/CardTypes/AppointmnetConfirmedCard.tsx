@@ -3,10 +3,11 @@ import { Button, Card } from "antd";
 import React, { useEffect, useMemo, useState } from "react";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
 import { sorter } from "utils/helper";
 import dayjs from "dayjs";
+import { isAppointmentTimeValid } from "common/utils/date";
 
 type Props = {
   appointmentId: number | undefined;
@@ -32,30 +33,7 @@ function AppointmnetConfirmedCard({
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    if (
-      date.formatMMMMDDYYYY(selectedAppointment?.startTime) ===
-      dayjs(new Date().toLocaleDateString()).format("MMMM, D, YYYY")
-    ) {
-      const startDate = selectedAppointment?.startTime?.split("T")[0];
-      const startTime = selectedAppointment?.startTime
-        ?.split("T")[1]
-        ?.replace("Z", "");
-      const endTime = selectedAppointment?.endTime
-        ?.split("T")[1]
-        ?.replace("Z", "");
-      let difference =
-        new Date(`${startDate} ${startTime}`).getTime() - Date.now();
-      setTimeout(() => {
-        if (new Date(`${startDate} ${endTime}`).getTime() > Date.now()) {
-          setDisabled(false);
-          setTimeout(() => {
-            if (!disabled) {
-              setDisabled(true);
-            }
-          }, new Date(`${startDate} ${endTime}`).getTime() - Date.now());
-        }
-      }, difference);
-    }
+    isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
 
   return (
