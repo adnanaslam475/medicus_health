@@ -64,7 +64,6 @@ function StaffListing() {
 
   function onChangeFilters(values: any) {
     setFilterValues(values);
-    console.log("vales", values);
     executeUseStaffQuery({
       filter: filterValues,
       requestPolicy: "network-only",
