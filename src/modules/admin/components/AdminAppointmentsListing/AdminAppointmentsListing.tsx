@@ -207,7 +207,7 @@ function AdminAppointmentsListing() {
 				<div className="text-primary">
 					<EyeFilled
 						onClick={() => {
-							return Router.push(`/admin/account/${value}`);
+							return Router.push(`/admin/appointments/detail`);
 						}}
 					/>
 				</div>

@@ -39,7 +39,6 @@ function PhysicianQuestionnaire(props: Props) {
       PleaseDescribe: History?.PleaseDescribe,
     });
   }
-
   return (
     <React.Fragment>
       <div className="w-3/6">

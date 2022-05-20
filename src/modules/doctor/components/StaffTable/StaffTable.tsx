@@ -1,7 +1,7 @@
 import React from "react";
 import Router from "next/router";
 import { Table } from "antd";
-import { AppointmentServiceType, StaffProfile, User } from "generated/graphql";
+import { AppointmentServiceType, User } from "generated/graphql";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "common/utils";
 import { ColumnsType } from "antd/lib/table";

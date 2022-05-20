@@ -158,6 +158,7 @@ export default function PersonalInfo({ onFinish }: props) {
               required: true,
               message: "Please enter your password!",
             },
+            { min: 8, message: "Password must be minimum 8 characters." },
           ]}
         >
           <Input.Password />

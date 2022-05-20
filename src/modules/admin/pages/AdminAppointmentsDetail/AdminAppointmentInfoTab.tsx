@@ -7,101 +7,34 @@ import {
   useGetCountryByIdQuery,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
+import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/AdminAppointmentInfo";
 import { useRouter } from "next/router";
 import React from "react";
 
-type Props = {};
+function PatientInfoTab() {
 
-function PatientInfoTab({}: Props) {
-  const { query } = useRouter();
 
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
-    variables: {
-      filter: { searchPatient: String(query?.id), status: "Completed" },
-    },
-  });
 
-  const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
-
-  const { patient, serviceType } = appointment || {};
-  const {
-    first_name,
-    last_name,
-    gender,
-    email,
-    date_of_birth,
-    contact_number,
-    country_id,
-    city_id,
-    patientProfile,
-  } = patient || {};
-
-  const { maritalStatus, children, occupation, occupationalExposure, pets } =
-    patientProfile || {};
-
-  const [{ data: country }] = useGetCountryByIdQuery({
-    variables: {
-      id: country_id!,
-    },
-  });
-
-  const { country_name } = country?.country || {};
-
-  const [{ data: city }] = useGetCityByIdQuery({
-    variables: {
-      id: city_id!,
-    },
-  });
-
-  const { city_name } = city?.city || {};
+const data={
+  id:"1",
+  bookingDate:"20-2-2021",
+  patient:"usama",
+  physician:"jordan",
+  service:"consultation",
+  dueDate:"20-2-2021",
+  time:"2am",
+  totalAmount:"22020202",
+  appointmentStatus:"confirmed",
+  paymentStatus:"paid",
+}
 
   return (
     <CardWithProfileImageInfo
-      name={`${patient?.first_name} ${patient?.last_name}`}
-      serviceName={serviceType?.name}
+      name="usama"
+      serviceName="consultation"
     >
       <div className="max-w-[800px]">
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="first Name" value={first_name} />
-          <LabelWithTextDiv label="Last Name" value={last_name} />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Gender" value={gender} />
-          <LabelWithTextDiv
-            label="Date of birth"
-            value={date?.formatMMMMDDYYYY(date_of_birth)}
-          />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Email Address" value={email} />
-          <LabelWithTextDiv label="Cell Number" value={contact_number} />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Country" value={country_name} />
-          <LabelWithTextDiv label="City" value={city_name} />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Material Status" value={maritalStatus} />
-          <LabelWithTextDiv
-            label="Do you have any Children?"
-            value={children}
-          />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv
-            label="What is your Occupation?"
-            value={occupation}
-          />
-          <LabelWithTextDiv
-            label="Do you have any Occupational Exposure?"
-            value={occupationalExposure}
-          />
-        </div>
-        <div className="flex gap-2">
-          <LabelWithTextDiv label="Do you have any pets?" value={pets} />
-          <div className="w-full" />
-        </div>
+        <AdminAppointmentInfo data={data}/>
       </div>
     </CardWithProfileImageInfo>
   );

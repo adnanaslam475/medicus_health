@@ -1,7 +1,7 @@
-import CancelledAppointments from "../../../src/modules/admin/pages/appointments/CancelledAppointment/CancelledAppointment";
+import PatientCancelledAppointments from "../../../src/modules/admin/pages/appointments/CancelledAppointment/CancelledAppointment";
 
-function CancelledAppointment() {
-  return <CancelledAppointments />;
+function patientCancelledAppointment() {
+  return <PatientCancelledAppointments />;
 }
 
-export default CancelledAppointment;
+export default patientCancelledAppointment;
