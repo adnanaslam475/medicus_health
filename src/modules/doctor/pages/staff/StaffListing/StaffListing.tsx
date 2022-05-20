@@ -3,6 +3,8 @@ import { Button, Empty, Form, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import {
+  CreateStaffInput,
+  GetStaffFilter,
   UpdateStaffInput,
   useCreateStaffMutation,
   useGetAllStaffByDoctorQuery,
@@ -10,22 +12,28 @@ import {
 } from "generated/graphql";
 import StaffTable from "modules/doctor/components/StaffTable/StaffTable";
 import { getUserData } from "common/utils/userData";
-import { staffFilterType } from "common/types/types";
 import AddStaffModal from "./AddStaffModal";
 import UpcomingAppointmentFilter from "../../appointments/UpcomingAppointmentFilter";
+import StaffAppointmentsFilter from "../../appointments/StaffAppointmentsFilter";
 
 function StaffListing() {
   const [form] = Form.useForm();
-  const [filterValues, setFilterValues] = React.useState<staffFilterType>({});
+  const [filterValues, setFilterValues] = React.useState<GetStaffFilter>({});
   const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
   const [{ fetching }, createStaff] = useCreateStaffMutation();
 
   const { user } = getUserData();
   const id = user?.id;
 
-  const [{ data }, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({});
+  const [{ data }, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
+    variables: {
+      filter: {
+        ...filterValues,
+      },
+    },
+  });
   const { getStaff } = data || {};
-  const onFinish = async (values: UpdateStaffInput) => {
+  const onFinish = async (values: CreateStaffInput) => {
     try {
       const response = await createStaff({
         createStaffInput: {
@@ -34,7 +42,7 @@ function StaffListing() {
           last_name: values?.last_name,
           email: values?.email,
           contact_number: values?.contact_number,
-          doctorId: id as number,
+          doctorId: Number(id),
         },
       });
       if (response?.error) {
@@ -81,7 +89,7 @@ function StaffListing() {
             </Button>
           </div>
           <div className="w-5/6">
-            <UpcomingAppointmentFilter onChange={onChangeFilters} />
+            <StaffAppointmentsFilter onChange={onChangeFilters} />
           </div>
           <div className="w-full">
             {getStaff?.length ? (
