@@ -45,7 +45,7 @@ function AdminAddUser({}: Props) {
     <AppLayout>
       <div className="w-full max-w-[600px]">
         <div className="flex flex-col">
-          <h2 className="mb-4">Add User</h2>
+          <h2 className="mb-4">Edit User</h2>
           <Form
             onFinish={onFinish}
             layout="vertical"

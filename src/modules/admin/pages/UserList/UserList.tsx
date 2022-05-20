@@ -121,7 +121,7 @@ const UserList = (props: Props) => {
         <div>
           <EyeFilled
             onClick={() => {
-              return Router.push(`/admin/user/710`);
+              return Router.push(`/admin/edituser/710`);
             }}
           />
         </div>
