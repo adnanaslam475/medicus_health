@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Controls from "./Controls";
 import Video from "./Video";
-import {
-  config,
-  useClient,
-  useMicrophoneAndCameraTracks,
-  channelName,
-} from "./settings";
+import { config, useClient, useMicrophoneAndCameraTracks } from "./settings";
 
 // scss
 import _classes from "./VideoCall.module.scss";
@@ -76,13 +71,13 @@ function VideoCall() {
           tokenType: "uid",
         },
       });
-      const { rtmAccessToken } = data?.generateRTCToken || {};
+      const { rtcAccessToken } = data?.generateRTCToken || {};
       try {
         await client.join(
           //@ts-ignore
           config.appId,
           name,
-          rtmAccessToken || "",
+          rtcAccessToken || "",
           String(user?.id)
         );
         if (tracks) await client.publish([tracks[0], tracks[1]]);
@@ -100,7 +95,7 @@ function VideoCall() {
         console.log(error);
       }
     }
-  }, [channelName, client, ready, tracks, appointment]);
+  }, [client, ready, tracks, appointment]);
 
   return (
     <div className={`flex flex-col relative ${_classes["video-call"]}`}>
@@ -117,7 +112,7 @@ function VideoCall() {
               />
             )}
           </div>
-          <>{start && tracks && <Video tracks={tracks} users={users} />}</>s
+          <>{start && tracks && <Video tracks={tracks} users={users} />}</>
         </>
       ) : (
         <Result icon={<SmileOutlined />} title="Your Call has ended" />
