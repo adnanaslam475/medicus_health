@@ -276,3 +276,29 @@ mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
     deleted
   }
 }
+
+# add Staff User
+mutation createAdminUser($createAdminInput: CreateStaffInput!) {
+  createStaff(createAdminInput: $createAdminInput) {
+    email
+    contact_number
+    first_name
+    last_name
+    email
+    doctorId
+  }
+}
+
+# mutation {
+#   createAdminUser(
+#     createAdminInput: {
+#       email: "stsafwf@gmsail.com"
+#       first_name: "fStaff"
+#       last_name: "lStaff"
+#     }
+#   ) {
+#     id
+#     role
+#     doctorId
+#   }
+# }
