@@ -23,6 +23,7 @@ const IconsList = [
   <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
   <ChatBubbleIcon className={_classes["sidebar-icon-hover"]} />,
   <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+  <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
 ];
 
 function SidebarMenuItem() {
