@@ -38,6 +38,7 @@ function Physicians() {
                 professional_experience: professionalExperience,
                 year_of_experience: yearOfExperience,
                 condition_treated: conditionTreated,
+                profile_image,
               } = profile || {};
 
               return (
@@ -51,6 +52,7 @@ function Physicians() {
                   professionalExperience={professionalExperience || ""}
                   yearOfExperience={yearOfExperience || 0}
                   conditionTreated={conditionTreated || ""}
+                  profile_image={profile_image}
                 />
               );
             })}

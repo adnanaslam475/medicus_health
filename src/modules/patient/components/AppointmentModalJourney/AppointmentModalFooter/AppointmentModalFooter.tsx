@@ -163,8 +163,8 @@ function AppointmentModalFooter({
       {stepName === "stepOne" && (
         <div className="flex justify-end gap-2">
           <Button
-            type="primary"
-            className={`${_classes["button-border"]}`}
+            danger
+            className="border border-red outline"
             onClick={(e) => {
               onRejectAppointment(e, appointmentId);
             }}

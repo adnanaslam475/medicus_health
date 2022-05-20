@@ -26,9 +26,8 @@ const { RangePicker } = DatePicker;
 type Props = {
   setDataListPhysician: string | any;
   placeholder?: string;
-  setSearchInput?: string | any;
   setDoctorId: number | any;
-  setAppointmentIds: number|any;
+  setAppointmentIds: number | any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
@@ -45,7 +44,6 @@ function SearchFilters(props: Props) {
     setStartDate,
     setSearchPatient,
     isFromPhysician,
-    setSearchInput,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -96,10 +94,9 @@ function SearchFilters(props: Props) {
     setEndDate(null);
     setStartDate(null);
     setOpenDateRange(false);
-    setSearchInput("");
     selectDateRange(null);
     setPatientName("");
-    setSearchPatient(null);
+    setSearchPatient && setSearchPatient(null);
   };
 
   const applyDateRange = () => {
