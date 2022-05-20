@@ -4,26 +4,28 @@ import { Select } from "antd";
 export function SelectStatusTypeFilter({
 	onChange,
 	value,
+  placeHolder,
 }: {
 	onChange: (value: string | undefined) => void;
 	value: string | undefined;
+  placeHolder:string
 }) {
 	// const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
 	// const { appointmentServiceTypes } = serviceTypes || {};
 	return (
 		<Select
-			placeholder="Status"
-			className="w-full sm:w-40"
+			placeholder={placeHolder}
+			className="w-full sm:w-50"
 			onChange={onChange}
-			value={value || "Status"}
+			value={value || "Appointment Status"}
 		>
 			{/* {appointmentServiceTypes?.map(({ id, name }) => (
 				<Option value={id}>{name}</Option>
 			))} */}
-				<Select.Option value="Upcoming">Upcoming</Select.Option>
-				<Select.Option value="Requested">Requested</Select.Option>
-				<Select.Option value="Cancelled">Cancelled</Select.Option>
-				<Select.Option value="Completed">Completed</Select.Option>
+			<Select.Option value="Upcoming">Upcoming</Select.Option>
+			<Select.Option value="Requested">Requested</Select.Option>
+			<Select.Option value="Cancelled">Cancelled</Select.Option>
+			<Select.Option value="Completed">Completed</Select.Option>
 		</Select>
 	);
 }
