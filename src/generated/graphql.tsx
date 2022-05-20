@@ -1138,8 +1138,10 @@ export type UpdateUserInput = {
 export type User = {
   __typename?: 'User';
   appointment?: Maybe<Appointment>;
+  city: City;
   city_id?: Maybe<Scalars['Int']>;
   contact_number?: Maybe<Scalars['String']>;
+  country: Country;
   country_id?: Maybe<Scalars['Int']>;
   createdAt: Scalars['DateTime'];
   date_of_birth?: Maybe<Scalars['DateTime']>;
@@ -1159,6 +1161,7 @@ export type User = {
   patientHealthHistory?: Maybe<PatientHealthHistory>;
   patientProfile?: Maybe<PatientProfile>;
   role?: Maybe<Scalars['String']>;
+  state: State;
   state_id?: Maybe<Scalars['Int']>;
   status: Scalars['Boolean'];
   streetAddress?: Maybe<Scalars['String']>;
@@ -6746,6 +6749,18 @@ export default {
             "args": []
           },
           {
+            "name": "city",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "City",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "city_id",
             "type": {
               "kind": "SCALAR",
@@ -6758,6 +6773,18 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "country",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Country",
+                "ofType": null
+              }
             },
             "args": []
           },
@@ -6950,6 +6977,18 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "state",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "State",
+                "ofType": null
+              }
             },
             "args": []
           },
