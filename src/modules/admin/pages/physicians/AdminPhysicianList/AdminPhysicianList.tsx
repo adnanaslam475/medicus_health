@@ -234,7 +234,7 @@ function AdminPhysicianList() {
         <div>
           <EyeFilled
             onClick={() => {
-              return Router.push(`/admin/account/${value}`);
+              return Router.push(`/admin/physicians/${value}`);
             }}
           />
         </div>
