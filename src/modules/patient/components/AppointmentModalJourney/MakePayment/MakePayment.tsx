@@ -23,17 +23,17 @@ function MakePayment() {
   });
 
   useEffect(() => {
-    setValue(allCardsData?.getAllCards[0].id as number);
+    setValue(allCardsData?.getAllCards[0]?.id as number);
     saveStepTwo?.({
-      cardId: allCardsData?.getAllCards[0].id,
+      cardId: allCardsData?.getAllCards[0]?.id,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allCardsData?.getAllCards]);
 
   return (
     <>
-      <h2 >Make Payment</h2>
-      <Form layout="vertical" className={`${_Classes['payment-form']}`}>
+      <h2>Make Payment</h2>
+      <Form layout="vertical" className={`${_Classes["payment-form"]}`}>
         <div className="mt-8">
           <Radio.Group
             value={value}

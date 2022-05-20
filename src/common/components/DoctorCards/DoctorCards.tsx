@@ -10,6 +10,7 @@ import _classes from "./DoctorCard.module.scss";
 import { date } from "../../utils";
 import { LeftOutlined } from "@ant-design/icons";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
+import MDNextImage from "../MDNextImage/MDNextImage";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -25,7 +26,7 @@ type props = {
   yearOfExperience: number;
   professionalExperience: string;
   conditionTreated: string;
-  profile_image?: string | null | undefined;
+  profile_image?: string | null;
 };
 
 function DoctorCard({
@@ -68,7 +69,15 @@ function DoctorCard({
         <div className="flex-none lg:flex">
           <div className="lg:w-4/6 flex-none sm:flex">
             <div className="docAvatarCover pr-3">
-              <Avatar size={86} src={profile_image} className=""></Avatar>
+              <MDNextImage
+                objectFit="cover"
+                src={profile_image || ""}
+                layout="fixed"
+                width={86}
+                height={86}
+                className=" rounded-full h-[86px] w-[86px] overflow-hidden"
+                fallbackImage="/assets/images/doc-pic.png"
+              />
             </div>
             <div className="lg:pr-5">
               <div className="flex-row md:flex">
