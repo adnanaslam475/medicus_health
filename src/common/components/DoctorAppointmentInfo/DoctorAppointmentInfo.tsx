@@ -35,7 +35,7 @@ import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
-import { FORMATE_D_T_W_AM_PM } from "common/constants/date";
+import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
 
 type Props = {
@@ -445,42 +445,40 @@ function AvailabilityTimeSlots({
   return (
     <div className="block mb-10">
       {/* <TimeSlotPickerForm onChangeDatePicker={onChangeDatePicker} /> */}
-      <div className="mt-3">
-        <Form
-          layout="horizontal"
-          form={form as any}
-          className="flex mt-2 mb-3 border-gray-8 gap-3"
-        >
-          <div className="w-50">
-            <Form.Item label="Start Time" name="start_time">
-              <Space direction="vertical" size={12}>
-                <DatePicker
-                  className="w-full"
-                  showTime
-                  format={FORMATE_D_T_W_AM_PM}
-                  showNow={false}
-                  onChange={(_, date: string) => {
-                    onChangeDatePicker?.(date, "startDate");
-                  }}
-                />
-              </Space>
-            </Form.Item>
-          </div>
-          <div className="w-50">
-            <Form.Item label="End Time" name="end_time">
-              <Space direction="vertical" size={12}>
-                <DatePicker
-                  className="w-full"
-                  showTime
-                  format={FORMATE_D_T_W_AM_PM}
-                  showNow={false}
-                  onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
-                />
-              </Space>
-            </Form.Item>
-          </div>
-        </Form>
-      </div>
+      <Form
+        layout="horizontal"
+        form={form as any}
+        className="flex mt-2 mb-3 border-gray-8 gap-3"
+      >
+        <div className="w-50">
+          <Form.Item label="Start Time" name="start_time">
+            <Space direction="vertical" size={12}>
+              <DatePicker
+                className="w-full"
+                showTime
+                format={FORMAT_D_T_W_AM_PM}
+                showNow={false}
+                onChange={(_, date: string) => {
+                  onChangeDatePicker?.(date, "startDate");
+                }}
+              />
+            </Space>
+          </Form.Item>
+        </div>
+        <div className="w-50">
+          <Form.Item label="End Time" name="end_time">
+            <Space direction="vertical" size={12}>
+              <DatePicker
+                className="w-full"
+                showTime
+                format={FORMAT_D_T_W_AM_PM}
+                showNow={false}
+                onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
+              />
+            </Space>
+          </Form.Item>
+        </div>
+      </Form>
     </div>
   );
 }
