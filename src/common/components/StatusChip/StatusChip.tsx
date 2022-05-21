@@ -6,8 +6,23 @@ import {
 	CONFIRMED,
 	CANCELLED,
 } from "../../constants/status";
+type StatusName =
+	| "UPCOMING"
+	| "COMPLETED"
+	| "PENDING"
+	| "CONFIRMED"
+	| "CANCELLED";
 
-const classesAccordingToType: any = {
+type StatusType<K extends StatusName> = {
+	[k in K]: {
+		background: string;
+		color: string;
+		text: string;
+		border: string;
+	};
+};
+
+const classesAccordingToType: StatusType<StatusName> = {
 	UPCOMING: {
 		background: "bg-gray",
 		color: "text-gray-7",
@@ -16,7 +31,6 @@ const classesAccordingToType: any = {
 	},
 	COMPLETED: {
 		background: "bg-lightBlue",
-		dotBackground: "bg-sky",
 		color: "text-sky",
 		text: COMPLETED,
 		border: "border border-lightBlue",
@@ -35,7 +49,6 @@ const classesAccordingToType: any = {
 	},
 	CANCELLED: {
 		background: "bg-red-1",
-		dotBackground: "bg-red-1",
 		color: "text-red",
 		text: CANCELLED || "Cancelled",
 		border: "border border-red-1",
@@ -43,12 +56,13 @@ const classesAccordingToType: any = {
 };
 
 type Props = {
-	typ: string;
+	typ: StatusName;
 };
 function AimChip(props: Props) {
 	const { typ } = props;
-	const { color, text, background, dotBackground, border } =
-		classesAccordingToType[typ] || {};
+  console.log(typ)
+	const { color, text, background, border } =
+  classesAccordingToType[typ] || {};
 	const blockClass = "w-min";
 	const borderClass = border;
 
