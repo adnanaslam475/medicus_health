@@ -43,8 +43,7 @@ function AppointmentInfo(props: Props) {
         />
         <LabelValueRow
           label="Doctor"
-          // value={`Dr. ${first_name} ${last_name}`}
-          value="nice"
+          value={`Dr. ${first_name} ${last_name}`}
         />
         <LabelValueRow label="Type" value={name} />
         <LabelValueRow
@@ -53,10 +52,9 @@ function AppointmentInfo(props: Props) {
         />
         <LabelValueRow
           label="Time"
-          // value={`${date?.formathhmma(
-          //   timeSlots()?.startTime
-          // )} - ${date?.formathhmma(timeSlots()?.endTime)}`}
-          value="fffff"
+          value={`${date?.formathhmma(
+            timeSlots()?.startTime
+          )} - ${date?.formathhmma(timeSlots()?.endTime)}`}
         />
         <LabelValueRow label="Total Amount" value={price} />
 
@@ -67,8 +65,7 @@ function AppointmentInfo(props: Props) {
               color="#e2f8f7"
               className="ant-typography ant-typography-secondary"
             >
-              {/* {status} */}
-              adasdas
+              {status}
             </Tag>
           </div>
         </li>

@@ -8,7 +8,6 @@ import {
   useGetStatesByCountryQuery,
   User,
 } from "../../../../../../generated/graphql";
-
 // const props = {};
 type Props = {
   userDetail?: User | undefined;
@@ -97,6 +96,13 @@ function PatientProfileFormTab({ userDetail }: { userDetail: any }) {
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv label="Country" value={countryName} />
           <LabelWithTextDiv label="City" value={cityName[0]?.city_name} />
+        </div>
+        <div className="flex flex-col md:flex-row gap-2">
+          <LabelWithTextDiv label="State" value={state} />
+          <LabelWithTextDiv label="Postal Code" value={zip_code} />
+        </div>
+        <div className="flex flex-col md:flex-row gap-2">
+          <LabelWithTextDiv label="Street Address" value={streetAddress} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv label="Marital Status" value={maritalStatus} />

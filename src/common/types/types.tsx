@@ -32,6 +32,16 @@ export type physicianFilterType = {
   };
 };
 
+
+export type cancelledAppointmentFilterType = {
+  searchString?: string;
+  appointmentType?: string;
+  dueDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+
 export type DateType = {
   startDate: string;
   endDate: string;

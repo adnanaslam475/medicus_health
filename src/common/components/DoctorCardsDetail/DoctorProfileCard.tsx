@@ -11,6 +11,7 @@ import _classes from "./DoctorProfileCard.module.scss";
 import { DoctorProfile } from "../../../generated/graphql";
 import { date } from "../../utils";
 import { sorter } from "utils/helper";
+import MDNextImage from "../MDNextImage/MDNextImage";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -52,12 +53,14 @@ function DoctorProfileCard(props: Props) {
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
             <div className="rounded-full flex items-center justify-center overflow-hidden">
-              <Image
-                alt={language || "flag"}
-                width={200}
-                height={200}
-                src="/assets/images/doc-pic-big.png"
-                className=""
+              <MDNextImage
+                objectFit="cover"
+                src={doctorData?.profile_image || ""}
+                layout="fixed"
+                width={86}
+                height={86}
+                className=" rounded-full h-[86px] w-[86px] overflow-hidden"
+                fallbackImage="/assets/images/doc-pic.png"
               />
             </div>
           </div>
@@ -144,10 +147,16 @@ function DoctorProfileCard(props: Props) {
                 <span className="ml-2">Request an Appointment</span>
               </Button>
               <div className="flex-none sm:flex">
-                <Button className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3" onClick={() => Router.push("/admin/messages")}>
+                <Button
+                  className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3"
+                  onClick={() => Router.push("/admin/messages")}
+                >
                   <span className="hidden">Message Admin</span>
                 </Button>
-                <Button className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3" onClick={() => Router.push("/physician/messages")}>
+                <Button
+                  className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
+                  onClick={() => Router.push("/physician/messages")}
+                >
                   <span className="hidden">Message Physician</span>
                 </Button>
               </div>

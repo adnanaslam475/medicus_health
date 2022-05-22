@@ -18,7 +18,6 @@ function RequestedAppointment() {
   const [status, setStatus] = useState<string>("Requested");
   const [searchPatient, setSearchPatient] = useState<string>();
 
-
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
@@ -31,7 +30,7 @@ function RequestedAppointment() {
           startDate: dueStartDate,
           endDate: dueEndDate,
         },
-        searchPatient:searchPatient
+        searchString: searchPatient,
       },
     },
   });

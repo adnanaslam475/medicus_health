@@ -17,7 +17,7 @@ function PatientInfoTab({}: Props) {
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { searchPatient: String(query?.id), status: "Completed" },
+      filter: { searchString: String(query?.id), status: "Completed" },
     },
   });
 
@@ -82,7 +82,7 @@ function PatientInfoTab({}: Props) {
           <LabelWithTextDiv label="City" value={city_name} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Material Status" value={maritalStatus} />
+          <LabelWithTextDiv label="Marital Status" value={maritalStatus} />
           <LabelWithTextDiv
             label="Do you have any Children?"
             value={children}

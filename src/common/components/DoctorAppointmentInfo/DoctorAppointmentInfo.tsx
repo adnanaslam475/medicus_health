@@ -35,7 +35,8 @@ import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
-import moment from "moment";
+import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
+import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
 
 type Props = {
   data: Appointment | undefined;
@@ -91,7 +92,6 @@ function DoctorAppointmentInfo({ data }: Props) {
       }
     } catch (error) {}
   }
-
   return (
     <div className="max-w-[700px]">
       <div>
@@ -112,8 +112,10 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText
           label="Time"
           text={
-            appointmentSchedule?.startTime
-              ? `${appointmentSchedule?.startTime} - ${appointmentSchedule?.endTime}`
+            timeSlots()?.startTime
+              ? `${date?.formathhmma(
+                  timeSlots()?.startTime
+                )} - ${date?.formathhmma(timeSlots()?.endTime)}`
               : "--"
           }
         />
@@ -127,6 +129,12 @@ function DoctorAppointmentInfo({ data }: Props) {
         )}
 
         {status === "Requested" && (
+          <LabelWithText
+            label="Total Amount"
+            text={charges && `$ ${charges}`}
+          />
+        )}
+        {status === "Cancelled" && (
           <LabelWithText
             label="Total Amount"
             text={charges && `$ ${charges}`}
@@ -401,7 +409,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               </div>
             ))}
           </div>
-          {/* Availability Time Slots Ends */}
+          {/* Availability Time Slots Ends*/}
           <div className="text-primary flex">
             <Button
               onClick={addTimeSlot}
@@ -416,8 +424,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <Button
               className={`${_classes["appointments-btn"]}`}
               onClick={onProposeNewTimeSlot}
+              type="primary"
             >
-              Propose Time
+              Submit
             </Button>
           </div>
         </Form>
@@ -433,9 +442,9 @@ function AvailabilityTimeSlots({
   form: FormInstance<any>;
   onChangeDatePicker?: (dateString: string, name: string) => void;
 }) {
-  const format = "YYYY-MM-DD hh:mm A";
   return (
     <div className="block mb-10">
+      {/* <TimeSlotPickerForm onChangeDatePicker={onChangeDatePicker} /> */}
       <Form
         layout="horizontal"
         form={form as any}
@@ -447,8 +456,7 @@ function AvailabilityTimeSlots({
               <DatePicker
                 className="w-full"
                 showTime
-                defaultValue={moment("12:08", format)}
-                format={format}
+                format={FORMAT_D_T_W_AM_PM}
                 showNow={false}
                 onChange={(_, date: string) => {
                   onChangeDatePicker?.(date, "startDate");
@@ -463,8 +471,7 @@ function AvailabilityTimeSlots({
               <DatePicker
                 className="w-full"
                 showTime
-                defaultValue={moment("12:08", format)}
-                format={format}
+                format={FORMAT_D_T_W_AM_PM}
                 showNow={false}
                 onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
               />

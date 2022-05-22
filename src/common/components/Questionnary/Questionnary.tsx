@@ -18,6 +18,7 @@ interface HealthQuesType {
   handleBackChange?: (value: any) => void;
   isLoading?: boolean;
   disable?: boolean;
+  signupError?: string | undefined;
 }
 
 const HealthQuestionnary = ({
@@ -28,6 +29,7 @@ const HealthQuestionnary = ({
   skipHealthQues,
   isLoading,
   disable,
+  signupError,
 }: HealthQuesType) => {
   const [terms, setTerms] = useState(false);
   const form: any = useRef();
@@ -51,7 +53,7 @@ const HealthQuestionnary = ({
         onFinishSuccess={onFinishSuccess}
         onFinishedFailed={onFinishedFailed}
       />
-
+      <div className="flex justify-center items-center text-red">{signupError}</div>
       <div className="flex justify-between items-center">
         {!isUpdateMode && disable && (
           <Checkbox
@@ -241,7 +243,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
     setShowSurgicalOthers(checkedValue.includes("Others"));
   }
-
   return (
     <Form
       initialValues={{

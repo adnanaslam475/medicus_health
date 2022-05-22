@@ -88,12 +88,13 @@ function CancelledAppointmentTable({ dataSource }: Props) {
     {
       dataIndex: "id",
       className: "table-action-icon",
+      key: "id",
       render: (appointmentId: number) => (
         <div>
           <EyeFilled
             onClick={() => {
               return Router.push(
-                `/doctor/appointments/cancelled/${appointmentId}`
+                `/physician/appointments/cancelled/${appointmentId}`
               );
             }}
           />

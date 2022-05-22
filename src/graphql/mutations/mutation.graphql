@@ -255,16 +255,6 @@ mutation cancelAppointmentByDoctor($id: Int!) {
   }
 }
 
-# video call
-
-mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
-  generateRTCToken(generateRTCTokenInput: $generateRTCTokenInput) {
-    rtmAccessToken
-    channelName
-    privilegeExpireTime
-  }
-}
-
 # UPDATE USER MUTATION
 mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
   updateStaff(id: $id, updateStaffInput: $updateStaffInput) {
@@ -274,5 +264,25 @@ mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
     contact_number
     doctorId
     deleted
+  }
+}
+
+# create admin User
+mutation createAdmin($createAdminInput: CreateAdminInput!) {
+  createAdminUser(createAdminInput: $createAdminInput) {
+    email
+    first_name
+    last_name
+  }
+}
+
+# update admin User
+mutation updateAdmin($id: Int!, $updateAdminUserInput: UpdateAdminUserInput!) {
+  updateAdminUser(id: $id, updateAdminUserInput: $updateAdminUserInput) {
+    first_name
+    last_name
+    email
+    password
+    status
   }
 }

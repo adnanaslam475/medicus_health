@@ -98,6 +98,7 @@ query doctorProfiles {
     professional_experience
     language
     about_me
+    profile_image
     user {
       id
       first_name
@@ -529,8 +530,8 @@ query getDoctorEarnings($id: Int!) {
 }
 
 # get staff listing
-query getAllStaffByDoctor {
-  staff {
+query getAllStaffByDoctor($filter: GetStaffFilter!) {
+  getStaff(filter: $filter) {
     id
     role
     email
@@ -549,5 +550,16 @@ query getStaffDetailsUrlById($id: Int!) {
     last_name
     email
     contact_number
+  }
+}
+
+query getAdminUsers($filter: GetAdminUsersFilterInput!){
+  adminUsers(filter:$filter){
+    id
+    first_name
+    last_name
+    email
+    createdAt
+    status
   }
 }
