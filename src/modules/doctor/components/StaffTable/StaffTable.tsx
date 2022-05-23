@@ -45,13 +45,13 @@ function StaffTable({ dataSource }: Props) {
     },
     {
       title: "Contact Number",
-      dataIndex: "requestedDate",
+      dataIndex: "contact_number",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
       },
       render: (value: string) => {
-        return <div>{date?.formatMMMMDDYYYY(value)}</div>;
+        return <div>{value}</div>;
       },
     },
     {
