@@ -6,6 +6,7 @@ import {
   DoctorProfile,
   useCreateDoctorScheduleMutation,
   useDoctorProfileQuery,
+  useGetUserQuery,
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../../../generated/graphql";
@@ -32,7 +33,7 @@ function AccountsProfile() {
   const id = user?.id;
 
   const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
-    variables: { doctorId: Number(id) },
+    variables: { doctorId: id as number },
   });
   const schedules = doctorSchedules?.data?.doctorSchedules;
 
@@ -66,10 +67,12 @@ function AccountsProfile() {
   const [{ data }] = useDoctorProfileQuery({
     variables: { doctor_id: id as number },
   });
-
   const { doctorProfile } = data || {};
 
-  console.log(doctorProfile, "doctorProfile");
+  //Get User Data By Id
+  const [{ data: userData }] = useGetUserQuery({
+    variables: { input: id as number },
+  });
 
   return (
     <div>
@@ -83,7 +86,8 @@ function AccountsProfile() {
           setAddScheduleTime={setAddScheduleTime}
           // setAddScheduleClick={setAddScheduleClick}
           doctorId={String(id)}
-          doctorData={doctorProfile}
+          doctorData={userData}
+          // doctorData={doctorProfile}
           edit={editData}
           addScheduleTime={addScheduleTime}
           onAddClick={onAddClick}
@@ -95,7 +99,7 @@ function AccountsProfile() {
           // showLoginInfo
           schedules={schedules}
           doctorId={String(id)}
-          doctorData={doctorProfile}
+          doctorData={userData}
         />
       )}
     </div>
