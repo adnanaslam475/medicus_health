@@ -205,8 +205,10 @@ function EditProfile({
 
   const onFinish = async (values: any) => {
     try {
-      updateDoctorProfile(values);
-      setIsEdit(false);
+      if (!!schedules?.length) {
+        updateDoctorProfile(values);
+        setIsEdit(false);
+      }
     } catch (error) {
       setIsEdit(true);
     }
@@ -423,6 +425,13 @@ function EditProfile({
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
               />
+              {!!schedules?.length ? (
+                ""
+              ) : (
+                <div className="text-red mt-2 text-center">
+                  Please input at least one schedule
+                </div>
+              )}
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
                 <div className="border-b border-gray-4 my-3">
