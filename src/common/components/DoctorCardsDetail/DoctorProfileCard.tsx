@@ -55,7 +55,7 @@ function DoctorProfileCard(props: Props) {
           <div className="docAvatarCover pr-3">
             <div className="rounded-full flex items-center justify-center overflow-hidden">
               {loading ? (
-                <span style={{ width: "86px" }}></span>
+                <span className={`${_classes["emptyImgContainer"]}`}></span>
               ) : (
                 <MDNextImage
                   objectFit="cover"
