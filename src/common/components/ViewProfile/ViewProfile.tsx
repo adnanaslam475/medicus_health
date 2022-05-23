@@ -48,6 +48,8 @@ export const ViewProfile = React.forwardRef(function Profile({
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const {
+    specialization,
+    year_of_experience,
     profile_image: userProfileImage,
     about_me,
     educational_background,
@@ -71,10 +73,11 @@ export const ViewProfile = React.forwardRef(function Profile({
   }, [doctorData]);
 
   function prepareAndSetEditPayload() {
-   
     formInstance.setFieldsValue({
       firstName: first_name,
       lastName: last_name,
+      specialization: specialization,
+      year_of_experience: year_of_experience,
       contact: contact_number,
       email: email,
       password: "",
@@ -107,6 +110,8 @@ export const ViewProfile = React.forwardRef(function Profile({
           doctor_id: Number(doctorId),
           first_name: values?.firstName,
           last_name: values?.lastName,
+          specialization: values?.specialization,
+          year_of_experience: values?.year_of_experience,
           email: values?.email,
           password: values?.password,
           profile_image: image ? image : userProfileImage,
