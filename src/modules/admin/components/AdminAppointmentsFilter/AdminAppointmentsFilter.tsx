@@ -76,89 +76,89 @@ function AdminAppointmentFilter({ onChange }: Props) {
 						/>
 					</div>
 				</div>
-				<div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
-					<FilterRangePicker
-						onChange={(dateString: string[]) =>
-							onChangeFields("bookingDate", {
-								startDate: dateString[0],
-								endDate: dateString[1],
-							})
-						}
-						open={openDateRange}
-						onOpen={() => setOpenDateRange?.(!openDateRange)}
-						onCancel={() => setOpenDateRange(false)}
-						onApply={applyDateRange}
-						title={
-							filterState.bookingDate?.startDate && (
-								<div>
-									{filterState.bookingDate
-										? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-										: "Creation Date"}
-								</div>
-							)
-						}
-						heading="Booking Date"
-					/>
-				</div>
-				<div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
-					<FilterRangePicker
-						onChange={(dateString: string[]) =>
-							onChangeFields("bookingDate", {
-								startDate: dateString[0],
-								endDate: dateString[1],
-							})
-						}
-						open={openDateRange}
-						onOpen={() => setOpenDateRange?.(!openDateRange)}
-						onCancel={() => setOpenDateRange(false)}
-						onApply={applyDateRange}
-						title={
-							filterState.bookingDate?.startDate && (
-								<div>
-									{filterState.bookingDate
-										? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-										: "Creation Date"}
-								</div>
-							)
-						}
-						heading="Confirmation Date"
-					/>
-				</div>
-				<div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
-					<FilterRangePicker
-						onChange={(dateString: string[]) =>
-							onChangeFields("bookingDate", {
-								startDate: dateString[0],
-								endDate: dateString[1],
-							})
-						}
-						open={openDateRange}
-						onOpen={() => setOpenDateRange?.(!openDateRange)}
-						onCancel={() => setOpenDateRange(false)}
-						onApply={applyDateRange}
-						title={
-							filterState.bookingDate?.startDate && (
-								<div>
-									{filterState.bookingDate
-										? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-										: "Creation Date"}
-								</div>
-							)
-						}
-						heading="Scheduled Date"
-					/>
-				</div>
-
+        <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
+				<FilterRangePicker
+					onChange={(dateString: string[]) =>
+						onChangeFields("bookingDate", {
+							startDate: dateString[0],
+							endDate: dateString[1],
+						})
+					}
+					open={openDateRange}
+					onOpen={() => setOpenDateRange?.(!openDateRange)}
+					onCancel={() => setOpenDateRange(false)}
+					onApply={applyDateRange}
+					title={
+						filterState.bookingDate?.startDate && (
+							<div>
+								{filterState.bookingDate
+									? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
+									: "Creation Date"}
+							</div>
+						)
+					}
+					heading="Booking Date"
+				/>
+        </div>
+        <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
+				<FilterRangePicker
+					onChange={(dateString: string[]) =>
+						onChangeFields("bookingDate", {
+							startDate: dateString[0],
+							endDate: dateString[1],
+						})
+					}
+					open={openDateRange}
+					onOpen={() => setOpenDateRange?.(!openDateRange)}
+					onCancel={() => setOpenDateRange(false)}
+					onApply={applyDateRange}
+					title={
+						filterState.bookingDate?.startDate && (
+							<div>
+								{filterState.bookingDate
+									? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
+									: "Creation Date"}
+							</div>
+						)
+					}
+					heading="Confirmation Date"
+				/>
+        </div>
+        <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
+				<FilterRangePicker
+					onChange={(dateString: string[]) =>
+						onChangeFields("bookingDate", {
+							startDate: dateString[0],
+							endDate: dateString[1],
+						})
+					}
+					open={openDateRange}
+					onOpen={() => setOpenDateRange?.(!openDateRange)}
+					onCancel={() => setOpenDateRange(false)}
+					onApply={applyDateRange}
+					title={
+						filterState.bookingDate?.startDate && (
+							<div>
+								{filterState.bookingDate
+									? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
+									: "Creation Date"}
+							</div>
+						)
+					}
+					heading="Scheduled Date"
+				/>
+        </div>
+        
 				<div className="lg:ml-3 sm:mt-0">
-					<SelectCountryTypeFilter
-						
+					<SelectStatusTypeFilter
+						placeHolder="Appointment Status"
 						onChange={(value) =>
 							onChangeFields("appointmentType", value as string)
 						}
 						value={filterState.appointmentType}
 					/>
 				</div>
-				<div className="lg:ml-3 sm:mt-0">
+        <div className="lg:ml-3 sm:mt-0">
 					<Select placeholder="Payment Status" className="w-full sm:w-50">
 						<Select.Option value="paid">PAID</Select.Option>
 						<Select.Option value="unpaid">UNPAID</Select.Option>

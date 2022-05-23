@@ -97,12 +97,14 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 				</div>
 				<div className="lg:ml-3 sm:mt-0">
 					<SelectStatusTypeFilter
+						placeHolder="Status"
 						onChange={(value) =>
 							onChangeFields("appointmentType", value as string)
 						}
 						value={filterState.appointmentType}
 					/>
 				</div>
+
 				<FilterClearButton onClear={clear} />
 			</div>
 		</div>
