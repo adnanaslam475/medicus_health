@@ -3,7 +3,11 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import { Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
-import { PatientProfile, usePhysiciansPatientsQuery } from "generated/graphql";
+import {
+  Country,
+  PatientProfile,
+  usePhysiciansPatientsQuery,
+} from "generated/graphql";
 import Image from "next/image";
 import OnlySearchFilters from "common/components/OnlySearchFilters/OnlySearchFilters";
 
@@ -71,11 +75,11 @@ function PatientList() {
       key: "contact_number",
     },
     {
-      title: "Address",
-      dataIndex: "streetAddress",
-      key: "streetAddress",
-      render: (streetAddress: string) => {
-        return <div className="pr-2">{streetAddress}</div>;
+      title: "Country",
+      dataIndex: "country",
+      key: "country",
+      render: (country: Country) => {
+        return <div className="pr-2">{country?.country_name}</div>;
       },
     },
     {

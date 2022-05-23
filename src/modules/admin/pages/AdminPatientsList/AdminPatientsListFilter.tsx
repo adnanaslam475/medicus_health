@@ -7,17 +7,19 @@ import {
 } from "@ant-design/icons";
 import { physicianFilterType } from "common/types/types";
 import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
-import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
-import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter/SelectStatusTypeFilter";
+import { SelectCountryTypeFilter } from "common/components/SelectCountryTypeFilter/SelectCountryTypeFilter";
+import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter copy/SelectStateTypeFilter";
 
 const { Option } = Select;
+
+const { RangePicker } = DatePicker;
 
 type Props = {
 	onChange: (value: physicianFilterType) => void;
 };
-function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
+function AdminPatientsListFilter({ onChange }: Props) {
 	const [filterState, setFilterState] = useState<physicianFilterType>({});
 
 	function clear() {
@@ -51,64 +53,42 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 	}
 
 	return (
-		<div className="page-filters flex-none lg:flex items-center">
-			<div className="flex items-center sm:flex  lg:mb-0">
-				<div className="w-full sm:w-full md:w-full lg:w-70">
+		<div className="page-filters flex-none lg:flex items-center py-3">
+			<div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
+				<div className="w-full sm:w-full md:w-full lg:w-96">
 					<Input
 						value={filterState.searchString}
-						placeholder="Search by ID or patient name"
+						placeholder="Search by ID or name or email address"
 						prefix={<SearchOutlined />}
 						onChange={(e) => {
 							onChangeFields("searchString", e.target.value);
 						}}
 					/>
 				</div>
-				<FilterRangePicker
-					onChange={(dateString: string[]) =>
-						onChangeFields("bookingDate", {
-							startDate: dateString[0],
-							endDate: dateString[1],
-						})
-					}
-					open={openDateRange}
-					onOpen={() => setOpenDateRange?.(!openDateRange)}
-					onCancel={() => setOpenDateRange(false)}
-					onApply={applyDateRange}
-					heading="Appointment Date"
-					title={
-						filterState.bookingDate?.startDate && (
-							<div>
-								{filterState.bookingDate
-									? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-									: "Creation Date"}
-							</div>
-						)
-					}
-				/>
+		
 			</div>
 			<div className="flex-none sm:flex">
-				<div className="lg:ml-3 sm:mt-0">
-					<SelectServiceTypeFilter
+				<div className="lg:ml-3 mt-3 sm:mt-0">
+					<SelectCountryTypeFilter
 						onChange={(value) =>
 							onChangeFields("appointmentType", value as string)
 						}
 						value={filterState.appointmentType}
 					/>
 				</div>
-				<div className="lg:ml-3 sm:mt-0">
-					<SelectStatusTypeFilter
-						placeHolder="Status"
+        <div className="lg:ml-3 mt-3 sm:mt-0">
+					<SelectStateTypeFilter
 						onChange={(value) =>
 							onChangeFields("appointmentType", value as string)
 						}
 						value={filterState.appointmentType}
 					/>
 				</div>
-
+        
 				<FilterClearButton onClear={clear} />
 			</div>
 		</div>
 	);
 }
 
-export default AdminPhysicianPatientAppointmentSearchFilters;
+export default AdminPatientsListFilter;
