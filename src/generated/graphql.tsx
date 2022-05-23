@@ -1440,6 +1440,13 @@ export type UpdateAdminMutationVariables = Exact<{
 
 export type UpdateAdminMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', first_name: string, last_name: string, email: string, password?: string | null, status: boolean } };
 
+export type EnableOrDisablePatientMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type EnableOrDisablePatientMutation = { __typename?: 'Mutation', enableOrDisablePatient: { __typename?: 'User', id: number, status: boolean } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -2142,6 +2149,18 @@ export const UpdateAdminDocument = gql`
 
 export function useUpdateAdminMutation() {
   return Urql.useMutation<UpdateAdminMutation, UpdateAdminMutationVariables>(UpdateAdminDocument);
+};
+export const EnableOrDisablePatientDocument = gql`
+    mutation enableOrDisablePatient($id: Int!) {
+  enableOrDisablePatient(id: $id) {
+    id
+    status
+  }
+}
+    `;
+
+export function useEnableOrDisablePatientMutation() {
+  return Urql.useMutation<EnableOrDisablePatientMutation, EnableOrDisablePatientMutationVariables>(EnableOrDisablePatientDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {

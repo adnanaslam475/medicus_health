@@ -286,3 +286,11 @@ mutation updateAdmin($id: Int!, $updateAdminUserInput: UpdateAdminUserInput!) {
     status
   }
 }
+
+#ENABLE OR DISABLE DOCTOR
+mutation enableOrDisablePatient($id: Int!) {
+  enableOrDisablePatient(id: $id) {
+    id
+    status
+  }
+}
