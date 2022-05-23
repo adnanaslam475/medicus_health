@@ -27,7 +27,7 @@ stages:
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: "17.x"
+              versionSpec: "17.4.0"
             displayName: "Install Node.js"
             
           - script: npm -g install yarn
@@ -68,7 +68,8 @@ stages:
             displayName: "Publish SonarQube Analysis"
             inputs:
               pollingTimeoutSec: "300"
-          - script: npm run build
+
+          - script: yarn build
             displayName: "Build Package"
 
       - job: package
