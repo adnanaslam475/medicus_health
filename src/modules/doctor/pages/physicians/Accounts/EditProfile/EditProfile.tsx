@@ -425,9 +425,7 @@ function EditProfile({
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
               />
-              {!!schedules?.length ? (
-                ""
-              ) : (
+              {!(!!schedules?.length) && (
                 <div className="text-red mt-2 text-center">
                   Please input at least one schedule
                 </div>
