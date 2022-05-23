@@ -36,7 +36,7 @@ import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
-import { FORMATE_D_T_W_AM_PM } from "common/constants/date";
+import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 
 type Props = {
   data:{

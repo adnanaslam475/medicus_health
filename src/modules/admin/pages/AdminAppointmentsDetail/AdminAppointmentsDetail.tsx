@@ -14,9 +14,9 @@ function PhysicianAppointmentHistoryDetail() {
   const { query } = useRouter();
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
-    variables: {
-      filter: { searchPatient: String(query?.id), status: "Completed" },
-    },
+    // variables: {
+    //   filter: { searchPatient: String(query?.id), status: "Completed" },
+    // },
   });
   const { appointments } = data || {};
   const appointment = appointments && appointments[0];
