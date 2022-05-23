@@ -10,15 +10,14 @@ import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
+import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter/SelectStatusTypeFilter";
 
 const { Option } = Select;
-
-const { RangePicker } = DatePicker;
 
 type Props = {
 	onChange: (value: physicianFilterType) => void;
 };
-function UpcomingAppointmentFilter({ onChange }: Props) {
+function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 	const [filterState, setFilterState] = useState<physicianFilterType>({});
 
 	function clear() {
@@ -52,9 +51,9 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 	}
 
 	return (
-		<div className="page-filters flex-none lg:flex items-center mb-5">
-			<div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
-				<div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
+		<div className="page-filters flex-none lg:flex items-center">
+			<div className="flex items-center sm:flex  lg:mb-0">
+				<div className="w-full sm:w-full md:w-full lg:w-70">
 					<Input
 						value={filterState.searchString}
 						placeholder="Search by ID or patient name"
@@ -75,6 +74,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 					onOpen={() => setOpenDateRange?.(!openDateRange)}
 					onCancel={() => setOpenDateRange(false)}
 					onApply={applyDateRange}
+					heading="Appointment Date"
 					title={
 						filterState.bookingDate?.startDate && (
 							<div>
@@ -84,12 +84,19 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 							</div>
 						)
 					}
-					heading="Creation Date"
 				/>
 			</div>
 			<div className="flex-none sm:flex">
-				<div className="lg:ml-3 mt-3 sm:mt-0">
+				<div className="lg:ml-3 sm:mt-0">
 					<SelectServiceTypeFilter
+						onChange={(value) =>
+							onChangeFields("appointmentType", value as string)
+						}
+						value={filterState.appointmentType}
+					/>
+				</div>
+				<div className="lg:ml-3 sm:mt-0">
+					<SelectStatusTypeFilter
 						onChange={(value) =>
 							onChangeFields("appointmentType", value as string)
 						}
@@ -102,5 +109,4 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 	);
 }
 
-export default UpcomingAppointmentFilter;
-
+export default AdminPhysicianPatientAppointmentSearchFilters;

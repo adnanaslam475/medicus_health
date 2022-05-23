@@ -2,7 +2,7 @@ import React from "react";
 import { Empty } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import Table from "./CancelledAppointmentTable";
-import UpcomingAppointmentFilter from "modules/doctor/pages/appointments/UpcomingAppointmentFilter";
+import CanncelledAppointmentFilter from "modules/doctor/pages/appointments/CancelAppointmentFilter";
 import {
   Appointment,
   useGetAllRequestedAppointmentsQuery,
@@ -44,7 +44,7 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
           </div>
         </div>
         <div className="w-5/6">
-          <UpcomingAppointmentFilter onChange={onChangeFilters} />
+          <CanncelledAppointmentFilter onChange={onChangeFilters} />
         </div>
         <div className="w-full">
           {appointments?.length !== 0 && appointments ? (

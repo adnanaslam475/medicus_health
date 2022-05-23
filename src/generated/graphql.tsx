@@ -24,6 +24,11 @@ export type AccountCreatiionDate = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type AccountCreationDate = {
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+};
+
 export type Appointment = {
   __typename?: 'Appointment';
   appointmentHealthHistory?: Maybe<AppointmentHealthHistory>;
@@ -396,7 +401,7 @@ export type GetAppointmentInput = {
   patientId?: InputMaybe<Scalars['Int']>;
   paymentStatus?: InputMaybe<Scalars['String']>;
   physicianName?: InputMaybe<Scalars['String']>;
-  searchPatient?: InputMaybe<Scalars['String']>;
+  searchString?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
 };
@@ -431,6 +436,14 @@ export type GetPhysiciansPatientsInput = {
   searchField?: InputMaybe<Scalars['String']>;
 };
 
+export type GetStaffFilter = {
+  CreationDate?: InputMaybe<AccountCreationDate>;
+  searchString?: InputMaybe<Scalars['String']>;
+  service?: InputMaybe<Scalars['String']>;
+  staffId?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+};
+
 export type GetTransectionInput = {
   DateRange?: InputMaybe<DateRange>;
   appointmentId?: InputMaybe<Scalars['Int']>;
@@ -446,9 +459,8 @@ export type GetUserFilter = {
   city?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
   emailAddress?: InputMaybe<Scalars['String']>;
-  patientFirstName?: InputMaybe<Scalars['String']>;
   patientId?: InputMaybe<Scalars['Int']>;
-  patientLastName?: InputMaybe<Scalars['String']>;
+  searchString?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<Scalars['String']>;
   streetAddress?: InputMaybe<Scalars['String']>;
   zipCode?: InputMaybe<Scalars['Int']>;
@@ -831,6 +843,7 @@ export type Query = {
   getDoctorEarnings: DoctorEarningsResponse;
   getPatients: Array<User>;
   getPhysicians: Array<User>;
+  getStaff: Array<User>;
   getStatesByCountry: Array<State>;
   getTransectionFilter: Array<Transaction>;
   getUserFilter: Array<UserResponse>;
@@ -838,7 +851,6 @@ export type Query = {
   patientHealthHistorys: Array<PatientHealthHistory>;
   physicianAppointments: Array<Appointment>;
   physiciansPatients: Array<User>;
-  staff: Array<User>;
   staffDetail: User;
   state: State;
   states: Array<State>;
@@ -955,6 +967,11 @@ export type QueryGetPhysiciansArgs = {
 };
 
 
+export type QueryGetStaffArgs = {
+  filter: GetStaffFilter;
+};
+
+
 export type QueryGetStatesByCountryArgs = {
   country_id: Scalars['Int'];
 };
@@ -1013,6 +1030,7 @@ export type RtcTokenResponse = {
   __typename?: 'RtcTokenResponse';
   channelName: Scalars['String'];
   privilegeExpireTime: Scalars['String'];
+  rtcAccessToken: Scalars['String'];
   rtmAccessToken: Scalars['String'];
 };
 
@@ -1120,8 +1138,10 @@ export type UpdateUserInput = {
 export type User = {
   __typename?: 'User';
   appointment?: Maybe<Appointment>;
+  city: City;
   city_id?: Maybe<Scalars['Int']>;
   contact_number?: Maybe<Scalars['String']>;
+  country: Country;
   country_id?: Maybe<Scalars['Int']>;
   createdAt: Scalars['DateTime'];
   date_of_birth?: Maybe<Scalars['DateTime']>;
@@ -1141,6 +1161,7 @@ export type User = {
   patientHealthHistory?: Maybe<PatientHealthHistory>;
   patientProfile?: Maybe<PatientProfile>;
   role?: Maybe<Scalars['String']>;
+  state: State;
   state_id?: Maybe<Scalars['Int']>;
   status: Scalars['Boolean'];
   streetAddress?: Maybe<Scalars['String']>;
@@ -1202,6 +1223,13 @@ export type UserResponse = {
   streetAddress?: Maybe<Scalars['String']>;
   zip_code: Scalars['String'];
 };
+
+export type GenerateRtcTokenMutationVariables = Exact<{
+  generateRTCTokenInput: GenerateRtcTokenInput;
+}>;
+
+
+export type GenerateRtcTokenMutation = { __typename?: 'Mutation', generateRTCToken: { __typename?: 'RtcTokenResponse', rtmAccessToken: string, rtcAccessToken: string, channelName: string, privilegeExpireTime: string } };
 
 export type CreateDoctorScheduleMutationVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -1389,13 +1417,6 @@ export type CancelAppointmentByDoctorMutationVariables = Exact<{
 
 export type CancelAppointmentByDoctorMutation = { __typename?: 'Mutation', cancelAppointment: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, scheduleId: number } };
 
-export type GenerateRtcTokenMutationVariables = Exact<{
-  generateRTCTokenInput: GenerateRtcTokenInput;
-}>;
-
-
-export type GenerateRtcTokenMutation = { __typename?: 'Mutation', generateRTCToken: { __typename?: 'RtcTokenResponse', rtmAccessToken: string, channelName: string, privilegeExpireTime: string } };
-
 export type UpdateStaffProfileMutationVariables = Exact<{
   id: Scalars['Int'];
   updateStaffInput: UpdateStaffInput;
@@ -1403,6 +1424,21 @@ export type UpdateStaffProfileMutationVariables = Exact<{
 
 
 export type UpdateStaffProfileMutation = { __typename?: 'Mutation', updateStaff: { __typename?: 'User', first_name: string, last_name: string, email: string, contact_number?: string | null, doctorId?: number | null, deleted: boolean } };
+
+export type CreateAdminMutationVariables = Exact<{
+  createAdminInput: CreateAdminInput;
+}>;
+
+
+export type CreateAdminMutation = { __typename?: 'Mutation', createAdminUser: { __typename?: 'User', email: string, first_name: string, last_name: string } };
+
+export type UpdateAdminMutationVariables = Exact<{
+  id: Scalars['Int'];
+  updateAdminUserInput: UpdateAdminUserInput;
+}>;
+
+
+export type UpdateAdminMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', first_name: string, last_name: string, email: string, password?: string | null, status: boolean } };
 
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
@@ -1618,10 +1654,12 @@ export type GetDoctorEarningsQueryVariables = Exact<{
 
 export type GetDoctorEarningsQuery = { __typename?: 'Query', getDoctorEarnings: { __typename?: 'DoctorEarningsResponse', total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null, total_number_of_patients?: number | null, total_earnings_from_consultation?: number | null, total_earnings_from_second_opinions?: number | null, total_earnings?: number | null } };
 
-export type GetAllStaffByDoctorQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllStaffByDoctorQueryVariables = Exact<{
+  filter: GetStaffFilter;
+}>;
 
 
-export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null }> };
+export type GetAllStaffByDoctorQuery = { __typename?: 'Query', getStaff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null }> };
 
 export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -1630,12 +1668,40 @@ export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
 
 export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null } };
 
+export type GetAdminUsersQueryVariables = Exact<{
+  filter: GetAdminUsersFilterInput;
+}>;
+
+
+export type GetAdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean }> };
+
+export type GetAdminUserByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetAdminUserByIdQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean } };
+
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, admin_appointment_create_update?: boolean | null, new_message_received?: boolean | null } };
 
 
+export const GenerateRtcTokenDocument = gql`
+    mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
+  generateRTCToken(generateRTCTokenInput: $generateRTCTokenInput) {
+    rtmAccessToken
+    rtcAccessToken
+    channelName
+    privilegeExpireTime
+  }
+}
+    `;
+
+export function useGenerateRtcTokenMutation() {
+  return Urql.useMutation<GenerateRtcTokenMutation, GenerateRtcTokenMutationVariables>(GenerateRtcTokenDocument);
+};
 export const CreateDoctorScheduleDocument = gql`
     mutation createDoctorSchedule($doctorId: Int!, $day: Int!, $startTime: String!, $endTime: String!) {
   createDoctorSchedule(
@@ -2033,19 +2099,6 @@ export const CancelAppointmentByDoctorDocument = gql`
 export function useCancelAppointmentByDoctorMutation() {
   return Urql.useMutation<CancelAppointmentByDoctorMutation, CancelAppointmentByDoctorMutationVariables>(CancelAppointmentByDoctorDocument);
 };
-export const GenerateRtcTokenDocument = gql`
-    mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
-  generateRTCToken(generateRTCTokenInput: $generateRTCTokenInput) {
-    rtmAccessToken
-    channelName
-    privilegeExpireTime
-  }
-}
-    `;
-
-export function useGenerateRtcTokenMutation() {
-  return Urql.useMutation<GenerateRtcTokenMutation, GenerateRtcTokenMutationVariables>(GenerateRtcTokenDocument);
-};
 export const UpdateStaffProfileDocument = gql`
     mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
   updateStaff(id: $id, updateStaffInput: $updateStaffInput) {
@@ -2061,6 +2114,34 @@ export const UpdateStaffProfileDocument = gql`
 
 export function useUpdateStaffProfileMutation() {
   return Urql.useMutation<UpdateStaffProfileMutation, UpdateStaffProfileMutationVariables>(UpdateStaffProfileDocument);
+};
+export const CreateAdminDocument = gql`
+    mutation createAdmin($createAdminInput: CreateAdminInput!) {
+  createAdminUser(createAdminInput: $createAdminInput) {
+    email
+    first_name
+    last_name
+  }
+}
+    `;
+
+export function useCreateAdminMutation() {
+  return Urql.useMutation<CreateAdminMutation, CreateAdminMutationVariables>(CreateAdminDocument);
+};
+export const UpdateAdminDocument = gql`
+    mutation updateAdmin($id: Int!, $updateAdminUserInput: UpdateAdminUserInput!) {
+  updateAdminUser(id: $id, updateAdminUserInput: $updateAdminUserInput) {
+    first_name
+    last_name
+    email
+    password
+    status
+  }
+}
+    `;
+
+export function useUpdateAdminMutation() {
+  return Urql.useMutation<UpdateAdminMutation, UpdateAdminMutationVariables>(UpdateAdminDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
@@ -2896,8 +2977,8 @@ export function useGetDoctorEarningsQuery(options: Omit<Urql.UseQueryArgs<GetDoc
   return Urql.useQuery<GetDoctorEarningsQuery>({ query: GetDoctorEarningsDocument, ...options });
 };
 export const GetAllStaffByDoctorDocument = gql`
-    query getAllStaffByDoctor {
-  staff {
+    query getAllStaffByDoctor($filter: GetStaffFilter!) {
+  getStaff(filter: $filter) {
     id
     role
     email
@@ -2909,7 +2990,7 @@ export const GetAllStaffByDoctorDocument = gql`
 }
     `;
 
-export function useGetAllStaffByDoctorQuery(options?: Omit<Urql.UseQueryArgs<GetAllStaffByDoctorQueryVariables>, 'query'>) {
+export function useGetAllStaffByDoctorQuery(options: Omit<Urql.UseQueryArgs<GetAllStaffByDoctorQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAllStaffByDoctorQuery>({ query: GetAllStaffByDoctorDocument, ...options });
 };
 export const GetStaffDetailsUrlByIdDocument = gql`
@@ -2926,6 +3007,38 @@ export const GetStaffDetailsUrlByIdDocument = gql`
 
 export function useGetStaffDetailsUrlByIdQuery(options: Omit<Urql.UseQueryArgs<GetStaffDetailsUrlByIdQueryVariables>, 'query'>) {
   return Urql.useQuery<GetStaffDetailsUrlByIdQuery>({ query: GetStaffDetailsUrlByIdDocument, ...options });
+};
+export const GetAdminUsersDocument = gql`
+    query getAdminUsers($filter: GetAdminUsersFilterInput!) {
+  adminUsers(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    createdAt
+    status
+  }
+}
+    `;
+
+export function useGetAdminUsersQuery(options: Omit<Urql.UseQueryArgs<GetAdminUsersQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAdminUsersQuery>({ query: GetAdminUsersDocument, ...options });
+};
+export const GetAdminUserByIdDocument = gql`
+    query getAdminUserById($id: Int!) {
+  user(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    createdAt
+    status
+  }
+}
+    `;
+
+export function useGetAdminUserByIdQuery(options: Omit<Urql.UseQueryArgs<GetAdminUserByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAdminUserByIdQuery>({ query: GetAdminUserByIdDocument, ...options });
 };
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {
@@ -6133,6 +6246,35 @@ export default {
             ]
           },
           {
+            "name": "getStaff",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "getStatesByCountry",
             "type": {
               "kind": "NON_NULL",
@@ -6317,24 +6459,6 @@ export default {
                 }
               }
             ]
-          },
-          {
-            "name": "staff",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "LIST",
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "User",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "args": []
           },
           {
             "name": "staffDetail",
@@ -6524,6 +6648,17 @@ export default {
             "args": []
           },
           {
+            "name": "rtcAccessToken",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "rtmAccessToken",
             "type": {
               "kind": "NON_NULL",
@@ -6703,6 +6838,18 @@ export default {
             "args": []
           },
           {
+            "name": "city",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "City",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "city_id",
             "type": {
               "kind": "SCALAR",
@@ -6715,6 +6862,18 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "country",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Country",
+                "ofType": null
+              }
             },
             "args": []
           },
@@ -6907,6 +7066,18 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "state",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "State",
+                "ofType": null
+              }
             },
             "args": []
           },

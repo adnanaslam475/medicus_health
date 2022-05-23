@@ -2,7 +2,7 @@ import React from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
 import {
-	Appointment,
+  Appointment,
   useDoctorAppointmentDetailQuery,
   useGetAppointmentReportUrlByIdQuery,
   usePhysicianAppointmentsHistoryQuery,
@@ -20,7 +20,7 @@ function PatientAppointmentHistoryDetail() {
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { searchPatient: String(query?.id), status: "Completed" },
+      filter: { searchString: String(query?.id), status: "Completed" },
     },
   });
   const { appointments } = data || {};

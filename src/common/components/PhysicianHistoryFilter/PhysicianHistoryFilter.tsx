@@ -5,7 +5,10 @@ import {
   CloseOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { GetAppointmentInput, useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
+import {
+  GetAppointmentInput,
+  useGetAllAppointmentServiceTypesQuery,
+} from "generated/graphql";
 import { getDateInFormat } from "../../utils/date";
 import _classes from "./PhysicianHistoryFilters.module.scss";
 import searchStyle from "./style.module.scss";
@@ -18,8 +21,7 @@ type Props = {
 };
 
 function PhysicianSearchFilters(props: Props) {
-  const [filterState, setFilterState] =
-    useState<GetAppointmentInput>({});
+  const [filterState, setFilterState] = useState<GetAppointmentInput>({});
 
   const { onChange } = props;
 
@@ -59,7 +61,7 @@ function PhysicianSearchFilters(props: Props) {
       <div className="flex-none sm:flex">
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
           <Input
-            value={filterState.searchPatient || ""}
+            value={filterState.searchString || ""}
             placeholder="Search by ID or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) =>

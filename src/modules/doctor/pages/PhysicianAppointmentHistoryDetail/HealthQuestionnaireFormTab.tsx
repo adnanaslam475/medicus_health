@@ -9,7 +9,7 @@ function HealthQuestionnaireFromTab() {
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { searchPatient: String(query?.id), status: "Completed" },
+      filter: { searchString: String(query?.id), status: "Completed" },
     },
     requestPolicy: "network-only",
   });

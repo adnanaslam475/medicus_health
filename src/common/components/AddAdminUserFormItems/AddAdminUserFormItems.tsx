@@ -1,30 +1,23 @@
 import React from "react";
 import { Form, Input } from "antd";
-// import _classes from "./AddStaffFormItems.module.scss";
 
 const createAdminUserForm = [
   {
-    label: "Name",
-    name: "name",
+    label: "First Name",
+    name: "first_name",
     required: true,
     type: "text",
+  },
+  {
+    label: "Last Name",
+    name: "last_name",
+    type: "text",
+    required: true,
   },
   {
     label: "Email",
     name: "email",
-    type: "text",
-    required: true,
-  },
-  {
-    label: "Password",
-    name: "password",
-    type: "password",
-    required: false,
-  },
-  {
-    label: "Confirm Password",
-    name: "confirm_password",
-    type: "password",
+    type: "email",
     required: false,
   },
 ];

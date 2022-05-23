@@ -117,7 +117,7 @@ const UserList = (props: Props) => {
       dataIndex: "id",
       className: "table-action-icon",
       key: "id",
-      render: (appointmentId: number) => (
+      render: (adminId: number) => (
         <div>
           <EyeFilled
             onClick={() => {
