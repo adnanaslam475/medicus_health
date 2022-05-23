@@ -1,38 +1,30 @@
 import React, { useState } from "react";
-import { Table, Divider } from "antd";
+import { Table, Tag } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import {
-  Appointment,
-  useGetDoctorEarningsQuery,
-  useGetTransectionFilterQuery,
-} from "generated/graphql";
+import { useGetAdminUsersQuery, User } from "generated/graphql";
 import { date, userData } from "common/utils";
-import SearchFilters from "common/components/SearchFilters/SearchFilters";
-import { physicianMyEarningsFilterType } from "common/types/types";
-import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
-import MyEarningsStats from "common/components/MyEarningsStats/MyEarningsStats";
+import { adminUserFilterType } from "common/types/types";
+import { EyeFilled } from "@ant-design/icons";
+import Router from "next/router";
+import AdminUserSearchFilters from "common/components/AdminUserFilter/AdminUserSearchFilters";
 
 type Props = {};
 
 const UserList = (props: Props) => {
-  const { user } = userData.getUserData();
+  const [filterValues, setFilterValues] = useState<adminUserFilterType>({});
 
-  const [filterValues, setFilterValues] =
-    useState<physicianMyEarningsFilterType>({});
+  //GET ALL ADMIN USERS LIST WITH FILTERS
+  const [{ data }, executeUseGetAdminUsersQuery] = useGetAdminUsersQuery({
+    variables: {
+      filter: filterValues,
+    },
+  });
 
-  //GET ALL TRANSACTIONS WITH FILTERS
-  const [{ data: transactionData }, executeUseGetTransectionFilterQuery] =
-    useGetTransectionFilterQuery({
-      variables: {
-        filter: filterValues,
-      },
-    });
+  const { adminUsers } = data || {};
 
-  const { getTransectionFilter } = transactionData || {};
-
-  function onChangeFilters(values: physicianMyEarningsFilterType) {
+  function onChangeFilters(values: adminUserFilterType) {
     setFilterValues(values);
-    executeUseGetTransectionFilterQuery({
+    executeUseGetAdminUsersQuery({
       filter: filterValues,
       requestPolicy: "network-only",
     });
@@ -44,87 +36,100 @@ const UserList = (props: Props) => {
       dataIndex: "id",
       key: "id",
       sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
+        compare: (a: string | any, b: string | any) => a.id - b.id,
         multiple: 3,
       },
     },
+
     {
-      title: "Appointment ID",
-      dataIndex: "appointmentId",
-      key: "appointmentId",
+      title: "Name",
+      dataIndex: "",
+      key: "user",
       sorter: {
-        compare: (a: any, b: any) => a.appointmentId - b.appointmentId,
+        compare: (a: string | any, b: string | any) =>
+          a.first_name - b.first_name,
         multiple: 3,
       },
-    },
-    {
-      title: "Patient Name",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
+      render: (value: User) => {
         return (
-          <div className="someclass">{`${value?.patient?.first_name} ${value?.patient?.last_name}`}</div>
+          <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
         );
       },
     },
 
     {
-      title: "Service",
-      dataIndex: "appointment",
-      key: "appointment",
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
       sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
+        compare: (a: string | any, b: string | any) => a.email - b.email,
         multiple: 3,
       },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+      render: (value: User) => {
+        return <div className="someclass">{`${value}`}</div>;
       },
     },
     {
-      title: "Date",
-      dataIndex: "appointment",
-      key: "appointment",
+      title: "Account Creation Date",
+      dataIndex: "createdAt",
+      key: "createdAt",
       sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
+        compare: (a: string | any, b: string | any) =>
+          a.createdAt - b.createdAt,
         multiple: 3,
       },
-      render: (value: Appointment) => {
-        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      render: (value: User) => {
         return (
           <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            time?.startTime
+            String(value)
           )} `}</div>
         );
       },
     },
     {
-      title: "Total Amount",
-      dataIndex: "amountReceived",
-      key: "amountReceived",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
       sorter: {
-        compare: (a: any, b: any) => a.amountReceived - b.amountReceived,
+        compare: (a: string | any, b: string | any) => a.status - b.status,
         multiple: 3,
       },
+      render: (value: string) => {
+        return (
+          <div className="someclass">
+            {value ? (
+              <Tag color="cyan">{"Active"}</Tag>
+            ) : (
+              <Tag color="red">{"Disabled"}</Tag>
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      title: "",
+      dataIndex: "id",
+      key: "id",
+      className: "table-action-icon text-primary",
+      render: (userId: number) => (
+        <EyeFilled
+          onClick={() => {
+            return Router.push(`admin/edituser/${userId}`);
+          }}
+        />
+      ),
     },
   ];
-
-  function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-    console.log("params", pagination, filters, sorter, extra);
-  }
 
   return (
     <AppLayout>
       <div className="w-full">
         <div className="flex justify-between">
-          <h2 className="mb-4">My Earnings</h2>
+          <h2 className="mb-4">Users</h2>
         </div>
 
-        <MyEarningsSearchFilters onChange={onChangeFilters} />
-        <Table columns={Columns} dataSource={getTransectionFilter} />
+        <AdminUserSearchFilters onChange={onChangeFilters} />
+        <Table columns={Columns} dataSource={adminUsers} />
       </div>
     </AppLayout>
   );
