@@ -553,8 +553,8 @@ query getStaffDetailsUrlById($id: Int!) {
   }
 }
 
-query getAdminUsers($filter: GetAdminUsersFilterInput!){
-  adminUsers(filter:$filter){
+query getAdminUsers($filter: GetAdminUsersFilterInput!) {
+  adminUsers(filter: $filter) {
     id
     first_name
     last_name

@@ -6,8 +6,8 @@ import { useMessageContext } from "./MessageContext";
 type Props = {};
 
 function MessageConversationSider({}: Props) {
-  const { getAllChatChannels } = useMessageContext();
-  console.log(getAllChatChannels);
+  const { messageInfo } = useMessageContext();
+  const { allChannels } = messageInfo || {};
 
   return (
     <div
@@ -16,7 +16,7 @@ function MessageConversationSider({}: Props) {
         overflowY: "auto",
       }}
     >
-      {getAllChatChannels?.map((thread) => {
+      {allChannels?.map((thread) => {
         return <UserProfile thread={thread} />;
       })}
     </div>

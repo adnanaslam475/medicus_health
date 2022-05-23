@@ -1,9 +1,10 @@
-import { Avatar, notification } from "antd";
+import { notification } from "antd";
 import { getUserData } from "common/utils/userData";
 import { ChatChannels, useGenerateRtcTokenMutation } from "generated/graphql";
 import Image from "next/image";
 import React, { useRef } from "react";
 import Client from "../MessageDetail/client";
+import { useMessageContext } from "../MessageDetail/MessageContext";
 import profile from "./../../../../../../public/assets/images/doc-pic.png";
 import loaderLogo from "./../../../../../../public/assets/images/loaderLogo.png";
 
@@ -11,67 +12,12 @@ type Props = {
   thread: ChatChannels;
 };
 function UserProfile({ thread }: Props) {
-  const rtmRef = useRef<Client>();
-  const rtm = rtmRef.current;
-
-  const [, executeGenerateRtcTokenMutation] = useGenerateRtcTokenMutation();
-  const { user } = getUserData();
-
-  async function onLogin() {
-    const { data } = await executeGenerateRtcTokenMutation({
-      generateRTCTokenInput: {
-        channelName: thread.channelName,
-        uId: String(user?.id),
-        role: "audience",
-        tokenType: "uid",
-      },
-    });
-    const { rtmAccessToken } = data?.generateRTCToken || {};
-
-    let rtm = rtmRef.current;
-
-    if (!rtm) {
-      rtm = new Client();
-      rtmRef.current = rtm;
-      try {
-        await rtm.login(String(user?.id), rtmAccessToken || "");
-        notification.success({
-          message: "user logged in successfully",
-        });
-
-        await rtm?.joinChannel(thread.channelName);
-        if (rtm) {
-          rtm.channels[thread.channelName].joined = true;
-        }
-        console.log({ rtm });
-        notification.success({
-          message: "joined successfully",
-        });
-      } catch (error) {
-        console.log(error);
-        notification.error({
-          message: "login failed",
-        });
-      }
-      // try {
-      //   await rtm?.joinChannel(thread.channelName);
-      //   if (rtm) {
-      //     rtm.channels[thread.channelName].joined = true;
-      //   }
-      //   notification.success({
-      //     message: "joined successfully",
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      //   notification.error({
-      //     message: "join failed",
-      //   });
-      // }
-    }
-  }
+  const { messageInfo, onLoginJoinChannel, setCurrentChannelName } =
+    useMessageContext();
 
   async function onJoinChat() {
-    onLogin();
+    setCurrentChannelName(thread.channelName);
+    onLoginJoinChannel?.({ channelName: thread.channelName });
   }
 
   return (
