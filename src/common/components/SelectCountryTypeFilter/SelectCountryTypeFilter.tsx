@@ -1,31 +1,29 @@
 import { Select } from "antd";
 // import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 
-export function SelectStatusTypeFilter({
+export function SelectCountryTypeFilter({
 	onChange,
 	value,
-  placeHolder,
 }: {
 	onChange: (value: string | undefined) => void;
 	value: string | undefined;
-  placeHolder:string
 }) {
 	// const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
 	// const { appointmentServiceTypes } = serviceTypes || {};
 	return (
 		<Select
-			placeholder={placeHolder}
-			className="w-full sm:w-50"
+			placeholder="Country"
+			className="w-full sm:w-40"
 			onChange={onChange}
-			value={value || "Appointment Status"}
+			value={value || "Country"}
 		>
 			{/* {appointmentServiceTypes?.map(({ id, name }) => (
 				<Option value={id}>{name}</Option>
 			))} */}
-			<Select.Option value="Upcoming">Upcoming</Select.Option>
-			<Select.Option value="Requested">Requested</Select.Option>
-			<Select.Option value="Cancelled">Cancelled</Select.Option>
-			<Select.Option value="Completed">Completed</Select.Option>
+				<Select.Option value="pakistan">PAKISTAN</Select.Option>
+				<Select.Option value="usa">USA</Select.Option>
+				<Select.Option value="canada">CANADA</Select.Option>
+				<Select.Option value="finland">FINLAND</Select.Option>
 		</Select>
 	);
 }

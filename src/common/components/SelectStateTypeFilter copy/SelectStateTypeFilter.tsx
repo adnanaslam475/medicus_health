@@ -1,31 +1,29 @@
 import { Select } from "antd";
 // import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 
-export function SelectStatusTypeFilter({
+export function SelectStateTypeFilter({
 	onChange,
 	value,
-  placeHolder,
 }: {
 	onChange: (value: string | undefined) => void;
 	value: string | undefined;
-  placeHolder:string
 }) {
 	// const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
 	// const { appointmentServiceTypes } = serviceTypes || {};
 	return (
 		<Select
-			placeholder={placeHolder}
-			className="w-full sm:w-50"
+			placeholder="State"
+			className="w-full sm:w-40"
 			onChange={onChange}
-			value={value || "Appointment Status"}
+			value={value || "State"}
 		>
 			{/* {appointmentServiceTypes?.map(({ id, name }) => (
 				<Option value={id}>{name}</Option>
 			))} */}
-			<Select.Option value="Upcoming">Upcoming</Select.Option>
-			<Select.Option value="Requested">Requested</Select.Option>
-			<Select.Option value="Cancelled">Cancelled</Select.Option>
-			<Select.Option value="Completed">Completed</Select.Option>
+				<Select.Option value="karachi">KARACHI</Select.Option>
+				<Select.Option value="islamabad">ISLAMABAD</Select.Option>
+				<Select.Option value="lahore">LAHORE</Select.Option>
+	
 		</Select>
 	);
 }

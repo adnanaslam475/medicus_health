@@ -41,6 +41,7 @@ import { info } from "sass";
 import {
   DoctorProfile,
   useEnableOrDisableDoctorMutation,
+  User,
   useUpdateDoctorProfileMutation,
 } from "generated/graphql";
 import { configS3 } from "../../../../../../utils/helper";
@@ -48,6 +49,7 @@ import config from "../../../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import { Schedule } from "common/types/types";
 import { RangeValue } from "rc-picker/lib/interface";
+import { parseJson } from "common/utils/helper";
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -56,7 +58,7 @@ const { Option } = Select;
 
 type Props = {
   doctorId?: string;
-  doctorData?: DoctorProfile | any;
+  doctorData?: User | any;
   setIsEdit: (e: boolean) => void;
   schedules: Schedule[] | undefined;
   setDeleteScheduleId: (e: string) => void;
@@ -96,10 +98,17 @@ function EditProfile({
   const [image, setImage] = useState<string>("");
   const [ispublish, setIsPublish] = useState(true);
 
-  const { first_name, last_name, password, email, contact_number, status } =
-    doctorData?.user || {};
+  const {
+    id,
+    first_name,
+    last_name,
+    password,
+    email,
+    contact_number,
+    status,
+    doctorProfile,
+  } = doctorData?.user || {};
 
-  console.log(doctorData, "doctorData");
 
   const {
     about_me,
@@ -108,11 +117,12 @@ function EditProfile({
     language,
     educational_background,
     professional_experience,
-  } = doctorData || {};
+    year_of_experience
+  } = doctorProfile || {};
 
-  const educationalBackground = JSON.parse(educational_background) || [];
+  const educationalBackground = parseJson(educational_background) || [];
 
-  const professionalExperience = JSON.parse(professional_experience) || [];
+  const professionalExperience = parseJson(professional_experience) || [];
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
@@ -148,7 +158,7 @@ function EditProfile({
     if (doctorData) {
       const res = await updateDoctor({
         updateDoctorProfileInput: {
-          doctor_id: doctor_id,
+          doctor_id: id,
           first_name: values?.firstName,
           last_name: values?.lastName,
           email: values?.email,
@@ -184,7 +194,6 @@ function EditProfile({
           ],
         },
       });
-      console.log({ doctorData, res });
 
       if (res?.data) {
         res?.data?.updateDoctorProfile &&
@@ -263,7 +272,6 @@ function EditProfile({
   }
 
   const handleConditionTreated = async (list: string[]) => {
-    console.log({ list });
     const values = formInstance.getFieldsValue();
     const res = await updateDoctor({
       updateDoctorProfileInput: {

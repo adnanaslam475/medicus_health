@@ -83,6 +83,18 @@ query getUser($input: Int!) {
       exposureDuration
       userId
     }
+     doctorProfile {
+      id
+      doctor_id
+      year_of_experience
+      specialization
+      condition_treated
+      educational_background
+      professional_experience
+      language
+      about_me
+      profile_image
+    }
   }
 }
 
