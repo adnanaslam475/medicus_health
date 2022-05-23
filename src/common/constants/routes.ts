@@ -25,7 +25,7 @@ export const PATIENT_ROUTES: routes = [
 ];
 
 export const ADMIN_ROUTES: routes = [
-  { name: "Dashboard", route: "/admin/dashboard" },
+  { name: "Appointments", route: "/admin/appointments" },
   // { name: "Admin Listing", route: "/admin/listing" },
   { name: "Physicians", route: "/admin/physicians" },
   { name: "Messages", route: "/admin/messages" },
