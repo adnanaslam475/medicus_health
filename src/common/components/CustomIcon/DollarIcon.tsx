@@ -1,11 +1,13 @@
-import { props } from "common/types/types";
 import React from "react";
 
-export function DollarIcon({ className }: props) {
+interface props {
+  className?: string | undefined;
+}
 
+export function DollarIcon({ className }: props) {
   return (
     <svg
-    className={className}
+      className={className}
       xmlns="http://www.w3.org/2000/svg"
       width="11.033"
       height="18.388"

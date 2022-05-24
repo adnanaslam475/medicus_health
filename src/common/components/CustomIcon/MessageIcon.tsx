@@ -1,5 +1,7 @@
-import { props } from "common/types/types";
 import React from "react";
+interface props {
+  className?: string | undefined;
+}
 
 export function MessageIcon({ className }: props) {
   return (

@@ -78,7 +78,3 @@ export type adminUserFilterType = {
     endDate?: string;
   };
 };
-
-export interface props {
-  className?: string | undefined;
-}
