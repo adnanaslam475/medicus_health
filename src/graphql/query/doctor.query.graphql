@@ -166,6 +166,10 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
       endTime
       selected
     }
+     doctor{
+      first_name
+      last_name
+    }
     doctorNote {
       subjective
       objective
@@ -178,6 +182,7 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
       status
       amountReceived
     }
+    charges
   }
 }
 
