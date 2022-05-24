@@ -1,5 +1,5 @@
-import React from "react";
-import { Tabs } from "antd";
+import React, { useRef } from "react";
+import { Button, notification, Tabs } from "antd";
 import AccountsProfile from "./AccountsProfile/AccountsProfile";
 import BankInfo from "./BankInfo/BankInfo";
 
@@ -8,8 +8,51 @@ import _classes from "./Account.module.scss";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import config from "../../../../../../config";
+import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
+import { getUserData } from "common/utils/userData";
+import {
+  usePatientHealthHistoryQuery,
+  useUpdatePatientHealthHistoryMutation,
+} from "generated/graphql";
 
 function Accounts() {
+  const form: any = useRef();
+
+  // GET USER ID
+  const { user } = getUserData();
+  const id = user?.id;
+
+  // Get patient Health History
+  const [{ data }] = usePatientHealthHistoryQuery({
+    variables: { input: id as number },
+  });
+
+  // UPDATE PATIENT HEALTH HISTORY
+
+  const [result, updatePatientHealthHistory] =
+    useUpdatePatientHealthHistoryMutation();
+
+  const { error, fetching } = result;
+
+  const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
+    const healthQuesJson = JSON.stringify(quesPayload);
+    try {
+      const res = await updatePatientHealthHistory({
+        input: {
+          history: healthQuesJson,
+          user_id: id as number,
+        },
+      });
+      {
+        res?.data?.updatePatientHealthHistory &&
+          notification.success({
+            message: "Successfully Updated",
+          });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
       <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
@@ -41,7 +84,25 @@ function Accounts() {
             }
             key="3"
           >
-            {/* <PaymentMethods /> */}
+            <div className="w-1/2">
+              <QuestionnaireForm
+                ref={form}
+                data={data?.patientHealthHistory.history}
+                onFinishSuccess={onFinishHealthQuestionnarySuccess}
+              />
+
+              <div className="flex items-center justify-end">
+                <Button
+                  loading={fetching}
+                  disabled={fetching}
+                  className="ant-btn ant-btn-primary ant-btn mb-0"
+                  type="primary"
+                  onClick={() => form?.current?.submit()}
+                >
+                  Update
+                </Button>
+              </div>
+            </div>
           </Tabs.TabPane>
         </Tabs>
       </div>
