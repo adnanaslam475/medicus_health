@@ -1,0 +1,10 @@
+query getAdminUsers($filter: GetAdminUsersFilterInput!) {
+  adminUsers(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    createdAt
+    status
+  }
+}

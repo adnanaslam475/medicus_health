@@ -20,10 +20,11 @@ const FLAG_BY_LANGUAGE = {
 
 type Props = {
   doctorData: DoctorProfile;
+  loading?: boolean;
 };
 
 function DoctorProfileCard(props: Props) {
-  const { doctorData } = props || {};
+  const { doctorData, loading } = props || {};
   const { first_name, last_name } = doctorData?.user || {};
   const { language } = doctorData || "english";
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -53,15 +54,19 @@ function DoctorProfileCard(props: Props) {
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
             <div className="rounded-full flex items-center justify-center overflow-hidden">
-              <MDNextImage
-                objectFit="cover"
-                src={doctorData?.profile_image || ""}
-                layout="fixed"
-                width={86}
-                height={86}
-                className=" rounded-full h-[86px] w-[86px] overflow-hidden"
-                fallbackImage="/assets/images/doc-pic.png"
-              />
+              {loading ? (
+                <span className={`${_classes["emptyImgContainer"]}`}></span>
+              ) : (
+                <MDNextImage
+                  objectFit="cover"
+                  src={doctorData?.profile_image || ""}
+                  layout="fixed"
+                  width={86}
+                  height={86}
+                  className=" rounded-full h-[86px] w-[86px] overflow-hidden"
+                  fallbackImage={"/assets/images/doc-pic.png"}
+                />
+              )}
             </div>
           </div>
           <div className="lg:pr-5 w-full mb-5">

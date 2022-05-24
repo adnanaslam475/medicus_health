@@ -45,6 +45,8 @@ function ProfileForm({
           doctor_id: Number(doctorId),
           first_name: values?.firstName,
           last_name: values?.lastName,
+          specialization: values?.specialization,
+          year_of_experience: values?.year_of_experience,
           email: values?.email,
           password: values?.password,
           profile_image: image ? image : userProfileImage,

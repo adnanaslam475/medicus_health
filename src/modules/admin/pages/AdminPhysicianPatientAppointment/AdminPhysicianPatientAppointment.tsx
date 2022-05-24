@@ -8,7 +8,7 @@ import Router from "next/router";
 import { useDoctorProfilesQuery, User } from "generated/graphql";
 import Image from "next/image";
 import AdminPhysicianPatientAppointmentSearchFilters from "./AdminPhysicianPatientAppointmentSearchFilters";
-
+import StatusChip from '../../../../common/components/StatusChip/StatusChip'
 const Ddata = [
 	{
 		key: "1",
@@ -214,12 +214,21 @@ function AdminPhysicianList() {
 			dataIndex: "status",
 			key: "status",
 			render: (value: User) => {
-				return <div className="someclass">{value?.email}</div>;
+				return <StatusChip typ="COMPLETED"/>;
 			},
 			sorter: {
 				compare: (a: any, b: any) => a.service - b.service,
 				multiple: 3,
 			},
+		},
+    {
+			title: "",
+			dataIndex: "pay",
+			key: "status",
+			render: (value: User) => {
+				return <Button className="" type="primary" size={"large"}>Pay Now</Button>;
+			},
+		
 		},
 		{
 			title: "",
