@@ -1,0 +1,8 @@
+query adminDashboardStatistics {
+  adminDash {
+    total_number_of_users
+    total_revenue
+    total_number_of_physicians
+    total_number_of_appointments
+  }
+}
