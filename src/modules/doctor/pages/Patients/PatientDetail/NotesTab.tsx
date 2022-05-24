@@ -27,7 +27,6 @@ function NotesTab({}: Props) {
   const { patient, serviceType } = appointment || {};
 
   const addNote = async (value: any, closeModal: () => void) => {
-    console.log("value2333333", value);
     await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
         appointmentId: Number(query.appointmentId),

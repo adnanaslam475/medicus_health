@@ -31,7 +31,7 @@ function AppointmnetCancelledCard({
   //   setIsModalVisible(true);
   // }
 
-  console.log({ doctorProfile });
+  
 
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   // const [showModal, setShowModal] = useState<boolean>(false);
