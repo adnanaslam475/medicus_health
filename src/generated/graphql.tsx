@@ -1447,6 +1447,13 @@ export type ToggleEmailPreferencesMutationVariables = Exact<{
 
 export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', admin_appointment_create_update?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_accepted_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, new_message_received?: boolean | null } };
 
+export type GetAdminUsersQueryVariables = Exact<{
+  filter: GetAdminUsersFilterInput;
+}>;
+
+
+export type GetAdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean }> };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -1667,13 +1674,6 @@ export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
 
 
 export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null } };
-
-export type GetAdminUsersQueryVariables = Exact<{
-  filter: GetAdminUsersFilterInput;
-}>;
-
-
-export type GetAdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean }> };
 
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2153,6 +2153,22 @@ export const ToggleEmailPreferencesDocument = gql`
 
 export function useToggleEmailPreferencesMutation() {
   return Urql.useMutation<ToggleEmailPreferencesMutation, ToggleEmailPreferencesMutationVariables>(ToggleEmailPreferencesDocument);
+};
+export const GetAdminUsersDocument = gql`
+    query getAdminUsers($filter: GetAdminUsersFilterInput!) {
+  adminUsers(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    createdAt
+    status
+  }
+}
+    `;
+
+export function useGetAdminUsersQuery(options: Omit<Urql.UseQueryArgs<GetAdminUsersQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAdminUsersQuery>({ query: GetAdminUsersDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
@@ -3015,22 +3031,6 @@ export const GetStaffDetailsUrlByIdDocument = gql`
 
 export function useGetStaffDetailsUrlByIdQuery(options: Omit<Urql.UseQueryArgs<GetStaffDetailsUrlByIdQueryVariables>, 'query'>) {
   return Urql.useQuery<GetStaffDetailsUrlByIdQuery>({ query: GetStaffDetailsUrlByIdDocument, ...options });
-};
-export const GetAdminUsersDocument = gql`
-    query getAdminUsers($filter: GetAdminUsersFilterInput!) {
-  adminUsers(filter: $filter) {
-    id
-    first_name
-    last_name
-    email
-    createdAt
-    status
-  }
-}
-    `;
-
-export function useGetAdminUsersQuery(options: Omit<Urql.UseQueryArgs<GetAdminUsersQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAdminUsersQuery>({ query: GetAdminUsersDocument, ...options });
 };
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {
