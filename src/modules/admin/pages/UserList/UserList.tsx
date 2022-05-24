@@ -105,16 +105,17 @@ const UserList = (props: Props) => {
       },
     },
     {
-      title: "",
       dataIndex: "id",
+      className: "table-action-icon",
       key: "id",
-      className: "table-action-icon text-primary",
       render: (userId: number) => (
-        <EyeFilled
-          onClick={() => {
-            return Router.push(`admin/edituser/${userId}`);
-          }}
-        />
+        <div>
+          <EyeFilled
+            onClick={() => {
+              return Router.push(`/admin/edituser/${userId}`);
+            }}
+          />
+        </div>
       ),
     },
   ];
@@ -127,6 +128,7 @@ const UserList = (props: Props) => {
           <div className="flex-none sm:flex items-center justify-between mb-5">
             <Button
               type="primary"
+              onClick={() => Router.push("/admin/adduser")}
               icon={<PlusOutlined />}
             >
               Add User

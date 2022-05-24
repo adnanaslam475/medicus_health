@@ -2,19 +2,17 @@ import React from "react";
 import { Button, Empty, Form, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
+import AddStaffModal from "./AddStaffModal";
+import StaffAppointmentsFilter from "../../appointments/StaffAppointmentsFilter";
+import StaffTable from "modules/doctor/components/StaffTable/StaffTable";
 import {
   CreateStaffInput,
   GetStaffFilter,
-  UpdateStaffInput,
   useCreateStaffMutation,
   useGetAllStaffByDoctorQuery,
   User,
 } from "generated/graphql";
-import StaffTable from "modules/doctor/components/StaffTable/StaffTable";
 import { getUserData } from "common/utils/userData";
-import AddStaffModal from "./AddStaffModal";
-import UpcomingAppointmentFilter from "../../appointments/UpcomingAppointmentFilter";
-import StaffAppointmentsFilter from "../../appointments/StaffAppointmentsFilter";
 
 function StaffListing() {
   const [form] = Form.useForm();
@@ -22,8 +20,8 @@ function StaffListing() {
   const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
   const [{ fetching }, createStaff] = useCreateStaffMutation();
 
-  const { user } = getUserData();
-  const id = user?.id;
+	const { user } = getUserData();
+	const id = user?.id;
 
   const [{ data }, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
     variables: {

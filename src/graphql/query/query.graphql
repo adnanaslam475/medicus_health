@@ -575,3 +575,15 @@ query getAdminUsers($filter: GetAdminUsersFilterInput!){
     status
   }
 }
+
+
+query getAdminUserById($id: Int!) {
+  user(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    createdAt
+    status
+  }
+}
