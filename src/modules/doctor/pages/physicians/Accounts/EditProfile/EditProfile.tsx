@@ -109,7 +109,6 @@ function EditProfile({
     doctorProfile,
   } = doctorData?.user || {};
 
-
   const {
     about_me,
     condition_treated,
@@ -117,7 +116,8 @@ function EditProfile({
     language,
     educational_background,
     professional_experience,
-    year_of_experience
+    year_of_experience,
+    specialization,
   } = doctorProfile || {};
 
   const educationalBackground = parseJson(educational_background) || [];
@@ -135,6 +135,8 @@ function EditProfile({
     formInstance.setFieldsValue({
       firstName: first_name,
       lastName: last_name,
+      specialization: specialization,
+      year_of_experience: year_of_experience,
       contact: contact_number,
       email: email,
       password: "",
@@ -155,12 +157,16 @@ function EditProfile({
   }
 
   const updateDoctorProfile = async (values: any) => {
+    console.log("sabih.....", values);
     if (doctorData) {
+      console.log("if.....", values);
       const res = await updateDoctor({
         updateDoctorProfileInput: {
           doctor_id: id,
           first_name: values?.firstName,
           last_name: values?.lastName,
+          specialization: values?.specialization,
+          year_of_experience: Number(values?.year_of_experience),
           email: values?.email,
           password: values?.password,
           profile_image: image || userProfileImage,
@@ -177,7 +183,6 @@ function EditProfile({
               degree: values["eb-degree-1"],
             },
           ],
-          // year_of_experience: year_of_experience,
           professional_experience: [
             {
               institution: values["pe-institution-0"],
@@ -214,8 +219,10 @@ function EditProfile({
 
   const onFinish = async (values: any) => {
     try {
-      updateDoctorProfile(values);
-      setIsEdit(false);
+      if (!!schedules?.length) {
+        updateDoctorProfile(values);
+        setIsEdit(false);
+      }
     } catch (error) {
       setIsEdit(true);
     }
@@ -411,6 +418,32 @@ function EditProfile({
                 </Form.Item>
               </div>
 
+              <div className="flex flex-col sm:flex-row sm:gap-3">
+                <Form.Item
+                  label="Specialization"
+                  name="specialization"
+                  className="flex-1"
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label="Years of Experience"
+                  name="year_of_experience"
+                  className="flex-1"
+                >
+                  <Input type="number" />
+                </Form.Item>
+              </div>
+
+              <div className="mt-5">
+                <Form.Item label="About me" name="about_me">
+                  <TextArea
+                    rows={10}
+                    placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
+                  />
+                </Form.Item>
+              </div>
+
               <InputWithLi
                 disable={false}
                 onChange={(list) => {
@@ -431,6 +464,11 @@ function EditProfile({
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
               />
+              {!(!!schedules?.length) && (
+                <div className="text-red mt-2 text-center">
+                  Please input at least one schedule
+                </div>
+              )}
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
                 <div className="border-b border-gray-4 my-3">
@@ -562,15 +600,6 @@ function EditProfile({
                     <Input value="University of Oklahoma College of Medicine" />
                   </Form.Item>
                 </div>
-              </div>
-
-              <div className="mt-5">
-                <Form.Item label="About me" name="about_me">
-                  <TextArea
-                    rows={10}
-                    placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
-                  />
-                </Form.Item>
               </div>
 
               <Form.Item>

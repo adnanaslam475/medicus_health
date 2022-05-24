@@ -52,6 +52,20 @@ export const bioForm = [
       defaultValue: "",
     },
   ],
+  [
+    {
+      label: "Specialization",
+      name: "specialization",
+      disabled: true,
+      defaultValue: "",
+    },
+    {
+      label: "Years of Experience",
+      name: "year_of_experience",
+      disabled: true,
+      defaultValue: "",
+    },
+  ],
 ];
 
 export const professionalBGData = [

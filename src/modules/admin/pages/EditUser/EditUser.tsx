@@ -6,7 +6,6 @@ import { EditOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MessageIcon from "../../../../../public/assets/images/messageIcon.svg";
 import {
-  UpdateAdminMutation,
   useEnableOrDisablePatientMutation,
   useGetAdminUserByIdQuery,
   User,
@@ -29,9 +28,9 @@ function EditAdminUserDetails({}: Props) {
   const [{ fetching }, executeUpdateAdminMutation] = useUpdateAdminMutation();
   const [{ data: adminData }] = useGetAdminUserByIdQuery({
     variables: {
-      id: 710,
+      id: Number(query.userId),
     },
-    // pause: !query.adminId,
+    pause: !query.userId,
   });
   const { user: adminUser } = adminData || {};
   React.useEffect(() => {
@@ -54,12 +53,12 @@ function EditAdminUserDetails({}: Props) {
         throw new Error("Password Does not match");
       }
       const response = await executeUpdateAdminMutation({
-        id: 710,
+        id: Number(query.userId),
         updateAdminUserInput: {
           first_name,
           last_name,
           email,
-          password,
+          password: values.password || "",
         },
       });
       if (response?.error) {
