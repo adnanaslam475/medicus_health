@@ -108,7 +108,7 @@ function ProfileForm({
           );
         })}
 
-        <LanguageList />
+        <LanguageList disable={true} />
         <AboutMe />
 
         <InputWithLi disable={true} />

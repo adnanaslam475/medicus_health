@@ -5,8 +5,8 @@ import { Checkbox } from "antd";
 type Prop = {
   end: StaticImageData;
   title: string;
-  check: boolean;
-  disable: boolean;
+  check: boolean|undefined;
+  disable?: boolean|undefined;
 };
 function Language(props: Prop) {
   const { end, title, check, disable } = props;
@@ -14,7 +14,9 @@ function Language(props: Prop) {
     <div className="border flex rounded border-gray px-4 py-2 mr-3">
       <Image height={20} width={20} src={end} className="px-1" />
       <span className=" pl-1 pr-10">{title}</span>
-      {disable && <Checkbox checked={check}></Checkbox>}
+      <Checkbox defaultChecked={check}></Checkbox>
+      {/* {disable && 
+      } */}
     </div>
   );
 }

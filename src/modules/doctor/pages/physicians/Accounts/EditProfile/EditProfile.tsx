@@ -50,6 +50,8 @@ import { UploadChangeParam } from "antd/lib/upload";
 import { Schedule } from "common/types/types";
 import { RangeValue } from "rc-picker/lib/interface";
 import { parseJson } from "common/utils/helper";
+import { getUserData } from "common/utils/userData";
+import LanguageList from "common/components/Languages/LanguageList";
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -97,6 +99,8 @@ function EditProfile({
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
   const [ispublish, setIsPublish] = useState(true);
+
+  const user = getUserData();
 
   const {
     id,
@@ -153,6 +157,7 @@ function EditProfile({
       ["pe-institution-2"]: professionalExperience[2]?.institution,
       ["pe-role-2"]: professionalExperience[2]?.role,
       about_me: about_me,
+      language: language,
     });
   }
 
@@ -172,7 +177,7 @@ function EditProfile({
           profile_image: image || userProfileImage,
           about_me: values?.about_me,
           condition_treated: condition_treated,
-          language: language,
+          language: values?.language,
           educational_background: [
             {
               institution: values["eb-institution-0"],
@@ -282,12 +287,52 @@ function EditProfile({
   const handleConditionTreated = async (list: string[]) => {
     const values = formInstance.getFieldsValue();
     const res = await updateDoctor({
+      // updateDoctorProfileInput: {
+      //   doctor_id: id,
+      //   first_name: values?.firstName,
+      //   last_name: values?.lastName,
+      //   email: values?.email,
+      //   condition_treated: list.toString(),
+      //   specialization: values?.specialization,
+      //   year_of_experience: Number(values?.year_of_experience),
+      // },
+
       updateDoctorProfileInput: {
-        doctor_id: doctor_id,
+        doctor_id: Number(user?.user?.id),
         first_name: values?.firstName,
         last_name: values?.lastName,
+        specialization: values?.specialization,
+        year_of_experience: Number(values?.year_of_experience),
         email: values?.email,
+        password: values?.password,
+        profile_image: image || userProfileImage,
+        about_me: values?.about_me,
         condition_treated: list.toString(),
+        language: values?.language,
+        educational_background: [
+          {
+            institution: values["eb-institution-0"],
+            degree: values["eb-degree-0"],
+          },
+          {
+            institution: values["eb-institution-1"],
+            degree: values["eb-degree-1"],
+          },
+        ],
+        professional_experience: [
+          {
+            institution: values["pe-institution-0"],
+            role: values["pe-role-0"],
+          },
+          {
+            institution: values["pe-institution-1"],
+            role: values["pe-role-1"],
+          },
+          {
+            institution: values["pe-institution-2"],
+            role: values["pe-role-2"],
+          },
+        ],
       },
     });
     // if (res?.data) {
@@ -436,6 +481,10 @@ function EditProfile({
                 </Form.Item>
               </div>
 
+              {/* <LanguageList formInstance={formInstance} /> */}
+              <LanguageList language={language} />
+
+
               <div className="mt-5">
                 <Form.Item label="About me" name="about_me">
                   <TextArea
@@ -465,7 +514,7 @@ function EditProfile({
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
               />
-              {!(!!schedules?.length) && (
+              {!!!schedules?.length && (
                 <div className="text-red mt-2 text-center">
                   Please input at least one schedule
                 </div>
@@ -615,7 +664,7 @@ function EditProfile({
               </Form.Item>
             </Form>
             <Form layout="vertical">
-              <div className="font-medium text-lightBlue-1 my-2">Languages</div>
+              {/* <div className="font-medium text-lightBlue-1 my-2">Languages</div>
               <div className="flex mr-auto">
                 <Language
                   end={end}
@@ -629,7 +678,7 @@ function EditProfile({
                   check={false}
                   disable={false}
                 />
-              </div>
+              </div> */}
               {/* <div className="mt-5">
                 <Form.Item label="About me" name="about">
                   <TextArea
