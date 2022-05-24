@@ -177,6 +177,7 @@ function EditProfile({
             {
               institution: values["eb-institution-0"],
               degree: values["eb-degree-0"],
+              // degree: values["eb-degree-0"],
             },
             {
               institution: values["eb-institution-1"],
