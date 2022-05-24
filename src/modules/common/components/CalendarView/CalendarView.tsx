@@ -10,7 +10,6 @@ import _Classes from "./CalendarView.module.scss";
 import { Input, Button, Select } from "antd";
 import {
   Appointment,
-  useDoctorProfilesQuery,
   usePhysicianAppointmentsQuery,
 } from "../../../../generated/graphql";
 import { CloseOutlined } from "@ant-design/icons";

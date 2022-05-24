@@ -226,14 +226,22 @@ function AdminAppointmentsListing() {
 	return (
 		<AppLayout>
 			<div className="w-full">
-				<div className="flex justify-between items-center">
-					<h2 className="mb-0 pb-0">Appointments</h2>
-					<Link passHref href={`/admin/physicians/addPhysician`}>
+				
+        <div className="flex justify-between items-center">
+          <h2 className="">Appointments</h2>
+          <div className="flex gap-3">
+          <Link passHref href={`/admin/appointments/calendar`}>
+            <a>
+              <Button>Calendar View</Button>
+            </a>
+          </Link>
+          <Link passHref href={`/admin/appointments`}>
 						<a>
 							<Button type="primary">Request an Appointment</Button>
 						</a>
 					</Link>
-				</div>
+          </div>
+        </div>
 
 				<AdminAppointmentsFilter onChange={onChangeFilters} />
 				<div className="w-full">
