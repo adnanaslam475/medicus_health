@@ -216,6 +216,9 @@ query physiciansPatients($searchField: String) {
     email
     contact_number
     streetAddress
+    country{
+      country_name
+    }
     patientProfile {
       profileImage
     }

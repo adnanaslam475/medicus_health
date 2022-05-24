@@ -42,7 +42,7 @@ function AddStaffFormItems() {
               message: `Please fill ${value.label}`,
             },
           ]}
-          className={`font-bold ${_classes["clr-black"]}`}
+          className={`font-bold ${_classes["clr-black"]} text-black`}
           name={value.name}
         >
           <Input placeholder="" className="" />

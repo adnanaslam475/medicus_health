@@ -10,14 +10,16 @@ import { UploadChangeParam } from "antd/lib/upload";
 import {
   useUpdateDoctorProfileMutation,
   useEnableOrDisableDoctorMutation,
+  User,
 } from "../../../generated/graphql";
 import { configS3 } from "../../../utils/helper";
 import ProfileForm from "./ProfileForm";
 import { Schedule } from "../../../common/types/types";
+import { parseJson } from "common/utils/helper";
 
 type props = {
   doctorId?: string;
-  doctorData?: any;
+  doctorData?: User | any;
   setIsEdit?: (e: boolean) => void;
   showLoginInfo?: boolean;
   schedules?: Schedule[] | undefined;
@@ -41,26 +43,28 @@ export const ViewProfile = React.forwardRef(function Profile({
     contact_number,
     status,
     language,
+    doctorProfile,
   } = doctorData?.user || {};
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const {
+    specialization,
+    year_of_experience,
     profile_image: userProfileImage,
     about_me,
     educational_background,
     professional_experience,
-  } = doctorData || {};
+  } = doctorProfile || {};
 
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error } = result || {};
 
   const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
-  const educationalBackground =
-    JSON.parse(educational_background || "[]") || [];
+  const educationalBackground = parseJson(educational_background || "[]") || [];
 
   const professionalExperience =
-    JSON.parse(professional_experience || "[]") || [];
+    parseJson(professional_experience || "[]") || [];
 
   useEffect(() => {
     if (doctorData) {
@@ -69,17 +73,11 @@ export const ViewProfile = React.forwardRef(function Profile({
   }, [doctorData]);
 
   function prepareAndSetEditPayload() {
-    console.log({
-      first_name,
-      last_name,
-      email,
-      contact_number,
-      status,
-      about_me,
-    });
     formInstance.setFieldsValue({
       firstName: first_name,
       lastName: last_name,
+      specialization: specialization,
+      year_of_experience: year_of_experience,
       contact: contact_number,
       email: email,
       password: "",
@@ -112,6 +110,8 @@ export const ViewProfile = React.forwardRef(function Profile({
           doctor_id: Number(doctorId),
           first_name: values?.firstName,
           last_name: values?.lastName,
+          specialization: values?.specialization,
+          year_of_experience: values?.year_of_experience,
           email: values?.email,
           password: values?.password,
           profile_image: image ? image : userProfileImage,

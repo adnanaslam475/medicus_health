@@ -1,24 +1,38 @@
-import { Select, DatePicker, Space, Button } from "antd";
-import React from "react";
+import { DatePicker, Button } from "antd";
+import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { CloseOutlined } from "@ant-design/icons";
-import { Appointment, useGetAllRequestedAppointmentsQuery } from "generated/graphql";
+
+import {
+  Appointment,
+  useGetAllRequestedAppointmentsQuery,
+} from "generated/graphql";
 import AppointmentHistoryTable from "common/components/AppointmentHistoryTable/AppointmentHistoryTable";
+import _classes from "./HistoryAppointments.module.scss";
+import PatientAppointmentHistoryFilter from "common/components/PatientAppointmentHistoryFilter/PatientAppointmentHistoryFilter";
+import { patientAppointmentHistoryFilterType } from "common/types/types";
 
 const { RangePicker } = DatePicker;
 
 function CancelledAppointment() {
-  // GET ALL APPOINMENTS
-  const [{ data }] = useGetAllRequestedAppointmentsQuery({
-    variables: {
-      filter: {
-        status: "Completed",
-      },
-    },
-  });
+  const [filterValues, setFilterValues] =
+    useState<patientAppointmentHistoryFilterType>({});
 
+  // GET ALL APPOINMENTS
+  const [{ data }, executeUseGetAllRequestedAppointmentsQuery] =
+    useGetAllRequestedAppointmentsQuery({
+      variables: {
+        filter: filterValues,
+      },
+    });
   const { appointments } = data || {};
 
+  function onChangeFilters(values: patientAppointmentHistoryFilterType) {
+    setFilterValues(values);
+    executeUseGetAllRequestedAppointmentsQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
   return (
     <AppLayout>
       <div className="w-full">
@@ -30,45 +44,8 @@ function CancelledAppointment() {
             Request an Appointment
           </Button>
         </div>
-        <div className="w-5/6 mb-10">
-          <div className="flex items-center">
-            <span className="mx-3">Filter</span>
-            <div className="mx-3">
-              <Select
-                placeholder="Doctor"
-                className=" lg:w-44 font-medium text-primary placeholder-primary  text-center"
-              >
-                <Select.Option
-                  className="text-primary placeholder-gray-500"
-                  value="Doctor Francis"
-                >
-                  Doctor Francis
-                </Select.Option>
-              </Select>
-            </div>
 
-            <Select
-              placeholder="Service"
-              className="mx-3 lg:w-44 font-medium text-primary placeholder-primary  text-center"
-            >
-              <Select.Option
-                className="text-primary placeholder-gray-500"
-                value="Doctor Francis"
-              >
-                Doctor Francis
-              </Select.Option>
-            </Select>
-            <Space direction="vertical" size={12} className="mx-3">
-              <RangePicker />
-            </Space>
-
-            <Button type="text" size="large" className="w-50">
-              <CloseOutlined />
-              <span className="text-gray-2 mx-3">Clear</span>
-            </Button>
-          </div>
-        </div>
-        {/* Transaction History table */}
+        <PatientAppointmentHistoryFilter onChange={onChangeFilters} />
         <div className="custom-table-ui">
           <AppointmentHistoryTable data={appointments as Appointment[]} />
         </div>

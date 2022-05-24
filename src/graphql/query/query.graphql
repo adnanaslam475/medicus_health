@@ -83,6 +83,18 @@ query getUser($input: Int!) {
       exposureDuration
       userId
     }
+     doctorProfile {
+      id
+      doctor_id
+      year_of_experience
+      specialization
+      condition_treated
+      educational_background
+      professional_experience
+      language
+      about_me
+      profile_image
+    }
   }
 }
 
@@ -530,8 +542,8 @@ query getDoctorEarnings($id: Int!) {
 }
 
 # get staff listing
-query getAllStaffByDoctor($filter:GetStaffFilter!) {
-  getStaff(filter:$filter) {
+query getAllStaffByDoctor($filter: GetStaffFilter!) {
+  getStaff(filter: $filter) {
     id
     role
     email
@@ -550,5 +562,28 @@ query getStaffDetailsUrlById($id: Int!) {
     last_name
     email
     contact_number
+  }
+}
+
+query getAdminUsers($filter: GetAdminUsersFilterInput!){
+  adminUsers(filter:$filter){
+    id
+    first_name
+    last_name
+    email
+    createdAt
+    status
+  }
+}
+
+
+query getAdminUserById($id: Int!) {
+  user(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    createdAt
+    status
   }
 }

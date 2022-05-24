@@ -170,7 +170,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
           <li>
             <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-              <div className="md:w-1/2 text-gray-1">Do You have any children?</div>
+              <div className="md:w-1/2 text-gray-1">Do you have any children?</div>
               <div className="md:w-1/2">{patientProfile?.children}</div>
             </div>
           </li>

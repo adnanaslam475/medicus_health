@@ -54,6 +54,7 @@ module.exports = {
       },
       yellow: {
         DEFAULT: "#FFAF02",
+        1:"#FFF6E0"
       },
       cyan: {
         DEFAULT: "#30cec2",
@@ -61,7 +62,12 @@ module.exports = {
       },
       red: {
         DEFAULT: "#D53E4F",
+        1:"#FCE8EB"
       },
+      green:{
+        DEFAULT:"#E2F8F7",
+        1:"#30CEC2"
+      }
 
     },
     extend: {},
