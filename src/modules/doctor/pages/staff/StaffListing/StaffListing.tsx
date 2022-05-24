@@ -61,9 +61,9 @@ function StaffListing() {
   };
 
   function onChangeFilters(values: any) {
-    setFilterValues(values);
+    // setFilterValues(values);
     executeUseStaffQuery({
-      filter: filterValues,
+      filter: values,
       requestPolicy: "network-only",
     });
   }

@@ -264,7 +264,6 @@ mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
     email
     contact_number
     doctorId
-    deleted
   }
 }
 

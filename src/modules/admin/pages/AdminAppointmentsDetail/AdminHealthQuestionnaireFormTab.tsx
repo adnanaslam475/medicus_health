@@ -1,33 +1,24 @@
+import React from "react";
+import { useRouter } from "next/router";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
-import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
-import { useRouter } from "next/router";
-import React from "react";
 
-function HealthQuestionnaireFromTab() {
-  const { query } = useRouter();
-
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
-    // variables: {
-    //   filter: { searchPatient: String(query?.id), status: "Completed" },
-    // },
-    requestPolicy: "network-only",
-  });
-  const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
+type Props = { data: object | undefined };
+function AdminHealthQuestionnaireFormTab({ data }: Props) {
+  // const { appointments } = data || {};
 
   return (
     <div className="max-w-1/2">
-      <CardWithProfileImageInfo
-        name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
-        serviceName={appointment?.serviceType?.name}
+      {/* <CardWithProfileImageInfo
+        name={`${appointments?.patient?.first_name} ${appointments?.patient?.last_name}`}
+        serviceName={data?.serviceType?.name}
       >
         <QuestionnaireForm
-          data={appointment?.patient?.patientHealthHistory?.history}
+          data={appointments?.patient?.patientHealthHistory?.history}
         />
-      </CardWithProfileImageInfo>
+      </CardWithProfileImageInfo> */}
     </div>
   );
 }
 
-export default HealthQuestionnaireFromTab;
+export default AdminHealthQuestionnaireFormTab;

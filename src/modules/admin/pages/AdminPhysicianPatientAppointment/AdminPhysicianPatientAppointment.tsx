@@ -214,7 +214,7 @@ function AdminPhysicianList() {
 			dataIndex: "status",
 			key: "status",
 			render: (value: User) => {
-				return <StatusChip typ="COMPLETED"/>;
+				return <StatusChip type="COMPLETED"/>;
 			},
 			sorter: {
 				compare: (a: any, b: any) => a.service - b.service,
