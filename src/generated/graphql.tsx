@@ -1517,6 +1517,11 @@ export type GetAdminUsersQueryVariables = Exact<{
 
 export type GetAdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean }> };
 
+export type AdminDashboardStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminDashboardStatisticsQuery = { __typename?: 'Query', adminDash: { __typename?: 'AdminDashResponse', total_number_of_users?: number | null, total_revenue?: number | null, total_number_of_physicians?: number | null, total_number_of_appointments?: number | null } };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -2251,6 +2256,20 @@ export const GetAdminUsersDocument = gql`
 
 export function useGetAdminUsersQuery(options: Omit<Urql.UseQueryArgs<GetAdminUsersQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAdminUsersQuery>({ query: GetAdminUsersDocument, ...options });
+};
+export const AdminDashboardStatisticsDocument = gql`
+    query adminDashboardStatistics {
+  adminDash {
+    total_number_of_users
+    total_revenue
+    total_number_of_physicians
+    total_number_of_appointments
+  }
+}
+    `;
+
+export function useAdminDashboardStatisticsQuery(options?: Omit<Urql.UseQueryArgs<AdminDashboardStatisticsQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminDashboardStatisticsQuery>({ query: AdminDashboardStatisticsDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
