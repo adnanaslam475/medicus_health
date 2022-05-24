@@ -5,8 +5,6 @@ import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 import Router from "next/router";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
-import { sorter } from "utils/helper";
-import dayjs from "dayjs";
 import { isAppointmentTimeValid } from "common/utils/date";
 
 type Props = {
@@ -25,11 +23,10 @@ function AppointmnetConfirmedCard({
   doctor,
   appointmentTimeSlots,
 }: Props) {
-  const selectedAppointment = useMemo(
+  const selectedAppointment:AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
-
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
