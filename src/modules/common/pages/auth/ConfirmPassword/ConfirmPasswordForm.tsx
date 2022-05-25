@@ -23,7 +23,8 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
         rules={[
           {
             required: true,
-            message: "Please enter your new password!",
+            message: "password must be minimum 8 characters!",
+            min: 8,
           },
         ]}
       >
@@ -34,7 +35,11 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
         label="Confirm Password"
         name="confirmpassword"
         rules={[
-          { required: false, message: "Confirm password!" },
+          {
+            required: true,
+            message: "Confirm password must be minimum 8 characters!",
+            min: 8,
+          },
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue("password") === value) {
