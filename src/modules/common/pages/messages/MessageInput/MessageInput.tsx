@@ -18,24 +18,30 @@ function MessageInput() {
   function onSendMessage() {
     onMessage?.(messageText);
   }
+  const isShowInput = !!messageInfo.currentChannel?.channelName;
+
   return (
     <div className={`${_classes["message-input"]} relative`}>
-      <Input
-        placeholder="Type a new message"
-        onChange={({ target }) => onMessageTextChange(target.value)}
-      />
-      <span className="absolute top-3 right-24">
-        <Image alt="" width={25} height={25} src={attachIcon} />
-      </span>
-      <span className="absolute top-3 right-14">
-        <Image alt="" width={25} height={25} src={smile} />
-      </span>
-      <span
-        className="absolute top-3 right-4 cursor-pointer"
-        onClick={onSendMessage}
-      >
-        <Image alt="" width={25} height={25} src={send} />
-      </span>
+      {isShowInput && (
+        <>
+          <Input
+            placeholder="Type a new message"
+            onChange={({ target }) => onMessageTextChange(target.value)}
+          />
+          <span className="absolute top-3 right-24">
+            <Image alt="" width={25} height={25} src={attachIcon} />
+          </span>
+          <span className="absolute top-3 right-14">
+            <Image alt="" width={25} height={25} src={smile} />
+          </span>
+          <span
+            className="absolute top-3 right-4 cursor-pointer"
+            onClick={onSendMessage}
+          >
+            <Image alt="" width={25} height={25} src={send} />
+          </span>
+        </>
+      )}
     </div>
   );
 }

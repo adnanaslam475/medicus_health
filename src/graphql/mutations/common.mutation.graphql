@@ -33,3 +33,25 @@ mutation createChatChannel($createChatChannelInput: CreateChatChannelInput!) {
     }
   }
 }
+
+mutation createChatMessage($createChatMessageInput: CreateChatMessageInput!) {
+  createChatMessage(createChatMessageInput: $createChatMessageInput) {
+    id
+    channelId
+    senderId
+    receiverId
+    message
+    messageType
+    createdAt
+    sender {
+      id
+      first_name
+      last_name
+    }
+    receiver {
+      id
+      first_name
+      last_name
+    }
+  }
+}

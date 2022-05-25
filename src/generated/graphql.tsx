@@ -1293,6 +1293,13 @@ export type CreateChatChannelMutationVariables = Exact<{
 
 export type CreateChatChannelMutation = { __typename?: 'Mutation', createChatChannel: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any, doctor?: { __typename?: 'User', id: number } | null, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, createdAt: any, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null }> | null } };
 
+export type CreateChatMessageMutationVariables = Exact<{
+  createChatMessageInput: CreateChatMessageInput;
+}>;
+
+
+export type CreateChatMessageMutation = { __typename?: 'Mutation', createChatMessage: { __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, receiverId: number, message?: string | null, messageType?: string | null, createdAt: any, sender: { __typename?: 'User', id: number, first_name: string, last_name: string }, receiver: { __typename?: 'User', id: number, first_name: string, last_name: string } } };
+
 export type CreateDoctorScheduleMutationVariables = Exact<{
   doctorId: Scalars['Int'];
   day: Scalars['Int'];
@@ -1531,7 +1538,7 @@ export type AdminDashboardStatisticsQuery = { __typename?: 'Query', adminDash: {
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null }> | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null } | null }> };
+export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null }> | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null } | null }> };
 
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -1810,6 +1817,33 @@ export const CreateChatChannelDocument = gql`
 
 export function useCreateChatChannelMutation() {
   return Urql.useMutation<CreateChatChannelMutation, CreateChatChannelMutationVariables>(CreateChatChannelDocument);
+};
+export const CreateChatMessageDocument = gql`
+    mutation createChatMessage($createChatMessageInput: CreateChatMessageInput!) {
+  createChatMessage(createChatMessageInput: $createChatMessageInput) {
+    id
+    channelId
+    senderId
+    receiverId
+    message
+    messageType
+    createdAt
+    sender {
+      id
+      first_name
+      last_name
+    }
+    receiver {
+      id
+      first_name
+      last_name
+    }
+  }
+}
+    `;
+
+export function useCreateChatMessageMutation() {
+  return Urql.useMutation<CreateChatMessageMutation, CreateChatMessageMutationVariables>(CreateChatMessageDocument);
 };
 export const CreateDoctorScheduleDocument = gql`
     mutation createDoctorSchedule($doctorId: Int!, $day: Int!, $startTime: String!, $endTime: String!) {
@@ -2336,6 +2370,12 @@ export const GetAllChatChannelsDocument = gql`
         id
         first_name
         last_name
+        doctorProfile {
+          profile_image
+        }
+        patientProfile {
+          profileImage
+        }
       }
     }
     doctor {
