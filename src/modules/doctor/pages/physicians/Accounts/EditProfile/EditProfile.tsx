@@ -35,8 +35,6 @@ import Language from "../../../../../admin/components/Languague/Language";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "../../../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import ReactS3Client from "react-aws-s3-typescript";
-import error from "next/error";
-import { info } from "sass";
 
 import {
   DoctorProfile,
@@ -51,7 +49,6 @@ import { Schedule } from "common/types/types";
 import { RangeValue } from "rc-picker/lib/interface";
 import { parseJson } from "common/utils/helper";
 import { getUserData } from "common/utils/userData";
-import LanguageList from "common/components/Languages/LanguageList";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 
 const { TextArea } = Input;
@@ -182,7 +179,6 @@ function EditProfile({
             {
               institution: values["eb-institution-0"],
               degree: values["eb-degree-0"],
-              // degree: values["eb-degree-0"],
             },
             {
               institution: values["eb-institution-1"],

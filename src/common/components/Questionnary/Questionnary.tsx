@@ -34,7 +34,6 @@ const HealthQuestionnary = ({
   const [terms, setTerms] = useState(false);
   const form: any = useRef();
   const handleChange = (e: any) => {
-    // handleBackChange(e);
   };
 
   useEffect(() => {
@@ -77,7 +76,6 @@ const HealthQuestionnary = ({
             className="ant-btn ant-btn-primary ant-btn mb-0"
             type="primary"
             onClick={() => form?.current?.submit()}
-            // htmlType="submit"
           >
             {isUpdateMode ? "Update" : "Complete"}
           </Button>
@@ -340,18 +338,15 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           label={HealthQuestionnaryData.q3.q.label}
           className="text-secondary"
         >
-          {/* <div className="checkbox-dir-col"> */}
           <CheckboxGroup
             options={HealthQuestionnaryData.q3.q.option}
             onChange={onChangeMedicalCondition}
             style={{ display: "flex", flexDirection: "column" }}
           />
-          {/* </div> */}
         </Form.Item>
         {showDrugOthers && (
           <Form.Item
             className="flex-1"
-            // name="drug_text"
             name={HealthQuestionnaryData.q3.q2.name}
           >
             <Input />
@@ -363,20 +358,14 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         className="text-secondary"
         label={HealthQuestionnaryData.q4.label}
       >
-        {/* <div className="checkbox-dir-col"> */}
         <CheckboxGroup
           options={HealthQuestionnaryData.q4.option}
           onChange={onChangeSurgicalHistory}
           style={{ display: "flex", flexDirection: "column" }}
         />
-        {/* </div> */}
       </Form.Item>
       {showSurgicalOthers && (
-        <Form.Item
-          className="flex-1"
-          // name="surgical_text"
-          name={HealthQuestionnaryData.q4.q2.name}
-        >
+        <Form.Item className="flex-1" name={HealthQuestionnaryData.q4.q2.name}>
           <Input />
         </Form.Item>
       )}
