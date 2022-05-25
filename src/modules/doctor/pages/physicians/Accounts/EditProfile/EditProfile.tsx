@@ -352,7 +352,7 @@ function EditProfile({
   };
 
   const handleChangeLanguage = (e: CheckboxChangeEvent, name: string) => {
-    if (e.target.checked === true) {
+    if (e.target.checked) {
       setPhysicianLanguage(name);
     }
   };
