@@ -158,6 +158,11 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
         history
       }
     }
+    doctor {
+      first_name
+      last_name
+    }
+    charges
     appointmentHealthHistory {
       history
     }
@@ -178,7 +183,6 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
       plan
     }
     status
-
     transaction {
       status
       amountReceived
