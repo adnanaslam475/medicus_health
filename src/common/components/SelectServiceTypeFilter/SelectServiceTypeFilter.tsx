@@ -15,7 +15,6 @@ export function SelectServiceTypeFilter({
       placeholder="Service"
       className="w-full sm:w-40"
       onChange={onChange}
-      // placement
       value={value}
     >
       {appointmentServiceTypes?.map(({ id, name }) => (

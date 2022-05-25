@@ -543,7 +543,7 @@ query getDoctorEarnings($id: Int!) {
 
 # get staff listing
 query getAllStaffByDoctor($filter: GetStaffFilter!) {
-  getStaff(filter: $filter) {
+  staff(filter: $filter) {
     id
     role
     email
@@ -551,6 +551,7 @@ query getAllStaffByDoctor($filter: GetStaffFilter!) {
     last_name
     contact_number
     doctorId
+    createdAt
   }
 }
 

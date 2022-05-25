@@ -891,7 +891,6 @@ export type Query = {
   getDoctorEarnings: DoctorEarningsResponse;
   getPatients: Array<User>;
   getPhysicians: Array<User>;
-  getStaff: Array<User>;
   getStatesByCountry: Array<State>;
   getTransectionFilter: Array<Transaction>;
   getUserFilter: Array<UserResponse>;
@@ -899,6 +898,7 @@ export type Query = {
   patientHealthHistorys: Array<PatientHealthHistory>;
   physicianAppointments: Array<Appointment>;
   physiciansPatients: Array<User>;
+  staff: Array<User>;
   staffDetail: User;
   state: State;
   states: Array<State>;
@@ -1020,11 +1020,6 @@ export type QueryGetPhysiciansArgs = {
 };
 
 
-export type QueryGetStaffArgs = {
-  filter: GetStaffFilter;
-};
-
-
 export type QueryGetStatesByCountryArgs = {
   country_id: Scalars['Int'];
 };
@@ -1052,6 +1047,11 @@ export type QueryPhysicianAppointmentsArgs = {
 
 export type QueryPhysiciansPatientsArgs = {
   filter: GetPhysiciansPatientsInput;
+};
+
+
+export type QueryStaffArgs = {
+  filter: GetStaffFilter;
 };
 
 
@@ -1733,7 +1733,7 @@ export type GetAllStaffByDoctorQueryVariables = Exact<{
 }>;
 
 
-export type GetAllStaffByDoctorQuery = { __typename?: 'Query', getStaff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null }> };
+export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null, createdAt: any }> };
 
 export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -3111,7 +3111,7 @@ export function useGetDoctorEarningsQuery(options: Omit<Urql.UseQueryArgs<GetDoc
 };
 export const GetAllStaffByDoctorDocument = gql`
     query getAllStaffByDoctor($filter: GetStaffFilter!) {
-  getStaff(filter: $filter) {
+  staff(filter: $filter) {
     id
     role
     email
@@ -3119,6 +3119,7 @@ export const GetAllStaffByDoctorDocument = gql`
     last_name
     contact_number
     doctorId
+    createdAt
   }
 }
     `;
@@ -6661,35 +6662,6 @@ export default {
             ]
           },
           {
-            "name": "getStaff",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "LIST",
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "User",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "args": [
-              {
-                "name": "filter",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
             "name": "getStatesByCountry",
             "type": {
               "kind": "NON_NULL",
@@ -6848,6 +6820,35 @@ export default {
           },
           {
             "name": "physiciansPatients",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "staff",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

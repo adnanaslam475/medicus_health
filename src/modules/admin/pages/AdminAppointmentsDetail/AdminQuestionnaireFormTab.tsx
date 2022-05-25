@@ -8,21 +8,10 @@ type Props = {
   data: object | undefined;
 };
 function AdminQuestionnaireFormTab({ data }: Props) {
-  // const { appointments } = data || {};
-  // const appointment = appointments && appointments[0];
-
+  
   return (
     <div className="">
-      {/* <CardWithProfileImageInfo
-        name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
-        serviceName={appointment?.serviceType?.name}
-      >
-        <PhysicianQuestionnaire
-          appointmentHealthHistory={
-            appointment?.appointmentHealthHistory?.history
-          }
-        />
-      </CardWithProfileImageInfo> */}
+      
     </div>
   );
 }

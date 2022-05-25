@@ -1,7 +1,6 @@
 import React from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { Tabs } from "antd";
-// import PatientAppointmentInfoTab from "./PatientAppointmentInfoOfPhysicianTab";
 import AdminAppointmentInfoTab from "./AdminAppointmentInfoTab";
 import AdminQuestionnaireFormTab from "./AdminQuestionnaireFormTab";
 import AdminHealthQuestionnaireFormTab from "./AdminHealthQuestionnaireFormTab";
@@ -21,11 +20,7 @@ function AdminAppointmentHistoryDetail() {
     variables: { id: Number(query?.appointmentId) },
   });
 
-  // const { appointments } = data || {};
-
-  // let doctorNotes =
-  //   appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
-  console.log("data--------->", data);
+ 
   return (
     <AppLayout>
       <>
@@ -46,8 +41,6 @@ function AdminAppointmentHistoryDetail() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Notes" key="6">
               <AdminNotesWithTextTab
-              // appointment={appointment as Appointment}
-              // doctorNotes={doctorNotes as [[string, string]]}
               />
             </Tabs.TabPane>
           </Tabs>

@@ -66,9 +66,8 @@ function AdminAppointmentInfo({ data }: Props) {
     paymentStatus,
   } = data || {};
 
-  console.log("AdminAppointmentInfo", data);
   return (
-    <div className="max-w-[700px]" style={{ border: "1px solid red" }}>
+    <div className="max-w-[700px]">
       <div>
         <LabelWithText label="ID" text={id} />
         <LabelWithText label="Booking Date" text={bookingDate} />
