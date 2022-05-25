@@ -97,7 +97,7 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 				</div>
 				{/* <div className="lg:ml-3 sm:mt-0">
 					<SelectStatusTypeFilter
-						placeHolder="Status"
+						placeholder="Status"
 						onChange={(value) =>
 							onChangeFields("appointmentType", value as string)
 						}

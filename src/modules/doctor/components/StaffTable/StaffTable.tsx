@@ -56,7 +56,7 @@ function StaffTable({ dataSource }: Props) {
     },
     {
       title: "Account Creation Date",
-      dataIndex: "requestedDate",
+      dataIndex: "createdAt",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
