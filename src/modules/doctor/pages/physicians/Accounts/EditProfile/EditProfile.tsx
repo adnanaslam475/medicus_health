@@ -52,6 +52,7 @@ import { RangeValue } from "rc-picker/lib/interface";
 import { parseJson } from "common/utils/helper";
 import { getUserData } from "common/utils/userData";
 import LanguageList from "common/components/Languages/LanguageList";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -99,6 +100,7 @@ function EditProfile({
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
   const [ispublish, setIsPublish] = useState(true);
+  const [physicianLanguage, setPhysicianLanguage] = useState<string>("");
 
   const user = getUserData();
 
@@ -162,9 +164,7 @@ function EditProfile({
   }
 
   const updateDoctorProfile = async (values: any) => {
-    console.log("sabih.....", values);
     if (doctorData) {
-      console.log("if.....", values);
       const res = await updateDoctor({
         updateDoctorProfileInput: {
           doctor_id: id,
@@ -177,7 +177,7 @@ function EditProfile({
           profile_image: image || userProfileImage,
           about_me: values?.about_me,
           condition_treated: condition_treated,
-          language: values?.language,
+          language: physicianLanguage,
           educational_background: [
             {
               institution: values["eb-institution-0"],
@@ -308,7 +308,7 @@ function EditProfile({
         profile_image: image || userProfileImage,
         about_me: values?.about_me,
         condition_treated: list.toString(),
-        language: values?.language,
+        language: physicianLanguage,
         educational_background: [
           {
             institution: values["eb-institution-0"],
@@ -348,6 +348,12 @@ function EditProfile({
           message:
             res?.error?.graphQLErrors[0]?.message || "Something went wrong",
         });
+    }
+  };
+
+  const handleChangeLanguage = (e: CheckboxChangeEvent, name: string) => {
+    if (e.target.checked === true) {
+      setPhysicianLanguage(name);
     }
   };
 
@@ -481,9 +487,48 @@ function EditProfile({
                 </Form.Item>
               </div>
 
-              {/* <LanguageList formInstance={formInstance} /> */}
-              <LanguageList language={language} />
+              <div className="flex items-center ">
+                <Form.Item
+                  name="languageEnglish"
+                  className={`${_classes["bottom-margin-0"]}`}
+                >
+                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                    <Image
+                      alt=""
+                      height={21}
+                      width={21}
+                      src={end}
+                      className="majid"
+                    />
+                    <span className=" pl-1 pr-10">English</span>
+                    <Checkbox
+                      defaultChecked={language === "English"}
+                      onChange={(e) => handleChangeLanguage(e, "English")}
+                    ></Checkbox>
+                  </div>
+                </Form.Item>
 
+                <Form.Item
+                  name="languageSpanish"
+                  className={`${_classes["bottom-margin-0"]}`}
+                >
+                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                    <Image
+                      alt=""
+                      height={21}
+                      width={21}
+                      src={esp}
+                      className="px-1 majid"
+                    />
+                    <span className=" pl-1 pr-10">Spanish</span>
+
+                    <Checkbox
+                      defaultChecked={language === "Spanish"}
+                      onChange={(e) => handleChangeLanguage(e, "Spanish")}
+                    ></Checkbox>
+                  </div>
+                </Form.Item>
+              </div>
 
               <div className="mt-5">
                 <Form.Item label="About me" name="about_me">
