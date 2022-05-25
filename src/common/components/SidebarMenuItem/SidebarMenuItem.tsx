@@ -32,15 +32,11 @@ function SidebarMenuItem() {
     <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
   ];
 
-  const IconsListAdmin = [
+  const IconsListPatient = [
     <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
-    <DollarIcon className={_classes["sidebar-icon-hover"]} />,
-    <PatientIcon className={_classes["sidebar-icon-hover"]} />,
-    <StaffIcon className={_classes["sidebar-icon-hover"]} />,
+    <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
     <MessageIcon className={_classes["sidebar-icon-hover"]} />,
     <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
-
-    <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
   ];
 
   const router = useRouter();
@@ -71,7 +67,7 @@ function SidebarMenuItem() {
                 })}
               </Menu.SubMenu>
             ) : (
-              <Menu.Item key={el.route} icon={IconsListPhysician[i]}>
+              <Menu.Item key={el.route} icon={IconsListPatient[i]}>
                 <Link href={el.route}>{el.name}</Link>
               </Menu.Item>
             );
@@ -95,7 +91,7 @@ function SidebarMenuItem() {
                 })}
               </Menu.SubMenu>
             ) : (
-              <Menu.Item key={el.route} icon={IconsListAdmin[i]}>
+              <Menu.Item key={el.route} icon={IconsListPatient[i]}>
                 <Link href={el.route}>{el.name}</Link>
               </Menu.Item>
             );
@@ -122,7 +118,7 @@ function SidebarMenuItem() {
                 })}
               </Menu.SubMenu>
             ) : (
-              <Menu.Item key={el.route} icon={IconsListAdmin[i]}>
+              <Menu.Item key={el.route} icon={IconsListPhysician[i]}>
                 <Link href={el.route}>{el.name}</Link>
               </Menu.Item>
             );
