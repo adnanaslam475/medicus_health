@@ -283,16 +283,6 @@ function EditProfile({
   const handleConditionTreated = async (list: string[]) => {
     const values = formInstance.getFieldsValue();
     const res = await updateDoctor({
-      // updateDoctorProfileInput: {
-      //   doctor_id: id,
-      //   first_name: values?.firstName,
-      //   last_name: values?.lastName,
-      //   email: values?.email,
-      //   condition_treated: list.toString(),
-      //   specialization: values?.specialization,
-      //   year_of_experience: Number(values?.year_of_experience),
-      // },
-
       updateDoctorProfileInput: {
         doctor_id: Number(user?.user?.id),
         first_name: values?.firstName,
@@ -331,12 +321,6 @@ function EditProfile({
         ],
       },
     });
-    // if (res?.data) {
-    //   res?.data?.updateDoctorProfile &&
-    //     notification.success({
-    //       message: "Updated Successfully",
-    //     });
-    // }
 
     if (res?.error) {
       res?.error?.graphQLErrors[0]?.message &&
@@ -388,7 +372,6 @@ function EditProfile({
                   <Button
                     type="primary"
                     className={`${_classes["published-button"]}`}
-                    // onClick={handleChange}
                   >
                     {status ? "Published" : "Unpublished"}
                   </Button>
