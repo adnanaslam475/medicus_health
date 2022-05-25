@@ -200,7 +200,7 @@ function AdminAppointmentsListing() {
 
 			render: (value: any) => (
 				<div className="text-primary">
-					<AimChip typ="UPCOMING" />
+					<AimChip typ="PENDING" />
 				</div>
 			),
 		},

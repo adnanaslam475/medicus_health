@@ -1,183 +1,153 @@
 .calendarview {
-  :global .fc-day-number {
-    font-size: 1.5em;
-    color: #1a82fe;
-    border: 1px solid #1a82fe;
-  }
-  :global .fc-media-screen {
-    height: calc(100vh - 100px) !important;
-  }
-  :global .fc-day-header {
-    font-size: 1.5em;
-    color: #00b294;
-  }
-  :global .fc-today-button {
-    background-color: #f6f8fa !important;
-    color: black !important;
-    font-weight: 500 !important;
-  }
-  :global .fc-day-today {
-    // background-color: #F9FAFC !important;
-    background-color: transparent !important;
-    border-bottom: 2px solid #1a82fe;
-  }
-  :global .fc-button.fc-button-primary {
-    background-color: #f6f8fa;
-    color: #ffffff;
-    padding: 10px;
-  }
-  :global .fc-timegrid-divider {
-    display: none;
-  }
-  :global .fc-customPrev-button {
-    background-color: #f6f8fa !important;
-  }
-  :global .fc-button.fc-button-primary {
-    background-color: #f6f8fa;
-    border: none;
-    color: #7d7888;
-    font-size: 14px;
-    font-weight: 300;
-  }
-  :global .fc-customText-button {
-    background: transparent !important;
-    border: none;
-    font-size: 24px !important;
-    color: #272b4c !important;
-    font-weight: 500 !important;
-  }
-  :global .fc-custom1-button {
-    background-color: #1a82fe !important;
-    color: #fff !important;
-  }
-  :global .fc-button.fc-button-primary.fc-button-active {
-    background-color: #1a82fe;
-    color: #f9f6f9;
-  }
-  :global .fc-button-primary:not(:disabled):active:focus,
-  :global .fc-button-primary:not(:disabled).fc-button-active:focus {
-    box-shadow: none;
-    background-color: #1a82fe !important;
-    color: #ffffff;
-  }
-  :global .fc-v-event {
-    background-color: #f6f8fa !important;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    border-left: 2px solid #1a82fe;
-    border-radius: initial;
-    box-sizing: border-box;
-    margin-left: 3px;
-  }
-  :global .fc .fc-button:disabled {
-    color: #7d7888;
-    border-color: #7d7888;
-  }
-  :global .fc .fc-toolbar-title {
-    font-size: 18px !important;
-    margin: 0;
-    color: #272b4c;
-    display: inline;
-    padding-left: 20px;
-    padding-top: 10px;
-    font-weight: 600 !important;
-  }
-  :global .fc-button:focus {
-    outline: 0;
-    border: none !important;
-    box-shadow: none;
-  }
-  :global .fc .fc-col-header-cell-cushion {
-    display: inline-block;
-    padding: 2px 4px;
-    font-weight: 500;
-  }
-  // :global .fc-event-today {
-  //   :global .fc-event-title.fc-sticky {
-  //     color: #ffffff;
-  //   }
-  // }
-  :global .fc-event-title.fc-sticky {
-    font-size: 12px;
-    font-weight: 500 !important;
-  }
-  :global .fc-daygrid-event-dot {
-    display: none;
-  }
+	:global .fc-day-number {
+		font-size: 1.5em;
+		color: #1a82fe;
+		border: 1px solid #1a82fe;
+	}
+	:global .fc-media-screen {
+		height: calc(100vh - 100px) !important;
+	}
+	:global .fc-day-header {
+		font-size: 1.5em;
+		color: #00b294;
+	}
+	:global .fc-today-button {
+		background-color: #f6f8fa !important;
+		color: black !important;
+		font-weight: 500 !important;
+	}
+	:global .fc-day-today {
+		// background-color: #F9FAFC !important;
+		background-color: transparent !important;
+		border-bottom: 2px solid #1a82fe;
+	}
+	:global .fc-button.fc-button-primary {
+		background-color: #f6f8fa;
+		color: #ffffff;
+		padding: 10px;
+	}
+	:global .fc-timegrid-divider {
+		display: none;
+	}
+	:global .fc-customPrev-button {
+		background-color: #f6f8fa !important;
+	}
+	:global .fc-button.fc-button-primary {
+		background-color: #f6f8fa;
+		border: none;
+		color: #7d7888;
+		font-size: 14px;
+		font-weight: 300;
+	}
+	:global .fc-customText-button {
+		background: transparent !important;
+		border: none;
+		font-size: 24px !important;
+		color: #272b4c !important;
+		font-weight: 500 !important;
+	}
+	:global .fc-custom1-button {
+		background-color: #1a82fe !important;
+		color: #fff !important;
+	}
+	:global .fc-button.fc-button-primary.fc-button-active {
+		background-color: #1a82fe;
+		color: #f9f6f9;
+	}
+	:global .fc-button-primary:not(:disabled):active:focus,
+	:global .fc-button-primary:not(:disabled).fc-button-active:focus {
+		box-shadow: none;
+		background-color: #1a82fe !important;
+		color: #ffffff;
+	}
+	:global .fc-v-event {
+		background-color: #f6f8fa !important;
+		color: black;
+		border: none;
+		padding: 5px 10px;
+		border-left: 2px solid #1a82fe;
+		border-radius: initial;
+		box-sizing: border-box;
+		margin-left: 3px;
+	}
+	:global .fc .fc-button:disabled {
+		color: #7d7888;
+		border-color: #7d7888;
+	}
+	:global .fc .fc-toolbar-title {
+		font-size: 18px !important;
+		margin: 0;
+		color: #272b4c;
+		display: inline;
+		padding-left: 20px;
+		padding-top: 10px;
+		font-weight: 600 !important;
+	}
+	:global .fc-button:focus {
+		outline: 0;
+		border: none !important;
+		box-shadow: none;
+	}
+	:global .fc .fc-col-header-cell-cushion {
+		display: inline-block;
+		padding: 2px 4px;
+		font-weight: 500;
+	}
+	// :global .fc-event-today {
+	//   :global .fc-event-title.fc-sticky {
+	//     color: #ffffff;
+	//   }
+	// }
+	:global .fc-event-title.fc-sticky {
+		font-size: 12px;
+		font-weight: 500 !important;
+	}
+	:global .fc-daygrid-event-dot {
+		display: none;
+	}
 
-  :global .fc-event-title-container {
-    font-weight: bold;
-    color: #000000;
-  }
-  :global .fc-h-event .fc-event-title {
-    font-weight: 600;
-  }
-  :global .fc-daygrid-body {
-    display: none;
-  }
+	:global .fc-event-title-container {
+		font-weight: bold;
+		color: #000000;
+	}
+	:global .fc-h-event .fc-event-title {
+		font-weight: 600;
+	}
+	:global .fc-daygrid-body {
+		display: none;
+	}
 }
-.clsUpcoming {
-  height: 30px;
-  padding: 5px;
-  margin: 3px;
-  border-left: 5px solid #ff8061;
-  justify-content: center;
-  align-items: center;
-  border-top: #f6f8fa;
-  border-right: #f6f8fa;
-  border-bottom: #f6f8fa;
-  background-color: #f6f8fa !important;
-}
-.clsOngoing {
-  height: 30px;
-  padding: 5px;
-  margin: 3px;
-  border-left: 5px solid #642574;
-  justify-content: center;
-  align-items: center;
-  border-top: #f6f8fa;
-  border-right: #f6f8fa;
-  border-bottom: #f6f8fa;
-  background-color: #f6f8fa;
-}
-.clsComplete {
-  height: 30px;
-  padding: 5px;
-  margin: 3px;
-  border-left: 5px solid #378e53;
-  justify-content: center;
-  align-items: center;
-  border-top: #f6f8fa;
-  border-right: #f6f8fa;
-  border-bottom: #f6f8fa;
-  background-color: #e2f6e9;
-}
-.clsToday {
-  height: 30px;
-  padding: 5px;
-  margin: 3px;
-  border-left: 5px solid #bababa;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  border-top: #642574;
-  border-right: #642574;
-  border-bottom: #642574;
-  background-color: #642574;
-}
-.clsCancel {
-  height: 30px;
-  padding: 5px;
-  margin: 3px;
-  border-left: 5px solid #dedede;
-  justify-content: center;
-  align-items: center;
-  border-top: #f6f8fa;
-  border-right: #f6f8fa;
-  border-bottom: #f6f8fa;
-  background-color: #f6f8fa;
-}
-.style_css__JiOc_ .fc-button.fc-button-primary {
-  background: transparent;
+
+.calendarviewStyle {
+	.clsUpcoming {
+		border-left: 5px solid #9295af !important;
+		color: #9295af !important;
+		background-color: #e2e5e5 !important;
+	}
+	.clsRequested {
+		border-left: 5px solid #ffaf02 !important;
+		color: #ffaf02 !important;
+		background-color: #fff6e0 !important;
+	}
+	.clsCompleted {
+		border-left: 5px solid #378e53 !important;
+		color: #378e53 !important;
+		background-color: #e2f8f7 !important;
+	}
+
+	.clsCanceled {
+		border-left: 5px solid #d53e4f !important;
+		background-color: #fce8eb !important;
+		color: #d53e4f !important;
+	}
+	.clsConfirmed {
+		// height: 30px;
+		// padding: 5px;
+		// margin: 3px;
+		border-left: 5px solid #2784fe !important;
+		// justify-content: center;
+		// align-items: center;
+		background-color: #ebf3ff !important;
+		color: #2784fe !important;
+	}
 }
