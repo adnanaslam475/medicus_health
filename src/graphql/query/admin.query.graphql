@@ -18,6 +18,30 @@ query adminDashboardStatistics {
   }
 }
 
+query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
+  appointments(filter: $filter) {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    appointmentSchedule {
+      startTime
+      endTime
+    }
+    charges
+    status
+  serviceType {
+    name
+  }
+  }
+}
+
 query getPatients($filter: GetPatientsInput!) {
   getPatients(filter: $filter) {
     id
