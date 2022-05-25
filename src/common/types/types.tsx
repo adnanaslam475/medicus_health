@@ -88,3 +88,8 @@ export type patientAppointmentHistoryFilterType = {
   };
 };
 
+export type PatientListFilterType = {
+  searchField?: string;
+  stateId?: number;
+  countryId?: number;
+};

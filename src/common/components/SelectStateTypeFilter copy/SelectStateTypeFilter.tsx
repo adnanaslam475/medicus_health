@@ -1,29 +1,34 @@
 import { Select } from "antd";
-// import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
+import { useGetStatesByCountryQuery } from "generated/graphql";
 
 export function SelectStateTypeFilter({
-	onChange,
-	value,
+  onChange,
+  value,
+  selectedCountryId,
 }: {
-	onChange: (value: string | undefined) => void;
-	value: string | undefined;
+  onChange: (value: string | number | readonly string[] | undefined) => void;
+  value: string | number | readonly string[] | undefined;
+  selectedCountryId?: number;
 }) {
-	// const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
-	// const { appointmentServiceTypes } = serviceTypes || {};
-	return (
-		<Select
-			placeholder="State"
-			className="w-full sm:w-40"
-			onChange={onChange}
-			value={value || "State"}
-		>
-			{/* {appointmentServiceTypes?.map(({ id, name }) => (
-				<Option value={id}>{name}</Option>
-			))} */}
-				<Select.Option value="karachi">KARACHI</Select.Option>
-				<Select.Option value="islamabad">ISLAMABAD</Select.Option>
-				<Select.Option value="lahore">LAHORE</Select.Option>
-	
-		</Select>
-	);
+  const [data] = useGetStatesByCountryQuery({
+    variables: {
+      input: Number(selectedCountryId),
+    },
+    pause: selectedCountryId === undefined,
+  });
+
+  const { getStatesByCountry } = data?.data || {};
+
+  return (
+    <Select
+      placeholder="State"
+      className="w-full sm:w-40"
+      onChange={onChange}
+      value={value}
+    >
+      {getStatesByCountry?.map(({ id, state_name }) => (
+        <Select.Option value={id}>{state_name}</Select.Option>
+      ))}
+    </Select>
+  );
 }
