@@ -2,6 +2,7 @@ import { notification } from "antd";
 import { getUserData } from "common/utils/userData";
 import {
   ChatChannels,
+  RtcTokenResponse,
   useGenerateRtcTokenMutation,
   useGetAllChatChannelsQuery,
 } from "generated/graphql";
@@ -15,6 +16,8 @@ type state = {
   }: {
     channelName: string;
   }) => Promise<void>;
+  onJoinChannel?: (channelName: string) => Promise<void>;
+  loginToRtm?: ({ channelName }: { channelName: string }) => Promise<void>;
   onMessage: (text: string) => void;
   setCurrentChannel: (channel: ChatChannels) => void;
 };
@@ -61,6 +64,105 @@ export function MessageContextProvider({
 
   const [, executeGenerateRtcTokenMutation] = useGenerateRtcTokenMutation();
   const { user } = getUserData();
+
+  async function getRtmToken(
+    channelName: string,
+    uId: string
+  ): Promise<RtcTokenResponse | undefined> {
+    return new Promise((resolve, reject) => {
+      executeGenerateRtcTokenMutation({
+        generateRTCTokenInput: {
+          channelName,
+          uId,
+          role: "audience",
+          tokenType: "uid",
+        },
+      })
+        .then(({ data, error }) => {
+          if (error) {
+            reject(error);
+          } else {
+            const { generateRTCToken } = data || {};
+            resolve(generateRTCToken);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  async function loginToRtm({ channelName }: { channelName: string }) {
+    const res = await getRtmToken("channelName", String(user?.id));
+    const { rtmAccessToken } = res || {};
+    let rtmLocal = rtmRef.current;
+    if (!rtmLocal) {
+      rtmLocal = new Client();
+      rtmRef.current = rtmLocal;
+      try {
+        await rtmLocal.login(String(user?.id), rtmAccessToken || "");
+        notification.success({
+          message: "user logged in successfully",
+        });
+        rtmLocal?.on("MemberLeft", ({ channelName, args }) => {
+          const memberId = args[0];
+          console.log(`%c${memberId} left the ${channelName}`, "color:red");
+        });
+
+        rtmLocal?.on("MemberJoined", ({ channelName, args }) => {
+          const memberId = args[0];
+          console.log(`%c${memberId} joined the ${channelName}`, "color:green");
+        });
+
+        rtmLocal?.on("ChannelMessage", async ({ channelName, args }) => {
+          const [message, memberId] = args;
+          console.log(`%c${memberId}---> ${message.text}`, "color:orange");
+          const info = { ...messageInfoRef.current };
+          const messages = { ...info.messagesWithChannel };
+          messages[channelName || ""] = [
+            ...(messages[channelName || ""] ? messages[channelName || ""] : []),
+            {
+              senderId: memberId,
+              message: message.text,
+              messageType: "text",
+              createdAt: new Date().getTime(),
+              isMyMessage: false,
+            },
+          ];
+          info.messagesWithChannel = messages;
+          setMessageInfo(info);
+        });
+      } catch (error) {
+        console.log(error);
+        notification.error({
+          message: "login failed",
+        });
+      }
+    }
+  }
+
+  async function onJoinChannel(channelName: string) {
+    const channelToBeJoined = rtmRef.current?.channels[channelName];
+    if (channelToBeJoined?.joined) {
+      // cannot join an already joined channel
+      return;
+    }
+    try {
+      await rtmRef.current?.joinChannel(channelName);
+      if (rtmRef.current) {
+        rtmRef.current.channels[channelName].joined = true;
+      }
+      notification.success({
+        message: "joined successfully",
+      });
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "joined failed",
+      });
+    }
+    console.log("rtmRef.current?.channels", rtmRef.current?.channels);
+  }
 
   async function onLoginJoinChannel({ channelName }: { channelName: string }) {
     const { data } = await executeGenerateRtcTokenMutation({
@@ -166,6 +268,8 @@ export function MessageContextProvider({
           allChannels: getAllChatChannels as ChatChannels[],
         },
         onLoginJoinChannel,
+        onJoinChannel,
+        loginToRtm,
         setCurrentChannel,
         onMessage,
       }}

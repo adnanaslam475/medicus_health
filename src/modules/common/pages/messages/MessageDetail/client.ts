@@ -51,7 +51,6 @@ export default class Client extends EventEmitter {
   }
 
   async joinChannel(name: string) {
-    console.log("joinChannel", name);
     const channel = this.client.createChannel(name);
     this.channels[name] = {
       channel,
@@ -62,7 +61,6 @@ export default class Client extends EventEmitter {
   }
 
   async leaveChannel(name: string) {
-    console.log("leaveChannel", name);
     if (
       !this.channels[name] ||
       (this.channels[name] && !this.channels[name].joined)
@@ -72,7 +70,6 @@ export default class Client extends EventEmitter {
   }
 
   async sendChannelMessage(text: string, channelName: string) {
-    console.log(this.channels);
     if (!this.channels[channelName] || !this.channels[channelName].joined)
       return;
     return this.channels[channelName].channel.sendMessage({ text });

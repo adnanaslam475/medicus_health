@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ChatChannels } from "generated/graphql";
 import Image from "next/image";
 import { useMessageContext } from "../MessageDetail/MessageContext";
@@ -21,13 +21,25 @@ type Props = {
   thread: ChatChannels;
 };
 function UserProfile({ thread }: Props) {
-  const { messageInfo, onLoginJoinChannel, setCurrentChannel } =
-    useMessageContext();
+  const {
+    messageInfo,
+    onLoginJoinChannel,
+    setCurrentChannel,
+    loginToRtm,
+    onJoinChannel,
+  } = useMessageContext();
 
   async function onJoinChat() {
     setCurrentChannel(thread);
-    onLoginJoinChannel?.({ channelName: thread.channelName });
+    // onLoginJoinChannel?.({ channelName: thread.channelName });
+    onJoinChannel?.(thread.channelName);
   }
+
+  useEffect(() => {
+    if (thread.channelName) {
+      loginToRtm?.({ channelName: thread.channelName });
+    }
+  }, [thread.channelName]);
 
   const { user } = getUserData();
 
