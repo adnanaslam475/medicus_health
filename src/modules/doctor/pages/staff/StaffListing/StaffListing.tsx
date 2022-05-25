@@ -30,7 +30,7 @@ function StaffListing() {
       },
     },
   });
-  const { getStaff } = data || {};
+  const { staff } = data || {};
   const onFinish = async (values: CreateStaffInput) => {
     try {
       const response = await createStaff({
@@ -90,8 +90,8 @@ function StaffListing() {
             <StaffAppointmentsFilter onChange={onChangeFilters} />
           </div>
           <div className="w-full">
-            {getStaff?.length ? (
-              <StaffTable dataSource={getStaff as User[]} />
+            {staff?.length ? (
+              <StaffTable dataSource={staff as User[]} />
             ) : (
               <div className="flex items-center justify-center w-full">
                 <Empty />
