@@ -1735,6 +1735,13 @@ export type GetDoctorEarningsQueryVariables = Exact<{
 
 export type GetDoctorEarningsQuery = { __typename?: 'Query', getDoctorEarnings: { __typename?: 'DoctorEarningsResponse', total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null, total_number_of_patients?: number | null, total_earnings_from_consultation?: number | null, total_earnings_from_second_opinions?: number | null, total_earnings?: number | null } };
 
+export type GetAllStaffByDoctorQueryVariables = Exact<{
+  filter: GetStaffFilter;
+}>;
+
+
+export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null }> };
+
 export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -3133,6 +3140,23 @@ export const GetDoctorEarningsDocument = gql`
 
 export function useGetDoctorEarningsQuery(options: Omit<Urql.UseQueryArgs<GetDoctorEarningsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetDoctorEarningsQuery>({ query: GetDoctorEarningsDocument, ...options });
+};
+export const GetAllStaffByDoctorDocument = gql`
+    query getAllStaffByDoctor($filter: GetStaffFilter!) {
+  staff(filter: $filter) {
+    id
+    role
+    email
+    first_name
+    last_name
+    contact_number
+    doctorId
+  }
+}
+    `;
+
+export function useGetAllStaffByDoctorQuery(options: Omit<Urql.UseQueryArgs<GetAllStaffByDoctorQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllStaffByDoctorQuery>({ query: GetAllStaffByDoctorDocument, ...options });
 };
 export const GetStaffDetailsUrlByIdDocument = gql`
     query getStaffDetailsUrlById($id: Int!) {
