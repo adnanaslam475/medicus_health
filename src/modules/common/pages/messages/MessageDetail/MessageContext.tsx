@@ -16,22 +16,22 @@ type state = {
     channelName: string;
   }) => Promise<void>;
   onMessage: (text: string) => void;
-  setCurrentChannelName: (name: string) => void;
+  setCurrentChannel: (channel: ChatChannels) => void;
 };
 
 type MessageInfo = {
-  currentChannelName: string;
   allChannels: ChatChannels[] | undefined;
   messagesWithChannel: any;
+  currentChannel: ChatChannels | undefined;
 };
 
 const initialState: state = {
   onMessage: () => null,
-  setCurrentChannelName: () => null,
+  setCurrentChannel: () => null,
   messageInfo: {
     allChannels: [],
-    currentChannelName: "",
     messagesWithChannel: {},
+    currentChannel: undefined,
   },
 };
 
@@ -50,9 +50,11 @@ export function MessageContextProvider({
 }) {
   const [messageInfo, setMessageInfo] = useState<MessageInfo>({
     allChannels: [],
-    currentChannelName: "",
     messagesWithChannel: {},
+    currentChannel: undefined,
   });
+  const messageInfoRef = useRef<MessageInfo>(messageInfo);
+  messageInfoRef.current = messageInfo;
   const rtmRef = useRef<Client>();
   const [{ data }] = useGetAllChatChannelsQuery();
   const { getAllChatChannels } = data || {};
@@ -100,14 +102,22 @@ export function MessageContextProvider({
         rtmLocal?.on("ChannelMessage", async ({ channelName, args }) => {
           const [message, memberId] = args;
           console.log(`%c${memberId}---> ${message.text}`, "color:orange");
-          // setMessageHistory([
-          //   ...messageHistoryRef.current,
-          //   {
-          //     name: memberId as string,
-          //     text: message.text as string,
-          //     type: "text",
-          //   },
-          // ]);
+          const info = { ...messageInfoRef.current };
+          const messages = { ...info.messagesWithChannel };
+          messages[info?.currentChannel?.channelName || ""] = [
+            ...(messages[info?.currentChannel?.channelName || ""]
+              ? messages[info?.currentChannel?.channelName || ""]
+              : []),
+            {
+              senderId: memberId,
+              message: message.text,
+              messageType: "text",
+              createdAt: new Date().getTime(),
+              isMyMessage: false,
+            },
+          ];
+          info.messagesWithChannel = messages;
+          setMessageInfo(info);
         });
       } catch (error) {
         console.log(error);
@@ -121,18 +131,20 @@ export function MessageContextProvider({
   async function onMessage(text: string) {
     await rtmRef.current?.sendChannelMessage(
       text,
-      messageInfo.currentChannelName
+      messageInfo.currentChannel?.channelName || ""
     );
-    const info = { ...messageInfo };
+    const info = { ...messageInfoRef.current };
     const messages = { ...info.messagesWithChannel };
-    messages[info?.currentChannelName] = [
-      ...(messages[info.currentChannelName]
-        ? messages[info.currentChannelName]
+    messages[messageInfo.currentChannel?.channelName || ""] = [
+      ...(messages[messageInfo.currentChannel?.channelName || ""]
+        ? messages[messageInfo.currentChannel?.channelName || ""]
         : []),
       {
-        name: user?.id,
-        text,
-        time: new Date().getTime(),
+        senderId: user?.id,
+        message: text,
+        messageType: "text",
+        createdAt: new Date().getTime(),
+        isMyMessage: true,
       },
     ];
     info.messagesWithChannel = messages;
@@ -140,9 +152,9 @@ export function MessageContextProvider({
     setMessageInfo(info);
   }
 
-  function setCurrentChannelName(name: string) {
+  function setCurrentChannel(channel: ChatChannels) {
     const info = { ...messageInfo };
-    info.currentChannelName = name;
+    info.currentChannel = channel;
     setMessageInfo(info);
   }
 
@@ -151,10 +163,10 @@ export function MessageContextProvider({
       value={{
         messageInfo: {
           ...messageInfo,
-          allChannels: getAllChatChannels,
+          allChannels: getAllChatChannels as ChatChannels[],
         },
         onLoginJoinChannel,
-        setCurrentChannelName,
+        setCurrentChannel,
         onMessage,
       }}
     >

@@ -1,6 +1,4 @@
 import React from "react";
-import ChatBar from "../ChatBar/ChatBar";
-import MessageInput from "../MessageInput/MessageInput";
 import _classes from "./Message-detail.module.scss";
 
 type Props = {

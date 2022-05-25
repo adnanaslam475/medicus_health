@@ -29,6 +29,14 @@ export type AccountCreationDate = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type AdminDashResponse = {
+  __typename?: 'AdminDashResponse';
+  total_number_of_appointments?: Maybe<Scalars['Float']>;
+  total_number_of_physicians?: Maybe<Scalars['Float']>;
+  total_number_of_users?: Maybe<Scalars['Float']>;
+  total_revenue?: Maybe<Scalars['Float']>;
+};
+
 export type Appointment = {
   __typename?: 'Appointment';
   appointmentHealthHistory?: Maybe<AppointmentHealthHistory>;
@@ -119,10 +127,36 @@ export type ChatChannels = {
   __typename?: 'ChatChannels';
   channelName: Scalars['String'];
   createdAt: Scalars['DateTime'];
+  doctor?: Maybe<User>;
   doctorId: Scalars['Int'];
   id: Scalars['Int'];
   isAdminChat: Scalars['Boolean'];
+  participants?: Maybe<Array<ChatParticipants>>;
   patientId: Scalars['Int'];
+};
+
+export type ChatMessages = {
+  __typename?: 'ChatMessages';
+  channel: ChatChannels;
+  channelId: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['Int'];
+  message?: Maybe<Scalars['String']>;
+  messageType?: Maybe<Scalars['String']>;
+  receiver: User;
+  receiverId: Scalars['Int'];
+  sender: User;
+  senderId: Scalars['Int'];
+};
+
+export type ChatParticipants = {
+  __typename?: 'ChatParticipants';
+  channel?: Maybe<ChatChannels>;
+  channelId: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['Int'];
+  participantId: Scalars['Int'];
+  userDetails?: Maybe<User>;
 };
 
 export type City = {
@@ -173,10 +207,17 @@ export type CreateAppointmentServiceTypeInput = {
 };
 
 export type CreateChatChannelInput = {
-  channelName: Scalars['String'];
   doctorId: Scalars['Int'];
   isAdminChat: Scalars['Boolean'];
   patientId: Scalars['Int'];
+};
+
+export type CreateChatMessageInput = {
+  channelId: Scalars['Int'];
+  message: Scalars['String'];
+  messageType?: InputMaybe<Scalars['String']>;
+  receiverId: Scalars['Int'];
+  senderId: Scalars['Int'];
 };
 
 export type CreateDoctorBillingMethodInput = {
@@ -489,6 +530,7 @@ export type Mutation = {
   createAppointment: Appointment;
   createCard: UserCard;
   createChatChannel: ChatChannels;
+  createChatMessage: ChatMessages;
   createDoctor: User;
   createDoctorBillingMethod: DoctorBillingMethod;
   createDoctorProfile: DoctorProfile;
@@ -576,6 +618,11 @@ export type MutationCreateCardArgs = {
 
 export type MutationCreateChatChannelArgs = {
   createChatChannelInput: CreateChatChannelInput;
+};
+
+
+export type MutationCreateChatMessageArgs = {
+  createChatMessageInput: CreateChatMessageInput;
 };
 
 
@@ -814,6 +861,7 @@ export type ProposedTimeSlots = {
 
 export type Query = {
   __typename?: 'Query';
+  adminDash: AdminDashResponse;
   adminUsers: Array<User>;
   appointment: Appointment;
   appointmentBanner: Array<Appointment>;
@@ -839,6 +887,7 @@ export type Query = {
   getAllCards: Array<UserCard>;
   getAllChatChannels: Array<ChatChannels>;
   getCard: UserCard;
+  getChannelMessages: Array<ChatMessages>;
   getCitiesByState: Array<City>;
   getDoctorEarnings: DoctorEarningsResponse;
   getPatients: Array<User>;
@@ -944,6 +993,11 @@ export type QueryGetAllCardsArgs = {
 
 export type QueryGetCardArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryGetChannelMessagesArgs = {
+  channelId: Scalars['Int'];
 };
 
 
@@ -1138,6 +1192,8 @@ export type UpdateUserInput = {
 export type User = {
   __typename?: 'User';
   appointment?: Maybe<Appointment>;
+  chatChannel?: Maybe<ChatChannels>;
+  chatParticipant?: Maybe<ChatParticipants>;
   city: City;
   city_id?: Maybe<Scalars['Int']>;
   contact_number?: Maybe<Scalars['String']>;
@@ -1230,6 +1286,13 @@ export type GenerateRtcTokenMutationVariables = Exact<{
 
 
 export type GenerateRtcTokenMutation = { __typename?: 'Mutation', generateRTCToken: { __typename?: 'RtcTokenResponse', rtmAccessToken: string, rtcAccessToken: string, channelName: string, privilegeExpireTime: string } };
+
+export type CreateChatChannelMutationVariables = Exact<{
+  createChatChannelInput: CreateChatChannelInput;
+}>;
+
+
+export type CreateChatChannelMutation = { __typename?: 'Mutation', createChatChannel: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any, doctor?: { __typename?: 'User', id: number } | null, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, createdAt: any, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null }> | null } };
 
 export type CreateDoctorScheduleMutationVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -1450,7 +1513,7 @@ export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEm
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any }> };
+export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null }> | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null } | null }> };
 
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -1699,6 +1762,36 @@ export const GenerateRtcTokenDocument = gql`
 
 export function useGenerateRtcTokenMutation() {
   return Urql.useMutation<GenerateRtcTokenMutation, GenerateRtcTokenMutationVariables>(GenerateRtcTokenDocument);
+};
+export const CreateChatChannelDocument = gql`
+    mutation createChatChannel($createChatChannelInput: CreateChatChannelInput!) {
+  createChatChannel(createChatChannelInput: $createChatChannelInput) {
+    id
+    channelName
+    doctorId
+    patientId
+    isAdminChat
+    createdAt
+    doctor {
+      id
+    }
+    participants {
+      id
+      channelId
+      participantId
+      createdAt
+      userDetails {
+        id
+        first_name
+        last_name
+      }
+    }
+  }
+}
+    `;
+
+export function useCreateChatChannelMutation() {
+  return Urql.useMutation<CreateChatChannelMutation, CreateChatChannelMutationVariables>(CreateChatChannelDocument);
 };
 export const CreateDoctorScheduleDocument = gql`
     mutation createDoctorSchedule($doctorId: Int!, $day: Int!, $startTime: String!, $endTime: String!) {
@@ -2168,6 +2261,31 @@ export const GetAllChatChannelsDocument = gql`
     patientId
     isAdminChat
     createdAt
+    participants {
+      id
+      channelId
+      participantId
+      channel {
+        id
+        channelName
+        doctorId
+        patientId
+        isAdminChat
+      }
+      userDetails {
+        id
+        first_name
+        last_name
+      }
+    }
+    doctor {
+      id
+      first_name
+      last_name
+      doctorProfile {
+        profile_image
+      }
+    }
   }
 }
     `;
@@ -3067,6 +3185,45 @@ export default {
     "types": [
       {
         "kind": "OBJECT",
+        "name": "AdminDashResponse",
+        "fields": [
+          {
+            "name": "total_number_of_appointments",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_physicians",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_users",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_revenue",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
         "name": "Appointment",
         "fields": [
           {
@@ -3621,6 +3778,15 @@ export default {
             "args": []
           },
           {
+            "name": "doctor",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "doctorId",
             "type": {
               "kind": "NON_NULL",
@@ -3654,6 +3820,21 @@ export default {
             "args": []
           },
           {
+            "name": "participants",
+            "type": {
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ChatParticipants",
+                  "ofType": null
+                }
+              }
+            },
+            "args": []
+          },
+          {
             "name": "patientId",
             "type": {
               "kind": "NON_NULL",
@@ -3661,6 +3842,189 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ChatMessages",
+        "fields": [
+          {
+            "name": "channel",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ChatChannels",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "channelId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "message",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "messageType",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "receiver",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "receiverId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "sender",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "senderId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ChatParticipants",
+        "fields": [
+          {
+            "name": "channel",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ChatChannels",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "channelId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "participantId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "userDetails",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
             "args": []
           }
@@ -4503,6 +4867,29 @@ export default {
             "args": [
               {
                 "name": "createChatChannelInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createChatMessage",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ChatMessages",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createChatMessageInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -5572,6 +5959,18 @@ export default {
         "name": "Query",
         "fields": [
           {
+            "name": "adminDash",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AdminDashResponse",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "adminUsers",
             "type": {
               "kind": "NON_NULL",
@@ -6126,6 +6525,35 @@ export default {
             "args": [
               {
                 "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "getChannelMessages",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ChatMessages",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "channelId",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -6831,6 +7259,24 @@ export default {
             "type": {
               "kind": "OBJECT",
               "name": "Appointment",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "chatChannel",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ChatChannels",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "chatParticipant",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ChatParticipants",
               "ofType": null
             },
             "args": []

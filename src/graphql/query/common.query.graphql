@@ -1,4 +1,4 @@
-query getAllChatChannels{
+query getAllChatChannels {
   getAllChatChannels {
     id
     channelName
@@ -6,5 +6,30 @@ query getAllChatChannels{
     patientId
     isAdminChat
     createdAt
+    participants {
+      id
+      channelId
+      participantId
+      channel {
+        id
+        channelName
+        doctorId
+        patientId
+        isAdminChat
+      }
+      userDetails {
+        id
+        first_name
+        last_name
+      }
+    }
+    doctor {
+      id
+      first_name
+      last_name
+      doctorProfile {
+        profile_image
+      }
+    }
   }
 }
