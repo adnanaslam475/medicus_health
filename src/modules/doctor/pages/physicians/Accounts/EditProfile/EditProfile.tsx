@@ -688,50 +688,6 @@ function EditProfile({
               </Form.Item>
             </Form>
             <Form layout="vertical">
-              {/* <div className="font-medium text-lightBlue-1 my-2">Languages</div>
-              <div className="flex mr-auto">
-                <Language
-                  end={end}
-                  title="English"
-                  check={true}
-                  disable={false}
-                />
-                <Language
-                  end={esp}
-                  title="Spanish"
-                  check={false}
-                  disable={false}
-                />
-              </div> */}
-              {/* <div className="mt-5">
-                <Form.Item label="About me" name="about">
-                  <TextArea
-                    rows={10}
-                    placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
-                  />
-                </Form.Item>
-              </div> */}
-
-              {/* <InputWithLi
-                disable={false}
-                onChange={(list) => {
-                  handleConditionTreated(list);
-                }}
-                initialValue={condition_treated?.split(",")}
-              /> */}
-              {/* Physician - Account - Its editable component so all props are required */}
-              {/* <MultiRangeDatePicker
-                loading={loading}
-                disable={false}
-                schedules={schedules}
-                setDeleteScheduleId={setDeleteScheduleId}
-                setAddScheduleTime={setAddScheduleTime}
-                addScheduleTime={addScheduleTime}
-                addScheduleDay={addScheduleDay}
-                setAddScheduleDay={setAddScheduleDay}
-                onAddClick={onAddClick}
-              /> */}
-
               <div className={`my-6 hidden ${_classes["educational"]}`}>
                 <h6>Login Information</h6>
                 <div className="border-b border-gray-4 my-3">
