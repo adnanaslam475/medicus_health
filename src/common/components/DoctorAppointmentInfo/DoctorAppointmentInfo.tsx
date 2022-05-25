@@ -197,7 +197,7 @@ function DoctorAppointmentInfoFooter({
         icon={<VideoCameraFilled />}
         className={`${_classes["appointments-btn"]} bg-current`}
         onClick={() =>
-          Router.push(`/doctor/appointments/${appointmentId}/call`)
+          Router.push(`/physician/appointments/${appointmentId}/call`)
         }
       >
         Join Now
