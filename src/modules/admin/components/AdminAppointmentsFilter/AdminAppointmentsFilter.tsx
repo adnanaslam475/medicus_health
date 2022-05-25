@@ -60,8 +60,6 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
 
     onChange(filters);
   }
-  const handleSearchChange = (event: any) =>
-    onChangeFields("searchString", event.target.value);
   return (
     <div className="page-filters flex-none lg:flex items-center mb-5">
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0 flex-wrap">
@@ -70,7 +68,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             value={filterValues.searchString as string}
             placeholder="Search by ID, physician name or patient name"
             prefix={<SearchOutlined />}
-            onChange={handleSearchChange}
+            onChange={(e) => onChangeFields("searchString", e.target.value)}
           />
         </div>
         <div className="flex-none sm:flex">
@@ -156,7 +154,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
 
         <div className="lg:ml-3 sm:mt-0">
           <SelectStatusTypeFilter
-            placeHolder="Appointment Status"
+            placeholder="Appointment Status"
             onChange={(value) => onChangeFields("status", value as string)}
             value={filterValues.status}
           />

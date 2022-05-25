@@ -3,16 +3,16 @@ import { Select } from "antd";
 export function SelectStatusTypeFilter({
   onChange,
   value,
-  placeHolder,
+  placeholder,
 }: {
   onChange: (value: string | undefined) => void;
   value: string | undefined | null;
-  placeHolder: string;
+  placeholder: string;
 }) {
   
   return (
     <Select
-      placeholder={placeHolder}
+      placeholder={placeholder}
       className="w-full sm:w-50"
       onChange={onChange}
       value={value || "Appointment Status"}

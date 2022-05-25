@@ -28,16 +28,16 @@ function AdminAppointmentHistoryDetail() {
         <div className="profile-tabs">
           <Tabs type="card">
             <Tabs.TabPane tab="Appointment Info" key="1" className="">
-              <AdminAppointmentInfoTab data={data} />
+              {/* <AdminAppointmentInfoTab data={data} /> work in progress */}
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health Questionnaire" key="3">
-              <AdminHealthQuestionnaireFormTab data={data} />
+              {/* <AdminHealthQuestionnaireFormTab data={data} /> work in progress*/}
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician Questionnaire" key="4">
-              <AdminQuestionnaireFormTab data={data} />
+              {/* <AdminQuestionnaireFormTab data={data} />  */}
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachment" key="5">
-              <AdminAttachmentTab data={data} />
+              {/* <AdminAttachmentTab data={data} /> */}
             </Tabs.TabPane>
             <Tabs.TabPane tab="Notes" key="6">
               <AdminNotesWithTextTab
