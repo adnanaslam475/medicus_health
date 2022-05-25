@@ -78,3 +78,13 @@ export type adminUserFilterType = {
     endDate?: string;
   };
 };
+
+export type patientAppointmentHistoryFilterType = {
+  doctorId?: number;
+  serviceId?: number;
+  dueDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+

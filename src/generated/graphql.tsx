@@ -891,7 +891,6 @@ export type Query = {
   getDoctorEarnings: DoctorEarningsResponse;
   getPatients: Array<User>;
   getPhysicians: Array<User>;
-  getStaff: Array<User>;
   getStatesByCountry: Array<State>;
   getTransectionFilter: Array<Transaction>;
   getUserFilter: Array<UserResponse>;
@@ -899,6 +898,7 @@ export type Query = {
   patientHealthHistorys: Array<PatientHealthHistory>;
   physicianAppointments: Array<Appointment>;
   physiciansPatients: Array<User>;
+  staff: Array<User>;
   staffDetail: User;
   state: State;
   states: Array<State>;
@@ -1020,11 +1020,6 @@ export type QueryGetPhysiciansArgs = {
 };
 
 
-export type QueryGetStaffArgs = {
-  filter: GetStaffFilter;
-};
-
-
 export type QueryGetStatesByCountryArgs = {
   country_id: Scalars['Int'];
 };
@@ -1052,6 +1047,11 @@ export type QueryPhysicianAppointmentsArgs = {
 
 export type QueryPhysiciansPatientsArgs = {
   filter: GetPhysiciansPatientsInput;
+};
+
+
+export type QueryStaffArgs = {
+  filter: GetStaffFilter;
 };
 
 
@@ -1495,6 +1495,13 @@ export type UpdateAdminMutationVariables = Exact<{
 
 export type UpdateAdminMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', first_name: string, last_name: string, email: string, password?: string | null, status: boolean } };
 
+export type EnableOrDisablePatientMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type EnableOrDisablePatientMutation = { __typename?: 'Mutation', enableOrDisablePatient: { __typename?: 'User', id: number, status: boolean } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -1508,6 +1515,18 @@ export type GetAdminUsersQueryVariables = Exact<{
 
 
 export type GetAdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean }> };
+
+export type AdminDashboardStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminDashboardStatisticsQuery = { __typename?: 'Query', adminDash: { __typename?: 'AdminDashResponse', total_number_of_users?: number | null, total_revenue?: number | null, total_number_of_physicians?: number | null, total_number_of_appointments?: number | null } };
+
+export type AdminPhysicianAppointmentQueryVariables = Exact<{
+  filter: GetAppointmentInput;
+}>;
+
+
+export type AdminPhysicianAppointmentQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, charges: number, status?: string | null, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }> };
 
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -1721,7 +1740,7 @@ export type GetAllStaffByDoctorQueryVariables = Exact<{
 }>;
 
 
-export type GetAllStaffByDoctorQuery = { __typename?: 'Query', getStaff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null }> };
+export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null }> };
 
 export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -1729,6 +1748,13 @@ export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
 
 
 export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null } };
+
+export type GetAdminUserByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetAdminUserByIdQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean } };
 
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2191,6 +2217,18 @@ export const UpdateAdminDocument = gql`
 export function useUpdateAdminMutation() {
   return Urql.useMutation<UpdateAdminMutation, UpdateAdminMutationVariables>(UpdateAdminDocument);
 };
+export const EnableOrDisablePatientDocument = gql`
+    mutation enableOrDisablePatient($id: Int!) {
+  enableOrDisablePatient(id: $id) {
+    id
+    status
+  }
+}
+    `;
+
+export function useEnableOrDisablePatientMutation() {
+  return Urql.useMutation<EnableOrDisablePatientMutation, EnableOrDisablePatientMutationVariables>(EnableOrDisablePatientDocument);
+};
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
   toggleEmailPreferences(
@@ -2224,6 +2262,49 @@ export const GetAdminUsersDocument = gql`
 
 export function useGetAdminUsersQuery(options: Omit<Urql.UseQueryArgs<GetAdminUsersQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAdminUsersQuery>({ query: GetAdminUsersDocument, ...options });
+};
+export const AdminDashboardStatisticsDocument = gql`
+    query adminDashboardStatistics {
+  adminDash {
+    total_number_of_users
+    total_revenue
+    total_number_of_physicians
+    total_number_of_appointments
+  }
+}
+    `;
+
+export function useAdminDashboardStatisticsQuery(options?: Omit<Urql.UseQueryArgs<AdminDashboardStatisticsQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminDashboardStatisticsQuery>({ query: AdminDashboardStatisticsDocument, ...options });
+};
+export const AdminPhysicianAppointmentDocument = gql`
+    query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
+  appointments(filter: $filter) {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    appointmentSchedule {
+      startTime
+      endTime
+    }
+    charges
+    status
+    serviceType {
+      name
+    }
+  }
+}
+    `;
+
+export function useAdminPhysicianAppointmentQuery(options: Omit<Urql.UseQueryArgs<AdminPhysicianAppointmentQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminPhysicianAppointmentQuery>({ query: AdminPhysicianAppointmentDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
@@ -3063,7 +3144,7 @@ export function useGetDoctorEarningsQuery(options: Omit<Urql.UseQueryArgs<GetDoc
 };
 export const GetAllStaffByDoctorDocument = gql`
     query getAllStaffByDoctor($filter: GetStaffFilter!) {
-  getStaff(filter: $filter) {
+  staff(filter: $filter) {
     id
     role
     email
@@ -3092,6 +3173,22 @@ export const GetStaffDetailsUrlByIdDocument = gql`
 
 export function useGetStaffDetailsUrlByIdQuery(options: Omit<Urql.UseQueryArgs<GetStaffDetailsUrlByIdQueryVariables>, 'query'>) {
   return Urql.useQuery<GetStaffDetailsUrlByIdQuery>({ query: GetStaffDetailsUrlByIdDocument, ...options });
+};
+export const GetAdminUserByIdDocument = gql`
+    query getAdminUserById($id: Int!) {
+  user(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    createdAt
+    status
+  }
+}
+    `;
+
+export function useGetAdminUserByIdQuery(options: Omit<Urql.UseQueryArgs<GetAdminUserByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAdminUserByIdQuery>({ query: GetAdminUserByIdDocument, ...options });
 };
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {
@@ -6597,35 +6694,6 @@ export default {
             ]
           },
           {
-            "name": "getStaff",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "LIST",
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "User",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "args": [
-              {
-                "name": "filter",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
             "name": "getStatesByCountry",
             "type": {
               "kind": "NON_NULL",
@@ -6784,6 +6852,35 @@ export default {
           },
           {
             "name": "physiciansPatients",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "staff",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

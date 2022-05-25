@@ -16,8 +16,6 @@ const SuccessScreen = () => {
   };
 
   const { query } = useRouter();
-  console.log(query, "query");
-
   return (
     <Container className="login-bg w-full">
       <div className="flex items-center justify-center min-h-screen w-h-100 py-16">

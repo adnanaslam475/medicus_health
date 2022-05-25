@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Table, Tag } from "antd";
+import { Button, Table, Tag } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { useGetAdminUsersQuery, User } from "generated/graphql";
 import { date, userData } from "common/utils";
 import { adminUserFilterType } from "common/types/types";
-import { EyeFilled } from "@ant-design/icons";
+import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import AdminUserSearchFilters from "common/components/AdminUserFilter/AdminUserSearchFilters";
 
@@ -36,7 +36,7 @@ const UserList = (props: Props) => {
       dataIndex: "id",
       key: "id",
       sorter: {
-        compare: (a: string | any, b: string | any) => a.id - b.id,
+        compare: (a: any, b: any) => a.id - b.id,
         multiple: 3,
       },
     },
@@ -46,8 +46,7 @@ const UserList = (props: Props) => {
       dataIndex: "",
       key: "user",
       sorter: {
-        compare: (a: string | any, b: string | any) =>
-          a.first_name - b.first_name,
+        compare: (a: any, b: any) => a.first_name - b.first_name,
         multiple: 3,
       },
       render: (value: User) => {
@@ -62,7 +61,7 @@ const UserList = (props: Props) => {
       dataIndex: "email",
       key: "email",
       sorter: {
-        compare: (a: string | any, b: string | any) => a.email - b.email,
+        compare: (a: any, b: any) => a.email - b.email,
         multiple: 3,
       },
       render: (value: User) => {
@@ -74,8 +73,7 @@ const UserList = (props: Props) => {
       dataIndex: "createdAt",
       key: "createdAt",
       sorter: {
-        compare: (a: string | any, b: string | any) =>
-          a.createdAt - b.createdAt,
+        compare: (a: any, b: any) => a.createdAt - b.createdAt,
         multiple: 3,
       },
       render: (value: User) => {
@@ -91,7 +89,7 @@ const UserList = (props: Props) => {
       dataIndex: "status",
       key: "status",
       sorter: {
-        compare: (a: string | any, b: string | any) => a.status - b.status,
+        compare: (a: any, b: any) => a.status - b.status,
         multiple: 3,
       },
       render: (value: string) => {
@@ -107,16 +105,17 @@ const UserList = (props: Props) => {
       },
     },
     {
-      title: "",
       dataIndex: "id",
+      className: "table-action-icon",
       key: "id",
-      className: "table-action-icon text-primary",
       render: (userId: number) => (
-        <EyeFilled
-          onClick={() => {
-            return Router.push(`admin/edituser/${userId}`);
-          }}
-        />
+        <div>
+          <EyeFilled
+            onClick={() => {
+              return Router.push(`/admin/edituser/${userId}`);
+            }}
+          />
+        </div>
       ),
     },
   ];
@@ -126,6 +125,15 @@ const UserList = (props: Props) => {
       <div className="w-full">
         <div className="flex justify-between">
           <h2 className="mb-4">Users</h2>
+          <div className="flex-none sm:flex items-center justify-between mb-5">
+            <Button
+              type="primary"
+              onClick={() => Router.push("/admin/adduser")}
+              icon={<PlusOutlined />}
+            >
+              Add User
+            </Button>
+          </div>
         </div>
 
         <AdminUserSearchFilters onChange={onChangeFilters} />

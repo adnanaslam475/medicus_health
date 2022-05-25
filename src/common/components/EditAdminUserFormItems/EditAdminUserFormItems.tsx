@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input } from "antd";
 
-const createAdminUserForm = [
+const editAdminUserForm = [
   {
     label: "First Name",
     name: "first_name",
@@ -20,12 +20,27 @@ const createAdminUserForm = [
     type: "email",
     required: false,
   },
+  {
+    label: "Password",
+    name: "password",
+    type: "password",
+    required: false,
+  },
+  {
+    label: "Confirm Password",
+    name: "confirm_password",
+    type: "password",
+    required: false,
+  },
 ];
 
-function CreateAdminUserForm() {
+type Props = {
+  disableInputs: boolean;
+};
+function EditAdminUserForm({ disableInputs }: Props) {
   return (
     <>
-      {createAdminUserForm.map((value) => (
+      {editAdminUserForm.map((value) => (
         <Form.Item
           key={value.name}
           label={value.label}
@@ -38,11 +53,11 @@ function CreateAdminUserForm() {
           className={`font-bold`}
           name={value.name}
         >
-          <Input placeholder="" className="" />
+          <Input disabled={disableInputs} type={value.type} />
         </Form.Item>
       ))}
     </>
   );
 }
 
-export default CreateAdminUserForm;
+export default EditAdminUserForm;

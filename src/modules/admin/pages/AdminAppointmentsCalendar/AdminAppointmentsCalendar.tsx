@@ -24,7 +24,6 @@ function AdminAppointmentsCalendar() {
 			filter: {},
 		},
 	});
-  console.log(data,"core")
 	const redirectToListing = function () {
 		Router.push("/admin/appointments");
 	};
@@ -32,7 +31,6 @@ function AdminAppointmentsCalendar() {
 
 	const handleDateClick = (arg: any) => {
 		const data = arg?.event?.toJSON();
-    console.log(data.status,"data")
 		setModalData({
 			id: data?.id,
 			patient: data?.extendedProps?.patient,

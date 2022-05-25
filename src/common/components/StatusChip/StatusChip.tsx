@@ -60,7 +60,6 @@ type Props = {
 };
 function AimChip(props: Props) {
 	const { typ } = props;
-  console.log(typ)
 	const { color, text, background, border } =
   classesAccordingToType[typ] || {};
 	const blockClass = "w-min";

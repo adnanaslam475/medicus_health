@@ -54,7 +54,6 @@ function AdminAimsCalender(props: Props) {
 	const { physicianAppointments } = physicianData || {};
 
 	const setCalendarData = () => {
-		console.log(physicianAppointments, "oye");
 		setFilterCalender({
 			...calender,
 			calenderEvents: physicianAppointments?.map(
@@ -170,23 +169,17 @@ function AdminAimsCalender(props: Props) {
 							if (arg.event.extendedProps?.status === "Confirmed") {
 								return [`${_Classes["clsConfirmed"]}`];
 							}
-              if (arg.event.extendedProps?.status === "Completed") {
+							if (arg.event.extendedProps?.status === "Completed") {
 								return [`${_Classes["clsCompleted"]}`];
 							}
-              if (arg.event.extendedProps?.status === "Cancelled") {
+							if (arg.event.extendedProps?.status === "Cancelled") {
 								return [`${_Classes["clsCancelled"]}`];
 							}
-              if (arg.event.extendedProps?.status === "Suggested") {
+							if (arg.event.extendedProps?.status === "Suggested") {
+								return [`${_Classes["clsUpcoming"]}`];
+							} else {
 								return [`${_Classes["clsUpcoming"]}`];
 							}
-              else {
-                return [`${_Classes["clsUpcoming"]}`];
-              }
-							//else if (arg.event.extendedProps?.status === "Requested") {
-							// 	return [`${calendarviewStyle.clsUpcoming}`];
-							// } else if (arg.event.extendedProps?.status === "Suggested") {
-							// 	return [`${calendarviewStyle.clsCancel}`];
-							// }
 						}}
 					/>
 				</div>

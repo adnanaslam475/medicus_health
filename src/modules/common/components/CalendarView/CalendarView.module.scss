@@ -17,7 +17,6 @@
 		font-weight: 500 !important;
 	}
 	:global .fc-day-today {
-		// background-color: #F9FAFC !important;
 		background-color: transparent !important;
 		border-bottom: 2px solid #1a82fe;
 	}
@@ -93,11 +92,6 @@
 		padding: 2px 4px;
 		font-weight: 500;
 	}
-	// :global .fc-event-today {
-	//   :global .fc-event-title.fc-sticky {
-	//     color: #ffffff;
-	//   }
-	// }
 	:global .fc-event-title.fc-sticky {
 		font-size: 12px;
 		font-weight: 500 !important;
@@ -141,12 +135,8 @@
 		color: #d53e4f !important;
 	}
 	.clsConfirmed {
-		// height: 30px;
-		// padding: 5px;
-		// margin: 3px;
+	
 		border-left: 5px solid #2784fe !important;
-		// justify-content: center;
-		// align-items: center;
 		background-color: #ebf3ff !important;
 		color: #2784fe !important;
 	}

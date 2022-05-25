@@ -1,0 +1,53 @@
+.page-filters {
+  :global .ant-picker-range {
+    position: absolute;
+    z-index: -1;
+  }
+  :global .ant-btn {
+    color: #9295af;
+    padding: 0px !important;
+    border: 1px solid #9295af;
+    .anticon {
+      display: block;
+    }
+    :global .date-btn {
+      border: 1px solid #9295af !important;
+    }
+  }
+}
+.btn-clear {
+  border: none !important;
+  .text-gray-1 {
+    margin-top: 1px !important;
+  }
+  &:hover,
+  &:focus {
+    background-color: transparent;
+  }
+}
+
+.range-filter {
+  background-color: #fff;
+  width: 298px;
+  border-radius: 6px;
+  margin-top: 5px;
+  :global .ant-form-item {
+    margin-bottom: 0px !important;
+  }
+}
+
+.range-filter-dropDown {
+  background-color: #f6f8fa;
+  width: 123px;
+  height: 48px;
+  color: #9295af;
+  &:hover {
+    color: #9295af;
+  }
+  & :global .anticon svg {
+    font-size: 12px !important;
+    color:#9295AF !important; 
+    
+
+}
+}

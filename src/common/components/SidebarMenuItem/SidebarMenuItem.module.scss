@@ -21,6 +21,10 @@
       height: 50px;
       line-height: 50px;
       border-radius: 6px;
+      svg{
+        min-width: 23px;
+        max-width: 23px;
+      }
     }
     .ant-menu-submenu {
       min-height: 50px;

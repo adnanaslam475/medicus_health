@@ -101,7 +101,7 @@ function DoctorCard({
               </div>
               <h5 className="text-primary text-xs mb-1">{specialization}</h5>
               <span className="text-secondary text-sm">
-                {yearOfExperience} years of experience
+                {yearOfExperience}+ years of experience
               </span>
               <h6 className="font-rubik text-gray mt-3">{aboutMe}</h6>
               <Divider />
@@ -113,6 +113,12 @@ function DoctorCard({
             </div>
           </div>
           <div className="card-actionBtns lg:w-2/6">
+            <Link passHref href={`/physician/messages`}>
+              <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
+                Message Physician
+              </a>
+            </Link>
+
             <Link passHref href={`/patient/physicians/profile/${id}`}>
               <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
                 View Profile
