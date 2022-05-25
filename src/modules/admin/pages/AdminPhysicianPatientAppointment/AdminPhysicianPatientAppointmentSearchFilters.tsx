@@ -95,7 +95,7 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 						value={filterState.appointmentType}
 					/>
 				</div>
-				<div className="lg:ml-3 sm:mt-0">
+				{/* <div className="lg:ml-3 sm:mt-0">
 					<SelectStatusTypeFilter
 						placeholder="Status"
 						onChange={(value) =>
@@ -103,7 +103,7 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 						}
 						value={filterState.appointmentType}
 					/>
-				</div>
+				</div> */}
 
 				<FilterClearButton onClear={clear} />
 			</div>

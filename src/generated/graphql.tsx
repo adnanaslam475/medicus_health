@@ -1521,6 +1521,13 @@ export type AdminDashboardStatisticsQueryVariables = Exact<{ [key: string]: neve
 
 export type AdminDashboardStatisticsQuery = { __typename?: 'Query', adminDash: { __typename?: 'AdminDashResponse', total_number_of_users?: number | null, total_revenue?: number | null, total_number_of_physicians?: number | null, total_number_of_appointments?: number | null } };
 
+export type AdminPhysicianAppointmentQueryVariables = Exact<{
+  filter: GetAppointmentInput;
+}>;
+
+
+export type AdminPhysicianAppointmentQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, charges: number, status?: string | null, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }> };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -2268,6 +2275,35 @@ export const AdminDashboardStatisticsDocument = gql`
 
 export function useAdminDashboardStatisticsQuery(options?: Omit<Urql.UseQueryArgs<AdminDashboardStatisticsQueryVariables>, 'query'>) {
   return Urql.useQuery<AdminDashboardStatisticsQuery>({ query: AdminDashboardStatisticsDocument, ...options });
+};
+export const AdminPhysicianAppointmentDocument = gql`
+    query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
+  appointments(filter: $filter) {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    appointmentSchedule {
+      startTime
+      endTime
+    }
+    charges
+    status
+    serviceType {
+      name
+    }
+  }
+}
+    `;
+
+export function useAdminPhysicianAppointmentQuery(options: Omit<Urql.UseQueryArgs<AdminPhysicianAppointmentQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminPhysicianAppointmentQuery>({ query: AdminPhysicianAppointmentDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
