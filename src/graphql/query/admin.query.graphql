@@ -17,3 +17,26 @@ query adminDashboardStatistics {
     total_number_of_appointments
   }
 }
+
+query getPatients($filter: GetPatientsInput!) {
+  getPatients(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    gender
+    date_of_birth
+    contact_number
+    streetAddress
+    country_id
+    deleted
+    state_id
+    city_id
+    zip_code
+    password
+    status
+    role
+    doctorId
+    createdAt
+  }
+}
