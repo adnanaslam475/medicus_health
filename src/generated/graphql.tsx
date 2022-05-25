@@ -40,7 +40,7 @@ export type AdminDashResponse = {
 export type Appointment = {
   __typename?: 'Appointment';
   appointmentHealthHistory?: Maybe<AppointmentHealthHistory>;
-  appointmentSchedule: DoctorSchedule;
+  appointmentSchedule?: Maybe<DoctorSchedule>;
   appointmentTimeSlots?: Maybe<Array<AppointmentTimeSlots>>;
   charges: Scalars['Int'];
   createdAt: Scalars['DateTime'];
@@ -53,7 +53,6 @@ export type Appointment = {
   questionnaire: Scalars['JSON'];
   reportUrl?: Maybe<Scalars['JSON']>;
   requestedDate: Scalars['DateTime'];
-  schedule?: Maybe<DoctorSchedule>;
   scheduleId: Scalars['Int'];
   serviceId: Scalars['Int'];
   serviceType?: Maybe<AppointmentServiceType>;
@@ -892,7 +891,6 @@ export type Query = {
   getDoctorEarnings: DoctorEarningsResponse;
   getPatients: Array<User>;
   getPhysicians: Array<User>;
-  getStaff: Array<User>;
   getStatesByCountry: Array<State>;
   getTransectionFilter: Array<Transaction>;
   getUserFilter: Array<UserResponse>;
@@ -900,6 +898,7 @@ export type Query = {
   patientHealthHistorys: Array<PatientHealthHistory>;
   physicianAppointments: Array<Appointment>;
   physiciansPatients: Array<User>;
+  staff: Array<User>;
   staffDetail: User;
   state: State;
   states: Array<State>;
@@ -1021,11 +1020,6 @@ export type QueryGetPhysiciansArgs = {
 };
 
 
-export type QueryGetStaffArgs = {
-  filter: GetStaffFilter;
-};
-
-
 export type QueryGetStatesByCountryArgs = {
   country_id: Scalars['Int'];
 };
@@ -1053,6 +1047,11 @@ export type QueryPhysicianAppointmentsArgs = {
 
 export type QueryPhysiciansPatientsArgs = {
   filter: GetPhysiciansPatientsInput;
+};
+
+
+export type QueryStaffArgs = {
+  filter: GetStaffFilter;
 };
 
 
@@ -1522,6 +1521,13 @@ export type AdminDashboardStatisticsQueryVariables = Exact<{ [key: string]: neve
 
 export type AdminDashboardStatisticsQuery = { __typename?: 'Query', adminDash: { __typename?: 'AdminDashResponse', total_number_of_users?: number | null, total_revenue?: number | null, total_number_of_physicians?: number | null, total_number_of_appointments?: number | null } };
 
+export type AdminPhysicianAppointmentQueryVariables = Exact<{
+  filter: GetAppointmentInput;
+}>;
+
+
+export type AdminPhysicianAppointmentQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, charges: number, status?: string | null, patient: { __typename?: 'User', first_name: string, last_name: string }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }> };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -1541,7 +1547,7 @@ export type DoctorAppointmentDetailAppointmentInfoQueryVariables = Exact<{
 }>;
 
 
-export type DoctorAppointmentDetailAppointmentInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, requestedDate: any, createdAt: any, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } } };
+export type DoctorAppointmentDetailAppointmentInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, requestedDate: any, createdAt: any, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null } };
 
 export type DoctorAppointmentDetailPatientInfoQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -1642,7 +1648,7 @@ export type GetAllRequestedAppointmentsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, requestedDate: any, createdAt: any, status?: string | null, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', createdAt: any, amountReceived: number } | null, appointmentSchedule: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } }> };
+export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, patientId: number, doctorId: number, serviceId: number, requestedDate: any, createdAt: any, status?: string | null, charges: number, patient: { __typename?: 'User', first_name: string, last_name: string }, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', createdAt: any, amountReceived: number } | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null }> };
 
 export type DoctorProfileDetailsQueryVariables = Exact<{
   input: Scalars['Int'];
@@ -1728,13 +1734,6 @@ export type GetDoctorEarningsQueryVariables = Exact<{
 
 
 export type GetDoctorEarningsQuery = { __typename?: 'Query', getDoctorEarnings: { __typename?: 'DoctorEarningsResponse', total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null, total_number_of_patients?: number | null, total_earnings_from_consultation?: number | null, total_earnings_from_second_opinions?: number | null, total_earnings?: number | null } };
-
-export type GetAllStaffByDoctorQueryVariables = Exact<{
-  filter: GetStaffFilter;
-}>;
-
-
-export type GetAllStaffByDoctorQuery = { __typename?: 'Query', getStaff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null }> };
 
 export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -2270,6 +2269,35 @@ export const AdminDashboardStatisticsDocument = gql`
 
 export function useAdminDashboardStatisticsQuery(options?: Omit<Urql.UseQueryArgs<AdminDashboardStatisticsQueryVariables>, 'query'>) {
   return Urql.useQuery<AdminDashboardStatisticsQuery>({ query: AdminDashboardStatisticsDocument, ...options });
+};
+export const AdminPhysicianAppointmentDocument = gql`
+    query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
+  appointments(filter: $filter) {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    appointmentSchedule {
+      startTime
+      endTime
+    }
+    charges
+    status
+    serviceType {
+      name
+    }
+  }
+}
+    `;
+
+export function useAdminPhysicianAppointmentQuery(options: Omit<Urql.UseQueryArgs<AdminPhysicianAppointmentQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminPhysicianAppointmentQuery>({ query: AdminPhysicianAppointmentDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
@@ -3106,23 +3134,6 @@ export const GetDoctorEarningsDocument = gql`
 export function useGetDoctorEarningsQuery(options: Omit<Urql.UseQueryArgs<GetDoctorEarningsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetDoctorEarningsQuery>({ query: GetDoctorEarningsDocument, ...options });
 };
-export const GetAllStaffByDoctorDocument = gql`
-    query getAllStaffByDoctor($filter: GetStaffFilter!) {
-  getStaff(filter: $filter) {
-    id
-    role
-    email
-    first_name
-    last_name
-    contact_number
-    doctorId
-  }
-}
-    `;
-
-export function useGetAllStaffByDoctorQuery(options: Omit<Urql.UseQueryArgs<GetAllStaffByDoctorQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllStaffByDoctorQuery>({ query: GetAllStaffByDoctorDocument, ...options });
-};
 export const GetStaffDetailsUrlByIdDocument = gql`
     query getStaffDetailsUrlById($id: Int!) {
   staffDetail(id: $id) {
@@ -3236,12 +3247,9 @@ export default {
           {
             "name": "appointmentSchedule",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "DoctorSchedule",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "DoctorSchedule",
+              "ofType": null
             },
             "args": []
           },
@@ -3375,15 +3383,6 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
-            },
-            "args": []
-          },
-          {
-            "name": "schedule",
-            "type": {
-              "kind": "OBJECT",
-              "name": "DoctorSchedule",
-              "ofType": null
             },
             "args": []
           },
@@ -6670,35 +6669,6 @@ export default {
             ]
           },
           {
-            "name": "getStaff",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "LIST",
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "User",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "args": [
-              {
-                "name": "filter",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
             "name": "getStatesByCountry",
             "type": {
               "kind": "NON_NULL",
@@ -6857,6 +6827,35 @@ export default {
           },
           {
             "name": "physiciansPatients",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "staff",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
