@@ -13,7 +13,7 @@ export function SelectServiceTypeFilter({
   return (
     <Select
       placeholder="Service"
-      className="w-full"
+      className="w-full sm:w-40"
       onChange={onChange}
       value={value}
     >

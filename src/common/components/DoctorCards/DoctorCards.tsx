@@ -101,7 +101,7 @@ function DoctorCard({
               </div>
               <h5 className="text-primary text-xs mb-1">{specialization}</h5>
               <span className="text-secondary text-sm">
-                {yearOfExperience} years of experience
+                {yearOfExperience}+ years of experience
               </span>
               <h6 className="font-rubik text-gray mt-3">{aboutMe}</h6>
               <Divider />

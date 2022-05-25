@@ -95,15 +95,15 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 						value={filterState.appointmentType}
 					/>
 				</div>
-				<div className="lg:ml-3 sm:mt-0">
+				{/* <div className="lg:ml-3 sm:mt-0">
 					<SelectStatusTypeFilter
-						placeHolder="Status"
+						placeholder="Status"
 						onChange={(value) =>
 							onChangeFields("appointmentType", value as string)
 						}
 						value={filterState.appointmentType}
 					/>
-				</div>
+				</div> */}
 
 				<FilterClearButton onClear={clear} />
 			</div>

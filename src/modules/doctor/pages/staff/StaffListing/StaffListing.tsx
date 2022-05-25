@@ -20,8 +20,8 @@ function StaffListing() {
   const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
   const [{ fetching }, createStaff] = useCreateStaffMutation();
 
-	const { user } = getUserData();
-	const id = user?.id;
+  const { user } = getUserData();
+  const id = user?.id;
 
   const [{ data }, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
     variables: {
@@ -63,7 +63,7 @@ function StaffListing() {
   function onChangeFilters(values: any) {
     setFilterValues(values);
     executeUseStaffQuery({
-      filter: filterValues,
+      filter: values,
       requestPolicy: "network-only",
     });
   }
