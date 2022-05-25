@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
+  Appointment,
   AppointmentServiceType,
   AppointmentTimeSlots,
+  GetAppointmentInput,
   useAdminPhysicianAppointmentQuery,
   User,
 } from "generated/graphql";
@@ -15,6 +17,19 @@ import { date } from "common/utils";
 
 function AdminPhysicianList() {
   const { query } = useRouter();
+  const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
+
+  const [{ data }, executeUseAdminPhysicianAppointmentQuery] =
+    useAdminPhysicianAppointmentQuery({
+      variables: {
+        filter: {
+          ...filterValues,
+          patientId: Number(query.id),
+        },
+      },
+    });
+  const { appointments } = data || {};
+
   const columns = [
     {
       title: "Appointment ID",
@@ -88,8 +103,7 @@ function AdminPhysicianList() {
       dataIndex: "charges",
       key: "charges",
       render: (value: User) => {
-        console.log("vvvvvvvvv", value);
-        return <div>{value}</div>;
+        return <div>$ {value}</div>;
       },
       sorter: {
         compare: (a: any, b: any) => a.charges - b.charges,
@@ -138,12 +152,13 @@ function AdminPhysicianList() {
     },
   ];
 
-  function onChangeFilters() {}
-  const [{ data }] = useAdminPhysicianAppointmentQuery({
-    variables: { filter: { patientId: Number(401) } },
-    // variables: { filter: { patientId: Number(query.id) } },
-  });
-  const { appointments } = data || {};
+  function onChangeFilters(filterValue: GetAppointmentInput) {
+    setFilterValues(filterValue);
+    executeUseAdminPhysicianAppointmentQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
 
   return (
     <div className="w-full">
