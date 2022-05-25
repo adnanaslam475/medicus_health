@@ -14,7 +14,6 @@ export type singleSchedule = {
   id?: string;
 };
 
-
 export type staffFilterType = {
   serviceType?: string;
   accountCreationDate?: {
@@ -31,7 +30,6 @@ export type physicianFilterType = {
     endDate?: string;
   };
 };
-
 
 export type cancelledAppointmentFilterType = {
   searchString?: string;
@@ -71,3 +69,22 @@ export type ServiceTypes = {
   name?: string;
   price: number;
 };
+
+export type adminUserFilterType = {
+  searchUser?: string;
+  status?: string;
+  creationDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+
+export type patientAppointmentHistoryFilterType = {
+  doctorId?: number;
+  serviceId?: number;
+  dueDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+

@@ -25,9 +25,11 @@ export const PATIENT_ROUTES: routes = [
 ];
 
 export const ADMIN_ROUTES: routes = [
-  { name: "Dashboard", route: "/admin/dashboard" },
+  { name: "Dashboard", route: "/admin/dashboards" },
+  { name: "Appointments", route: "/admin/appointments" },
   // { name: "Admin Listing", route: "/admin/listing" },
   { name: "Physicians", route: "/admin/physicians" },
+  { name: "Patients", route: "/admin/patients" },
   { name: "Messages", route: "/admin/messages" },
   { name: "User", route: "/admin/user" },
   { name: "Account", route: "/admin/account" },
@@ -46,7 +48,7 @@ export const DOCTOR_ROUTES: routes = [
 	},
 	{ name: "My Earnings", route: "/physician/myEarnings" },
 	{ name: "Patients", route: "/physician/patients" },
+	{ name: "Staff", route: "/physician/staff" },
 	{ name: "Messages", route: "/physician/messages" },
 	{ name: "Account", route: "/physician/account" },
-	{ name: "Staff", route: "/physician/staff" },
 ];

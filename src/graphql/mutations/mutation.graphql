@@ -232,17 +232,6 @@ mutation createOrUpdateAppointmentNote(
     id
   }
 }
-# add Staff User
-mutation createStaff($createStaffInput: CreateStaffInput!) {
-  createStaff(createStaffInput: $createStaffInput) {
-    email
-    contact_number
-    first_name
-    last_name
-    email
-    doctorId
-  }
-}
 
 # cancel Requested Appointment
 mutation cancelAppointmentByDoctor($id: Int!) {
@@ -252,6 +241,18 @@ mutation cancelAppointmentByDoctor($id: Int!) {
     doctorId
     serviceId
     scheduleId
+  }
+}
+
+# add Staff User
+mutation createStaff($createStaffInput: CreateStaffInput!) {
+  createStaff(createStaffInput: $createStaffInput) {
+    email
+    contact_number
+    first_name
+    last_name
+    email
+    doctorId
   }
 }
 
@@ -283,6 +284,14 @@ mutation updateAdmin($id: Int!, $updateAdminUserInput: UpdateAdminUserInput!) {
     last_name
     email
     password
+    status
+  }
+}
+
+#ENABLE OR DISABLE DOCTOR
+mutation enableOrDisablePatient($id: Int!) {
+  enableOrDisablePatient(id: $id) {
+    id
     status
   }
 }

@@ -3,7 +3,7 @@ import { Form, Input } from "antd";
 
 const createAdminUserForm = [
   {
-    label: "Name",
+    label: "First Name",
     name: "first_name",
     required: true,
     type: "text",

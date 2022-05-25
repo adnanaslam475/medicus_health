@@ -291,7 +291,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">
-                  Do You have any children?
+                  Do you have any children?
                 </div>
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0" name="childrenExists">

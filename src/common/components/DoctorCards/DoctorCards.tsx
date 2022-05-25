@@ -113,6 +113,12 @@ function DoctorCard({
             </div>
           </div>
           <div className="card-actionBtns lg:w-2/6">
+            <Link passHref href={`/physician/messages`}>
+              <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
+                Message Physician
+              </a>
+            </Link>
+
             <Link passHref href={`/patient/physicians/profile/${id}`}>
               <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
                 View Profile
