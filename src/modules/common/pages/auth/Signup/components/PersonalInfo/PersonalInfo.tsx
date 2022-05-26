@@ -260,12 +260,12 @@ export default function PersonalInfo({ onFinish }: props) {
           className="flex-1"
           label="State"
           name="state_id"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your state",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: false,
+          //     message: "Please enter your state",
+          //   },
+          // ]}
         >
           <Select
             showSearch
@@ -296,12 +296,12 @@ export default function PersonalInfo({ onFinish }: props) {
           className="flex-1"
           label="City"
           name="city_id"
-          rules={[
-            {
-              required: false,
-              message: "Please enter your city",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: false,
+          //     message: "Please enter your city",
+          //   },
+          // ]}
         >
           <Select
             placeholder="City"
