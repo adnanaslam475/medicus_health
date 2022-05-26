@@ -1295,7 +1295,7 @@ export type CreateChatChannelMutationVariables = Exact<{
 }>;
 
 
-export type CreateChatChannelMutation = { __typename?: 'Mutation', createChatChannel: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any, doctor?: { __typename?: 'User', id: number } | null, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, createdAt: any, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null }> | null } };
+export type CreateChatChannelMutation = { __typename?: 'Mutation', createChatChannel: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any } };
 
 export type CreateChatMessageMutationVariables = Exact<{
   createChatMessageInput: CreateChatMessageInput;
@@ -1829,20 +1829,6 @@ export const CreateChatChannelDocument = gql`
     patientId
     isAdminChat
     createdAt
-    doctor {
-      id
-    }
-    participants {
-      id
-      channelId
-      participantId
-      createdAt
-      userDetails {
-        id
-        first_name
-        last_name
-      }
-    }
   }
 }
     `;

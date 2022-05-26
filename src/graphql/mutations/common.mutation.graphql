@@ -17,20 +17,6 @@ mutation createChatChannel($createChatChannelInput: CreateChatChannelInput!) {
     patientId
     isAdminChat
     createdAt
-    doctor {
-      id
-    }
-    participants {
-      id
-      channelId
-      participantId
-      createdAt
-      userDetails {
-        id
-        first_name
-        last_name
-      }
-    }
   }
 }
 
