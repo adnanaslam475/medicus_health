@@ -172,7 +172,7 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
       endTime
       selected
     }
-     doctor{
+    doctor {
       first_name
       last_name
     }
@@ -226,11 +226,25 @@ query physiciansPatients($searchField: String) {
     email
     contact_number
     streetAddress
-    country{
+    country {
       country_name
     }
     patientProfile {
       profileImage
+    }
+  }
+}
+
+query getPhysicians($filter: GetPhysiciansInput!) {
+  getPhysicians(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    createdAt
+    doctorProfile {
+      language
     }
   }
 }
