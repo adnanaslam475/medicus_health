@@ -3,7 +3,7 @@ import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo
 import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/AdminAppointmentInfo";
 import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
 import { date } from "common/utils";
-import { Appointment, AdminAppointment } from "generated/graphql";
+import { Appointment } from "generated/graphql";
 
 type Props = {
   appointment: Appointment | undefined;
