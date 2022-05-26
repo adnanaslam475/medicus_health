@@ -3,11 +3,13 @@ import { getUserData } from "common/utils/userData";
 import {
   ChatChannels,
   RtcTokenResponse,
+  useCreateChatChannelMutation,
   useCreateChatMessageMutation,
   useGenerateRtcTokenMutation,
   useGetAllChatChannelsQuery,
   useGetChannelMessagesQuery,
 } from "generated/graphql";
+import { useRouter } from "next/router";
 import React, {
   createContext,
   useContext,
@@ -64,9 +66,11 @@ export function MessageContextProvider({
     messagesWithChannel: {},
     currentChannel: undefined,
   });
+  const { query } = useRouter();
   const messageInfoRef = useRef<MessageInfo>(messageInfo);
   messageInfoRef.current = messageInfo;
   const rtmRef = useRef<Client>();
+  const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
   const [{ data }] = useGetAllChatChannelsQuery();
   const { getAllChatChannels } = data || {};
   const [{ data: channelMessageData }, executeGetChannelMessagesQuery] =
@@ -77,7 +81,6 @@ export function MessageContextProvider({
       pause: !messageInfo.currentChannel,
     });
   const { getChannelMessages } = channelMessageData || {};
-  console.log({ getChannelMessages });
 
   useEffect(() => {
     if (getChannelMessages) {
@@ -88,18 +91,26 @@ export function MessageContextProvider({
         ...(messages[messageInfo.currentChannel?.channelName || ""]
           ? messages[messageInfo.currentChannel?.channelName || ""]
           : []),
-        // {
-        //   senderId: user?.id,
-        //   message: text,
-        //   messageType: "text",
-        //   createdAt: new Date().getTime(),
-        // },
       ];
+
       info.messagesWithChannel = messages;
 
       setMessageInfo(info);
     }
-  }, [getChannelMessages?.[0].channelId]);
+  }, [getChannelMessages?.[0]?.channelId]);
+
+  useEffect(() => {
+    if (query?.chat && query.doctorId && query.patientId) {
+      executeCreateChatChannelMutation({
+        createChatChannelInput: {
+          doctorId: Number(query.doctorId),
+          patientId: Number(query.patientId),
+          isAdminChat: query.chat === "admin",
+        },
+      });
+      console.log(query?.chat);
+    }
+  }, [query?.chat]);
 
   const [, executeGenerateRtcTokenMutation] = useGenerateRtcTokenMutation();
   const [, executeCreateChatMessageMutation] = useCreateChatMessageMutation();
@@ -301,6 +312,7 @@ export function MessageContextProvider({
   }
 
   async function setCurrentChannel(channel: ChatChannels) {
+    if (channel.channelName === messageInfo.currentChannel?.channelName) return; // channel is already switched, must not switch again
     const info = { ...messageInfo };
     info.currentChannel = channel;
     setMessageInfo(info);
