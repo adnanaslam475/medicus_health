@@ -3,10 +3,18 @@ import { getUserData } from "common/utils/userData";
 import {
   ChatChannels,
   RtcTokenResponse,
+  useCreateChatMessageMutation,
   useGenerateRtcTokenMutation,
   useGetAllChatChannelsQuery,
+  useGetChannelMessagesQuery,
 } from "generated/graphql";
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Client from "./client";
 
 type state = {
@@ -17,7 +25,7 @@ type state = {
     channelName: string;
   }) => Promise<void>;
   onJoinChannel?: (channelName: string) => Promise<void>;
-  loginToRtm?: ({ channelName }: { channelName: string }) => Promise<void>;
+  loginToRtm?: () => Promise<void>;
   onMessage: (text: string) => void;
   setCurrentChannel: (channel: ChatChannels) => void;
 };
@@ -61,8 +69,40 @@ export function MessageContextProvider({
   const rtmRef = useRef<Client>();
   const [{ data }] = useGetAllChatChannelsQuery();
   const { getAllChatChannels } = data || {};
+  const [{ data: channelMessageData }, executeGetChannelMessagesQuery] =
+    useGetChannelMessagesQuery({
+      variables: {
+        channelId: messageInfo.currentChannel?.id as number,
+      },
+      pause: !messageInfo.currentChannel,
+    });
+  const { getChannelMessages } = channelMessageData || {};
+  console.log({ getChannelMessages });
+
+  useEffect(() => {
+    if (getChannelMessages) {
+      const info = { ...messageInfoRef.current };
+      const messages = { ...info.messagesWithChannel };
+      messages[messageInfo.currentChannel?.channelName || ""] = [
+        ...getChannelMessages,
+        ...(messages[messageInfo.currentChannel?.channelName || ""]
+          ? messages[messageInfo.currentChannel?.channelName || ""]
+          : []),
+        // {
+        //   senderId: user?.id,
+        //   message: text,
+        //   messageType: "text",
+        //   createdAt: new Date().getTime(),
+        // },
+      ];
+      info.messagesWithChannel = messages;
+
+      setMessageInfo(info);
+    }
+  }, [getChannelMessages?.[0].channelId]);
 
   const [, executeGenerateRtcTokenMutation] = useGenerateRtcTokenMutation();
+  const [, executeCreateChatMessageMutation] = useCreateChatMessageMutation();
   const { user } = getUserData();
 
   async function getRtmToken(
@@ -92,7 +132,7 @@ export function MessageContextProvider({
     });
   }
 
-  async function loginToRtm({ channelName }: { channelName: string }) {
+  async function loginToRtm() {
     const res = await getRtmToken("channelName", String(user?.id));
     const { rtmAccessToken } = res || {};
     let rtmLocal = rtmRef.current;
@@ -126,7 +166,6 @@ export function MessageContextProvider({
               message: message.text,
               messageType: "text",
               createdAt: new Date().getTime(),
-              isMyMessage: false,
             },
           ];
           info.messagesWithChannel = messages;
@@ -215,7 +254,6 @@ export function MessageContextProvider({
               message: message.text,
               messageType: "text",
               createdAt: new Date().getTime(),
-              isMyMessage: false,
             },
           ];
           info.messagesWithChannel = messages;
@@ -231,6 +269,15 @@ export function MessageContextProvider({
   }
 
   async function onMessage(text: string) {
+    executeCreateChatMessageMutation({
+      createChatMessageInput: {
+        channelId: messageInfo.currentChannel?.id as number,
+        senderId: user?.id as number,
+        receiverId: messageInfo.currentChannel?.id as number,
+        message: text,
+        messageType: "Text",
+      },
+    });
     await rtmRef.current?.sendChannelMessage(
       text,
       messageInfo.currentChannel?.channelName || ""
@@ -246,7 +293,6 @@ export function MessageContextProvider({
         message: text,
         messageType: "text",
         createdAt: new Date().getTime(),
-        isMyMessage: true,
       },
     ];
     info.messagesWithChannel = messages;
@@ -254,7 +300,7 @@ export function MessageContextProvider({
     setMessageInfo(info);
   }
 
-  function setCurrentChannel(channel: ChatChannels) {
+  async function setCurrentChannel(channel: ChatChannels) {
     const info = { ...messageInfo };
     info.currentChannel = channel;
     setMessageInfo(info);

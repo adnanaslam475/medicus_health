@@ -2,14 +2,16 @@ import React from "react";
 import Image from "next/image";
 import profile from "./../../../../../../public/assets/images/your_photo.png";
 import { useMessageContext } from "./MessageContext";
+import { getUserData } from "common/utils/userData";
 
 type Props = {
   data: any;
 };
 
 function MessageItem(props: Props) {
+  const { user } = getUserData();
   const { data } = props;
-  const { message, isMyMessage, senderId } = data || {};
+  const { message, senderId } = data || {};
   const { messageInfo } = useMessageContext();
   const { currentChannel } = messageInfo || {};
   const { participants } = currentChannel || {};
@@ -17,7 +19,7 @@ function MessageItem(props: Props) {
     ({ participantId }) => Number(senderId) === participantId
   );
   const { userDetails } = messageOwner || {};
-
+  const isMyMessage = Number(senderId) === Number(user?.id);
   const backgroundColor = isMyMessage ? "#E0EEFD" : "#F6F8FA";
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
 

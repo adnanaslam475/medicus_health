@@ -6,6 +6,7 @@ import profile from "./../../../../../../public/assets/images/doc-pic.png";
 import loaderLogo from "./../../../../../../public/assets/images/loaderLogo.png";
 import { getUserData } from "common/utils/userData";
 import { messageUtils } from "common/utils";
+import MDNextImage from "common/components/MDNextImage/MDNextImage";
 
 type Props = {
   thread: ChatChannels;
@@ -20,7 +21,7 @@ function UserProfile({ thread }: Props) {
 
   useEffect(() => {
     if (thread.channelName) {
-      loginToRtm?.({ channelName: thread.channelName });
+      loginToRtm?.();
     }
   }, [thread.channelName]);
 
@@ -39,13 +40,14 @@ function UserProfile({ thread }: Props) {
       className={`flex px-5 py-4 items-center border border-gray-4 cursor-pointer hover:bg-gray-4`}
     >
       <div className="relative">
-        <Image
+        <MDNextImage
           alt=""
           width={70}
           height={70}
           className="rounded-full"
           objectFit="cover"
-          src={profileImage || profile}
+          fallbackImage={profile}
+          src={profileImage || ""}
         />
         <span className="rounded-full absolute p-1 -right-2 bottom-0">
           <Image

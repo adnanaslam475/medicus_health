@@ -11,6 +11,7 @@ import { useMessageContext } from "./MessageContext";
 import { getUserData } from "common/utils/userData";
 import { messageUtils } from "common/utils";
 import { ChatChannels } from "generated/graphql";
+import MDNextImage from "common/components/MDNextImage/MDNextImage";
 
 type Props = {};
 
@@ -48,12 +49,13 @@ function MessageHeader({}: Props) {
       {isShowHeaderInfo && (
         <div className="flex gap-2 w-full px-4">
           <div className="flex items-center gap-2 flex-1">
-            <Image
+            <MDNextImage
               alt=""
               width={39}
               height={39}
               className="rounded-full"
-              src={profileImage || profile}
+              src={profileImage || ""}
+              fallbackImage={profile}
             />
             <h4 className="pb-0 mb-0">{`${opposite?.first_name} ${opposite?.last_name}`}</h4>
           </div>
