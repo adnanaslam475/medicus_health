@@ -1,30 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { Button, Table } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
-
 import Router from "next/router";
-import {
-  useDoctorProfilesQuery,
-  useGetPhysiciansQuery,
-  User,
-} from "generated/graphql";
+import { useGetPhysiciansQuery, User } from "generated/graphql";
 import Image from "next/image";
-import engFlag from "../../../../../../public/assets//images/engFlag.png";
-import espanolFlag from "../../../../../../public/assets//images/espanolFlag.png";
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
 import { date } from "common/utils";
-
-const FLAG_BY_LANGUAGE = {
-  ["english" as string]: engFlag,
-  ["Spanish" as string]: espanolFlag,
-};
+import { FLAG_BY_LANGUAGE } from "utils/helper";
 
 function AdminPhysicianList() {
-  const [{ data }] = useGetPhysiciansQuery({
+  const [filterValues, setFilterValues] = useState({});
+
+  const [{ data }, executeUseGetPhysiciansQuery] = useGetPhysiciansQuery({
     variables: {
-      filter: {},
+      filter: filterValues,
     },
   });
   const { getPhysicians } = data || {};
@@ -59,7 +50,7 @@ function AdminPhysicianList() {
       dataIndex: "doctorProfile",
       key: "doctorProfile",
       render: (doctorProfile: any) => {
-        let language = doctorProfile?.language || "english";
+        let language = doctorProfile?.language?.toLowerCase() || "english";
         return (
           <div className="flagAvatar engFlag pr-2">
             {FLAG_BY_LANGUAGE[language] && (
@@ -108,6 +99,13 @@ function AdminPhysicianList() {
     },
   ];
 
+  function onChangeFilters(values: any) {
+    setFilterValues(values);
+    executeUseGetPhysiciansQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
   return (
     <AppLayout>
       <div className="w-full">
@@ -122,7 +120,7 @@ function AdminPhysicianList() {
             </a>
           </Link>
         </div>
-        <AdminPhysicianSearchFilters />
+        <AdminPhysicianSearchFilters onChange={onChangeFilters} />
         <div className="w-full">
           <div className="">
             <Table columns={columns} dataSource={getPhysicians} />
