@@ -23,7 +23,7 @@ function AppointmnetConfirmedCard({
   doctor,
   appointmentTimeSlots,
 }: Props) {
-  const selectedAppointment:AppointmentTimeSlots | undefined = useMemo(
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
@@ -37,7 +37,7 @@ function AppointmnetConfirmedCard({
     <Card className={`${_classes["appointment-card"]}`}>
       <h3 className="mb-0">Dr. {doctor}</h3>
       <span className="text-gray text-base block">{serviceType}</span>
-      <span className="text-sm">Date</span>
+      <span className="text-sm pt-5">Date</span>
       <h6>{date.formatMMMMDDYYYY(selectedAppointment?.startTime)}</h6>
       <span className="text-sm">Time</span>
       {!selectedAppointment ? (

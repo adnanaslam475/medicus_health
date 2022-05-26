@@ -1551,7 +1551,7 @@ export type GetPatientsQueryVariables = Exact<{
 }>;
 
 
-export type GetPatientsQuery = { __typename?: 'Query', getPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, deleted: boolean, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorId?: number | null, createdAt: any }> };
+export type GetPatientsQuery = { __typename?: 'Query', getPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, zip_code?: string | null }> };
 
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1620,6 +1620,13 @@ export type PhysiciansPatientsQueryVariables = Exact<{
 
 
 export type PhysiciansPatientsQuery = { __typename?: 'Query', physiciansPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, streetAddress?: string | null, country: { __typename?: 'Country', country_name: string }, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null }> };
+
+export type GetPhysiciansQueryVariables = Exact<{
+  filter: GetPhysiciansInput;
+}>;
+
+
+export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, doctorProfile?: { __typename?: 'DoctorProfile', language?: string | null } | null }> };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2406,20 +2413,8 @@ export const GetPatientsDocument = gql`
     first_name
     last_name
     email
-    gender
-    date_of_birth
     contact_number
-    streetAddress
-    country_id
-    deleted
-    state_id
-    city_id
     zip_code
-    password
-    status
-    role
-    doctorId
-    createdAt
   }
 }
     `;
@@ -2774,6 +2769,25 @@ export const PhysiciansPatientsDocument = gql`
 
 export function usePhysiciansPatientsQuery(options?: Omit<Urql.UseQueryArgs<PhysiciansPatientsQueryVariables>, 'query'>) {
   return Urql.useQuery<PhysiciansPatientsQuery>({ query: PhysiciansPatientsDocument, ...options });
+};
+export const GetPhysiciansDocument = gql`
+    query getPhysicians($filter: GetPhysiciansInput!) {
+  getPhysicians(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    createdAt
+    doctorProfile {
+      language
+    }
+  }
+}
+    `;
+
+export function useGetPhysiciansQuery(options: Omit<Urql.UseQueryArgs<GetPhysiciansQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetPhysiciansQuery>({ query: GetPhysiciansDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {

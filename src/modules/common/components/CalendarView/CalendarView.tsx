@@ -113,9 +113,9 @@ function AdminAimsCalender(props: Props) {
               );
               const currentDate = new Date(args.date).getDate();
               return (
-                <div style={{ flexDirection: "column" }}>
-                  <div style={{ color: "#000" }}>{currentDate}</div>
-                  <div style={{ color: "#000" }}>{weekShortName}</div>
+                <div className="flex-col">
+                  <div className="text-black">{currentDate}</div>
+                  <div className="text-black">{weekShortName}</div>
                 </div>
               );
             }}
