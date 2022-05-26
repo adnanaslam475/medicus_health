@@ -1621,6 +1621,13 @@ export type PhysiciansPatientsQueryVariables = Exact<{
 
 export type PhysiciansPatientsQuery = { __typename?: 'Query', physiciansPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, streetAddress?: string | null, country: { __typename?: 'Country', country_name: string }, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null }> };
 
+export type GetPhysiciansQueryVariables = Exact<{
+  filter: GetPhysiciansInput;
+}>;
+
+
+export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, doctorProfile?: { __typename?: 'DoctorProfile', language?: string | null } | null }> };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2774,6 +2781,25 @@ export const PhysiciansPatientsDocument = gql`
 
 export function usePhysiciansPatientsQuery(options?: Omit<Urql.UseQueryArgs<PhysiciansPatientsQueryVariables>, 'query'>) {
   return Urql.useQuery<PhysiciansPatientsQuery>({ query: PhysiciansPatientsDocument, ...options });
+};
+export const GetPhysiciansDocument = gql`
+    query getPhysicians($filter: GetPhysiciansInput!) {
+  getPhysicians(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    createdAt
+    doctorProfile {
+      language
+    }
+  }
+}
+    `;
+
+export function useGetPhysiciansQuery(options: Omit<Urql.UseQueryArgs<GetPhysiciansQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetPhysiciansQuery>({ query: GetPhysiciansDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {
