@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Table, Tag, Modal } from "antd";
+import { Button, Table, Tag, Modal, Select } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Router from "next/router";
@@ -169,13 +169,29 @@ function AdminAppointmentsListing({}: Props) {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex justify-between items-center">
-          <h2 className="mb-0 pb-0">Appointments</h2>
-          <Link passHref href={`/admin/physicians/addPhysician`}>
-            <a>
-              <Button type="primary">Request an Appointment</Button>
-            </a>
-          </Link>
+        <div className="flex-none sm:flex items-center justify-between mb-5">
+          <div className="pr-3 mb-3 sm:mb-0">
+            <h2 className="mb-0 pb-0">Appointments</h2>
+          </div>
+          <div className="flex gap-3">
+            <div className="lg:ml-3 mt-0 sm:mt-0">
+              <Select defaultValue="List View" className="w-full sm:w-40">
+                <Select.Option value="Calendar View">
+                  <Link href="/admin/appointments/calendar">
+                    <a>Calendar View</a>
+                  </Link>
+                </Select.Option>
+                <Select.Option selected value="List View">
+                  List View
+                </Select.Option>
+              </Select>
+            </div>
+            <Button type="primary" className="text-sm">
+              <span className="text-xs sm:text-base">
+                Request an Appointment
+              </span>
+            </Button>
+          </div>
         </div>
         <AdminAppointmentsFilter
           filterValues={filterValues}
