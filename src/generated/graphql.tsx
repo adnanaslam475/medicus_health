@@ -407,8 +407,8 @@ export type EducationalBackground = {
 };
 
 export type EducationalBackgroundUpdate = {
-  degree: Scalars['String'];
-  institution: Scalars['String'];
+  degree?: InputMaybe<Scalars['String']>;
+  institution?: InputMaybe<Scalars['String']>;
 };
 
 export type EmailAvailableInput = {
@@ -702,7 +702,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationPaymentArgs = {
-  appointmentId: Scalars['Int'];
+  paymeninput: PaymentInput;
 };
 
 
@@ -836,14 +836,18 @@ export type PatientProfile = {
   userId: Scalars['Float'];
 };
 
+export type PaymentInput = {
+  appointmentId: Scalars['Int'];
+};
+
 export type ProfessionalExperience = {
   institution: Scalars['String'];
   role: Scalars['String'];
 };
 
 export type ProfessionalExperience2 = {
-  institution: Scalars['String'];
-  role: Scalars['String'];
+  institution?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
 };
 
 export type ProposeNewTimeInput = {
@@ -1533,7 +1537,7 @@ export type GetPatientsQueryVariables = Exact<{
 }>;
 
 
-export type GetPatientsQuery = { __typename?: 'Query', getPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, deleted: boolean, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorId?: number | null, createdAt: any }> };
+export type GetPatientsQuery = { __typename?: 'Query', getPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, zip_code?: string | null }> };
 
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -2319,20 +2323,8 @@ export const GetPatientsDocument = gql`
     first_name
     last_name
     email
-    gender
-    date_of_birth
     contact_number
-    streetAddress
-    country_id
-    deleted
-    state_id
-    city_id
     zip_code
-    password
-    status
-    role
-    doctorId
-    createdAt
   }
 }
     `;
@@ -5341,7 +5333,7 @@ export default {
             },
             "args": [
               {
-                "name": "appointmentId",
+                "name": "paymeninput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
