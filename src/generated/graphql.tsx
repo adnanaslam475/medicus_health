@@ -407,8 +407,8 @@ export type EducationalBackground = {
 };
 
 export type EducationalBackgroundUpdate = {
-  degree: Scalars['String'];
-  institution: Scalars['String'];
+  degree?: InputMaybe<Scalars['String']>;
+  institution?: InputMaybe<Scalars['String']>;
 };
 
 export type EmailAvailableInput = {
@@ -702,7 +702,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationPaymentArgs = {
-  appointmentId: Scalars['Int'];
+  paymeninput: PaymentInput;
 };
 
 
@@ -836,14 +836,18 @@ export type PatientProfile = {
   userId: Scalars['Float'];
 };
 
+export type PaymentInput = {
+  appointmentId: Scalars['Int'];
+};
+
 export type ProfessionalExperience = {
   institution: Scalars['String'];
   role: Scalars['String'];
 };
 
 export type ProfessionalExperience2 = {
-  institution: Scalars['String'];
-  role: Scalars['String'];
+  institution?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
 };
 
 export type ProposeNewTimeInput = {
@@ -1286,6 +1290,20 @@ export type GenerateRtcTokenMutationVariables = Exact<{
 
 export type GenerateRtcTokenMutation = { __typename?: 'Mutation', generateRTCToken: { __typename?: 'RtcTokenResponse', rtmAccessToken: string, rtcAccessToken: string, channelName: string, privilegeExpireTime: string } };
 
+export type CreateChatChannelMutationVariables = Exact<{
+  createChatChannelInput: CreateChatChannelInput;
+}>;
+
+
+export type CreateChatChannelMutation = { __typename?: 'Mutation', createChatChannel: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any } };
+
+export type CreateChatMessageMutationVariables = Exact<{
+  createChatMessageInput: CreateChatMessageInput;
+}>;
+
+
+export type CreateChatMessageMutation = { __typename?: 'Mutation', createChatMessage: { __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, receiverId: number, message?: string | null, messageType?: string | null, createdAt: any, sender: { __typename?: 'User', id: number, first_name: string, last_name: string }, receiver: { __typename?: 'User', id: number, first_name: string, last_name: string } } };
+
 export type CreateDoctorScheduleMutationVariables = Exact<{
   doctorId: Scalars['Int'];
   day: Scalars['Int'];
@@ -1533,7 +1551,19 @@ export type GetPatientsQueryVariables = Exact<{
 }>;
 
 
-export type GetPatientsQuery = { __typename?: 'Query', getPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, deleted: boolean, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorId?: number | null, createdAt: any }> };
+export type GetPatientsQuery = { __typename?: 'Query', getPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, zip_code?: string | null }> };
+
+export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null }> | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null } | null }> };
+
+export type GetChannelMessagesQueryVariables = Exact<{
+  channelId: Scalars['Int'];
+}>;
+
+
+export type GetChannelMessagesQuery = { __typename?: 'Query', getChannelMessages: Array<{ __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, message?: string | null, messageType?: string | null, sender: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } }> };
 
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -1590,6 +1620,13 @@ export type PhysiciansPatientsQueryVariables = Exact<{
 
 
 export type PhysiciansPatientsQuery = { __typename?: 'Query', physiciansPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, streetAddress?: string | null, country: { __typename?: 'Country', country_name: string }, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null }> };
+
+export type GetPhysiciansQueryVariables = Exact<{
+  filter: GetPhysiciansInput;
+}>;
+
+
+export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, doctorProfile?: { __typename?: 'DoctorProfile', language?: string | null } | null }> };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1782,6 +1819,49 @@ export const GenerateRtcTokenDocument = gql`
 
 export function useGenerateRtcTokenMutation() {
   return Urql.useMutation<GenerateRtcTokenMutation, GenerateRtcTokenMutationVariables>(GenerateRtcTokenDocument);
+};
+export const CreateChatChannelDocument = gql`
+    mutation createChatChannel($createChatChannelInput: CreateChatChannelInput!) {
+  createChatChannel(createChatChannelInput: $createChatChannelInput) {
+    id
+    channelName
+    doctorId
+    patientId
+    isAdminChat
+    createdAt
+  }
+}
+    `;
+
+export function useCreateChatChannelMutation() {
+  return Urql.useMutation<CreateChatChannelMutation, CreateChatChannelMutationVariables>(CreateChatChannelDocument);
+};
+export const CreateChatMessageDocument = gql`
+    mutation createChatMessage($createChatMessageInput: CreateChatMessageInput!) {
+  createChatMessage(createChatMessageInput: $createChatMessageInput) {
+    id
+    channelId
+    senderId
+    receiverId
+    message
+    messageType
+    createdAt
+    sender {
+      id
+      first_name
+      last_name
+    }
+    receiver {
+      id
+      first_name
+      last_name
+    }
+  }
+}
+    `;
+
+export function useCreateChatMessageMutation() {
+  return Urql.useMutation<CreateChatMessageMutation, CreateChatMessageMutationVariables>(CreateChatMessageDocument);
 };
 export const CreateDoctorScheduleDocument = gql`
     mutation createDoctorSchedule($doctorId: Int!, $day: Int!, $startTime: String!, $endTime: String!) {
@@ -2319,26 +2399,86 @@ export const GetPatientsDocument = gql`
     first_name
     last_name
     email
-    gender
-    date_of_birth
     contact_number
-    streetAddress
-    country_id
-    deleted
-    state_id
-    city_id
     zip_code
-    password
-    status
-    role
-    doctorId
-    createdAt
   }
 }
     `;
 
 export function useGetPatientsQuery(options: Omit<Urql.UseQueryArgs<GetPatientsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetPatientsQuery>({ query: GetPatientsDocument, ...options });
+};
+export const GetAllChatChannelsDocument = gql`
+    query getAllChatChannels {
+  getAllChatChannels {
+    id
+    channelName
+    doctorId
+    patientId
+    isAdminChat
+    createdAt
+    participants {
+      id
+      channelId
+      participantId
+      channel {
+        id
+        channelName
+        doctorId
+        patientId
+        isAdminChat
+      }
+      userDetails {
+        id
+        first_name
+        last_name
+        doctorProfile {
+          profile_image
+        }
+        patientProfile {
+          profileImage
+        }
+      }
+    }
+    doctor {
+      id
+      first_name
+      last_name
+      doctorProfile {
+        profile_image
+      }
+    }
+  }
+}
+    `;
+
+export function useGetAllChatChannelsQuery(options?: Omit<Urql.UseQueryArgs<GetAllChatChannelsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllChatChannelsQuery>({ query: GetAllChatChannelsDocument, ...options });
+};
+export const GetChannelMessagesDocument = gql`
+    query getChannelMessages($channelId: Int!) {
+  getChannelMessages(channelId: $channelId) {
+    id
+    channelId
+    senderId
+    message
+    messageType
+    sender {
+      first_name
+      last_name
+      doctorProfile {
+        profile_image
+      }
+      patientProfile {
+        profileImage
+      }
+    }
+  }
+}
+    `;
+
+export function useGetChannelMessagesQuery(options: Omit<Urql.UseQueryArgs<GetChannelMessagesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetChannelMessagesQuery>({ query: GetChannelMessagesDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
@@ -2615,6 +2755,25 @@ export const PhysiciansPatientsDocument = gql`
 
 export function usePhysiciansPatientsQuery(options?: Omit<Urql.UseQueryArgs<PhysiciansPatientsQueryVariables>, 'query'>) {
   return Urql.useQuery<PhysiciansPatientsQuery>({ query: PhysiciansPatientsDocument, ...options });
+};
+export const GetPhysiciansDocument = gql`
+    query getPhysicians($filter: GetPhysiciansInput!) {
+  getPhysicians(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    createdAt
+    doctorProfile {
+      language
+    }
+  }
+}
+    `;
+
+export function useGetPhysiciansQuery(options: Omit<Urql.UseQueryArgs<GetPhysiciansQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetPhysiciansQuery>({ query: GetPhysiciansDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {
@@ -5357,7 +5516,7 @@ export default {
             },
             "args": [
               {
-                "name": "appointmentId",
+                "name": "paymeninput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

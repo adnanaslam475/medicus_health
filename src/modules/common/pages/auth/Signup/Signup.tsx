@@ -96,6 +96,7 @@ function Signup() {
       pyaload.date_of_birth = date.convertToUTC(pyaload?.date_of_birth);
       delete pyaload.confirmPassword;
     }
+    console.log(pyaload, "pyaload");
     let user = null;
     try {
       user = await createUser({
