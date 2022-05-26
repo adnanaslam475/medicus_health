@@ -51,18 +51,19 @@ function AdminAppointmentsCalendar() {
 	const closeModal = () => {
 		setModalVisible(!modalVisible);
 	};
-
+console.log(calender,"ddddd")
 	const setCalendarData = () => {
 		setCalender({
 			...calender,
 			calenderEvents: appointments?.map(
-				({ id, patient, requestedDate, doctor, serviceType, charges }) => ({
+				({ id, patient, requestedDate, doctor, serviceType, charges ,status}) => ({
 					id: id,
 					title: doctor.first_name,
 					start: requestedDate,
 					patient: patient.first_name + " " + patient.last_name,
 					serviceType: serviceType?.name,
 					total: charges,
+          status:charges,
 				})
 			),
 		});

@@ -91,13 +91,11 @@ function ProfileForm({
                   >
                     {val.name === "password" ||
                     val.name === "confirmPassword" ? (
-                      <Input.Password
-                        // value={val || ""}
+                      <Input.Password                        
                         disabled={true}
                       />
                     ) : (
                       <Input
-                        // value={val || ""}
                         disabled={true}
                       />
                     )}
@@ -108,7 +106,7 @@ function ProfileForm({
           );
         })}
 
-        <LanguageList />
+        <LanguageList disable={true} language={doctorData?.language} />
         <AboutMe />
 
         <InputWithLi disable={true} />

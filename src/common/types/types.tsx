@@ -1,10 +1,4 @@
-import {
-  BookingDate,
-  DueDate,
-  InputMaybe,
-  Scalars,
-  Maybe,
-} from "generated/graphql";
+import { BookingDate, DueDate, InputMaybe, Scalars,Maybe } from "generated/graphql";
 
 export type Schedule = {
   day?: number;
@@ -105,4 +99,11 @@ export type patientAppointmentHistoryFilterType = {
     startDate?: string;
     endDate?: string;
   };
+};
+
+
+export type PatientListFilterType = {
+  searchField?: string;
+  stateId?: number;
+  countryId?: number;
 };
