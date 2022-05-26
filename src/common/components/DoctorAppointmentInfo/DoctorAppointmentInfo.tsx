@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   CheckOutlined,
   MessageOutlined,
@@ -26,17 +26,19 @@ import Router from "next/router";
 import {
   Appointment,
   AppointmentServiceType,
+  AppointmentTimeSlots,
   useCancelAppointmentByDoctorMutation,
   useGetAllAppointmentServiceTypesQuery,
   useProposeNewTimeMutation,
 } from "generated/graphql";
-import { formatMMMM_Dcoma_YYYY, getDayJsObject } from "common/utils/date";
+import { formatMMMM_Dcoma_YYYY, getDayJsObject, isAppointmentTimeValid } from "common/utils/date";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
+import { CustomTimeSlot } from "common/types/types";
 
 type Props = {
   data: Appointment | undefined;
@@ -155,7 +157,7 @@ function DoctorAppointmentInfo({ data }: Props) {
       </div>
 
       {status === "Confirmed" && (
-        <DoctorAppointmentInfoFooter appointmentId={id} />
+        <DoctorAppointmentInfoFooter appointmentId={id} data={data} />
       )}
       {status === "Requested" && (
         <DoctorRequestedAppointmentInfoFooter
@@ -171,9 +173,22 @@ export default DoctorAppointmentInfo;
 
 function DoctorAppointmentInfoFooter({
   appointmentId,
+  data
 }: {
   appointmentId: number | undefined;
+  data?:Appointment 
 }) {
+  const {appointmentTimeSlots} = data || {}
+  const selectedAppointment:CustomTimeSlot | undefined = useMemo(
+    () => appointmentTimeSlots?.find((item) => item.selected),
+    [appointmentTimeSlots]
+  );
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
+  }, [selectedAppointment]);
+
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
@@ -199,6 +214,7 @@ function DoctorAppointmentInfoFooter({
         onClick={() =>
           Router.push(`/physician/appointments/${appointmentId}/call`)
         }
+        disabled={disabled}
       >
         Join Now
       </Button>

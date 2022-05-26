@@ -407,8 +407,8 @@ export type EducationalBackground = {
 };
 
 export type EducationalBackgroundUpdate = {
-  degree: Scalars['String'];
-  institution: Scalars['String'];
+  degree?: InputMaybe<Scalars['String']>;
+  institution?: InputMaybe<Scalars['String']>;
 };
 
 export type EmailAvailableInput = {
@@ -702,7 +702,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationPaymentArgs = {
-  appointmentId: Scalars['Int'];
+  paymeninput: PaymentInput;
 };
 
 
@@ -836,14 +836,18 @@ export type PatientProfile = {
   userId: Scalars['Float'];
 };
 
+export type PaymentInput = {
+  appointmentId: Scalars['Int'];
+};
+
 export type ProfessionalExperience = {
   institution: Scalars['String'];
   role: Scalars['String'];
 };
 
 export type ProfessionalExperience2 = {
-  institution: Scalars['String'];
-  role: Scalars['String'];
+  institution?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
 };
 
 export type ProposeNewTimeInput = {
@@ -1590,6 +1594,13 @@ export type PhysiciansPatientsQueryVariables = Exact<{
 
 
 export type PhysiciansPatientsQuery = { __typename?: 'Query', physiciansPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, streetAddress?: string | null, country: { __typename?: 'Country', country_name: string }, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null }> };
+
+export type GetPhysiciansQueryVariables = Exact<{
+  filter: GetPhysiciansInput;
+}>;
+
+
+export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, doctorProfile?: { __typename?: 'DoctorProfile', language?: string | null } | null }> };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2615,6 +2626,25 @@ export const PhysiciansPatientsDocument = gql`
 
 export function usePhysiciansPatientsQuery(options?: Omit<Urql.UseQueryArgs<PhysiciansPatientsQueryVariables>, 'query'>) {
   return Urql.useQuery<PhysiciansPatientsQuery>({ query: PhysiciansPatientsDocument, ...options });
+};
+export const GetPhysiciansDocument = gql`
+    query getPhysicians($filter: GetPhysiciansInput!) {
+  getPhysicians(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    streetAddress
+    createdAt
+    doctorProfile {
+      language
+    }
+  }
+}
+    `;
+
+export function useGetPhysiciansQuery(options: Omit<Urql.UseQueryArgs<GetPhysiciansQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetPhysiciansQuery>({ query: GetPhysiciansDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {
@@ -5341,7 +5371,7 @@ export default {
             },
             "args": [
               {
-                "name": "appointmentId",
+                "name": "paymeninput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
