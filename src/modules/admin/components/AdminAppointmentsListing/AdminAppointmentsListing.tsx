@@ -188,16 +188,6 @@ function AdminAppointmentsListing({}: Props) {
     <>
       <AppLayout>
         <div className="w-full">
-          <div className="flex justify-between items-center">
-            <h2 className="mb-0 pb-0">Appointments</h2>
-            <Link passHref href={`/admin/physicians/addPhysician`}>
-              <a>
-                <Button onClick={showModal} type="primary">
-                  Request an Appointment
-                </Button>
-              </a>
-            </Link>
-          </div>
           <div className="flex-none sm:flex items-center justify-between mb-5">
             <div className="pr-3 mb-3 sm:mb-0">
               <h2 className="mb-0 pb-0">Appointments</h2>
