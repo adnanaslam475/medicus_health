@@ -8,6 +8,7 @@ import { Appointment } from "generated/graphql";
 type Props = {
   appointment: Appointment | undefined;
 };
+
 function AdminAppointmentInfoTab({ appointment }: Props) {
   let selectedAppointment = appointment?.appointmentTimeSlots?.find(
     (item) => item.selected

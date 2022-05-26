@@ -8,6 +8,7 @@ import AdminHealthQuestionnaireFormTab from "./AdminHealthQuestionnaireFormTab";
 import AdminNotesWithTextTab from "./AdminNotesWithTextTab";
 import AdminAttachmentTab from "./PhysicianAttachmentTab";
 import { Appointment, useGetAppointmentByIdQuery } from "generated/graphql";
+import { CANCELLED, REQUESTED, SUGGESTED } from "common/constants/status";
 
 function AdminAppointmentHistoryDetail() {
   const { query } = useRouter();
@@ -19,6 +20,9 @@ function AdminAppointmentHistoryDetail() {
 
   let doctorNotes =
     appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
+  const isNotesShow = [REQUESTED, SUGGESTED].includes(
+    appointment?.status || ""
+  );
   return (
     <AppLayout>
       <>
@@ -43,12 +47,14 @@ function AdminAppointmentHistoryDetail() {
             <Tabs.TabPane tab="Attachment" key="5">
               <AdminAttachmentTab appointment={appointment as Appointment} />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Notes" key="6">
-              <AdminNotesWithTextTab
-                appointment={appointment as Appointment}
-                doctorNotes={doctorNotes as [[string, string]]}
-              />
-            </Tabs.TabPane>
+            {isNotesShow && (
+              <Tabs.TabPane tab="Notes" key="6">
+                <AdminNotesWithTextTab
+                  appointment={appointment as Appointment}
+                  doctorNotes={doctorNotes as [[string, string]]}
+                />
+              </Tabs.TabPane>
+            )}
           </Tabs>
         </div>
       </>
