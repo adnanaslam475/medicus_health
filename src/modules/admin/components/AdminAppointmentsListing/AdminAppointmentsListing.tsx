@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table, Tag, Modal } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
@@ -14,6 +14,7 @@ import {
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 const appointmentColumns = [
   {
@@ -166,32 +167,59 @@ function AdminAppointmentsListing({}: Props) {
     });
   };
   function onChange() {}
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  // const { doctorData, loading } = props || {};
+
   return (
-    <AppLayout>
-      <div className="w-full">
-        <div className="flex justify-between items-center">
-          <h2 className="mb-0 pb-0">Appointments</h2>
-          <Link passHref href={`/admin/physicians/addPhysician`}>
-            <a>
-              <Button type="primary">Request an Appointment</Button>
-            </a>
-          </Link>
-        </div>
-        <AdminAppointmentsFilter
-          filterValues={filterValues}
-          onChange={onChangeFilters}
-        />
+    <>
+      <AppLayout>
         <div className="w-full">
-          <div className="">
-            <Table
-              columns={appointmentColumns}
-              dataSource={appointments}
-              onChange={onChange}
-            />
+          <div className="flex justify-between items-center">
+            <h2 className="mb-0 pb-0">Appointments</h2>
+            <Link passHref href={`/admin/physicians/addPhysician`}>
+              <a>
+                <Button onClick={showModal} type="primary">
+                  Request an Appointment
+                </Button>
+              </a>
+            </Link>
+          </div>
+          <AdminAppointmentsFilter
+            filterValues={filterValues}
+            onChange={onChangeFilters}
+          />
+          <div className="w-full">
+            <div className="">
+              <Table
+                columns={appointmentColumns}
+                dataSource={appointments}
+                onChange={onChange}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </AppLayout>
+      </AppLayout>
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        // doctorData={doctorData}
+      />
+    </>
   );
 }
 export default AdminAppointmentsListing;
