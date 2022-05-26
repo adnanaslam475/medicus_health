@@ -1,28 +1,15 @@
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { Button, Table, Tag, Modal } from "antd";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
-import Link from "next/link";
+import { Table } from "antd";
+import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import Image from "next/image";
 import AdminPatientsListFilter from "./AdminPatientsListFilter";
-// import {
-//   Country,
-//   GetPatientsInput,
-//   PatientProfile,
-//   useGetCitiesByStateQuery,
-//   useGetPatientsQuery,
-//   useGetStatesByCountryQuery,
-// } from "generated/graphql";
+
 import { PatientListFilterType } from "common/types/types";
 import {
   Country,
-  GetPatientsInput,
-  PatientProfile,
-  useGetStatesByCountryQuery,
-  useGetCitiesByStateQuery,
   AppointmentServiceType,
-  useCountriesQuery,
   useGetPatientsQuery,
   User,
   City,
@@ -31,7 +18,6 @@ import { ColumnsType } from "antd/lib/table/Table";
 
 function AdminPatientsList() {
   const [filterValues, setFilterValues] = useState<PatientListFilterType>({});
-  const [searchValue, setSearchValue] = React.useState("");
 
   const [{ data }, executeuseGetPatientsQuery] = useGetPatientsQuery({
     variables: {
@@ -40,7 +26,6 @@ function AdminPatientsList() {
   });
 
   const { getPatients } = data || {};
-  console.log("getPatientsaaaaaaaaaaaaaaa", getPatients, data);
 
   function onChangeFilters(values: PatientListFilterType) {
     setFilterValues(values);
@@ -75,7 +60,7 @@ function AdminPatientsList() {
     {
       title: "Email",
       dataIndex: "email",
-      render: (value: AppointmentServiceType) => {
+      render: (value: string) => {
         return <div>{value}</div>;
       },
       sorter: {
@@ -98,14 +83,14 @@ function AdminPatientsList() {
       title: "City",
       dataIndex: "city_id",
       render: (value: City) => {
-        return <div>{`${value.city_name}`}</div>;
+        return <div>{`${value?.city_name}`}</div>;
       },
     },
     {
       title: "Country",
       dataIndex: "country",
       render: (value: Country) => {
-        return <div>{`${value.country_name}`}</div>;
+        return <div>{`${value?.country_name}`}</div>;
       },
     },
     {
