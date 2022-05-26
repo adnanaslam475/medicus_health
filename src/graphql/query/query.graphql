@@ -577,7 +577,6 @@ query getAdminUsers($filter: GetAdminUsersFilterInput!) {
   }
 }
 
-
 query getAdminUserById($id: Int!) {
   user(id: $id) {
     id
