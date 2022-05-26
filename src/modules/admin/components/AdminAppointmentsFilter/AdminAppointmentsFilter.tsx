@@ -5,7 +5,6 @@ import {
   BOOKING,
   CONFIRMED,
   SCHEDULED,
-  UPCOMING,
 } from "common/constants/status";
 import {
   GetAdminUsersFilterInput,
@@ -15,7 +14,6 @@ import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilt
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter/SelectStatusTypeFilter";
-import { useDebounce } from "common/hooks";
 
 type Props = {
   onChange: (value: GetAdminUsersFilterInput) => void;
@@ -26,14 +24,14 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
   const [openDateRange, setOpenDateRange] = React.useState<string>("");
   const [search, setSearch] = React.useState<string>("");
 
-  useDebounce(
-    (e: any) => {
-      console.log("eee", e);
-      onChangeFields("searchString", search);
-    },
-    500,
-    [search]
-  );
+  // useDebounce(
+  //   (e: any) => {
+  //     console.log("eee", e);
+  //     onChangeFields("searchString", search);
+  //   },
+  //   500,
+  //   [search]
+  // );
 
   function clear() {
     onChange({});
@@ -79,7 +77,6 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             placeholder="Search by ID, physician name or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
-              setSearch(e.target.value);
               onChangeFields("searchString", e.target.value);
             }}
           />
