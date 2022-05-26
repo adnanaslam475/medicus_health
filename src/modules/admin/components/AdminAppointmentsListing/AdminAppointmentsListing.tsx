@@ -4,7 +4,7 @@ import { EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Router from "next/router";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import AimChip from "common/components/StatusChip/StatusChip";
+import StatusChip from "common/components/StatusChip/StatusChip";
 import AdminAppointmentsFilter from "../AdminAppointmentsFilter/AdminAppointmentsFilter";
 import {
   Appointment,
@@ -103,7 +103,7 @@ const appointmentColumns = [
     render: (value: any) => {
       return (
         <div className="text-primary">
-          <AimChip type={value?.toUpperCase()} />
+          <StatusChip type={value?.toUpperCase()} />
         </div>
       );
     },
@@ -116,7 +116,7 @@ const appointmentColumns = [
     render: (value: any) => {
       return (
         <div className="text-primary">
-          <AimChip type={value?.status.toUpperCase()} />
+          <StatusChip type={value?.status.toUpperCase()} />
         </div>
       );
     },
@@ -198,7 +198,7 @@ function AdminAppointmentsListing({}: Props) {
           onChange={onChangeFilters}
         />
         <div className="w-full">
-          <div className="">
+          <div>
             <Table
               columns={appointmentColumns}
               dataSource={appointments}
