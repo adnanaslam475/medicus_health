@@ -3,7 +3,7 @@ import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo
 import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/AdminAppointmentInfo";
 import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
 import { date } from "common/utils";
-import { Appointment } from "generated/graphql";
+import { Appointment, AdminAppointment } from "generated/graphql";
 
 type Props = {
   appointment: Appointment | undefined;
@@ -15,8 +15,9 @@ function AdminAppointmentInfoTab({ appointment }: Props) {
   const normalizedAppointmentData = {
     id: appointment?.id,
     bookingDate: appointment?.requestedDate,
-    // patient: appointment?.patient?.first_name + appointment?.patient?.last_name,
-    patient: "",
+    patient: `${
+      appointment?.patient?.first_name + " " + appointment?.patient?.last_name
+    }`,
     physician:
       appointment?.doctor.first_name + " " + appointment?.doctor.last_name,
     service: appointment?.serviceType?.name,
@@ -35,7 +36,7 @@ function AdminAppointmentInfoTab({ appointment }: Props) {
 
   return (
     <CardWithProfileImageInfo
-      name={`${normalizedAppointmentData.patient || ""}`}
+      name={`${normalizedAppointmentData.patient}`}
       serviceName={normalizedAppointmentData.service}
     >
       <div className="max-w-[800px]">

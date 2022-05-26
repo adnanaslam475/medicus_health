@@ -26,7 +26,9 @@ function AdminAppointmentHistoryDetail() {
         <div className="profile-tabs">
           <Tabs type="card">
             <Tabs.TabPane tab="Appointment Info" key="1" className="">
-              <AdminAppointmentInfoTab appointment={appointment as Appointment} />
+              <AdminAppointmentInfoTab
+                appointment={appointment as Appointment}
+              />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <AdminHealthQuestionnaireFormTab

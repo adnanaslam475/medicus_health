@@ -16,7 +16,7 @@ function PhysicianQuestionnaire(props: Props) {
   const [formInstance] = Form.useForm();
   const { appointmentHealthHistory } = props || {};
   let History = parseJson(appointmentHealthHistory);
-
+  
   useEffect(() => {
     prepareAndSetEditPayload();
   }, [History]);
