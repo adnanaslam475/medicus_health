@@ -1,17 +1,25 @@
 import React from "react";
-import { useRouter } from "next/router";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import { Appointment, usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
+import { Appointment } from "generated/graphql";
 
 type Props = {
-  data: Appointment | undefined;
+  appointment: Appointment | undefined;
 };
-function AdminQuestionnaireFormTab({ data }: Props) {
-  
+
+function AdminQuestionnaireFormTab({ appointment }: Props) {
   return (
-    <div className="">
-      
+    <div>
+      <CardWithProfileImageInfo
+        name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
+        serviceName={appointment?.serviceType?.name}
+      >
+        <PhysicianQuestionnaire
+          appointmentHealthHistory={
+            appointment?.appointmentHealthHistory?.history
+          }
+        />
+      </CardWithProfileImageInfo>
     </div>
   );
 }

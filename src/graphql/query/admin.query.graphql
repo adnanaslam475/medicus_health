@@ -36,9 +36,9 @@ query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
     }
     charges
     status
-  serviceType {
-    name
-  }
+    serviceType {
+      name
+    }
   }
 }
 
@@ -48,19 +48,16 @@ query getPatients($filter: GetPatientsInput!) {
     first_name
     last_name
     email
-    gender
-    date_of_birth
     contact_number
-    streetAddress
-    country_id
-    deleted
-    state_id
-    city_id
     zip_code
-    password
-    status
-    role
-    doctorId
-    createdAt
+    # state {
+    #   state_name
+    # }
+    # city {
+    #   city_name
+    # }
+    # country {
+    #   country_name
+    # }
   }
 }

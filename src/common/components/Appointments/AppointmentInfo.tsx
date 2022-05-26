@@ -14,6 +14,7 @@ type Props = {
 
 function AppointmentInfo(props: Props) {
   const { appoinmentDetails } = props;
+  const { appointment } = appoinmentDetails || {};
   const { first_name, last_name } =
     appoinmentDetails?.appointment?.doctor || {};
 
@@ -74,14 +75,32 @@ function AppointmentInfo(props: Props) {
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]} mr-3`}
-            onClick={() => Router.push("/admin/messages")}
+            onClick={() =>
+              Router.push({
+                pathname: "/patient/messages",
+                query: {
+                  chat: "admin",
+                  doctorId: appointment?.doctorId,
+                  patientId: appointment?.patientId,
+                },
+              })
+            }
           >
             Message Admin
           </Button>
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]}`}
-            onClick={() => Router.push("/physician/messages")}
+            onClick={() =>
+              Router.push({
+                pathname: "/patient/messages",
+                query: {
+                  chat: "doctor",
+                  doctorId: appointment?.doctorId,
+                  patientId: appointment?.patientId,
+                },
+              })
+            }
           >
             Message Physician
           </Button>

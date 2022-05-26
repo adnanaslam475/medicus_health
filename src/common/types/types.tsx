@@ -1,4 +1,4 @@
-import { Appointment, BookingDate, DueDate, InputMaybe, Scalars } from "generated/graphql";
+import { Appointment, BookingDate, DueDate, InputMaybe, Scalars,Maybe } from "generated/graphql";
 
 export type Schedule = {
   day?: number;
@@ -68,6 +68,19 @@ export type ServiceTypes = {
   id?: number;
   name?: string;
   price: number;
+};
+
+export type AdminAppointmentHistoryDetailType = {
+  id: number | undefined;
+  bookingDate: any;
+  patient: Maybe<string> | undefined;
+  physician: string;
+  service: string;
+  dueDate: string;
+  time: string;
+  totalAmount: number | undefined;
+  appointmentStatus: Maybe<string> | undefined;
+  paymentStatus: string;
 };
 
 export type adminUserFilterType = {
