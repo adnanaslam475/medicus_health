@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import Router,{ useRouter } from "next/router";
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Form, notification } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
@@ -64,6 +64,7 @@ function DoctorStaffDetails() {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
       if (response.data) {
+        Router.back();
         formInstance.resetFields();
       }
     } catch (error: any) {

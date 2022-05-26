@@ -78,7 +78,6 @@ function AdminPhysicianList() {
       key: "createdAt",
       sorter: true,
       render: (createdAt: string) => {
-        console.log("vvvvalue is", createdAt);
         return <div>{`${date.formatMMMMDDYYYY(createdAt)}`}</div>;
       },
     },
