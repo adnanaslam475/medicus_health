@@ -5,6 +5,7 @@ import localeData from "dayjs/plugin/localeData";
 import duration from "dayjs/plugin/duration";
 import { date } from "./index";
 import { AppointmentTimeSlots } from "generated/graphql";
+import { CustomTimeSlot } from "common/types/types";
 
 dayjs.extend(utc);
 dayjs.extend(weekday);
@@ -75,7 +76,7 @@ export function getDayJsObject(date: string, format: string = "MMMM D, YYYY") {
 }
 
 export function isAppointmentTimeValid(
-  selectedAppointment: AppointmentTimeSlots | undefined,
+  selectedAppointment: AppointmentTimeSlots | CustomTimeSlot | undefined,
   state: boolean,
   callBack: (state: boolean) => void
 ) {

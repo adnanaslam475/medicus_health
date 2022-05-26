@@ -27,23 +27,25 @@ function DoctorCalendar() {
   const [doctorIds, setDoctorId] = useState<number>();
   const [{ data }] = usePhysicianAppointmentsQuery({
     variables: {
-      filter: {},
+      filter: {status:"Confirmed"},
     },
   });
   const { physicianAppointments } = data || {};
 
   const handleDateClick = (arg: any) => {
     const data = arg?.event?.toJSON();
+    let selectedTimeSlot = data?.extendedProps?.appointmentTimeSlots && data?.extendedProps?.appointmentTimeSlots.find((item:any)=>item.selected)
     setModalData({
       id: data?.id,
       patient: data?.extendedProps?.patient,
       serviceType: data?.extendedProps?.serviceType,
-      dateValue: data.start,
+      dateValue: selectedTimeSlot?.startTime || data.start,
       className: data?.extendedProps?.extraData?.class_name,
-      startDate: data?.extendedProps?.extraData?.start,
-      endDate: data?.extendedProps?.extraData?.end,
+      startDate:  selectedTimeSlot?.startTime || data?.extendedProps?.extraData?.start,
+      endDate: selectedTimeSlot?.endTime || data?.extendedProps?.extraData?.end,
       status: data?.extendedProps?.status,
       charges: data?.extendedProps?.charges,
+      appointmentTimeSlots:data?.extendedProps?.appointmentTimeSlots,
       type: "Assignment",
     });
 
@@ -58,13 +60,14 @@ function DoctorCalendar() {
     setCalender({
       ...calender,
       calenderEvents: physicianAppointments?.map(
-        ({ id, patient, requestedDate, serviceType, charges }) => ({
+        ({ id, patient, requestedDate, serviceType, charges,appointmentTimeSlots }) => ({
           id: id,
           title: patient.first_name,
-          start: requestedDate,
+          start: appointmentTimeSlots && appointmentTimeSlots.find((item)=>item.selected)?.startTime || requestedDate,
           patient: patient.first_name + " " + patient.last_name,
           serviceType: serviceType?.name,
           charges: charges,
+          appointmentTimeSlot:appointmentTimeSlots
         })
       ),
     });
