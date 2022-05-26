@@ -48,6 +48,7 @@ function AdminAimsCalender(props: Props) {
 		variables: {
 			filter: {
 				searchString: searchText,
+				status:"Confirmed"
 			},
 		},
 	});
@@ -57,14 +58,15 @@ function AdminAimsCalender(props: Props) {
 		setFilterCalender({
 			...calender,
 			calenderEvents: physicianAppointments?.map(
-				({ id, patient, requestedDate, serviceType, charges, status }) => ({
+				({ id, patient, requestedDate, serviceType, charges, status,appointmentTimeSlots }) => ({
 					id: id,
 					title: patient.first_name,
-					start: requestedDate,
+					start: appointmentTimeSlots?.find((item)=>item.selected)?.startTime.split(".")[0] || requestedDate,
 					patient: patient.first_name + " " + patient.last_name,
 					serviceType: serviceType?.name,
 					charges: charges,
 					status: status,
+					appointmentTimeSlots:appointmentTimeSlots
 				})
 			),
 		});
