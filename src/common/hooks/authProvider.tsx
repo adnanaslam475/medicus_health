@@ -50,7 +50,6 @@ function AuthProvider({ children }: any) {
     // on route change complete - run auth check
     router.events.on("routeChangeComplete", firstRouteChangeComplete);
 
-    // unsubscribe from events in useEffect return function
     return () => {
       removeSubsequentEventHandlers();
     };
@@ -101,6 +100,7 @@ function AuthProvider({ children }: any) {
   ) {
     return children;
   }
+
   if (
     router.pathname.startsWith("/login") ||
     router.pathname.startsWith("/signup") ||

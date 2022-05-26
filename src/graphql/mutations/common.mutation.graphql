@@ -8,3 +8,50 @@ mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
     privilegeExpireTime
   }
 }
+
+mutation createChatChannel($createChatChannelInput: CreateChatChannelInput!) {
+  createChatChannel(createChatChannelInput: $createChatChannelInput) {
+    id
+    channelName
+    doctorId
+    patientId
+    isAdminChat
+    createdAt
+    doctor {
+      id
+    }
+    participants {
+      id
+      channelId
+      participantId
+      createdAt
+      userDetails {
+        id
+        first_name
+        last_name
+      }
+    }
+  }
+}
+
+mutation createChatMessage($createChatMessageInput: CreateChatMessageInput!) {
+  createChatMessage(createChatMessageInput: $createChatMessageInput) {
+    id
+    channelId
+    senderId
+    receiverId
+    message
+    messageType
+    createdAt
+    sender {
+      id
+      first_name
+      last_name
+    }
+    receiver {
+      id
+      first_name
+      last_name
+    }
+  }
+}

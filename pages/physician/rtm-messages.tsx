@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 const messages = dynamic(
   () => {
     return import(
-      "../../src/modules/common/pages/messages/MessageDetail/MessagesDetail"
+      "../../src/modules/admin/pages/Messages/MessageDetail/MessageDetail"
     );
   },
   { ssr: false }
