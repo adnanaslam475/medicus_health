@@ -39,7 +39,7 @@ function CancelledAppointmentsDetailDoctor() {
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Cancelled Appointments</h2>
+        <h2 className="mb-4">Canscelled Appointments</h2>
         <div className="profile-tabs">
           <Tabs type="card">
             <Tabs.TabPane tab="Appointment Info" key="1">

@@ -171,7 +171,7 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
       endTime
       selected
     }
-     doctor{
+    doctor {
       first_name
       last_name
     }
@@ -225,7 +225,7 @@ query physiciansPatients($searchField: String) {
     email
     contact_number
     streetAddress
-    country{
+    country {
       country_name
     }
     patientProfile {

@@ -37,9 +37,7 @@ const HealthQuestionnary = ({
     // handleBackChange(e);
   };
 
-  useEffect(() => {
-    console.log(form);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div>
       {!isUpdateMode && disable && (
@@ -53,7 +51,9 @@ const HealthQuestionnary = ({
         onFinishSuccess={onFinishSuccess}
         onFinishedFailed={onFinishedFailed}
       />
-      <div className="flex justify-center items-center text-red">{signupError}</div>
+      <div className="flex justify-center items-center text-red">
+        {signupError}
+      </div>
       <div className="flex justify-between items-center">
         {!isUpdateMode && disable && (
           <Checkbox
@@ -279,7 +279,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           rules={[
             {
               required: true,
-              message: "Please fill filed",
+              message:
+                "Please fill filedqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
             },
           ]}
         >
@@ -331,30 +332,30 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           <Radio value={0}>No</Radio>
         </Radio.Group>
       </Form.Item>
-        <>
+      <>
+        <Form.Item
+          name={HealthQuestionnaryData.q3.q.name}
+          label={HealthQuestionnaryData.q3.q.label}
+          className="text-secondary"
+        >
+          {/* <div className="checkbox-dir-col"> */}
+          <CheckboxGroup
+            options={HealthQuestionnaryData.q3.q.option}
+            onChange={onChangeMedicalCondition}
+            style={{ display: "flex", flexDirection: "column" }}
+          />
+          {/* </div> */}
+        </Form.Item>
+        {showDrugOthers && (
           <Form.Item
-            name={HealthQuestionnaryData.q3.q.name}
-            label={HealthQuestionnaryData.q3.q.label}
-            className="text-secondary"
+            className="flex-1"
+            // name="drug_text"
+            name={HealthQuestionnaryData.q3.q2.name}
           >
-            {/* <div className="checkbox-dir-col"> */}
-            <CheckboxGroup
-              options={HealthQuestionnaryData.q3.q.option}
-              onChange={onChangeMedicalCondition}
-              style={{ display: "flex", flexDirection: "column" }}
-            />
-            {/* </div> */}
+            <Input />
           </Form.Item>
-          {showDrugOthers && (
-            <Form.Item
-              className="flex-1"
-              // name="drug_text"
-              name={HealthQuestionnaryData.q3.q2.name}
-            >
-              <Input />
-            </Form.Item>
-          )}
-        </>
+        )}
+      </>
       <Form.Item
         name={HealthQuestionnaryData.q4.name}
         className="text-secondary"
