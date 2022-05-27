@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Form, notification } from "antd";
@@ -8,6 +8,7 @@ import {
 	UpdateStaffInput,
 	useGetStaffDetailsUrlByIdQuery,
 	User,
+	useRemoveStaffMutation,
 	useUpdateStaffProfileMutation,
 	useUserForgotPasswordMutation,
 } from "generated/graphql";
@@ -15,6 +16,7 @@ import { getUserData } from "common/utils/userData";
 
 // scss
 import _classes from "../../staff/staff.module.scss";
+import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
 function DoctorStaffDetails() {
 	const { query } = useRouter();
@@ -25,6 +27,8 @@ function DoctorStaffDetails() {
 		useUpdateStaffProfileMutation();
 	const [disableAccountInput, setDisableAccountInput] =
 		React.useState<boolean>(false);
+    const [{fetching: deleteFetching}, removeStaff] =
+    useRemoveStaffMutation();
 	const [{ data }] = useGetStaffDetailsUrlByIdQuery({
 		variables: {
 			id: Number(query.staffId),
@@ -38,6 +42,9 @@ function DoctorStaffDetails() {
 		}
 	}, [staffDetail]);
 
+const [open,setOpen]=useState(false)
+
+ 
 	const { user } = getUserData();
 	const { id } = user || {};
 
@@ -46,6 +53,27 @@ function DoctorStaffDetails() {
 			...staffDetail,
 		});
 	}
+  const deleteStaffHandler = async () => {
+    try {
+      const response = await removeStaff({
+        id: Number(query.staffId),
+      });
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "Staff Delete Successfully",
+        });
+        Router.back();
+      }
+     
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
 
 	const onFinish = async (values: UpdateStaffInput) => {
 		try {
@@ -105,7 +133,10 @@ function DoctorStaffDetails() {
             type="link"
             className="ml-auto"
             danger
+            loading={deleteFetching}
+            disabled={deleteFetching}
             icon={<CloseOutlined />}
+            onClick={() => setOpen(true)}
           >
             Delete profile
           </Button>
@@ -122,6 +153,12 @@ function DoctorStaffDetails() {
 					staffDetail={staffDetail as User}
 				/>
 			</div>
+      <ConfirmationModal
+        visible={open}
+        onCancel={() => setOpen(false)}
+        onOk={deleteStaffHandler}
+        message="Are you sure you want ot delete this staff?"
+      />
       </>
 		</AppLayout>
 	);

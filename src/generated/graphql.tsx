@@ -126,12 +126,12 @@ export type ChatChannels = {
   __typename?: 'ChatChannels';
   channelName: Scalars['String'];
   createdAt: Scalars['DateTime'];
-  doctor?: Maybe<User>;
-  doctorId: Scalars['Int'];
+  doctorId?: Maybe<Scalars['Int']>;
   id: Scalars['Int'];
   isAdminChat: Scalars['Boolean'];
   participants?: Maybe<Array<ChatParticipants>>;
-  patientId: Scalars['Int'];
+  patientId?: Maybe<Scalars['Int']>;
+  receiverDetail?: Maybe<User>;
 };
 
 export type ChatMessages = {
@@ -206,9 +206,9 @@ export type CreateAppointmentServiceTypeInput = {
 };
 
 export type CreateChatChannelInput = {
-  doctorId: Scalars['Int'];
+  doctorId?: InputMaybe<Scalars['Int']>;
   isAdminChat: Scalars['Boolean'];
-  patientId: Scalars['Int'];
+  patientId?: InputMaybe<Scalars['Int']>;
 };
 
 export type CreateChatMessageInput = {
@@ -407,8 +407,8 @@ export type EducationalBackground = {
 };
 
 export type EducationalBackgroundUpdate = {
-  degree: Scalars['String'];
-  institution: Scalars['String'];
+  degree?: InputMaybe<Scalars['String']>;
+  institution?: InputMaybe<Scalars['String']>;
 };
 
 export type EmailAvailableInput = {
@@ -466,6 +466,7 @@ export type GetPhysicianAppointmentInput = {
 };
 
 export type GetPhysiciansInput = {
+  creationDate?: InputMaybe<PhysicianAccountCreationDate>;
   language?: InputMaybe<Scalars['String']>;
   searchField?: InputMaybe<Scalars['String']>;
   specialization?: InputMaybe<Scalars['String']>;
@@ -543,6 +544,7 @@ export type Mutation = {
   createUser: User;
   enableOrDisableDoctor: User;
   enableOrDisablePatient: User;
+  enableOrDisableStaff: User;
   generateRTCToken: RtcTokenResponse;
   login: LoginResponse;
   payment: Transaction;
@@ -562,6 +564,7 @@ export type Mutation = {
   setDoctorPassword: User;
   toggleEmailPreferences: UserEmailPreferencesResponse;
   updateAdminUser: User;
+  updateDctorPercentage: Transaction;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
   updateStaff: User;
@@ -691,6 +694,11 @@ export type MutationEnableOrDisablePatientArgs = {
 };
 
 
+export type MutationEnableOrDisableStaffArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationGenerateRtcTokenArgs = {
   generateRTCTokenInput: GenerateRtcTokenInput;
 };
@@ -702,7 +710,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationPaymentArgs = {
-  appointmentId: Scalars['Int'];
+  paymeninput: PaymentInput;
 };
 
 
@@ -787,6 +795,12 @@ export type MutationUpdateAdminUserArgs = {
 };
 
 
+export type MutationUpdateDctorPercentageArgs = {
+  id: Scalars['Int'];
+  updateDoctorPercentage: UpdateDoctorPercentage;
+};
+
+
 export type MutationUpdateDoctorProfileArgs = {
   updateDoctorProfileInput: UpdateDoctorProfileInput;
 };
@@ -836,14 +850,23 @@ export type PatientProfile = {
   userId: Scalars['Float'];
 };
 
+export type PaymentInput = {
+  appointmentId: Scalars['Int'];
+};
+
+export type PhysicianAccountCreationDate = {
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+};
+
 export type ProfessionalExperience = {
   institution: Scalars['String'];
   role: Scalars['String'];
 };
 
 export type ProfessionalExperience2 = {
-  institution: Scalars['String'];
-  role: Scalars['String'];
+  institution?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
 };
 
 export type ProposeNewTimeInput = {
@@ -1126,10 +1149,16 @@ export type Transaction = {
 };
 
 export type UpdateAdminUserInput = {
-  email?: InputMaybe<Scalars['String']>;
-  first_name?: InputMaybe<Scalars['String']>;
-  last_name?: InputMaybe<Scalars['String']>;
+  contact_number: Scalars['String'];
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
   password?: InputMaybe<Scalars['String']>;
+  profileImage?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateDoctorPercentage = {
+  doctor_percentage: Scalars['String'];
 };
 
 export type UpdateDoctorProfileInput = {
@@ -1386,6 +1415,13 @@ export type DefaultCardMutationVariables = Exact<{
 
 
 export type DefaultCardMutation = { __typename?: 'Mutation', setAsDefaultCard: { __typename?: 'UserCard', id: number, user_id: number, card_id: string, card_type: string, card_digits: number, is_default: boolean } };
+
+export type RemoveStaffMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type RemoveStaffMutation = { __typename?: 'Mutation', removeStaff: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null } };
 
 export type UpdateUserProfileMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -1970,6 +2006,21 @@ export const DefaultCardDocument = gql`
 
 export function useDefaultCardMutation() {
   return Urql.useMutation<DefaultCardMutation, DefaultCardMutationVariables>(DefaultCardDocument);
+};
+export const RemoveStaffDocument = gql`
+    mutation removeStaff($id: Int!) {
+  removeStaff(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+  }
+}
+    `;
+
+export function useRemoveStaffMutation() {
+  return Urql.useMutation<RemoveStaffMutation, RemoveStaffMutationVariables>(RemoveStaffDocument);
 };
 export const UpdateUserProfileDocument = gql`
     mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {
@@ -3840,22 +3891,10 @@ export default {
             "args": []
           },
           {
-            "name": "doctor",
-            "type": {
-              "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
-            },
-            "args": []
-          },
-          {
             "name": "doctorId",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -3899,11 +3938,17 @@ export default {
           {
             "name": "patientId",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "receiverDetail",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
             "args": []
           }
@@ -5284,6 +5329,29 @@ export default {
             ]
           },
           {
+            "name": "enableOrDisableStaff",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "generateRTCToken",
             "type": {
               "kind": "NON_NULL",
@@ -5341,7 +5409,7 @@ export default {
             },
             "args": [
               {
-                "name": "appointmentId",
+                "name": "paymeninput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -5720,6 +5788,39 @@ export default {
               },
               {
                 "name": "updateAdminUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateDctorPercentage",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Transaction",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "updateDoctorPercentage",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
