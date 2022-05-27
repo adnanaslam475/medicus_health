@@ -9,7 +9,6 @@ export function SelectStatusTypeFilter({
   value: string | undefined | null;
   placeholder: string;
 }) {
-  
   return (
     <Select
       placeholder={placeholder}
@@ -17,10 +16,10 @@ export function SelectStatusTypeFilter({
       onChange={onChange}
       value={value || "Appointment Status"}
     >
-     
-      <Select.Option value="Upcoming">Upcoming</Select.Option>
+      {/* ---> reuquested will give both Suggested and Requested */}
       <Select.Option value="Requested">Requested</Select.Option>
       <Select.Option value="Cancelled">Cancelled</Select.Option>
+      <Select.Option value="Confirmed">Confirmed</Select.Option>
       <Select.Option value="Completed">Completed</Select.Option>
     </Select>
   );

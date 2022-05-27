@@ -72,7 +72,7 @@ function AdminPatientsList() {
       title: "Contact Number",
       dataIndex: "contact_number",
       sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
+        compare: (a: any, b: any) => a.contact_number - b.contact_number,
         multiple: 3,
       },
       render: (value: string) => {
@@ -106,7 +106,7 @@ function AdminPatientsList() {
         <div className="text-primary">
           <EyeFilled
             onClick={() => {
-              return Router.push(`/admin/patients/detail/${id}`);
+              return Router.push(`/admin/patients/${id}`);
             }}
           />
         </div>

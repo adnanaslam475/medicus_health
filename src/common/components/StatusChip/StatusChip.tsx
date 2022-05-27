@@ -6,6 +6,8 @@ import {
   CONFIRMED,
   CANCELLED,
   SUCCEEDED,
+  SUGGESTED,
+  REQUESTED,
 } from "../../constants/status";
 type StatusName =
   | "UPCOMING"
@@ -13,6 +15,8 @@ type StatusName =
   | "PENDING"
   | "SUCCEEDED"
   | "CONFIRMED"
+  | "REQUESTED"
+  | "SUGGESTED"
   | "CANCELLED";
 
 type StatusType<K extends StatusName> = {
@@ -60,6 +64,18 @@ const classesAccordingToType: StatusType<StatusName> = {
     color: "text-red",
     text: CANCELLED || "Cancelled",
     border: "border border-red-1",
+  },
+  REQUESTED: {
+    background: "bg-yellow-1",
+    color: "text-yellow",
+    text: REQUESTED || "Requested",
+    border: "border border-yellow-1",
+  },
+  SUGGESTED: {
+    background: "bg-gray",
+    color: "text-gray-7",
+    text: SUGGESTED || "Suggested",
+    border: "border border-gray",
   },
 };
 

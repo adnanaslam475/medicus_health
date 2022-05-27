@@ -1,4 +1,4 @@
-import { BookingDate, DueDate, InputMaybe, Scalars } from "generated/graphql";
+import { Appointment, BookingDate, DueDate, InputMaybe, Scalars,Maybe } from "generated/graphql";
 
 export type Schedule = {
   day?: number;
@@ -70,6 +70,19 @@ export type ServiceTypes = {
   price: number;
 };
 
+export type AdminAppointmentHistoryDetailType = {
+  id: number | undefined;
+  bookingDate: any;
+  patient: Maybe<string> | undefined;
+  physician: string;
+  service: string;
+  dueDate: string;
+  time: string;
+  totalAmount: number | undefined;
+  appointmentStatus: Maybe<string> | undefined;
+  paymentStatus: string;
+};
+
 export type adminUserFilterType = {
   searchUser?: string;
   status?: string;
@@ -92,4 +105,13 @@ export type PatientListFilterType = {
   searchField?: string;
   stateId?: number;
   countryId?: number;
+};
+
+export type CustomTimeSlot = {
+  __typename?: 'AppointmentTimeSlots';
+  appointment?: Appointment;
+  endTime: Scalars['DateTime'];
+  id: Scalars['Int'];
+  selected: Scalars['Boolean'];
+  startTime: Scalars['DateTime'];
 };

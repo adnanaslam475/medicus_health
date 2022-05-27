@@ -82,7 +82,7 @@ function AdminPhysicianSearchFilters(props: Props) {
               open={openDateRange1}
               className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
               onChange={(_, dateString: string[]) =>
-                onChangeFields("bookingDate", {
+                onChangeFields("creationDate", {
                   startDate: dateString[0],
                   endDate: dateString[1],
                 })
@@ -115,13 +115,13 @@ function AdminPhysicianSearchFilters(props: Props) {
               type="default"
               onClick={() => setOpenDateRange1?.(!openDateRange1)}
             >
-              {filterState?.bookingDate?.endDate ? (
+              {filterState?.creationDate?.endDate ? (
                 <div>
-                  {filterState?.bookingDate?.endDate
+                  {filterState?.creationDate?.endDate
                     ? `${getDateInFormat(
-                        filterState?.bookingDate?.startDate
+                        filterState?.creationDate?.startDate
                       )} -> ${getDateInFormat(
-                        filterState?.bookingDate?.endDate
+                        filterState?.creationDate?.endDate
                       )}`
                     : "Account Created At"}
                 </div>

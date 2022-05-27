@@ -5,7 +5,6 @@ import {
   useDoctorQuestionnaireQuery,
 } from "../../../generated/graphql";
 import { useRouter } from "next/router";
-import { NamePath } from "rc-field-form/lib/interface";
 import { parseJson } from "common/utils/helper";
 
 type Props = {
@@ -16,9 +15,8 @@ function PhysicianQuestionnaire(props: Props) {
   const { query } = useRouter();
   const [formInstance] = Form.useForm();
   const { appointmentHealthHistory } = props || {};
-
   let History = parseJson(appointmentHealthHistory);
-
+  
   useEffect(() => {
     prepareAndSetEditPayload();
   }, [History]);
