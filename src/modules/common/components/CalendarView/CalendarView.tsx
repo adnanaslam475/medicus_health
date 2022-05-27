@@ -20,19 +20,21 @@ type Props = {
 	calendarComponentRef: React.LegacyRef<FullCalendar> | undefined | any;
 	calender: object | any;
 	redirectToListing: () => void;
+	enableButton: boolean;
 };
 
 type events = {
 	calenderEvents: Appointment | undefined | Array<object>;
 };
 
-function AdminAimsCalender(props: Props) {
+function AdminCalender(props: Props) {
 	const {
 		handleDateChange,
 		calendarComponentRef,
 		calender,
 		handleDateClick,
 		redirectToListing,
+		enableButton,
 	} = props;
 
 	const [isSearch, setIsSearch] = useState<boolean>(false);
@@ -48,7 +50,7 @@ function AdminAimsCalender(props: Props) {
 		variables: {
 			filter: {
 				searchString: searchText,
-				status:"Confirmed"
+				status: "Confirmed",
 			},
 		},
 	});
@@ -58,15 +60,26 @@ function AdminAimsCalender(props: Props) {
 		setFilterCalender({
 			...calender,
 			calenderEvents: physicianAppointments?.map(
-				({ id, patient, requestedDate, serviceType, charges, status,appointmentTimeSlots }) => ({
+				({
+					id,
+					patient,
+					requestedDate,
+					serviceType,
+					charges,
+					status,
+					appointmentTimeSlots,
+				}) => ({
 					id: id,
 					title: patient.first_name,
-					start: appointmentTimeSlots?.find((item)=>item.selected)?.startTime.split(".")[0] || requestedDate,
+					start:
+						appointmentTimeSlots
+							?.find((item) => item.selected)
+							?.startTime.split(".")[0] || requestedDate,
 					patient: patient.first_name + " " + patient.last_name,
 					serviceType: serviceType?.name,
 					charges: charges,
 					status: status,
-					appointmentTimeSlots:appointmentTimeSlots
+					appointmentTimeSlots: appointmentTimeSlots,
 				})
 			),
 		});
@@ -105,89 +118,175 @@ function AdminAimsCalender(props: Props) {
 					</div>
 				) : null}
 				<div className={`${_Classes["calendarviewStyle"]}`}>
-					<FullCalendar
-						dayHeaderContent={(args) => {
-							const weekShortName = new Date(args.date).toLocaleString(
-								"en-us",
-								{
-									weekday: "short",
+					{enableButton ? (
+						<FullCalendar
+							dayHeaderContent={(args) => {
+								const weekShortName = new Date(args.date).toLocaleString(
+									"en-us",
+									{
+										weekday: "short",
+									}
+								);
+								const currentDate = new Date(args.date).getDate();
+								return (
+									<div className="flex-col">
+										<div className="text-black">{currentDate}</div>
+										<div className="text-black">{weekShortName}</div>
+									</div>
+								);
+							}}
+							initialView="timeGridWeek"
+							headerToolbar={{
+								left: "customText today customPrev customNext title",
+								center: "",
+								right: "listview search custom1",
+							}}
+							customButtons={{
+								customNext: {
+									icon: "chevron-right",
+									click: () => {
+										handleDateChange("next");
+									},
+								},
+								customPrev: {
+									icon: "chevron-left",
+									click: () => {
+										handleDateChange("prev");
+									},
+								},
+								customText: {
+									text: "Appointment",
+								},
+								custom1: {
+									text: "Request an Appointment",
+									click: function () {},
+								},
+								listview: {
+									text: "List View",
+									click: redirectToListing,
+								},
+								search: {
+									text: "Search",
+									click: () => {
+										handleSearch();
+									},
+								},
+							}}
+							plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+							ref={calendarComponentRef}
+							events={
+								filterCalender?.calenderEvents || calender?.calenderEvents
+							}
+							eventClick={handleDateClick}
+							eventTextColor="black"
+							displayEventTime={false}
+							eventClassNames={(arg) => {
+								if (arg.event.extendedProps?.status === "Requested") {
+									return [`${_Classes["clsRequested"]}`];
 								}
-							);
-							const currentDate = new Date(args.date).getDate();
-							return (
-                <div className="flex-col">
-                  <div className="text-black">{currentDate}</div>
-                  <div className="text-black">{weekShortName}</div>
-								</div>
-							);
-						}}
-						initialView="timeGridWeek"
-						headerToolbar={{
-							left: "customText today customPrev customNext title",
-							center: "",
-							right: "listview search custom1",
-						}}
-						customButtons={{
-							customNext: {
-								icon: "chevron-right",
-								click: () => {
-									handleDateChange("next");
+								if (arg.event.extendedProps?.status === "Confirmed") {
+									return [`${_Classes["clsConfirmed"]}`];
+								}
+								if (arg.event.extendedProps?.status === "Completed") {
+									return [`${_Classes["clsCompleted"]}`];
+								}
+								if (arg.event.extendedProps?.status === "Cancelled") {
+									return [`${_Classes["clsCancelled"]}`];
+								}
+								if (arg.event.extendedProps?.status === "Suggested") {
+									return [`${_Classes["clsUpcoming"]}`];
+								} else {
+									return [`${_Classes["clsUpcoming"]}`];
+								}
+							}}
+						/>
+					) : (
+						<FullCalendar
+							dayHeaderContent={(args) => {
+								const weekShortName = new Date(args.date).toLocaleString(
+									"en-us",
+									{
+										weekday: "short",
+									}
+								);
+								const currentDate = new Date(args.date).getDate();
+								return (
+									<div className="flex-col">
+										<div className="text-black">{currentDate}</div>
+										<div className="text-black">{weekShortName}</div>
+									</div>
+								);
+							}}
+							initialView="timeGridWeek"
+							headerToolbar={{
+								left: "customText today customPrev customNext title",
+								center: "",
+								right: "listview search",
+							}}
+							customButtons={{
+								customNext: {
+									icon: "chevron-right",
+									click: () => {
+										handleDateChange("next");
+									},
 								},
-							},
-							customPrev: {
-								icon: "chevron-left",
-								click: () => {
-									handleDateChange("prev");
+								customPrev: {
+									icon: "chevron-left",
+									click: () => {
+										handleDateChange("prev");
+									},
 								},
-							},
-							customText: {
-								text: "Appointment",
-							},
-							custom1: {
-								text: "Request an Appointment",
-								click: function () {},
-							},
-							listview: {
-								text: "List View",
-								click: redirectToListing,
-							},
-							search: {
-								text: "Search",
-								click: () => {
-									handleSearch();
+								customText: {
+									text: "Appointment",
 								},
-							},
-						}}
-						plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-						ref={calendarComponentRef}
-						events={filterCalender?.calenderEvents || calender?.calenderEvents}
-						eventClick={handleDateClick}
-						eventTextColor="black"
-						displayEventTime={false}
-						eventClassNames={(arg) => {
-							if (arg.event.extendedProps?.status === "Requested") {
-								return [`${_Classes["clsRequested"]}`];
+								custom1: {
+									text: "Request an Appointment",
+									click: function () {},
+								},
+								listview: {
+									text: "List View",
+									click: redirectToListing,
+								},
+								search: {
+									text: "Search",
+									click: () => {
+										handleSearch();
+									},
+								},
+							}}
+							plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+							ref={calendarComponentRef}
+							events={
+								filterCalender?.calenderEvents || calender?.calenderEvents
 							}
-							if (arg.event.extendedProps?.status === "Confirmed") {
-								return [`${_Classes["clsConfirmed"]}`];
-							}
-							if (arg.event.extendedProps?.status === "Completed") {
-								return [`${_Classes["clsCompleted"]}`];
-							}
-							if (arg.event.extendedProps?.status === "Cancelled") {
-								return [`${_Classes["clsCancelled"]}`];
-							}
-							if (arg.event.extendedProps?.status === "Suggested") {
-								return [`${_Classes["clsUpcoming"]}`];
-							} else {
-								return [`${_Classes["clsUpcoming"]}`];
-							}
-						}}
-					/>
+							eventClick={handleDateClick}
+							eventTextColor="black"
+							displayEventTime={false}
+							eventClassNames={(arg) => {
+								if (arg.event.extendedProps?.status === "Requested") {
+									return [`${_Classes["clsRequested"]}`];
+								}
+								if (arg.event.extendedProps?.status === "Confirmed") {
+									return [`${_Classes["clsConfirmed"]}`];
+								}
+								if (arg.event.extendedProps?.status === "Completed") {
+									return [`${_Classes["clsCompleted"]}`];
+								}
+								if (arg.event.extendedProps?.status === "Cancelled") {
+									return [`${_Classes["clsCancelled"]}`];
+								}
+								if (arg.event.extendedProps?.status === "Suggested") {
+									return [`${_Classes["clsUpcoming"]}`];
+								} else {
+									return [`${_Classes["clsUpcoming"]}`];
+								}
+							}}
+						/>
+					)}
 				</div>
 			</div>
 		</div>
 	);
 }
 
-export default AdminAimsCalender;
+export default AdminCalender;

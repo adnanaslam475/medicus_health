@@ -108,6 +108,7 @@ function AppointmentCalendar() {
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
             redirectToListing={redirectToRequested}
+            enableButton={false}
           />
         </div>
         <CalendarModalComponent
