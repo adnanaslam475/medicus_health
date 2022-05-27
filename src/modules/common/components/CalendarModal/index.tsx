@@ -80,7 +80,7 @@ function CalendarModalComponent(props: Props) {
 				<Button
 					type="primary"
 					icon={<VideoCameraFilled />}
-					className={`${_classes["join-now-btn"]}`}
+					className={`${_classes["appointments-btn"]} bg-current mr-3`}
 					disabled={disabled}
 				>
 					Join Now
