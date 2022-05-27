@@ -466,6 +466,7 @@ export type GetPhysicianAppointmentInput = {
 };
 
 export type GetPhysiciansInput = {
+  creationDate?: InputMaybe<PhysicianAccountCreationDate>;
   language?: InputMaybe<Scalars['String']>;
   searchField?: InputMaybe<Scalars['String']>;
   specialization?: InputMaybe<Scalars['String']>;
@@ -838,6 +839,11 @@ export type PatientProfile = {
 
 export type PaymentInput = {
   appointmentId: Scalars['Int'];
+};
+
+export type PhysicianAccountCreationDate = {
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type ProfessionalExperience = {
@@ -1552,6 +1558,13 @@ export type GetPatientsQueryVariables = Exact<{
 
 
 export type GetPatientsQuery = { __typename?: 'Query', getPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, zip_code?: string | null }> };
+
+export type PhysicianPaymentByAdminMutationVariables = Exact<{
+  paymeninput: PaymentInput;
+}>;
+
+
+export type PhysicianPaymentByAdminMutation = { __typename?: 'Mutation', payment: { __typename?: 'Transaction', id: number, transactionId: string, appointmentId: number, cardId: number, amountReceived: number, status: string, doctor_percentage: string, payment_status?: string | null, createdAt: any } };
 
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2407,6 +2420,25 @@ export const GetPatientsDocument = gql`
 
 export function useGetPatientsQuery(options: Omit<Urql.UseQueryArgs<GetPatientsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetPatientsQuery>({ query: GetPatientsDocument, ...options });
+};
+export const PhysicianPaymentByAdminDocument = gql`
+    mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
+  payment(paymeninput: $paymeninput) {
+    id
+    transactionId
+    appointmentId
+    cardId
+    amountReceived
+    status
+    doctor_percentage
+    payment_status
+    createdAt
+  }
+}
+    `;
+
+export function usePhysicianPaymentByAdminMutation() {
+  return Urql.useMutation<PhysicianPaymentByAdminMutation, PhysicianPaymentByAdminMutationVariables>(PhysicianPaymentByAdminDocument);
 };
 export const GetAllChatChannelsDocument = gql`
     query getAllChatChannels {
