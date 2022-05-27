@@ -50,6 +50,7 @@ type Props = {
     totalAmount: string;
     appointmentStatus: string;
     paymentStatus: string;
+    status: string;
   };
 };
 function AdminAppointmentInfo({ data }: Props) {
@@ -64,6 +65,7 @@ function AdminAppointmentInfo({ data }: Props) {
     totalAmount,
     appointmentStatus,
     paymentStatus,
+    status,
   } = data || {};
 
   return (
@@ -91,8 +93,9 @@ function AdminAppointmentInfo({ data }: Props) {
             </Tag>
           </div>
         </li>
+
         <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1 max-w-[300px]">Status</div>
+          <div className="w-full text-gray-1 max-w-[300px]">Payment Status</div>
           <div className="w-full text-secondary">
             <Tag
               color="#e2f8f7"
@@ -103,7 +106,6 @@ function AdminAppointmentInfo({ data }: Props) {
           </div>
         </li>
       </div>
-
       <DoctorAppointmentInfoFooter appointmentId={1} />
     </div>
   );

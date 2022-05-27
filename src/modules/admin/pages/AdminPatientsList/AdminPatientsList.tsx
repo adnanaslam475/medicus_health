@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { Button, Table, Tag, Modal } from "antd";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
-import Link from "next/link";
+import { Table } from "antd";
+import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import Image from "next/image";
 import AdminPatientsListFilter from "./AdminPatientsListFilter";
+
+import { PatientListFilterType } from "common/types/types";
 import {
   Country,
-  GetPatientsInput,
-  PatientProfile,
+  AppointmentServiceType,
   useGetPatientsQuery,
+  User,
+  City,
 } from "generated/graphql";
-import { PatientListFilterType } from "common/types/types";
+import { ColumnsType } from "antd/lib/table/Table";
 
 function AdminPatientsList() {
   const [filterValues, setFilterValues] = useState<PatientListFilterType>({});
-  const [searchValue, setSearchValue] = React.useState("");
 
   const [{ data }, executeuseGetPatientsQuery] = useGetPatientsQuery({
     variables: {
@@ -25,63 +26,7 @@ function AdminPatientsList() {
   });
 
   const { getPatients } = data || {};
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      id: "doctor_id",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      id: "user",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      id: "email",
-    },
-    {
-      title: "Cell number",
-      dataIndex: "number",
-      id: "number",
-    },
-    {
-      title: "City",
-      dataIndex: "city",
-      id: "number",
-    },
-    {
-      title: "Country",
-      dataIndex: "country",
-      id: "number",
-    },
-    {
-      title: "Postal Code",
-      dataIndex: "postalcode",
-      id: "number",
-    },
 
-    {
-      title: "",
-      dataIndex: "doctor_id",
-      id: "view",
-      className: "table-action-icon",
-      render: (value: any) => (
-        <div className="text-primary">
-          <EyeFilled
-            onClick={() => {
-              return Router.push(`/admin/patients/detail`);
-            }}
-          />
-        </div>
-      ),
-    },
-  ];
   function onChangeFilters(values: PatientListFilterType) {
     setFilterValues(values);
     executeuseGetPatientsQuery({
@@ -89,6 +34,85 @@ function AdminPatientsList() {
       requestPolicy: "network-only",
     });
   }
+
+  const columns: ColumnsType<User> = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      sorter: {
+        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Name",
+      dataIndex: "",
+      key: "user",
+
+      render: (value: any) => {
+        return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.first_name - b.first_name,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      render: (value: string) => {
+        return <div>{value}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.service - b.service,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Contact Number",
+      dataIndex: "contact_number",
+      sorter: {
+        compare: (a: any, b: any) => a.contact_number - b.contact_number,
+        multiple: 3,
+      },
+      render: (value: string) => {
+        return <div>{value}</div>;
+      },
+    },
+    {
+      title: "City",
+      dataIndex: "city_id",
+      render: (value: City) => {
+        return <div>{`${value?.city_name}`}</div>;
+      },
+    },
+    {
+      title: "Country",
+      dataIndex: "country",
+      render: (value: Country) => {
+        return <div>{`${value?.country_name}`}</div>;
+      },
+    },
+    {
+      title: "Postal Code",
+      dataIndex: "zip_code",
+    },
+
+    {
+      title: "",
+      dataIndex: "id",
+      className: "table-action-icon",
+      render: (id: number) => (
+        <div className="text-primary">
+          <EyeFilled
+            onClick={() => {
+              return Router.push(`/admin/patients/${id}`);
+            }}
+          />
+        </div>
+      ),
+    },
+  ];
 
   return (
     <AppLayout>
@@ -100,7 +124,7 @@ function AdminPatientsList() {
         <AdminPatientsListFilter onChange={onChangeFilters} />
         <div className="w-full">
           <div className="">
-            <Table columns={columns} dataSource={getPatients} />
+            <Table columns={columns} dataSource={getPatients as User[]} />
           </div>
         </div>
       </div>

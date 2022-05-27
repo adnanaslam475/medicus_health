@@ -1,19 +1,22 @@
-import React from "react";
-import { Button, Table, Tag, Modal } from "antd";
+import React, { useState } from "react";
+import { Button, Table, Tag, Modal, Select } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Router from "next/router";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import AimChip from "common/components/StatusChip/StatusChip";
+import StatusChip from "common/components/StatusChip/StatusChip";
 import AdminAppointmentsFilter from "../AdminAppointmentsFilter/AdminAppointmentsFilter";
 import {
   Appointment,
   AppointmentServiceType,
+  DoctorProfile,
   GetAppointmentInput,
+  useDoctorProfileQuery,
   usePhysicianAppointmentsHistoryQuery,
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 const appointmentColumns = [
   {
@@ -103,7 +106,7 @@ const appointmentColumns = [
     render: (value: any) => {
       return (
         <div className="text-primary">
-          <AimChip type={value?.toUpperCase()} />
+          <StatusChip type={value?.toUpperCase()} />
         </div>
       );
     },
@@ -116,7 +119,7 @@ const appointmentColumns = [
     render: (value: any) => {
       return (
         <div className="text-primary">
-          <AimChip type={value?.status.toUpperCase()} />
+          <StatusChip type={value?.status.toUpperCase()} />
         </div>
       );
     },
@@ -166,32 +169,80 @@ function AdminAppointmentsListing({}: Props) {
     });
   };
   function onChange() {}
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const [result] = useDoctorProfileQuery({
+    // variables: { doctor_id: Number(query?.id) },
+  });
+
+  const { data: doctorProfileData, fetching } = result || {};
+  const { doctorProfile } = doctorProfileData || {};
+  // const { doctorData, loading } = props || {};
+
   return (
-    <AppLayout>
-      <div className="w-full">
-        <div className="flex justify-between items-center">
-          <h2 className="mb-0 pb-0">Appointments</h2>
-          <Link passHref href={`/admin/physicians/addPhysician`}>
-            <a>
-              <Button type="primary">Request an Appointment</Button>
-            </a>
-          </Link>
-        </div>
-        <AdminAppointmentsFilter
-          filterValues={filterValues}
-          onChange={onChangeFilters}
-        />
+    <>
+      <AppLayout>
         <div className="w-full">
-          <div className="">
-            <Table
-              columns={appointmentColumns}
-              dataSource={appointments}
-              onChange={onChange}
-            />
+          <div className="flex-none sm:flex items-center justify-between mb-5">
+            <div className="pr-3 mb-3 sm:mb-0">
+              <h2 className="mb-0 pb-0">Appointments</h2>
+            </div>
+            <div className="flex gap-3">
+              <div className="lg:ml-3 mt-0 sm:mt-0">
+                <Select defaultValue="List View" className="w-full sm:w-40">
+                  <Select.Option value="Calendar View">
+                    <Link href="/admin/appointments/calendar">
+                      <a>Calendar View</a>
+                    </Link>
+                  </Select.Option>
+                  <Select.Option selected value="List View">
+                    List View
+                  </Select.Option>
+                </Select>
+              </div>
+              <Button type="primary" className="text-sm" onClick={showModal}>
+                <span className="text-xs sm:text-base">
+                  Request an Appointment
+                </span>
+              </Button>
+            </div>
+          </div>
+          <AdminAppointmentsFilter
+            filterValues={filterValues}
+            onChange={onChangeFilters}
+          />
+          <div className="w-full">
+            <div className="">
+              <Table
+                columns={appointmentColumns}
+                dataSource={appointments}
+                onChange={onChange}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </AppLayout>
+      </AppLayout>
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        // doctorData={doctorData}
+        doctorData={doctorProfile as DoctorProfile}
+      />
+    </>
   );
 }
 export default AdminAppointmentsListing;

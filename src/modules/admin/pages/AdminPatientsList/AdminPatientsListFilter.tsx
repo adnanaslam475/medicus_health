@@ -79,7 +79,6 @@ function AdminPatientsListFilter(props: Props) {
             value={filterState?.stateId}
             selectedCountryId={filterState.countryId}
           />
-
           <Button
             onClick={clear}
             type="text"

@@ -23,7 +23,7 @@ function StaffAppointmentsFilter({ onChange }: Props) {
     setOpenDateRange(false);
   };
 
-  function onChangeFields(key: string, value: string | object) {
+  function onChangeFields(key: string, value: string | object | boolean) {
     const filters = {
       ...filterState,
       [key]: value,
@@ -82,7 +82,7 @@ function StaffAppointmentsFilter({ onChange }: Props) {
           <Select
             placeholder="Status"
             className="w-full sm:w-40"
-            onChange={(value) => onChangeFields("status", value as any)}
+            onChange={(value) => onChangeFields("status", value)}
             value={filterState.status}
           >
             <Select.Option value={true}>Active</Select.Option>

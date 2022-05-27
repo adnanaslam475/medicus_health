@@ -5,7 +5,7 @@ import AppHeader from "../AppHeader/AppHeader";
 import Container from "../Container/Container";
 
 type props = {
-  children: React.ReactChild | (() => React.ReactChild);
+  children: React.ReactChild | React.ReactChild[] | (() => React.ReactChild);
 };
 
 function AppLayout({ children }: props) {

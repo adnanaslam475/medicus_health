@@ -1,5 +1,5 @@
 import React from "react";
-import Router from "next/router";
+import Router,{ useRouter } from "next/router";
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Form, notification } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
@@ -47,35 +47,35 @@ function DoctorStaffDetails() {
 		});
 	}
 
-	const onFinish = async (values: UpdateStaffInput) => {
-		try {
-			const response = await executeUpdateStaffProfileMutation({
-				id: Number(query?.staffId),
-				updateStaffInput: {
-					first_name: values?.first_name,
-					last_name: values?.last_name,
-					email: values?.email,
-					contact_number: values?.contact_number,
-					doctorId: id as number,
-					deleted: false,
-				},
-			});
-			if (response?.error) {
-				throw new Error(response?.error?.graphQLErrors[0]?.message);
-			}
-			if (response.data) {
-				formInstance.resetFields();
+  const onFinish = async (values: UpdateStaffInput) => {
+    try {
+      const response = await executeUpdateStaffProfileMutation({
+        id: Number(query?.staffId),
+        updateStaffInput: {
+          first_name: values?.first_name,
+          last_name: values?.last_name,
+          email: values?.email,
+          contact_number: values?.contact_number,
+          doctorId: id as number,
+          deleted: false,
+        },
+      });
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
         Router.back();
-			}
-		} catch (error: any) {
-			notification.error({
-				message: error.message || "Something went wrong",
-			});
-		}
-	};
-	const handleChange = (value: boolean) => {
-		setDisableAccountInput(value);
-	};
+        formInstance.resetFields();
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error.message || "Something went wrong",
+      });
+    }
+  };
+  const handleChange = (value: boolean) => {
+    setDisableAccountInput(value);
+  };
 
 	const handleResetLink = async () => {
 		let { email } = formInstance.getFieldsValue();

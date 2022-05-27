@@ -1,26 +1,27 @@
-.custom-height{
-    height: calc(100vh - 30vh) !important; 
-    overflow-y: scroll;
-    &::-webkit-scrollbar {
-        width: 10px;
-      }
-      
-      /* Track */
-      &::-webkit-scrollbar-track {
-        background: #f1f1f1; 
-      }
-       
-      /* Handle */
-      &::-webkit-scrollbar-thumb {
-        background:#DBDFEA; 
-      }
-      
-      /* Handle on hover */
-      &::-webkit-scrollbar-thumb:hover {
-        background: #DBDFEA; 
-      }
+.custom-height {
+  height: calc(100vh - 272px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
 
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
 
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #dbdfea;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #dbdfea;
+  }
 }
 
 
+.search-color{
+  color:#F6F8FA !important;
+  }
