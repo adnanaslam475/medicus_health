@@ -9,7 +9,9 @@ import AdminAppointmentsFilter from "../AdminAppointmentsFilter/AdminAppointment
 import {
   Appointment,
   AppointmentServiceType,
+  DoctorProfile,
   GetAppointmentInput,
+  useDoctorProfileQuery,
   usePhysicianAppointmentsHistoryQuery,
   User,
 } from "generated/graphql";
@@ -182,6 +184,12 @@ function AdminAppointmentsListing({}: Props) {
     setIsModalVisible(false);
   };
 
+  const [result] = useDoctorProfileQuery({
+    // variables: { doctor_id: Number(query?.id) },
+  });
+
+  const { data: doctorProfileData, fetching } = result || {};
+  const { doctorProfile } = doctorProfileData || {};
   // const { doctorData, loading } = props || {};
 
   return (
@@ -205,7 +213,7 @@ function AdminAppointmentsListing({}: Props) {
                   </Select.Option>
                 </Select>
               </div>
-              <Button type="primary" className="text-sm">
+              <Button type="primary" className="text-sm" onClick={showModal}>
                 <span className="text-xs sm:text-base">
                   Request an Appointment
                 </span>
@@ -232,6 +240,7 @@ function AdminAppointmentsListing({}: Props) {
         onOk={handleOk}
         onCancel={handleCancel}
         // doctorData={doctorData}
+        doctorData={doctorProfile as DoctorProfile}
       />
     </>
   );
