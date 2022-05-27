@@ -1,12 +1,13 @@
-import { Form, InputNumber } from "antd";
+import { Button, Form, InputNumber } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import SmallLabelWithTextDiv from "common/components/LabelWithTextDiv/SmallLabelWithTextDiv";
+import Router from "next/router";
 import React from "react";
-
+import _classes from "./AdminSettings.module.scss";
 function AdminSettings() {
   return (
     <AppLayout>
-      <div className="w-full md:w-1/2">
+      <div className="w-full md:w-full">
         <Form layout="vertical">
           <div>
             <h2>Appointment Service Charges</h2>
@@ -30,7 +31,7 @@ function AdminSettings() {
               <Form.Item
                 label="Medicus Cut"
                 name="totalChargesMedicus"
-                className="font-bold text-black"
+                className={`${_classes["label-design"]}`}
               >
                 <InputNumber
                   addonAfter="%"
@@ -125,7 +126,7 @@ function AdminSettings() {
                   className="font-bold text-black"
                 >
                   <InputNumber
-                    addonBefore="$"
+                    addonAfter="$"
                     placeholder="$"
                     type="number"
                     min={0}
@@ -146,11 +147,39 @@ function AdminSettings() {
                     min={0}
                   />
                 </Form.Item>
-                <div className="ml-4">
-                  <SmallLabelWithTextDiv label={""} value={"80$"} />
-                </div>
+              </div>
+              <div className="flex">
+                <Form.Item
+                  label="Texas"
+                  name="totalChargesMedicus"
+                  className="font-bold text-black"
+                >
+                  <InputNumber
+                    addonAfter="%"
+                    placeholder="$"
+                    type="number"
+                    min={0}
+                  />
+                </Form.Item>
               </div>
             </div>
+          </div>
+          <div className="flex justify-end">
+            <Form.Item>
+              <div className="flex gap-4">
+                <Button htmlType="submit" onClick={() => Router.back()}>
+                  Cancel
+                </Button>
+                <Button
+                  // loading={fetching}
+                  // disabled={fetching}
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Save Changes
+                </Button>
+              </div>
+            </Form.Item>
           </div>
         </Form>
       </div>
