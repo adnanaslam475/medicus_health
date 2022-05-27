@@ -10,6 +10,7 @@ import {
   PatientIcon,
   StaffIcon,
   MessageIcon,
+  DashboardIcon,
 } from "../CustomIcon";
 import _classes from "./SidebarMenuItem.module.scss";
 
@@ -28,7 +29,6 @@ function SidebarMenuItem() {
     <StaffIcon className={_classes["sidebar-icon-hover"]} />,
     <MessageIcon className={_classes["sidebar-icon-hover"]} />,
     <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
-
     <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
   ];
 
@@ -37,6 +37,20 @@ function SidebarMenuItem() {
     <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
     <MessageIcon className={_classes["sidebar-icon-hover"]} />,
     <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+  ];
+
+  const IconsListAdmin = [
+    <DashboardIcon className={_classes["sidebar-icon-hover"]} />,
+    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
+    <PatientIcon className={_classes["sidebar-icon-hover"]} />,
+    <MessageIcon className={_classes["sidebar-icon-hover"]} />,
+    <StaffIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+    
   ];
 
   const router = useRouter();
@@ -91,7 +105,7 @@ function SidebarMenuItem() {
                 })}
               </Menu.SubMenu>
             ) : (
-              <Menu.Item key={el.route} icon={IconsListPatient[i]}>
+              <Menu.Item key={el.route} icon={IconsListAdmin[i]}>
                 <Link href={el.route}>{el.name}</Link>
               </Menu.Item>
             );

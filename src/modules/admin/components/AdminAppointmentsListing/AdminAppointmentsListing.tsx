@@ -9,7 +9,9 @@ import AdminAppointmentsFilter from "../AdminAppointmentsFilter/AdminAppointment
 import {
   Appointment,
   AppointmentServiceType,
+  DoctorProfile,
   GetAppointmentInput,
+  useDoctorProfileQuery,
   useGetPatientsQuery,
   useGetPhysiciansQuery,
   usePhysicianAppointmentsHistoryQuery,
@@ -210,6 +212,12 @@ function AdminAppointmentsListing({}: Props) {
     setIsModalVisible(false);
   };
 
+  const [result] = useDoctorProfileQuery({
+    // variables: { doctor_id: Number(query?.id) },
+  });
+
+  const { data: doctorProfileData, fetching } = result || {};
+  const { doctorProfile } = doctorProfileData || {};
   // const { doctorData, loading } = props || {};
 
   return (
@@ -261,6 +269,7 @@ function AdminAppointmentsListing({}: Props) {
         onCancel={handleCancel}
         adminData={adminData as AdminData}
         // doctorData={doctorData}
+        // doctorData={doctorProfile as DoctorProfile}
       />
     </>
   );

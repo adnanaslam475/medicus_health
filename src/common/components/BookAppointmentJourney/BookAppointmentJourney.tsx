@@ -9,8 +9,8 @@ import {
 import CurrentStepContent from "./CurrentStepContent";
 import _classes from "./BookAppointmentJourney.module.scss";
 import {
-  BookAppointmentProvider,
-  useBookAppointment,
+	BookAppointmentProvider,
+	useBookAppointment,
 } from "./BookAppointmentContext";
 import config from "../../../../config";
 import ReactS3Client from "react-aws-s3-typescript";
@@ -85,6 +85,11 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData,adminData }:
     }
   }, [visible]);
 
+	const closeModal = () => {
+		setCurrentStepName("stepOne");
+		setSuccessModal(false);
+	};
+	
   const next = (stepName: string) => {
     if (stepName === "stepFour") return;
     if (stepName === "stepOne") {
@@ -160,6 +165,8 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData,adminData }:
       onCancel={onCancel}
       footer={null}
       className={`${_classes["steps-style"]}`}
+      afterClose={closeModal}
+
     >
       {successModal ? (
         <SuccessMessage />

@@ -108,6 +108,7 @@ function DoctorCalendar() {
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
             redirectToListing={redirectToUpcoming}
+            enableButton={false}
           />
         </div>
         <CalendarModalComponent
