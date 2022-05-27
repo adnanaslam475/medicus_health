@@ -30,7 +30,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const { id } = physicianData?.user || {};
   const { saveStepThree, data } = useBookAppointment();
   const [formInstance] = Form.useForm();
-  const physicianId = data?.stepOne?.physician.split(":")[0]
+  const physicianId = data?.stepOne?.physician?.split(":")[0]
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId: Number(physicianId) || Number(query?.id) || Number(id),
