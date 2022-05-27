@@ -108,6 +108,7 @@ function AdminAppointmentsCalendar() {
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
             redirectToListing={redirectToListing}
+            enableButton={true}
           />
         </div>
         <CalendarModalComponent
