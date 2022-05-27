@@ -9,6 +9,7 @@ import {
   useGetAllChatChannelsQuery,
   useGetChannelMessagesQuery,
 } from "generated/graphql";
+
 import { useRouter } from "next/router";
 import React, {
   createContext,
@@ -211,7 +212,6 @@ export function MessageContextProvider({
         message: "joined failed",
       });
     }
-    console.log("rtmRef.current?.channels", rtmRef.current?.channels);
   }
 
   async function onLoginJoinChannel({ channelName }: { channelName: string }) {

@@ -20,10 +20,8 @@ function UserProfile({ thread }: Props) {
   }
 
   useEffect(() => {
-    if (thread.channelName) {
-      loginToRtm?.();
-    }
-  }, [thread.channelName]);
+    loginToRtm?.();
+  }, []);
 
   const { user } = getUserData();
   const opposite = messageUtils.getOppositeParticipant(
@@ -69,7 +67,7 @@ function UserProfile({ thread }: Props) {
           <span className="text-gray text-base block">
             You :what is the pro..
           </span>
-          <span className="rounded-lg bg-red px-2 py-0 text-white">3</span>
+          {/* <span className="rounded-lg bg-red px-2 py-0 text-white">3</span> */}
         </div>
       </div>
     </div>
