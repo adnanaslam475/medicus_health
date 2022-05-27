@@ -126,12 +126,12 @@ export type ChatChannels = {
   __typename?: 'ChatChannels';
   channelName: Scalars['String'];
   createdAt: Scalars['DateTime'];
-  doctor?: Maybe<User>;
-  doctorId: Scalars['Int'];
+  doctorId?: Maybe<Scalars['Int']>;
   id: Scalars['Int'];
   isAdminChat: Scalars['Boolean'];
   participants?: Maybe<Array<ChatParticipants>>;
-  patientId: Scalars['Int'];
+  patientId?: Maybe<Scalars['Int']>;
+  receiverDetail?: Maybe<User>;
 };
 
 export type ChatMessages = {
@@ -206,9 +206,9 @@ export type CreateAppointmentServiceTypeInput = {
 };
 
 export type CreateChatChannelInput = {
-  doctorId: Scalars['Int'];
+  doctorId?: InputMaybe<Scalars['Int']>;
   isAdminChat: Scalars['Boolean'];
-  patientId: Scalars['Int'];
+  patientId?: InputMaybe<Scalars['Int']>;
 };
 
 export type CreateChatMessageInput = {
@@ -544,6 +544,7 @@ export type Mutation = {
   createUser: User;
   enableOrDisableDoctor: User;
   enableOrDisablePatient: User;
+  enableOrDisableStaff: User;
   generateRTCToken: RtcTokenResponse;
   login: LoginResponse;
   payment: Transaction;
@@ -563,6 +564,7 @@ export type Mutation = {
   setDoctorPassword: User;
   toggleEmailPreferences: UserEmailPreferencesResponse;
   updateAdminUser: User;
+  updateDctorPercentage: Transaction;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
   updateStaff: User;
@@ -692,6 +694,11 @@ export type MutationEnableOrDisablePatientArgs = {
 };
 
 
+export type MutationEnableOrDisableStaffArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationGenerateRtcTokenArgs = {
   generateRTCTokenInput: GenerateRtcTokenInput;
 };
@@ -785,6 +792,12 @@ export type MutationToggleEmailPreferencesArgs = {
 export type MutationUpdateAdminUserArgs = {
   id: Scalars['Int'];
   updateAdminUserInput: UpdateAdminUserInput;
+};
+
+
+export type MutationUpdateDctorPercentageArgs = {
+  id: Scalars['Int'];
+  updateDoctorPercentage: UpdateDoctorPercentage;
 };
 
 
@@ -1136,10 +1149,16 @@ export type Transaction = {
 };
 
 export type UpdateAdminUserInput = {
-  email?: InputMaybe<Scalars['String']>;
-  first_name?: InputMaybe<Scalars['String']>;
-  last_name?: InputMaybe<Scalars['String']>;
+  contact_number: Scalars['String'];
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
   password?: InputMaybe<Scalars['String']>;
+  profileImage?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateDoctorPercentage = {
+  doctor_percentage: Scalars['String'];
 };
 
 export type UpdateDoctorProfileInput = {
@@ -1301,7 +1320,7 @@ export type CreateChatChannelMutationVariables = Exact<{
 }>;
 
 
-export type CreateChatChannelMutation = { __typename?: 'Mutation', createChatChannel: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any } };
+export type CreateChatChannelMutation = { __typename?: 'Mutation', createChatChannel: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean, createdAt: any } };
 
 export type CreateChatMessageMutationVariables = Exact<{
   createChatMessageInput: CreateChatMessageInput;
@@ -1569,7 +1588,7 @@ export type PhysicianPaymentByAdminMutation = { __typename?: 'Mutation', payment
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean, createdAt: any, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId: number, patientId: number, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null }> | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null } | null }> };
+export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean, createdAt: any, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null }> | null }> };
 
 export type GetChannelMessagesQueryVariables = Exact<{
   channelId: Scalars['Int'];
@@ -2470,14 +2489,6 @@ export const GetAllChatChannelsDocument = gql`
         patientProfile {
           profileImage
         }
-      }
-    }
-    doctor {
-      id
-      first_name
-      last_name
-      doctorProfile {
-        profile_image
       }
     }
   }
@@ -4047,22 +4058,10 @@ export default {
             "args": []
           },
           {
-            "name": "doctor",
-            "type": {
-              "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
-            },
-            "args": []
-          },
-          {
             "name": "doctorId",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -4106,11 +4105,17 @@ export default {
           {
             "name": "patientId",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "receiverDetail",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
             "args": []
           }
@@ -5491,6 +5496,29 @@ export default {
             ]
           },
           {
+            "name": "enableOrDisableStaff",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "generateRTCToken",
             "type": {
               "kind": "NON_NULL",
@@ -5927,6 +5955,39 @@ export default {
               },
               {
                 "name": "updateAdminUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateDctorPercentage",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Transaction",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "updateDoctorPercentage",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
