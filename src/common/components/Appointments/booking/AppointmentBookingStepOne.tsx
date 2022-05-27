@@ -7,9 +7,9 @@ import {
   useGetAllAppointmentServiceTypesQuery,
   User,
 } from "generated/graphql";
-import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import { date } from "../../../utils";
 
 const { Option } = Select;
