@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Form, notification } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
@@ -60,11 +60,17 @@ function DoctorStaffDetails() {
 					deleted: false,
 				},
 			});
+    
 			if (response?.error) {
 				throw new Error(response?.error?.graphQLErrors[0]?.message);
 			}
 			if (response.data) {
 				formInstance.resetFields();
+        notification.success({
+          message:  "Successfully Updated",
+        });
+      //  Router.push(`/admin/physicians/`);
+      Router.back();
 			}
 		} catch (error: any) {
 			notification.error({
@@ -93,6 +99,17 @@ function DoctorStaffDetails() {
 	};
 	return (
 		<AppLayout>
+      <>
+      <div className="flex">
+          <Button
+            type="link"
+            className="ml-auto"
+            danger
+            icon={<CloseOutlined />}
+          >
+            Delete profile
+          </Button>
+        </div>
 			<div className="lg:w-3/5">
 				<h6 className="">{staffDetail?.id}</h6>
 				<StaffDetailsFrom
@@ -105,6 +122,7 @@ function DoctorStaffDetails() {
 					staffDetail={staffDetail as User}
 				/>
 			</div>
+      </>
 		</AppLayout>
 	);
 }

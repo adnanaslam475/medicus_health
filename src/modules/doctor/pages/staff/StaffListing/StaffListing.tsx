@@ -72,10 +72,10 @@ function StaffListing() {
   };
   return (
     <>
-      <AppLayout>
+    
         <div className="w-full">
-          <div className="flex-none sm:flex items-center justify-between mb-5">
-            <div className="pr-3 mb-3 sm:mb-0">
+          <div className="flex-none sm:flex items-center justify-between">
+            <div className="sm:mb-0">
               <h2 className="mb-0">Staff</h2>
             </div>
             <Button
@@ -99,7 +99,6 @@ function StaffListing() {
             )}
           </div>
         </div>
-      </AppLayout>
       <AddStaffModal
         closeModal={closeModal}
         onFinish={onFinish}

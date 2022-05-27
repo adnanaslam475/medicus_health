@@ -42,9 +42,9 @@ function StaffAppointmentsFilter({ onChange }: Props) {
     onChange(filters);
   }
   return (
-    <div className="page-filters flex-none lg:flex items-center mb-5">
+    <div className="page-filters flex-none lg:flex items-center">
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
-        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
+        <div className="w-full sm:w-full md:w-full lg:w-70">
           <Input
             value={filterState.searchString || ""}
             placeholder="Search by ID or patient name"
