@@ -466,6 +466,7 @@ export type GetPhysicianAppointmentInput = {
 };
 
 export type GetPhysiciansInput = {
+  creationDate?: InputMaybe<PhysicianAccountCreationDate>;
   language?: InputMaybe<Scalars['String']>;
   searchField?: InputMaybe<Scalars['String']>;
   specialization?: InputMaybe<Scalars['String']>;
@@ -838,6 +839,11 @@ export type PatientProfile = {
 
 export type PaymentInput = {
   appointmentId: Scalars['Int'];
+};
+
+export type PhysicianAccountCreationDate = {
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type ProfessionalExperience = {

@@ -1,24 +1,28 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
-import { Form, Radio, Button, Select, DatePicker, Input } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Radio, Select, DatePicker, Input } from "antd";
 import {
   AppointmentServiceType,
   DoctorProfile,
   useDoctorSchedulesQuery,
   useGetAllAppointmentServiceTypesQuery,
-} from "../../../../generated/graphql";
+  User,
+} from "generated/graphql";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import dayjs from "dayjs";
-import { getUserData } from "../../../utils/userData";
 import { useRouter } from "next/router";
 import { date } from "../../../utils";
 
 const { Option } = Select;
+type AdminData = {
+  patientList:User[];
+  physicianList:User[];
+}
 
 type Props = {
   physicianData?: DoctorProfile;
   allAppoinments?: AppointmentServiceType[];
   onFinish?: ((values: any) => void) | undefined;
-  admin?: boolean;
+  adminData?: AdminData;
 };
 
 export const AppointmentBookingStepOne = React.forwardRef(
@@ -28,15 +32,15 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
     const { physicianName, service, price, requestedDate, availability } =
       appoinmentDetails?.stepOne || {};
-    const { physicianData, onFinish, admin } = props || {};
+    const { physicianData, onFinish, adminData } = props || {};
     const { first_name, last_name, id } = physicianData?.user || {};
     const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
-
     //   GET ID FROM URL
     const { query } = useRouter();
+    const [doctorId,setDoctorId] = useState<number>()
 
     const [{ data: scheduleDetails }] = useDoctorSchedulesQuery({
-      variables: { doctorId: Number(query?.id) || Number(id) },
+      variables: { doctorId: Number(query?.id) || doctorId || Number(id) },
     });
 
     useEffect(() => {
@@ -92,36 +96,34 @@ export const AppointmentBookingStepOne = React.forwardRef(
       scheduleDetails?.doctorSchedules &&
       scheduleDetails?.doctorSchedules.length > 0;
 
-    const onChange = (value: string) => {
-      console.log(`selected ${value}`);
-    };
+    const { physicianList, patientList } = adminData || {};
+    const PhysicianHandler =(physicianId:string)=>{
+      let doctorId = physicianId.split(":")[0]
+      setDoctorId(Number(doctorId))
+    }
 
-    const onSearch = (value: string) => {
-      console.log("search:", value);
-    };
-
+    
     return (
       <>
         <h2>Request an Appointment</h2>
         <Form form={formInstance} layout="vertical" onFinish={onFinishLocal}>
-          {admin ? (
-            <Form.Item label="Physicians*" name="physicians">
+          {adminData ? (
+            <Form.Item label="Physicians*" name="physician">
               <Select
                 className="w-full"
                 showSearch
-                placeholder="Physicians*"
-                // optionFilterProp="children"
-                onChange={onChange}
-                onSearch={onSearch}
-                filterOption={(input, option) =>
-                  (option!.children as unknown as string)
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
+                placeholder="Physicians"
+                optionFilterProp="children"
+                onChange={(doctorId)=>PhysicianHandler(doctorId)}
+                filterOption={(input, option) => {
+                  return (option!?.children as unknown as string)
+                    ?.toLowerCase()
+                    ?.includes(input.toLowerCase());
+                }}
               >
-                {allAppoinments?.map((item) => (
-                  <Option key={item?.id} value={item.id}>
-                    {item.name}
+                {physicianList?.map((item) => (
+                  <Option key={`${item?.first_name} ${item?.last_name}`} value={`${item.id}:${item?.first_name} ${item?.last_name}`}>
+                    {`${item?.first_name} ${item?.last_name}`}
                   </Option>
                 ))}
               </Select>
@@ -131,24 +133,22 @@ export const AppointmentBookingStepOne = React.forwardRef(
               <Input placeholder="Dr. name" className="w-full" readOnly />
             </Form.Item>
           )}
-          {admin && (
+          {adminData && (
             <Form.Item label="Patient*" name="patient">
               <Select
                 className="w-full"
                 showSearch
                 placeholder="Patient*"
-                // optionFilterProp="children"
-                onChange={onChange}
-                onSearch={onSearch}
+                optionFilterProp="children"
                 filterOption={(input, option) =>
                   (option!.children as unknown as string)
                     .toLowerCase()
                     .includes(input.toLowerCase())
                 }
               >
-                {allAppoinments?.map((item) => (
-                  <Option key={item?.id} value={item.id}>
-                    {item.name}
+                {patientList?.map((item) => (
+                  <Option key={item?.first_name} value={`${item.id}:${item?.first_name} ${item?.last_name}`}>
+                    {`${item?.first_name} ${item?.last_name}`}
                   </Option>
                 ))}
               </Select>

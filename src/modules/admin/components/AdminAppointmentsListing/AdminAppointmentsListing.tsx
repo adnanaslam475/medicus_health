@@ -10,11 +10,18 @@ import {
   Appointment,
   AppointmentServiceType,
   GetAppointmentInput,
+  useGetPatientsQuery,
+  useGetPhysiciansQuery,
   usePhysicianAppointmentsHistoryQuery,
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+
+type AdminData = {
+  patientList:User[];
+  physicianList:User[];
+}
 
 const appointmentColumns = [
   {
@@ -166,6 +173,27 @@ function AdminAppointmentsListing({}: Props) {
       requestPolicy: "network-only",
     });
   };
+
+  const [{ data: physicianList }] = useGetPhysiciansQuery({
+    variables: {
+      filter: {},
+    },
+  });
+  const { getPhysicians } = physicianList || {};
+
+  const [{ data: patientList }] =
+    useGetPatientsQuery({
+      variables: {
+        filter: {},
+      },
+    });
+
+  const { getPatients } = patientList || {};
+
+  let adminData = {
+    physicianList: getPhysicians,
+    patientList: getPatients,
+  };
   function onChange() {}
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -231,7 +259,7 @@ function AdminAppointmentsListing({}: Props) {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        admin
+        adminData={adminData as AdminData}
         // doctorData={doctorData}
       />
     </>

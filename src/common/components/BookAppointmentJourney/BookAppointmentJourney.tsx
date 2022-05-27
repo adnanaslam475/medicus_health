@@ -4,6 +4,7 @@ import {
   DoctorProfile,
   useCreateAppointmentMutation,
   useDoctorSchedulesQuery,
+  User,
 } from "../../../generated/graphql";
 import CurrentStepContent from "./CurrentStepContent";
 import _classes from "./BookAppointmentJourney.module.scss";
@@ -21,6 +22,11 @@ import { getUserData } from "../../utils/userData";
 import SuccessMessage from "../Appointments/booking/SuccessMessage";
 import { useMediaUploader } from "common/hooks/media";
 
+type AdminData = {
+  patientList:User[];
+  physicianList:User[];
+}
+
 type Props = {
   visible?: boolean | undefined;
   onOk?: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
@@ -28,7 +34,7 @@ type Props = {
     | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
   doctorData?: DoctorProfile;
-  admin?:boolean
+  adminData?:AdminData;
 };
 
 function BookAppointmentJourney({
@@ -36,7 +42,7 @@ function BookAppointmentJourney({
   onOk,
   onCancel,
   doctorData,
-  admin
+  adminData
 }: Props) {
   return (
     <BookAppointmentProvider>
@@ -45,12 +51,13 @@ function BookAppointmentJourney({
         onOk={onOk}
         onCancel={onCancel}
         doctorData={doctorData}
+        adminData={adminData}
       />
     </BookAppointmentProvider>
   );
 }
 
-function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
+function BookAppointmentModal({ visible, onOk, onCancel, doctorData,adminData }: Props) {
   const form = useRef<FormInstance>();
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
@@ -103,7 +110,8 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
   };
 
   const { service: serviceId, requestedDate } = appoinmentData?.stepOne || {};
-
+  const adminPhysicianId = appoinmentData?.stepOne?.physician?.split(":")[0]
+  const adminPatientId = appoinmentData?.stepOne?.patient?.split(":")[0]
   const fileUpload = async (files: File[]) => {
     try {
       if (files) {
@@ -127,8 +135,8 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
 
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
-          patientId: id as number,
-          doctorId: Number(query?.id) || Number(doctorData?.doctor_id),
+          patientId: Number(adminPatientId) || id as number,
+          doctorId: Number(adminPhysicianId) || Number(query?.id) || Number(doctorData?.doctor_id),
           serviceId: serviceId,
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
@@ -163,7 +171,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
               stepName={currentStepName}
               doctorData={doctorData}
               ref={form}
-              admin
+              adminData={adminData}
             />
           </div>
           <BookAppointmentFooter
