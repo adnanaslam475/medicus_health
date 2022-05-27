@@ -5,15 +5,15 @@ import { AppointmentBookingStepOne } from "../Appointments/booking/AppointmentBo
 import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
 import AppointmentBookingStepTwo from "../Appointments/booking/AppointmentBookingStepTwo";
 
-type Props = { stepName: string; doctorData: DoctorProfile | undefined };
+type Props = { stepName: string; doctorData: DoctorProfile | undefined,admin?:boolean };
 
 const CurrentStepContent = React.forwardRef(function CurrentStepContent(
-  { stepName, doctorData }: Props,
+  { stepName, doctorData,admin }: Props,
   ref: any
 ) {
   switch (stepName) {
     case "stepOne":
-      return <AppointmentBookingStepOne physicianData={doctorData} ref={ref} />;
+      return <AppointmentBookingStepOne physicianData={doctorData} ref={ref} admin/>;
     case "stepTwo":
       return <AppointmentBookingStepTwo ref={ref} />;
     case "stepThree":

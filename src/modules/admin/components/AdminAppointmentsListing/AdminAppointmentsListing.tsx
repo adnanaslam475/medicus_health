@@ -205,7 +205,7 @@ function AdminAppointmentsListing({}: Props) {
                   </Select.Option>
                 </Select>
               </div>
-              <Button type="primary" className="text-sm">
+              <Button type="primary" className="text-sm" onClick={showModal}>
                 <span className="text-xs sm:text-base">
                   Request an Appointment
                 </span>
@@ -231,6 +231,7 @@ function AdminAppointmentsListing({}: Props) {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        admin
         // doctorData={doctorData}
       />
     </>

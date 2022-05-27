@@ -28,6 +28,7 @@ type Props = {
     | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
   doctorData?: DoctorProfile;
+  admin?:boolean
 };
 
 function BookAppointmentJourney({
@@ -35,6 +36,7 @@ function BookAppointmentJourney({
   onOk,
   onCancel,
   doctorData,
+  admin
 }: Props) {
   return (
     <BookAppointmentProvider>
@@ -161,6 +163,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
               stepName={currentStepName}
               doctorData={doctorData}
               ref={form}
+              admin
             />
           </div>
           <BookAppointmentFooter
