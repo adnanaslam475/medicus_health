@@ -1,16 +1,16 @@
 import React from "react";
 import { Tabs } from "antd";
-import Router from "next/router";
-const { TabPane } = Tabs;
-import AppointmentInfo from "../../../common/components/Appointments/AppointmentInfo";
-import PhysicianQuestionnaire from "../../../common/components/Appointments/PhysicianQuestionnaire";
-import Attachments from "../../../common/components/Appointments/Attachments";
+import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
+import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import {
   useGetAppointmentByIdQuery,
   usePatientHealthHistoryQuery,
-} from "../../../generated/graphql";
+} from "generated/graphql";
 import { QuestionnaireForm } from "../Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
+import word from "../../../../public/assets/images/word-file.svg";
+import Attachment from "../Attachment/Attachment";
+const { TabPane } = Tabs;
 
 type Props = {
   appointmentId?: Number;
@@ -32,6 +32,14 @@ const AppointmentTabs = (props: Props) => {
     variables: { input: Number(id) },
   });
 
+  const { appointment } = data || {};
+  const { reportUrl } = appointment || {};
+
+  let urlArr = parseJson(reportUrl);
+  if (urlArr && urlArr.length > 0) {
+    urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+  }
+
   return (
     <div className="profile-tabs">
       <Tabs type="card">
@@ -51,7 +59,9 @@ const AppointmentTabs = (props: Props) => {
           />
         </TabPane>
         <TabPane tab="Attachments" key="4">
-          <Attachments appoinmentDetails={data} />
+          {urlArr?.map((item: string) => (
+            <Attachment src={word} name={item} enable />
+          ))}
         </TabPane>
       </Tabs>
     </div>
