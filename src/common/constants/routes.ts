@@ -33,6 +33,7 @@ export const ADMIN_ROUTES: routes = [
   { name: "Messages", route: "/admin/messages" },
   { name: "User", route: "/admin/user" },
   { name: "Account", route: "/admin/account" },
+  { name: "Settings", route: "/admin/settings" },
 ];
 
 export const DOCTOR_ROUTES: routes = [
