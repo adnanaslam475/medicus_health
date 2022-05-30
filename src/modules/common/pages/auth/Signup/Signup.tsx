@@ -97,14 +97,12 @@ function Signup() {
       city_id: payload?.city_id || 0,
       state_id: payload?.state_id || 0,
     };
-    console.log(updatedPayload, "emptyCityID");
     if (updatedPayload) {
       updatedPayload.date_of_birth = date.convertToUTC(
         updatedPayload?.date_of_birth
       );
       delete updatedPayload.confirmPassword;
     }
-    console.log(updatedPayload, "updatedPayload");
     let user = null;
     try {
       user = await createUser({
