@@ -156,7 +156,7 @@ const appointmentColumns = [
 
 type Props = {};
 
-function AdminAppointmentsListing({}: Props) {
+function  AdminAppointmentsListing({}: Props) {
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
   );
