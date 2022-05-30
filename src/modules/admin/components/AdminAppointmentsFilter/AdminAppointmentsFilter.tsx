@@ -1,11 +1,7 @@
 import React from "react";
 import { Input, Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import {
-  BOOKING,
-  CONFIRMED,
-  SCHEDULED,
-} from "common/constants/status";
+import { BOOKING, CONFIRMED, SCHEDULED } from "common/constants/status";
 import {
   GetAdminUsersFilterInput,
   GetAppointmentInput,
@@ -79,6 +75,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);
             }}
+            // className={`${_classes["mobile-tabs"]} bg-gray-4`}
           />
         </div>
         <div className="flex-none sm:flex">
