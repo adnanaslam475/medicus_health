@@ -22,6 +22,7 @@ import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 import { RangeValue } from "rc-picker/lib/interface";
 import AdminPhysicianPatientAppointmentTab from "./AdminPhysicianPatientAppointmentTab";
 import StaffListing from "modules/doctor/pages/staff/StaffListing/StaffListing";
+import AccountsProfile from "modules/doctor/pages/physicians/Accounts/AccountsProfile/AccountsProfile";
 
 const { TabPane } = Tabs;
 
@@ -108,7 +109,7 @@ function ProfileDetail() {
               }
               key="1"
             >
-              {isEdit ? (
+              {/* {isEdit ? (
                 <Profile
                   doctorId={String(query?.id)}
                   doctorData={doctorProfile}
@@ -131,7 +132,8 @@ function ProfileDetail() {
                   showLoginInfo={false}
                   schedules={schedules}
                 />
-              )}
+              )} */}
+               <AccountsProfile/>
             </TabPane>
             <TabPane
               tab={
