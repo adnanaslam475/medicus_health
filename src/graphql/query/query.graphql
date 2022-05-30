@@ -406,7 +406,6 @@ query getAppointmentById($id: Int!) {
       assessment
       plan
       note
-      noteType
     }
   }
 }

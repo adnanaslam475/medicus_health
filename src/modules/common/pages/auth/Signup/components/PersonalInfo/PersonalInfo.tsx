@@ -235,10 +235,10 @@ export default function PersonalInfo({ onFinish }: props) {
             }
             onChange={(e) => {
               selectCountryId(e);
-              form.setFieldsValue({
-                state_id: null,
-                city_id: null,
-              });
+              // form.setFieldsValue({
+              //   state_id: null,
+              //   city_id: null,
+              // });
             }}
             placeholder="Country"
           >
