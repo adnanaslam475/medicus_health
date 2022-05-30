@@ -80,7 +80,6 @@ export type AppointmentNote = {
   id: Scalars['Int'];
   isPublished: Scalars['Boolean'];
   note?: Maybe<Scalars['String']>;
-  noteType?: Maybe<Scalars['String']>;
   objective?: Maybe<Scalars['String']>;
   plan?: Maybe<Scalars['String']>;
   subjective?: Maybe<Scalars['String']>;
@@ -194,7 +193,6 @@ export type CreateAppointmentNoteInput = {
   assessment?: InputMaybe<Scalars['String']>;
   isPublished: Scalars['Boolean'];
   note?: InputMaybe<Scalars['String']>;
-  noteType?: InputMaybe<Scalars['String']>;
   objective?: InputMaybe<Scalars['String']>;
   plan?: InputMaybe<Scalars['String']>;
   subjective?: InputMaybe<Scalars['String']>;
@@ -1430,6 +1428,13 @@ export type DefaultCardMutationVariables = Exact<{
 
 export type DefaultCardMutation = { __typename?: 'Mutation', setAsDefaultCard: { __typename?: 'UserCard', id: number, user_id: number, card_id: string, card_type: string, card_digits: number, is_default: boolean } };
 
+export type RemoveStaffMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type RemoveStaffMutation = { __typename?: 'Mutation', removeStaff: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null } };
+
 export type UpdateUserProfileMutationVariables = Exact<{
   id: Scalars['Int'];
   updateUserInput: UpdateUserInput;
@@ -1757,7 +1762,7 @@ export type GetAppointmentByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, scheduleId: number, doctorId: number, patientId: number, requestedDate: any, reportUrl?: any | null, charges: number, doctor: { __typename?: 'User', id: number, first_name: string, last_name: string }, patient: { __typename?: 'User', id: number, first_name: string, last_name: string, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transaction?: { __typename?: 'Transaction', createdAt: any, status: string } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, doctorNote?: { __typename?: 'AppointmentNote', id: number, isPublished: boolean, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, noteType?: string | null } | null } };
+export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id: number, status?: string | null, scheduleId: number, doctorId: number, patientId: number, requestedDate: any, reportUrl?: any | null, charges: number, doctor: { __typename?: 'User', id: number, first_name: string, last_name: string }, patient: { __typename?: 'User', id: number, first_name: string, last_name: string, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null }, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transaction?: { __typename?: 'Transaction', createdAt: any, status: string } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, doctorNote?: { __typename?: 'AppointmentNote', id: number, isPublished: boolean, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null } | null } };
 
 export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2082,6 +2087,21 @@ export const DefaultCardDocument = gql`
 
 export function useDefaultCardMutation() {
   return Urql.useMutation<DefaultCardMutation, DefaultCardMutationVariables>(DefaultCardDocument);
+};
+export const RemoveStaffDocument = gql`
+    mutation removeStaff($id: Int!) {
+  removeStaff(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+  }
+}
+    `;
+
+export function useRemoveStaffMutation() {
+  return Urql.useMutation<RemoveStaffMutation, RemoveStaffMutationVariables>(RemoveStaffDocument);
 };
 export const UpdateUserProfileDocument = gql`
     mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {
@@ -3224,7 +3244,6 @@ export const GetAppointmentByIdDocument = gql`
       assessment
       plan
       note
-      noteType
     }
   }
 }
@@ -3867,14 +3886,6 @@ export default {
           },
           {
             "name": "note",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "noteType",
             "type": {
               "kind": "SCALAR",
               "name": "Any"
