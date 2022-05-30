@@ -4,11 +4,11 @@ import { NextIntlProvider } from "next-intl";
 import AuthProvider from "common/hooks/authProvider";
 import { getToken } from "common/utils/userData";
 import config from "./../config";
-import "./../styles/global.scss";
-import "./../styles/cutomized-antd.css";
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
+import "./../styles/global.scss";
+import "./../styles/cutomized-antd.css";
 
 const client = createClient({
   url: config.baseURL || "",

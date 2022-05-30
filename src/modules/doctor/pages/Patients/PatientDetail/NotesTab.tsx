@@ -37,7 +37,7 @@ function NotesTab({}: Props) {
         assessment: value?.assessment,
         plan: value?.plan,
         note: value?.note,
-        noteType: "SOAP",
+        // noteType: "SOAP",
       },
     });
     if (note?.createOrUpdateAppointmentNote.id) {

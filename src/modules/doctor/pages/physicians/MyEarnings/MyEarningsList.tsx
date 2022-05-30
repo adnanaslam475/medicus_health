@@ -57,7 +57,7 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const Columns = [
     {
-      title: "ID",
+      title: "Transaction ID",
       dataIndex: "id",
       key: "id",
       sorter: {
@@ -90,7 +90,7 @@ const PhysicianMyEarningsList = (props: Props) => {
     },
 
     {
-      title: "Service",
+      title: "Service Type",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {
@@ -102,7 +102,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     },
     {
-      title: "Date",
+      title: "Transaction Date",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {
@@ -119,7 +119,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     },
     {
-      title: "Total Amount",
+      title: "Total Earnings",
       dataIndex: "amountReceived",
       key: "amountReceived",
       sorter: {

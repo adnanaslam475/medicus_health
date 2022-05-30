@@ -1,6 +1,7 @@
-import { date } from "common/utils";
 import { DoctorSchedule } from "generated/graphql";
 import config from "../../config";
+import engFlag from "../../public/assets/images/engFlag.png";
+import espanolFlag from "../../public/assets/images/espanolFlag.png";
 
 export const configS3 = {
   region: config?.region || "",
@@ -191,3 +192,9 @@ export const patientEmailPreferencesData = [
 export function sorter(a: DoctorSchedule, b: DoctorSchedule) {
   return a.day - b.day || a.startTime.localeCompare(b.startTime);
 }
+
+export const FLAG_BY_LANGUAGE = {
+  ["english" as string]: engFlag,
+  ["espanol" as string]: espanolFlag,
+  ["spanish" as string]: espanolFlag,
+};

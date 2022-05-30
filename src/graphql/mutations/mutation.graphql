@@ -90,6 +90,18 @@ mutation DefaultCard($input: Int!) {
     is_default
   }
 }
+#REMOVE Staff
+
+mutation removeStaff($id: Int!) {
+  removeStaff(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+  
+  }
+}
 
 # UPDATE USER MUTATION
 mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {

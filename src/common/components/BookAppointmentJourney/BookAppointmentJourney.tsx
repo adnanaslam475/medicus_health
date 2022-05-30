@@ -76,6 +76,11 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
     }
   }, [visible]);
 
+  const closeModal = () => {
+    setCurrentStepName("stepOne");
+    setSuccessModal(false);
+  };
+
   const next = (stepName: string) => {
     if (stepName === "stepFour") return;
     if (stepName === "stepOne") {
@@ -150,6 +155,7 @@ function BookAppointmentModal({ visible, onOk, onCancel, doctorData }: Props) {
       onCancel={onCancel}
       footer={null}
       className={`${_classes["steps-style"]}`}
+      afterClose={closeModal}
     >
       {successModal ? (
         <SuccessMessage />

@@ -1,12 +1,12 @@
-import React from "react";
-import { Avatar, Button, Checkbox, Form, Input, Tag } from "antd";
+import React, { useEffect, useMemo, useState } from "react";
+import { Button, Tag } from "antd";
 import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
-import { ButtonType } from "antd/lib/button";
 import { GetAppointmentByIdQuery } from "../../../generated/graphql";
 import { date } from "../../utils";
 import Router from "next/router";
-import ProfileImageWithInfo from "../ProfleImageWithInfo/ProfileImageWithInfo";
+import { isAppointmentTimeValid } from "common/utils/date";
+import { CustomTimeSlot } from "common/types/types";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -14,6 +14,7 @@ type Props = {
 
 function AppointmentInfo(props: Props) {
   const { appoinmentDetails } = props;
+  const { appointment } = appoinmentDetails || {};
   const { first_name, last_name } =
     appoinmentDetails?.appointment?.doctor || {};
 
@@ -21,20 +22,18 @@ function AppointmentInfo(props: Props) {
     appoinmentDetails?.appointment || {};
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
+  const selectedAppointment: CustomTimeSlot | undefined = useMemo(
+    () => appointmentTimeSlots?.find((item) => item.selected),
+    [appointmentTimeSlots]
+  );
+  const [disabled, setDisabled] = useState(true);
 
-  function timeSlots() {
-    if (appointmentTimeSlots) {
-      let selectedTimeSlots = appointmentTimeSlots?.find(
-        (item) => item?.selected == true
-      );
-
-      return selectedTimeSlots;
-    }
-  }
+  useEffect(() => {
+    isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
+  }, [selectedAppointment]);
 
   return (
     <React.Fragment>
-      {/* <ProfileImageWithInfo /> */}
       <div className="max-w-[800px]">
         <LabelValueRow label="ID" value={id} />
         <LabelValueRow
@@ -48,13 +47,13 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow label="Type" value={name} />
         <LabelValueRow
           label="Appointment creation date"
-          value={date?.formatMMMMDDYYYY(timeSlots()?.startTime)}
+          value={date.formatMMMMDDYYYY(selectedAppointment?.startTime)}
         />
         <LabelValueRow
           label="Time"
           value={`${date?.formathhmma(
-            timeSlots()?.startTime
-          )} - ${date?.formathhmma(timeSlots()?.endTime)}`}
+            selectedAppointment?.startTime
+          )} - ${date?.formathhmma(selectedAppointment?.endTime)}`}
         />
         <LabelValueRow label="Total Amount" value={price} />
 
@@ -76,14 +75,32 @@ function AppointmentInfo(props: Props) {
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]} mr-3`}
-            onClick={() => Router.push("/admin/messages")}
+            onClick={() =>
+              Router.push({
+                pathname: "/patient/messages",
+                query: {
+                  chat: "admin",
+                  doctorId: appointment?.doctorId,
+                  patientId: appointment?.patientId,
+                },
+              })
+            }
           >
             Message Admin
           </Button>
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]}`}
-            onClick={() => Router.push("/physician/messages")}
+            onClick={() =>
+              Router.push({
+                pathname: "/patient/messages",
+                query: {
+                  chat: "doctor",
+                  doctorId: appointment?.doctorId,
+                  patientId: appointment?.patientId,
+                },
+              })
+            }
           >
             Message Physician
           </Button>
@@ -93,6 +110,7 @@ function AppointmentInfo(props: Props) {
           icon={<VideoCameraFilled />}
           className={`${_classes["appointments-btn"]} bg-current`}
           onClick={() => Router.push(`/patient/appointments/${id}/call`)}
+          disabled={disabled}
         >
           Join Now
         </Button>

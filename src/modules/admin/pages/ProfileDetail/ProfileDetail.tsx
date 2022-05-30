@@ -5,6 +5,7 @@ import { Tabs } from "antd";
 import {
 	BellOutlined,
 	CalendarOutlined,
+	TeamOutlined,
 	UserOutlined,
 } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
@@ -20,6 +21,7 @@ import {
 import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 import { RangeValue } from "rc-picker/lib/interface";
 import AdminPhysicianPatientAppointmentTab from "./AdminPhysicianPatientAppointmentTab";
+import StaffListing from "modules/doctor/pages/staff/StaffListing/StaffListing";
 
 const { TabPane } = Tabs;
 
@@ -38,7 +40,8 @@ function ProfileDetail() {
 		setIsEdit(!isEdit);
 	};
 	//   GET ID FROM URL
-	const { query } = useRouter();
+	const router = useRouter();
+	const { query } = router;
 	const docId = query?.id;
 
 	const [{ data }] = useDoctorProfileQuery({
@@ -84,7 +87,18 @@ function ProfileDetail() {
 		<AppLayout>
 			<div className="w-full">
 				<div className="w-full py-5">
-					<Tabs defaultActiveKey="1">
+					<Tabs
+          defaultActiveKey="1"
+					 activeKey={String(query.activeTab) || "1"}
+						onChange={(key) => {
+							router.push({
+								pathname: `/admin/physicians/${query?.id}`,
+								query: {
+									activeTab: key,
+								},
+							});
+						}}
+					>
 						<TabPane
 							tab={
 								<span>
@@ -140,6 +154,17 @@ function ProfileDetail() {
 							key="3"
 						>
 							<AdminPhysicianPatientAppointmentTab />
+						</TabPane>
+						<TabPane
+							tab={
+								<span>
+									<TeamOutlined />
+									Staff
+								</span>
+							}
+							key="4"
+						>
+							<StaffListing />
 						</TabPane>
 					</Tabs>
 				</div>

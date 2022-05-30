@@ -1,9 +1,12 @@
-import React from 'react'
-import MessagesDetail from "../../src/modules/common/pages/messages/MessageDetail/MessagesDetail"
-function Messages() {
-  return (
-    <MessagesDetail/>
-  )
-}
+import dynamic from "next/dynamic";
 
-export default Messages
+const messages = dynamic(
+  () => {
+    return import(
+      "../../src/modules/common/pages/messages/MessageDetail/MessagesDetail"
+    );
+  },
+  { ssr: false }
+);
+
+export default messages;

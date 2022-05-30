@@ -12,6 +12,11 @@ import { isObjectEmpty } from "./object";
 
 import { getUserData, getToken, getRole } from "./userData";
 
+import {
+  getOppositeParticipant,
+  getOppositeParticipantProfileImage,
+} from "./message";
+
 const date = {
   convertToUTC,
   convertStringDateToUTC,
@@ -31,4 +36,9 @@ const userData = {
   getToken,
   getRole,
 };
-export { date, object, userData };
+
+const messageUtils = {
+  getOppositeParticipant,
+  getOppositeParticipantProfileImage,
+};
+export { date, object, userData, messageUtils };

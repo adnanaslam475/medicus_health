@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Table } from "antd";
+import { Button, notification, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
@@ -8,6 +8,7 @@ import {
   AppointmentTimeSlots,
   GetAppointmentInput,
   useAdminPhysicianAppointmentQuery,
+  usePhysicianPaymentByAdminMutation,
   User,
 } from "generated/graphql";
 import AdminPhysicianPatientAppointmentSearchFilters from "./AdminPhysicianPatientAppointmentSearchFilters";
@@ -29,6 +30,37 @@ function AdminPhysicianList() {
       },
     });
   const { appointments } = data || {};
+
+  // Physician Payment By Admin Mutatio
+  const [result, PhysicianPaymentByAdmin] =
+    usePhysicianPaymentByAdminMutation();
+
+  const onPayPhysician = async (appointmentId: number) => {
+    try {
+      appointmentId;
+      const res = await PhysicianPaymentByAdmin({
+        paymeninput: {
+          appointmentId: appointmentId,
+        },
+      });
+
+      if (res?.data) {
+        res?.data &&
+          notification.success({
+            message: "Payment Successfull",
+          });
+      }
+
+      if (res?.error) {
+        notification.error({
+          message:
+            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const columns = [
     {
@@ -124,11 +156,16 @@ function AdminPhysicianList() {
     },
     {
       title: "",
-      dataIndex: "pay",
-      key: "status",
-      render: (value: User) => {
+      dataIndex: "id",
+      key: "id",
+      render: (appointmentId: number) => {
         return (
-          <Button className="" type="primary" size={"large"}>
+          <Button
+            className=""
+            type="primary"
+            size={"large"}
+            onClick={() => onPayPhysician(appointmentId)}
+          >
             Pay Now
           </Button>
         );
