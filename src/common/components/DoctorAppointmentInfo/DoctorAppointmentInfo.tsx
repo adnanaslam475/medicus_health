@@ -31,7 +31,11 @@ import {
   useGetAllAppointmentServiceTypesQuery,
   useProposeNewTimeMutation,
 } from "generated/graphql";
-import { formatMMMM_Dcoma_YYYY, getDayJsObject, isAppointmentTimeValid } from "common/utils/date";
+import {
+  formatMMMM_Dcoma_YYYY,
+  getDayJsObject,
+  isAppointmentTimeValid,
+} from "common/utils/date";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
@@ -173,13 +177,13 @@ export default DoctorAppointmentInfo;
 
 function DoctorAppointmentInfoFooter({
   appointmentId,
-  data
+  data,
 }: {
   appointmentId: number | undefined;
-  data?:Appointment 
+  data?: Appointment;
 }) {
-  const {appointmentTimeSlots} = data || {}
-  const selectedAppointment:CustomTimeSlot | undefined = useMemo(
+  const { appointmentTimeSlots } = data || {};
+  const selectedAppointment: CustomTimeSlot | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
@@ -355,9 +359,10 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             type="primary"
             icon={<CheckOutlined />}
             className={`${_classes["appointments-btn"]} bg-current ml-3`}
-            onClick={() => Router.push("/physician/calendar")}
+            // onClick={() => Router.push("/physician/calendar")}
+            onClick={showModal}
           >
-            Accept Appointment
+            Edit Appointment
           </Button>
         </div>
       </div>
