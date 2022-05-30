@@ -37,6 +37,13 @@ export type AdminDashResponse = {
   total_revenue?: Maybe<Scalars['Float']>;
 };
 
+export type AdminSetting = {
+  __typename?: 'AdminSetting';
+  id: Scalars['Int'];
+  key: Scalars['String'];
+  value: Scalars['String'];
+};
+
 export type Appointment = {
   __typename?: 'Appointment';
   appointmentHealthHistory?: Maybe<AppointmentHealthHistory>;
@@ -109,6 +116,7 @@ export type AppointmentTimeSlots = {
 };
 
 export type BookAppointmentInput = {
+  adminSettingId: Scalars['Int'];
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
   requestedDate: Scalars['DateTime'];
@@ -176,6 +184,11 @@ export type CreateAdminInput = {
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
+};
+
+export type CreateAdminSettingInput = {
+  key: Scalars['String'];
+  value: Scalars['String'];
 };
 
 export type CreateAppointmentInput = {
@@ -524,6 +537,7 @@ export type Mutation = {
   cancelAppointment: Appointment;
   cancelAppointmentByAdmin: Appointment;
   cancelAppointmentByPatient: Appointment;
+  createAdminSetting: AdminSetting;
   createAdminUser: User;
   createAppointment: Appointment;
   createCard: UserCard;
@@ -598,6 +612,11 @@ export type MutationCancelAppointmentByAdminArgs = {
 
 export type MutationCancelAppointmentByPatientArgs = {
   id: Scalars['Int'];
+};
+
+
+export type MutationCreateAdminSettingArgs = {
+  createAdminSettingInput: CreateAdminSettingInput;
 };
 
 
@@ -917,6 +936,7 @@ export type Query = {
   getUserFilter: Array<UserResponse>;
   patientHealthHistory: PatientHealthHistory;
   patientHealthHistorys: Array<PatientHealthHistory>;
+  patientLastQuestionnaire: AppointmentHealthHistory;
   physicianAppointments: Array<Appointment>;
   physiciansPatients: Array<User>;
   staff: Array<User>;
@@ -1058,6 +1078,12 @@ export type QueryGetUserFilterArgs = {
 
 export type QueryPatientHealthHistoryArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryPatientLastQuestionnaireArgs = {
+  doctorId: Scalars['Int'];
+  patientId: Scalars['Int'];
 };
 
 
@@ -1589,6 +1615,13 @@ export type PhysicianPaymentByAdminMutationVariables = Exact<{
 
 
 export type PhysicianPaymentByAdminMutation = { __typename?: 'Mutation', payment: { __typename?: 'Transaction', id: number, transactionId: string, appointmentId: number, cardId: number, amountReceived: number, status: string, doctor_percentage: string, payment_status?: string | null, createdAt: any } };
+
+export type AdminUsersQueryVariables = Exact<{
+  filter: GetAdminUsersFilterInput;
+}>;
+
+
+export type AdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null }> };
 
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2478,6 +2511,22 @@ export const PhysicianPaymentByAdminDocument = gql`
 
 export function usePhysicianPaymentByAdminMutation() {
   return Urql.useMutation<PhysicianPaymentByAdminMutation, PhysicianPaymentByAdminMutationVariables>(PhysicianPaymentByAdminDocument);
+};
+export const AdminUsersDocument = gql`
+    query adminUsers($filter: GetAdminUsersFilterInput!) {
+  adminUsers(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    password
+    contact_number
+  }
+}
+    `;
+
+export function useAdminUsersQuery(options: Omit<Urql.UseQueryArgs<AdminUsersQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminUsersQuery>({ query: AdminUsersDocument, ...options });
 };
 export const GetAllChatChannelsDocument = gql`
     query getAllChatChannels {
@@ -3527,6 +3576,46 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AdminSetting",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "key",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "value",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           }
@@ -5060,6 +5149,29 @@ export default {
             "args": [
               {
                 "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createAdminSetting",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AdminSetting",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createAdminSettingInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -7139,6 +7251,39 @@ export default {
               }
             },
             "args": []
+          },
+          {
+            "name": "patientLastQuestionnaire",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentHealthHistory",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "patientId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
             "name": "physicianAppointments",

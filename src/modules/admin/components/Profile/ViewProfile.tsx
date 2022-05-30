@@ -3,17 +3,14 @@ import React, { useState, useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
 
 import _classes from "./PhysicianProfile.module.scss";
-import { Input, Avatar, Upload, Form, Button, Menu, notification } from "antd";
+import { Input, Avatar, Form, Button, notification } from "antd";
 
-import ReactS3Client from "react-aws-s3-typescript";
-import { UploadChangeParam } from "antd/lib/upload";
 import {
   useUpdateDoctorProfileMutation,
   useEnableOrDisableDoctorMutation,
   User,
 } from "generated/graphql";
-import { adminBioForm, configS3 } from "utils/helper";
-import { parseJson } from "common/utils/helper";
+import { adminBioForm } from "utils/helper";
 
 type props = {
   doctorId?: string;
@@ -36,7 +33,7 @@ export const ViewProfile = React.forwardRef(function Profile({
     email,
     contact_number,
     doctorProfile,
-  } = doctorData?.user || {};
+  } = (doctorData && doctorData[0]) || {};
 
   const { profile_image: userProfileImage } = doctorProfile || {};
 

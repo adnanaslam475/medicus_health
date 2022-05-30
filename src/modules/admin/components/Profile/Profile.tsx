@@ -12,12 +12,10 @@ import {
 import ReactS3Client from "react-aws-s3-typescript";
 import { UploadChangeParam } from "antd/lib/upload";
 import { configS3 } from "utils/helper";
-import { Schedule } from "common/types/types";
-import { RangeValue } from "rc-picker/lib/interface";
 import { useMediaUploader } from "common/hooks/media";
 
 type profileType = {
-  doctorId: string | string[] | undefined;
+  doctorId?: string | string[] | undefined;
   doctorData: any;
   setIsEdit: (e: boolean) => void;
   edit: () => void;
@@ -32,7 +30,7 @@ export const Profile = React.forwardRef(function Profile({
   const [image, setImage] = useState<string>("");
 
   const { first_name, last_name, password, email, contact_number, status } =
-    doctorData?.user || {};
+    (doctorData && doctorData[0]) || {};
 
   const { profile_image: userProfileImage } = doctorData || {};
 
@@ -61,13 +59,12 @@ export const Profile = React.forwardRef(function Profile({
   }
 
   const onFinish = async (values: any) => {
-    
-    // try {
-    //   updateDoctorProfile(values);
-    //   setIsEdit(false);
-    // } catch (error) {
-    //   setIsEdit(true);
-    // }
+    try {
+      updateDoctorProfile(values);
+      setIsEdit(false);
+    } catch (error) {
+      setIsEdit(true);
+    }
   };
 
   const updateDoctorProfile = async (values: any) => {
@@ -211,7 +208,7 @@ export const Profile = React.forwardRef(function Profile({
                   rules={[{ type: "email", required: true, message: "Email!" }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input disabled={true} />
                 </Form.Item>
                 <Form.Item
                   label="Contact Number"
@@ -234,7 +231,6 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Confirm Password"
                   name="confirmPassword"
-                  // rules={[{ required: true, message: "Confirm password!" }]}
                   className="flex-1"
                 >
                   <Input.Password />
