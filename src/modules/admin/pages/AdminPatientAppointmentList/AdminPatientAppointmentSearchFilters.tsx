@@ -43,9 +43,9 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
 		if (!filters.searchString) {
 			delete filters.searchString;
 		}
-		if (!filters.appointmentType) {
-			delete filters.appointmentType;
-		}
+		// if (!filters.appointmentType) {
+		// 	delete filters.appointmentType;
+		// }
 
 		onChange(filters);
 	}
@@ -92,7 +92,7 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
 						onChange={(value) =>
 							onChangeFields("appointmentType", value as string)
 						}
-						value={filterState.appointmentType}
+						// value={filterState.appointmentType}
 					/>
 				</div>
 				{/* <div className="lg:ml-3 sm:mt-0">

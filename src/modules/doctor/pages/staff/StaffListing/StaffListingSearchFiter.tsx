@@ -29,7 +29,7 @@ function StaffListingSearchFilter({ onChange }: Props) {
     setOpenDateRange(false);
   };
 
-  function onChangeFields(key: string, value: string | object) {
+  function onChangeFields(key: string, value: string | number | object) {
     const filters = {
       ...filterState,
       [key]: value,
@@ -42,8 +42,8 @@ function StaffListingSearchFilter({ onChange }: Props) {
     if (!filters.patientName) {
       delete filters.patientName;
     }
-    if (!filters.appointmentType) {
-      delete filters.appointmentType;
+    if (!filters.serviceId) {
+      delete filters.serviceId;
     }
 
     onChange(filters);
@@ -123,8 +123,8 @@ function StaffListingSearchFilter({ onChange }: Props) {
           <Select
             placeholder="Service"
             className="w-full sm:w-40"
-            onChange={(value) => onChangeFields("appointmentType", value)}
-            value={filterState.appointmentType || "Service"}
+            onChange={(value) => onChangeFields("serviceId", value)}
+            value={filterState.serviceId}
           >
             <Option value="consultation">Consultation</Option>
             <Option value="second opinion">Second Opinion</Option>
