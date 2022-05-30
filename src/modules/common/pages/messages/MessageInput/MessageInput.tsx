@@ -28,12 +28,12 @@ function MessageInput() {
             placeholder="Type a new message"
             onChange={({ target }) => onMessageTextChange(target.value)}
           />
-          <span className="absolute top-3 right-24">
+          <span className="absolute top-3 right-14">
             <Image alt="" width={25} height={25} src={attachIcon} />
           </span>
-          <span className="absolute top-3 right-14">
+          {/* <span className="absolute top-3 right-14">
             <Image alt="" width={25} height={25} src={smile} />
-          </span>
+          </span> */}
           <span
             className="absolute top-3 right-4 cursor-pointer"
             onClick={onSendMessage}

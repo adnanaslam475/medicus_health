@@ -158,6 +158,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     ]}
                   >
                     <DatePicker
+                      name="date_of_birth"
                       placeholder="mm/dd/yy"
                       format={"MM-DD-YYYY"}
                       className="w-full"

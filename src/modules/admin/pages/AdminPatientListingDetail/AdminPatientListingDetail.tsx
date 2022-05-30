@@ -53,6 +53,17 @@ function AdminPatientListingDetail() {
             >
               <AdminHealthQuestionnaireFrom />
             </Tabs.TabPane>
+            <Tabs.TabPane
+              tab={
+                <span>
+                  <UnorderedListOutlined />
+                  Appointments History
+                </span>
+              }
+              key="2"
+            >
+              <AdminHealthQuestionnaireFrom />
+            </Tabs.TabPane>
           </Tabs>
         </div>
       </>

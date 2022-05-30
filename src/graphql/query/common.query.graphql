@@ -29,14 +29,6 @@ query getAllChatChannels {
         }
       }
     }
-    doctor {
-      id
-      first_name
-      last_name
-      doctorProfile {
-        profile_image
-      }
-    }
   }
 }
 
