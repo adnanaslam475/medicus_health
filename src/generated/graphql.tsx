@@ -37,6 +37,13 @@ export type AdminDashResponse = {
   total_revenue?: Maybe<Scalars['Float']>;
 };
 
+export type AdminSetting = {
+  __typename?: 'AdminSetting';
+  id: Scalars['Int'];
+  key: Scalars['String'];
+  value: Scalars['String'];
+};
+
 export type Appointment = {
   __typename?: 'Appointment';
   appointmentHealthHistory?: Maybe<AppointmentHealthHistory>;
@@ -176,6 +183,11 @@ export type CreateAdminInput = {
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
+};
+
+export type CreateAdminSettingInput = {
+  key: Scalars['String'];
+  value: Scalars['String'];
 };
 
 export type CreateAppointmentInput = {
@@ -524,6 +536,7 @@ export type Mutation = {
   cancelAppointment: Appointment;
   cancelAppointmentByAdmin: Appointment;
   cancelAppointmentByPatient: Appointment;
+  createAdminSetting: AdminSetting;
   createAdminUser: User;
   createAppointment: Appointment;
   createCard: UserCard;
@@ -598,6 +611,11 @@ export type MutationCancelAppointmentByAdminArgs = {
 
 export type MutationCancelAppointmentByPatientArgs = {
   id: Scalars['Int'];
+};
+
+
+export type MutationCreateAdminSettingArgs = {
+  createAdminSettingInput: CreateAdminSettingInput;
 };
 
 
@@ -1550,6 +1568,13 @@ export type EnableOrDisablePatientMutationVariables = Exact<{
 
 export type EnableOrDisablePatientMutation = { __typename?: 'Mutation', enableOrDisablePatient: { __typename?: 'User', id: number, status: boolean } };
 
+export type RemoveAppointmentByAdminMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type RemoveAppointmentByAdminMutation = { __typename?: 'Mutation', removeAppointment: { __typename?: 'Appointment', id: number } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -2366,6 +2391,17 @@ export const EnableOrDisablePatientDocument = gql`
 
 export function useEnableOrDisablePatientMutation() {
   return Urql.useMutation<EnableOrDisablePatientMutation, EnableOrDisablePatientMutationVariables>(EnableOrDisablePatientDocument);
+};
+export const RemoveAppointmentByAdminDocument = gql`
+    mutation removeAppointmentByAdmin($id: Int!) {
+  removeAppointment(id: $id) {
+    id
+  }
+}
+    `;
+
+export function useRemoveAppointmentByAdminMutation() {
+  return Urql.useMutation<RemoveAppointmentByAdminMutation, RemoveAppointmentByAdminMutationVariables>(RemoveAppointmentByAdminDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
@@ -3527,6 +3563,46 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AdminSetting",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "key",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "value",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           }
@@ -5060,6 +5136,29 @@ export default {
             "args": [
               {
                 "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createAdminSetting",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AdminSetting",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createAdminSettingInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

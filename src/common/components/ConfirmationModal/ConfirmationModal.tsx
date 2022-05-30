@@ -7,10 +7,23 @@ type Props = {
     | undefined;
   onOk?: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
   message: string;
+  confirmLoading: boolean;
 };
-const ConfirmationModal = ({ message, onCancel, onOk, visible }: Props) => {
+const ConfirmationModal = ({
+  message,
+  onCancel,
+  onOk,
+  visible,
+  confirmLoading,
+}: Props) => {
   return (
-    <Modal onCancel={onCancel} title="" onOk={onOk} visible={visible}>
+    <Modal
+      onCancel={onCancel}
+      title=""
+      confirmLoading={confirmLoading}
+      onOk={onOk}
+      visible={visible}
+    >
       <p>{message}</p>
     </Modal>
   );
