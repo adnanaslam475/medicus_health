@@ -66,7 +66,7 @@ function AdminPatientsListFilter(props: Props) {
           />
         </div>
 
-        <div className="w-full md:w-44 xl:w-60 mr-2 mb-3">
+        <div className="w-full md:w-44 xl:w-44 mr-2 mb-3">
           <SelectCountryTypeFilter
             onChange={(value) => onChangeFields("countryId", Number(value))}
             value={filterState?.countryId}
