@@ -13,8 +13,9 @@ import {
   useScheduleQuery,
 } from "../../../../generated/graphql";
 import EmailNotification from "../../pages/EmailNotification/EmailNotification";
-import { ViewProfile } from "../../../../common/components/ViewProfile/ViewProfile";
+// import { ViewProfile } from "../../../../common/components/ViewProfile/ViewProfile";
 import { Profile } from "../Profile/Profile";
+import { ViewProfile } from "../Profile/ViewProfile";
 
 const { TabPane } = Tabs;
 
@@ -42,54 +43,7 @@ function AdminAccount() {
     <AppLayout>
       <div className="w-full">
         <div className="w-full py-5">
-          {/* <Tabs defaultActiveKey="1">
-            <TabPane
-              tab={
-                <span>
-                  <UserOutlined className="" />
-                  Profile
-                </span>
-              }
-              key="1"
-            >
-              {isEdit ? (
-                <Profile
-                  doctorId={query?.id}
-                  doctorData={doctorProfile}
-                  edit={editData}
-                  setIsEdit={setIsEdit}
-                  schedules={schedules}
-                />
-              ) : (
-                <ViewProfile
-                  doctorId={query?.id}
-                  doctorData={doctorProfile}
-                  setIsEdit={setIsEdit}
-                  loginInfo={false}
-                  schedules={schedules}
-                />
-              )}
-            </TabPane>
-            <TabPane
-              tab={
-                <span>
-                  <BellOutlined />
-                  Email Notifications
-                </span>
-              }
-              key="2"
-            >
-              <EmailNotification />
-            </TabPane>
-          </Tabs> */}
           <Tabs defaultActiveKey="1" type="card">
-            {/* <Tabs.TabPane
-              className="w-full"
-              tab={<span className="font-Circular font-medium">Profile</span>}
-              key="1"
-            >
-              <AdminProfile />
-            </Tabs.TabPane> */}
             <TabPane
               className="w-full"
               tab={
@@ -106,16 +60,12 @@ function AdminAccount() {
                   doctorData={doctorProfile}
                   edit={editData}
                   setIsEdit={setIsEdit}
-                  schedules={schedules}
-                  addScheduleDay={""}
                 />
               ) : (
                 <ViewProfile
                   doctorId={String(query?.id)}
                   doctorData={doctorProfile}
                   setIsEdit={setIsEdit}
-                  // loginInfo={false}
-                  schedules={schedules}
                 />
               )}
             </TabPane>

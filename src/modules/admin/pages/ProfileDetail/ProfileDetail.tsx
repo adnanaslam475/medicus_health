@@ -114,14 +114,14 @@ function ProfileDetail() {
 									doctorData={doctorProfile}
 									edit={editData}
 									setIsEdit={setIsEdit}
-									schedules={schedules}
-									setDeleteScheduleId={setDeleteScheduleId}
-									setAddScheduleDay={setAddScheduleDay}
-									addScheduleDay={String(addScheduleDay)}
-									setAddScheduleTime={setAddScheduleTime}
-									addScheduleTime={addScheduleTime}
-									onAddClick={onAddClick}
-									loading={fetching}
+									// schedules={schedules}
+									// setDeleteScheduleId={setDeleteScheduleId}
+									// setAddScheduleDay={setAddScheduleDay}
+									// addScheduleDay={String(addScheduleDay)}
+									// setAddScheduleTime={setAddScheduleTime}
+									// addScheduleTime={addScheduleTime}
+									// onAddClick={onAddClick}
+									// loading={fetching}
 								/>
 							) : (
 								<ViewProfile
