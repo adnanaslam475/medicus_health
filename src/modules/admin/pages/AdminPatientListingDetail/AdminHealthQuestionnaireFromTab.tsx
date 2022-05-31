@@ -2,6 +2,7 @@ import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
 import { useRouter } from "next/router";
 import {
+  useGetUserQuery,
   usePatientHealthHistoryQuery,
   usePhysicianAppointmentsHistoryQuery,
   useUpdatePatientHealthHistoryMutation,
@@ -14,12 +15,14 @@ function AdminHealthQuestionnaireFrom() {
   const { query } = useRouter();
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { searchString: String(query?.id), status: "Completed" },
+      filter: { searchString: String(query?.id) },
     },
     requestPolicy: "network-only",
   });
   const { appointments } = data || {};
   const appointment = appointments && appointments[0];
+
+  console.log("appointments", appointments);
 
   const form: any = useRef();
 
@@ -28,8 +31,8 @@ function AdminHealthQuestionnaireFrom() {
   const id = user?.id;
 
   // Get patient Health History
-  const [{ data: patientHealthHistoryData }] = usePatientHealthHistoryQuery({
-    variables: { input: id as number },
+  const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
+    variables: { input: Number(query?.id) },
   });
 
   // UPDATE PATIENT HEALTH HISTORY
@@ -45,7 +48,7 @@ function AdminHealthQuestionnaireFrom() {
       const res = await updatePatientHealthHistory({
         input: {
           history: healthQuesJson,
-          user_id: id as number,
+          user_id: Number(query?.id),
         },
       });
       {
@@ -66,9 +69,8 @@ function AdminHealthQuestionnaireFrom() {
         serviceName={appointment?.serviceType?.name}
       >
         <QuestionnaireForm
-          data={appointment?.patient?.patientHealthHistory?.history}
           ref={form}
-          // data={data?.patientHealthHistory.history}
+          data={patientHealthHistory?.patientHealthHistory?.history}
           onFinishSuccess={onFinishHealthQuestionnarySuccess}
         />
         <div className="flex items-center justify-end">
