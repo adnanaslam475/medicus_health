@@ -44,7 +44,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       },
     },
     {
-      title: "Physician Name",
+      title: "Patient Name",
       dataIndex: "patient",
       key: "patient",
       sorter: true,
