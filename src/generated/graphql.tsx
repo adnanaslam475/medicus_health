@@ -116,7 +116,6 @@ export type AppointmentTimeSlots = {
 };
 
 export type BookAppointmentInput = {
-  adminSettingId: Scalars['Int'];
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
   requestedDate: Scalars['DateTime'];
@@ -1635,6 +1634,13 @@ export type PhysicianPaymentByAdminMutationVariables = Exact<{
 
 export type PhysicianPaymentByAdminMutation = { __typename?: 'Mutation', payment: { __typename?: 'Transaction', id: number, transactionId: string, appointmentId: number, cardId: number, amountReceived: number, status: string, doctor_percentage: string, payment_status?: string | null, createdAt: any } };
 
+export type CreateAdminSettingsMutationVariables = Exact<{
+  createAdminSettingInput: CreateAdminSettingInput;
+}>;
+
+
+export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: Array<{ __typename?: 'AdminSetting', id: number, key: string, value: string }> };
+
 export type AdminUsersQueryVariables = Exact<{
   filter: GetAdminUsersFilterInput;
 }>;
@@ -2557,6 +2563,19 @@ export const PhysicianPaymentByAdminDocument = gql`
 
 export function usePhysicianPaymentByAdminMutation() {
   return Urql.useMutation<PhysicianPaymentByAdminMutation, PhysicianPaymentByAdminMutationVariables>(PhysicianPaymentByAdminDocument);
+};
+export const CreateAdminSettingsDocument = gql`
+    mutation createAdminSettings($createAdminSettingInput: CreateAdminSettingInput!) {
+  createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
+    id
+    key
+    value
+  }
+}
+    `;
+
+export function useCreateAdminSettingsMutation() {
+  return Urql.useMutation<CreateAdminSettingsMutation, CreateAdminSettingsMutationVariables>(CreateAdminSettingsDocument);
 };
 export const AdminUsersDocument = gql`
     query adminUsers($filter: GetAdminUsersFilterInput!) {
