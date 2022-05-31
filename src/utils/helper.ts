@@ -198,3 +198,48 @@ export const FLAG_BY_LANGUAGE = {
   ["espanol" as string]: espanolFlag,
   ["spanish" as string]: espanolFlag,
 };
+
+export const adminBioForm = [
+  [
+    {
+      label: "First Name",
+      name: "firstName",
+      defaultValue: "usama",
+      disabled: true,
+    },
+    {
+      label: "Last name",
+      name: "lastName",
+      defaultValue: "khan",
+      disabled: true,
+    },
+  ],
+  [
+    {
+      label: "Email",
+      name: "email",
+      defaultValue: "usama@gmail.com",
+      disabled: true,
+    },
+    {
+      label: "Contact Number",
+      name: "contact",
+      defaultValue: "090078601",
+      disabled: true,
+    },
+  ],
+  [
+    {
+      label: "Password",
+      name: "password",
+      disabled: true,
+      defaultValue: "",
+    },
+    {
+      label: "Confirm Password",
+      name: "confirmPassword",
+      disabled: true,
+      defaultValue: "",
+    },
+  ],
+];

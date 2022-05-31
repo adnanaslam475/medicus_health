@@ -85,3 +85,14 @@ mutation createAdminSettings($createAdminSettingInput: CreateAdminSettingInput!)
     value
   }
 }
+
+query adminUsers($filter:GetAdminUsersFilterInput!){
+  adminUsers(filter:$filter){
+    id
+    first_name
+    last_name
+    email
+    password
+    contact_number
+  }
+}

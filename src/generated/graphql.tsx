@@ -1335,6 +1335,14 @@ export type UserResponse = {
   zip_code: Scalars['String'];
 };
 
+export type UpdateAdminUserMutationVariables = Exact<{
+  updateAdminUserInput: UpdateAdminUserInput;
+  id: Scalars['Int'];
+}>;
+
+
+export type UpdateAdminUserMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null } };
+
 export type GenerateRtcTokenMutationVariables = Exact<{
   generateRTCTokenInput: GenerateRtcTokenInput;
 }>;
@@ -1633,6 +1641,13 @@ export type CreateAdminSettingsMutationVariables = Exact<{
 
 export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: Array<{ __typename?: 'AdminSetting', id: number, key: string, value: string }> };
 
+export type AdminUsersQueryVariables = Exact<{
+  filter: GetAdminUsersFilterInput;
+}>;
+
+
+export type AdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null }> };
+
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1886,6 +1901,22 @@ export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }
 export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, admin_appointment_create_update?: boolean | null, new_message_received?: boolean | null } };
 
 
+export const UpdateAdminUserDocument = gql`
+    mutation updateAdminUser($updateAdminUserInput: UpdateAdminUserInput!, $id: Int!) {
+  updateAdminUser(updateAdminUserInput: $updateAdminUserInput, id: $id) {
+    id
+    first_name
+    last_name
+    email
+    password
+    contact_number
+  }
+}
+    `;
+
+export function useUpdateAdminUserMutation() {
+  return Urql.useMutation<UpdateAdminUserMutation, UpdateAdminUserMutationVariables>(UpdateAdminUserDocument);
+};
 export const GenerateRtcTokenDocument = gql`
     mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
   generateRTCToken(generateRTCTokenInput: $generateRTCTokenInput) {
@@ -2545,6 +2576,22 @@ export const CreateAdminSettingsDocument = gql`
 
 export function useCreateAdminSettingsMutation() {
   return Urql.useMutation<CreateAdminSettingsMutation, CreateAdminSettingsMutationVariables>(CreateAdminSettingsDocument);
+};
+export const AdminUsersDocument = gql`
+    query adminUsers($filter: GetAdminUsersFilterInput!) {
+  adminUsers(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    password
+    contact_number
+  }
+}
+    `;
+
+export function useAdminUsersQuery(options: Omit<Urql.UseQueryArgs<AdminUsersQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminUsersQuery>({ query: AdminUsersDocument, ...options });
 };
 export const GetAllChatChannelsDocument = gql`
     query getAllChatChannels {
