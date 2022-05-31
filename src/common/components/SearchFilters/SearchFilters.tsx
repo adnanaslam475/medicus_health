@@ -13,7 +13,7 @@ import {
 } from "../../../generated/graphql";
 import searchStyle from "./style.module.scss";
 import Image from "next/image";
-import { aimsCalendarIcon } from "../../../utils/images";
+import { calendarFilterIcon } from "../../../utils/images";
 import { getDateInFormat } from "../../utils/date";
 import _classes from "./SearchFilters.module.scss";
 
@@ -200,15 +200,17 @@ function SearchFilters(props: Props) {
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  {/* <div className="self-center">
-                    <Image
-                      width={15}
-                      height={15}
-                      src={aimsCalendarIcon}
-                      alt=""
-                    />
-                  </div> */}
-                  <div>Creation Date</div>
+                  <div className="flex items-center font-thin">
+                    <span className="mr-2 mt-1">
+                      <Image
+                        width={18}
+                        height={18}
+                        src={calendarFilterIcon}
+                        alt=""
+                      />
+                    </span>
+                    Creation Date
+                  </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
                   </div>
