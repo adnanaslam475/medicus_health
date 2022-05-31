@@ -181,13 +181,16 @@ function AdminPhysicianList() {
           <EyeFilled
             className="text-primary"
             onClick={() => {
-              return Router.push(`/admin/physicians/${value}`);
+              return Router.push(`/admin/physicians/detail`);
             }}
           />
         </div>
       ),
     },
   ];
+
+
+
 
   function onChangeFilters(filterValue: GetAppointmentInput) {
     setFilterValues(filterValue);
