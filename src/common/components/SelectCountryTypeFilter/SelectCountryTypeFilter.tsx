@@ -14,7 +14,7 @@ export function SelectCountryTypeFilter({
   return (
     <Select
       placeholder="Country"
-      className="w-full sm:w-40"
+      className="w-full"
       onChange={onChange}
       value={value}
     >

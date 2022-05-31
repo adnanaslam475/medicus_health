@@ -74,9 +74,9 @@ function AppointmentInfo() {
               type="primary"
               icon={<VideoCameraFilled />}
               className={`${_classes["appointments-btn"]} bg-current ml-3`}
-              onClick={() => Router.push("/physician/calendar")}
+              onClick={showModal}
             >
-              Accept Appointment
+              Edit Appointment
             </Button>
           </div>
         </div>

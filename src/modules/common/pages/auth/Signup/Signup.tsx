@@ -91,21 +91,27 @@ function Signup() {
   };
 
   async function submitPersonalInfo() {
-    let pyaload = signUpPayload;
-    if (pyaload) {
-      pyaload.date_of_birth = date.convertToUTC(pyaload?.date_of_birth);
-      delete pyaload.confirmPassword;
+    let payload = signUpPayload;
+    let updatedPayload = {
+      ...payload,
+      city_id: payload?.city_id || 0,
+      state_id: payload?.state_id || 0,
+    };
+    if (updatedPayload) {
+      updatedPayload.date_of_birth = date.convertToUTC(
+        updatedPayload?.date_of_birth
+      );
+      delete updatedPayload.confirmPassword;
     }
-    console.log(pyaload, "pyaload");
     let user = null;
     try {
       user = await createUser({
-        input: pyaload as CreateUserInput,
+        input: updatedPayload as CreateUserInput,
       });
       if (!user.error?.message) {
         Router.push({
           pathname: "/successScreen",
-          query: { email: pyaload?.email },
+          query: { email: updatedPayload?.email },
         });
       }
       setSignupError(user?.error?.graphQLErrors[0]?.message);

@@ -83,7 +83,7 @@ function AdminPhysicianList() {
     },
     {
       title: "",
-      dataIndex: "doctor_id",
+      dataIndex: "id",
       key: "view",
       className: "table-action-icon",
       render: (value: any) => (

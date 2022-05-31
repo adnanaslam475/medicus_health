@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { cancelledAppointmentFilterType, physicianFilterType } from "common/types/types";
+import { cancelledAppointmentFilterType } from "common/types/types";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
@@ -11,7 +11,8 @@ type Props = {
 };
 
 function CanncelledAppointmentFilter({ onChange }: Props) {
-  const [filterState, setFilterState] = useState<cancelledAppointmentFilterType>({});
+  const [filterState, setFilterState] =
+    useState<cancelledAppointmentFilterType>({});
 
   function clear() {
     setFilterState({});
@@ -23,7 +24,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
     setOpenDateRange(false);
   };
 
-  function onChangeFields(key: string, value: string | object) {
+  function onChangeFields(key: string, value: string | number | object) {
     const filters = {
       ...filterState,
       [key]: value,
@@ -36,8 +37,8 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
     if (!filters.searchString) {
       delete filters.searchString;
     }
-    if (!filters.appointmentType) {
-      delete filters.appointmentType;
+    if (!filters.serviceId) {
+      delete filters.serviceId;
     }
     onChange(filters);
   }
@@ -81,10 +82,8 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
       <div className="flex-none sm:flex">
         <div className="lg:ml-3 mt-3 sm:mt-0">
           <SelectServiceTypeFilter
-            onChange={(value) =>
-              onChangeFields("appointmentType", value as string)
-            }
-            value={filterState.appointmentType}
+            onChange={(value) => onChangeFields("serviceId", value)}
+            value={filterState?.serviceId}
           />
         </div>
         <FilterClearButton onClear={clear} />
