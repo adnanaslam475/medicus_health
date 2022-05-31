@@ -5,13 +5,8 @@ import editicon from "../../../../../public/assets/icon/edit.svg";
 import { Avatar, Upload, Form, Input, Button, notification } from "antd";
 import _classes from "./PhysicianProfile.module.scss";
 
-import {
-  useEnableOrDisableDoctorMutation,
-  useUpdateDoctorProfileMutation,
-} from "generated/graphql";
-import ReactS3Client from "react-aws-s3-typescript";
+import { useUpdateAdminUserMutation } from "generated/graphql";
 import { UploadChangeParam } from "antd/lib/upload";
-import { configS3 } from "utils/helper";
 import { useMediaUploader } from "common/hooks/media";
 
 type profileType = {
@@ -36,10 +31,9 @@ export const Profile = React.forwardRef(function Profile({
 
   const mediaUploader = useMediaUploader();
 
-  const [result, updateDoctor] = useUpdateDoctorProfileMutation();
+  const [result, executeUseUpdateAdminUserMutation] =
+    useUpdateAdminUserMutation();
   const { error } = result || {};
-
-  const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
   useEffect(() => {
     if (doctorData) {
@@ -60,28 +54,29 @@ export const Profile = React.forwardRef(function Profile({
 
   const onFinish = async (values: any) => {
     try {
-      updateDoctorProfile(values);
+      updateAdminProfile(values);
       setIsEdit(false);
     } catch (error) {
       setIsEdit(true);
     }
   };
 
-  const updateDoctorProfile = async (values: any) => {
+  const updateAdminProfile = async (values: any) => {
     if (doctorData) {
-      const res = await updateDoctor({
-        updateDoctorProfileInput: {
-          doctor_id: Number(doctorId),
+      const res = await executeUseUpdateAdminUserMutation({
+        updateAdminUserInput: {
           first_name: values?.firstName,
           last_name: values?.lastName,
           email: values?.email,
+          contact_number: values?.contact_number,
           password: values?.password,
-          profile_image: image || userProfileImage,
+          profileImage: image || userProfileImage,
         },
+        id: 127,
       });
 
       if (res?.data) {
-        res?.data?.updateDoctorProfile &&
+        res?.data?.updateAdminUser &&
           notification.success({
             message: "Updated Successfully",
           });
@@ -98,8 +93,6 @@ export const Profile = React.forwardRef(function Profile({
   };
 
   const fileChange = async (info: UploadChangeParam) => {
-    const s3 = new ReactS3Client(configS3);
-
     try {
       const url = await mediaUploader.upload(info.file.originFileObj as File);
       if (url) {
@@ -118,24 +111,6 @@ export const Profile = React.forwardRef(function Profile({
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
-
-  async function handleChange() {
-    const res = await EnableOrDisableDoctor({
-      id: Number(doctorId),
-    });
-    if (res?.data?.enableOrDisableDoctor?.status) {
-      res?.data?.enableOrDisableDoctor?.status &&
-        notification.success({
-          message: "Published",
-        });
-    }
-    if (!res?.data?.enableOrDisableDoctor?.status) {
-      !res?.data?.enableOrDisableDoctor?.status &&
-        notification.success({
-          message: "Unpublished",
-        });
-    }
-  }
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -212,7 +187,7 @@ export const Profile = React.forwardRef(function Profile({
                 </Form.Item>
                 <Form.Item
                   label="Contact Number"
-                  className="text-secondary"
+                  className="flex-1"
                   name="contact_number"
                 >
                   <Input />

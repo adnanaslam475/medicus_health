@@ -186,9 +186,13 @@ export type CreateAdminInput = {
   last_name: Scalars['String'];
 };
 
-export type CreateAdminSettingInput = {
+export type CreateAdminSetting = {
   key: Scalars['String'];
   value: Scalars['String'];
+};
+
+export type CreateAdminSettingInput = {
+  AdminSettings: Array<CreateAdminSetting>;
 };
 
 export type CreateAppointmentInput = {
@@ -537,7 +541,7 @@ export type Mutation = {
   cancelAppointment: Appointment;
   cancelAppointmentByAdmin: Appointment;
   cancelAppointmentByPatient: Appointment;
-  createAdminSetting: AdminSetting;
+  createAdminSetting: Array<AdminSetting>;
   createAdminUser: User;
   createAppointment: Appointment;
   createCard: UserCard;
@@ -1332,6 +1336,14 @@ export type UserResponse = {
   zip_code: Scalars['String'];
 };
 
+export type UpdateAdminUserMutationVariables = Exact<{
+  updateAdminUserInput: UpdateAdminUserInput;
+  id: Scalars['Int'];
+}>;
+
+
+export type UpdateAdminUserMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null } };
+
 export type GenerateRtcTokenMutationVariables = Exact<{
   generateRTCTokenInput: GenerateRtcTokenInput;
 }>;
@@ -1876,6 +1888,22 @@ export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }
 export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, admin_appointment_create_update?: boolean | null, new_message_received?: boolean | null } };
 
 
+export const UpdateAdminUserDocument = gql`
+    mutation updateAdminUser($updateAdminUserInput: UpdateAdminUserInput!, $id: Int!) {
+  updateAdminUser(updateAdminUserInput: $updateAdminUserInput, id: $id) {
+    id
+    first_name
+    last_name
+    email
+    password
+    contact_number
+  }
+}
+    `;
+
+export function useUpdateAdminUserMutation() {
+  return Urql.useMutation<UpdateAdminUserMutation, UpdateAdminUserMutationVariables>(UpdateAdminUserDocument);
+};
 export const GenerateRtcTokenDocument = gql`
     mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
   generateRTCToken(generateRTCTokenInput: $generateRTCTokenInput) {
@@ -5164,9 +5192,15 @@ export default {
             "type": {
               "kind": "NON_NULL",
               "ofType": {
-                "kind": "OBJECT",
-                "name": "AdminSetting",
-                "ofType": null
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "AdminSetting",
+                    "ofType": null
+                  }
+                }
               }
             },
             "args": [

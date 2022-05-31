@@ -1,15 +1,11 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
 
 import _classes from "./PhysicianProfile.module.scss";
-import { Input, Avatar, Form, Button, notification } from "antd";
+import { Input, Avatar, Form, Button } from "antd";
 
-import {
-  useUpdateDoctorProfileMutation,
-  useEnableOrDisableDoctorMutation,
-  User,
-} from "generated/graphql";
+import { User } from "generated/graphql";
 import { adminBioForm } from "utils/helper";
 
 type props = {
@@ -24,23 +20,11 @@ export const ViewProfile = React.forwardRef(function Profile({
   setIsEdit,
 }: props) {
   const [formInstance] = Form.useForm();
-  const [image, setImage] = useState<string>("");
 
-  const {
-    first_name,
-    last_name,
-    password,
-    email,
-    contact_number,
-    doctorProfile,
-  } = (doctorData && doctorData[0]) || {};
+  const { first_name, last_name, email, contact_number, doctorProfile } =
+    (doctorData && doctorData[0]) || {};
 
   const { profile_image: userProfileImage } = doctorProfile || {};
-
-  const [result, updateDoctor] = useUpdateDoctorProfileMutation();
-  const { error } = result || {};
-
-  const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
   useEffect(() => {
     if (doctorData) {
@@ -58,43 +42,6 @@ export const ViewProfile = React.forwardRef(function Profile({
       confirmPassword: "",
     });
   }
-
-  const onFinish = async (values: any) => {
-    console.log("Values are", values);
-    try {
-      updateDoctorProfile(values);
-    } catch (error) {}
-  };
-
-  const updateDoctorProfile = async (values: any) => {
-    if (doctorData) {
-      const res = await updateDoctor({
-        updateDoctorProfileInput: {
-          doctor_id: Number(doctorId),
-          first_name: values?.firstName,
-          last_name: values?.lastName,
-          email: values?.email,
-          password: values?.password,
-          profile_image: image ? image : userProfileImage,
-        },
-      });
-
-      if (res?.data) {
-        res?.data?.updateDoctorProfile &&
-          notification.success({
-            message: "Updated Successfully",
-          });
-      }
-
-      if (res?.error) {
-        res?.error?.graphQLErrors[0]?.message &&
-          notification.error({
-            message:
-              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-          });
-      }
-    }
-  };
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -131,12 +78,7 @@ export const ViewProfile = React.forwardRef(function Profile({
             </div>
           </div>
           <div className="w-full pb-10">
-            <Form
-              form={formInstance}
-              name="basic"
-              onFinish={onFinish}
-              layout="vertical"
-            >
+            <Form form={formInstance} name="basic" layout="vertical">
               {adminBioForm.map((item, index) => {
                 return (
                   <div className="flex flex-row gap-3" key={index}>
