@@ -108,7 +108,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">First Name</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="firstName">
+                  <Form.Item
+                    noStyle
+                    name="firstName"
+                    rules={[{ required: true, message: "First Name!" }]}
+                  >
                     <Input size="large" placeholder="First Name" />
                   </Form.Item>
                 </div>
@@ -119,7 +123,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Last Name</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="lastName">
+                  <Form.Item
+                    noStyle
+                    name="lastName"
+                    rules={[{ required: true, message: "Last Name!" }]}
+                  >
                     <Input size="large" placeholder="last Name" />
                   </Form.Item>
                 </div>
@@ -184,7 +192,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Email Address</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="email">
+                  <Form.Item
+                    noStyle
+                    name="email"
+                    rules={[{ required: true, message: "Email Address!" }]}
+                  >
                     <Input size="large" placeholder="Email Address" />
                   </Form.Item>
                 </div>
