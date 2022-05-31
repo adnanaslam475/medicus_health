@@ -83,6 +83,7 @@ function AppointmentModalFooter({
         requestedDate: contextData.stepOne?.requestedDate,
         selectedSlotId: contextData.stepOne?.selectedSlotId,
         scheduleId: contextData.stepOne?.scheduleId,
+        adminSettingId:123
       },
     });
     if (bookData?.bookAppointment.status === "Confirmed") {
@@ -135,6 +136,7 @@ function AppointmentModalFooter({
           requestedDate: contextData.stepOne?.requestedDate,
           selectedSlotId: contextData.stepOne?.selectedSlotId,
           scheduleId: contextData.stepOne?.scheduleId,
+          adminSettingId:123
         },
       });
 
