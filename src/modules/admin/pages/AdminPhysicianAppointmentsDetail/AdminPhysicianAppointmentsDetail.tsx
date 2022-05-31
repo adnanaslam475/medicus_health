@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { Tabs } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { Appointment, useGetAppointmentByIdQuery } from "generated/graphql";
-import AdminPhysicianAppointmentInfoOfPhysicianTab from "./AdminPhysicianAppointmentInfoOfPhysicianTab";
 import AdminPhysicianAttachmentTab from "./AdminPhysicianAttachmentTab";
 import AdminPhysicianNotesWithTextTab from "./AdminPhysicianNotesWithTextTab";
 import AdminPhysicianQuestionnaireFormTab from "./AdminPhysicianQuestionnaireFormTab";
