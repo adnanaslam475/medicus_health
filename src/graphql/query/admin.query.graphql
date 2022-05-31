@@ -77,6 +77,14 @@ mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
   }
 }
 
+# Admin General Settings
+mutation createAdminSettings($createAdminSettingInput: CreateAdminSettingInput!) {
+  createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
+    id
+    key
+    value
+  }
+}
 
 query adminUsers($filter:GetAdminUsersFilterInput!){
   adminUsers(filter:$filter){

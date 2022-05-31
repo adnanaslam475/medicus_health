@@ -58,7 +58,6 @@ function PatientAppointmentHistoryTable(props: Props) {
 				compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
 				multiple: 3,
 			},
-		
 		},
 
 		{
