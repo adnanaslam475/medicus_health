@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
+import React from "react";
 import { useRouter } from "next/router";
+import { RangeValue } from "rc-picker/lib/interface";
 import { Tabs } from "antd";
 import {
   BellOutlined,
@@ -9,17 +10,12 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
-import { Profile } from "../../components/Profile/Profile";
 import EmailNotification from "../EmailNotification/EmailNotification";
-import AdminPhysicianPatientAppointment from "../AdminPhysicianPatientAppointment/AdminPhysicianPatientAppointment";
 import {
   useCreateDoctorScheduleMutation,
-  useDoctorProfileQuery,
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../generated/graphql";
-import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
-import { RangeValue } from "rc-picker/lib/interface";
 import AdminPhysicianPatientAppointmentTab from "./AdminPhysicianPatientAppointmentTab";
 import StaffListing from "modules/doctor/pages/staff/StaffListing/StaffListing";
 import AccountsProfile from "modules/doctor/pages/physicians/Accounts/AccountsProfile/AccountsProfile";
@@ -27,62 +23,62 @@ import AccountsProfile from "modules/doctor/pages/physicians/Accounts/AccountsPr
 const { TabPane } = Tabs;
 
 function ProfileDetail() {
-  const [isEdit, setIsEdit] = useState(false);
-  const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
-    "Select Day"
-  );
-  const [addScheduleTime, setAddScheduleTime] = useState<{
-    time: RangeValue<moment.Moment> | null;
-    timeString: string[];
-  }>({ timeString: [], time: null });
-  const [deleteScheduleId, setDeleteScheduleId] = useState("");
+  const [activeTab, setActiveTab] = React.useState<string>("");
 
-  const editData = () => {
-    setIsEdit(!isEdit);
-  };
+  // const [addScheduleTime, setAddScheduleTime] = React.useState<{
+  //   time: RangeValue<moment.Moment> | null;
+  //   timeString: string[];
+  // }>({ timeString: [], time: null });
+  const [deleteScheduleId, setDeleteScheduleId] = React.useState<string>("");
+
   //   GET ID FROM URL
   const router = useRouter();
   const { query } = router;
   const docId = query?.id;
 
-  const [{ data }] = useDoctorProfileQuery({
-    variables: { doctor_id: Number(docId) },
-  });
-
-  const { doctorProfile } = data || {};
+  // const [{ data }] = useDoctorProfileQuery({
+  //   variables: { doctor_id: Number(docId) },
+  // });
 
   const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
     variables: { doctorId: Number(docId) },
   });
-  const schedules = doctorSchedules?.data?.doctorSchedules;
 
   const [createDoctorScheduleResponse, executeCreateDoctorScheduleMutation] =
     useCreateDoctorScheduleMutation();
-  const { fetching } = createDoctorScheduleResponse;
 
   const [, executeRemoveDoctorScheduleMutation] =
     useRemoveDoctorScheduleMutation();
 
-  async function onAddClick() {
-    if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length) {
-      const variable = {
-        doctorId: Number(docId),
-        day: Number(addScheduleDay),
-        startTime: addScheduleTime.timeString[0],
-        endTime: addScheduleTime.timeString[1],
-      };
+  // async function onAddClick() {
+  //   if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length) {
+  //     const variable = {
+  //       doctorId: Number(docId),
+  //       day: Number(addScheduleDay),
+  //       startTime: addScheduleTime.timeString[0],
+  //       endTime: addScheduleTime.timeString[1],
+  //     };
 
-      await executeCreateDoctorScheduleMutation(variable);
-      await executeDoctorSchedules({ requestPolicy: "network-only" });
-      setAddScheduleDay("Select Day");
-      setAddScheduleTime({ timeString: [], time: null });
-    }
-  }
-  useEffect(() => {
+  //     await executeCreateDoctorScheduleMutation(variable);
+  //     await executeDoctorSchedules({ requestPolicy: "network-only" });
+  //     setAddScheduleDay("Select Day");
+  //     setAddScheduleTime({ timeString: [], time: null });
+  //   }
+  // }
+
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
+  React.useEffect(() => {
     if (deleteScheduleId) {
       executeRemoveDoctorScheduleMutation({ id: Number(deleteScheduleId) });
     }
   }, [deleteScheduleId]);
+
+  React.useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+  }, [query]);
 
   return (
     <AppLayout>
@@ -90,15 +86,8 @@ function ProfileDetail() {
         <div className="w-full py-5">
           <Tabs
             defaultActiveKey="1"
-            // activeKey={String(query.activeTab) || "1"}
-            // onChange={(key) => {
-            //   router.push({
-            //     pathname: `/admin/physicians/${query?.id}`,
-            //     query: {
-            //       activeTab: key,
-            //     },
-            //   });
-            // }}
+            activeKey={activeTab || "1"}
+            onChange={onChangeTabHandler}
           >
             <TabPane
               tab={
@@ -133,7 +122,7 @@ function ProfileDetail() {
                   schedules={schedules}
                 />
               )} */}
-               <AccountsProfile/>
+              <AccountsProfile />
             </TabPane>
             <TabPane
               tab={

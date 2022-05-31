@@ -35,7 +35,6 @@ function ProfileTab({}: Props) {
     city_id,
     patientProfile,
   } = patient || {};
-  console.log("patient==============================>", patient);
 
   const { maritalStatus, children, occupation, occupationalExposure, pets } =
     patientProfile || {};

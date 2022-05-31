@@ -62,7 +62,7 @@ function StaffDetailsFrom({
       <div className="flex justify-end">
         <Form.Item>
           <div className="flex gap-4">
-            <Button htmlType="submit" onClick={() => Router.back()}>
+            <Button onClick={() => Router.push("/physician/staff")}>
               Cancel
             </Button>
             <Button
