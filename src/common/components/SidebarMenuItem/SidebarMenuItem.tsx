@@ -11,6 +11,7 @@ import {
   StaffIcon,
   MessageIcon,
   DashboardIcon,
+  ReportIcon,
 } from "../CustomIcon";
 import _classes from "./SidebarMenuItem.module.scss";
 
@@ -48,6 +49,7 @@ function SidebarMenuItem() {
     <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
     <PatientIcon className={_classes["sidebar-icon-hover"]} />,
     <MessageIcon className={_classes["sidebar-icon-hover"]} />,
+    <ReportIcon className={_classes["sidebar-icon-hover"]} />,
     <StaffIcon className={_classes["sidebar-icon-hover"]} />,
     <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
     
@@ -92,9 +94,9 @@ function SidebarMenuItem() {
               <Menu.SubMenu
                 key="sub1"
                 icon={
-                  <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
+                  <ReportIcon className={_classes["sidebar-icon-hover"]} />
                 }
-                title="Appointments"
+                title="Reports"
               >
                 {el.submenu?.map((el2, i2) => {
                   return (

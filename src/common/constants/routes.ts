@@ -25,15 +25,26 @@ export const PATIENT_ROUTES: routes = [
 ];
 
 export const ADMIN_ROUTES: routes = [
-  { name: "Dashboard", route: "/admin/dashboards" },
-  { name: "Appointments", route: "/admin/appointments" },
-  // { name: "Admin Listing", route: "/admin/listing" },
-  { name: "Physicians", route: "/admin/physicians" },
-  { name: "Patients", route: "/admin/patients" },
-  { name: "Messages", route: "/admin/messages" },
-  { name: "User", route: "/admin/user" },
-  { name: "Account", route: "/admin/account" },
-  { name: "Settings", route: "/admin/settings" },
+	{ name: "Dashboard", route: "/admin/dashboards" },
+	{ name: "Appointments", route: "/admin/appointments" },
+	// { name: "Admin Listing", route: "/admin/listing" },
+	{ name: "Physicians", route: "/admin/physicians" },
+	{ name: "Patients", route: "/admin/patients" },
+	{ name: "Messages", route: "/admin/messages" },
+	{
+		name: "Reports",
+		route: "/admin/reports",
+		submenu: [
+			{
+				name: "Transaction Reports",
+				route: "/admin/reports/transactionReport",
+			},
+			{ name: "Payout Reports", route: "/admin/reports/payout-reports" },
+		],
+	},
+	{ name: "User", route: "/admin/user" },
+	{ name: "Account", route: "/admin/account" },
+	{ name: "Settings", route: "/admin/settings" },
 ];
 
 export const DOCTOR_ROUTES: routes = [
