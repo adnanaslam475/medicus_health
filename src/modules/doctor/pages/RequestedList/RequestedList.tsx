@@ -11,6 +11,7 @@ import {
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
+import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {
   appointmentsData?: Appointment[] | undefined;
@@ -110,6 +111,19 @@ const RequestedList = (props: Props) => {
       },
       render: (value: number) => {
         return <div className="someclass">{value ? `$ ${value}` : ""}</div>;
+      },
+    },
+    {
+      title: "Appointment Status",
+      dataIndex: "status",
+      key: "status",
+      className: "table-action-icon",
+      render: (value: any) => {
+        return (
+          <div className="text-primary">
+            <StatusChip type={value?.toUpperCase()} />
+          </div>
+        );
       },
     },
 

@@ -10,8 +10,12 @@ import {
 import { Tabs } from "antd";
 import ProfileTab from "./ProfileTab";
 import AdminHealthQuestionnaireFrom from "./AdminHealthQuestionnaireFromTab";
-import { UnorderedListOutlined, UserOutlined } from "@ant-design/icons";
-import Appointments from "../../../../../pages/admin/appointments";
+import {
+  CalendarOutlined,
+  UnorderedListOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import PatientAppointmentsTab from "./PatientAppointmentsTab";
 
 function AdminPatientListingDetail() {
   const { query } = useRouter();
@@ -57,13 +61,13 @@ function AdminPatientListingDetail() {
             <Tabs.TabPane
               tab={
                 <span>
-                  <UnorderedListOutlined />
-                  Appointments History
+                  <CalendarOutlined />
+                  Appointments
                 </span>
               }
               key="3"
             >
-              <Appointments />
+              <PatientAppointmentsTab />
             </Tabs.TabPane>
           </Tabs>
         </div>

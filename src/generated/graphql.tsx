@@ -1579,6 +1579,13 @@ export type EnableOrDisablePatientMutationVariables = Exact<{
 
 export type EnableOrDisablePatientMutation = { __typename?: 'Mutation', enableOrDisablePatient: { __typename?: 'User', id: number, status: boolean } };
 
+export type RemoveAppointmentByAdminMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type RemoveAppointmentByAdminMutation = { __typename?: 'Mutation', removeAppointment: { __typename?: 'Appointment', id: number } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -2402,6 +2409,17 @@ export const EnableOrDisablePatientDocument = gql`
 
 export function useEnableOrDisablePatientMutation() {
   return Urql.useMutation<EnableOrDisablePatientMutation, EnableOrDisablePatientMutationVariables>(EnableOrDisablePatientDocument);
+};
+export const RemoveAppointmentByAdminDocument = gql`
+    mutation removeAppointmentByAdmin($id: Int!) {
+  removeAppointment(id: $id) {
+    id
+  }
+}
+    `;
+
+export function useRemoveAppointmentByAdminMutation() {
+  return Urql.useMutation<RemoveAppointmentByAdminMutation, RemoveAppointmentByAdminMutationVariables>(RemoveAppointmentByAdminDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
