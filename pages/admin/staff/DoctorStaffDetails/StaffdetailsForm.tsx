@@ -12,6 +12,7 @@ type Props = {
   handleChange: (value: boolean) => void;
   loading: boolean;
   fetching: boolean;
+  adminId: string | undefined;
   onFinish: (values: UpdateStaffInput) => void;
   handleResetLink: React.MouseEventHandler<HTMLButtonElement>;
 };
@@ -24,6 +25,7 @@ function StaffDetailsFrom({
   onFinish,
   staffDetail,
   handleResetLink,
+  adminId,
   form,
 }: Props) {
   return (
@@ -62,7 +64,14 @@ function StaffDetailsFrom({
       <div className="flex justify-end">
         <Form.Item>
           <div className="flex gap-4">
-            <Button htmlType="submit" onClick={() => Router.back()}>
+            <Button
+              onClick={() => {
+                Router.push({
+                  pathname: `/admin/physicians/${adminId}`,
+                  query: { activeTab: "4" },
+                });
+              }}
+            >
               Cancel
             </Button>
             <Button

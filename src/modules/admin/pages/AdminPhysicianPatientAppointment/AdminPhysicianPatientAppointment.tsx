@@ -181,7 +181,7 @@ function AdminPhysicianList() {
           <EyeFilled
             className="text-primary"
             onClick={() => {
-              return Router.push(`/admin/physicians/${value}`);
+              Router.push(`/admin/physicians/${value}`);
             }}
           />
         </div>

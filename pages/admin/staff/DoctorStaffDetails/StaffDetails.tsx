@@ -63,7 +63,7 @@ function DoctorStaffDetails() {
         notification.success({
           message: "Staff Delete Successfully",
         });
-        Router.back();
+        Router.push(`/admin/physicians/${query.adminId}`);
       }
     } catch (error: any) {
       notification.error({
@@ -94,8 +94,11 @@ function DoctorStaffDetails() {
         notification.success({
           message: "Successfully Updated",
         });
-        //  Router.push(`/admin/physicians/`);
-        Router.back();
+        Router.push({
+          pathname: `/admin/physicians/${query.adminId}`,
+          query: { activeTab: "4" },
+        });
+        // Router.push(`/admin/physicians/${query.adminId}`);
       }
     } catch (error: any) {
       notification.error({
@@ -142,6 +145,7 @@ function DoctorStaffDetails() {
             onFinish={onFinish}
             form={formInstance}
             loading={loading}
+            adminId={String(query?.adminId)}
             handleChange={handleChange}
             fetching={fetching}
             handleResetLink={handleResetLink}
@@ -159,4 +163,5 @@ function DoctorStaffDetails() {
     </AppLayout>
   );
 }
+
 export default DoctorStaffDetails;
