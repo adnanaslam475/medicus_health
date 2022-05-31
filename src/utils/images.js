@@ -1,1 +1,1 @@
-export const aimsCalendarIcon = "/assets/images/aim-calendar-icon.svg";
+export const calendarFilterIcon = "/assets/images/calendar-Filter-Icon.svg";
