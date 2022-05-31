@@ -90,7 +90,7 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
 				<div className="lg:ml-3 sm:mt-0">
 					<SelectServiceTypeFilter
 						onChange={(value) =>
-							onChangeFields("appointmentType", value as string)
+							onChangeFields("serviceId", value as string)
 						}
 						// value={filterState.appointmentType}
 					/>

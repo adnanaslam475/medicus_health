@@ -25,7 +25,7 @@ function AdminPhysicianList() {
 			variables: {
 				filter: {
 					...filterValues,
-					patientId: Number(query.id),
+					doctorId: Number(query.id),
 				},
 			},
 		});
@@ -103,9 +103,9 @@ function AdminPhysicianList() {
 			render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
 				let selectedTime = appointmentTimeSlots.find((item) => item.selected);
 				return (
-					<div>{`${date?.formathhmma(
+					<div>{selectedTime?.startTime ?`${date?.formathhmma(
 						selectedTime?.startTime
-					)} - ${date?.formathhmma(selectedTime?.endTime)}`}</div>
+					)} - ${date?.formathhmma(selectedTime?.endTime)}` : "--"}</div>
 				);
 			},
 			sorter: {
@@ -120,9 +120,9 @@ function AdminPhysicianList() {
 			render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
 				let selectedTime = appointmentTimeSlots.find((item) => item.selected);
 				return (
-					<div className="someclass">{`${date?.formatMMMMDDYYYY(
+					<div className="someclass">{selectedTime?.startTime ? `${date?.formatMMMMDDYYYY(
 						selectedTime?.startTime
-					)} `}</div>
+					)} ` : "--"}</div>
 				);
 			},
 			sorter: {
