@@ -130,7 +130,10 @@ function Login() {
 
                   <Form.Item name="remember" valuePropName="checked">
                     <div className="flex justify-between text-base">
-                      <Checkbox disabled={fetching} className="text-base">
+                      <Checkbox
+                        disabled={fetching}
+                        className="text-base primary-checkbox"
+                      >
                         Remember me
                       </Checkbox>
                       <Link href="/forgotPassword">
