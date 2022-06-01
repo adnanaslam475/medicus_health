@@ -109,8 +109,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">First Name</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    // noStyle
-
                     name="firstName"
                     rules={[
                       {
@@ -130,10 +128,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Last Name</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    // noStyle
-
                     name="lastName"
-                    // rules={[{ required: true, message: "Last Name!" }]}
                     rules={[
                       {
                         required: true,
@@ -206,7 +201,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Email Address</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    // noStyle
                     name="email"
                     rules={[
                       {
