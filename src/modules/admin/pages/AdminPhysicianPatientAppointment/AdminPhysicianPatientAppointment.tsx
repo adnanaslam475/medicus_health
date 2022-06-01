@@ -15,6 +15,7 @@ import AdminPhysicianPatientAppointmentSearchFilters from "./AdminPhysicianPatie
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { useRouter } from "next/router";
 import { date } from "common/utils";
+import { StatusName } from "common/types/types";
 
 function AdminPhysicianList() {
 	const { query } = useRouter();
@@ -146,8 +147,8 @@ function AdminPhysicianList() {
 			title: "Status",
 			dataIndex: "status",
 			key: "status",
-			render: (value: User) => {
-				return <StatusChip type="COMPLETED" />;
+			render: (status: string) => {
+				return <StatusChip type={status.toUpperCase() as StatusName} />;
 			},
 			sorter: {
 				compare: (a: any, b: any) => a.service - b.service,
