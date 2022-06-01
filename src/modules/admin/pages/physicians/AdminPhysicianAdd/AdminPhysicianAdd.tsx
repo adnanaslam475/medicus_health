@@ -30,7 +30,6 @@ import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysic
 import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import Router, { useRouter } from "next/router";
 
-
 type props = {
   validateForm?: (value: any) => void;
   onFinishPersonalInfo?: (value: any) => void;
@@ -103,7 +102,7 @@ function AdminPhysicianAdd() {
                 >
                   <div className="relative">
                     <Avatar
-                      size={50}
+                      size={62}
                       style={{
                         borderColor: "transparent",
                         borderWidth: 2,
