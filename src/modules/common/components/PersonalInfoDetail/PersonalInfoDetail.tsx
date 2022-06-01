@@ -46,37 +46,65 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     user?.patientProfile?.occupationalExposure
   );
 
+  const {
+    first_name,
+    last_name,
+    gender,
+    date_of_birth,
+    contact_number,
+    email,
+    country_id,
+    state_id,
+    city_id,
+    zip_code,
+    streetAddress,
+  } = user || {};
+
+  const {
+    children,
+    maritalStatus,
+    occupation,
+    occupationalExposure,
+    exposureDuration,
+    pets,
+  } = user?.patientProfile || {};
+
   useEffect(() => {
     if (ref) {
       ref.current = formInstance;
     }
     if (user) {
       prepareAndSetEditPayload();
+      setradioChildren(
+        children === 0 || children === undefined || children === null
+          ? false
+          : true
+      );
     }
   }, [user]);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
-      firstName: user?.first_name,
-      lastName: user?.last_name,
-      gender: user?.gender,
-      date_of_birth: moment(user?.date_of_birth),
-      conntactNumber: user?.contact_number,
-      email: user?.email,
+      firstName: first_name,
+      lastName: last_name,
+      gender: gender,
+      date_of_birth: moment(date_of_birth),
+      conntactNumber: contact_number,
+      email: email,
       password: "",
-      country_id: user?.country_id,
-      state_id: user?.state_id,
-      city_id: user?.city_id,
-      postalCode: user?.zip_code,
-      streetAddress: user?.streetAddress,
+      country_id: country_id,
+      state_id: state_id,
+      city_id: city_id,
+      postalCode: zip_code,
+      streetAddress: streetAddress,
       maritalStatusExist: false,
-      maritalStatus: user?.patientProfile?.maritalStatus,
+      maritalStatus: maritalStatus,
       childrenExists: false,
-      children: user?.patientProfile?.children,
-      occupation: user?.patientProfile?.occupation,
-      occupationalExposure: user?.patientProfile?.occupationalExposure,
-      exposureDuration: user?.patientProfile?.exposureDuration,
-      pets: user?.patientProfile?.pets,
+      children: children,
+      occupation: occupation,
+      occupationalExposure: occupationalExposure,
+      exposureDuration: exposureDuration,
+      pets: pets,
     });
   }
 
@@ -309,14 +337,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0" name="childrenExists">
                     <Radio.Group
+                      defaultValue={radioChildren}
                       onChange={(e) => {
                         setradioChildren(e.target.value);
                       }}
                     >
-                      <Radio value="Yes">Yes</Radio>
-                      <Radio value="No">No</Radio>
+                      <Radio value={true}>Yes</Radio>
+                      <Radio value={false}>No</Radio>
                     </Radio.Group>
-                    {!!radioChildren && (
+                    {radioChildren && (
                       <Form.Item className="mb-0" name="children">
                         <Input size="large" placeholder="No. of children" />
                       </Form.Item>
