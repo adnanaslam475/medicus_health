@@ -20,7 +20,7 @@ function AdminPatientAppointmentInfoTab({ appointment }: Props) {
 			appointment?.patient?.first_name + " " + appointment?.patient?.last_name
 		}`,
 		physician:
-			appointment?.doctor.first_name + " " + appointment?.doctor.last_name,
+			appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
 		service: appointment?.serviceType?.name,
 		dueDate: formatMMMM_Dcoma_YYYY(selectedAppointment?.startTime),
 		time: `${
