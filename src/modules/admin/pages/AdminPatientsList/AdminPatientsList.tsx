@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { Table } from "antd";
-import { EyeFilled } from "@ant-design/icons";
+import { Button, Table } from "antd";
+import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import Image from "next/image";
 import AdminPatientsListFilter from "./AdminPatientsListFilter";
@@ -15,6 +15,7 @@ import {
   City,
 } from "generated/graphql";
 import { ColumnsType } from "antd/lib/table/Table";
+import Link from "next/link";
 
 function AdminPatientsList() {
   const [filterValues, setFilterValues] = useState<PatientListFilterType>({});
@@ -117,8 +118,16 @@ function AdminPatientsList() {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex justify-between">
-          <h2 className="pb-0 mb-0">Patients</h2>
+        <div className="flex justify-between mb-10">
+          <h2 className="mb-4">Patients</h2>
+          <Link passHref href={`/admin/patients/addPatients`}>
+            <a>
+              <Button type="primary">
+                <PlusOutlined />
+                Add Patient
+              </Button>
+            </a>
+          </Link>
         </div>
 
         <AdminPatientsListFilter onChange={onChangeFilters} />
