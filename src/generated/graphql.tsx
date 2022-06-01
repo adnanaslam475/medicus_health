@@ -1900,6 +1900,14 @@ export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }
 
 export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, admin_appointment_create_update?: boolean | null, new_message_received?: boolean | null } };
 
+export type PatientLastQuestionnaireQueryVariables = Exact<{
+  doctorId: Scalars['Int'];
+  patientId: Scalars['Int'];
+}>;
+
+
+export type PatientLastQuestionnaireQuery = { __typename?: 'Query', patientLastQuestionnaire: { __typename?: 'AppointmentHealthHistory', history: any } };
+
 
 export const UpdateAdminUserDocument = gql`
     mutation updateAdminUser($updateAdminUserInput: UpdateAdminUserInput!, $id: Int!) {
@@ -3596,6 +3604,17 @@ export const UserEmailPreferencesDocument = gql`
 
 export function useUserEmailPreferencesQuery(options?: Omit<Urql.UseQueryArgs<UserEmailPreferencesQueryVariables>, 'query'>) {
   return Urql.useQuery<UserEmailPreferencesQuery>({ query: UserEmailPreferencesDocument, ...options });
+};
+export const PatientLastQuestionnaireDocument = gql`
+    query patientLastQuestionnaire($doctorId: Int!, $patientId: Int!) {
+  patientLastQuestionnaire(doctorId: $doctorId, patientId: $patientId) {
+    history
+  }
+}
+    `;
+
+export function usePatientLastQuestionnaireQuery(options: Omit<Urql.UseQueryArgs<PatientLastQuestionnaireQueryVariables>, 'query'>) {
+  return Urql.useQuery<PatientLastQuestionnaireQuery>({ query: PatientLastQuestionnaireDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
