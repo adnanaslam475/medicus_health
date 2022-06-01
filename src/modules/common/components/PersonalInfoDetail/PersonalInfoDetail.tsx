@@ -137,9 +137,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">First Name</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    noStyle
                     name="firstName"
-                    rules={[{ required: true, message: "First Name!" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "First Name!",
+                      },
+                    ]}
+                    className="bottom-margin-0"
                   >
                     <Input size="large" placeholder="First Name" />
                   </Form.Item>
@@ -152,9 +157,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Last Name</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    noStyle
                     name="lastName"
-                    rules={[{ required: true, message: "Last Name!" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Last Name!",
+                      },
+                    ]}
+                    className="bottom-margin-0"
                   >
                     <Input size="large" placeholder="last Name" />
                   </Form.Item>
@@ -166,7 +176,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Gender</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item className="mb-0" name="gender">
+                  <Form.Item className="bottom-margin-0" name="gender">
                     <Select placeholder="Gender" size="large">
                       <Select.Option value="male">Male</Select.Option>
                       <Select.Option value="female">Female</Select.Option>
@@ -184,7 +194,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Date of Birth</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    className="flex-1"
+                    className="flex-1 bottom-margin-0"
                     name="date_of_birth"
                     rules={[
                       {
@@ -221,9 +231,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Email Address</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    noStyle
                     name="email"
-                    rules={[{ required: true, message: "Email Address!" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your email!",
+                      },
+                    ]}
+                    className="bottom-margin-0"
                   >
                     <Input size="large" placeholder="Email Address" />
                   </Form.Item>
@@ -235,7 +250,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Password</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item name="password">
+                  <Form.Item name="password" className="bottom-margin-0">
                     <Input.Password size="large" placeholder="Password" />
                   </Form.Item>
                 </div>
