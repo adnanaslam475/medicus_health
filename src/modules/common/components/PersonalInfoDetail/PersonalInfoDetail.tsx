@@ -109,9 +109,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">First Name</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    noStyle
+                    // noStyle
+
                     name="firstName"
-                    rules={[{ required: true, message: "First Name!" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "First Name!",
+                      },
+                    ]}
                   >
                     <Input size="large" placeholder="First Name" />
                   </Form.Item>
@@ -124,9 +130,16 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Last Name</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    noStyle
+                    // noStyle
+
                     name="lastName"
-                    rules={[{ required: true, message: "Last Name!" }]}
+                    // rules={[{ required: true, message: "Last Name!" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Last Name!",
+                      },
+                    ]}
                   >
                     <Input size="large" placeholder="last Name" />
                   </Form.Item>
@@ -193,9 +206,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Email Address</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    noStyle
+                    // noStyle
                     name="email"
-                    rules={[{ required: true, message: "Email Address!" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your email!",
+                      },
+                    ]}
                   >
                     <Input size="large" placeholder="Email Address" />
                   </Form.Item>
