@@ -109,7 +109,11 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText label="Type" text={serviceType?.name} />
         <LabelWithText
           label="Due Date"
-          text={formatMMMM_Dcoma_YYYY(requestedDate)}
+          text={
+            timeSlots()?.startTime
+              ? `${formatMMMM_Dcoma_YYYY(timeSlots()?.startTime)} `
+              : "--"
+          }
         />
         <LabelWithText
           label="Appointment creation date"
