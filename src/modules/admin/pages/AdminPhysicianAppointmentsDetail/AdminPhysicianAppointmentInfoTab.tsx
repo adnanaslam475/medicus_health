@@ -15,7 +15,7 @@ function AdminPhysicianAppointmentInfoTab({ appointment }: Props) {
 	);
 	const normalizedAppointmentData = {
 		id: appointment?.id,
-		bookingDate: appointment?.requestedDate,
+		bookingDate: formatMMMM_Dcoma_YYYY(selectedAppointment?.startTime) || "--",
 		patient: `${
 			appointment?.patient?.first_name + " " + appointment?.patient?.last_name
 		}`,

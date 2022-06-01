@@ -174,7 +174,7 @@ function AdminPhysicianList() {
 		},
 		{
 			title: "",
-			dataIndex: "doctor_id",
+			dataIndex: "id",
 			key: "view",
 			className: "table-action-icon",
 			render: (value: string) => (
@@ -182,7 +182,7 @@ function AdminPhysicianList() {
 					<EyeFilled
 						className="text-primary"
 						onClick={() => {
-							Router.push(`/admin/physicians/detail`);
+							Router.push(`/admin/physicians/detail/${value}`);
 						}}
 					/>
 				</div>
