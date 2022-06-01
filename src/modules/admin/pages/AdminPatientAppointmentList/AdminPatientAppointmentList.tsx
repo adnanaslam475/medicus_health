@@ -16,6 +16,16 @@ import { useRouter } from "next/router";
 import { date } from "common/utils";
 import AdminPatientAppointmentSearchFilters from "./AdminPatientAppointmentSearchFilters";
 
+type StatusName =
+  | "UPCOMING"
+  | "COMPLETED"
+  | "PENDING"
+  | "SUCCEEDED"
+  | "CONFIRMED"
+  | "REQUESTED"
+  | "SUGGESTED"
+  | "CANCELLED";
+
 function AdminPatientAppointmentList() {
   const { query } = useRouter();
   const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
@@ -103,9 +113,9 @@ function AdminPatientAppointmentList() {
       render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
         let selectedTime = appointmentTimeSlots.find((item) => item.selected);
         return (
-          <div>{`${date?.formathhmma(
+          <div>{selectedTime?.startTime ? `${date?.formathhmma(
             selectedTime?.startTime
-          )} - ${date?.formathhmma(selectedTime?.endTime)}`}</div>
+          )} - ${date?.formathhmma(selectedTime?.endTime)}` : "--"}</div>
         );
       },
       sorter: {
@@ -120,9 +130,9 @@ function AdminPatientAppointmentList() {
       render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
         let selectedTime = appointmentTimeSlots.find((item) => item.selected);
         return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
+          <div className="someclass">{selectedTime?.startTime ?`${date?.formatMMMMDDYYYY(
             selectedTime?.startTime
-          )} `}</div>
+          )} ` : "--"}</div>
         );
       },
       sorter: {
@@ -146,8 +156,8 @@ function AdminPatientAppointmentList() {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (value: User) => {
-        return <StatusChip type="COMPLETED" />;
+      render: (status: StatusName | string) => {
+        return <StatusChip type={status.toUpperCase() as StatusName} />;
       },
       sorter: {
         compare: (a: any, b: any) => a.service - b.service,

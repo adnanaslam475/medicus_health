@@ -33,8 +33,7 @@ const HealthQuestionnary = ({
 }: HealthQuesType) => {
   const [terms, setTerms] = useState(false);
   const form: any = useRef();
-  const handleChange = (e: any) => {
-  };
+  const handleChange = (e: any) => {};
 
   useEffect(() => {
     //for Scroll to the top of the page
@@ -280,8 +279,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           rules={[
             {
               required: true,
-              message:
-                "Please fill filed",
+              message: "Please fill field",
             },
           ]}
         >

@@ -185,9 +185,13 @@ export type CreateAdminInput = {
   last_name: Scalars['String'];
 };
 
-export type CreateAdminSettingInput = {
+export type CreateAdminSetting = {
   key: Scalars['String'];
   value: Scalars['String'];
+};
+
+export type CreateAdminSettingInput = {
+  AdminSettings: Array<CreateAdminSetting>;
 };
 
 export type CreateAppointmentInput = {
@@ -536,7 +540,7 @@ export type Mutation = {
   cancelAppointment: Appointment;
   cancelAppointmentByAdmin: Appointment;
   cancelAppointmentByPatient: Appointment;
-  createAdminSetting: AdminSetting;
+  createAdminSetting: Array<AdminSetting>;
   createAdminUser: User;
   createAppointment: Appointment;
   createCard: UserCard;
@@ -935,6 +939,7 @@ export type Query = {
   getUserFilter: Array<UserResponse>;
   patientHealthHistory: PatientHealthHistory;
   patientHealthHistorys: Array<PatientHealthHistory>;
+  patientLastQuestionnaire: AppointmentHealthHistory;
   physicianAppointments: Array<Appointment>;
   physiciansPatients: Array<User>;
   staff: Array<User>;
@@ -1076,6 +1081,12 @@ export type QueryGetUserFilterArgs = {
 
 export type QueryPatientHealthHistoryArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryPatientLastQuestionnaireArgs = {
+  doctorId: Scalars['Int'];
+  patientId: Scalars['Int'];
 };
 
 
@@ -1323,6 +1334,14 @@ export type UserResponse = {
   streetAddress?: Maybe<Scalars['String']>;
   zip_code: Scalars['String'];
 };
+
+export type UpdateAdminUserMutationVariables = Exact<{
+  updateAdminUserInput: UpdateAdminUserInput;
+  id: Scalars['Int'];
+}>;
+
+
+export type UpdateAdminUserMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null } };
 
 export type GenerateRtcTokenMutationVariables = Exact<{
   generateRTCTokenInput: GenerateRtcTokenInput;
@@ -1615,6 +1634,20 @@ export type PhysicianPaymentByAdminMutationVariables = Exact<{
 
 export type PhysicianPaymentByAdminMutation = { __typename?: 'Mutation', payment: { __typename?: 'Transaction', id: number, transactionId: string, appointmentId: number, cardId: number, amountReceived: number, status: string, doctor_percentage: string, payment_status?: string | null, createdAt: any } };
 
+export type CreateAdminSettingsMutationVariables = Exact<{
+  createAdminSettingInput: CreateAdminSettingInput;
+}>;
+
+
+export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: Array<{ __typename?: 'AdminSetting', id: number, key: string, value: string }> };
+
+export type AdminUsersQueryVariables = Exact<{
+  filter: GetAdminUsersFilterInput;
+}>;
+
+
+export type AdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null }> };
+
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1868,6 +1901,22 @@ export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }
 export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, admin_appointment_create_update?: boolean | null, new_message_received?: boolean | null } };
 
 
+export const UpdateAdminUserDocument = gql`
+    mutation updateAdminUser($updateAdminUserInput: UpdateAdminUserInput!, $id: Int!) {
+  updateAdminUser(updateAdminUserInput: $updateAdminUserInput, id: $id) {
+    id
+    first_name
+    last_name
+    email
+    password
+    contact_number
+  }
+}
+    `;
+
+export function useUpdateAdminUserMutation() {
+  return Urql.useMutation<UpdateAdminUserMutation, UpdateAdminUserMutationVariables>(UpdateAdminUserDocument);
+};
 export const GenerateRtcTokenDocument = gql`
     mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
   generateRTCToken(generateRTCTokenInput: $generateRTCTokenInput) {
@@ -2514,6 +2563,35 @@ export const PhysicianPaymentByAdminDocument = gql`
 
 export function usePhysicianPaymentByAdminMutation() {
   return Urql.useMutation<PhysicianPaymentByAdminMutation, PhysicianPaymentByAdminMutationVariables>(PhysicianPaymentByAdminDocument);
+};
+export const CreateAdminSettingsDocument = gql`
+    mutation createAdminSettings($createAdminSettingInput: CreateAdminSettingInput!) {
+  createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
+    id
+    key
+    value
+  }
+}
+    `;
+
+export function useCreateAdminSettingsMutation() {
+  return Urql.useMutation<CreateAdminSettingsMutation, CreateAdminSettingsMutationVariables>(CreateAdminSettingsDocument);
+};
+export const AdminUsersDocument = gql`
+    query adminUsers($filter: GetAdminUsersFilterInput!) {
+  adminUsers(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    password
+    contact_number
+  }
+}
+    `;
+
+export function useAdminUsersQuery(options: Omit<Urql.UseQueryArgs<AdminUsersQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminUsersQuery>({ query: AdminUsersDocument, ...options });
 };
 export const GetAllChatChannelsDocument = gql`
     query getAllChatChannels {
@@ -5151,9 +5229,15 @@ export default {
             "type": {
               "kind": "NON_NULL",
               "ofType": {
-                "kind": "OBJECT",
-                "name": "AdminSetting",
-                "ofType": null
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "AdminSetting",
+                    "ofType": null
+                  }
+                }
               }
             },
             "args": [
@@ -7238,6 +7322,39 @@ export default {
               }
             },
             "args": []
+          },
+          {
+            "name": "patientLastQuestionnaire",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentHealthHistory",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "patientId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
             "name": "physicianAppointments",

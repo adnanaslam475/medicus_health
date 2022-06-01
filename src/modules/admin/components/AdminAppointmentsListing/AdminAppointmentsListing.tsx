@@ -9,9 +9,7 @@ import AdminAppointmentsFilter from "../AdminAppointmentsFilter/AdminAppointment
 import {
   Appointment,
   AppointmentServiceType,
-  DoctorProfile,
   GetAppointmentInput,
-  useDoctorProfileQuery,
   useGetPatientsQuery,
   useGetPhysiciansQuery,
   usePhysicianAppointmentsHistoryQuery,
@@ -21,9 +19,9 @@ import { date } from "common/utils";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 type AdminData = {
-  patientList:User[];
-  physicianList:User[];
-}
+  patientList: User[];
+  physicianList: User[];
+};
 
 const appointmentColumns = [
   {
@@ -156,7 +154,7 @@ const appointmentColumns = [
 
 type Props = {};
 
-function  AdminAppointmentsListing({}: Props) {
+function AdminAppointmentsListing({}: Props) {
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
   );
@@ -183,12 +181,11 @@ function  AdminAppointmentsListing({}: Props) {
   });
   const { getPhysicians } = physicianList || {};
 
-  const [{ data: patientList }] =
-    useGetPatientsQuery({
-      variables: {
-        filter: {},
-      },
-    });
+  const [{ data: patientList }] = useGetPatientsQuery({
+    variables: {
+      filter: {},
+    },
+  });
 
   const { getPatients } = patientList || {};
 
@@ -211,14 +208,6 @@ function  AdminAppointmentsListing({}: Props) {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
-  const [result] = useDoctorProfileQuery({
-    // variables: { doctor_id: Number(query?.id) },
-  });
-
-  const { data: doctorProfileData, fetching } = result || {};
-  const { doctorProfile } = doctorProfileData || {};
-  // const { doctorData, loading } = props || {};
 
   return (
     <>

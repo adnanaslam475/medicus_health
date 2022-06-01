@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { Button, Table } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Router from "next/router";
-import { useGetPhysiciansQuery, User } from "generated/graphql";
 import Image from "next/image";
+import { Button, Table } from "antd";
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
+import { useGetPhysiciansQuery, User } from "generated/graphql";
 import { date } from "common/utils";
 import { FLAG_BY_LANGUAGE } from "utils/helper";
 
@@ -97,6 +97,7 @@ function AdminPhysicianList() {
       ),
     },
   ];
+  
 
   function onChangeFilters(values: any) {
     setFilterValues(values);

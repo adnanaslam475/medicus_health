@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 function PhysiciansDetail() {
   //   GET ID FROM URL
   const { query } = useRouter();
-  console.log(query, "query");
 
   const [{ data }] = useDoctorProfileQuery({
     // variables: { doctor_id: Number(query?.id) },
