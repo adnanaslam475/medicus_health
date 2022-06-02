@@ -18,7 +18,7 @@ const createStaffForm = [
   {
     label: "Email",
     name: "email",
-    type: "text",
+    type: "email",
     required: true,
   },
   {
