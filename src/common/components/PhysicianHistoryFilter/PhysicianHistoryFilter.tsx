@@ -72,10 +72,10 @@ function PhysicianSearchFilters(props: Props) {
 
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
-            placeholder="Service"
+            placeholder="Appointment Type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={(e) => onFilterValuesChange("serviceId", e)}
-            value={filterState.serviceId || "Service"}
+            value={filterState.serviceId || "Appointment Type"}
           >
             {appointmentServiceTypes?.map((item) => (
               <Select.Option key={item?.id} value={item?.id}>
