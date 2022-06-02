@@ -8,6 +8,7 @@ import { Form, Input, Button, Radio, Checkbox, FormInstance } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import _classes from "./Questionnary.module.scss";
 import { parseJson } from "common/utils/helper";
+import { useRouter } from "next/router";
 const CheckboxGroup = Checkbox.Group;
 
 interface HealthQuesType {
@@ -129,7 +130,12 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       prepareAndSetEditPayload(parseJson(data));
     }
   }, [data]);
+  const router = useRouter();
 
+  const { pathname } = router || {};
+  let disabled = pathname.includes("/physician/appointments");
+
+  console.log("myyyyyyyyyyyyyyyyywork",disabled);
   function prepareAndSetEditPayload(parsedData: any) {
     setRadioDrink(parsedData?.q1.ans);
     setRadioSmoke(parsedData?.q2.ans);
@@ -266,6 +272,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           onChange={(e) => {
             setRadioDrink(e.target.value);
           }}
+          disabled={disabled}
         >
           <Radio value={1}>Yes</Radio>
           <Radio value={0}>No</Radio>
@@ -283,7 +290,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled}/>
         </Form.Item>
       )}
       <Form.Item
@@ -296,6 +303,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           onChange={(e) => {
             setRadioSmoke(e.target.value);
           }}
+          disabled={disabled}
         >
           <Radio value={1}>Yes</Radio>
           <Radio value={0}>No</Radio>
@@ -313,7 +321,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled}/>
         </Form.Item>
       )}
       <Form.Item
@@ -326,6 +334,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           onChange={(e) => {
             setRadioDrug(e.target.value);
           }}
+          disabled={disabled}
         >
           <Radio value={1}>Yes</Radio>
           <Radio value={0}>No</Radio>
@@ -341,6 +350,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             options={HealthQuestionnaryData.q3.q.option}
             onChange={onChangeMedicalCondition}
             style={{ display: "flex", flexDirection: "column" }}
+            disabled={disabled}
           />
         </Form.Item>
         {showDrugOthers && (
@@ -348,7 +358,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             className="flex-1"
             name={HealthQuestionnaryData.q3.q2.name}
           >
-            <Input />
+            <Input disabled={disabled}/>
           </Form.Item>
         )}
       </>
@@ -361,11 +371,12 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           options={HealthQuestionnaryData.q4.option}
           onChange={onChangeSurgicalHistory}
           style={{ display: "flex", flexDirection: "column" }}
+          disabled={disabled}
         />
       </Form.Item>
       {showSurgicalOthers && (
         <Form.Item className="flex-1" name={HealthQuestionnaryData.q4.q2.name}>
-          <Input />
+          <Input disabled={disabled}/>
         </Form.Item>
       )}
       <Form.Item
@@ -379,7 +390,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input />
+        <Input disabled={disabled}/>
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
@@ -392,7 +403,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input />
+        <Input disabled={disabled}/>
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
@@ -405,7 +416,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input />
+        <Input disabled={disabled} />
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
@@ -418,7 +429,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input />
+        <Input disabled={disabled}/>
       </Form.Item>
     </Form>
   );
