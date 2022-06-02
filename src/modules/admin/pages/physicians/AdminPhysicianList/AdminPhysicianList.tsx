@@ -87,7 +87,7 @@ function AdminPhysicianList() {
       key: "view",
       className: "table-action-icon",
       render: (value: any) => (
-        <div>
+        <div className="text-primary">
           <EyeFilled
             onClick={() => {
               return Router.push(`/admin/physicians/${value}`);

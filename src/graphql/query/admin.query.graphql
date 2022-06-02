@@ -64,7 +64,7 @@ query getPatients($filter: GetPatientsInput!) {
 
 # Pay Physician From Admin
 mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
-  payment(paymeninput: $paymeninput) {
+  payment(paymentInput: $paymeninput) {
     id
     transactionId
     appointmentId
@@ -78,7 +78,9 @@ mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
 }
 
 # Admin General Settings
-mutation createAdminSettings($createAdminSettingInput: CreateAdminSettingInput!) {
+mutation createAdminSettings(
+  $createAdminSettingInput: CreateAdminSettingInput!
+) {
   createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
     id
     key
@@ -86,8 +88,8 @@ mutation createAdminSettings($createAdminSettingInput: CreateAdminSettingInput!)
   }
 }
 
-query adminUsers($filter:GetAdminUsersFilterInput!){
-  adminUsers(filter:$filter){
+query adminUsers($filter: GetAdminUsersFilterInput!) {
+  adminUsers(filter: $filter) {
     id
     first_name
     last_name
