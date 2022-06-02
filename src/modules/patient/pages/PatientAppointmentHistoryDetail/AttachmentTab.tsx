@@ -6,6 +6,7 @@ import jpgIcon from "../../../../../public/assets/images/jpg.svg";
 import word from "../../../../../public/assets/images/word-file.svg";
 import { parseJson } from "common/utils/helper";
 import { useRouter } from "next/router";
+import { AttachmentObject } from "common/types/types";
 
 function AttachmentTab() {
   const { query } = useRouter();
@@ -22,7 +23,10 @@ function AttachmentTab() {
 
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
-    urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+    urlArr = urlArr[0]?.map((item: any) => ({
+      name: item.split("com/")[1],
+      url: item
+    }));
   }
   const { patient, serviceType } = appointment || {};
 
@@ -32,8 +36,8 @@ function AttachmentTab() {
       serviceName={serviceType?.name}
     >
       <div className="flex gap-2">
-        {urlArr?.map((item: string) => (
-          <Attachment src={word} name={item} enable={false} />
+        {urlArr?.map((item: AttachmentObject) => (
+          <Attachment item={item} enable={false} />
         ))}
       </div>
     </CardWithProfileImageInfo>
