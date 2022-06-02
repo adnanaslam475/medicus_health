@@ -260,7 +260,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
       <Form.Item>
         <div className="flex items-center justify-end">
           <Button type="primary" htmlType="submit">
-            Add Physician
+            Add Patient
           </Button>
         </div>
       </Form.Item>

@@ -38,6 +38,7 @@ function DoctorStaffDetails() {
     },
     pause: !query.staffId,
   });
+
   const { staffDetail } = data || {};
   React.useEffect(() => {
     if (staffDetail) {
@@ -68,6 +69,7 @@ function DoctorStaffDetails() {
         notification.success({
           message: "Staff Delete Successfully",
         });
+        console.log("adminid", query.adminId);
         Router.push(`/admin/physicians/${query.adminId}`);
       }
     } catch (error: any) {

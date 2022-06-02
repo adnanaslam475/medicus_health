@@ -210,11 +210,6 @@ export const ViewProfile = React.forwardRef(function Profile({
               <div className="flex gap-2 pt-2">
                 <Button
                   type="primary"
-                  // style={{
-                  //   background: "#E2F8F7",
-                  //   borderColor: "#E2F8F7",
-                  //   color: "#30CEC2",
-                  // }}
                   className={`${_classes["published-button"]}`}
                 >
                   {status ? "Published" : "Unpublished"}
