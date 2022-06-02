@@ -1,15 +1,16 @@
 type routes = {
 	name: string;
+  toggleName?:string;
 	route: string;
 	submenu?: {
 		name: string;
 		route: string;
 	}[];
-}[];
-
+}[]; 
 export const PATIENT_ROUTES: routes = [
 	{
 		name: "Appointments",
+    
 		route: "+",
 		submenu: [
 			{ name: "Upcoming", route: "/patient/appointments/upcoming" },
@@ -51,6 +52,7 @@ export const DOCTOR_ROUTES: routes = [
 	{
 		name: "Dashboard",
 		route: "/physician/dashboard",
+    toggleName:'Appointments',
 		submenu: [
 			{ name: "Upcoming", route: "/physician/appointments/upcoming" },
 			{ name: "Requested", route: "/physician/appointments/requested" },
@@ -58,7 +60,16 @@ export const DOCTOR_ROUTES: routes = [
 			{ name: "History", route: "/physician/appointments/history" },
 		],
 	},
-	{ name: "My Earnings", route: "/physician/myEarnings" },
+  {
+		name: "My Earnings",
+    toggleName:'My Earnings',
+		route: "/physician",
+		submenu: [
+			{ name: "Earnings", route: "/physician/earnings" },
+			{ name: "Payout", route: "/physician//payout" },
+		],
+	},
+	// { name: "My Earnings", route: "/physician/myEarnings" },
 	{ name: "Patients", route: "/physician/patients" },
 	{ name: "Staff", route: "/physician/staff" },
 	{ name: "Messages", route: "/physician/messages" },
