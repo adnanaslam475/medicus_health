@@ -10,11 +10,13 @@ import { QuestionnaireForm } from "../Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
 import word from "../../../../public/assets/images/word-file.svg";
 import Attachment from "../Attachment/Attachment";
+import { AttachmentObject } from "common/types/types";
 const { TabPane } = Tabs;
 
 type Props = {
   appointmentId?: Number;
 };
+
 
 const AppointmentTabs = (props: Props) => {
   const { appointmentId } = props;
@@ -37,7 +39,10 @@ const AppointmentTabs = (props: Props) => {
 
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
-    urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+    urlArr = urlArr[0]?.map((item: any) => ({
+      name: item.split("com/")[1],
+      url: item
+    }));
   }
 
   return (
@@ -59,8 +64,8 @@ const AppointmentTabs = (props: Props) => {
           />
         </TabPane>
         <TabPane tab="Attachments" key="4">
-          {urlArr?.map((item: string) => (
-            <Attachment src={word} name={item} enable />
+          {urlArr?.map((item:AttachmentObject) => (
+            <Attachment item={item} enable />
           ))}
         </TabPane>
       </Tabs>

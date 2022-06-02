@@ -156,3 +156,8 @@ export type StatusName =
   | "REQUESTED"
   | "SUGGESTED"
   | "CANCELLED";
+
+export type AttachmentObject = {
+  name: string;
+  url: string;
+};
