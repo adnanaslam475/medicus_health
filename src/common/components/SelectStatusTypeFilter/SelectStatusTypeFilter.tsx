@@ -7,7 +7,7 @@ export function SelectStatusTypeFilter({
 }: {
   onChange: (value: string | undefined) => void;
   value: string | undefined | null;
-  placeholder: string;
+  placeholder?: string;
 }) {
   return (
     <Select

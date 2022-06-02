@@ -146,3 +146,13 @@ export type CustomTimeSlot = {
   selected: Scalars["Boolean"];
   startTime: Scalars["DateTime"];
 };
+
+export type StatusName =
+  | "UPCOMING"
+  | "COMPLETED"
+  | "PENDING"
+  | "SUCCEEDED"
+  | "CONFIRMED"
+  | "REQUESTED"
+  | "SUGGESTED"
+  | "CANCELLED";

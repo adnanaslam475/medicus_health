@@ -12,7 +12,7 @@ import AdminPatientAttachmentTab from "./AdminPatientAttachmentTab";
 function AdminPatientAppointmentDetail() {
   const { query } = useRouter();
   const [{ data }] = useGetAppointmentByIdQuery({
-    variables: { id: Number(query?.appointmentId) },
+    variables: { id: Number(query?.id) },
   });
 
   const { appointment } = data || {};

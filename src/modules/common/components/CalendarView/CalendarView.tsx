@@ -70,12 +70,12 @@ function AdminCalender(props: Props) {
 					appointmentTimeSlots,
 				}) => ({
 					id: id,
-					title: patient.first_name,
+					title: patient?.first_name,
 					start:
 						appointmentTimeSlots
 							?.find((item) => item.selected)
 							?.startTime.split(".")[0] || requestedDate,
-					patient: patient.first_name + " " + patient.last_name,
+					patient: patient?.first_name + " " + patient?.last_name,
 					serviceType: serviceType?.name,
 					charges: charges,
 					status: status,

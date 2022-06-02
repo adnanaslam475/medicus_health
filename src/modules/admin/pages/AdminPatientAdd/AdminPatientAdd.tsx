@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
+// import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 
 import {
   Table,
@@ -18,23 +18,25 @@ import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
 import yourImage from "../../../../../../public/assets/images/your_photo.png";
-import {
-  useCountriesQuery,
-  useCreateDoctorMutation,
-  useGetCitiesByStateQuery,
-  useGetStatesByCountryQuery,
-  User,
-} from "../../../../../generated/graphql";
+// import {
+//   useCountriesQuery,
+//   useCreateDoctorMutation,
+//   useGetCitiesByStateQuery,
+//   useGetStatesByCountryQuery,
+//   User,
+// } from "../../../../../generated/graphql";
 import dayjs from "dayjs";
-// import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
 import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import Router, { useRouter } from "next/router";
+import { useCreateDoctorMutation } from "generated/graphql";
+import AppLayout from "common/components/AppLayout/AppLayout";
+import { AddPatientForm } from "modules/admin/components/AddPatientForm/AddPatientForm";
 
 type props = {
   validateForm?: (value: any) => void;
   onFinishPersonalInfo?: (value: any) => void;
 };
-function PatientAdd() {
+function AdminPatientAdd() {
   const [data, CreateDoctorMutation] = useCreateDoctorMutation();
 
   const form: any = useRef();
@@ -61,7 +63,7 @@ function PatientAdd() {
 
     if (response?.data?.createDoctor) {
       Router.push({
-        pathname: "/physician/patients",
+        pathname: "/admin/physicians",
       });
     }
 
@@ -119,7 +121,7 @@ function PatientAdd() {
                 </Upload>
               </div>
               <div className="w-full">
-                {/* <AddPhysicianForm onFinish={createDoctor} /> */}
+                <AddPatientForm onFinish={createDoctor} />
               </div>
             </div>
           </div>
@@ -128,4 +130,4 @@ function PatientAdd() {
     </AppLayout>
   );
 }
-export default PatientAdd;
+export default AdminPatientAdd;

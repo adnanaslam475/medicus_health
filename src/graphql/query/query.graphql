@@ -69,13 +69,12 @@ query getUser($input: Int!) {
     country_id
     city_id
     state_id
-    password
     zip_code
     streetAddress
     status
     patientProfile {
       maritalStatus
-      profileImag
+      profileImage
       children
       occupation
       occupationalExposure

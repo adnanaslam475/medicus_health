@@ -39,7 +39,7 @@ export const ADMIN_ROUTES: routes = [
 				name: "Transaction Reports",
 				route: "/admin/reports/transactionReport",
 			},
-			{ name: "Payout Reports", route: "/admin/reports/payout-reports" },
+			{ name: "Payout Reports", route: "/admin/reports/payoutReport" },
 		],
 	},
 	{ name: "User", route: "/admin/user" },

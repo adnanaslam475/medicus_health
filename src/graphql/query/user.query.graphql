@@ -8,3 +8,9 @@ query userEmailPreferences {
     new_message_received
   }
 }
+
+query patientLastQuestionnaire($doctorId: Int!, $patientId: Int!) {
+  patientLastQuestionnaire(doctorId: $doctorId, patientId: $patientId) {
+    history
+  }
+}
