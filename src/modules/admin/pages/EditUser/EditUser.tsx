@@ -110,8 +110,7 @@ function EditAdminUserDetails({}: Props) {
           <div className="lg:w-3/5">
             <h6 className="">{adminUser?.id}</h6>
             <h1>
-              {" "}
-              {adminUser?.first_name} {adminUser?.last_name}{" "}
+              {adminUser?.first_name} {adminUser?.last_name}
             </h1>
             <p>{adminUser?.email}</p>
           </div>
