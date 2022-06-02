@@ -948,7 +948,7 @@ export type Query = {
   states: Array<State>;
   transaction: Transaction;
   transactions: Array<Transaction>;
-  user: User;
+  user: UserResponse;
   userEmailPreferences: UserEmailPreferencesResponse;
   users: Array<User>;
 };
@@ -1325,7 +1325,6 @@ export type UserResponse = {
   gender?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   last_name: Scalars['String'];
-  password?: Maybe<Scalars['String']>;
   patientHealthHistory?: Maybe<PatientHealthHistory>;
   patientProfile?: Maybe<PatientProfile>;
   role?: Maybe<Scalars['String']>;
@@ -1594,6 +1593,13 @@ export type RemoveAppointmentByAdminMutationVariables = Exact<{
 
 export type RemoveAppointmentByAdminMutation = { __typename?: 'Mutation', removeAppointment: { __typename?: 'Appointment', id: number } };
 
+export type RemovePatientUserMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type RemovePatientUserMutation = { __typename?: 'Mutation', removeUser: { __typename?: 'User', id: number } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -1768,7 +1774,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, password?: string | null, zip_code?: string | null, streetAddress?: string | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'UserResponse', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, zip_code: string, streetAddress?: string | null, status: boolean, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null } };
 
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1794,7 +1800,7 @@ export type DoctorProfileDetailsQueryVariables = Exact<{
 }>;
 
 
-export type DoctorProfileDetailsQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', day: number, startTime: string, endTime: string }> | null } };
+export type DoctorProfileDetailsQuery = { __typename?: 'Query', user: { __typename?: 'UserResponse', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, country_id: number, state_id: number, city_id: number, zip_code: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', day: number, startTime: string, endTime: string }> | null } };
 
 export type GetAllAppointmentServiceTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1893,7 +1899,7 @@ export type GetAdminUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetAdminUserByIdQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean } };
+export type GetAdminUserByIdQuery = { __typename?: 'Query', user: { __typename?: 'UserResponse', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean } };
 
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2459,6 +2465,17 @@ export const RemoveAppointmentByAdminDocument = gql`
 
 export function useRemoveAppointmentByAdminMutation() {
   return Urql.useMutation<RemoveAppointmentByAdminMutation, RemoveAppointmentByAdminMutationVariables>(RemoveAppointmentByAdminDocument);
+};
+export const RemovePatientUserDocument = gql`
+    mutation removePatientUser($id: Int!) {
+  removeUser(id: $id) {
+    id
+  }
+}
+    `;
+
+export function useRemovePatientUserMutation() {
+  return Urql.useMutation<RemovePatientUserMutation, RemovePatientUserMutationVariables>(RemovePatientUserDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
@@ -3057,9 +3074,9 @@ export const GetUserDocument = gql`
     country_id
     city_id
     state_id
-    password
     zip_code
     streetAddress
+    status
     patientProfile {
       maritalStatus
       profileImage
@@ -7567,7 +7584,7 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "User",
+                "name": "UserResponse",
                 "ofType": null
               }
             },
@@ -8498,14 +8515,6 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
-            },
-            "args": []
-          },
-          {
-            "name": "password",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
             },
             "args": []
           },

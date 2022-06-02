@@ -91,13 +91,9 @@ function ProfileForm({
                   >
                     {val.name === "password" ||
                     val.name === "confirmPassword" ? (
-                      <Input.Password                        
-                        disabled={true}
-                      />
+                      <Input.Password disabled={true} />
                     ) : (
-                      <Input
-                        disabled={true}
-                      />
+                      <Input disabled={true} />
                     )}
                   </Form.Item>
                 );

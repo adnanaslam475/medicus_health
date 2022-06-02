@@ -99,7 +99,6 @@ mutation removeStaff($id: Int!) {
     last_name
     email
     contact_number
-
   }
 }
 
@@ -309,6 +308,13 @@ mutation enableOrDisablePatient($id: Int!) {
 #REMOVE APPOINTMENT BY ADMIN
 mutation removeAppointmentByAdmin($id: Int!) {
   removeAppointment(id: $id) {
+    id
+  }
+}
+
+# remove patient user
+mutation removePatientUser($id: Int!) {
+  removeUser(id: $id) {
     id
   }
 }
