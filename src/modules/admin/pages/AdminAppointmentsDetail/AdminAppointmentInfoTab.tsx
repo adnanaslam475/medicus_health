@@ -9,10 +9,33 @@ type Props = {
   appointment: Appointment | undefined;
 };
 
+type DoctorData = {
+  doctor: {
+    doctor_Id: number;
+    doctor_first_name: string;
+    doctor_last_name: string;
+  };
+  patient: {
+    patient_id: number;
+  };
+};
+
 function AdminAppointmentInfoTab({ appointment }: Props) {
   let selectedAppointment = appointment?.appointmentTimeSlots?.find(
     (item) => item.selected
   );
+
+  const adminApp_Details = {
+    doctor: {
+      doctor_Id: appointment?.doctor?.id,
+      doctor_first_name: appointment?.doctor?.first_name,
+      doctor_last_name: appointment?.doctor?.last_name,
+    },
+    patient: {
+      patient_id: appointment?.patient?.id,
+    },
+  };
+
   const normalizedAppointmentData = {
     id: appointment?.id,
     bookingDate: appointment?.requestedDate,
@@ -41,7 +64,10 @@ function AdminAppointmentInfoTab({ appointment }: Props) {
       serviceName={normalizedAppointmentData.service}
     >
       <div className="max-w-[800px]">
-        <AdminAppointmentInfo data={normalizedAppointmentData as any} />
+        <AdminAppointmentInfo
+          data={normalizedAppointmentData as any}
+          adminApp_Details={adminApp_Details as DoctorData}
+        />
       </div>
     </CardWithProfileImageInfo>
   );

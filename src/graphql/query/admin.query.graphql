@@ -64,7 +64,7 @@ query getPatients($filter: GetPatientsInput!) {
 
 # Pay Physician From Admin
 mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
-  payment(paymeninput: $paymeninput) {
+  payment(paymenInput: $paymeninput) {
     id
     transactionId
     appointmentId
