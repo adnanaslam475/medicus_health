@@ -27,6 +27,8 @@ function StaffDetailsFrom({
 	staffDetail,
 	handleResetLink,
 	form,
+  adminId,
+  disableAccountInput,
 }: Props) {
 	return (
 		<Form
@@ -40,7 +42,14 @@ function StaffDetailsFrom({
 			</h1>
 			<p>{staffDetail?.email}</p>
 			<div className="flex mb-8">
-				<Select className="mr-5" onChange={handleChange} style={{ width: 200 }}>
+				{/* <Select className="mr-5" onChange={handleChange} style={{ width: 200 }}> */}
+        <Select
+          className="mr-5"
+          placeholder="Send Password Reset link"
+          onChange={handleChange}
+          value={disableAccountInput}
+          style={{ width: 200 }}
+        >
 					<Option value={false}>Active</Option>
 					<Option value={true}>Disabled</Option>
 				</Select>
