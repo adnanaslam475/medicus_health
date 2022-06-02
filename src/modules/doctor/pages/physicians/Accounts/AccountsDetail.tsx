@@ -87,7 +87,7 @@ function Accounts() {
             <div className="w-1/2">
               <QuestionnaireForm
                 ref={form}
-                data={data?.patientHealthHistory.history}
+                data={data?.patientHealthHistory?.history}
                 onFinishSuccess={onFinishHealthQuestionnarySuccess}
               />
 

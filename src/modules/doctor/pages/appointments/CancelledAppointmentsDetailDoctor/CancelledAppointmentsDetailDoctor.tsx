@@ -13,6 +13,7 @@ import {
   useDoctorAppointmentDetailQuery,
   usePatientHealthHistoryQuery,
 } from "generated/graphql";
+import { AttachmentObject } from "common/types/types";
 
 function CancelledAppointmentsDetailDoctor() {
   const { query } = useRouter();
@@ -32,8 +33,11 @@ function CancelledAppointmentsDetailDoctor() {
   });
 
   let urlArr = parseJson(reportUrl);
-  if (urlArr && urlArr?.length > 0) {
-    urlArr = urlArr[0]?.map((item: string) => item.split("com/")[1]);
+  if (urlArr && urlArr.length > 0) {
+    urlArr = urlArr[0]?.map((item: any) => ({
+      name: item.split("com/")[1],
+      url: item
+    }));
   }
 
   return (
@@ -51,7 +55,7 @@ function CancelledAppointmentsDetailDoctor() {
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <div className="max-w-1/2">
                 <QuestionnaireForm
-                  data={patientHealthHistory?.patientHealthHistory.history}
+                  data={patientHealthHistory?.patientHealthHistory?.history}
                 />
               </div>
             </Tabs.TabPane>
@@ -66,8 +70,8 @@ function CancelledAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachement" key="5">
               <div>
-                {urlArr?.map((item: string) => {
-                  return <Attachment src={word} name={item} enable />;
+                {urlArr?.map((item: AttachmentObject) => {
+                  return <Attachment item={item} enable />;
                 })}
               </div>
             </Tabs.TabPane>

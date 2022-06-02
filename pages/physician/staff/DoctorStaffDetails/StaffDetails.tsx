@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SetStateAction } from "react";
 import Router, { useRouter } from "next/router";
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Form, notification } from "antd";
@@ -6,8 +6,11 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import StaffDetailsFrom from "./StaffdetailsForm";
 import {
   UpdateStaffInput,
+  useEnableOrDisableDoctorMutation,
+  useEnableOrDisableStaffMutation,
   useGetStaffDetailsUrlByIdQuery,
   User,
+  useRemoveStaffMutation,
   useUpdateStaffProfileMutation,
   useUserForgotPasswordMutation,
 } from "generated/graphql";
@@ -15,9 +18,12 @@ import { getUserData } from "common/utils/userData";
 
 // scss
 import _classes from "../../staff/staff.module.scss";
+import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
 function DoctorStaffDetails() {
   const { query } = useRouter();
+  const [{ fetching: diableFetching }, enableOrDisableStaff] =
+    useEnableOrDisableStaffMutation();
   const [formInstance] = Form.useForm();
   const [{ fetching: loading }, setForgotPass] =
     useUserForgotPasswordMutation();
@@ -25,6 +31,7 @@ function DoctorStaffDetails() {
     useUpdateStaffProfileMutation();
   const [disableAccountInput, setDisableAccountInput] =
     React.useState<boolean>(false);
+  const [{ fetching: deleteFetching }, removeStaff] = useRemoveStaffMutation();
   const [{ data }] = useGetStaffDetailsUrlByIdQuery({
     variables: {
       id: Number(query.staffId),
@@ -38,6 +45,8 @@ function DoctorStaffDetails() {
     }
   }, [staffDetail]);
 
+  const [open, setOpen] = React.useState<boolean>(false);
+
   const { user } = getUserData();
   const { id } = user || {};
 
@@ -45,7 +54,30 @@ function DoctorStaffDetails() {
     formInstance.setFieldsValue({
       ...staffDetail,
     });
+    setDisableAccountInput(staffDetail?.status as SetStateAction<boolean>);
   }
+  const deleteStaffHandler = async () => {
+    try {
+      const response = await enableOrDisableStaff({
+        id: Number(query.staffId),
+      });
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "Staff Delete Successfully",
+        });
+        Router.push(`/physician/staff`);
+
+        // Router.push(`/admin/physicians/${query.adminId}`);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
 
   const onFinish = async (values: UpdateStaffInput) => {
     try {
@@ -60,12 +92,20 @@ function DoctorStaffDetails() {
           deleted: false,
         },
       });
+
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
       if (response.data) {
-        Router.push("/physician/staff");
         formInstance.resetFields();
+        notification.success({
+          message: "Successfully Updated",
+        });
+        Router.push(`/physician/staff`);
+        // Router.push({
+        //   pathname: `/admin/physicians/${query.adminId}`,
+        //   query: { activeTab: "4" },
+        // });
       }
     } catch (error: any) {
       notification.error({
@@ -73,8 +113,27 @@ function DoctorStaffDetails() {
       });
     }
   };
-  const handleChange = (value: boolean) => {
+  const handleChange = async (value: SetStateAction<boolean>) => {
     setDisableAccountInput(value);
+    try {
+      const response = await enableOrDisableStaff({
+        id: Number(query.staffId),
+      });
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "Staff Updated Successfully",
+        });
+
+        Router.push(`/physician/staff`);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
   };
 
   const handleResetLink = async () => {
@@ -94,19 +153,42 @@ function DoctorStaffDetails() {
   };
   return (
     <AppLayout>
-      <div className="lg:w-3/5">
-        <h6 className="">{staffDetail?.id}</h6>
-        <StaffDetailsFrom
-          onFinish={onFinish}
-          form={formInstance}
-          loading={loading}
-          handleChange={handleChange}
-          fetching={fetching}
-          handleResetLink={handleResetLink}
-          staffDetail={staffDetail as User}
+      <>
+        <div className="flex">
+          <Button
+            type="link"
+            className="ml-auto"
+            danger
+            icon={<CloseOutlined />}
+            onClick={() => setOpen(true)}
+          >
+            Delete profile
+          </Button>
+        </div>
+        <div className="lg:w-3/5">
+          <h6 className="">{staffDetail?.id}</h6>
+          <StaffDetailsFrom
+            onFinish={onFinish}
+            form={formInstance}
+            loading={loading}
+            disableAccountInput={disableAccountInput}
+            adminId={String(query?.adminId)}
+            handleChange={handleChange}
+            fetching={fetching}
+            handleResetLink={handleResetLink}
+            staffDetail={staffDetail as User}
+          />
+        </div>
+        <ConfirmationModal
+          visible={open}
+          confirmLoading={deleteFetching}
+          onCancel={() => setOpen(false)}
+          onOk={deleteStaffHandler}
+          message="Are you sure you want ot delete this staff?"
         />
-      </div>
+      </>
     </AppLayout>
   );
 }
+
 export default DoctorStaffDetails;

@@ -32,7 +32,7 @@ function PatientList() {
       render: (value: PatientProfile) => {
         return (
           <div>
-            {value?.profileImage && (
+            {value?.profileImage?.includes(".s3-us-east") && (
               <Image
                 alt=""
                 src={value?.profileImage}

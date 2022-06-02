@@ -7,13 +7,15 @@ import AddStaffFormItems from "common/components/AddStaffFormItems/AddStaffFormI
 import _classes from "../../staff/staff.module.scss";
 
 type Props = {
-	form: FormInstance<any> | undefined;
-	staffDetail: User | undefined;
-	handleChange: (value: boolean) => void;
-	loading: boolean;
-	fetching: boolean;
-	onFinish: (values: UpdateStaffInput) => void;
-	handleResetLink: React.MouseEventHandler<HTMLButtonElement>;
+  form: FormInstance<any> | undefined;
+  staffDetail: User | undefined;
+  handleChange: (value: boolean) => void;
+  loading: boolean;
+  fetching: boolean;
+  disableAccountInput: boolean | undefined;
+  adminId: string | undefined;
+  onFinish: (values: UpdateStaffInput) => void;
+  handleResetLink: React.MouseEventHandler<HTMLButtonElement>;
 };
 const { Option } = Select;
 

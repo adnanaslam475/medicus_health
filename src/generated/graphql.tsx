@@ -850,7 +850,7 @@ export type MutationUserVerifyEmailArgs = {
 export type PatientHealthHistory = {
   __typename?: 'PatientHealthHistory';
   history?: Maybe<Scalars['JSON']>;
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
   user?: Maybe<User>;
   user_id: Scalars['Int'];
 };
@@ -937,7 +937,7 @@ export type Query = {
   getStatesByCountry: Array<State>;
   getTransectionFilter: Array<Transaction>;
   getUserFilter: Array<UserResponse>;
-  patientHealthHistory: PatientHealthHistory;
+  patientHealthHistory?: Maybe<PatientHealthHistory>;
   patientHealthHistorys: Array<PatientHealthHistory>;
   patientLastQuestionnaire: AppointmentHealthHistory;
   physicianAppointments: Array<Appointment>;
@@ -1310,10 +1310,10 @@ export type UserResponse = {
   __typename?: 'UserResponse';
   appointment?: Maybe<Appointment>;
   city_id: Scalars['Int'];
-  contact_number: Scalars['String'];
+  contact_number?: Maybe<Scalars['String']>;
   country_id: Scalars['Int'];
   createdAt: Scalars['DateTime'];
-  date_of_birth: Scalars['DateTime'];
+  date_of_birth?: Maybe<Scalars['DateTime']>;
   deleted: Scalars['Boolean'];
   doctorBillingMethods?: Maybe<Array<DoctorBillingMethod>>;
   doctorId?: Maybe<Scalars['Int']>;
@@ -1399,14 +1399,14 @@ export type CreatePatientHealthHistoryMutationVariables = Exact<{
 }>;
 
 
-export type CreatePatientHealthHistoryMutation = { __typename?: 'Mutation', createPatientHealthHistory: { __typename?: 'PatientHealthHistory', id: number } };
+export type CreatePatientHealthHistoryMutation = { __typename?: 'Mutation', createPatientHealthHistory: { __typename?: 'PatientHealthHistory', id?: number | null } };
 
 export type UpdatePatientHealthHistoryMutationVariables = Exact<{
   input: UpdatePatientHealthHistoryInput;
 }>;
 
 
-export type UpdatePatientHealthHistoryMutation = { __typename?: 'Mutation', updatePatientHealthHistory: { __typename?: 'PatientHealthHistory', id: number } };
+export type UpdatePatientHealthHistoryMutation = { __typename?: 'Mutation', updatePatientHealthHistory: { __typename?: 'PatientHealthHistory', id?: number | null } };
 
 export type UserVerifyEmailMutationVariables = Exact<{
   input: Scalars['String'];
@@ -1600,6 +1600,13 @@ export type RemovePatientUserMutationVariables = Exact<{
 
 export type RemovePatientUserMutation = { __typename?: 'Mutation', removeUser: { __typename?: 'User', id: number } };
 
+export type EnableOrDisableStaffMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type EnableOrDisableStaffMutation = { __typename?: 'Mutation', enableOrDisableStaff: { __typename?: 'User', id: number, status: boolean } };
+
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
 }>;
@@ -1753,7 +1760,7 @@ export type PatientHealthHistoryQueryVariables = Exact<{
 }>;
 
 
-export type PatientHealthHistoryQuery = { __typename?: 'Query', patientHealthHistory: { __typename?: 'PatientHealthHistory', id: number, history?: any | null } };
+export type PatientHealthHistoryQuery = { __typename?: 'Query', patientHealthHistory?: { __typename?: 'PatientHealthHistory', id?: number | null, history?: any | null } | null };
 
 export type GetAllCardsQueryVariables = Exact<{
   userId: Scalars['Int'];
@@ -1774,7 +1781,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'UserResponse', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth: any, contact_number: string, email: string, country_id: number, city_id: number, state_id: number, zip_code: string, streetAddress?: string | null, status: boolean, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'UserResponse', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id: number, city_id: number, state_id: number, zip_code: string, streetAddress?: string | null, status: boolean, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: string | null, about_me?: string | null, profile_image?: string | null } | null } };
 
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1892,7 +1899,7 @@ export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null } };
+export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, status: boolean, email: string, contact_number?: string | null } };
 
 export type GetAdminUserByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -2476,6 +2483,18 @@ export const RemovePatientUserDocument = gql`
 
 export function useRemovePatientUserMutation() {
   return Urql.useMutation<RemovePatientUserMutation, RemovePatientUserMutationVariables>(RemovePatientUserDocument);
+};
+export const EnableOrDisableStaffDocument = gql`
+    mutation enableOrDisableStaff($id: Int!) {
+  enableOrDisableStaff(id: $id) {
+    id
+    status
+  }
+}
+    `;
+
+export function useEnableOrDisableStaffMutation() {
+  return Urql.useMutation<EnableOrDisableStaffMutation, EnableOrDisableStaffMutationVariables>(EnableOrDisableStaffDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
@@ -3581,6 +3600,7 @@ export const GetStaffDetailsUrlByIdDocument = gql`
     id
     first_name
     last_name
+    status
     email
     contact_number
   }
@@ -6375,11 +6395,8 @@ export default {
           {
             "name": "id",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -7315,12 +7332,9 @@ export default {
           {
             "name": "patientHealthHistory",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "PatientHealthHistory",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "PatientHealthHistory",
+              "ofType": null
             },
             "args": [
               {
@@ -8358,11 +8372,8 @@ export default {
           {
             "name": "contact_number",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -8391,11 +8402,8 @@ export default {
           {
             "name": "date_of_birth",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },

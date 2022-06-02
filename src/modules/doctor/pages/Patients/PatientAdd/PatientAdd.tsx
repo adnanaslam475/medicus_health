@@ -29,6 +29,7 @@ import dayjs from "dayjs";
 // import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
 import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import Router, { useRouter } from "next/router";
+import { AddPatientForm } from "modules/admin/components/AddPatientForm/AddPatientForm";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -119,7 +120,7 @@ function PatientAdd() {
                 </Upload>
               </div>
               <div className="w-full">
-                {/* <AddPhysicianForm onFinish={createDoctor} /> */}
+                <AddPatientForm onFinish={createDoctor} />
               </div>
             </div>
           </div>

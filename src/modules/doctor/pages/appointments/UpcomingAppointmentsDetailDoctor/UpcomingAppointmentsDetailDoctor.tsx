@@ -20,6 +20,7 @@ import Attachment from "common/components/Attachment/Attachment";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
 import word from "../../../../../../public/assets/images/word-file.svg";
+import { AttachmentObject } from "common/types/types";
 
 function UpcomingAppointmentsDetailDoctor() {
   const { query } = useRouter();
@@ -46,7 +47,10 @@ function UpcomingAppointmentsDetailDoctor() {
 
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
-    urlArr = urlArr[0]?.map((item: any) => item.split("com/")[1]);
+    urlArr = urlArr[0]?.map((item: any) => ({
+      name: item.split("com/")[1],
+      url: item
+    }));
   }
 
   //Get Patient ID
@@ -72,7 +76,7 @@ function UpcomingAppointmentsDetailDoctor() {
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <div className="max-w-1/2">
                 <QuestionnaireForm
-                  data={patientHealthHistory?.patientHealthHistory.history}
+                  data={patientHealthHistory?.patientHealthHistory?.history}
                 />
               </div>
             </Tabs.TabPane>
@@ -87,8 +91,8 @@ function UpcomingAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachement" key="5">
               <div className="">
-                {urlArr?.map((item: any) => (
-                  <Attachment src={word} name={item} enable={false} />
+                {urlArr?.map((item: AttachmentObject) => (
+                  <Attachment item={item} enable={false} />
                 ))}
               </div>
             </Tabs.TabPane>
