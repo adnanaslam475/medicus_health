@@ -12,8 +12,6 @@ type Props = {
   handleChange: (value: boolean) => void;
   loading: boolean;
   fetching: boolean;
-  disableAccountInput: boolean | undefined;
-  adminId: string | undefined;
   onFinish: (values: UpdateStaffInput) => void;
   handleResetLink: React.MouseEventHandler<HTMLButtonElement>;
 };
@@ -26,8 +24,6 @@ function StaffDetailsFrom({
   onFinish,
   staffDetail,
   handleResetLink,
-  adminId,
-  disableAccountInput,
   form,
 }: Props) {
   return (
@@ -42,13 +38,7 @@ function StaffDetailsFrom({
       </h1>
       <p>{staffDetail?.email}</p>
       <div className="flex mb-8">
-        <Select
-          className="mr-5"
-          placeholder="Send Password Reset link"
-          onChange={handleChange}
-          value={disableAccountInput}
-          style={{ width: 200 }}
-        >
+        <Select className="mr-5" onChange={handleChange} style={{ width: 200 }}>
           <Option value={false}>Active</Option>
           <Option value={true}>Disabled</Option>
         </Select>
@@ -67,15 +57,7 @@ function StaffDetailsFrom({
       <div className="flex justify-end">
         <Form.Item>
           <div className="flex gap-4">
-            <Button
-              onClick={() => {
-                Router.push("/physician/staff");
-                // Router.push({
-                //   pathname: `/admin/physicians/${adminId}`,
-                //   query: { activeTab: "4" },
-                // });
-              }}
-            >
+            <Button onClick={() => Router.push("/physician/staff")}>
               Cancel
             </Button>
             <Button

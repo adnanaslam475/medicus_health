@@ -41,7 +41,7 @@ const RequestedList = (props: Props) => {
       render: (value: User) => {
         return (
           <div className="someclass">
-            {`${value?.first_name} ${value?.last_name}`}{" "}
+            {`${value?.first_name} ${value?.last_name}`}
           </div>
         );
       },

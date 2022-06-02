@@ -54,6 +54,13 @@ function SidebarMenuItem() {
     <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
     
   ];
+  const IconsListPhysicianMainMenu = [
+    
+    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <DollarIcon className={_classes["sidebar-icon-hover"]} />,
+    
+    
+  ];
 
   const router = useRouter();
   return (
@@ -116,11 +123,12 @@ function SidebarMenuItem() {
           DOCTOR_ROUTES?.map((el, i) => {
             return el.submenu && el.submenu.length > 0 ? (
               <Menu.SubMenu
-                key="sub1"
+                key={i}
                 icon={
-                  <AppointmentIcon className={`${_classes["sidebar-icon-hover"]} ml-1`} />
+                  IconsListPhysicianMainMenu[i]
                 }
-                title="Appointments"
+                
+                title={el.toggleName}
               >
                 {el.submenu?.map((el2, i2) => {
                   type: {
@@ -132,6 +140,7 @@ function SidebarMenuItem() {
                     </Menu.Item>
                   );
                 })}
+                
               </Menu.SubMenu>
             ) : (
               <Menu.Item key={el.route} icon={IconsListPhysician[i]}>

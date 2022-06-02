@@ -6,7 +6,7 @@ import {
 	SearchOutlined,
 } from "@ant-design/icons";
 import { physicianFilterType } from "common/types/types";
-import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
+import { GetAppointmentInput, useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
@@ -15,10 +15,10 @@ import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter
 const { Option } = Select;
 
 type Props = {
-	onChange: (value: physicianFilterType) => void;
+	onChange: (value: GetAppointmentInput) => void;
 };
 function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
-	const [filterState, setFilterState] = useState<physicianFilterType>({});
+	const [filterState, setFilterState] = useState<GetAppointmentInput>({});
 
 	function clear() {
 		setFilterState({});
@@ -37,8 +37,8 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
 		};
 		setFilterState(filters);
 
-		if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
-			delete filters.bookingDate;
+		if (!filters.dueDate?.startDate && !filters.dueDate?.endDate) {
+			delete filters.dueDate;
 		}
 		if (!filters.searchString) {
 			delete filters.searchString;
@@ -55,7 +55,7 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
 			<div className="flex items-center sm:flex  lg:mb-0">
 				<div className="w-full sm:w-full md:w-full lg:w-70">
 					<Input
-						value={filterState.searchString}
+						value={filterState.searchString || ""}
 						placeholder="Search by ID or physician name"
 						prefix={<SearchOutlined />}
 						onChange={(e) => {
@@ -83,7 +83,7 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
 
         <FilterRangePicker
           onChange={(dateString: string[]) =>
-            onChangeFields("bookingDate", {
+            onChangeFields("dueDate", {
               startDate: dateString[0],
               endDate: dateString[1],
             })
@@ -94,10 +94,10 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
           onApply={applyDateRange}
           heading="Appointment Date"
           title={
-            filterState.bookingDate?.startDate && (
+            filterState.dueDate?.startDate && (
               <div>
-                {filterState.bookingDate
-                  ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
+                {filterState.dueDate
+                  ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
                   : "Creation Date"}
               </div>
             )

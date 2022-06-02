@@ -52,7 +52,7 @@ function QuestionnaireFormTab() {
       {
         <QuestionnaireForm
           ref={form}
-          data={data?.patientHealthHistory.history}
+          data={data?.patientHealthHistory?.history}
           onFinishSuccess={onFinishHealthQuestionnarySuccess}
         />
       }
