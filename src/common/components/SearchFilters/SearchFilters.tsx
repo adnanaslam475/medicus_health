@@ -137,7 +137,7 @@ function SearchFilters(props: Props) {
 
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
-            placeholder="Service"
+            placeholder="Appointment Type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={handleServiceChange}
             value={selectedServiceItems}

@@ -1,22 +1,6 @@
-import React, { useEffect, useState } from "react";
-import {
-  CheckOutlined,
-  MessageOutlined,
-  RetweetOutlined,
-  DeleteOutlined,
-  VideoCameraFilled,
-} from "@ant-design/icons";
-import {
-  Button,
-  DatePicker,
-  Form,
-  Input,
-  Modal,
-  notification,
-  Select,
-  Space,
-  Tag,
-} from "antd";
+import React, { useState } from "react";
+import { MessageOutlined } from "@ant-design/icons";
+import { Button, Tag } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
 import { useRouter } from "next/router";
 import PhysicianIcon from "./../../../../../public/assets/icon/physician.svg";
@@ -27,6 +11,7 @@ import Router from "next/router";
 import {
   Appointment,
   AppointmentServiceType,
+  DoctorProfile,
   useCancelAppointmentByDoctorMutation,
   useGetAllAppointmentServiceTypesQuery,
   useProposeNewTimeMutation,
@@ -37,6 +22,7 @@ import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 type Props = {
   data: {
@@ -52,8 +38,19 @@ type Props = {
     paymentStatus: string;
     status: string;
   };
+  adminApp_Details?: DoctorData;
 };
-function AdminAppointmentInfo({ data }: Props) {
+type DoctorData = {
+  doctor: {
+    doctor_Id: number;
+    doctor_first_name: string;
+    doctor_last_name: string;
+  };
+  patient: {
+    patient_id: number;
+  };
+};
+function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
   const {
     id,
     bookingDate,
@@ -69,45 +66,52 @@ function AdminAppointmentInfo({ data }: Props) {
   } = data || {};
 
   return (
-    <div className="max-w-[700px]">
-      <div>
-        <LabelWithText label="ID" text={id} />
-        <LabelWithText label="Booking Date" text={bookingDate} />
-        <LabelWithText label="Patient" text={patient} />
-        <LabelWithText label="Physician" text={physician} />
-        <LabelWithText label="Service" text={service} />
-        <LabelWithText label="Due Date" text={dueDate} />
-        <LabelWithText label="Time" text={time} />
-        <LabelWithText label="Total Amount" text={totalAmount} />
+    <>
+      <div className="max-w-[700px]">
+        <div>
+          <LabelWithText label="ID" text={id} />
+          <LabelWithText label="Booking Date" text={bookingDate} />
+          <LabelWithText label="Patient" text={patient} />
+          <LabelWithText label="Physician" text={physician} />
+          <LabelWithText label="Service" text={service} />
+          <LabelWithText label="Due Date" text={dueDate} />
+          <LabelWithText label="Time" text={time} />
+          <LabelWithText label="Total Amount" text={totalAmount} />
 
-        <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1 max-w-[300px]">
-            Appointment Status
-          </div>
-          <div className="w-full text-secondary">
-            <Tag
-              color="#e2f8f7"
-              className="ant-typography ant-typography-secondary"
-            >
-              {appointmentStatus}
-            </Tag>
-          </div>
-        </li>
+          <li className="flex border-b border-gray-5 py-3">
+            <div className="w-full text-gray-1 max-w-[300px]">
+              Appointment Status
+            </div>
+            <div className="w-full text-secondary">
+              <Tag
+                color="#e2f8f7"
+                className="ant-typography ant-typography-secondary"
+              >
+                {appointmentStatus}
+              </Tag>
+            </div>
+          </li>
 
-        <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1 max-w-[300px]">Payment Status</div>
-          <div className="w-full text-secondary">
-            <Tag
-              color="#e2f8f7"
-              className="ant-typography ant-typography-secondary"
-            >
-              {paymentStatus}
-            </Tag>
-          </div>
-        </li>
+          <li className="flex border-b border-gray-5 py-3">
+            <div className="w-full text-gray-1 max-w-[300px]">
+              Payment Status
+            </div>
+            <div className="w-full text-secondary">
+              <Tag
+                color="#e2f8f7"
+                className="ant-typography ant-typography-secondary"
+              >
+                {paymentStatus}
+              </Tag>
+            </div>
+          </li>
+        </div>
+        <DoctorAppointmentInfoFooter
+          appointmentId={1}
+          adminApp_Details={adminApp_Details}
+        />
       </div>
-      <DoctorAppointmentInfoFooter appointmentId={1} />
-    </div>
+    </>
   );
 }
 
@@ -115,27 +119,60 @@ export default AdminAppointmentInfo;
 
 function DoctorAppointmentInfoFooter({
   appointmentId,
+  adminApp_Details,
 }: {
   appointmentId: number | undefined;
+  adminApp_Details?: DoctorData;
 }) {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
-    <div className="flex justify-between mt-6">
-      <div className="flex">
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn"]} mr-3`}
-          onClick={() => Router.push("/admin/messages")}
-        >
-          Message Admin
-        </Button>
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn"]}`}
-          onClick={() => Router.push("/physician/messages")}
-        >
-          Message Physician
-        </Button>
+    <>
+      <div className="flex justify-between mt-6">
+        <div className="flex">
+          <Button
+            icon={<MessageOutlined />}
+            className={`${_classes["appointments-btn"]} mr-3`}
+            onClick={() => Router.push("/admin/messages")}
+          >
+            Message Admin
+          </Button>
+          <Button
+            icon={<MessageOutlined />}
+            className={`${_classes["appointments-btn"]}`}
+            onClick={() => Router.push("/physician/messages")}
+          >
+            Message Physician
+          </Button>
+          <Button
+            type="primary"
+            className={`${_classes["appointments-rebook-btn"]}`}
+            onClick={showModal}
+          >
+            Rebook Appointment
+          </Button>
+        </div>
       </div>
-    </div>
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        // adminData={adminData as AdminData}
+        // doctorData={doctorData}
+        adminApp_Details={adminApp_Details}
+        // doctorData={doctorProfile as DoctorProfile}
+      />
+    </>
   );
 }

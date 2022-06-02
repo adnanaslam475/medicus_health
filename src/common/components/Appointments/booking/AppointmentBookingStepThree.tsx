@@ -14,18 +14,34 @@ import { getUserData } from "common/utils/userData";
 
 type Props = {
   physicianData?: DoctorProfile;
+  adminApp_Details?: DoctorData;
+};
+
+type DoctorData = {
+  doctor: {
+    doctor_Id: number;
+    doctor_first_name: string;
+    doctor_last_name: string;
+  };
+  patient: {
+    patient_id: number;
+  };
 };
 
 const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const { query } = useRouter();
-  const { physicianData } = props || {};
+  const { physicianData, adminApp_Details } = props || {};
   const { id } = physicianData?.user || {};
   const { saveStepThree, data } = useBookAppointment();
   const [formInstance] = Form.useForm();
   const physicianId = data?.stepOne?.physician?.split(":")[0];
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
-      doctorId: Number(physicianId) || Number(query?.id) || Number(id),
+      doctorId:
+        Number(physicianId) ||
+        Number(query?.id) ||
+        Number(id) ||
+        Number(adminApp_Details?.doctor?.doctor_Id),
     },
   });
   const { doctorQuestionnaire } = dataList || {};
@@ -35,8 +51,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const [{ data: patientLastQuestionaryData }] =
     usePatientLastQuestionnaireQuery({
       variables: {
-        patientId: Number(loggedinPatientId),
-        doctorId: Number(id),
+        patientId:
+          Number(loggedinPatientId) || Number(adminApp_Details?.patient?.patient_id),
+        doctorId: Number(id) || Number(adminApp_Details?.doctor?.doctor_Id),
       },
     });
   const { patientLastQuestionnaire } = patientLastQuestionaryData || {};

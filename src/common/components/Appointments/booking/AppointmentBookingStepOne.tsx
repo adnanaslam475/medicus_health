@@ -14,15 +14,27 @@ import { date } from "../../../utils";
 
 const { Option } = Select;
 type AdminData = {
-  patientList:User[];
-  physicianList:User[];
-}
+  patientList: User[];
+  physicianList: User[];
+};
+
+type DoctorData = {
+  doctor: {
+    doctor_Id: number;
+    doctor_first_name: string;
+    doctor_last_name: string;
+  };
+  patient: {
+    patient_id: number;
+  };
+};
 
 type Props = {
   physicianData?: DoctorProfile;
   allAppoinments?: AppointmentServiceType[];
   onFinish?: ((values: any) => void) | undefined;
   adminData?: AdminData;
+  adminApp_Details?: DoctorData;
 };
 
 export const AppointmentBookingStepOne = React.forwardRef(
@@ -32,15 +44,24 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
     const { physicianName, service, price, requestedDate, availability } =
       appoinmentDetails?.stepOne || {};
-    const { physicianData, onFinish, adminData } = props || {};
+    const { physicianData, onFinish, adminData, adminApp_Details } = props || {};
     const { first_name, last_name, id } = physicianData?.user || {};
+
+    const { doctor_Id, doctor_first_name, doctor_last_name } =
+      adminApp_Details?.doctor || {};
     const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
     //   GET ID FROM URL
     const { query } = useRouter();
-    const [doctorId,setDoctorId] = useState<number>()
+    const [doctorId, setDoctorId] = useState<number>();
 
     const [{ data: scheduleDetails }] = useDoctorSchedulesQuery({
-      variables: { doctorId: Number(query?.id) || doctorId || Number(id) },
+      variables: {
+        doctorId:
+          Number(query?.id) ||
+          doctorId ||
+          Number(id) ||
+          Number(adminApp_Details?.doctor?.doctor_Id),
+      },
     });
 
     useEffect(() => {
@@ -57,7 +78,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     function prepareAndSetEditPayload() {
       formInstance.setFieldsValue({
-        physicianName: `${first_name}${last_name}`,
+        physicianName: adminApp_Details?.doctor
+          ? `${doctor_first_name}${doctor_last_name}`
+          : `${first_name}${last_name}`,
         service: service,
         charges: price,
         requestedDate: requestedDate,
@@ -97,12 +120,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
       scheduleDetails?.doctorSchedules.length > 0;
 
     const { physicianList, patientList } = adminData || {};
-    const PhysicianHandler =(physicianId:string)=>{
-      let doctorId = physicianId.split(":")[0]
-      setDoctorId(Number(doctorId))
-    }
+    const PhysicianHandler = (physicianId: string) => {
+      let doctorId = physicianId.split(":")[0];
+      setDoctorId(Number(doctorId));
+    };
 
-    
     return (
       <>
         <h2>Request an Appointment</h2>
@@ -114,7 +136,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 showSearch
                 placeholder="Physicians"
                 optionFilterProp="children"
-                onChange={(doctorId)=>PhysicianHandler(doctorId)}
+                onChange={(doctorId) => PhysicianHandler(doctorId)}
                 filterOption={(input, option) => {
                   return (option!?.children as unknown as string)
                     ?.toLowerCase()
@@ -122,7 +144,10 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 }}
               >
                 {physicianList?.map((item) => (
-                  <Option key={`${item?.first_name} ${item?.last_name}`} value={`${item.id}:${item?.first_name} ${item?.last_name}`}>
+                  <Option
+                    key={`${item?.first_name} ${item?.last_name}`}
+                    value={`${item.id}:${item?.first_name} ${item?.last_name}`}
+                  >
                     {`${item?.first_name} ${item?.last_name}`}
                   </Option>
                 ))}
@@ -147,7 +172,10 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 }
               >
                 {patientList?.map((item) => (
-                  <Option key={item?.first_name} value={`${item.id}:${item?.first_name} ${item?.last_name}`}>
+                  <Option
+                    key={item?.first_name}
+                    value={`${item.id}:${item?.first_name} ${item?.last_name}`}
+                  >
                     {`${item?.first_name} ${item?.last_name}`}
                   </Option>
                 ))}
