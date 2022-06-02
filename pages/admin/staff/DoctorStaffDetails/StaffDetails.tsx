@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SetStateAction } from "react";
 import Router, { useRouter } from "next/router";
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Form, notification } from "antd";
@@ -6,6 +6,8 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import StaffDetailsFrom from "./StaffdetailsForm";
 import {
   UpdateStaffInput,
+  useEnableOrDisableDoctorMutation,
+  useEnableOrDisableStaffMutation,
   useGetStaffDetailsUrlByIdQuery,
   User,
   useRemoveStaffMutation,
@@ -20,6 +22,8 @@ import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationM
 
 function DoctorStaffDetails() {
   const { query } = useRouter();
+  const [{ fetching: diableFetching }, enableOrDisableStaff] =
+    useEnableOrDisableStaffMutation();
   const [formInstance] = Form.useForm();
   const [{ fetching: loading }, setForgotPass] =
     useUserForgotPasswordMutation();
@@ -50,10 +54,11 @@ function DoctorStaffDetails() {
     formInstance.setFieldsValue({
       ...staffDetail,
     });
+    setDisableAccountInput(staffDetail?.status as SetStateAction<boolean>);
   }
   const deleteStaffHandler = async () => {
     try {
-      const response = await removeStaff({
+      const response = await enableOrDisableStaff({
         id: Number(query.staffId),
       });
       if (response?.error) {
@@ -98,7 +103,6 @@ function DoctorStaffDetails() {
           pathname: `/admin/physicians/${query.adminId}`,
           query: { activeTab: "4" },
         });
-        // Router.push(`/admin/physicians/${query.adminId}`);
       }
     } catch (error: any) {
       notification.error({
@@ -106,8 +110,26 @@ function DoctorStaffDetails() {
       });
     }
   };
-  const handleChange = (value: boolean) => {
+  const handleChange = async (value: SetStateAction<boolean>) => {
     setDisableAccountInput(value);
+    try {
+      const response = await enableOrDisableStaff({
+        id: Number(query.staffId),
+      });
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "Staff Updated Successfully",
+        });
+        Router.push(`/admin/physicians/${query.adminId}`);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
   };
 
   const handleResetLink = async () => {
@@ -145,6 +167,7 @@ function DoctorStaffDetails() {
             onFinish={onFinish}
             form={formInstance}
             loading={loading}
+            disableAccountInput={disableAccountInput}
             adminId={String(query?.adminId)}
             handleChange={handleChange}
             fetching={fetching}

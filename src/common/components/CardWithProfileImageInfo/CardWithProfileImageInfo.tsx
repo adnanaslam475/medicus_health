@@ -1,5 +1,5 @@
-import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
 import React from "react";
+import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
 
 type Props = {
   children: React.ReactNode | JSX.Element | undefined;
