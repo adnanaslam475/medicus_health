@@ -45,11 +45,11 @@ const InputFields = ({ data, isUpdating, setCountryId, setStateId }: Props) => {
               >
                 <Select
                   placeholder={value.label}
-                  onChange={(v) => {
+                  onChange={(id) => {
                     if (value.option_name !== "city_name") {
                       const updatedValue = (
                         data[value.name] || value.options
-                      ).find((val: CountryOrStateProps) => val.id === v);
+                      ).find((val: CountryOrStateProps) => val.id === id);
                       value.option_name === "country_name"
                         ? setCountryId(updatedValue)
                         : setStateId(updatedValue);

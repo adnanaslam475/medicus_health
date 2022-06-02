@@ -1,0 +1,18 @@
+.patient-profile-page {
+  .ant-select * {
+    background-color: lightseagreen !important;
+  }
+}
+
+.admin-patient-profile-page {
+  .disable-select :first-child {
+    border: none !important;
+    background-color: #e2f8f7 !important;
+  }
+  .edit-button {
+    min-height: 60px !important;
+  }
+  .bottom-margin-0 {
+    margin-bottom: 0 !important;
+  }
+}

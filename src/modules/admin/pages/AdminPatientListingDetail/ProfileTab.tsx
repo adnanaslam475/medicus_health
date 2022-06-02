@@ -19,7 +19,7 @@ import {
   useUpdateUserProfileMutation,
   useUserForgotPasswordMutation,
 } from "generated/graphql";
-import _classes from "../../../../common/components/ViewProfile/PhysicianProfile.module.scss";
+import _classes from "./ProfileTab.module.scss";
 import { AdminPatientUpdateInput } from "common/types/types";
 
 type Props = {};
@@ -229,7 +229,7 @@ function AdminPatientProfileTab({}: Props) {
   }, [getCitiesByState]);
 
   return (
-    <div className="relative admin-patient-profile-page">
+    <div className={`relative ${_classes["admin-patient-profile-page"]}`}>
       <div className="w-full mb-10 flex gap-8 items-center">
         <div className="relative">
           <Avatar
@@ -250,7 +250,7 @@ function AdminPatientProfileTab({}: Props) {
           <span className="block">{email}</span>
           <div className="flex gap-2 pt-2">
             <Select
-              className={`mr-5 disable-select ${_classes["publidshed-button"]}`}
+              className={`mr-5 disable-select`}
               onChange={changeAccountStatusHandler}
               value={userDisableInput}
               style={{ width: 200 }}
