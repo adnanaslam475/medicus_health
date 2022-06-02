@@ -6,7 +6,7 @@ import { Appointment } from "generated/graphql";
 
 type Props = {
   appointment?: Appointment | undefined;
-  doctorNotes?: [[string,string]];
+  doctorNotes?: [[string, string]];
 };
 
 function NotesWithText({ appointment, doctorNotes }: Props) {

@@ -377,3 +377,13 @@ label.ant-radio-wrapper {
     }
   }
 }
+
+.admin-patient-profile-page {
+  .disable-select :first-child {
+    border: none !important;
+    background-color: #e2f8f7 !important;
+  }
+  .edit-button {
+    min-height: 60px !important;
+  }
+}

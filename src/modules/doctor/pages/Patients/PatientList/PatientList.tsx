@@ -105,7 +105,7 @@ function PatientList() {
       requestPolicy: "network-only",
     });
   }
-
+  // console.log("physiciansPatients", physiciansPatients);
   return (
     <AppLayout>
       <div className="w-full">

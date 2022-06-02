@@ -92,7 +92,7 @@ function EditAdminUserDetails({}: Props) {
   const changeAccountStatusHandler = async () => {
     try {
       const response = await enableOrDisableAdmin({
-        id: 710 as number,
+        id: Number(query.userId),
       });
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);

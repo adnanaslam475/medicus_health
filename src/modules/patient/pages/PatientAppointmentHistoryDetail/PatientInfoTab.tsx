@@ -83,7 +83,7 @@ function PatientInfoTab({}: Props) {
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv label="Marital Status" value={maritalStatus} />
           <LabelWithTextDiv
-            label="Do you have any Children?"
+            label="Do you have asny Children?"
             value={children}
           />
         </div>

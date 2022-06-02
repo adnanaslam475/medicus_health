@@ -72,9 +72,10 @@ query getUser($input: Int!) {
     password
     zip_code
     streetAddress
+    status
     patientProfile {
       maritalStatus
-      profileImage
+      profileImag
       children
       occupation
       occupationalExposure
@@ -397,7 +398,7 @@ query getAppointmentById($id: Int!) {
     appointmentHealthHistory {
       history
     }
-    doctorNote{
+    doctorNote {
       id
       isPublished
       appointmentId
