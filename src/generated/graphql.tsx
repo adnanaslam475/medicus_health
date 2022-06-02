@@ -730,7 +730,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationPaymentArgs = {
-  paymeninput: PaymentInput;
+  paymentInput: PaymentInput;
 };
 
 
@@ -1892,7 +1892,7 @@ export type GetAllStaffByDoctorQueryVariables = Exact<{
 }>;
 
 
-export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null, createdAt: any }> };
+export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null, createdAt: any, status: boolean }> };
 
 export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -2591,7 +2591,7 @@ export function useGetPatientsQuery(options: Omit<Urql.UseQueryArgs<GetPatientsQ
 };
 export const PhysicianPaymentByAdminDocument = gql`
     mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
-  payment(paymeninput: $paymeninput) {
+  payment(paymentInput: $paymeninput) {
     id
     transactionId
     appointmentId
@@ -3587,6 +3587,7 @@ export const GetAllStaffByDoctorDocument = gql`
     contact_number
     doctorId
     createdAt
+    status
   }
 }
     `;
@@ -5820,7 +5821,7 @@ export default {
             },
             "args": [
               {
-                "name": "paymeninput",
+                "name": "paymentInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

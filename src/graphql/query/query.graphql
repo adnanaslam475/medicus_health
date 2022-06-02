@@ -567,6 +567,7 @@ query getAllStaffByDoctor($filter: GetStaffFilter!) {
     contact_number
     doctorId
     createdAt
+    status
   }
 }
 

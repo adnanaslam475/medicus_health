@@ -7,6 +7,7 @@ import { date } from "common/utils";
 import { ColumnsType } from "antd/lib/table";
 import { useRoleGuard } from "common/components/RoleGuard/useRoleGuard";
 import { useQuery } from "urql";
+import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {
   dataSource: User[] | undefined;
@@ -66,6 +67,19 @@ function StaffTable({ dataSource }: Props) {
       },
       render: (value: string) => {
         return <div>{date?.formatMMMMDDYYYY(value)}</div>;
+      },
+    },
+    {
+      title: "Staff Status",
+      dataIndex: "status",
+      key: "status",
+      className: "table-action-icon",
+      render: (value: any) => {
+        return (
+          <div className="text-primary">
+            <StatusChip type={value?.toString()?.toUpperCase()} />
+          </div>
+        );
       },
     },
     {
