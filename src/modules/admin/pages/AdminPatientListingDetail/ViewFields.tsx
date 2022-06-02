@@ -49,7 +49,6 @@ const ViewProfileFields = ({
         <LabelWithTextDiv label="Country" value={country_name} />
         <LabelWithTextDiv label="City" value={city_name} />
       </div>
-      {/* new div */}
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv label="State" value={state_name} />
       </div>
