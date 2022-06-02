@@ -52,6 +52,30 @@ export type DateType = {
   endDate: string;
 };
 
+export type AdminPatientUpdateInput = {
+  confirm_password: string;
+  first_name: string;
+  country_name: number;
+  state_name: number;
+  city_name: number;
+  last_name: string;
+  gender: string;
+  date_of_birth: string;
+  email: string;
+  contact_number: string;
+  country_id: string;
+  password: string;
+  state_id: string;
+  city_id: string;
+  streetAddress: string;
+  zip_code: string;
+  maritalStatus: string;
+  children: string;
+  occupation: string;
+  occupationalExposure: string;
+  pets: string;
+};
+
 export type physicianMyEarningsFilterType = {
   searchString?: string;
   serviceId?: number;
@@ -122,3 +146,13 @@ export type CustomTimeSlot = {
   selected: Scalars["Boolean"];
   startTime: Scalars["DateTime"];
 };
+
+export type StatusName =
+  | "UPCOMING"
+  | "COMPLETED"
+  | "PENDING"
+  | "SUCCEEDED"
+  | "CONFIRMED"
+  | "REQUESTED"
+  | "SUGGESTED"
+  | "CANCELLED";

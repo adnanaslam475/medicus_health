@@ -97,7 +97,6 @@ function AdminPhysicianList() {
       ),
     },
   ];
-  
 
   function onChangeFilters(values: any) {
     setFilterValues(values);

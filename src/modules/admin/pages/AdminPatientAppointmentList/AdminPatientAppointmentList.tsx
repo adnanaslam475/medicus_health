@@ -166,15 +166,15 @@ function AdminPatientAppointmentList() {
     },
     {
       title: "",
-      dataIndex: "doctor_id",
-      key: "view",
+      dataIndex: "id",
+      key: "id",
       className: "table-action-icon",
-      render: (value: string) => (
+      render: (id: string) => (
         <div className="text-primary">
           <EyeFilled
             className="text-primary"
             onClick={() => {
-              return Router.push(`/admin/patients/detail`);
+              return Router.push(`/admin/patients/detail/${id}`);
             }}
           />
         </div>

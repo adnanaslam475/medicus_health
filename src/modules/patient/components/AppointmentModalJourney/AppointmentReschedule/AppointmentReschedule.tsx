@@ -72,7 +72,7 @@ function AppointmentReschedule(props: Props) {
       </div>
       <div className={`py-4 ${_classes["available-slots-container"]}`}>
         <h5>Available Slots (select one)</h5>
-        <Radio.Group className="" onChange={onChange} value={value}>
+        <Radio.Group className="" onChange={onChange} defaultValue={value}>
           <Space direction="vertical">
             {appointmentTimeSlots?.length === 0 ? (
               <div className="text-secondary">{" - "}</div>

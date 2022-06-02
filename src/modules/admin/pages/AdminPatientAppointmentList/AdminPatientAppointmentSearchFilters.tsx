@@ -63,52 +63,51 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
 						}}
 					/>
 				</div>
-				<FilterRangePicker
-					onChange={(dateString: string[]) =>
-						onChangeFields("bookingDate", {
-							startDate: dateString[0],
-							endDate: dateString[1],
-						})
-					}
-					open={openDateRange}
-					onOpen={() => setOpenDateRange?.(!openDateRange)}
-					onCancel={() => setOpenDateRange(false)}
-					onApply={applyDateRange}
-					heading="Appointment Date"
-					title={
-						filterState.bookingDate?.startDate && (
-							<div>
-								{filterState.bookingDate
-									? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-									: "Creation Date"}
-							</div>
-						)
-					}
-				/>
-			</div>
-			<div className="flex-none sm:flex">
-				<div className="lg:ml-3 sm:mt-0">
-					<SelectServiceTypeFilter
-						onChange={(value) =>
-							onChangeFields("serviceId", value as string)
-						}
-						// value={filterState.appointmentType}
-					/>
-				</div>
-				{/* <div className="lg:ml-3 sm:mt-0">
-					<SelectStatusTypeFilter
-						placeholder="Status"
-						onChange={(value) =>
-							onChangeFields("appointmentType", value as string)
-						}
-						value={filterState.appointmentType}
-					/>
-				</div> */}
+		<div className="flex-none sm:flex">
+          <div className="lg:ml-3 sm:mt-0">
+            <SelectServiceTypeFilter
+              onChange={(value) => onChangeFields("serviceId", value as string)}
+              // value={filterState.appointmentType}
+            />
+          </div>
+          <div className="lg:ml-3 sm:mt-0">
+            <SelectStatusTypeFilter
+            //   placeholder="Status"
+              onChange={(value) =>
+                onChangeFields("status", value as string)
+              }
+              value={"Status   "}
+            />
+          </div>
+        </div>
 
-				<FilterClearButton onClear={clear} />
-			</div>
-		</div>
-	);
+        <FilterRangePicker
+          onChange={(dateString: string[]) =>
+            onChangeFields("bookingDate", {
+              startDate: dateString[0],
+              endDate: dateString[1],
+            })
+          }
+          open={openDateRange}
+          onOpen={() => setOpenDateRange?.(!openDateRange)}
+          onCancel={() => setOpenDateRange(false)}
+          onApply={applyDateRange}
+          heading="Appointment Date"
+          title={
+            filterState.bookingDate?.startDate && (
+              <div>
+                {filterState.bookingDate
+                  ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
+                  : "Creation Date"}
+              </div>
+            )
+          }
+        />
+
+        <FilterClearButton onClear={clear} />
+      </div>
+    </div>
+  );
 }
 
 export default AdminPatientAppointmentSearchFilters;

@@ -105,9 +105,19 @@ const PersonalInfo = () => {
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  const onSave = () => {
-    form?.current?.submit();
-    setIsEdit(false);
+  const onSave = async () => {
+    try {
+      await form?.current?.validateFields();
+      form?.current?.submit();
+      setIsEdit(false);
+    } catch (error: any) {
+      // console.log({ error });
+      error?.errorFields?.forEach((e: any) => {
+        notification.error({
+          message: e.errors[0],
+        });
+      });
+    }
   };
 
   return (

@@ -62,9 +62,9 @@ function DoctorCalendar() {
       calenderEvents: physicianAppointments?.map(
         ({ id, patient, requestedDate, serviceType, charges,appointmentTimeSlots }) => ({
           id: id,
-          title: patient.first_name,
+          title: patient?.first_name,
           start: appointmentTimeSlots && appointmentTimeSlots.find((item)=>item.selected)?.startTime || requestedDate,
-          patient: patient.first_name + " " + patient.last_name,
+          patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
           charges: charges,
           appointmentTimeSlot:appointmentTimeSlots

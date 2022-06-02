@@ -105,7 +105,6 @@ function PatientList() {
       requestPolicy: "network-only",
     });
   }
-
   return (
     <AppLayout>
       <div className="w-full">
