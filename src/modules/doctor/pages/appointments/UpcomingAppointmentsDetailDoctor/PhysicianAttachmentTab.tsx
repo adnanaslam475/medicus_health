@@ -37,7 +37,7 @@ function PhysicianAttachmentTab() {
   >
     <div className="">
     {urlArr?.map((item:string) => (
-      <Attachment src={word} name={item} enable={false} />
+      <Attachment name={item} enable={false} />
     ))}
   </div>
   </CardWithProfileImageInfo>

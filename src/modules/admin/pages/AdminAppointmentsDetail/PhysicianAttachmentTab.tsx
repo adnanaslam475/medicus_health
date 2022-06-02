@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { parseJson } from "common/utils/helper";
-import word from "../../../../../public/assets/images/word-file.svg";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import Attachment from "common/components/Attachment/Attachment";
 import {
@@ -28,7 +27,7 @@ function AdminAttachmentTab({ appointment }: Props) {
       >
         <div className="flex gap-2">
           {urlArr?.map((item: string) => (
-            <Attachment src={word} name={item} enable={false} />
+            <Attachment name={item} enable={false} />
           ))}
         </div>
       </CardWithProfileImageInfo>

@@ -72,7 +72,7 @@ function UpcomingAppointmentsDetailDoctor() {
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <div className="max-w-1/2">
                 <QuestionnaireForm
-                  data={patientHealthHistory?.patientHealthHistory.history}
+                  data={patientHealthHistory?.patientHealthHistory?.history}
                 />
               </div>
             </Tabs.TabPane>
@@ -88,7 +88,7 @@ function UpcomingAppointmentsDetailDoctor() {
             <Tabs.TabPane tab="Attachement" key="5">
               <div className="">
                 {urlArr?.map((item: any) => (
-                  <Attachment src={word} name={item} enable={false} />
+                  <Attachment name={item} enable={false} />
                 ))}
               </div>
             </Tabs.TabPane>

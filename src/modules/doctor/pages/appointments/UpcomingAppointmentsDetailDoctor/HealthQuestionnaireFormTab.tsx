@@ -35,7 +35,7 @@ function HealthQuestionnaireFormTab() {
       serviceName={serviceType?.name}
     >
 			<QuestionnaireForm
-				data={patientHealthHistory?.patientHealthHistory.history}
+				data={patientHealthHistory?.patientHealthHistory?.history}
 			/>
             </CardWithProfileImageInfo>
 		</div>

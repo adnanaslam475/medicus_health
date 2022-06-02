@@ -51,7 +51,7 @@ function CancelledAppointmentsDetailDoctor() {
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <div className="max-w-1/2">
                 <QuestionnaireForm
-                  data={patientHealthHistory?.patientHealthHistory.history}
+                  data={patientHealthHistory?.patientHealthHistory?.history}
                 />
               </div>
             </Tabs.TabPane>
@@ -67,7 +67,7 @@ function CancelledAppointmentsDetailDoctor() {
             <Tabs.TabPane tab="Attachement" key="5">
               <div>
                 {urlArr?.map((item: string) => {
-                  return <Attachment src={word} name={item} enable />;
+                  return <Attachment name={item} enable />;
                 })}
               </div>
             </Tabs.TabPane>

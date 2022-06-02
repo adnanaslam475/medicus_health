@@ -31,7 +31,7 @@ function PhysicianAttachmentTab() {
     >
       <div className="flex gap-2">
         {urlArr?.map((item: string) => (
-          <Attachment src={word} name={item} enable={false} />
+          <Attachment name={item} enable={false} />
         ))}
       </div>
     </CardWithProfileImageInfo>
