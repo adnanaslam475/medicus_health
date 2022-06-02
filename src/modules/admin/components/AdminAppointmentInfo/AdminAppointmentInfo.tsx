@@ -108,6 +108,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
         </div>
         <DoctorAppointmentInfoFooter
           appointmentId={1}
+          appointmentStatus={appointmentStatus}
           adminApp_Details={adminApp_Details}
         />
       </div>
@@ -119,9 +120,11 @@ export default AdminAppointmentInfo;
 
 function DoctorAppointmentInfoFooter({
   appointmentId,
+  appointmentStatus,
   adminApp_Details,
 }: {
   appointmentId: number | undefined;
+  appointmentStatus:string
   adminApp_Details?: DoctorData;
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -155,23 +158,22 @@ function DoctorAppointmentInfoFooter({
           >
             Message Physician
           </Button>
-          <Button
-            type="primary"
-            className={`${_classes["appointments-rebook-btn"]}`}
-            onClick={showModal}
-          >
-            Rebook Appointment
-          </Button>
+          {appointmentStatus === "Cancelled" && (
+            <Button
+              type="primary"
+              className={`${_classes["appointments-rebook-btn"]}`}
+              onClick={showModal}
+            >
+              Rebook Appointment
+            </Button>
+          )}
         </div>
       </div>
       <BookAppointmentJourney
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        // adminData={adminData as AdminData}
-        // doctorData={doctorData}
         adminApp_Details={adminApp_Details}
-        // doctorData={doctorProfile as DoctorProfile}
       />
     </>
   );
