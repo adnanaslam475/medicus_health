@@ -49,7 +49,7 @@ const AppointmentTabs = (props: Props) => {
         <Tabs.TabPane tab="Health Questionnaire" key="2">
           <div className="max-w-1/2">
             <QuestionnaireForm
-              data={patientHealthHistory?.patientHealthHistory.history}
+              data={patientHealthHistory?.patientHealthHistory?.history}
             />
           </div>
         </Tabs.TabPane>

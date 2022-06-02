@@ -318,3 +318,11 @@ mutation removePatientUser($id: Int!) {
     id
   }
 }
+
+# enable or diable  physician or admin staff
+mutation enableOrDisableStaff($id: Int!) {
+  enableOrDisableStaff(id: $id) {
+    id
+    status
+  }
+}

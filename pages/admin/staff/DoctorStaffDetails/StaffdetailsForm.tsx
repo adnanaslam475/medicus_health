@@ -12,6 +12,7 @@ type Props = {
   handleChange: (value: boolean) => void;
   loading: boolean;
   fetching: boolean;
+  disableAccountInput: boolean | undefined;
   adminId: string | undefined;
   onFinish: (values: UpdateStaffInput) => void;
   handleResetLink: React.MouseEventHandler<HTMLButtonElement>;
@@ -26,6 +27,7 @@ function StaffDetailsFrom({
   staffDetail,
   handleResetLink,
   adminId,
+  disableAccountInput,
   form,
 }: Props) {
   return (
@@ -44,6 +46,7 @@ function StaffDetailsFrom({
           className="mr-5"
           placeholder="Send Password Reset link"
           onChange={handleChange}
+          value={disableAccountInput}
           style={{ width: 200 }}
         >
           <Option value={false}>Active</Option>

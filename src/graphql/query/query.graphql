@@ -576,6 +576,7 @@ query getStaffDetailsUrlById($id: Int!) {
     id
     first_name
     last_name
+    status
     email
     contact_number
   }

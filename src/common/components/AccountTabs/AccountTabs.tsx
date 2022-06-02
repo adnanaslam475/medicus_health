@@ -88,7 +88,7 @@ function AccountTabs() {
             <div className="md:w-3/6">
               <QuestionnaireForm
                 ref={form}
-                data={data?.patientHealthHistory.history}
+                data={data?.patientHealthHistory?.history}
                 onFinishSuccess={onFinishHealthQuestionnarySuccess}
               />
 
