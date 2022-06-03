@@ -1,48 +1,30 @@
 /* eslint-disable react/jsx-key */
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Router, { useRouter } from "next/router";
-import {
-  ExclamationCircleOutlined,
-  EditOutlined,
-  PlusOutlined,
-  DownOutlined,
-} from "@ant-design/icons";
 import end from "./../../../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../../../public/assets/images/espanolFlag.png";
 import editicon from "../../../../../../../public/assets/icon/edit.svg";
-import yourImage from "../../../../../../../public/assets/images/your_photo.png";
 import {
-  Table,
-  Tag,
   Avatar,
   Upload,
   Form,
   Input,
   Button,
   Checkbox,
-  Menu,
-  Dropdown,
-  Tabs,
-  Badge,
-  Modal,
   notification,
   Select,
   DatePicker,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
-import Language from "../../../../../admin/components/Languague/Language";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "../../../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import ReactS3Client from "react-aws-s3-typescript";
 
 import {
-  DoctorProfile,
   useEnableOrDisableDoctorMutation,
   User,
   useUpdateDoctorProfileMutation,
 } from "generated/graphql";
-import { configS3 } from "../../../../../../utils/helper";
 import config from "../../../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import { Schedule } from "common/types/types";
@@ -52,9 +34,6 @@ import { getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
-
-const { Option } = Select;
 
 type Props = {
   doctorId?: string;
@@ -93,10 +72,8 @@ function EditProfile({
   onAddClick,
   addScheduleTime,
 }: Props) {
-  const { Option } = Select;
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
-  const [ispublish, setIsPublish] = useState(true);
   const [physicianLanguage, setPhysicianLanguage] = useState<string>("");
 
   const user = getUserData();
@@ -121,7 +98,7 @@ function EditProfile({
     professional_experience,
     year_of_experience,
     specialization,
-  } = doctorProfile || {};
+  } = doctorData || {};
 
   const educationalBackground = parseJson(educational_background) || [];
 

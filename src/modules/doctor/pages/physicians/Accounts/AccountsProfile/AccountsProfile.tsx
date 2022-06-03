@@ -69,11 +69,6 @@ function AccountsProfile() {
   });
   const { doctorProfile } = data || {};
 
-  //Get User Data By Id
-  const [{ data: userData }] = useGetUserQuery({
-    variables: { input: id as number },
-  });
-
   return (
     <div>
       {isEdit ? (
@@ -84,10 +79,8 @@ function AccountsProfile() {
           setAddScheduleDay={setAddScheduleDay}
           addScheduleDay={String(addScheduleDay)}
           setAddScheduleTime={setAddScheduleTime}
-          // setAddScheduleClick={setAddScheduleClick}
           doctorId={String(id)}
-          doctorData={userData}
-          // doctorData={doctorProfile}
+          doctorData={doctorProfile}
           edit={editData}
           addScheduleTime={addScheduleTime}
           onAddClick={onAddClick}
@@ -96,10 +89,9 @@ function AccountsProfile() {
       ) : (
         <ViewProfile
           setIsEdit={setIsEdit}
-          // showLoginInfo
           schedules={schedules}
           doctorId={String(id)}
-          doctorData={userData}
+          doctorData={doctorProfile}
         />
       )}
     </div>
