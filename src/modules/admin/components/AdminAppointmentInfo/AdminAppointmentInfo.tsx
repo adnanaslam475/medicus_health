@@ -1,31 +1,16 @@
 import React, { useState } from "react";
 import { MessageOutlined } from "@ant-design/icons";
-import { Button, Tag } from "antd";
+import { Button, notification, Tag } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
-import { useRouter } from "next/router";
-import PhysicianIcon from "./../../../../../public/assets/icon/physician.svg";
 
 // scss
 import _classes from "./AdminAppointmentInfo.module.scss";
 import Router from "next/router";
-import {
-  Appointment,
-  AppointmentServiceType,
-  DoctorProfile,
-  useCancelAppointmentByDoctorMutation,
-  useGetAllAppointmentServiceTypesQuery,
-  useProposeNewTimeMutation,
-} from "generated/graphql";
-import { formatMMMM_Dcoma_YYYY, getDayJsObject } from "common/utils/date";
-import { date } from "common/utils";
-import { getRole } from "common/utils/userData";
-import dayjs from "dayjs";
-import { FormInstance } from "rc-field-form";
-import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
+import { useCancelAppointmentByDoctorMutation } from "generated/graphql";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 type Props = {
-  data: {
+  data?: {
     id: string;
     bookingDate: string;
     patient: string;
@@ -39,6 +24,7 @@ type Props = {
     status: string;
   };
   adminApp_Details?: DoctorData;
+  onCancelRequestedAppointment?: () => void;
 };
 type DoctorData = {
   doctor: {
@@ -64,6 +50,27 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
     paymentStatus,
     status,
   } = data || {};
+
+  const [, executeCancelRequestedAppointment] =
+    useCancelAppointmentByDoctorMutation();
+
+  async function onCancelRequestedAppointment() {
+    try {
+      const res = await executeCancelRequestedAppointment({
+        id: Number(id),
+      });
+
+      if (res?.data?.cancelAppointment) {
+        notification.success({
+          message: "Appointment Cancelled",
+        });
+      } else {
+        notification.error({
+          message: "Something went wrong",
+        });
+      }
+    } catch (error) {}
+  }
 
   return (
     <>
@@ -106,11 +113,21 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
             </div>
           </li>
         </div>
-        <DoctorAppointmentInfoFooter
-          appointmentId={1}
-          appointmentStatus={appointmentStatus}
-          adminApp_Details={adminApp_Details}
-        />
+        {(appointmentStatus === "Confirmed" ||
+          appointmentStatus === "Cancelled" ||
+          appointmentStatus === "Completed") && (
+          <AdminAppointmentInfoFooter
+            appointmentStatus={appointmentStatus}
+            adminApp_Details={adminApp_Details}
+          />
+        )}
+
+        {(appointmentStatus === "Requested" ||
+          appointmentStatus === "Suggested") && (
+          <AdminAppointmentRequestedInfoFooter
+            onCancelRequestedAppointment={onCancelRequestedAppointment}
+          />
+        )}
       </div>
     </>
   );
@@ -118,13 +135,11 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
 
 export default AdminAppointmentInfo;
 
-function DoctorAppointmentInfoFooter({
-  appointmentId,
+function AdminAppointmentInfoFooter({
   appointmentStatus,
   adminApp_Details,
 }: {
-  appointmentId: number | undefined;
-  appointmentStatus:string
+  appointmentStatus: string;
   adminApp_Details?: DoctorData;
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -176,5 +191,36 @@ function DoctorAppointmentInfoFooter({
         adminApp_Details={adminApp_Details}
       />
     </>
+  );
+}
+
+function AdminAppointmentRequestedInfoFooter(props: Props) {
+  const { onCancelRequestedAppointment } = props || {};
+  return (
+    <div className="flex justify-between mt-6">
+      <div className="flex">
+        <Button
+          danger
+          className={`${_classes["appointments-btn"]} mr-3`}
+          onClick={onCancelRequestedAppointment}
+        >
+          Cancel Appointment
+        </Button>
+        <Button
+          icon={<MessageOutlined />}
+          className={`${_classes["appointments-btn"]} mr-3`}
+          onClick={() => Router.push("/admin/messages")}
+        >
+          Message Admin
+        </Button>
+        <Button
+          icon={<MessageOutlined />}
+          className={`${_classes["appointments-btn"]}`}
+          onClick={() => Router.push("/physician/messages")}
+        >
+          Message Physician
+        </Button>
+      </div>
+    </div>
   );
 }
