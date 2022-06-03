@@ -58,9 +58,10 @@ function DoctorStaffDetails() {
   }
   const deleteStaffHandler = async () => {
     try {
-      const response = await enableOrDisableStaff({
+      const response = await removeStaff({
         id: Number(query.staffId),
       });
+
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
