@@ -49,8 +49,8 @@ function StaffDetailsFrom({
           value={disableAccountInput}
           style={{ width: 200 }}
         >
-          <Option value={false}>Active</Option>
-          <Option value={true}>Disabled</Option>
+          <Option value={true}>Active</Option>
+          <Option value={false}>Disabled</Option>
         </Select>
         <Button
           className="ml-7"
