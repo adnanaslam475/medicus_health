@@ -156,7 +156,6 @@ const RequestedList = (props: Props) => {
       onChange={onChange}
     />
   );
-  // s
 };
 
 export default RequestedList;
