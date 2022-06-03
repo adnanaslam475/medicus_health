@@ -121,11 +121,13 @@ const AppointmentHistoryTable = (props: Props) => {
       sorter: true,
       className: "table-action-icon",
       render: (id: string) => (
-        <EyeFilled
-          onClick={() => {
-            return Router.push(`/patient/appointments/history/${id}`);
-          }}
-        />
+        <div className="text-primary">
+          <EyeFilled
+            onClick={() => {
+              return Router.push(`/patient/appointments/history/${id}`);
+            }}
+          />
+        </div>
       ),
     },
   ];

@@ -91,7 +91,7 @@ function CancelledAppointmentTable({ dataSource }: Props) {
       className: "table-action-icon",
       key: "id",
       render: (appointmentId: number) => (
-        <div>
+        <div className="text-primary">
           <EyeFilled
             onClick={() => {
               return Router.push(

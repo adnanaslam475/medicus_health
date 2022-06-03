@@ -136,7 +136,11 @@ const TransactionHistory = (props: Props) => {
       dataIndex: "",
       key: "view",
       className: "table-action-icon",
-      render: () => <EyeFilled />,
+      render: () => (
+        <div className="text-primary">
+          <EyeFilled />
+        </div>
+      ),
     },
   ];
 
