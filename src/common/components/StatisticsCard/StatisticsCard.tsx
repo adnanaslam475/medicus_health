@@ -10,15 +10,14 @@ type Props = {
 function StatisticsCard({ src, title, value }: Props) {
 	return (
 		<div
-			className={`bg-white border border-gray-4 shadow-md py-6 px-4 rounded gap-3 flex items-center w-full my-3 xl:my-0`}
+			className={`bg-gray-4 border border-gray-4 flex flex-col shadow-md py-20 px-4 mx-4 my-3`}
 		>
-			<div className="rounded-full px-3 border border-gray-4 pt-3 pb-2 shadow-md">
-				<Image alt="" className="" height={34} width={34} src={src} />
+			<div className="rounded-full bg-white px-3 border border-gray-4 mx-auto p-2 shadow-md text-center">
+				<Image alt="" className="" height={28} width={28} src={src} />
 			</div>
-			<div className="flex flex-col">
-				<span className="text-2xl">{value}</span>
-				<span>{title} </span>
-			</div>
+
+			<div className="text-6xl mx-auto px-auto text-center py-2">{value}</div>
+			<div className="text-center text-xl">{title} </div>
 		</div>
 	);
 }
