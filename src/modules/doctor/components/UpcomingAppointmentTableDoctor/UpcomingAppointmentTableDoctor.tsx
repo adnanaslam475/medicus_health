@@ -81,7 +81,7 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
       dataIndex: "id",
       className: "table-action-icon",
       render: (appointmentId: number) => (
-        <div>
+        <div className="text-primary">
           <EyeFilled
             onClick={() => {
               return Router.push(

@@ -133,13 +133,15 @@ const RequestedList = (props: Props) => {
       key: "id",
       className: "table-action-icon text-primary",
       render: (appointmentId: number) => (
-        <EyeFilled
-          onClick={() => {
-            return Router.push(
-              `/physician/appointments/requested/${appointmentId}`
-            );
-          }}
-        />
+        <div className="text-primary">
+          <EyeFilled
+            onClick={() => {
+              return Router.push(
+                `/physician/appointments/requested/${appointmentId}`
+              );
+            }}
+          />
+        </div>
       ),
     },
   ];

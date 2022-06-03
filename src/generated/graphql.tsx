@@ -312,6 +312,19 @@ export type CreateStaffInput = {
   role?: InputMaybe<Scalars['String']>;
 };
 
+export type CreateUserByAdminInput = {
+  city_id: Scalars['Float'];
+  contact_number: Scalars['String'];
+  country_id: Scalars['Float'];
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  profileImage?: InputMaybe<Scalars['String']>;
+  state_id: Scalars['Float'];
+  streetAddress: Scalars['String'];
+  zip_code: Scalars['String'];
+};
+
 export type CreateUserInput = {
   city_id: Scalars['Float'];
   contact_number: Scalars['String'];
@@ -553,10 +566,12 @@ export type Mutation = {
   createOrUpdateAppointmentNote: AppointmentNote;
   createOrUpdateDoctorQuestionnaire: DoctorQuestionnaire;
   createOrUpdateDoctorSchedule: Array<DoctorSchedule>;
+  createPatientByAdmin: User;
   createPatientHealthHistory: PatientHealthHistory;
   createServiceType: AppointmentServiceType;
   createStaff: User;
   createUser: User;
+  deleteServiceType: AppointmentServiceType;
   enableOrDisableDoctor: User;
   enableOrDisablePatient: User;
   enableOrDisableStaff: User;
@@ -582,6 +597,7 @@ export type Mutation = {
   updateDctorPercentage: Transaction;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
+  updateServiceType: AppointmentServiceType;
   updateStaff: User;
   updateUser: User;
   userVerifyEmail: User;
@@ -684,6 +700,11 @@ export type MutationCreateOrUpdateDoctorScheduleArgs = {
 };
 
 
+export type MutationCreatePatientByAdminArgs = {
+  createPatientInput: CreateUserByAdminInput;
+};
+
+
 export type MutationCreatePatientHealthHistoryArgs = {
   createPatientHealthHistoryInput: CreatePatientHealthHistoryInput;
 };
@@ -701,6 +722,11 @@ export type MutationCreateStaffArgs = {
 
 export type MutationCreateUserArgs = {
   createUserInput: CreateUserInput;
+};
+
+
+export type MutationDeleteServiceTypeArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -828,6 +854,12 @@ export type MutationUpdateDoctorProfileArgs = {
 
 export type MutationUpdatePatientHealthHistoryArgs = {
   updatePatientHealthHistoryInput: UpdatePatientHealthHistoryInput;
+};
+
+
+export type MutationUpdateServiceTypeArgs = {
+  id: Scalars['Float'];
+  updateServiceTypeInput: UpdateServiceTypeInput;
 };
 
 
@@ -1207,6 +1239,11 @@ export type UpdateDoctorProfileInput = {
 export type UpdatePatientHealthHistoryInput = {
   history?: InputMaybe<Scalars['JSON']>;
   user_id: Scalars['Int'];
+};
+
+export type UpdateServiceTypeInput = {
+  name?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Float']>;
 };
 
 export type UpdateStaffInput = {
@@ -5603,6 +5640,29 @@ export default {
             ]
           },
           {
+            "name": "createPatientByAdmin",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createPatientInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "createPatientHealthHistory",
             "type": {
               "kind": "NON_NULL",
@@ -5684,6 +5744,29 @@ export default {
             "args": [
               {
                 "name": "createUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "deleteServiceType",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentServiceType",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -6279,6 +6362,39 @@ export default {
             "args": [
               {
                 "name": "updatePatientHealthHistoryInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateServiceType",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentServiceType",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "updateServiceTypeInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

@@ -2,9 +2,9 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import StatisticsCard from "common/components/StatisticsCard/StatisticsCard";
 import React from "react";
 import users from "../../../../../public/assets/icon/users.svg";
+import appointments from "../../../../../public/assets/icon/appointments.svg";
 import physician from "../../../../../public/assets/images/admin/menu/physicians-hover.svg";
-import profile from "../../../../../public/assets/images/admin/menu/profile-hover.svg";
-import revenue from "../../../../../public/assets/icon/dollar-hover.svg";
+import revenue from "../../../../../public/assets/icon/dollars.svg";
 import _classes from "./AdminDashboard.module.scss";
 import { useAdminDashboardStatisticsQuery } from "generated/graphql";
 function AdminDashboard() {
@@ -19,27 +19,35 @@ function AdminDashboard() {
 
   return (
     <AppLayout>
-      <div className="xl:flex my-3 gap-4">
+      <div className="xl:flex flex-wrap">
+        <div className="basis-1/2">
         <StatisticsCard
           src={users}
           title="Total Number of Users "
           value={total_number_of_users || 0}
         />
+        </div>
+        <div className="basis-1/2">
         <StatisticsCard
-          src={physician}
+          src={appointments}
           title="Number of Appointments "
           value={total_number_of_appointments || 0}
         />
+        </div>
+        <div className="basis-1/2">
         <StatisticsCard
-          src={profile}
+          src={physician}
           title="Number of Physicians "
           value={total_number_of_physicians || 0}
         />
+        </div>
+        <div className="basis-1/2">
         <StatisticsCard
           src={revenue}
           title="The total revenue to date ($)"
           value={total_revenue || 0}
         />
+        </div>
       </div>
     </AppLayout>
   );

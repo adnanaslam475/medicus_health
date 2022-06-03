@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { Table, Input, Button, Space, Tag } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 
-
-
-type Props = {
-};
+type Props = {};
 
 const PhysicianList = (props: Props) => {
-
   const Columns = [
     {
       title: "ID",
@@ -27,15 +23,15 @@ const PhysicianList = (props: Props) => {
       //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
       //   multiple: 3,
       // },
-    //   render: (value: Appointment) => {
-    //     return (
-    //       <div className="someclass">{`${date?.formatMMMMDDYYYY(
-    //         value?.requestedDate
-    //       )} `}</div>
-    //     );
-    //   },
+      //   render: (value: Appointment) => {
+      //     return (
+      //       <div className="someclass">{`${date?.formatMMMMDDYYYY(
+      //         value?.requestedDate
+      //       )} `}</div>
+      //     );
+      //   },
     },
-    
+
     {
       title: "Type",
       dataIndex: "service",
@@ -44,9 +40,9 @@ const PhysicianList = (props: Props) => {
       //   compare: (a: any, b: any) => a.service - b.service,
       //   multiple: 3,
       // },
-    //   render: (value: Appointment) => {
-    //     return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-    //   },
+      //   render: (value: Appointment) => {
+      //     return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+      //   },
     },
     {
       title: "Date",
@@ -56,14 +52,14 @@ const PhysicianList = (props: Props) => {
       //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
       //   multiple: 3,
       // },
-    //   render: (value: Appointment) => {
-    //     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-    //     return (
-    //       <div className="someclass">{`${date?.formatMMMMDDYYYY(
-    //         time?.startTime
-    //       )} `}</div>
-    //     );
-    //   },
+      //   render: (value: Appointment) => {
+      //     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      //     return (
+      //       <div className="someclass">{`${date?.formatMMMMDDYYYY(
+      //         time?.startTime
+      //       )} `}</div>
+      //     );
+      //   },
     },
     {
       title: "Time",
@@ -73,14 +69,14 @@ const PhysicianList = (props: Props) => {
       //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
       //   multiple: 3,
       // },
-    //   render: (value: Appointment) => {
-    //     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-    //     return (
-    //       <div className="someclass">{`${date?.formathhmma(
-    //         time?.startTime
-    //       )} - ${date?.formathhmma(time?.endTime)}`}</div>
-    //     );
-    //   },
+      //   render: (value: Appointment) => {
+      //     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      //     return (
+      //       <div className="someclass">{`${date?.formathhmma(
+      //         time?.startTime
+      //       )} - ${date?.formathhmma(time?.endTime)}`}</div>
+      //     );
+      //   },
     },
     {
       title: "Total Amount",
@@ -90,18 +86,21 @@ const PhysicianList = (props: Props) => {
       //   compare: (a: any, b: any) => a.totalamount - b.totalamount,
       //   multiple: 3,
       // },
-    //   render: (value: number) => {
-    //     return <div className="someclass">{`${value}`}</div>;
-    //   },
+      //   render: (value: number) => {
+      //     return <div className="someclass">{`${value}`}</div>;
+      //   },
     },
-   
-  
+
     {
       title: "",
       dataIndex: "",
       key: "view",
       className: "table-action-icon",
-      render: () => <EyeFilled />,
+      render: () => (
+        <div className="text-primary">
+          <EyeFilled />
+        </div>
+      ),
     },
   ];
 
@@ -168,7 +167,7 @@ const PhysicianList = (props: Props) => {
       status: ["completed", "pending"],
       view: "Eye",
     },
-  
+
     {
       transactionid: "MD-2312",
       doctor: "Dr. Paul Wallner",
@@ -229,13 +228,7 @@ const PhysicianList = (props: Props) => {
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
     console.log("params", pagination, filters, sorter, extra);
   }
-  return (
-    <Table
-      columns={Columns}
-      dataSource={Ddata}
-      onChange={onChange}
-    />
-  );
+  return <Table columns={Columns} dataSource={Ddata} onChange={onChange} />;
 };
 
 export default PhysicianList;
