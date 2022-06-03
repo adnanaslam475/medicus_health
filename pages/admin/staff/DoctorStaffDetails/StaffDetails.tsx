@@ -59,7 +59,7 @@ function DoctorStaffDetails() {
   }
   const deleteStaffHandler = async () => {
     try {
-      const response = await enableOrDisableStaff({
+      const response = await removeStaff({
         id: Number(query.staffId),
       });
       if (response?.error) {
@@ -69,7 +69,6 @@ function DoctorStaffDetails() {
         notification.success({
           message: "Staff Delete Successfully",
         });
-        console.log("adminid", query.adminId);
         Router.push(`/admin/physicians/${query.adminId}`);
       }
     } catch (error: any) {
