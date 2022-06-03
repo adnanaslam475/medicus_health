@@ -48,7 +48,7 @@ const AppointmentHistoryTable = (props: Props) => {
       key: "serviceType",
       sorter: true,
       render: (serviceType: AppointmentServiceType) => {
-        return <div>{`${serviceType.name}`}</div>;
+        return <div>{`${serviceType?.name || "-"}`}</div>;
       },
     },
     {
