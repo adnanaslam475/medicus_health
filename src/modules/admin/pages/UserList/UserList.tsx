@@ -109,7 +109,7 @@ const UserList = (props: Props) => {
       className: "table-action-icon",
       key: "id",
       render: (userId: number) => (
-        <div>
+        <div className="text-primary">
           <EyeFilled
             onClick={() => {
               return Router.push(`/admin/edituser/${userId}`);
