@@ -50,7 +50,7 @@ function StaffDetailsFrom({
           style={{ width: 200 }}
         >
           <Option value={true}>Active</Option>
-          <Option value={false}>Disabled</Option>
+          <Option value={false}>Inactive</Option>
         </Select>
         <Button
           className="ml-7"
