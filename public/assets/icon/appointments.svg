@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="31.996" height="31.996" viewBox="0 0 31.996 31.996">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#9e5df9"/>
+      <stop offset="0.772" stop-color="#1883ff"/>
+      <stop offset="1" stop-color="#36e1b3"/>
+    </linearGradient>
+  </defs>
+  <g id="cancel-appointment_1_" data-name="cancel-appointment (1)" transform="translate(-5 -5)">
+    <path id="Path_105" data-name="Path 105" d="M32.633,7.909H31.179V6.454a1.454,1.454,0,1,0-2.909,0V7.909H13.726V6.454a1.454,1.454,0,1,0-2.909,0V7.909H9.363A4.363,4.363,0,0,0,5,12.272V32.633A4.363,4.363,0,0,0,9.363,37h23.27A4.363,4.363,0,0,0,37,32.633V12.272A4.363,4.363,0,0,0,32.633,7.909ZM9.363,10.817h1.454v1.454a1.454,1.454,0,0,0,2.909,0V10.817H28.27v1.454a1.454,1.454,0,0,0,2.909,0V10.817h1.454a1.454,1.454,0,0,1,1.454,1.454v4.363H7.909V12.272A1.454,1.454,0,0,1,9.363,10.817Zm23.27,23.27H9.363a1.454,1.454,0,0,1-1.454-1.454V19.544H34.087V32.633A1.454,1.454,0,0,1,32.633,34.087Z" fill="url(#linear-gradient)"/>
+  </g>
+</svg>
