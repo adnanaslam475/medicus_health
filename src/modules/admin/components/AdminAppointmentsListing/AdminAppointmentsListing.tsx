@@ -62,7 +62,7 @@ const appointmentColumns = [
     dataIndex: "serviceType",
     key: "serviceType",
     render: (serviceType: AppointmentServiceType) => {
-      return <div>{`${serviceType.name}`}</div>;
+      return <div>{`${serviceType?.name}`}</div>;
     },
   },
   {
