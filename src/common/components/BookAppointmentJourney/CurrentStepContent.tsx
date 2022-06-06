@@ -23,11 +23,12 @@ type Props = {
   stepName: string;
   doctorData: DoctorProfile | undefined;
   adminData?: AdminData;
+  patientData?:User[];
   adminApp_Details?: DoctorData;
 };
 
 const CurrentStepContent = React.forwardRef(function CurrentStepContent(
-  { stepName, doctorData, adminData, adminApp_Details }: Props,
+  { stepName, doctorData, adminData, adminApp_Details,patientData }: Props,
   ref: any
 ) {
   switch (stepName) {
@@ -37,6 +38,7 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
           physicianData={doctorData}
           ref={ref}
           adminData={adminData}
+          patientData={patientData}
           adminApp_Details={adminApp_Details}
         />
       );

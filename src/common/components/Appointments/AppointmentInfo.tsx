@@ -2,7 +2,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Button, Tag } from "antd";
 import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
-import { GetAppointmentByIdQuery } from "../../../generated/graphql";
+import {
+  AppointmentTimeSlots,
+  GetAppointmentByIdQuery,
+} from "../../../generated/graphql";
 import { date } from "../../utils";
 import Router from "next/router";
 import { isAppointmentTimeValid } from "common/utils/date";
@@ -22,7 +25,7 @@ function AppointmentInfo(props: Props) {
     appoinmentDetails?.appointment || {};
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
-  const selectedAppointment: CustomTimeSlot | undefined = useMemo(
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );

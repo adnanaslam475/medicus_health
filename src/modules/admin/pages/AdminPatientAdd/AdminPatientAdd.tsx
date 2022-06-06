@@ -18,26 +18,21 @@ import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
 import yourImage from "../../../../../../public/assets/images/your_photo.png";
-// import {
-//   useCountriesQuery,
-//   useCreateDoctorMutation,
-//   useGetCitiesByStateQuery,
-//   useGetStatesByCountryQuery,
-//   User,
-// } from "../../../../../generated/graphql";
+
 import dayjs from "dayjs";
 import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import Router, { useRouter } from "next/router";
-import { useCreateDoctorMutation } from "generated/graphql";
+import { useCreatePatientByAdminMutation } from "generated/graphql";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { AddPatientForm } from "modules/admin/components/AddPatientForm/AddPatientForm";
 
 type props = {
-  validateForm?: (value: any) => void;
-  onFinishPersonalInfo?: (value: any) => void;
+  // validateForm?: (value: any) => void;
+  // onFinishPersonalInfo?: (value: any) => void;
 };
 function AdminPatientAdd() {
-  const [data, CreateDoctorMutation] = useCreateDoctorMutation();
+  const [data, CreatePatientByAdminMutation] =
+    useCreatePatientByAdminMutation();
 
   const form: any = useRef();
 
@@ -47,12 +42,13 @@ function AdminPatientAdd() {
 
   const [image, setImage] = useState("");
 
-  const createDoctor = async (values: any) => {
-    const response = await CreateDoctorMutation({
-      createDoctorInput: {
+  const createPatient = async (values: any) => {
+    const response = await CreatePatientByAdminMutation({
+      createPatientInput: {
         first_name: values?.firstName,
         last_name: values?.lastName,
         email: values?.email,
+        contact_number: values?.contact_number,
         streetAddress: values?.streetAddress,
         country_id: values?.country,
         state_id: values?.state,
@@ -61,14 +57,14 @@ function AdminPatientAdd() {
       },
     });
 
-    if (response?.data?.createDoctor) {
+    if (response?.data?.createPatientByAdmin) {
       Router.push({
-        pathname: "/admin/physicians",
+        pathname: "/admin/patients",
       });
     }
 
     if (response?.data) {
-      response?.data?.createDoctor &&
+      response?.data?.createPatientByAdmin &&
         notification.success({
           message: "Successfully Created",
         });
@@ -121,7 +117,7 @@ function AdminPatientAdd() {
                 </Upload>
               </div>
               <div className="w-full">
-                <AddPatientForm onFinish={createDoctor} />
+                <AddPatientForm onFinish={createPatient} />
               </div>
             </div>
           </div>

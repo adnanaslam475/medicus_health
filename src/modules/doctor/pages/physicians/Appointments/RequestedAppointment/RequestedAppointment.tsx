@@ -26,10 +26,11 @@ function RequestedAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentId,
         serviceId: serviceIds,
-        dueDate: {
-          startDate: dueStartDate,
-          endDate: dueEndDate,
-        },
+        dueDate: dueStartDate &&
+          dueEndDate && {
+            startDate: String(dueStartDate),
+            endDate: String(dueEndDate),
+          },
         searchString: searchPatient,
       },
     },

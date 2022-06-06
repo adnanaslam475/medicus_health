@@ -10,29 +10,24 @@ import {
   useDoctorProfilesQuery,
   useGetAllAppointmentServiceTypesQuery,
 } from "../../../generated/graphql";
+import { GetAppointmentInput } from "generated/graphql";
 import _classes from "./PatientAppointmentHistoryFilter.module.scss";
-import { patientAppointmentHistoryFilterType } from "common/types/types";
 import { SelectServiceTypeFilter } from "../SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { SelectPhysicianTypeFilter } from "../SelectPhysicianTypeFilter/SelectPhysicianTypeFilter";
 
 const { RangePicker } = DatePicker;
 
 type Props = {
-  onChange: (value: patientAppointmentHistoryFilterType) => void;
+  onChange: (value: GetAppointmentInput) => void;
 };
 
 function PatientAppointmentHistoryFilter(props: Props) {
-  const [filterState, setFilterState] =
-    useState<patientAppointmentHistoryFilterType>({});
+  const [filterState, setFilterState] = useState<GetAppointmentInput>({});
   const [form] = Form.useForm();
   const { onChange } = props;
 
   const [openDateRange, setOpenDateRange] = useState(false);
-
-  const [visible, setVisible] = useState(false);
-
-  const [{ data }] = useGetAllAppointmentServiceTypesQuery();
-  const { appointmentServiceTypes } = data || {};
+  const [openDateRange1, setOpenDateRange1] = useState(false);
 
   function clear() {
     setFilterState({});
@@ -63,6 +58,10 @@ function PatientAppointmentHistoryFilter(props: Props) {
       delete filters?.serviceId;
     }
 
+    if (!filters?.bookingDate?.startDate && !filters?.bookingDate?.startDate) {
+      delete filters?.bookingDate;
+    }
+
     if (!filters?.dueDate?.startDate && !filters?.dueDate?.startDate) {
       delete filters?.dueDate;
     }
@@ -84,20 +83,20 @@ function PatientAppointmentHistoryFilter(props: Props) {
               onChangeFields("appointmentId", Number(event.target.value))
             }
             type="number"
-            value={filterState?.appointmentId}
+            value={filterState?.appointmentId || undefined}
           />
         </div>
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <SelectPhysicianTypeFilter
             onChange={(value) => onChangeFields("doctorId", value)}
-            value={filterState?.doctorId}
+            value={filterState?.doctorId || "Physician"}
           />
         </div>
 
         <div className="w-full md:w-60 mb-3 mr-2">
           <SelectServiceTypeFilter
             onChange={(value) => onChangeFields("serviceId", value)}
-            value={filterState?.serviceId}
+            value={filterState?.serviceId || "Appointment Type"}
           />
         </div>
 
@@ -111,7 +110,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
               <RangePicker
                 value={null}
                 onChange={(_, dateString: string[]) =>
-                  onChangeFields("dueDate", {
+                  onChangeFields("bookingDate", {
                     startDate: dateString[0],
                     endDate: dateString[1],
                   })
@@ -146,15 +145,77 @@ function PatientAppointmentHistoryFilter(props: Props) {
                 type="default"
                 onClick={() => setOpenDateRange?.(!openDateRange)}
               >
+                {filterState.bookingDate?.startDate ? (
+                  <div>
+                    {filterState.bookingDate
+                      ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
+                      : "Booking Date"}
+                  </div>
+                ) : (
+                  <div className="flex justify-between items-center w-full px-3">
+                    <div>Booking Date</div>
+                    <div>
+                      <CaretDownOutlined />
+                    </div>
+                  </div>
+                )}
+              </Button>
+            </div>
+          </Space>
+
+          <Space
+            direction="vertical"
+            size={0}
+            className="w-full md:w-44 xl:w-60 sm:mb-3 mr-2"
+          >
+            <div className="relative">
+              <RangePicker
+                value={null}
+                onChange={(_, dateString: string[]) =>
+                  onChangeFields("dueDate", {
+                    startDate: dateString[0],
+                    endDate: dateString[1],
+                  })
+                }
+                open={openDateRange1}
+                className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
+                renderExtraFooter={() => (
+                  <div className="flex gap-3 justify-end p-3">
+                    <Button
+                      className="bg-gray-300"
+                      onClick={() => {
+                        setOpenDateRange1(false);
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      className=" text-white"
+                      type="primary"
+                      onClick={() => {
+                        setOpenDateRange1(false);
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  </div>
+                )}
+              />
+              <Button
+                className="flex date-btn"
+                block
+                type="default"
+                onClick={() => setOpenDateRange1?.(!openDateRange1)}
+              >
                 {filterState.dueDate?.startDate ? (
                   <div>
                     {filterState.dueDate
                       ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                      : "Date"}
+                      : "Due Date"}
                   </div>
                 ) : (
                   <div className="flex justify-between items-center w-full px-3">
-                    <div>Date</div>
+                    <div>Due Date</div>
                     <div>
                       <CaretDownOutlined />
                     </div>

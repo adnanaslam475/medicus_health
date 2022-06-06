@@ -90,41 +90,22 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           <Input />
         </Form.Item>
       </div>
-      {/* <div className="flex flex-row gap-3">
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Password" }]}
-          className="flex-1"
-        >
-          <Input.Password />
-        </Form.Item>
 
-        <Form.Item
-          label="Confirm Password"
-          name="confirmPassword"
-          rules={[{ required: true, message: "Confirm password!" }]}
-          className="flex-1"
-        >
-          <Input.Password />
-        </Form.Item>
-      </div> */}
-
-      {/* <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label="Specialization"
-          name="Specialization"
+          label="Contact Number"
+          name="contact_number"
           rules={[
             {
               required: true,
-              message: "Specialization",
+              message: "Enter Contact Number",
             },
           ]}
         >
-          <Input />
+          <Input type="tel" />
         </Form.Item>
-      </div> */}
+      </div>
       {/* Address, City, State, Country Postal Address */}
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
