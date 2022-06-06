@@ -14,6 +14,7 @@ import {
 } from "../../../generated/graphql";
 import { getUserData } from "../../utils/userData";
 import _classes from "./AccountTabs.module.scss";
+import { useRouter } from "next/router";
 import { date } from "../../utils";
 import { EyeFilled } from "@ant-design/icons";
 import EmailNotification from "modules/common/components/EmailNotification/EmailNotification";
@@ -21,7 +22,7 @@ import EmailNotificationPage from "modules/patient/pages/EmailNotification/Email
 
 function AccountTabs() {
   const form: any = useRef();
-
+  const [activeTab, setActiveTab] = React.useState<string>("");
   // GET USER ID
   const { user } = getUserData();
   const id = user?.id;
@@ -30,7 +31,8 @@ function AccountTabs() {
   const [{ data }] = usePatientHealthHistoryQuery({
     variables: { input: id as number },
   });
-
+  const router = useRouter();
+  const { query } = router;
   //GET ALL TRANSACTIONS
   const [{ data: allTransactions }] = useGetAllTransactionsQuery();
   const { transactions } = allTransactions || {};
@@ -41,7 +43,9 @@ function AccountTabs() {
     useUpdatePatientHealthHistoryMutation();
 
   const { error, fetching } = result;
-
+  useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+  }, [query]);
   const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
     const healthQuesJson = JSON.stringify(quesPayload);
     try {
@@ -61,11 +65,17 @@ function AccountTabs() {
       console.log(err);
     }
   };
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
 
   return (
     <div>
       <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
-        <Tabs type="card">
+        <Tabs type="card"   defaultActiveKey="1"
+            activeKey={activeTab || "1"}
+            onChange={onChangeTabHandler}>
           <Tabs.TabPane
             className="w-full"
             tab={

@@ -11,6 +11,7 @@ import { date } from "../../utils";
 import { LeftOutlined } from "@ant-design/icons";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import MDNextImage from "../MDNextImage/MDNextImage";
+import { DoctorProfile } from "generated/graphql";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -27,6 +28,7 @@ type props = {
   professionalExperience: string;
   conditionTreated: string;
   profile_image?: string | null;
+  doctorProfile?:DoctorProfile
 };
 
 function DoctorCard({
@@ -39,6 +41,7 @@ function DoctorCard({
   professionalExperience,
   conditionTreated,
   profile_image,
+  doctorProfile
 }: props) {
   // FOR REQUEST AN APPOINTMENT
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -141,7 +144,7 @@ function DoctorCard({
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        // doctorData={doctorData}
+        doctorData={doctorProfile}
       />
     </>
   );

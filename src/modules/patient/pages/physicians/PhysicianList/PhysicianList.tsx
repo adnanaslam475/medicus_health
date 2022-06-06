@@ -1,7 +1,7 @@
 import React from "react";
-import DoctorCard from "../../../../../common/components/DoctorCards/DoctorCards";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
+import DoctorCard from "common/components/DoctorCards/DoctorCards";
+import AppLayout from "common/components/AppLayout/AppLayout";
+import { DoctorProfile, useDoctorProfilesQuery } from "generated/graphql";
 import Link from "next/link";
 
 function Physicians() {
@@ -53,6 +53,7 @@ function Physicians() {
                   yearOfExperience={yearOfExperience || 0}
                   conditionTreated={conditionTreated || ""}
                   profile_image={profile_image}
+                  doctorProfile={profile as DoctorProfile}
                 />
               );
             })}
