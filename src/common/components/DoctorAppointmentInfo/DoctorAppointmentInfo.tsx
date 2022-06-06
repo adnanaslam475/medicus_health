@@ -43,10 +43,12 @@ import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
 import { CustomTimeSlot } from "common/types/types";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 
 type Props = {
   data: Appointment | undefined;
   onCancelRequestedAppointment?: () => void;
+  cancelFetching?: boolean;
 };
 
 type dateArray = {
@@ -68,7 +70,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     createdAt,
   } = data || {};
 
-  const [, executeCancelRequestedAppointment] =
+  const [{ fetching: cancelFetching }, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
 
   function timeSlots() {
@@ -171,6 +173,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         <DoctorRequestedAppointmentInfoFooter
           onCancelRequestedAppointment={onCancelRequestedAppointment}
           data={data}
+          cancelFetching={cancelFetching}
         />
       )}
     </div>
@@ -231,7 +234,7 @@ function DoctorAppointmentInfoFooter({
 }
 
 function DoctorRequestedAppointmentInfoFooter(props: Props) {
-  const { onCancelRequestedAppointment, data } = props || {};
+  const { onCancelRequestedAppointment, data, cancelFetching } = props || {};
   const {
     id,
     patient,
@@ -245,6 +248,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   const [slot, setSlot] = useState<dateArray>({ startDate: "", endDate: "" });
   const [slots, setSlots] = useState<Array<dateArray>>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] =
+    React.useState<boolean>(false);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -347,7 +352,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         <Button
           danger
           className="border border-red outline"
-          onClick={onCancelRequestedAppointment}
+          onClick={() => setShowConfirmationModal(true)}
         >
           Reject
         </Button>
@@ -369,6 +374,14 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           </Button>
         </div>
       </div>
+
+      <ConfirmationModal
+        visible={showConfirmationModal}
+        confirmLoading={cancelFetching}
+        onCancel={() => setShowConfirmationModal(false)}
+        onOk={onCancelRequestedAppointment}
+        message="Are you sure you want to Cancel Appointment?"
+      />
 
       <Modal
         visible={isModalVisible}
