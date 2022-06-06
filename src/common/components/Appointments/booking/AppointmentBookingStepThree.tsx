@@ -53,7 +53,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       variables: {
         patientId:
           Number(loggedinPatientId) || Number(adminApp_Details?.patient?.patient_id),
-        doctorId: Number(id) || Number(adminApp_Details?.doctor?.doctor_Id),
+        doctorId: Number(id) || Number(physicianId) ||  Number(adminApp_Details?.doctor?.doctor_Id),
       },
     });
   const { patientLastQuestionnaire } = patientLastQuestionaryData || {};

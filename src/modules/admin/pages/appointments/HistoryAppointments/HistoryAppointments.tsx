@@ -4,18 +4,18 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 
 import {
   Appointment,
+  GetAppointmentInput,
   useGetAllRequestedAppointmentsQuery,
 } from "generated/graphql";
 import AppointmentHistoryTable from "common/components/AppointmentHistoryTable/AppointmentHistoryTable";
 import _classes from "./HistoryAppointments.module.scss";
 import PatientAppointmentHistoryFilter from "common/components/PatientAppointmentHistoryFilter/PatientAppointmentHistoryFilter";
-import { patientAppointmentHistoryFilterType } from "common/types/types";
 
 const { RangePicker } = DatePicker;
 
 function CancelledAppointment() {
   const [filterValues, setFilterValues] =
-    useState<patientAppointmentHistoryFilterType>({});
+    useState<GetAppointmentInput>({});
 
   // GET ALL APPOINMENTS
   const [{ data }, executeUseGetAllRequestedAppointmentsQuery] =
@@ -26,7 +26,7 @@ function CancelledAppointment() {
     });
   const { appointments } = data || {};
 
-  function onChangeFilters(values: patientAppointmentHistoryFilterType) {
+  function onChangeFilters(values: GetAppointmentInput) {
     setFilterValues(values);
     executeUseGetAllRequestedAppointmentsQuery({
       filter: filterValues,

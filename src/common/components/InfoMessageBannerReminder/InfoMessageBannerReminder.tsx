@@ -4,19 +4,20 @@ import Image from "next/image";
 import { useGetAppointmentsReminderBannerQuery } from "generated/graphql";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
+import Router from "next/router";
 
 const InfoMessageBannerReminder = () => {
   const [{ data }] = useGetAppointmentsReminderBannerQuery();
   const { appointmentsReminderBanner } = data || {};
 
-  const { patient } = appointmentsReminderBanner || {};
-  const { doctor } = appointmentsReminderBanner || {};
+  const { patient ,id:patient_id} = appointmentsReminderBanner || {};
+  const { doctor ,id:doctor_id} = appointmentsReminderBanner || {};
 
   const { first_name: patient_first_name, last_name: patient_last_name } =
     patient || {};
   const { first_name: doctor_first_name, last_name: doctor_last_name } =
     doctor || {};
-
+  const id = patient_id || doctor_id
   const { appointmentTimeSlots } = appointmentsReminderBanner || {};
 
   let selectedTime = appointmentTimeSlots?.find((time) => time.selected);
@@ -57,6 +58,7 @@ const InfoMessageBannerReminder = () => {
           className="bg-primary text-primary px-3 whitespace-nowrap ml-auto"
           type="default"
           size="small"
+          onClick={()=>Router.push(`/patient/appointments/${id}/call`)}
         >
           Join Now
         </Button>

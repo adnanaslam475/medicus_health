@@ -60,17 +60,18 @@ export const Profile = React.forwardRef(function Profile({
       setIsEdit(true);
     }
   };
-
   const updateAdminProfile = async (values: any) => {
+    console.log("vlaueskhanvlaueskhanvlaueskhanvlaueskhanvlaueskhan", values);
     if (doctorData) {
       const res = await executeUseUpdateAdminUserMutation({
         updateAdminUserInput: {
           first_name: values?.firstName,
           last_name: values?.lastName,
           email: values?.email,
-          contact_number: values?.contact_number,
+          // contact_number: Number(values?.contact_number),
           password: values?.password,
           profileImage: image || userProfileImage,
+          zip_code: values?.zip_code,
         },
         id: 127,
       });
@@ -185,11 +186,14 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input disabled={true} />
                 </Form.Item>
-                <Form.Item
+                {/* <Form.Item
                   label="Contact Number"
                   className="flex-1"
                   name="contact_number"
                 >
+                  <Input />
+                </Form.Item> */}
+                <Form.Item label="Zip Code" className="flex-1" name="zip_code">
                   <Input />
                 </Form.Item>
               </div>
