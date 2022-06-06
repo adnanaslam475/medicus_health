@@ -4,6 +4,7 @@ import AppointmentCard from "../../../../../common/components/AppointmentCard/Ap
 import {
   Appointment,
   AppointmentTimeSlots,
+  BookingDate,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
 import { Button, Empty, Select } from "antd";
@@ -12,8 +13,8 @@ import Link from "next/link";
 import AppointmentModalJourney from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
 
 function RequestedAppointment() {
-  const [dueStartDate, setStartDate] = useState<Date | null>();
-  const [dueEndDate, setEndDate] = useState<Date | null>();
+  const [dueStartDate, setStartDate] = useState<BookingDate>();
+  const [dueEndDate, setEndDate] = useState<BookingDate>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentIds, setAppointmentIds] = useState<number>();
@@ -28,10 +29,11 @@ function RequestedAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
-        dueDate: {
-          startDate: dueStartDate,
-          endDate: dueEndDate,
-        },
+        dueDate: dueStartDate &&
+          dueEndDate && {
+            startDate: String(dueStartDate),
+            endDate: String(dueEndDate),
+          },
       },
     },
   });

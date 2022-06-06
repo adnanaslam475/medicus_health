@@ -26,10 +26,11 @@ function UpcomingAppointments() {
         doctorId: doctorIds,
         appointmentId: appointmentIds,
         serviceId: serviceIds,
-        dueDate:{
-          startDate:dueStartDate,
-          endDate:dueEndDate,
-        }
+        dueDate: dueStartDate &&
+          dueEndDate && {
+            startDate: String(dueStartDate),
+            endDate: String(dueEndDate),
+          },
       },
     },
   });
