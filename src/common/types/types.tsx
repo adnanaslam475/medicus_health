@@ -123,14 +123,6 @@ export type adminUserFilterType = {
   };
 };
 
-export type patientAppointmentHistoryFilterType = {
-  doctorId?: number;
-  serviceId?: number;
-  dueDate?: {
-    startDate?: string;
-    endDate?: string;
-  };
-};
 
 export type PatientListFilterType = {
   searchField?: string;

@@ -44,6 +44,7 @@ type Props = {
     | undefined;
   doctorData?: DoctorProfile;
   adminData?: AdminData;
+  patientData?:User[] | undefined;
   adminApp_Details?: DoctorData;
 };
 
@@ -53,6 +54,7 @@ function BookAppointmentJourney({
   onCancel,
   doctorData,
   adminData,
+  patientData,
   adminApp_Details,
 }: Props) {
   return (
@@ -63,6 +65,7 @@ function BookAppointmentJourney({
         onCancel={onCancel}
         doctorData={doctorData}
         adminData={adminData}
+        patientData={patientData}
         adminApp_Details={adminApp_Details}
       />
     </BookAppointmentProvider>
@@ -75,6 +78,7 @@ function BookAppointmentModal({
   onCancel,
   doctorData,
   adminData,
+  patientData,
   adminApp_Details,
 }: Props) {
   const form = useRef<FormInstance>();
@@ -205,6 +209,7 @@ function BookAppointmentModal({
               doctorData={doctorData}
               ref={form}
               adminData={adminData}
+              patientData={patientData}
               adminApp_Details={adminApp_Details}
             />
           </div>

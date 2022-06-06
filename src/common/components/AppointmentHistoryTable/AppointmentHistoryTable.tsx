@@ -30,7 +30,7 @@ const AppointmentHistoryTable = (props: Props) => {
       key: "requestedDate",
       sorter: true,
       render: (requestedDate: string) => {
-        return <div>{`${date?.formatMMMMDDYYYY(requestedDate)} `}</div>;
+        return <div>{requestedDate ? `${date?.formatMMMMDDYYYY(requestedDate)}` : "-"}</div>;
       },
     },
     {
@@ -59,7 +59,7 @@ const AppointmentHistoryTable = (props: Props) => {
 
       render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
         let time = appointmentTimeSlots?.find((time) => time.selected);
-        return <div>{`${date?.formatMMMMDDYYYY(time?.startTime)} `}</div>;
+        return <div>{time?.startTime ? `${date?.formatMMMMDDYYYY(time?.startTime)} ` : "-"}</div>;
       },
     },
     {
@@ -70,9 +70,9 @@ const AppointmentHistoryTable = (props: Props) => {
       render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
         let time = appointmentTimeSlots?.find((time) => time.selected);
         return (
-          <div>{`${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
+          <div>{time?.startTime ? `${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
             time?.endTime
-          )}`}</div>
+          )}` : "-"}</div>
         );
       },
     },
