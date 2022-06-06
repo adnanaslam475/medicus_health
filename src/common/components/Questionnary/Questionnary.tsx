@@ -135,7 +135,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const { pathname } = router || {};
   let disabled = pathname.includes("/physician/appointments");
 
-  console.log("myyyyyyyyyyyyyyyyywork",disabled);
   function prepareAndSetEditPayload(parsedData: any) {
     setRadioDrink(parsedData?.q1.ans);
     setRadioSmoke(parsedData?.q2.ans);
@@ -260,7 +259,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       onFinish={onFinishHealthQuestionnary}
       onFinishFailed={onFinishHealthQuestionnaryFailed}
       form={formInstance}
-      className={`${_classes["questionnary-css"]} someClass`}
+      className={`${
+        _classes[disabled ? "disabled-class" : "questionnary-css"]
+      } `}
     >
       <Form.Item
         name={HealthQuestionnaryData.q1.name}
