@@ -7,7 +7,7 @@ type Props = {
     | undefined;
   onOk?: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
   message: string;
-  confirmLoading: boolean;
+  confirmLoading: boolean |undefined;
 };
 const ConfirmationModal = ({
   message,
