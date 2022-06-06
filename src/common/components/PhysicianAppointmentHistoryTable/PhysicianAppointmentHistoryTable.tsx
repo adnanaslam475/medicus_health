@@ -40,7 +40,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       key: "serviceType",
       sorter: true,
       render: (value: AppointmentServiceType) => {
-        return <div>{`${value.name}`}</div>;
+        return <div>{`${value?.name}`}</div>;
       },
     },
     {
