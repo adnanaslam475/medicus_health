@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Input, Button, Select, DatePicker } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { physicianFilterType } from "common/types/types";
-import { GetAppointmentInput, useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
+import {
+  GetAppointmentInput,
+  useGetAllAppointmentServiceTypesQuery,
+} from "generated/graphql";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
@@ -50,7 +53,7 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
       <div className="flex items-center sm:flex  lg:mb-0">
         <div className="w-full sm:w-full md:w-full lg:w-70">
           <Input
-            value={filterState.searchString ||undefined}
+            value={filterState.searchString || undefined}
             placeholder="Search by ID or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
@@ -71,12 +74,14 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
           onApply={applyDateRange}
           heading="Appointment Date"
           title={
-            filterState.dueDate?.startDate && (
+            filterState.dueDate?.startDate ? (
               <div>
                 {filterState.dueDate
                   ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
                   : "Creation Date"}
               </div>
+            ) : (
+              ""
             )
           }
         />

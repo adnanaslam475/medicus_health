@@ -190,7 +190,7 @@ function DoctorAppointmentInfoFooter({
   data?: Appointment;
 }) {
   const { appointmentTimeSlots } = data || {};
-  const selectedAppointment: CustomTimeSlot | undefined = useMemo(
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
