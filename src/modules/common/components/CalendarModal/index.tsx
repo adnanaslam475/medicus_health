@@ -5,7 +5,8 @@ import { VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./CalendarModal.module.scss";
 import { isAppointmentTimeValid } from "common/utils/date";
 import { AppointmentTimeSlots } from "generated/graphql";
-
+import Image from "next/image";
+import camera from "../../../../../public/assets/images/camera.svg";
 type Props =
 	| {
 			modalVisible: boolean;
@@ -27,15 +28,24 @@ type Props =
 	| any;
 function CalendarModalComponent(props: Props) {
 	const { modalVisible, closeModal, data, okText } = props;
-	const { id, doctor, patient, serviceType, dateValue, charges,appointmentTimeSlots } = data;
-	const selectedAppointment:AppointmentTimeSlots | undefined = useMemo(
-		() => appointmentTimeSlots?.find((item:AppointmentTimeSlots) => item.selected),
+	const {
+		id,
+		doctor,
+		patient,
+		serviceType,
+		dateValue,
+		charges,
+		appointmentTimeSlots,
+	} = data;
+	const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
+		() =>
+			appointmentTimeSlots?.find((item: AppointmentTimeSlots) => item.selected),
 		[appointmentTimeSlots]
-	  );
-	  const [disabled, setDisabled] = useState(true);
-	  useEffect(() => {
+	);
+	const [disabled, setDisabled] = useState(true);
+	useEffect(() => {
 		isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-	  }, [selectedAppointment]);
+	}, [selectedAppointment]);
 
 	return (
 		<Modal
@@ -61,14 +71,18 @@ function CalendarModalComponent(props: Props) {
 
 			<div className="border-b pb-0 pt-2">
 				<p className="text-grey-4 ">Date</p>
-				<h4 className="text-xl">{date.formatMMMMDDYYYY(selectedAppointment?.startTime || dateValue)}</h4>
+				<h4 className="text-xl">
+					{date.formatMMMMDDYYYY(selectedAppointment?.startTime || dateValue)}
+				</h4>
 			</div>
 
 			<div className="border-b pb-0 pt-2">
 				<p className="text-grey-4 ">Time</p>
 				<h4 className="text-xl">{`${date.formathhmma(
 					selectedAppointment?.startTime || dateValue
-				)}  -  ${date.formathhmma(selectedAppointment?.endTime || dateValue)}`}</h4>
+				)}  -  ${date.formathhmma(
+					selectedAppointment?.endTime || dateValue
+				)}`}</h4>
 			</div>
 
 			<div className="border-b pb-0 pt-2">
@@ -79,18 +93,17 @@ function CalendarModalComponent(props: Props) {
 			<div className="flex items-center justify-end border-0 pt-4">
 				<Button
 					type="primary"
-					icon={<VideoCameraFilled />}
 					className={`${_classes["appointments-btn"]} bg-current mr-3`}
 					disabled={disabled}
 				>
-					Join Now
-				</Button>
-				<Button
-					key="link"
-					type="primary"
-					className={`${_classes["details-btn"]}`}
-				>
-					Details
+					<Image
+						src={camera}
+						width={15}
+						height={15}
+						className="mb-0"
+						alt="camera"
+					/>
+					<span className="ml-2 mt-1">Join Now</span>
 				</Button>
 			</div>
 		</Modal>
