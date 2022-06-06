@@ -61,7 +61,6 @@ export const Profile = React.forwardRef(function Profile({
     }
   };
   const updateAdminProfile = async (values: any) => {
-    console.log("vlaueskhanvlaueskhanvlaueskhanvlaueskhanvlaueskhan", values);
     if (doctorData) {
       const res = await executeUseUpdateAdminUserMutation({
         updateAdminUserInput: {
@@ -186,14 +185,11 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input disabled={true} />
                 </Form.Item>
-                {/* <Form.Item
+                <Form.Item
                   label="Contact Number"
                   className="flex-1"
                   name="contact_number"
                 >
-                  <Input />
-                </Form.Item> */}
-                <Form.Item label="Zip Code" className="flex-1" name="zip_code">
                   <Input />
                 </Form.Item>
               </div>
