@@ -14,6 +14,8 @@ import _classes from "./PatientAppointmentHistoryFilter.module.scss";
 import { patientAppointmentHistoryFilterType } from "common/types/types";
 import { SelectServiceTypeFilter } from "../SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { SelectPhysicianTypeFilter } from "../SelectPhysicianTypeFilter/SelectPhysicianTypeFilter";
+import { calendarFilterIcon } from "utils/images";
+import Image from "next/image";
 
 const { RangePicker } = DatePicker;
 
@@ -139,7 +141,17 @@ function PatientAppointmentHistoryFilter(props: Props) {
                   </div>
                 ) : (
                   <div className="flex justify-between items-center w-full px-3">
-                    <div>Date</div>
+                    <div className="flex items-center font-thin">
+                      <span className="mr-2 mt-1">
+                        <Image
+                          width={18}
+                          height={18}
+                          src={calendarFilterIcon}
+                          alt=""
+                        />
+                      </span>
+                      Date
+                    </div>
                     <div>
                       <CaretDownOutlined />
                     </div>

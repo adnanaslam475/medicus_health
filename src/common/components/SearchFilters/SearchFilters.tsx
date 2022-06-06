@@ -197,7 +197,7 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(dateRange?.[0])} -> ${getDateInFormat(
                         dateRange?.[1]
                       )}`
-                    : "Creation Date"}
+                    : "Date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -210,7 +210,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Creation Date
+                    Date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
