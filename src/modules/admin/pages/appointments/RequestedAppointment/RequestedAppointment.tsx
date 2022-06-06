@@ -5,11 +5,14 @@ import {
   Appointment,
   AppointmentTimeSlots,
   useGetAllRequestedAppointmentsQuery,
+  useGetPhysiciansQuery,
+  User,
 } from "../../../../../generated/graphql";
 import { Button, Empty, Select } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import Link from "next/link";
 import AppointmentModalJourney from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 function RequestedAppointment() {
   const [dueStartDate, setStartDate] = useState<Date | null>();
@@ -19,6 +22,21 @@ function RequestedAppointment() {
   const [appointmentIds, setAppointmentIds] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Requested");
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showAppointmentBookingModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
 
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
@@ -51,6 +69,12 @@ function RequestedAppointment() {
     setCurrentAppointmentId(undefined);
   }
 
+  const [{ data: physicianList }] = useGetPhysiciansQuery({
+    variables: {
+      filter: {},
+    },
+  });
+  const { getPhysicians} = physicianList || {};
   return (
     <AppLayout>
       <>
@@ -72,7 +96,7 @@ function RequestedAppointment() {
                   </Select.Option>
                 </Select>
               </div>
-              <Button type="primary" className="text-sm">
+              <Button type="primary" className="text-sm" onClick={showAppointmentBookingModal}>
                 <span className="text-xs sm:text-base">
                   Request an Appointment
                 </span>
@@ -132,6 +156,12 @@ function RequestedAppointment() {
           visible={showModal}
           onCancel={onCancel}
           appointmentId={currentAppointmentId}
+        />
+        <BookAppointmentJourney
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          patientData={getPhysicians as User[]}
         />
       </>
     </AppLayout>
