@@ -352,7 +352,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         <Button
           danger
           className="border border-red outline"
-          // onClick={onCancelRequestedAppointment}
           onClick={() => setShowConfirmationModal(true)}
         >
           Reject
