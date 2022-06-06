@@ -295,6 +295,7 @@ mutation updateAdmin($id: Int!, $updateAdminUserInput: UpdateAdminUserInput!) {
     email
     password
     status
+    contact_number
   }
 }
 

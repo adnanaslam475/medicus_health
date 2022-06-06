@@ -67,10 +67,10 @@ export const Profile = React.forwardRef(function Profile({
           first_name: values?.firstName,
           last_name: values?.lastName,
           email: values?.email,
-          // contact_number: Number(values?.contact_number),
+          contact_number: values?.contact_number,
           password: values?.password,
           profileImage: image || userProfileImage,
-          zip_code: values?.zip_code,
+          // zip_code: values?.zip_code,
         },
         id: 127,
       });
