@@ -35,7 +35,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     },
 
     {
-      title: "Type",
+      title: " Appointment Type",
       dataIndex: "serviceType",
       key: "serviceType",
       sorter: true,
