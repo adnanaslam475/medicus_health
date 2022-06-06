@@ -106,9 +106,16 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText label="ID" text={id} />
         <LabelWithText
           label="Patient"
-          text={`${patient?.first_name} ${patient?.last_name}`}
+          text={
+            patient?.first_name
+              ? `${patient?.first_name} ${patient?.last_name}`
+              : "--"
+          }
         />
-        <LabelWithText label="Type" text={serviceType?.name} />
+        <LabelWithText
+          label="Type"
+          text={serviceType?.name ? serviceType?.name : "--"}
+        />
         <LabelWithText
           label="Due Date"
           text={
