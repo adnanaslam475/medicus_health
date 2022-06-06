@@ -3,13 +3,9 @@ import { Button, Space, DatePicker, Form, Input } from "antd";
 import {
   CaretDownOutlined,
   CloseOutlined,
-  DownOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import {
-  useDoctorProfilesQuery,
-  useGetAllAppointmentServiceTypesQuery,
-} from "../../../generated/graphql";
+
 import { GetAppointmentInput } from "generated/graphql";
 import _classes from "./PatientAppointmentHistoryFilter.module.scss";
 import { SelectServiceTypeFilter } from "../SelectServiceTypeFilter/SelectServiceTypeFilter";

@@ -6,10 +6,8 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import {
-  Appointment,
   useDoctorProfilesQuery,
   useGetAllAppointmentServiceTypesQuery,
-  useGetAllRequestedAppointmentsQuery,
 } from "../../../generated/graphql";
 import searchStyle from "./style.module.scss";
 import Image from "next/image";
