@@ -1,7 +1,14 @@
 .placeholderColor {
   :global .ant-select-selector {
     .ant-select-selection-item {
-      color: #9295AF;
+      color: #9295AF !important;
+      font-weight: 500 !important;
+
     }
+    .ant-select-selection-placeholder{
+      font-weight:500 !important ;
+    }
+
+    
   }
 }
