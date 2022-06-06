@@ -142,7 +142,9 @@ function DoctorAppointmentInfo({ data }: Props) {
           <LabelWithText
             label="Total Amount"
             text={
-              transaction?.amountReceived && `$ ${transaction?.amountReceived}`
+              transaction?.amountReceived
+                ? `$ ${transaction?.amountReceived}`
+                : "--"
             }
           />
         )}
@@ -150,13 +152,13 @@ function DoctorAppointmentInfo({ data }: Props) {
         {status === "Requested" && (
           <LabelWithText
             label="Total Amount"
-            text={charges && `$ ${charges}`}
+            text={charges ? `$ ${charges}` : "--"}
           />
         )}
         {status === "Cancelled" && (
           <LabelWithText
             label="Total Amount"
-            text={charges && `$ ${charges}`}
+            text={charges ? `$ ${charges}` : "--"}
           />
         )}
 
