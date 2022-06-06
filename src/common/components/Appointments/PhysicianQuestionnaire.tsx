@@ -6,6 +6,7 @@ import {
 } from "../../../generated/graphql";
 import { useRouter } from "next/router";
 import { parseJson } from "common/utils/helper";
+import _classes from "./AppointmentButtons.module.scss";
 
 type Props = {
   appointmentHealthHistory: string;
@@ -47,7 +48,11 @@ function PhysicianQuestionnaire(props: Props) {
   return (
     <React.Fragment>
       <div className="w-3/6">
-        <Form layout="vertical" form={formInstance}>
+        <Form
+          layout="vertical"
+          form={formInstance}
+          className={`${_classes[disabled ? "disabled-class" : ""]} `}
+        >
           <Form.Item
             label="Please describe your main respiratory concern today?"
             className="text-secondary"
