@@ -16,7 +16,7 @@ function CancelledAppointment() {
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
-  const [appointmentIds, setAppointmentIds] = useState<number>();
+  const [appointmentId, setAppointmentId] = useState<number>();
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Cancelled");
@@ -26,7 +26,7 @@ function CancelledAppointment() {
         status: status,
         physicianName: dataListPhysician,
         doctorId: doctorIds,
-        appointmentId: appointmentIds,
+        appointmentId: appointmentId,
         serviceId: serviceIds,
       },
     },
@@ -62,7 +62,7 @@ function CancelledAppointment() {
             setEndDate={setEndDate}
             setDataListPhysician={setDataListPhysician}
             setDoctorId={setDoctorId}
-            setAppointmentIds={setAppointmentIds}
+            setAppointmentId={setAppointmentId}
             setServiceIds={setServiceIds}
           />
         </div>

@@ -75,11 +75,11 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
               <div>
                 {filterState.bookingDate
                   ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-                  : "Creation Date"}
+                  : "Date"}
               </div>
             )
           }
-          heading="Creation Date"
+          heading="Date"
         />
       </div>
       <div className="flex-none sm:flex">

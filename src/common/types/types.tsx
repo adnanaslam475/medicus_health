@@ -124,6 +124,7 @@ export type adminUserFilterType = {
 };
 
 export type patientAppointmentHistoryFilterType = {
+  appointmentId?: number;
   doctorId?: number;
   serviceId?: number;
   dueDate?: {
