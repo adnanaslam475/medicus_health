@@ -27,7 +27,7 @@ type Props = {
   setDataListPhysician: string | any;
   placeholder?: string;
   setDoctorId: number | any;
-  setAppointmentIds: number | any;
+  setAppointmentId: number | any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
@@ -44,6 +44,7 @@ function SearchFilters(props: Props) {
     setStartDate,
     setSearchPatient,
     isFromPhysician,
+    setAppointmentId,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -55,12 +56,20 @@ function SearchFilters(props: Props) {
   const [openDateRange, setOpenDateRange] = useState(false);
   const [dateRange, selectDateRange] = useState(null);
   const [patientName, setPatientName] = useState<string>();
+  const [localAppointment_Id, setLocalAppointment_Id] = useState<
+    number | null | undefined
+  >();
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
 
   const [{ data }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = data || {};
+
+  function handleAppointmentId(event: React.ChangeEvent<HTMLInputElement>) {
+    setAppointmentId(Number(event.target.value));
+    setLocalAppointment_Id(Number(event.target.value));
+  }
 
   function handlePaitentName_ID(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchPatient(event.target.value);
@@ -97,6 +106,8 @@ function SearchFilters(props: Props) {
     selectDateRange(null);
     setPatientName("");
     setSearchPatient && setSearchPatient(null);
+    setAppointmentId(null);
+    setLocalAppointment_Id(null);
   };
 
   const applyDateRange = () => {
@@ -109,6 +120,15 @@ function SearchFilters(props: Props) {
     >
       <span className="text-gray-1 mr-3 mb-3">Filter</span>
       <div className="flex-none sm:flex">
+        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-60 mr-2">
+          <Input
+            placeholder={"Search by ID"}
+            prefix={<SearchOutlined />}
+            onChange={(event) => handleAppointmentId(event)}
+            value={localAppointment_Id || undefined}
+            type="number"
+          />
+        </div>
         {isFromPhysician ? (
           <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
             <Input

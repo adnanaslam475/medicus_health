@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Space, DatePicker, Form } from "antd";
+import { Button, Space, DatePicker, Form, Input } from "antd";
 import {
   CaretDownOutlined,
   CloseOutlined,
@@ -51,6 +51,10 @@ function PatientAppointmentHistoryFilter(props: Props) {
     };
     setFilterState(filters);
 
+    if (!filters?.appointmentId) {
+      delete filters?.appointmentId;
+    }
+
     if (!filters?.doctorId) {
       delete filters?.doctorId;
     }
@@ -72,6 +76,17 @@ function PatientAppointmentHistoryFilter(props: Props) {
     >
       <span className="text-gray-1 mr-3 mb-3"></span>
       <div className="flex-none sm:flex">
+        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-60 mr-2">
+          <Input
+            placeholder={"Search by ID"}
+            prefix={<SearchOutlined />}
+            onChange={(event) =>
+              onChangeFields("appointmentId", Number(event.target.value))
+            }
+            type="number"
+            value={filterState?.appointmentId}
+          />
+        </div>
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <SelectPhysicianTypeFilter
             onChange={(value) => onChangeFields("doctorId", value)}

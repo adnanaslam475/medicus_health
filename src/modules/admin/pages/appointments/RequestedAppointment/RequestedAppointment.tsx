@@ -16,7 +16,7 @@ function RequestedAppointment() {
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
-  const [appointmentIds, setAppointmentIds] = useState<number>();
+  const [appointmentId, setAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Requested");
 
@@ -26,7 +26,7 @@ function RequestedAppointment() {
         status: status,
         physicianName: dataListPhysician,
         doctorId: doctorIds,
-        appointmentId: appointmentIds,
+        appointmentId: appointmentId,
         serviceId: serviceIds,
         dueDate: {
           startDate: dueStartDate,
@@ -86,7 +86,7 @@ function RequestedAppointment() {
               setEndDate={setEndDate}
               setDataListPhysician={setDataListPhysician}
               setDoctorId={setDoctorId}
-              setAppointmentIds={setAppointmentIds}
+              setAppointmentId={setAppointmentId}
               setServiceIds={setServiceIds}
             />
           </div>
