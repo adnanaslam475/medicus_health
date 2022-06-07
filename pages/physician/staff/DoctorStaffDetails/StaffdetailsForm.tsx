@@ -43,16 +43,24 @@ function StaffDetailsFrom({
       <p>{staffDetail?.email}</p>
       <div className="flex mb-8">
         {/* <Select className="mr-5" onChange={handleChange} style={{ width: 200 }}> */}
-        <Select
-          className="mr-5"
-          placeholder="Send Password Reset link"
-          onChange={handleChange}
-          value={disableAccountInput}
-          style={{ width: 200 }}
+        <div
+          className={
+            disableAccountInput
+              ? `${_classes["staff-select-enable"]}`
+              : `${_classes["staff-select-disable"]}`
+          }
         >
-          <Option value={true}>Active</Option>
-          <Option value={false}>Inactive</Option>
-        </Select>
+          <Select
+            className="mr-5"
+            placeholder="Send Password Reset link"
+            onChange={handleChange}
+            value={disableAccountInput}
+            style={{ width: 200 }}
+          >
+            <Option value={true}>Enable</Option>
+            <Option value={false}>Disable</Option>
+          </Select>
+        </div>
         <Button
           className="ml-7"
           loading={loading}

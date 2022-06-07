@@ -8,7 +8,6 @@ import {
   CreateStaffInput,
   GetStaffFilter,
   useCreateStaffMutation,
-  useEnableOrDisableStaffMutation,
   useGetAllStaffByDoctorQuery,
   User,
 } from "generated/graphql";
@@ -31,7 +30,6 @@ function StaffListing() {
     },
   });
   const { staff } = data || {};
-  console.log(data, "====+++==========>");
 
   // // ENABLE OR DISABLE STAFF DATA API CALL
   // const [{ fetching: diableFetching }, enableOrDisableStaff] =
