@@ -37,6 +37,14 @@ export type AdminDashResponse = {
   total_revenue?: Maybe<Scalars['Float']>;
 };
 
+export type AdminProfilePicture = {
+  __typename?: 'AdminProfilePicture';
+  id: Scalars['Int'];
+  profile_picture: Scalars['String'];
+  user?: Maybe<User>;
+  userId: Scalars['Int'];
+};
+
 export type AdminSetting = {
   __typename?: 'AdminSetting';
   id: Scalars['Int'];
@@ -131,8 +139,8 @@ export type BookAppointmentInput = {
 };
 
 export type BookingDate = {
-  endDate?: InputMaybe<Scalars['DateTime']>;
-  startDate?: InputMaybe<Scalars['DateTime']>;
+  endDate?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['String']>;
 };
 
 export type ChatChannels = {
@@ -190,6 +198,7 @@ export type CreateAdminInput = {
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
+  profile_picture: Scalars['String'];
 };
 
 export type CreateAdminSetting = {
@@ -899,6 +908,7 @@ export type PatientProfile = {
   __typename?: 'PatientProfile';
   children?: Maybe<Scalars['Int']>;
   exposureDuration?: Maybe<Scalars['String']>;
+  haveChildren?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   maritalStatus?: Maybe<Scalars['String']>;
   occupation?: Maybe<Scalars['String']>;
@@ -1222,6 +1232,7 @@ export type UpdateAdminUserInput = {
   last_name: Scalars['String'];
   password?: InputMaybe<Scalars['String']>;
   profileImage?: InputMaybe<Scalars['String']>;
+  profile_picture?: InputMaybe<Scalars['String']>;
 };
 
 export type UpdateDoctorPercentage = {
@@ -1274,6 +1285,7 @@ export type UpdateUserInput = {
   exposureDuration?: InputMaybe<Scalars['String']>;
   first_name: Scalars['String'];
   gender: Scalars['String'];
+  haveChildren?: InputMaybe<Scalars['String']>;
   last_name: Scalars['String'];
   maritalStatus?: InputMaybe<Scalars['String']>;
   occupation?: InputMaybe<Scalars['String']>;
@@ -1291,6 +1303,9 @@ export type UpdateUserInput = {
 
 export type User = {
   __typename?: 'User';
+  AdminProfilePicture?: Maybe<AdminProfilePicture>;
+  adminProfilePicture?: Maybe<AdminProfilePicture>;
+  adminProfilePictureId?: Maybe<Scalars['Int']>;
   appointment?: Maybe<Appointment>;
   chatChannel?: Maybe<ChatChannels>;
   chatParticipant?: Maybe<ChatParticipants>;
@@ -1683,7 +1698,7 @@ export type AdminPhysicianAppointmentQueryVariables = Exact<{
 }>;
 
 
-export type AdminPhysicianAppointmentQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, charges: number, status?: string | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }> };
+export type AdminPhysicianAppointmentQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id: number, charges: number, status?: string | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }> };
 
 export type GetPatientsQueryVariables = Exact<{
   filter: GetPatientsInput;
@@ -2644,6 +2659,10 @@ export const AdminPhysicianAppointmentDocument = gql`
       selected
     }
     appointmentSchedule {
+      startTime
+      endTime
+    }
+    appointmentDateTime {
       startTime
       endTime
     }
@@ -3784,6 +3803,55 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AdminProfilePicture",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "profile_picture",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "userId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           }
@@ -6639,6 +6707,14 @@ export default {
             "args": []
           },
           {
+            "name": "haveChildren",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "id",
             "type": {
               "kind": "NON_NULL",
@@ -8050,6 +8126,32 @@ export default {
         "kind": "OBJECT",
         "name": "User",
         "fields": [
+          {
+            "name": "AdminProfilePicture",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AdminProfilePicture",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "adminProfilePicture",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AdminProfilePicture",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "adminProfilePictureId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
           {
             "name": "appointment",
             "type": {

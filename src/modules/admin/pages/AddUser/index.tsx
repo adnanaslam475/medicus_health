@@ -20,6 +20,7 @@ function AdminAddUser({}: Props) {
           first_name: values.first_name,
           last_name: values.last_name,
           email: values.email,
+          profile_picture:values?.profile_picture
         },
       });
       if (response?.error) {
