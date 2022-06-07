@@ -72,7 +72,8 @@ export function MessageContextProvider({
   messageInfoRef.current = messageInfo;
   const rtmRef = useRef<Client>();
   const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
-  const [{ data }] = useGetAllChatChannelsQuery();
+  const [{ data }, executeGetAllChatChannelsMutation] =
+    useGetAllChatChannelsQuery();
   const { getAllChatChannels } = data || {};
   const [{ data: channelMessageData }, executeGetChannelMessagesQuery] =
     useGetChannelMessagesQuery({
@@ -100,17 +101,46 @@ export function MessageContextProvider({
     }
   }, [getChannelMessages?.[0]?.channelId]);
 
-  useEffect(() => {
+  async function createOrJoinChannel() {
     if (query?.chat && query.doctorId && query.patientId) {
-      executeCreateChatChannelMutation({
+      await executeCreateChatChannelMutation({
         createChatChannelInput: {
           doctorId: Number(query.doctorId),
           patientId: Number(query.patientId),
           isAdminChat: query.chat === "admin",
         },
       });
+      executeGetAllChatChannelsMutation({
+        requestPolicy: "network-only",
+      });
       console.log(query?.chat);
+    } else if (query?.chat && query.doctorId) {
+      // for admin to doctor
+      await executeCreateChatChannelMutation({
+        createChatChannelInput: {
+          doctorId: Number(query.doctorId),
+          isAdminChat: query.chat === "admin",
+        },
+      });
+      executeGetAllChatChannelsMutation({
+        requestPolicy: "network-only",
+      });
+    } else if (query?.chat && query.patientId) {
+      // for admin to patient
+      await executeCreateChatChannelMutation({
+        createChatChannelInput: {
+          patientId: Number(query.patientId),
+          isAdminChat: query.chat === "admin",
+        },
+      });
+      executeGetAllChatChannelsMutation({
+        requestPolicy: "network-only",
+      });
     }
+  }
+
+  useEffect(() => {
+    createOrJoinChannel();
   }, [query?.chat]);
 
   const [, executeGenerateRtcTokenMutation] = useGenerateRtcTokenMutation();
