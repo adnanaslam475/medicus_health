@@ -26,12 +26,6 @@ const editAdminUserForm = [
     type: "password",
     required: false,
   },
-  // {
-  //   label: "Confirm Password",
-  //   name: "confirm_password",
-  //   type: "password",
-  //   required: false,
-  // },
 ];
 
 type Props = {
