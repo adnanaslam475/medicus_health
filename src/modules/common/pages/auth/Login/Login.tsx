@@ -27,7 +27,7 @@ function Login() {
       } else if (role === "User") {
         router.push("/patient/appointments/upcoming");
       } else if (role === "Admin") {
-        router.push("/admin/dashboard");
+        router.push("/admin/dashboards");
       }
     } else {
       setAuthToken("");
@@ -57,7 +57,7 @@ function Login() {
           });
         } else if (userPayload.user.role === "Admin") {
           Router.replace({
-            pathname: "/admin/dashboard",
+            pathname: "/admin/dashboards",
           });
         }
       }
