@@ -1,0 +1,17 @@
+.clr-black {
+  color: black;
+}
+
+.staff-select-enable {
+  :global .ant-select-selector {
+    background-color:#E2F8F7 !important;
+    color: green !important;
+  }
+}
+
+.staff-select-disable {
+  :global .ant-select-selector {
+    background-color:#f3c3c7e3 !important;
+    color: red !important;
+  }
+}
