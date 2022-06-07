@@ -82,16 +82,16 @@ const classesAccordingToType: StatusType<StatusName> = {
     border: "border border-gray",
   },
   TRUE: {
-    background: "bg-blue",
-    color: "text-blue-1",
+    background: "bg-green",
+    color: "text-green-1",
     text: ACTIVE || "Active",
-    border: "border border-blue",
+    border: "border border-green",
   },
   FALSE: {
-    background: "bg-gray",
-    color: "text-gray-7",
+    background: "bg-red-1",
+    color: "text-red",
     text: INACTIVE || "InActive",
-    border: "border border-gray",
+    border: "border border-red-1",
   },
 };
 
