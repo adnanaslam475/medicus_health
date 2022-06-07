@@ -69,7 +69,7 @@ function ProfileForm({
       }
     }
   };
-
+  let formatedLanguage = doctorData?.language !== undefined && JSON.parse(doctorData?.language)
   return (
     <div className="w-full pb-10">
       <Form
@@ -102,7 +102,7 @@ function ProfileForm({
           );
         })}
 
-        <LanguageList disable={true} language={doctorData?.language} />
+        <LanguageList disable={true} language={formatedLanguage} />
         <AboutMe />
 
         <InputWithLi disable={true} />

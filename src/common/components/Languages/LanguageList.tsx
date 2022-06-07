@@ -4,24 +4,28 @@ import end from "../../../../public/assets/images/engFlag.png";
 import esp from "../../../../public/assets/images/espanolFlag.png";
 import { Form, FormInstance } from "antd";
 
+type LanguageType = {
+  Spanish?: boolean;
+  English?: boolean;
+};
+
 type Props = {
   disable?: boolean;
   check?: boolean;
   formInstance?: FormInstance;
-  language?: string;
+  language?: LanguageType;
 };
 const LanguageList = (props: Props) => {
   const { check, disable, formInstance, language } = props || {};
-  
   return (
     <>
       <div className="mr-auto font-medium text-lightBold-1 my-2">Languages</div>
-      <div className="flex mr-auto">
+      {language?.English !== undefined && <div className="flex mr-auto">
         <Form.Item label="" name="english" className="flex mr-auto">
           <Language
             end={end}
             title="English"
-            check={language === "English"}
+            check={language?.English}
             disable={disable}
           />
         </Form.Item>
@@ -29,11 +33,11 @@ const LanguageList = (props: Props) => {
           <Language
             end={esp}
             title="Spanish"
-            check={language === "Spanish"}
+            check={language?.Spanish}
             disable={disable}
           />
         </Form.Item>
-      </div>
+      </div>}
     </>
   );
 };
