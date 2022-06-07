@@ -59,8 +59,7 @@ function EditAdminUserDetails({}: Props) {
           last_name,
           email,
           password: values.password || "",
-          // contact_number: "",
-          zip_code: "",
+          contact_number: "",
         },
       });
       if (response?.error) {

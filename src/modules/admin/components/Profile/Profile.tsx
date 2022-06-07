@@ -8,6 +8,7 @@ import _classes from "./PhysicianProfile.module.scss";
 import { useUpdateAdminUserMutation } from "generated/graphql";
 import { UploadChangeParam } from "antd/lib/upload";
 import { useMediaUploader } from "common/hooks/media";
+import { getUserData } from "common/utils/userData";
 
 type profileType = {
   doctorId?: string | string[] | undefined;
@@ -23,6 +24,9 @@ export const Profile = React.forwardRef(function Profile({
 }: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
+
+  const { user } = getUserData();
+  const { id } = user || {};
 
   const { first_name, last_name, password, email, contact_number, status } =
     (doctorData && doctorData[0]) || {};
@@ -61,19 +65,17 @@ export const Profile = React.forwardRef(function Profile({
     }
   };
   const updateAdminProfile = async (values: any) => {
-    console.log("vlaueskhanvlaueskhanvlaueskhanvlaueskhanvlaueskhan", values);
     if (doctorData) {
       const res = await executeUseUpdateAdminUserMutation({
         updateAdminUserInput: {
           first_name: values?.firstName,
           last_name: values?.lastName,
           email: values?.email,
-          // contact_number: Number(values?.contact_number),
+          contact_number: values?.contact_number,
           password: values?.password,
           profileImage: image || userProfileImage,
-          zip_code: values?.zip_code,
         },
-        id: 127,
+        id: Number(id),
       });
 
       if (res?.data) {
@@ -186,14 +188,11 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input disabled={true} />
                 </Form.Item>
-                {/* <Form.Item
+                <Form.Item
                   label="Contact Number"
                   className="flex-1"
                   name="contact_number"
                 >
-                  <Input />
-                </Form.Item> */}
-                <Form.Item label="Zip Code" className="flex-1" name="zip_code">
                   <Input />
                 </Form.Item>
               </div>
