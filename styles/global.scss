@@ -201,7 +201,7 @@ label.ant-radio-wrapper {
       Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
       "Noto Color Emoji";
-    // word-spacing: -10px;
+    word-spacing: -10px;
     margin-bottom: 0px;
   }
 
@@ -385,9 +385,7 @@ label.ant-radio-wrapper {
   color: #30cec2 !important;
 }
 
-
 .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) {
-
   .ant-select-selector {
     border-color: #9295af !important;
     box-shadow: 0 0 0 0 rgba(26, 130, 254, 0.2) !important;
@@ -396,9 +394,10 @@ label.ant-radio-wrapper {
   }
 }
 
-.ant-input-affix-wrapper:focus, .ant-input-affix-wrapper-focused {
-  border-color:none !important;
-  box-shadow:  none !important;
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: none !important;
+  box-shadow: none !important;
 }
 .ant-input-affix-wrapper:hover {
   border-color: #9295af !important;

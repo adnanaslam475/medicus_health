@@ -125,6 +125,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
         {(appointmentStatus === "Requested" ||
           appointmentStatus === "Suggested") && (
           <AdminAppointmentRequestedInfoFooter
+            adminApp_Details={adminApp_Details}
             onCancelRequestedAppointment={onCancelRequestedAppointment}
           />
         )}
@@ -162,14 +163,30 @@ function AdminAppointmentInfoFooter({
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]} mr-3`}
-            onClick={() => Router.push("/admin/messages")}
+            onClick={() =>
+              Router.push({
+                pathname: "/admin/messages",
+                query: {
+                  chat: "admin",
+                  patientId: adminApp_Details?.patient.patient_id,
+                },
+              })
+            }
           >
-            Message Admin
+            Message Patient
           </Button>
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]}`}
-            onClick={() => Router.push("/physician/messages")}
+            onClick={() =>
+              Router.push({
+                pathname: "/admin/messages",
+                query: {
+                  chat: "admin",
+                  doctorId: adminApp_Details?.doctor.doctor_Id,
+                },
+              })
+            }
           >
             Message Physician
           </Button>
@@ -195,7 +212,7 @@ function AdminAppointmentInfoFooter({
 }
 
 function AdminAppointmentRequestedInfoFooter(props: Props) {
-  const { onCancelRequestedAppointment } = props || {};
+  const { onCancelRequestedAppointment, adminApp_Details } = props || {};
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
@@ -209,14 +226,30 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
         <Button
           icon={<MessageOutlined />}
           className={`${_classes["appointments-btn"]} mr-3`}
-          onClick={() => Router.push("/admin/messages")}
+          onClick={() =>
+            Router.push({
+              pathname: "/admin/messages",
+              query: {
+                chat: "admin",
+                patientId: adminApp_Details?.patient.patient_id,
+              },
+            })
+          }
         >
-          Message Admin
+          Message Patient
         </Button>
         <Button
           icon={<MessageOutlined />}
           className={`${_classes["appointments-btn"]}`}
-          onClick={() => Router.push("/physician/messages")}
+          onClick={() =>
+            Router.push({
+              pathname: "/admin/messages",
+              query: {
+                chat: "admin",
+                doctorId: adminApp_Details?.doctor.doctor_Id,
+              },
+            })
+          }
         >
           Message Physician
         </Button>
