@@ -10,10 +10,10 @@ import {
   StripeElement,
 } from "@stripe/stripe-js";
 import { Button, notification } from "antd";
+import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import { getUserData } from "common/utils/userData";
 import Router from "next/router";
-// import { StringValueNode } from "graphql";
-import React, { useState } from "react";
+import React from "react";
 import {
   useBookAppointmentMutation,
   useCancelAppointmentByPatientMutation,
@@ -42,9 +42,12 @@ function AppointmentModalFooter({
   appointmentId,
   onReject,
 }: Props) {
+  const [showConfirmationModal, setShowConfirmationModal] =
+    React.useState<boolean>(false);
+
   // CANCEL Appointment By Patient API CALL
   const [
-    { data: cancelAppointmentByPatientData },
+    { data: cancelAppointmentByPatientData, fetching: cancelFetching },
     executeCancelAppointmentByPatientData,
   ] = useCancelAppointmentByPatientMutation();
   const { cancelAppointmentByPatient } = cancelAppointmentByPatientData || {};
@@ -62,14 +65,27 @@ function AppointmentModalFooter({
       variables: { userId: getUserData()?.user?.id as number },
     });
 
-  function onRejectAppointment(
+  async function onRejectAppointment(
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     id: number | undefined
   ) {
-    executeCancelAppointmentByPatientData({
-      id: Number(id),
-    });
-    onReject?.(e);
+    try {
+      const res = await executeCancelAppointmentByPatientData({
+        id: Number(id),
+      });
+      if (res?.data?.cancelAppointmentByPatient) {
+        notification.success({
+          message: "Appointment Cancelled",
+        });
+      } else {
+        notification.error({
+          message: "Something went wrong",
+        });
+      }
+      onReject?.(e);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function onPay(
@@ -138,7 +154,6 @@ function AppointmentModalFooter({
         },
       });
 
-      console.log(bookData);
       if (bookData?.bookAppointment.status === "Confirmed") {
         setCurrentStepName("stepFour");
       } else {
@@ -165,9 +180,7 @@ function AppointmentModalFooter({
           <Button
             danger
             className="border border-red outline"
-            onClick={(e) => {
-              onRejectAppointment(e, appointmentId);
-            }}
+            onClick={() => setShowConfirmationModal(true)}
           >
             Reject
           </Button>
@@ -178,6 +191,15 @@ function AppointmentModalFooter({
           >
             Proceed To Payment
           </Button>
+          <ConfirmationModal
+            visible={showConfirmationModal}
+            confirmLoading={cancelFetching}
+            onCancel={() => setShowConfirmationModal(false)}
+            onOk={(e) => {
+              onRejectAppointment(e, appointmentId);
+            }}
+            message="Are you sure you want to Cancel Appointment?"
+          />
         </div>
       )}
       {stepName == "stepTwo" && (
