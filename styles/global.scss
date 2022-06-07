@@ -384,3 +384,16 @@ label.ant-radio-wrapper {
   border-color: #e2f8f7 !important;
   color: #30cec2 !important;
 }
+
+.ant-menu-item{
+  &:hover {
+    svg.sidebar-icon-hover {
+      g {
+        path {
+          fill: url(#linear-gradient) !important;
+        }
+      }
+    }
+  }
+
+}

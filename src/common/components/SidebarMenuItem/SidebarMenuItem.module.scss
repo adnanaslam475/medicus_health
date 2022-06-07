@@ -12,6 +12,39 @@
 
 
 .side-menu-cover {
+  .ant-menu-item{
+    &:hover {
+      svg.sidebar-icon-hover {
+        g {
+          path {
+            fill: url(#linear-gradient);
+          }
+        }
+      }
+    }
+
+  }
+  .side-bar-submenu-item{
+    &:hover {
+      svg.sidebar-icon-hover {
+        g {
+          path {
+            fill: url(#linear-gradient);
+          }
+        }
+      }
+    }
+
+  }
+  // &:hover {
+  //   svg.sidebar-icon-hover {
+  //     g {
+  //       path {
+  //         fill: url(#linear-gradient);
+  //       }
+  //     }
+  //   }
+  // }
   :global .ant-menu {
     color: #272B4C !important;
     font-size: 16px;
@@ -78,7 +111,12 @@
         color: #272B4C !important;
       }
       svg {
-        color: #fff !important;          
+        color: #fff !important;   
+        g {
+          path {
+            fill: url(#linear-gradient) !important;
+          }
+        }       
       }
       &:hover {
         background-color: #fff !important;

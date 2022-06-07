@@ -23,6 +23,8 @@ export const PATIENT_ROUTES: routes = [
 	{ name: "Physicians", route: "/patient/physicians" },
 	{ name: "Messages", route: "/patient/messages" },
 	{ name: "Account", route: "/patient/account" },
+  
+  
 ];
 
 export const ADMIN_ROUTES: routes = [
