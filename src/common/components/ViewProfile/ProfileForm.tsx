@@ -102,7 +102,7 @@ function ProfileForm({
           );
         })}
 
-        <LanguageList disable={true} language={doctorData?.language} />
+        <LanguageList disable={false} language={doctorData?.language} />
         <AboutMe />
 
         <InputWithLi disable={true} />
