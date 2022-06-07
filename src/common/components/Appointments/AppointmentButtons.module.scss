@@ -1,11 +1,36 @@
 .appointments-btn {
-  font-size: 14px;
-  height: 40px;
-  line-height: 40px;
+	font-size: 14px;
+	height: 40px;
+	line-height: 40px;
 }
 
 .disabled-class {
-  input {
-    border: none !important;
-  }
+	input {
+		border: none !important;
+		color: black !important;
+	}
+
+	:global .ant-radio-checked {
+		::after {
+			border: 1px solid #30cec2 !important;
+			background-color: #30cec2 !important;
+		}
+		.ant-radio-inner {
+			border-color: #30cec2 !important;
+		}
+	}
+	:global .ant-checkbox-checked {
+		.ant-checkbox-inner {
+			border: 1px solid white !important;
+			:after {
+				color: white !important;
+				border: 1px solid white !important;
+			}
+		}
+	}
+	:global
+		.ant-checkbox-disabled.ant-checkbox-checked
+		.ant-checkbox-inner::after {
+		border-color: white !important;
+	}
 }

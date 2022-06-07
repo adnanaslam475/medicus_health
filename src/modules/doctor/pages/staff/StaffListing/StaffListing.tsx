@@ -24,9 +24,7 @@ function StaffListing() {
 
   const [{ data }, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
     variables: {
-      filter: {
-        ...filterValues,
-      },
+      filter: filterValues,
     },
   });
   const { staff } = data || {};
@@ -63,9 +61,12 @@ function StaffListing() {
       console.log("catch_err", error);
     }
   };
-
   function onChangeFilters(values: any) {
-    setFilterValues(values);
+    setFilterValues({
+      ...values,
+      status: values?.status === "true" ? true : false,
+    });
+
     executeUseStaffQuery({
       filter: values,
       requestPolicy: "network-only",
