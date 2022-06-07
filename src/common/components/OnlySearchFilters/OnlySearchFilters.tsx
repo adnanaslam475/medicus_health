@@ -26,7 +26,7 @@ function OnlySearchFilters({ onChange }: Props) {
 
       <div className="lg:ml-3 w-full sm:w-full md:w-full lg:max-w-1/2 mr-2">
         <Input
-          placeholder="patient ID, profile picture, first name, last name, email address, contact number or address"
+          placeholder="Search by ID, patient name, contact number or email"
           prefix={<SearchOutlined />}
           value={searchValue}
           onChange={(e) => onChangeFields(e.target.value)}
