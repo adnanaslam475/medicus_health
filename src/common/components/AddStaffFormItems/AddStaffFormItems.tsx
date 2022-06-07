@@ -41,6 +41,12 @@ function AddStaffFormItems() {
               required: value.required,
               message: `Please fill ${value.label}`,
             },
+            value?.type === "email"
+              ? {
+                  type: "email",
+                  message: "Email is invalid",
+                }
+              : {},
           ]}
           className={`font-bold ${_classes["clr-black"]} text-black`}
           name={value.name}

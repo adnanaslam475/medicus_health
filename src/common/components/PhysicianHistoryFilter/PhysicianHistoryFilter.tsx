@@ -13,6 +13,8 @@ import { getDateInFormat } from "../../utils/date";
 import _classes from "./PhysicianHistoryFilters.module.scss";
 import searchStyle from "./style.module.scss";
 import { DateType } from "common/types/types";
+import Image from "next/image";
+import { calendarFilterIcon } from "utils/images";
 
 const { RangePicker } = DatePicker;
 
@@ -153,9 +155,21 @@ function PhysicianSearchFilters(props: Props) {
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  <div>Booking Date</div>
-                  <div>
-                    <CaretDownOutlined style={{ color: `primary` }} />
+                  <div className="flex justify-between items-center w-full px-3">
+                    <div className="flex items-center font-thin">
+                      <span className="mr-2 mt-1">
+                        <Image
+                          width={18}
+                          height={18}
+                          src={calendarFilterIcon}
+                          alt=""
+                        />
+                      </span>
+                      Booking Date
+                    </div>
+                    <div>
+                      <CaretDownOutlined />
+                    </div>
                   </div>
                 </div>
               )}
@@ -218,9 +232,21 @@ function PhysicianSearchFilters(props: Props) {
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  <div>Due Date</div>
-                  <div>
-                    <CaretDownOutlined style={{ color: `primary` }} />
+                  <div className="flex justify-between items-center w-full px-3">
+                    <div className="flex items-center font-thin">
+                      <span className="mr-2 mt-1">
+                        <Image
+                          width={18}
+                          height={18}
+                          src={calendarFilterIcon}
+                          alt=""
+                        />
+                      </span>
+                      Due Date
+                    </div>
+                    <div>
+                      <CaretDownOutlined />
+                    </div>
                   </div>
                 </div>
               )}

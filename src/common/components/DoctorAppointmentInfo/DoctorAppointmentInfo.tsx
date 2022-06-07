@@ -106,9 +106,16 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText label="ID" text={id} />
         <LabelWithText
           label="Patient"
-          text={`${patient?.first_name} ${patient?.last_name}`}
+          text={
+            patient?.first_name
+              ? `${patient?.first_name} ${patient?.last_name}`
+              : "--"
+          }
         />
-        <LabelWithText label="Type" text={serviceType?.name} />
+        <LabelWithText
+          label="Type"
+          text={serviceType?.name ? serviceType?.name : "--"}
+        />
         <LabelWithText
           label="Due Date"
           text={
@@ -135,7 +142,9 @@ function DoctorAppointmentInfo({ data }: Props) {
           <LabelWithText
             label="Total Amount"
             text={
-              transaction?.amountReceived && `$ ${transaction?.amountReceived}`
+              transaction?.amountReceived
+                ? `$ ${transaction?.amountReceived}`
+                : "--"
             }
           />
         )}
@@ -143,13 +152,13 @@ function DoctorAppointmentInfo({ data }: Props) {
         {status === "Requested" && (
           <LabelWithText
             label="Total Amount"
-            text={charges && `$ ${charges}`}
+            text={charges ? `$ ${charges}` : "--"}
           />
         )}
         {status === "Cancelled" && (
           <LabelWithText
             label="Total Amount"
-            text={charges && `$ ${charges}`}
+            text={charges ? `$ ${charges}` : "--"}
           />
         )}
 
@@ -190,7 +199,7 @@ function DoctorAppointmentInfoFooter({
   data?: Appointment;
 }) {
   const { appointmentTimeSlots } = data || {};
-  const selectedAppointment: CustomTimeSlot | undefined = useMemo(
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );

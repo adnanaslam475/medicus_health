@@ -68,15 +68,17 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
           onCancel={() => setOpenDateRange(false)}
           onApply={applyDateRange}
           title={
-            filterState.dueDate?.startDate && (
+            filterState.dueDate?.startDate ? (
               <div>
                 {filterState.dueDate
                   ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                  : "Creation Date"}
+                  : "Date"}
               </div>
+            ) : (
+              ""
             )
           }
-          heading="Creation Date"
+          heading="Date"
         />
       </div>
       <div className="flex-none sm:flex">

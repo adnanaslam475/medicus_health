@@ -4,21 +4,40 @@ import AppointmentCard from "../../../../../common/components/AppointmentCard/Ap
 import {
   Appointment,
   AppointmentTimeSlots,
+  BookingDate,
   useGetAllRequestedAppointmentsQuery,
+  useGetPhysiciansQuery,
+  User,
 } from "../../../../../generated/graphql";
 import { Button, Empty, Select } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import Link from "next/link";
 import AppointmentModalJourney from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 function RequestedAppointment() {
-  const [dueStartDate, setStartDate] = useState<Date | null>();
-  const [dueEndDate, setEndDate] = useState<Date | null>();
+  const [dueStartDate, setStartDate] = useState<BookingDate>();
+  const [dueEndDate, setEndDate] = useState<BookingDate>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
-  const [appointmentIds, setAppointmentIds] = useState<number>();
+  const [appointmentId, setAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Requested");
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showAppointmentBookingModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
 
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
@@ -26,12 +45,13 @@ function RequestedAppointment() {
         status: status,
         physicianName: dataListPhysician,
         doctorId: doctorIds,
-        appointmentId: appointmentIds,
+        appointmentId: appointmentId,
         serviceId: serviceIds,
-        dueDate: {
-          startDate: dueStartDate,
-          endDate: dueEndDate,
-        },
+        dueDate: dueStartDate &&
+          dueEndDate && {
+            startDate: String(dueStartDate),
+            endDate: String(dueEndDate),
+          },
       },
     },
   });
@@ -51,6 +71,12 @@ function RequestedAppointment() {
     setCurrentAppointmentId(undefined);
   }
 
+  const [{ data: physicianList }] = useGetPhysiciansQuery({
+    variables: {
+      filter: {},
+    },
+  });
+  const { getPhysicians} = physicianList || {};
   return (
     <AppLayout>
       <>
@@ -72,7 +98,7 @@ function RequestedAppointment() {
                   </Select.Option>
                 </Select>
               </div>
-              <Button type="primary" className="text-sm">
+              <Button type="primary" className="text-sm" onClick={showAppointmentBookingModal}>
                 <span className="text-xs sm:text-base">
                   Request an Appointment
                 </span>
@@ -86,7 +112,7 @@ function RequestedAppointment() {
               setEndDate={setEndDate}
               setDataListPhysician={setDataListPhysician}
               setDoctorId={setDoctorId}
-              setAppointmentIds={setAppointmentIds}
+              setAppointmentId={setAppointmentId}
               setServiceIds={setServiceIds}
             />
           </div>
@@ -132,6 +158,12 @@ function RequestedAppointment() {
           visible={showModal}
           onCancel={onCancel}
           appointmentId={currentAppointmentId}
+        />
+        <BookAppointmentJourney
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          patientData={getPhysicians as User[]}
         />
       </>
     </AppLayout>

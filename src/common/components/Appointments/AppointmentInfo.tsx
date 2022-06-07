@@ -2,7 +2,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Button, Tag } from "antd";
 import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
-import { GetAppointmentByIdQuery } from "../../../generated/graphql";
+import {
+  AppointmentTimeSlots,
+  GetAppointmentByIdQuery,
+} from "../../../generated/graphql";
 import { date } from "../../utils";
 import Router from "next/router";
 import { isAppointmentTimeValid } from "common/utils/date";
@@ -22,7 +25,7 @@ function AppointmentInfo(props: Props) {
     appoinmentDetails?.appointment || {};
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
-  const selectedAppointment: CustomTimeSlot | undefined = useMemo(
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
@@ -44,7 +47,7 @@ function AppointmentInfo(props: Props) {
           label="Doctor"
           value={`Dr. ${first_name} ${last_name}`}
         />
-        <LabelValueRow label="Type" value={name} />
+        <LabelValueRow label="Type" value={name ? name : "--"} />
         <LabelValueRow
           label="Appointment creation date"
           value={date.formatMMMMDDYYYY(selectedAppointment?.startTime)}
@@ -55,7 +58,7 @@ function AppointmentInfo(props: Props) {
             selectedAppointment?.startTime
           )} - ${date?.formathhmma(selectedAppointment?.endTime)}`}
         />
-        <LabelValueRow label="Total Amount" value={price} />
+        <LabelValueRow label="Total Amount" value={price ? price : "--"} />
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">Status</div>

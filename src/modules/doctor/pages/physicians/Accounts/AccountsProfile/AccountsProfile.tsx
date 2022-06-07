@@ -17,6 +17,9 @@ function AccountsProfile() {
   const editData = () => {
     setIsEdit(!isEdit);
   };
+  const { query } = useRouter();
+
+  const adminId = query?.id;
 
   const [isEdit, setIsEdit] = useState(false);
   const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
@@ -30,7 +33,8 @@ function AccountsProfile() {
 
   // GET USER ID
   const { user } = getUserData();
-  const id = user?.id;
+  const role = user?.role
+  const id = role == "Admin" ? Number(adminId) : user?.id;
 
   const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
     variables: { doctorId: id as number },
@@ -44,7 +48,7 @@ function AccountsProfile() {
     useRemoveDoctorScheduleMutation();
 
   async function onAddClick() {
-    if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length) {
+    if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
       const variable = {
         doctorId: Number(id),
         day: Number(addScheduleDay),
@@ -66,9 +70,9 @@ function AccountsProfile() {
 
   const [{ data }] = useDoctorProfileQuery({
     variables: { doctor_id: id as number },
+    pause: !id
   });
   const { doctorProfile } = data || {};
-
   return (
     <div>
       {isEdit ? (

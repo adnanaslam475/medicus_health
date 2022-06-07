@@ -46,6 +46,7 @@ export type AdminSetting = {
 
 export type Appointment = {
   __typename?: 'Appointment';
+  appointmentDateTime?: Maybe<AppointmentDateTimeResponse>;
   appointmentHealthHistory?: Maybe<AppointmentHealthHistory>;
   appointmentSchedule?: Maybe<DoctorSchedule>;
   appointmentTimeSlots?: Maybe<Array<AppointmentTimeSlots>>;
@@ -66,6 +67,12 @@ export type Appointment = {
   status?: Maybe<Scalars['String']>;
   transaction?: Maybe<Transaction>;
   user?: Maybe<User>;
+};
+
+export type AppointmentDateTimeResponse = {
+  __typename?: 'AppointmentDateTimeResponse';
+  endTime?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
 };
 
 export type AppointmentHealthHistory = {
@@ -108,7 +115,7 @@ export type AppointmentTime = {
 
 export type AppointmentTimeSlots = {
   __typename?: 'AppointmentTimeSlots';
-  appointment: Appointment;
+  appointment?: Maybe<Appointment>;
   endTime: Scalars['DateTime'];
   id: Scalars['Int'];
   selected: Scalars['Boolean'];
@@ -419,8 +426,8 @@ export type DoctorSchedule = {
 };
 
 export type DueDate = {
-  endDate?: InputMaybe<Scalars['DateTime']>;
-  startDate?: InputMaybe<Scalars['DateTime']>;
+  endDate?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['String']>;
 };
 
 export type EarningRange = {
@@ -487,6 +494,7 @@ export type GetPhysicianAppointmentInput = {
   doctorId?: InputMaybe<Scalars['Int']>;
   dueDate?: InputMaybe<DueDate>;
   paymentStatus?: InputMaybe<Scalars['String']>;
+  previous?: InputMaybe<Scalars['Boolean']>;
   searchString?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
@@ -1614,7 +1622,7 @@ export type UpdateAdminMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAdminMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', first_name: string, last_name: string, email: string, password?: string | null, status: boolean } };
+export type UpdateAdminMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', first_name: string, last_name: string, email: string, password?: string | null, status: boolean, contact_number?: string | null } };
 
 export type EnableOrDisablePatientMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -1643,6 +1651,13 @@ export type EnableOrDisableStaffMutationVariables = Exact<{
 
 
 export type EnableOrDisableStaffMutation = { __typename?: 'Mutation', enableOrDisableStaff: { __typename?: 'User', id: number, status: boolean } };
+
+export type CreatePatientByAdminMutationVariables = Exact<{
+  createPatientInput: CreateUserByAdminInput;
+}>;
+
+
+export type CreatePatientByAdminMutation = { __typename?: 'Mutation', createPatientByAdmin: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, deleted: boolean, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorId?: number | null, createdAt: any, patientHealthHistory?: { __typename?: 'PatientHealthHistory', id?: number | null, user_id: number, history?: any | null } | null } };
 
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
@@ -2480,6 +2495,7 @@ export const UpdateAdminDocument = gql`
     email
     password
     status
+    contact_number
   }
 }
     `;
@@ -2532,6 +2548,39 @@ export const EnableOrDisableStaffDocument = gql`
 
 export function useEnableOrDisableStaffMutation() {
   return Urql.useMutation<EnableOrDisableStaffMutation, EnableOrDisableStaffMutationVariables>(EnableOrDisableStaffDocument);
+};
+export const CreatePatientByAdminDocument = gql`
+    mutation createPatientByAdmin($createPatientInput: CreateUserByAdminInput!) {
+  createPatientByAdmin(createPatientInput: $createPatientInput) {
+    id
+    first_name
+    last_name
+    email
+    gender
+    date_of_birth
+    contact_number
+    streetAddress
+    country_id
+    deleted
+    state_id
+    city_id
+    zip_code
+    password
+    status
+    role
+    doctorId
+    createdAt
+    patientHealthHistory {
+      id
+      user_id
+      history
+    }
+  }
+}
+    `;
+
+export function useCreatePatientByAdminMutation() {
+  return Urql.useMutation<CreatePatientByAdminMutation, CreatePatientByAdminMutationVariables>(CreatePatientByAdminDocument);
 };
 export const ToggleEmailPreferencesDocument = gql`
     mutation toggleEmailPreferences($toggleEmailPreferencesInput: TogglePreference!) {
@@ -3786,6 +3835,15 @@ export default {
         "name": "Appointment",
         "fields": [
           {
+            "name": "appointmentDateTime",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AppointmentDateTimeResponse",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "appointmentHealthHistory",
             "type": {
               "kind": "OBJECT",
@@ -3984,6 +4042,29 @@ export default {
               "kind": "OBJECT",
               "name": "User",
               "ofType": null
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AppointmentDateTimeResponse",
+        "fields": [
+          {
+            "name": "endTime",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "startTime",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           }
@@ -4228,12 +4309,9 @@ export default {
           {
             "name": "appointment",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Appointment",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "Appointment",
+              "ofType": null
             },
             "args": []
           },

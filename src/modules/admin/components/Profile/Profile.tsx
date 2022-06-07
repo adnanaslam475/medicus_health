@@ -8,6 +8,7 @@ import _classes from "./PhysicianProfile.module.scss";
 import { useUpdateAdminUserMutation } from "generated/graphql";
 import { UploadChangeParam } from "antd/lib/upload";
 import { useMediaUploader } from "common/hooks/media";
+import { getUserData } from "common/utils/userData";
 
 type profileType = {
   doctorId?: string | string[] | undefined;
@@ -23,6 +24,9 @@ export const Profile = React.forwardRef(function Profile({
 }: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
+
+  const { user } = getUserData();
+  const { id } = user || {};
 
   const { first_name, last_name, password, email, contact_number, status } =
     (doctorData && doctorData[0]) || {};
@@ -60,7 +64,6 @@ export const Profile = React.forwardRef(function Profile({
       setIsEdit(true);
     }
   };
-
   const updateAdminProfile = async (values: any) => {
     if (doctorData) {
       const res = await executeUseUpdateAdminUserMutation({
@@ -72,7 +75,7 @@ export const Profile = React.forwardRef(function Profile({
           password: values?.password,
           profileImage: image || userProfileImage,
         },
-        id: 127,
+        id: Number(id),
       });
 
       if (res?.data) {

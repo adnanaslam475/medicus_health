@@ -1,5 +1,8 @@
-mutation updateAdminUser($updateAdminUserInput:UpdateAdminUserInput!,$id:Int!){
-  updateAdminUser(updateAdminUserInput:$updateAdminUserInput,id:$id){
+mutation updateAdminUser(
+  $updateAdminUserInput: UpdateAdminUserInput!
+  $id: Int!
+) {
+  updateAdminUser(updateAdminUserInput: $updateAdminUserInput, id: $id) {
     id
     first_name
     last_name
