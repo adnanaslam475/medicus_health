@@ -83,7 +83,6 @@ function SidebarMenuItem() {
 									return (
 										<Menu.Item
 											key={el2.route}
-											// className={_classes["side-bar-submenu-item"]}
 										>
 											<Link href={el2.route}>{el2.name}</Link>
 										</Menu.Item>
