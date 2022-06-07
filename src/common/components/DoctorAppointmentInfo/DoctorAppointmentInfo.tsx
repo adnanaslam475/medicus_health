@@ -44,6 +44,7 @@ import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
 import { CustomTimeSlot } from "common/types/types";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+import MessageButtons from "../MessageButtons/MessageButtons";
 
 type Props = {
   data: Appointment | undefined;
@@ -102,6 +103,9 @@ function DoctorAppointmentInfo({ data }: Props) {
   }
   return (
     <div className="max-w-[700px]">
+      <div className="message-button mb-3">
+        <MessageButtons />
+      </div>
       <div>
         <LabelWithText label="ID" text={id} />
         <LabelWithText
