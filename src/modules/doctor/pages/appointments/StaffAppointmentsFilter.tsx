@@ -11,6 +11,7 @@ type Props = {
   onChange: (value: GetStaffFilter) => void;
 };
 function StaffAppointmentsFilter({ onChange }: Props) {
+  const { Option } = Select;
   const [filterState, setFilterState] = useState<GetStaffFilter>({});
 
   function clear() {
@@ -23,7 +24,7 @@ function StaffAppointmentsFilter({ onChange }: Props) {
     setOpenDateRange(false);
   };
 
-  function onChangeFields(key: string, value: string | object | boolean) {
+  function onChangeFields(key: string, value: string | object) {
     const filters = {
       ...filterState,
       [key]: value,
@@ -36,11 +37,12 @@ function StaffAppointmentsFilter({ onChange }: Props) {
     if (!filters.searchString) {
       delete filters.searchString;
     }
-    // if (!filters.status) {
-    //   delete filters.status;
-    // }
+    if (!filters.status) {
+      delete filters.status;
+    }
     onChange(filters);
   }
+
   return (
     <div className="page-filters flex-none lg:flex items-center">
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
@@ -82,11 +84,10 @@ function StaffAppointmentsFilter({ onChange }: Props) {
           <Select
             placeholder="Status"
             className="w-full sm:w-40"
-            onChange={(value) => onChangeFields("status", value)}
-            value={filterState.status}
+            onChange={(value) => onChangeFields("status", value as string)}
           >
-            <Select.Option value={true}>Active</Select.Option>
-            <Select.Option value={false}>Disabled</Select.Option>
+            <Option value="true">Enable</Option>
+            <Option value="false">Disabled</Option>
           </Select>
         </div>
         <FilterClearButton onClear={clear} />
