@@ -8,6 +8,7 @@ import {
   useGetStatesByCountryQuery,
   User,
 } from "../../../../../../generated/graphql";
+import MessageButtons from "common/components/MessageButtons/MessageButtons";
 // const props = {};
 type Props = {
   userDetail?: User | undefined;
@@ -79,54 +80,59 @@ function PatientProfileFormTab({ userDetail }: { userDetail: any }) {
   }
 
   return (
-    <CardWithProfileImageInfo name="usama" serviceName="consultation">
-      <div className="max-w-[800px]">
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="First Name" value={first_name} />
-          <LabelWithTextDiv label="Last Name" value={last_name} />
+    <div className="max-w-[800px]">
+      <CardWithProfileImageInfo name="usama" serviceName="consultation">
+        <div className="messageButtons">
+          <MessageButtons />
         </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Gender" value={gender} />
-          <LabelWithTextDiv label="Date of birth" value={date_of_birth} />
+        <div className="max-w-[800px]">
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="First Name" value={first_name} />
+            <LabelWithTextDiv label="Last Name" value={last_name} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="Gender" value={gender} />
+            <LabelWithTextDiv label="Date of birth" value={date_of_birth} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="Email Address" value={email} />
+            <LabelWithTextDiv label="Cell Number" value={contact_number} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="Country" value={countryName} />
+            <LabelWithTextDiv label="City" value={cityName[0]?.city_name} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="State" value={state} />
+            <LabelWithTextDiv label="Postal Code" value={zip_code} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="Street Address" value={streetAddress} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="Marital Status" value={maritalStatus} />
+            <LabelWithTextDiv
+              label="Do you have any Children?"
+              value={children}
+            />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv
+              label="What is your Occupation?"
+              value={occupation}
+            />
+            <LabelWithTextDiv
+              label="Do you have any Occupational Exposure?"
+              value={`${occupationalExposure} ${exposureDuration}`}
+            />
+          </div>
+          <div className="flex gap-2">
+            <LabelWithTextDiv label="Do you have any pets?" value={pets} />
+            <div className="w-full" />
+          </div>
         </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Email Address" value={email} />
-          <LabelWithTextDiv label="Cell Number" value={contact_number} />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Country" value={countryName} />
-          <LabelWithTextDiv label="City" value={cityName[0]?.city_name} />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="State" value={state} />
-          <LabelWithTextDiv label="Postal Code" value={zip_code} />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Street Address" value={streetAddress} />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Marital Status" value={maritalStatus} />
-          <LabelWithTextDiv
-            label="Do you have any Children?"
-            value={children}
-          />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv
-            label="What is your Occupation?"
-            value={occupation}
-          />
-          <LabelWithTextDiv
-            label="Do you have any Occupational Exposure?"
-            value={`${occupationalExposure} ${exposureDuration}`}
-          />
-        </div>
-        <div className="flex gap-2">
-          <LabelWithTextDiv label="Do you have any pets?" value={pets} />
-          <div className="w-full" />
-        </div>
-      </div>
-    </CardWithProfileImageInfo>
+      </CardWithProfileImageInfo>
+    </div>
   );
 }
 
