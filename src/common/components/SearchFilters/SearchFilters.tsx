@@ -6,14 +6,12 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import {
-  Appointment,
   useDoctorProfilesQuery,
   useGetAllAppointmentServiceTypesQuery,
-  useGetAllRequestedAppointmentsQuery,
 } from "../../../generated/graphql";
 import searchStyle from "./style.module.scss";
 import Image from "next/image";
-import { aimsCalendarIcon } from "../../../utils/images";
+import { calendarFilterIcon } from "../../../utils/images";
 import { getDateInFormat } from "../../utils/date";
 import _classes from "./SearchFilters.module.scss";
 
@@ -27,7 +25,7 @@ type Props = {
   setDataListPhysician: string | any;
   placeholder?: string;
   setDoctorId: number | any;
-  setAppointmentIds: number | any;
+  setAppointmentId: number | any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
@@ -44,6 +42,7 @@ function SearchFilters(props: Props) {
     setStartDate,
     setSearchPatient,
     isFromPhysician,
+    setAppointmentId,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -55,12 +54,20 @@ function SearchFilters(props: Props) {
   const [openDateRange, setOpenDateRange] = useState(false);
   const [dateRange, selectDateRange] = useState(null);
   const [patientName, setPatientName] = useState<string>();
+  const [localAppointment_Id, setLocalAppointment_Id] = useState<
+    number | null | undefined
+  >();
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
 
   const [{ data }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = data || {};
+
+  function handleAppointmentId(event: React.ChangeEvent<HTMLInputElement>) {
+    setAppointmentId(Number(event.target.value));
+    setLocalAppointment_Id(Number(event.target.value));
+  }
 
   function handlePaitentName_ID(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchPatient(event.target.value);
@@ -97,6 +104,8 @@ function SearchFilters(props: Props) {
     selectDateRange(null);
     setPatientName("");
     setSearchPatient && setSearchPatient(null);
+    setAppointmentId(null);
+    setLocalAppointment_Id(null);
   };
 
   const applyDateRange = () => {
@@ -109,6 +118,15 @@ function SearchFilters(props: Props) {
     >
       <span className="text-gray-1 mr-3 mb-3">Filter</span>
       <div className="flex-none sm:flex">
+        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-60 mr-2">
+          <Input
+            placeholder={"Search by ID"}
+            prefix={<SearchOutlined />}
+            onChange={(event) => handleAppointmentId(event)}
+            value={localAppointment_Id || undefined}
+            type="number"
+          />
+        </div>
         {isFromPhysician ? (
           <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
             <Input
@@ -137,7 +155,8 @@ function SearchFilters(props: Props) {
 
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
-            placeholder="Service"
+             suffixIcon={<div className="text-gray"><CaretDownOutlined className="text-sm text-gray" /></div>}
+            placeholder="Appointment Type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={handleServiceChange}
             value={selectedServiceItems}
@@ -196,19 +215,21 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(dateRange?.[0])} -> ${getDateInFormat(
                         dateRange?.[1]
                       )}`
-                    : "Creation Date"}
+                    : "Date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  {/* <div className="self-center">
-                    <Image
-                      width={15}
-                      height={15}
-                      src={aimsCalendarIcon}
-                      alt=""
-                    />
-                  </div> */}
-                  <div>Creation Date</div>
+                  <div className="flex items-center font-thin">
+                    <span className="mr-2 mt-1">
+                      <Image
+                        width={18}
+                        height={18}
+                        src={calendarFilterIcon}
+                        alt=""
+                      />
+                    </span>
+                    Date
+                  </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
                   </div>

@@ -1,189 +1,145 @@
-import React from "react";
+import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { Button, Table, Tag, Modal } from "antd";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
-import Link from "next/link";
+import { Button, Table } from "antd";
+import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import Image from "next/image";
 import AdminPatientsListFilter from "./AdminPatientsListFilter";
 
-const Ddata = [
-	{
-		id: "1",
-		// name: "John Brown",
-		transactionid: "MD-2312",
-		name: "Dr. Paul Wallner",
-		email: "First Consultation",
-		number: "03123120112",
-		city: "karachi",
-		country: "pakistan",
-		postalcode: "9923129",
-		// status: ["completed", "pending"],
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		id: "2",
-		transactionid: "MD-2312",
-		name: "Dr. Paul Wallner",
-		email: "usama@gmail.com",
-		number: "03123120112",
-		city: "karachi",
-		country: "pakistan",
-		postalcode: "9923129",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		id: "3",
-		transactionid: "MD-2312",
-		name: "Dr. Paul Wallner",
-		email: "usama@gmail.com",
-		number: "03123120112",
-		city: "karachi",
-		country: "pakistan",
-		postalcode: "9923129",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		id: "4",
-		transactionid: "MD-2312",
-		name: "Dr. Paul Wallner",
-		email: "usama@gmail.com",
-		number: "03123120112",
-		city: "karachi",
-		country: "pakistan",
-		postalcode: "9923129",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		id: "5",
-		transactionid: "MD-2312",
-		name: "Dr. Paul Wallner",
-		email: "usama@gmail.com",
-		number: "03123120112",
-		city: "karachi",
-		country: "pakistan",
-		postalcode: "9923129",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-
-	{
-		id: "4",
-		transactionid: "MD-2312",
-		name: "Dr. Paul Wallner",
-		email: "usama@gmail.com",
-		number: "03123120112",
-		city: "karachi",
-		country: "pakistan",
-		postalcode: "9923129",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		id: "4",
-		transactionid: "MD-2312",
-		name: "Dr. Paul Wallner",
-		email: "usama@gmail.com",
-		timeslot: "03123120112",
-		city: "karachi",
-		country: "pakistan",
-		postalcode: "9923129",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		id: "4",
-		transactionid: "MD-2312",
-		name: "Dr. Paul Wallner",
-		email: "usama@gmail.com",
-		number: "03123120112",
-		city: "karachi",
-		country: "pakistan",
-		postalcode: "9923129",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-];
+import { PatientListFilterType } from "common/types/types";
+import {
+  Country,
+  AppointmentServiceType,
+  useGetPatientsQuery,
+  User,
+  City,
+} from "generated/graphql";
+import { ColumnsType } from "antd/lib/table/Table";
+import Link from "next/link";
 
 function AdminPatientsList() {
-	const columns = [
-		{
-			title: "ID",
-			dataIndex: "id",
-			id: "doctor_id",
-			sorter: {
-				compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
-				multiple: 3,
-			},
-		},
-		{
-			title: "Name",
-			dataIndex: "name",
-			id: "user",
-		},
-		{
-			title: "Email",
-			dataIndex: "email",
-			id: "email",
-		},
-		{
-			title: "Cell number",
-			dataIndex: "number",
-			id: "number",
-		},
-		{
-			title: "City",
-			dataIndex: "city",
-			id: "number",
-		},
-		{
-			title: "Country",
-			dataIndex: "country",
-			id: "number",
-		},
-		{
-			title: "Postal Code",
-			dataIndex: "postalcode",
-			id: "number",
-		},
+  const [filterValues, setFilterValues] = useState<PatientListFilterType>({});
 
-		{
-			title: "",
-			dataIndex: "doctor_id",
-			id: "view",
-			className: "table-action-icon",
-			render: (value: any) => (
-				<div className="text-primary">
-					<EyeFilled
-						onClick={() => {
-							return Router.push(`/admin/patients/detail`);
-						}}
-					/>
-				</div>
-			),
-		},
-	];
-	function onChange() {}
+  const [{ data }, executeuseGetPatientsQuery] = useGetPatientsQuery({
+    variables: {
+      filter: filterValues,
+    },
+  });
 
-	return (
-		<AppLayout>
-			<div className="w-full">
-				<div className="flex justify-between">
-					<h2 className="pb-0 mb-0">Patients</h2>
-				</div>
+  const { getPatients } = data || {};
 
-				<AdminPatientsListFilter onChange={onChange} />
-				<div className="w-full">
-					<div className="">
-						<Table columns={columns} dataSource={Ddata} onChange={onChange} />
-					</div>
-				</div>
-			</div>
-		</AppLayout>
-	);
+  function onChangeFilters(values: PatientListFilterType) {
+    setFilterValues(values);
+    executeuseGetPatientsQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
+
+  const columns: ColumnsType<User> = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      sorter: {
+        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Name",
+      dataIndex: "",
+      key: "user",
+
+      render: (value: any) => {
+        return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.first_name - b.first_name,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      render: (value: string) => {
+        return <div>{value}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.service - b.service,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Contact Number",
+      dataIndex: "contact_number",
+      sorter: {
+        compare: (a: any, b: any) => a.contact_number - b.contact_number,
+        multiple: 3,
+      },
+      render: (value: string) => {
+        return <div>{value}</div>;
+      },
+    },
+    {
+      title: "City",
+      dataIndex: "city_id",
+      render: (value: City) => {
+        return <div>{value?.city_name ? `${value?.city_name}` : "--"}</div>;
+      },
+    },
+    {
+      title: "Country",
+      dataIndex: "country",
+      render: (value: Country) => {
+        return (
+          <div>{value?.country_name ? `${value?.country_name}` : "--"}</div>
+        );
+      },
+    },
+    {
+      title: "Postal Code",
+      dataIndex: "zip_code",
+    },
+
+    {
+      title: "",
+      dataIndex: "id",
+      className: "table-action-icon",
+      render: (id: number) => (
+        <div className="text-primary">
+          <EyeFilled
+            onClick={() => {
+              return Router.push(`/admin/patients/${id}`);
+            }}
+          />
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <AppLayout>
+      <div className="w-full">
+        <div className="flex justify-between mb-10">
+          <h2 className="mb-4">Patients</h2>
+          <Link passHref href={`/admin/patients/addPatients`}>
+            <a>
+              <Button type="primary">
+                <PlusOutlined />
+                Add Patient
+              </Button>
+            </a>
+          </Link>
+        </div>
+
+        <AdminPatientsListFilter onChange={onChangeFilters} />
+        <div className="w-full">
+          <div className="">
+            <Table columns={columns} dataSource={getPatients as User[]} />
+          </div>
+        </div>
+      </div>
+    </AppLayout>
+  );
 }
 export default AdminPatientsList;

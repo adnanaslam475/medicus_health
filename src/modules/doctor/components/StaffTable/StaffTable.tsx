@@ -1,16 +1,20 @@
 import React from "react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { Table } from "antd";
 import { AppointmentServiceType, User } from "generated/graphql";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "common/utils";
 import { ColumnsType } from "antd/lib/table";
+import { useRoleGuard } from "common/components/RoleGuard/useRoleGuard";
+import { useQuery } from "urql";
+import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {
   dataSource: User[] | undefined;
 };
 
 function StaffTable({ dataSource }: Props) {
+  const { isAdmin, isDoctor } = useRoleGuard();
   const columns: ColumnsType<User> = [
     {
       title: "ID",
@@ -56,7 +60,7 @@ function StaffTable({ dataSource }: Props) {
     },
     {
       title: "Account Creation Date",
-      dataIndex: "requestedDate",
+      dataIndex: "createdAt",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
@@ -66,14 +70,28 @@ function StaffTable({ dataSource }: Props) {
       },
     },
     {
+      title: "Staff Status",
+      dataIndex: "status",
+      key: "status",
+      className: "table-action-icon",
+      render: (value: any) => {
+        return (
+          <div className="text-primary">
+            <StatusChip type={value?.toString()?.toUpperCase()} />
+          </div>
+        );
+      },
+    },
+    {
       dataIndex: "id",
       className: "table-action-icon",
       render: (staffId: number) => (
-        <div>
+        <div className="text-primary">
           <EyeFilled
             onClick={() => {
-              return Router.push(
-                `/physician/staff/DoctorStaffDetails/${staffId}`
+              onViewDetail(
+                staffId,
+                String(window.location.pathname.split("/").pop())
               );
             }}
           />
@@ -81,6 +99,18 @@ function StaffTable({ dataSource }: Props) {
       ),
     },
   ];
+
+  function onViewDetail(staffId: number, adminId: string) {
+    if (isAdmin) {
+      Router.push({
+        pathname: `/admin/staff/DoctorStaffDetails/${staffId}`,
+        query: { adminId },
+      });
+    } else {
+      Router.push(`/physician/staff/DoctorStaffDetails/${staffId}`);
+    }
+  }
+
   return <Table columns={columns} dataSource={dataSource} />;
 }
 

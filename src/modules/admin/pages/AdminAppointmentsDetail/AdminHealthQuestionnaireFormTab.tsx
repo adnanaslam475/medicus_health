@@ -1,21 +1,10 @@
+import React from "react";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
-import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
-import { useRouter } from "next/router";
-import React from "react";
+import { Appointment } from "generated/graphql";
 
-function HealthQuestionnaireFromTab() {
-  const { query } = useRouter();
-
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
-    // variables: {
-    //   filter: { searchPatient: String(query?.id), status: "Completed" },
-    // },
-    requestPolicy: "network-only",
-  });
-  const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
-
+type Props = { appointment: Appointment | undefined };
+function AdminHealthQuestionnaireFormTab({ appointment }: Props) {
   return (
     <div className="max-w-1/2">
       <CardWithProfileImageInfo
@@ -30,4 +19,4 @@ function HealthQuestionnaireFromTab() {
   );
 }
 
-export default HealthQuestionnaireFromTab;
+export default AdminHealthQuestionnaireFormTab;

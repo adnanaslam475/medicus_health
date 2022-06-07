@@ -1,5 +1,11 @@
 .appointments-btn {
-    font-size: 14px;
-    height: 40px;
-    line-height: 40px;
-}   
+  font-size: 14px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.disabled-class {
+  input {
+    border: none !important;
+  }
+}

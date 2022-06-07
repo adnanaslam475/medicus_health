@@ -1,0 +1,53 @@
+query getAllChatChannels {
+  getAllChatChannels {
+    id
+    channelName
+    doctorId
+    patientId
+    isAdminChat
+    createdAt
+    participants {
+      id
+      channelId
+      participantId
+      channel {
+        id
+        channelName
+        doctorId
+        patientId
+        isAdminChat
+      }
+      userDetails {
+        id
+        first_name
+        last_name
+        doctorProfile {
+          profile_image
+        }
+        patientProfile {
+          profileImage
+        }
+      }
+    }
+  }
+}
+
+query getChannelMessages($channelId: Int!) {
+  getChannelMessages(channelId: $channelId) {
+    id
+    channelId
+    senderId
+    message
+    messageType
+    sender {
+      first_name
+      last_name
+      doctorProfile {
+        profile_image
+      }
+      patientProfile {
+        profileImage
+      }
+    }
+  }
+}

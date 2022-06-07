@@ -3,26 +3,34 @@ import { Popover } from "antd";
 import Image from "next/image";
 import React from "react";
 import threeDot from "../../../../public/assets/images/threedot.svg";
+import MediaFile from "./DynamicAttachment";
+import _classes from "./Attachment.module.scss";
+import { AttachmentObject } from "common/types/types";
+
 type Props = {
-  src: StaticImageData;
-  name?: string | null | undefined;
+  item?: AttachmentObject;
   enable: boolean;
 };
 function Attachment(props: Props) {
-  const { src, name, enable } = props;
-  function handleFile() {}
+  const { item, enable } = props;
+  const { name, url } = item || {};
+  function handleFile() {
+    console.log("ds");
+  }
+  let attachementExtension = item?.name && item?.name?.split(".")[1];
   return (
     <div className="block">
       <div className="inline-flex items-center  bg-gray-4  pl-4 py-4 my-3 border-gray-9 border rounded">
-        <Image
-          alt=""
-          src={src}
-          width={24}
-          height={24}
-          className="border rounded border-gray-2 "
-        />
-
-        <span className="pl-3 ml-2 mr-4">{name}</span>
+        <a
+          href={url}
+          download
+          target="_blank"
+          rel="noreferrer"
+          className={`${_classes["attachment"]} `}
+        >
+          <MediaFile type={attachementExtension} />
+          <span className="pl-3 ml-2 mr-4">{name}</span>
+        </a>
         {enable && (
           <Popover
             placement="bottomRight"

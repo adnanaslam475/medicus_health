@@ -1,43 +1,76 @@
-import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
-import { date } from "common/utils";
-import {
-  useDoctorAppointmentDetailPatientInfoQuery,
-  useGetCityByIdQuery,
-  useGetCountryByIdQuery,
-  usePhysicianAppointmentsHistoryQuery,
-} from "generated/graphql";
-import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/AdminAppointmentInfo";
-import { useRouter } from "next/router";
 import React from "react";
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
+import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/AdminAppointmentInfo";
+import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
+import { date } from "common/utils";
+import { Appointment } from "generated/graphql";
 
-function PatientInfoTab() {
+type Props = {
+  appointment: Appointment | undefined;
+};
 
+type DoctorData = {
+  doctor: {
+    doctor_Id: number;
+    doctor_first_name: string;
+    doctor_last_name: string;
+  };
+  patient: {
+    patient_id: number;
+  };
+};
 
+function AdminAppointmentInfoTab({ appointment }: Props) {
+  let selectedAppointment = appointment?.appointmentTimeSlots?.find(
+    (item) => item.selected
+  );
 
-const data={
-  id:"1",
-  bookingDate:"20-2-2021",
-  patient:"usama",
-  physician:"jordan",
-  service:"consultation",
-  dueDate:"20-2-2021",
-  time:"2am",
-  totalAmount:"22020202",
-  appointmentStatus:"confirmed",
-  paymentStatus:"paid",
-}
+  const adminApp_Details = {
+    doctor: {
+      doctor_Id: appointment?.doctor?.id,
+      doctor_first_name: appointment?.doctor?.first_name,
+      doctor_last_name: appointment?.doctor?.last_name,
+    },
+    patient: {
+      patient_id: appointment?.patient?.id,
+    },
+  };
+
+  const normalizedAppointmentData = {
+    id: appointment?.id,
+    bookingDate: appointment?.requestedDate,
+    patient: `${
+      appointment?.patient?.first_name + " " + appointment?.patient?.last_name
+    }`,
+    physician:
+      appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
+    service: appointment?.serviceType?.name,
+    dueDate: formatMMMM_Dcoma_YYYY(selectedAppointment?.startTime),
+    time: `${
+      selectedAppointment?.startTime
+        ? `${date?.formathhmma(
+            selectedAppointment?.startTime
+          )} - ${date?.formathhmma(selectedAppointment?.endTime)}`
+        : "--"
+    }`,
+    totalAmount: appointment?.charges,
+    appointmentStatus: appointment?.status,
+    paymentStatus: appointment?.transaction?.status,
+  };
 
   return (
     <CardWithProfileImageInfo
-      name="usama"
-      serviceName="consultation"
+      name={`${normalizedAppointmentData.patient}`}
+      serviceName={normalizedAppointmentData.service}
     >
       <div className="max-w-[800px]">
-        <AdminAppointmentInfo data={data}/>
+        <AdminAppointmentInfo
+          data={normalizedAppointmentData as any}
+          adminApp_Details={adminApp_Details as DoctorData}
+        />
       </div>
     </CardWithProfileImageInfo>
   );
 }
 
-export default PatientInfoTab;
+export default AdminAppointmentInfoTab;

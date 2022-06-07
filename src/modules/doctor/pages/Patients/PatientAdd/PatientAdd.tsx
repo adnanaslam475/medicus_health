@@ -29,6 +29,7 @@ import dayjs from "dayjs";
 // import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
 import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import Router, { useRouter } from "next/router";
+import { AddPatientForm } from "modules/admin/components/AddPatientForm/AddPatientForm";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -89,7 +90,7 @@ function PatientAdd() {
     <AppLayout>
       <div className="w-full">
         <div className="flex justify-between">
-          <h2 className="mb-4">Add a Physician</h2>
+          <h2 className="mb-4">Add a Patient</h2>
         </div>
         <div className="w-full">
           <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
@@ -119,7 +120,7 @@ function PatientAdd() {
                 </Upload>
               </div>
               <div className="w-full">
-                {/* <AddPhysicianForm onFinish={createDoctor} /> */}
+                <AddPatientForm onFinish={createDoctor} />
               </div>
             </div>
           </div>

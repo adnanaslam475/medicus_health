@@ -37,6 +37,7 @@ function MakePayment() {
         <div className="mt-8">
           <Radio.Group
             value={value}
+            className="w-full"
             onChange={(e) => {
               setValue(e.target.value);
               saveStepTwo?.({

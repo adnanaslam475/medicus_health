@@ -17,3 +17,84 @@ query adminDashboardStatistics {
     total_number_of_appointments
   }
 }
+
+query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
+  appointments(filter: $filter) {
+    id
+    patient {
+      first_name
+      last_name
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    appointmentSchedule {
+      startTime
+      endTime
+    }
+    charges
+    status
+    serviceType {
+      name
+    }
+  }
+}
+
+query getPatients($filter: GetPatientsInput!) {
+  getPatients(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+    zip_code
+    # state {
+    #   state_name
+    # }
+    # city {
+    #   city_name
+    # }
+    # country {
+    #   country_name
+    # }
+  }
+}
+
+# Pay Physician From Admin
+mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
+  payment(paymentInput: $paymeninput) {
+    id
+    transactionId
+    appointmentId
+    cardId
+    amountReceived
+    status
+    doctor_percentage
+    payment_status
+    createdAt
+  }
+}
+
+# Admin General Settings
+mutation createAdminSettings(
+  $createAdminSettingInput: CreateAdminSettingInput!
+) {
+  createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
+    id
+    key
+    value
+  }
+}
+
+query adminUsers($filter: GetAdminUsersFilterInput!) {
+  adminUsers(filter: $filter) {
+    id
+    first_name
+    last_name
+    email
+    password
+    contact_number
+  }
+}

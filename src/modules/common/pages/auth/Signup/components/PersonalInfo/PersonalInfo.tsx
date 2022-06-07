@@ -235,10 +235,6 @@ export default function PersonalInfo({ onFinish }: props) {
             }
             onChange={(e) => {
               selectCountryId(e);
-              form.setFieldsValue({
-                state_id: null,
-                city_id: null,
-              });
             }}
             placeholder="Country"
           >
@@ -256,17 +252,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item
-          className="flex-1"
-          label="State"
-          name="state_id"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your state",
-            },
-          ]}
-        >
+        <Form.Item className="flex-1" label="State" name="state_id">
           <Select
             showSearch
             filterOption={(input, state: any) =>
@@ -292,17 +278,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item
-          className="flex-1"
-          label="City"
-          name="city_id"
-          rules={[
-            {
-              required: false,
-              message: "Please enter your city",
-            },
-          ]}
-        >
+        <Form.Item className="flex-1" label="City" name="city_id">
           <Select
             placeholder="City"
             showSearch

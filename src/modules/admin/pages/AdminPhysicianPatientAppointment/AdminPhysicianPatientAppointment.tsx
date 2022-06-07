@@ -1,151 +1,75 @@
-import React from "react";
-import DoctorCard from "common/components/DoctorCards/DoctorCards";
-import AppLayout from "common/components/AppLayout/AppLayout";
-import { Button, Table, Tag, Modal } from "antd";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
-import Link from "next/link";
+import React, { useState } from "react";
+import { Button, notification, Table } from "antd";
+import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
-import { useDoctorProfilesQuery, User } from "generated/graphql";
-import Image from "next/image";
+import {
+	Appointment,
+	AppointmentServiceType,
+	AppointmentTimeSlots,
+	GetAppointmentInput,
+	useAdminPhysicianAppointmentQuery,
+	usePhysicianPaymentByAdminMutation,
+	User,
+} from "generated/graphql";
 import AdminPhysicianPatientAppointmentSearchFilters from "./AdminPhysicianPatientAppointmentSearchFilters";
-import StatusChip from '../../../../common/components/StatusChip/StatusChip'
-const Ddata = [
-	{
-		key: "1",
-		// name: "John Brown",
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		// status: ["completed", "pending"],
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		key: "2",
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		key: "3",
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		key: "4",
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		key: "5",
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-
-	{
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-	{
-		transactionid: "MD-2312",
-		doctor: "Dr. Paul Wallner",
-		service: "First Consultation",
-		timeslot: "09:00 AM - 09:30 AM",
-		date: "Jan 30, 2022",
-		totalamount: "$40.00",
-		transactiondate: "Jan 24, 2022",
-		status: ["completed", "pending"],
-		view: "Eye",
-	},
-];
-
-type props = {
-	language: string;
-};
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { useRouter } from "next/router";
+import { date } from "common/utils";
+import { StatusName } from "common/types/types";
 
 function AdminPhysicianList() {
-	// const [{ data }] = useDoctorProfilesQuery();
-	const [{ data }] = useDoctorProfilesQuery();
-	const { doctorProfiles } = data || {};
+	const { query } = useRouter();
+	const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
+
+	const [{ data }, executeUseAdminPhysicianAppointmentQuery] =
+		useAdminPhysicianAppointmentQuery({
+			variables: {
+				filter: {
+					...filterValues,
+					doctorId: Number(query.id),
+				},
+			},
+		});
+	const { appointments } = data || {};
+
+	// Physician Payment By Admin Mutatio
+	const [result, PhysicianPaymentByAdmin] =
+		usePhysicianPaymentByAdminMutation();
+
+	const onPayPhysician = async (appointmentId: number) => {
+		try {
+			appointmentId;
+			const res = await PhysicianPaymentByAdmin({
+				paymeninput: {
+					appointmentId: appointmentId,
+				},
+			});
+
+			if (res?.data) {
+				res?.data &&
+					notification.success({
+						message: "Payment Successfull",
+					});
+			}
+
+			if (res?.error) {
+				notification.error({
+					message:
+						res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+				});
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const columns = [
 		{
 			title: "Appointment ID",
-			dataIndex: "patient_id",
-			key: "patient_id",
+			dataIndex: "id",
+			key: "id",
 			sorter: {
-				compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
+				compare: (a: any, b: any) => a.id - b.id,
 				multiple: 3,
 			},
 		},
@@ -153,12 +77,9 @@ function AdminPhysicianList() {
 			title: "Patient",
 			dataIndex: "patient",
 			key: "patient",
-			render: (value: User) => {
-				return (
-					<div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
-				);
+			render: (patient: User) => {
+				return <div>{`${patient?.first_name} ${patient?.last_name}`}</div>;
 			},
-
 			sorter: {
 				compare: (a: any, b: any) => a.first_name - b.first_name,
 				multiple: 3,
@@ -166,10 +87,10 @@ function AdminPhysicianList() {
 		},
 		{
 			title: "Service",
-			dataIndex: "service",
-			key: "service",
-			render: (value: User) => {
-				return <div className="someclass">{value?.email}</div>;
+			dataIndex: "serviceType",
+			key: "serviceType",
+			render: (serviceType: AppointmentServiceType) => {
+				return <div>{serviceType?.name}</div>;
 			},
 			sorter: {
 				compare: (a: any, b: any) => a.service - b.service,
@@ -178,8 +99,16 @@ function AdminPhysicianList() {
 		},
 		{
 			title: "Time Slot",
-			dataIndex: "specialization",
-			key: "timeslot",
+			dataIndex: "appointmentTimeSlots",
+			key: "appointmentTimeSlots",
+			render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
+				let selectedTime = appointmentTimeSlots.find((item) => item.selected);
+				return (
+					<div>{selectedTime?.startTime ?`${date?.formathhmma(
+						selectedTime?.startTime
+					)} - ${date?.formathhmma(selectedTime?.endTime)}` : "--"}</div>
+				);
+			},
 			sorter: {
 				compare: (a: any, b: any) => a.timeslot - b.timeslot,
 				multiple: 3,
@@ -187,25 +116,30 @@ function AdminPhysicianList() {
 		},
 		{
 			title: "Date",
-			dataIndex: "date",
-			key: "date",
-			render: (value: User) => {
-				return <div className="someclass">{value?.email}</div>;
+			dataIndex: "appointmentTimeSlots",
+			key: "appointmentTimeSlots",
+			render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
+				let selectedTime = appointmentTimeSlots.find((item) => item.selected);
+				return (
+					<div className="someclass">{selectedTime?.startTime ? `${date?.formatMMMMDDYYYY(
+						selectedTime?.startTime
+					)} ` : "--"}</div>
+				);
 			},
 			sorter: {
-				compare: (a: any, b: any) => a.service - b.service,
+				compare: (a: any, b: any) => a.timeslot - b.timeslot,
 				multiple: 3,
 			},
 		},
 		{
 			title: "Total Amount",
-			dataIndex: "totalamount",
-			key: "totalamount",
+			dataIndex: "charges",
+			key: "charges",
 			render: (value: User) => {
-				return <div className="someclass">{value?.email}</div>;
+				return <div>$ {value}</div>;
 			},
 			sorter: {
-				compare: (a: any, b: any) => a.service - b.service,
+				compare: (a: any, b: any) => a.charges - b.charges,
 				multiple: 3,
 			},
 		},
@@ -213,26 +147,34 @@ function AdminPhysicianList() {
 			title: "Status",
 			dataIndex: "status",
 			key: "status",
-			render: (value: User) => {
-				return <StatusChip typ="COMPLETED"/>;
+			render: (status: string) => {
+				return <StatusChip type={status.toUpperCase() as StatusName} />;
 			},
 			sorter: {
 				compare: (a: any, b: any) => a.service - b.service,
 				multiple: 3,
 			},
 		},
-    {
+		{
 			title: "",
-			dataIndex: "pay",
-			key: "status",
-			render: (value: User) => {
-				return <Button className="" type="primary" size={"large"}>Pay Now</Button>;
+			dataIndex: "id",
+			key: "id",
+			render: (appointmentId: number) => {
+				return (
+					<Button
+						className=""
+						type="primary"
+						size={"large"}
+						onClick={() => onPayPhysician(appointmentId)}
+					>
+						Pay Now
+					</Button>
+				);
 			},
-		
 		},
 		{
 			title: "",
-			dataIndex: "doctor_id",
+			dataIndex: "id",
 			key: "view",
 			className: "table-action-icon",
 			render: (value: string) => (
@@ -240,16 +182,22 @@ function AdminPhysicianList() {
 					<EyeFilled
 						className="text-primary"
 						onClick={() => {
-							return Router.push(`/admin/physicians/${value}`);
+							Router.push(`/admin/physicians/detail/${value}`);
 						}}
 					/>
 				</div>
 			),
 		},
 	];
-	function onChange() {}
 
-	function onChangeFilters() {}
+	function onChangeFilters(filterValue: GetAppointmentInput) {
+		setFilterValues(filterValue);
+		executeUseAdminPhysicianAppointmentQuery({
+			filter: filterValues,
+			requestPolicy: "network-only",
+		});
+	}
+
 	return (
 		<div className="w-full">
 			<div className="flex justify-between">
@@ -260,12 +208,8 @@ function AdminPhysicianList() {
 				onChange={onChangeFilters}
 			/>
 			<div className="w-full">
-				<div className="">
-					<Table
-						columns={columns}
-						dataSource={doctorProfiles}
-						onChange={onChange}
-					/>
+				<div>
+					<Table columns={columns} dataSource={appointments} />
 				</div>
 			</div>
 		</div>

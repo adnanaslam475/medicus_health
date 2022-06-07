@@ -95,10 +95,10 @@ function AdminUserSearchFilters(props: Props) {
             onChange={(value) => onChangeFields("status", value)}
             value={filterState?.status}
           >
-            <Select.Option key="true" value="true">
+            <Select.Option key="active" value="active">
               Active
             </Select.Option>
-            <Select.Option key="false" value="false">
+            <Select.Option key="disabled" value="disabled">
               Disabled
             </Select.Option>
           </Select>

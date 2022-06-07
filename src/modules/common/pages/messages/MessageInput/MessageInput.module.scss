@@ -1,10 +1,12 @@
-.message-input{
-    :global .ant-input{
-        border-radius: inherit !important;
-        border: none !important;
-        background-color: #E7E9ED;
-    }
-    ::-webkit-input-placeholder {
-        color: #9295AF !important;
-      }
+.message-input {
+  background-color: #e7e9ed;
+  :global .ant-input {
+    border-radius: inherit !important;
+    border: none !important;
+    background-color: #e7e9ed;
+    width: calc(100% - 75px);
+  }
+  ::-webkit-input-placeholder {
+    color: #e7e9ed !important;
+  }
 }

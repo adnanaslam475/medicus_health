@@ -1,22 +1,15 @@
+import React from "react";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
-import { useRouter } from "next/router";
-import React from "react";
+import { Appointment } from "generated/graphql";
 
-function PhysicianQuestionnaireFormTab() {
-  const { query } = useRouter();
+type Props = {
+  appointment: Appointment | undefined;
+};
 
-  const [{ data}] = usePhysicianAppointmentsHistoryQuery({
-    // variables: {
-    //   filter: { searchPatient: String(query?.id), status: "Completed" },
-    // },
-  });
-  const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
-
+function AdminQuestionnaireFormTab({ appointment }: Props) {
   return (
-    <div className="">
+    <div>
       <CardWithProfileImageInfo
         name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
         serviceName={appointment?.serviceType?.name}
@@ -31,4 +24,4 @@ function PhysicianQuestionnaireFormTab() {
   );
 }
 
-export default PhysicianQuestionnaireFormTab;
+export default AdminQuestionnaireFormTab;

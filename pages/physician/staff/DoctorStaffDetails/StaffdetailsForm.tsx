@@ -12,6 +12,8 @@ type Props = {
   handleChange: (value: boolean) => void;
   loading: boolean;
   fetching: boolean;
+  disableAccountInput: boolean | undefined;
+  adminId: string | undefined;
   onFinish: (values: UpdateStaffInput) => void;
   handleResetLink: React.MouseEventHandler<HTMLButtonElement>;
 };
@@ -25,6 +27,8 @@ function StaffDetailsFrom({
   staffDetail,
   handleResetLink,
   form,
+  adminId,
+  disableAccountInput,
 }: Props) {
   return (
     <Form
@@ -38,15 +42,25 @@ function StaffDetailsFrom({
       </h1>
       <p>{staffDetail?.email}</p>
       <div className="flex mb-8">
-        <Select
-          className="mr-5"
-          placeholder="Send Password Reset link"
-          onChange={handleChange}
-          style={{ width: 200 }}
+        {/* <Select className="mr-5" onChange={handleChange} style={{ width: 200 }}> */}
+        <div
+          className={
+            disableAccountInput
+              ? `${_classes["staff-select-enable"]}`
+              : `${_classes["staff-select-disable"]}`
+          }
         >
-          <Option value={false}>Active</Option>
-          <Option value={true}>Disabled</Option>
-        </Select>
+          <Select
+            className="mr-5"
+            placeholder="Send Password Reset link"
+            onChange={handleChange}
+            value={disableAccountInput}
+            style={{ width: 200 }}
+          >
+            <Option value={true}>Enable</Option>
+            <Option value={false}>Disable</Option>
+          </Select>
+        </div>
         <Button
           className="ml-7"
           loading={loading}
@@ -62,7 +76,7 @@ function StaffDetailsFrom({
       <div className="flex justify-end">
         <Form.Item>
           <div className="flex gap-4">
-            <Button htmlType="submit" onClick={() => Router.back()}>
+            <Button onClick={() => Router.push("/physician/staff")}>
               Cancel
             </Button>
             <Button

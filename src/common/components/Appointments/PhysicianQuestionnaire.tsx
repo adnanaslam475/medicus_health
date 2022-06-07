@@ -5,8 +5,8 @@ import {
   useDoctorQuestionnaireQuery,
 } from "../../../generated/graphql";
 import { useRouter } from "next/router";
-import { NamePath } from "rc-field-form/lib/interface";
 import { parseJson } from "common/utils/helper";
+import _classes from "./AppointmentButtons.module.scss";
 
 type Props = {
   appointmentHealthHistory: string;
@@ -16,8 +16,14 @@ function PhysicianQuestionnaire(props: Props) {
   const { query } = useRouter();
   const [formInstance] = Form.useForm();
   const { appointmentHealthHistory } = props || {};
-
   let History = parseJson(appointmentHealthHistory);
+
+  const router = useRouter();
+
+  const { pathname } = router || {};
+  let disabled =
+    pathname.includes("/physician/appointments") ||
+    pathname.includes("/patient/appointments");
 
   useEffect(() => {
     prepareAndSetEditPayload();
@@ -42,13 +48,17 @@ function PhysicianQuestionnaire(props: Props) {
   return (
     <React.Fragment>
       <div className="w-3/6">
-        <Form layout="vertical" form={formInstance}>
+        <Form
+          layout="vertical"
+          form={formInstance}
+          className={`${_classes[disabled ? "disabled-class" : ""]} `}
+        >
           <Form.Item
             label="Please describe your main respiratory concern today?"
             className="text-secondary"
             name="respiratoryConcern"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -56,7 +66,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="symptoms"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -64,7 +74,10 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="longSymptoms"
           >
-            <Radio.Group defaultValue={History?.longSymptoms}>
+            <Radio.Group
+              defaultValue={History?.longSymptoms}
+              disabled={disabled}
+            >
               <Radio value={0}>Improved</Radio>
               <Radio value={1}>Worsened</Radio>
               <Radio value={2}>Stayed the same</Radio>
@@ -76,7 +89,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="problem"
           >
-            <Radio.Group defaultValue={History?.problem}>
+            <Radio.Group defaultValue={History?.problem} disabled={disabled}>
               <Radio value={0}>5</Radio>
               <Radio value={1}>4</Radio>
               <Radio value={2}>3</Radio>
@@ -91,7 +104,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="problemBetter"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -99,7 +112,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="problemWorse"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -107,7 +120,10 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="respiratoryProblem"
           >
-            <Radio.Group defaultValue={History?.respiratoryProblem}>
+            <Radio.Group
+              defaultValue={History?.respiratoryProblem}
+              disabled={disabled}
+            >
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -118,7 +134,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="pleaseExplain"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -126,7 +142,10 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="coughAnything"
           >
-            <Radio.Group defaultValue={History?.coughAnything}>
+            <Radio.Group
+              defaultValue={History?.coughAnything}
+              disabled={disabled}
+            >
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -137,7 +156,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="coughingUp"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -145,7 +164,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="acidReflux"
           >
-            <Radio.Group defaultValue={History?.acidReflux}>
+            <Radio.Group defaultValue={History?.acidReflux} disabled={disabled}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -156,7 +175,10 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="sinusOrPost"
           >
-            <Radio.Group defaultValue={History?.sinusOrPost}>
+            <Radio.Group
+              defaultValue={History?.sinusOrPost}
+              disabled={disabled}
+            >
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -167,7 +189,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary mb-0"
             name="breath"
           >
-            <Radio.Group defaultValue={History?.breath}>
+            <Radio.Group defaultValue={History?.breath} disabled={disabled}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -178,7 +200,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary mb-0"
             name="rest"
           >
-            <Radio.Group defaultValue={History?.rest}>
+            <Radio.Group defaultValue={History?.rest} disabled={disabled}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -189,7 +211,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary mb-0"
             name="walking"
           >
-            <Radio.Group defaultValue={History?.walking}>
+            <Radio.Group defaultValue={History?.walking} disabled={disabled}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -200,7 +222,10 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="flightOfStairs"
           >
-            <Radio.Group defaultValue={History?.flightOfStairs}>
+            <Radio.Group
+              defaultValue={History?.flightOfStairs}
+              disabled={disabled}
+            >
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -211,7 +236,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="winded"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -219,7 +244,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="wheeze"
           >
-            <Radio.Group defaultValue={History?.wheeze}>
+            <Radio.Group defaultValue={History?.wheeze} disabled={disabled}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -229,7 +254,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="sleep"
           >
-            <Radio.Group defaultValue={History?.sleep}>
+            <Radio.Group defaultValue={History?.sleep} disabled={disabled}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -239,7 +264,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="workHard"
           >
-            <Radio.Group defaultValue={History?.workHard}>
+            <Radio.Group defaultValue={History?.workHard} disabled={disabled}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -249,14 +274,17 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="birth"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
           <Form.Item
             label="Have you traveled out of the country recently?"
             className="text-secondary mb-0"
             name="countryRecently"
           >
-            <Radio.Group defaultValue={History?.countryRecently}>
+            <Radio.Group
+              defaultValue={History?.countryRecently}
+              disabled={disabled}
+            >
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -267,7 +295,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="travel"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -275,7 +303,10 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary mb-0"
             name="tuberculosis"
           >
-            <Radio.Group defaultValue={History?.tuberculosis}>
+            <Radio.Group
+              defaultValue={History?.tuberculosis}
+              disabled={disabled}
+            >
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -285,7 +316,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="explain"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -293,7 +324,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="animals"
           >
-            <Radio.Group defaultValue={History?.animals}>
+            <Radio.Group defaultValue={History?.animals} disabled={disabled}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -304,7 +335,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary mb-0"
             name="cigarettes"
           >
-            <Radio.Group defaultValue={History?.cigarettes}>
+            <Radio.Group defaultValue={History?.cigarettes} disabled={disabled}>
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -314,7 +345,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="howLong"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -322,7 +353,10 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary mb-0"
             name="breathingProblems"
           >
-            <Radio.Group defaultValue={History?.breathingProblems}>
+            <Radio.Group
+              defaultValue={History?.breathingProblems}
+              disabled={disabled}
+            >
               <Radio value={0}>Yes</Radio>
               <Radio value={1}>No</Radio>
             </Radio.Group>
@@ -332,7 +366,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="PleaseDescribe"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -340,7 +374,7 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="knownExposure"
           >
-            <Input />
+            <Input disabled={disabled} />
           </Form.Item>
         </Form>
       </div>

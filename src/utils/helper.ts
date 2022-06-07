@@ -1,6 +1,7 @@
-import { date } from "common/utils";
 import { DoctorSchedule } from "generated/graphql";
 import config from "../../config";
+import engFlag from "../../public/assets/images/engFlag.png";
+import espanolFlag from "../../public/assets/images/espanolFlag.png";
 
 export const configS3 = {
   region: config?.region || "",
@@ -66,6 +67,150 @@ export const bioForm = [
       defaultValue: "",
     },
   ],
+];
+
+export const patientEditForm = [
+  {
+    label: "First Name",
+    name: "first_name",
+    type: "text",
+    inputType: "text",
+    required: true,
+  },
+  {
+    label: "Last name",
+    name: "last_name",
+    type: "text",
+    inputType: "text",
+    required: true,
+  },
+  {
+    label: "Gender",
+    name: "gender",
+    type: "select",
+    required: false,
+    option_name: "gender",
+    options: [
+      { id: 1, value: "Male" },
+      { id: 2, value: "Female" },
+      { id: 3, value: "prefer not to answer" },
+    ],
+  },
+  {
+    label: "Date of Birth",
+    name: "date_of_birth",
+    required: true,
+    type: "date",
+  },
+  {
+    label: "Email Address",
+    name: "email",
+    required: true,
+    type: "text",
+  },
+  {
+    label: "Cell Number",
+    name: "contact_number",
+    type: "text",
+    required: true,
+  },
+  {
+    label: "Password",
+    name: "password",
+    type: "text",
+    inputType: "password",
+    required: false,
+  },
+  {
+    label: "Confirm Password",
+    name: "confirm_password",
+    type: "text",
+    inputType: "password",
+    required: false,
+  },
+  {
+    label: "Country",
+    name: "countries",
+    type: "select",
+    option_name: "country_name",
+    required: true,
+    options: [],
+  },
+  {
+    label: "State",
+    name: "states",
+    type: "select",
+    option_name: "state_name",
+    required: false,
+    options: [],
+  },
+  {
+    label: "City",
+    name: "cities",
+    type: "select",
+    option_name: "city_name",
+    required: false,
+    options: [],
+  },
+  {
+    label: "Street Address",
+    name: "streetAddress",
+    type: "text",
+    inputType: "text",
+    required: true,
+  },
+  {
+    label: "Zip Code",
+    name: "zip_code",
+    type: "text",
+    inputType: "number",
+    required: true,
+  },
+  {
+    label: "Marital Status",
+    name: "maritalStatus",
+    type: "select",
+    option_name: "maritalStatus",
+    required: true,
+    options: [
+      { id: 1, value: "Single" },
+      { id: 2, value: "Married" },
+      { id: 3, value: "Widower" },
+      { id: 4, value: "Divorced" },
+    ],
+  },
+  {
+    label: "Do you have any children?",
+    type: "text",
+    name: "children",
+    inputType: "number",
+    required: true,
+    option_name: "children",
+  },
+  {
+    label: "What is your occupation?",
+    name: "occupation",
+    type: "text",
+    required: true,
+  },
+  {
+    label: "Do you have any occupational Exposure?",
+    name: "occupationalExposure",
+    type: "radio",
+    required: true,
+    options: ["Yes", "No"],
+  },
+  {
+    label: "Do you have any pets?",
+    name: "pets",
+    type: "select",
+    required: true,
+    option_name: "pets",
+    options: [
+      { id: 0, value: "Yes" },
+      { id: 1, value: "No" },
+    ],
+  },
 ];
 
 export const professionalBGData = [
@@ -191,3 +336,64 @@ export const patientEmailPreferencesData = [
 export function sorter(a: DoctorSchedule, b: DoctorSchedule) {
   return a.day - b.day || a.startTime.localeCompare(b.startTime);
 }
+
+export const FLAG_BY_LANGUAGE = {
+  ["english" as string]: engFlag,
+  ["espanol" as string]: espanolFlag,
+  ["spanish" as string]: espanolFlag,
+};
+
+export const adminBioForm = [
+  [
+    {
+      label: "First Name",
+      name: "firstName",
+      defaultValue: "usama",
+      disabled: true,
+    },
+    {
+      label: "Last name",
+      name: "lastName",
+      defaultValue: "khan",
+      disabled: true,
+    },
+  ],
+  [
+    {
+      label: "Email",
+      name: "email",
+      defaultValue: "usama@gmail.com",
+      disabled: true,
+    },
+    {
+      label: "Contact Number",
+      name: "contact",
+      defaultValue: "090078601",
+      disabled: true,
+    },
+  ],
+  [
+    {
+      label: "Password",
+      name: "password",
+      disabled: true,
+      defaultValue: "",
+    },
+    {
+      label: "Confirm Password",
+      name: "confirmPassword",
+      disabled: true,
+      defaultValue: "",
+    },
+  ],
+];
+export const compareAllArraysAreEqual = (...arrays: string[]) => {
+  let i = 0;
+  while (i < arrays.length) {
+    if (JSON.stringify(arrays[i]) !== JSON.stringify(arrays[i + 1])) {
+      return false;
+    }
+    i++;
+  }
+  return true;
+};

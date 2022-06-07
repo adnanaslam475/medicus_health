@@ -59,6 +59,7 @@ function EditAdminUserDetails({}: Props) {
           last_name,
           email,
           password: values.password || "",
+          contact_number: "",
         },
       });
       if (response?.error) {
@@ -91,7 +92,7 @@ function EditAdminUserDetails({}: Props) {
   const changeAccountStatusHandler = async () => {
     try {
       const response = await enableOrDisableAdmin({
-        id: 710 as number,
+        id: Number(query.userId),
       });
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
@@ -109,8 +110,7 @@ function EditAdminUserDetails({}: Props) {
           <div className="lg:w-3/5">
             <h6 className="">{adminUser?.id}</h6>
             <h1>
-              {" "}
-              {adminUser?.first_name} {adminUser?.last_name}{" "}
+              {adminUser?.first_name} {adminUser?.last_name}
             </h1>
             <p>{adminUser?.email}</p>
           </div>

@@ -21,6 +21,7 @@
     "@fullcalendar/react": "^5.10.1",
     "@fullcalendar/timegrid": "^5.10.1",
     "agora-rtc-react": "^1.1.1",
+    "agora-rtm-sdk": "^1.4.5",
     "antd": "^4.18.5",
     "clsx": "^1.1.1",
     "cross-env": "^7.0.3",

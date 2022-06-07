@@ -32,7 +32,7 @@ function PatientList() {
       render: (value: PatientProfile) => {
         return (
           <div>
-            {value?.profileImage && (
+            {value?.profileImage?.includes(".s3-us-east") && (
               <Image
                 alt=""
                 src={value?.profileImage}
@@ -88,7 +88,7 @@ function PatientList() {
       key: "id",
       className: "table-action-icon",
       render: (value: number) => (
-        <div>
+        <div className="text-primary">
           <EyeFilled
             onClick={() => {
               return Router.push(`/physician/patients/${value}`);
@@ -105,7 +105,6 @@ function PatientList() {
       requestPolicy: "network-only",
     });
   }
-
   return (
     <AppLayout>
       <div className="w-full">

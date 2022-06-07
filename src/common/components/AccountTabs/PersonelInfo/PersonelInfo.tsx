@@ -49,7 +49,7 @@ const PersonalInfo = () => {
           last_name: values?.lastName,
           email: values?.email,
           gender: values?.gender,
-          date_of_birth: date.convertStringDateToUTC(values.date_of_birth._i),
+          date_of_birth: new Date(values.date_of_birth).toLocaleDateString(),
           country_id: Number(values?.country_id),
           contact_number: values?.conntactNumber,
           city_id: Number(values?.city_id),
@@ -105,9 +105,19 @@ const PersonalInfo = () => {
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  const onSave = () => {
-    form?.current?.submit();
-    setIsEdit(false);
+  const onSave = async () => {
+    try {
+      await form?.current?.validateFields();
+      form?.current?.submit();
+      setIsEdit(false);
+    } catch (error: any) {
+      // console.log({ error });
+      error?.errorFields?.forEach((e: any) => {
+        notification.error({
+          message: e.errors[0],
+        });
+      });
+    }
   };
 
   return (

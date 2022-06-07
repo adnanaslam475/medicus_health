@@ -8,6 +8,7 @@ import { Form, Input, Button, Radio, Checkbox, FormInstance } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import _classes from "./Questionnary.module.scss";
 import { parseJson } from "common/utils/helper";
+import { useRouter } from "next/router";
 const CheckboxGroup = Checkbox.Group;
 
 interface HealthQuesType {
@@ -33,12 +34,11 @@ const HealthQuestionnary = ({
 }: HealthQuesType) => {
   const [terms, setTerms] = useState(false);
   const form: any = useRef();
-  const handleChange = (e: any) => {
-    // handleBackChange(e);
-  };
+  const handleChange = (e: any) => {};
 
   useEffect(() => {
-    console.log(form);
+    //for Scroll to the top of the page
+    window.scrollTo(0, 0);
   }, []);
   return (
     <div>
@@ -53,7 +53,9 @@ const HealthQuestionnary = ({
         onFinishSuccess={onFinishSuccess}
         onFinishedFailed={onFinishedFailed}
       />
-      <div className="flex justify-center items-center text-red">{signupError}</div>
+      <div className="flex justify-center items-center text-red">
+        {signupError}
+      </div>
       <div className="flex justify-between items-center">
         {!isUpdateMode && disable && (
           <Checkbox
@@ -74,7 +76,6 @@ const HealthQuestionnary = ({
             className="ant-btn ant-btn-primary ant-btn mb-0"
             type="primary"
             onClick={() => form?.current?.submit()}
-            // htmlType="submit"
           >
             {isUpdateMode ? "Update" : "Complete"}
           </Button>
@@ -129,6 +130,10 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       prepareAndSetEditPayload(parseJson(data));
     }
   }, [data]);
+  const router = useRouter();
+
+  const { pathname } = router || {};
+  let disabled = pathname.includes("/physician/appointments");
 
   function prepareAndSetEditPayload(parsedData: any) {
     setRadioDrink(parsedData?.q1.ans);
@@ -254,7 +259,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       onFinish={onFinishHealthQuestionnary}
       onFinishFailed={onFinishHealthQuestionnaryFailed}
       form={formInstance}
-      className={`${_classes["questionnary-css"]} someClass`}
+      className={`${
+        _classes[disabled ? "disabled-class" : "questionnary-css"]
+      } `}
     >
       <Form.Item
         name={HealthQuestionnaryData.q1.name}
@@ -266,6 +273,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           onChange={(e) => {
             setRadioDrink(e.target.value);
           }}
+          disabled={disabled}
         >
           <Radio value={1}>Yes</Radio>
           <Radio value={0}>No</Radio>
@@ -279,11 +287,11 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           rules={[
             {
               required: true,
-              message: "Please fill filed",
+              message: "Please fill field",
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled} size="large"/>
         </Form.Item>
       )}
       <Form.Item
@@ -296,6 +304,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           onChange={(e) => {
             setRadioSmoke(e.target.value);
           }}
+          disabled={disabled}
         >
           <Radio value={1}>Yes</Radio>
           <Radio value={0}>No</Radio>
@@ -313,7 +322,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             },
           ]}
         >
-          <Input />
+          <Input disabled={disabled} size="large"/>
         </Form.Item>
       )}
       <Form.Item
@@ -326,55 +335,49 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           onChange={(e) => {
             setRadioDrug(e.target.value);
           }}
+          disabled={disabled}
         >
           <Radio value={1}>Yes</Radio>
           <Radio value={0}>No</Radio>
         </Radio.Group>
       </Form.Item>
-        <>
+      <>
+        <Form.Item
+          name={HealthQuestionnaryData.q3.q.name}
+          label={HealthQuestionnaryData.q3.q.label}
+          className="text-secondary"
+        >
+          <CheckboxGroup
+            options={HealthQuestionnaryData.q3.q.option}
+            onChange={onChangeMedicalCondition}
+            style={{ display: "flex", flexDirection: "column" }}
+            disabled={disabled}
+          />
+        </Form.Item>
+        {showDrugOthers && (
           <Form.Item
-            name={HealthQuestionnaryData.q3.q.name}
-            label={HealthQuestionnaryData.q3.q.label}
-            className="text-secondary"
+            className="flex-1"
+            name={HealthQuestionnaryData.q3.q2.name}
           >
-            {/* <div className="checkbox-dir-col"> */}
-            <CheckboxGroup
-              options={HealthQuestionnaryData.q3.q.option}
-              onChange={onChangeMedicalCondition}
-              style={{ display: "flex", flexDirection: "column" }}
-            />
-            {/* </div> */}
+            <Input disabled={disabled} size="large"/>
           </Form.Item>
-          {showDrugOthers && (
-            <Form.Item
-              className="flex-1"
-              // name="drug_text"
-              name={HealthQuestionnaryData.q3.q2.name}
-            >
-              <Input />
-            </Form.Item>
-          )}
-        </>
+        )}
+      </>
       <Form.Item
         name={HealthQuestionnaryData.q4.name}
         className="text-secondary"
         label={HealthQuestionnaryData.q4.label}
       >
-        {/* <div className="checkbox-dir-col"> */}
         <CheckboxGroup
           options={HealthQuestionnaryData.q4.option}
           onChange={onChangeSurgicalHistory}
           style={{ display: "flex", flexDirection: "column" }}
+          disabled={disabled}
         />
-        {/* </div> */}
       </Form.Item>
       {showSurgicalOthers && (
-        <Form.Item
-          className="flex-1"
-          // name="surgical_text"
-          name={HealthQuestionnaryData.q4.q2.name}
-        >
-          <Input />
+        <Form.Item className="flex-1" name={HealthQuestionnaryData.q4.q2.name}>
+          <Input disabled={disabled} size="large"/>
         </Form.Item>
       )}
       <Form.Item
@@ -388,7 +391,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input />
+        <Input disabled={disabled} size="large"/>
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
@@ -401,7 +404,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input />
+        <Input disabled={disabled} size="large"/>
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
@@ -414,7 +417,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input />
+        <Input disabled={disabled} size="large"/>
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
@@ -427,7 +430,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input />
+        <Input disabled={disabled} size="large"/>
       </Form.Item>
     </Form>
   );

@@ -18,7 +18,7 @@ const createStaffForm = [
   {
     label: "Email",
     name: "email",
-    type: "text",
+    type: "email",
     required: true,
   },
   {
@@ -41,6 +41,12 @@ function AddStaffFormItems() {
               required: value.required,
               message: `Please fill ${value.label}`,
             },
+            value?.type === "email"
+              ? {
+                  type: "email",
+                  message: "Email is invalid",
+                }
+              : {},
           ]}
           className={`font-bold ${_classes["clr-black"]} text-black`}
           name={value.name}

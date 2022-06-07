@@ -11,6 +11,7 @@ import {
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
+import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {
   appointmentsData?: Appointment[] | undefined;
@@ -40,7 +41,7 @@ const RequestedList = (props: Props) => {
       render: (value: User) => {
         return (
           <div className="someclass">
-            {`${value?.first_name} ${value?.last_name}`}{" "}
+            {`${value?.first_name} ${value?.last_name}`}
           </div>
         );
       },
@@ -112,6 +113,19 @@ const RequestedList = (props: Props) => {
         return <div className="someclass">{value ? `$ ${value}` : ""}</div>;
       },
     },
+    {
+      title: "Appointment Status",
+      dataIndex: "status",
+      key: "status",
+      className: "table-action-icon",
+      render: (value: any) => {
+        return (
+          <div className="text-primary">
+            <StatusChip type={value?.toUpperCase()} />
+          </div>
+        );
+      },
+    },
 
     {
       title: "",
@@ -119,13 +133,15 @@ const RequestedList = (props: Props) => {
       key: "id",
       className: "table-action-icon text-primary",
       render: (appointmentId: number) => (
-        <EyeFilled
-          onClick={() => {
-            return Router.push(
-              `/physician/appointments/requested/${appointmentId}`
-            );
-          }}
-        />
+        <div className="text-primary">
+          <EyeFilled
+            onClick={() => {
+              return Router.push(
+                `/physician/appointments/requested/${appointmentId}`
+              );
+            }}
+          />
+        </div>
       ),
     },
   ];

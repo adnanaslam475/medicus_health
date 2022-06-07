@@ -1,7 +1,7 @@
 import { CloseOutlined } from "@ant-design/icons";
 import React from "react";
 import { singleSchedule } from "../../types/types";
-import { dayName, twelveHourTime } from "../../utils/date";
+import { dayName } from "../../utils/date";
 
 type Props = {
   disable: boolean;
@@ -20,11 +20,11 @@ function MultiRangeListing(props: Props) {
         </div>
         <div className="flex flex-1 flex-col pl-5 py-2 border-r border-gray-3">
           <span className="text-gray text-xs">From</span>
-          <span>{twelveHourTime(item.startTime)}</span>
+          <span>{item.startTime}</span>
         </div>
         <div className="flex flex-1 flex-col pl-5  py-2">
           <span className="text-gray text-xs">To</span>
-          <span>{twelveHourTime(item.endTime)}</span>
+          <span>{item.endTime}</span>
         </div>
       </div>
       {disable == false && (

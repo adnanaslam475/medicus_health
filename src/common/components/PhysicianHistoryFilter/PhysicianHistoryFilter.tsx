@@ -13,6 +13,8 @@ import { getDateInFormat } from "../../utils/date";
 import _classes from "./PhysicianHistoryFilters.module.scss";
 import searchStyle from "./style.module.scss";
 import { DateType } from "common/types/types";
+import Image from "next/image";
+import { calendarFilterIcon } from "utils/images";
 
 const { RangePicker } = DatePicker;
 
@@ -65,17 +67,17 @@ function PhysicianSearchFilters(props: Props) {
             placeholder="Search by ID or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) =>
-              onFilterValuesChange("searchPatient", e.target.value)
+              onFilterValuesChange("searchString", e.target.value)
             }
           />
         </div>
 
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
-            placeholder="Service"
+            placeholder="Appointment Type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={(e) => onFilterValuesChange("serviceId", e)}
-            value={filterState.serviceId || "Service"}
+            value={filterState.serviceId || "Appointment Type"}
           >
             {appointmentServiceTypes?.map((item) => (
               <Select.Option key={item?.id} value={item?.id}>
@@ -153,9 +155,21 @@ function PhysicianSearchFilters(props: Props) {
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  <div>Booking Date</div>
-                  <div>
-                    <CaretDownOutlined style={{ color: `primary` }} />
+                  <div className="flex justify-between items-center w-full px-3">
+                    <div className="flex items-center font-thin">
+                      <span className="mr-2 mt-1">
+                        <Image
+                          width={18}
+                          height={18}
+                          src={calendarFilterIcon}
+                          alt=""
+                        />
+                      </span>
+                      Booking Date
+                    </div>
+                    <div>
+                      <CaretDownOutlined />
+                    </div>
                   </div>
                 </div>
               )}
@@ -218,9 +232,21 @@ function PhysicianSearchFilters(props: Props) {
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  <div>Due Date</div>
-                  <div>
-                    <CaretDownOutlined style={{ color: `primary` }} />
+                  <div className="flex justify-between items-center w-full px-3">
+                    <div className="flex items-center font-thin">
+                      <span className="mr-2 mt-1">
+                        <Image
+                          width={18}
+                          height={18}
+                          src={calendarFilterIcon}
+                          alt=""
+                        />
+                      </span>
+                      Due Date
+                    </div>
+                    <div>
+                      <CaretDownOutlined />
+                    </div>
                   </div>
                 </div>
               )}

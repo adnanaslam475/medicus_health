@@ -1,20 +1,22 @@
 import React from "react";
 import { Tabs } from "antd";
-import Router from "next/router";
-const { TabPane } = Tabs;
-import AppointmentInfo from "../../../common/components/Appointments/AppointmentInfo";
-import PhysicianQuestionnaire from "../../../common/components/Appointments/PhysicianQuestionnaire";
-import Attachments from "../../../common/components/Appointments/Attachments";
+import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
+import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import {
   useGetAppointmentByIdQuery,
   usePatientHealthHistoryQuery,
-} from "../../../generated/graphql";
+} from "generated/graphql";
 import { QuestionnaireForm } from "../Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
+import word from "../../../../public/assets/images/word-file.svg";
+import Attachment from "../Attachment/Attachment";
+import { AttachmentObject } from "common/types/types";
+const { TabPane } = Tabs;
 
 type Props = {
   appointmentId?: Number;
 };
+
 
 const AppointmentTabs = (props: Props) => {
   const { appointmentId } = props;
@@ -32,6 +34,17 @@ const AppointmentTabs = (props: Props) => {
     variables: { input: Number(id) },
   });
 
+  const { appointment } = data || {};
+  const { reportUrl } = appointment || {};
+
+  let urlArr = parseJson(reportUrl);
+  if (urlArr && urlArr.length > 0) {
+    urlArr = urlArr[0]?.map((item: any) => ({
+      name: item.split("com/")[1],
+      url: item
+    }));
+  }
+
   return (
     <div className="profile-tabs">
       <Tabs type="card">
@@ -41,7 +54,7 @@ const AppointmentTabs = (props: Props) => {
         <Tabs.TabPane tab="Health Questionnaire" key="2">
           <div className="max-w-1/2">
             <QuestionnaireForm
-              data={patientHealthHistory?.patientHealthHistory.history}
+              data={patientHealthHistory?.patientHealthHistory?.history}
             />
           </div>
         </Tabs.TabPane>
@@ -51,7 +64,9 @@ const AppointmentTabs = (props: Props) => {
           />
         </TabPane>
         <TabPane tab="Attachments" key="4">
-          <Attachments appoinmentDetails={data} />
+          {urlArr?.map((item:AttachmentObject) => (
+            <Attachment item={item} enable />
+          ))}
         </TabPane>
       </Tabs>
     </div>

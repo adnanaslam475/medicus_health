@@ -1,93 +1,43 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import end from "./../../../../../public/assets/images/engFlag.png";
-import esp from "./../../../../../public/assets/images/espanolFlag.png";
 import editicon from "../../../../../public/assets/icon/edit.svg";
-import {
-  Avatar,
-  Upload,
-  Form,
-  Input,
-  Button,
-  notification,
-  Select,
-  DatePicker,
-} from "antd";
+import { Avatar, Upload, Form, Input, Button, notification } from "antd";
 import _classes from "./PhysicianProfile.module.scss";
-const { TextArea } = Input;
 
-import {
-  DoctorProfile,
-  // Schedule,
-  useEnableOrDisableDoctorMutation,
-  useUpdateDoctorProfileMutation,
-} from "../../../../generated/graphql";
-import ReactS3Client from "react-aws-s3-typescript";
-import config from "../../../../../config";
+import { useUpdateAdminUserMutation } from "generated/graphql";
 import { UploadChangeParam } from "antd/lib/upload";
-import Language from "../../../admin/components/Languague/Language";
-import InputWithLi from "common/components/InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
-import { configS3 } from "utils/helper";
-import { Schedule } from "common/types/types";
-import { RangeValue } from "rc-picker/lib/interface";
 import { useMediaUploader } from "common/hooks/media";
+import { getUserData } from "common/utils/userData";
 
 type profileType = {
-  doctorId: string | string[] | undefined;
+  doctorId?: string | string[] | undefined;
   doctorData: any;
   setIsEdit: (e: boolean) => void;
-  schedules: Schedule[] | undefined;
-  setDeleteScheduleId?: (e: string) => void;
-  setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
-  setAddScheduleTime?: React.Dispatch<
-    React.SetStateAction<{
-      time: RangeValue<moment.Moment> | null;
-      timeString: string[];
-    }>
-  >;
-  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string | number>>;
-  onAddClick?: () => void;
   edit: () => void;
-  addScheduleTime?: {
-    timeString: string[];
-    time: RangeValue<moment.Moment> | null;
-  };
-  addScheduleDay: string;
-  loading?: boolean;
 };
 
 export const Profile = React.forwardRef(function Profile({
   doctorId,
   doctorData,
   setIsEdit,
-  schedules,
-  setDeleteScheduleId,
-  setAddScheduleTime,
-  setAddScheduleDay,
-  onAddClick,
-  addScheduleTime,
-  addScheduleDay,
-  loading,
 }: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
-  const [ispublish, setIsPublish] = useState(true);
+
+  const { user } = getUserData();
+  const { id } = user || {};
 
   const { first_name, last_name, password, email, contact_number, status } =
-    doctorData?.user || {};
+    (doctorData && doctorData[0]) || {};
 
-  //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
 
-  // File Upload Hook
   const mediaUploader = useMediaUploader();
 
-  const [result, updateDoctor] = useUpdateDoctorProfileMutation();
+  const [result, executeUseUpdateAdminUserMutation] =
+    useUpdateAdminUserMutation();
   const { error } = result || {};
-
-  const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
   useEffect(() => {
     if (doctorData) {
@@ -108,28 +58,28 @@ export const Profile = React.forwardRef(function Profile({
 
   const onFinish = async (values: any) => {
     try {
-      updateDoctorProfile(values);
+      updateAdminProfile(values);
       setIsEdit(false);
     } catch (error) {
       setIsEdit(true);
     }
   };
-
-  const updateDoctorProfile = async (values: any) => {
+  const updateAdminProfile = async (values: any) => {
     if (doctorData) {
-      const res = await updateDoctor({
-        updateDoctorProfileInput: {
-          doctor_id: Number(doctorId),
+      const res = await executeUseUpdateAdminUserMutation({
+        updateAdminUserInput: {
           first_name: values?.firstName,
           last_name: values?.lastName,
           email: values?.email,
+          contact_number: values?.contact_number,
           password: values?.password,
-          profile_image: image || userProfileImage,
+          profileImage: image || userProfileImage,
         },
+        id: Number(id),
       });
 
       if (res?.data) {
-        res?.data?.updateDoctorProfile &&
+        res?.data?.updateAdminUser &&
           notification.success({
             message: "Updated Successfully",
           });
@@ -146,8 +96,6 @@ export const Profile = React.forwardRef(function Profile({
   };
 
   const fileChange = async (info: UploadChangeParam) => {
-    const s3 = new ReactS3Client(configS3);
-
     try {
       const url = await mediaUploader.upload(info.file.originFileObj as File);
       if (url) {
@@ -166,24 +114,6 @@ export const Profile = React.forwardRef(function Profile({
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
-
-  async function handleChange() {
-    const res = await EnableOrDisableDoctor({
-      id: Number(doctorId),
-    });
-    if (res?.data?.enableOrDisableDoctor?.status) {
-      res?.data?.enableOrDisableDoctor?.status &&
-        notification.success({
-          message: "Published",
-        });
-    }
-    if (!res?.data?.enableOrDisableDoctor?.status) {
-      !res?.data?.enableOrDisableDoctor?.status &&
-        notification.success({
-          message: "Unpublished",
-        });
-    }
-  }
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -216,26 +146,10 @@ export const Profile = React.forwardRef(function Profile({
             </Upload>
 
             <div>
-              {/* <span>{doctorId}</span> */}
               <h2 className="mb-0">
                 {first_name ? `${first_name} ${last_name}` : ""}
               </h2>
               <span className="block">{email}</span>
-              <div className=" grid grid-cols-2 gap-3">
-                <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
-                  <Button
-                    type="primary"
-                    className={`${_classes["published-button"]}`}
-                    onClick={handleChange}
-                  >
-                    {status ? "Published" : "Unpublished"}
-                  </Button>
-                </div>
-                {/* <Button type="default" className="px-0 mx-0">
-                  <EditOutlined />
-                  Edit Info
-                </Button> */}
-              </div>
             </div>
           </div>
 
@@ -268,10 +182,16 @@ export const Profile = React.forwardRef(function Profile({
               <div className="flex flex-col sm:flex-row  sm:gap-3">
                 <Form.Item
                   name="email"
-                  // name={["user", "email"]}
                   label="Email"
-                  rules={[{ type: "email" }]}
+                  rules={[{ type: "email", required: true, message: "Email!" }]}
                   className="flex-1"
+                >
+                  <Input disabled={true} />
+                </Form.Item>
+                <Form.Item
+                  label="Contact Number"
+                  className="flex-1"
+                  name="contact_number"
                 >
                   <Input />
                 </Form.Item>
@@ -280,8 +200,8 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Password"
                   name="password"
-                  // rules={[{ required: true, message: "Password" }]}
                   className="flex-1"
+                  rules={[{ required: true, message: "Password!" }]}
                 >
                   <Input.Password />
                 </Form.Item>
@@ -289,7 +209,6 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Confirm Password"
                   name="confirmPassword"
-                  // rules={[{ required: true, message: "Confirm password!" }]}
                   className="flex-1"
                 >
                   <Input.Password />
@@ -305,196 +224,6 @@ export const Profile = React.forwardRef(function Profile({
                   </Button>
                 </div>
               </Form.Item>
-            </Form>
-            <Form layout="vertical">
-              <div className="font-medium text-lightBlue-1 my-2">Languages</div>
-              <div className="flex mr-auto">
-                <Language
-                  end={end}
-                  title="English"
-                  check={true}
-                  disable={false}
-                />
-                <Language
-                  end={esp}
-                  title="Spanish"
-                  check={false}
-                  disable={false}
-                />
-              </div>
-              <div className="mt-5">
-                <Form.Item
-                  label="About me"
-                  name="about"
-                  className={`{${_classes["font-size-custom"]}}`}
-                >
-                  <TextArea
-                    rows={10}
-                    placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
-                    maxLength={6}
-                  />
-                </Form.Item>
-              </div>
-
-              <InputWithLi disable={false} />
-
-              {/* Admin - Edit Profile Component - Its editable component so all props are required */}
-              <MultiRangeDatePicker
-                loading={loading}
-                disable={false}
-                schedules={schedules}
-                setDeleteScheduleId={setDeleteScheduleId}
-                setAddScheduleTime={setAddScheduleTime}
-                addScheduleTime={addScheduleTime}
-                addScheduleDay={addScheduleDay}
-                setAddScheduleDay={setAddScheduleDay}
-                onAddClick={onAddClick}
-              />
-              <div className={`my-6 ${_classes["professional"]}`}>
-                <h5>Professional Background</h5>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="role"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-              </div>
-
-              <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Educational Background</h6>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-                <div className="my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="institute"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-              </div>
-              {/* <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
-              <Form.Item className="">
-                <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
-                  <Button htmlType="submit" className="">
-                    Cancel
-                  </Button>
-                  <Button type="primary" htmlType="submit" className="">
-                    Save Changes
-                  </Button>
-                </div>
-              </Form.Item>
-            </div> */}
-              {/* </Form> */}
             </Form>
           </div>
         </div>

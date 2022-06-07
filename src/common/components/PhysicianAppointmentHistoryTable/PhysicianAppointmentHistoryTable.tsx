@@ -35,16 +35,16 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     },
 
     {
-      title: "Type",
+      title: " Appointment Type",
       dataIndex: "serviceType",
       key: "serviceType",
       sorter: true,
       render: (value: AppointmentServiceType) => {
-        return <div>{`${value.name}`}</div>;
+        return <div>{`${value?.name}`}</div>;
       },
     },
     {
-      title: "Physician Name",
+      title: "Patient Name",
       dataIndex: "patient",
       key: "patient",
       sorter: true,
@@ -105,11 +105,13 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       key: "id",
       className: "table-action-icon",
       render: (id: string) => (
-        <EyeFilled
-          onClick={() => {
-            return Router.push(`/physician/appointments/history/${id}`);
-          }}
-        />
+        <div className="text-primary">
+          <EyeFilled
+            onClick={() => {
+              return Router.push(`/physician/appointments/history/${id}`);
+            }}
+          />
+        </div>
       ),
     },
   ];

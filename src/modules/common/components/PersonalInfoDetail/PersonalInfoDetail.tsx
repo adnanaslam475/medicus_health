@@ -46,37 +46,65 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     user?.patientProfile?.occupationalExposure
   );
 
+  const {
+    first_name,
+    last_name,
+    gender,
+    date_of_birth,
+    contact_number,
+    email,
+    country_id,
+    state_id,
+    city_id,
+    zip_code,
+    streetAddress,
+  } = user || {};
+
+  const {
+    children,
+    maritalStatus,
+    occupation,
+    occupationalExposure,
+    exposureDuration,
+    pets,
+  } = user?.patientProfile || {};
+
   useEffect(() => {
     if (ref) {
       ref.current = formInstance;
     }
     if (user) {
       prepareAndSetEditPayload();
+      setradioChildren(
+        children === 0 || children === undefined || children === null
+          ? false
+          : true
+      );
     }
   }, [user]);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
-      firstName: user?.first_name,
-      lastName: user?.last_name,
-      gender: user?.gender,
-      date_of_birth: moment(user?.date_of_birth),
-      conntactNumber: user?.contact_number,
-      email: user?.email,
+      firstName: first_name,
+      lastName: last_name,
+      gender: gender,
+      date_of_birth: moment(date_of_birth),
+      conntactNumber: contact_number,
+      email: email,
       password: "",
-      country_id: user?.country_id,
-      state_id: user?.state_id,
-      city_id: user?.city_id,
-      postalCode: user?.zip_code,
-      streetAddress: user?.streetAddress,
+      country_id: country_id,
+      state_id: state_id,
+      city_id: city_id,
+      postalCode: zip_code,
+      streetAddress: streetAddress,
       maritalStatusExist: false,
-      maritalStatus: user?.patientProfile?.maritalStatus,
+      maritalStatus: maritalStatus,
       childrenExists: false,
-      children: user?.patientProfile?.children,
-      occupation: user?.patientProfile?.occupation,
-      occupationalExposure: user?.patientProfile?.occupationalExposure,
-      exposureDuration: user?.patientProfile?.exposureDuration,
-      pets: user?.patientProfile?.pets,
+      children: children,
+      occupation: occupation,
+      occupationalExposure: occupationalExposure,
+      exposureDuration: exposureDuration,
+      pets: pets,
     });
   }
 
@@ -108,7 +136,16 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">First Name</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="firstName">
+                  <Form.Item
+                    name="firstName"
+                    rules={[
+                      {
+                        required: true,
+                        message: "First Name!",
+                      },
+                    ]}
+                    className="bottom-margin-0"
+                  >
                     <Input size="large" placeholder="First Name" />
                   </Form.Item>
                 </div>
@@ -119,7 +156,16 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Last Name</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="lastName">
+                  <Form.Item
+                    name="lastName"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Last Name!",
+                      },
+                    ]}
+                    className="bottom-margin-0"
+                  >
                     <Input size="large" placeholder="last Name" />
                   </Form.Item>
                 </div>
@@ -130,7 +176,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Gender</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item className="mb-0" name="gender">
+                  <Form.Item className="bottom-margin-0" name="gender">
                     <Select placeholder="Gender" size="large">
                       <Select.Option value="male">Male</Select.Option>
                       <Select.Option value="female">Female</Select.Option>
@@ -148,7 +194,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">Date of Birth</div>
                 <div className="w-1/2 text-secondary">
                   <Form.Item
-                    className="flex-1"
+                    className="flex-1 bottom-margin-0"
                     name="date_of_birth"
                     rules={[
                       {
@@ -158,6 +204,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     ]}
                   >
                     <DatePicker
+                      name="date_of_birth"
                       placeholder="mm/dd/yy"
                       format={"MM-DD-YYYY"}
                       className="w-full"
@@ -183,7 +230,16 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Email Address</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item noStyle name="email">
+                  <Form.Item
+                    name="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your email!",
+                      },
+                    ]}
+                    className="bottom-margin-0"
+                  >
                     <Input size="large" placeholder="Email Address" />
                   </Form.Item>
                 </div>
@@ -194,7 +250,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 text-gray-1">Password</div>
                 <div className="w-1/2 text-secondary">
-                  <Form.Item name="password">
+                  <Form.Item name="password" className="bottom-margin-0">
                     <Input.Password size="large" placeholder="Password" />
                   </Form.Item>
                 </div>
@@ -296,14 +352,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div className="w-1/2 text-gray-1">
                   <Form.Item className="mb-0" name="childrenExists">
                     <Radio.Group
+                      defaultValue={radioChildren}
                       onChange={(e) => {
                         setradioChildren(e.target.value);
                       }}
                     >
-                      <Radio value="Yes">Yes</Radio>
-                      <Radio value="No">No</Radio>
+                      <Radio value={true}>Yes</Radio>
+                      <Radio value={false}>No</Radio>
                     </Radio.Group>
-                    {!!radioChildren && (
+                    {radioChildren && (
                       <Form.Item className="mb-0" name="children">
                         <Input size="large" placeholder="No. of children" />
                       </Form.Item>

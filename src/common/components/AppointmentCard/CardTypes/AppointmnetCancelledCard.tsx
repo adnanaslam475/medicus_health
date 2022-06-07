@@ -31,8 +31,6 @@ function AppointmnetCancelledCard({
   //   setIsModalVisible(true);
   // }
 
-  
-
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   // const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -82,7 +80,6 @@ function AppointmnetCancelledCard({
             type={"primary"}
             className={`${_classes["card-btn"]} mr-3`}
             onClick={showModal}
-            // onClick={() => onRebookAppointment(id)}
           >
             Rebook
           </Button>

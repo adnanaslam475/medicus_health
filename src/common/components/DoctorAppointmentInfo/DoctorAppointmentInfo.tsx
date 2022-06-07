@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   CheckOutlined,
   MessageOutlined,
@@ -26,21 +26,29 @@ import Router from "next/router";
 import {
   Appointment,
   AppointmentServiceType,
+  AppointmentTimeSlots,
   useCancelAppointmentByDoctorMutation,
   useGetAllAppointmentServiceTypesQuery,
   useProposeNewTimeMutation,
 } from "generated/graphql";
-import { formatMMMM_Dcoma_YYYY, getDayJsObject } from "common/utils/date";
+import {
+  formatMMMM_Dcoma_YYYY,
+  getDayJsObject,
+  isAppointmentTimeValid,
+} from "common/utils/date";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
+import { CustomTimeSlot } from "common/types/types";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 
 type Props = {
   data: Appointment | undefined;
   onCancelRequestedAppointment?: () => void;
+  cancelFetching?: boolean;
 };
 
 type dateArray = {
@@ -62,7 +70,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     createdAt,
   } = data || {};
 
-  const [, executeCancelRequestedAppointment] =
+  const [{ fetching: cancelFetching }, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
 
   function timeSlots() {
@@ -98,12 +106,23 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText label="ID" text={id} />
         <LabelWithText
           label="Patient"
-          text={`${patient?.first_name} ${patient?.last_name}`}
+          text={
+            patient?.first_name
+              ? `${patient?.first_name} ${patient?.last_name}`
+              : "--"
+          }
         />
-        <LabelWithText label="Type" text={serviceType?.name} />
+        <LabelWithText
+          label="Type"
+          text={serviceType?.name ? serviceType?.name : "--"}
+        />
         <LabelWithText
           label="Due Date"
-          text={formatMMMM_Dcoma_YYYY(requestedDate)}
+          text={
+            timeSlots()?.startTime
+              ? `${formatMMMM_Dcoma_YYYY(timeSlots()?.startTime)} `
+              : "--"
+          }
         />
         <LabelWithText
           label="Appointment creation date"
@@ -123,7 +142,9 @@ function DoctorAppointmentInfo({ data }: Props) {
           <LabelWithText
             label="Total Amount"
             text={
-              transaction?.amountReceived && `$ ${transaction?.amountReceived}`
+              transaction?.amountReceived
+                ? `$ ${transaction?.amountReceived}`
+                : "--"
             }
           />
         )}
@@ -131,13 +152,13 @@ function DoctorAppointmentInfo({ data }: Props) {
         {status === "Requested" && (
           <LabelWithText
             label="Total Amount"
-            text={charges && `$ ${charges}`}
+            text={charges ? `$ ${charges}` : "--"}
           />
         )}
         {status === "Cancelled" && (
           <LabelWithText
             label="Total Amount"
-            text={charges && `$ ${charges}`}
+            text={charges ? `$ ${charges}` : "--"}
           />
         )}
 
@@ -155,12 +176,13 @@ function DoctorAppointmentInfo({ data }: Props) {
       </div>
 
       {status === "Confirmed" && (
-        <DoctorAppointmentInfoFooter appointmentId={id} />
+        <DoctorAppointmentInfoFooter appointmentId={id} data={data} />
       )}
       {status === "Requested" && (
         <DoctorRequestedAppointmentInfoFooter
           onCancelRequestedAppointment={onCancelRequestedAppointment}
           data={data}
+          cancelFetching={cancelFetching}
         />
       )}
     </div>
@@ -171,9 +193,22 @@ export default DoctorAppointmentInfo;
 
 function DoctorAppointmentInfoFooter({
   appointmentId,
+  data,
 }: {
   appointmentId: number | undefined;
+  data?: Appointment;
 }) {
+  const { appointmentTimeSlots } = data || {};
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
+    () => appointmentTimeSlots?.find((item) => item.selected),
+    [appointmentTimeSlots]
+  );
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
+  }, [selectedAppointment]);
+
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
@@ -197,8 +232,9 @@ function DoctorAppointmentInfoFooter({
         icon={<VideoCameraFilled />}
         className={`${_classes["appointments-btn"]} bg-current`}
         onClick={() =>
-          Router.push(`/doctor/appointments/${appointmentId}/call`)
+          Router.push(`/physician/appointments/${appointmentId}/call`)
         }
+        disabled={disabled}
       >
         Join Now
       </Button>
@@ -207,7 +243,7 @@ function DoctorAppointmentInfoFooter({
 }
 
 function DoctorRequestedAppointmentInfoFooter(props: Props) {
-  const { onCancelRequestedAppointment, data } = props || {};
+  const { onCancelRequestedAppointment, data, cancelFetching } = props || {};
   const {
     id,
     patient,
@@ -221,6 +257,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   const [slot, setSlot] = useState<dateArray>({ startDate: "", endDate: "" });
   const [slots, setSlots] = useState<Array<dateArray>>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] =
+    React.useState<boolean>(false);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -323,7 +361,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         <Button
           danger
           className="border border-red outline"
-          onClick={onCancelRequestedAppointment}
+          onClick={() => setShowConfirmationModal(true)}
         >
           Reject
         </Button>
@@ -339,12 +377,20 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             type="primary"
             icon={<CheckOutlined />}
             className={`${_classes["appointments-btn"]} bg-current ml-3`}
-            onClick={() => Router.push("/physician/calendar")}
+            onClick={showModal}
           >
-            Accept Appointment
+            Edit Appointment
           </Button>
         </div>
       </div>
+
+      <ConfirmationModal
+        visible={showConfirmationModal}
+        confirmLoading={cancelFetching}
+        onCancel={() => setShowConfirmationModal(false)}
+        onOk={onCancelRequestedAppointment}
+        message="Are you sure you want to Cancel Appointment?"
+      />
 
       <Modal
         visible={isModalVisible}

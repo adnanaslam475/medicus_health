@@ -22,7 +22,7 @@ function ProfileImageWithInfo({ name, serviceName, imageUrl }: props) {
         />
       </div>
 
-      <div>
+      <div className="flex flex-col">
         <h2 className="mb-0">{name}</h2>
         <span className="block">{serviceName}</span>
       </div>

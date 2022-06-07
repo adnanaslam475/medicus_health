@@ -5,13 +5,23 @@ import {
   PENDING,
   CONFIRMED,
   CANCELLED,
+  SUCCEEDED,
+  SUGGESTED,
+  REQUESTED,
+  ACTIVE,
+  INACTIVE,
 } from "../../constants/status";
 type StatusName =
   | "UPCOMING"
   | "COMPLETED"
   | "PENDING"
+  | "SUCCEEDED"
   | "CONFIRMED"
-  | "CANCELLED";
+  | "REQUESTED"
+  | "SUGGESTED"
+  | "CANCELLED"
+  | "TRUE"
+  | "FALSE";
 
 type StatusType<K extends StatusName> = {
   [k in K]: {
@@ -35,6 +45,12 @@ const classesAccordingToType: StatusType<StatusName> = {
     text: COMPLETED,
     border: "border border-lightBlue",
   },
+  SUCCEEDED: {
+    background: "bg-green",
+    color: "text-green-1",
+    text: SUCCEEDED,
+    border: "border border-green",
+  },
   PENDING: {
     background: "bg-yellow-1",
     color: "text-yellow",
@@ -53,15 +69,39 @@ const classesAccordingToType: StatusType<StatusName> = {
     text: CANCELLED || "Cancelled",
     border: "border border-red-1",
   },
+  REQUESTED: {
+    background: "bg-yellow-1",
+    color: "text-yellow",
+    text: REQUESTED || "Requested",
+    border: "border border-yellow-1",
+  },
+  SUGGESTED: {
+    background: "bg-gray",
+    color: "text-gray-7",
+    text: SUGGESTED || "Suggested",
+    border: "border border-gray",
+  },
+  TRUE: {
+    background: "bg-green",
+    color: "text-green-1",
+    text: ACTIVE || "Active",
+    border: "border border-green",
+  },
+  FALSE: {
+    background: "bg-red-1",
+    color: "text-red",
+    text: INACTIVE || "InActive",
+    border: "border border-red-1",
+  },
 };
 
 type Props = {
-  typ: StatusName;
+  type: StatusName;
 };
-function AimChip(props: Props) {
-  const { typ } = props;
-  console.log(typ);
-  const { color, text, background, border } = classesAccordingToType[typ] || {};
+function StatusChip(props: Props) {
+  const { type: statusType } = props;
+  const { color, text, background, border } =
+    classesAccordingToType[statusType] || {};
   const blockClass = "w-min";
   const borderClass = border;
 
@@ -73,4 +113,4 @@ function AimChip(props: Props) {
     </div>
   );
 }
-export default AimChip;
+export default StatusChip;

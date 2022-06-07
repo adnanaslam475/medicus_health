@@ -90,6 +90,17 @@ mutation DefaultCard($input: Int!) {
     is_default
   }
 }
+#REMOVE Staff
+
+mutation removeStaff($id: Int!) {
+  removeStaff(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+  }
+}
 
 # UPDATE USER MUTATION
 mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {
@@ -264,7 +275,6 @@ mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
     email
     contact_number
     doctorId
-    deleted
   }
 }
 
@@ -285,6 +295,7 @@ mutation updateAdmin($id: Int!, $updateAdminUserInput: UpdateAdminUserInput!) {
     email
     password
     status
+    contact_number
   }
 }
 
@@ -293,5 +304,55 @@ mutation enableOrDisablePatient($id: Int!) {
   enableOrDisablePatient(id: $id) {
     id
     status
+  }
+}
+#REMOVE APPOINTMENT BY ADMIN
+mutation removeAppointmentByAdmin($id: Int!) {
+  removeAppointment(id: $id) {
+    id
+  }
+}
+
+# remove patient user
+mutation removePatientUser($id: Int!) {
+  removeUser(id: $id) {
+    id
+  }
+}
+
+# Enable or Disable  Physicians or Admin Staff
+mutation enableOrDisableStaff($id: Int!) {
+  enableOrDisableStaff(id: $id) {
+    id
+    status
+  }
+}
+
+# CREATE PATIENT BY ADMIN
+mutation createPatientByAdmin($createPatientInput: CreateUserByAdminInput!) {
+  createPatientByAdmin(createPatientInput: $createPatientInput) {
+    id
+    first_name
+    last_name
+    email
+    gender
+    date_of_birth
+    contact_number
+    streetAddress
+    country_id
+    deleted
+    state_id
+    city_id
+    zip_code
+    password
+    status
+    role
+    doctorId
+    createdAt
+    patientHealthHistory {
+      id
+      user_id
+      history
+    }
   }
 }

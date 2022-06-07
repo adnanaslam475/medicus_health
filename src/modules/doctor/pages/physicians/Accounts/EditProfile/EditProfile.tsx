@@ -1,60 +1,39 @@
 /* eslint-disable react/jsx-key */
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Router, { useRouter } from "next/router";
-import {
-  ExclamationCircleOutlined,
-  EditOutlined,
-  PlusOutlined,
-  DownOutlined,
-} from "@ant-design/icons";
 import end from "./../../../../../../../public/assets/images/engFlag.png";
 import esp from "./../../../../../../../public/assets/images/espanolFlag.png";
 import editicon from "../../../../../../../public/assets/icon/edit.svg";
-import yourImage from "../../../../../../../public/assets/images/your_photo.png";
 import {
-  Table,
-  Tag,
   Avatar,
   Upload,
   Form,
   Input,
   Button,
   Checkbox,
-  Menu,
-  Dropdown,
-  Tabs,
-  Badge,
-  Modal,
   notification,
   Select,
   DatePicker,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
-import Language from "../../../../../admin/components/Languague/Language";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "../../../../../../common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import ReactS3Client from "react-aws-s3-typescript";
-import error from "next/error";
-import { info } from "sass";
 
 import {
-  DoctorProfile,
   useEnableOrDisableDoctorMutation,
   User,
   useUpdateDoctorProfileMutation,
 } from "generated/graphql";
-import { configS3 } from "../../../../../../utils/helper";
 import config from "../../../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import { Schedule } from "common/types/types";
 import { RangeValue } from "rc-picker/lib/interface";
 import { parseJson } from "common/utils/helper";
+import { getUserData } from "common/utils/userData";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
 
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
-
-const { Option } = Select;
 
 type Props = {
   doctorId?: string;
@@ -93,10 +72,11 @@ function EditProfile({
   onAddClick,
   addScheduleTime,
 }: Props) {
-  const { Option } = Select;
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
-  const [ispublish, setIsPublish] = useState(true);
+  const [physicianLanguage, setPhysicianLanguage] = useState<string>("");
+
+  const user = getUserData();
 
   const {
     id,
@@ -118,7 +98,7 @@ function EditProfile({
     professional_experience,
     year_of_experience,
     specialization,
-  } = doctorProfile || {};
+  } = doctorData || {};
 
   const educationalBackground = parseJson(educational_background) || [];
 
@@ -133,7 +113,7 @@ function EditProfile({
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
-      firstName: first_name,
+      firstName: first_name || "",
       lastName: last_name,
       specialization: specialization,
       year_of_experience: year_of_experience,
@@ -153,26 +133,25 @@ function EditProfile({
       ["pe-institution-2"]: professionalExperience[2]?.institution,
       ["pe-role-2"]: professionalExperience[2]?.role,
       about_me: about_me,
+      language: language,
     });
   }
 
   const updateDoctorProfile = async (values: any) => {
-    console.log("sabih.....", values);
     if (doctorData) {
-      console.log("if.....", values);
       const res = await updateDoctor({
         updateDoctorProfileInput: {
           doctor_id: id,
-          first_name: values?.firstName,
-          last_name: values?.lastName,
-          specialization: values?.specialization,
-          year_of_experience: Number(values?.year_of_experience),
-          email: values?.email,
+          first_name: values?.firstName || "",
+          last_name: values?.lastName || "",
+          specialization: values?.specialization || "",
+          year_of_experience: Number(values?.year_of_experience || 0),
+          email: values?.email || "",
           password: values?.password,
           profile_image: image || userProfileImage,
-          about_me: values?.about_me,
+          about_me: values?.about_me || "",
           condition_treated: condition_treated,
-          language: language,
+          language: physicianLanguage || "",
           educational_background: [
             {
               institution: values["eb-institution-0"],
@@ -282,19 +261,43 @@ function EditProfile({
     const values = formInstance.getFieldsValue();
     const res = await updateDoctor({
       updateDoctorProfileInput: {
-        doctor_id: doctor_id,
-        first_name: values?.firstName,
-        last_name: values?.lastName,
-        email: values?.email,
+        doctor_id: Number(user?.user?.id),
+        first_name: values?.firstName || "",
+        last_name: values?.lastName || "",
+        specialization: values?.specialization || "",
+        year_of_experience: Number(values?.year_of_experience) || 0,
+        email: values?.email || "",
+        password: values?.password,
+        profile_image: image || userProfileImage,
+        about_me: values?.about_me || "",
         condition_treated: list.toString(),
+        language: physicianLanguage || "",
+        educational_background: [
+          {
+            institution: values["eb-institution-0"],
+            degree: values["eb-degree-0"],
+          },
+          {
+            institution: values["eb-institution-1"],
+            degree: values["eb-degree-1"],
+          },
+        ],
+        professional_experience: [
+          {
+            institution: values["pe-institution-0"],
+            role: values["pe-role-0"],
+          },
+          {
+            institution: values["pe-institution-1"],
+            role: values["pe-role-1"],
+          },
+          {
+            institution: values["pe-institution-2"],
+            role: values["pe-role-2"],
+          },
+        ],
       },
     });
-    // if (res?.data) {
-    //   res?.data?.updateDoctorProfile &&
-    //     notification.success({
-    //       message: "Updated Successfully",
-    //     });
-    // }
 
     if (res?.error) {
       res?.error?.graphQLErrors[0]?.message &&
@@ -302,6 +305,12 @@ function EditProfile({
           message:
             res?.error?.graphQLErrors[0]?.message || "Something went wrong",
         });
+    }
+  };
+
+  const handleChangeLanguage = (e: CheckboxChangeEvent, name: string) => {
+    if (e.target.checked) {
+      setPhysicianLanguage(name);
     }
   };
 
@@ -340,7 +349,6 @@ function EditProfile({
                   <Button
                     type="primary"
                     className={`${_classes["published-button"]}`}
-                    // onClick={handleChange}
                   >
                     {status ? "Published" : "Unpublished"}
                   </Button>
@@ -435,6 +443,49 @@ function EditProfile({
                 </Form.Item>
               </div>
 
+              <div className="flex items-center ">
+                <Form.Item
+                  name="languageEnglish"
+                  className={`${_classes["bottom-margin-0"]}`}
+                >
+                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                    <Image
+                      alt=""
+                      height={21}
+                      width={21}
+                      src={end}
+                      className="majid"
+                    />
+                    <span className=" pl-1 pr-10">English</span>
+                    <Checkbox
+                      defaultChecked={language === "English"}
+                      onChange={(e) => handleChangeLanguage(e, "English")}
+                    ></Checkbox>
+                  </div>
+                </Form.Item>
+
+                <Form.Item
+                  name="languageSpanish"
+                  className={`${_classes["bottom-margin-0"]}`}
+                >
+                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                    <Image
+                      alt=""
+                      height={21}
+                      width={21}
+                      src={esp}
+                      className="px-1 majid"
+                    />
+                    <span className=" pl-1 pr-10">Spanish</span>
+
+                    <Checkbox
+                      defaultChecked={language === "Spanish"}
+                      onChange={(e) => handleChangeLanguage(e, "Spanish")}
+                    ></Checkbox>
+                  </div>
+                </Form.Item>
+              </div>
+
               <div className="mt-5">
                 <Form.Item label="About me" name="about_me">
                   <TextArea
@@ -464,7 +515,7 @@ function EditProfile({
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
               />
-              {!(!!schedules?.length) && (
+              {!!!schedules?.length && (
                 <div className="text-red mt-2 text-center">
                   Please input at least one schedule
                 </div>
@@ -614,50 +665,6 @@ function EditProfile({
               </Form.Item>
             </Form>
             <Form layout="vertical">
-              <div className="font-medium text-lightBlue-1 my-2">Languages</div>
-              <div className="flex mr-auto">
-                <Language
-                  end={end}
-                  title="English"
-                  check={true}
-                  disable={false}
-                />
-                <Language
-                  end={esp}
-                  title="Spanish"
-                  check={false}
-                  disable={false}
-                />
-              </div>
-              {/* <div className="mt-5">
-                <Form.Item label="About me" name="about">
-                  <TextArea
-                    rows={10}
-                    placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
-                  />
-                </Form.Item>
-              </div> */}
-
-              {/* <InputWithLi
-                disable={false}
-                onChange={(list) => {
-                  handleConditionTreated(list);
-                }}
-                initialValue={condition_treated?.split(",")}
-              /> */}
-              {/* Physician - Account - Its editable component so all props are required */}
-              {/* <MultiRangeDatePicker
-                loading={loading}
-                disable={false}
-                schedules={schedules}
-                setDeleteScheduleId={setDeleteScheduleId}
-                setAddScheduleTime={setAddScheduleTime}
-                addScheduleTime={addScheduleTime}
-                addScheduleDay={addScheduleDay}
-                setAddScheduleDay={setAddScheduleDay}
-                onAddClick={onAddClick}
-              /> */}
-
               <div className={`my-6 hidden ${_classes["educational"]}`}>
                 <h6>Login Information</h6>
                 <div className="border-b border-gray-4 my-3">

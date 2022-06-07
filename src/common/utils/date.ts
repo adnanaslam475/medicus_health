@@ -3,6 +3,9 @@ import utc from "dayjs/plugin/utc";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 import duration from "dayjs/plugin/duration";
+import { date } from "./index";
+import { AppointmentTimeSlots } from "generated/graphql";
+import { CustomTimeSlot } from "common/types/types";
 
 dayjs.extend(utc);
 dayjs.extend(weekday);
@@ -70,4 +73,35 @@ export function formatMMMM_Dcoma_YYYY(date: string) {
 
 export function getDayJsObject(date: string, format: string = "MMMM D, YYYY") {
   return dayjs(date, format);
+}
+
+export function isAppointmentTimeValid(
+  selectedAppointment: AppointmentTimeSlots | CustomTimeSlot | undefined,
+  state: boolean,
+  callBack: (state: boolean) => void
+) {
+  if (
+    date.formatMMMMDDYYYY(selectedAppointment?.startTime) ===
+    dayjs(new Date().toLocaleDateString()).format("MMMM, D, YYYY")
+  ) {
+    const startDate = selectedAppointment?.startTime?.split("T")[0];
+    const startTime = selectedAppointment?.startTime
+      ?.split("T")[1]
+      ?.replace("Z", "");
+    const endTime = selectedAppointment?.endTime
+      ?.split("T")[1]
+      ?.replace("Z", "");
+    let difference =
+      new Date(`${startDate} ${startTime}`).getTime() - Date.now();
+    setTimeout(() => {
+      if (new Date(`${startDate} ${endTime}`).getTime() > Date.now()) {
+        callBack(false);
+        setTimeout(() => {
+          if (!state) {
+            callBack(true);
+          }
+        }, new Date(`${startDate} ${endTime}`).getTime() - Date.now());
+      }
+    }, difference);
+  }
 }

@@ -1,21 +1,13 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
+import { Avatar, Form, Button } from "antd";
 
-import _classes from "./PhysicianProfile.module.scss";
-import { Avatar, Upload, Form, Button, Menu, notification } from "antd";
-
-import ReactS3Client from "react-aws-s3-typescript";
-import { UploadChangeParam } from "antd/lib/upload";
-import {
-  useUpdateDoctorProfileMutation,
-  useEnableOrDisableDoctorMutation,
-  User,
-} from "../../../generated/graphql";
-import { configS3 } from "../../../utils/helper";
-import ProfileForm from "./ProfileForm";
-import { Schedule } from "../../../common/types/types";
+import { User,DoctorProfile } from "generated/graphql";
+import { Schedule } from "common/types/types";
 import { parseJson } from "common/utils/helper";
+import ProfileForm from "./ProfileForm";
+import _classes from "./PhysicianProfile.module.scss";
 
 type props = {
   doctorId?: string;
@@ -33,33 +25,17 @@ export const ViewProfile = React.forwardRef(function Profile({
   schedules,
 }: props) {
   const [formInstance] = Form.useForm();
-  const [image, setImage] = useState<string>("");
+  const { first_name, last_name, email, contact_number, status, language } =
+    doctorData?.user || {};
 
-  const {
-    first_name,
-    last_name,
-    password,
-    email,
-    contact_number,
-    status,
-    language,
-    doctorProfile,
-  } = doctorData?.user || {};
-
-  //GET USER PROFILE IMAGE FROM useGetUserQuery
   const {
     specialization,
     year_of_experience,
-    profile_image: userProfileImage,
     about_me,
     educational_background,
     professional_experience,
-  } = doctorProfile || {};
-
-  const [result, updateDoctor] = useUpdateDoctorProfileMutation();
-  const { error } = result || {};
-
-  const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
+  } = doctorData || {};
+  const { profile_image } = doctorData || {};
 
   const educationalBackground = parseJson(educational_background || "[]") || [];
 
@@ -97,94 +73,6 @@ export const ViewProfile = React.forwardRef(function Profile({
     });
   }
 
-  const onFinish = async (values: any) => {
-    try {
-      updateDoctorProfile(values);
-    } catch (error) {}
-  };
-
-  const updateDoctorProfile = async (values: any) => {
-    if (doctorData) {
-      const res = await updateDoctor({
-        updateDoctorProfileInput: {
-          doctor_id: Number(doctorId),
-          first_name: values?.firstName,
-          last_name: values?.lastName,
-          specialization: values?.specialization,
-          year_of_experience: values?.year_of_experience,
-          email: values?.email,
-          password: values?.password,
-          profile_image: image ? image : userProfileImage,
-        },
-      });
-
-      if (res?.data) {
-        res?.data?.updateDoctorProfile &&
-          notification.success({
-            message: "Updated Successfully",
-          });
-      }
-
-      if (res?.error) {
-        res?.error?.graphQLErrors[0]?.message &&
-          notification.error({
-            message:
-              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-          });
-      }
-    }
-  };
-
-  const fileChange = async (info: UploadChangeParam) => {
-    const s3 = new ReactS3Client(configS3);
-
-    try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
-      setImage(url?.location);
-    } catch (error) {}
-    if (error) {
-      notification.error({
-        message: error?.graphQLErrors[0]?.message || "Something went wrong",
-      });
-    }
-  };
-
-  const onBeforeUpload = (file: File) => {
-    const isPNG = file.type === "image/png";
-    const isJPG = file.type === "image/jpeg";
-    return isPNG || isJPG || Upload.LIST_IGNORE;
-  };
-
-  function handleMenuClick(e: object) {
-    console.log("click", e);
-  }
-  const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">Published</Menu.Item>
-      <Menu.Item key="2">UnPublished</Menu.Item>
-    </Menu>
-  );
-
-  async function handleChange() {
-    const res = await EnableOrDisableDoctor({
-      id: Number(doctorId),
-    });
-
-    if (res?.data?.enableOrDisableDoctor?.status) {
-      res?.data?.enableOrDisableDoctor?.status &&
-        notification.success({
-          message: "Published",
-        });
-    }
-
-    if (!res?.data?.enableOrDisableDoctor?.status) {
-      !res?.data?.enableOrDisableDoctor?.status &&
-        notification.success({
-          message: "Unpublished",
-        });
-    }
-  }
-
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -198,7 +86,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                   borderWidth: 2,
                   lineHeight: "40px",
                 }}
-                src={userProfileImage}
+                src={profile_image}
               />
             </div>
 
@@ -210,11 +98,6 @@ export const ViewProfile = React.forwardRef(function Profile({
               <div className="flex gap-2 pt-2">
                 <Button
                   type="primary"
-                  style={{
-                    background: "#E2F8F7",
-                    borderColor: "#E2F8F7",
-                    color: "#30CEC2",
-                  }}
                   className={`${_classes["published-button"]}`}
                 >
                   {status ? "Published" : "Unpublished"}

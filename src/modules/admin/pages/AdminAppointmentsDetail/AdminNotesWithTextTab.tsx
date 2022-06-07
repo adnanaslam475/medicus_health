@@ -1,18 +1,19 @@
 import React from "react";
-import NotesWithText from "common/components/NotesWithText/NotesWithText";
+// import NotesWithText from "common/components/NotesWithText/NotesWithText";
 import { Appointment, AppointmentNote } from "generated/graphql";
+import NotesWithTextEditable from "common/components/NotesWithTextEditable/NotesWithTextEditable";
 
 type Props = {
-  appointment?: Appointment | undefined ;
-  doctorNotes?: [[string,string]];
+  appointment?: Appointment | undefined;
+  doctorNotes?: [[string, string]];
 };
 
-function NotesWithTextTab({ appointment, doctorNotes }: Props) {
+function AdminNotesWithTextTab({ appointment, doctorNotes }: Props) {
   return (
     <div className="max-w-1/2">
-      <NotesWithText appointment={appointment} doctorNotes={doctorNotes} />
+      <NotesWithTextEditable appointment={appointment} doctorNotes={doctorNotes} />
     </div>
   );
 }
 
-export default NotesWithTextTab;
+export default AdminNotesWithTextTab;

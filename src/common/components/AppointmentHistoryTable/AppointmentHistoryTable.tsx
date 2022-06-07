@@ -22,19 +22,22 @@ const AppointmentHistoryTable = (props: Props) => {
       title: "ID",
       dataIndex: "id",
       key: "id",
+      sorter: true,
     },
     {
       title: "Booked On",
       dataIndex: "requestedDate",
       key: "requestedDate",
+      sorter: true,
       render: (requestedDate: string) => {
-        return <div>{`${date?.formatMMMMDDYYYY(requestedDate)} `}</div>;
+        return <div>{requestedDate ? `${date?.formatMMMMDDYYYY(requestedDate)}` : "-"}</div>;
       },
     },
     {
       title: "Physician",
       dataIndex: "doctor",
       key: "doctor",
+      sorter: true,
       render: (doctor: User) => {
         return <div>{`${doctor.first_name} ${doctor.last_name}`}</div>;
       },
@@ -43,29 +46,33 @@ const AppointmentHistoryTable = (props: Props) => {
       title: "Type",
       dataIndex: "serviceType",
       key: "serviceType",
+      sorter: true,
       render: (serviceType: AppointmentServiceType) => {
-        return <div>{`${serviceType.name}`}</div>;
+        return <div>{`${serviceType?.name || "-"}`}</div>;
       },
     },
     {
       title: "Date",
       dataIndex: "appointmentTimeSlots",
       key: "appointmentTimeSlots",
+      sorter: true,
+
       render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
         let time = appointmentTimeSlots?.find((time) => time.selected);
-        return <div>{`${date?.formatMMMMDDYYYY(time?.startTime)} `}</div>;
+        return <div>{time?.startTime ? `${date?.formatMMMMDDYYYY(time?.startTime)} ` : "-"}</div>;
       },
     },
     {
       title: "Time",
       dataIndex: "appointmentTimeSlots",
       key: "appointmentTimeSlots",
+      sorter: true,
       render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
         let time = appointmentTimeSlots?.find((time) => time.selected);
         return (
-          <div>{`${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
+          <div>{time?.startTime ? `${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
             time?.endTime
-          )}`}</div>
+          )}` : "-"}</div>
         );
       },
     },
@@ -73,6 +80,7 @@ const AppointmentHistoryTable = (props: Props) => {
       title: "Total Amount",
       dataIndex: "charges",
       key: "charges",
+      sorter: true,
       render: (charges: AppointmentServiceType) => {
         return <div>{`$ ${charges}`}</div>;
       },
@@ -81,10 +89,14 @@ const AppointmentHistoryTable = (props: Props) => {
       title: "Transaction Date",
       dataIndex: "transaction",
       key: "transaction",
+      sorter: true,
+
       render: (transaction: Transaction) => {
         return (
           <div>{`${
-            transaction?.createdAt ? date?.formatMMMMDDYYYY(transaction?.createdAt) : "--"
+            transaction?.createdAt
+              ? date?.formatMMMMDDYYYY(transaction?.createdAt)
+              : "--"
           }`}</div>
         );
       },
@@ -93,6 +105,7 @@ const AppointmentHistoryTable = (props: Props) => {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      sorter: true,
       render: (status: string) => {
         return (
           <div>
@@ -105,13 +118,16 @@ const AppointmentHistoryTable = (props: Props) => {
       title: "",
       dataIndex: "id",
       key: "id",
+      sorter: true,
       className: "table-action-icon",
       render: (id: string) => (
-        <EyeFilled
-          onClick={() => {
-            return Router.push(`/patient/appointments/history/${id}`);
-          }}
-        />
+        <div className="text-primary">
+          <EyeFilled
+            onClick={() => {
+              return Router.push(`/patient/appointments/history/${id}`);
+            }}
+          />
+        </div>
       ),
     },
   ];

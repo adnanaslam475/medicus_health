@@ -1,4 +1,11 @@
-import { BookingDate, DueDate, InputMaybe, Scalars } from "generated/graphql";
+import {
+  Appointment,
+  BookingDate,
+  DueDate,
+  InputMaybe,
+  Scalars,
+  Maybe,
+} from "generated/graphql";
 
 export type Schedule = {
   day?: number;
@@ -23,7 +30,7 @@ export type staffFilterType = {
 };
 export type physicianFilterType = {
   searchString?: string;
-  appointmentType?: string;
+  serviceId?: number;
   patientName?: string;
   bookingDate?: {
     startDate?: string;
@@ -33,7 +40,7 @@ export type physicianFilterType = {
 
 export type cancelledAppointmentFilterType = {
   searchString?: string;
-  appointmentType?: string;
+  serviceId?: number;
   dueDate?: {
     startDate?: string;
     endDate?: string;
@@ -43,6 +50,30 @@ export type cancelledAppointmentFilterType = {
 export type DateType = {
   startDate: string;
   endDate: string;
+};
+
+export type AdminPatientUpdateInput = {
+  confirm_password: string;
+  first_name: string;
+  country_name: number;
+  state_name: number;
+  city_name: number;
+  last_name: string;
+  gender: string;
+  date_of_birth: string;
+  email: string;
+  contact_number: string;
+  country_id: string;
+  password: string;
+  state_id: string;
+  city_id: string;
+  streetAddress: string;
+  zip_code: string;
+  maritalStatus: string;
+  children: string;
+  occupation: string;
+  occupationalExposure: string;
+  pets: string;
 };
 
 export type physicianMyEarningsFilterType = {
@@ -57,7 +88,7 @@ export type physicianMyEarningsFilterType = {
 
 export type cancelAppointmentFilterType = {
   patientName?: string;
-  appointmentType?: string;
+  serviceId?: number;
   bookingDate?: {
     startDate?: string;
     endDate?: string;
@@ -70,6 +101,19 @@ export type ServiceTypes = {
   price: number;
 };
 
+export type AdminAppointmentHistoryDetailType = {
+  id: number | undefined;
+  bookingDate: any;
+  patient: Maybe<string> | undefined;
+  physician: string;
+  service: string;
+  dueDate: string;
+  time: string;
+  totalAmount: number | undefined;
+  appointmentStatus: Maybe<string> | undefined;
+  paymentStatus: string;
+};
+
 export type adminUserFilterType = {
   searchUser?: string;
   status?: string;
@@ -80,6 +124,7 @@ export type adminUserFilterType = {
 };
 
 export type patientAppointmentHistoryFilterType = {
+  appointmentId?: number;
   doctorId?: number;
   serviceId?: number;
   dueDate?: {
@@ -88,3 +133,32 @@ export type patientAppointmentHistoryFilterType = {
   };
 };
 
+export type PatientListFilterType = {
+  searchField?: string;
+  stateId?: number;
+  countryId?: number;
+};
+
+export type CustomTimeSlot = {
+  __typename?: "AppointmentTimeSlots";
+  appointment?: Appointment;
+  endTime: Scalars["DateTime"];
+  id: Scalars["Int"];
+  selected: Scalars["Boolean"];
+  startTime: Scalars["DateTime"];
+};
+
+export type StatusName =
+  | "UPCOMING"
+  | "COMPLETED"
+  | "PENDING"
+  | "SUCCEEDED"
+  | "CONFIRMED"
+  | "REQUESTED"
+  | "SUGGESTED"
+  | "CANCELLED";
+
+export type AttachmentObject = {
+  name: string;
+  url: string;
+};

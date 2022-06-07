@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Empty, Form, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import AppLayout from "common/components/AppLayout/AppLayout";
 import AddStaffModal from "./AddStaffModal";
 import StaffAppointmentsFilter from "../../appointments/StaffAppointmentsFilter";
 import StaffTable from "modules/doctor/components/StaffTable/StaffTable";
@@ -20,8 +19,8 @@ function StaffListing() {
   const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
   const [{ fetching }, createStaff] = useCreateStaffMutation();
 
-	const { user } = getUserData();
-	const id = user?.id;
+  const { user } = getUserData();
+  const id = user?.id;
 
   const [{ data }, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
     variables: {
@@ -30,7 +29,12 @@ function StaffListing() {
       },
     },
   });
-  const { getStaff } = data || {};
+  const { staff } = data || {};
+
+  // // ENABLE OR DISABLE STAFF DATA API CALL
+  // const [{ fetching: diableFetching }, enableOrDisableStaff] =
+  //   useEnableOrDisableStaffMutation();
+
   const onFinish = async (values: CreateStaffInput) => {
     try {
       const response = await createStaff({
@@ -63,7 +67,7 @@ function StaffListing() {
   function onChangeFilters(values: any) {
     setFilterValues(values);
     executeUseStaffQuery({
-      filter: filterValues,
+      filter: values,
       requestPolicy: "network-only",
     });
   }
@@ -72,34 +76,32 @@ function StaffListing() {
   };
   return (
     <>
-      <AppLayout>
-        <div className="w-full">
-          <div className="flex-none sm:flex items-center justify-between mb-5">
-            <div className="pr-3 mb-3 sm:mb-0">
-              <h2 className="mb-0">Staff</h2>
-            </div>
-            <Button
-              onClick={() => setVisibleModal(true)}
-              type="primary"
-              icon={<PlusOutlined />}
-            >
-              Add Staff
-            </Button>
+      <div className="w-full">
+        <div className="flex-none sm:flex items-center justify-between">
+          <div className="sm:mb-0">
+            <h2 className="mb-0">Staff</h2>
           </div>
-          <div className="w-5/6">
-            <StaffAppointmentsFilter onChange={onChangeFilters} />
-          </div>
-          <div className="w-full">
-            {getStaff?.length ? (
-              <StaffTable dataSource={getStaff as User[]} />
-            ) : (
-              <div className="flex items-center justify-center w-full">
-                <Empty />
-              </div>
-            )}
-          </div>
+          <Button
+            onClick={() => setVisibleModal(true)}
+            type="primary"
+            icon={<PlusOutlined />}
+          >
+            Add Staff
+          </Button>
         </div>
-      </AppLayout>
+        <div className="w-5/6">
+          <StaffAppointmentsFilter onChange={onChangeFilters} />
+        </div>
+        <div className="w-full">
+          {staff?.length ? (
+            <StaffTable dataSource={staff as User[]} />
+          ) : (
+            <div className="flex items-center justify-center w-full">
+              <Empty />
+            </div>
+          )}
+        </div>
+      </div>
       <AddStaffModal
         closeModal={closeModal}
         onFinish={onFinish}

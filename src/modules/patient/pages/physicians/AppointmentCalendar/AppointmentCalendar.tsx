@@ -64,9 +64,9 @@ function AppointmentCalendar() {
       calenderEvents: appointments?.map(
         ({ id, patient, requestedDate, doctor, serviceType }) => ({
           id: id,
-          title: doctor.first_name,
+          title: doctor?.first_name,
           start: requestedDate,
-          patient: patient.first_name + " " + patient.last_name,
+          patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
         })
       ),
@@ -108,6 +108,7 @@ function AppointmentCalendar() {
             calendarComponentRef={calendarComponentRef}
             handleDateClick={handleDateClick}
             redirectToListing={redirectToRequested}
+            enableButton={false}
           />
         </div>
         <CalendarModalComponent
