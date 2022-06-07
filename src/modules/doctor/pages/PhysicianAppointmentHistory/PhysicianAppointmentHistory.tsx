@@ -33,9 +33,7 @@ function PatientAppointmentHistory() {
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">History</h2>
           </div>
-          <Button type="primary" size="large">
-            Request an Appointment
-          </Button>
+          
         </div>
 
         {/* physician History table */}
