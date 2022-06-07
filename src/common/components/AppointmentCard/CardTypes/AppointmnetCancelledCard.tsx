@@ -31,7 +31,6 @@ function AppointmnetCancelledCard({
   //   setIsModalVisible(true);
   // }
 
-
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   // const [showModal, setShowModal] = useState<boolean>(false);
 

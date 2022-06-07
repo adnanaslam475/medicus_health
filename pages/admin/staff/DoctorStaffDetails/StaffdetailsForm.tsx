@@ -41,7 +41,13 @@ function StaffDetailsFrom({
         {staffDetail?.first_name} {staffDetail?.last_name}
       </h1>
       <p>{staffDetail?.email}</p>
-      <div className="flex mb-8">
+      <div
+        className={
+          disableAccountInput
+            ? `${_classes["staff-select-enable"]} flex mb-8`
+            : `${_classes["staff-select-disable"]} flex mb-8`
+        }
+      >
         <Select
           className="mr-5"
           placeholder="Send Password Reset link"
@@ -49,8 +55,8 @@ function StaffDetailsFrom({
           value={disableAccountInput}
           style={{ width: 200 }}
         >
-          <Option value={true}>Active</Option>
-          <Option value={false}>Inactive</Option>
+          <Option value={true}>Enable</Option>
+          <Option value={false}>Disable</Option>
         </Select>
         <Button
           className="ml-7"

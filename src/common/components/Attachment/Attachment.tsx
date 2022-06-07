@@ -7,7 +7,6 @@ import MediaFile from "./DynamicAttachment";
 import _classes from "./Attachment.module.scss";
 import { AttachmentObject } from "common/types/types";
 
-
 type Props = {
   item?: AttachmentObject;
   enable: boolean;
@@ -22,7 +21,13 @@ function Attachment(props: Props) {
   return (
     <div className="block">
       <div className="inline-flex items-center  bg-gray-4  pl-4 py-4 my-3 border-gray-9 border rounded">
-        <a href={url} download target={"_blank"} className={`${_classes["attachment"]} `}>
+        <a
+          href={url}
+          download
+          target="_blank"
+          rel="noreferrer"
+          className={`${_classes["attachment"]} `}
+        >
           <MediaFile type={attachementExtension} />
           <span className="pl-3 ml-2 mr-4">{name}</span>
         </a>

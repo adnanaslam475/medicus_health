@@ -8,5 +8,5 @@ export const SCHEDULED = "Scheduled";
 export const BOOKING = "Booking";
 export const REQUESTED = "Requested";
 export const SUGGESTED = "Suggested";
-export const ACTIVE = "ACTIVE";
-export const INACTIVE = "INACTIVE";
+export const ACTIVE = "Enable";
+export const INACTIVE = "Disable";

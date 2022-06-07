@@ -8,7 +8,6 @@ import {
   CreateStaffInput,
   GetStaffFilter,
   useCreateStaffMutation,
-  useEnableOrDisableStaffMutation,
   useGetAllStaffByDoctorQuery,
   User,
 } from "generated/graphql";
@@ -25,13 +24,10 @@ function StaffListing() {
 
   const [{ data }, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
     variables: {
-      filter: {
-        ...filterValues,
-      },
+      filter: filterValues,
     },
   });
   const { staff } = data || {};
-  console.log(data, "====+++==========>");
 
   // // ENABLE OR DISABLE STAFF DATA API CALL
   // const [{ fetching: diableFetching }, enableOrDisableStaff] =
@@ -65,9 +61,12 @@ function StaffListing() {
       console.log("catch_err", error);
     }
   };
-
   function onChangeFilters(values: any) {
-    setFilterValues(values);
+    setFilterValues({
+      ...values,
+      status: values?.status === "true" ? true : false,
+    });
+
     executeUseStaffQuery({
       filter: values,
       requestPolicy: "network-only",
