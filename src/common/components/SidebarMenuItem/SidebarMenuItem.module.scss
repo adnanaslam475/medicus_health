@@ -1,91 +1,120 @@
 .side-bar-submenu-item {
-  &:hover {
-    svg.sidebar-icon-hover {
-      g {
-        path {
-          fill: url(#linear-gradient);
-        }
-      }
-    }
-  }
+	&:hover {
+		svg.sidebar-icon-hover {
+			g {
+				path {
+					fill: url(#linear-gradient);
+				}
+			}
+		}
+	}
 }
 
-
 .side-menu-cover {
-  :global .ant-menu {
-    color: #272B4C !important;
-    font-size: 16px;
-    background-color: transparent;
-    border: 0;
-    .ant-menu-item {
-      height: 50px;
-      line-height: 50px;
-      border-radius: 6px;
-      svg{
-        min-width: 23px;
-        max-width: 23px;
-      }
-    }
-    .ant-menu-submenu {
-      min-height: 50px;
-      line-height: 50px;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      i {
-        color: #848A9D !important;
-      }
-      > .ant-menu-sub {
-        padding: 0px 20px 10px 40px;
-        .ant-menu-item {
-          font-size: 14px;
-          padding: 0px 15px !important;
-          margin: 0px 0px 5px 0px !important;
-          height: 30px;
-          a {
-            color: #272B4C !important;
-          }
-        }
-        .ant-menu-item-selected {
-          background-color: #F6F8FA !important;
-          box-shadow: none !important;
-        }
-      }
-    }
-    .ant-menu-item, .ant-menu-submenu {
-      padding: 0px;
-      margin:0 0 10px 0 !important;
-      a, span {
-        color: #8F95A7 !important;        
-      }
-      &:hover {
-        background-color: #EDF1F4 !important;
-      }
-    }
-    .ant-menu-submenu-open {
-      background-color: #fff !important;
-      span {
-        color: #272B4C !important;
-      }
-      &:hover {
-        background-color: #fff !important;
-      }
-    }
-    .ant-menu-item-selected, .ant-menu-submenu-selected {
-      background-color: #fff !important;
-      box-shadow: 0px 1px 1px #00000012;
-      a {
-        color: #272B4C !important;
-      }
-      svg {
-        color: #fff !important;          
-      }
-      &:hover {
-        background-color: #fff !important;
-      }
-      &:after {
-        display: none !important;
-      }
-    }
-  }
+	.ant-menu-item {
+		&:hover {
+			svg.sidebar-icon-hover {
+				g {
+					path {
+						fill: url(#linear-gradient);
+					}
+				}
+			}
+		}
+	}
+	.side-bar-submenu-item {
+		&:hover {
+			svg.sidebar-icon-hover {
+				g {
+					path {
+						fill: url(#linear-gradient);
+					}
+				}
+			}
+		}
+	}
+	:global .ant-menu {
+		color: #272b4c !important;
+		font-size: 16px;
+		background-color: transparent;
+		border: 0;
+		.ant-menu-item {
+			height: 50px;
+			line-height: 50px;
+			border-radius: 6px;
+			svg {
+				min-width: 23px;
+				max-width: 23px;
+			}
+		}
+		.ant-menu-submenu {
+			min-height: 50px;
+			line-height: 50px;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			i {
+				color: #848a9d !important;
+			}
+			> .ant-menu-sub {
+				padding: 0px 20px 10px 40px;
+				.ant-menu-item {
+					font-size: 14px;
+					padding: 0px 15px !important;
+					margin: 0px 0px 5px 0px !important;
+					height: 30px;
+					a {
+						color: #272b4c !important;
+					}
+				}
+				.ant-menu-item-selected {
+					background-color: #f6f8fa !important;
+					box-shadow: none !important;
+				}
+			}
+		}
+		.ant-menu-item,
+		.ant-menu-submenu {
+			padding: 0px;
+			margin: 0 0 10px 0 !important;
+			a,
+			span {
+				color: #8f95a7 !important;
+			}
+			&:hover {
+				background-color: #edf1f4 !important;
+			}
+		}
+		.ant-menu-submenu-open {
+			background-color: #fff !important;
+			span {
+				color: #272b4c !important;
+			}
+			&:hover {
+				background-color: #fff !important;
+			}
+		}
+		.ant-menu-item-selected,
+		.ant-menu-submenu-selected {
+			background-color: #fff !important;
+			box-shadow: 0px 1px 1px #00000012;
+			a {
+				color: #272b4c !important;
+			}
+			svg {
+				color: #fff !important;
+				g {
+					path {
+						fill: url(#linear-gradient) !important;
+					}
+				}
+			}
+			&:hover {
+				background-color: #fff !important;
+			}
+			&:after {
+				display: none !important;
+			}
+		}
+	}
 }
