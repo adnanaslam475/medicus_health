@@ -84,14 +84,16 @@ function AdminPatientsList() {
       title: "City",
       dataIndex: "city_id",
       render: (value: City) => {
-        return <div>{`${value?.city_name}`}</div>;
+        return <div>{value?.city_name ? `${value?.city_name}` : "--"}</div>;
       },
     },
     {
       title: "Country",
       dataIndex: "country",
       render: (value: Country) => {
-        return <div>{`${value?.country_name}`}</div>;
+        return (
+          <div>{value?.country_name ? `${value?.country_name}` : "--"}</div>
+        );
       },
     },
     {
