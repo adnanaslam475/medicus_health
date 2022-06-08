@@ -54,15 +54,15 @@ query getPatients($filter: GetPatientsInput!) {
     email
     contact_number
     zip_code
-    # state {
-    #   state_name
-    # }
-    # city {
-    #   city_name
-    # }
-    # country {
-    #   country_name
-    # }
+    state {
+      state_name
+    }
+    city {
+      city_name
+    }
+    country {
+      country_name
+    }
   }
 }
 

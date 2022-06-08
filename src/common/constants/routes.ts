@@ -75,3 +75,20 @@ export const DOCTOR_ROUTES: routes = [
   { name: "Messages", route: "/physician/messages" },
   { name: "Account", route: "/physician/account" },
 ];
+
+export const STAFF_ROUTES: routes = [
+  {
+    name: "Dashboard",
+    route: "/physician/dashboard",
+    toggleName: "Appointments",
+    submenu: [
+      { name: "Upcoming", route: "/physician/appointments/upcoming" },
+      { name: "Requested", route: "/physician/appointments/requested" },
+      { name: "Cancelled", route: "/physician/appointments/cancelled" },
+      { name: "History", route: "/physician/appointments/history" },
+    ],
+  },
+  { name: "Patients", route: "/physician/patients" },
+  { name: "Staff", route: "/physician/staff" },
+  { name: "Messages", route: "/physician/messages" },
+];
