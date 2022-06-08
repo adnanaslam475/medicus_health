@@ -167,7 +167,7 @@ function DoctorStaffDetails() {
           </Button>
         </div>
         <div className="lg:w-3/5">
-          <h6 className="">{staffDetail?.id}</h6>
+          <h6 className="mb-0 pb-0">{staffDetail?.id}</h6>
           <StaffDetailsFrom
             onFinish={onFinish}
             form={formInstance}

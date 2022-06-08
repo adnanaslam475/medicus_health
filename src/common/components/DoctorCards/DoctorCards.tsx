@@ -18,7 +18,7 @@ const FLAG_BY_LANGUAGE = {
   ["Spanish" as string]: espanolFlag,
 };
 
-type props = {
+type Props = {
   id: number;
   name: string;
   language: string;
@@ -28,7 +28,8 @@ type props = {
   professionalExperience: string;
   conditionTreated: string;
   profile_image?: string | null;
-  doctorProfile?:DoctorProfile
+  doctorProfile?: DoctorProfile;
+  loading?: boolean;
 };
 
 function DoctorCard({
@@ -41,8 +42,9 @@ function DoctorCard({
   professionalExperience,
   conditionTreated,
   profile_image,
-  doctorProfile
-}: props) {
+  doctorProfile,
+  loading,
+}: Props) {
   // FOR REQUEST AN APPOINTMENT
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -72,15 +74,21 @@ function DoctorCard({
         <div className="flex-none lg:flex">
           <div className="lg:w-4/6 flex-none sm:flex">
             <div className="docAvatarCover pr-3">
-              <MDNextImage
-                objectFit="cover"
-                src={profile_image || ""}
-                layout="fixed"
-                width={86}
-                height={86}
-                className=" rounded-full h-[86px] w-[86px] overflow-hidden"
-                fallbackImage="/assets/images/doc-pic.png"
-              />
+              <div className="rounded-full flex items-center justify-center overflow-hidden border border-gray-1">
+                {loading ? (
+                  <span className={`${_classes["emptyImgContainer"]}`}></span>
+                ) : (
+                  <MDNextImage
+                    objectFit="cover"
+                    src={profile_image || ""}
+                    layout="fixed"
+                    width={86}
+                    height={86}
+                    className=" rounded-full h-[86px] w-[86px] overflow-hidden"
+                    fallbackImage="/assets/images/doc-pic.png"
+                  />
+                )}
+              </div>
             </div>
             <div className="lg:pr-5">
               <div className="flex-row md:flex">

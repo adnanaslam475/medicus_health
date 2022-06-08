@@ -56,6 +56,8 @@ function StaffListing() {
       if (response.data) {
         setVisibleModal(false);
         form.resetFields();
+        notification.success({
+          message:"staff added successfully"})
       }
     } catch (error) {
       console.log("catch_err", error);

@@ -53,7 +53,7 @@ function DoctorProfileCard(props: Props) {
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
-            <div className="rounded-full flex items-center justify-center overflow-hidden">
+            <div className="rounded-full flex items-center justify-center overflow-hidden border border-gray-1">
               {loading ? (
                 <span className={`${_classes["emptyImgContainer"]}`}></span>
               ) : (

@@ -38,7 +38,7 @@ const AddStaffModal = React.forwardRef(function AddStaffModal(
               disabled={fetching}
               type="primary"
               htmlType="submit"
-              className={`ml-4 py-2`}
+              className="ml-4 py-2"
             >
               Add Staff
             </Button>

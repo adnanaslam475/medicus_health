@@ -70,7 +70,7 @@ function StaffTable({ dataSource }: Props) {
       },
     },
     {
-      title: "Staff Status",
+      title: "Status",
       dataIndex: "status",
       key: "status",
       className: "table-action-icon",
