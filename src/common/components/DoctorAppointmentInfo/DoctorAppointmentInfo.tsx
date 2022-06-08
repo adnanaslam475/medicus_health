@@ -104,7 +104,7 @@ function DoctorAppointmentInfo({ data }: Props) {
   return (
     <div className="max-w-[700px]">
       <div className="message-button mb-3">
-        <MessageButtons />
+        {status === "Requested" && <MessageButtons />}
       </div>
       <div>
         <LabelWithText label="ID" text={id} />
