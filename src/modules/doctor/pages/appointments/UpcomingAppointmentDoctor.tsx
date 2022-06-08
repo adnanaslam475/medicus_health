@@ -9,7 +9,7 @@ import { physicianFilterType } from "common/types/types";
 
 function UpcomingAppointmentDoctor() {
   const [filterValues, setFilterValues] = useState<physicianFilterType>({});
-  const [{ data: physicialData }, executeUsePhysicianAppointmentsQuery] =
+  const [{ data: physicialData ,fetching}, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
       variables: {
         filter: {
@@ -17,6 +17,7 @@ function UpcomingAppointmentDoctor() {
           status: "Confirmed",
         },
       },
+      requestPolicy: "network-only",
     });
   const { physicianAppointments } = physicialData || {};
 
@@ -43,6 +44,7 @@ function UpcomingAppointmentDoctor() {
         <UpcomingAppointmentFilter onChange={onChangeFilters} />
         <UpcomingAppointmentTableDoctor
           dataSource={physicianAppointments as Array<Appointment>}
+          loading={fetching}
         />
       </div>
     </AppLayout>

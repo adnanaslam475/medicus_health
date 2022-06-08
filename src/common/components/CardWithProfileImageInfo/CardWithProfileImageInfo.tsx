@@ -6,16 +6,17 @@ type Props = {
   children: React.ReactNode | JSX.Element | undefined;
   serviceName: string | undefined;
   name: string | undefined;
+  imageUrl?:string | undefined | null;
 };
 
-function CardWithProfileImageInfo({ children, serviceName, name }: Props) {
+function CardWithProfileImageInfo({ children, serviceName, name,imageUrl }: Props) {
   return (
     <div>
       <div className="flex items-center justify-start">
         <ProfileImageWithInfo
           serviceName={serviceName || ""}
           name={name}
-          imageUrl=""
+          imageUrl={imageUrl}
         />
         {/* <div className="messageButtons">
           <MessageButtons />

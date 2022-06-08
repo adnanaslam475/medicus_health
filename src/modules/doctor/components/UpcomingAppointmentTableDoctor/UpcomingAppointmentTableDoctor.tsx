@@ -13,9 +13,10 @@ import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 
 type Props = {
   dataSource: Array<Appointment>;
+  loading:boolean | undefined
 };
 
-function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
+function UpcomingAppointmentTableDoctor({ dataSource ,loading}: Props) {
   const columns = [
     {
       title: "ID",
@@ -106,7 +107,7 @@ function UpcomingAppointmentTableDoctor({ dataSource }: Props) {
 
   return (
     <span className={`${_classes["upcomming-appointment-doctor-table"]}`}>
-      <Table columns={columns} dataSource={dataSource} footer={footer} />
+      <Table columns={columns} dataSource={dataSource} footer={footer} loading={loading}/>
     </span>
   );
 }

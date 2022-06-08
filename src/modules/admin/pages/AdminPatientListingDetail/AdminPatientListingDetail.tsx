@@ -16,6 +16,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import PatientAppointmentsTab from "./PatientAppointmentsTab";
+import _classes from './ProfileTab.module.scss';
 
 function AdminPatientListingDetail() {
   const { query } = useRouter();
@@ -34,7 +35,7 @@ function AdminPatientListingDetail() {
   return (
     <AppLayout>
       <>
-        <div className="">
+        <div className="tab-active-style">
           <Tabs>
             <Tabs.TabPane
               tab={
