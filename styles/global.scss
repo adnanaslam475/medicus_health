@@ -402,3 +402,8 @@ label.ant-radio-wrapper {
 .ant-input-affix-wrapper:hover {
   border-color: #9295af !important;
 }
+.tab-active-style{
+   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color:#1d84fe !important
+  }
+}
