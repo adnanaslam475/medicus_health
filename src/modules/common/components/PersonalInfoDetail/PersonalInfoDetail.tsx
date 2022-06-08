@@ -141,7 +141,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     rules={[
                       {
                         required: true,
-                        message: "First Name!",
+                        message: "First Name is required",
                       },
                     ]}
                     className="bottom-margin-0"
@@ -161,7 +161,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     rules={[
                       {
                         required: true,
-                        message: "Last Name!",
+                        message: "Last Name is required",
                       },
                     ]}
                     className="bottom-margin-0"

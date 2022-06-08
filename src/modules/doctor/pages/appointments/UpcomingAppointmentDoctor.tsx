@@ -17,6 +17,7 @@ function UpcomingAppointmentDoctor() {
           status: "Confirmed",
         },
       },
+      requestPolicy: "network-only",
     });
   const { physicianAppointments } = physicialData || {};
 

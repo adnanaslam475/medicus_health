@@ -73,6 +73,7 @@ function StaffTable({ dataSource }: Props) {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      sorter:true,
       className: "table-action-icon",
       render: (value: any) => {
         return (

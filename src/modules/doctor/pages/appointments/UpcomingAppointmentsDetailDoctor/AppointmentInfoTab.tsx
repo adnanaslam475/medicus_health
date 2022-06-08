@@ -21,11 +21,12 @@ function AppointmentInfoTab({}: Props) {
   });
   const { appointment } = data || {};
   const { patient, serviceType } = appointment || {};
-  
+  const {patientProfile} = patient || {}
   return (
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
       serviceName={serviceType?.name}
+      imageUrl={patientProfile?.profileImage}
     >
       <DoctorAppointmentInfo data={appointment as Appointment} />
     </CardWithProfileImageInfo>
