@@ -14,20 +14,18 @@ function Language(props: Prop) {
 	useEffect(() => {
 		setCheckBoxState(check);
 	}, [check]);
-	return (
-		check && (
-			<div className="border flex rounded border-gray px-4 py-2 mr-3">
-				<Image height={20} width={20} src={end} className="px-1" />
-				<span className=" pl-1 pr-10">{title}</span>
-				{!disable && (
-					<Checkbox
-						defaultChecked={check}
-						checked={checkBoxState}
-						onChange={(e) => setCheckBoxState(e.target.checked)}
-					></Checkbox>
-				)}
-			</div>
-		)
-	);
+	return check ? (
+		<div className="border flex rounded border-gray px-4 py-2 mr-3">
+			<Image height={20} width={20} src={end} className="px-1" alt="" />
+			<span className=" pl-1 pr-10">{title}</span>
+			{!disable && (
+				<Checkbox
+					defaultChecked={check}
+					checked={checkBoxState}
+					onChange={(e) => setCheckBoxState(e.target.checked)}
+				></Checkbox>
+			)}
+		</div>
+	) : null;
 }
 export default Language;

@@ -110,8 +110,8 @@ function EditProfile({
 
   useEffect(() => {
     setPhysicianLanguage({
-      English: formatedLanguage.English || false,
-      Spanish: formatedLanguage.Spanish || false,
+      English: formatedLanguage?.English || false,
+      Spanish: formatedLanguage?.Spanish || false,
     });
   }, [language]);
 
