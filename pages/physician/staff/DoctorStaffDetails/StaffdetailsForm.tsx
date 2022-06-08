@@ -37,7 +37,7 @@ function StaffDetailsFrom({
       form={form}
       layout="vertical"
     >
-      <h1>
+      <h1 className="pb-0 mb-0">
         {staffDetail?.first_name} {staffDetail?.last_name}
       </h1>
       <p>{staffDetail?.email}</p>

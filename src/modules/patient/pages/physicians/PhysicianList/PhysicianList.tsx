@@ -5,9 +5,10 @@ import { DoctorProfile, useDoctorProfilesQuery } from "generated/graphql";
 import Link from "next/link";
 
 function Physicians() {
-  const [{ data }] = useDoctorProfilesQuery();
+  const [{ data, fetching }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
 
+  console.log(fetching, data, "fetchingfetching");
   return (
     <AppLayout>
       <div className="w-full">
@@ -54,6 +55,7 @@ function Physicians() {
                   conditionTreated={conditionTreated || ""}
                   profile_image={profile_image}
                   doctorProfile={profile as DoctorProfile}
+                  loading={fetching}
                 />
               );
             })}

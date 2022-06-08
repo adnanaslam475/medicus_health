@@ -4,7 +4,7 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useDoctorProfilesQuery } from "../../../../../generated/graphql";
 
 function Physicians() {
-  const [{ data }] = useDoctorProfilesQuery();
+  const [{ data, fetching }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
 
   return (

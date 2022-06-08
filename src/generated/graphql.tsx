@@ -1703,7 +1703,7 @@ export type GetPatientsQueryVariables = Exact<{
 }>;
 
 
-export type GetPatientsQuery = { __typename?: 'Query', getPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, zip_code?: string | null }> };
+export type GetPatientsQuery = { __typename?: 'Query', getPatients: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, zip_code?: string | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null }> };
 
 export type PhysicianPaymentByAdminMutationVariables = Exact<{
   paymeninput: PaymentInput;
@@ -2685,6 +2685,15 @@ export const GetPatientsDocument = gql`
     email
     contact_number
     zip_code
+    state {
+      state_name
+    }
+    city {
+      city_name
+    }
+    country {
+      country_name
+    }
   }
 }
     `;
