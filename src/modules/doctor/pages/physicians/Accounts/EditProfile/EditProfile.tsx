@@ -106,7 +106,7 @@ function EditProfile({
     year_of_experience,
     specialization,
   } = doctorData || {};
-  let formatedLanguage = language && JSON.parse(language);
+  let formatedLanguage = doctorData?.language !== undefined && doctorData?.language.includes("{") ? JSON.parse(doctorData?.language) :doctorData?.language
 
   useEffect(() => {
     setPhysicianLanguage({
@@ -332,6 +332,11 @@ function EditProfile({
     }
   };
 
+  let languageCheck =
+  language?.English !== undefined ||
+  language?.Spanish !== undefined ||
+  language !== undefined;
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -461,7 +466,7 @@ function EditProfile({
                 </Form.Item>
               </div>
 
-              {formatedLanguage?.Spanish !== undefined && (
+              {languageCheck && (
                 <div className="flex items-center ">
                   <Form.Item
                     name="languageEnglish"
