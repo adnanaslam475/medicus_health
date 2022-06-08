@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import yourImage from "../../../../public/assets/images/doc-pic-big.png";
+import yourImage from "../../../../public/assets/images/profile.svg";
 
 type props = {
   name: string | undefined;
   serviceName: string | undefined;
-  imageUrl: string | undefined;
+  imageUrl: string | undefined | null;
 };
 
 function ProfileImageWithInfo({ name, serviceName, imageUrl }: props) {
