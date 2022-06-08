@@ -30,7 +30,7 @@ import { UploadChangeParam } from "antd/lib/upload";
 import { Schedule } from "common/types/types";
 import { RangeValue } from "rc-picker/lib/interface";
 import { parseJson } from "common/utils/helper";
-import { getUserData } from "common/utils/userData";
+import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 
 const { TextArea } = Input;
@@ -106,12 +106,15 @@ function EditProfile({
     year_of_experience,
     specialization,
   } = doctorData || {};
-  let formatedLanguage = doctorData?.language !== undefined && doctorData?.language.includes("{") ? JSON.parse(doctorData?.language) :doctorData?.language
+  let formatedLanguage =
+    doctorData?.language !== undefined && doctorData?.language.includes("{")
+      ? JSON.parse(doctorData?.language)
+      : doctorData?.language;
 
   useEffect(() => {
     setPhysicianLanguage({
-      English: formatedLanguage.English || false,
-      Spanish: formatedLanguage.Spanish || false,
+      English: formatedLanguage?.English || false,
+      Spanish: formatedLanguage?.Spanish || false,
     });
   }, [language]);
 
@@ -254,7 +257,7 @@ function EditProfile({
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  async function handleChange() {
+  async function handlePublish_Unpublish() {
     const res = await EnableOrDisableDoctor({
       id: Number(doctor_id),
     });
@@ -333,9 +336,9 @@ function EditProfile({
   };
 
   let languageCheck =
-  language?.English !== undefined ||
-  language?.Spanish !== undefined ||
-  language !== undefined;
+    language?.English !== undefined ||
+    language?.Spanish !== undefined ||
+    language !== undefined;
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -367,16 +370,19 @@ function EditProfile({
                 {`${first_name && first_name} ${last_name && last_name}` || ""}
               </h2>
               <span className="block">{email}</span>
-              <div className=" grid grid-cols-2 gap-3">
-                <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
-                  <Button
-                    type="primary"
-                    className={`${_classes["published-button"]}`}
-                  >
-                    {status ? "Published" : "Unpublished"}
-                  </Button>
+              {getRole() === "Admin" && (
+                <div className=" grid grid-cols-2 gap-3">
+                  <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
+                    <Button
+                      type="primary"
+                      className={`${_classes["published-button"]}`}
+                      onClick={handlePublish_Unpublish}
+                    >
+                      {status ? "Published" : "Unpublished"}
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
