@@ -4,6 +4,7 @@ import Image from "next/image";
 import { calendarFilterIcon } from "utils/images";
 import { RangePickerFooter } from "./RangePickerFooter";
 import _classes from "./FilterRangePicker.module.scss";
+import { ReactChild } from "react";
 
 export function FilterRangePicker({
   title,
@@ -15,7 +16,7 @@ export function FilterRangePicker({
   heading,
 }: {
   open: boolean;
-  title: React.ReactChild | undefined;
+  title: ReactChild | undefined | null;
   heading: string;
   onChange: (formatString: string[]) => void;
   onCancel: () => void;
