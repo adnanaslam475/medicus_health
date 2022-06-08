@@ -83,7 +83,8 @@ function PatientProfileFormTab({ userDetail }: { userDetail: any }) {
     <div className="max-w-[800px]">
       <CardWithProfileImageInfo name="usama" serviceName="consultation">
         <div className="messageButtons">
-          {status === "Requested" && <MessageButtons />}
+          {/* {status === "Requested" && <MessageButtons />} */}
+          <MessageButtons />
         </div>
         <div className="max-w-[800px]">
           <div className="flex flex-col md:flex-row gap-2">
