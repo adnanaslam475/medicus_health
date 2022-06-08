@@ -34,7 +34,7 @@ type Props = {
   allAppoinments?: AppointmentServiceType[];
   onFinish?: ((values: any) => void) | undefined;
   adminData?: AdminData;
-  patientData?:User[];
+  patientData?: User[];
   adminApp_Details?: DoctorData;
 };
 
@@ -45,7 +45,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
     const { physicianName, service, price, requestedDate, availability } =
       appoinmentDetails?.stepOne || {};
-    const { physicianData, onFinish, adminData,patientData, adminApp_Details } = props || {};
+    const {
+      physicianData,
+      onFinish,
+      adminData,
+      patientData,
+      adminApp_Details,
+    } = props || {};
     const { first_name, last_name, id } = physicianData?.user || {};
 
     const { doctor_Id, doctor_first_name, doctor_last_name } =
@@ -144,7 +150,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                     ?.includes(input.toLowerCase());
                 }}
               >
-                { (patientData || physicianList)?.map((item) => (
+                {(patientData || physicianList)?.map((item) => (
                   <Option
                     key={`${item?.first_name} ${item?.last_name}`}
                     value={`${item.id}:${item?.first_name} ${item?.last_name}`}
