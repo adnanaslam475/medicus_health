@@ -44,7 +44,8 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
   }
 
   return (
-    <div className="page-filters flex-none lg:flex items-center mb-5">
+    <div className="page-filters flex-none lg:flex items-center">
+       <span className="text-gray-1 mr-3 mb-3">Filter</span>
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
           <Input
