@@ -47,7 +47,10 @@ function Login() {
         let userPayload: any = res?.data?.login;
         userPayload.remember = values.remember;
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
-        if (userPayload.user.role === "Doctor") {
+        if (
+          userPayload.user.role === "Doctor" ||
+          userPayload.user.role === "Staff"
+        ) {
           Router.replace({
             pathname: "/physician/dashboard",
           });
