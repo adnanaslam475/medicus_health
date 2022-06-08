@@ -20,6 +20,12 @@ const createAdminUserForm = [
     type: "email",
     required: false,
   },
+  {
+    label: "Password",
+    name: "password",
+    type: "password",
+    required: false,
+  },
 ];
 
 function CreateAdminUserForm() {
