@@ -4,43 +4,84 @@ import React, { useState } from "react";
 const { TextArea } = Input;
 import Router from "next/router";
 import _classes from "./MessageButtons.module.scss";
+import { getRole } from "../../utils/userData";
 
-const MessageButtons = () => {
+type Props = {
+  patientID?: number;
+  doctorId?: number;
+};
+
+const MessageButtons = (props: Props) => {
+  const { patientID, doctorId } = props;
+  console.log(patientID, doctorId, "majidkhan");
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn"]} mr-3`}
-          onClick={() => Router.push("/physician/messages")}
-          // onClick={() =>
-          //   Router.push({
-          //     pathname: "/admin/messages",
-          //     query: {
-          //       chat: "admin",
-          //       patientId: adminApp_Details?.patient.patient_id,
-          //     },
-          //   })
-          // }
-        >
-          Message Patient
-        </Button>
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn"]}`}
-          onClick={() => Router.push("/physician/messages")}
-          // onClick={() =>
-          //   Router.push({
-          //     pathname: "/admin/messages",
-          //     query: {
-          //       chat: "admin",
-          //       doctorId: adminApp_Details?.doctor.doctor_Id,
-          //     },
-          //   })
-          // }
-        >
-          Message Admin
-        </Button>
+        {/* ROLE BASED MESSAGE BUTTONS CONDITIONS */}
+        {getRole() === "Admin" ||
+          (getRole() === "Doctor" && (
+            <Button
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]} mr-3`}
+              // onClick={() => Router.push("/physician/messages")}
+              onClick={() =>
+                Router.push({
+                  pathname: "/physician/messages",
+                  query: {
+                    chat: "patient",
+                    // patientId: adminApp_Details?.patient.patient_id,
+                    doctorId: doctorId,
+                    patientId: patientID,
+                  },
+                })
+              }
+            >
+              Message Patient
+            </Button>
+          ))}
+
+        {getRole() === "Patient" ||
+          (getRole() === "Admin" && (
+            <Button
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]} mr-3`}
+              onClick={() =>
+                Router.push({
+                  pathname: "/physician/messages",
+                  query: {
+                    chat: "doctor",
+
+                    doctorId: doctorId,
+                    patientId: patientID,
+                  },
+                })
+              }
+            >
+              Message Physician
+            </Button>
+          ))}
+
+        {getRole() === "Patient" ||
+          (getRole() === "Doctor" && (
+            <Button
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]}`}
+              // onClick={() => Router.push("/physician/messages")}
+              onClick={() =>
+                Router.push({
+                  pathname: "/physician/messages",
+                  query: {
+                    chat: "admin",
+                    // doctorId: adminApp_Details?.doctor.doctor_Id,
+                    doctorId: doctorId,
+                    patientId: patientID,
+                  },
+                })
+              }
+            >
+              Message Admin
+            </Button>
+          ))}
       </div>
     </div>
   );

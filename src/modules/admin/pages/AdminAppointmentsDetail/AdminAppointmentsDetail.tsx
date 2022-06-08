@@ -7,13 +7,8 @@ import AdminAppointmentInfoTab from "./AdminAppointmentInfoTab";
 import AdminQuestionnaireFormTab from "./AdminQuestionnaireFormTab";
 import AdminHealthQuestionnaireFormTab from "./AdminHealthQuestionnaireFormTab";
 import AdminNotesWithTextTab from "./AdminNotesWithTextTab";
-import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import AdminAttachmentTab from "./PhysicianAttachmentTab";
-import {
-  Appointment,
-  useGetAppointmentByIdQuery,
-  useRemoveAppointmentByAdminMutation,
-} from "generated/graphql";
+import { Appointment, useGetAppointmentByIdQuery } from "generated/graphql";
 import { REQUESTED, SUGGESTED } from "common/constants/status";
 
 function AdminAppointmentHistoryDetail() {
@@ -21,9 +16,9 @@ function AdminAppointmentHistoryDetail() {
   const [{ data }] = useGetAppointmentByIdQuery({
     variables: { id: Number(query?.appointmentId) },
   });
-  const [{ fetching: deleteFetching }, removeAppointmentByAdmin] =
-    useRemoveAppointmentByAdminMutation();
-  const [open, setOpen] = React.useState<boolean>(false);
+  // const [{ fetching: deleteFetching }, removeAppointmentByAdmin] =
+  //   useRemoveAppointmentByAdminMutation();
+  // const [open, setOpen] = React.useState<boolean>(false);
   const { appointment } = data || {};
 
   let doctorNotes =
@@ -32,28 +27,28 @@ function AdminAppointmentHistoryDetail() {
     appointment?.status || ""
   );
 
-  const deleteModalHandler = () => setOpen(!open);
-  const deleteAppointmentHandler = async () => {
-    try {
-      const response = await removeAppointmentByAdmin({
-        id: Number(query.appointmentId),
-      });
-      if (response?.error) {
-        throw new Error(response?.error?.graphQLErrors[0]?.message);
-      }
-      if (response.data) {
-        notification.success({
-          message: "Appointment Delete Successfully",
-        });
-        Router.back();
-        deleteModalHandler();
-      }
-    } catch (error: any) {
-      notification.error({
-        message: error?.message || "Something Went Wrong",
-      });
-    }
-  };
+  // const deleteModalHandler = () => setOpen(!open);
+  // const deleteAppointmentHandler = async () => {
+  //   try {
+  //     const response = await removeAppointmentByAdmin({
+  //       id: Number(query.appointmentId),
+  //     });
+  //     if (response?.error) {
+  //       throw new Error(response?.error?.graphQLErrors[0]?.message);
+  //     }
+  //     if (response.data) {
+  //       notification.success({
+  //         message: "Appointment Delete Successfully",
+  //       });
+  //       Router.back();
+  //       deleteModalHandler();
+  //     }
+  //   } catch (error: any) {
+  //     notification.error({
+  //       message: error?.message || "Something Went Wrong",
+  //     });
+  //   }
+  // };
   return (
     <AppLayout>
       <div>
@@ -90,7 +85,7 @@ function AdminAppointmentHistoryDetail() {
           </Tabs>
         </div>
       </div>
-      <Button
+      {/* <Button
         type="link"
         className="ml-auto mt-10"
         danger
@@ -107,7 +102,7 @@ function AdminAppointmentHistoryDetail() {
         confirmLoading={deleteFetching}
         onOk={deleteAppointmentHandler}
         visible={open}
-      />
+      /> */}
     </AppLayout>
   );
 }

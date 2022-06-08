@@ -45,6 +45,7 @@ import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
 import { CustomTimeSlot } from "common/types/types";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import MessageButtons from "../MessageButtons/MessageButtons";
+import { getUserData } from "common/utils/userData";
 
 type Props = {
   data: Appointment | undefined;
@@ -70,6 +71,16 @@ function DoctorAppointmentInfo({ data }: Props) {
     appointmentSchedule,
     createdAt,
   } = data || {};
+
+  // FOR CHAT MESSAGE BUTTON PATIENT ID
+  const { id: patientID } = patient || {};
+
+  // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
+
+  const { user } = getUserData();
+  const { id: doctorId } = user || {};
+
+  console.log(data, "sadasdsadsad===>");
 
   const [{ fetching: cancelFetching }, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
@@ -104,7 +115,9 @@ function DoctorAppointmentInfo({ data }: Props) {
   return (
     <div className="max-w-[700px]">
       <div className="message-button mb-3">
-        {status === "Requested" && <MessageButtons />}
+        {status === "Requested" && (
+          <MessageButtons patientID={patientID} doctorId={doctorId} />
+        )}
       </div>
       <div>
         <LabelWithText label="ID" text={id} />
