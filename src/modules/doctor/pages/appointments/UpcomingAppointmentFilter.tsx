@@ -5,6 +5,7 @@ import { physicianFilterType } from "common/types/types";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
+import { BookingDate } from "generated/graphql";
 
 const { Option } = Select;
 
@@ -15,7 +16,7 @@ type Props = {
 };
 function UpcomingAppointmentFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
-
+  const [bookingDate,setBookingDate]=useState<BookingDate>({})
   function clear() {
     setFilterState({});
     onChange({});
@@ -24,6 +25,8 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
+    onChangeFields("bookingDate",bookingDate)
+
   };
 
   function onChangeFields(key: string, value: string | number | object) {
@@ -62,7 +65,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
         </div>
         <FilterRangePicker
           onChange={(dateString: string[]) =>
-            onChangeFields("bookingDate", {
+            setBookingDate({
               startDate: dateString[0],
               endDate: dateString[1],
             })

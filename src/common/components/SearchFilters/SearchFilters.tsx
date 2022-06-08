@@ -57,6 +57,8 @@ function SearchFilters(props: Props) {
   const [localAppointment_Id, setLocalAppointment_Id] = useState<
     number | null | undefined
   >();
+  const [bookingStartDate,setBookingStartDate]=useState({})
+  const [bookingEndDate,setBookingEndDate]=useState({})
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
@@ -87,8 +89,8 @@ function SearchFilters(props: Props) {
   function onChange(date: any, dateString: any) {
     console.log(date, dateString);
     selectDateRangeValues(date);
-    setStartDate(dateString[0]);
-    setEndDate(dateString[1]);
+    setBookingStartDate(dateString[0])
+    setBookingEndDate(dateString[1])
     selectDateRange(date);
   }
 
@@ -109,6 +111,9 @@ function SearchFilters(props: Props) {
   };
 
   const applyDateRange = () => {
+    setStartDate(bookingStartDate);
+    setEndDate(bookingEndDate);
+
     setOpenDateRange(false);
   };
 
