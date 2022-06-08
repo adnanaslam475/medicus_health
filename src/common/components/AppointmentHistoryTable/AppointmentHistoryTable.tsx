@@ -4,6 +4,7 @@ import { EyeFilled } from "@ant-design/icons";
 import { date } from "../../utils";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
   Transaction,
@@ -26,11 +27,11 @@ const AppointmentHistoryTable = (props: Props) => {
     },
     {
       title: "Booked On",
-      dataIndex: "requestedDate",
-      key: "requestedDate",
+      dataIndex: "createdAt",
+      key: "createdAt",
       sorter: true,
-      render: (requestedDate: string) => {
-        return <div>{requestedDate ? `${date?.formatMMMMDDYYYY(requestedDate)}` : "-"}</div>;
+      render: (createdAt: string) => {
+        return <div>{createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}</div>;
       },
     },
     {
@@ -53,25 +54,23 @@ const AppointmentHistoryTable = (props: Props) => {
     },
     {
       title: "Date",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
       sorter: true,
 
-      render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
-        let time = appointmentTimeSlots?.find((time) => time.selected);
-        return <div>{time?.startTime ? `${date?.formatMMMMDDYYYY(time?.startTime)} ` : "-"}</div>;
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        return <div>{appointmentDateTime?.startTime ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} ` : "-"}</div>;
       },
     },
     {
       title: "Time",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
       sorter: true,
-      render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
-        let time = appointmentTimeSlots?.find((time) => time.selected);
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-          <div>{time?.startTime ? `${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
-            time?.endTime
+          <div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formathhmma(appointmentDateTime?.startTime)} - ${date?.formathhmma(
+            appointmentDateTime?.endTime
           )}` : "-"}</div>
         );
       },
