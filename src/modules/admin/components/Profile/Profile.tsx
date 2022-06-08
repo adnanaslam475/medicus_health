@@ -73,7 +73,7 @@ export const Profile = React.forwardRef(function Profile({
           email: values?.email,
           contact_number: values?.contact_number,
           password: values?.password,
-          profileImage: image || userProfileImage,
+          // profileImage: image || userProfileImage,
         },
         id: Number(id),
       });

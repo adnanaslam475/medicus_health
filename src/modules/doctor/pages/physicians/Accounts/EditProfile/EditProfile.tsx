@@ -58,6 +58,10 @@ type Props = {
   addScheduleDay: string;
   loading?: boolean;
 };
+type LanguageType = {
+  Spanish?: boolean;
+  English?: boolean;
+};
 function EditProfile({
   doctorId,
   doctorData,
@@ -74,7 +78,10 @@ function EditProfile({
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
-  const [physicianLanguage, setPhysicianLanguage] = useState<string>("");
+  const [physicianLanguage, setPhysicianLanguage] = useState<LanguageType>({
+    Spanish: false,
+    English: false,
+  });
 
   const user = getUserData();
 
@@ -99,6 +106,14 @@ function EditProfile({
     year_of_experience,
     specialization,
   } = doctorData || {};
+  let formatedLanguage = doctorData?.language !== undefined && doctorData?.language.includes("{") ? JSON.parse(doctorData?.language) :doctorData?.language
+
+  useEffect(() => {
+    setPhysicianLanguage({
+      English: formatedLanguage.English || false,
+      Spanish: formatedLanguage.Spanish || false,
+    });
+  }, [language]);
 
   const educationalBackground = parseJson(educational_background) || [];
 
@@ -309,10 +324,18 @@ function EditProfile({
   };
 
   const handleChangeLanguage = (e: CheckboxChangeEvent, name: string) => {
-    if (e.target.checked) {
-      setPhysicianLanguage(name);
+    if (name === "English") {
+      setPhysicianLanguage({ ...physicianLanguage, English: e.target.checked });
+    }
+    if (name === "Spanish") {
+      setPhysicianLanguage({ ...physicianLanguage, Spanish: e.target.checked });
     }
   };
+
+  let languageCheck =
+  language?.English !== undefined ||
+  language?.Spanish !== undefined ||
+  language !== undefined;
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -443,48 +466,50 @@ function EditProfile({
                 </Form.Item>
               </div>
 
-              <div className="flex items-center ">
-                <Form.Item
-                  name="languageEnglish"
-                  className={`${_classes["bottom-margin-0"]}`}
-                >
-                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
-                    <Image
-                      alt=""
-                      height={21}
-                      width={21}
-                      src={end}
-                      className="majid"
-                    />
-                    <span className=" pl-1 pr-10">English</span>
-                    <Checkbox
-                      defaultChecked={language === "English"}
-                      onChange={(e) => handleChangeLanguage(e, "English")}
-                    ></Checkbox>
-                  </div>
-                </Form.Item>
+              {languageCheck && (
+                <div className="flex items-center ">
+                  <Form.Item
+                    name="languageEnglish"
+                    className={`${_classes["bottom-margin-0"]}`}
+                  >
+                    <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                      <Image
+                        alt=""
+                        height={21}
+                        width={21}
+                        src={end}
+                        className="majid"
+                      />
+                      <span className=" pl-1 pr-10">English</span>
+                      <Checkbox
+                        defaultChecked={formatedLanguage.English}
+                        onChange={(e) => handleChangeLanguage(e, "English")}
+                      ></Checkbox>
+                    </div>
+                  </Form.Item>
 
-                <Form.Item
-                  name="languageSpanish"
-                  className={`${_classes["bottom-margin-0"]}`}
-                >
-                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
-                    <Image
-                      alt=""
-                      height={21}
-                      width={21}
-                      src={esp}
-                      className="px-1 majid"
-                    />
-                    <span className=" pl-1 pr-10">Spanish</span>
+                  <Form.Item
+                    name="languageSpanish"
+                    className={`${_classes["bottom-margin-0"]}`}
+                  >
+                    <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                      <Image
+                        alt=""
+                        height={21}
+                        width={21}
+                        src={esp}
+                        className="px-1 majid"
+                      />
+                      <span className=" pl-1 pr-10">Spanish</span>
 
-                    <Checkbox
-                      defaultChecked={language === "Spanish"}
-                      onChange={(e) => handleChangeLanguage(e, "Spanish")}
-                    ></Checkbox>
-                  </div>
-                </Form.Item>
-              </div>
+                      <Checkbox
+                        defaultChecked={formatedLanguage.Spanish}
+                        onChange={(e) => handleChangeLanguage(e, "Spanish")}
+                      ></Checkbox>
+                    </div>
+                  </Form.Item>
+                </div>
+              )}
 
               <div className="mt-5">
                 <Form.Item label="About me" name="about_me">

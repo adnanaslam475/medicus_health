@@ -260,7 +260,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 			onFinishFailed={onFinishHealthQuestionnaryFailed}
 			form={formInstance}
 			className={`${
-				_classes[!disabled ? "disabled-class" : "questionnary-css"]
+				_classes[disabled ? "disabled-class" : "questionnary-css"]
 			} `}
 		>
 			<Form.Item
@@ -273,7 +273,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 					onChange={(e) => {
 						setRadioDrink(e.target.value);
 					}}
-					disabled
+					disabled={disabled}
 				>
 					<Radio value={1}>Yes</Radio>
 					<Radio value={0}>No</Radio>
@@ -291,7 +291,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 						},
 					]}
 				>
-					<Input disabled size="large" />
+					<Input disabled={disabled} size="large" />
 				</Form.Item>
 			)}
 			<Form.Item
@@ -304,7 +304,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 					onChange={(e) => {
 						setRadioSmoke(e.target.value);
 					}}
-					disabled
+					disabled={disabled}
 				>
 					<Radio value={1}>Yes</Radio>
 					<Radio value={0}>No</Radio>
@@ -322,7 +322,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 						},
 					]}
 				>
-					<Input disabled size="large" />
+					<Input disabled={disabled} size="large" />
 				</Form.Item>
 			)}
 			<Form.Item
@@ -335,8 +335,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 					onChange={(e) => {
 						setRadioDrug(e.target.value);
 					}}
-					// disabled={disabled}
-					disabled
+					 disabled={disabled}
+					// disabled
 				>
 					<Radio value={1}>Yes</Radio>
 					<Radio value={0}>No</Radio>
@@ -352,7 +352,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 						options={HealthQuestionnaryData.q3.q.option}
 						onChange={onChangeMedicalCondition}
 						style={{ display: "flex", flexDirection: "column" }}
-						disabled
+						disabled={disabled}
 					/>
 				</Form.Item>
 				{showDrugOthers && (
@@ -373,12 +373,12 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 					options={HealthQuestionnaryData.q4.option}
 					onChange={onChangeSurgicalHistory}
 					style={{ display: "flex", flexDirection: "column" }}
-					disabled
+					disabled={disabled}
 				/>
 			</Form.Item>
 			{showSurgicalOthers && (
 				<Form.Item className="flex-1" name={HealthQuestionnaryData.q4.q2.name}>
-					<Input disabled size="large" />
+					<Input disabled={disabled} size="large" />
 				</Form.Item>
 			)}
 			<Form.Item
@@ -392,7 +392,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 					},
 				]}
 			>
-				<Input disabled size="large" />
+				<Input disabled={disabled} size="large" />
 			</Form.Item>
 			<Form.Item
 				className="flex-1 text-secondary"
@@ -405,7 +405,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 					},
 				]}
 			>
-				<Input disabled size="large" />
+				<Input disabled={disabled} size="large" />
 			</Form.Item>
 			<Form.Item
 				className="flex-1 text-secondary"
@@ -418,7 +418,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 					},
 				]}
 			>
-				<Input disabled size="large" />
+				<Input disabled={disabled} size="large" />
 			</Form.Item>
 			<Form.Item
 				className="flex-1"
@@ -431,7 +431,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 					},
 				]}
 			>
-				<Input disabled size="large" />
+				<Input disabled={disabled} size="large" />
 			</Form.Item>
 		</Form>
 	);

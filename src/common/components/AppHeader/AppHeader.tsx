@@ -35,11 +35,11 @@ const AppHeader = () => {
 
   const menu = (
     <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
-      <Menu.Item className="border-b border-gray-4">
+      <Menu.Item className="border-b border-gray-4" onClick={()=>Router.push(`/patient/account?activeTab=1`)}>
         Accounts Settings
       </Menu.Item>
-
-      <Menu.Item className="border-b border-gray-4">Payment Settings</Menu.Item>
+      
+      <Menu.Item className="border-b border-gray-4" onClick={()=>Router.push(`/patient/account?activeTab=3`)}>Payment Settings</Menu.Item>
 
       {/* <Menu.Item>
         <Link href={{ pathname, query }} as={asPath} locale={otherLocales?.[0]}>
