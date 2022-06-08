@@ -11,7 +11,10 @@ type Props = {
 function AdminNotesWithTextTab({ appointment, doctorNotes }: Props) {
   return (
     <div className="max-w-1/2">
-      <NotesWithTextEditable appointment={appointment} doctorNotes={doctorNotes} />
+      <NotesWithTextEditable
+        appointment={appointment}
+        doctorNotes={doctorNotes}
+      />
     </div>
   );
 }

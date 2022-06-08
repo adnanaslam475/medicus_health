@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { MessageOutlined } from "@ant-design/icons";
+import { CloseOutlined, MessageOutlined } from "@ant-design/icons";
 import { Button, notification, Tag } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
 
 // scss
 import _classes from "./AdminAppointmentInfo.module.scss";
-import Router from "next/router";
-import { useCancelAppointmentByDoctorMutation } from "generated/graphql";
+import Router, { useRouter } from "next/router";
+import {
+  useCancelAppointmentByDoctorMutation,
+  useRemoveAppointmentByAdminMutation,
+} from "generated/graphql";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
 type Props = {
   data?: {
@@ -37,6 +41,7 @@ type DoctorData = {
   };
 };
 function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
+  const { query } = useRouter();
   const {
     id,
     bookingDate,
@@ -71,6 +76,36 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
       }
     } catch (error) {}
   }
+
+  // MUTATION FOR DELETE APPOINTMENT
+
+  const [{ fetching: deleteFetching }, removeAppointmentByAdmin] =
+    useRemoveAppointmentByAdminMutation();
+
+  const [open, setOpen] = React.useState<boolean>(false);
+
+  const deleteModalHandler = () => setOpen(!open);
+  const deleteAppointmentHandler = async () => {
+    try {
+      const response = await removeAppointmentByAdmin({
+        id: Number(query.appointmentId),
+      });
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "Appointment Delete Successfully",
+        });
+        Router.back();
+        deleteModalHandler();
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
 
   return (
     <>
@@ -129,6 +164,26 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
             onCancelRequestedAppointment={onCancelRequestedAppointment}
           />
         )}
+
+        {/* DELETE THIS APPOINTMENT */}
+        <Button
+          type="link"
+          className="ml-auto mt-10"
+          danger
+          loading={deleteFetching}
+          disabled={deleteFetching}
+          icon={<CloseOutlined />}
+          onClick={deleteModalHandler}
+        >
+          Delete Appointment
+        </Button>
+        <ConfirmationModal
+          message="Are You Sure You want to delete this appointment?"
+          onCancel={deleteModalHandler}
+          confirmLoading={deleteFetching}
+          onOk={deleteAppointmentHandler}
+          visible={open}
+        />
       </div>
     </>
   );
