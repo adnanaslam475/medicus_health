@@ -1,18 +1,34 @@
 .patient-profile-page {
-  .ant-select * {
-    background-color: lightseagreen !important;
-  }
+	.ant-select * {
+		background-color: lightseagreen !important;
+	}
 }
 
 .admin-patient-profile-page {
-  .disable-select :first-child {
-    border: none !important;
-    background-color: #e2f8f7 !important;
-  }
-  .edit-button {
-    min-height: 60px !important;
-  }
-  .bottom-margin-0 {
-    margin-bottom: 0 !important;
-  }
+	.disable-select :first-child {
+		border: none !important;
+		background-color: #e2f8f7 !important;
+	}
+	.edit-button {
+		min-height: 60px !important;
+	}
+	.bottom-margin-0 {
+		margin-bottom: 0 !important;
+	}
+}
+
+.profile-select-enable {
+	:global .ant-select-selector {
+		background-color: #e2f8f7 !important;
+		color: green !important;
+		border: none !important;
+	}
+}
+
+.profile-select-disable {
+	:global .ant-select-selector {
+		background-color: #f3c3c7e3 !important;
+		color: red !important;
+		border: none !important;
+	}
 }
