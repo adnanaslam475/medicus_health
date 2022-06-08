@@ -4,6 +4,7 @@ import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
 	Appointment,
+	AppointmentDateTimeResponse,
 	AppointmentServiceType,
 	AppointmentTimeSlots,
 	GetAppointmentInput,
@@ -99,14 +100,13 @@ function AdminPhysicianList() {
 		},
 		{
 			title: "Time Slot",
-			dataIndex: "appointmentTimeSlots",
-			key: "appointmentTimeSlots",
-			render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
-				let selectedTime = appointmentTimeSlots.find((item) => item.selected);
+			dataIndex: "appointmentDateTime",
+			key: "appointmentDateTime",
+			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
 				return (
-					<div>{selectedTime?.startTime ?`${date?.formathhmma(
-						selectedTime?.startTime
-					)} - ${date?.formathhmma(selectedTime?.endTime)}` : "--"}</div>
+					<div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formathhmma(
+						appointmentDateTime?.startTime
+					)} - ${date?.formathhmma(appointmentDateTime.endTime)}` : "--"}</div>
 				);
 			},
 			sorter: {
@@ -116,13 +116,12 @@ function AdminPhysicianList() {
 		},
 		{
 			title: "Date",
-			dataIndex: "appointmentTimeSlots",
-			key: "appointmentTimeSlots",
-			render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
-				let selectedTime = appointmentTimeSlots.find((item) => item.selected);
+			dataIndex: "appointmentDateTime",
+			key: "appointmentDateTime",
+			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
 				return (
-					<div className="someclass">{selectedTime?.startTime ? `${date?.formatMMMMDDYYYY(
-						selectedTime?.startTime
+					<div className="someclass">{appointmentDateTime?.startTime ? `${date?.formatMMMMDDYYYY(
+						appointmentDateTime?.startTime
 					)} ` : "--"}</div>
 				);
 			},

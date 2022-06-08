@@ -34,6 +34,10 @@ query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
       startTime
       endTime
     }
+    appointmentDateTime {
+      startTime
+      endTime
+    }
     charges
     status
     serviceType {
