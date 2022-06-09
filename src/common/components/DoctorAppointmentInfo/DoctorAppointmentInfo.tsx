@@ -233,38 +233,65 @@ function DoctorAppointmentInfoFooter({
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn"]} mr-3`}
-          onClick={() =>
-            Router.push({
-              pathname: "/physician/messages",
-              query: {
-                chat: "admin",
-                doctorId: doctorId,
-                patientId: patientId,
-              },
-            })
-          }
-        >
-          Message Admin
-        </Button>
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn"]}`}
-          onClick={() =>
-            Router.push({
-              pathname: "/physician/messages",
-              query: {
-                chat: "patient",
-                doctorId: doctorId,
-                patientId: patientId,
-              },
-            })
-          }
-        >
-          Message Patient
-        </Button>
+        {getRole() === "Patient" ||
+          (getRole() === "Doctor" && (
+            <Button
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]} mr-3`}
+              onClick={() =>
+                Router.push({
+                  pathname: "/physician/messages",
+                  query: {
+                    chat: "admin",
+                    doctorId: doctorId,
+                    patientId: patientId,
+                  },
+                })
+              }
+            >
+              Message Admin
+            </Button>
+          ))}
+
+        {/* {getRole() === "Admin" ||
+          (getRole() === "Patient" && (
+            <Button
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]}`}
+              onClick={() =>
+                Router.push({
+                  pathname: "/physician/messages",
+                  query: {
+                    chat: "patient",
+                    doctorId: doctorId,
+                    patientId: patientId,
+                  },
+                })
+              }
+            >
+              Message Patient
+            </Button>
+          ))} */}
+
+        {getRole() === "Admin" ||
+          (getRole() === "Doctor" && (
+            <Button
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]} mr-3`}
+              onClick={() =>
+                Router.push({
+                  pathname: "/physician/messages",
+                  query: {
+                    chat: "patient",
+                    doctorId: doctorId,
+                    patientId: patientId,
+                  },
+                })
+              }
+            >
+              Message Patient
+            </Button>
+          ))}
       </div>
       <Button
         type="primary"
