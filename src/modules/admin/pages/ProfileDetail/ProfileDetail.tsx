@@ -6,6 +6,7 @@ import { Tabs } from "antd";
 import {
   BellOutlined,
   CalendarOutlined,
+  DollarCircleOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -19,6 +20,7 @@ import {
 import AdminPhysicianPatientAppointmentTab from "./AdminPhysicianPatientAppointmentTab";
 import StaffListing from "modules/doctor/pages/staff/StaffListing/StaffListing";
 import AccountsProfile from "modules/doctor/pages/physicians/Accounts/AccountsProfile/AccountsProfile";
+import ConsultationRates from "modules/common/components/ConsultaionRates/ConsultaionRates";
 
 const { TabPane } = Tabs;
 
@@ -157,6 +159,14 @@ function ProfileDetail() {
             >
               <StaffListing />
             </TabPane>
+            <Tabs.TabPane  tab={
+                <span>
+                  <DollarCircleOutlined/>
+                  Consultation Rates
+                </span>
+              }  key="7">
+						<ConsultationRates/>
+						</Tabs.TabPane>
           </Tabs>
         </div>
       </div>
