@@ -229,20 +229,57 @@ function DoctorAppointmentInfoFooter({
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn"]} mr-3`}
-          onClick={() => Router.push("/admin/messages")}
-        >
-          Message Admin
-        </Button>
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn"]}`}
-          onClick={() => Router.push("/physician/messages")}
-        >
-          Message Physician
-        </Button>
+        {getRole() === "Patient" ||
+          (getRole() === "Doctor" && (
+            <Button
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]} mr-3`}
+              onClick={() => Router.push("/admin/messages")}
+            >
+              Message Admin
+            </Button>
+          ))}
+
+        {getRole() === "Admin" ||
+          (getRole() === "Patient" && (
+            <Button
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]}`}
+              // onClick={() => Router.push("/physician/messages")}
+              onClick={() =>
+                Router.push({
+                  pathname: "/physician/messages",
+                  query: {
+                    chat: "patient",
+                    // doctorId: doctorId,
+                    // patientId: patientID,
+                  },
+                })
+              }
+            >
+              Message Physician
+            </Button>
+          ))}
+
+        {getRole() === "Admin" ||
+          (getRole() === "Doctor" && (
+            <Button
+              icon={<MessageOutlined />}
+              className={`${_classes["appointments-btn"]} mr-3`}
+              onClick={() =>
+                Router.push({
+                  pathname: "/physician/messages",
+                  query: {
+                    chat: "patient",
+                    // doctorId: doctorId,
+                    // patientId: patientID,
+                  },
+                })
+              }
+            >
+              Message Patient
+            </Button>
+          ))}
       </div>
       <Button
         type="primary"
