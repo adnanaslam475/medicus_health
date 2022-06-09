@@ -99,11 +99,11 @@ function PatientAppointmentHistoryTable(props: Props) {
       dataIndex: "",
       key: "view",
       className: "table-action-icon",
-      render: () => (
+      render: (data: any) => (
         <div className="text-primary">
           <EyeFilled
             onClick={() =>
-              Router.push("/physician/appointments/history/detail")
+              Router.push(`/physician/appointments/history/${data?.id}`)
             }
           />
         </div>

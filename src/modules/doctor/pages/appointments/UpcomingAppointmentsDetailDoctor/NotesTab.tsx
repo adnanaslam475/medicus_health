@@ -15,9 +15,9 @@ function NotesTab({}: Props) {
 
   const [{ data }] = useDoctorAppointmentDetailAppointmentInfoQuery({
     variables: {
-      id: Number(query.appointmentId),
+      id: Number(query.id),
     },
-    pause: !query.appointmentId,
+    pause: !query.id,
   });
 
   const [{ data: note }, createOrUpdateAppointmentNote] =
@@ -30,7 +30,7 @@ function NotesTab({}: Props) {
     console.log({ value });
     await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
-        appointmentId: Number(query.appointmentId),
+        appointmentId: Number(query.id),
         isPublished: false,
         subjective: value?.subjective,
         objective: value?.objective,
