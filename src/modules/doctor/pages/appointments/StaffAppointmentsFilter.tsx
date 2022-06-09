@@ -3,7 +3,7 @@ import { Input, Button, Select, DatePicker } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
-import { GetStaffFilter } from "generated/graphql";
+import { BookingDate, GetStaffFilter } from "generated/graphql";
 
 const { RangePicker } = DatePicker;
 
@@ -19,9 +19,12 @@ function StaffAppointmentsFilter({ onChange }: Props) {
     onChange({});
   }
   const [openDateRange, setOpenDateRange] = useState(false);
+  const [creationDate,setCreationDate]=useState<BookingDate>({})
+
 
   const applyDateRange = () => {
     setOpenDateRange(false);
+    onChangeFields("CreationDate",creationDate)
   };
 
   function onChangeFields(key: string, value: string | object) {
@@ -58,7 +61,7 @@ function StaffAppointmentsFilter({ onChange }: Props) {
         </div>
         <FilterRangePicker
           onChange={(dateString: string[]) =>
-            onChangeFields("CreationDate", {
+            setCreationDate({
               startDate: dateString[0],
               endDate: dateString[1],
             })

@@ -15,7 +15,7 @@ import {
 	DownOutlined,
 	SearchOutlined,
 } from "@ant-design/icons";
-import { useGetAllAppointmentServiceTypesQuery } from "../../../generated/graphql";
+import { BookingDate, useGetAllAppointmentServiceTypesQuery } from "../../../generated/graphql";
 import searchStyle from "./style.module.scss";
 import _classes from "./MyEarningsSearchFilters.module.scss";
 import { physicianMyEarningsFilterType } from "common/types/types";
@@ -37,6 +37,7 @@ function MyEarningsSearchFilters(props: Props) {
 
 	const [openDateRange, setOpenDateRange] = useState(false);
 	const [openDateRangeTwo, setOpenDateRangeTwo] = useState(false);
+	const [dateRange, setDateRange] = useState<BookingDate>({});
 
 	const [visible, setVisible] = useState(false);
 
@@ -51,9 +52,12 @@ function MyEarningsSearchFilters(props: Props) {
 
 	const applyDateRange = () => {
 		setOpenDateRange(false);
+		onChangeFields("DateRange",dateRange)
+
 	};
 	const applyDateRangeTwo = () => {
 		setOpenDateRangeTwo(false);
+		onChangeFields("DateRange",dateRange)
 	};
 
 	function onChangeFields(key: string, value: string | object) {
@@ -131,7 +135,7 @@ function MyEarningsSearchFilters(props: Props) {
 						<RangePicker
 							value={null}
 							onChange={(_, dateString: string[]) =>
-								onChangeFields("DateRange", {
+								setDateRange({
 									startDate: dateString[0],
 									endDate: dateString[1],
 								})
@@ -188,7 +192,7 @@ function MyEarningsSearchFilters(props: Props) {
 						<RangePicker
 							value={null}
 							onChange={(_, dateString: string[]) =>
-								onChangeFields("DateRange", {
+								setDateRange({
 									startDate: dateString[0],
 									endDate: dateString[1],
 								})
