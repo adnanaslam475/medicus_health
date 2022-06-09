@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { Avatar, Form, Button } from "antd";
 
-import { User,DoctorProfile } from "generated/graphql";
+import { User, DoctorProfile } from "generated/graphql";
 import { Schedule } from "common/types/types";
 import { parseJson } from "common/utils/helper";
 import ProfileForm from "./ProfileForm";
@@ -96,13 +96,6 @@ export const ViewProfile = React.forwardRef(function Profile({
               </h2>
               <span className="block">{email}</span>
               <div className="flex gap-2 pt-2">
-                <Button
-                  type="primary"
-                  className={`${_classes["published-button"]}`}
-                >
-                  {status ? "Published" : "Unpublished"}
-                </Button>
-
                 <Button
                   type="default"
                   className={`${_classes["edit-button"]}`}
