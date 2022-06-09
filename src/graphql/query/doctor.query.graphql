@@ -279,3 +279,26 @@ query getAppointmentNoteById($appointmentId: Int!) {
     }
   }
 }
+
+# GET ALL APPOINTMENT NOTES BY ID
+# =============
+
+query getAllAppointmentNotes {
+  appointmentNotes {
+    id
+    appointmentId
+    subjective
+    objective
+    assessment
+    plan
+    note
+    isPublished
+    createdAt
+    updatedAt
+    appointment {
+      id
+      patientId
+      doctorId
+    }
+  }
+}

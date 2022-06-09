@@ -58,6 +58,7 @@ function MakePaymentMore() {
           user_id: user?.id as number,
           exp_month: String(source?.card?.exp_month),
           exp_year: String(source?.card?.exp_year),
+          card_holder_name: String(source?.card?.name),
         },
       });
 

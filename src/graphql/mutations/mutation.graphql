@@ -64,6 +64,7 @@ mutation createCard($input: CreatePaymentInput!) {
     is_default
     exp_month
     exp_year
+    card_holder_name
   }
 }
 
