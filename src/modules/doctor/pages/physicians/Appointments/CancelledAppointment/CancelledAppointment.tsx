@@ -18,7 +18,7 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
   const [filterValues, setFilterValues] =
     React.useState<cancelAppointmentFilterType>({});
 
-  const [{ data }, executeUseCancelledAppointmentsQuery] =
+  const [{ data,fetching }, executeUseCancelledAppointmentsQuery] =
     useGetAllRequestedAppointmentsQuery({
       variables: {
         filter: {
@@ -47,13 +47,14 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
           <CanncelledAppointmentFilter onChange={onChangeFilters} />
         </div>
         <div className="w-full">
-          {appointments?.length !== 0 && appointments ? (
-            <Table dataSource={appointments as Appointment[]} />
+          {/* {appointments?.length !== 0 && appointments ? (
+            <Table dataSource={appointments as Appointment[]} loading={fetching}/>
           ) : (
             <div className="flex items-center justify-center w-full">
               <Empty />
             </div>
-          )}
+          )} */}
+          <Table dataSource={appointments as Appointment[]} loading={fetching}/>
         </div>
       </div>
     </AppLayout>

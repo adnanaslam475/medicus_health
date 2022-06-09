@@ -13,9 +13,10 @@ import { date } from "common/utils";
 
 type Props = {
   dataSource: Appointment[] | undefined;
+  
 };
 
-function CancelledAppointmentTable({ dataSource }: Props) {
+function CancelledAppointmentTable({ dataSource ,loading}: Props) {
   const columns = [
     {
       title: "ID",
@@ -102,6 +103,6 @@ function CancelledAppointmentTable({ dataSource }: Props) {
       ),
     },
   ];
-  return <Table columns={columns} dataSource={dataSource} />;
+  return <Table columns={columns} dataSource={dataSource}  />;
 }
 export default CancelledAppointmentTable;

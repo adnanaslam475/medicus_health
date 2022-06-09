@@ -7,7 +7,7 @@ import PhysicianHistoryFilter from "common/components/PhysicianHistoryFilter/Phy
 
 function PatientAppointmentHistory() {
   const [filterValues, setFilterValues] = useState({});
-  const [{ data }, executeUsePhysicianAppointmentsHistoryQuery] =
+  const [{ data,fetching }, executeUsePhysicianAppointmentsHistoryQuery] =
     usePhysicianAppointmentsHistoryQuery({
       variables: {
         filter: { ...filterValues, status: "Completed" },
@@ -39,7 +39,7 @@ function PatientAppointmentHistory() {
         {/* physician History table */}
         <PhysicianHistoryFilter onChange={onChange} />
         <div className="custom-table-ui">
-          <PhysicianAppointmentHistoryTable data={appointments as Appointment[]} />
+          <PhysicianAppointmentHistoryTable data={appointments as Appointment[]} loading={fetching}/>
         </div>
       </div>
     </AppLayout>

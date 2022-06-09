@@ -14,10 +14,11 @@ import Router from "next/router";
 
 type Props = {
   data?: Appointment[];
+  loading:boolean | undefined
 };
 
 const AppointmentHistoryTable = (props: Props) => {
-  const { data } = props || {};
+  const { data,loading } = props || {};
   const historyColumns = [
     {
       title: "ID",
@@ -131,7 +132,7 @@ const AppointmentHistoryTable = (props: Props) => {
     },
   ];
 
-  return <Table columns={historyColumns} dataSource={data} />;
+  return <Table columns={historyColumns} dataSource={data} loading={loading}  />;
 };
 
 export default AppointmentHistoryTable;

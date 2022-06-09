@@ -13,7 +13,7 @@ import OnlySearchFilters from "common/components/OnlySearchFilters/OnlySearchFil
 
 function PatientList() {
   const [searchValue, setSearchValue] = React.useState("");
-  const [{ data }, executeUsePhysiciansPatientsQuery] =
+  const [{ data,fetching }, executeUsePhysiciansPatientsQuery] =
     usePhysiciansPatientsQuery({
       variables: { searchField: searchValue },
     });
@@ -114,7 +114,7 @@ function PatientList() {
         <OnlySearchFilters onChange={onChange} />
         <div className="w-full">
           <div>
-            <Table columns={columns} dataSource={physiciansPatients} />
+            <Table columns={columns} dataSource={physiciansPatients} loading={fetching} />
           </div>
         </div>
       </div>

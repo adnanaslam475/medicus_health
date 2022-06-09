@@ -18,7 +18,7 @@ function RequestedAppointment() {
   const [status, setStatus] = useState<string>("Requested");
   const [searchPatient, setSearchPatient] = useState<string>();
 
-  const [{ data }] = useGetAllRequestedAppointmentsQuery({
+  const [{ data,fetching }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
         status: status,
@@ -57,7 +57,7 @@ function RequestedAppointment() {
             isFromPhysician
           />
         </div>
-        <RequestedList appointmentsData={appointments as Appointment[]} />
+        <RequestedList appointmentsData={appointments as Appointment[]}  loading={fetching}/>
       </div>
     </AppLayout>
   );

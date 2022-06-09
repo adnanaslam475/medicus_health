@@ -18,7 +18,7 @@ function CancelledAppointment() {
     useState<GetAppointmentInput>({});
 
   // GET ALL APPOINMENTS
-  const [{ data }, executeUseGetAllRequestedAppointmentsQuery] =
+  const [{ data,fetching }, executeUseGetAllRequestedAppointmentsQuery] =
     useGetAllRequestedAppointmentsQuery({
       variables: {
         filter: filterValues,
@@ -47,7 +47,7 @@ function CancelledAppointment() {
 
         <PatientAppointmentHistoryFilter onChange={onChangeFilters} />
         <div className="custom-table-ui">
-          <AppointmentHistoryTable data={appointments as Appointment[]} />
+          <AppointmentHistoryTable data={appointments as Appointment[]}  loading={fetching}/>
         </div>
       </div>
     </AppLayout>

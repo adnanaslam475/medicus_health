@@ -15,10 +15,11 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {
   appointmentsData?: Appointment[] | undefined;
+  loading:boolean |undefined;
 };
 
 const RequestedList = (props: Props) => {
-  const { appointmentsData } = props || {};
+  const { appointmentsData,loading } = props || {};
 
   const Columns = [
     {
@@ -154,6 +155,7 @@ const RequestedList = (props: Props) => {
       columns={Columns}
       dataSource={appointmentsData}
       onChange={onChange}
+      loading={loading}
     />
   );
 };

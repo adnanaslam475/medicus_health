@@ -38,7 +38,7 @@ const PhysicianMyEarningsList = (props: Props) => {
   } = getDoctorEarnings || {};
 
   //GET ALL TRANSACTIONS WITH FILTERS
-  const [{ data: transactionData }, executeUseGetTransectionFilterQuery] =
+  const [{ data: transactionData,fetching }, executeUseGetTransectionFilterQuery] =
     useGetTransectionFilterQuery({
       variables: {
         filter: filterValues,
@@ -287,7 +287,7 @@ const PhysicianMyEarningsList = (props: Props) => {
         </div>
 
         <MyEarningsSearchFilters onChange={onChangeFilters} />
-        <Table columns={Columns} dataSource={getTransectionFilter}  scroll={{ x: true }} />
+        <Table columns={Columns} dataSource={getTransectionFilter}  scroll={{ x: true }} loading={fetching} />
       </div>
     </AppLayout>
   );
