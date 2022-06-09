@@ -14,6 +14,7 @@ import {
   usePatientHealthHistoryQuery,
   useUpdatePatientHealthHistoryMutation,
 } from "generated/graphql";
+import ConsultationRates from "modules/common/components/ConsultaionRates/ConsultaionRates";
 
 function Accounts() {
   const form: any = useRef();
@@ -102,6 +103,16 @@ function Accounts() {
                   Update
                 </Button>
               </div>
+            </div>
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            tab={
+              <span className="font-Circular font-medium flex">Consultation Rates</span>
+            }
+            key="4"
+          >
+            <div className="w-2/6">
+<ConsultationRates/>
             </div>
           </Tabs.TabPane>
         </Tabs>
