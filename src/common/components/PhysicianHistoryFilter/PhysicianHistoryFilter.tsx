@@ -163,7 +163,7 @@ function PhysicianSearchFilters(props: Props) {
                     : "Booking Date"}
                 </div>
               ) : (
-                <div className="flex justify-between items-center w-full px-3">
+                <div className="flex justify-between items-center w-full">
                   <div className="flex justify-between items-center w-full px-3">
                     <div className="flex items-center font-thin">
                       <span className="mr-2 mt-1">
@@ -238,7 +238,7 @@ function PhysicianSearchFilters(props: Props) {
                     : "Due Date"}
                 </div>
               ) : (
-                <div className="flex justify-between items-center w-full px-3">
+                <div className="flex justify-between items-center w-full">
                   <div className="flex justify-between items-center w-full px-3">
                     <div className="flex items-center font-thin">
                       <span className="mr-2 mt-1">
