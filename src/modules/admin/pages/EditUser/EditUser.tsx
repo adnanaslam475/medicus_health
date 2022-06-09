@@ -26,11 +26,12 @@ function EditAdminUserDetails({}: Props) {
   const [{ fetching: loading }, setForgotPass] =
     useUserForgotPasswordMutation();
   const [{ fetching }, executeUpdateAdminMutation] = useUpdateAdminMutation();
-  const [{ data: adminData }] = useGetAdminUserByIdQuery({
+  const [{ data: adminData },executeUseGetAdminUserByIdQuery] = useGetAdminUserByIdQuery({
     variables: {
       id: Number(query.userId),
     },
     pause: !query.userId,
+    requestPolicy: "network-only" 
   });
   const { user: adminUser } = adminData || {};
   React.useEffect(() => {
@@ -66,7 +67,7 @@ function EditAdminUserDetails({}: Props) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
       if (response.data) {
-        formInstance.resetFields();
+        executeUseGetAdminUserByIdQuery({ requestPolicy: "network-only" })
       }
     } catch (error: any) {
       notification.error({
@@ -141,8 +142,8 @@ function EditAdminUserDetails({}: Props) {
                 onChange={changeAccountStatusHandler}
                 style={{ width: 200 }}
               >
-                <Option value={false}>Active</Option>
-                <Option value={true}>Disabled</Option>
+                <Option value={true}>Active</Option>
+                <Option value={false}>Disabled</Option>
               </Select>
             </Form.Item>
             <Button

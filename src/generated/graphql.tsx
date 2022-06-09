@@ -312,6 +312,7 @@ export type CreatePatientHealthHistoryInput = {
 
 export type CreatePaymentInput = {
   card_digits: Scalars['Float'];
+  card_holder_name: Scalars['String'];
   card_type: Scalars['String'];
   exp_month: Scalars['String'];
   exp_year: Scalars['String'];
@@ -524,6 +525,7 @@ export type GetPhysiciansPatientsInput = {
 
 export type GetStaffFilter = {
   CreationDate?: InputMaybe<AccountCreationDate>;
+  doctorId?: InputMaybe<Scalars['Int']>;
   searchString?: InputMaybe<Scalars['String']>;
   service?: InputMaybe<Scalars['String']>;
   staffId?: InputMaybe<Scalars['Int']>;
@@ -1340,6 +1342,7 @@ export type User = {
 export type UserCard = {
   __typename?: 'UserCard';
   card_digits: Scalars['Int'];
+  card_holder_name?: Maybe<Scalars['String']>;
   card_id: Scalars['String'];
   card_type: Scalars['String'];
   exp_month: Scalars['String'];
@@ -1724,7 +1727,7 @@ export type AdminUsersQueryVariables = Exact<{
 }>;
 
 
-export type AdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null }> };
+export type AdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture: string } | null }> };
 
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2742,6 +2745,9 @@ export const AdminUsersDocument = gql`
     email
     password
     contact_number
+    adminProfilePicture {
+      profile_picture
+    }
   }
 }
     `;
@@ -8477,6 +8483,14 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "card_holder_name",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },

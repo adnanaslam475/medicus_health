@@ -12,16 +12,18 @@ import {
   User,
 } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
+import {useRouter} from "next/router";
 
 function StaffListing() {
-  const [form] = Form.useForm();
-  const [filterValues, setFilterValues] = React.useState<GetStaffFilter>({});
-  const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
-  const [{ fetching }, createStaff] = useCreateStaffMutation();
-
   const { user } = getUserData();
   const id = user?.id;
-
+  const { query } = useRouter();
+  const doctorId = user?.role === "Admin" && Number(query?.id)
+  const [form] = Form.useForm();
+  const [filterValues, setFilterValues] = React.useState<GetStaffFilter>(doctorId ? {doctorId:doctorId} : {});
+  const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
+  const [{ fetching }, createStaff] = useCreateStaffMutation();
+  
   const [{ data ,fetching:loading}, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
     variables: {
       filter: filterValues,
@@ -67,6 +69,7 @@ function StaffListing() {
     setFilterValues({
       ...values,
       status: values?.status === "true" ? true : false,
+      doctorId:doctorId
     });
 
     executeUseStaffQuery({
