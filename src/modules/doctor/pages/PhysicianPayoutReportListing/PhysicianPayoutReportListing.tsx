@@ -71,16 +71,16 @@ function PhysicianPayoutReportListing() {
 			<Collapse onChange={onChange} className={`${_classes["payout_report"]}`}>
 				<Panel header="june $448" key="1">
 				
-							<Table columns={columns} dataSource={Ddata} />
+							<Table columns={columns} dataSource={Ddata} loading={false}/>
 					
 			
 		
 				</Panel>
 				<Panel header="May $231" key="3">
-					<Table columns={columns} dataSource={Ddata} />
+					<Table columns={columns} dataSource={Ddata} loading={false}/>
 				</Panel>
 				<Panel header="April $324" key="4">
-					<Table columns={columns} dataSource={Ddata} />
+					<Table columns={columns} dataSource={Ddata}  loading={false}/>
 				</Panel>
 			</Collapse>
 		</AppLayout>

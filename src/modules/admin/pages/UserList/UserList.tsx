@@ -14,7 +14,7 @@ const UserList = (props: Props) => {
   const [filterValues, setFilterValues] = useState<adminUserFilterType>({});
 
   //GET ALL ADMIN USERS LIST WITH FILTERS
-  const [{ data }, executeUseGetAdminUsersQuery] = useGetAdminUsersQuery({
+  const [{ data ,fetching}, executeUseGetAdminUsersQuery] = useGetAdminUsersQuery({
     variables: {
       filter: filterValues,
     },
@@ -137,7 +137,7 @@ const UserList = (props: Props) => {
         </div>
 
         <AdminUserSearchFilters onChange={onChangeFilters} />
-        <Table columns={Columns} dataSource={adminUsers} />
+        <Table columns={Columns} dataSource={adminUsers} loading={fetching} />
       </div>
     </AppLayout>
   );

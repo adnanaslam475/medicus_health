@@ -82,7 +82,7 @@ function PayoutReportListing() {
 					<Table columns={columns} dataSource={Ddata} />
 				</Panel>
 				<Panel header="April $324" key="4">
-					<Table columns={columns} dataSource={Ddata} />
+					<Table columns={columns} dataSource={Ddata} loading={true} />
 				</Panel>
 			</Collapse>
 		</AppLayout>
