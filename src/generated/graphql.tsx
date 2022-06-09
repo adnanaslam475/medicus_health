@@ -1727,7 +1727,7 @@ export type AdminUsersQueryVariables = Exact<{
 }>;
 
 
-export type AdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null }> };
+export type AdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture: string } | null }> };
 
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2758,6 +2758,9 @@ export const AdminUsersDocument = gql`
     email
     password
     contact_number
+    adminProfilePicture {
+      profile_picture
+    }
   }
 }
     `;
