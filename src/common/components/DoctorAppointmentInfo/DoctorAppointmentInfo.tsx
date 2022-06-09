@@ -80,8 +80,6 @@ function DoctorAppointmentInfo({ data }: Props) {
   const { user } = getUserData();
   const { id: doctorId } = user || {};
 
-  console.log(data, "sadasdsadsad===>");
-
   const [{ fetching: cancelFetching }, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
 
@@ -215,7 +213,13 @@ function DoctorAppointmentInfoFooter({
   appointmentId: number | undefined;
   data?: Appointment;
 }) {
+  // GET USER ID
+  const { user } = getUserData();
+  const doctorId = user?.id;
   const { appointmentTimeSlots } = data || {};
+
+  const { patient } = data || {};
+  const { id: patientId } = patient || {};
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
@@ -234,32 +238,40 @@ function DoctorAppointmentInfoFooter({
             <Button
               icon={<MessageOutlined />}
               className={`${_classes["appointments-btn"]} mr-3`}
-              onClick={() => Router.push("/admin/messages")}
+              onClick={() =>
+                Router.push({
+                  pathname: "/physician/messages",
+                  query: {
+                    chat: "admin",
+                    doctorId: doctorId,
+                    patientId: patientId,
+                  },
+                })
+              }
             >
               Message Admin
             </Button>
           ))}
 
-        {getRole() === "Admin" ||
+        {/* {getRole() === "Admin" ||
           (getRole() === "Patient" && (
             <Button
               icon={<MessageOutlined />}
               className={`${_classes["appointments-btn"]}`}
-              // onClick={() => Router.push("/physician/messages")}
               onClick={() =>
                 Router.push({
                   pathname: "/physician/messages",
                   query: {
                     chat: "patient",
-                    // doctorId: doctorId,
-                    // patientId: patientID,
+                    doctorId: doctorId,
+                    patientId: patientId,
                   },
                 })
               }
             >
-              Message Physician
+              Message Patient
             </Button>
-          ))}
+          ))} */}
 
         {getRole() === "Admin" ||
           (getRole() === "Doctor" && (
@@ -271,8 +283,8 @@ function DoctorAppointmentInfoFooter({
                   pathname: "/physician/messages",
                   query: {
                     chat: "patient",
-                    // doctorId: doctorId,
-                    // patientId: patientID,
+                    doctorId: doctorId,
+                    patientId: patientId,
                   },
                 })
               }
