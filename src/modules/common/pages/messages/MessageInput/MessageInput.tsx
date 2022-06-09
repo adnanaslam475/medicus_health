@@ -17,6 +17,7 @@ function MessageInput() {
 
   function onSendMessage() {
     onMessage?.(messageText);
+    setMessageText("");
   }
   const isShowInput = !!messageInfo.currentChannel?.channelName;
 
@@ -27,6 +28,8 @@ function MessageInput() {
           <Input
             placeholder="Type a new message"
             onChange={({ target }) => onMessageTextChange(target.value)}
+            onPressEnter={onSendMessage}
+            value={messageText}
           />
           <span className="absolute top-3 right-14">
             <Image alt="" width={25} height={25} src={attachIcon} />

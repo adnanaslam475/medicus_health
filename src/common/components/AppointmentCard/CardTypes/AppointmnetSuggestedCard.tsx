@@ -1,4 +1,4 @@
-import { Button, Card } from "antd";
+import { Button, Card, Space } from "antd";
 import React from "react";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
 import { date } from "../../../utils";
@@ -29,8 +29,10 @@ function AppointmnetSuggestedCard({
     <Card className={`${_classes["appointment-card"]}`}>
       <h3 className="mb-0">Dr. {doctor}</h3>
       <span className="text-gray text-base block">{serviceType}</span>
+      <Space direction="vertical" size="middle" />
       <span className="text-sm">Date</span>
       <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
+      <Space direction="vertical" size="middle" />
       <span className="text-sm">Time</span>
       {appointmentTimeSlots?.length === 0 ? (
         <div className="text-cyan font-semibold">{" - "}</div>
@@ -41,8 +43,9 @@ function AppointmnetSuggestedCard({
           )} - ${date.formathhmma(item.endTime)}`}</div>
         ))
       )}
-
+      <Space direction="vertical" size="middle" />
       <span className="text-base text-primary font-bold ">{status}</span>
+      <Space direction="vertical" size="middle" />
       <div className="flex">
         <Button
           type={"primary"}
