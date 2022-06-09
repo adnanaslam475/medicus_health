@@ -11,9 +11,10 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {
   dataSource: User[] | undefined;
+  loading:boolean |undefined;
 };
 
-function StaffTable({ dataSource }: Props) {
+function StaffTable({ dataSource,loading }: Props) {
   const { isAdmin, isDoctor } = useRoleGuard();
   const columns: ColumnsType<User> = [
     {
@@ -112,7 +113,7 @@ function StaffTable({ dataSource }: Props) {
     }
   }
 
-  return <Table columns={columns} dataSource={dataSource} />;
+  return <Table columns={columns} dataSource={dataSource} loading={loading} />;
 }
 
 export default StaffTable;

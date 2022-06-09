@@ -158,7 +158,7 @@ function AdminAppointmentsListing({}: Props) {
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
   );
-  const [{ data }, executeUsePhysicianAppointmentsQuery] =
+  const [{ data ,fetching}, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsHistoryQuery({
       variables: {
         filter: { ...filterValues },
@@ -247,6 +247,7 @@ function AdminAppointmentsListing({}: Props) {
                 columns={appointmentColumns}
                 dataSource={appointments}
                 onChange={onChange}
+                loading={fetching}
               />
             </div>
           </div>

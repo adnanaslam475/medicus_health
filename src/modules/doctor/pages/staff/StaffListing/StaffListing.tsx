@@ -22,7 +22,7 @@ function StaffListing() {
   const { user } = getUserData();
   const id = user?.id;
 
-  const [{ data }, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
+  const [{ data ,fetching:loading}, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
     variables: {
       filter: filterValues,
     },
@@ -97,7 +97,7 @@ function StaffListing() {
         </div>
         <div className="w-full">
           {staff?.length ? (
-            <StaffTable dataSource={staff as User[]} />
+            <StaffTable dataSource={staff as User[]} loading={loading} />
           ) : (
             <div className="flex items-center justify-center w-full">
               <Empty />

@@ -225,7 +225,7 @@ function TransactionReportList() {
 				<TransactionReportListFilter onChange={onChangeFilters} />
 				<div className="w-full">
 					<div className="">
-						<Table columns={columns} dataSource={Ddata} />
+						<Table columns={columns} dataSource={Ddata} loading={false}/>  #do loading to true when api is being implemented
 					</div>
 				</div>
 			</div>

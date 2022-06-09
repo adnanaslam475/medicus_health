@@ -13,7 +13,7 @@ import { FLAG_BY_LANGUAGE } from "utils/helper";
 function AdminPhysicianList() {
   const [filterValues, setFilterValues] = useState({});
 
-  const [{ data }, executeUseGetPhysiciansQuery] = useGetPhysiciansQuery({
+  const [{ data ,fetching}, executeUseGetPhysiciansQuery] = useGetPhysiciansQuery({
     variables: {
       filter: filterValues,
     },
@@ -122,7 +122,7 @@ function AdminPhysicianList() {
         <AdminPhysicianSearchFilters onChange={onChangeFilters} />
         <div className="w-full">
           <div className="">
-            <Table columns={columns} dataSource={getPhysicians} />
+            <Table columns={columns} dataSource={getPhysicians} loading={fetching}/>
           </div>
         </div>
       </div>

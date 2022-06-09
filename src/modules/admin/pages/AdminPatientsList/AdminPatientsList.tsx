@@ -20,7 +20,7 @@ import Link from "next/link";
 function AdminPatientsList() {
   const [filterValues, setFilterValues] = useState<PatientListFilterType>({});
 
-  const [{ data }, executeuseGetPatientsQuery] = useGetPatientsQuery({
+  const [{ data,fetching }, executeuseGetPatientsQuery] = useGetPatientsQuery({
     variables: {
       filter: filterValues,
     },
@@ -135,7 +135,7 @@ function AdminPatientsList() {
         <AdminPatientsListFilter onChange={onChangeFilters} />
         <div className="w-full">
           <div className="">
-            <Table columns={columns} dataSource={getPatients as User[]} />
+            <Table columns={columns} dataSource={getPatients as User[]} loading={fetching}/>
           </div>
         </div>
       </div>
