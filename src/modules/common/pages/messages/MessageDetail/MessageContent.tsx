@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import ChatBar from "./ChatBar";
 import MessageInput from "../MessageInput/MessageInput";
 import _classes from "./Message-detail.module.scss";
@@ -7,17 +7,19 @@ import { useMessageContext } from "./MessageContext";
 type Props = {};
 
 function MessageContent({}: Props) {
-  // useEffect(() => {
-  //   window.scroll({
-  //     top: document.body.offsetHeight,
-  //     left: 0,
-  //     behavior: "smooth",
-  //   });
-  // }, []);
+  const messagesEndRef: any = useRef<null | HTMLElement>(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView();
+  };
+
   const { messageInfo } = useMessageContext();
   const { messagesWithChannel, currentChannel } = messageInfo || {};
   const currentChannelMessages =
     messagesWithChannel?.[currentChannel?.channelName || ""];
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [currentChannelMessages]);
 
   return (
     <div className="border border-gray-4 w-full">
@@ -25,6 +27,7 @@ function MessageContent({}: Props) {
         {currentChannelMessages?.map((message: any) => {
           return <ChatBar data={message} />;
         })}
+        <div ref={messagesEndRef} />
       </div>
       <MessageInput />
     </div>

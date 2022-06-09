@@ -8,8 +8,13 @@ import HealthQuestionnaireFormTab from "./HealthQuestionnaireFormTab";
 import NotesWithTextTab from "./NotesWithTextTab";
 
 import PhysicianAttachmentTab from "./PhysicianAttachmentTab";
-import { Appointment, AppointmentNote, usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
+import {
+  Appointment,
+  AppointmentNote,
+  usePhysicianAppointmentsHistoryQuery,
+} from "generated/graphql";
 import { useRouter } from "next/router";
+import NotesTab from "../appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
 
 function PhysicianAppointmentHistoryDetail() {
   const { query } = useRouter();
@@ -46,11 +51,22 @@ function PhysicianAppointmentHistoryDetail() {
             <Tabs.TabPane tab="Attachment" key="5">
               <PhysicianAttachmentTab />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Notes" key="6">
+            {/* <Tabs.TabPane tab="Notes" key="6">
               <NotesWithTextTab
                 appointment={appointment as Appointment}
                 doctorNotes={doctorNotes as [[string,string]]}
               />
+            </Tabs.TabPane> */}
+            <Tabs.TabPane
+              tab={
+                <span>
+                  {/* <CalendarOutlined /> */}
+                  Notes
+                </span>
+              }
+              key="6"
+            >
+              <NotesTab />
             </Tabs.TabPane>
           </Tabs>
         </div>

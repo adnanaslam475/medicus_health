@@ -60,7 +60,7 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       id
       first_name
       last_name
-      patientProfile{
+      patientProfile {
         profileImage
       }
     }
@@ -181,10 +181,14 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
       last_name
     }
     doctorNote {
+      id
+      appointmentId
       subjective
       objective
       assessment
       plan
+      isPublished
+      note
     }
     status
     transaction {
