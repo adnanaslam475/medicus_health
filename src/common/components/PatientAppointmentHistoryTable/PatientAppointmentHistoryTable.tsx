@@ -7,56 +7,90 @@ import {
   AppointmentTimeSlots,
   Transaction,
   User,
+  usePhysicianAppointmentsHistoryQuery,
+  GetAppointmentInput,
 } from "generated/graphql";
 import Router from "next/router";
 
 type Props = {
-  data?: object;
+  data?: any;
 };
 
 function PatientAppointmentHistoryTable(props: Props) {
   const { data } = props || {};
+  // const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+  //   {}
+  // );
+  // const [{ data, fetching }, executeUsePhysicianAppointmentsQuery] =
+  //   usePhysicianAppointmentsHistoryQuery({
+  //     variables: {
+  //       filter: { ...filterValues },
+  //     },
+  //   });
+
+  // const { appointments } = data || {};
+  // const onChangeFilters = (values: GetAppointmentInput) => {
+  //   setFilterValues(values);
+  //   executeUsePhysicianAppointmentsQuery({
+  //     filter: filterValues,
+  //     requestPolicy: "network-only",
+  //   });
+  // };
+
+  console.log(data, "historyappointmentsData");
 
   const historyColumns = [
     {
       title: "ID",
-      dataIndex: "ID",
-      key: "ID",
-      sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
-        multiple: 3,
-      },
+      dataIndex: "id",
+      key: "id",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.id - b.id,
+      //   multiple: 3,
+      // },
     },
     {
       title: "Doctor",
       dataIndex: "doctor",
       key: "doctor",
-    },
-    {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor - b.doctor,
-        multiple: 3,
+      render: (value: any) => {
+        return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
       },
     },
     {
+      title: "Type",
+      dataIndex: "serviceType",
+      key: "type",
+      render: (value: any) => {
+        return <div>{`${value?.service_name}`}</div>;
+      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.doctor - b.doctor,
+      //   multiple: 3,
+      // },
+    },
+    {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
+      dataIndex: "requestedDate",
+      key: "requestedDate",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.service - b.service,
+      //   multiple: 3,
+      // },
+      render: (value: any) => {
+        return <div>{`${value?.requestedDate}`}</div>;
       },
     },
     {
       title: "Time",
-      dataIndex: "time",
-      key: "time",
-      sorter: {
-        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-        multiple: 3,
+      dataIndex: "requestedDate",
+      key: "requestedDate",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
+      //   multiple: 3,
+      // },
+      render: (value: any) => {
+        return <div>{`${value?.requestedDate}`}</div>;
       },
     },
 
@@ -65,11 +99,11 @@ function PatientAppointmentHistoryTable(props: Props) {
       dataIndex: "",
       key: "view",
       className: "table-action-icon",
-      render: () => (
+      render: (data: any) => (
         <div className="text-primary">
           <EyeFilled
             onClick={() =>
-              Router.push("/physician/appointments/history/detail")
+              Router.push(`/physician/appointments/history/${data?.id}`)
             }
           />
         </div>
@@ -123,7 +157,7 @@ function PatientAppointmentHistoryTable(props: Props) {
     console.log("params", pagination, filters, sorter, extra);
   }
   return (
-    <Table columns={historyColumns} dataSource={Ddata} onChange={onChange} />
+    <Table columns={historyColumns} dataSource={data} onChange={onChange} />
   );
 }
 

@@ -73,9 +73,12 @@ function AccountTabs() {
   return (
     <div>
       <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
-        <Tabs type="card"   defaultActiveKey="1"
-            activeKey={activeTab || "1"}
-            onChange={onChangeTabHandler}>
+        <Tabs
+          type="card"
+          defaultActiveKey="1"
+          activeKey={activeTab || "1"}
+          onChange={onChangeTabHandler}
+        >
           <Tabs.TabPane
             className="w-full"
             tab={

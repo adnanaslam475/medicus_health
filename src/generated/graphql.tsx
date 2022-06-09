@@ -1509,7 +1509,7 @@ export type CreateCardMutationVariables = Exact<{
 }>;
 
 
-export type CreateCardMutation = { __typename?: 'Mutation', createCard: { __typename?: 'UserCard', id: number, user_id: number, card_id: string, card_type: string, card_digits: number, is_default: boolean, exp_month: string, exp_year: string } };
+export type CreateCardMutation = { __typename?: 'Mutation', createCard: { __typename?: 'UserCard', id: number, user_id: number, card_id: string, card_type: string, card_digits: number, is_default: boolean, exp_month: string, exp_year: string, card_holder_name?: string | null } };
 
 export type RemoveCardMutationVariables = Exact<{
   input: Scalars['Int'];
@@ -1803,6 +1803,18 @@ export type GetPhysiciansQueryVariables = Exact<{
 
 
 export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, doctorProfile?: { __typename?: 'DoctorProfile', language?: any | null } | null }> };
+
+export type GetAppointmentNoteByIdQueryVariables = Exact<{
+  appointmentId: Scalars['Int'];
+}>;
+
+
+export type GetAppointmentNoteByIdQuery = { __typename?: 'Query', appointmentNote: { __typename?: 'AppointmentNote', id: number, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, createdAt: any, updatedAt: any, appointment?: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number } | null } };
+
+export type GetAllAppointmentNotesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllAppointmentNotesQuery = { __typename?: 'Query', appointmentNotes: Array<{ __typename?: 'AppointmentNote', id: number, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, createdAt: any, updatedAt: any, appointment?: { __typename?: 'Appointment', id: number, patientId: number, doctorId: number } | null }> };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2212,6 +2224,7 @@ export const CreateCardDocument = gql`
     is_default
     exp_month
     exp_year
+    card_holder_name
   }
 }
     `;
@@ -3121,6 +3134,56 @@ export const GetPhysiciansDocument = gql`
 
 export function useGetPhysiciansQuery(options: Omit<Urql.UseQueryArgs<GetPhysiciansQueryVariables>, 'query'>) {
   return Urql.useQuery<GetPhysiciansQuery>({ query: GetPhysiciansDocument, ...options });
+};
+export const GetAppointmentNoteByIdDocument = gql`
+    query getAppointmentNoteById($appointmentId: Int!) {
+  appointmentNote(appointmentId: $appointmentId) {
+    id
+    appointmentId
+    subjective
+    objective
+    assessment
+    plan
+    note
+    isPublished
+    createdAt
+    updatedAt
+    appointment {
+      id
+      patientId
+      doctorId
+    }
+  }
+}
+    `;
+
+export function useGetAppointmentNoteByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentNoteByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAppointmentNoteByIdQuery>({ query: GetAppointmentNoteByIdDocument, ...options });
+};
+export const GetAllAppointmentNotesDocument = gql`
+    query getAllAppointmentNotes {
+  appointmentNotes {
+    id
+    appointmentId
+    subjective
+    objective
+    assessment
+    plan
+    note
+    isPublished
+    createdAt
+    updatedAt
+    appointment {
+      id
+      patientId
+      doctorId
+    }
+  }
+}
+    `;
+
+export function useGetAllAppointmentNotesQuery(options?: Omit<Urql.UseQueryArgs<GetAllAppointmentNotesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAllAppointmentNotesQuery>({ query: GetAllAppointmentNotesDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {
