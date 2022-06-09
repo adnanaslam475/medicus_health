@@ -100,5 +100,8 @@ query adminUsers($filter: GetAdminUsersFilterInput!) {
     email
     password
     contact_number
+    adminProfilePicture{
+      profile_picture
+    }
   }
 }

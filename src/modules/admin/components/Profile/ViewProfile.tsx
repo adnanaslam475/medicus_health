@@ -21,10 +21,11 @@ export const ViewProfile = React.forwardRef(function Profile({
 }: props) {
   const [formInstance] = Form.useForm();
 
-  const { first_name, last_name, email, contact_number, doctorProfile } =
+  const { first_name, last_name, email, contact_number, doctorProfile,adminProfilePicture } =
     (doctorData && doctorData[0]) || {};
 
   const { profile_image: userProfileImage } = doctorProfile || {};
+  const { profile_picture } = adminProfilePicture || {};
 
   useEffect(() => {
     if (doctorData) {
@@ -56,7 +57,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                   borderWidth: 2,
                   lineHeight: "40px",
                 }}
-                src={userProfileImage}
+                src={userProfileImage || profile_picture}
               />
             </div>
 

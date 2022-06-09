@@ -28,11 +28,13 @@ export const Profile = React.forwardRef(function Profile({
   const { user } = getUserData();
   const { id } = user || {};
 
-  const { first_name, last_name, password, email, contact_number, status } =
+  const { first_name, last_name, password, email, contact_number, status,adminProfilePicture } =
     (doctorData && doctorData[0]) || {};
+    const { profile_image: userProfileImage } = doctorData || {};
+    const { profile_picture:profilePicture } = adminProfilePicture || {};
 
-  const { profile_image: userProfileImage } = doctorData || {};
 
+  console.log("doctorDatadoctorDatadoctorData",profilePicture );
   const mediaUploader = useMediaUploader();
 
   const [result, executeUseUpdateAdminUserMutation] =
@@ -73,7 +75,7 @@ export const Profile = React.forwardRef(function Profile({
           email: values?.email,
           contact_number: values?.contact_number,
           password: values?.password,
-          // profileImage: image || userProfileImage,
+          profile_picture: image || userProfileImage || profilePicture,
         },
         id: Number(id),
       });
@@ -131,7 +133,7 @@ export const Profile = React.forwardRef(function Profile({
                 <Avatar
                   size={130}
                   className="border-transparent border-2 leading-10"
-                  src={image ? image : userProfileImage}
+                  src={image || userProfileImage || profilePicture}
                 />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
                   <Image
