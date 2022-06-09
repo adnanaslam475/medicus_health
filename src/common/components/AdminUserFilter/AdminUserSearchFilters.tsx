@@ -15,7 +15,7 @@ import {
   DownOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { useGetAllAppointmentServiceTypesQuery } from "../../../generated/graphql";
+import { BookingDate, useGetAllAppointmentServiceTypesQuery } from "../../../generated/graphql";
 import searchStyle from "./style.module.scss";
 import _classes from "./AdminUserSearchFilters.module.scss";
 import { adminUserFilterType } from "common/types/types";
@@ -33,6 +33,8 @@ function AdminUserSearchFilters(props: Props) {
   const { onChange } = props;
 
   const [openDateRange, setOpenDateRange] = useState(false);
+  const [creationDate,setCreationDate]=useState<BookingDate>({})
+
 
   const [visible, setVisible] = useState(false);
 
@@ -46,6 +48,7 @@ function AdminUserSearchFilters(props: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
+    onChangeFields("creationDate",creationDate)
   };
 
   function onChangeFields(key: string, value: string | object) {
@@ -114,7 +117,7 @@ function AdminUserSearchFilters(props: Props) {
               <RangePicker
                 value={null}
                 onChange={(_, dateString: string[]) =>
-                  onChangeFields("creationDate", {
+                  setCreationDate({
                     startDate: dateString[0],
                     endDate: dateString[1],
                   })

@@ -6,6 +6,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import {
+  BookingDate,
   useDoctorProfilesQuery,
   useGetAllAppointmentServiceTypesQuery,
 } from "../../../generated/graphql";
@@ -31,6 +32,7 @@ type Props = {
   setEndDate: Date | null | any;
   isFromPhysician?: boolean | null | any;
   setSearchPatient?: string | any;
+  setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>> 
 };
 
 function SearchFilters(props: Props) {
@@ -43,6 +45,7 @@ function SearchFilters(props: Props) {
     setSearchPatient,
     isFromPhysician,
     setAppointmentId,
+    setBookingDate
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -57,6 +60,7 @@ function SearchFilters(props: Props) {
   const [localAppointment_Id, setLocalAppointment_Id] = useState<
     number | null | undefined
   >();
+  const [dateRangeState,setDateRangeState] = useState<BookingDate>({})
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
@@ -90,6 +94,10 @@ function SearchFilters(props: Props) {
     setStartDate(dateString[0]);
     setEndDate(dateString[1]);
     selectDateRange(date);
+    setDateRangeState({
+      startDate: dateString[0],
+      endDate: dateString[1],
+    });
   }
 
   const onClear = () => {
@@ -106,10 +114,11 @@ function SearchFilters(props: Props) {
     setSearchPatient && setSearchPatient(null);
     setAppointmentId(null);
     setLocalAppointment_Id(null);
+    setBookingDate?.({})
   };
-
   const applyDateRange = () => {
     setOpenDateRange(false);
+    setBookingDate?.(dateRangeState)
   };
 
   return (

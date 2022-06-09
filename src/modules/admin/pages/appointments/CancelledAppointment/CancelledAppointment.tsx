@@ -6,6 +6,7 @@ import SearchFilters from "../../../../../common/components/SearchFilters/Search
 import {
   Appointment,
   AppointmentTimeSlots,
+  BookingDate,
   DoctorProfile,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
@@ -14,6 +15,7 @@ function CancelledAppointment() {
   const [dueDates, setDueDates] = useState<Date | null>();
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
+  const [bookingDate, setBookingDate] = useState<BookingDate>({});
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentId, setAppointmentId] = useState<number>();
@@ -28,6 +30,7 @@ function CancelledAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentId,
         serviceId: serviceIds,
+        bookingDate:bookingDate
       },
     },
   });
@@ -64,6 +67,7 @@ function CancelledAppointment() {
             setDoctorId={setDoctorId}
             setAppointmentId={setAppointmentId}
             setServiceIds={setServiceIds}
+            setBookingDate={setBookingDate}
           />
         </div>
 

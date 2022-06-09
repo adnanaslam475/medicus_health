@@ -6,7 +6,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 
-import { GetAppointmentInput } from "generated/graphql";
+import { BookingDate, GetAppointmentInput } from "generated/graphql";
 import _classes from "./PatientAppointmentHistoryFilter.module.scss";
 import { SelectServiceTypeFilter } from "../SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { SelectPhysicianTypeFilter } from "../SelectPhysicianTypeFilter/SelectPhysicianTypeFilter";
@@ -21,6 +21,10 @@ type Props = {
 
 function PatientAppointmentHistoryFilter(props: Props) {
   const [filterState, setFilterState] = useState<GetAppointmentInput>({});
+  const [bookingDate,setBookingDate]=useState<BookingDate>({})
+  const [dueDate,setDueDate]=useState<BookingDate>({})
+
+
   const [form] = Form.useForm();
   const { onChange } = props;
 
@@ -35,7 +39,14 @@ function PatientAppointmentHistoryFilter(props: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
+    onChangeFields("bookingDate",bookingDate)
   };
+
+  const applyDueDate = () => {
+    setOpenDateRange1(false)
+    onChangeFields("dueDate",dueDate)
+  };
+
 
   function onChangeFields(key: string, value: string | number | object) {
     const filters = {
@@ -108,7 +119,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
               <RangePicker
                 value={null}
                 onChange={(_, dateString: string[]) =>
-                  onChangeFields("bookingDate", {
+                  setBookingDate({
                     startDate: dateString[0],
                     endDate: dateString[1],
                   })
@@ -180,7 +191,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
               <RangePicker
                 value={null}
                 onChange={(_, dateString: string[]) =>
-                  onChangeFields("dueDate", {
+                  setDueDate({
                     startDate: dateString[0],
                     endDate: dateString[1],
                   })
@@ -200,9 +211,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                     <Button
                       className=" text-white"
                       type="primary"
-                      onClick={() => {
-                        setOpenDateRange1(false);
-                      }}
+                      onClick={applyDueDate}
                     >
                       Apply
                     </Button>

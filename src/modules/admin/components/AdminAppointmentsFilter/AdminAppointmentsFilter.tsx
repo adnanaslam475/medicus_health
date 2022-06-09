@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input, Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { BOOKING, CONFIRMED, SCHEDULED } from "common/constants/status";
 import {
+  BookingDate,
   GetAdminUsersFilterInput,
   GetAppointmentInput,
 } from "generated/graphql";
@@ -19,6 +20,9 @@ type Props = {
 function AdminAppointmentFilter({ onChange, filterValues }: Props) {
   const [openDateRange, setOpenDateRange] = React.useState<string>("");
   const [search, setSearch] = React.useState<string>("");
+  const [dueDate, setDueDate] = useState<BookingDate>({});
+  const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [creationDate, setCreationDate] = useState<BookingDate>({});
 
   // useDebounce(
   //   (e: any) => {
@@ -33,8 +37,23 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
     onChange({});
   }
 
-  const applyDateRange = () => {
-    setOpenDateRange("");
+  const applyDateRange = (status: string) => {
+    switch (status) {
+      case "creationDate":
+        setOpenDateRange("");
+        onChangeFields("bookingDate", creationDate);
+        break;
+      case "bookingDate":
+        setOpenDateRange("");
+        onChangeFields("bookingDate", bookingDate);
+        break;
+      case "dueDate":
+        setOpenDateRange("");
+        onChangeFields("dueDate", dueDate);
+
+      default:
+        break;
+    }
   };
 
   function onChangeFields(key: string, value: string | number | object) {
@@ -89,7 +108,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
         <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
-              onChangeFields("bookingDate", {
+              setBookingDate({
                 startDate: dateString[0],
                 endDate: dateString[1],
               })
@@ -97,7 +116,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             open={openDateRange === BOOKING}
             onOpen={() => setOpenDateRange(BOOKING)}
             onCancel={() => setOpenDateRange("")}
-            onApply={applyDateRange}
+            onApply={() => applyDateRange("bookingDate")}
             title={
               filterValues.bookingDate?.startDate && (
                 <div>
@@ -113,7 +132,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
         <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
-              onChangeFields("dueDate", {
+              setDueDate({
                 startDate: dateString[0],
                 endDate: dateString[1],
               })
@@ -121,7 +140,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             open={openDateRange === CONFIRMED}
             onOpen={() => setOpenDateRange(CONFIRMED)}
             onCancel={() => setOpenDateRange("")}
-            onApply={applyDateRange}
+            onApply={() => applyDateRange("dueDate")}
             title={
               filterValues?.dueDate?.startDate ? (
                 <div>
@@ -139,7 +158,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
         <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
           <FilterRangePicker // not working yet
             onChange={(dateString: string[]) =>
-              onChangeFields("", {
+              setCreationDate({
                 startDate: dateString[0],
                 endDate: dateString[1],
               })
@@ -147,7 +166,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             open={openDateRange === SCHEDULED}
             onOpen={() => setOpenDateRange(SCHEDULED)}
             onCancel={() => setOpenDateRange("")}
-            onApply={applyDateRange}
+            onApply={() => applyDateRange("creationDate")}
             title={
               filterValues.bookingDate?.startDate && (
                 <div>

@@ -5,6 +5,7 @@ import { cancelledAppointmentFilterType } from "common/types/types";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
+import { BookingDate } from "generated/graphql";
 
 type Props = {
   onChange: (value: cancelledAppointmentFilterType) => void;
@@ -13,6 +14,8 @@ type Props = {
 function CanncelledAppointmentFilter({ onChange }: Props) {
   const [filterState, setFilterState] =
     useState<cancelledAppointmentFilterType>({});
+    const [dueDate,setDueDate]=useState<BookingDate>({})
+
 
   function clear() {
     setFilterState({});
@@ -22,6 +25,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
+    onChangeFields("dueDate",dueDate)
   };
 
   function onChangeFields(key: string, value: string | number | object) {
@@ -59,7 +63,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
         </div>
         <FilterRangePicker
           onChange={(dateString: string[]) =>
-            onChangeFields("dueDate", {
+            setDueDate({
               startDate: dateString[0],
               endDate: dateString[1],
             })

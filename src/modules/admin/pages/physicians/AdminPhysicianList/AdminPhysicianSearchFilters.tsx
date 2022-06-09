@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { getDateInFormat } from "common/utils/date";
 import { DateType } from "common/types/types";
-import { GetPhysiciansInput } from "generated/graphql";
+import { BookingDate, GetPhysiciansInput } from "generated/graphql";
 const { RangePicker } = DatePicker;
 
 const { Option } = Select;
@@ -18,6 +18,8 @@ type Props = {
 
 function AdminPhysicianSearchFilters(props: Props) {
   const [filterState, setFilterState] = useState<GetPhysiciansInput | any>({});
+  const [creationDate,setCreationDate]=useState<BookingDate>({})
+
   const { onChange } = props;
   function clear() {
     setFilterState({});
@@ -44,6 +46,7 @@ function AdminPhysicianSearchFilters(props: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange1(false);
+    onChangeFields("creationDate",creationDate)
   };
   const [openDateRange1, setOpenDateRange1] = useState(false);
 
@@ -82,7 +85,7 @@ function AdminPhysicianSearchFilters(props: Props) {
               open={openDateRange1}
               className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
               onChange={(_, dateString: string[]) =>
-                onChangeFields("creationDate", {
+                setCreationDate({
                   startDate: dateString[0],
                   endDate: dateString[1],
                 })

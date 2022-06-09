@@ -6,6 +6,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import {
+  BookingDate,
   GetAppointmentInput,
   useGetAllAppointmentServiceTypesQuery,
 } from "generated/graphql";
@@ -29,6 +30,9 @@ function PhysicianSearchFilters(props: Props) {
 
   const [openDateRange1, setOpenDateRange1] = useState(false);
   const [openDateRange2, setOpenDateRange2] = useState(false);
+  const [bookingDate,setBookingDate]=useState<BookingDate>({})
+  const [dueDate,setDueDate]=useState<BookingDate>({})
+
 
   const [{ data }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = data || {};
@@ -38,13 +42,20 @@ function PhysicianSearchFilters(props: Props) {
     onChange({});
   }
 
-  const applyDateRange = () => {
+  const applyBookingDateRange = () => {
     setOpenDateRange1(false);
+    onFilterValuesChange("bookingDate",bookingDate)
+
+  };
+
+  const applyDueDateRange = () => {
+    setOpenDateRange2(false);
+    onFilterValuesChange("dueDate",dueDate)
   };
 
   function onFilterValuesChange(
     key: string,
-    value: string | number | DateType
+    value: string | number | DateType | BookingDate
   ) {
     const filters = {
       ...filterState,
@@ -110,9 +121,9 @@ function PhysicianSearchFilters(props: Props) {
               open={openDateRange1}
               className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
               onChange={(_, dateString: string[]) =>
-                onFilterValuesChange("bookingDate", {
-                  startDate: dateString[0],
-                  endDate: dateString[1],
+                setBookingDate({
+                  startDate: String(dateString[0]),
+                  endDate: String(dateString[1]),
                 })
               }
               renderExtraFooter={() => (
@@ -128,9 +139,7 @@ function PhysicianSearchFilters(props: Props) {
                   <Button
                     className=" text-white"
                     type="primary"
-                    onClick={() => {
-                      applyDateRange();
-                    }}
+                    onClick={applyBookingDateRange}
                   >
                     Apply
                   </Button>
@@ -188,7 +197,7 @@ function PhysicianSearchFilters(props: Props) {
               value={null}
               open={openDateRange2}
               onChange={(_, dateString: string[]) =>
-                onFilterValuesChange("dueDate", {
+                setDueDate({
                   startDate: dateString[0],
                   endDate: dateString[1],
                 })
@@ -207,9 +216,7 @@ function PhysicianSearchFilters(props: Props) {
                   <Button
                     className=" text-white"
                     type="primary"
-                    onClick={() => {
-                      applyDateRange();
-                    }}
+                    onClick={applyDueDateRange}
                   >
                     Apply
                   </Button>
