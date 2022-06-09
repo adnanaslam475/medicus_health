@@ -16,9 +16,7 @@ function AdminAppointmentHistoryDetail() {
   const [{ data }] = useGetAppointmentByIdQuery({
     variables: { id: Number(query?.appointmentId) },
   });
-  // const [{ fetching: deleteFetching }, removeAppointmentByAdmin] =
-  //   useRemoveAppointmentByAdminMutation();
-  // const [open, setOpen] = React.useState<boolean>(false);
+
   const { appointment } = data || {};
 
   let doctorNotes =
@@ -27,28 +25,6 @@ function AdminAppointmentHistoryDetail() {
     appointment?.status || ""
   );
 
-  // const deleteModalHandler = () => setOpen(!open);
-  // const deleteAppointmentHandler = async () => {
-  //   try {
-  //     const response = await removeAppointmentByAdmin({
-  //       id: Number(query.appointmentId),
-  //     });
-  //     if (response?.error) {
-  //       throw new Error(response?.error?.graphQLErrors[0]?.message);
-  //     }
-  //     if (response.data) {
-  //       notification.success({
-  //         message: "Appointment Delete Successfully",
-  //       });
-  //       Router.back();
-  //       deleteModalHandler();
-  //     }
-  //   } catch (error: any) {
-  //     notification.error({
-  //       message: error?.message || "Something Went Wrong",
-  //     });
-  //   }
-  // };
   return (
     <AppLayout>
       <div>
@@ -85,24 +61,6 @@ function AdminAppointmentHistoryDetail() {
           </Tabs>
         </div>
       </div>
-      {/* <Button
-        type="link"
-        className="ml-auto mt-10"
-        danger
-        loading={deleteFetching}
-        disabled={deleteFetching}
-        icon={<CloseOutlined />}
-        onClick={deleteModalHandler}
-      >
-        Delete Appointment
-      </Button>
-      <ConfirmationModal
-        message="Are You Sure You want to delete this appointment?"
-        onCancel={deleteModalHandler}
-        confirmLoading={deleteFetching}
-        onOk={deleteAppointmentHandler}
-        visible={open}
-      /> */}
     </AppLayout>
   );
 }

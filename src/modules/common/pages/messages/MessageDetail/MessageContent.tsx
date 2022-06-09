@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ChatBar from "./ChatBar";
 import MessageInput from "../MessageInput/MessageInput";
 import _classes from "./Message-detail.module.scss";
@@ -7,6 +7,13 @@ import { useMessageContext } from "./MessageContext";
 type Props = {};
 
 function MessageContent({}: Props) {
+  // useEffect(() => {
+  //   window.scroll({
+  //     top: document.body.offsetHeight,
+  //     left: 0,
+  //     behavior: "smooth",
+  //   });
+  // }, []);
   const { messageInfo } = useMessageContext();
   const { messagesWithChannel, currentChannel } = messageInfo || {};
   const currentChannelMessages =
