@@ -14,11 +14,11 @@ import Router from "next/router";
 
 type Props = {
   data?: Appointment[];
-  loading:boolean | undefined
+  loading: boolean | undefined;
 };
 
 const AppointmentHistoryTable = (props: Props) => {
-  const { data,loading } = props || {};
+  const { data, loading } = props || {};
   const historyColumns = [
     {
       title: "ID",
@@ -32,7 +32,9 @@ const AppointmentHistoryTable = (props: Props) => {
       key: "createdAt",
       sorter: true,
       render: (createdAt: string) => {
-        return <div>{createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}</div>;
+        return (
+          <div>{createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}</div>
+        );
       },
     },
     {
@@ -60,7 +62,13 @@ const AppointmentHistoryTable = (props: Props) => {
       sorter: true,
 
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        return <div>{appointmentDateTime?.startTime ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} ` : "-"}</div>;
+        return (
+          <div>
+            {appointmentDateTime?.startTime
+              ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+              : "-"}
+          </div>
+        );
       },
     },
     {
@@ -70,9 +78,13 @@ const AppointmentHistoryTable = (props: Props) => {
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-          <div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formathhmma(appointmentDateTime?.startTime)} - ${date?.formathhmma(
-            appointmentDateTime?.endTime
-          )}` : "-"}</div>
+          <div>
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${date?.formathhmma(
+                  appointmentDateTime?.startTime
+                )} - ${date?.formathhmma(appointmentDateTime?.endTime)}`
+              : "-"}
+          </div>
         );
       },
     },
@@ -132,7 +144,7 @@ const AppointmentHistoryTable = (props: Props) => {
     },
   ];
 
-  return <Table columns={historyColumns} dataSource={data} loading={loading}  />;
+  return <Table columns={historyColumns} dataSource={data} loading={loading} />;
 };
 
 export default AppointmentHistoryTable;

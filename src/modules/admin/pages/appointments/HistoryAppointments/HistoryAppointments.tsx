@@ -14,11 +14,10 @@ import PatientAppointmentHistoryFilter from "common/components/PatientAppointmen
 const { RangePicker } = DatePicker;
 
 function CancelledAppointment() {
-  const [filterValues, setFilterValues] =
-    useState<GetAppointmentInput>({});
+  const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
 
   // GET ALL APPOINMENTS
-  const [{ data,fetching }, executeUseGetAllRequestedAppointmentsQuery] =
+  const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =
     useGetAllRequestedAppointmentsQuery({
       variables: {
         filter: filterValues,
@@ -47,7 +46,10 @@ function CancelledAppointment() {
 
         <PatientAppointmentHistoryFilter onChange={onChangeFilters} />
         <div className="custom-table-ui">
-          <AppointmentHistoryTable data={appointments as Appointment[]}  loading={fetching}/>
+          <AppointmentHistoryTable
+            data={appointments as Appointment[]}
+            loading={fetching}
+          />
         </div>
       </div>
     </AppLayout>

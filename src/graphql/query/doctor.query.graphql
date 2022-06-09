@@ -256,3 +256,26 @@ query getPhysicians($filter: GetPhysiciansInput!) {
     }
   }
 }
+
+# GET APPOINTMENT NOTES BY ID
+# =============
+
+query getAppointmentNoteById($appointmentId: Int!) {
+  appointmentNote(appointmentId: $appointmentId) {
+    id
+    appointmentId
+    subjective
+    objective
+    assessment
+    plan
+    note
+    isPublished
+    createdAt
+    updatedAt
+    appointment {
+      id
+      patientId
+      doctorId
+    }
+  }
+}
