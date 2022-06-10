@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Tabs } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { useAdminUsersQuery } from "generated/graphql";
+import { useAdminUserQuery } from "generated/graphql";
 import EmailNotification from "../../pages/EmailNotification/EmailNotification";
 import { Profile } from "../Profile/Profile";
 import { ViewProfile } from "../Profile/ViewProfile";
@@ -20,11 +20,11 @@ function AdminAccount() {
   const { user } = getUserData();
   const { id } = user || {};
 
-  const [{ data }] = useAdminUsersQuery({
-    variables: { filter: { searchUser: String(id) } },
+  const [{data,fetching}] = useAdminUserQuery({
+    variables: { id: Number(id) },
   });
-  const { adminUsers } = data || {};
 
+  const { adminUser } = data || {};
   return (
     <AppLayout>
       <div className="w-full">
@@ -42,12 +42,12 @@ function AdminAccount() {
             >
               {isEdit ? (
                 <Profile
-                  doctorData={adminUsers}
+                  doctorData={adminUser}
                   edit={editData}
                   setIsEdit={setIsEdit}
                 />
               ) : (
-                <ViewProfile doctorData={adminUsers} setIsEdit={setIsEdit} />
+                <ViewProfile doctorData={adminUser} setIsEdit={setIsEdit} />
               )}
             </TabPane>
 

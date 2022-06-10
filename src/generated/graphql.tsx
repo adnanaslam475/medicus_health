@@ -40,7 +40,7 @@ export type AdminDashResponse = {
 export type AdminProfilePicture = {
   __typename?: 'AdminProfilePicture';
   id: Scalars['Int'];
-  profile_picture: Scalars['String'];
+  profile_picture?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
   userId: Scalars['Int'];
 };
@@ -312,7 +312,7 @@ export type CreatePatientHealthHistoryInput = {
 
 export type CreatePaymentInput = {
   card_digits: Scalars['Float'];
-  card_holder_name: Scalars['String'];
+  card_holder_name?: InputMaybe<Scalars['String']>;
   card_type: Scalars['String'];
   exp_month: Scalars['String'];
   exp_year: Scalars['String'];
@@ -957,6 +957,7 @@ export type ProposedTimeSlots = {
 export type Query = {
   __typename?: 'Query';
   adminDash: AdminDashResponse;
+  adminUser: User;
   adminUsers: Array<User>;
   appointment: Appointment;
   appointmentBanner: Array<Appointment>;
@@ -1004,6 +1005,11 @@ export type Query = {
   user: UserResponse;
   userEmailPreferences: UserEmailPreferencesResponse;
   users: Array<User>;
+};
+
+
+export type QueryAdminUserArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -1369,6 +1375,7 @@ export type UserEmailPreferencesResponse = {
 
 export type UserResponse = {
   __typename?: 'UserResponse';
+  adminProfilePicture?: Maybe<AdminProfilePicture>;
   appointment?: Maybe<Appointment>;
   city_id: Scalars['Int'];
   contact_number?: Maybe<Scalars['String']>;
@@ -1722,12 +1729,12 @@ export type CreateAdminSettingsMutationVariables = Exact<{
 
 export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: Array<{ __typename?: 'AdminSetting', id: number, key: string, value: string }> };
 
-export type AdminUsersQueryVariables = Exact<{
-  filter: GetAdminUsersFilterInput;
+export type AdminUserQueryVariables = Exact<{
+  id: Scalars['Int'];
 }>;
 
 
-export type AdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture: string } | null }> };
+export type AdminUserQuery = { __typename?: 'Query', adminUser: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null } };
 
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2749,14 +2756,13 @@ export const CreateAdminSettingsDocument = gql`
 export function useCreateAdminSettingsMutation() {
   return Urql.useMutation<CreateAdminSettingsMutation, CreateAdminSettingsMutationVariables>(CreateAdminSettingsDocument);
 };
-export const AdminUsersDocument = gql`
-    query adminUsers($filter: GetAdminUsersFilterInput!) {
-  adminUsers(filter: $filter) {
+export const AdminUserDocument = gql`
+    query adminUser($id: Int!) {
+  adminUser(id: $id) {
     id
     first_name
     last_name
     email
-    password
     contact_number
     adminProfilePicture {
       profile_picture
@@ -2765,8 +2771,8 @@ export const AdminUsersDocument = gql`
 }
     `;
 
-export function useAdminUsersQuery(options: Omit<Urql.UseQueryArgs<AdminUsersQueryVariables>, 'query'>) {
-  return Urql.useQuery<AdminUsersQuery>({ query: AdminUsersDocument, ...options });
+export function useAdminUserQuery(options: Omit<Urql.UseQueryArgs<AdminUserQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminUserQuery>({ query: AdminUserDocument, ...options });
 };
 export const GetAllChatChannelsDocument = gql`
     query getAllChatChannels {
@@ -3915,11 +3921,8 @@ export default {
           {
             "name": "profile_picture",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -6912,6 +6915,29 @@ export default {
             "args": []
           },
           {
+            "name": "adminUser",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "adminUsers",
             "type": {
               "kind": "NON_NULL",
@@ -8736,6 +8762,15 @@ export default {
         "kind": "OBJECT",
         "name": "UserResponse",
         "fields": [
+          {
+            "name": "adminProfilePicture",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AdminProfilePicture",
+              "ofType": null
+            },
+            "args": []
+          },
           {
             "name": "appointment",
             "type": {

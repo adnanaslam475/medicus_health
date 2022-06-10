@@ -92,15 +92,29 @@ mutation createAdminSettings(
   }
 }
 
-query adminUsers($filter: GetAdminUsersFilterInput!) {
-  adminUsers(filter: $filter) {
+# query adminUser($filter: GetAdminUsersFilterInput!) {
+#   adminUser(filter: $filter) {
+#     id
+#     first_name
+#     last_name
+#     email
+#     password
+#     contact_number
+#     adminProfilePicture{
+#       profile_picture
+#     }
+#   }
+# }
+
+query adminUser($id: Int!) {
+  adminUser(id: $id) {
     id
     first_name
     last_name
     email
-    password
     contact_number
-    adminProfilePicture{
+
+    adminProfilePicture {
       profile_picture
     }
   }
