@@ -35,6 +35,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const { saveStepThree, data } = useBookAppointment();
   const [formInstance] = Form.useForm();
   const physicianId = data?.stepOne?.physician?.split(":")[0];
+  const patientIdFromStepOne = data?.stepOne?.patient?.split(":")[0];
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId:
@@ -46,8 +47,8 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   });
   const { doctorQuestionnaire } = dataList || {};
   const { user } = getUserData();
-  const loggedinPatientId = user?.id;
-
+  const role = user?.role
+  const loggedinPatientId = role === "Admin" ? patientIdFromStepOne : user?.id;
   const [{ data: patientLastQuestionaryData }] =
     usePatientLastQuestionnaireQuery({
       variables: {
