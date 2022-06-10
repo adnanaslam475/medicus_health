@@ -1,33 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-
-import {
-  Table,
-  Tag,
-  Modal,
-  Avatar,
-  Upload,
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Select,
-  notification,
-} from "antd";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
-import Link from "next/link";
-import Image from "next/image";
-import yourImage from "../../../../../../public/assets/images/your_photo.png";
-import {
-  useCountriesQuery,
-  useCreateDoctorMutation,
-  useGetCitiesByStateQuery,
-  useGetStatesByCountryQuery,
-  User,
-} from "../../../../../generated/graphql";
-import dayjs from "dayjs";
-// import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
+import { Avatar, Upload, Button, notification } from "antd";
+import { useCreateDoctorMutation } from "../../../../../generated/graphql";
 import Router, { useRouter } from "next/router";
 import { AddPatientForm } from "modules/admin/components/AddPatientForm/AddPatientForm";
 
@@ -103,7 +77,7 @@ function PatientAdd() {
                 >
                   <div className="relative">
                     <Avatar
-                      size={50}
+                      size={62}
                       style={{
                         borderColor: "transparent",
                         borderWidth: 2,
