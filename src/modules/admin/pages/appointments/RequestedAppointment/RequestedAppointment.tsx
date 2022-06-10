@@ -18,6 +18,7 @@ import BookAppointmentJourney from "common/components/BookAppointmentJourney/Boo
 function RequestedAppointment() {
 	const [dueStartDate, setStartDate] = useState<BookingDate>();
 	const [dueEndDate, setEndDate] = useState<BookingDate>();
+	const [bookingDate, setBookingDate] = useState<BookingDate>({});
 	const [dataListPhysician, setDataListPhysician] = useState<string>();
 	const [doctorIds, setDoctorId] = useState<number>();
 	const [appointmentId, setAppointmentId] = useState<number>();
@@ -46,11 +47,7 @@ function RequestedAppointment() {
 				doctorId: doctorIds,
 				appointmentId: appointmentId,
 				serviceId: serviceIds,
-				dueDate: dueStartDate &&
-					dueEndDate && {
-						startDate: String(dueStartDate),
-						endDate: String(dueEndDate),
-					},
+				dueDate: bookingDate,
 			},
 		},
 	});
@@ -117,6 +114,7 @@ function RequestedAppointment() {
 							setDoctorId={setDoctorId}
 							setAppointmentId={setAppointmentId}
 							setServiceIds={setServiceIds}
+							setBookingDate={setBookingDate}
 						/>
 					</div>
 
