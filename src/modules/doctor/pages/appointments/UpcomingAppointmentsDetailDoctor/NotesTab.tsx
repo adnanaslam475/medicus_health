@@ -28,19 +28,19 @@ function NotesTab({}: Props) {
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
-    await createOrUpdateAppointmentNote({
+    const res = await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
         isPublished: false,
-        subjective: value?.subjective,
-        objective: value?.objective,
-        assessment: value?.assessment,
-        plan: value?.plan,
-        note: value?.note,
+        subjective: value?.subjective || "",
+        objective: value?.objective || "",
+        assessment: value?.assessment || "",
+        plan: value?.plan || "",
+        note: value?.note || "",
         // noteType: "SOAP",
       },
     });
-    if (note?.createOrUpdateAppointmentNote.id) {
+    if (res?.data?.createOrUpdateAppointmentNote.id) {
       closeModal();
       notification.success({
         message: "Successfully Added",
