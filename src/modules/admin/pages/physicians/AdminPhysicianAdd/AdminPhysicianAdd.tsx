@@ -27,7 +27,6 @@ import {
 } from "../../../../../generated/graphql";
 import dayjs from "dayjs";
 import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import Router, { useRouter } from "next/router";
 
 type props = {

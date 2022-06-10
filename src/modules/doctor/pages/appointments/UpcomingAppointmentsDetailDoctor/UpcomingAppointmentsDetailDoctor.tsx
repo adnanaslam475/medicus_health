@@ -11,7 +11,8 @@ import {
 import { Tabs } from "antd";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
-import NotesTab from "./NotesTab";
+// import NotesTab from "./NotesTab";
+import NotesTab from "./../../appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
 import HealthQuestionnaireFormTab from "./HealthQuestionnaireFormTab";
 import PhysicianQuestionnaireFormTab from "./PhysicianQuestionnaireFormTab";
 import PhysicianAttachmentTab from "../../PhysicianAppointmentHistoryDetail/PhysicianAttachmentTab";
@@ -49,7 +50,7 @@ function UpcomingAppointmentsDetailDoctor() {
   if (urlArr && urlArr.length > 0) {
     urlArr = urlArr[0]?.map((item: any) => ({
       name: item.split("com/")[1],
-      url: item
+      url: item,
     }));
   }
 
@@ -97,11 +98,8 @@ function UpcomingAppointmentsDetailDoctor() {
               </div>
             </Tabs.TabPane>
             {pathname.includes("appointments/upcoming") && (
-              <Tabs.TabPane tab="Notes" key="6">
-                <div className="max-w-1/2">
-                  {/* <ProfileImageWithInfo />s */}
-                  <NotesTab />
-                </div>
+              <Tabs.TabPane tab={<span>Notes</span>} key="6">
+                <NotesTab />
               </Tabs.TabPane>
             )}
           </Tabs>

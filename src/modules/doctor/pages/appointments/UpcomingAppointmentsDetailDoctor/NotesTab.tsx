@@ -17,7 +17,7 @@ function NotesTab({}: Props) {
     variables: {
       id: Number(query.id),
     },
-    pause: !query.id,
+    // pause: !query.id,
   });
 
   const [{ data: note }, createOrUpdateAppointmentNote] =
@@ -25,6 +25,8 @@ function NotesTab({}: Props) {
 
   const { appointment } = data || {};
   const { patient, serviceType } = appointment || {};
+
+  console.log({ data });
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });

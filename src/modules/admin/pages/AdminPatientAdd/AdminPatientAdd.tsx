@@ -18,9 +18,7 @@ import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
 import yourImage from "../../../../../../public/assets/images/your_photo.png";
-
 import dayjs from "dayjs";
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import Router, { useRouter } from "next/router";
 import { useCreatePatientByAdminMutation } from "generated/graphql";
 import AppLayout from "common/components/AppLayout/AppLayout";

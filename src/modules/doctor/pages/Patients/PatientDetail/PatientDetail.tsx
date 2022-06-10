@@ -114,7 +114,7 @@ function PatientDetail() {
           >
             <AppointmentHistoryTab />
           </TabPane>
-          <TabPane
+          {/* <TabPane
             tab={
               <span>
                 <CalendarOutlined />
@@ -124,7 +124,7 @@ function PatientDetail() {
             key="4"
           >
             <NotesTab />
-          </TabPane>
+          </TabPane> */}
         </Tabs>
       </div>
     </AppLayout>
