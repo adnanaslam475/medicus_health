@@ -2,7 +2,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import smile from "../../../../public/assets/images/smile.svg";
 import Acronym from "common/components/Acronym/Acronym";
 import _classes from "./Notes.module.scss";
@@ -23,6 +23,10 @@ function Notes(props: Props) {
   function onFinishLocal(values: any) {
     onFinish?.(values, closeModal);
   }
+
+  const publishRef = useRef({
+    isPublish: false,
+  });
 
   return (
     <>
@@ -64,7 +68,15 @@ function Notes(props: Props) {
           <Acronym character="A" word="Assessment" />
           <Acronym character="P" word="Plan" />
           <div className="flex justify-end gap-2">
-            <Button>Publish Notes</Button>
+            <Button
+              htmlType="submit"
+              onClick={() => {
+                // setLoaderSave(true);
+                publishRef.current.isPublish = true;
+              }}
+            >
+              Publish Notes
+            </Button>
             <Button
               htmlType="submit"
               type="primary"
