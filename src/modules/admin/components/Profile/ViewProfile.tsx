@@ -21,8 +21,14 @@ export const ViewProfile = React.forwardRef(function Profile({
 }: props) {
   const [formInstance] = Form.useForm();
 
-  const { first_name, last_name, email, contact_number, doctorProfile,adminProfilePicture } =
-    (doctorData && doctorData[0]) || {};
+  const {
+    first_name,
+    last_name,
+    email,
+    contact_number,
+    doctorProfile,
+    adminProfilePicture,
+  } = doctorData || {};
 
   const { profile_image: userProfileImage } = doctorProfile || {};
   const { profile_picture } = adminProfilePicture || {};

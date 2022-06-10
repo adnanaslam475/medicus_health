@@ -91,8 +91,6 @@ function SearchFilters(props: Props) {
   function onChange(date: any, dateString: any) {
     console.log(date, dateString);
     selectDateRangeValues(date);
-    setStartDate(dateString[0]);
-    setEndDate(dateString[1]);
     selectDateRange(date);
     setDateRangeState({
       startDate: dateString[0],

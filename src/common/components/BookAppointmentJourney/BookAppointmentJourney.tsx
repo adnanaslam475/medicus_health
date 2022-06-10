@@ -199,7 +199,7 @@ function BookAppointmentModal({
       afterClose={closeModal}
     >
       {successModal ? (
-        <SuccessMessage />
+        <SuccessMessage onCancel={onCancel}/>
       ) : (
         <>
           <StepDots current={currentStepNumber} />

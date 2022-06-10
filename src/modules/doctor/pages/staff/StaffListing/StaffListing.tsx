@@ -18,9 +18,9 @@ function StaffListing() {
   const { user } = getUserData();
   const id = user?.id;
   const { query } = useRouter();
-  const doctorId = user?.role === "Admin" && Number(query?.id)
+  const doctorId = user?.role === "Admin"  ? Number(query?.id) : Number(user?.id)
   const [form] = Form.useForm();
-  const [filterValues, setFilterValues] = React.useState<GetStaffFilter>(doctorId ? {doctorId:doctorId} : {});
+  const [filterValues, setFilterValues] = React.useState<GetStaffFilter>({doctorId:doctorId});
   const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
   const [{ fetching }, createStaff] = useCreateStaffMutation();
   
