@@ -9,6 +9,7 @@ import { useUpdateAdminUserMutation } from "generated/graphql";
 import { UploadChangeParam } from "antd/lib/upload";
 import { useMediaUploader } from "common/hooks/media";
 import { getUserData } from "common/utils/userData";
+import yourImage from "../../../../../public/assets/images/your_photo.png";
 
 type profileType = {
   doctorId?: string | string[] | undefined;
@@ -28,19 +29,23 @@ export const Profile = React.forwardRef(function Profile({
   const { user } = getUserData();
   const { id } = user || {};
 
-  const { first_name, last_name, password, email, contact_number, status,adminProfilePicture } =
-    (doctorData && doctorData[0]) || {};
-    const { profile_image: userProfileImage } = doctorData || {};
-    const { profile_picture:profilePicture } = adminProfilePicture || {};
+  const {
+    first_name,
+    last_name,
+    password,
+    email,
+    contact_number,
+    status,
+    adminProfilePicture,
+  } = doctorData || {};
+  const { profile_image: userProfileImage } = doctorData || {};
+  const { profile_picture: profilePicture } = adminProfilePicture || {};
 
-
-  console.log("doctorDatadoctorDatadoctorData",profilePicture );
   const mediaUploader = useMediaUploader();
 
   const [result, executeUseUpdateAdminUserMutation] =
     useUpdateAdminUserMutation();
-  const { error } = result || {};
-
+  const { error, fetching } = result || {};
   useEffect(() => {
     if (doctorData) {
       prepareAndSetEditPayload();
@@ -61,7 +66,6 @@ export const Profile = React.forwardRef(function Profile({
   const onFinish = async (values: any) => {
     try {
       updateAdminProfile(values);
-      setIsEdit(false);
     } catch (error) {
       setIsEdit(true);
     }
@@ -82,9 +86,10 @@ export const Profile = React.forwardRef(function Profile({
 
       if (res?.data) {
         res?.data?.updateAdminUser &&
-          notification.success({
-            message: "Updated Successfully",
-          });
+        notification.success({
+          message: "Updated Successfully",
+        });
+        setIsEdit(false);
       }
 
       if (res?.error) {
@@ -133,7 +138,7 @@ export const Profile = React.forwardRef(function Profile({
                 <Avatar
                   size={130}
                   className="border-transparent border-2 leading-10"
-                  src={image || userProfileImage || profilePicture}
+                  src={fetching ? yourImage : image || userProfileImage || profilePicture}
                 />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
                   <Image
