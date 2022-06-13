@@ -5,6 +5,7 @@ import SearchFilters from "../../../../../common/components/SearchFilters/Search
 import { Empty, Select, Spin } from "antd";
 import {
 	AppointmentTimeSlots,
+	BookingDate,
 	useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
 
@@ -12,6 +13,8 @@ const { Option } = Select;
 function UpcomingAppointments() {
 	const [dueStartDate, setStartDate] = useState<Date | null>();
 	const [dueEndDate, setEndDate] = useState<Date | null>();
+	const [bookingDate, setBookingDate] = useState<BookingDate>({});
+
 	const [dataListPhysician, setDataListPhysician] = useState<string>();
 	const [doctorIds, setDoctorId] = useState<number>();
 	const [appointmentId, setAppointmentId] = useState<number>();
@@ -26,15 +29,10 @@ function UpcomingAppointments() {
 				doctorId: doctorIds,
 				appointmentId: appointmentId,
 				serviceId: serviceIds,
-				dueDate: dueStartDate &&
-					dueEndDate && {
-						startDate: String(dueStartDate),
-						endDate: String(dueEndDate),
-					},
+				dueDate: bookingDate,
 			},
 		},
 	});
-
 	function onViewSuggestedSlots(id: number) {
 		setCurrentAppointmentId(id);
 		setShowModal(true);
@@ -62,6 +60,7 @@ function UpcomingAppointments() {
 					setServiceIds={setServiceIds}
 					setStartDate={setStartDate}
 					setEndDate={setEndDate}
+					setBookingDate={setBookingDate}
 				/>
 				{fetching == false ? (
 					<div className="w-full">

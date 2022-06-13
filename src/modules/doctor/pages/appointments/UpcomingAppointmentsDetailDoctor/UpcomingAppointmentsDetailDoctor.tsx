@@ -31,9 +31,9 @@ function UpcomingAppointmentsDetailDoctor() {
 
   const [{ data }] = useDoctorAppointmentDetailQuery({
     variables: {
-      id: Number(query.appointmentId),
+      id: Number(query.id),
     },
-    pause: !query.appointmentId,
+    pause: !query.id,
   });
   const { appointment } = data || {};
 

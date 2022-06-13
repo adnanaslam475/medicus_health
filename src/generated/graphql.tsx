@@ -1002,7 +1002,7 @@ export type Query = {
   states: Array<State>;
   transaction: Transaction;
   transactions: Array<Transaction>;
-  user: UserResponse;
+  user: User;
   userEmailPreferences: UserEmailPreferencesResponse;
   users: Array<User>;
 };
@@ -1729,12 +1729,12 @@ export type CreateAdminSettingsMutationVariables = Exact<{
 
 export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: Array<{ __typename?: 'AdminSetting', id: number, key: string, value: string }> };
 
-export type AdminUsersQueryVariables = Exact<{
-  filter: GetAdminUsersFilterInput;
+export type AdminUserQueryVariables = Exact<{
+  id: Scalars['Int'];
 }>;
 
 
-export type AdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null }> };
+export type AdminUserQuery = { __typename?: 'Query', adminUser: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null } };
 
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1868,7 +1868,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'UserResponse', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id: number, city_id: number, state_id: number, zip_code: string, streetAddress?: string | null, status: boolean, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, streetAddress?: string | null, status: boolean, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null } };
 
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1894,7 +1894,7 @@ export type DoctorProfileDetailsQueryVariables = Exact<{
 }>;
 
 
-export type DoctorProfileDetailsQuery = { __typename?: 'Query', user: { __typename?: 'UserResponse', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, country_id: number, state_id: number, city_id: number, zip_code: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', day: number, startTime: string, endTime: string }> | null } };
+export type DoctorProfileDetailsQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', day: number, startTime: string, endTime: string }> | null } };
 
 export type GetAllAppointmentServiceTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1993,7 +1993,7 @@ export type GetAdminUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetAdminUserByIdQuery = { __typename?: 'Query', user: { __typename?: 'UserResponse', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean } };
+export type GetAdminUserByIdQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean } };
 
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2767,14 +2767,13 @@ export const CreateAdminSettingsDocument = gql`
 export function useCreateAdminSettingsMutation() {
   return Urql.useMutation<CreateAdminSettingsMutation, CreateAdminSettingsMutationVariables>(CreateAdminSettingsDocument);
 };
-export const AdminUsersDocument = gql`
-    query adminUsers($filter: GetAdminUsersFilterInput!) {
-  adminUsers(filter: $filter) {
+export const AdminUserDocument = gql`
+    query adminUser($id: Int!) {
+  adminUser(id: $id) {
     id
     first_name
     last_name
     email
-    password
     contact_number
     adminProfilePicture {
       profile_picture
@@ -2783,8 +2782,8 @@ export const AdminUsersDocument = gql`
 }
     `;
 
-export function useAdminUsersQuery(options: Omit<Urql.UseQueryArgs<AdminUsersQueryVariables>, 'query'>) {
-  return Urql.useQuery<AdminUsersQuery>({ query: AdminUsersDocument, ...options });
+export function useAdminUserQuery(options: Omit<Urql.UseQueryArgs<AdminUserQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminUserQuery>({ query: AdminUserDocument, ...options });
 };
 export const GetAllChatChannelsDocument = gql`
     query getAllChatChannels {
@@ -7988,7 +7987,7 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "UserResponse",
+                "name": "User",
                 "ofType": null
               }
             },

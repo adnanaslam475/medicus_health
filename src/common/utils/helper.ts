@@ -3,7 +3,6 @@ export function parseJson(jsonString: string) {
   try {
     obj = JSON.parse(jsonString);
   } catch (error) {
-    console.log(error);
     obj = null;
   }
   return obj;

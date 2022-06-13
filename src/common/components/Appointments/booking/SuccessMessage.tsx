@@ -3,8 +3,18 @@ import { Avatar } from "antd";
 import successImage from "../../../../../public/assets/images/success.svg";
 import Image from "next/image";
 import Router from "next/router";
+import { getRole } from "common/utils/userData";
 
-function SuccessMessage() {
+type Props = {
+  onCancel: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined | any
+};
+function SuccessMessage({ onCancel }: Props) {
+  const role = getRole();
+  const clickHandler = () => {
+    if (role === "Admin") {
+      return onCancel();  
+    } else Router.push("/patient/appointments/requested");
+  };
   return (
     <>
       <div className="w-full text-center">
@@ -27,7 +37,7 @@ function SuccessMessage() {
         </p>
         <button 
           className="text-white bg-primary text-sm rounded-md p-3 px-8"
-          onClick={() => Router.push("/patient/appointments/requested")}
+          onClick={clickHandler}
           >
           Back to Appointments
         </button>

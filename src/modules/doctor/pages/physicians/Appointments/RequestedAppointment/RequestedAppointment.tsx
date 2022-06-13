@@ -4,6 +4,7 @@ import AppointmentTabs from "../../../../../../../src/modules/doctor/pages/physi
 import RequestedList from "modules/doctor/pages/RequestedList/RequestedList";
 import {
   Appointment,
+  BookingDate,
   useGetAllRequestedAppointmentsQuery,
 } from "generated/graphql";
 import SearchFilters from "common/components/SearchFilters/SearchFilters";
@@ -11,6 +12,7 @@ import SearchFilters from "common/components/SearchFilters/SearchFilters";
 function RequestedAppointment() {
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
+  const [bookingDate, setBookingDate] = useState<BookingDate>({});
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentId, setAppointmentId] = useState<number>();
@@ -26,11 +28,7 @@ function RequestedAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentId,
         serviceId: serviceIds,
-        dueDate: dueStartDate &&
-          dueEndDate && {
-            startDate: String(dueStartDate),
-            endDate: String(dueEndDate),
-          },
+        dueDate: bookingDate,
         searchString: searchPatient,
       },
     },
@@ -54,6 +52,7 @@ function RequestedAppointment() {
             setAppointmentId={setAppointmentId}
             setServiceIds={setServiceIds}
             setSearchPatient={setSearchPatient}
+            setBookingDate={setBookingDate}
             isFromPhysician
           />
         </div>
