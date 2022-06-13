@@ -11,6 +11,7 @@ import {
 
 // scss
 import _classes from "./AppointmentCard.module.scss";
+import AppointmnetCurrentCard from "./CardTypes/AppointmnetCurrentCard";
 
 type props = {
   appointmentId?: number | undefined;
@@ -87,6 +88,19 @@ function AppointmentCard({
     case "Suggested":
       return (
         <AppointmnetSuggestedCard
+          appointmentId={appointmentId}
+          requestedDate={requestedDate}
+          status={getStatus()}
+          serviceType={serviceType}
+          doctor={doctor}
+          appointmentTimeSlots={appointmentTimeSlots}
+          setShowModal={setShowModal}
+          onViewSuggestedSlots={onViewSuggestedSlots}
+        />
+      );
+      case "Current":
+      return (
+        <AppointmnetCurrentCard
           appointmentId={appointmentId}
           requestedDate={requestedDate}
           status={getStatus()}

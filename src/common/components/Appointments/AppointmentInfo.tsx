@@ -37,7 +37,7 @@ function AppointmentInfo(props: Props) {
 
   return (
     <React.Fragment>
-      <div className="max-w-[800px]">
+      <div className="max-w-[700px]">
         <LabelValueRow label="ID" value={Number(id)} />
         <LabelValueRow
           label="Due date"
@@ -73,7 +73,7 @@ function AppointmentInfo(props: Props) {
         </li>
       </div>
 
-      <div className="w-4/6 flex justify-between mt-4">
+      <div className="max-w-[700px] flex justify-between mt-4">
         <div className="flex">
           <Button
             icon={<MessageOutlined />}
