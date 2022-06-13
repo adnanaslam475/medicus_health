@@ -77,7 +77,7 @@ function UpcomingAppointments() {
 									} = appointmentDetail || {};
 									return (
 										<AppointmentCard
-											appointmentId={id}
+											appointmentId={Number(id)}
 											requestedDate={requestedDate}
 											status={status}
 											serviceType={serviceType?.name}
@@ -87,7 +87,7 @@ function UpcomingAppointments() {
 											}
 											setShowModal={setShowModal}
 											onViewSuggestedSlots={() =>
-												onViewSuggestedSlots(appointmentDetail?.id)
+												onViewSuggestedSlots(Number(appointmentDetail?.id))
 											}
 										/>
 									);
