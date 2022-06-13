@@ -39,9 +39,9 @@ const AppHeader = () => {
   const userName = `${user?.first_name} ${user?.last_name}`;
   const userRole = user?.role;
   const accountPath =
-    user?.role === "Doctor"
+    userRole === "Doctor"
       ? "/physician/account"
-      : user?.role === "Admin"
+      : userRole === "Admin"
       ? "/admin/account"
       : "/patient/account?activeTab=1";
 
