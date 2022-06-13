@@ -53,34 +53,44 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
         {noteType == "narrative" && (
           <>
             <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE</h4>
-            {!edit ? (
-              <Form.Item name="note">
-                <TextArea />
-              </Form.Item>
-            ) : (
-              localDocNotes?.length &&
-              localDocNotes
-                ?.filter((val) => val[0] !== "__typename")
-                .map((item) => {
-                  let char = item[0].split("")[0];
-                  // console.log(char, "Sss");
-                  return (
-                    <>
-                      <AcronymWithText
-                        character={char.toUpperCase()}
-                        word={item[0]}
-                        sentence={item[1]}
-                      />
-                      {/* <AcronymWithTextEditable
+            {!edit
+              ? // <Form.Item name="note">
+                //   <TextArea />
+                // </Form.Item>
+                localDocNotes?.length &&
+                localDocNotes
+                  ?.filter((val) => val[0] !== "__typename")
+                  .map((item) => {
+                    let char = item[0].split("")[0];
+                    // console.log(char, "Sss");
+                    return (
+                      <Form.Item name="note">
+                        <TextArea defaultValue={item[1]} />
+                      </Form.Item>
+                    );
+                  })
+              : localDocNotes?.length &&
+                localDocNotes
+                  ?.filter((val) => val[0] !== "__typename")
+                  .map((item) => {
+                    let char = item[0].split("")[0];
+                    // console.log(char, "Sss");
+                    return (
+                      <>
+                        <AcronymWithText
+                          character={char.toUpperCase()}
+                          word={item[0]}
+                          sentence={item[1]}
+                        />
+                        {/* <AcronymWithTextEditable
                           character={char.toUpperCase()}
                           editable={edit}
                           word={item[0]}
                           sentence={item[1]}
                         /> */}
-                    </>
-                  );
-                })
-            )}
+                      </>
+                    );
+                  })}
           </>
         )}
         {noteType == "soap" && (
@@ -94,7 +104,7 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
                   // console.log(char, "Sss");
                   return (
                     <>
-                      {!edit ? (
+                      {/* {!edit ? (
                         <AcronymWithTextEditable
                           character={char.toUpperCase()}
                           editable={edit}
@@ -107,7 +117,15 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
                           word={item[0]}
                           sentence={item[1]}
                         />
-                      )}
+                      )} */}
+                      {
+                        <AcronymWithTextEditable
+                          character={char.toUpperCase()}
+                          editable={edit}
+                          word={item[0]}
+                          sentence={item[1]}
+                        />
+                      }
                     </>
                   );
                 })}
