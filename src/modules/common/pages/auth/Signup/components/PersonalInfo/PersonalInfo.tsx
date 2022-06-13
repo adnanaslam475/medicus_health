@@ -22,6 +22,7 @@ export default function PersonalInfo({ onFinish }: props) {
 
   function selectCountryId(id: number): void {
     setCountryId(id);
+    form.resetFields(['state_id','city_id'])
   }
 
   function selectStateId(id: number): void {
