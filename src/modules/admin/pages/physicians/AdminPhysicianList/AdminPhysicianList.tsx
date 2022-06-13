@@ -13,11 +13,12 @@ import { FLAG_BY_LANGUAGE } from "utils/helper";
 function AdminPhysicianList() {
   const [filterValues, setFilterValues] = useState({});
 
-  const [{ data ,fetching}, executeUseGetPhysiciansQuery] = useGetPhysiciansQuery({
-    variables: {
-      filter: filterValues,
-    },
-  });
+  const [{ data, fetching }, executeUseGetPhysiciansQuery] =
+    useGetPhysiciansQuery({
+      variables: {
+        filter: filterValues,
+      },
+    });
   const { getPhysicians } = data || {};
 
   const columns = [
@@ -109,7 +110,7 @@ function AdminPhysicianList() {
     <AppLayout>
       <div className="w-full">
         <div className="flex justify-between mb-10">
-          <h2 className="mb-4">Admin Physicians</h2>
+          <h2 className="mb-4">Physicians</h2>
           <Link passHref href={`/admin/physicians/addPhysician`}>
             <a>
               <Button type="primary">
@@ -122,7 +123,11 @@ function AdminPhysicianList() {
         <AdminPhysicianSearchFilters onChange={onChangeFilters} />
         <div className="w-full">
           <div className="">
-            <Table columns={columns} dataSource={getPhysicians} loading={fetching}/>
+            <Table
+              columns={columns}
+              dataSource={getPhysicians}
+              loading={fetching}
+            />
           </div>
         </div>
       </div>
