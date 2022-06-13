@@ -7,7 +7,7 @@ import InfoMessage from "../InfoMessage/InfoMessage";
 import Image from "next/image";
 import _classes from "./AppHeader.module.scss";
 import SidebarDrawer from "../../../modules/common/components/SidebarDrawer";
-import { getRole } from "../../utils/userData";
+import { getRole, getUserData } from "../../utils/userData";
 import InfoMessageBannerReminder from "../InfoMessageBannerReminder/InfoMessageBannerReminder";
 
 const { Header } = Layout;
@@ -29,23 +29,39 @@ const AppHeader = () => {
     setVisible(!visible);
   };
 
-  // const onClick = ({ key }) => {
-  //   message.info(`Click on item ${key}`);
-  // };
+  const { user } = getUserData();
+  const { patientProfile, adminProfilePicture, doctorProfile } = user || {};
+
+  const profilePicture =
+    patientProfile?.profileImage ||
+    doctorProfile?.profile_image ||
+    adminProfilePicture?.profile_picture;
+  const userName = `${user?.first_name} ${user?.last_name}`;
+  const userRole = user?.role;
+  const accountPath =
+    userRole === "Doctor"
+      ? "/physician/account"
+      : userRole === "Admin"
+      ? "/admin/account"
+      : "/patient/account?activeTab=1";
 
   const menu = (
     <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
-      <Menu.Item className="border-b border-gray-4" onClick={()=>Router.push(`/patient/account?activeTab=1`)}>
+      <Menu.Item
+        className="border-b border-gray-4"
+        onClick={() => Router.push(accountPath)}
+      >
         Accounts Settings
       </Menu.Item>
-      
-      <Menu.Item className="border-b border-gray-4" onClick={()=>Router.push(`/patient/account?activeTab=3`)}>Payment Settings</Menu.Item>
 
-      {/* <Menu.Item>
-        <Link href={{ pathname, query }} as={asPath} locale={otherLocales?.[0]}>
-          {`switch to ${otherLocales?.[0]}`}
-        </Link>
-      </Menu.Item> */}
+      {userRole === "User" && (
+        <Menu.Item
+          className="border-b border-gray-4"
+          onClick={() => Router.push(`/patient/account?activeTab=3`)}
+        >
+          Payment Settings
+        </Menu.Item>
+      )}
 
       <Menu.Item onClick={logout}>
         <span className="text-red">Logout</span>
@@ -157,13 +173,9 @@ const AppHeader = () => {
               trigger={["click"]}
             >
               <div onClick={showPopover}>
-                <Avatar
-                  className="ml-3"
-                  size="large"
-                  src="https://joeschmoe.io/api/v1/jess"
-                />
+                <Avatar className="ml-3" size="large" src={profilePicture} />
                 <span className="justify-center px-2 hidden xl:block">
-                  Mark Mansion
+                  {userName}
                 </span>
                 <div className="hidden md:block">
                   <CaretDownOutlined />

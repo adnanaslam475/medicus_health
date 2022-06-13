@@ -30,6 +30,17 @@ mutation login($input: LoginUserInput!) {
       id
       email
       role
+      first_name
+      last_name
+      patientProfile {
+        profileImage
+      }
+      doctorProfile {
+        profile_image
+      }
+      adminProfilePicture {
+        profile_picture
+      }
     }
   }
 }

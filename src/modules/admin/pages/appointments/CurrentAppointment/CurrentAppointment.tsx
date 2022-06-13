@@ -1,27 +1,28 @@
+import { Button, Empty, Spin } from "antd";
 import React, { useState } from "react";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
+import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
-import { Empty, Select, Spin } from "antd";
 import {
+	Appointment,
 	AppointmentTimeSlots,
 	BookingDate,
+	DoctorProfile,
 	useGetAllRequestedAppointmentsQuery,
 } from "../../../../../generated/graphql";
 
-const { Option } = Select;
-function UpcomingAppointments() {
+function CurrentAppointment() {
+	const [dueDates, setDueDates] = useState<Date | null>();
 	const [dueStartDate, setStartDate] = useState<Date | null>();
 	const [dueEndDate, setEndDate] = useState<Date | null>();
 	const [bookingDate, setBookingDate] = useState<BookingDate>({});
-
 	const [dataListPhysician, setDataListPhysician] = useState<string>();
 	const [doctorIds, setDoctorId] = useState<number>();
 	const [appointmentId, setAppointmentId] = useState<number>();
-	const [serviceIds, setServiceIds] = useState<number>();
-	const [status, setStatus] = useState<string>("Confirmed");
 	const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
-	const [{ data ,fetching}] = useGetAllRequestedAppointmentsQuery({
+	const [serviceIds, setServiceIds] = useState<number>();
+	const [status, setStatus] = useState<string>("Cancelled"); //it wll be replaced by current when api will be  integrated
+	const [{ data,fetching}] = useGetAllRequestedAppointmentsQuery({
 		variables: {
 			filter: {
 				status: status,
@@ -29,10 +30,11 @@ function UpcomingAppointments() {
 				doctorId: doctorIds,
 				appointmentId: appointmentId,
 				serviceId: serviceIds,
-				dueDate: bookingDate,
+				bookingDate: bookingDate,
 			},
 		},
 	});
+
 	function onViewSuggestedSlots(id: number) {
 		setCurrentAppointmentId(id);
 		setShowModal(true);
@@ -46,29 +48,32 @@ function UpcomingAppointments() {
 			<div className="w-full">
 				<div className="flex-none sm:flex items-center justify-between mb-5">
 					<div className="pr-3 mb-3 sm:mb-0">
-						<h2 className="mb-0">Upcoming Appointments</h2>
-						<p className="text-gray mb-0">
+						<h2 className="mb-0">Current Appointments</h2>
+						<h5 className="text-gray">
 							Suspendisse ac nulla non ante viverra feugiat. Duis
 							ullamcorperequesty tortor a fringilla tempus.
-						</p>
+						</h5>
 					</div>
+				
 				</div>
-				<SearchFilters
-					setDataListPhysician={setDataListPhysician}
-					setDoctorId={setDoctorId}
-					setAppointmentId={setAppointmentId}
-					setServiceIds={setServiceIds}
-					setStartDate={setStartDate}
-					setEndDate={setEndDate}
-					setBookingDate={setBookingDate}
-				/>
+
+				<div className="w-5/6">
+					<SearchFilters
+						setStartDate={setStartDate}
+						setEndDate={setEndDate}
+						setDataListPhysician={setDataListPhysician}
+						setDoctorId={setDoctorId}
+						setAppointmentId={setAppointmentId}
+						setServiceIds={setServiceIds}
+						setBookingDate={setBookingDate}
+					/>
+				</div>
 				{fetching == false ? (
 					<div className="w-full">
 						{appointments?.length !== 0 && appointments ? (
-							<div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+							<div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
 								{appointments?.map((appointmentDetail, i) => {
 									const {
-										id,
 										requestedDate,
 										status,
 										serviceType,
@@ -77,18 +82,16 @@ function UpcomingAppointments() {
 									} = appointmentDetail || {};
 									return (
 										<AppointmentCard
-											appointmentId={Number(id)}
 											requestedDate={requestedDate}
-											status={status}
-											serviceType={serviceType?.name}
+											// status={status}
+											status="Current"
+											serviceType={serviceType?.name||"Service type"}
 											doctor={doctor?.first_name}
 											appointmentTimeSlots={
 												appointmentTimeSlots as AppointmentTimeSlots[]
 											}
+											onViewSuggestedSlots={() => {}}
 											setShowModal={setShowModal}
-											onViewSuggestedSlots={() =>
-												onViewSuggestedSlots(Number(appointmentDetail?.id))
-											}
 										/>
 									);
 								})}
@@ -108,4 +111,4 @@ function UpcomingAppointments() {
 		</AppLayout>
 	);
 }
-export default UpcomingAppointments;
+export default CurrentAppointment;
