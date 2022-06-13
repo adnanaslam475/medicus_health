@@ -1,9 +1,6 @@
 const colors = require("tailwindcss/colors");
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./pages/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     // antd break points
     screens: {
@@ -15,14 +12,14 @@ module.exports = {
       "2xl": "1600px",
     },
     maxWidth: {
-      '1/4': '25%',
-      '1/2': '50%',
-      '3/4': '75%',
+      "1/4": "25%",
+      "1/2": "50%",
+      "3/4": "75%",
     },
     minWidth: {
-      '1/4': '25%',
-      '1/2': '50%',
-      '3/4': '75%',
+      "1/4": "25%",
+      "1/2": "50%",
+      "3/4": "75%",
     },
     colors: {
       transparent: "transparent",
@@ -54,7 +51,7 @@ module.exports = {
       },
       yellow: {
         DEFAULT: "#FFAF02",
-        1:"#FFF6E0"
+        1: "#FFF6E0",
       },
       cyan: {
         DEFAULT: "#30cec2",
@@ -62,13 +59,14 @@ module.exports = {
       },
       red: {
         DEFAULT: "#D53E4F",
-        1:"#FCE8EB"
+        1: "#FCE8EB",
       },
-      green:{
-        DEFAULT:"#E2F8F7",
-        1:"#30CEC2"
-      }
-
+      green: {
+        DEFAULT: "#E2F8F7",
+        1: "#30CEC2",
+        2: "#166534",
+        3: "#16a34a",
+      },
     },
     extend: {},
   },
