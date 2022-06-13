@@ -118,7 +118,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         )}
       </div>
       <div>
-        <LabelWithText label="ID" text={id} />
+        <LabelWithText label="ID" text={Number(id)} />
         <LabelWithText
           label="Patient"
           text={
@@ -191,7 +191,7 @@ function DoctorAppointmentInfo({ data }: Props) {
       </div>
 
       {status === "Confirmed" && (
-        <DoctorAppointmentInfoFooter appointmentId={id} data={data} />
+        <DoctorAppointmentInfoFooter appointmentId={Number(id)} data={data} />
       )}
       {status === "Requested" && (
         <DoctorRequestedAppointmentInfoFooter

@@ -1,23 +1,40 @@
 import React from "react";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import { Appointment } from "generated/graphql";
+import { Appointment, User } from "generated/graphql";
 
 type Props = {
-  appointment: Appointment | undefined;
+  appointment?: Appointment | undefined;
+  user?: User;
+  questionnaire?: Appointment | undefined;
+  disable?: boolean;
 };
 
-function AdminQuestionnaireFormTab({ appointment }: Props) {
+function AdminQuestionnaireFormTab({
+  questionnaire,
+  appointment,
+  user,
+  disable,
+}: Props) {
+  const firstName = appointment?.patient?.first_name || user?.first_name;
+  const lastName = appointment?.patient?.last_name || user?.last_name;
+  const serviceName = appointment?.serviceType?.name || user?.email;
+  const profilePicture =
+    user?.adminProfilePicture?.profile_picture ||
+    user?.doctorProfile?.profile_image ||
+    user?.patientProfile?.profileImage;
   return (
     <div>
       <CardWithProfileImageInfo
-        name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
-        serviceName={appointment?.serviceType?.name}
+        name={`${firstName} ${lastName}`}
+        serviceName={serviceName}
+        imageUrl={profilePicture}
       >
         <PhysicianQuestionnaire
           appointmentHealthHistory={
-            appointment?.appointmentHealthHistory?.history
+            appointment?.appointmentHealthHistory?.history || questionnaire
           }
+          disable
         />
       </CardWithProfileImageInfo>
     </div>

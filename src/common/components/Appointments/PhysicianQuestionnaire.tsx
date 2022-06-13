@@ -10,20 +10,20 @@ import _classes from "./AppointmentButtons.module.scss";
 
 type Props = {
   appointmentHealthHistory: string;
+  disable?:boolean
 };
 
 function PhysicianQuestionnaire(props: Props) {
   const { query } = useRouter();
   const [formInstance] = Form.useForm();
-  const { appointmentHealthHistory } = props || {};
+  const { appointmentHealthHistory,disable } = props || {};
   let History = parseJson(appointmentHealthHistory);
-
   const router = useRouter();
 
   const { pathname } = router || {};
   let disabled =
     pathname.includes("/physician/appointments") ||
-    pathname.includes("/patient/appointments");
+    pathname.includes("/patient/appointments") || disable
 
   useEffect(() => {
     prepareAndSetEditPayload();
