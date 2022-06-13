@@ -5,6 +5,7 @@ import { Appointment } from "generated/graphql";
 import AcronymWithTextEditable from "../AcronymWithTextEditable/AcronymWithTextEditable";
 import { Button, Form, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
+import AcronymWithText from "../AcronymWithText/AcronymWithText";
 
 type Props = {
   appointment?: Appointment | undefined;
@@ -54,20 +55,27 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
           <>
             {" "}
             <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">SOAP</h4>
-            {/* {doctorNotes?.length &&
+            {doctorNotes?.length &&
           doctorNotes
             ?.filter((val) => val[0] !== "__typename")
             .map((item) => {
               let char = item[0].split("")[0];
+              console.log(char,"Sss");
               return (
-                <AcronymWithText
-                  character={char.toUpperCase()}
-                  word={item[0]}
-                  sentence={item[1]}
-                />
+                // <AcronymWithText
+                //   character={char.toUpperCase()}
+                //   word={item[0]}
+                //   sentence={item[1]}
+                // />
+                <AcronymWithTextEditable
+                character={char.toUpperCase()}
+                editable={edit}
+                word={item[0]}
+                sentence={item[1]}
+              />
               );
-            })} */}
-            <AcronymWithTextEditable
+            })}
+            {/* <AcronymWithTextEditable
               character={"S"}
               editable={edit}
               word="Subjective"
@@ -98,7 +106,7 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
               sentence={
                 "Curabitur consectetur commodo nunc, eu venenatis mi maximus at. Nulla rutrum tellus eu arcu feugiat varius. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
               }
-            />
+            /> */}
           </>
         )}
       </CardWithProfileImageInfo>
