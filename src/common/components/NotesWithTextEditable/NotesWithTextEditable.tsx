@@ -14,11 +14,22 @@ type Props = {
 
 function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
   const [edit, setEdit] = useState(false);
+  const [localDocNotes, setlocalDocNotes] = useState<
+    [string, string][] | undefined
+  >([]);
   const [noteType, setNoteType] = useState("");
   function handleChange(value: string) {
     setNoteType(value);
+    if (noteType === "narrative") {
+      setlocalDocNotes(doctorNotes?.slice(3, 7));
+    } else if (noteType === "soap") {
+      setlocalDocNotes(doctorNotes?.filter((note) => note[0] === "note"));
+    }
+
+    console.log(localDocNotes, "localDocNotes");
   }
-  // onChange={handleChange}
+
+  console.log(doctorNotes?.slice(3, 7), "doctorNotesdoctorNotes");
   return (
     <>
       <CardWithProfileImageInfo
@@ -34,8 +45,8 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
             onChange={handleChange}
             style={{ width: 200 }}
           >
-            <Select.Option value="narrative">NARRATIVE</Select.Option>
             <Select.Option value="soap">SOAP</Select.Option>
+            <Select.Option value="narrative">NARRATIVE</Select.Option>
           </Select>
         </div>
 
@@ -47,66 +58,59 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
                 <TextArea />
               </Form.Item>
             ) : (
-              "Quisque auctor velit sed sapien laoreet accumsan. Donec congue felis sit amet libero laoreet tempor. Nunc tincidunt tristique magna, sed fringilla orci pulvinar quis. Aenean ligula ante, semper id libero vel, sollicitudin dictum dolor. Sed lobortis nulla felis, et imperdiet nibh luctus pretium. Vestibulum vitae tristique sem, nec semper quam. Aenean vitae dictum tortor. Ut arcu nulla, tristique quis bibendum vitae."
+              localDocNotes?.length &&
+              localDocNotes
+                ?.filter((val) => val[0] !== "__typename")
+                .map((item) => {
+                  let char = item[0].split("")[0];
+                  // console.log(char, "Sss");
+                  return (
+                    <>
+                      <AcronymWithText
+                        character={char.toUpperCase()}
+                        word={item[0]}
+                        sentence={item[1]}
+                      />
+                      {/* <AcronymWithTextEditable
+                          character={char.toUpperCase()}
+                          editable={edit}
+                          word={item[0]}
+                          sentence={item[1]}
+                        /> */}
+                    </>
+                  );
+                })
             )}
           </>
         )}
         {noteType == "soap" && (
           <>
-            {" "}
             <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">SOAP</h4>
-            {doctorNotes?.length &&
-          doctorNotes
-            ?.filter((val) => val[0] !== "__typename")
-            .map((item) => {
-              let char = item[0].split("")[0];
-              console.log(char,"Sss");
-              return (
-                // <AcronymWithText
-                //   character={char.toUpperCase()}
-                //   word={item[0]}
-                //   sentence={item[1]}
-                // />
-                <AcronymWithTextEditable
-                character={char.toUpperCase()}
-                editable={edit}
-                word={item[0]}
-                sentence={item[1]}
-              />
-              );
-            })}
-            {/* <AcronymWithTextEditable
-              character={"S"}
-              editable={edit}
-              word="Subjective"
-              sentence={
-                "Quisque auctor velit sed sapien laoreet accumsan. Donec congue felis sit amet libero laoreet tempor. Nunc tincidunt tristique magna, sed fringilla orci pulvinar quis. Aenean ligula ante, semper id libero vel, sollicitudin dictum dolor. Sed lobortis nulla felis, et imperdiet nibh luctus pretium. Vestibulum vitae tristique sem, nec semper quam. Aenean vitae dictum tortor. Ut arcu nulla, tristique quis bibendum vitae."
-              }
-            />
-            <AcronymWithTextEditable
-              character={"O"}
-              editable={edit}
-              word="Objective"
-              sentence={
-                "Quisque pretium dapibus ipsum in interdum. Nullam luctus nisi nec finibus suscipit. Nunc bibendum ornare maximus. Quisque faucibus, dolor eget pharetra pretium, magna nunc imperdiet leo, ut pellentesque erat Leo vitae urna. Nulla nisl justo, euismod ac finibus eget, dictum eu magna."
-              }
-            />
-            <AcronymWithTextEditable
-              character={"A"}
-              editable={edit}
-              word="Assessment"
-              sentence={
-                "Quisque pretium dapibus ipsum in interdum. Nullam luctus nisi nec finibus suscipit. Nunc bibendum ornare maximus. Quisque faucibus, dolor eget pharetra pretium, magna nunc imperdiet leo, ut pellentesque erat Leo vitae urna. Nulla nisl justo, euismod ac finibus eget, dictum eu magna. Cras semper aliquam nibh, vel molestie ex. Fusce ultrices odio a pharetra blandit. Nam ultrices, nisi viverra vehicula mattis, magna Leo feugiat."
-              }
-            />
-            <AcronymWithTextEditable
-              character={"P"}
-              editable={edit}
-              word="Plan"
-              sentence={
-                "Curabitur consectetur commodo nunc, eu venenatis mi maximus at. Nulla rutrum tellus eu arcu feugiat varius. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
-              }
-            /> */}
+            {localDocNotes?.length &&
+              localDocNotes
+                ?.filter((val) => val[0] !== "__typename")
+                .map((item) => {
+                  let char = item[0].split("")[0];
+                  // console.log(char, "Sss");
+                  return (
+                    <>
+                      {!edit ? (
+                        <AcronymWithTextEditable
+                          character={char.toUpperCase()}
+                          editable={edit}
+                          word={item[0]}
+                          sentence={item[1]}
+                        />
+                      ) : (
+                        <AcronymWithText
+                          character={char.toUpperCase()}
+                          word={item[0]}
+                          sentence={item[1]}
+                        />
+                      )}
+                    </>
+                  );
+                })}
           </>
         )}
       </CardWithProfileImageInfo>
