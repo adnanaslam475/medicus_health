@@ -6,6 +6,7 @@ import { Button, Card, Space } from "antd";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import { MessageOutlined } from "@ant-design/icons";
+import Router  from "next/router";
 
 type Props = {
   appointmentId: number | undefined;
@@ -69,6 +70,7 @@ function AppointmnetCurrentCard({
         <Button
 					type="default"
 					className={`${_classes["appointments-btn"]} bg-current mr-3`}
+          onClick={()=>Router.push(`/patient/appointments/detail`)}
 				
 				>
 					<span className="ml-2 mt-1">Detail</span>
