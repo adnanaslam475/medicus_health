@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import { physicianFilterType } from "common/types/types";
 import {
+  BookingDate,
   GetAppointmentInput,
   useGetAllAppointmentServiceTypesQuery,
 } from "generated/graphql";
@@ -28,8 +29,10 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
     onChange({});
   }
   const [openDateRange, setOpenDateRange] = useState(false);
+  const [dueDate, setDueDate] = useState<BookingDate>({});
 
   const applyDateRange = () => {
+    onChangeFields("dueDate", dueDate);
     setOpenDateRange(false);
   };
 
@@ -46,9 +49,9 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
     if (!filters.searchString) {
       delete filters.searchString;
     }
-    // if (!filters.appointmentType) {
-    // 	delete filters.appointmentType;
-    // }
+    if (!filters.serviceId) {
+      delete filters.serviceId;
+    }
 
     onChange(filters);
   }
@@ -70,21 +73,21 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
           <div className="lg:ml-3 sm:mt-0">
             <SelectServiceTypeFilter
               onChange={(value) => onChangeFields("serviceId", value as string)}
-              // value={filterState.appointmentType}
+              value={filterState.serviceId || "Appointment Type"}
             />
           </div>
           <div className="lg:ml-3 sm:mt-0">
             <SelectStatusTypeFilter
               //   placeholder="Status"
               onChange={(value) => onChangeFields("status", value as string)}
-              value={"Status   "}
+              value={filterState?.status}
             />
           </div>
         </div>
 
         <FilterRangePicker
           onChange={(dateString: string[]) =>
-            onChangeFields("dueDate", {
+            setDueDate({
               startDate: dateString[0],
               endDate: dateString[1],
             })
