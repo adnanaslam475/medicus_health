@@ -29,19 +29,39 @@ const AppHeader = () => {
     setVisible(!visible);
   };
 
-  const {user} = getUserData();
-  const {patientProfile,adminProfilePicture,doctorProfile} = user || {};
-  
-  const profilePicture = patientProfile?.profileImage ||doctorProfile?.profile_image || adminProfilePicture?.profile_picture
-  const userName = `${user?.first_name} ${user?.last_name}`
+  const { user } = getUserData();
+  const { patientProfile, adminProfilePicture, doctorProfile } = user || {};
+
+  const profilePicture =
+    patientProfile?.profileImage ||
+    doctorProfile?.profile_image ||
+    adminProfilePicture?.profile_picture;
+  const userName = `${user?.first_name} ${user?.last_name}`;
+  const userRole = user?.role;
+  const accountPath =
+    user?.role === "Doctor"
+      ? "/physician/account"
+      : user?.role === "Admin"
+      ? "/admin/account"
+      : "/patient/account?activeTab=1";
 
   const menu = (
     <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
-      <Menu.Item className="border-b border-gray-4" onClick={()=>Router.push(`/patient/account?activeTab=1`)}>
+      <Menu.Item
+        className="border-b border-gray-4"
+        onClick={() => Router.push(accountPath)}
+      >
         Accounts Settings
       </Menu.Item>
-      
-      <Menu.Item className="border-b border-gray-4" onClick={()=>Router.push(`/patient/account?activeTab=3`)}>Payment Settings</Menu.Item>
+
+      {userRole === "User" && (
+        <Menu.Item
+          className="border-b border-gray-4"
+          onClick={() => Router.push(`/patient/account?activeTab=3`)}
+        >
+          Payment Settings
+        </Menu.Item>
+      )}
 
       <Menu.Item onClick={logout}>
         <span className="text-red">Logout</span>
@@ -153,11 +173,7 @@ const AppHeader = () => {
               trigger={["click"]}
             >
               <div onClick={showPopover}>
-                <Avatar
-                  className="ml-3"
-                  size="large"
-                  src={profilePicture}
-                />
+                <Avatar className="ml-3" size="large" src={profilePicture} />
                 <span className="justify-center px-2 hidden xl:block">
                   {userName}
                 </span>
