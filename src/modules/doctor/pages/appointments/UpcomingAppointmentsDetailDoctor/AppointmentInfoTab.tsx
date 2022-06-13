@@ -15,9 +15,9 @@ function AppointmentInfoTab({}: Props) {
 
   const [{ data }] = useDoctorAppointmentDetailAppointmentInfoQuery({
     variables: {
-      id: Number(query.appointmentId),
+      id: Number(query.id),
     },
-    pause: !query.appointmentId,
+    pause: !query.id,
   });
   const { appointment } = data || {};
   const { patient, serviceType } = appointment || {};

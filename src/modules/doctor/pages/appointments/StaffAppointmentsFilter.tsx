@@ -19,12 +19,11 @@ function StaffAppointmentsFilter({ onChange }: Props) {
     onChange({});
   }
   const [openDateRange, setOpenDateRange] = useState(false);
-  const [creationDate,setCreationDate]=useState<BookingDate>({})
-
+  const [creationDate, setCreationDate] = useState<BookingDate>({});
 
   const applyDateRange = () => {
     setOpenDateRange(false);
-    onChangeFields("CreationDate",creationDate)
+    onChangeFields("CreationDate", creationDate);
   };
 
   function onChangeFields(key: string, value: string | object) {
@@ -52,7 +51,7 @@ function StaffAppointmentsFilter({ onChange }: Props) {
         <div className="w-full sm:w-full md:w-full lg:w-70">
           <Input
             value={filterState.searchString || ""}
-            placeholder="Search by ID or patient name"
+            placeholder="Search by ID, name, email address or contact number"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);

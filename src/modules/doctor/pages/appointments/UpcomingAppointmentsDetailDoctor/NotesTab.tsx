@@ -17,7 +17,7 @@ function NotesTab({}: Props) {
     variables: {
       id: Number(query.id),
     },
-    // pause: !query.id,
+    pause: !query.id,
   });
 
   const [{ data: note }, createOrUpdateAppointmentNote] =
