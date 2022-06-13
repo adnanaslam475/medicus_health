@@ -84,7 +84,7 @@ function CancelledAppointmentTable({ dataSource,loading }: Props) {
       dataIndex: "charges",
       key: "charges",
       render: (value: number) => {
-        return <div className="someclass">{value ? `$ ${value}` : ""}</div>;
+        return <div className="someclass">{value ? `$${value}` : ""}</div>;
       },
     },
     {

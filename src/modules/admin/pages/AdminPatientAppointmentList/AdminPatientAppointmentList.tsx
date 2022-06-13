@@ -144,7 +144,7 @@ function AdminPatientAppointmentList() {
       dataIndex: "charges",
       key: "charges",
       render: (value: User) => {
-        return <div>$ {value}</div>;
+        return <div>${value}</div>;
       },
       sorter: {
         compare: (a: any, b: any) => a.charges - b.charges,
