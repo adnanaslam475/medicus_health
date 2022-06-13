@@ -85,10 +85,10 @@ function AdminPatientAppointmentList() {
     },
     {
       title: "Physician Name",
-      dataIndex: "patient",
-      key: "patient",
-      render: (patient: User) => {
-        return <div>{`${patient?.first_name} ${patient?.last_name}`}</div>;
+      dataIndex: "doctor",
+      key: "doctor",
+      render: (doctor: User) => {
+        return <div>{`${doctor?.first_name} ${doctor?.last_name}`}</div>;
       },
       sorter: {
         compare: (a: any, b: any) => a.first_name - b.first_name,
