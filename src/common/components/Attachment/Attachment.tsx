@@ -41,7 +41,7 @@ function Attachment(props: Props) {
                   onClick={handleFile}
                 >
                   <CloseOutlined />
-                  <span>Delete</span>{" "}
+                  <span>Delete</span>
                 </p>
               </div>
             }
