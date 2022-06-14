@@ -58,7 +58,7 @@ function AppointmentInfo(props: Props) {
             selectedAppointment?.startTime
           )} - ${date?.formathhmma(selectedAppointment?.endTime)}`}
         />
-        <LabelValueRow label="Total Amount" value={price ? price : "--"} />
+        <LabelValueRow label="Total Amount" value={price ? `$${price}` : "--"} />
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">Status</div>

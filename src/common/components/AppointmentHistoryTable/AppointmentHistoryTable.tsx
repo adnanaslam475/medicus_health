@@ -130,7 +130,6 @@ const AppointmentHistoryTable = (props: Props) => {
       title: "",
       dataIndex: "id",
       key: "id",
-      sorter: true,
       className: "table-action-icon",
       render: (id: string) => (
         <div className="text-primary">
