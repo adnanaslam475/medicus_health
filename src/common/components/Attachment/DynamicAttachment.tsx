@@ -17,7 +17,7 @@ function MediaFile({ type }: any) {
     other: pdf,
   };
 
-  if (availableTypes.includes(type))
+  if (availableTypes?.includes(type))
     return (
       <Image
         alt=""

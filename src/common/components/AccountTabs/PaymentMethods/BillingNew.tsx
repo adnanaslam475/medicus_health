@@ -201,7 +201,7 @@ function Billing({
               )}
               <Button
                 icon={<PlusOutlined />}
-                className="text-primary"
+                className="text-primary cursor-pointer"
                 onClick={() => setModalVisible(true)}
               >
                 Add Payment Method

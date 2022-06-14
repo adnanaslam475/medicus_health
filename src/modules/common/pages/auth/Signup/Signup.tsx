@@ -142,6 +142,7 @@ function Signup() {
                   height={34}
                   width={216}
                   src="/assets/images/logo-medi.svg"
+                  loading="eager"
                 />
               </div>
               <h1 className="text-center text-secondary mb-3">
@@ -230,6 +231,8 @@ function Signup() {
                       isLoading={fetching}
                       disable={true}
                       signupError={signupError}
+                      setNextTab={setNextTab}
+                      setActiveKey={setActiveKey}
                     />
                   </TabPane>
                 </Tabs>

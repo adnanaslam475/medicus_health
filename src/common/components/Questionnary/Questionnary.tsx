@@ -20,6 +20,8 @@ interface HealthQuesType {
   isLoading?: boolean;
   disable?: boolean;
   signupError?: string | undefined;
+  setNextTab?: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveKey?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const HealthQuestionnary = ({
@@ -31,10 +33,15 @@ const HealthQuestionnary = ({
   isLoading,
   disable,
   signupError,
+  setNextTab,
+  setActiveKey,
 }: HealthQuesType) => {
   const [terms, setTerms] = useState(false);
   const form: any = useRef();
-  const handleChange = (e: any) => {};
+  const handleChange = () => {
+    setActiveKey?.("1");
+    setNextTab?.((prev) => !prev);
+  };
 
   useEffect(() => {
     //for Scroll to the top of the page
@@ -84,9 +91,9 @@ const HealthQuestionnary = ({
       {!isUpdateMode && disable && (
         <div className="flex justify-center">
           <div className="inline-flex items-center">
-            <div className="mb-0">
-              <Button type="link" onClick={(e) => handleChange(e)}>
-                <div className="flex items-center">
+            <div className="mb-0 ">
+              <Button type="link">
+                <div className="flex items-center" onClick={handleChange}>
                   <span className="mt-1">
                     <Image
                       alt=""
@@ -133,7 +140,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const router = useRouter();
 
   const { pathname } = router || {};
-  let disabled = pathname.includes("/physician/appointments");
+  let disabled = pathname?.includes("/physician/appointments");
 
   function prepareAndSetEditPayload(parsedData: any) {
     setRadioDrink(parsedData?.q1.ans);

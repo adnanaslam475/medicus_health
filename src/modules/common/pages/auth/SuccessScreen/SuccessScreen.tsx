@@ -28,6 +28,7 @@ const SuccessScreen = () => {
                 height={34}
                 width={216}
                 src="/assets/images/logo-medi.svg"
+                loading="eager"
               />
               <div className="flex justify-center mt-10">
                 <Image
@@ -36,6 +37,7 @@ const SuccessScreen = () => {
                   height={84}
                   width={84}
                   src="/assets/icon/success-big.svg"
+                  loading="eager"
                 />
               </div>
             </div>

@@ -22,8 +22,8 @@ function PhysicianQuestionnaire(props: Props) {
 
   const { pathname } = router || {};
   let disabled =
-    pathname.includes("/physician/appointments") ||
-    pathname.includes("/patient/appointments") || disable
+    pathname?.includes("/physician/appointments") ||
+    pathname?.includes("/patient/appointments") || disable
 
   useEffect(() => {
     prepareAndSetEditPayload();

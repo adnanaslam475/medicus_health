@@ -205,7 +205,7 @@ function AppointmentModalFooter({
       )}
       {stepName == "stepTwo" && (
         <div className="flex justify-between ">
-          <div className="flex items-center text-primary" onClick={onNext}>
+          <div className="flex items-center text-primary cursor-pointer" onClick={onNext}>
             <PlusOutlined className={`${_classes["icon-color"]}`} />
             <span className="text-primary">Add Payment Method</span>
           </div>
@@ -223,7 +223,7 @@ function AppointmentModalFooter({
       )}
       {stepName === "stepThree" && (
         <div className="flex justify-between items-center">
-          <div className="flex items-center text-primary" onClick={onPrevious}>
+          <div className="flex items-center text-primary cursor-pointer" onClick={onPrevious}>
             <LeftOutlined className={`${_classes["icon-color"]}`} />
             <span className="text-primary">Previous</span>
           </div>
