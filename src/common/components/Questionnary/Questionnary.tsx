@@ -114,9 +114,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   ref: any
 ) {
   const { onFinishSuccess, onFinishedFailed, data } = props || {};
-  const [radioDrink, setRadioDrink] = useState(true);
-  const [radioSmoke, setRadioSmoke] = useState(true);
-  const [radioDrug, setRadioDrug] = useState(true);
+  const [radioDrink, setRadioDrink] = useState(false);
+  const [radioSmoke, setRadioSmoke] = useState(false);
+  const [radioDrug, setRadioDrug] = useState(false);
   const [showDrugOthers, setShowDrugOthers] = useState(false);
   const [showSurgicalOthers, setShowSurgicalOthers] = useState(false);
   const [formInstance] = Form.useForm();
