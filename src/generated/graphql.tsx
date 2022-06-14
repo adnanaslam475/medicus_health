@@ -599,6 +599,7 @@ export type Mutation = {
   login: LoginResponse;
   payment: Transaction;
   proposeNewTime: Appointment;
+  reBookAppointment: Appointment;
   removeAppointment: Appointment;
   removeAppointmentNote: AppointmentNote;
   removeCard: UserCard;
@@ -612,6 +613,7 @@ export type Mutation = {
   removeUser: User;
   setAsDefaultCard: UserCard;
   setDoctorPassword: User;
+  suggestNewTime: Appointment;
   toggleEmailPreferences: UserEmailPreferencesResponse;
   updateAdminUser: User;
   updateDctorPercentage: Transaction;
@@ -785,6 +787,11 @@ export type MutationProposeNewTimeArgs = {
 };
 
 
+export type MutationReBookAppointmentArgs = {
+  rebookAppointmentInput: ReBookAppointmentInput;
+};
+
+
 export type MutationRemoveAppointmentArgs = {
   id: Scalars['Int'];
 };
@@ -847,6 +854,11 @@ export type MutationSetAsDefaultCardArgs = {
 
 export type MutationSetDoctorPasswordArgs = {
   setPasswordInput: ResetPasswordInput;
+};
+
+
+export type MutationSuggestNewTimeArgs = {
+  suggestNewTime: SuggestNewTimeInput;
 };
 
 
@@ -1183,6 +1195,11 @@ export type QueryUserArgs = {
   id: Scalars['Int'];
 };
 
+export type ReBookAppointmentInput = {
+  appointmentId: Scalars['Int'];
+  selectedSlotId: Scalars['Float'];
+};
+
 export type ResetPasswordInput = {
   password: Scalars['String'];
   password_token?: InputMaybe<Scalars['String']>;
@@ -1206,6 +1223,20 @@ export type State = {
   country_id: Scalars['Float'];
   id: Scalars['Float'];
   state_name: Scalars['String'];
+};
+
+export type SuggestNewTimeInput = {
+  /** Appointment ID required */
+  id: Scalars['Int'];
+  /** Array of object required. Example [{ startTime: "yyyy-mm-dd hh:mm:ss", endTime: "yyyy-mm-dd hh:mm:ss"}] */
+  proposedTimeSlots: Array<SuggestedTimeSlots>;
+};
+
+export type SuggestedTimeSlots = {
+  /** Appointment end date and time required */
+  endTime: Scalars['String'];
+  /** Appointment start date and time required */
+  startTime: Scalars['String'];
 };
 
 export type TogglePreference = {
@@ -6184,6 +6215,29 @@ export default {
             ]
           },
           {
+            "name": "reBookAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "rebookAppointmentInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "removeAppointment",
             "type": {
               "kind": "NON_NULL",
@@ -6472,6 +6526,29 @@ export default {
             "args": [
               {
                 "name": "setPasswordInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "suggestNewTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "suggestNewTime",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

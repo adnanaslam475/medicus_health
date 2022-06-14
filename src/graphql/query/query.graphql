@@ -272,7 +272,7 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
       startTime
       endTime
     }
-    appointmentDateTime{
+    appointmentDateTime {
       startTime
       endTime
     }
