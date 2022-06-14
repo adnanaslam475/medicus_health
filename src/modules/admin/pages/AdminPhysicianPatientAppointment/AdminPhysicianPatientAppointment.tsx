@@ -22,7 +22,7 @@ function AdminPhysicianList() {
 	const { query } = useRouter();
 	const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
 
-	const [{ data }, executeUseAdminPhysicianAppointmentQuery] =
+	const [{ data,fetching }, executeUseAdminPhysicianAppointmentQuery] =
 		useAdminPhysicianAppointmentQuery({
 			variables: {
 				filter: {
@@ -208,7 +208,7 @@ function AdminPhysicianList() {
 			/>
 			<div className="w-full">
 				<div>
-					<Table columns={columns} dataSource={appointments} />
+					<Table columns={columns} dataSource={appointments} loading={fetching} />
 				</div>
 			</div>
 		</div>
