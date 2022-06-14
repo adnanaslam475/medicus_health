@@ -245,7 +245,8 @@ function AdminAppointmentInfoFooter({
           >
             Message Physician
           </Button>
-          {appointmentStatus === "Cancelled" && (
+          {(appointmentStatus === "Cancelled" ||
+            appointmentStatus === "Completed") && (
             <Button
               type="primary"
               className={`${_classes["appointments-rebook-btn"]}`}

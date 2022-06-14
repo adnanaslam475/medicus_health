@@ -58,6 +58,7 @@ function StaffListing() {
       if (response.data) {
         setVisibleModal(false);
         form.resetFields();
+        executeUseStaffQuery({ requestPolicy: "network-only" })
         notification.success({
           message:"staff added successfully"})
       }

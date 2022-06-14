@@ -133,7 +133,7 @@ function RequestedAppointment() {
 										} = appointmentDetail || {};
 										return (
 											<AppointmentCard
-												appointmentId={id}
+												appointmentId={Number(id)}
 												requestedDate={requestedDate}
 												status={status}
 												serviceType={serviceType?.name}
@@ -142,7 +142,7 @@ function RequestedAppointment() {
 													appointmentTimeSlots as AppointmentTimeSlots[]
 												}
 												onViewSuggestedSlots={() =>
-													onViewSuggestedSlots(appointmentDetail?.id)
+													onViewSuggestedSlots(Number(appointmentDetail?.id))
 												}
 												setShowModal={setShowModal}
 											/>

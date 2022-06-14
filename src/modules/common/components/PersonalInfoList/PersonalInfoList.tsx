@@ -96,7 +96,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
           <div className="md:w-1/2 text-gray-1">Date of Birth</div>
           <div className="md:w-1/2 text-secondary">
-            {date.convertStringDateToUTC(date_of_birth)}
+            {date_of_birth ? date.convertStringDateToUTC(date_of_birth) : "-"}
           </div>
         </div>
       </li>

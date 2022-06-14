@@ -111,7 +111,7 @@ const RequestedList = (props: Props) => {
         multiple: 3,
       },
       render: (value: number) => {
-        return <div className="someclass">{value ? `$ ${value}` : ""}</div>;
+        return <div className="someclass">{value ? `$${value}` : ""}</div>;
       },
     },
     {

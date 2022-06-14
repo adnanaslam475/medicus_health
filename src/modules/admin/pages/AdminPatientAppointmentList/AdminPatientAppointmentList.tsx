@@ -4,6 +4,7 @@ import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
   GetAppointmentInput,
@@ -84,10 +85,10 @@ function AdminPatientAppointmentList() {
     },
     {
       title: "Physician Name",
-      dataIndex: "patient",
-      key: "patient",
-      render: (patient: User) => {
-        return <div>{`${patient?.first_name} ${patient?.last_name}`}</div>;
+      dataIndex: "doctor",
+      key: "doctor",
+      render: (doctor: User) => {
+        return <div>{`${doctor?.first_name} ${doctor?.last_name}`}</div>;
       },
       sorter: {
         compare: (a: any, b: any) => a.first_name - b.first_name,
@@ -108,16 +109,15 @@ function AdminPatientAppointmentList() {
     },
     {
       title: "Time Slot",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
-      render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
-        let selectedTime = appointmentTimeSlots.find((item) => item.selected);
-        return (
-          <div>{selectedTime?.startTime ? `${date?.formathhmma(
-            selectedTime?.startTime
-          )} - ${date?.formathhmma(selectedTime?.endTime)}` : "--"}</div>
-        );
-      },
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+				return (
+					<div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formathhmma(
+						appointmentDateTime?.startTime
+					)} - ${date?.formathhmma(appointmentDateTime.endTime)}` : "--"}</div>
+				);
+			},
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
@@ -125,13 +125,12 @@ function AdminPatientAppointmentList() {
     },
     {
       title: "Date",
-      dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
-      render: (appointmentTimeSlots: AppointmentTimeSlots[]) => {
-        let selectedTime = appointmentTimeSlots.find((item) => item.selected);
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-          <div className="someclass">{selectedTime?.startTime ?`${date?.formatMMMMDDYYYY(
-            selectedTime?.startTime
+          <div className="someclass">{appointmentDateTime?.startTime ?`${date?.formatMMMMDDYYYY(
+            appointmentDateTime?.startTime
           )} ` : "--"}</div>
         );
       },
@@ -145,7 +144,7 @@ function AdminPatientAppointmentList() {
       dataIndex: "charges",
       key: "charges",
       render: (value: User) => {
-        return <div>$ {value}</div>;
+        return <div>${value}</div>;
       },
       sorter: {
         compare: (a: any, b: any) => a.charges - b.charges,

@@ -142,7 +142,7 @@ function EditAdminUserDetails({}: Props) {
                 onChange={changeAccountStatusHandler}
                 style={{ width: 200 }}
               >
-                <Option value={true}>Active</Option>
+                <Option value={true}>Enabled</Option>
                 <Option value={false}>Disabled</Option>
               </Select>
             </Form.Item>

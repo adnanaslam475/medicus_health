@@ -133,7 +133,7 @@ const appointmentColumns = [
     title: "Total Amount",
     dataIndex: "charges",
     key: "charges",
-    render: (charges: AppointmentServiceType) => <div>{`$ ${charges}`}</div>,
+    render: (charges: AppointmentServiceType) => <div>{`$${charges}`}</div>,
   },
   {
     title: "",

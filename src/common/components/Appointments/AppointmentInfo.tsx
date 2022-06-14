@@ -38,7 +38,7 @@ function AppointmentInfo(props: Props) {
   return (
     <React.Fragment>
       <div className="max-w-[700px]">
-        <LabelValueRow label="ID" value={id} />
+        <LabelValueRow label="ID" value={Number(id)} />
         <LabelValueRow
           label="Due date"
           value={date?.formatMMMMDDYYYY(requestedDate)}
