@@ -11,7 +11,8 @@ import { date } from "../../utils";
 import { LeftOutlined } from "@ant-design/icons";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import MDNextImage from "../MDNextImage/MDNextImage";
-import { DoctorProfile } from "generated/graphql";
+import { DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
+import { getUserData } from "common/utils/userData";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -45,6 +46,15 @@ function DoctorCard({
   doctorProfile,
   loading,
 }: Props) {
+  //Get logged in User
+  const { user } = getUserData();
+  const { id: loggedInUser } = user || {};
+
+  // Get patient Health History
+  const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
+    variables: { input: Number(loggedInUser) },
+  });
+
   // FOR REQUEST AN APPOINTMENT
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -136,7 +146,14 @@ function DoctorCard({
               </a>
             </Link>
 
-            <Button type="primary" className="w-full" onClick={showModal}>
+            <Button
+              type="primary"
+              className="w-full"
+              onClick={showModal}
+              disabled={
+                patientHealthHistory?.patientHealthHistory ? false : true
+              }
+            >
               <Image
                 src={VideoCameraFilled}
                 alt="espanolFlag"
