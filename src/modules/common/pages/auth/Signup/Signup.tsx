@@ -16,6 +16,7 @@ import { date } from "../../../../../common/utils";
 import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import successSmall from "../../../../../../public/assets/icon/success-small.svg";
+import { GraphQLError } from "graphql";
 
 const { TabPane } = Tabs;
 const { confirm } = Modal;
@@ -108,13 +109,14 @@ function Signup() {
       user = await createUser({
         input: updatedPayload as CreateUserInput,
       });
+      let errorResponse = user?.error?.graphQLErrors[0]?.extensions?.response as GraphQLError
       if (!user.error?.message) {
         Router.push({
           pathname: "/successScreen",
           query: { email: updatedPayload?.email },
         });
       }
-      setSignupError(user?.error?.graphQLErrors[0]?.message);
+      setSignupError(errorResponse?.message[0]);
       return user;
     } catch (err) {
       console.log(err);
