@@ -8,10 +8,14 @@ import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import _classes from "./DoctorProfileCard.module.scss";
-import { DoctorProfile } from "../../../generated/graphql";
+import {
+  DoctorProfile,
+  usePatientHealthHistoryQuery,
+} from "../../../generated/graphql";
 import { date } from "../../utils";
 import { sorter } from "utils/helper";
 import MDNextImage from "../MDNextImage/MDNextImage";
+import { getUserData } from "common/utils/userData";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -24,6 +28,14 @@ type Props = {
 };
 
 function DoctorProfileCard(props: Props) {
+  //Get logged in User
+  const { user } = getUserData();
+  const { id: loggedInUser } = user || {};
+
+  // Get patient Health History
+  const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
+    variables: { input: Number(loggedInUser) },
+  });
   const { doctorData, loading } = props || {};
   const { first_name, last_name } = doctorData?.user || {};
   const { language } = doctorData || "english";
@@ -142,7 +154,13 @@ function DoctorProfileCard(props: Props) {
               </Collapse.Panel>
             </Collapse>
             <div className="flex-none md:flex mt-3">
-              <Button type="primary" onClick={showModal}>
+              <Button
+                type="primary"
+                onClick={showModal}
+                disabled={
+                  patientHealthHistory?.patientHealthHistory ? false : true
+                }
+              >
                 <Image
                   src={VideoCamera}
                   alt="espanolFlag"
