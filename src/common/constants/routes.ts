@@ -55,6 +55,7 @@ export const DOCTOR_ROUTES: routes = [
     route: "/physician/dashboard",
     toggleName: "Appointments",
     submenu: [
+      { name: "Current", route: "/physician/appointments/current" },
       { name: "Upcoming", route: "/physician/appointments/upcoming" },
       { name: "Requested", route: "/physician/appointments/requested" },
       { name: "Cancelled", route: "/physician/appointments/cancelled" },
