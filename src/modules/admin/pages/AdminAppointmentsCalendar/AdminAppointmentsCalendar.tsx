@@ -31,6 +31,7 @@ function AdminAppointmentsCalendar() {
 
   const handleDateClick = (arg: any) => {
     const data = arg?.event?.toJSON();
+
     setModalData({
       id: data?.id,
       patient: data?.extendedProps?.patient,
@@ -41,7 +42,7 @@ function AdminAppointmentsCalendar() {
       startDate: data?.extendedProps?.appointmentTimeSlots?.startTime,
       endDate: data?.extendedProps?.appointmentTimeSlots?.endTime,
       status: data?.status,
-      charges: data?.extendedProps?.charges,
+      charges: data?.extendedProps?.total,
       type: "Assignment",
     });
 
