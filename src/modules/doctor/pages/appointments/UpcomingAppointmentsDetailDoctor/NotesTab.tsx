@@ -81,8 +81,6 @@ function NotesTab({}: Props) {
         <Notes onFinish={addNote} />
         <div className="mb-3"></div>
         <NotesListingByAppointments
-          // onFinish={addNote}
-          // appointment={appointmentsData}
           doctorNotes={notesById as GetAppointmentNoteByIdQuery}
         />
       </CardWithProfileImageInfo>
