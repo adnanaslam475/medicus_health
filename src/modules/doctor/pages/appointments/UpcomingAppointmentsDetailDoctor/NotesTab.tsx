@@ -1,9 +1,15 @@
 import { notification } from "antd";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import Notes from "common/components/Notes/Notes";
+import NotesListingByAppointments from "common/components/NotesListingByAppointments/NotesListingByAppointments";
 import {
+  Appointment,
+  AppointmentNote,
+  GetAppointmentNoteByIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
   useDoctorAppointmentDetailAppointmentInfoQuery,
+  useGetAppointmentByIdQuery,
+  useGetAppointmentNoteByIdQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
@@ -27,6 +33,18 @@ function NotesTab({}: Props) {
   const { patient, serviceType } = appointment || {};
 
   console.log({ data });
+
+  // GET NOTES API CALL
+
+  const appointmentId = Number(query.id);
+
+  const [{ data: notesById }] = useGetAppointmentNoteByIdQuery({
+    variables: {
+      appointmentId,
+    },
+  });
+
+  console.log(notesById, "notesById");
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
@@ -61,6 +79,12 @@ function NotesTab({}: Props) {
         serviceName={serviceType?.name}
       >
         <Notes onFinish={addNote} />
+        <div className="mb-3"></div>
+        <NotesListingByAppointments
+          // onFinish={addNote}
+          // appointment={appointmentsData}
+          doctorNotes={notesById as GetAppointmentNoteByIdQuery}
+        />
       </CardWithProfileImageInfo>
     </div>
   );
