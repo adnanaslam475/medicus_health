@@ -230,6 +230,8 @@ function Signup() {
                       isLoading={fetching}
                       disable={true}
                       signupError={signupError}
+                      setNextTab={setNextTab}
+                      setActiveKey={setActiveKey}
                     />
                   </TabPane>
                 </Tabs>

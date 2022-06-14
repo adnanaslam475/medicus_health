@@ -327,7 +327,7 @@ export default function PersonalInfo({ onFinish }: props) {
         <p className="text-secondary-1">
           Already have an account?
           <Link href="/login">
-            <span className="text-primary">Login</span>
+            <span className="text-primary cursor-pointer"> Login</span>
           </Link>
         </p>
       </div>
