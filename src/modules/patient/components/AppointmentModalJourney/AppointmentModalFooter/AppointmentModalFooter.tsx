@@ -209,17 +209,16 @@ function AppointmentModalFooter({
             <PlusOutlined className={`${_classes["icon-color"]}`} />
             <span className="text-primary">Add Payment Method</span>
           </div>
-          {contextData.stepTwo?.cardId && (
-            <Button
-              type="primary"
-              onClick={(e) => {
-                onPay(e, appointmentId);
-              }}
-              className={`${_classes["button-background-color"]}`}
-            >
-              Pay ${contextData?.stepOne?.charges}
-            </Button>
-          )}
+          <Button
+            type="primary"
+            onClick={(e) => {
+              onPay(e, appointmentId);
+            }}
+            className={`${_classes["button-background-color"]}`}
+            disabled={!contextData.stepTwo?.cardId}
+          >
+            Pay ${contextData?.stepOne?.charges}
+          </Button>
         </div>
       )}
       {stepName === "stepThree" && (

@@ -7,116 +7,124 @@ import { isAppointmentTimeValid } from "common/utils/date";
 import { AppointmentTimeSlots } from "generated/graphql";
 import Image from "next/image";
 import camera from "../../../../../public/assets/images/camera.svg";
+import Router from "next/router";
 type Props =
-	| {
-			modalVisible: boolean;
-			closeModal: () => void;
-			data: {
-				id: number;
-				doctor: string;
-				patient: {
-					first_name: string;
-				};
-				serviceType: {
-					name: string;
-				};
-				dateValue: Date;
-			};
-			okText: string;
-	  }
-	| undefined
-	| any;
+  | {
+      modalVisible: boolean;
+      closeModal: () => void;
+      data: {
+        id: number;
+        doctor: string;
+        patient: {
+          first_name: string;
+        };
+        serviceType: {
+          name: string;
+        };
+        dateValue: Date;
+      };
+      okText: string;
+    }
+  | undefined
+  | any;
 function CalendarModalComponent(props: Props) {
-	const { modalVisible, closeModal, data, okText } = props;
-	const {
-		id,
-		doctor,
-		patient,
-		serviceType,
-		dateValue,
-		charges,
-		appointmentTimeSlots,
-	} = data;
-	const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
-		() =>
-			appointmentTimeSlots?.find((item: AppointmentTimeSlots) => item.selected),
-		[appointmentTimeSlots]
-	);
-	const [disabled, setDisabled] = useState(true);
-	useEffect(() => {
-		isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-	}, [selectedAppointment]);
+  const { modalVisible, closeModal, data, okText } = props;
+  const {
+    id,
+    doctor,
+    patient,
+    serviceType,
+    dateValue,
+    charges,
+    appointmentTimeSlots,
+  } = data;
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
+    () =>
+      appointmentTimeSlots?.find((item: AppointmentTimeSlots) => item.selected),
+    [appointmentTimeSlots]
+  );
+  const [disabled, setDisabled] = useState(true);
+  useEffect(() => {
+    isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
+  }, [selectedAppointment]);
 
-	return (
-		<Modal
-			title=""
-			centered
-			visible={modalVisible}
-			onCancel={closeModal}
-			footer={null}
-		>
-			<div className="border-b pb-0 pt-2">
-				<p className="text-grey-4 ">ID</p>
-				<h4 className="text-base">{id}</h4>
-			</div>
-			<div className="border-b pb-0 pt-2">
-				<p className="text-grey-4 "> Patient</p>
-				<h4 className="text-xl">{patient}</h4>
-			</div>
+  return (
+    <Modal
+      title=""
+      centered
+      visible={modalVisible}
+      onCancel={closeModal}
+      footer={null}
+    >
+      <div className="border-b pb-0 pt-2">
+        <p className="text-grey-4 ">ID</p>
+        <h4 className="text-base">{id}</h4>
+      </div>
+      <div className="border-b pb-0 pt-2">
+        <p className="text-grey-4 "> Patient</p>
+        <h4 className="text-xl">{patient}</h4>
+      </div>
 
-			<div className="border-b pb-0 pt-2">
-				<p className="text-grey-4 ">ServiceType</p>
-				<h4 className="text-xl">{serviceType}</h4>
-			</div>
+      <div className="border-b pb-0 pt-2">
+        <p className="text-grey-4 ">ServiceType</p>
+        <h4 className="text-xl">{serviceType}</h4>
+      </div>
 
-			<div className="border-b pb-0 pt-2">
-				<p className="text-grey-4 ">Date</p>
-				<h4 className="text-xl">
-					{date.formatMMMMDDYYYY(selectedAppointment?.startTime || dateValue)}
-				</h4>
-			</div>
+      <div className="border-b pb-0 pt-2">
+        <p className="text-grey-4 ">Date</p>
+        <h4 className="text-xl">
+          {date.formatMMMMDDYYYY(selectedAppointment?.startTime || dateValue)}
+        </h4>
+      </div>
 
-			<div className="border-b pb-0 pt-2">
-				<p className="text-grey-4 ">Time</p>
-				<h4 className="text-xl">{`${date.formathhmma(
-					selectedAppointment?.startTime || dateValue
-				)}  -  ${date.formathhmma(
-					selectedAppointment?.endTime || dateValue
-				)}`}</h4>
-			</div>
+      <div className="border-b pb-0 pt-2">
+        <p className="text-grey-4 ">Time</p>
+        <h4 className="text-xl">{`${date.formathhmma(
+          selectedAppointment?.startTime || dateValue
+        )}  -  ${date.formathhmma(
+          selectedAppointment?.endTime || dateValue
+        )}`}</h4>
+      </div>
 
-			<div className="border-b pb-0 pt-2">
-				<p className="text-grey-4 ">Total</p>
-				<h4 className="text-xl"> ${charges}</h4>
-			</div>
+      <div className="border-b pb-0 pt-2">
+        <p className="text-grey-4 ">Total</p>
+        <h4 className="text-xl"> ${charges}</h4>
+      </div>
 
-			<div className="flex items-center justify-end border-0 pt-4">
-				<Button
-					type="primary"
-					className={`${_classes["appointments-btn"]} bg-current mr-3`}
-					disabled={disabled}
-				>
-					<Image
-						src={camera}
-						width={15}
-						height={15}
-						className="mb-0"
-						alt="camera"
-					/>
-					<span className="ml-2 mt-1">Join Now</span>
-				</Button>
-			</div>
-		</Modal>
-	);
+      <div className="flex justify-between">
+        <div className="items-center justify-start pt-4">
+          <Button onClick={() => Router.push(`/admin/appointments/${id}`)}>
+            Details
+          </Button>
+        </div>
+        <div className="items-center justify-end border-0 pt-4">
+          <Button
+            type="primary"
+            className={`${_classes["appointments-btn"]} bg-current mr-3`}
+            disabled={disabled}
+          >
+            <Image
+              src={camera}
+              width={15}
+              height={15}
+              className="mb-0"
+              alt="camera"
+            />
+            <span className="ml-2 mt-1">Join Now</span>
+          </Button>
+        </div>
+      </div>
+    </Modal>
+  );
 }
 
 export default CalendarModalComponent;
 
 CalendarModalComponent.defaultProps = {
-	modalVisible: false,
-	closeModal: () => null,
-	data: {},
-	onOk: () => null,
-	okText: "OK",
-	footer: {},
+  modalVisible: false,
+  closeModal: () => null,
+  data: {},
+  onOk: () => null,
+  okText: "OK",
+  footer: {},
 };
