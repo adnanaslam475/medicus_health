@@ -107,7 +107,7 @@ function EditProfile({
     specialization,
   } = doctorData || {};
   let formatedLanguage =
-    doctorData?.language !== undefined && doctorData?.language.includes("{")
+    doctorData?.language !== undefined && doctorData?.language?.includes("{")
       ? JSON.parse(doctorData?.language)
       : doctorData?.language;
 
@@ -496,7 +496,7 @@ function EditProfile({
                       />
                       <span className=" pl-1 pr-10">English</span>
                       <Checkbox
-                        defaultChecked={formatedLanguage.English}
+                        defaultChecked={formatedLanguage?.English}
                         onChange={(e) => handleChangeLanguage(e, "English")}
                       ></Checkbox>
                     </div>
@@ -517,7 +517,7 @@ function EditProfile({
                       <span className=" pl-1 pr-10">Spanish</span>
 
                       <Checkbox
-                        defaultChecked={formatedLanguage.Spanish}
+                        defaultChecked={formatedLanguage?.Spanish}
                         onChange={(e) => handleChangeLanguage(e, "Spanish")}
                       ></Checkbox>
                     </div>

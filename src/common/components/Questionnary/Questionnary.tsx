@@ -140,7 +140,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const router = useRouter();
 
   const { pathname } = router || {};
-  let disabled = pathname.includes("/physician/appointments");
+  let disabled = pathname?.includes("/physician/appointments");
 
   function prepareAndSetEditPayload(parsedData: any) {
     setRadioDrink(parsedData?.q1.ans);
