@@ -12,23 +12,28 @@ import {
   User,
 } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
+import { GraphQLError } from "graphql";
 
 function StaffListing() {
   const { user } = getUserData();
   const id = user?.id;
   const { query } = useRouter();
-  const doctorId = user?.role === "Admin"  ? Number(query?.id) : Number(user?.id)
+  const doctorId =
+    user?.role === "Admin" ? Number(query?.id) : Number(user?.id);
   const [form] = Form.useForm();
-  const [filterValues, setFilterValues] = React.useState<GetStaffFilter>({doctorId:doctorId});
+  const [filterValues, setFilterValues] = React.useState<GetStaffFilter>({
+    doctorId: doctorId,
+  });
   const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
   const [{ fetching }, createStaff] = useCreateStaffMutation();
-  
-  const [{ data ,fetching:loading}, executeUseStaffQuery] = useGetAllStaffByDoctorQuery({
-    variables: {
-      filter: filterValues,
-    },
-  });
+
+  const [{ data, fetching: loading }, executeUseStaffQuery] =
+    useGetAllStaffByDoctorQuery({
+      variables: {
+        filter: filterValues,
+      },
+    });
   const { staff } = data || {};
 
   // // ENABLE OR DISABLE STAFF DATA API CALL
@@ -48,19 +53,21 @@ function StaffListing() {
         },
       });
       if (response?.error) {
+        let errorResponse = response?.error?.graphQLErrors[0]?.extensions?.response as GraphQLError
         response?.error?.graphQLErrors[0]?.message &&
           notification.error({
             message:
-              response?.error?.graphQLErrors[0]?.message ||
+            errorResponse?.message[0] ||
               "Something went wrong",
           });
       }
       if (response.data) {
         setVisibleModal(false);
         form.resetFields();
-        executeUseStaffQuery({ requestPolicy: "network-only" })
+        executeUseStaffQuery({ requestPolicy: "network-only" });
         notification.success({
-          message:"staff added successfully"})
+          message: "staff added successfully",
+        });
       }
     } catch (error) {
       console.log("catch_err", error);
@@ -70,7 +77,7 @@ function StaffListing() {
     setFilterValues({
       ...values,
       status: values?.status === "true" ? true : false,
-      doctorId:doctorId
+      doctorId: doctorId,
     });
 
     executeUseStaffQuery({
