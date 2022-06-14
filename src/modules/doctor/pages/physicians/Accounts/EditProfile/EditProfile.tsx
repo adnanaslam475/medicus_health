@@ -421,6 +421,14 @@ function EditProfile({
                 >
                   <Input />
                 </Form.Item>
+                <Form.Item
+                  name="contact"
+                  label="Contact number"
+                  rules={[{ required: true }]}
+                  className="flex-1"
+                >
+                  <Input />
+                </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
                 <Form.Item label="Password" name="password" className="flex-1">

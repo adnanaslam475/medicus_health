@@ -599,6 +599,7 @@ export type Mutation = {
   login: LoginResponse;
   payment: Transaction;
   proposeNewTime: Appointment;
+  reBookAppointment: Appointment;
   removeAppointment: Appointment;
   removeAppointmentNote: AppointmentNote;
   removeCard: UserCard;
@@ -612,6 +613,7 @@ export type Mutation = {
   removeUser: User;
   setAsDefaultCard: UserCard;
   setDoctorPassword: User;
+  suggestNewTime: Appointment;
   toggleEmailPreferences: UserEmailPreferencesResponse;
   updateAdminUser: User;
   updateDctorPercentage: Transaction;
@@ -785,6 +787,11 @@ export type MutationProposeNewTimeArgs = {
 };
 
 
+export type MutationReBookAppointmentArgs = {
+  rebookAppointmentInput: ReBookAppointmentInput;
+};
+
+
 export type MutationRemoveAppointmentArgs = {
   id: Scalars['Int'];
 };
@@ -847,6 +854,11 @@ export type MutationSetAsDefaultCardArgs = {
 
 export type MutationSetDoctorPasswordArgs = {
   setPasswordInput: ResetPasswordInput;
+};
+
+
+export type MutationSuggestNewTimeArgs = {
+  suggestNewTime: SuggestNewTimeInput;
 };
 
 
@@ -1183,6 +1195,11 @@ export type QueryUserArgs = {
   id: Scalars['Int'];
 };
 
+export type ReBookAppointmentInput = {
+  appointmentId: Scalars['Int'];
+  selectedSlotId: Scalars['Float'];
+};
+
 export type ResetPasswordInput = {
   password: Scalars['String'];
   password_token?: InputMaybe<Scalars['String']>;
@@ -1206,6 +1223,20 @@ export type State = {
   country_id: Scalars['Float'];
   id: Scalars['Float'];
   state_name: Scalars['String'];
+};
+
+export type SuggestNewTimeInput = {
+  /** Appointment ID required */
+  id: Scalars['Int'];
+  /** Array of object required. Example [{ startTime: "yyyy-mm-dd hh:mm:ss", endTime: "yyyy-mm-dd hh:mm:ss"}] */
+  proposedTimeSlots: Array<SuggestedTimeSlots>;
+};
+
+export type SuggestedTimeSlots = {
+  /** Appointment end date and time required */
+  endTime: Scalars['String'];
+  /** Appointment start date and time required */
+  startTime: Scalars['String'];
 };
 
 export type TogglePreference = {
@@ -1880,7 +1911,7 @@ export type DoctorProfileQueryVariables = Exact<{
 }>;
 
 
-export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
+export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, contact_number?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
 
 export type GetAllRequestedAppointmentsQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -3389,6 +3420,7 @@ export const DoctorProfileDocument = gql`
       password
       status
       role
+      contact_number
       doctorSchedules {
         id
         doctorId
@@ -6184,6 +6216,29 @@ export default {
             ]
           },
           {
+            "name": "reBookAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "rebookAppointmentInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "removeAppointment",
             "type": {
               "kind": "NON_NULL",
@@ -6472,6 +6527,29 @@ export default {
             "args": [
               {
                 "name": "setPasswordInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "suggestNewTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "suggestNewTime",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

@@ -51,6 +51,7 @@ function ConfirmPassword() {
                 width={216}
                 src="/assets/images/logo-medi.svg"
                 alt=""
+                loading="eager"
               />
             </div>
             <h1 className="text-center text-secondary mb-3">
