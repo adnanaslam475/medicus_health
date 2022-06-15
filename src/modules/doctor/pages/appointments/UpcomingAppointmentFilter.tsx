@@ -50,10 +50,10 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
   }
 
   return (
-    <div className="page-filters flex-none lg:flex items-center">
+    <div className="page-filters flex-none lg:flex items-center sm:mb-3 lg:mb-0">
       <span className="text-gray-1 mr-3">Filter</span>
-      <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
-        <div className=" w-full sm:w-full md:w-full lg:w-70">
+      <div className="flex items-center sm:flex sm:mb-0 lg:mb-0">
+        <div className=" w-full sm:w-full md:w-full ">
           <Input
             value={filterState.searchString}
             placeholder="Search by ID or patient name"
@@ -86,7 +86,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
           heading="Date"
         />
       </div>
-      <div className="flex-none sm:flex">
+      <div className="flex-none sm:flex xs:-mt-5 flex-wrap sm:-mt-3 lg:mt-0">
         <div className="lg:ml-3 mt-3 sm:mt-0">
           <SelectServiceTypeFilter
             onChange={(value) => onChangeFields("serviceId", value)}
