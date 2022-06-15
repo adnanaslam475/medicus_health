@@ -118,8 +118,6 @@ function EditAdminUserDetails({}: Props) {
       const response = await executeRemoveAdminUser({
         id: Number(query.userId),
       });
-
-      console.log("response", response);
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
