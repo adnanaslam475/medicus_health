@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tabs } from "antd";
 import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
@@ -11,15 +11,19 @@ import { parseJson } from "common/utils/helper";
 import word from "../../../../public/assets/images/word-file.svg";
 import Attachment from "../Attachment/Attachment";
 import { AttachmentObject } from "common/types/types";
+import { useRouter } from "next/router";
 const { TabPane } = Tabs;
 
 type Props = {
   appointmentId?: Number;
 };
 
-
 const AppointmentTabs = (props: Props) => {
   const { appointmentId } = props;
+  const [activeTab, setActiveTab] = React.useState<string>("");
+  
+  const router = useRouter();
+  const { query } = router;
 
   const [{ data }] = useGetAppointmentByIdQuery({
     variables: { id: Number(appointmentId) },
@@ -36,18 +40,31 @@ const AppointmentTabs = (props: Props) => {
 
   const { appointment } = data || {};
   const { reportUrl } = appointment || {};
-
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
     urlArr = urlArr[0]?.map((item: any) => ({
       name: item.split("com/")[1],
-      url: item
+      url: item,
     }));
   }
 
+  useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+  }, [query]);
+
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
+
   return (
     <div className="profile-tabs">
-      <Tabs type="card">
+      <Tabs
+        type="card"
+        defaultActiveKey="1"
+        activeKey={activeTab || "1"}
+        onChange={onChangeTabHandler}
+      >
         <TabPane tab="Appointment Info" key="1" className="">
           <AppointmentInfo appoinmentDetails={data} />
         </TabPane>
@@ -64,7 +81,7 @@ const AppointmentTabs = (props: Props) => {
           />
         </TabPane>
         <TabPane tab="Attachments" key="4">
-          {urlArr?.map((item:AttachmentObject) => (
+          {urlArr?.map((item: AttachmentObject) => (
             <Attachment item={item} enable />
           ))}
         </TabPane>
