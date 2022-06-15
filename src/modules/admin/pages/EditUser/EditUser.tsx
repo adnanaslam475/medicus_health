@@ -147,7 +147,6 @@ function EditAdminUserDetails({}: Props) {
           <div className="flex">
             <div className="flex">
               <Button
-                // className="ml-auto"
                 loading={loading}
                 type="link"
                 icon={<Image alt="" src={MessageIcon} width={20} height={50} />}
