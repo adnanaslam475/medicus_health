@@ -20,6 +20,7 @@ type Props = {
 
 function EditableNotes({ doctorNotes }: Props) {
   const [edit, setEdit] = useState(false);
+  const [isPublish, setIsPublish] = useState(false);
   const [localDocNotes, setlocalDocNotes] = useState();
   const [noteType, setNoteType] = useState("");
   const { query } = useRouter();
@@ -42,7 +43,7 @@ function EditableNotes({ doctorNotes }: Props) {
     const res = await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
-        isPublished: false,
+        isPublished: isPublish,
         subjective: value?.subjective || "",
         objective: value?.objective || "",
         assessment: value?.assessment || "",
@@ -55,6 +56,7 @@ function EditableNotes({ doctorNotes }: Props) {
       notification.success({
         message: "Successfully Added",
       });
+      setEdit(true);
     } else {
       notification.error({
         message: "Something went wrong",
@@ -145,14 +147,18 @@ function EditableNotes({ doctorNotes }: Props) {
             </Button>
           </div>
         ) : (
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-3">
             <Button
+              type="primary"
               className="mt-2"
               htmlType="submit"
               onClick={() => {
-                setEdit(true);
+                setIsPublish(true);
               }}
             >
+              Publish Notes
+            </Button>
+            <Button className="mt-2" htmlType="submit">
               Save
             </Button>
           </div>
