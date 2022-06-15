@@ -90,30 +90,6 @@ function AdminPatientAdd() {
         <div className="w-full">
           <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
             <div className="flex flex-col w-full justify-start items-center py-3">
-              <div className="w-full mb-10">
-                <Upload
-                  maxCount={1}
-                  itemRender={() => <div />}
-                  customRequest={() => null}
-                >
-                  <div className="relative">
-                    <Avatar
-                      size={50}
-                      style={{
-                        borderColor: "transparent",
-                        borderWidth: 2,
-                        lineHeight: "40px",
-                      }}
-                    />
-                    <Button
-                      type="link"
-                      className="text-primary underline ml-3 text-xs"
-                    >
-                      Update Photo
-                    </Button>
-                  </div>
-                </Upload>
-              </div>
               <div className="w-full">
                 <AddPatientForm onFinish={createPatient} />
               </div>
