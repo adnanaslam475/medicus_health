@@ -31,7 +31,7 @@ function AdminPatientProfileTab({}: Props) {
 	});
 	const [stateId, setStateId] = React.useState<CountryOrStateObject>({ id: 0 });
 	const [isEdit, setIsEdit] = React.useState<boolean>(false);
-	const [userDisableInput, setUserDisableInput] = React.useState<boolean>(true);
+	const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
 	const [open, setOpen] = React.useState<boolean>(false);
 	const [formInstance] = Form.useForm();
 	const [{ fetching: loading }, setForgotPass] =
@@ -252,8 +252,8 @@ function AdminPatientProfileTab({}: Props) {
 						<div
 							className={
 								userDisableInput
-									? `${_classes["profile-select-disable"]}`
-									: `${_classes["profile-select-enable"]}`
+									? `${_classes["profile-select-enable"]}`
+									: `${_classes["profile-select-disable"]}`
 							}
 						>
 							<Select
@@ -262,8 +262,8 @@ function AdminPatientProfileTab({}: Props) {
 								value={userDisableInput}
 								style={{ width: 120 }}
 							>
-								<Select.Option value={false}>Active</Select.Option>
-								<Select.Option className="text-red" value={true}>
+								<Select.Option value={true}>Enabled</Select.Option>
+								<Select.Option className="text-red" value={false}>
 									Disabled
 								</Select.Option>
 							</Select>
