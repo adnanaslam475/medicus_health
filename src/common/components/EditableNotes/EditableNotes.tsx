@@ -20,6 +20,7 @@ type Props = {
 
 function EditableNotes({ doctorNotes }: Props) {
   const [edit, setEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [isPublish, setIsPublish] = useState(false);
   const [localDocNotes, setlocalDocNotes] = useState();
   const [noteType, setNoteType] = useState("");
@@ -33,7 +34,7 @@ function EditableNotes({ doctorNotes }: Props) {
   const { note, subjective, objective, assessment, plan } =
     appointmentNote || {};
 
-  const [{ data: notes }, createOrUpdateAppointmentNote] =
+  const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
     useCreateOrUpdateAppointmentNoteMutation();
 
   console.log(notes, "notesnotesnotesnotes");
@@ -155,10 +156,11 @@ function EditableNotes({ doctorNotes }: Props) {
               onClick={() => {
                 setIsPublish(true);
               }}
+              loading={fetching}
             >
               Publish Notes
             </Button>
-            <Button className="mt-2" htmlType="submit">
+            <Button className="mt-2" htmlType="submit" loading={fetching}>
               Save
             </Button>
           </div>
