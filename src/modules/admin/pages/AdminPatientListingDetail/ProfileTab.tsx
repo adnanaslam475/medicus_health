@@ -62,13 +62,14 @@ function AdminPatientProfileTab({}: Props) {
 
 	const [{ fetching: disableLoading }, enableOrDisableAdmin] =
 		useEnableOrDisablePatientMutation();
-	const [{ data: countriesData }] = useCountriesQuery();
+	const [{ data: countriesData }] = useCountriesQuery({ requestPolicy: "network-only" });
 	const { countries } = countriesData || {};
 	const [{ data: city_data }] = useGetCitiesByStateQuery({
 		variables: {
 			input: Number(stateId.id || state_id),
 		},
 		pause: state_id === undefined,
+		requestPolicy: "network-only" 
 	});
 	const { getCitiesByState } = city_data || {};
 
@@ -77,6 +78,7 @@ function AdminPatientProfileTab({}: Props) {
 			input: Number(countryId?.id || country_id),
 		},
 		pause: !country_id,
+		requestPolicy: "network-only" 
 	});
 	const { getStatesByCountry } = states_data || {};
 
@@ -104,7 +106,7 @@ function AdminPatientProfileTab({}: Props) {
 			});
 			getStatesByCountry && setStateId(getStatesByCountry[0]);
 		}
-	}, [getStatesByCountry]);
+	}, [getStatesByCountry,first_name]);
 
 	React.useEffect(() => {
 		stateId?.id &&
@@ -112,7 +114,7 @@ function AdminPatientProfileTab({}: Props) {
 				...formInstance.getFieldsValue(),
 				city_name: getCitiesByState ? getCitiesByState[0]?.id : "",
 			});
-	}, [getCitiesByState]);
+	}, [getCitiesByState,first_name]);
 
 	const handleResetLink = async () => {
 		try {
@@ -143,6 +145,8 @@ function AdminPatientProfileTab({}: Props) {
 				throw new Error(response?.error?.graphQLErrors[0]?.message);
 			}
 			if (response.data) {
+				setOpen(false)
+				Router.push(`/admin/patients/`);
 				notification.success({
 					message: "User Deleted Successfully",
 				});
