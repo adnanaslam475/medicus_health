@@ -44,7 +44,7 @@ function AdminSettings() {
       keys.forEach((value: string, index) => {
         adminSettingArr.push({
           key: keys[index],
-          value: String(updatedValues[index]),
+          value: updatedValues[index] ? String(updatedValues[index]) : "",
         });
       });
 
@@ -112,12 +112,6 @@ function AdminSettings() {
                 label="Total Charges"
                 name="totalChargesConsultation"
                 className="font-bold text-black"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter total charges ",
-                  },
-                ]}
               >
                 <InputNumber addonBefore="$" type="number" min={0} />
               </Form.Item>
@@ -128,12 +122,6 @@ function AdminSettings() {
                 label="Medicus Cut"
                 name="totalChargesConsultationMedicus"
                 className={`${_classes["label-design"]}`}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter medicus cut ",
-                  },
-                ]}
               >
                 <InputNumber addonAfter="%" type="number" min={0} />
               </Form.Item>
@@ -152,12 +140,6 @@ function AdminSettings() {
                 label="Physician Cut"
                 name="totalChargesConsultationPhysician"
                 className="font-bold text-black"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter physician cut ",
-                  },
-                ]}
               >
                 <InputNumber addonAfter="%" type="number" min={0} />
               </Form.Item>
@@ -180,12 +162,6 @@ function AdminSettings() {
                   label="Total Charges"
                   name="totalChargesSecondOpnion"
                   className="font-bold text-black"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter total charges ",
-                    },
-                  ]}
                 >
                   <InputNumber addonBefore="$" type="number" min={0} />
                 </Form.Item>
@@ -196,12 +172,6 @@ function AdminSettings() {
                   label="Medicus Cut"
                   name="totalChargesSecondOpnionMedicus"
                   className="font-bold text-black"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter medicus cut ",
-                    },
-                  ]}
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
@@ -220,12 +190,6 @@ function AdminSettings() {
                   label="Physician Cut"
                   name="totalChargesSecondOpnionPhysician"
                   className="font-bold text-black"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter physician cut ",
-                    },
-                  ]}
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
@@ -247,12 +211,6 @@ function AdminSettings() {
                   label="California"
                   name="california"
                   className="font-bold text-black"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter state tax ",
-                    },
-                  ]}
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
@@ -263,12 +221,6 @@ function AdminSettings() {
                   label="Washington"
                   name="washington"
                   className="font-bold text-black"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter state tax ",
-                    },
-                  ]}
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
@@ -278,12 +230,6 @@ function AdminSettings() {
                   label="Texas"
                   name="texas"
                   className="font-bold text-black"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter state tax ",
-                    },
-                  ]}
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
