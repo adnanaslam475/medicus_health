@@ -227,6 +227,3 @@ function EditAdminUserDetails({}: Props) {
   );
 }
 export default EditAdminUserDetails;
-function removeAdminUser(): [{ data: any }] {
-  throw new Error("Function not implemented.");
-}
