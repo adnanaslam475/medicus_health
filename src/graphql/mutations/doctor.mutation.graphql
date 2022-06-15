@@ -36,3 +36,18 @@ mutation proposeNewTime($proposeNewTimeInput: ProposeNewTimeInput!) {
     status
   }
 }
+
+mutation removeAppointmentNote($id: Int!) {
+  removeAppointmentNote(id: $id) {
+    id
+    appointmentId
+    subjective
+    objective
+    assessment
+    plan
+    note
+    isPublished
+    createdAt
+    updatedAt
+  }
+}
