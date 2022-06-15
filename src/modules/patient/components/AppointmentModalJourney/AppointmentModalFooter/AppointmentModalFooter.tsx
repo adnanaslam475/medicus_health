@@ -9,7 +9,7 @@ import {
   StripeCardNumberElement,
   StripeElement,
 } from "@stripe/stripe-js";
-import { Button, notification } from "antd";
+import { Button, notification, Tooltip } from "antd";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import { getUserData } from "common/utils/userData";
 import Router from "next/router";
@@ -205,25 +205,35 @@ function AppointmentModalFooter({
       )}
       {stepName == "stepTwo" && (
         <div className="flex justify-between ">
-          <div className="flex items-center text-primary cursor-pointer" onClick={onNext}>
+          <div
+            className="flex items-center text-primary cursor-pointer"
+            onClick={onNext}
+          >
             <PlusOutlined className={`${_classes["icon-color"]}`} />
             <span className="text-primary">Add Payment Method</span>
           </div>
-          <Button
-            type="primary"
-            onClick={(e) => {
-              onPay(e, appointmentId);
-            }}
-            className={`${_classes["button-background-color"]}`}
-            disabled={!contextData.stepTwo?.cardId}
+          <Tooltip
+            title={!contextData.stepTwo?.cardId ? "please add payment method" : ""}
           >
-            Pay ${contextData?.stepOne?.charges}
-          </Button>
+            <Button
+              type="primary"
+              onClick={(e) => {
+                onPay(e, appointmentId);
+              }}
+              // className={`${_classes["button-background-color"]}`}
+              disabled={!contextData.stepTwo?.cardId}
+            >
+              Pay ${contextData?.stepOne?.charges}
+            </Button>
+          </Tooltip>
         </div>
       )}
       {stepName === "stepThree" && (
         <div className="flex justify-between items-center">
-          <div className="flex items-center text-primary cursor-pointer" onClick={onPrevious}>
+          <div
+            className="flex items-center text-primary cursor-pointer"
+            onClick={onPrevious}
+          >
             <LeftOutlined className={`${_classes["icon-color"]}`} />
             <span className="text-primary">Previous</span>
           </div>

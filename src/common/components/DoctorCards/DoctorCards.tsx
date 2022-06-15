@@ -146,22 +146,30 @@ function DoctorCard({
               </a>
             </Link>
 
-            <Button
-              type="primary"
-              className="w-full"
-              onClick={showModal}
-              disabled={
-                patientHealthHistory?.patientHealthHistory ? false : true
+            <Tooltip
+              title={
+                patientHealthHistory?.patientHealthHistory
+                  ? ""
+                  : "please complete the health questionnaire"
               }
             >
-              <Image
-                src={VideoCameraFilled}
-                alt="espanolFlag"
-                width={20}
-                height={11}
-              />
-              <span className="ml-2">Request an Appointment</span>
-            </Button>
+              <Button
+                type="primary"
+                className="w-full"
+                onClick={showModal}
+                disabled={
+                  patientHealthHistory?.patientHealthHistory ? false : true
+                }
+              >
+                <Image
+                  src={VideoCameraFilled}
+                  alt="espanolFlag"
+                  width={20}
+                  height={11}
+                />
+                <span className="ml-2">Request an Appointment</span>
+              </Button>
+            </Tooltip>
           </div>
         </div>
       </Card>

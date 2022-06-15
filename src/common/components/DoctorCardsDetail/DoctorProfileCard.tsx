@@ -154,21 +154,29 @@ function DoctorProfileCard(props: Props) {
               </Collapse.Panel>
             </Collapse>
             <div className="flex-none md:flex mt-3">
-              <Button
-                type="primary"
-                onClick={showModal}
-                disabled={
-                  patientHealthHistory?.patientHealthHistory ? false : true
+              <Tooltip
+                title={
+                  patientHealthHistory?.patientHealthHistory
+                    ? ""
+                    : "please complete the health questionnaire"
                 }
               >
-                <Image
-                  src={VideoCamera}
-                  alt="espanolFlag"
-                  width={20}
-                  height={11}
-                />
-                <span className="ml-2">Request an Appointment</span>
-              </Button>
+                <Button
+                  type="primary"
+                  onClick={showModal}
+                  disabled={
+                    patientHealthHistory?.patientHealthHistory ? false : true
+                  }
+                >
+                  <Image
+                    src={VideoCamera}
+                    alt="espanolFlag"
+                    width={20}
+                    height={11}
+                  />
+                  <span className="ml-2">Request an Appointment</span>
+                </Button>
+              </Tooltip>
               <div className="flex-none sm:flex">
                 <Button
                   className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3"

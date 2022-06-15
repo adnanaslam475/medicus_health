@@ -10,7 +10,7 @@ import {
   usePatientHealthHistoryQuery,
   User,
 } from "../../../../../generated/graphql";
-import { Button, Empty, Select, Spin } from "antd";
+import { Button, Empty, Select, Spin, Tooltip } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import Link from "next/link";
 import AppointmentModalJourney from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
@@ -106,18 +106,26 @@ function RequestedAppointment() {
                   </Select.Option>
                 </Select>
               </div>
-              <Button
-                type="primary"
-                className="text-sm"
-                onClick={showAppointmentBookingModal}
-                disabled={
-                  patientHealthHistory?.patientHealthHistory ? false : true
+              <Tooltip
+                title={
+                  patientHealthHistory?.patientHealthHistory
+                    ? ""
+                    : "please complete the health questionnaire"
                 }
               >
-                <span className="text-xs sm:text-base">
-                  Request an Appointment
-                </span>
-              </Button>
+                <Button
+                  type="primary"
+                  className="text-sm"
+                  onClick={showAppointmentBookingModal}
+                  disabled={
+                    patientHealthHistory?.patientHealthHistory ? false : true
+                  }
+                >
+                  <span className="text-xs sm:text-base">
+                    Request an Appointment
+                  </span>
+                </Button>
+              </Tooltip>
             </div>
           </div>
 
