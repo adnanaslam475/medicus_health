@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tabs } from "antd";
 import AccountsProfile from "./AccountsProfile/AccountsProfile";
 import BankInfo from "./BankInfo/BankInfo";
@@ -17,9 +17,11 @@ import {
 import ConsultationRates from "modules/common/components/ConsultaionRates/ConsultaionRates";
 import { parseJson } from "common/utils/helper";
 import AdminQuestionnaireFormTab from "modules/admin/pages/AdminAppointmentsDetail/AdminQuestionnaireFormTab";
+import { useRouter } from "next/router";
 
 function Accounts() {
   // GET USER ID
+  const [activeTab, setActiveTab] = React.useState<string>("");
   const { user } = getUserData();
   const id = user?.id;
 
@@ -30,14 +32,30 @@ function Accounts() {
     },
   });
 
+  const router = useRouter();
+  const { query } = router;
   const { doctorQuestionnaire } = dataList || {};
 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
 
+  useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+  }, [query]);
+
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
+
   return (
     <div>
       <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
-        <Tabs type="card">
+        <Tabs
+          type="card"
+          defaultActiveKey="1"
+          activeKey={activeTab || "1"}
+          onChange={onChangeTabHandler}
+        >
           <Tabs.TabPane
             className="w-full"
             tab={
