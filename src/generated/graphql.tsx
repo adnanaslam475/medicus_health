@@ -481,6 +481,7 @@ export type GetAdminUsersFilterInput = {
 export type GetAppointmentInput = {
   appointmentId?: InputMaybe<Scalars['Int']>;
   bookingDate?: InputMaybe<BookingDate>;
+  current?: InputMaybe<Scalars['Boolean']>;
   doctorId?: InputMaybe<Scalars['Int']>;
   dueDate?: InputMaybe<DueDate>;
   patientId?: InputMaybe<Scalars['Int']>;
@@ -1767,6 +1768,13 @@ export type AdminUserQueryVariables = Exact<{
 
 export type AdminUserQuery = { __typename?: 'Query', adminUser: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null } };
 
+export type RemoveAdminUserMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type RemoveAdminUserMutation = { __typename?: 'Mutation', removeUser: { __typename?: 'User', id: number } };
+
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2819,6 +2827,17 @@ export const AdminUserDocument = gql`
 
 export function useAdminUserQuery(options: Omit<Urql.UseQueryArgs<AdminUserQueryVariables>, 'query'>) {
   return Urql.useQuery<AdminUserQuery>({ query: AdminUserDocument, ...options });
+};
+export const RemoveAdminUserDocument = gql`
+    mutation removeAdminUser($id: Int!) {
+  removeUser(id: $id) {
+    id
+  }
+}
+    `;
+
+export function useRemoveAdminUserMutation() {
+  return Urql.useMutation<RemoveAdminUserMutation, RemoveAdminUserMutationVariables>(RemoveAdminUserDocument);
 };
 export const GetAllChatChannelsDocument = gql`
     query getAllChatChannels {

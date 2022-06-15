@@ -25,7 +25,7 @@ query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
       first_name
       last_name
     }
-    doctor{
+    doctor {
       first_name
       last_name
     }
@@ -121,5 +121,12 @@ query adminUser($id: Int!) {
     adminProfilePicture {
       profile_picture
     }
+  }
+}
+
+# remove admin user
+mutation removeAdminUser($id: Int!) {
+  removeUser(id: $id) {
+    id
   }
 }

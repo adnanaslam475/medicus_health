@@ -2,18 +2,20 @@ import React from "react";
 import Image from "next/image";
 import { Button, Select, Form, notification } from "antd";
 import Router, { useRouter } from "next/router";
-import { EditOutlined } from "@ant-design/icons";
+import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MessageIcon from "../../../../../public/assets/images/messageIcon.svg";
 import {
   useEnableOrDisablePatientMutation,
   useGetAdminUserByIdQuery,
   User,
+  useRemoveAdminUserMutation,
   useUpdateAdminMutation,
   useUserForgotPasswordMutation,
 } from "generated/graphql";
 import _classes from "../../staff/staff.module.scss";
 import EditAdminUserForm from "common/components/EditAdminUserFormItems/EditAdminUserFormItems";
+import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
 type Props = {};
 const { Option } = Select;
@@ -23,17 +25,23 @@ function EditAdminUserDetails({}: Props) {
   const [formInstance] = Form.useForm();
   const [data, enableOrDisableAdmin] = useEnableOrDisablePatientMutation();
   const [disableInputs, setDisableInputs] = React.useState<boolean>(true);
+  const [open, setOpen] = React.useState<boolean>(false);
+
   const [{ fetching: loading }, setForgotPass] =
     useUserForgotPasswordMutation();
   const [{ fetching }, executeUpdateAdminMutation] = useUpdateAdminMutation();
-  const [{ data: adminData },executeUseGetAdminUserByIdQuery] = useGetAdminUserByIdQuery({
-    variables: {
-      id: Number(query.userId),
-    },
-    pause: !query.userId,
-    requestPolicy: "network-only" 
-  });
+  const [{ data: adminData }, executeUseGetAdminUserByIdQuery] =
+    useGetAdminUserByIdQuery({
+      variables: {
+        id: Number(query.userId),
+      },
+      pause: !query.userId,
+      requestPolicy: "network-only",
+    });
   const { user: adminUser } = adminData || {};
+
+  const [{ fetching: RemoveFetching }, executeRemoveAdminUser] =
+    useRemoveAdminUserMutation();
   React.useEffect(() => {
     if (adminUser) {
       prepareAndSetEditPayload();
@@ -67,7 +75,7 @@ function EditAdminUserDetails({}: Props) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
       if (response.data) {
-        executeUseGetAdminUserByIdQuery({ requestPolicy: "network-only" })
+        executeUseGetAdminUserByIdQuery({ requestPolicy: "network-only" });
       }
     } catch (error: any) {
       notification.error({
@@ -104,6 +112,29 @@ function EditAdminUserDetails({}: Props) {
       });
     }
   };
+
+  const deleteAdminUser = async () => {
+    try {
+      const response = await executeRemoveAdminUser({
+        id: Number(query.userId),
+      });
+
+      console.log("response", response);
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "User Delete Successfully",
+        });
+        Router.push(`/admin/user`);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
   return (
     <AppLayout>
       <>
@@ -116,16 +147,29 @@ function EditAdminUserDetails({}: Props) {
             <p>{adminUser?.email}</p>
           </div>
           <div className="flex">
-            <Button
-              className="ml-auto"
-              loading={loading}
-              type="link"
-              icon={<Image alt="" src={MessageIcon} width={20} height={50} />}
-              disabled={loading}
-              onClick={handleResetLink}
-            >
-              <span className="mx-3">Send Password Reset link</span>
-            </Button>
+            <div className="flex">
+              <Button
+                // className="ml-auto"
+                loading={loading}
+                type="link"
+                icon={<Image alt="" src={MessageIcon} width={20} height={50} />}
+                disabled={loading}
+                onClick={handleResetLink}
+              >
+                <span className="mx-3">Send Password Reset link</span>
+              </Button>
+            </div>
+            <div className="flex">
+              <Button
+                type="link"
+                className="ml-auto"
+                danger
+                icon={<CloseOutlined />}
+                onClick={() => setOpen(true)}
+              >
+                Delete profile
+              </Button>
+            </div>
           </div>
         </div>
         <Form
@@ -175,7 +219,17 @@ function EditAdminUserDetails({}: Props) {
           </div>
         </Form>
       </>
+      <ConfirmationModal
+        visible={open}
+        confirmLoading={RemoveFetching}
+        onCancel={() => setOpen(false)}
+        onOk={deleteAdminUser}
+        message="Are you sure you want ot delete this user?"
+      />
     </AppLayout>
   );
 }
 export default EditAdminUserDetails;
+function removeAdminUser(): [{ data: any }] {
+  throw new Error("Function not implemented.");
+}
