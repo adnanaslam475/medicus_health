@@ -38,7 +38,7 @@ const ViewProfileFields = ({
         <LabelWithTextDiv label="Gender" value={gender} />
         <LabelWithTextDiv
           label="Date of birth"
-          value={date_of_birth ?date?.formatMMMMDDYYYY(date_of_birth): "-"}
+          value={date_of_birth ?date?.convertStringDateToUTC(date_of_birth): "-"}
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
