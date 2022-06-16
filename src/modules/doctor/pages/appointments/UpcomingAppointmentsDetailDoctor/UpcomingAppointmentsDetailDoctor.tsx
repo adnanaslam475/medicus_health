@@ -11,16 +11,11 @@ import {
 import { Tabs } from "antd";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
-// import NotesTab from "./NotesTab";
 import NotesTab from "./../../appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
-import HealthQuestionnaireFormTab from "./HealthQuestionnaireFormTab";
-import PhysicianQuestionnaireFormTab from "./PhysicianQuestionnaireFormTab";
-import PhysicianAttachmentTab from "../../PhysicianAppointmentHistoryDetail/PhysicianAttachmentTab";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import Attachment from "common/components/Attachment/Attachment";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
-import word from "../../../../../../public/assets/images/word-file.svg";
 import { AttachmentObject } from "common/types/types";
 
 function UpcomingAppointmentsDetailDoctor() {

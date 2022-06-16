@@ -13,14 +13,17 @@ import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 
 type Props = {
   dataSource: Array<Appointment>;
-  loading:boolean | undefined
+  loading: boolean | undefined;
 };
 
-function UpcomingAppointmentTableDoctor({ dataSource ,loading}: Props) {
+function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
   const columns = [
     {
       title: "ID",
       dataIndex: "id",
+      sorter: {
+        compare: (a: any, b: any) => a.id - b.id,
+      },
     },
     {
       title: "Patient",
@@ -30,7 +33,6 @@ function UpcomingAppointmentTableDoctor({ dataSource ,loading}: Props) {
       },
       sorter: {
         compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
       },
     },
     {
@@ -39,6 +41,11 @@ function UpcomingAppointmentTableDoctor({ dataSource ,loading}: Props) {
       render: (value: AppointmentServiceType) => {
         return <div>{value?.name}</div>;
       },
+      sorter: {
+        compare: (a: any, b: any) =>
+          a.value?.serviceType.name - b.value?.serviceType?.name,
+        // multiple: 3,
+      },
     },
     {
       title: "Booking Date",
@@ -46,12 +53,20 @@ function UpcomingAppointmentTableDoctor({ dataSource ,loading}: Props) {
       render: (bookingDate: string) => {
         return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;
       },
+      sorter: {
+        compare: (a: any, b: any) => a.value?.createdAt - b.value?.createdAt,
+        // multiple: 3,
+      },
     },
     {
       title: "Due Date",
       dataIndex: "requestedDate",
       render: (dueDate: string) => {
         return <div>{date.formatMMMMDDYYYY(dueDate)}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
+        // multiple: 3,
       },
     },
     {
@@ -70,12 +85,21 @@ function UpcomingAppointmentTableDoctor({ dataSource ,loading}: Props) {
           </div>
         );
       },
+      sorter: {
+        compare: (a: any, b: any) =>
+          a.appointmentTimeSlots - b.appointmentTimeSlots,
+        // multiple: 3,
+      },
     },
     {
       title: "Total Amount",
       dataIndex: "charges",
       render: (value: number) => {
         return <div>{value}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.charges - b.charges,
+        // multiple: 3,
       },
     },
     {
@@ -107,7 +131,12 @@ function UpcomingAppointmentTableDoctor({ dataSource ,loading}: Props) {
 
   return (
     <span className={`${_classes["upcomming-appointment-doctor-table"]}`}>
-      <Table columns={columns} dataSource={dataSource} footer={footer} loading={loading}/>
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        footer={footer}
+        loading={loading}
+      />
     </span>
   );
 }
