@@ -31,7 +31,7 @@ function AdminPatientProfileTab({}: Props) {
 	});
 	const [stateId, setStateId] = React.useState<CountryOrStateObject>({ id: 0 });
 	const [isEdit, setIsEdit] = React.useState<boolean>(false);
-	const [userDisableInput, setUserDisableInput] = React.useState<boolean>(true);
+	const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
 	const [open, setOpen] = React.useState<boolean>(false);
 	const [formInstance] = Form.useForm();
 	const [{ fetching: loading }, setForgotPass] =
@@ -62,13 +62,14 @@ function AdminPatientProfileTab({}: Props) {
 
 	const [{ fetching: disableLoading }, enableOrDisableAdmin] =
 		useEnableOrDisablePatientMutation();
-	const [{ data: countriesData }] = useCountriesQuery();
+	const [{ data: countriesData }] = useCountriesQuery({ requestPolicy: "network-only" });
 	const { countries } = countriesData || {};
 	const [{ data: city_data }] = useGetCitiesByStateQuery({
 		variables: {
 			input: Number(stateId.id || state_id),
 		},
 		pause: state_id === undefined,
+		requestPolicy: "network-only" 
 	});
 	const { getCitiesByState } = city_data || {};
 
@@ -77,6 +78,7 @@ function AdminPatientProfileTab({}: Props) {
 			input: Number(countryId?.id || country_id),
 		},
 		pause: !country_id,
+		requestPolicy: "network-only" 
 	});
 	const { getStatesByCountry } = states_data || {};
 
@@ -104,7 +106,7 @@ function AdminPatientProfileTab({}: Props) {
 			});
 			getStatesByCountry && setStateId(getStatesByCountry[0]);
 		}
-	}, [getStatesByCountry]);
+	}, [getStatesByCountry,first_name]);
 
 	React.useEffect(() => {
 		stateId?.id &&
@@ -112,7 +114,7 @@ function AdminPatientProfileTab({}: Props) {
 				...formInstance.getFieldsValue(),
 				city_name: getCitiesByState ? getCitiesByState[0]?.id : "",
 			});
-	}, [getCitiesByState]);
+	}, [getCitiesByState,first_name]);
 
 	const handleResetLink = async () => {
 		try {
@@ -143,6 +145,8 @@ function AdminPatientProfileTab({}: Props) {
 				throw new Error(response?.error?.graphQLErrors[0]?.message);
 			}
 			if (response.data) {
+				setOpen(false)
+				Router.push(`/admin/patients/`);
 				notification.success({
 					message: "User Deleted Successfully",
 				});
@@ -252,8 +256,8 @@ function AdminPatientProfileTab({}: Props) {
 						<div
 							className={
 								userDisableInput
-									? `${_classes["profile-select-disable"]}`
-									: `${_classes["profile-select-enable"]}`
+									? `${_classes["profile-select-enable"]}`
+									: `${_classes["profile-select-disable"]}`
 							}
 						>
 							<Select
@@ -262,8 +266,8 @@ function AdminPatientProfileTab({}: Props) {
 								value={userDisableInput}
 								style={{ width: 120 }}
 							>
-								<Select.Option value={false}>Active</Select.Option>
-								<Select.Option className="text-red" value={true}>
+								<Select.Option value={true}>Enabled</Select.Option>
+								<Select.Option className="text-red" value={false}>
 									Disabled
 								</Select.Option>
 							</Select>

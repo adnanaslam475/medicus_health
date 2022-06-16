@@ -56,8 +56,14 @@ const AppointmentsDetailTabs = (props: Props) => {
         <TabPane tab="Attachment" key="5">
           <div className="">
             {/* <ProfileImageWithInfo /> */}
-            <Attachment item={{name:"abcd.jpg",url:"dfsdf"}} enable={false} />
-            <Attachment item={{name:"abcd.jpg",url:"dfsdf"}}  enable={false}/>
+            <Attachment
+              item={{ name: "abcd.jpg", url: "dfsdf" }}
+              enable={false}
+            />
+            <Attachment
+              item={{ name: "abcd.jpg", url: "dfsdf" }}
+              enable={false}
+            />
           </div>
         </TabPane>
         <TabPane tab="Notes" key="6">

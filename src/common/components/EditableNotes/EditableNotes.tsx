@@ -6,12 +6,16 @@ import {
   AppointmentNote,
   GetAppointmentNoteByIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
+  useGetAppointmentNoteByIdQuery,
+  useRemoveAppointmentNoteMutation,
 } from "generated/graphql";
 import AcronymWithTextEditable from "../AcronymWithTextEditable/AcronymWithTextEditable";
 import { Button, Form, notification, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import AcronymWithText from "../AcronymWithText/AcronymWithText";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+import { CloseOutlined } from "@ant-design/icons";
 
 type Props = {
   appointment?: Appointment | undefined;
@@ -20,8 +24,12 @@ type Props = {
 
 function EditableNotes({ doctorNotes }: Props) {
   const [edit, setEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isPublish, setIsPublish] = useState(false);
   const [localDocNotes, setlocalDocNotes] = useState();
   const [noteType, setNoteType] = useState("");
+  const [open, setOpen] = React.useState<boolean>(false);
+
   const { query } = useRouter();
   function handleChange(value: string) {
     setNoteType(value);
@@ -32,17 +40,19 @@ function EditableNotes({ doctorNotes }: Props) {
   const { note, subjective, objective, assessment, plan } =
     appointmentNote || {};
 
-  const [{ data: notes }, createOrUpdateAppointmentNote] =
+  const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
     useCreateOrUpdateAppointmentNoteMutation();
 
   console.log(notes, "notesnotesnotesnotes");
+
+  // ADD NOTES API CALL
 
   const addNote = async (value: any) => {
     console.log({ value });
     const res = await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
-        isPublished: false,
+        isPublished: isPublish,
         subjective: value?.subjective || "",
         objective: value?.objective || "",
         assessment: value?.assessment || "",
@@ -55,9 +65,49 @@ function EditableNotes({ doctorNotes }: Props) {
       notification.success({
         message: "Successfully Added",
       });
+      setEdit(true);
     } else {
       notification.error({
         message: "Something went wrong",
+      });
+    }
+  };
+
+  // GET NOTES API CALL
+  const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
+    useGetAppointmentNoteByIdQuery({
+      variables: {
+        appointmentId: Number(query?.id),
+      },
+    });
+
+  const { appointmentNote: currentNote } = notesById || {};
+  const { id: noteId } = currentNote || {};
+
+  console.log("get note", notesById);
+
+  // REMOVE NOTES API CALL
+
+  const [{ fetching: RemoveFetching }, executeAppointmentNote] =
+    useRemoveAppointmentNoteMutation();
+
+  const deleteAppointmentNote = async () => {
+    try {
+      const response = await executeAppointmentNote({
+        id: Number(noteId),
+      });
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "Note Delete Successfully",
+        });
+        Router.push(`/physician/appointments/upcoming`);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
       });
     }
   };
@@ -73,8 +123,8 @@ function EditableNotes({ doctorNotes }: Props) {
           onChange={handleChange}
           style={{ width: 200 }}
         >
-          <Select.Option value="soap">SOAP</Select.Option>
           <Select.Option value="narrative">NARRATIVE</Select.Option>
+          <Select.Option value="soap">SOAP</Select.Option>
         </Select>
       </div>
       <Form onFinish={addNote}>
@@ -145,19 +195,39 @@ function EditableNotes({ doctorNotes }: Props) {
             </Button>
           </div>
         ) : (
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-3">
             <Button
+              danger
+              icon={<CloseOutlined />}
+              onClick={() => setOpen(true)}
+              className="mt-2 border border-red"
+            >
+              Delete
+            </Button>
+            <Button
+              type="primary"
               className="mt-2"
               htmlType="submit"
               onClick={() => {
-                setEdit(true);
+                setIsPublish(true);
               }}
+              loading={fetching}
             >
+              Publish Notes
+            </Button>
+            <Button className="mt-2" htmlType="submit" loading={fetching}>
               Save
             </Button>
           </div>
         )}
       </Form>
+      <ConfirmationModal
+        visible={open}
+        confirmLoading={RemoveFetching}
+        onCancel={() => setOpen(false)}
+        onOk={deleteAppointmentNote}
+        message="Are you sure you want ot delete this note?"
+      />
     </>
   );
 }

@@ -22,7 +22,7 @@ module.exports = withTM(
       defaultLocale: "en",
     },
     images: {
-      domains: ["medicus-dev2.s3-us-east-2.amazonaws.com"],
+      domains: ["medicus-dev2.s3-us-east-2.amazonaws.com", "www.google.com"],
     },
   })
 );
