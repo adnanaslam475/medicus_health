@@ -2039,7 +2039,7 @@ export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, status: boolean, email: string, contact_number?: string | null } };
+export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, status: boolean, email: string, contact_number?: string | null, createdAt: any } };
 
 export type GetAdminUserByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -3904,6 +3904,7 @@ export const GetStaffDetailsUrlByIdDocument = gql`
     status
     email
     contact_number
+    createdAt
   }
 }
     `;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Input } from "antd";
 import _classes from "./AddStaffFormItems.module.scss";
+import { date } from "common/utils";
 
 const createStaffForm = [
   {
@@ -29,7 +30,12 @@ const createStaffForm = [
   },
 ];
 
-function AddStaffFormItems() {
+type Props = {
+  accountCreatedAt?: string;
+};
+
+function AddStaffFormItems(props: Props) {
+  const { accountCreatedAt } = props || {};
   return (
     <>
       {createStaffForm.map((value) => (
@@ -54,6 +60,16 @@ function AddStaffFormItems() {
           <Input placeholder="" className="" />
         </Form.Item>
       ))}
+      <div className="flex flex-col gap-2">
+        <span className="text-gray font-semibold text-sm py-1">
+          Account Creation Date
+        </span>
+        <div className="border border-gray-4 rounded min-h-[48px] bg-gray-4  flex items-center pl-5">
+          {`${date?.formatMMMMDDYYYY(
+            accountCreatedAt as string
+          )} ${date?.formathhmma(accountCreatedAt as string)}`}
+        </div>
+      </div>
     </>
   );
 }

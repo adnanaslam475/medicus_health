@@ -30,7 +30,7 @@ type DoctorData = {
 };
 
 type Props = {
-  physicianData?: DoctorProfile;
+  physicianData?:  DoctorProfile | undefined | null;
   allAppoinments?: AppointmentServiceType[];
   onFinish?: ((values: any) => void) | undefined;
   adminData?: AdminData;

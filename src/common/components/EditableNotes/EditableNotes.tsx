@@ -211,7 +211,6 @@ function EditableNotes({ doctorNotes }: Props) {
               onClick={() => {
                 setIsPublish(true);
               }}
-              loading={fetching}
             >
               Publish Notes
             </Button>

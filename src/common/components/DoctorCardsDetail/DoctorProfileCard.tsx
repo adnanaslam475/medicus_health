@@ -35,6 +35,7 @@ function DoctorProfileCard(props: Props) {
   // Get patient Health History
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: Number(loggedInUser) },
+    requestPolicy: "network-only",
   });
   const { doctorData, loading } = props || {};
   const { first_name, last_name } = doctorData?.user || {};

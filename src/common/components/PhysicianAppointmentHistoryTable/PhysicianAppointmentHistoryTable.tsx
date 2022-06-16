@@ -12,12 +12,12 @@ import {
 import Router from "next/router";
 
 type Props = {
-  data?: Appointment[];
-  loading:boolean|undefined;
+  data?: Appointment[] | undefined;
+  loading: boolean | undefined;
 };
 
 function PhysicianAppointmentHistoryTable(props: Props) {
-  const { data,loading } = props || {};
+  const { data, loading } = props || {};
   const historyColumns = [
     {
       title: "ID",
