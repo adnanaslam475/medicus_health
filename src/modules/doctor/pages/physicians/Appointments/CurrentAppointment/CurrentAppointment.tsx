@@ -45,7 +45,7 @@ function CurrentAppointment({}: CancelledAppointmentProps) {
             <h2 className="mb-0">Current Appointments</h2>
           </div>
         </div>
-        <div className="w-5/6">
+        <div className="">
           <CurrentAppointmentFilter onChange={onChangeFilters} />
         </div>
         <div className="w-full">

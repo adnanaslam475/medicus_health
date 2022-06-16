@@ -123,9 +123,9 @@ function SearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}
     >
-      <span className="text-gray-1 mr-3 mb-3">Filter</span>
+      <span className="text-gray-1 mr-3 mb-3 sm:block">Filter</span>
       <div className="flex-none sm:flex">
-        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-60 mr-2">
+        <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-2 lg:mr-0">
           <Input
             placeholder={"Search by ID"}
             prefix={<SearchOutlined />}
@@ -135,7 +135,7 @@ function SearchFilters(props: Props) {
           />
         </div>
         {isFromPhysician ? (
-          <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
+          <div className="sm:mb-0 mb:2 lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
             <Input
               placeholder={placeholder || "Search by ID or patient name"}
               prefix={<SearchOutlined />}
@@ -144,7 +144,7 @@ function SearchFilters(props: Props) {
             />
           </div>
         ) : (
-          <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
+          <div className=" sm:mb-0  w-full md:w-44 xl:w-60 mr-3 mb-2">
             <Select
               placeholder="Physician"
               className={`${searchStyle.placeholderColor} w-full`}
@@ -160,7 +160,7 @@ function SearchFilters(props: Props) {
           </div>
         )}
 
-        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
+        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3 mt-3 sm:mt-0">
           <Select
              suffixIcon={<div className="text-gray"><CaretDownOutlined className="text-sm text-gray" /></div>}
             placeholder="Appointment Type"

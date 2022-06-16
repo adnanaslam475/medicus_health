@@ -104,6 +104,6 @@ function CurrentAppointmentTable({ dataSource ,loading}: Props) {
       ),
     },
   ];
-  return <Table columns={columns} dataSource={dataSource} loading={loading} />;
+  return <Table columns={columns} dataSource={dataSource} loading={loading} scroll={{x:true}} />;
 }
 export default CurrentAppointmentTable;

@@ -68,11 +68,11 @@ function PhysicianSearchFilters(props: Props) {
 
   return (
     <div
-      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}
+      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5 flex-wrap`}
     >
-      <span className="text-gray-1 mr-3 mb-3">Filter</span>
+      <span className="text-gray-1 mr-3">Filter</span>
       <div className="flex-none sm:flex">
-        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
+        <div className="mb-3 md:mb-0 lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
           <Input
             value={filterState.searchString || ""}
             placeholder="Search by ID or patient name"
@@ -186,11 +186,11 @@ function PhysicianSearchFilters(props: Props) {
           </div>
         </Space>
       </div>
-      <div className="flex-none sm:flex ml-2">
+      <div className="flex-none sm:flex ">
         <Space
           direction="vertical"
           size={0}
-          className="w-full md:w-44 xl:w-60 sm:mb-3"
+          className="w-full md:w-44 xl:w-60  mt-3 sm:mt-0 sm:mb-3 lg:ml-2 md:ml-2  "
         >
           <div className="relative">
             <RangePicker
@@ -238,7 +238,7 @@ function PhysicianSearchFilters(props: Props) {
                     : "Due Date"}
                 </div>
               ) : (
-                <div className="flex justify-between items-center w-full">
+                <div className="flex justify-between items-center w-full ">
                   <div className="flex justify-between items-center w-full px-3">
                     <div className="flex items-center font-thin">
                       <span className="mr-2 mt-1">

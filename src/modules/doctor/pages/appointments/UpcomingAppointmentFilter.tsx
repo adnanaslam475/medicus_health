@@ -52,7 +52,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
   return (
     <div className="page-filters flex-none lg:flex items-center sm:mb-3 lg:mb-0">
       <span className="text-gray-1 mr-3">Filter</span>
-      <div className="flex items-center sm:flex sm:mb-0 lg:mb-0">
+      <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
         <div className=" w-full sm:w-full md:w-full ">
           <Input
             value={filterState.searchString}
