@@ -19,7 +19,7 @@ type props = {
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
-  doctorProfile?: DoctorProfile | undefined;
+  doctorProfile?: DoctorProfile | undefined | null;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal?: (data: boolean) => void;
   onViewSuggestedSlots: () => void;
@@ -98,7 +98,7 @@ function AppointmentCard({
           onViewSuggestedSlots={onViewSuggestedSlots}
         />
       );
-      case "Current":
+    case "Current":
       return (
         <AppointmnetCurrentCard
           appointmentId={appointmentId}
