@@ -17,7 +17,7 @@ import {
 } from "antd";
 import PhysicianProfileForm from "./PatientProfileFormTab";
 import PatientProfileForm from "./PatientProfileFormTab";
-import { useGetUserQuery } from "generated/graphql";
+import { useGetUserQuery, User } from "generated/graphql";
 import { getUserData } from "./../../../../../../../src/common/utils/userData";
 
 function PatientProfile({ userDetail }: { userDetail: any }) {
@@ -62,7 +62,7 @@ function PatientProfile({ userDetail }: { userDetail: any }) {
             </div>
           </div>
           <div className="w-full">
-            <PatientProfileForm userDetail={userData?.user} />
+            <PatientProfileForm userDetail={userData?.user as User} />
           </div>
         </div>
       </div>

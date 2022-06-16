@@ -66,7 +66,7 @@ function AdminPatientProfileTab({}: Props) {
 	const { countries } = countriesData || {};
 	const [{ data: city_data }] = useGetCitiesByStateQuery({
 		variables: {
-			input: Number(stateId.id || state_id),
+			input: Number(stateId?.id || state_id),
 		},
 		pause: state_id === undefined,
 		requestPolicy: "network-only" 

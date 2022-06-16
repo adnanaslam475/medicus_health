@@ -37,6 +37,7 @@ mutation login($input: LoginUserInput!) {
       }
       doctorProfile {
         profile_image
+        specialization
       }
       adminProfilePicture {
         profile_picture
