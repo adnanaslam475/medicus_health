@@ -39,6 +39,7 @@ function DoctorStaffDetails() {
     pause: !query.staffId,
   });
   const { staffDetail } = data || {};
+
   React.useEffect(() => {
     if (staffDetail) {
       prepareAndSetEditPayload();

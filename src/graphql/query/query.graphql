@@ -585,6 +585,7 @@ query getStaffDetailsUrlById($id: Int!) {
     status
     email
     contact_number
+    createdAt
   }
 }
 

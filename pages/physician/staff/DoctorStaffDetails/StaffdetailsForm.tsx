@@ -71,7 +71,7 @@ function StaffDetailsFrom({
         </Button>
       </div>
       <div className="md:grid md:grid-cols-2 md:gap-x-4">
-        <AddStaffFormItems />
+        <AddStaffFormItems accountCreatedAt={staffDetail?.createdAt}/>
       </div>
       <div className="flex justify-end">
         <Form.Item>
