@@ -65,3 +65,7 @@
   margin-left: auto;
   height: 48px !important;
 }
+.btn-tooltip{
+  :global .ant-btn{
+  width: 100% !important;}
+}

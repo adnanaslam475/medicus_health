@@ -598,6 +598,7 @@ export type Mutation = {
   enableOrDisableStaff: User;
   generateRTCToken: RtcTokenResponse;
   login: LoginResponse;
+  markedAppointmentAsCompleted: Appointment;
   payment: Transaction;
   proposeNewTime: Appointment;
   reBookAppointment: Appointment;
@@ -775,6 +776,11 @@ export type MutationGenerateRtcTokenArgs = {
 
 export type MutationLoginArgs = {
   loginUserInput: LoginUserInput;
+};
+
+
+export type MutationMarkedAppointmentAsCompletedArgs = {
+  appointmentId: Scalars['Int'];
 };
 
 
@@ -986,6 +992,7 @@ export type Query = {
   city: City;
   countries: Array<Country>;
   country: Country;
+  currentAppointments: Array<Appointment>;
   doctorBillingMethod: DoctorBillingMethod;
   doctorBillingMethods: Array<DoctorBillingMethod>;
   doctorProfile: DoctorProfile;
@@ -2032,7 +2039,7 @@ export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, status: boolean, email: string, contact_number?: string | null } };
+export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, status: boolean, email: string, contact_number?: string | null, createdAt: any } };
 
 export type GetAdminUserByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -3896,6 +3903,7 @@ export const GetStaffDetailsUrlByIdDocument = gql`
     status
     email
     contact_number
+    createdAt
   }
 }
     `;
@@ -6216,6 +6224,29 @@ export default {
             ]
           },
           {
+            "name": "markedAppointmentAsCompleted",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "appointmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "payment",
             "type": {
               "kind": "NON_NULL",
@@ -7389,6 +7420,24 @@ export default {
                 }
               }
             ]
+          },
+          {
+            "name": "currentAppointments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Appointment",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
           },
           {
             "name": "doctorBillingMethod",
