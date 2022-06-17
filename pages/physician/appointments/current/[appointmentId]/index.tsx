@@ -1,8 +1,7 @@
+import CurrentAppointmentsDetailDoctor from "modules/doctor/pages/appointments/CurrentAppointmentsDetailDoctor/CurrentAppointmentsDetailDoctor";
 import React from "react";
-import CancelledAppointmentsDetailDoctor from "modules/doctor/pages/appointments/CancelledAppointmentsDetailDoctor/CancelledAppointmentsDetailDoctor";
-
 function appointmentId() {
-  return <CancelledAppointmentsDetailDoctor />;
+  return <CurrentAppointmentsDetailDoctor/>;
 }
 
 export default appointmentId;

@@ -231,8 +231,8 @@ function DoctorAppointmentInfoFooter({
   }, [selectedAppointment]);
 
   return (
-    <div className="flex justify-between mt-6">
-      <div className="flex">
+    <div className="flex  justify-center md:justify-between mt-6 flex-wrap">
+      <div className="ml-2 sm:ml-0 flex mb-3 sm:mb-0">
         {getRole() === "Patient" ||
           (getRole() === "Doctor" && (
             <Button
@@ -296,7 +296,7 @@ function DoctorAppointmentInfoFooter({
       <Button
         type="primary"
         icon={<VideoCameraFilled />}
-        className={`${_classes["appointments-btn"]} bg-current`}
+        className={`${_classes["appointments-btn"]} bg-current `}
         onClick={() =>
           Router.push(`/physician/appointments/${appointmentId}/call`)
         }
@@ -423,18 +423,19 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   return (
     <>
-      <div className="flex justify-between mt-6">
+      <div className=" flex-col sm:flex-row  flex justify-between mt-6 flex-wrap">
         <Button
           danger
-          className="border border-red outline"
+          // className="border border-red outline"
+          className={`${_classes["appointments-btn"]}`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Reject
         </Button>
-        <div className="flex">
+        <div className="flex-col sm:flex-row flex flex-wrap">
           <Button
             icon={<RetweetOutlined />}
-            className={`${_classes["appointments-btn"]}`}
+            className={`${_classes["appointments-btn"]} my-2 sm:my-0`}
             onClick={showModal}
           >
             Propose Time
@@ -442,7 +443,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           <Button
             type="primary"
             icon={<CheckOutlined />}
-            className={`${_classes["appointments-btn"]} bg-current ml-3`}
+            className={`${_classes["appointments-btn"]} bg-current sm:ml-3`}
             onClick={showModal}
           >
             Edit Appointment
