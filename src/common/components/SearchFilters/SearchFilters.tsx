@@ -89,7 +89,6 @@ function SearchFilters(props: Props) {
   };
 
   function onChange(date: any, dateString: any) {
-    console.log(date, dateString);
     selectDateRangeValues(date);
     selectDateRange(date);
     setDateRangeState({
@@ -110,7 +109,7 @@ function SearchFilters(props: Props) {
     selectDateRange(null);
     setPatientName("");
     setSearchPatient && setSearchPatient(null);
-    setAppointmentId(null);
+    setAppointmentId(undefined);
     setLocalAppointment_Id(null);
     setBookingDate?.({})
   };

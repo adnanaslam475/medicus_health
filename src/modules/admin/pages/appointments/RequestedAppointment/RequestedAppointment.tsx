@@ -83,6 +83,7 @@ function RequestedAppointment() {
   // Get patient Health History
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: Number(loggedInUser) },
+    requestPolicy: "network-only",
   });
 
   return (

@@ -151,6 +151,13 @@ function EditableNotes({ doctorNotes }: Props) {
             <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">SOAP</h4>
             {
               <>
+                {/* <AcronymWithTextEditable
+                editable={edit}
+                character={"N"}
+                word={"Note"}
+                sentence={note || "No Details"}
+              /> */}
+
                 <AcronymWithTextEditable
                   editable={edit}
                   character={"S"}
@@ -196,14 +203,14 @@ function EditableNotes({ doctorNotes }: Props) {
           </div>
         ) : (
           <div className="flex justify-end gap-3">
-            <Button
+            {/* <Button
               danger
               icon={<CloseOutlined />}
               onClick={() => setOpen(true)}
               className="mt-2 border border-red"
             >
               Delete
-            </Button>
+            </Button> */}
             <Button
               type="primary"
               className="mt-2"

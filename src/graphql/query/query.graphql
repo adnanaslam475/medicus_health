@@ -76,6 +76,7 @@ query getUser($input: Int!) {
       maritalStatus
       profileImage
       children
+      haveChildren
       occupation
       occupationalExposure
       pets
@@ -585,6 +586,7 @@ query getStaffDetailsUrlById($id: Int!) {
     status
     email
     contact_number
+    createdAt
   }
 }
 

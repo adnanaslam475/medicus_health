@@ -40,6 +40,7 @@ function PatientDetail() {
     variables: { input: Number(query?.id) },
   });
 
+
   // Get patient Health History
   const [{ data }] = usePatientHealthHistoryQuery({
     variables: { input: id as number },
@@ -74,7 +75,6 @@ function PatientDetail() {
       console.log(err);
     }
   };
-
   return (
     <AppLayout>
       <div className="w-full">
@@ -88,7 +88,7 @@ function PatientDetail() {
             }
             key="1"
           >
-            <PatientProfileFormTab userDetail={userData?.user} />
+            <PatientProfileFormTab userDetail={userData?.user as User} loggedinDoctorDetails={user} />
           </TabPane>
 
           <TabPane

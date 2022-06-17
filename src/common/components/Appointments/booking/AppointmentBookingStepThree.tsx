@@ -13,7 +13,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { getUserData } from "common/utils/userData";
 
 type Props = {
-  physicianData?: DoctorProfile;
+  physicianData?: DoctorProfile | undefined | null;
   adminApp_Details?: DoctorData;
 };
 
@@ -47,14 +47,18 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   });
   const { doctorQuestionnaire } = dataList || {};
   const { user } = getUserData();
-  const role = user?.role
+  const role = user?.role;
   const loggedinPatientId = role === "Admin" ? patientIdFromStepOne : user?.id;
   const [{ data: patientLastQuestionaryData }] =
     usePatientLastQuestionnaireQuery({
       variables: {
         patientId:
-          Number(loggedinPatientId) || Number(adminApp_Details?.patient?.patient_id),
-        doctorId: Number(id) || Number(physicianId) ||  Number(adminApp_Details?.doctor?.doctor_Id),
+          Number(loggedinPatientId) ||
+          Number(adminApp_Details?.patient?.patient_id),
+        doctorId:
+          Number(id) ||
+          Number(physicianId) ||
+          Number(adminApp_Details?.doctor?.doctor_Id),
       },
     });
   const { patientLastQuestionnaire } = patientLastQuestionaryData || {};

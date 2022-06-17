@@ -13,7 +13,7 @@ type Props = {
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
-  doctorProfile?: DoctorProfile | undefined;
+  doctorProfile?: DoctorProfile | undefined | null;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
 };
 
