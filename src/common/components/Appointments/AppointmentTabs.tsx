@@ -12,6 +12,8 @@ import word from "../../../../public/assets/images/word-file.svg";
 import Attachment from "../Attachment/Attachment";
 import { AttachmentObject } from "common/types/types";
 import { useRouter } from "next/router";
+import Notes from "../Notes/Notes";
+import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
 const { TabPane } = Tabs;
 
 type Props = {
@@ -21,15 +23,16 @@ type Props = {
 const AppointmentTabs = (props: Props) => {
   const { appointmentId } = props;
   const [activeTab, setActiveTab] = React.useState<string>("");
-  
+
   const router = useRouter();
+  const { pathname } = router || {};
   const { query } = router;
 
   const [{ data }] = useGetAppointmentByIdQuery({
     variables: { id: Number(appointmentId) },
   });
 
-  const { appointmentHealthHistory, patient } = data?.appointment || {};
+  const { appointmentHealthHistory, patient, status } = data?.appointment || {};
 
   const { id } = patient || {};
 
@@ -85,6 +88,17 @@ const AppointmentTabs = (props: Props) => {
             <Attachment item={item} enable />
           ))}
         </TabPane>
+        {(status === "Confirmed" ||
+          status === "Completed" ||
+          status === "OnGoing") && (
+          <>
+            {/* {pathname.includes("appointments") && ( */}
+            <Tabs.TabPane tab={<span>Notes</span>} key="6">
+              <NotesTab />
+            </Tabs.TabPane>
+            {/* )} */}
+          </>
+        )}
       </Tabs>
     </div>
   );

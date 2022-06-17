@@ -181,11 +181,20 @@ export const patientEditForm = [
   },
   {
     label: "Do you have any children?",
-    type: "text",
-    name: "children",
-    inputType: "number",
+    name: "haveChildren",
     required: true,
-    option_name: "children",
+    type: "radio",
+    options: ["Yes", "No"],
+    relationType:"text",
+
+  },
+  {
+    label: "No of childrens",
+    name: "children",
+    type: "text",
+    required: true,
+    relationName:"haveChildren",
+    option_name:"children"
   },
   {
     label: "What is your occupation?",
@@ -199,6 +208,20 @@ export const patientEditForm = [
     type: "radio",
     required: true,
     options: ["Yes", "No"],
+  },
+  {
+    label: "Occupational Exposure duration?",
+    name: "exposureDuration",
+    relationName:"occupationalExposure",
+    type: "select",
+    options: [
+      { id: 1, value: "Less than a year" },
+      { id: 2, value: "More than a year (1+)" },
+      { id: 3, value: "More than three to five years (3-5)" },
+    ],
+    option_name: "exposureDuration",
+    relationType:"text"
+
   },
   {
     label: "Do you have any pets?",

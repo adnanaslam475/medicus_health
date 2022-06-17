@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import {
   DatePicker,
@@ -26,13 +26,29 @@ type Props = {
   formInstance: FormInstance | undefined;
 };
 
-const InputFields = ({ data, isUpdating, setCountryId, setStateId }: Props) => {
+const InputFields = ({
+  data,
+  isUpdating,
+  setCountryId,
+  setStateId,
+  formInstance,
+}: Props) => {
+  const [showChildren, setShowChildren] = useState<any>();
+
+  useEffect(()=>{
+    let init:any = {}
+    patientEditForm.filter(item=>item.relationName).forEach((item:any)=>{
+        init[item?.relationName] = formInstance?.getFieldValue(item?.relationName);
+    })
+    setShowChildren(init)
+  },[])
+
   return (
     <>
       <div className="max-w-[800px] gap-x-4 grid grid-cols-2 relative">
         {patientEditForm.map((value: any) => (
           <>
-            {value.type === "select" && (
+            {value.type === "select" && (!value.relationType || showChildren?.[value?.relationName] === "Yes") && (
               <Form.Item
                 label={value.label}
                 name={value.option_name}
@@ -46,6 +62,10 @@ const InputFields = ({ data, isUpdating, setCountryId, setStateId }: Props) => {
                 <Select
                   placeholder={value.label}
                   onChange={(id) => {
+                    setShowChildren((prev:any)=>({
+                      ...(prev || {}),
+                      [value?.name]: id,
+                    }));
                     if (value.option_name !== "city_name") {
                       const updatedValue = (
                         data[value.name] || value.options
@@ -72,7 +92,8 @@ const InputFields = ({ data, isUpdating, setCountryId, setStateId }: Props) => {
                 </Select>
               </Form.Item>
             )}
-            {value.type === "text" && (
+
+            {value.type === "text" && !value?.relationName && (
               <Form.Item
                 label={value.label}
                 rules={[
@@ -86,6 +107,21 @@ const InputFields = ({ data, isUpdating, setCountryId, setStateId }: Props) => {
                 <Input type={value.inputType} />
               </Form.Item>
             )}
+            {value.type === "text" &&
+              showChildren?.[value?.relationName] === "Yes" && (
+                <Form.Item
+                  label={value.label}
+                  rules={[
+                    {
+                      required: value.required,
+                      message: `${value.label} is required`,
+                    },
+                  ]}
+                  name={value.name}
+                >
+                  <Input type={value.inputType} />
+                </Form.Item>
+              )}
             {value.type === "date" && (
               <Form.Item label={value.label} name={value.name}>
                 <DatePicker
@@ -108,8 +144,16 @@ const InputFields = ({ data, isUpdating, setCountryId, setStateId }: Props) => {
                 ]}
                 name={value.option_name || value.name}
               >
-                <Radio.Group name={value.option_name || value.name}>
-                  {value.options?.map((value: string, i: number) => (
+                <Radio.Group
+                  name={value.option_name || value.name}
+                  onChange={(e) =>
+                    setShowChildren((prev:any)=>({
+                      ...(prev || {}),
+                      [value.name]: e.target.value
+                    }))
+                  }
+                >
+                  {value.options?.map((value: string, i: number) =>(
                     <Radio key={i} value={value}>
                       {value}
                     </Radio>

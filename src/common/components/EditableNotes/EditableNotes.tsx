@@ -65,7 +65,7 @@ function EditableNotes({ doctorNotes }: Props) {
       notification.success({
         message: "Successfully Added",
       });
-      setEdit(true);
+      setEdit(false);
     } else {
       notification.error({
         message: "Something went wrong",
@@ -115,7 +115,7 @@ function EditableNotes({ doctorNotes }: Props) {
   return (
     <>
       <h2>View Notes</h2>
-      <div className="flex mb-8 flex-col">
+      {/* <div className="flex mb-8 flex-col">
         <label className="">Select Notes Type</label>
         <Select
           className="mr-5"
@@ -126,9 +126,9 @@ function EditableNotes({ doctorNotes }: Props) {
           <Select.Option value="narrative">NARRATIVE</Select.Option>
           <Select.Option value="soap">SOAP</Select.Option>
         </Select>
-      </div>
+      </div> */}
       <Form onFinish={addNote}>
-        {noteType == "narrative" && (
+        {/* {noteType == "narrative" && (
           <>
             <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE</h4>
             {!edit ? (
@@ -145,65 +145,61 @@ function EditableNotes({ doctorNotes }: Props) {
               </>
             )}
           </>
-        )}
-        {noteType == "soap" && (
-          <>
-            <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">SOAP</h4>
-            {
-              <>
-                <AcronymWithTextEditable
-                  editable={edit}
-                  character={"S"}
-                  word={"Subjective"}
-                  sentence={subjective || "No Details"}
-                />
+        )} */}
+        {/* {noteType == "soap" && ( */}
+        <>
+          <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE & SOAP</h4>
+          {
+            <>
+              <AcronymWithTextEditable
+                editable={edit}
+                character={"N"}
+                word={"Note"}
+                sentence={note || "No Details"}
+              />
 
-                <AcronymWithTextEditable
-                  editable={edit}
-                  character={"O"}
-                  word={"Objective"}
-                  sentence={objective || "No Details"}
-                />
+              <AcronymWithTextEditable
+                editable={edit}
+                character={"S"}
+                word={"Subjective"}
+                sentence={subjective || "No Details"}
+              />
 
-                <AcronymWithTextEditable
-                  editable={edit}
-                  character={"A"}
-                  word={"Assessment"}
-                  sentence={assessment || "No Details"}
-                />
+              <AcronymWithTextEditable
+                editable={edit}
+                character={"O"}
+                word={"Objective"}
+                sentence={objective || "No Details"}
+              />
 
-                <AcronymWithTextEditable
-                  editable={edit}
-                  character={"P"}
-                  word={"Plan"}
-                  sentence={plan || "No Details"}
-                />
-              </>
-            }
-          </>
-        )}
+              <AcronymWithTextEditable
+                editable={edit}
+                character={"A"}
+                word={"Assessment"}
+                sentence={assessment || "No Details"}
+              />
+
+              <AcronymWithTextEditable
+                editable={edit}
+                character={"P"}
+                word={"Plan"}
+                sentence={plan || "No Details"}
+              />
+            </>
+          }
+        </>
+        {/* )} */}
 
         {edit ? (
-          <div className="flex justify-end">
-            <Button
-              className="mt-2"
-              onClick={() => {
-                setEdit(!edit);
-              }}
-            >
-              Edit
-            </Button>
-          </div>
-        ) : (
           <div className="flex justify-end gap-3">
-            <Button
-              danger
-              icon={<CloseOutlined />}
-              onClick={() => setOpen(true)}
-              className="mt-2 border border-red"
-            >
-              Delete
-            </Button>
+            {/* <Button
+            danger
+            icon={<CloseOutlined />}
+            onClick={() => setOpen(true)}
+            className="mt-2 border border-red"
+          >
+            Delete
+          </Button> */}
             <Button
               type="primary"
               className="mt-2"
@@ -216,6 +212,18 @@ function EditableNotes({ doctorNotes }: Props) {
             </Button>
             <Button className="mt-2" htmlType="submit" loading={fetching}>
               Save
+            </Button>
+          </div>
+        ) : (
+          <div className="flex justify-end">
+            <Button
+              className="mt-2"
+              onClick={(e) => {
+                e.preventDefault();
+                setEdit(!edit);
+              }}
+            >
+              Edit
             </Button>
           </div>
         )}
