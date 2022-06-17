@@ -83,7 +83,7 @@ const ViewProfileFields = ({
       </div>
       <div className="flex flex-col md:flex-row gap-2">
       {showExposureDuration && <LabelWithTextDiv
-          label="Exposure duration"
+          label="Do you have any Occupational Duration?"
           value={patientProfile?.exposureDuration}
         />}
         <LabelWithTextDiv
