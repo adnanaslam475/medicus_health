@@ -25,6 +25,7 @@ function AppointmnetCancelledCard({
   doctorProfile,
   appointmentTimeSlots,
 }: Props) {
+
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
   //   setShowModal(true);
