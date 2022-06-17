@@ -13,7 +13,7 @@ type Props = {
 
 const MessageButtons = (props: Props) => {
   const { patientID, doctorId } = props;
-  console.log(patientID, doctorId, "majidkhan");
+  console.log(patientID, doctorId, "docIdPatId");
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
