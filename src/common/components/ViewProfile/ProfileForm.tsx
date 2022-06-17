@@ -8,7 +8,7 @@ import {
 } from "../../../utils/helper";
 import { Schedule } from "../../types/types";
 import AboutMe from "../AboutMe/AboutMe";
-import InputWithLi from "../InputWithLi/InputWithLi";
+import InputWithLi from "common/components/InputWithLi/InputWithLi";
 import LanguageList from "../Languages/LanguageList";
 import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
 
@@ -32,7 +32,8 @@ function ProfileForm({
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const [image, setImage] = useState<string>("");
   //GET USER PROFILE IMAGE FROM useGetUserQuery
-  const { profile_image: userProfileImage } = doctorData || {};
+  const { profile_image: userProfileImage, condition_treated } =
+    doctorData || {};
   const onFinish = async (values: any) => {
     try {
       updateDoctorProfile(values);
@@ -69,7 +70,10 @@ function ProfileForm({
       }
     }
   };
-  let formatedLanguage = doctorData?.language !== undefined && doctorData?.language?.includes("{") ? JSON.parse(doctorData?.language) :doctorData?.language
+  let formatedLanguage =
+    doctorData?.language !== undefined && doctorData?.language?.includes("{")
+      ? JSON.parse(doctorData?.language)
+      : doctorData?.language;
   return (
     <div className="w-full pb-10">
       <Form
@@ -105,7 +109,12 @@ function ProfileForm({
         <LanguageList disable={true} language={formatedLanguage} />
         <AboutMe />
 
-        <InputWithLi disable={true} />
+        {condition_treated && (
+          <InputWithLi
+            disable={true}
+            initialValue={condition_treated && condition_treated?.split(",")}
+          />
+        )}
 
         <MultiRangeDatePicker disable={true} schedules={schedules} />
         <div className={`my-6 ${_classes["professional"]}`}>
