@@ -4,7 +4,7 @@ import { UpdateStaffInput } from "generated/graphql";
 import AddStaffFormItems from "common/components/AddStaffFormItems/AddStaffFormItems";
 
 // scss
-import _classes from "./_staff.module.scss";
+import _classes from "./StaffListing.module.scss";
 
 type AddStaffModalProps = {
   visibleModal: boolean | undefined;
@@ -25,6 +25,7 @@ const AddStaffModal = React.forwardRef(function AddStaffModal(
       visible={visibleModal}
       onCancel={closeModal}
       footer={null}
+      className={`${_classes["staff-Modal"]}`}
     >
       <h1>Add Staff</h1>
       <Form onFinish={onFinish} form={form as FormInstance} layout="vertical">
