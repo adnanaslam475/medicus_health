@@ -91,7 +91,7 @@ function StaffListing() {
   return (
     <>
       <div className="w-full">
-        <div className="flex-none sm:flex items-center justify-between">
+        <div className="my-2 sm:my-0 flex items-center justify-between">
           <div className="sm:mb-0">
             <h2 className="mb-0">Staff</h2>
           </div>
@@ -103,12 +103,12 @@ function StaffListing() {
             Add Staff
           </Button>
         </div>
-        <div className="w-5/6">
+        <div className="">
           <StaffAppointmentsFilter onChange={onChangeFilters} />
         </div>
         <div className="w-full">
           {staff?.length ? (
-            <StaffTable dataSource={staff as User[]} loading={loading} />
+            <StaffTable dataSource={staff as User[]} loading={loading}  />
           ) : (
             <div className="flex items-center justify-center w-full">
               <Empty />

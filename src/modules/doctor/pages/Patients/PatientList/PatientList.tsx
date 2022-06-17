@@ -114,7 +114,7 @@ function PatientList() {
         <OnlySearchFilters onChange={onChange} />
         <div className="w-full">
           <div>
-            <Table columns={columns} dataSource={physiciansPatients} loading={fetching} />
+            <Table columns={columns} dataSource={physiciansPatients} loading={fetching}  scroll={{x:true}}/>
           </div>
         </div>
       </div>
