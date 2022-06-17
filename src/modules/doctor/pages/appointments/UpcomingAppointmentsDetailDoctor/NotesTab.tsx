@@ -51,8 +51,6 @@ function NotesTab({}: Props) {
     },
   });
 
-  console.log(notesById, "notesById");
-
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
     const res = await createOrUpdateAppointmentNote({

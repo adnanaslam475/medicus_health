@@ -149,44 +149,41 @@ function EditableNotes({ doctorNotes }: Props) {
         {/* {noteType == "soap" && ( */}
         <>
           <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE & SOAP</h4>
-          {
-            <>
-              <AcronymWithTextEditable
-                editable={edit}
-                character={"N"}
-                word={"Note"}
-                sentence={note || "No Details"}
-              />
 
-              <AcronymWithTextEditable
-                editable={edit}
-                character={"S"}
-                word={"Subjective"}
-                sentence={subjective || "No Details"}
-              />
+          <AcronymWithTextEditable
+            editable={edit}
+            character={"N"}
+            word={"Note"}
+            sentence={note || "No Details"}
+          />
 
-              <AcronymWithTextEditable
-                editable={edit}
-                character={"O"}
-                word={"Objective"}
-                sentence={objective || "No Details"}
-              />
+          <AcronymWithTextEditable
+            editable={edit}
+            character={"S"}
+            word={"Subjective"}
+            sentence={subjective || "No Details"}
+          />
 
-              <AcronymWithTextEditable
-                editable={edit}
-                character={"A"}
-                word={"Assessment"}
-                sentence={assessment || "No Details"}
-              />
+          <AcronymWithTextEditable
+            editable={edit}
+            character={"O"}
+            word={"Objective"}
+            sentence={objective || "No Details"}
+          />
 
-              <AcronymWithTextEditable
-                editable={edit}
-                character={"P"}
-                word={"Plan"}
-                sentence={plan || "No Details"}
-              />
-            </>
-          }
+          <AcronymWithTextEditable
+            editable={edit}
+            character={"A"}
+            word={"Assessment"}
+            sentence={assessment || "No Details"}
+          />
+
+          <AcronymWithTextEditable
+            editable={edit}
+            character={"P"}
+            word={"Plan"}
+            sentence={plan || "No Details"}
+          />
         </>
         {/* )} */}
 

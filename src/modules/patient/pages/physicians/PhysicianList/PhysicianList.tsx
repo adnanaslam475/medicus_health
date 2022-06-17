@@ -8,7 +8,6 @@ function Physicians() {
   const [{ data, fetching }] = useDoctorProfilesQuery();
   const { doctorProfiles } = data || {};
 
-  console.log(fetching, data, "fetchingfetching");
   return (
     <AppLayout>
       <div className="w-full">

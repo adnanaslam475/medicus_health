@@ -62,7 +62,6 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
                   ?.filter((val) => val[0] !== "__typename")
                   .map((item) => {
                     let char = item[0].split("")[0];
-                    // console.log(char, "Sss");
                     return (
                       <Form.Item name="note">
                         <TextArea defaultValue={item[1]} />
@@ -74,7 +73,6 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
                   ?.filter((val) => val[0] !== "__typename")
                   .map((item) => {
                     let char = item[0].split("")[0];
-                    // console.log(char, "Sss");
                     return (
                       <>
                         <AcronymWithText
@@ -101,7 +99,7 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
                 ?.filter((val) => val[0] !== "__typename")
                 .map((item) => {
                   let char = item[0].split("")[0];
-                  // console.log(char, "Sss");
+
                   return (
                     <>
                       {/* {!edit ? (
