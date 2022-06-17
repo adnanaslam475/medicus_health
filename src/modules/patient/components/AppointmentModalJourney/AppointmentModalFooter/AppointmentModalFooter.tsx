@@ -213,7 +213,9 @@ function AppointmentModalFooter({
             <span className="text-primary">Add Payment Method</span>
           </div>
           <Tooltip
-            title={!contextData.stepTwo?.cardId ? "please add payment method" : ""}
+            title={
+              !contextData.stepTwo?.cardId ? "please add payment method" : ""
+            }
           >
             <Button
               type="primary"

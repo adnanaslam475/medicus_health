@@ -15,6 +15,8 @@ import {
 } from "generated/graphql";
 import AdminNotesWithTextTab from "modules/admin/pages/AdminAppointmentsDetail/AdminNotesWithTextTab";
 import EditableNotes from "../EditableNotes/EditableNotes";
+import { getRole } from "common/utils/userData";
+import ViewableNotes from "../ViewableNotes/ViewableNotes";
 
 type Props = {
   // onFinish?: (values: any, setModalVisible: () => void) => void;
@@ -53,12 +55,23 @@ function NotesListingByAppointments(props: Props) {
           onChange={onChangeCollapse}
         > */}
         {/* <Panel className="w-full" header="Appointment Note" key="1"> */}
-        {/* <p>{text}</p> */}
 
-        <EditableNotes
-          // appointment={appointment as Appointment}
-          doctorNotes={doctorNotes}
-        />
+        {(getRole() === "Admin" || getRole() === "Doctor") && (
+          <EditableNotes
+            // appointment={appointment as Appointment}
+            doctorNotes={doctorNotes}
+          />
+        )}
+
+        {getRole() === "User" && (
+          <>
+            <ViewableNotes
+              // appointment={appointment as Appointment}
+              doctorNotes={doctorNotes}
+            />
+          </>
+        )}
+
         {/* </Panel> */}
         {/*           
           <Panel header="This is panel header 3" key="3">

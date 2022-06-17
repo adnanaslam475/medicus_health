@@ -14,3 +14,19 @@ query patientLastQuestionnaire($doctorId: Int!, $patientId: Int!) {
     history
   }
 }
+
+query getDoctorNotesByAppId($id: Int!) {
+  appointment(id: $id) {
+    id
+    patientId
+    status
+    doctorNote {
+      subjective
+      objective
+      assessment
+      plan
+      note
+      isPublished
+    }
+  }
+}
