@@ -63,7 +63,7 @@ function NotesListingByAppointments(props: Props) {
           />
         )}
 
-        {getRole() === "User" && (
+        {(getRole() === "User" || getRole() === "Admin") && (
           <>
             <ViewableNotes
               // appointment={appointment as Appointment}
