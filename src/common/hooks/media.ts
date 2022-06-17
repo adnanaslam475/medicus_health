@@ -23,7 +23,7 @@ export const useMediaUploader = () => {
   const uploadMultiple = async (file: File[]) => {
     try {
       return await Promise.all(
-        file.map((file: File) => s3.uploadFile(file as File))
+        file.map((file: File) => s3.uploadFile(file as File, file.name.split(".")[0]))
       );
     } catch (error) {
       console.log(error);
