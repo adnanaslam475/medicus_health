@@ -46,8 +46,8 @@ function StaffAppointmentsFilter({ onChange }: Props) {
   }
 
   return (
-    <div className="page-filters flex-none lg:flex items-center">
-      <div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
+    <div className="page-filters flex-wrap lg:flex items-center">
+      <div className="flex flex-wrap sm:flex-nowrap items-center sm:mb-3 lg:mb-0">
         <div className="w-full sm:w-full md:w-full lg:w-70">
           <Input
             value={filterState.searchString || ""}
@@ -58,6 +58,7 @@ function StaffAppointmentsFilter({ onChange }: Props) {
             }}
           />
         </div>
+        <div className="-ml-2 sm:ml-0">
         <FilterRangePicker
           onChange={(dateString: string[]) =>
             setCreationDate({
@@ -80,9 +81,10 @@ function StaffAppointmentsFilter({ onChange }: Props) {
           }
           heading="Creation Date"
         />
+        </div>
       </div>
       <div className="flex-none sm:flex">
-        <div className="lg:ml-3 mt-3 sm:mt-0">
+        <div className="lg:ml-3 mt-0 sm:mt-0">
           <Select
             placeholder="Status"
             className="w-full sm:w-40"

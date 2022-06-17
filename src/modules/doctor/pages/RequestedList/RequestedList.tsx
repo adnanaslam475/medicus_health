@@ -156,6 +156,7 @@ const RequestedList = (props: Props) => {
       dataSource={appointmentsData}
       onChange={onChange}
       loading={loading}
+      scroll={{x:true}}
     />
   );
 };

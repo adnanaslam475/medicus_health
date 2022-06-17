@@ -38,12 +38,12 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex-none sm:flex items-center justify-between mb-5">
+        <div className="flex-none sm:flex items-center justify-between">
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">Cancelled Appointments</h2>
           </div>
         </div>
-        <div className="w-5/6">
+        <div className="">
           <CanncelledAppointmentFilter onChange={onChangeFilters} />
         </div>
         <div className="w-full">

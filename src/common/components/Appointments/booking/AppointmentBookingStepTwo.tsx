@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Upload, message, Form, Image, Button } from "antd";
+import { Checkbox, Upload, message, Form, Button } from "antd";
 import {
   FilePdfOutlined,
   FileJpgOutlined,
@@ -9,6 +9,7 @@ import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import ReactS3Client from "react-aws-s3-typescript";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
+import Image from "next/image";
 
 const { Dragger } = Upload;
 

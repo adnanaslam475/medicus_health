@@ -50,7 +50,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       key: "patient",
       sorter: true,
       render: (value: User) => {
-        return <div>{`${value.first_name} ${value.last_name}`}</div>;
+        return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
       },
     },
     {
@@ -117,7 +117,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     },
   ];
 
-  return <Table columns={historyColumns} dataSource={data} loading={loading} />;
+  return <Table columns={historyColumns} dataSource={data} loading={loading} scroll={{x:true}} />;
 }
 
 export default PhysicianAppointmentHistoryTable;

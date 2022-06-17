@@ -17,8 +17,12 @@ function PhysicianPayoutReportListing() {
 			dataIndex: "scheduled_date",
 			key: "scheduled_date",
 		},
-		{ title: "Physician Fee ($)", dataIndex: "physician_fee", key: "physician_fee" },
-    {
+		{
+			title: "Physician Fee ($)",
+			dataIndex: "physician_fee",
+			key: "physician_fee",
+		},
+		{
 			title: "Stripe Processing Fee ($)",
 			dataIndex: "stripe_fee",
 			key: "stripe_fee",
@@ -45,10 +49,10 @@ function PhysicianPayoutReportListing() {
 			service: "First Consultation",
 			scheduled_date: "09:00 AM - 09:30 AM",
 			sales: "$40.00",
-      physician_fee: "$40.00",
+			physician_fee: "$40.00",
 			refund: "$40.00",
 			return_fee: "$40.00",
-      stripe_fee:"$3232",
+			stripe_fee: "$3232",
 			net_fee: "$40.00",
 		},
 		{
@@ -57,11 +61,11 @@ function PhysicianPayoutReportListing() {
 			patient_name: "Dr. Paul Wallner",
 			service: "First Consultation",
 			scheduled_date: "09:00 AM - 09:30 AM",
-      physician_fee: "$40.00",
+			physician_fee: "$40.00",
 			sales: "$40.0",
 			refund: "$40.00",
 			return_fee: "$40.00",
-      stripe_fee:"$3232",
+			stripe_fee: "$3232",
 			net_fee: "$40.00",
 		},
 	];
@@ -70,17 +74,13 @@ function PhysicianPayoutReportListing() {
 			<h2 className="text-2xl">Payouts</h2>
 			<Collapse onChange={onChange} className={`${_classes["payout_report"]}`}>
 				<Panel header="june $448" key="1">
-				
-							<Table columns={columns} dataSource={Ddata} loading={false}/>
-					
-			
-		
+					<Table columns={columns} dataSource={Ddata} loading={false} scroll={{x:true}} />
 				</Panel>
 				<Panel header="May $231" key="3">
-					<Table columns={columns} dataSource={Ddata} loading={false}/>
+					<Table columns={columns} dataSource={Ddata} loading={false} scroll={{x:true}} />
 				</Panel>
 				<Panel header="April $324" key="4">
-					<Table columns={columns} dataSource={Ddata}  loading={false}/>
+					<Table columns={columns} dataSource={Ddata} loading={false}scroll={{x:true}}/>
 				</Panel>
 			</Collapse>
 		</AppLayout>
