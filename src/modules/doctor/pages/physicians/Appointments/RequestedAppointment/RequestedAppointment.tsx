@@ -43,7 +43,7 @@ function RequestedAppointment() {
             <h2 className="mb-0">Requested Appointments</h2>
           </div>
         </div>
-        <div className="w-5/6">
+        <div className="">
           <SearchFilters
             setStartDate={setStartDate}
             setEndDate={setEndDate}

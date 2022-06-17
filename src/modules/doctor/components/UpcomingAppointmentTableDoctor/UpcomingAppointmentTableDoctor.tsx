@@ -130,14 +130,9 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
   };
 
   return (
-    <span className={`${_classes["upcomming-appointment-doctor-table"]}`}>
-      <Table
-        columns={columns}
-        dataSource={dataSource}
-        footer={footer}
-        loading={loading}
-      />
-    </span>
+    // <span className={`${_classes["upcomming-appointment-doctor-table"]}`}>
+      <Table columns={columns} dataSource={dataSource} footer={footer} loading={loading}   scroll={{ x: true }}/>
+    // </span>
   );
 }
 

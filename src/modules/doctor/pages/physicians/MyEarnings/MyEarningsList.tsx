@@ -254,7 +254,7 @@ const PhysicianMyEarningsList = (props: Props) => {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex mb-0">
+        <div className="flex mb-0 flex-wrap">
           <MyEarningsStats
             label={"Total Consultants"}
             text={String(total_number_of_consultation)}
