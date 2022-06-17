@@ -199,6 +199,7 @@ export type CreateAdminInput = {
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
+  password?: InputMaybe<Scalars['String']>;
   profile_picture?: InputMaybe<Scalars['String']>;
 };
 
@@ -1327,7 +1328,7 @@ export type UpdateUserInput = {
   contact_number: Scalars['String'];
   country_id: Scalars['Float'];
   date_of_birth?: InputMaybe<Scalars['DateTime']>;
-  email?: InputMaybe<Scalars['String']>;
+  email: Scalars['String'];
   email_token?: InputMaybe<Scalars['String']>;
   exposureDuration?: InputMaybe<Scalars['String']>;
   first_name: Scalars['String'];
@@ -2060,6 +2061,13 @@ export type PatientLastQuestionnaireQueryVariables = Exact<{
 
 
 export type PatientLastQuestionnaireQuery = { __typename?: 'Query', patientLastQuestionnaire: { __typename?: 'AppointmentHealthHistory', history: any } };
+
+export type GetDoctorNotesByAppIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetDoctorNotesByAppIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, status?: string | null, doctorNote?: { __typename?: 'AppointmentNote', subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean } | null } };
 
 
 export const UpdateAdminUserDocument = gql`
@@ -3955,6 +3963,27 @@ export const PatientLastQuestionnaireDocument = gql`
 
 export function usePatientLastQuestionnaireQuery(options: Omit<Urql.UseQueryArgs<PatientLastQuestionnaireQueryVariables>, 'query'>) {
   return Urql.useQuery<PatientLastQuestionnaireQuery>({ query: PatientLastQuestionnaireDocument, ...options });
+};
+export const GetDoctorNotesByAppIdDocument = gql`
+    query getDoctorNotesByAppId($id: Int!) {
+  appointment(id: $id) {
+    id
+    patientId
+    status
+    doctorNote {
+      subjective
+      objective
+      assessment
+      plan
+      note
+      isPublished
+    }
+  }
+}
+    `;
+
+export function useGetDoctorNotesByAppIdQuery(options: Omit<Urql.UseQueryArgs<GetDoctorNotesByAppIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetDoctorNotesByAppIdQuery>({ query: GetDoctorNotesByAppIdDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
