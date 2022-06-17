@@ -20,12 +20,12 @@ function AcronymWithTextEditable(props: Props) {
         <div className={`{${_classes["acronym"]} w-full`}>
           <span className="text-lg font-medium text-lightBlue-1">{word}</span>
           {editable ? (
-            <p className="pb-0 mb-0">{sentence}</p>
-          ) : (
             <Form.Item name={word.toLocaleLowerCase()}>
               {/* <Form.Item name={word.toLocaleLowerCase()}> */}
               <TextArea defaultValue={sentence} />
             </Form.Item>
+          ) : (
+            <p className="pb-0 mb-0">{sentence}</p>
           )}
         </div>
       </div>

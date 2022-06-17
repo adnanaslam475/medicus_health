@@ -88,8 +88,12 @@ function NotesTab({}: Props) {
       >
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
-            <Notes onFinish={addNote} disabled={notesById !== null} />
-            <div className="mb-3"></div>
+            {!notesById && (
+              <>
+                <Notes onFinish={addNote} disabled={notesById !== null} />
+                <div className="mb-3"></div>
+              </>
+            )}
           </>
         )}
 
@@ -98,11 +102,6 @@ function NotesTab({}: Props) {
           doctorNotes={notesById as GetAppointmentNoteByIdQuery}
         />
         {/* )} */}
-        {/* {notesByAppointmentId && (
-        <NotesListingByAppointments
-          doctorNotes={notesByAppointmentId as }
-        />
-        )} */}
       </CardWithProfileImageInfo>
     </div>
   );
