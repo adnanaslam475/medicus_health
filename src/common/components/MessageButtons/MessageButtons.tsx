@@ -13,7 +13,6 @@ type Props = {
 
 const MessageButtons = (props: Props) => {
   const { patientID, doctorId } = props;
-  console.log(patientID, doctorId, "majidkhan");
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
@@ -40,7 +39,7 @@ const MessageButtons = (props: Props) => {
             </Button>
           ))}
 
-        {getRole() === "Patient" ||
+        {getRole() === "User" ||
           (getRole() === "Admin" && (
             <Button
               icon={<MessageOutlined />}
@@ -61,7 +60,7 @@ const MessageButtons = (props: Props) => {
             </Button>
           ))}
 
-        {getRole() === "Patient" ||
+        {getRole() === "User" ||
           (getRole() === "Doctor" && (
             <Button
               icon={<MessageOutlined />}
