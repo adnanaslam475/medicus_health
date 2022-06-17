@@ -30,7 +30,7 @@ type DoctorData = {
 };
 
 type Props = {
-  physicianData?: DoctorProfile;
+  physicianData?:  DoctorProfile | undefined | null;
   allAppoinments?: AppointmentServiceType[];
   onFinish?: ((values: any) => void) | undefined;
   adminData?: AdminData;
@@ -150,9 +150,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
                     ?.includes(input.toLowerCase());
                 }}
               >
-                {(patientData || physicianList)?.map((item) => (
+                {(patientData || physicianList)?.map((item,index) => (
                   <Option
-                    key={`${item?.first_name} ${item?.last_name}`}
+                    key={index}
                     value={`${item.id}:${item?.first_name} ${item?.last_name}`}
                   >
                     {`${item?.first_name} ${item?.last_name}`}
@@ -178,9 +178,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
                     .includes(input.toLowerCase())
                 }
               >
-                {patientList?.map((item) => (
+                {patientList?.map((item,index) => (
                   <Option
-                    key={item?.first_name}
+                    key={index}
                     value={`${item.id}:${item?.first_name} ${item?.last_name}`}
                   >
                     {`${item?.first_name} ${item?.last_name}`}

@@ -1,18 +1,28 @@
 import React, { useState } from "react";
-import { Layout, Avatar, Dropdown, Menu, Badge, Divider } from "antd";
+import { Layout, Avatar, Dropdown, Menu, Badge, Divider, Skeleton } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
-import Link from "next/link";
 import InfoMessage from "../InfoMessage/InfoMessage";
 import Image from "next/image";
 import _classes from "./AppHeader.module.scss";
 import SidebarDrawer from "../../../modules/common/components/SidebarDrawer";
 import { getRole, getUserData } from "../../utils/userData";
 import InfoMessageBannerReminder from "../InfoMessageBannerReminder/InfoMessageBannerReminder";
+import { usePatientHealthHistoryQuery } from "generated/graphql";
 
 const { Header } = Layout;
 
 const AppHeader = () => {
+  //Get logged in User
+  const { user: loggedInUser } = getUserData();
+  const { id: loggedInUserId } = loggedInUser || {};
+
+  // Get patient Health History
+  const [{ data: patientHealthHistory, fetching }] =
+    usePatientHealthHistoryQuery({
+      variables: { input: Number(loggedInUserId) },
+      requestPolicy: "network-only",
+    });
   const [visible, setVisible] = useState(false);
   const router = useRouter();
   const { locales, locale: activeLocale } = router;
@@ -132,15 +142,21 @@ const AppHeader = () => {
           />
         </span>
         <div className="w-full flex px-0 justify-between items-center">
-          <div className="hidden md:block w-full ">
-            {/* <div className="p-0">{getRole() === "User" && <InfoMessage />}</div> */}
-
-            <div className="p-0">
-              {getRole() === "Doctor" || getRole() === "User" ? (
-                <InfoMessageBannerReminder />
-              ) : null}
+          <Skeleton loading={fetching} paragraph={{ rows: 0 }} active>
+            <div className="hidden md:block w-full ">
+              {patientHealthHistory?.patientHealthHistory ? (
+                <div className="p-0">
+                  {getRole() === "Doctor" || getRole() === "User" ? (
+                    <InfoMessageBannerReminder />
+                  ) : null}
+                </div>
+              ) : (
+                <div className="p-0">
+                  {getRole() === "User" && <InfoMessage />}
+                </div>
+              )}
             </div>
-          </div>
+          </Skeleton>
 
           <div className="flex items-center text-right justify-end w-full md:w-1/2">
             <span className="flex mt-3 pr-5">

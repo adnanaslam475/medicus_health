@@ -53,6 +53,7 @@ function DoctorCard({
   // Get patient Health History
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: Number(loggedInUser) },
+    requestPolicy: "network-only",
   });
 
   // FOR REQUEST AN APPOINTMENT
@@ -145,8 +146,8 @@ function DoctorCard({
                 View Profile
               </a>
             </Link>
-
             <Tooltip
+              className="w-full"
               title={
                 patientHealthHistory?.patientHealthHistory
                   ? ""
@@ -155,7 +156,7 @@ function DoctorCard({
             >
               <Button
                 type="primary"
-                className="w-full"
+                className={`${_classes["btn-tooltip"]} `}
                 onClick={showModal}
                 disabled={
                   patientHealthHistory?.patientHealthHistory ? false : true

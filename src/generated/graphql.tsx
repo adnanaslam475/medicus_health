@@ -598,6 +598,7 @@ export type Mutation = {
   enableOrDisableStaff: User;
   generateRTCToken: RtcTokenResponse;
   login: LoginResponse;
+  markedAppointmentAsCompleted: Appointment;
   payment: Transaction;
   proposeNewTime: Appointment;
   reBookAppointment: Appointment;
@@ -775,6 +776,11 @@ export type MutationGenerateRtcTokenArgs = {
 
 export type MutationLoginArgs = {
   loginUserInput: LoginUserInput;
+};
+
+
+export type MutationMarkedAppointmentAsCompletedArgs = {
+  appointmentId: Scalars['Int'];
 };
 
 
@@ -986,6 +992,7 @@ export type Query = {
   city: City;
   countries: Array<Country>;
   country: Country;
+  currentAppointments: Array<Appointment>;
   doctorBillingMethod: DoctorBillingMethod;
   doctorBillingMethods: Array<DoctorBillingMethod>;
   doctorProfile: DoctorProfile;
@@ -1487,6 +1494,13 @@ export type ProposeNewTimeMutationVariables = Exact<{
 
 export type ProposeNewTimeMutation = { __typename?: 'Mutation', proposeNewTime: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null, serviceId?: number | null, scheduleId?: number | null, requestedDate?: any | null, status?: string | null } };
 
+export type RemoveAppointmentNoteMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type RemoveAppointmentNoteMutation = { __typename?: 'Mutation', removeAppointmentNote: { __typename?: 'AppointmentNote', id: number, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, createdAt: any, updatedAt: any } };
+
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
 }>;
@@ -1520,7 +1534,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string, role?: string | null, first_name: string, last_name: string, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string, role?: string | null, first_name: string, last_name: string, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null, specialization?: string | null } | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null } } };
 
 export type UserForgotPasswordMutationVariables = Exact<{
   input: Scalars['String'];
@@ -2025,7 +2039,7 @@ export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, status: boolean, email: string, contact_number?: string | null } };
+export type GetStaffDetailsUrlByIdQuery = { __typename?: 'Query', staffDetail: { __typename?: 'User', id: number, first_name: string, last_name: string, status: boolean, email: string, contact_number?: string | null, createdAt: any } };
 
 export type GetAdminUserByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -2165,6 +2179,26 @@ export const ProposeNewTimeDocument = gql`
 export function useProposeNewTimeMutation() {
   return Urql.useMutation<ProposeNewTimeMutation, ProposeNewTimeMutationVariables>(ProposeNewTimeDocument);
 };
+export const RemoveAppointmentNoteDocument = gql`
+    mutation removeAppointmentNote($id: Int!) {
+  removeAppointmentNote(id: $id) {
+    id
+    appointmentId
+    subjective
+    objective
+    assessment
+    plan
+    note
+    isPublished
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+export function useRemoveAppointmentNoteMutation() {
+  return Urql.useMutation<RemoveAppointmentNoteMutation, RemoveAppointmentNoteMutationVariables>(RemoveAppointmentNoteDocument);
+};
 export const CreateUserDocument = gql`
     mutation createUser($input: CreateUserInput!) {
   createUser(createUserInput: $input) {
@@ -2225,6 +2259,7 @@ export const LoginDocument = gql`
       }
       doctorProfile {
         profile_image
+        specialization
       }
       adminProfilePicture {
         profile_picture
@@ -3869,6 +3904,7 @@ export const GetStaffDetailsUrlByIdDocument = gql`
     status
     email
     contact_number
+    createdAt
   }
 }
     `;
@@ -6189,6 +6225,29 @@ export default {
             ]
           },
           {
+            "name": "markedAppointmentAsCompleted",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "appointmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "payment",
             "type": {
               "kind": "NON_NULL",
@@ -7362,6 +7421,24 @@ export default {
                 }
               }
             ]
+          },
+          {
+            "name": "currentAppointments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Appointment",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
           },
           {
             "name": "doctorBillingMethod",

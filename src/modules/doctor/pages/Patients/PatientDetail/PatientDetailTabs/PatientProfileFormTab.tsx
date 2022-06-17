@@ -11,9 +11,12 @@ import {
 import MessageButtons from "common/components/MessageButtons/MessageButtons";
 // const props = {};
 type Props = {
-  userDetail?: User | undefined;
+  userDetail?: User;
+  loggedinDoctorDetails?: User;
 };
-function PatientProfileFormTab({ userDetail }: { userDetail: any }) {
+
+
+function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
   const {
     first_name,
     last_name,
@@ -79,11 +82,14 @@ function PatientProfileFormTab({ userDetail }: { userDetail: any }) {
     cityName = selectedCity?.filter((item) => item.id === city_id);
   }
 
+  const doctorFirstName = loggedinDoctorDetails?.first_name || ""
+  const doctorProfilePicture = loggedinDoctorDetails?.doctorProfile?.profile_image || ""
+  const doctorSpecialization = loggedinDoctorDetails?.doctorProfile?.specialization || ""
+  
   return (
     <div className="max-w-[800px]">
-      <CardWithProfileImageInfo name="usama" serviceName="consultation">
+      <CardWithProfileImageInfo name={doctorFirstName} serviceName={String(doctorSpecialization)} imageUrl={doctorProfilePicture}>
         <div className="messageButtons">
-          {/* {status === "Requested" && <MessageButtons />} */}
           <MessageButtons />
         </div>
         <div className="max-w-[800px]">

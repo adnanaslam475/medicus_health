@@ -53,12 +53,13 @@ function StaffListing() {
         },
       });
       if (response?.error) {
-        let errorResponse = response?.error?.graphQLErrors[0]?.extensions?.response as GraphQLError
+        let graphQLError = response?.error?.graphQLErrors[0]?.extensions?.response as GraphQLError
+        let customError = response?.error?.graphQLErrors[0]?.extensions?.exception as GraphQLError
+        let errorMessage = graphQLError?.message[0] || customError?.message || "Something went wrong"
         response?.error?.graphQLErrors[0]?.message &&
           notification.error({
             message:
-            errorResponse?.message[0] ||
-              "Something went wrong",
+            errorMessage
           });
       }
       if (response.data) {

@@ -14,7 +14,7 @@ import PatientAppointmentHistoryFilter from "common/components/PatientAppointmen
 const { RangePicker } = DatePicker;
 
 function CancelledAppointment() {
-  const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
+  const [filterValues, setFilterValues] = useState<GetAppointmentInput>({status:"Completed"});
 
   // GET ALL APPOINMENTS
   const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =

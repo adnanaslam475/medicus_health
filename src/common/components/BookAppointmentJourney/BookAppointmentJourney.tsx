@@ -42,9 +42,9 @@ type Props = {
   onCancel?:
     | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
-  doctorData?: DoctorProfile;
+  doctorData?: DoctorProfile | undefined | null;
   adminData?: AdminData;
-  patientData?:User[] | undefined;
+  patientData?: User[] | undefined;
   adminApp_Details?: DoctorData;
 };
 
@@ -199,7 +199,7 @@ function BookAppointmentModal({
       afterClose={closeModal}
     >
       {successModal ? (
-        <SuccessMessage onCancel={onCancel}/>
+        <SuccessMessage onCancel={onCancel} />
       ) : (
         <>
           <StepDots current={currentStepNumber} />

@@ -38,11 +38,12 @@ function NotesTab({}: Props) {
 
   const appointmentId = Number(query.id);
 
-  const [{ data: notesById }] = useGetAppointmentNoteByIdQuery({
-    variables: {
-      appointmentId,
-    },
-  });
+  const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
+    useGetAppointmentNoteByIdQuery({
+      variables: {
+        appointmentId,
+      },
+    });
 
   console.log(notesById, "notesById");
 
@@ -65,6 +66,7 @@ function NotesTab({}: Props) {
       notification.success({
         message: "Successfully Added",
       });
+      executeGetAppointmentNoteByIdQuery({ requestPolicy: "network-only" });
     } else {
       notification.error({
         message: "Something went wrong",
@@ -78,11 +80,13 @@ function NotesTab({}: Props) {
         name={`${patient?.first_name} ${patient?.last_name}`}
         serviceName={serviceType?.name}
       >
-        <Notes onFinish={addNote} />
+        <Notes onFinish={addNote} disabled={notesById !== null} />
         <div className="mb-3"></div>
-        <NotesListingByAppointments
-          doctorNotes={notesById as GetAppointmentNoteByIdQuery}
-        />
+        {notesById && (
+          <NotesListingByAppointments
+            doctorNotes={notesById as GetAppointmentNoteByIdQuery}
+          />
+        )}
       </CardWithProfileImageInfo>
     </div>
   );

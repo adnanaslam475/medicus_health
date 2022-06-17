@@ -1,6 +1,7 @@
 import { Table } from "antd";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
   DoctorSchedule,
@@ -53,29 +54,26 @@ function CancelledAppointmentTable({ dataSource,loading }: Props) {
     },
     {
       title: "Date",
-      dataIndex: "requestedDate",
-      key: "requestedDate",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      //   multiple: 3,
-      // },
-      render: (value: string) => {
-        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        return <div className="someclass">{appointmentDateTime?.startTime ? date?.formatMMMMDDYYYY(appointmentDateTime?.startTime) : "--"}</div>;
       },
     },
     {
       title: "Time",
-      dataIndex: "appointmentSchedule",
-      key: "appointmentSchedule",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
       },
-      render: (value: DoctorSchedule) => {
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-          <div className="someclass">
-            {value?.startTime} - {value?.endTime}
-          </div>
+					<div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formathhmma(
+						appointmentDateTime?.startTime
+					)} - ${date?.formathhmma(appointmentDateTime.endTime)}` : "--"}</div>
         );
       },
     },

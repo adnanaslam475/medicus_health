@@ -9,12 +9,13 @@ import _classes from "./Notes.module.scss";
 
 type Props = {
   onFinish?: (values: any, setModalVisible: () => void) => void;
+  disabled?: boolean;
 };
 
 function Notes(props: Props) {
   const [formInstance] = Form.useForm();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const { onFinish } = props;
+  const { onFinish, disabled } = props;
   const closeModal = () => {
     setModalVisible(false);
     formInstance.resetFields();
@@ -38,11 +39,13 @@ function Notes(props: Props) {
           width={40}
           src={smile}
         />
-        <p className="pt-2">No notes to show</p>
+        {/* <p className="pt-2">No notes to show</p> */}
+        <p className="pt-2">Add Notes</p>
         <Button
           icon={<PlusOutlined />}
           className={`${_classes["custom-button-green"]}`}
           onClick={() => setModalVisible(true)}
+          disabled={disabled}
         >
           Add
         </Button>

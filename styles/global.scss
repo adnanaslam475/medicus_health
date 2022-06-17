@@ -14,6 +14,17 @@ button.ant-btn {
   letter-spacing: 0px;
 }
 
+@supports (-webkit-font-smoothing: antialiased) {
+  button.ant-btn {
+    word-spacing: -4px;
+  }
+}
+@supports (-moz-appearance: none) {
+  button.ant-btn {
+    word-spacing: inherit;
+  }
+}
+
 // for all modal headers
 .ant-modal-header {
   padding: 16px 24px 0px 24px !important;
@@ -402,8 +413,8 @@ label.ant-radio-wrapper {
 .ant-input-affix-wrapper:hover {
   border-color: #9295af !important;
 }
-.tab-active-style{
-   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-    color:#1d84fe !important
+.tab-active-style {
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #1d84fe !important;
   }
 }
