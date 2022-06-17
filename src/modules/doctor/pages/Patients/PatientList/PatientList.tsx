@@ -10,6 +10,7 @@ import {
 } from "generated/graphql";
 import Image from "next/image";
 import OnlySearchFilters from "common/components/OnlySearchFilters/OnlySearchFilters";
+import profilePicture from "../../../../../../public/assets/images/profile.svg"
 
 function PatientList() {
   const [searchValue, setSearchValue] = React.useState("");
@@ -32,15 +33,13 @@ function PatientList() {
       render: (value: PatientProfile) => {
         return (
           <div>
-            {value?.profileImage?.includes(".s3-us-east") && (
               <Image
                 alt=""
-                src={value?.profileImage}
+                src={value?.profileImage?.includes(".s3-us-east") ? value?.profileImage : profilePicture}
                 width={44}
                 height={44}
                 className="border rounded border-gray-2"
               />
-            )}
           </div>
         );
       },
