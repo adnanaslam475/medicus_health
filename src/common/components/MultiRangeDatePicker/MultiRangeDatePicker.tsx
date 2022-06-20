@@ -52,7 +52,7 @@ function MultiRangeDatePicker(props: Props) {
   }
 
   return (
-    <div className="multis">
+    <div className="dateWithTextCardWrapper">
       <div className="font-medium text-lightBlue-1">Availability</div>
       {!disable && (
         <div
