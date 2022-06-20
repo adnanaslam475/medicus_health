@@ -31,8 +31,8 @@ query getDoctorNotesByAppId($id: Int!) {
   }
 }
 
-query currentAppointments {
-  currentAppointments {
+query currentAppointments($filter: GetCurrentAppointmentInput!) {
+  currentAppointments(filter: $filter) {
     id
     doctorId
     patientId
@@ -40,7 +40,7 @@ query currentAppointments {
       startTime
       endTime
     }
-    appointmentTimeSlots{
+    appointmentTimeSlots {
       startTime
       endTime
       selected
