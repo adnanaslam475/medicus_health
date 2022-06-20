@@ -57,7 +57,7 @@ function CurrentAppointment() {
 				
 				</div>
 
-				<div className="w-5/6">
+				<div className="md:w-5/6">
 					<SearchFilters
 						setStartDate={setStartDate}
 						setEndDate={setEndDate}
