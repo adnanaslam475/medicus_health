@@ -10,7 +10,7 @@ import React from "react";
 
 type Props = {};
 
-function NotesTab({}: Props) {
+function NotesTabNotInUse({}: Props) {
   const { query } = useRouter();
 
   const [{ data }] = useDoctorAppointmentDetailAppointmentInfoQuery({
@@ -63,4 +63,4 @@ function NotesTab({}: Props) {
   );
 }
 
-export default NotesTab;
+export default NotesTabNotInUse;

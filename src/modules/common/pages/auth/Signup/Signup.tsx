@@ -145,7 +145,7 @@ function Signup() {
                   height={34}
                   width={216}
                   src="/assets/images/logo-medi.svg"
-                  loading="eager"
+                  // loading="eager"
                 />
               </div>
               <h1 className="text-center text-secondary mb-3">

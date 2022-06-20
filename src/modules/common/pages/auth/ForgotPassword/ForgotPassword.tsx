@@ -66,7 +66,7 @@ const ForgotPassword = () => {
                   height={34}
                   width={216}
                   src="/assets/images/logo-medi.svg"
-                  loading="eager"
+                  // loading="eager"
                 />
               </div>
               <h1 className="text-center text-secondary mb-0">
@@ -147,7 +147,7 @@ const ForgotPassword = () => {
                             height={16}
                             width={16}
                             src="/assets/icon/arrow-left.svg"
-                            loading="eager"
+                            // loading="eager"
                           />
                           <span className="cursor-pointer text-primary ml-3">
                             Back to log in
