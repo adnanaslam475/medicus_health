@@ -4,6 +4,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { BookingDate, GetStaffFilter } from "generated/graphql";
+import _classes from './StaffAppointmentFilter.module.scss'
 
 const { RangePicker } = DatePicker;
 
@@ -83,7 +84,7 @@ function StaffAppointmentsFilter({ onChange }: Props) {
         />
         </div>
       </div>
-      <div className="flex-none sm:flex">
+      <div className={`flex-none sm:flex ${_classes["staff-filter"]}`}>
         <div className="lg:ml-3 mt-0 sm:mt-0">
           <Select
             placeholder="Status"

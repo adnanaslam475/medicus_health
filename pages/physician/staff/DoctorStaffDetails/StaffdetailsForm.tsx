@@ -41,7 +41,7 @@ function StaffDetailsFrom({
         {staffDetail?.first_name} {staffDetail?.last_name}
       </h1>
       <p>{staffDetail?.email}</p>
-      <div className="flex mb-8">
+      <div className="sm:flex mb-8 ">
         {/* <Select className="mr-5" onChange={handleChange} style={{ width: 200 }}> */}
         <div
           className={
@@ -62,7 +62,7 @@ function StaffDetailsFrom({
           </Select>
         </div>
         <Button
-          className="ml-7"
+          className="sm:ml-2 mt-2 sm:mt-0"
           loading={loading}
           disabled={loading}
           onClick={handleResetLink}
@@ -73,7 +73,7 @@ function StaffDetailsFrom({
       <div className="md:grid md:grid-cols-2 md:gap-x-4">
         <AddStaffFormItems accountCreatedAt={staffDetail?.createdAt}/>
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-2">
         <Form.Item>
           <div className="flex gap-4">
             <Button onClick={() => Router.push("/physician/staff")}>
