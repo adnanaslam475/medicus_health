@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import EmailNotification from "../../../common/components/EmailNotification/EmailNotification";
-import ThinLine from "../../../../common/components/ThinLine/ThinLine";
+import ThinLine from "common/components/ThinLine/ThinLine";
 import {
   TogglePreference,
+  UserEmailPreferencesResponse,
   useToggleEmailPreferencesMutation,
   useUserEmailPreferencesQuery,
 } from "generated/graphql";
@@ -10,8 +11,11 @@ import { patientEmailPreferencesData } from "utils/helper";
 
 function EmailNotificationPage() {
   const [{ data }, executeUserEmailPreferencesQuery] =
-    useUserEmailPreferencesQuery();
+    useUserEmailPreferencesQuery({ requestPolicy: "network-only" });
   const { userEmailPreferences } = data || {};
+  const [notificationState, setNotificationState] = useState<
+    UserEmailPreferencesResponse | undefined
+  >(userEmailPreferences);
 
   const [
     toggleEmailPreferencesMutation,
@@ -20,15 +24,21 @@ function EmailNotificationPage() {
 
   useEffect(() => {
     executeUserEmailPreferencesQuery({ requestPolicy: "network-only" });
-  }, []);
+    setNotificationState(userEmailPreferences);
+  }, [userEmailPreferences?.__typename]);
 
   async function ChangeHandler(value: string, valStatus: boolean) {
     const variables = {
       toggleEmailPreferencesInput: { [value]: valStatus },
     };
+
+    setNotificationState((prev) => ({
+      ...(prev || {}),
+      [value]: valStatus,
+    }));
     await executeToggleEmailPreferencesMutation(variables);
-    await executeUserEmailPreferencesQuery({ requestPolicy: "network-only" });
   }
+
   return (
     <div>
       <div className="flex md:flex-row gap-0 max-w-[60%]">
@@ -43,7 +53,7 @@ function EmailNotificationPage() {
                   disabled={!userEmailPreferences}
                   checked={
                     userEmailPreferences &&
-                    userEmailPreferences[
+                    (notificationState || userEmailPreferences)[
                       //@ts-ignore
                       item?.key as keyof TogglePreference
                     ]
