@@ -60,7 +60,7 @@ function AddStaffFormItems(props: Props) {
           <Input placeholder="" className="" />
         </Form.Item>
       ))}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 account-creation-date">
         <span className="text-gray font-semibold text-sm py-1">
           Account Creation Date
         </span>
