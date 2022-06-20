@@ -45,7 +45,7 @@ export default function EmailVerification() {
                 height={34}
                 width={216}
                 src="/assets/images/logo-medi.svg"
-                loading="eager"
+                // loading="eager"
               />
               <div className="flex justify-center mt-10">
                 {!errorMsg ? (
