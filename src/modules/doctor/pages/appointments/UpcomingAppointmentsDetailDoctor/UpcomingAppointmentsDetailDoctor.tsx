@@ -44,8 +44,8 @@ function UpcomingAppointmentsDetailDoctor() {
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
     urlArr = urlArr?.flat(1)?.map((item: any) => ({
-      name: item.name,
-      url: item.url,
+      name: item?.name,
+      url: item?.url,
     }));
   }
   //Get Patient ID

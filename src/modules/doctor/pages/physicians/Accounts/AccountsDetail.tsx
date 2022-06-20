@@ -71,7 +71,7 @@ function Accounts() {
             }
             key="2"
           >
-            <div className="md:w-2/6">
+            <div className="lg:w-2/6">
               <Elements stripe={loadStripe(config.stripeKey || "")}>
                 <BankInfo />
               </Elements>
