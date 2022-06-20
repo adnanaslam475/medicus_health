@@ -81,7 +81,7 @@ export const ViewProfile = React.forwardRef(function Profile({
           <div className="w-full mb-10 flex gap-8 items-center">
             <div className="relative">
               <Avatar
-                size={130}
+                size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
                 style={{
                   borderColor: "transparent",
                   borderWidth: 2,
