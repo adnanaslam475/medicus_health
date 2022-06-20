@@ -46,6 +46,7 @@ import { CustomTimeSlot } from "common/types/types";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import MessageButtons from "../MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
+import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 
 type Props = {
   data: Appointment | undefined;
@@ -190,7 +191,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         </li>
       </div>
 
-      {status === "Confirmed" && (
+      {(status === "Confirmed" || status === "Completed") && (
         <DoctorAppointmentInfoFooter appointmentId={Number(id)} data={data} />
       )}
       {status === "Requested" && (
@@ -216,9 +217,8 @@ function DoctorAppointmentInfoFooter({
   // GET USER ID
   const { user } = getUserData();
   const doctorId = user?.id;
-  const { appointmentTimeSlots } = data || {};
+  const { appointmentTimeSlots, patient, doctor } = data || {};
 
-  const { patient } = data || {};
   const { id: patientId } = patient || {};
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
@@ -226,14 +226,28 @@ function DoctorAppointmentInfoFooter({
   );
   const [disabled, setDisabled] = useState(true);
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
 
   return (
-    <div className="flex  justify-center md:justify-between mt-6 flex-wrap">
-      <div className="ml-2 sm:ml-0 flex mb-3 sm:mb-0">
-        {getRole() === "Patient" ||
+    <div className="flex justify-between mt-6">
+      <div className="flex">
+        {getRole() === "User" ||
           (getRole() === "Doctor" && (
             <Button
               icon={<MessageOutlined />}
@@ -293,17 +307,34 @@ function DoctorAppointmentInfoFooter({
             </Button>
           ))}
       </div>
-      <Button
-        type="primary"
-        icon={<VideoCameraFilled />}
-        className={`${_classes["appointments-btn"]} bg-current `}
-        onClick={() =>
-          Router.push(`/physician/appointments/${appointmentId}/call`)
-        }
-        disabled={disabled}
-      >
-        Join Now
-      </Button>
+      {data?.status === "Confirmed" && (
+        <Button
+          type="primary"
+          icon={<VideoCameraFilled />}
+          className={`${_classes["appointments-btn"]} bg-current`}
+          onClick={() =>
+            Router.push(`/physician/appointments/${appointmentId}/call`)
+          }
+          disabled={disabled}
+        >
+          Join Now
+        </Button>
+      )}
+      {getRole() === "User" && data?.status === "Completed" && (
+        <Button
+          type="primary"
+          className={`${_classes["appointments-rebook-btn"]}`}
+          onClick={showModal}
+        >
+          Rebook Appointment
+        </Button>
+      )}
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        doctorData={doctor?.doctorProfile}
+      />
     </div>
   );
 }

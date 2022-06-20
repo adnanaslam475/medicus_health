@@ -51,10 +51,13 @@ function AppointmentModalFooter({
     executeCancelAppointmentByPatientData,
   ] = useCancelAppointmentByPatientMutation();
   const { cancelAppointmentByPatient } = cancelAppointmentByPatientData || {};
-  const [, executeCardMutation] = useCreateCardMutation();
+  const [{ fetching: createCardFetching }, executeCardMutation] =
+    useCreateCardMutation();
   const { data: contextData } = useAppointmentModal();
-  const [{ data: bookAppointment }, executeBookAppointmentMutation] =
-    useBookAppointmentMutation();
+  const [
+    { data: bookAppointment, fetching: paymentFetching },
+    executeBookAppointmentMutation,
+  ] = useBookAppointmentMutation();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -213,7 +216,9 @@ function AppointmentModalFooter({
             <span className="text-primary">Add Payment Method</span>
           </div>
           <Tooltip
-            title={!contextData.stepTwo?.cardId ? "please add payment method" : ""}
+            title={
+              !contextData.stepTwo?.cardId ? "please add payment method" : ""
+            }
           >
             <Button
               type="primary"
@@ -222,6 +227,7 @@ function AppointmentModalFooter({
               }}
               // className={`${_classes["button-background-color"]}`}
               disabled={!contextData.stepTwo?.cardId}
+              loading={paymentFetching}
             >
               Pay ${contextData?.stepOne?.charges}
             </Button>
@@ -243,6 +249,7 @@ function AppointmentModalFooter({
             onClick={(e) => {
               onAddAndPay(e, appointmentId);
             }}
+            loading={createCardFetching}
           >
             Pay ${contextData?.stepOne?.charges}
           </Button>

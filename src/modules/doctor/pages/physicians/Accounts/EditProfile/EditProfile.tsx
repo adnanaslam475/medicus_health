@@ -32,6 +32,7 @@ import { RangeValue } from "rc-picker/lib/interface";
 import { parseJson } from "common/utils/helper";
 import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
+import Router from "next/router";
 
 const { TextArea } = Input;
 
@@ -84,6 +85,7 @@ function EditProfile({
   });
 
   const user = getUserData();
+  const { email: loggedInUserEmail } = user?.user || {};
 
   const {
     id,
@@ -155,6 +157,11 @@ function EditProfile({
     });
   }
 
+  const logout = () => {
+    localStorage.removeItem("loggedInUserData");
+    Router.push("/login");
+  };
+
   const updateDoctorProfile = async (values: any) => {
     if (doctorData) {
       const res = await updateDoctor({
@@ -202,6 +209,18 @@ function EditProfile({
           notification.success({
             message: "Updated Successfully",
           });
+
+        //checking logged in user email matched with updated email
+        let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
+        let emailMatched = emailRegExpression.test(values?.email);
+
+        // if user changed the email logged out the user
+        if (!emailMatched) {
+          notification.success({
+            message: "Credentials Updated User Logged out",
+          });
+          logout();
+        }
       }
 
       if (res?.error) {

@@ -17,9 +17,9 @@ function AdminAttachmentTab({ appointment }: Props) {
 
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
-    urlArr = urlArr[0]?.map((item: any) => ({
-      name: item.split("com/")[1],
-      url: item
+    urlArr = urlArr?.flat(1)?.map((item: any) => ({
+      name: item.name,
+      url: item.url,
     }));
   }
   const { patient, serviceType } = appointment || {};

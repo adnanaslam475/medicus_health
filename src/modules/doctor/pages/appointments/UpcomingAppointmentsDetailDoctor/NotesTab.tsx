@@ -2,6 +2,7 @@ import { notification } from "antd";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import Notes from "common/components/Notes/Notes";
 import NotesListingByAppointments from "common/components/NotesListingByAppointments/NotesListingByAppointments";
+import { getRole } from "common/utils/userData";
 import {
   Appointment,
   AppointmentNote,
@@ -10,6 +11,7 @@ import {
   useDoctorAppointmentDetailAppointmentInfoQuery,
   useGetAppointmentByIdQuery,
   useGetAppointmentNoteByIdQuery,
+  useGetDoctorNotesByAppIdQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
@@ -32,8 +34,6 @@ function NotesTab({}: Props) {
   const { appointment } = data || {};
   const { patient, serviceType } = appointment || {};
 
-  console.log({ data });
-
   // GET NOTES API CALL
 
   const appointmentId = Number(query.id);
@@ -45,7 +45,11 @@ function NotesTab({}: Props) {
       },
     });
 
-  console.log(notesById, "notesById");
+  const [{ data: notesByAppointmentId }] = useGetDoctorNotesByAppIdQuery({
+    variables: {
+      id: Number(query?.id),
+    },
+  });
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
@@ -80,13 +84,22 @@ function NotesTab({}: Props) {
         name={`${patient?.first_name} ${patient?.last_name}`}
         serviceName={serviceType?.name}
       >
-        <Notes onFinish={addNote} disabled={notesById !== null} />
-        <div className="mb-3"></div>
-        {notesById && (
-          <NotesListingByAppointments
-            doctorNotes={notesById as GetAppointmentNoteByIdQuery}
-          />
+        {(getRole() === "Doctor" || getRole() === "Admin") && (
+          <>
+            {!notesById && (
+              <>
+                <Notes onFinish={addNote} disabled={notesById !== null} />
+                <div className="mb-3"></div>
+              </>
+            )}
+          </>
         )}
+
+        {/* {notesById && ( */}
+        <NotesListingByAppointments
+          doctorNotes={notesById as GetAppointmentNoteByIdQuery}
+        />
+        {/* )} */}
       </CardWithProfileImageInfo>
     </div>
   );

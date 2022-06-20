@@ -27,7 +27,8 @@ const ViewProfileFields = ({
 
     // country_name,
   } = data || {};
-
+  let childrenCount = patientProfile?.children && patientProfile?.children > 0;
+  const showExposureDuration = patientProfile?.occupationalExposure === "Yes" ? true : false
   return (
     <div className="max-w-[800px]">
       <div className="flex flex-col md:flex-row gap-2">
@@ -38,7 +39,9 @@ const ViewProfileFields = ({
         <LabelWithTextDiv label="Gender" value={gender} />
         <LabelWithTextDiv
           label="Date of birth"
-          value={date_of_birth ?date?.convertStringDateToUTC(date_of_birth): "-"}
+          value={
+            date_of_birth ? date?.convertStringDateToUTC(date_of_birth) : "-"
+          }
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
@@ -59,8 +62,14 @@ const ViewProfileFields = ({
         />
         <LabelWithTextDiv
           label="Do you have any Children?"
-          value={patientProfile?.children}
+          value={patientProfile?.haveChildren}
         />
+        {!!childrenCount && (
+          <LabelWithTextDiv
+            label="Number of Childrens"
+            value={patientProfile?.children}
+          />
+        )}
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv
@@ -72,12 +81,16 @@ const ViewProfileFields = ({
           value={patientProfile?.occupationalExposure}
         />
       </div>
-      <div className="flex gap-2">
+      <div className="flex flex-col md:flex-row gap-2">
+      {showExposureDuration && <LabelWithTextDiv
+          label="Do you have any Occupational Duration?"
+          value={patientProfile?.exposureDuration}
+        />}
         <LabelWithTextDiv
           label="Do you have any pets?"
           value={patientProfile?.pets}
         />
-        <div className="w-full" />
+        {!showExposureDuration && <div className="w-full" />}
       </div>
     </div>
   );

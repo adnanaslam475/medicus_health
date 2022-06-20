@@ -14,9 +14,7 @@ type Props = {
 function Attachment(props: Props) {
   const { item, enable } = props;
   const { name, url } = item || {};
-  function handleFile() {
-    console.log("ds");
-  }
+  function handleFile() {}
   let attachementExtension = item?.name && item?.name?.split(".")[1];
   return (
     <div className="block">

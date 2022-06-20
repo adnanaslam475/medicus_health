@@ -76,6 +76,7 @@ query getUser($input: Int!) {
       maritalStatus
       profileImage
       children
+      haveChildren
       occupation
       occupationalExposure
       pets

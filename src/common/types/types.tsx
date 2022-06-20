@@ -74,6 +74,10 @@ export type AdminPatientUpdateInput = {
   occupation: string;
   occupationalExposure: string;
   pets: string;
+  No_of_childrens?: number;
+  Occupational_Exposure_duration?: string;
+  haveChildren?:string;
+  exposureDuration?:string
 };
 
 export type physicianMyEarningsFilterType = {
