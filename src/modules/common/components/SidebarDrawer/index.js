@@ -18,17 +18,17 @@ function AdminSideMenu() {
   return (
     <div className="inline-flex">
       {showDrawer ? (
-        <Button 
-        className={`${_classes["Header-SideDrawer"]} shadow-none `}
-        onClick={drawerHandler} icon={<CloseOutlined />} />
+        <Button
+          className={`${_classes["Header-SideDrawer"]} shadow-none `}
+          onClick={drawerHandler} icon={<CloseOutlined />} />
       ) : (
-        <Button 
-        className={`${_classes["Header-SideDrawer"]} shadow-none `}
-        onClick={drawerHandler} icon={<MenuOutlined />} />
+        <Button
+          className={`${_classes["Header-SideDrawer"]} shadow-none `}
+          onClick={drawerHandler} icon={<MenuOutlined />} />
       )}
 
       <Drawer
-        // title={<Image width={200} height={35} src={Logo} alt="" />}
+        // title={<Image priority={true} unoptimized={true} width={200} height={35} src={Logo} alt="" />}
         closable={true}
         width={300}
         visible={showDrawer}

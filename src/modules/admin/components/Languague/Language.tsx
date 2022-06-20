@@ -14,7 +14,13 @@ function Language(props: Prop) {
 
   return (
     <div className="border flex rounded border-gray px-4 py-2 mr-3">
-      <Image height={20} width={20} src={end} className="px-1" />
+      <Image
+        priority={true}
+        height={20}
+        width={20}
+        src={end}
+        className="px-1"
+      />
       <span className=" pl-1 pr-10">{title}</span>
       {disable && <Checkbox checked={check}></Checkbox>}
     </div>

@@ -10,14 +10,14 @@ const InfoMessageBannerReminder = () => {
   const [{ data }] = useGetAppointmentsReminderBannerQuery();
   const { appointmentsReminderBanner } = data || {};
 
-  const { patient ,id:patient_id} = appointmentsReminderBanner || {};
-  const { doctor ,id:doctor_id} = appointmentsReminderBanner || {};
+  const { patient, id: patient_id } = appointmentsReminderBanner || {};
+  const { doctor, id: doctor_id } = appointmentsReminderBanner || {};
 
   const { first_name: patient_first_name, last_name: patient_last_name } =
     patient || {};
   const { first_name: doctor_first_name, last_name: doctor_last_name } =
     doctor || {};
-  const id = patient_id || doctor_id
+  const id = patient_id || doctor_id;
   const { appointmentTimeSlots } = appointmentsReminderBanner || {};
 
   let selectedTime = appointmentTimeSlots?.find((time) => time.selected);
@@ -30,6 +30,7 @@ const InfoMessageBannerReminder = () => {
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-2 rounded text-xs text-nowr gap-2">
       <Image
+        priority={true}
         alt=""
         className="warning-small mx-3 shadow-none border-0"
         height={34}
@@ -58,7 +59,7 @@ const InfoMessageBannerReminder = () => {
           className="bg-primary text-primary px-3 whitespace-nowrap ml-auto"
           type="default"
           size="small"
-          onClick={()=>Router.push(`/patient/appointments/${id}/call`)}
+          onClick={() => Router.push(`/patient/appointments/${id}/call`)}
         >
           Join Now
         </Button>

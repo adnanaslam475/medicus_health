@@ -6,13 +6,16 @@ import Router from "next/router";
 import { getRole } from "common/utils/userData";
 
 type Props = {
-  onCancel: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined | any
+  onCancel:
+    | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
+    | undefined
+    | any;
 };
 function SuccessMessage({ onCancel }: Props) {
   const role = getRole();
   const clickHandler = () => {
     if (role === "Admin") {
-      return onCancel();  
+      return onCancel();
     } else Router.push("/patient/appointments/requested");
   };
   return (
@@ -22,6 +25,7 @@ function SuccessMessage({ onCancel }: Props) {
           size={64}
           src={
             <Image
+              priority={true}
               alt="successMessage"
               src={successImage}
               width={128}
@@ -35,10 +39,10 @@ function SuccessMessage({ onCancel }: Props) {
           notification once the doctor will confirm <br />
           the appointment. Thank you.
         </p>
-        <button 
+        <button
           className="text-white bg-primary text-sm rounded-md p-3 px-8"
           onClick={clickHandler}
-          >
+        >
           Back to Appointments
         </button>
       </div>

@@ -375,6 +375,7 @@ function EditProfile({
                 <Avatar size={130} src={image || userProfileImage} />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
                   <Image
+                    priority={true}
                     alt=""
                     src={editicon}
                     width={30}
@@ -507,6 +508,7 @@ function EditProfile({
                   >
                     <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
                       <Image
+                        priority={true}
                         alt=""
                         height={21}
                         width={21}
@@ -527,6 +529,7 @@ function EditProfile({
                   >
                     <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
                       <Image
+                        priority={true}
                         alt=""
                         height={21}
                         width={21}

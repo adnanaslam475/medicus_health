@@ -32,16 +32,22 @@ function MessageInput() {
             value={messageText}
           />
           <span className="absolute top-3 right-14">
-            <Image alt="" width={25} height={25} src={attachIcon} />
+            <Image
+              priority={true}
+              alt=""
+              width={25}
+              height={25}
+              src={attachIcon}
+            />
           </span>
           {/* <span className="absolute top-3 right-14">
-            <Image alt="" width={25} height={25} src={smile} />
+            <Image priority={true} alt="" width={25} height={25} src={smile} />
           </span> */}
           <span
             className="absolute top-3 right-4 cursor-pointer"
             onClick={onSendMessage}
           >
-            <Image alt="" width={25} height={25} src={send} />
+            <Image priority={true} alt="" width={25} height={25} src={send} />
           </span>
         </>
       )}

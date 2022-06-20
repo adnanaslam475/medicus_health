@@ -232,6 +232,7 @@ function SearchFilters(props: Props) {
                   <div className="flex items-center font-thin">
                     <span className="mr-2 mt-1">
                       <Image
+                        priority={true}
                         width={18}
                         height={18}
                         src={calendarFilterIcon}

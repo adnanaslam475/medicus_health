@@ -46,7 +46,13 @@ export function FilterRangePicker({
           <div className={`flex justify-between items-center w-full px-2`}>
             <div className="flex items-center font-thin">
               <span className="mr-1 mt-1">
-                <Image width={18} height={18} src={calendarFilterIcon} alt="" />
+                <Image
+                  priority={true}
+                  width={18}
+                  height={18}
+                  src={calendarFilterIcon}
+                  alt=""
+                />
               </span>
               {heading}
             </div>

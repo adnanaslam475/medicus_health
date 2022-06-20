@@ -86,9 +86,9 @@ export const Profile = React.forwardRef(function Profile({
 
       if (res?.data) {
         res?.data?.updateAdminUser &&
-        notification.success({
-          message: "Updated Successfully",
-        });
+          notification.success({
+            message: "Updated Successfully",
+          });
         setIsEdit(false);
       }
 
@@ -138,10 +138,15 @@ export const Profile = React.forwardRef(function Profile({
                 <Avatar
                   size={130}
                   className="border-transparent border-2 leading-10"
-                  src={fetching ? yourImage : image || userProfileImage || profilePicture}
+                  src={
+                    fetching
+                      ? yourImage
+                      : image || userProfileImage || profilePicture
+                  }
                 />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
                   <Image
+                    priority={true}
                     alt=""
                     src={editicon}
                     width={30}

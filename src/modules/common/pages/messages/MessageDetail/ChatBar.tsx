@@ -34,7 +34,13 @@ function MessageItem(props: Props) {
         <div className="w-1/2">
           <div className="flex items-start gap-2">
             <div className="w-1/12">
-              <Image alt="" width={39} height={39} src={profile} />
+              <Image
+                priority={true}
+                alt=""
+                width={39}
+                height={39}
+                src={profile}
+              />
             </div>
             <div className="gap-3 w-11/12">
               <div>
