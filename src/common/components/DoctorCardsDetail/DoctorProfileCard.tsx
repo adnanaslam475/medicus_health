@@ -16,6 +16,7 @@ import { date } from "../../utils";
 import { sorter } from "utils/helper";
 import MDNextImage from "../MDNextImage/MDNextImage";
 import { getUserData } from "common/utils/userData";
+import Link from "next/link";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -157,9 +158,13 @@ function DoctorProfileCard(props: Props) {
             <div className="flex-none md:flex mt-3">
               <Tooltip
                 title={
-                  patientHealthHistory?.patientHealthHistory
-                    ? ""
-                    : "please complete the health questionnaire"
+                  patientHealthHistory?.patientHealthHistory ? (
+                    ""
+                  ) : (
+                    <Link passHref href={`/patient/account?activeTab=2`}>
+                      please complete health questionnaire
+                    </Link>
+                  )
                 }
               >
                 <Button
