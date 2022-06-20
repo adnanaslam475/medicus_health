@@ -14,6 +14,7 @@ import HealthQuestionnaireFrom from "./HealthQuestionnaireFromTab";
 import PhysicianQuestionnaireForm from "./PhysicianQuestionnaireFormTab";
 import AttachmentTab from "./AttachmentTab";
 import NoteWithTextTab from "./NoteWithTextTab";
+import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
 
 function PatientAppointmentHistoryDetail() {
   const { query } = useRouter();
@@ -27,6 +28,7 @@ function PatientAppointmentHistoryDetail() {
   const { appointments } = data || {};
   const appointment = appointments && appointments[0];
 
+  const status = appointment?.status;
   let doctorNotes =
     appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
 
@@ -65,12 +67,23 @@ function PatientAppointmentHistoryDetail() {
             <Tabs.TabPane tab="Attachment" key="5">
               <AttachmentTab />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Notes" key="6">
+            {/* <Tabs.TabPane tab="Notes" key="6">
               <NoteWithTextTab
                 appointment={appointment as Appointment}
                 doctorNotes={doctorNotes as [[string, string]]}
               />
-            </Tabs.TabPane>
+            </Tabs.TabPane> */}
+            {(status === "Confirmed" ||
+              status === "Completed" ||
+              status === "OnGoing") && (
+              <>
+                {/* {pathname.includes("appointments") && ( */}
+                <Tabs.TabPane tab={<span>Notes</span>} key="6">
+                  <NotesTab />
+                </Tabs.TabPane>
+                {/* )} */}
+              </>
+            )}
           </Tabs>
         </div>
       </>

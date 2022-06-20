@@ -16,7 +16,9 @@ function SuccessMessage({ onCancel }: Props) {
   const clickHandler = () => {
     if (role === "Admin") {
       return onCancel();
-    } else Router.push("/patient/appointments/requested");
+    } else {
+      Router.push("/patient/appointments/requested");
+    }
   };
   return (
     <>
