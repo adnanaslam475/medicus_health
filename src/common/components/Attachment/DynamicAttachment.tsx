@@ -5,7 +5,7 @@ import pdf from "../../../../public/assets/images/word-file.svg";
 import jpg from "../../../../public/assets/images/jpg.svg";
 import png from "../../../../public/assets/images/png.png";
 
-let availableTypes = ["pdf", "jpg", "jpeg","png"];
+let availableTypes = ["pdf", "jpg", "jpeg", "png"];
 function MediaFile({ type }: any) {
   const fileIcons = {
     pdf: pdf,
@@ -20,6 +20,7 @@ function MediaFile({ type }: any) {
   if (availableTypes?.includes(type))
     return (
       <Image
+        priority={true}
         alt=""
         src={fileIcons[type as keyof typeof fileIcons]}
         width={24}
@@ -29,6 +30,7 @@ function MediaFile({ type }: any) {
     );
   return (
     <Image
+      priority={true}
       alt=""
       src={pdf}
       width={24}

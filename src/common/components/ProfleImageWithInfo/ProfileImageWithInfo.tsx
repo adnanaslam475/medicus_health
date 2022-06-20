@@ -13,6 +13,7 @@ function ProfileImageWithInfo({ name, serviceName, imageUrl }: props) {
     <div className="w-full  my-3 flex gap-6 items-center">
       <div className="relative">
         <Image
+          priority={true}
           alt="Profile Image"
           height="74"
           width="74"

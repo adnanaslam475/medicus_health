@@ -21,9 +21,8 @@ type Props = {
 
 function PatientAppointmentHistoryFilter(props: Props) {
   const [filterState, setFilterState] = useState<GetAppointmentInput>({});
-  const [bookingDate,setBookingDate]=useState<BookingDate>({})
-  const [dueDate,setDueDate]=useState<BookingDate>({})
-
+  const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<BookingDate>({});
 
   const [form] = Form.useForm();
   const { onChange } = props;
@@ -39,14 +38,13 @@ function PatientAppointmentHistoryFilter(props: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
-    onChangeFields("bookingDate",bookingDate)
+    onChangeFields("bookingDate", bookingDate);
   };
 
   const applyDueDate = () => {
-    setOpenDateRange1(false)
-    onChangeFields("dueDate",dueDate)
+    setOpenDateRange1(false);
+    onChangeFields("dueDate", dueDate);
   };
-
 
   function onChangeFields(key: string, value: string | number | object) {
     const filters = {
@@ -165,6 +163,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                     <div className="flex items-center font-thin">
                       <span className="mr-2 mt-1">
                         <Image
+                          priority={true}
                           width={18}
                           height={18}
                           src={calendarFilterIcon}
@@ -235,6 +234,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                     <div className="flex items-center font-thin">
                       <span className="mr-2 mt-1">
                         <Image
+                          priority={true}
                           width={18}
                           height={18}
                           src={calendarFilterIcon}

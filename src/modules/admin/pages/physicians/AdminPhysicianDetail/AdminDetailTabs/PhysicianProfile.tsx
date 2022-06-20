@@ -27,6 +27,7 @@ function PhysicianProfile() {
               size={128}
               src={
                 <Image
+                  priority={true}
                   alt=""
                   src={yourImage}
                   width={228}

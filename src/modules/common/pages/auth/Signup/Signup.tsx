@@ -109,7 +109,8 @@ function Signup() {
       user = await createUser({
         input: updatedPayload as CreateUserInput,
       });
-      let errorResponse = user?.error?.graphQLErrors[0]?.extensions?.response as GraphQLError
+      let errorResponse = user?.error?.graphQLErrors[0]?.extensions
+        ?.response as GraphQLError;
       if (!user.error?.message) {
         Router.push({
           pathname: "/successScreen",
@@ -137,6 +138,8 @@ function Signup() {
             <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white py-12 px-6">
               <div className="flex justify-center mb-6">
                 <Image
+                  priority={true}
+                  unoptimized={true}
                   alt=""
                   className="main-logo mx-auto"
                   height={34}
@@ -166,6 +169,7 @@ function Signup() {
                             className="mr-3"
                             count={
                               <Image
+                                priority={true}
                                 alt=""
                                 className="success-small mx-auto"
                                 height={22}

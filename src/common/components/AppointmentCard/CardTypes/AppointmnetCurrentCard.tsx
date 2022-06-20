@@ -6,7 +6,7 @@ import { Button, Card, Space } from "antd";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import { MessageOutlined } from "@ant-design/icons";
-import Router  from "next/router";
+import Router from "next/router";
 
 type Props = {
   appointmentId: number | undefined;
@@ -32,8 +32,8 @@ function AppointmnetCurrentCard({
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       {/* replce appoint id wit id comming from api */}
-         <h3 className="mb-0"> {appointmentId ||"Appointment-id"}</h3> 
-       <h3 className="mb-0">Dr. {doctor}</h3>
+      <h3 className="mb-0"> {appointmentId || "Appointment-id"}</h3>
+      <h3 className="mb-0">Dr. {doctor}</h3>
       <span className="text-gray text-base block">{serviceType}</span>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Date</span>
@@ -53,63 +53,62 @@ function AppointmnetCurrentCard({
       <span className="text-base text-green-3 font-bold ">{status}</span>
       <Space direction="vertical" size="middle" />
       <div className="flex">
-      <Button
-					type="primary"
-					className={`${_classes["appointments-btn"]} bg-current mr-3`}
-				
-				>
-					<Image
-						src={camera}
-						width={15}
-						height={15}
-						className="mb-0"
-						alt="camera"
-					/>
-					<span className="ml-2 mt-1">Join Now</span>
-				</Button>
         <Button
-					type="default"
-					className={`${_classes["appointments-btn"]} bg-current mr-3`}
-          onClick={()=>Router.push(`/patient/appointments/detail`)}
-				
-				>
-					<span className="ml-2 mt-1">Detail</span>
-				</Button>
-      </div> 
-        <div className=" flex">
-      <Button
-              icon={<MessageOutlined />}
-              className={`${_classes["appointments-btn-message"]} mr-3 my-2 text-xs`}
-              // onClick={() =>
-              //   Router.push({
-              //     pathname: "/physician/messages",
-              //     query: {
-              //       chat: "admin",
-              //       doctorId: doctorId,
-              //       patientId: patientId,
-              //     },
-              //   })
-              // }
-            >
-              Message Admin
-            </Button>
-            <Button
-              icon={<MessageOutlined />}
-              className={`${_classes["appointments-btn-message"]} mr-3 my-2`}
-              // onClick={() =>
-              //   Router.push({
-              //     pathname: "/physician/messages",
-              //     query: {
-              //       chat: "admin",
-              //       doctorId: doctorId,
-              //       patientId: patientId,
-              //     },
-              //   })
-              // }
-            >
-              Message physician
-            </Button>
-            </div>
+          type="primary"
+          className={`${_classes["appointments-btn"]} bg-current mr-3`}
+        >
+          <Image
+            priority={true}
+            src={camera}
+            width={15}
+            height={15}
+            className="mb-0"
+            alt="camera"
+          />
+          <span className="ml-2 mt-1">Join Now</span>
+        </Button>
+        <Button
+          type="default"
+          className={`${_classes["appointments-btn"]} bg-current mr-3`}
+          onClick={() => Router.push(`/patient/appointments/detail`)}
+        >
+          <span className="ml-2 mt-1">Detail</span>
+        </Button>
+      </div>
+      <div className=" flex">
+        <Button
+          icon={<MessageOutlined />}
+          className={`${_classes["appointments-btn-message"]} mr-3 my-2 text-xs`}
+          // onClick={() =>
+          //   Router.push({
+          //     pathname: "/physician/messages",
+          //     query: {
+          //       chat: "admin",
+          //       doctorId: doctorId,
+          //       patientId: patientId,
+          //     },
+          //   })
+          // }
+        >
+          Message Admin
+        </Button>
+        <Button
+          icon={<MessageOutlined />}
+          className={`${_classes["appointments-btn-message"]} mr-3 my-2`}
+          // onClick={() =>
+          //   Router.push({
+          //     pathname: "/physician/messages",
+          //     query: {
+          //       chat: "admin",
+          //       doctorId: doctorId,
+          //       patientId: patientId,
+          //     },
+          //   })
+          // }
+        >
+          Message physician
+        </Button>
+      </div>
     </Card>
   );
 }

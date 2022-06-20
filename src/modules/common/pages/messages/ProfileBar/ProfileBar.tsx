@@ -17,6 +17,7 @@ function ProfileBar() {
         />
 
         <Image
+          priority={true}
           alt=""
           src={Inputicon}
           width={54}

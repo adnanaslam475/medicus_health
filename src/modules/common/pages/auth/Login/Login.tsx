@@ -82,6 +82,8 @@ function Login() {
             <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
               <div className="flex justify-center mb-6">
                 <Image
+                  priority={true}
+                  unoptimized={true}
                   alt=""
                   className="main-logo mx-auto"
                   height={34}
