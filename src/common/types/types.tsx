@@ -88,6 +88,8 @@ export type physicianMyEarningsFilterType = {
     startDate?: string;
     endDate?: string;
   };
+  paymentStatus?:string;
+  status?:string
 };
 
 export type cancelAppointmentFilterType = {

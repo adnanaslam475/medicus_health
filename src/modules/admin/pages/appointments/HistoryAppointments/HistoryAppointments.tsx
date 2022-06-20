@@ -26,7 +26,7 @@ function CancelledAppointment() {
   const { appointments } = data || {};
 
   function onChangeFilters(values: GetAppointmentInput) {
-    setFilterValues(values);
+    setFilterValues({...values,status:"Completed"});
     executeUseGetAllRequestedAppointmentsQuery({
       filter: filterValues,
       requestPolicy: "network-only",

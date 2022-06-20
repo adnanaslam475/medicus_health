@@ -264,7 +264,7 @@ function MyEarningsSearchFilters(props: Props) {
 						placeholder="Status"
 						onChange={(value) => onChangeFields("status", value as string)}
 						// value={filterValues.status}
-						value={"Status"}
+						value={filterState?.status || "Status"}
 					/>
 				</div>
 				<div className="w-full md:w-96 md:ml-2 lg:ml-2  sm:mt-3 md:mt-0">
@@ -272,6 +272,7 @@ function MyEarningsSearchFilters(props: Props) {
 						placeholder="Payment Status"
 						onChange={(value) => onChangeFields("paymentStatus", value)}
 						className="w-full sm:w-50"
+						value={filterState?.paymentStatus || "Payment Status"}
 					>
 						<Select.Option value="paid">PAID</Select.Option>
 						<Select.Option value="unpaid">UNPAID</Select.Option>
