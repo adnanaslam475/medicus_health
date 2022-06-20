@@ -5,6 +5,7 @@ import AppointmnetCancelledCard from "./CardTypes/AppointmnetCancelledCard";
 import AppointmnetSuggestedCard from "./CardTypes/AppointmnetSuggestedCard";
 import { getUserData } from "../../utils/userData";
 import {
+  AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   DoctorProfile,
 } from "../../../generated/graphql";
@@ -23,6 +24,9 @@ type props = {
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal?: (data: boolean) => void;
   onViewSuggestedSlots: () => void;
+  appointmentDateTime?: AppointmentDateTimeResponse;
+  doctorId?: number | null | undefined;
+  patientId?: number | null | undefined;
 };
 
 function AppointmentCard({
@@ -35,6 +39,9 @@ function AppointmentCard({
   appointmentTimeSlots,
   setShowModal,
   onViewSuggestedSlots,
+  appointmentDateTime,
+  doctorId,
+  patientId,
 }: props) {
   function getStatus() {
     const { user } = getUserData();
@@ -109,6 +116,9 @@ function AppointmentCard({
           appointmentTimeSlots={appointmentTimeSlots}
           setShowModal={setShowModal}
           onViewSuggestedSlots={onViewSuggestedSlots}
+          appointmentDateTime={appointmentDateTime}
+          doctorId={doctorId}
+          patientId={patientId}
         />
       );
     default:
