@@ -56,6 +56,7 @@ function AdminPhysicianList() {
           <div className="flagAvatar engFlag pr-2">
             {FLAG_BY_LANGUAGE[language] && (
               <Image
+                priority={true}
                 src={FLAG_BY_LANGUAGE[language]}
                 alt={language || "flag"}
                 width={25}

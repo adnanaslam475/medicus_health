@@ -39,6 +39,7 @@ function MessageHeader({}: Props) {
         />
 
         <Image
+          priority={true}
           alt=""
           src={Inputicon}
           width={54}
@@ -59,7 +60,7 @@ function MessageHeader({}: Props) {
             />
             <h4 className="pb-0 mb-0">{`${opposite?.first_name} ${opposite?.last_name}`}</h4>
           </div>
-          <Image alt="" width={20} height={30} src={ThreeDot} />
+          <Image priority={true} alt="" width={20} height={30} src={ThreeDot} />
         </div>
       )}
     </div>

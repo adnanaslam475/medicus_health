@@ -13,7 +13,12 @@ function MDNextImage(props: Props): ReactElement {
   const { src, alt, fallbackImage, ...restOfProps } = props;
   const isValidSrc = isNextImageSrcValid(src as string);
   return (
-    <Image alt={alt} src={isValidSrc ? src : fallbackImage} {...restOfProps} />
+    <Image
+      priority={true}
+      alt={alt}
+      src={isValidSrc ? src : fallbackImage}
+      {...restOfProps}
+    />
   );
 }
 

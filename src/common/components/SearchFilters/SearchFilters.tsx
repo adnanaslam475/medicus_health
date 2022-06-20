@@ -32,7 +32,7 @@ type Props = {
   setEndDate: Date | null | any;
   isFromPhysician?: boolean | null | any;
   setSearchPatient?: string | any;
-  setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>> 
+  setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
 };
 
 function SearchFilters(props: Props) {
@@ -45,7 +45,7 @@ function SearchFilters(props: Props) {
     setSearchPatient,
     isFromPhysician,
     setAppointmentId,
-    setBookingDate
+    setBookingDate,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -60,7 +60,7 @@ function SearchFilters(props: Props) {
   const [localAppointment_Id, setLocalAppointment_Id] = useState<
     number | null | undefined
   >();
-  const [dateRangeState,setDateRangeState] = useState<BookingDate>({})
+  const [dateRangeState, setDateRangeState] = useState<BookingDate>({});
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
@@ -111,11 +111,11 @@ function SearchFilters(props: Props) {
     setSearchPatient && setSearchPatient(null);
     setAppointmentId(undefined);
     setLocalAppointment_Id(null);
-    setBookingDate?.({})
+    setBookingDate?.({});
   };
   const applyDateRange = () => {
     setOpenDateRange(false);
-    setBookingDate?.(dateRangeState)
+    setBookingDate?.(dateRangeState);
   };
 
   return (
@@ -124,7 +124,7 @@ function SearchFilters(props: Props) {
     >
       <span className="text-gray-1 mr-3 mb-3 sm:block">Filter</span>
       <div className="flex-none sm:flex">
-        <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-2 lg:mr-0">
+        <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-0 lg:mr-0">
           <Input
             placeholder={"Search by ID"}
             prefix={<SearchOutlined />}
@@ -143,7 +143,7 @@ function SearchFilters(props: Props) {
             />
           </div>
         ) : (
-          <div className=" sm:mb-0  w-full md:w-44 xl:w-60 mr-3 mb-2">
+          <div className=" sm:mb-0 w-full md:w-44 xl:w-60 mx-2 lg:mx-3 mb-2">
             <Select
               placeholder="Physician"
               className={`${searchStyle.placeholderColor} w-full`}
@@ -161,7 +161,11 @@ function SearchFilters(props: Props) {
 
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3 mt-3 sm:mt-0">
           <Select
-             suffixIcon={<div className="text-gray"><CaretDownOutlined className="text-sm text-gray" /></div>}
+            suffixIcon={
+              <div className="text-gray">
+                <CaretDownOutlined className="text-sm text-gray" />
+              </div>
+            }
             placeholder="Appointment Type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={handleServiceChange}
@@ -228,6 +232,7 @@ function SearchFilters(props: Props) {
                   <div className="flex items-center font-thin">
                     <span className="mr-2 mt-1">
                       <Image
+                        priority={true}
                         width={18}
                         height={18}
                         src={calendarFilterIcon}

@@ -94,6 +94,7 @@ function DoctorProfileCard(props: Props) {
                   {language && FLAG_BY_LANGUAGE[language] && (
                     <Tooltip title={language || "flag"} color="#FFF">
                       <Image
+                        priority={true}
                         src={FLAG_BY_LANGUAGE[language]}
                         alt={language || "flag"}
                         width={25}
@@ -170,6 +171,7 @@ function DoctorProfileCard(props: Props) {
                   }
                 >
                   <Image
+                    priority={true}
                     src={VideoCamera}
                     alt="espanolFlag"
                     width={20}

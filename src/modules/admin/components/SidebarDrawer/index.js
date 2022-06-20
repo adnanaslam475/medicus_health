@@ -23,7 +23,7 @@ function AdminSideMenu() {
       )}
 
       <Drawer
-        // title={<Image width={200} height={35} src={Logo} alt="" />}
+        // title={<Image priority={true} unoptimized={true} width={200} height={35} src={Logo} alt="" />}
         closable={false}
         width={300}
         visible={showDrawer}

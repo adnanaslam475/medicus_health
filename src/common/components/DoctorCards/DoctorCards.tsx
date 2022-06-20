@@ -111,6 +111,7 @@ function DoctorCard({
                     {FLAG_BY_LANGUAGE[language] && (
                       <Tooltip title={language || "flag"} color="#FFF">
                         <Image
+                          priority={true}
                           src={FLAG_BY_LANGUAGE[language]}
                           alt={language || "flag"}
                           width={25}
@@ -163,6 +164,7 @@ function DoctorCard({
                 }
               >
                 <Image
+                  priority={true}
                   src={VideoCameraFilled}
                   alt="espanolFlag"
                   width={20}

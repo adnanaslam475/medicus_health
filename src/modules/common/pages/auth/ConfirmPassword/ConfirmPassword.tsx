@@ -46,6 +46,8 @@ function ConfirmPassword() {
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
             <div className="flex justify-center mb-6">
               <Image
+                priority={true}
+                unoptimized={true}
                 className="mx-auto"
                 height={34}
                 width={216}
@@ -87,6 +89,7 @@ function ConfirmPassword() {
                   <div className="inline-flex items-center">
                     <div className="mb-0 mr-3 inline-flex items-center">
                       <Image
+                        priority={true}
                         alt=""
                         className="left-arrow-icon mx-auto"
                         height={16}

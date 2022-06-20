@@ -61,6 +61,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
           >
             <p className="ant-upload-drag-icon mb-0">
               <Image
+                priority={true}
                 alt=""
                 className=""
                 height={32}

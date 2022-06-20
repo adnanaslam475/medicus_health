@@ -85,6 +85,7 @@ const AppHeader = () => {
         <div className="flex border-b border-gray-4 items-start mb-3">
           <span className=" ">
             <Image
+              priority={true}
               alt=""
               className="warning-small mx-auto shadow-none border-0"
               height={34}
@@ -99,6 +100,7 @@ const AppHeader = () => {
         <div className="flex border-b border-gray-4 items-start mb-3">
           <span className=" ">
             <Image
+              priority={true}
               alt=""
               className="warning-small mx-auto shadow-none border-0"
               height={34}
@@ -113,6 +115,7 @@ const AppHeader = () => {
         <div className="flex border-b border-gray-4 items-start mb-3">
           <span className=" ">
             <Image
+              priority={true}
               alt=""
               className="warning-small mx-auto shadow-none border-0"
               height={34}
@@ -135,6 +138,7 @@ const AppHeader = () => {
       >
         <span className="flex items-center block lg:hidden mr-5">
           <Image
+            priority={true}
             alt=""
             width={80}
             height={43}
@@ -171,6 +175,7 @@ const AppHeader = () => {
                 >
                   <Badge count={12}>
                     <Image
+                      priority={true}
                       alt=""
                       className="warning-small mx-auto shadow-none border-0"
                       height={34}

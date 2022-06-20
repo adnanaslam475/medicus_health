@@ -33,6 +33,7 @@ function Notes(props: Props) {
     <>
       <div className="bg-gray-4 flex items-center justify-center flex-col py-6 border border-gray-9 rounded">
         <Image
+          priority={true}
           alt=""
           className="success-icon mx-auto mt-10"
           height={40}

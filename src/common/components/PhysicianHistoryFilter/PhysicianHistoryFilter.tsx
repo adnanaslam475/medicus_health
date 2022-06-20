@@ -30,9 +30,8 @@ function PhysicianSearchFilters(props: Props) {
 
   const [openDateRange1, setOpenDateRange1] = useState(false);
   const [openDateRange2, setOpenDateRange2] = useState(false);
-  const [bookingDate,setBookingDate]=useState<BookingDate>({})
-  const [dueDate,setDueDate]=useState<BookingDate>({})
-
+  const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<BookingDate>({});
 
   const [{ data }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = data || {};
@@ -44,13 +43,12 @@ function PhysicianSearchFilters(props: Props) {
 
   const applyBookingDateRange = () => {
     setOpenDateRange1(false);
-    onFilterValuesChange("bookingDate",bookingDate)
-
+    onFilterValuesChange("bookingDate", bookingDate);
   };
 
   const applyDueDateRange = () => {
     setOpenDateRange2(false);
-    onFilterValuesChange("dueDate",dueDate)
+    onFilterValuesChange("dueDate", dueDate);
   };
 
   function onFilterValuesChange(
@@ -168,6 +166,7 @@ function PhysicianSearchFilters(props: Props) {
                     <div className="flex items-center font-thin">
                       <span className="mr-2 mt-1">
                         <Image
+                          priority={true}
                           width={18}
                           height={18}
                           src={calendarFilterIcon}
@@ -243,6 +242,7 @@ function PhysicianSearchFilters(props: Props) {
                     <div className="flex items-center font-thin">
                       <span className="mr-2 mt-1">
                         <Image
+                          priority={true}
                           width={18}
                           height={18}
                           src={calendarFilterIcon}

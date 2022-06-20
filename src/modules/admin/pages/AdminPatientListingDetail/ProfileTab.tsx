@@ -217,10 +217,15 @@ function AdminPatientProfileTab({}: Props) {
       });
 
       if (response?.error) {
-		let graphQLError = response?.error?.graphQLErrors[0]?.extensions?.response as GraphQLError
-        let customError = response?.error?.graphQLErrors[0]?.extensions?.exception as GraphQLError
-        let errorMessage = graphQLError?.message[0] || customError?.message || "Something went wrong"
-		notification.error({
+        let graphQLError = response?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = response?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
           message: errorMessage,
         });
       }
@@ -298,7 +303,7 @@ function AdminPatientProfileTab({}: Props) {
           loading={loading}
           type="link"
           disabled={loading || disableLoading}
-          icon={<Image src={Envelope} alt="" />}
+          icon={<Image priority={true} src={Envelope} alt="" />}
           onClick={handleResetLink}
         >
           Send Password Reset link

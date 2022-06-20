@@ -10,11 +10,11 @@ import {
 } from "generated/graphql";
 import Image from "next/image";
 import OnlySearchFilters from "common/components/OnlySearchFilters/OnlySearchFilters";
-import profilePicture from "../../../../../../public/assets/images/profile.svg"
+import profilePicture from "../../../../../../public/assets/images/profile.svg";
 
 function PatientList() {
   const [searchValue, setSearchValue] = React.useState("");
-  const [{ data,fetching }, executeUsePhysiciansPatientsQuery] =
+  const [{ data, fetching }, executeUsePhysiciansPatientsQuery] =
     usePhysiciansPatientsQuery({
       variables: { searchField: searchValue },
     });
@@ -33,13 +33,18 @@ function PatientList() {
       render: (value: PatientProfile) => {
         return (
           <div>
-              <Image
-                alt=""
-                src={value?.profileImage?.includes(".s3-us-east") ? value?.profileImage : profilePicture}
-                width={44}
-                height={44}
-                className="border rounded border-gray-2"
-              />
+            <Image
+              priority={true}
+              alt=""
+              src={
+                value?.profileImage?.includes(".s3-us-east")
+                  ? value?.profileImage
+                  : profilePicture
+              }
+              width={44}
+              height={44}
+              className="border rounded border-gray-2"
+            />
           </div>
         );
       },
@@ -113,7 +118,12 @@ function PatientList() {
         <OnlySearchFilters onChange={onChange} />
         <div className="w-full">
           <div>
-            <Table columns={columns} dataSource={physiciansPatients} loading={fetching}  scroll={{x:true}}/>
+            <Table
+              columns={columns}
+              dataSource={physiciansPatients}
+              loading={fetching}
+              scroll={{ x: true }}
+            />
           </div>
         </div>
       </div>

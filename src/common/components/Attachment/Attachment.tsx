@@ -46,6 +46,7 @@ function Attachment(props: Props) {
             trigger="click"
           >
             <Image
+              priority={true}
               alt=""
               src={threeDot}
               width={20}

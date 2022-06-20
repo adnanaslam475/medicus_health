@@ -79,6 +79,7 @@ function AppointmnetCurrentCard({
           disabled={disabled}
         >
           <Image
+            priority={true}
             src={camera}
             width={15}
             height={15}
