@@ -199,7 +199,6 @@ export type CreateAdminInput = {
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
-  password?: InputMaybe<Scalars['String']>;
   profile_picture?: InputMaybe<Scalars['String']>;
 };
 
@@ -1974,7 +1973,7 @@ export type GetAppointmentByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, status?: string | null, scheduleId?: number | null, doctorId?: number | null, patientId?: number | null, requestedDate?: any | null, reportUrl?: any | null, charges: number, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transaction?: { __typename?: 'Transaction', createdAt: any, status: string } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, doctorNote?: { __typename?: 'AppointmentNote', id: number, isPublished: boolean, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null } | null } };
+export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, status?: string | null, scheduleId?: number | null, doctorId?: number | null, patientId?: number | null, requestedDate?: any | null, reportUrl?: any | null, charges: number, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transaction?: { __typename?: 'Transaction', createdAt: any, status: string } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, doctorNote?: { __typename?: 'AppointmentNote', id: number, isPublished: boolean, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null } | null } };
 
 export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2068,6 +2067,11 @@ export type GetDoctorNotesByAppIdQueryVariables = Exact<{
 
 
 export type GetDoctorNotesByAppIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, status?: string | null, doctorNote?: { __typename?: 'AppointmentNote', subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean } | null } };
+
+export type CurrentAppointmentsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentAppointmentsQuery = { __typename?: 'Query', currentAppointments: Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, patientId?: number | null, status?: string | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }> };
 
 
 export const UpdateAdminUserDocument = gql`
@@ -3724,6 +3728,10 @@ export const GetAppointmentByIdDocument = gql`
       endTime
       selected
     }
+    appointmentDateTime {
+      startTime
+      endTime
+    }
     serviceType {
       id
       name
@@ -4019,6 +4027,36 @@ export const GetDoctorNotesByAppIdDocument = gql`
 
 export function useGetDoctorNotesByAppIdQuery(options: Omit<Urql.UseQueryArgs<GetDoctorNotesByAppIdQueryVariables>, 'query'>) {
   return Urql.useQuery<GetDoctorNotesByAppIdQuery>({ query: GetDoctorNotesByAppIdDocument, ...options });
+};
+export const CurrentAppointmentsDocument = gql`
+    query currentAppointments {
+  currentAppointments {
+    id
+    doctorId
+    patientId
+    appointmentDateTime {
+      startTime
+      endTime
+    }
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+    doctor {
+      first_name
+      last_name
+    }
+    serviceType {
+      name
+    }
+    status
+  }
+}
+    `;
+
+export function useCurrentAppointmentsQuery(options?: Omit<Urql.UseQueryArgs<CurrentAppointmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<CurrentAppointmentsQuery>({ query: CurrentAppointmentsDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {

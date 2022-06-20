@@ -30,3 +30,28 @@ query getDoctorNotesByAppId($id: Int!) {
     }
   }
 }
+
+query currentAppointments {
+  currentAppointments {
+    id
+    doctorId
+    patientId
+    appointmentDateTime {
+      startTime
+      endTime
+    }
+    appointmentTimeSlots{
+      startTime
+      endTime
+      selected
+    }
+    doctor {
+      first_name
+      last_name
+    }
+    serviceType {
+      name
+    }
+    status
+  }
+}

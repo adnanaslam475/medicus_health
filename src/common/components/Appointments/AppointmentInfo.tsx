@@ -34,7 +34,6 @@ function AppointmentInfo(props: Props) {
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
-
   return (
     <React.Fragment>
       <div className="max-w-[700px]">
@@ -47,7 +46,7 @@ function AppointmentInfo(props: Props) {
           label="Doctor"
           value={`Dr. ${first_name} ${last_name}`}
         />
-        <LabelValueRow label="Type" value={name ? name : "--"} />
+        <LabelValueRow label="Type" value={name || "--"} />
         <LabelValueRow
           label="Appointment creation date"
           value={date.formatMMMMDDYYYY(selectedAppointment?.startTime)}
