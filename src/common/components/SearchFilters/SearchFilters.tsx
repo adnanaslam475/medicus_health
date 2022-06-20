@@ -32,7 +32,7 @@ type Props = {
   setEndDate: Date | null | any;
   isFromPhysician?: boolean | null | any;
   setSearchPatient?: string | any;
-  setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>> 
+  setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
 };
 
 function SearchFilters(props: Props) {
@@ -45,7 +45,7 @@ function SearchFilters(props: Props) {
     setSearchPatient,
     isFromPhysician,
     setAppointmentId,
-    setBookingDate
+    setBookingDate,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -60,7 +60,7 @@ function SearchFilters(props: Props) {
   const [localAppointment_Id, setLocalAppointment_Id] = useState<
     number | null | undefined
   >();
-  const [dateRangeState,setDateRangeState] = useState<BookingDate>({})
+  const [dateRangeState, setDateRangeState] = useState<BookingDate>({});
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
@@ -111,11 +111,11 @@ function SearchFilters(props: Props) {
     setSearchPatient && setSearchPatient(null);
     setAppointmentId(undefined);
     setLocalAppointment_Id(null);
-    setBookingDate?.({})
+    setBookingDate?.({});
   };
   const applyDateRange = () => {
     setOpenDateRange(false);
-    setBookingDate?.(dateRangeState)
+    setBookingDate?.(dateRangeState);
   };
 
   return (
@@ -161,7 +161,11 @@ function SearchFilters(props: Props) {
 
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3 mt-3 sm:mt-0">
           <Select
-             suffixIcon={<div className="text-gray"><CaretDownOutlined className="text-sm text-gray" /></div>}
+            suffixIcon={
+              <div className="text-gray">
+                <CaretDownOutlined className="text-sm text-gray" />
+              </div>
+            }
             placeholder="Appointment Type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={handleServiceChange}
@@ -228,6 +232,7 @@ function SearchFilters(props: Props) {
                   <div className="flex items-center font-thin">
                     <span className="mr-2 mt-1">
                       <Image
+                        priority={true}
                         width={18}
                         height={18}
                         src={calendarFilterIcon}

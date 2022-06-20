@@ -23,6 +23,8 @@ const SuccessScreen = () => {
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-24 pb-12 px-6">
             <div className="flex flex-col justify-center mb-6">
               <Image
+                priority={true}
+                unoptimized={true}
                 alt=""
                 className="mx-auto"
                 height={34}
@@ -32,6 +34,7 @@ const SuccessScreen = () => {
               />
               <div className="flex justify-center mt-10">
                 <Image
+                  priority={true}
                   alt=""
                   className="success-icon mx-auto mt-10"
                   height={84}

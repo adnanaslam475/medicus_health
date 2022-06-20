@@ -111,6 +111,7 @@ function DoctorCard({
                     {FLAG_BY_LANGUAGE[language] && (
                       <Tooltip title={language || "flag"} color="#FFF">
                         <Image
+                          priority={true}
                           src={FLAG_BY_LANGUAGE[language]}
                           alt={language || "flag"}
                           width={25}
@@ -149,9 +150,13 @@ function DoctorCard({
             <Tooltip
               className="w-full"
               title={
-                patientHealthHistory?.patientHealthHistory
-                  ? ""
-                  : "please complete the health questionnaire"
+                patientHealthHistory?.patientHealthHistory ? (
+                  ""
+                ) : (
+                  <Link passHref href={`/patient/account?activeTab=2`}>
+                    please complete health questionnaire
+                  </Link>
+                )
               }
             >
               <Button
@@ -163,6 +168,7 @@ function DoctorCard({
                 }
               >
                 <Image
+                  priority={true}
                   src={VideoCameraFilled}
                   alt="espanolFlag"
                   width={20}

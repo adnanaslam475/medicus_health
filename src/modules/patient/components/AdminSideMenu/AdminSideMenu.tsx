@@ -9,14 +9,12 @@ import _classes from "./SideMenu.module.scss";
 function AdminSideMenu() {
   const [collapsed, setCollapsed] = useState(false);
 
-  
   return (
     <Layout.Sider
       onBreakpoint={(broken) => setCollapsed(broken)}
       collapsed={collapsed}
       collapsedWidth="5rem"
       breakpoint="xl"
-      
       theme="light"
       className={`${_classes["admin-side-menu"]} hidden md:block bg-gray overflow-x-hidden`}
       width="18rem"
@@ -24,11 +22,17 @@ function AdminSideMenu() {
       <Layout.Header
         className={`${_classes["admin-side-menu-header"]} flex justify-center bg-gray-2 px-0 xl:px-4 items-center`}
       >
-        <Image alt="" src={Logo} width={200} height={35} />
+        <Image
+          priority={true}
+          unoptimized={true}
+          alt=""
+          src={Logo}
+          width={200}
+          height={35}
+        />
       </Layout.Header>
       <div className="px-5 flex mx-0">
-        <SidebarMenuItem 
-        />
+        <SidebarMenuItem />
       </div>
     </Layout.Sider>
   );

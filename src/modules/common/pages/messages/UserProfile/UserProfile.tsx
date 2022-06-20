@@ -49,6 +49,7 @@ function UserProfile({ thread }: Props) {
         />
         <span className="rounded-full absolute p-1 -right-2 bottom-0">
           <Image
+            priority={true}
             alt=""
             src={loaderLogo}
             width={20}

@@ -172,10 +172,11 @@ function BookAppointmentModal({
             Number(adminPatientId) ||
             (id as number),
           doctorId:
+            Number(doctorData?.doctor_id) ||
             Number(adminApp_Details?.doctor?.doctor_Id) ||
             Number(adminPhysicianId) ||
-            Number(query?.id) ||
-            Number(doctorData?.doctor_id),
+            Number(query?.id),
+          // Number(doctorData?.doctor_id),
           serviceId: serviceId,
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),

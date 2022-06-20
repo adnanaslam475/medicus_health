@@ -209,17 +209,18 @@ function EditProfile({
           notification.success({
             message: "Updated Successfully",
           });
+        if (getRole() === "Doctor") {
+          //checking logged in user email matched with updated email
+          let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
+          let emailMatched = emailRegExpression.test(values?.email);
 
-        //checking logged in user email matched with updated email
-        let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
-        let emailMatched = emailRegExpression.test(values?.email);
-
-        // if user changed the email logged out the user
-        if (!emailMatched) {
-          notification.success({
-            message: "Credentials Updated User Logged out",
-          });
-          logout();
+          // if user changed the email logged out the user
+          if (!emailMatched) {
+            notification.success({
+              message: "Credentials Updated User Logged out",
+            });
+            logout();
+          }
         }
       }
 
@@ -375,6 +376,7 @@ function EditProfile({
                 <Avatar size={130} src={image || userProfileImage} />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
                   <Image
+                    priority={true}
                     alt=""
                     src={editicon}
                     width={30}
@@ -507,6 +509,7 @@ function EditProfile({
                   >
                     <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
                       <Image
+                        priority={true}
                         alt=""
                         height={21}
                         width={21}
@@ -527,6 +530,7 @@ function EditProfile({
                   >
                     <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
                       <Image
+                        priority={true}
                         alt=""
                         height={21}
                         width={21}

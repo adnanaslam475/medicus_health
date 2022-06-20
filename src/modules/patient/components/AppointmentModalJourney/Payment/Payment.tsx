@@ -17,6 +17,7 @@ function Payment(props: Props) {
       <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={cardId}>
         <div className="rounded px-2 pb-0 mb-0 pt-2">
           <Image
+            priority={true}
             alt=""
             src={visa}
             width={46}
@@ -25,7 +26,11 @@ function Payment(props: Props) {
           />
         </div>
         <div className="px-2">
-          <h6 className={`text-md capitalize text-dark font-medium ${_classes["wordspacing-5"]}`}>{title}</h6>
+          <h6
+            className={`text-md capitalize text-dark font-medium ${_classes["wordspacing-5"]}`}
+          >
+            {title}
+          </h6>
           <p className="text-gray-2">{description}</p>
         </div>
       </Radio>

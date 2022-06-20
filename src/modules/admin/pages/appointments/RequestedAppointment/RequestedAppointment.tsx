@@ -109,9 +109,13 @@ function RequestedAppointment() {
               </div>
               <Tooltip
                 title={
-                  patientHealthHistory?.patientHealthHistory
-                    ? ""
-                    : "please complete the health questionnaire"
+                  patientHealthHistory?.patientHealthHistory ? (
+                    ""
+                  ) : (
+                    <Link passHref href={`/patient/account?activeTab=2`}>
+                      please complete health questionnaire
+                    </Link>
+                  )
                 }
               >
                 <Button

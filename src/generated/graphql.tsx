@@ -199,7 +199,6 @@ export type CreateAdminInput = {
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
-  password?: InputMaybe<Scalars['String']>;
   profile_picture?: InputMaybe<Scalars['String']>;
 };
 

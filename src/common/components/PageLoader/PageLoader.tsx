@@ -3,6 +3,7 @@ export function PageLoader() {
   return (
     <div className="loaderCover flex h-screen w-full justify-center items-center">
       <Image
+        priority={true}
         alt=""
         className="mx-auto"
         height={245}

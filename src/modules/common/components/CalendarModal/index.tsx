@@ -104,6 +104,7 @@ function CalendarModalComponent(props: Props) {
             disabled={disabled}
           >
             <Image
+              priority={true}
               src={camera}
               width={15}
               height={15}

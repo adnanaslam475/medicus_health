@@ -96,6 +96,7 @@ const HealthQuestionnary = ({
                 <div className="flex items-center" onClick={handleChange}>
                   <span className="mt-1">
                     <Image
+                      priority={true}
                       alt=""
                       className="left-arrow-icon mx-auto mt-3"
                       height={16}
