@@ -209,17 +209,18 @@ function EditProfile({
           notification.success({
             message: "Updated Successfully",
           });
+        if (getRole() === "Doctor") {
+          //checking logged in user email matched with updated email
+          let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
+          let emailMatched = emailRegExpression.test(values?.email);
 
-        //checking logged in user email matched with updated email
-        let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
-        let emailMatched = emailRegExpression.test(values?.email);
-
-        // if user changed the email logged out the user
-        if (!emailMatched) {
-          notification.success({
-            message: "Credentials Updated User Logged out",
-          });
-          logout();
+          // if user changed the email logged out the user
+          if (!emailMatched) {
+            notification.success({
+              message: "Credentials Updated User Logged out",
+            });
+            logout();
+          }
         }
       }
 

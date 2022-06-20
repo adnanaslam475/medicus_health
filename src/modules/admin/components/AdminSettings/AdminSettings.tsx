@@ -204,7 +204,7 @@ function AdminSettings() {
               </div>
             </div>
 
-            <div>
+            <div className="hidden">
               <h3>State Tax</h3>
               <div className="flex">
                 <Form.Item
