@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 import { Tabs } from "antd";
 import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
@@ -8,10 +9,8 @@ import {
 } from "generated/graphql";
 import { QuestionnaireForm } from "../Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
-import word from "../../../../public/assets/images/word-file.svg";
 import Attachment from "../Attachment/Attachment";
 import { AttachmentObject } from "common/types/types";
-import { useRouter } from "next/router";
 import Notes from "../Notes/Notes";
 // import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
 import NotesTab from "common/components/NotesTab/NotesTab";

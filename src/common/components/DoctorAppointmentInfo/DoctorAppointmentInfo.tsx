@@ -454,18 +454,19 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   return (
     <>
-      <div className="flex justify-between mt-6">
+      <div className=" flex-col sm:flex-row  flex justify-between mt-6 flex-wrap">
         <Button
           danger
-          className="border border-red outline"
+          // className="border border-red outline"
+          className={`${_classes["appointments-btn"]}`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Reject
         </Button>
-        <div className="flex">
+        <div className="flex-col sm:flex-row flex flex-wrap">
           <Button
             icon={<RetweetOutlined />}
-            className={`${_classes["appointments-btn"]}`}
+            className={`${_classes["appointments-btn"]} my-2 sm:my-0`}
             onClick={showModal}
           >
             Propose Time
@@ -473,7 +474,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           <Button
             type="primary"
             icon={<CheckOutlined />}
-            className={`${_classes["appointments-btn"]} bg-current ml-3`}
+            className={`${_classes["appointments-btn"]} bg-current sm:ml-3`}
             onClick={showModal}
           >
             Edit Appointment
@@ -568,6 +569,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               className={`${_classes["appointments-btn"]}`}
               onClick={onProposeNewTimeSlot}
               type="primary"
+              disabled={slots.length > 0 ? false : true}
             >
               Submit
             </Button>

@@ -45,8 +45,8 @@ function UpcomingAppointmentsDetailDoctor() {
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
     urlArr = urlArr?.flat(1)?.map((item: any) => ({
-      name: item.name,
-      url: item.url,
+      name: item?.name,
+      url: item?.url,
     }));
   }
   //Get Patient ID
@@ -70,7 +70,7 @@ function UpcomingAppointmentsDetailDoctor() {
               <PatientInfoTab />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health Questionnaire" key="3">
-              <div className="max-w-1/2">
+              <div className="md:max-w-1/2">
                 <QuestionnaireForm
                   data={patientHealthHistory?.patientHealthHistory?.history}
                 />

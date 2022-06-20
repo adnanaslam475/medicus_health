@@ -120,7 +120,7 @@ function SearchFilters(props: Props) {
 
   return (
     <div
-      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}
+      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5 flex-wrap`}
     >
       <span className="text-gray-1 mr-3 mb-3 sm:block">Filter</span>
       <div className="flex-none sm:flex">
