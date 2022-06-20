@@ -84,7 +84,7 @@ function ProfileForm({
       >
         {bioForm.map((item, index) => {
           return (
-            <div className="flex flex-row gap-3" key={index}>
+            <div className="flex flex-col sm:flex-row gap-3" key={index}>
               {item.map((val, valIndex) => {
                 return (
                   <Form.Item

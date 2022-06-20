@@ -47,7 +47,7 @@ function PhysicianQuestionnaire(props: Props) {
   }
   return (
     <React.Fragment>
-      <div className="w-3/6">
+      <div className="md:w-3/6">
         <Form
           layout="vertical"
           form={formInstance}

@@ -133,7 +133,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
               value={`${occupationalExposure} ${exposureDuration}`}
             />
           </div>
-          <div className="flex gap-2">
+          <div className="md:flex gap-2">
             <LabelWithTextDiv label="Do you have any pets?" value={pets} />
             <div className="w-full" />
           </div>

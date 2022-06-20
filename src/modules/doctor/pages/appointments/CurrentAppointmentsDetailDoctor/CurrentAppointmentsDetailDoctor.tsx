@@ -15,7 +15,7 @@ import {
 } from "generated/graphql";
 import { AttachmentObject } from "common/types/types";
 
-function CancelledAppointmentsDetailDoctor() {
+function CurrentAppointmentsDetailDoctor() {
   const { query } = useRouter();
 
   const [{ data }] = useDoctorAppointmentDetailQuery({
@@ -34,16 +34,16 @@ function CancelledAppointmentsDetailDoctor() {
 
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
-    urlArr = urlArr?.flat(1)?.map((item: any) => ({
-      name: item.name,
-      url: item.url,
+    urlArr = urlArr[0]?.map((item: any) => ({
+      name: item.split("com/")[1],
+      url: item
     }));
   }
 
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Cancelled Appointments</h2>
+        <h2 className="mb-4">Current Appointments</h2>
         <div className="profile-tabs">
           <Tabs type="card">
             <Tabs.TabPane tab="Appointment Info" key="1">
@@ -81,4 +81,4 @@ function CancelledAppointmentsDetailDoctor() {
     </AppLayout>
   );
 }
-export default CancelledAppointmentsDetailDoctor;
+export default CurrentAppointmentsDetailDoctor;

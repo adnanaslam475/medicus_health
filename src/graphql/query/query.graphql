@@ -390,6 +390,10 @@ query getAppointmentById($id: Int!) {
       endTime
       selected
     }
+    appointmentDateTime{
+      startTime
+      endTime
+    }
     serviceType {
       id
       name

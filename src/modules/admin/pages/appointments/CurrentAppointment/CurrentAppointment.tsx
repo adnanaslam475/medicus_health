@@ -1,15 +1,14 @@
-import { Button, Empty, Spin } from "antd";
 import React, { useState } from "react";
-import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
-import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
+import { Empty, Spin } from "antd";
+import AppointmentCard from "common/components/AppointmentCard/AppointmentCard";
+import AppLayout from "common/components/AppLayout/AppLayout";
+import SearchFilters from "common/components/SearchFilters/SearchFilters";
 import {
-	Appointment,
+	AppointmentDateTimeResponse,
 	AppointmentTimeSlots,
 	BookingDate,
-	DoctorProfile,
-	useGetAllRequestedAppointmentsQuery,
-} from "../../../../../generated/graphql";
+	useCurrentAppointmentsQuery,
+} from "generated/graphql";
 
 function CurrentAppointment() {
 	const [dueDates, setDueDates] = useState<Date | null>();
@@ -22,16 +21,8 @@ function CurrentAppointment() {
 	const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
 	const [serviceIds, setServiceIds] = useState<number>();
 	const [status, setStatus] = useState<string>("Cancelled"); //it wll be replaced by current when api will be  integrated
-	const [{ data,fetching}] = useGetAllRequestedAppointmentsQuery({
+	const [{ data,fetching}] = useCurrentAppointmentsQuery({
 		variables: {
-			filter: {
-				status: status,
-				physicianName: dataListPhysician,
-				doctorId: doctorIds,
-				appointmentId: appointmentId,
-				serviceId: serviceIds,
-				bookingDate: bookingDate,
-			},
 		},
 	});
 
@@ -39,8 +30,7 @@ function CurrentAppointment() {
 		setCurrentAppointmentId(id);
 		setShowModal(true);
 	}
-
-	const { appointments } = data || {};
+	const { currentAppointments } = data || {};
 	const [showModal, setShowModal] = useState<boolean>(false);
 
 	return (
@@ -70,26 +60,21 @@ function CurrentAppointment() {
 				</div>
 				{fetching == false ? (
 					<div className="w-full">
-						{appointments?.length !== 0 && appointments ? (
+						{currentAppointments?.length ? (
 							<div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-								{appointments?.map((appointmentDetail, i) => {
-									const {
-										requestedDate,
-										status,
-										serviceType,
-										doctor,
-										appointmentTimeSlots,
-									} = appointmentDetail || {};
+								{currentAppointments?.map((currentAppointment) => {
 									return (
 										<AppointmentCard
-											requestedDate={requestedDate}
+											doctorId={currentAppointment?.doctorId }
+											patientId={currentAppointment?.patientId}
+											requestedDate={currentAppointment?.appointmentDateTime?.startTime || ""}
+											appointmentId={Number(currentAppointment?.id)}
 											// status={status}
 											status="Current"
-											serviceType={serviceType?.name||"Service type"}
-											doctor={doctor?.first_name}
-											appointmentTimeSlots={
-												appointmentTimeSlots as AppointmentTimeSlots[]
-											}
+											serviceType={currentAppointment?.serviceType?.name || "Service type"}
+											doctor={currentAppointment?.doctor?.first_name}
+											appointmentTimeSlots={currentAppointment?.appointmentTimeSlots as AppointmentTimeSlots[]}
+											appointmentDateTime={currentAppointment?.appointmentDateTime as AppointmentDateTimeResponse}
 											onViewSuggestedSlots={() => {}}
 											setShowModal={setShowModal}
 										/>
