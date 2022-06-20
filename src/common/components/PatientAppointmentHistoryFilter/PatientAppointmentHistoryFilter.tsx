@@ -20,18 +20,12 @@ type Props = {
 };
 
 function PatientAppointmentHistoryFilter(props: Props) {
-<<<<<<< HEAD
 	const [filterState, setFilterState] = useState<GetAppointmentInput>({});
 	const [bookingDate, setBookingDate] = useState<BookingDate>({});
 	const [dueDate, setDueDate] = useState<BookingDate>({});
 
 	const [form] = Form.useForm();
 	const { onChange } = props;
-=======
-  const [filterState, setFilterState] = useState<GetAppointmentInput>({});
-  const [bookingDate, setBookingDate] = useState<BookingDate>({});
-  const [dueDate, setDueDate] = useState<BookingDate>({});
->>>>>>> f8646f7bfc8befe0dd267d1cf5bce1ad3624c9d8
 
 	const [openDateRange, setOpenDateRange] = useState(false);
 	const [openDateRange1, setOpenDateRange1] = useState(false);
