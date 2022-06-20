@@ -31,7 +31,7 @@ const AddStaffModal = React.forwardRef(function AddStaffModal(
         <div className="md:grid md:grid-cols-2 md:gap-x-4">
           <AddStaffFormItems />
         </div>
-        <div className="flex justify-end pb-0">
+        <div className="mt-2 md:mt-0 flex justify-end pb-0">
           <Form.Item noStyle>
             <Button
               loading={fetching}

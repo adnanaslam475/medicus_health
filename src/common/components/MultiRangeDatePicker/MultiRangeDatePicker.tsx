@@ -52,11 +52,11 @@ function MultiRangeDatePicker(props: Props) {
   }
 
   return (
-    <>
+    <div className="multis">
       <div className="font-medium text-lightBlue-1">Availability</div>
       {!disable && (
         <div
-          className={`${_Classes["multiRange-date"]}  flex flex-1 rounded-lg`}
+          className={`${_Classes["multiRange-date"]}  flex-col md:flex-row flex flex-1 rounded-lg`}
         >
           <DayPicker
             setAddScheduleDay={setAddScheduleDay}
@@ -74,7 +74,7 @@ function MultiRangeDatePicker(props: Props) {
             icon={<PlusOutlined className="font-bold text-sm pb-0.5" />}
             type="primary"
             size="large"
-            className={`my-auto ml-auto mr-2 ${_Classes["button-custom"]}`}
+            className={`my-auto ml-auto mr-2 mt-3 md:mt-2 ${_Classes["button-custom"]}`}
             onClick={onAddClick}
             disabled={loading}
             loading={loading}
@@ -98,7 +98,7 @@ function MultiRangeDatePicker(props: Props) {
               />
             );
           })}
-    </>
+    </div>
   );
 }
 

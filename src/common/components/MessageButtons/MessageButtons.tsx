@@ -16,13 +16,13 @@ const MessageButtons = (props: Props) => {
   console.log(patientID, doctorId, "majidkhan");
   return (
     <div className="flex justify-between mt-6">
-      <div className="flex">
+      <div className="flex ">
         {/* ROLE BASED MESSAGE BUTTONS CONDITIONS */}
         {getRole() === "Admin" ||
           (getRole() === "Doctor" && (
             <Button
               icon={<MessageOutlined />}
-              className={`${_classes["appointments-btn"]} mr-3`}
+              className={`${_classes["appointments-btn"]} mr-1 sm:mr-3`}
               // onClick={() => Router.push("/physician/messages")}
               onClick={() =>
                 Router.push({

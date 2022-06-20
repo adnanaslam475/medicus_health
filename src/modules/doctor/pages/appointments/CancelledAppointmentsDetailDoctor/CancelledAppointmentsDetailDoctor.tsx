@@ -53,7 +53,7 @@ function CancelledAppointmentsDetailDoctor() {
               <PatientInfoTab />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health Questionnaire" key="3">
-              <div className="max-w-1/2">
+              <div className="md:max-w-1/2">
                 <QuestionnaireForm
                   data={patientHealthHistory?.patientHealthHistory?.history}
                 />

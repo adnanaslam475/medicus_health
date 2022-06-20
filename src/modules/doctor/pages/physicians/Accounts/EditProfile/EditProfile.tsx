@@ -342,7 +342,7 @@ function EditProfile({
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
-      <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
+      <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
         <div className="flex flex-col w-full justify-start items-center py-3">
           <div className="w-full mb-10 flex gap-8 items-center">
             <Upload
@@ -353,7 +353,7 @@ function EditProfile({
               customRequest={() => null}
             >
               <div className="relative">
-                <Avatar size={130} src={image || userProfileImage} />
+                <Avatar size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }} src={image || userProfileImage} />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
                   <Image
                     alt=""
