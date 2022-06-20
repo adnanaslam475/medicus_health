@@ -14,7 +14,8 @@ import HealthQuestionnaireFrom from "./HealthQuestionnaireFromTab";
 import PhysicianQuestionnaireForm from "./PhysicianQuestionnaireFormTab";
 import AttachmentTab from "./AttachmentTab";
 import NoteWithTextTab from "./NoteWithTextTab";
-import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
+// import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
+import NotesTab from "common/components/NotesTab/NotesTab";
 
 function PatientAppointmentHistoryDetail() {
   const { query } = useRouter();

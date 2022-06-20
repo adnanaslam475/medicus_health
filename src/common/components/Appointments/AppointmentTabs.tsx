@@ -13,7 +13,8 @@ import Attachment from "../Attachment/Attachment";
 import { AttachmentObject } from "common/types/types";
 import { useRouter } from "next/router";
 import Notes from "../Notes/Notes";
-import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
+// import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
+import NotesTab from "common/components/NotesTab/NotesTab";
 const { TabPane } = Tabs;
 
 type Props = {

@@ -11,7 +11,8 @@ import {
 import { Tabs } from "antd";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
-import NotesTab from "./../../appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
+// import NotesTab from "./NotesTabForPhysician";
+import NotesTab from "common/components/NotesTab/NotesTab";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import Attachment from "common/components/Attachment/Attachment";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
