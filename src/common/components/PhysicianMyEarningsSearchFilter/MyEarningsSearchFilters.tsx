@@ -38,6 +38,7 @@ function MyEarningsSearchFilters(props: Props) {
 	const [openDateRange, setOpenDateRange] = useState(false);
 	const [openDateRangeTwo, setOpenDateRangeTwo] = useState(false);
 	const [dateRange, setDateRange] = useState<BookingDate>({});
+	const [bookingDate, setBookingDate] = useState<BookingDate>({});
 
 	const [visible, setVisible] = useState(false);
 
@@ -52,7 +53,7 @@ function MyEarningsSearchFilters(props: Props) {
 
 	const applyDateRange = () => {
 		setOpenDateRange(false);
-		onChangeFields("DateRange",dateRange)
+		onChangeFields("bookingDate",bookingDate)
 
 	};
 	const applyDateRangeTwo = () => {
@@ -116,7 +117,8 @@ function MyEarningsSearchFilters(props: Props) {
 					<Select
 						placeholder="Service"
 						className={`${searchStyle.placeholderColor} w-full`}
-						onChange={(value) => onChangeFields("serviceId", value)}
+						onChange={(value) => onChangeFields("serviceId", value as string)}
+						value={filterState?.serviceId || "Service" }
 					>
 						{appointmentServiceTypes?.map((item) => (
 							<Select.Option key={item?.id} value={item?.id}>
@@ -135,7 +137,7 @@ function MyEarningsSearchFilters(props: Props) {
 						<RangePicker
 							value={null}
 							onChange={(_, dateString: string[]) =>
-								setDateRange({
+								setBookingDate({
 									startDate: dateString[0],
 									endDate: dateString[1],
 								})
@@ -170,10 +172,10 @@ function MyEarningsSearchFilters(props: Props) {
 							type="default"
 							onClick={() => setOpenDateRange?.(!openDateRange)}
 						>
-							{filterState.DateRange?.startDate ? (
+							{filterState.bookingDate?.startDate ? (
 								<div>
-									{filterState.DateRange
-										? `${filterState.DateRange.startDate} -> ${filterState.DateRange.endDate}`
+									{filterState.bookingDate
+										? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
 										: "Booking Date"}
 								</div>
 							) : (

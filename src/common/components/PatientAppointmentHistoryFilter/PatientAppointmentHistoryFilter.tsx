@@ -53,8 +53,8 @@ function PatientAppointmentHistoryFilter(props: Props) {
     };
     setFilterState(filters);
 
-    if (!filters?.appointmentId) {
-      delete filters?.appointmentId;
+    if (!filters?.searchString) {
+      delete filters?.searchString;
     }
 
     if (!filters?.doctorId) {
@@ -82,15 +82,14 @@ function PatientAppointmentHistoryFilter(props: Props) {
     >
       <span className="text-gray-1 mr-3 mb-3"></span>
       <div className="flex-none sm:flex">
-        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-60 mr-2">
+        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
           <Input
-            placeholder={"Search by ID"}
+            placeholder={"Search by ID or physician name"}
             prefix={<SearchOutlined />}
             onChange={(event) =>
-              onChangeFields("appointmentId", Number(event.target.value))
+              onChangeFields("searchString", String(event.target.value))
             }
-            type="number"
-            value={filterState?.appointmentId || undefined}
+            value={filterState?.searchString || undefined}
           />
         </div>
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
