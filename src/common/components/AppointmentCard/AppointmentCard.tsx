@@ -79,6 +79,8 @@ function AppointmentCard({
           doctor={doctor}
           appointmentTimeSlots={appointmentTimeSlots}
           setShowModal={setShowModal}
+          appointmentDateTime={appointmentDateTime}
+
         />
       );
     case "Cancelled":
