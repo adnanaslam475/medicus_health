@@ -45,12 +45,12 @@ function AdminAppointmentInfoTab({ appointment }: Props) {
     physician:
       appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
     service: appointment?.serviceType?.name,
-    dueDate: formatMMMM_Dcoma_YYYY(selectedAppointment?.startTime),
+    dueDate: formatMMMM_Dcoma_YYYY(appointment?.appointmentDateTime?.startTime || selectedAppointment?.startTime),
     time: `${
-      selectedAppointment?.startTime
+      appointment?.appointmentDateTime?.startTime && appointment?.appointmentDateTime?.endTime
         ? `${date?.formathhmma(
-            selectedAppointment?.startTime
-          )} - ${date?.formathhmma(selectedAppointment?.endTime)}`
+            appointment?.appointmentDateTime?.startTime
+          )} - ${date?.formathhmma(appointment?.appointmentDateTime?.endTime)}`
         : "--"
     }`,
     totalAmount: appointment?.charges,
