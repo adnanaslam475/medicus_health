@@ -3,6 +3,7 @@ import _classes from "./NotesWithText.module.scss";
 import {
   Appointment,
   GetAppointmentNoteByIdQuery,
+  GetDoctorNotesByAppIdQuery,
   useGetDoctorNotesByAppIdQuery,
 } from "generated/graphql";
 import AcronymWithText from "../AcronymWithText/AcronymWithText";
@@ -10,7 +11,7 @@ import Router, { useRouter } from "next/router";
 
 type Props = {
   appointment?: Appointment | undefined;
-  doctorNotes?: GetAppointmentNoteByIdQuery | undefined;
+  doctorNotes?: GetDoctorNotesByAppIdQuery | undefined;
 };
 
 function ViewableNotes({ doctorNotes }: Props) {

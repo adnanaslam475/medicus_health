@@ -97,7 +97,7 @@ function NotesTabForPhysician({}: Props) {
 
         {/* {notesById && ( */}
         <NotesListingByAppointments
-          doctorNotes={notesById as GetAppointmentNoteByIdQuery}
+        // doctorNotes={notesById as GetAppointmentNoteByIdQuery}
         />
         {/* )} */}
       </CardWithProfileImageInfo>

@@ -15,13 +15,13 @@ import NotesTab from "common/components/NotesTab/NotesTab";
 function AdminAppointmentHistoryDetail() {
   const { query } = useRouter();
   const [{ data }] = useGetAppointmentByIdQuery({
-    variables: { id: Number(query?.appointmentId) },
+    variables: { id: Number(query?.id) },
   });
 
   const { appointment } = data || {};
   const status = appointment?.status;
 
-  let doctorNotes =
+  const doctorNotes =
     appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
   const isNotesShow = [REQUESTED, SUGGESTED, COMPLETED].includes(
     appointment?.status || ""
