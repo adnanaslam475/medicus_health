@@ -2,35 +2,32 @@ import React, { useState } from "react";
 import { Empty, Spin } from "antd";
 import AppointmentCard from "common/components/AppointmentCard/AppointmentCard";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import SearchFilters from "common/components/SearchFilters/SearchFilters";
+import SearchFilter from "common/components/SearchFilters/SearchFilter";
 import {
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
+  GetCurrentAppointmentInput,
   BookingDate,
   useCurrentAppointmentsQuery,
 } from "generated/graphql";
 
 function CurrentAppointment() {
-  const [dueDates, setDueDates] = useState<Date | null>();
-  const [dueStartDate, setStartDate] = useState<Date | null>();
-  const [dueEndDate, setEndDate] = useState<Date | null>();
-  const [bookingDate, setBookingDate] = useState<BookingDate>({});
-  const [dataListPhysician, setDataListPhysician] = useState<string>();
-  const [doctorIds, setDoctorId] = useState<number>();
-  const [appointmentId, setAppointmentId] = useState<number>();
-  const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
-  const [serviceIds, setServiceIds] = useState<number>();
-  const [status, setStatus] = useState<string>("Cancelled"); //it wll be replaced by current when api will be  integrated
-  const [{ data, fetching }] = useCurrentAppointmentsQuery({
-    variables: {},
-  });
+  const [filterValues, setFilterValues] = useState({});
+  const [{ data, fetching }, executeUseCurrentAppointmentsQuery] =
+    useCurrentAppointmentsQuery({
+      variables: { filter: filterValues },
+    });
 
-  function onViewSuggestedSlots(id: number) {
-    setCurrentAppointmentId(id);
-    setShowModal(true);
-  }
   const { currentAppointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  function onChangeFilters(values: GetCurrentAppointmentInput) {
+    setFilterValues(values);
+    executeUseCurrentAppointmentsQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
 
   return (
     <AppLayout>
@@ -45,21 +42,14 @@ function CurrentAppointment() {
           </div>
         </div>
 
-        <div className="w-5/6">
-          <SearchFilters
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            setDataListPhysician={setDataListPhysician}
-            setDoctorId={setDoctorId}
-            setAppointmentId={setAppointmentId}
-            setServiceIds={setServiceIds}
-            setBookingDate={setBookingDate}
-          />
+        <div className="md:w-5/6">
+          <SearchFilter onChange={onChangeFilters} />
         </div>
-        {fetching == false ? (
+        {!fetching ? (
           <div className="w-full">
             {currentAppointments?.length ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              // <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
                 {currentAppointments?.map((currentAppointment) => {
                   return (
                     <AppointmentCard

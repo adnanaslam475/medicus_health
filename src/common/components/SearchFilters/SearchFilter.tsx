@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Card, Input, Button, Select, Space, DatePicker, Form } from "antd";
+import React, { useState } from "react";
+import { Input, Button, Select, Space, DatePicker } from "antd";
 import {
   CaretDownOutlined,
   CloseOutlined,
@@ -9,58 +9,29 @@ import {
   BookingDate,
   useDoctorProfilesQuery,
   useGetAllAppointmentServiceTypesQuery,
-} from "../../../generated/graphql";
+  GetCurrentAppointmentInput,
+} from "generated/graphql";
 import searchStyle from "./style.module.scss";
 import Image from "next/image";
-import { calendarFilterIcon } from "../../../utils/images";
+import { calendarFilterIcon } from "utils/images";
 import { getDateInFormat } from "../../utils/date";
 import _classes from "./SearchFilters.module.scss";
-
-const { Option } = Select;
-
-function handleChange(value: any) {}
 
 const { RangePicker } = DatePicker;
 
 type Props = {
-  setDataListPhysician: string | any;
-  placeholder?: string;
-  setDoctorId: number | any;
-  setAppointmentId: number | any;
-  setServiceIds: number | any;
-  setStartDate: Date | null | any;
-  setEndDate: Date | null | any;
-  isFromPhysician?: boolean | null | any;
-  setSearchPatient?: string | any;
-  setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
+  isFromPhysician?: boolean;
+  onChange: (value: GetCurrentAppointmentInput) => void;
 };
 
 function SearchFilters(props: Props) {
-  const {
-    setServiceIds,
-    setDoctorId,
-    setEndDate,
-    placeholder,
-    setStartDate,
-    setSearchPatient,
-    isFromPhysician,
-    setAppointmentId,
-    setBookingDate,
-  } = props;
-  const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
-    string | null
-  >();
-  const [selectedServiceItems, setSelectedServiceItems] = useState<
-    string | null
-  >();
-  const [dateRangeValues, selectDateRangeValues] = useState(null);
+  const { onChange, isFromPhysician } = props;
+
   const [openDateRange, setOpenDateRange] = useState(false);
-  const [dateRange, selectDateRange] = useState(null);
   const [patientName, setPatientName] = useState<string>();
-  const [localAppointment_Id, setLocalAppointment_Id] = useState<
-    number | null | undefined
-  >();
-  const [dateRangeState, setDateRangeState] = useState<BookingDate>({});
+
+  const [filterState, setFilterState] = useState<GetCurrentAppointmentInput>({});
+  const [creationDate, setCreationDate] = useState<BookingDate>({});
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
@@ -68,55 +39,38 @@ function SearchFilters(props: Props) {
   const [{ data }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = data || {};
 
-  function handleAppointmentId(event: React.ChangeEvent<HTMLInputElement>) {
-    setAppointmentId(Number(event.target.value));
-    setLocalAppointment_Id(Number(event.target.value));
-  }
-
   function handlePaitentName_ID(event: React.ChangeEvent<HTMLInputElement>) {
-    setSearchPatient(event.target.value);
+    // setSearchPatient(event.target.value);
     setPatientName(event.target.value);
   }
 
-  const handlePhysicianChange = (selectedItem: any, name: any) => {
-    setSelectedPhysicianItems(name.children);
-    setDoctorId(selectedItem);
-  };
-
-  const handleServiceChange = (selectedItem: any, name: any) => {
-    setSelectedServiceItems(name.children);
-    setServiceIds(selectedItem);
-  };
-
-  function onChange(date: any, dateString: any) {
-    selectDateRangeValues(date);
-    selectDateRange(date);
-    setDateRangeState({
-      startDate: dateString[0],
-      endDate: dateString[1],
-    });
+  function onClear() {
+    setFilterState({});
+    onChange({});
   }
 
-  const onClear = () => {
-    setSelectedPhysicianItems(null);
-    setSelectedServiceItems(null);
-    setDoctorId(undefined);
-    setServiceIds(undefined);
-    selectDateRangeValues(null);
-    setEndDate(null);
-    setStartDate(null);
-    setOpenDateRange(false);
-    selectDateRange(null);
-    setPatientName("");
-    setSearchPatient && setSearchPatient(null);
-    setAppointmentId(undefined);
-    setLocalAppointment_Id(null);
-    setBookingDate?.({});
-  };
   const applyDateRange = () => {
     setOpenDateRange(false);
-    setBookingDate?.(dateRangeState);
+    onChangeFields("bookingDate", creationDate);
   };
+
+  function onChangeFields(key: string, value: string | number | object) {
+    const filters = {
+      ...filterState,
+      [key]: value,
+    };
+    setFilterState(filters);
+
+    if (!filters?.searchString) {
+      delete filters?.searchString;
+    }
+
+    if (!filters?.bookingDate) {
+      delete filters?.bookingDate;
+    }
+
+    onChange(filters);
+  }
 
   return (
     <div
@@ -124,31 +78,31 @@ function SearchFilters(props: Props) {
     >
       <span className="text-gray-1 mr-3 mb-3 sm:block">Filter</span>
       <div className="flex-none sm:flex">
-        <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-2 sm:mr-0">
+        <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-0 lg:mr-0">
           <Input
             placeholder={"Search by ID"}
             prefix={<SearchOutlined />}
-            onChange={(event) => handleAppointmentId(event)}
-            value={localAppointment_Id || undefined}
+            onChange={(e) => onChangeFields("searchString", e.target.value)}
+            value={filterState.searchString || ""}
             type="number"
           />
         </div>
         {isFromPhysician ? (
           <div className="sm:mb-0 mb:2 lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
             <Input
-              placeholder={placeholder || "Search by ID or patient name"}
+              placeholder={"Search by ID or patient name"}
               prefix={<SearchOutlined />}
               onChange={(event) => handlePaitentName_ID(event)}
               value={patientName}
             />
           </div>
         ) : (
-          <div className=" sm:mb-0  w-full md:w-44 xl:w-60 mr-3 mb-2 sm:pl-3">
+          <div className=" sm:mb-0 w-full md:w-44 xl:w-60 mx-2 lg:mx-3 mb-2">
             <Select
               placeholder="Physician"
               className={`${searchStyle.placeholderColor} w-full`}
-              onChange={handlePhysicianChange}
-              value={selectedPhysicianItems}
+              onChange={(e) => onChangeFields("doctorId", e)}
+              value={filterState.doctorId}
             >
               {doctorProfiles?.map((item) => (
                 <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
@@ -168,8 +122,8 @@ function SearchFilters(props: Props) {
             }
             placeholder="Appointment Type"
             className={`${searchStyle.placeholderColor} w-full`}
-            onChange={handleServiceChange}
-            value={selectedServiceItems}
+            onChange={(e) => onChangeFields("serviceId", e)}
+            value={filterState.serviceId || "Appointment Type"}
           >
             {appointmentServiceTypes?.map((item) => (
               <Select.Option key={item?.id} value={item?.id}>
@@ -187,8 +141,12 @@ function SearchFilters(props: Props) {
         >
           <div className="relative">
             <RangePicker
-              value={dateRangeValues}
-              onChange={onChange}
+              onChange={(_, dateString: string[]) =>
+                setCreationDate({
+                  startDate: dateString[0],
+                  endDate: dateString[1],
+                })
+              }
               open={openDateRange}
               className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
               renderExtraFooter={() => (
@@ -219,11 +177,13 @@ function SearchFilters(props: Props) {
               type="default"
               onClick={() => setOpenDateRange?.(!openDateRange)}
             >
-              {dateRange ? (
+              {filterState?.bookingDate?.endDate ? (
                 <div>
-                  {dateRange
-                    ? `${getDateInFormat(dateRange?.[0])} -> ${getDateInFormat(
-                        dateRange?.[1]
+                  {filterState?.bookingDate?.endDate
+                    ? `${getDateInFormat(
+                        filterState?.bookingDate?.startDate
+                      )} -> ${getDateInFormat(
+                        filterState?.bookingDate?.endDate
                       )}`
                     : "Date"}
                 </div>
@@ -248,7 +208,6 @@ function SearchFilters(props: Props) {
               )}
             </Button>
           </div>
-          {/* <DatePicker onChange={onChange} /> */}
         </Space>
         <Button
           onClick={onClear}

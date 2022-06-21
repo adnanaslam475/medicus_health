@@ -32,9 +32,9 @@ function AppointmnetSuggestedCard({
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <h3 className="mb-0">Dr. {doctor}</h3>
-      <span className="text-gray text-base block">{serviceType}</span>
+      <span className="text-gray text-base block mb-6">{serviceType}</span>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm">Date</span>
+      <span className="text-sm ">Date</span>
       <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Time</span>
@@ -48,6 +48,7 @@ function AppointmnetSuggestedCard({
         ))
       )}
       <Space direction="vertical" size="middle" />
+      <span className="text-sm  block mt-4 ">Status</span>
       <span className="text-base text-primary font-bold ">{status}</span>
       <Space direction="vertical" size="middle" />
       <div className="flex">

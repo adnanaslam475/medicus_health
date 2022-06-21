@@ -12,6 +12,7 @@ import {
 } from "generated/graphql";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
+import { date } from "common/utils";
 
 type Props = {
   data?: {
@@ -112,7 +113,10 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
       <div className="max-w-[700px]">
         <div>
           <LabelWithText label="ID" text={id} />
-          <LabelWithText label="Booking Date" text={bookingDate} />
+          <LabelWithText
+            label="Booking Date"
+            text={date?.formatMMMMDDYYYY(bookingDate as string)}
+          />
           <LabelWithText label="Patient" text={patient} />
           <LabelWithText label="Physician" text={physician} />
           <LabelWithText label="Service" text={service} />

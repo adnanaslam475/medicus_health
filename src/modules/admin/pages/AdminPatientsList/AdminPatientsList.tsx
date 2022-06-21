@@ -16,11 +16,12 @@ import {
 } from "generated/graphql";
 import { ColumnsType } from "antd/lib/table/Table";
 import Link from "next/link";
+import { date } from "common/utils";
 
 function AdminPatientsList() {
   const [filterValues, setFilterValues] = useState<PatientListFilterType>({});
 
-  const [{ data,fetching }, executeuseGetPatientsQuery] = useGetPatientsQuery({
+  const [{ data, fetching }, executeuseGetPatientsQuery] = useGetPatientsQuery({
     variables: {
       filter: filterValues,
     },
@@ -81,6 +82,13 @@ function AdminPatientsList() {
       },
     },
     {
+      title: "Street Address",
+      dataIndex: "streetAddress",
+      render: (value: String) => {
+        return <div>{value ? `${value}` : "--"}</div>;
+      },
+    },
+    {
       title: "City",
       dataIndex: "city",
       render: (value: City) => {
@@ -99,6 +107,13 @@ function AdminPatientsList() {
     {
       title: "Postal Code",
       dataIndex: "zip_code",
+    },
+    {
+      title: "Account Creation Date",
+      dataIndex: "createdAt",
+      render: (value: String) => {
+        return <div>{value ? `${date?.formatMMMMDDYYYY(value as string)}` : "--"}</div>;
+      },
     },
 
     {
@@ -135,7 +150,11 @@ function AdminPatientsList() {
         <AdminPatientsListFilter onChange={onChangeFilters} />
         <div className="w-full">
           <div className="">
-            <Table columns={columns} dataSource={getPatients as User[]} loading={fetching}/>
+            <Table
+              columns={columns}
+              dataSource={getPatients as User[]}
+              loading={fetching}
+            />
           </div>
         </div>
       </div>

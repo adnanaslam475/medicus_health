@@ -12,7 +12,7 @@ export function SelectPhysicianTypeFilter({
   const { doctorProfiles } = dataList || {};
   return (
     <Select
-      className="w-full sm:w-60"
+      className="w-full "
       placeholder="Physician"
       onChange={onChange}
       value={value}

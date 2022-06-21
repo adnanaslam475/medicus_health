@@ -143,7 +143,7 @@ const AppointmentHistoryTable = (props: Props) => {
     },
   ];
 
-  return <Table columns={historyColumns} dataSource={data} loading={loading} />;
+  return <Table columns={historyColumns} dataSource={data} loading={loading} scroll={{x:true}}/>;
 };
 
 export default AppointmentHistoryTable;
