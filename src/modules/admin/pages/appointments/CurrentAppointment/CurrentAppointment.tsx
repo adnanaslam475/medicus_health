@@ -6,6 +6,7 @@ import SearchFilter from "common/components/SearchFilters/SearchFilter";
 import {
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
+  GetCurrentAppointmentInput,
   useCurrentAppointmentsQuery,
 } from "generated/graphql";
 
@@ -18,7 +19,7 @@ function CurrentAppointment() {
   const { currentAppointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  function onChangeFilters(values: any) {
+  function onChangeFilters(values: GetCurrentAppointmentInput) {
     setFilterValues(values);
     executeUseCurrentAppointmentsQuery({
       filter: filterValues,

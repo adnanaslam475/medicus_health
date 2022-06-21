@@ -30,7 +30,7 @@ function SearchFilters(props: Props) {
   const [openDateRange, setOpenDateRange] = useState(false);
   const [patientName, setPatientName] = useState<string>();
 
-  const [filterState, setFilterState] = useState<any>({});
+  const [filterState, setFilterState] = useState<GetCurrentAppointmentInput>({});
   const [creationDate, setCreationDate] = useState<BookingDate>({});
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
@@ -61,12 +61,12 @@ function SearchFilters(props: Props) {
     };
     setFilterState(filters);
 
-    if (!filters?.searchField) {
-      delete filters?.searchField;
+    if (!filters?.searchString) {
+      delete filters?.searchString;
     }
 
-    if (!filters?.language) {
-      delete filters?.language;
+    if (!filters?.bookingDate) {
+      delete filters?.bookingDate;
     }
 
     onChange(filters);
