@@ -9,7 +9,8 @@ import AdminHealthQuestionnaireFormTab from "./AdminHealthQuestionnaireFormTab";
 import AdminNotesWithTextTab from "./AdminNotesWithTextTab";
 import AdminAttachmentTab from "./PhysicianAttachmentTab";
 import { Appointment, useGetAppointmentByIdQuery } from "generated/graphql";
-import { REQUESTED, SUGGESTED } from "common/constants/status";
+import { REQUESTED, SUGGESTED, COMPLETED } from "common/constants/status";
+import NotesTab from "common/components/NotesTab/NotesTab";
 
 function AdminAppointmentHistoryDetail() {
   const { query } = useRouter();
@@ -18,10 +19,11 @@ function AdminAppointmentHistoryDetail() {
   });
 
   const { appointment } = data || {};
+  const status = appointment?.status;
 
   let doctorNotes =
     appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
-  const isNotesShow = [REQUESTED, SUGGESTED].includes(
+  const isNotesShow = [REQUESTED, SUGGESTED, COMPLETED].includes(
     appointment?.status || ""
   );
 
@@ -50,13 +52,24 @@ function AdminAppointmentHistoryDetail() {
             <Tabs.TabPane tab="Attachment" key="5">
               <AdminAttachmentTab appointment={appointment as Appointment} />
             </Tabs.TabPane>
-            {isNotesShow && (
+            {/* {isNotesShow && (
               <Tabs.TabPane tab="Notes" key="6">
                 <AdminNotesWithTextTab
                   appointment={appointment as Appointment}
                   doctorNotes={doctorNotes as [[string, string]]}
                 />
               </Tabs.TabPane>
+            )} */}
+            {(status === "Confirmed" ||
+              status === "Completed" ||
+              status === "OnGoing") && (
+              <>
+                {/* {pathname.includes("appointments") && ( */}
+                <Tabs.TabPane tab={<span>Notes</span>} key="6">
+                  <NotesTab />
+                </Tabs.TabPane>
+                {/* )} */}
+              </>
             )}
           </Tabs>
         </div>

@@ -14,9 +14,13 @@ type Props = {
 function SuccessMessage({ onCancel }: Props) {
   const role = getRole();
   const clickHandler = () => {
-    if (role === "Admin") {
+    const pathname = window?.location?.pathname
+    const patientPath = pathname === "/patient/appointments/requested"
+    if (role === "Admin" || patientPath) {
       return onCancel();
-    } else Router.push("/patient/appointments/requested");
+    } else {
+      Router.push("/patient/appointments/requested");
+    }
   };
   return (
     <>

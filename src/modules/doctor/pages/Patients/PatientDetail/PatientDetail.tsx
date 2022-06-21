@@ -17,7 +17,8 @@ import AppointmentHistory from "../AppointmentHistory/AppointmentHistory";
 import PatientProfileFormTab from "./PatientDetailTabs/PatientProfileFormTab";
 import QuestionnaireFormTab from "./QuestionnaireFormTab";
 import AppointmentHistoryTab from "./PatientDetailTabs/AppointmentHistoryTab";
-import NotesTab from "./NotesTab";
+// import NotesTab from "./NotesTab";
+import NotesTab from "common/components/NotesTab/NotesTab";
 import { getUserData } from "./../../../../../../src/common/utils/userData";
 import { useRouter } from "next/router";
 
@@ -39,7 +40,6 @@ function PatientDetail() {
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: Number(query?.id) },
   });
-
 
   // Get patient Health History
   const [{ data }] = usePatientHealthHistoryQuery({
@@ -88,7 +88,10 @@ function PatientDetail() {
             }
             key="1"
           >
-            <PatientProfileFormTab userDetail={userData?.user as User} loggedinDoctorDetails={user} />
+            <PatientProfileFormTab
+              userDetail={userData?.user as User}
+              loggedinDoctorDetails={user}
+            />
           </TabPane>
 
           <TabPane
