@@ -176,6 +176,10 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
       endTime
       selected
     }
+    appointmentDateTime {
+      startTime
+      endTime
+    }
     doctor {
       first_name
       last_name
