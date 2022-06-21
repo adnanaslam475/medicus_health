@@ -3,6 +3,8 @@ import Image from "next/image";
 import profile from "./../../../../../../public/assets/images/your_photo.png";
 import { useMessageContext } from "./MessageContext";
 import { getUserData } from "common/utils/userData";
+import attachIcon from "./../../../../../../public/assets/images/attach.svg";
+import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
 
 type Props = {
   data: any;
@@ -11,7 +13,7 @@ type Props = {
 function MessageItem(props: Props) {
   const { user } = getUserData();
   const { data } = props;
-  const { message, senderId } = data || {};
+  const { message, senderId, messageType } = data || {};
   const { messageInfo } = useMessageContext();
   const { currentChannel } = messageInfo || {};
   const { participants } = currentChannel || {};
@@ -22,6 +24,8 @@ function MessageItem(props: Props) {
   const isMyMessage = Number(senderId) === Number(user?.id);
   const backgroundColor = isMyMessage ? "#E0EEFD" : "#F6F8FA";
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
+
+  console.log({ data });
 
   return (
     <div className="p-4">
@@ -51,9 +55,22 @@ function MessageItem(props: Props) {
                 className={`flex items-center gap-2`}
                 style={{ backgroundColor }}
               >
-                <p className={`p-3 text-secondary rounded inline-block`}>
-                  {message}
-                </p>
+                {messageType === "Text" ? (
+                  <p className={`p-3 text-secondary rounded inline-block`}>
+                    {message}
+                  </p>
+                ) : (
+                  <p className={`p-3 text-secondary rounded inline-block`}>
+                    <Image
+                      priority={true}
+                      alt=""
+                      width={25}
+                      height={25}
+                      src={fileIcon}
+                    />
+                    {message}
+                  </p>
+                )}
               </div>
             </div>
           </div>
