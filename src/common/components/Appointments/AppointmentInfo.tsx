@@ -72,8 +72,8 @@ function AppointmentInfo(props: Props) {
         </li>
       </div>
 
-      <div className="max-w-[700px] flex justify-between mt-4">
-        <div className="flex">
+      <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
+        <div className="flex flex-wrap mb-3 justify-center gap-y-2">
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]} mr-3`}
@@ -92,7 +92,7 @@ function AppointmentInfo(props: Props) {
           </Button>
           <Button
             icon={<MessageOutlined />}
-            className={`${_classes["appointments-btn"]}`}
+            className={`${_classes["appointments-btn"]} `}
             onClick={() =>
               Router.push({
                 pathname: "/patient/messages",

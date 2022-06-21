@@ -17,7 +17,7 @@ import AppointmentModalJourney from "../../../../patient/components/AppointmentM
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { getUserData } from "common/utils/userData";
 
-function RequestedAppointment() {
+function  RequestedAppointment() {
   const [dueStartDate, setStartDate] = useState<BookingDate>();
   const [dueEndDate, setEndDate] = useState<BookingDate>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -149,7 +149,8 @@ function RequestedAppointment() {
           {fetching == false ? (
             <div className="w-full">
               {appointments?.length !== 0 && appointments ? (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+                // <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 gap-4">
+                <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
                   {appointments?.map((appointmentDetail, i) => {
                     const {
                       id,

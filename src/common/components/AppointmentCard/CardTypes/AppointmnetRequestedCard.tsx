@@ -28,7 +28,7 @@ function AppointmnetRequestedCard({
     <Card className={`${_classes["appointment-card"]}`}>
       <h3 className="mb-0">Dr. {doctor}</h3>
       <span className="text-gray text-base block">{serviceType}</span>
-      <span className="text-sm mt-4 block">Date</span>
+      <span className="text-sm mt-6 block">Date</span>
       <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
       <span className="text-sm mt-4 block">Time</span>
       {appointmentTimeSlots?.length === 0 ? (

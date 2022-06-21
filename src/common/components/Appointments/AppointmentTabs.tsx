@@ -70,7 +70,7 @@ const AppointmentTabs = (props: Props) => {
           <AppointmentInfo appoinmentDetails={data} />
         </TabPane>
         <Tabs.TabPane tab="Health Questionnaire" key="2">
-          <div className="max-w-1/2">
+          <div className="md:max-w-1/2">
             <QuestionnaireForm
               data={patientHealthHistory?.patientHealthHistory?.history}
             />
