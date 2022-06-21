@@ -11,6 +11,7 @@ import {
   Appointment,
   AppointmentNote,
   GetAppointmentNoteByIdQuery,
+  GetDoctorNotesByAppIdQuery,
   useGetAppointmentNoteByIdQuery,
 } from "generated/graphql";
 import AdminNotesWithTextTab from "modules/admin/pages/AdminAppointmentsDetail/AdminNotesWithTextTab";
@@ -22,13 +23,13 @@ type Props = {
   // onFinish?: (values: any, setModalVisible: () => void) => void;
   appointment?: Appointment | undefined;
   onChange?: () => void;
-  doctorNotes?: GetAppointmentNoteByIdQuery;
+  doctorNotes?: GetDoctorNotesByAppIdQuery;
 };
 
 function NotesListingByAppointments(props: Props) {
   const { query } = useRouter();
   const appointmentId = Number(query.id);
-  const { doctorNotes } = props;
+  const { doctorNotes, appointment } = props;
 
   const [{ data }] = useGetAppointmentNoteByIdQuery({
     variables: {
@@ -63,7 +64,7 @@ function NotesListingByAppointments(props: Props) {
           />
         )}
 
-        {(getRole() === "User" || getRole() === "Admin") && (
+        {getRole() === "User" && (
           <>
             <ViewableNotes
               // appointment={appointment as Appointment}

@@ -7,6 +7,7 @@ import {
   Appointment,
   AppointmentNote,
   GetAppointmentNoteByIdQuery,
+  GetDoctorNotesByAppIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
   useDoctorAppointmentDetailAppointmentInfoQuery,
   useGetAppointmentByIdQuery,
@@ -32,24 +33,19 @@ function NotesTab({}: Props) {
     useCreateOrUpdateAppointmentNoteMutation();
 
   const { appointment } = data || {};
+  const status = appointment?.status;
   const { patient, serviceType } = appointment || {};
 
   // GET NOTES API CALL
 
   const appointmentId = Number(query.id);
 
-  const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
-    useGetAppointmentNoteByIdQuery({
+  const [{ data: notesByAppointmentId }, executeGetDoctorNotesByAppIdQuery] =
+    useGetDoctorNotesByAppIdQuery({
       variables: {
-        appointmentId,
+        id: Number(query?.id),
       },
     });
-
-  const [{ data: notesByAppointmentId }] = useGetDoctorNotesByAppIdQuery({
-    variables: {
-      id: Number(query?.id),
-    },
-  });
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
@@ -70,7 +66,7 @@ function NotesTab({}: Props) {
       notification.success({
         message: "Successfully Added",
       });
-      executeGetAppointmentNoteByIdQuery({ requestPolicy: "network-only" });
+      executeGetDoctorNotesByAppIdQuery({ requestPolicy: "network-only" });
     } else {
       notification.error({
         message: "Something went wrong",
@@ -86,20 +82,22 @@ function NotesTab({}: Props) {
       >
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
-            {!notesById && (
+            {!notesByAppointmentId && (
               <>
-                <Notes onFinish={addNote} disabled={notesById !== null} />
+                <Notes
+                  onFinish={addNote}
+                  disabled={notesByAppointmentId !== null}
+                />
                 <div className="mb-3"></div>
               </>
             )}
           </>
         )}
 
-        {/* {notesById && ( */}
         <NotesListingByAppointments
-          doctorNotes={notesById as GetAppointmentNoteByIdQuery}
+          doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
         />
-        {/* )} */}
+        {/* NotesListingByAppointments */}
       </CardWithProfileImageInfo>
     </div>
   );

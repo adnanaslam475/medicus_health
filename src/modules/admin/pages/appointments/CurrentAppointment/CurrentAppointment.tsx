@@ -7,14 +7,16 @@ import {
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   GetCurrentAppointmentInput,
+  BookingDate,
   useCurrentAppointmentsQuery,
 } from "generated/graphql";
 
 function CurrentAppointment() {
   const [filterValues, setFilterValues] = useState({});
-  const [{ data, fetching },executeUseCurrentAppointmentsQuery] = useCurrentAppointmentsQuery({
-    variables: { filter: filterValues },
-  });
+  const [{ data, fetching }, executeUseCurrentAppointmentsQuery] =
+    useCurrentAppointmentsQuery({
+      variables: { filter: filterValues },
+    });
 
   const { currentAppointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
