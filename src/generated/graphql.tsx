@@ -492,6 +492,19 @@ export type GetAppointmentInput = {
   status?: InputMaybe<Scalars['String']>;
 };
 
+export type GetCurrentAppointmentInput = {
+  appointmentId?: InputMaybe<Scalars['Int']>;
+  bookingDate?: InputMaybe<BookingDate>;
+  doctorId?: InputMaybe<Scalars['Int']>;
+  dueDate?: InputMaybe<DueDate>;
+  patientId?: InputMaybe<Scalars['Int']>;
+  paymentStatus?: InputMaybe<Scalars['String']>;
+  physicianName?: InputMaybe<Scalars['String']>;
+  searchString?: InputMaybe<Scalars['String']>;
+  serviceId?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['String']>;
+};
+
 export type GetPatientsInput = {
   countryId?: InputMaybe<Scalars['Int']>;
   searchField?: InputMaybe<Scalars['String']>;
@@ -1080,6 +1093,11 @@ export type QueryCityArgs = {
 
 export type QueryCountryArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryCurrentAppointmentsArgs = {
+  filter: GetCurrentAppointmentInput;
 };
 
 
@@ -2068,7 +2086,9 @@ export type GetDoctorNotesByAppIdQueryVariables = Exact<{
 
 export type GetDoctorNotesByAppIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, status?: string | null, doctorNote?: { __typename?: 'AppointmentNote', subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean } | null } };
 
-export type CurrentAppointmentsQueryVariables = Exact<{ [key: string]: never; }>;
+export type CurrentAppointmentsQueryVariables = Exact<{
+  filter: GetCurrentAppointmentInput;
+}>;
 
 
 export type CurrentAppointmentsQuery = { __typename?: 'Query', currentAppointments: Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, patientId?: number | null, status?: string | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }> };
@@ -4029,8 +4049,8 @@ export function useGetDoctorNotesByAppIdQuery(options: Omit<Urql.UseQueryArgs<Ge
   return Urql.useQuery<GetDoctorNotesByAppIdQuery>({ query: GetDoctorNotesByAppIdDocument, ...options });
 };
 export const CurrentAppointmentsDocument = gql`
-    query currentAppointments {
-  currentAppointments {
+    query currentAppointments($filter: GetCurrentAppointmentInput!) {
+  currentAppointments(filter: $filter) {
     id
     doctorId
     patientId
@@ -4055,7 +4075,7 @@ export const CurrentAppointmentsDocument = gql`
 }
     `;
 
-export function useCurrentAppointmentsQuery(options?: Omit<Urql.UseQueryArgs<CurrentAppointmentsQueryVariables>, 'query'>) {
+export function useCurrentAppointmentsQuery(options: Omit<Urql.UseQueryArgs<CurrentAppointmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<CurrentAppointmentsQuery>({ query: CurrentAppointmentsDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
@@ -7541,7 +7561,18 @@ export default {
                 }
               }
             },
-            "args": []
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
             "name": "doctorBillingMethod",
