@@ -36,6 +36,12 @@ export type physicianFilterType = {
     startDate?: string;
     endDate?: string;
   };
+  dueDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+  paymentStatus?:string;
+  status?:string
 };
 
 export type cancelledAppointmentFilterType = {
@@ -85,6 +91,10 @@ export type physicianMyEarningsFilterType = {
   serviceId?: number;
   earnings?: { initial: number; final: number };
   DateRange?: {
+    startDate?: string;
+    endDate?: string;
+  };
+  bookingDate?: {
     startDate?: string;
     endDate?: string;
   };

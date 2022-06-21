@@ -8,6 +8,7 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 import AdminAppointmentsFilter from "../AdminAppointmentsFilter/AdminAppointmentsFilter";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentServiceType,
   GetAppointmentInput,
   useGetPatientsQuery,
@@ -88,18 +89,17 @@ const appointmentColumns = [
   },
   {
     title: "Schedule Time",
-    dataIndex: "appointmentTimeSlots",
-    key: "appointmentTimeSlots",
+    dataIndex: "appointmentDateTime",
+    key: "appointmentDateTime",
     sorter: {
       compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
       multiple: 3,
     },
-    render: (value: Appointment) => {
-      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
-        <div>{`${date?.formatMMMMDDYYYY(
-          time?.startTime
-        )} - ${date?.formatMMMMDDYYYY(time?.endTime)} `}</div>
+        <div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formatMMMMDDYYYY(
+          appointmentDateTime?.startTime
+        )} - ${date?.formatMMMMDDYYYY(appointmentDateTime?.endTime)} ` : "--"}</div>
       );
     },
   },
