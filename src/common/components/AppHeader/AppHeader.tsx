@@ -79,58 +79,6 @@ const AppHeader = () => {
     </Menu>
   );
 
-  const notificationMenu = (
-    <div className="notification-menu-cover border border-gray-3 rounded">
-      <div className="px-3 py-2 bg-white">
-        <div className="flex border-b border-gray-4 items-start mb-3">
-          <span className=" ">
-            <Image
-              priority={true}
-              alt=""
-              className="warning-small mx-auto shadow-none border-0"
-              height={34}
-              width={34}
-              src="/assets/icon/blue_bell_Icon.svg"
-            />
-          </span>
-          <span className="notificationBody ml-3 w-full break-word">
-            Your appointment with <b>John Petrucci</b> has been confirmed.
-          </span>
-        </div>
-        <div className="flex border-b border-gray-4 items-start mb-3">
-          <span className=" ">
-            <Image
-              priority={true}
-              alt=""
-              className="warning-small mx-auto shadow-none border-0"
-              height={34}
-              width={34}
-              src="/assets/icon/blue_bell_Icon.svg"
-            />
-          </span>
-          <span className="notificationBody ml-3 w-full break-word">
-            Your appointment with <b>John Petrucci</b> has been confirmed.
-          </span>
-        </div>
-        <div className="flex border-b border-gray-4 items-start mb-3">
-          <span className=" ">
-            <Image
-              priority={true}
-              alt=""
-              className="warning-small mx-auto shadow-none border-0"
-              height={34}
-              width={34}
-              src="/assets/icon/blue_bell_Icon.svg"
-            />
-          </span>
-          <span className="notificationBody ml-3 w-full break-word">
-            Your appointment with <b>John Petrucci</b> has been confirmed.
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-
   return (
     <>
       <Header
@@ -163,30 +111,6 @@ const AppHeader = () => {
           </Skeleton>
 
           <div className="flex items-center text-right justify-end w-full md:w-1/2">
-            <span className="flex mt-3 pr-5">
-              <Dropdown
-                overlay={notificationMenu}
-                placement="bottomLeft"
-                className="flex items-center"
-              >
-                <a
-                  className="ant-dropdown-link"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <Badge count={12}>
-                    <Image
-                      priority={true}
-                      alt=""
-                      className="warning-small mx-auto shadow-none border-0"
-                      height={34}
-                      width={34}
-                      src="/assets/icon/bell_Icon.svg"
-                    />
-                  </Badge>
-                </a>
-              </Dropdown>
-            </span>
-
             <Dropdown
               className="flex items-center"
               overlay={menu}
