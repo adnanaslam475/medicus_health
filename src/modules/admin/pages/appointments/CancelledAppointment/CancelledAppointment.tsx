@@ -60,7 +60,7 @@ function CancelledAppointment() {
           </Button>
         </div>
 
-        <div className="w-5/6">
+        <div className="md:w-5/6">
           <SearchFilters
             setStartDate={setStartDate}
             setEndDate={setEndDate}
@@ -74,7 +74,8 @@ function CancelledAppointment() {
         {fetching == false ? (
           <div className="w-full">
             {appointments?.length !== 0 && appointments ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              // <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
                 {appointments?.map((appointmentDetail, i) => {
                   const {
                     requestedDate,

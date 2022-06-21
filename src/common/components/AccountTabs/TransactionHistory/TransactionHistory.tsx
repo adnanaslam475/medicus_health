@@ -152,6 +152,7 @@ const TransactionHistory = (props: Props) => {
       columns={transactionsColumns}
       dataSource={data}
       onChange={onChange}
+      scroll={{x:true}}
     />
   );
 };

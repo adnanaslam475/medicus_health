@@ -34,21 +34,21 @@ function AppointmnetConfirmedCard({
   }, [selectedAppointment]);
 
   return (
-    <Card className={`${_classes["appointment-card"]}`}>
+    <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
       <h3 className="mb-0">Dr. {doctor}</h3>
-      <span className="text-gray text-base block">{serviceType}</span>
+      <span className="text-gray text-base block mb-4">{serviceType}</span>
       <span className="text-sm pt-5">Date</span>
-      <h6>{date.formatMMMMDDYYYY(selectedAppointment?.startTime)}</h6>
+      <h6 className="mb-4">{date.formatMMMMDDYYYY(selectedAppointment?.startTime)}</h6>
       <span className="text-sm">Time</span>
       {!selectedAppointment ? (
-        <div className="text-cyan font-semibold">{" - "}</div>
+        <div className="text-cyan font-semibold mb-4">{" - "}</div>
       ) : (
-        <div className="text-cyan font-semibold">{`${date.formathhmma(
+        <div className="text-cyan font-semibold mb-4">{`${date.formathhmma(
           selectedAppointment?.startTime
         )} - ${date.formathhmma(selectedAppointment?.endTime)}`}</div>
       )}
       <span className="text-base text-primary font-bold ">{status}</span>
-      <div className="flex">
+      <div className="flex mt-4">
         <Button
           type={"primary"}
           icon={<VideoCameraFilled />}

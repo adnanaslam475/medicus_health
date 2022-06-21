@@ -41,7 +41,7 @@ function EmailNotificationPage() {
 
   return (
     <div>
-      <div className="flex md:flex-row gap-0 max-w-[60%]">
+      <div className="flex md:flex-row gap-0 md:max-w-[60%]">
         <div className=" w-full border py-0 rounded-lg border-gray-7">
           {patientEmailPreferencesData?.map((item) => {
             return (

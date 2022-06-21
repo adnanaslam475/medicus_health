@@ -12,6 +12,9 @@
     // .btn-transparent{
     //     background-color: transparent !important;
     // }   
+    :global .ant-card-body{
+      min-width: 330px !important;
+    }
 
 
 
