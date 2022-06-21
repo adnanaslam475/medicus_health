@@ -69,6 +69,7 @@ function MultiRangeDatePicker(props: Props) {
             format="h:mm A"
             onChange={onChange}
             className={`${_Classes["timeRangePicker"]} flex flex-1 rounded-lg`}
+            order={false}
           />
           <Button
             icon={<PlusOutlined className="font-bold text-sm pb-0.5" />}

@@ -16,6 +16,7 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 import { useRouter } from "next/router";
 import { date } from "common/utils";
 import AdminPatientAppointmentSearchFilters from "./AdminPatientAppointmentSearchFilters";
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 
 type StatusName =
   | "UPCOMING"
@@ -41,6 +42,10 @@ function AdminPatientAppointmentList() {
       },
     });
   const { appointments } = data || {};
+  const patientFirstName = appointments && appointments[0]?.patient?.first_name
+  const patientLastName = appointments && appointments[0]?.patient?.last_name
+  const patientEmail = appointments && appointments[0]?.patient?.email
+  const patientProfilePicture = appointments && appointments[0]?.patient?.patientProfile?.profileImage
 
   // Physician Payment By Admin Mutatio
   const [result, PhysicianPaymentByAdmin] =
@@ -111,13 +116,17 @@ function AdminPatientAppointmentList() {
       title: "Time Slot",
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
-			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-				return (
-					<div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formathhmma(
-						appointmentDateTime?.startTime
-					)} - ${date?.formathhmma(appointmentDateTime.endTime)}` : "--"}</div>
-				);
-			},
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        return (
+          <div>
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${date?.formathhmma(
+                  appointmentDateTime?.startTime
+                )} - ${date?.formathhmma(appointmentDateTime.endTime)}`
+              : "--"}
+          </div>
+        );
+      },
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
@@ -129,9 +138,11 @@ function AdminPatientAppointmentList() {
       key: "appointmentDateTime",
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-          <div className="someclass">{appointmentDateTime?.startTime ?`${date?.formatMMMMDDYYYY(
-            appointmentDateTime?.startTime
-          )} ` : "--"}</div>
+          <div className="someclass">
+            {appointmentDateTime?.startTime
+              ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+              : "--"}
+          </div>
         );
       },
       sorter: {
@@ -191,18 +202,22 @@ function AdminPatientAppointmentList() {
 
   return (
     <div className="w-full">
-      <div className="flex justify-between">
-        <h2 className="pb-0">Appointments</h2>
-      </div>
-
-      <AdminPatientAppointmentSearchFilters
-        onChange={onChangeFilters}
-      />
-      <div className="w-full">
-        <div>
-          <Table columns={columns} dataSource={appointments} />
+      <CardWithProfileImageInfo
+        name={`${patientFirstName} ${patientLastName}`}
+        serviceName={patientEmail}
+        imageUrl={patientProfilePicture}
+      >
+        <div className="flex justify-between">
+          <h2 className="pb-0">Appointments</h2>
         </div>
-      </div>
+
+        <AdminPatientAppointmentSearchFilters onChange={onChangeFilters} />
+        <div className="w-full">
+          <div>
+            <Table columns={columns} dataSource={appointments} />
+          </div>
+        </div>
+      </CardWithProfileImageInfo>
     </div>
   );
 }
