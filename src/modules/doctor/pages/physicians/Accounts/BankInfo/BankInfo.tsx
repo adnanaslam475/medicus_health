@@ -136,9 +136,9 @@ function BankInfo() {
       )}
 
       {isCreateMode && (
-        <div className=" bg-white -ml-7 fixed bottom-0  w-full  border-t border-gray-4  items-center ">
+        <div className=" bg-white    border-t border-gray-4  items-center flex justify-end ">
           <Form.Item className="">
-            <div className="items-center  -mb-5 mt-2  w-4/5 xl:w-4/6 2xl:w-4/5 flex justify-end gap-3">
+            <div className="items-center  -mb-5 mt-2  ">
               <Button
                 onClick={() => formRef.current?.submit()}
                 type="primary"

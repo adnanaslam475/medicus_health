@@ -11,7 +11,8 @@ import {
 import { Tabs } from "antd";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
-import NotesTab from "./../../appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
+// import NotesTab from "./NotesTabForPhysician";
+import NotesTab from "common/components/NotesTab/NotesTab";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import Attachment from "common/components/Attachment/Attachment";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
@@ -44,8 +45,8 @@ function UpcomingAppointmentsDetailDoctor() {
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
     urlArr = urlArr?.flat(1)?.map((item: any) => ({
-      name: item.name,
-      url: item.url,
+      name: item?.name,
+      url: item?.url,
     }));
   }
   //Get Patient ID

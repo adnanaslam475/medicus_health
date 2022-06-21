@@ -11,7 +11,9 @@ import { QuestionnaireForm } from "../Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
 import Attachment from "../Attachment/Attachment";
 import { AttachmentObject } from "common/types/types";
-import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
+import Notes from "../Notes/Notes";
+// import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
+import NotesTab from "common/components/NotesTab/NotesTab";
 const { TabPane } = Tabs;
 
 type Props = {

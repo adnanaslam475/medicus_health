@@ -569,6 +569,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               className={`${_classes["appointments-btn"]}`}
               onClick={onProposeNewTimeSlot}
               type="primary"
+              disabled={slots.length > 0 ? false : true}
             >
               Submit
             </Button>

@@ -14,7 +14,8 @@ import {
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
-import NotesTab from "../appointments/UpcomingAppointmentsDetailDoctor/NotesTab";
+// import NotesTab from "../appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
+import NotesTab from "common/components/NotesTab/NotesTab";
 
 function PhysicianAppointmentHistoryDetail() {
   const { query } = useRouter();
