@@ -61,6 +61,8 @@ query getPatients($filter: GetPatientsInput!) {
     last_name
     email
     contact_number
+    createdAt
+    streetAddress
     zip_code
     state {
       state_name

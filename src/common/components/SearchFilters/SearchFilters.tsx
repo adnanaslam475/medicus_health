@@ -124,7 +124,7 @@ function SearchFilters(props: Props) {
     >
       <span className="text-gray-1 mr-3 mb-3 sm:block">Filter</span>
       <div className="flex-none sm:flex">
-        <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-0 lg:mr-0">
+        <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-2 sm:mr-0">
           <Input
             placeholder={"Search by ID"}
             prefix={<SearchOutlined />}
@@ -143,7 +143,7 @@ function SearchFilters(props: Props) {
             />
           </div>
         ) : (
-          <div className=" sm:mb-0 w-full md:w-44 xl:w-60 mx-2 lg:mx-3 mb-2">
+          <div className=" sm:mb-0  w-full md:w-44 xl:w-60 mr-3 mb-2 sm:pl-3">
             <Select
               placeholder="Physician"
               className={`${searchStyle.placeholderColor} w-full`}

@@ -96,11 +96,16 @@ const AppHeader = () => {
         <div className="w-full flex px-0 justify-between items-center">
           <Skeleton loading={fetching} paragraph={{ rows: 0 }} active>
             <div className="hidden md:block w-full ">
+              <div className="p-0">
+                {getRole() === "Doctor" ? <InfoMessageBannerReminder /> : null}
+              </div>
+
+              {/* if patient health questionnaire completed than showing appointment banner 
+              otherwise health questionnaire complete banner */}
+
               {patientHealthHistory?.patientHealthHistory ? (
                 <div className="p-0">
-                  {getRole() === "Doctor" || getRole() === "User" ? (
-                    <InfoMessageBannerReminder />
-                  ) : null}
+                  {getRole() === "User" ? <InfoMessageBannerReminder /> : null}
                 </div>
               ) : (
                 <div className="p-0">

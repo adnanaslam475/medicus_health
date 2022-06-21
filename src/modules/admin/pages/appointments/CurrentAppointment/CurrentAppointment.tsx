@@ -7,14 +7,16 @@ import {
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   GetCurrentAppointmentInput,
+  BookingDate,
   useCurrentAppointmentsQuery,
 } from "generated/graphql";
 
 function CurrentAppointment() {
   const [filterValues, setFilterValues] = useState({});
-  const [{ data, fetching },executeUseCurrentAppointmentsQuery] = useCurrentAppointmentsQuery({
-    variables: { filter: filterValues },
-  });
+  const [{ data, fetching }, executeUseCurrentAppointmentsQuery] =
+    useCurrentAppointmentsQuery({
+      variables: { filter: filterValues },
+    });
 
   const { currentAppointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -40,13 +42,14 @@ function CurrentAppointment() {
           </div>
         </div>
 
-        <div className="w-5/6">
+        <div className="md:w-5/6">
           <SearchFilter onChange={onChangeFilters} />
         </div>
         {!fetching ? (
           <div className="w-full">
             {currentAppointments?.length ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              // <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
                 {currentAppointments?.map((currentAppointment) => {
                   return (
                     <AppointmentCard

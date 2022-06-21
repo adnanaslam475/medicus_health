@@ -1,10 +1,11 @@
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import React, { useState } from "react";
-import _classes from "./NotesWithText.module.scss";
+import _classes from "./EditableNotes.module.scss";
 import {
   Appointment,
   AppointmentNote,
   GetAppointmentNoteByIdQuery,
+  GetDoctorNotesByAppIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
   useGetAppointmentNoteByIdQuery,
   useRemoveAppointmentNoteMutation,
@@ -19,7 +20,7 @@ import { CloseOutlined } from "@ant-design/icons";
 
 type Props = {
   appointment?: Appointment | undefined;
-  doctorNotes?: GetAppointmentNoteByIdQuery | undefined;
+  doctorNotes?: GetDoctorNotesByAppIdQuery;
 };
 
 function EditableNotes({ doctorNotes }: Props) {
@@ -35,20 +36,16 @@ function EditableNotes({ doctorNotes }: Props) {
     setNoteType(value);
   }
 
-  const { appointmentNote } = doctorNotes || {};
+  const { doctorNote } = doctorNotes?.appointment || {};
 
-  const { note, subjective, objective, assessment, plan } =
-    appointmentNote || {};
+  const { note, subjective, objective, assessment, plan } = doctorNote || {};
 
   const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
     useCreateOrUpdateAppointmentNoteMutation();
 
-  console.log(notes, "notesnotesnotesnotes");
-
   // ADD NOTES API CALL
 
   const addNote = async (value: any) => {
-    console.log({ value });
     const res = await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
@@ -83,8 +80,6 @@ function EditableNotes({ doctorNotes }: Props) {
 
   const { appointmentNote: currentNote } = notesById || {};
   const { id: noteId } = currentNote || {};
-
-  console.log("get note", notesById);
 
   // REMOVE NOTES API CALL
 
@@ -148,14 +143,16 @@ function EditableNotes({ doctorNotes }: Props) {
         )} */}
         {/* {noteType == "soap" && ( */}
         <>
-          <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE & SOAP</h4>
+          {/* <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE & SOAP</h4> */}
 
-          <AcronymWithTextEditable
-            editable={edit}
-            character={"N"}
-            word={"Note"}
-            sentence={note || "No Details"}
-          />
+          <div className={`${_classes["narrative-cover"]} `}>
+            <AcronymWithTextEditable
+              editable={edit}
+              character={"N"}
+              word={"NARRATIVE"}
+              sentence={note || "No Details"}
+            />
+          </div>
 
           <AcronymWithTextEditable
             editable={edit}
