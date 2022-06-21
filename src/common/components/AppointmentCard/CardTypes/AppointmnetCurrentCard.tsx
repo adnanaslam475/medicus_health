@@ -60,14 +60,12 @@ function AppointmnetCurrentCard({
       <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Time</span>
-      {
         <div className="text-cyan font-semibold">
           {appointmentDateTime?.endTime && appointmentDateTime?.startTime
             ? `${date.formathhmma(appointmentDateTime?.startTime)}
              - ${date.formathhmma(appointmentDateTime?.endTime)}`
             : "--"}
         </div>
-      }
       <Space direction="vertical" size="middle" />
       <span className="text-base text-green-3 font-bold ">{status}</span>
       <Space direction="vertical" size="middle" />

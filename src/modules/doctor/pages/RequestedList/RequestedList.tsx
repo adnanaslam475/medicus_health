@@ -4,6 +4,7 @@ import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
   DoctorSchedule,
@@ -86,18 +87,20 @@ const RequestedList = (props: Props) => {
     },
     {
       title: "Time",
-      dataIndex: "appointmentSchedule",
-      key: "appointmentSchedule",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
         multiple: 3,
       },
-      render: (value: DoctorSchedule) => {
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-          <div className="someclass">
-            {value?.startTime
-              ? `${value?.startTime} - ${value?.endTime}`
-              : "--"}
+          <div >
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${date?.formathhmma(
+                  appointmentDateTime?.startTime
+                )} - ${date?.formathhmma(appointmentDateTime?.endTime)}`
+              : "-"}
           </div>
         );
       },

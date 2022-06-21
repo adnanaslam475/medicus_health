@@ -3,6 +3,7 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   BookingDate,
   useGetAllRequestedAppointmentsQuery,
@@ -159,6 +160,7 @@ function  RequestedAppointment() {
                       serviceType,
                       doctor,
                       appointmentTimeSlots,
+                      appointmentDateTime
                     } = appointmentDetail || {};
                     return (
                       <AppointmentCard
@@ -170,6 +172,10 @@ function  RequestedAppointment() {
                         appointmentTimeSlots={
                           appointmentTimeSlots as AppointmentTimeSlots[]
                         }
+                        appointmentDateTime={
+                          appointmentDateTime as AppointmentDateTimeResponse
+                        }
+                        
                         onViewSuggestedSlots={() =>
                           onViewSuggestedSlots(Number(appointmentDetail?.id))
                         }
