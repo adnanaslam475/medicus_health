@@ -110,7 +110,7 @@ function AdminSettings() {
             <div className="flex">
               <Form.Item
                 label="Total Charges"
-                name="totalChargesConsultation"
+                name="total_consultation_charges"
                 className="font-bold text-black"
               >
                 <InputNumber addonBefore="$" type="number" min={0} />
@@ -120,7 +120,7 @@ function AdminSettings() {
             <div className="flex">
               <Form.Item
                 label="Medicus Cut"
-                name="totalChargesConsultationMedicus"
+                name="consultation_charges_medicus_cut"
                 className={`${_classes["label-design"]}`}
               >
                 <InputNumber addonAfter="%" type="number" min={0} />
@@ -138,7 +138,7 @@ function AdminSettings() {
             <div className="flex">
               <Form.Item
                 label="Physician Cut"
-                name="totalChargesConsultationPhysician"
+                name="consultation_charges_physician_cut"
                 className="font-bold text-black"
               >
                 <InputNumber addonAfter="%" type="number" min={0} />
@@ -160,7 +160,7 @@ function AdminSettings() {
               <div className="flex">
                 <Form.Item
                   label="Total Charges"
-                  name="totalChargesSecondOpnion"
+                  name="total_second_opinion_charges"
                   className="font-bold text-black"
                 >
                   <InputNumber addonBefore="$" type="number" min={0} />
@@ -170,7 +170,7 @@ function AdminSettings() {
               <div className="flex">
                 <Form.Item
                   label="Medicus Cut"
-                  name="totalChargesSecondOpnionMedicus"
+                  name="second_opinion_charges_medicus_cut"
                   className="font-bold text-black"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
@@ -188,7 +188,7 @@ function AdminSettings() {
               <div className="flex">
                 <Form.Item
                   label="Physician Cut"
-                  name="totalChargesSecondOpnionPhysician"
+                  name="second_opinion_charges_physician_cut"
                   className="font-bold text-black"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
@@ -209,7 +209,7 @@ function AdminSettings() {
               <div className="flex">
                 <Form.Item
                   label="California"
-                  name="california"
+                  name="california_state_tax"
                   className="font-bold text-black"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
@@ -219,7 +219,7 @@ function AdminSettings() {
               <div className="flex">
                 <Form.Item
                   label="Washington"
-                  name="washington"
+                  name="washington_state_tax"
                   className="font-bold text-black"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
@@ -228,7 +228,7 @@ function AdminSettings() {
               <div className="flex">
                 <Form.Item
                   label="Texas"
-                  name="texas"
+                  name="taxes_state_tax"
                   className="font-bold text-black"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
