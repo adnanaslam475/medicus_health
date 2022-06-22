@@ -80,10 +80,10 @@ const InputFields = ({
                     (item: CountryOrStateProps | any) => {
                       return (
                         <Select.Option
-                          value={value.options?.length ? item.value : item.id}
+                          value={value.options?.length ? `${item?.value?.charAt(0)?.toUpperCase()}${item?.value?.slice(1)}` : item.id}
                         >
                           {value.options?.length
-                            ? item.value
+                            ? `${item?.value?.charAt(0)?.toUpperCase()}${item?.value?.slice(1)}`
                             : item[value.option_name]}
                         </Select.Option>
                       );

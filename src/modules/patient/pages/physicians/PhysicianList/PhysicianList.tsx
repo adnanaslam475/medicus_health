@@ -18,7 +18,7 @@ function Physicians() {
               If you need help in selecting a suitable physician, our admin team
               is a
               <span>
-                <Link href="/">
+                <Link href="/patient/messages">
                   <a className="underline text-primary px-3 whitespace-nowrap">
                     message away
                   </a>

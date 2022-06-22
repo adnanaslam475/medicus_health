@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input, Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { BOOKING, CONFIRMED, SCHEDULED } from "common/constants/status";
+import { BOOKING, UPCOMING, SCHEDULED } from "common/constants/status";
 import {
   BookingDate,
   GetAdminUsersFilterInput,
@@ -33,6 +33,8 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
   //   [search]
   // );
 
+  console.log(filterValues, "filterValuesfilterValues");
+
   function clear() {
     onChange({});
   }
@@ -61,6 +63,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
       ...filterValues,
       [key]: value,
     };
+    console.log(filters, "myfilters");
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
     }
@@ -137,8 +140,8 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 endDate: dateString[1],
               })
             }
-            open={openDateRange === CONFIRMED}
-            onOpen={() => setOpenDateRange(CONFIRMED)}
+            open={openDateRange === UPCOMING}
+            onOpen={() => setOpenDateRange(UPCOMING)}
             onCancel={() => setOpenDateRange("")}
             onApply={() => applyDateRange("dueDate")}
             title={

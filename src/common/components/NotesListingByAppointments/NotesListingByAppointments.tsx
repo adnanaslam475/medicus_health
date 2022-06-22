@@ -47,6 +47,12 @@ function NotesListingByAppointments(props: Props) {
     console.log(key);
   };
 
+  const appointmentChild = appointment;
+
+  const actualDoctorNotes = appointmentChild?.doctorNote;
+
+  // console.log(actualDoctorNotes, "notesByAppointmentId");
+
   return (
     <>
       <div className="flex justify-start flex-col py-3 border border-gray-9 rounded p-4">
@@ -57,12 +63,15 @@ function NotesListingByAppointments(props: Props) {
         > */}
         {/* <Panel className="w-full" header="Appointment Note" key="1"> */}
 
-        {(getRole() === "Admin" || getRole() === "Doctor") && (
-          <EditableNotes
-            // appointment={appointment as Appointment}
-            doctorNotes={doctorNotes}
-          />
-        )}
+        {(getRole() === "Admin" || getRole() === "Doctor") &&
+          actualDoctorNotes !== null && (
+            <>
+              <EditableNotes
+                // appointment={appointment as Appointment}
+                doctorNotes={doctorNotes}
+              />
+            </>
+          )}
 
         {getRole() === "User" && (
           <>

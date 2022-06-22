@@ -1787,7 +1787,7 @@ export type CreateAdminSettingsMutationVariables = Exact<{
 }>;
 
 
-export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: Array<{ __typename?: 'AdminSetting', id: number, key: string, value: string }> };
+export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: Array<{ __typename?: 'AdminSetting', key: string, value: string }> };
 
 export type AdminUserQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -2874,7 +2874,6 @@ export function usePhysicianPaymentByAdminMutation() {
 export const CreateAdminSettingsDocument = gql`
     mutation createAdminSettings($createAdminSettingInput: [CreateAdminSettingInput!]!) {
   createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
-    id
     key
     value
   }

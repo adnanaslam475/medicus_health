@@ -47,6 +47,12 @@ function NotesTab({}: Props) {
       },
     });
 
+  console.log(notesByAppointmentId, "notesByAppointmentIdnotesByAppointmentId");
+
+  const appointmentChild = notesByAppointmentId;
+
+  const actualDoctorNotes = appointmentChild?.appointment.doctorNote;
+
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
     const res = await createOrUpdateAppointmentNote({
@@ -82,11 +88,12 @@ function NotesTab({}: Props) {
       >
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
-            {!notesByAppointmentId && (
+            {/* {!notesByAppointmentId && ( */}
+            {!actualDoctorNotes && (
               <>
                 <Notes
                   onFinish={addNote}
-                  disabled={notesByAppointmentId !== null}
+                  disabled={actualDoctorNotes !== null}
                 />
                 <div className="mb-3"></div>
               </>
@@ -94,9 +101,12 @@ function NotesTab({}: Props) {
           </>
         )}
 
-        <NotesListingByAppointments
-          doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
-        />
+        {actualDoctorNotes && (
+          <NotesListingByAppointments
+            doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
+          />
+        )}
+
         {/* NotesListingByAppointments */}
       </CardWithProfileImageInfo>
     </div>
