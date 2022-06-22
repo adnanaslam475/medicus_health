@@ -33,6 +33,8 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
   //   [search]
   // );
 
+  console.log(filterValues, "filterValuesfilterValues");
+
   function clear() {
     onChange({});
   }
@@ -61,7 +63,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
       ...filterValues,
       [key]: value,
     };
-    console.log(value, "myfilters");
+    console.log(filters, "myfilters");
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
     }
