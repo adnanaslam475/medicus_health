@@ -19,7 +19,6 @@ function EmailNotification(props: Props) {
         </div>
       </div>
       <div className="text-primary">
-    {console.log(checked,"fff")}
         <Switch checked={checked == null ? false: checked} onChange={onChange} disabled={disabled} />
       </div>
     </div>
