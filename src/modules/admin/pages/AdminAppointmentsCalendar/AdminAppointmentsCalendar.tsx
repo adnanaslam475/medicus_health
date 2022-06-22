@@ -42,7 +42,7 @@ function AdminAppointmentsCalendar() {
       startDate: data?.extendedProps?.appointmentTimeSlots?.startTime,
       endDate: data?.extendedProps?.appointmentTimeSlots?.endTime,
       status: data?.status,
-      charges: data?.extendedProps?.total,
+      charges: data?.extendedProps?.total || data?.extendedProps?.charges,
       type: "Assignment",
     });
 
