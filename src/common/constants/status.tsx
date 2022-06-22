@@ -10,3 +10,5 @@ export const REQUESTED = "Requested";
 export const SUGGESTED = "Suggested";
 export const ACTIVE = "Enable";
 export const INACTIVE = "Disable";
+export const PAID = "Paid";
+export const UNPAID = "Unpaid";

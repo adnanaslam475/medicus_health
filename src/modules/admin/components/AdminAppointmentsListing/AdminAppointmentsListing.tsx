@@ -18,6 +18,7 @@ import {
 } from "generated/graphql";
 import { date } from "common/utils";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import { StatusName } from "common/types/types";
 
 type AdminData = {
   patientList: User[];
@@ -97,9 +98,13 @@ const appointmentColumns = [
     },
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
-        <div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formatMMMMDDYYYY(
-          appointmentDateTime?.startTime
-        )} - ${date?.formatMMMMDDYYYY(appointmentDateTime?.endTime)} ` : "--"}</div>
+        <div>
+          {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+            ? `${date?.formatMMMMDDYYYY(
+                appointmentDateTime?.startTime
+              )} - ${date?.formatMMMMDDYYYY(appointmentDateTime?.endTime)} `
+            : "--"}
+        </div>
       );
     },
   },
@@ -122,9 +127,15 @@ const appointmentColumns = [
     key: "transaction",
     className: "table-action-icon",
     render: (value: any) => {
+      let _status = null;
+      if (value?.status === "succeeded") {
+        _status = "paid";
+      } else {
+        _status = "Unpaid";
+      }
       return (
         <div className="text-primary">
-          <StatusChip type={value?.status.toUpperCase()} />
+          <StatusChip type={_status.toUpperCase() as StatusName} />
         </div>
       );
     },
