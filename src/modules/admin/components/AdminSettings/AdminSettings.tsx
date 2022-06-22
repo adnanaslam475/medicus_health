@@ -68,31 +68,34 @@ function AdminSettings() {
 
   // calculating Medicus and Physician Cut
   const changesValue = (changedValues: any, allValues: any) => {
-    const totalChargesConsultation = allValues?.totalChargesConsultation / 100;
+    const total_consultation_charges =
+      allValues?.total_consultation_charges / 100;
 
     //Consultation Medicus Cut
-    const consultationMedicusCut =
-      allValues?.totalChargesConsultationMedicus * totalChargesConsultation;
-    setConsultationMedicusCut(consultationMedicusCut);
+    const consultation_charges_medicus_cut =
+      allValues?.consultation_charges_medicus_cut * total_consultation_charges;
+    setConsultationMedicusCut(consultation_charges_medicus_cut);
 
     //Consultation Physician Cut
-    const totalChargesConsultationPhysicianCut =
-      allValues?.totalChargesConsultationPhysician * totalChargesConsultation;
-    setTotalChargesConsultationPhysicianCut(
-      totalChargesConsultationPhysicianCut
-    );
+    const consultation_charges_physician_cut =
+      allValues?.consultation_charges_physician_cut *
+      total_consultation_charges;
+    setTotalChargesConsultationPhysicianCut(consultation_charges_physician_cut);
 
-    const totalChargesSecondOpnion = allValues?.totalChargesSecondOpnion / 100;
+    const total_second_opinion_charges =
+      allValues?.total_second_opinion_charges / 100;
 
     //Second Opnion Medicus Cut
-    const secondOpnionMedicusCut =
-      allValues?.totalChargesSecondOpnionMedicus * totalChargesSecondOpnion;
-    setSecondOpinionMedicusCut(secondOpnionMedicusCut);
+    const second_opinion_charges_medicus_cut =
+      allValues?.second_opinion_charges_medicus_cut *
+      total_second_opinion_charges;
+    setSecondOpinionMedicusCut(second_opinion_charges_medicus_cut);
 
     //Second Opnion Physician Cut
-    const secondOpnionPhysicianCut =
-      allValues?.totalChargesSecondOpnionPhysician * totalChargesSecondOpnion;
-    setSecondOpinionPhysicianCut(secondOpnionPhysicianCut);
+    const second_opinion_charges_physician_cut =
+      allValues?.second_opinion_charges_physician_cut *
+      total_second_opinion_charges;
+    setSecondOpinionPhysicianCut(second_opinion_charges_physician_cut);
   };
   return (
     <AppLayout>
