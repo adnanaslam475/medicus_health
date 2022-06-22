@@ -229,7 +229,7 @@ function AdminCalender(props: Props) {
                   return [`${_Classes["clsCompleted"]}`];
                 }
                 if (arg.event.extendedProps?.status === "Cancelled") {
-                  return [`${_Classes["clsCancelled"]}`];
+                  return [`${_Classes["clsCanceled"]}`];
                 }
                 if (arg.event.extendedProps?.status === "Suggested") {
                   return [`${_Classes["clsUpcoming"]}`];
