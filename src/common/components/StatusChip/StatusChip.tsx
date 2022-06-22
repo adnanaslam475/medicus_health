@@ -10,6 +10,8 @@ import {
   REQUESTED,
   ACTIVE,
   INACTIVE,
+  PAID,
+  UNPAID,
 } from "../../constants/status";
 type StatusName =
   | "UPCOMING"
@@ -21,7 +23,9 @@ type StatusName =
   | "SUGGESTED"
   | "CANCELLED"
   | "TRUE"
-  | "FALSE";
+  | "FALSE"
+  | "PAID"
+  | "UNPAID";
 
 type StatusType<K extends StatusName> = {
   [k in K]: {
@@ -92,6 +96,18 @@ const classesAccordingToType: StatusType<StatusName> = {
     color: "text-red",
     text: INACTIVE || "InActive",
     border: "border border-red-1",
+  },
+  PAID: {
+    background: "bg-green",
+    color: "text-green-1",
+    text: PAID,
+    border: "border border-green",
+  },
+  UNPAID: {
+    background: "bg-yellow-1",
+    color: "text-yellow",
+    text: UNPAID,
+    border: "border border-yellow-1",
   },
 };
 
