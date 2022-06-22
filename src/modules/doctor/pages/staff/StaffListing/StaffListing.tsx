@@ -11,7 +11,7 @@ import {
   useGetAllStaffByDoctorQuery,
   User,
 } from "generated/graphql";
-import { getUserData } from "common/utils/userData";
+import { getRole, getUserData } from "common/utils/userData";
 import { useRouter } from "next/router";
 import { GraphQLError } from "graphql";
 
@@ -45,21 +45,25 @@ function StaffListing() {
       const response = await createStaff({
         createStaffInput: {
           ...values,
+          doctorId: getRole() === "Admin" ? Number(query?.id) : Number(id),
           first_name: values?.first_name,
           last_name: values?.last_name,
           email: values?.email,
           contact_number: values?.contact_number,
-          doctorId: Number(id),
         },
       });
       if (response?.error) {
-        let graphQLError = response?.error?.graphQLErrors[0]?.extensions?.response as GraphQLError
-        let customError = response?.error?.graphQLErrors[0]?.extensions?.exception as GraphQLError
-        let errorMessage = graphQLError?.message[0] || customError?.message || "Something went wrong"
+        let graphQLError = response?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = response?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          "Something went wrong";
         response?.error?.graphQLErrors[0]?.message &&
           notification.error({
-            message:
-            errorMessage
+            message: errorMessage,
           });
       }
       if (response.data) {
@@ -109,7 +113,7 @@ function StaffListing() {
         </div>
         <div className="w-full">
           {staff?.length ? (
-            <StaffTable dataSource={staff as User[]} loading={loading}  />
+            <StaffTable dataSource={staff as User[]} loading={loading} />
           ) : (
             <div className="flex items-center justify-center w-full">
               <Empty />
