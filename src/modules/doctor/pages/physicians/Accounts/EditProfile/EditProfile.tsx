@@ -14,6 +14,7 @@ import {
   notification,
   Select,
   DatePicker,
+  Tooltip,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
@@ -32,7 +33,7 @@ import { RangeValue } from "rc-picker/lib/interface";
 import { parseJson } from "common/utils/helper";
 import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 
 const { TextArea } = Input;
 
@@ -85,7 +86,11 @@ function EditProfile({
   });
 
   const user = getUserData();
-  const { email: loggedInUserEmail } = user?.user || {};
+  const { email: loggedInUserEmail, id: loggedInUserId } = user?.user || {};
+
+  const router = useRouter();
+
+  const { pathname, query } = router || {};
 
   const {
     id,
@@ -163,75 +168,77 @@ function EditProfile({
   };
 
   const updateDoctorProfile = async (values: any) => {
-    if (doctorData) {
-      const res = await updateDoctor({
-        updateDoctorProfileInput: {
-          doctor_id: id,
-          first_name: values?.firstName || "",
-          last_name: values?.lastName || "",
-          specialization: values?.specialization || "",
-          year_of_experience: Number(values?.year_of_experience || 0),
-          email: values?.email || "",
-          password: values?.password,
-          profile_image: image || userProfileImage,
-          about_me: values?.about_me || "",
-          condition_treated: condition_treated,
-          language: physicianLanguage || "",
-          educational_background: [
-            {
-              institution: values["eb-institution-0"],
-              degree: values["eb-degree-0"],
-            },
-            {
-              institution: values["eb-institution-1"],
-              degree: values["eb-degree-1"],
-            },
-          ],
-          professional_experience: [
-            {
-              institution: values["pe-institution-0"],
-              role: values["pe-role-0"],
-            },
-            {
-              institution: values["pe-institution-1"],
-              role: values["pe-role-1"],
-            },
-            {
-              institution: values["pe-institution-2"],
-              role: values["pe-role-2"],
-            },
-          ],
-        },
-      });
+    // if (doctorData) {
+    const res = await updateDoctor({
+      updateDoctorProfileInput: {
+        doctor_id: pathname.includes("/admin/physicians")
+          ? Number(query?.id)
+          : Number(id) || Number(loggedInUserId),
+        first_name: values?.firstName || "",
+        last_name: values?.lastName || "",
+        specialization: values?.specialization || "",
+        year_of_experience: Number(values?.year_of_experience || 0),
+        email: values?.email || "",
+        password: values?.password,
+        profile_image: image || userProfileImage || "",
+        about_me: values?.about_me || "",
+        condition_treated: condition_treated,
+        language: physicianLanguage || "",
+        educational_background: [
+          {
+            institution: values["eb-institution-0"],
+            degree: values["eb-degree-0"],
+          },
+          {
+            institution: values["eb-institution-1"],
+            degree: values["eb-degree-1"],
+          },
+        ],
+        professional_experience: [
+          {
+            institution: values["pe-institution-0"],
+            role: values["pe-role-0"],
+          },
+          {
+            institution: values["pe-institution-1"],
+            role: values["pe-role-1"],
+          },
+          {
+            institution: values["pe-institution-2"],
+            role: values["pe-role-2"],
+          },
+        ],
+      },
+    });
 
-      if (res?.data) {
-        res?.data?.updateDoctorProfile &&
+    if (res?.data) {
+      res?.data?.updateDoctorProfile &&
+        notification.success({
+          message: "Updated Successfully",
+        });
+      if (getRole() === "Doctor") {
+        //checking logged in user email matched with updated email
+        let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
+        let emailMatched = emailRegExpression.test(values?.email);
+
+        // if user changed the email logged out the user
+        if (!emailMatched) {
           notification.success({
-            message: "Updated Successfully",
+            message: "Credentials Updated User Logged out",
           });
-        if (getRole() === "Doctor") {
-          //checking logged in user email matched with updated email
-          let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
-          let emailMatched = emailRegExpression.test(values?.email);
-
-          // if user changed the email logged out the user
-          if (!emailMatched) {
-            notification.success({
-              message: "Credentials Updated User Logged out",
-            });
-            logout();
-          }
+          logout();
         }
       }
-
-      if (res?.error) {
-        res?.error?.graphQLErrors[0]?.message &&
-          notification.error({
-            message:
-              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-          });
-      }
     }
+
+    if (res?.error) {
+      res?.error?.graphQLErrors[0]?.message &&
+        notification.error({
+          message:
+            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+    }
+    // }
   };
 
   const onFinish = async (values: any) => {
@@ -299,14 +306,16 @@ function EditProfile({
     const values = formInstance.getFieldsValue();
     const res = await updateDoctor({
       updateDoctorProfileInput: {
-        doctor_id: Number(user?.user?.id),
+        doctor_id: pathname.includes("/admin/physicians")
+          ? Number(query?.id)
+          : Number(user?.user?.id),
         first_name: values?.firstName || "",
         last_name: values?.lastName || "",
         specialization: values?.specialization || "",
         year_of_experience: Number(values?.year_of_experience) || 0,
         email: values?.email || "",
         password: values?.password,
-        profile_image: image || userProfileImage,
+        profile_image: image || userProfileImage || "",
         about_me: values?.about_me || "",
         condition_treated: list.toString(),
         language: physicianLanguage || "",
@@ -373,7 +382,10 @@ function EditProfile({
               customRequest={() => null}
             >
               <div className="relative">
-                <Avatar size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }} src={image || userProfileImage} />
+                <Avatar
+                  size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
+                  src={image || userProfileImage}
+                />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
                   <Image
                     priority={true}
@@ -394,13 +406,18 @@ function EditProfile({
               {getRole() === "Admin" && (
                 <div className=" grid grid-cols-2 gap-3">
                   <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
-                    <Button
-                      type="primary"
-                      className={`${_classes["published-button"]}`}
-                      onClick={handlePublish_Unpublish}
+                    <Tooltip
+                      title={doctorData ? "" : "Please complete doctor profile"}
                     >
-                      {status ? "Published" : "Unpublished"}
-                    </Button>
+                      <Button
+                        type="primary"
+                        className={`${_classes["published-button"]}`}
+                        onClick={handlePublish_Unpublish}
+                        disabled={doctorData ? false : true}
+                      >
+                        {status ? "Published" : "Unpublished"}
+                      </Button>
+                    </Tooltip>
                   </div>
                 </div>
               )}
