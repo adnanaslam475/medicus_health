@@ -3,12 +3,18 @@ mutation toggleEmailPreferences(
 ) {
   toggleEmailPreferences(
     toggleEmailPreferencesInput: $toggleEmailPreferencesInput
-  ) {
-    admin_appointment_create_update
-    appointment_slot_suggested_by_doctor
-    appointment_accepted_by_doctor
-    appointment_rescheduled_by_doctor
-    appointment_reminder
-    new_message_received
+  )
+   {
+        patient_registration_update
+        physician_registration_update
+        appointment_accepted_by_doctor
+        appointment_rescheduled_by_doctor
+        appointment_reminder
+        admin_appointment_create_update
+        new_message_received
+        appointment_slot_suggested_by_doctor
+        appointment_requested
+        appointment_accepted_by_patient
+        transaction_successful_alert
   }
 }

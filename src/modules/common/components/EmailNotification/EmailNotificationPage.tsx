@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import EmailNotification from "../../../common/components/EmailNotification/EmailNotification";
+import EmailNotification from "./EmailNotification";
 import ThinLine from "common/components/ThinLine/ThinLine";
 import {
   TogglePreference,
@@ -7,7 +7,8 @@ import {
   useToggleEmailPreferencesMutation,
   useUserEmailPreferencesQuery,
 } from "generated/graphql";
-import { patientEmailPreferencesData } from "utils/helper";
+import { getRole } from "../../../../../src/common/utils/userData";
+import { patientEmailPreferencesData, physicianEmailPreferencesData,adminEmailPreferencesData} from "utils/helper";
 
 function EmailNotificationPage() {
   const [{ data }, executeUserEmailPreferencesQuery] =
@@ -41,9 +42,29 @@ function EmailNotificationPage() {
 
   return (
     <div>
-      <div className="flex md:flex-row gap-0 md:max-w-[60%]">
+      <div className="flex md:flex-row gap-0 ">
         <div className=" w-full border py-0 rounded-lg border-gray-7">
-          {patientEmailPreferencesData?.map((item) => {
+          { getRole()=="User" && patientEmailPreferencesData?.map((item) => {
+            return (
+              <>
+                <EmailNotification
+                  title={item.value}
+                  key={item.key}
+                  onChange={(e: boolean) => ChangeHandler(item.key, e)}
+                  // disabled={!userEmailPreferences}
+                  checked={
+                    userEmailPreferences &&
+                    (notificationState || userEmailPreferences)[
+                      //@ts-ignore
+                      item?.key as keyof TogglePreference
+                    ]
+                  }
+                />
+                <ThinLine />
+              </>
+            );
+          })}
+          { getRole()=="Doctor" && physicianEmailPreferencesData?.map((item) => {
             return (
               <>
                 <EmailNotification
@@ -51,6 +72,26 @@ function EmailNotificationPage() {
                   key={item.key}
                   onChange={(e: boolean) => ChangeHandler(item.key, e)}
                   disabled={!userEmailPreferences}
+                  checked={
+                    userEmailPreferences &&
+                    (notificationState || userEmailPreferences)[
+                      //@ts-ignore
+                      item?.key as keyof TogglePreference
+                    ]
+                  }
+                />
+                <ThinLine />
+              </>
+            );
+          })}
+                { getRole()=="Admin" && adminEmailPreferencesData?.map((item) => {
+            return (
+              <>
+                <EmailNotification
+                  title={item.value}
+                  key={item.key}
+                  onChange={(e: boolean) => ChangeHandler(item.key, e)}
+                  // disabled={!userEmailPreferences}
                   checked={
                     userEmailPreferences &&
                     (notificationState || userEmailPreferences)[
