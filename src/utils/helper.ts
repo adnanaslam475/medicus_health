@@ -354,7 +354,77 @@ export const patientEmailPreferencesData = [
     key: "appointment_slot_suggested_by_doctor",
     value: "Appointment slot suggested by doctor",
   },
+  // mine
+  // {
+  //   key:"patient_registration_update",
+  //   value:"Patient registration update"
+  // },
+  // {
+  //   key:"physician_registration_update",
+  //   value:"Physician registration update"
+  // },
+  // {
+  //   key:" appointment_requested",
+  //   value:"Appointment requested"
+  // },
+  // {
+  //   key:"appointment_accepted_by_patient",
+  //   value:"Appointment accepted by patient"
+  // },
+  // {
+  //   key:"transaction_successful_alert",
+  //   value:"Transaction successful alert"
+  // }
 ];
+
+export const physicianEmailPreferencesData = [
+ 
+  // mine
+  // {
+  //   key:"patient_registration_update",
+  //   value:"Patient registration update"
+  // },
+  // {
+  //   key:"physician_registration_update",
+  //   value:"Physician registration update"
+  // },
+  {
+    key:"appointment_requested",
+    value:"Appointment requested"
+  },
+  {
+    key:"appointment_accepted_by_patient",
+    value:"Appointment accepted by patient"
+  },
+  {
+    key: "appointment_reminder",
+    value: "Appointment Reminder (24 hours before the appointment)",
+  },
+  {
+    key: "admin_appointment_create_update",
+    value: "Admin Creates/Update Appointment",
+  },
+  {
+    key: "new_message_received",
+    value: "The Patient/Physician/Administrator receives a chat message",
+  },
+  // {
+  //   key:"transaction_successful_alert",
+  //   value:"Transaction successful alert"
+  // }
+];
+export const adminEmailPreferencesData = [
+ 
+  {
+    key: "new_message_received",
+    value: "The Patient/Physician/Administrator receives a chat message",
+  },
+  {
+    key:"transaction_successful_alert",
+    value:"Transaction successful alert"
+  }
+];
+
 
 export function sorter(a: DoctorSchedule, b: DoctorSchedule) {
   return a.day - b.day || a.startTime.localeCompare(b.startTime);

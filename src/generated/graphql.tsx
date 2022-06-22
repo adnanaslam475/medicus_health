@@ -1747,7 +1747,7 @@ export type ToggleEmailPreferencesMutationVariables = Exact<{
 }>;
 
 
-export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', admin_appointment_create_update?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_accepted_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, new_message_received?: boolean | null } };
+export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', patient_registration_update?: boolean | null, physician_registration_update?: boolean | null, appointment_accepted_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, admin_appointment_create_update?: boolean | null, new_message_received?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_requested?: boolean | null, appointment_accepted_by_patient?: boolean | null, transaction_successful_alert?: boolean | null } };
 
 export type GetAdminUsersQueryVariables = Exact<{
   filter: GetAdminUsersFilterInput;
@@ -2065,7 +2065,7 @@ export type GetAdminUserByIdQuery = { __typename?: 'Query', user: { __typename?:
 export type UserEmailPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', appointment_accepted_by_doctor?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, admin_appointment_create_update?: boolean | null, new_message_received?: boolean | null } };
+export type UserEmailPreferencesQuery = { __typename?: 'Query', userEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', patient_registration_update?: boolean | null, physician_registration_update?: boolean | null, appointment_accepted_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, admin_appointment_create_update?: boolean | null, new_message_received?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_requested?: boolean | null, appointment_accepted_by_patient?: boolean | null, transaction_successful_alert?: boolean | null } };
 
 export type PatientLastQuestionnaireQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -2736,12 +2736,17 @@ export const ToggleEmailPreferencesDocument = gql`
   toggleEmailPreferences(
     toggleEmailPreferencesInput: $toggleEmailPreferencesInput
   ) {
-    admin_appointment_create_update
-    appointment_slot_suggested_by_doctor
+    patient_registration_update
+    physician_registration_update
     appointment_accepted_by_doctor
     appointment_rescheduled_by_doctor
     appointment_reminder
+    admin_appointment_create_update
     new_message_received
+    appointment_slot_suggested_by_doctor
+    appointment_requested
+    appointment_accepted_by_patient
+    transaction_successful_alert
   }
 }
     `;
@@ -4008,12 +4013,17 @@ export function useGetAdminUserByIdQuery(options: Omit<Urql.UseQueryArgs<GetAdmi
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {
   userEmailPreferences {
+    patient_registration_update
+    physician_registration_update
     appointment_accepted_by_doctor
-    appointment_slot_suggested_by_doctor
     appointment_rescheduled_by_doctor
     appointment_reminder
     admin_appointment_create_update
     new_message_received
+    appointment_slot_suggested_by_doctor
+    appointment_requested
+    appointment_accepted_by_patient
+    transaction_successful_alert
   }
 }
     `;

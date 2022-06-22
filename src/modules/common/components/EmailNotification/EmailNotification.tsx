@@ -3,7 +3,7 @@ import { Switch } from "antd";
 
 type Props = {
   title: string;
-  checked?: boolean | undefined;
+  checked?: boolean | undefined  | null ;
   onChange: (e: boolean) => void;
   defaultChecked?: number;
   disabled?: boolean;
@@ -19,7 +19,7 @@ function EmailNotification(props: Props) {
         </div>
       </div>
       <div className="text-primary">
-        <Switch checked={checked} onChange={onChange} disabled={disabled} />
+        <Switch checked={checked == null ? false: checked} onChange={onChange} disabled={disabled} />
       </div>
     </div>
   );
