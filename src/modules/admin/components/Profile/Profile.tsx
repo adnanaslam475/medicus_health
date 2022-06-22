@@ -46,6 +46,7 @@ export const Profile = React.forwardRef(function Profile({
   const [result, executeUseUpdateAdminUserMutation] =
     useUpdateAdminUserMutation();
   const { error, fetching } = result || {};
+
   useEffect(() => {
     if (doctorData) {
       prepareAndSetEditPayload();
@@ -77,7 +78,7 @@ export const Profile = React.forwardRef(function Profile({
           first_name: values?.firstName,
           last_name: values?.lastName,
           email: values?.email,
-          contact_number: values?.contact_number,
+          contact_number: values?.contact,
           password: values?.password,
           profile_picture: image || userProfileImage || profilePicture,
         },
@@ -203,7 +204,7 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="Contact Number"
                   className="flex-1"
-                  name="contact_number"
+                  name="contact"
                 >
                   <Input />
                 </Form.Item>
