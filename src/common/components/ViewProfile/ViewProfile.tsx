@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { Avatar, Form, Button } from "antd";
 
-import { User } from "generated/graphql";
+import { useGetUserQuery, User } from "generated/graphql";
 import { Schedule } from "common/types/types";
 import { parseJson } from "common/utils/helper";
 import ProfileForm from "./ProfileForm";
@@ -28,6 +28,16 @@ export const ViewProfile = React.forwardRef(function Profile({
   const [formInstance] = Form.useForm();
   const { first_name, last_name, email, contact_number, status, language } =
     doctorData?.user || {};
+
+  const [{ data: userData }] = useGetUserQuery({
+    variables: { input: Number(doctorId) },
+  });
+
+  const {
+    first_name: doctor_first_name,
+    last_name: doctor_last_name,
+    email: doctor_email,
+  } = userData?.user || {};
 
   const {
     specialization,
@@ -93,9 +103,11 @@ export const ViewProfile = React.forwardRef(function Profile({
 
             <div>
               <h2 className="mb-0">
-                {`${first_name && first_name} ${last_name && last_name}` || ""}
+                {`${doctor_first_name && doctor_first_name} ${
+                  doctor_last_name && doctor_last_name
+                }`}
               </h2>
-              <span className="block">{email}</span>
+              <span className="block">{doctor_email}</span>
               <div className="flex gap-2 pt-2">
                 {getRole() === "Admin" && (
                   <Button

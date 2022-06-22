@@ -23,6 +23,7 @@ import ReactS3Client from "react-aws-s3-typescript";
 
 import {
   useEnableOrDisableDoctorMutation,
+  useGetUserQuery,
   User,
   useUpdateDoctorProfileMutation,
 } from "generated/graphql";
@@ -91,6 +92,16 @@ function EditProfile({
   const router = useRouter();
 
   const { pathname, query } = router || {};
+
+  const [{ data: userData }] = useGetUserQuery({
+    variables: { input: Number(doctorId) },
+  });
+
+  const {
+    first_name: doctor_first_name,
+    last_name: doctor_last_name,
+    email: doctor_email,
+  } = userData?.user || {};
 
   const {
     id,
@@ -400,9 +411,11 @@ function EditProfile({
             </Upload>
             <div>
               <h2 className="mb-0">
-                {`${first_name && first_name} ${last_name && last_name}` || ""}
+                {`${doctor_first_name && doctor_first_name} ${
+                  doctor_last_name && doctor_last_name
+                }`}
               </h2>
-              <span className="block">{email}</span>
+              <span className="block">{doctor_email}</span>
               {getRole() === "Admin" && (
                 <div className=" grid grid-cols-2 gap-3">
                   <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
