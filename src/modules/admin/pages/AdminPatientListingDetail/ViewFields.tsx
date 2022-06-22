@@ -36,7 +36,7 @@ const ViewProfileFields = ({
         <LabelWithTextDiv label="Last Name" value={last_name} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Gender" value={gender} />
+        <LabelWithTextDiv label="Gender" value={`${gender?.charAt(0)?.toUpperCase()}${gender?.slice(1)}`} />
         <LabelWithTextDiv
           label="Date of birth"
           value={

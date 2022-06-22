@@ -96,7 +96,7 @@ mutation createAdminSettings(
   $createAdminSettingInput: [CreateAdminSettingInput!]!
 ) {
   createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
-    id
+    # id
     key
     value
   }

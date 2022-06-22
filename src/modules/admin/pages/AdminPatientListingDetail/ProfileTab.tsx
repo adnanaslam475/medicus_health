@@ -92,7 +92,9 @@ function AdminPatientProfileTab({}: Props) {
       country_name: country_id,
       state_name: state_id,
       city_name: city_id,
-      date_of_birth: moment(user?.date_of_birth),
+      date_of_birth: user?.date_of_birth ? moment(user?.date_of_birth) : "",
+      gender: `${user?.gender?.charAt(0)?.toUpperCase()}${user?.gender?.slice(1)}`
+
     });
     setUserDisableInput(status || false);
   }
@@ -194,7 +196,7 @@ function AdminPatientProfileTab({}: Props) {
         updateUserInput: {
           first_name: values.first_name,
           last_name: values.last_name,
-          gender: values.gender,
+          gender: values.gender.toLowerCase(),
           date_of_birth: values.date_of_birth,
           email: values.email,
           contact_number: values.contact_number,
