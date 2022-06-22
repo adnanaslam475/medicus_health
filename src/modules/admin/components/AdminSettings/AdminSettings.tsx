@@ -49,9 +49,7 @@ function AdminSettings() {
       });
 
       const res = await executeCreateAdminSettingsMutation({
-        createAdminSettingInput: {
-          AdminSettings: adminSettingArr as [],
-        },
+        createAdminSettingInput: adminSettingArr as [],
       });
 
       if (res?.data?.createAdminSetting) {

@@ -93,7 +93,7 @@ mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
 
 # Admin General Settings
 mutation createAdminSettings(
-  $createAdminSettingInput: CreateAdminSettingInput!
+  $createAdminSettingInput: [CreateAdminSettingInput!]!
 ) {
   createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
     id
