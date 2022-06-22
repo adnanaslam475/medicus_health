@@ -54,7 +54,7 @@ function EmailNotificationPage() {
                   // disabled={!userEmailPreferences}
                   checked={
                     userEmailPreferences &&
-                    (notificationState || userEmailPreferences)[
+                    (notificationState || userEmailPreferences )[
                       //@ts-ignore
                       item?.key as keyof TogglePreference
                     ]
@@ -77,7 +77,7 @@ function EmailNotificationPage() {
                     (notificationState || userEmailPreferences)[
                       //@ts-ignore
                       item?.key as keyof TogglePreference
-                    ]
+                    ] 
                   }
                 />
                 <ThinLine />
