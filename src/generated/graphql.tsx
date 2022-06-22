@@ -202,13 +202,9 @@ export type CreateAdminInput = {
   profile_picture?: InputMaybe<Scalars['String']>;
 };
 
-export type CreateAdminSetting = {
+export type CreateAdminSettingInput = {
   key: Scalars['String'];
   value: Scalars['String'];
-};
-
-export type CreateAdminSettingInput = {
-  AdminSettings: Array<CreateAdminSetting>;
 };
 
 export type CreateAppointmentInput = {
@@ -672,7 +668,7 @@ export type MutationCancelAppointmentByPatientArgs = {
 
 
 export type MutationCreateAdminSettingArgs = {
-  createAdminSettingInput: CreateAdminSettingInput;
+  createAdminSettingInput: Array<CreateAdminSettingInput>;
 };
 
 
@@ -1787,7 +1783,7 @@ export type PhysicianPaymentByAdminMutationVariables = Exact<{
 export type PhysicianPaymentByAdminMutation = { __typename?: 'Mutation', payment: { __typename?: 'Transaction', id: number, transactionId: string, appointmentId: number, cardId: number, amountReceived: number, status: string, doctor_percentage: string, payment_status?: string | null, createdAt: any } };
 
 export type CreateAdminSettingsMutationVariables = Exact<{
-  createAdminSettingInput: CreateAdminSettingInput;
+  createAdminSettingInput: Array<CreateAdminSettingInput> | CreateAdminSettingInput;
 }>;
 
 
@@ -2871,7 +2867,7 @@ export function usePhysicianPaymentByAdminMutation() {
   return Urql.useMutation<PhysicianPaymentByAdminMutation, PhysicianPaymentByAdminMutationVariables>(PhysicianPaymentByAdminDocument);
 };
 export const CreateAdminSettingsDocument = gql`
-    mutation createAdminSettings($createAdminSettingInput: CreateAdminSettingInput!) {
+    mutation createAdminSettings($createAdminSettingInput: [CreateAdminSettingInput!]!) {
   createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
     id
     key
@@ -5799,8 +5795,14 @@ export default {
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "Any"
+                      }
+                    }
                   }
                 }
               }
