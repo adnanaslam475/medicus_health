@@ -65,10 +65,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
       variables: {
         doctorId:
           Number(id) ||
+          Number(adminApp_Details?.doctor?.doctor_Id) ||
           Number(query?.id) ||
-          doctorId ||
-          // Number(id) ||
-          Number(adminApp_Details?.doctor?.doctor_Id),
+          Number(doctorId),
+        // Number(id) ||
+        // Number(adminApp_Details?.doctor?.doctor_Id),
       },
     });
 
