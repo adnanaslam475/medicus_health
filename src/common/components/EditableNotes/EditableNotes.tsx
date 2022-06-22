@@ -46,6 +46,7 @@ function EditableNotes({ doctorNotes }: Props) {
   // ADD NOTES API CALL
 
   const addNote = async (value: any) => {
+    console.log(value, "majidUsma");
     const res = await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
@@ -54,7 +55,7 @@ function EditableNotes({ doctorNotes }: Props) {
         objective: value?.objective || "",
         assessment: value?.assessment || "",
         plan: value?.plan || "",
-        note: value?.note || "",
+        note: value?.narrative || "",
         // noteType: "SOAP",
       },
     });
@@ -149,7 +150,7 @@ function EditableNotes({ doctorNotes }: Props) {
             <AcronymWithTextEditable
               editable={edit}
               character={"N"}
-              word={"NARRATIVE"}
+              word={"Narrative"}
               sentence={note || "No Details"}
             />
           </div>

@@ -29,7 +29,7 @@ type state = {
   }) => Promise<void>;
   onJoinChannel?: (channelName: string) => Promise<void>;
   loginToRtm?: () => Promise<void>;
-  onMessage: (text: string) => void;
+  onMessage: (text: string, messageType?: string) => void;
   setCurrentChannel: (channel: ChatChannels) => void;
 };
 
@@ -309,14 +309,14 @@ export function MessageContextProvider({
     }
   }
 
-  async function onMessage(text: string) {
+  async function onMessage(text: string, messageType: string = "Text") {
     executeCreateChatMessageMutation({
       createChatMessageInput: {
         channelId: messageInfo.currentChannel?.id as number,
         senderId: user?.id as number,
         receiverId: messageInfo.currentChannel?.id as number,
         message: text,
-        messageType: "Text",
+        messageType,
       },
     });
     await rtmRef.current?.sendChannelMessage(

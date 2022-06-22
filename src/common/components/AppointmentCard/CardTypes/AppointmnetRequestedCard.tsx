@@ -1,7 +1,7 @@
 import { VideoCameraFilled } from "@ant-design/icons";
 import { Button, Card } from "antd";
 import React from "react";
-import { AppointmentTimeSlots } from "../../../../generated/graphql";
+import { AppointmentDateTimeResponse, AppointmentTimeSlots } from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 
@@ -13,6 +13,7 @@ type Props = {
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal: any;
+  appointmentDateTime?:AppointmentDateTimeResponse
 };
 
 function AppointmnetRequestedCard({
@@ -23,6 +24,7 @@ function AppointmnetRequestedCard({
   doctor,
   appointmentTimeSlots,
   setShowModal,
+  appointmentDateTime
 }: Props) {
   return (
     <Card className={`${_classes["appointment-card"]}`}>
@@ -31,15 +33,12 @@ function AppointmnetRequestedCard({
       <span className="text-sm mt-6 block">Date</span>
       <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
       <span className="text-sm mt-4 block">Time</span>
-      {appointmentTimeSlots?.length === 0 ? (
-        <div className="text-secondary">{" - "}</div>
-      ) : (
-        appointmentTimeSlots?.map((item) => (
-          <div className="text-secondary">{`${date.formathhmma(
-            item.startTime
-          )} - ${date.formathhmma(item.endTime)}`}</div>
-        ))
-      )}
+      <div className="text-secondary">
+          {appointmentDateTime?.endTime && appointmentDateTime?.startTime
+            ? `${date.formathhmma(appointmentDateTime?.startTime)}
+             - ${date.formathhmma(appointmentDateTime?.endTime)}`
+            : "--"}
+        </div>
       <span className="text-sm mt-4 block font-normal">Status</span>
       <span className="text-base text-yellow font-bold ">{status}</span>
     </Card>

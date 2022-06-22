@@ -24,6 +24,10 @@ query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
     patient {
       first_name
       last_name
+      email
+      patientProfile {
+        profileImage
+      }
     }
     doctor {
       first_name

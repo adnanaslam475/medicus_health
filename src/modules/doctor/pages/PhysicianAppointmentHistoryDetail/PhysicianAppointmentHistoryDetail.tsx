@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { Tabs } from "antd";
 import PatientAppointmentInfoTab from "./PatientAppointmentInfoOfPhysicianTab";
@@ -19,6 +19,7 @@ import NotesTab from "common/components/NotesTab/NotesTab";
 
 function PhysicianAppointmentHistoryDetail() {
   const { query } = useRouter();
+  const [activeTab, setActiveTab] = React.useState<string>("");
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
@@ -31,12 +32,30 @@ function PhysicianAppointmentHistoryDetail() {
   let doctorNotes =
     appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
 
+  useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+    window.onpopstate = () => {
+      if (window?.location?.search?.includes("activeTab")) {
+        setActiveTab(String(window?.location?.search?.split("=")[1]));
+      }
+    };
+  }, [query, window?.location?.href]);
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
+
   return (
     <AppLayout>
       <>
         <h2 className="mb-4">Appointment History Detail</h2>
         <div className="profile-tabs">
-          <Tabs type="card">
+          <Tabs
+            type="card"
+            defaultActiveKey="1"
+            activeKey={activeTab || "1"}
+            onChange={onChangeTabHandler}
+          >
             <Tabs.TabPane tab="Appointment Info" key="1" className="">
               <PatientAppointmentInfoTab />
             </Tabs.TabPane>
