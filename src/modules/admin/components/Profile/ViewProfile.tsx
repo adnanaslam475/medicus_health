@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect } from "react";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, UserOutlined } from "@ant-design/icons";
 
 import _classes from "./PhysicianProfile.module.scss";
 import { Input, Avatar, Form, Button } from "antd";
@@ -57,6 +57,7 @@ export const ViewProfile = React.forwardRef(function Profile({
           <div className="w-full mb-10 flex gap-8 items-center">
             <div className="relative">
               <Avatar
+              icon={ <UserOutlined className="pt-5" />} 
                 size={130}
                 style={{
                   borderColor: "transparent",
