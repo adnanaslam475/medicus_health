@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
-import { Empty, Select, Spin } from "antd";
+import { Button, Empty, Select, Spin } from "antd";
 import {
   AppointmentTimeSlots,
   BookingDate,
   useGetAllRequestedAppointmentsQuery,
+  useGetPhysiciansQuery,
+  User,
 } from "../../../../../generated/graphql";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 const { Option } = Select;
 function UpcomingAppointments() {
@@ -40,6 +43,26 @@ function UpcomingAppointments() {
 
   const { appointments } = data || {};
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showAppointmentBookingModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const [{ data: physicianList }] = useGetPhysiciansQuery({
+    variables: {
+      filter: {},
+    },
+  });
+  const { getPhysicians } = physicianList || {};
 
   return (
     <AppLayout>
@@ -52,16 +75,29 @@ function UpcomingAppointments() {
               ullamcorperequesty tortor a fringilla tempus.
             </p>
           </div>
+          <div className="flex gap-3">
+            <Button
+              type="primary"
+              className="text-sm"
+              onClick={showAppointmentBookingModal}
+            >
+              <span className="text-xs sm:text-base">
+                Request an Appointment
+              </span>
+            </Button>
+          </div>
         </div>
-        <SearchFilters
-          setDataListPhysician={setDataListPhysician}
-          setDoctorId={setDoctorId}
-          setAppointmentId={setAppointmentId}
-          setServiceIds={setServiceIds}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          setBookingDate={setBookingDate}
-        />
+        <div className="md:w-5/6">
+          <SearchFilters
+            setDataListPhysician={setDataListPhysician}
+            setDoctorId={setDoctorId}
+            setAppointmentId={setAppointmentId}
+            setServiceIds={setServiceIds}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setBookingDate={setBookingDate}
+          />
+        </div>
         {fetching == false ? (
           <div className="w-full">
             {appointments?.length !== 0 && appointments ? (
@@ -105,6 +141,12 @@ function UpcomingAppointments() {
             <Spin />
           </div>
         )}
+        <BookAppointmentJourney
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          patientData={getPhysicians as User[]}
+        />
       </div>
     </AppLayout>
   );
