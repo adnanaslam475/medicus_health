@@ -4,11 +4,12 @@ import { Tabs } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { useAdminUserQuery } from "generated/graphql";
-import EmailNotification from "../../pages/EmailNotification/EmailNotification";
+// import EmailNotification from "../../pages/EmailNotification/EmailNotification";
 import { Profile } from "../Profile/Profile";
 import { ViewProfile } from "../Profile/ViewProfile";
 import { getUserData } from "common/utils/userData";
 import { useRouter } from "next/router";
+import EmailNotificationPage from "modules/common/components/EmailNotification/EmailNotificationPage";
 
 const { TabPane } = Tabs;
 
@@ -79,7 +80,9 @@ function AdminAccount() {
               }
               key="2"
             >
-              <EmailNotification />
+              <div className="w-full  lg:max-w-[600px]">
+              <EmailNotificationPage/>
+              </div>
             </TabPane>
           </Tabs>
         </div>

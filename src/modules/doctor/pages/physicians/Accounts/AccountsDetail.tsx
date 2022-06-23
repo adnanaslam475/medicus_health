@@ -18,6 +18,7 @@ import ConsultationRates from "modules/common/components/ConsultaionRates/Consul
 import { parseJson } from "common/utils/helper";
 import AdminQuestionnaireFormTab from "modules/admin/pages/AdminAppointmentsDetail/AdminQuestionnaireFormTab";
 import { useRouter } from "next/router";
+import EmailNotificationPage from "modules/common/components/EmailNotification/EmailNotificationPage";
 
 function Accounts() {
   // GET USER ID
@@ -99,6 +100,19 @@ function Accounts() {
           >
             <div className="md:w-2/6">
               <ConsultationRates />
+            </div>
+          </Tabs.TabPane>
+     
+        <Tabs.TabPane
+            tab={
+              <span className="font-Circular font-medium flex">
+              Email Notification
+              </span>
+            }
+            key="5"
+          >
+            <div className="w-full md:w-1/2 lg:w-1/2 xl:w-2/5">
+             <EmailNotificationPage/>
             </div>
           </Tabs.TabPane>
         </Tabs>
