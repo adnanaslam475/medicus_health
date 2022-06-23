@@ -10,6 +10,7 @@ import { UploadChangeParam } from "antd/lib/upload";
 import { useMediaUploader } from "common/hooks/media";
 import { getUserData } from "common/utils/userData";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
+import { UserOutlined } from "@ant-design/icons";
 
 type profileType = {
   doctorId?: string | string[] | undefined;
@@ -137,6 +138,7 @@ export const Profile = React.forwardRef(function Profile({
             >
               <div className="relative">
                 <Avatar
+                 icon={ <UserOutlined className="pt-5" />} 
                   size={130}
                   className="border-transparent border-2 leading-10"
                   src={
