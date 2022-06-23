@@ -11,6 +11,7 @@ import {
   User,
 } from "../../../../../generated/graphql";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import Link from "next/link";
 
 const { Option } = Select;
 function UpcomingAppointments() {
@@ -76,6 +77,18 @@ function UpcomingAppointments() {
             </p>
           </div>
           <div className="flex gap-3">
+            <div className="lg:ml-3 mt-0 sm:mt-0">
+              <Select defaultValue="List View" className="w-full sm:w-40">
+                <Select.Option value="Calendar View">
+                  <Link href="/patient/calendar">
+                    <a>Calendar View</a>
+                  </Link>
+                </Select.Option>
+                <Select.Option selected value="List View">
+                  List View
+                </Select.Option>
+              </Select>
+            </div>
             <Button
               type="primary"
               className="text-sm"
