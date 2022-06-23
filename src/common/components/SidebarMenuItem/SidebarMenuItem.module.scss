@@ -1,4 +1,8 @@
 .side-bar-submenu-item {
+  font-family: "Circular Std", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+  "Noto Color Emoji";
 	&:hover {
 		svg.sidebar-icon-hover {
 			g {
@@ -73,6 +77,20 @@
 				}
 			}
 		}
+
+    // .ant-menu-submenu {
+	
+		// 	a,
+		// 	span {
+		// 		color: #8f95a7 !important;
+    //     font-size: 14px !important;
+		// 	}
+		
+		// }
+    .ant-menu .ant-menu-submenu > .ant-menu-sub{
+      font-size: 14px !important;
+
+    }
 		.ant-menu-item,
 		.ant-menu-submenu {
 			padding: 0px;
@@ -87,6 +105,7 @@
 		}
 		.ant-menu-submenu-open {
 			background-color: #fff !important;
+      border-radius: 10px !important;
 			span {
 				color: #272b4c !important;
 			}
@@ -98,6 +117,7 @@
 		.ant-menu-submenu-selected {
 			background-color: #fff !important;
 			box-shadow: 0px 1px 1px #00000012;
+      border-radius: 10px !important;
 			a {
 				color: #272b4c !important;
 			}
