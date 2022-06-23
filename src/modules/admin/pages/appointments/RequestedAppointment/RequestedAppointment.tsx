@@ -96,7 +96,7 @@ function  RequestedAppointment() {
               <h2 className="mb-0">Requested Appointments</h2>
             </div>
             <div className="flex gap-3">
-              <div className="lg:ml-3 mt-0 sm:mt-0">
+              {/* <div className="lg:ml-3 mt-0 sm:mt-0">
                 <Select defaultValue="List View" className="w-full sm:w-40">
                   <Select.Option value="Calendar View">
                     <Link href="/patient/calendar">
@@ -107,7 +107,7 @@ function  RequestedAppointment() {
                     List View
                   </Select.Option>
                 </Select>
-              </div>
+              </div> */}
               <Tooltip
                 title={
                   patientHealthHistory?.patientHealthHistory ? (
