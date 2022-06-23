@@ -124,7 +124,7 @@ function MessageInput() {
             ))}
           </div>
 
-          <span className="absolute  right-14">
+          <span className="absolute right-14">
             <Dragger
               onChange={fileChange}
               // maxCount={1}

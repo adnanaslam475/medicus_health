@@ -22,8 +22,8 @@ type Props = {
   setShowModal?: (id: boolean) => void;
   onViewSuggestedSlots: () => void;
   appointmentDateTime?: AppointmentDateTimeResponse;
-  doctorId?:number | null | undefined;
-  patientId?:number | null | undefined
+  doctorId?: number | null | undefined;
+  patientId?: number | null | undefined;
 };
 
 function AppointmnetCurrentCard({
@@ -37,8 +37,7 @@ function AppointmnetCurrentCard({
   onViewSuggestedSlots,
   appointmentDateTime,
   doctorId,
-  patientId
-
+  patientId,
 }: Props) {
   const [disabled, setDisabled] = useState(true);
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
@@ -60,20 +59,22 @@ function AppointmnetCurrentCard({
       <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Time</span>
-        <div className="text-cyan font-semibold">
-          {appointmentDateTime?.endTime && appointmentDateTime?.startTime
-            ? `${date.formathhmma(appointmentDateTime?.startTime)}
+      <div className="text-cyan font-semibold">
+        {appointmentDateTime?.endTime && appointmentDateTime?.startTime
+          ? `${date.formathhmma(appointmentDateTime?.startTime)}
              - ${date.formathhmma(appointmentDateTime?.endTime)}`
-            : "--"}
-        </div>
+          : "--"}
+      </div>
       <Space direction="vertical" size="middle" />
       <span className="text-base text-green-3 font-bold ">{status}</span>
       <Space direction="vertical" size="middle" />
-      <div className="flex">
+      <div className="flex mt-4">
         <Button
           type="primary"
-          className={`${_classes["appointments-btn"]} bg-current mr-3`}
-          onClick={() => Router.push(`/patient/appointments/${appointmentId}/call`)}
+          className={`${_classes["card-btn"]} mr-3`}
+          onClick={() =>
+            Router.push(`/patient/appointments/${appointmentId}/call`)
+          }
           disabled={disabled}
         >
           <Image
@@ -88,44 +89,10 @@ function AppointmnetCurrentCard({
         </Button>
         <Button
           type="default"
-          className={`${_classes["appointments-btn"]} bg-current mr-3`}
+          className={`${_classes["card-btn"]} bg-transparent`}
           onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
         >
           <span className="ml-2 mt-1">Detail</span>
-        </Button>
-      </div>
-      <div className=" flex">
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn-message"]} mr-3 my-2 text-xs`}
-          onClick={() =>
-            Router.push({
-              pathname: "/physician/messages",
-              query: {
-                chat: "admin",
-                doctorId: doctorId,
-                patientId: patientId,
-              },
-            })
-          }
-        >
-          Message Admin
-        </Button>
-        <Button
-          icon={<MessageOutlined />}
-          className={`${_classes["appointments-btn-message"]} mr-3 my-2`}
-          onClick={() =>
-            Router.push({
-              pathname: "/physician/messages",
-              query: {
-                chat: "doctor",
-                doctorId: doctorId,
-                patientId: patientId,
-              },
-            })
-          }
-        >
-          Message physician
         </Button>
       </div>
     </Card>
