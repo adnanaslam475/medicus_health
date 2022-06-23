@@ -85,11 +85,11 @@ function DoctorProfileCard(props: Props) {
           </div>
           <div className="lg:pr-5 w-full mb-5">
             <div className="flex-row md:flex items-center">
-              <h2 className="font-bold mb-0 mr-3">
+              <h1 className="font-bold mb-0 mr-3">
                 <span>
                   Dr. {doctorData ? first_name + " " + last_name : ""}
                 </span>
-              </h2>
+              </h1>
               <div className="flex">
                 <div className="flagAvatar engFlag pr-2">
                   {language && FLAG_BY_LANGUAGE[language] && (
@@ -204,10 +204,10 @@ function DoctorProfileCard(props: Props) {
         </div>
         <Divider />
         <h4 className="font-bold mb-1">About Me</h4>
-        <div className="text-gray">{doctorData?.about_me}</div>
+        <div className="text-gray text-md"><h6 className="text-gray ">{doctorData?.about_me}</h6></div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
-        <p className="text-secondary">{doctorData?.condition_treated}</p>
+        <h6 className="text-secondary">{doctorData?.condition_treated}</h6>
         <Divider />
         <h4 className="font-bold mb-1">Professional Background</h4>
         <div className="text-secondary">
