@@ -22,16 +22,23 @@ const client = createClient({
   },
 });
 function MyApp({ Component, pageProps }: AppProps) {
+  const { user } = getUserData();
+  const loginTime =
+    typeof window !== "undefined" && localStorage?.getItem("loginTime");
+
   useEffect(() => {
-    const loginTime = localStorage.getItem("loginTime");
-    const { user } = getUserData();
-    const isLoggedinwithTime = loginTime || user?.id && !loginTime
-    if (isLoggedinwithTime)
-      setTimeout(() => {
-        Router.push("/login");
-        localStorage.clear()
-      }, Number(loginTime) - 86400000); // expires in 24 hour
-  }, []);
+    const loginTime =
+      typeof window !== "undefined" && localStorage?.getItem("loginTime");
+    let expireTime = Number(loginTime) - Number(86400000);
+
+    setTimeout(() => {
+      let expireTime = Number(loginTime) - Number(86400000);
+      if (Number(loginTime) > expireTime || new Date().getTime() > expireTime) {
+        // Router.push("/login");
+        // localStorage.clear();
+      }
+    }, expireTime);
+  }, [loginTime]);
   return (
     <NextIntlProvider messages={pageProps.messages}>
       <AuthProvider>
