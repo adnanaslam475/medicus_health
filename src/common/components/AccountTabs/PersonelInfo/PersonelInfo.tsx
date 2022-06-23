@@ -28,7 +28,7 @@ const PersonalInfo = () => {
 
   const form: any = useRef();
 
-  const [{ data: userData },executeUseGetUserQuery] = useGetUserQuery({
+  const [{ data: userData }, executeUseGetUserQuery] = useGetUserQuery({
     variables: { input: id as number },
   });
 
@@ -72,7 +72,7 @@ const PersonalInfo = () => {
           notification.success({
             message: "Successfully Updated",
           });
-          executeUseGetUserQuery({requestPolicy: "network-only",})
+        executeUseGetUserQuery({ requestPolicy: "network-only" });
       }
 
       if (res?.error) {
@@ -153,7 +153,7 @@ const PersonalInfo = () => {
                   </Button>
                 </div>
               </Upload>
-            ) }
+            )}
           </div>
 
           <div className="edit-btn">
