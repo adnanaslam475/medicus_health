@@ -88,8 +88,9 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
   const deleteModalHandler = () => setOpen(!open);
   const deleteAppointmentHandler = async () => {
     try {
+      const id = query?.appointmentId || query?.id
       const response = await removeAppointmentByAdmin({
-        id: Number(query.appointmentId),
+        id: Number(id),
       });
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
