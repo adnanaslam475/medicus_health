@@ -75,7 +75,7 @@ function ProfileForm({
       ? JSON.parse(doctorData?.language)
       : doctorData?.language;
   return (
-    <div className="w-full pb-10">
+    <div className={`${_classes["profile-form"]} w-full pb-10`}>
       <Form
         form={formInstance}
         name="basic"

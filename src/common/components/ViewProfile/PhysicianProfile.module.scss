@@ -34,3 +34,18 @@
 .edit-button {
   height: 34px;
 }
+
+.profile-form{
+  :global .ant-input[disabled] {
+    color: rgba(0, 0, 0, 0.25);
+    background-color: #f5f5f5;
+    border-color: #f6f8fa !important;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 1;
+}
+:global .ant-input-affix-wrapper-disabled{
+  border-color: #f6f8fa !important;
+}
+
+}
