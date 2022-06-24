@@ -38,7 +38,7 @@ function InputWithLi(props: IMyProps) {
         {!disable && (
           <div>
             <Input
-              placeholder="Basic usage"
+              placeholder="Condition Name"
               className=""
               onChange={handleName}
               value={treated}
