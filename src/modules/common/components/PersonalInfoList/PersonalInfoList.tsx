@@ -164,21 +164,21 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
           <div className="sm:w-1/2 text-gray-1">Marital Status</div>
-          <div className="sm:w-1/2">{patientProfile?.maritalStatus}</div>
+          <div className={`sm:w-1/2 ${!patientProfile?.maritalStatus && "text-gray-1"}`}>{patientProfile?.maritalStatus || "N/A"}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
           <div className="sm:w-1/2 text-gray-1">Do you have any children?</div>
-          <div className="sm:w-1/2">{patientProfile?.children}</div>
+          <div className={`sm:w-1/2 ${!patientProfile?.children && "text-gray-1"}`}>{patientProfile?.children || "N/A"}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
           <div className="sm:w-1/2 text-gray-1">What is your Occupation?</div>
-          <div className="sm:w-1/2">{patientProfile?.occupation}</div>
+          <div className={`sm:w-1/2 ${!patientProfile?.occupation && "text-gray-1"}`}>{patientProfile?.occupation || "N/A"}</div>
         </div>
       </li>
 
@@ -187,7 +187,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <div className="sm:w-1/2 text-gray-1">
             Do you have any Occupational Exposure?
           </div>
-          <div className="sm:w-1/2">{patientProfile?.occupationalExposure}</div>
+          <div className={`sm:w-1/2 ${!patientProfile?.occupationalExposure && "text-gray-1"}`}>{patientProfile?.occupationalExposure || "N/A"}</div>
         </div>
       </li>
 
@@ -196,14 +196,14 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <div className="sm:w-1/2 text-gray-1">
             Do you have any Occupational Duration?
           </div>
-          <div className="sm:w-1/2">{patientProfile?.exposureDuration}</div>
+          <div className={`sm:w-1/2 ${!patientProfile?.exposureDuration && "text-gray-1"}` } >{patientProfile?.exposureDuration || "N/A"}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
           <div className="sm:w-1/2 text-gray-1">Do you have any pets?</div>
-          <div className="sm:w-1/2">{patientProfile?.pets}</div>
+          <div className={`sm:w-1/2 ${!patientProfile?.pets && "text-gray-1"}`}>{patientProfile?.pets || "N/A"}</div>
         </div>
       </li>
     </ul>
