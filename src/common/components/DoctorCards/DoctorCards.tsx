@@ -104,7 +104,7 @@ function DoctorCard({
             <div className="lg:pr-5">
               <div className="flex-row md:flex">
                 <h2 className="font-bold mb-0 mr-3">
-                  <span>Dr. {name}</span>
+                <span>Dr. <span className="-ml-1">{name}</span></span>
                 </h2>
                 <div className="flex">
                   <div className="flagAvatar engFlag pr-2">
