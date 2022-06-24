@@ -29,15 +29,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const loginTime =
       typeof window !== "undefined" && localStorage?.getItem("loginTime");
-    let expireTime = Number(loginTime) - Number(86400000);
+    let expireTime = Number(loginTime) + Number(86400000);
 
     setTimeout(() => {
-      let expireTime = Number(loginTime) - Number(86400000);
-      if (Number(loginTime) > expireTime || new Date().getTime() > expireTime) {
-        // Router.push("/login");
-        // localStorage.clear();
-      }
-    }, expireTime);
+      Router.push("/login");
+      localStorage.clear();
+    }, expireTime - Date.now());
   }, [loginTime]);
   return (
     <NextIntlProvider messages={pageProps.messages}>

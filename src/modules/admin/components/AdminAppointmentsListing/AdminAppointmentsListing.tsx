@@ -75,21 +75,20 @@ const appointmentColumns = [
     },
   },
   {
-    title: "Confirmation Date",
-    dataIndex: "requestedDate",
-    render: (bookingDate: string) => {
-      return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;
+    title: "Due Date",
+    dataIndex: "appointmentDateTime",
+    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+      return (
+        <div>
+          {appointmentDateTime?.startTime
+            ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+            : "--"}
+        </div>
+      );
     },
   },
   {
-    title: "Scheduled Date",
-    dataIndex: "createdAt",
-    render: (bookingDate: string) => {
-      return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;
-    },
-  },
-  {
-    title: "Schedule Time",
+    title: "Appointment Time",
     dataIndex: "appointmentDateTime",
     key: "appointmentDateTime",
     sorter: {
@@ -100,9 +99,9 @@ const appointmentColumns = [
       return (
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${date?.formatMMMMDDYYYY(
+            ? `${date?.formathhmma(
                 appointmentDateTime?.startTime
-              )} - ${date?.formatMMMMDDYYYY(appointmentDateTime?.endTime)} `
+              )} - ${date?.formathhmma(appointmentDateTime?.endTime)} `
             : "--"}
         </div>
       );
