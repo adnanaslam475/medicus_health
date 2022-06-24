@@ -1,0 +1,105 @@
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
+import { getUserData } from "common/utils/userData";
+import {
+  DoctorProfile,
+  useCreateDoctorScheduleMutation,
+  useDoctorProfileQuery,
+  useGetUserQuery,
+  useRemoveDoctorScheduleMutation,
+  useScheduleQuery,
+} from "../../../../../../generated/graphql";
+import EditProfile from "../EditProfile/EditProfile";
+import { RangeValue } from "rc-picker/lib/interface";
+
+function AccountsProfile() {
+  const editData = () => {
+    setIsEdit(!isEdit);
+  };
+  const { query } = useRouter();
+
+  const adminId = query?.id;
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
+    "Select Day"
+  );
+  const [addScheduleTime, setAddScheduleTime] = useState<{
+    time: RangeValue<moment.Moment> | null;
+    timeString: string[];
+  }>({ timeString: [], time: null });
+  const [deleteScheduleId, setDeleteScheduleId] = useState("");
+
+  // GET USER ID
+  const { user } = getUserData();
+  const role = user?.role
+  const id = role == "Admin" ? Number(adminId) : user?.doctorId;
+
+  const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
+    variables: { doctorId: id as number },
+  });
+  const schedules = doctorSchedules?.data?.doctorSchedules;
+
+  const [createDoctorScheduleResponse, executeCreateDoctorScheduleMutation] =
+    useCreateDoctorScheduleMutation();
+  const { fetching } = createDoctorScheduleResponse;
+  const [, executeRemoveDoctorScheduleMutation] =
+    useRemoveDoctorScheduleMutation();
+
+  async function onAddClick() {
+    if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
+      const variable = {
+        doctorId: Number(id),
+        day: Number(addScheduleDay),
+        startTime: addScheduleTime?.timeString[0],
+        endTime: addScheduleTime?.timeString[1],
+      };
+
+      await executeCreateDoctorScheduleMutation(variable);
+      await executeDoctorSchedules({ requestPolicy: "network-only" });
+      setAddScheduleDay("Select Day");
+      setAddScheduleTime({ timeString: [], time: null });
+    }
+  }
+  useEffect(() => {
+    if (deleteScheduleId) {
+      executeRemoveDoctorScheduleMutation({ id: Number(deleteScheduleId) });
+    }
+  }, [deleteScheduleId]);
+
+  const [{ data }] = useDoctorProfileQuery({
+    variables: { doctor_id: id as number },
+    pause: !id
+  });
+  const { doctorProfile } = data || {};
+  return (
+    <div>
+      {isEdit ? (
+        <EditProfile
+          setIsEdit={setIsEdit}
+          schedules={schedules}
+          setDeleteScheduleId={setDeleteScheduleId}
+          setAddScheduleDay={setAddScheduleDay}
+          addScheduleDay={String(addScheduleDay)}
+          setAddScheduleTime={setAddScheduleTime}
+          doctorId={String(id)}
+          doctorData={doctorProfile}
+          edit={editData}
+          addScheduleTime={addScheduleTime}
+          onAddClick={onAddClick}
+          loading={fetching}
+        />
+      ) : (
+        <ViewProfile
+          setIsEdit={setIsEdit}
+          schedules={schedules}
+          doctorId={String(id)}
+          doctorData={doctorProfile}
+        />
+      )}
+    </div>
+  );
+}
+
+export default AccountsProfile;
