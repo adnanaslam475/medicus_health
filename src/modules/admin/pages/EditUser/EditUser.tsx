@@ -75,6 +75,10 @@ function EditAdminUserDetails({}: Props) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
       if (response.data) {
+        notification.success({
+          message: "User Updated Successfully",
+        });
+        Router.push(`/admin/user`);
         executeUseGetAdminUserByIdQuery({ requestPolicy: "network-only" });
       }
     } catch (error: any) {
@@ -91,7 +95,10 @@ function EditAdminUserDetails({}: Props) {
       });
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
-      }
+      } else
+        notification.success({
+          message: "Password reset link sent successfully.",
+        });
     } catch (error: any) {
       notification.error({
         message: error?.message || "Something Went Wrong",

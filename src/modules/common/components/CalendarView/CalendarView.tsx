@@ -193,7 +193,7 @@ function AdminCalender(props: Props) {
                   },
                 },
                 customText: {
-                  text: "Appointment",
+                  text: "Upcomming Appointments",
                 },
                 custom1: {
                   text: "Request an Appointment",
@@ -275,7 +275,7 @@ function AdminCalender(props: Props) {
                   },
                 },
                 customText: {
-                  text: "Appointment",
+                  text: "Upcoming Appointments",
                 },
                 custom1: {
                   text: "Request an Appointment",
