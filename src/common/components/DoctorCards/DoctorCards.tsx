@@ -104,7 +104,7 @@ function DoctorCard({
             <div className="lg:pr-5">
               <div className="flex-row md:flex">
                 <h2 className="font-bold mb-0 mr-3">
-                  <span>Dr. {name}</span>
+                <span>Dr. <span className="-ml-1">{name}</span></span>
                 </h2>
                 <div className="flex">
                   <div className="flagAvatar engFlag pr-2">
@@ -126,13 +126,15 @@ function DoctorCard({
               <span className="text-secondary text-sm">
                 {yearOfExperience}+ years of experience
               </span>
-              <h6 className="font-rubik text-gray mt-3">{aboutMe}</h6>
+              <h6 className="font-rubik text-gray mt-3 font-normal">
+                {aboutMe}
+              </h6>
               <Divider />
 
               <h6 className="text-gray font-normal">
                 <span className="text-sm font-rubik">CONDITIONS TREATED </span>
               </h6>
-              <h6>{conditionTreated}</h6>
+              <h6 className="font-normal font-rubik">{conditionTreated}</h6>
             </div>
           </div>
           <div className="card-actionBtns lg:w-2/6">
