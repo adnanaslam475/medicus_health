@@ -8,7 +8,11 @@ import {
   useUserEmailPreferencesQuery,
 } from "generated/graphql";
 import { getRole } from "../../../../../src/common/utils/userData";
-import { patientEmailPreferencesData, physicianEmailPreferencesData,adminEmailPreferencesData} from "utils/helper";
+import {
+  patientEmailPreferencesData,
+  physicianEmailPreferencesData,
+  adminEmailPreferencesData,
+} from "utils/helper";
 
 function EmailNotificationPage() {
   const [{ data }, executeUserEmailPreferencesQuery] =
@@ -44,66 +48,71 @@ function EmailNotificationPage() {
     <div>
       <div className="flex md:flex-row gap-0 ">
         <div className=" w-full border py-0 rounded-lg border-gray-7">
-          { getRole()=="User" && patientEmailPreferencesData?.map((item) => {
-            return (
-              <>
-                <EmailNotification
-                  title={item.value}
-                  key={item.key}
-                  onChange={(e: boolean) => ChangeHandler(item.key, e)}
-                  // disabled={!userEmailPreferences}
-                  checked={
-                    userEmailPreferences &&
-                    (notificationState || userEmailPreferences )[
-                      //@ts-ignore
-                      item?.key as keyof TogglePreference
-                    ]
-                  }
-                />
-                <ThinLine />
-              </>
-            );
-          })}
-          { getRole()=="Doctor" && physicianEmailPreferencesData?.map((item) => {
-            return (
-              <>
-                <EmailNotification
-                  title={item.value}
-                  key={item.key}
-                  onChange={(e: boolean) => ChangeHandler(item.key, e)}
-                  disabled={!userEmailPreferences}
-                  checked={
-                    userEmailPreferences &&
-                    (notificationState || userEmailPreferences)[
-                      //@ts-ignore
-                      item?.key as keyof TogglePreference
-                    ] 
-                  }
-                />
-                <ThinLine />
-              </>
-            );
-          })}
-                { getRole()=="Admin" && adminEmailPreferencesData?.map((item) => {
-            return (
-              <>
-                <EmailNotification
-                  title={item.value}
-                  key={item.key}
-                  onChange={(e: boolean) => ChangeHandler(item.key, e)}
-                  // disabled={!userEmailPreferences}
-                  checked={
-                    userEmailPreferences &&
-                    (notificationState || userEmailPreferences)[
-                      //@ts-ignore
-                      item?.key as keyof TogglePreference
-                    ]
-                  }
-                />
-                <ThinLine />
-              </>
-            );
-          })}
+          {getRole() == "User" &&
+            patientEmailPreferencesData?.map((item) => {
+              return (
+                <>
+                  <EmailNotification
+                    title={item.value}
+                    key={item.key}
+                    onChange={(e: boolean) => ChangeHandler(item.key, e)}
+                    // disabled={!userEmailPreferences}
+                    checked={
+                      userEmailPreferences &&
+                      (notificationState || userEmailPreferences)[
+                        //@ts-ignore
+                        item?.key as keyof TogglePreference
+                      ]
+                    }
+                  />
+                  <ThinLine />
+                </>
+              );
+            })}
+          {(getRole() == "Doctor" || getRole() === "Staff") &&
+            physicianEmailPreferencesData?.map((item) => {
+              return (
+                <>
+                  <EmailNotification
+                    title={item.value}
+                    key={item.key}
+                    onChange={(e: boolean) => ChangeHandler(item.key, e)}
+                    disabled={
+                      getRole() === "Staff" ? true : !userEmailPreferences
+                    }
+                    checked={
+                      userEmailPreferences &&
+                      (notificationState || userEmailPreferences)[
+                        //@ts-ignore
+                        item?.key as keyof TogglePreference
+                      ]
+                    }
+                  />
+                  <ThinLine />
+                </>
+              );
+            })}
+          {getRole() == "Admin" &&
+            adminEmailPreferencesData?.map((item) => {
+              return (
+                <>
+                  <EmailNotification
+                    title={item.value}
+                    key={item.key}
+                    onChange={(e: boolean) => ChangeHandler(item.key, e)}
+                    // disabled={!userEmailPreferences}
+                    checked={
+                      userEmailPreferences &&
+                      (notificationState || userEmailPreferences)[
+                        //@ts-ignore
+                        item?.key as keyof TogglePreference
+                      ]
+                    }
+                  />
+                  <ThinLine />
+                </>
+              );
+            })}
         </div>
       </div>
     </div>
