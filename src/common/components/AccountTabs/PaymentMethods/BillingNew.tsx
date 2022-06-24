@@ -33,10 +33,10 @@ export const Payment = (props: Props) => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-md capitalize text-dark font-medium">
-            {title}
+          <div className=" capitalize text-dark font-medium pb-0 mb-0">
+            <h6 className="text-md mb-0 pb-0">{title}</h6>
           </div>
-          <div className="text-gray-2">{description}</div>
+          <div className="text-gray-2 text-sm">{description}</div>
         </div>
         <div>{isDefault && <Tag>DEFAULT</Tag>}</div>
       </div>
@@ -58,14 +58,14 @@ export const Payment = (props: Props) => {
                 });
               }}
             >
-              Make Default
+                <p className="text-sm pb-0 mb-0"> Make Default</p>
             </Button>
           )}
           <Button
             type="link"
             size="small"
-            className="text-danger p-0"
-            danger
+            className="text-red-2 p-0 text-sm"
+            
             onClick={() => {
               Modal.confirm({
                 content: "Do you want to remove this card?",
@@ -77,7 +77,7 @@ export const Payment = (props: Props) => {
               });
             }}
           >
-            Remove
+            <p className="text-red-2 text-sm pb-0 mb-0"> Remove</p>
           </Button>
         </div>
       )}

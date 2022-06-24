@@ -38,7 +38,7 @@
 .profile-form{
   :global .ant-input[disabled] {
     color: rgba(0, 0, 0, 0.25);
-    background-color: #f5f5f5;
+    background-color: #f6f8fa !important;
     border-color: #f6f8fa !important;
     box-shadow: none;
     cursor: not-allowed;
@@ -46,6 +46,8 @@
 }
 :global .ant-input-affix-wrapper-disabled{
   border-color: #f6f8fa !important;
+  background-color: #f6f8fa !important;
+ 
 }
 
 }
