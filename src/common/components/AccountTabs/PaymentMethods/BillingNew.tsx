@@ -174,8 +174,8 @@ function Billing({
   return (
     <>
       <div className="col-start-1 col-end-8 flex justify-between align-middle">
-        <div className="mb-8 flex flex-col w-full">
-          <h4 className="font-medium text-lg mt-5">Payment Methods</h4>
+        <div   className={`${_classes["payment_method_head"]} mb-8 flex flex-col w-full`}>
+          <h4 className=" text-lg mt-5">Payment Methods</h4>
           <div className="flex md:flex-row gap-0 w-full">
             <div className="user-details-list w-full rounded-lg">
               {loading ? (
