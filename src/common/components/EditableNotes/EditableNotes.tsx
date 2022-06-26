@@ -188,13 +188,13 @@ function EditableNotes({ doctorNotes }: Props) {
         {edit ? (
           <div className="flex justify-end gap-3">
             {/* <Button
-            danger
-            icon={<CloseOutlined />}
-            onClick={() => setOpen(true)}
-            className="mt-2 border border-red"
-          >
-            Delete
-          </Button> */}
+              danger
+              icon={<CloseOutlined />}
+              onClick={() => setOpen(true)}
+              className="mt-2 border border-red"
+            >
+              Delete
+            </Button> */}
             <Button
               type="primary"
               className="mt-2"
@@ -210,7 +210,7 @@ function EditableNotes({ doctorNotes }: Props) {
             </Button>
           </div>
         ) : (
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-3">
             <Button
               className="mt-2"
               onClick={(e) => {

@@ -125,24 +125,27 @@ function MessageInput() {
           </div>
 
           <span className="absolute right-14">
-            <Dragger
-              onChange={fileChange}
-              // maxCount={1}
-              multiple
-              beforeUpload={onBeforeUpload}
-              itemRender={() => <div />}
-              fileList={files}
-              customRequest={() => null}
-              accept="image/jpg, image/jpeg,.doc, .pdf,"
-            >
-              <Image
-                priority={true}
-                alt=""
-                width={25}
-                height={25}
-                src={attachIcon}
-              />
-            </Dragger>
+            <span className="h-10">
+              <Dragger
+                onChange={fileChange}
+                // maxCount={1}
+                multiple
+                beforeUpload={onBeforeUpload}
+                itemRender={() => <div />}
+                fileList={files}
+                customRequest={() => null}
+                accept="image/jpg, image/jpeg,.doc, .pdf,"
+                className={`${_classes["attachment-upload-btn"]} py-0`}
+              >
+                <Image
+                  priority={true}
+                  alt=""
+                  width={25}
+                  height={25}
+                  src={attachIcon}
+                />
+              </Dragger>
+            </span>
           </span>
           {/* <span className="absolute top-3 right-14">
             <Image priority={true} alt="" width={25} height={25} src={smile} />
