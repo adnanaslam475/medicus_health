@@ -1973,7 +1973,7 @@ export type DoctorSchedulesQueryVariables = Exact<{
 }>;
 
 
-export type DoctorSchedulesQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string }> };
+export type DoctorSchedulesQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> };
 
 export type DoctorQuestionnaireQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -3709,6 +3709,8 @@ export const DoctorSchedulesDocument = gql`
     day
     startTime
     endTime
+    createdAt
+    updatedAt
   }
 }
     `;

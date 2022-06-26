@@ -72,7 +72,7 @@ function Notes(props: Props) {
           <Acronym character="A" word="Assessment" />
           <Acronym character="P" word="Plan" />
           <div className="flex justify-end gap-2">
-            <Button
+            {/* <Button
               htmlType="submit"
               onClick={() => {
                 // setLoaderSave(true);
@@ -80,7 +80,7 @@ function Notes(props: Props) {
               }}
             >
               Publish Notes
-            </Button>
+            </Button> */}
             <Button
               htmlType="submit"
               type="primary"
