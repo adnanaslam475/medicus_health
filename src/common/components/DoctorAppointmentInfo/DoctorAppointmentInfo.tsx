@@ -81,7 +81,7 @@ function DoctorAppointmentInfo({ data }: Props) {
   const { user } = getUserData();
   const { id: doctorId } = user || {};
 
-  const [{ fetching: cancelFetching }, executeCancelRequestedAppointment] =
+  const [{ fetching: cancelFetching }, executeCancelAppointment] =
     useCancelAppointmentByDoctorMutation();
 
   function timeSlots() {
@@ -96,7 +96,7 @@ function DoctorAppointmentInfo({ data }: Props) {
 
   async function onCancelRequestedAppointment() {
     try {
-      const res = await executeCancelRequestedAppointment({
+      const res = await executeCancelAppointment({
         id: Number(id),
       });
 
@@ -109,12 +109,36 @@ function DoctorAppointmentInfo({ data }: Props) {
           message: "Something went wrong",
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function onCancelUpcomingAppointment() {
+    try {
+      const res = await executeCancelAppointment({
+        id: Number(id),
+      });
+
+      if (res?.data?.cancelAppointment) {
+        notification.success({
+          message: "Appointment Cancelled",
+        });
+      }
+      if (res?.error) {
+        notification.error({
+          message:
+            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <div className="max-w-[700px]">
       <div className="message-button mb-3">
-        {status === "Requested" && (
+        {(status === "Requested" || status === "Confirmed") && (
           <MessageButtons patientID={patientID} doctorId={doctorId} />
         )}
       </div>
@@ -190,8 +214,15 @@ function DoctorAppointmentInfo({ data }: Props) {
           </div>
         </li>
       </div>
-
-      {(status === "Confirmed" || status === "Completed") && (
+      {status === "Confirmed" && (
+        <DoctorUpcomingAppointmentInfoFooter
+          appointmentId={Number(id)}
+          data={data}
+          onCancelUpcomingAppointment={onCancelUpcomingAppointment}
+          cancelFetching={cancelFetching}
+        />
+      )}
+      {status === "Completed" && (
         <DoctorAppointmentInfoFooter appointmentId={Number(id)} data={data} />
       )}
       {status === "Requested" && (
@@ -334,6 +365,99 @@ function DoctorAppointmentInfoFooter({
         onOk={handleOk}
         onCancel={handleCancel}
         doctorData={doctor?.doctorProfile}
+      />
+    </div>
+  );
+}
+function DoctorUpcomingAppointmentInfoFooter({
+  appointmentId,
+  data,
+  onCancelUpcomingAppointment,
+  cancelFetching,
+}: {
+  appointmentId: number | undefined;
+  data?: Appointment;
+  onCancelUpcomingAppointment?: () => void;
+  cancelFetching?: boolean;
+}) {
+  // GET USER ID
+  const { user } = getUserData();
+  const doctorId = user?.id;
+  const { appointmentTimeSlots, patient, doctor } = data || {};
+
+  const { id: patientId } = patient || {};
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
+    () => appointmentTimeSlots?.find((item) => item.selected),
+    [appointmentTimeSlots]
+  );
+  const [disabled, setDisabled] = useState(true);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [showConfirmationModal, setShowConfirmationModal] =
+    React.useState<boolean>(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  useEffect(() => {
+    isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
+  }, [selectedAppointment]);
+
+  return (
+    <div className="flex justify-between mt-6">
+      <div className="flex">
+        <Button
+          danger
+          className={`${_classes["appointments-btn"]}`}
+          onClick={() => setShowConfirmationModal(true)}
+        >
+          Cancel Appointment
+        </Button>
+      </div>
+      {data?.status === "Confirmed" && (
+        <Button
+          type="primary"
+          icon={<VideoCameraFilled />}
+          className={`${_classes["appointments-btn"]} bg-current`}
+          onClick={() =>
+            Router.push(`/physician/appointments/${appointmentId}/call`)
+          }
+          disabled={disabled}
+        >
+          Join Now
+        </Button>
+      )}
+      {getRole() === "User" && data?.status === "Completed" && (
+        <Button
+          type="primary"
+          className={`${_classes["appointments-rebook-btn"]}`}
+          onClick={showModal}
+        >
+          Rebook Appointment
+        </Button>
+      )}
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        doctorData={doctor?.doctorProfile}
+      />
+      <ConfirmationModal
+        visible={showConfirmationModal}
+        confirmLoading={cancelFetching}
+        onCancel={() => setShowConfirmationModal(false)}
+        onOk={onCancelUpcomingAppointment}
+        message="Are you sure you want to Cancel Appointment?"
       />
     </div>
   );

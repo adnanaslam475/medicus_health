@@ -66,7 +66,7 @@ function CalendarModalComponent(props: Props) {
       </div>
 
       <div className="border-b pb-0 pt-2">
-        <p className="text-grey-4 ">ServiceType</p>
+        <p className="text-grey-4 ">Service Type</p>
         <h4 className="text-xl">{serviceType}</h4>
       </div>
 

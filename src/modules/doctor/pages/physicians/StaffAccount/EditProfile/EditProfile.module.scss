@@ -25,29 +25,17 @@
   }
 }
 
-.published-button {
-  height: 34px;
-  background: #e2f8f7;
-  border-color: #e2f8f7;
-  color: #30cec2;
-}
 .edit-button {
   height: 34px;
 }
 
-.profile-form{
-  :global .ant-input[disabled] {
-    color: rgba(0, 0, 0, 0.25);
-    background-color: #f6f8fa !important;
-    border-color: #f6f8fa !important;
-    box-shadow: none;
-    cursor: not-allowed;
-    opacity: 1;
-}
-:global .ant-input-affix-wrapper-disabled{
-  border-color: #f6f8fa !important;
-  background-color: #f6f8fa !important;
- 
+.published-button {
+  height: 34px;
+  background: #e2f8f7 !important;
+  border-color: #e2f8f7 !important;
+  color: #30cec2 !important;
 }
 
+.bottom-margin-0 {
+  margin-bottom: 0 !important;
 }

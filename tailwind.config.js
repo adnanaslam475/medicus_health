@@ -60,6 +60,7 @@ module.exports = {
       red: {
         DEFAULT: "#D53E4F",
         1: "#FCE8EB",
+        2:"#DD3434",
       },
       green: {
         DEFAULT: "#E2F8F7",

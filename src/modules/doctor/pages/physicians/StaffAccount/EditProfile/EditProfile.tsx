@@ -175,7 +175,6 @@ function EditProfile({
 
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
-    localStorage.removeItem("loginTime");
     Router.push("/login");
   };
 

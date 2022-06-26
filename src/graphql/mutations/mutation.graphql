@@ -32,6 +32,7 @@ mutation login($input: LoginUserInput!) {
       role
       first_name
       last_name
+      doctorId
       patientProfile {
         profileImage
       }
