@@ -72,7 +72,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
         // Number(adminApp_Details?.doctor?.doctor_Id),
       },
     });
-    console.log(scheduleDetails, "scheduleDetails");
 
     useEffect(() => {
       if (ref) {
