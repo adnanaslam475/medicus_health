@@ -8,6 +8,7 @@ import {
   GetDoctorNotesByAppIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
   useGetAppointmentNoteByIdQuery,
+  useGetDoctorNotesByAppIdQuery,
   useRemoveAppointmentNoteMutation,
 } from "generated/graphql";
 import AcronymWithTextEditable from "../AcronymWithTextEditable/AcronymWithTextEditable";
@@ -43,10 +44,28 @@ function EditableNotes({ doctorNotes }: Props) {
   const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
     useCreateOrUpdateAppointmentNoteMutation();
 
+  // GET NOTES API CALL
+  // const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
+  //   useGetAppointmentNoteByIdQuery({
+  //     variables: {
+  //       appointmentId: Number(query?.id),
+  //     },
+  //   });
+  const [{ data: notesById }, executeGetDoctorNotesByAppIdQuery] =
+    useGetDoctorNotesByAppIdQuery({
+      variables: {
+        id: Number(query?.id),
+      },
+    });
+
+  console.log(notesById, query?.id, "majidUsma");
+
+  const { appointment: currentNote } = notesById || {};
+  const { id: noteId } = currentNote || {};
+
   // ADD NOTES API CALL
 
   const addNote = async (value: any) => {
-    console.log(value, "majidUsma");
     const res = await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
@@ -70,17 +89,6 @@ function EditableNotes({ doctorNotes }: Props) {
       });
     }
   };
-
-  // GET NOTES API CALL
-  const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
-    useGetAppointmentNoteByIdQuery({
-      variables: {
-        appointmentId: Number(query?.id),
-      },
-    });
-
-  const { appointmentNote: currentNote } = notesById || {};
-  const { id: noteId } = currentNote || {};
 
   // REMOVE NOTES API CALL
 

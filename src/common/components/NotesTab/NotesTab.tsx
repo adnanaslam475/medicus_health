@@ -36,9 +36,9 @@ function NotesTab({}: Props) {
   const status = appointment?.status;
   const { patient, serviceType } = appointment || {};
 
-  // GET NOTES API CALL
-
   const appointmentId = Number(query.id);
+
+  // GET NOTES API CALL
 
   const [{ data: notesByAppointmentId }, executeGetDoctorNotesByAppIdQuery] =
     useGetDoctorNotesByAppIdQuery({
