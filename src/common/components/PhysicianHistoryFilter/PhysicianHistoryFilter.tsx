@@ -68,7 +68,7 @@ function PhysicianSearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5 flex-wrap`}
     >
-      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3  2xl:mr-3">Filter</span>
+      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">Filter</span>
       <div className="flex-none sm:flex">
         <div className="mb-3 md:mb-0  w-full sm:w-full md:w-full lg:w-70 mr-2">
           <Input
