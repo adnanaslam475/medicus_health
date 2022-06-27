@@ -429,7 +429,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         <Input disabled={disabled} size="large" />
       </Form.Item>
       <Form.Item
-        className="flex-1"
+        className="flex-1 text-secondary"
         name={HealthQuestionnaryData.q8.name}
         label={HealthQuestionnaryData.q8.label}
         rules={[
