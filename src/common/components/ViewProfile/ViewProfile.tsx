@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
-import { Avatar, Form, Button } from "antd";
+import { Avatar, Form, Button, Skeleton } from "antd";
 
 import { useGetUserQuery, User } from "generated/graphql";
 import { Schedule } from "common/types/types";
@@ -16,6 +16,7 @@ type props = {
   setIsEdit?: (e: boolean) => void;
   showLoginInfo?: boolean;
   schedules?: Schedule[] | undefined;
+  loading?: boolean;
 };
 
 export const ViewProfile = React.forwardRef(function Profile({
@@ -24,6 +25,7 @@ export const ViewProfile = React.forwardRef(function Profile({
   setIsEdit,
   showLoginInfo,
   schedules,
+  loading,
 }: props) {
   const [formInstance] = Form.useForm();
   const { first_name, last_name, email, contact_number, status, language } =
@@ -102,11 +104,15 @@ export const ViewProfile = React.forwardRef(function Profile({
             </div>
 
             <div>
-              <h2 className="mb-0">
-                {`${doctor_first_name && doctor_first_name} ${
-                  doctor_last_name && doctor_last_name
-                }`}
-              </h2>
+              <Skeleton
+                loading={loading || !doctor_first_name}
+                paragraph={{ rows: 1 }}
+                active
+              >
+                <h2 className="mb-0">
+                  {`${doctor_first_name || " "} ${doctor_last_name || " "}`}
+                </h2>
+              </Skeleton>
               <span className="block">{doctor_email}</span>
               <div className="flex gap-2 pt-2">
                 {getRole() === "Admin" && (
