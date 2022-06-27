@@ -73,28 +73,28 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
     <ul className="custom-list mt-4 border border-gray-5 px-0 rounded custom-list-items">
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">First Name</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">First Name</div>
           <div className="sm:w-1/2 text-secondary">{first_name}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Last Name</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Last Name</div>
           <div className="sm:w-1/2 text-secondary">{last_name}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Gender</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Gender</div>
           <div className="sm:w-1/2 text-secondary">{gender}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Date of Birth</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Date of Birth</div>
           <div className="sm:w-1/2 text-secondary">
             {date_of_birth ? date.convertStringDateToUTC(date_of_birth) : "-"}
           </div>
@@ -103,21 +103,21 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Contact Number</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Contact Number</div>
           <div className="sm:w-1/2 text-secondary">{contact_number}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Email Address</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Email Address</div>
           <div className="sm:w-1/2 text-secondary">{email}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Password</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Password</div>
           <div className="sm:w-1/2 text-secondary">
             <div className="sm:w-1/2 text-secondary">******</div>
           </div>
@@ -126,21 +126,21 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Country</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Country</div>
           <div className="sm:w-1/2 text-secondary">{countryName}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">State</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">State</div>
           <div className="sm:w-1/2 text-secondary">{state}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">City</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">City</div>
           <div className="sm:w-1/2 text-secondary">
             {cityName[0]?.city_name}
           </div>
@@ -149,42 +149,42 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Postal Code</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Postal Code</div>
           <div className="sm:w-1/2 text-secondary">{zip_code}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Street Address</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Street Address</div>
           <div className="sm:w-1/2 text-secondary">{streetAddress}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Marital Status</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Marital Status</div>
           <div className={`sm:w-1/2 ${!patientProfile?.maritalStatus && "text-gray-1"}`}>{patientProfile?.maritalStatus || "N/A"}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Do you have any children?</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Do you have any children?</div>
           <div className={`sm:w-1/2 ${!patientProfile?.children && "text-gray-1"}`}>{patientProfile?.children || "N/A"}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">What is your Occupation?</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">What is your Occupation?</div>
           <div className={`sm:w-1/2 ${!patientProfile?.occupation && "text-gray-1"}`}>{patientProfile?.occupation || "N/A"}</div>
         </div>
       </li>
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">
+          <div className="w-1/2 sm:w-1/3 text-gray-1">
             Do you have any Occupational Exposure?
           </div>
           <div className={`sm:w-1/2 ${!patientProfile?.occupationalExposure && "text-gray-1"}`}>{patientProfile?.occupationalExposure || "N/A"}</div>
@@ -193,7 +193,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">
+          <div className="w-1/2 sm:w-1/3 text-gray-1">
             Do you have any Occupational Duration?
           </div>
           <div className={`sm:w-1/2 ${!patientProfile?.exposureDuration && "text-gray-1"}` } >{patientProfile?.exposureDuration || "N/A"}</div>
@@ -202,7 +202,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="sm:w-1/2 text-gray-1">Do you have any pets?</div>
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Do you have any pets?</div>
           <div className={`sm:w-1/2 ${!patientProfile?.pets && "text-gray-1"}`}>{patientProfile?.pets || "N/A"}</div>
         </div>
       </li>
