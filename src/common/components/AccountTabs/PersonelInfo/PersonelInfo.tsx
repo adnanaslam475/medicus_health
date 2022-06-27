@@ -158,7 +158,7 @@ const PersonalInfo = () => {
 
           <div className="edit-btn">
             {isEdit ? (
-              <div className="flex gap-4">
+              <div className="flex gap-4 flex-wrap">
                 <Button
                   danger
                   className="text-xs p-5 text-red"
