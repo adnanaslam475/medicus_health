@@ -33,6 +33,8 @@ type Props = {
   isFromPhysician?: boolean | null | any;
   setSearchPatient?: string | any;
   setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
+  setDueDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
+  setClearFilter?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function SearchFilters(props: Props) {
@@ -46,6 +48,8 @@ function SearchFilters(props: Props) {
     isFromPhysician,
     setAppointmentId,
     setBookingDate,
+    setDueDate,
+    setClearFilter,
   } = props;
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
@@ -53,14 +57,20 @@ function SearchFilters(props: Props) {
   const [selectedServiceItems, setSelectedServiceItems] = useState<
     string | null
   >();
-  const [dateRangeValues, selectDateRangeValues] = useState(null);
-  const [openDateRange, setOpenDateRange] = useState(false);
-  const [dateRange, selectDateRange] = useState(null);
+  const [dueDateRangeValues, selectDueDateRangeValues] = useState(null);
+  const [bookingDateRangeValues, selectBookingDateRangeValues] = useState(null);
+  const [openBookingDateRange, setOpenBookingDateRange] = useState(false);
+  const [openDueDateRange, setOpenDueDateRange] = useState(false);
+  const [bookingDateRange, selectBookingDateRange] = useState(null);
+  const [dueDateRange, selectDueDateRange] = useState(null);
   const [patientName, setPatientName] = useState<string>();
   const [localAppointment_Id, setLocalAppointment_Id] = useState<
     number | null | undefined
   >();
-  const [dateRangeState, setDateRangeState] = useState<BookingDate>({});
+  const [dueDateRangeState, setDueDateRangeState] = useState<BookingDate>({});
+  const [bookingDateRangeState, setBookingDateRangeState] =
+    useState<BookingDate>({});
+  // const [dueDate, setDueDate] = useState<BookingDate>({});
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
@@ -88,10 +98,19 @@ function SearchFilters(props: Props) {
     setServiceIds(selectedItem);
   };
 
-  function onChange(date: any, dateString: any) {
-    selectDateRangeValues(date);
-    selectDateRange(date);
-    setDateRangeState({
+  function BookingDateChangeHandler(date: any, dateString: any) {
+    selectBookingDateRangeValues(date);
+    selectBookingDateRange(date);
+    setBookingDateRangeState({
+      startDate: dateString[0],
+      endDate: dateString[1],
+    });
+  }
+
+  function onDueDateChangeHandler(date: any, dateString: any) {
+    selectDueDateRangeValues(date);
+    selectDueDateRange(date);
+    setDueDateRangeState({
       startDate: dateString[0],
       endDate: dateString[1],
     });
@@ -102,20 +121,29 @@ function SearchFilters(props: Props) {
     setSelectedServiceItems(null);
     setDoctorId(undefined);
     setServiceIds(undefined);
-    selectDateRangeValues(null);
+    selectBookingDateRangeValues(null);
+    selectDueDateRangeValues(null)
     setEndDate(null);
     setStartDate(null);
-    setOpenDateRange(false);
-    selectDateRange(null);
+    setOpenBookingDateRange(false);
+    setOpenDueDateRange(false);
+    selectBookingDateRange(null);
+    selectDueDateRange(null);
     setPatientName("");
     setSearchPatient && setSearchPatient(null);
     setAppointmentId(undefined);
     setLocalAppointment_Id(null);
     setBookingDate?.({});
+    setClearFilter?.((prev: boolean) => !prev);
   };
-  const applyDateRange = () => {
-    setOpenDateRange(false);
-    setBookingDate?.(dateRangeState);
+  const applyBookingDateRange = () => {
+    setOpenBookingDateRange(false);
+    setBookingDate?.(bookingDateRangeState);
+  };
+
+  const applyDueDateRange = () => {
+    setOpenDueDateRange(false);
+    setDueDate?.(dueDateRangeState);
   };
 
   return (
@@ -187,16 +215,16 @@ function SearchFilters(props: Props) {
         >
           <div className="relative">
             <RangePicker
-              value={dateRangeValues}
-              onChange={onChange}
-              open={openDateRange}
+              value={bookingDateRangeValues}
+              onChange={BookingDateChangeHandler}
+              open={openBookingDateRange}
               className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
               renderExtraFooter={() => (
                 <div className="flex gap-3 justify-end p-3">
                   <Button
                     className="bg-gray-300"
                     onClick={() => {
-                      setOpenDateRange(false);
+                      setOpenBookingDateRange(false);
                     }}
                   >
                     Cancel
@@ -205,7 +233,7 @@ function SearchFilters(props: Props) {
                     className=" text-white"
                     type="primary"
                     onClick={() => {
-                      applyDateRange();
+                      applyBookingDateRange();
                     }}
                   >
                     Apply
@@ -217,15 +245,15 @@ function SearchFilters(props: Props) {
               className="flex date-btn"
               block
               type="default"
-              onClick={() => setOpenDateRange?.(!openDateRange)}
+              onClick={() => setOpenBookingDateRange?.(!openBookingDateRange)}
             >
-              {dateRange ? (
+              {bookingDateRange ? (
                 <div>
-                  {dateRange
-                    ? `${getDateInFormat(dateRange?.[0])} -> ${getDateInFormat(
-                        dateRange?.[1]
-                      )}`
-                    : "Date"}
+                  {bookingDateRange
+                    ? `${getDateInFormat(
+                        bookingDateRange?.[0]
+                      )} -> ${getDateInFormat(bookingDateRange?.[1])}`
+                    : "Booking Date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -239,7 +267,78 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Date
+                    Booking Date
+                  </div>
+                  <div>
+                    <CaretDownOutlined style={{ color: `primary` }} />
+                  </div>
+                </div>
+              )}
+            </Button>
+          </div>
+        </Space>
+      </div>
+      <div className="flex-none sm:flex ml-3">
+        <Space
+          direction="vertical"
+          size={0}
+          className="w-full md:w-44 xl:w-60 sm:mb-3"
+        >
+          <div className="relative">
+            <RangePicker
+              value={dueDateRangeValues}
+              onChange={onDueDateChangeHandler}
+              open={openDueDateRange}
+              className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
+              renderExtraFooter={() => (
+                <div className="flex gap-3 justify-end p-3">
+                  <Button
+                    className="bg-gray-300"
+                    onClick={() => {
+                      setOpenDueDateRange(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className=" text-white"
+                    type="primary"
+                    onClick={() => {
+                      applyDueDateRange();
+                    }}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              )}
+            />
+            <Button
+              className="flex date-btn"
+              block
+              type="default"
+              onClick={() => setOpenDueDateRange?.(!openDueDateRange)}
+            >
+              {dueDateRange ? (
+                <div>
+                  {dueDateRange
+                    ? `${getDateInFormat(
+                        dueDateRange?.[0]
+                      )} -> ${getDateInFormat(dueDateRange?.[1])}`
+                    : "Due Date"}
+                </div>
+              ) : (
+                <div className="flex justify-between items-center w-full px-3">
+                  <div className="flex items-center font-thin">
+                    <span className="mr-2 mt-1">
+                      <Image
+                        priority={true}
+                        width={18}
+                        height={18}
+                        src={calendarFilterIcon}
+                        alt=""
+                      />
+                    </span>
+                    Due Date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
