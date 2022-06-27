@@ -54,9 +54,11 @@ function AdminCalender(props: Props) {
 
   const [{ data: physicianData }] = usePhysicianAppointmentsQuery({
     variables: {
-      filter: searchText ? {
-        searchString: searchText,
-      } : {},
+      filter: searchText
+        ? {
+            searchString: searchText,
+          }
+        : {},
     },
   });
   const { physicianAppointments } = physicianData || {};
@@ -193,7 +195,7 @@ function AdminCalender(props: Props) {
                   },
                 },
                 customText: {
-                  text: "Appointment",
+                  text: "Upcomming Appointments",
                 },
                 custom1: {
                   text: "Request an Appointment",
@@ -229,7 +231,7 @@ function AdminCalender(props: Props) {
                   return [`${_Classes["clsCompleted"]}`];
                 }
                 if (arg.event.extendedProps?.status === "Cancelled") {
-                  return [`${_Classes["clsCancelled"]}`];
+                  return [`${_Classes["clsCanceled"]}`];
                 }
                 if (arg.event.extendedProps?.status === "Suggested") {
                   return [`${_Classes["clsUpcoming"]}`];
@@ -275,7 +277,7 @@ function AdminCalender(props: Props) {
                   },
                 },
                 customText: {
-                  text: "Appointment",
+                  text: "Upcoming Appointments",
                 },
                 custom1: {
                   text: "Request an Appointment",

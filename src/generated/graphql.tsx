@@ -45,11 +45,19 @@ export type AdminProfilePicture = {
   userId: Scalars['Int'];
 };
 
-export type AdminSetting = {
-  __typename?: 'AdminSetting';
-  id: Scalars['Int'];
-  key: Scalars['String'];
-  value: Scalars['String'];
+export type AdminSettingResponse = {
+  __typename?: 'AdminSettingResponse';
+  california_state_tax?: Maybe<Scalars['String']>;
+  consultation_charges_medicus_cut?: Maybe<Scalars['String']>;
+  consultation_charges_physician_cut?: Maybe<Scalars['String']>;
+  second_opinion_charges_medicus_cut?: Maybe<Scalars['String']>;
+  second_opinion_charges_physician_cut?: Maybe<Scalars['String']>;
+  stripe_fee?: Maybe<Scalars['String']>;
+  stripe_variable_amount?: Maybe<Scalars['String']>;
+  taxes_state_tax?: Maybe<Scalars['String']>;
+  total_consultation_charges?: Maybe<Scalars['String']>;
+  total_second_opinion_charges?: Maybe<Scalars['String']>;
+  washington_state_tax?: Maybe<Scalars['String']>;
 };
 
 export type Appointment = {
@@ -107,6 +115,14 @@ export type AppointmentNote = {
   plan?: Maybe<Scalars['String']>;
   subjective?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
+};
+
+export type AppointmentPriceResponse = {
+  __typename?: 'AppointmentPriceResponse';
+  appointmentPrice?: Maybe<Scalars['Float']>;
+  systemFee?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  total?: Maybe<Scalars['Float']>;
 };
 
 export type AppointmentServiceType = {
@@ -583,7 +599,7 @@ export type Mutation = {
   cancelAppointment: Appointment;
   cancelAppointmentByAdmin: Appointment;
   cancelAppointmentByPatient: Appointment;
-  createAdminSetting: Array<AdminSetting>;
+  createAdminSetting: AdminSettingResponse;
   createAdminUser: User;
   createAppointment: Appointment;
   createCard: UserCard;
@@ -985,6 +1001,7 @@ export type ProposedTimeSlots = {
 export type Query = {
   __typename?: 'Query';
   adminDash: AdminDashResponse;
+  adminSettings: AdminSettingResponse;
   adminUser: User;
   adminUsers: Array<User>;
   appointment: Appointment;
@@ -1011,6 +1028,8 @@ export type Query = {
   doctorSchedules: Array<DoctorSchedule>;
   getAllCards: Array<UserCard>;
   getAllChatChannels: Array<ChatChannels>;
+  getAppointmentPrice: AppointmentPriceResponse;
+  getAppointmentPriceForRequest: AppointmentPriceResponse;
   getCard: UserCard;
   getChannelMessages: Array<ChatMessages>;
   getCitiesByState: Array<City>;
@@ -1124,6 +1143,17 @@ export type QueryDoctorSchedulesArgs = {
 
 export type QueryGetAllCardsArgs = {
   user_id: Scalars['Int'];
+};
+
+
+export type QueryGetAppointmentPriceArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryGetAppointmentPriceForRequestArgs = {
+  patientId: Scalars['Int'];
+  serviceId: Scalars['Int'];
 };
 
 
@@ -1275,8 +1305,9 @@ export type TogglePreference = {
 
 export type Transaction = {
   __typename?: 'Transaction';
-  amountReceived: Scalars['Int'];
+  amountReceived: Scalars['Float'];
   appointment?: Maybe<Appointment>;
+  appointmentCharges: Scalars['Float'];
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
   createdAt: Scalars['DateTime'];
@@ -1284,6 +1315,8 @@ export type Transaction = {
   id: Scalars['Int'];
   payment_status?: Maybe<Scalars['String']>;
   status: Scalars['String'];
+  stripeFee: Scalars['Float'];
+  tax: Scalars['Float'];
   transactionId: Scalars['String'];
 };
 
@@ -1365,6 +1398,7 @@ export type UpdateUserInput = {
 export type User = {
   __typename?: 'User';
   adminProfilePicture?: Maybe<AdminProfilePicture>;
+  adminSetting?: Maybe<AdminSettingResponse>;
   appointment?: Maybe<Appointment>;
   chatChannel?: Maybe<ChatChannels>;
   chatParticipant?: Maybe<ChatParticipants>;
@@ -1548,7 +1582,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string, role?: string | null, first_name: string, last_name: string, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null, specialization?: string | null } | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string, role?: string | null, first_name: string, last_name: string, doctorId?: number | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null, specialization?: string | null } | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null } } };
 
 export type UserForgotPasswordMutationVariables = Exact<{
   input: Scalars['String'];
@@ -1787,7 +1821,7 @@ export type CreateAdminSettingsMutationVariables = Exact<{
 }>;
 
 
-export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: Array<{ __typename?: 'AdminSetting', key: string, value: string }> };
+export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: { __typename?: 'AdminSettingResponse', total_consultation_charges?: string | null, consultation_charges_medicus_cut?: string | null, consultation_charges_physician_cut?: string | null, total_second_opinion_charges?: string | null, second_opinion_charges_medicus_cut?: string | null, second_opinion_charges_physician_cut?: string | null, california_state_tax?: string | null, washington_state_tax?: string | null, taxes_state_tax?: string | null, stripe_fee?: string | null, stripe_variable_amount?: string | null } };
 
 export type AdminUserQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -1973,7 +2007,7 @@ export type DoctorSchedulesQueryVariables = Exact<{
 }>;
 
 
-export type DoctorSchedulesQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string }> };
+export type DoctorSchedulesQuery = { __typename?: 'Query', doctorSchedules: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> };
 
 export type DoctorQuestionnaireQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -2282,6 +2316,7 @@ export const LoginDocument = gql`
       role
       first_name
       last_name
+      doctorId
       patientProfile {
         profileImage
       }
@@ -2874,8 +2909,17 @@ export function usePhysicianPaymentByAdminMutation() {
 export const CreateAdminSettingsDocument = gql`
     mutation createAdminSettings($createAdminSettingInput: [CreateAdminSettingInput!]!) {
   createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
-    key
-    value
+    total_consultation_charges
+    consultation_charges_medicus_cut
+    consultation_charges_physician_cut
+    total_second_opinion_charges
+    second_opinion_charges_medicus_cut
+    second_opinion_charges_physician_cut
+    california_state_tax
+    washington_state_tax
+    taxes_state_tax
+    stripe_fee
+    stripe_variable_amount
   }
 }
     `;
@@ -3709,6 +3753,8 @@ export const DoctorSchedulesDocument = gql`
     day
     startTime
     endTime
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -4191,38 +4237,93 @@ export default {
       },
       {
         "kind": "OBJECT",
-        "name": "AdminSetting",
+        "name": "AdminSettingResponse",
         "fields": [
           {
-            "name": "id",
+            "name": "california_state_tax",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
           {
-            "name": "key",
+            "name": "consultation_charges_medicus_cut",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
           {
-            "name": "value",
+            "name": "consultation_charges_physician_cut",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "second_opinion_charges_medicus_cut",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "second_opinion_charges_physician_cut",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "stripe_fee",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "stripe_variable_amount",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "taxes_state_tax",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_consultation_charges",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_second_opinion_charges",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "washington_state_tax",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           }
@@ -4639,6 +4740,45 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AppointmentPriceResponse",
+        "fields": [
+          {
+            "name": "appointmentPrice",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "systemFee",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "tax",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           }
@@ -5787,15 +5927,9 @@ export default {
             "type": {
               "kind": "NON_NULL",
               "ofType": {
-                "kind": "LIST",
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "AdminSetting",
-                    "ofType": null
-                  }
-                }
+                "kind": "OBJECT",
+                "name": "AdminSettingResponse",
+                "ofType": null
               }
             },
             "args": [
@@ -7212,6 +7346,18 @@ export default {
             "args": []
           },
           {
+            "name": "adminSettings",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AdminSettingResponse",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "adminUser",
             "type": {
               "kind": "NON_NULL",
@@ -7804,6 +7950,62 @@ export default {
               }
             },
             "args": []
+          },
+          {
+            "name": "getAppointmentPrice",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentPriceResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "getAppointmentPriceForRequest",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentPriceResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "patientId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "serviceId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
             "name": "getCard",
@@ -8486,6 +8688,17 @@ export default {
             "args": []
           },
           {
+            "name": "appointmentCharges",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "appointmentId",
             "type": {
               "kind": "NON_NULL",
@@ -8560,6 +8773,28 @@ export default {
             "args": []
           },
           {
+            "name": "stripeFee",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "tax",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "transactionId",
             "type": {
               "kind": "NON_NULL",
@@ -8582,6 +8817,15 @@ export default {
             "type": {
               "kind": "OBJECT",
               "name": "AdminProfilePicture",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "adminSetting",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AdminSettingResponse",
               "ofType": null
             },
             "args": []

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Empty, Spin } from "antd";
+import { Button, Empty, Spin } from "antd";
 import AppointmentCard from "common/components/AppointmentCard/AppointmentCard";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import SearchFilter from "common/components/SearchFilters/SearchFilter";
@@ -9,10 +9,15 @@ import {
   GetCurrentAppointmentInput,
   BookingDate,
   useCurrentAppointmentsQuery,
+  useGetPhysiciansQuery,
+  User,
 } from "generated/graphql";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 function CurrentAppointment() {
   const [filterValues, setFilterValues] = useState({});
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const [{ data, fetching }, executeUseCurrentAppointmentsQuery] =
     useCurrentAppointmentsQuery({
       variables: { filter: filterValues },
@@ -29,6 +34,25 @@ function CurrentAppointment() {
     });
   }
 
+  const showAppointmentBookingModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const [{ data: physicianList }] = useGetPhysiciansQuery({
+    variables: {
+      filter: {},
+    },
+  });
+  const { getPhysicians } = physicianList || {};
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -39,6 +63,17 @@ function CurrentAppointment() {
               Suspendisse ac nulla non ante viverra feugiat. Duis
               ullamcorperequesty tortor a fringilla tempus.
             </h5>
+          </div>
+          <div className="flex gap-3">
+            <Button
+              type="primary"
+              className="text-sm"
+              onClick={showAppointmentBookingModal}
+            >
+              <span className="text-xs sm:text-base">
+                Request an Appointment
+              </span>
+            </Button>
           </div>
         </div>
 
@@ -88,6 +123,12 @@ function CurrentAppointment() {
             <Spin />
           </div>
         )}
+        <BookAppointmentJourney
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          patientData={getPhysicians as User[]}
+        />
       </div>
     </AppLayout>
   );

@@ -96,9 +96,17 @@ mutation createAdminSettings(
   $createAdminSettingInput: [CreateAdminSettingInput!]!
 ) {
   createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
-    # id
-    key
-    value
+    total_consultation_charges
+    consultation_charges_medicus_cut
+    consultation_charges_physician_cut
+    total_second_opinion_charges
+    second_opinion_charges_medicus_cut
+    second_opinion_charges_physician_cut
+    california_state_tax
+    washington_state_tax
+    taxes_state_tax
+    stripe_fee
+    stripe_variable_amount
   }
 }
 

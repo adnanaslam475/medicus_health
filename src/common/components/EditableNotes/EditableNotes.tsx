@@ -8,6 +8,7 @@ import {
   GetDoctorNotesByAppIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
   useGetAppointmentNoteByIdQuery,
+  useGetDoctorNotesByAppIdQuery,
   useRemoveAppointmentNoteMutation,
 } from "generated/graphql";
 import AcronymWithTextEditable from "../AcronymWithTextEditable/AcronymWithTextEditable";
@@ -43,10 +44,28 @@ function EditableNotes({ doctorNotes }: Props) {
   const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
     useCreateOrUpdateAppointmentNoteMutation();
 
+  // GET NOTES API CALL
+  // const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
+  //   useGetAppointmentNoteByIdQuery({
+  //     variables: {
+  //       appointmentId: Number(query?.id),
+  //     },
+  //   });
+  const [{ data: notesById }, executeGetDoctorNotesByAppIdQuery] =
+    useGetDoctorNotesByAppIdQuery({
+      variables: {
+        id: Number(query?.id),
+      },
+    });
+
+  console.log(notesById, query?.id, "majidUsma");
+
+  const { appointment: currentNote } = notesById || {};
+  const { id: noteId } = currentNote || {};
+
   // ADD NOTES API CALL
 
   const addNote = async (value: any) => {
-    console.log(value, "majidUsma");
     const res = await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
@@ -70,17 +89,6 @@ function EditableNotes({ doctorNotes }: Props) {
       });
     }
   };
-
-  // GET NOTES API CALL
-  const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
-    useGetAppointmentNoteByIdQuery({
-      variables: {
-        appointmentId: Number(query?.id),
-      },
-    });
-
-  const { appointmentNote: currentNote } = notesById || {};
-  const { id: noteId } = currentNote || {};
 
   // REMOVE NOTES API CALL
 
@@ -188,13 +196,13 @@ function EditableNotes({ doctorNotes }: Props) {
         {edit ? (
           <div className="flex justify-end gap-3">
             {/* <Button
-            danger
-            icon={<CloseOutlined />}
-            onClick={() => setOpen(true)}
-            className="mt-2 border border-red"
-          >
-            Delete
-          </Button> */}
+              danger
+              icon={<CloseOutlined />}
+              onClick={() => setOpen(true)}
+              className="mt-2 border border-red"
+            >
+              Delete
+            </Button> */}
             <Button
               type="primary"
               className="mt-2"
@@ -210,7 +218,7 @@ function EditableNotes({ doctorNotes }: Props) {
             </Button>
           </div>
         ) : (
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-3">
             <Button
               className="mt-2"
               onClick={(e) => {

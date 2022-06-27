@@ -19,32 +19,15 @@ type Props = {
 
 function AdminAppointmentFilter({ onChange, filterValues }: Props) {
   const [openDateRange, setOpenDateRange] = React.useState<string>("");
-  const [search, setSearch] = React.useState<string>("");
   const [dueDate, setDueDate] = useState<BookingDate>({});
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
-  const [creationDate, setCreationDate] = useState<BookingDate>({});
-
-  // useDebounce(
-  //   (e: any) => {
-  //     console.log("eee", e);
-  //     onChangeFields("searchString", search);
-  //   },
-  //   500,
-  //   [search]
-  // );
-
-  console.log(filterValues, "filterValuesfilterValues");
-
+  
   function clear() {
     onChange({});
   }
 
   const applyDateRange = (status: string) => {
     switch (status) {
-      case "creationDate":
-        setOpenDateRange("");
-        onChangeFields("bookingDate", creationDate);
-        break;
       case "bookingDate":
         setOpenDateRange("");
         onChangeFields("bookingDate", bookingDate);
@@ -63,12 +46,11 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
       ...filterValues,
       [key]: value,
     };
-    console.log(filters, "myfilters");
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
     }
     if (!filters.dueDate?.startDate && !filters.dueDate?.endDate) {
-      delete filters.bookingDate;
+      delete filters.dueDate;
     }
     if (!filters.searchString) {
       delete filters.searchString;
@@ -125,7 +107,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 <div>
                   {filterValues.bookingDate
                     ? `${filterValues.bookingDate.startDate} -> ${filterValues.bookingDate.endDate}`
-                    : "Creation Date"}
+                    : "Booking Date"}
                 </div>
               )
             }
@@ -140,46 +122,20 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 endDate: dateString[1],
               })
             }
-            open={openDateRange === UPCOMING}
-            onOpen={() => setOpenDateRange(UPCOMING)}
-            onCancel={() => setOpenDateRange("")}
-            onApply={() => applyDateRange("dueDate")}
-            title={
-              filterValues?.dueDate?.startDate ? (
-                <div>
-                  {filterValues.dueDate
-                    ? `${filterValues.dueDate.startDate} -> ${filterValues.dueDate.endDate}`
-                    : "Creation Date"}
-                </div>
-              ) : (
-                ""
-              )
-            }
-            heading="Confirmation Date"
-          />
-        </div>
-        <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
-          <FilterRangePicker // not working yet
-            onChange={(dateString: string[]) =>
-              setCreationDate({
-                startDate: dateString[0],
-                endDate: dateString[1],
-              })
-            }
             open={openDateRange === SCHEDULED}
             onOpen={() => setOpenDateRange(SCHEDULED)}
             onCancel={() => setOpenDateRange("")}
-            onApply={() => applyDateRange("creationDate")}
+            onApply={() => applyDateRange("dueDate")}
             title={
-              filterValues.bookingDate?.startDate && (
+              filterValues.dueDate?.startDate && (
                 <div>
-                  {filterValues.bookingDate
-                    ? `${filterValues.bookingDate.startDate} -> ${filterValues.bookingDate.endDate}`
-                    : "Creation Date"}
+                  {filterValues.dueDate
+                    ? `${filterValues.dueDate.startDate} -> ${filterValues.dueDate.endDate}`
+                    : "Due Date"}
                 </div>
               )
             }
-            heading="Scheduled Date"
+            heading="Due Date"
           />
         </div>
 

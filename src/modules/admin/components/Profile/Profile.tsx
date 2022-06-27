@@ -216,7 +216,7 @@ export const Profile = React.forwardRef(function Profile({
                   label="Password"
                   name="password"
                   className="flex-1"
-                  rules={[{ required: true, message: "Password!" }]}
+                  // rules={[{ required: true, message: "Password!" }]}
                 >
                   <Input.Password />
                 </Form.Item>

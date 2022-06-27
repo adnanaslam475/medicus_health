@@ -6,7 +6,7 @@ import moment from "moment";
 import CitySelectDropDown from "./CitySelectDropDown";
 import StateSelectDropDown from "./StateSelectDropDown";
 import CountrySelectDropDown from "./CountrySelectDropDown";
-import _classes from './PersonalInfoDetail.module.scss';
+import _classes from "./PersonalInfoDetail.module.scss";
 
 type Props = {
   onFinish?: (values: {
@@ -89,7 +89,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       firstName: first_name,
       lastName: last_name,
       gender: gender,
-      date_of_birth: moment(date_of_birth),
+      date_of_birth: date_of_birth ? moment(date_of_birth) : "",
       conntactNumber: contact_number,
       email: email,
       password: "",

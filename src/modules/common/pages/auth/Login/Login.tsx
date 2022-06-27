@@ -47,6 +47,7 @@ function Login() {
         let userPayload: any = res?.data?.login;
         userPayload.remember = values.remember;
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
+        localStorage.setItem("loginTime",String(new Date().getTime()))
         if (
           userPayload.user.role === "Doctor" ||
           userPayload.user.role === "Staff"

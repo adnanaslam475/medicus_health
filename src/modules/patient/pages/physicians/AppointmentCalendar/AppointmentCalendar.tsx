@@ -29,7 +29,7 @@ function AppointmentCalendar() {
     },
   });
   const redirectToRequested =function () {
-    Router.push("/patient/appointments/requested");
+    Router.push("/patient/appointments/upcoming");
   }
 
 

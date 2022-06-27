@@ -25,7 +25,7 @@ function MessageItem(props: Props) {
   const backgroundColor = isMyMessage ? "#E0EEFD" : "#F6F8FA";
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
 
-  console.log({ data });
+  // console.log({ data });
 
   return (
     <div className="p-4">
@@ -68,7 +68,10 @@ function MessageItem(props: Props) {
                       height={25}
                       src={fileIcon}
                     />
-                    {message}
+                    {/* {message} */}
+                    <a href={message} target="_blank" rel="noreferrer">
+                      {message}
+                    </a>
                   </p>
                 )}
               </div>

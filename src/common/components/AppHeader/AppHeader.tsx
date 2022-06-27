@@ -31,6 +31,7 @@ const AppHeader = () => {
 
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
+    localStorage.removeItem("loginTime");
     setVisible(false);
     Router.push("/login");
   };

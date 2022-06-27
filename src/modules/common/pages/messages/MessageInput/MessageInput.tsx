@@ -1,6 +1,6 @@
 import { Badge, Input, notification, Upload } from "antd";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import _classes from "./MessageInput.module.scss";
 import attachIcon from "./../../../../../../public/assets/images/attach.svg";
 import smile from "./../../../../../../public/assets/images/smile.svg";
@@ -12,12 +12,14 @@ import error from "next/error";
 import { UploadFile } from "antd/lib/upload/interface";
 import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import Dragger from "antd/lib/upload/Dragger";
 
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
   const { messageInfo, onMessage } = useMessageContext();
   const [image, setImage] = useState<string>("");
   const [files, setFiles] = useState<UploadFile<any>[]>([]);
+  const [fileList, setFileList] = useState([]);
 
   // File Upload Hook
   const mediaUploader = useMediaUploader();
@@ -26,37 +28,63 @@ function MessageInput() {
     setMessageText(text);
   }
 
-  console.log(files, "usama");
+  const fileUpload = async (files: File[]) => {
+    try {
+      if (files) {
+        const urls = await mediaUploader.uploadMultiple(files);
 
-  function onSendMessage() {
-    if (files.length > 0) {
-      files.forEach((file) => {
-        onMessage?.(file.name || "", "Media");
-      });
-      setFiles([]);
-    } else {
-      onMessage?.(messageText);
+        let uploadUrlsData = urls?.map((url: any) => ({
+          url: url.location,
+          name: url.key,
+        }));
+        return uploadUrlsData;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  async function onSendMessage() {
+    const urls = await fileUpload(
+      fileList?.map(
+        ({ originFileObj }: { originFileObj: File }) => originFileObj
+      )
+    );
+
+    // if (files.length > 0) {
+    //   files.forEach((file) => {
+    //     onMessage?.(file.name || "", "Media");
+    //   });
+    //   setFiles([]);
+    // } else {
+    //   onMessage?.(messageText);
+    // }
+
+    if (urls) {
+      if (urls.length > 0) {
+        urls.map((url) => {
+          onMessage?.(url?.url, "File");
+        });
+        setFiles([]);
+        setFileList([]);
+      } else {
+        onMessage?.(messageText);
+      }
     }
 
     setMessageText("");
   }
+
   const isShowInput = !!messageInfo.currentChannel?.channelName;
 
   // For Attachment in Chat
-  const fileChange = async (info: UploadChangeParam) => {
+  const fileChange = async (info: any) => {
     try {
-      console.log({ info });
       setFiles(info.fileList);
-      // const url = await mediaUploader.upload(info.file.originFileObj as File);
-      // if (url) {
-      // setImage(url?.location);
-      // }
-    } catch (error) {}
-    // if (error) {
-    //   notification.error({
-    //     message: error?.graphQLErrors[0]?.message || "Something went wrong",
-    //   });
-    // }
+      setFileList(info.fileList);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onBeforeUpload = (file: File) => {
@@ -76,16 +104,13 @@ function MessageInput() {
             value={messageText}
           />
           <div className="absolute left-0 top-2 bg-gray-5">
-            {files.map((file) => (
-              <span className="box-border p-1 pt-3 bg-gray-9 font-semibold text-white border rounded-md text-left left-0 mx-1">
-                {/* {files?.length} */}
+            {files.map((file, index) => (
+              <span
+                className="box-border p-1 pt-3 mr-4 bg-gray-9 font-semibold text-white border rounded-md text-left left-0 mx-1"
+                onClick={() => setFiles(files.splice(index, 1))}
+              >
                 <Badge
-                  count={
-                    <CloseCircleOutlined
-                      // onclick={}
-                      style={{ color: "#F5222D" }}
-                    />
-                  }
+                  count={<CloseCircleOutlined style={{ color: "#F5222D" }} />}
                 >
                   <Image
                     priority={true}
@@ -99,25 +124,28 @@ function MessageInput() {
             ))}
           </div>
 
-          <span className="absolute top-3 right-14">
-            <Upload
-              onChange={fileChange}
-              // maxCount={1}
-              multiple
-              beforeUpload={onBeforeUpload}
-              itemRender={() => <div />}
-              fileList={files}
-              customRequest={() => null}
-              accept="image/jpg, image/jpeg,"
-            >
-              <Image
-                priority={true}
-                alt=""
-                width={25}
-                height={25}
-                src={attachIcon}
-              />
-            </Upload>
+          <span className="absolute right-14">
+            <span className="h-10">
+              <Dragger
+                onChange={fileChange}
+                // maxCount={1}
+                multiple
+                beforeUpload={onBeforeUpload}
+                itemRender={() => <div />}
+                fileList={files}
+                customRequest={() => null}
+                accept="image/jpg, image/jpeg,.doc, .pdf,"
+                className={`${_classes["attachment-upload-btn"]} py-0`}
+              >
+                <Image
+                  priority={true}
+                  alt=""
+                  width={25}
+                  height={25}
+                  src={attachIcon}
+                />
+              </Dragger>
+            </span>
           </span>
           {/* <span className="absolute top-3 right-14">
             <Image priority={true} alt="" width={25} height={25} src={smile} />
