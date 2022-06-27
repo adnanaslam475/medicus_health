@@ -122,7 +122,7 @@ function SearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5 flex-wrap`}
     >
-      <span className="text-gray-1 mr-3 mb-3 sm:block">Filter</span>
+      <span className="text-gray-1 mr-3 mb-3 w-full 2xl:w-fit">Filter</span>
       <div className="flex-none sm:flex">
         <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-2 sm:mr-0">
           <Input
@@ -134,7 +134,7 @@ function SearchFilters(props: Props) {
           />
         </div>
         {isFromPhysician ? (
-          <div className="sm:mb-0 mb:2 lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
+          <div className="sm:mb-0 mb:2 sm:ml-2 lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
             <Input
               placeholder={placeholder || "Search by ID or patient name"}
               prefix={<SearchOutlined />}
@@ -183,7 +183,7 @@ function SearchFilters(props: Props) {
         <Space
           direction="vertical"
           size={0}
-          className="w-full md:w-44 xl:w-60 sm:mb-3"
+          className="w-full md:w-60 xl:w-60 sm:mb-3"
         >
           <div className="relative">
             <RangePicker

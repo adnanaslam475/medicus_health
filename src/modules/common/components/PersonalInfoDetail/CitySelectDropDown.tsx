@@ -18,12 +18,12 @@ const CitySelectDropDown = (props: Props) => {
     <Form.Item
       className="flex-1"
       name="city_id"
-      rules={[
-        {
-          required: true,
-          message: "Please enter your city",
-        },
-      ]}
+      // rules={[
+      //   {
+      //     required: true,
+      //     message: "Please enter your city",
+      //   },
+      // ]}
     >
       <Select
         placeholder="City"

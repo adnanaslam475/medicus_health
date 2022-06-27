@@ -1,9 +1,12 @@
 import { Button, Form, InputNumber, notification } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import SmallLabelWithTextDiv from "common/components/LabelWithTextDiv/SmallLabelWithTextDiv";
-import { useCreateAdminSettingsMutation } from "generated/graphql";
+import {
+  useCreateAdminSettingsMutation,
+  useGetAdminSettingsQuery,
+} from "generated/graphql";
 import Router from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import _classes from "./AdminSettings.module.scss";
 
 type AdminSettingsArray = {
@@ -12,6 +15,8 @@ type AdminSettingsArray = {
 };
 
 function AdminSettings() {
+  const [formInstance] = Form.useForm();
+
   const [consultationMedicusCut, setConsultationMedicusCut] =
     useState<number>(0);
 
@@ -31,9 +36,46 @@ function AdminSettings() {
     Array<AdminSettingsArray>
   >([]);
 
+  //get admin settings
+  const [{ data: getAdminSettingsData }] = useGetAdminSettingsQuery();
+
+  useEffect(() => {
+    if (getAdminSettingsData) {
+      prepareAndSetEditPayload();
+    }
+  }, [getAdminSettingsData]);
+
+  const {
+    total_consultation_charges,
+    consultation_charges_medicus_cut,
+    consultation_charges_physician_cut,
+    total_second_opinion_charges,
+    second_opinion_charges_medicus_cut,
+    second_opinion_charges_physician_cut,
+    california_state_tax,
+    washington_state_tax,
+    taxes_state_tax,
+  } = getAdminSettingsData?.adminSettings || {};
+
   // mutation admin settings
   const [{ data }, executeCreateAdminSettingsMutation] =
     useCreateAdminSettingsMutation();
+
+  //for prepopulated admin settings data
+  function prepareAndSetEditPayload() {
+    formInstance.setFieldsValue({
+      total_consultation_charges: total_consultation_charges,
+      consultation_charges_medicus_cut: consultation_charges_medicus_cut,
+      consultation_charges_physician_cut: consultation_charges_physician_cut,
+      total_second_opinion_charges: total_second_opinion_charges,
+      second_opinion_charges_medicus_cut: second_opinion_charges_medicus_cut,
+      second_opinion_charges_physician_cut:
+        second_opinion_charges_physician_cut,
+      california_state_tax: california_state_tax,
+      washington_state_tax: washington_state_tax,
+      taxes_state_tax: taxes_state_tax,
+    });
+  }
 
   const onLocalFinish = async (values: any) => {
     setAdminSettingArr([]);
@@ -104,6 +146,7 @@ function AdminSettings() {
           layout="vertical"
           onFinish={onLocalFinish}
           onValuesChange={changesValue}
+          form={formInstance}
         >
           <div>
             <h2>Appointment Service Charges</h2>

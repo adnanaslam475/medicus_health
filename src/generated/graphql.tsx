@@ -1823,6 +1823,11 @@ export type CreateAdminSettingsMutationVariables = Exact<{
 
 export type CreateAdminSettingsMutation = { __typename?: 'Mutation', createAdminSetting: { __typename?: 'AdminSettingResponse', total_consultation_charges?: string | null, consultation_charges_medicus_cut?: string | null, consultation_charges_physician_cut?: string | null, total_second_opinion_charges?: string | null, second_opinion_charges_medicus_cut?: string | null, second_opinion_charges_physician_cut?: string | null, california_state_tax?: string | null, washington_state_tax?: string | null, taxes_state_tax?: string | null, stripe_fee?: string | null, stripe_variable_amount?: string | null } };
 
+export type GetAdminSettingsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminSettingsQuery = { __typename?: 'Query', adminSettings: { __typename?: 'AdminSettingResponse', total_consultation_charges?: string | null, consultation_charges_medicus_cut?: string | null, consultation_charges_physician_cut?: string | null, total_second_opinion_charges?: string | null, second_opinion_charges_medicus_cut?: string | null, second_opinion_charges_physician_cut?: string | null, california_state_tax?: string | null, washington_state_tax?: string | null, taxes_state_tax?: string | null, stripe_fee?: string | null, stripe_variable_amount?: string | null } };
+
 export type AdminUserQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -2926,6 +2931,27 @@ export const CreateAdminSettingsDocument = gql`
 
 export function useCreateAdminSettingsMutation() {
   return Urql.useMutation<CreateAdminSettingsMutation, CreateAdminSettingsMutationVariables>(CreateAdminSettingsDocument);
+};
+export const GetAdminSettingsDocument = gql`
+    query getAdminSettings {
+  adminSettings {
+    total_consultation_charges
+    consultation_charges_medicus_cut
+    consultation_charges_physician_cut
+    total_second_opinion_charges
+    second_opinion_charges_medicus_cut
+    second_opinion_charges_physician_cut
+    california_state_tax
+    washington_state_tax
+    taxes_state_tax
+    stripe_fee
+    stripe_variable_amount
+  }
+}
+    `;
+
+export function useGetAdminSettingsQuery(options?: Omit<Urql.UseQueryArgs<GetAdminSettingsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAdminSettingsQuery>({ query: GetAdminSettingsDocument, ...options });
 };
 export const AdminUserDocument = gql`
     query adminUser($id: Int!) {
