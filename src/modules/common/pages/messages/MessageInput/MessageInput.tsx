@@ -51,24 +51,15 @@ function MessageInput() {
       )
     );
 
-    // if (files.length > 0) {
-    //   files.forEach((file) => {
-    //     onMessage?.(file.name || "", "Media");
-    //   });
-    //   setFiles([]);
-    // } else {
-    //   onMessage?.(messageText);
-    // }
-
     if (urls) {
       if (urls.length > 0) {
         urls.map((url) => {
-          onMessage?.(url?.url, "File");
+          onMessage?.(url?.url, "Media");
         });
         setFiles([]);
         setFileList([]);
       } else {
-        onMessage?.(messageText);
+        onMessage?.(messageText, "Text");
       }
     }
 

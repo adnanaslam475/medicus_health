@@ -6,7 +6,9 @@ export function getOppositeParticipant(
 ) {
   if (!value) return undefined;
   const oppositeParticipantId =
-    role === "Doctor" ? value?.patientId : value?.doctorId;
+    role === "Doctor" || role === "User" || role === "Admin"
+      ? value?.patientId
+      : value?.doctorId;
   const oppositeParticipant = value?.participants?.find(
     ({ participantId }) => oppositeParticipantId === participantId
   );
