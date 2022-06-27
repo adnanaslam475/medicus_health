@@ -24,7 +24,7 @@ export function FilterRangePicker({
   onOpen: () => void;
 }) {
   return (
-    <div className="relative mb-6 my-0 pl-2 ">
+    <div className={`relative mb-6 my-0 pl-2 " ${_classes["filter-date-wrapper"]}`} >
       <DatePicker.RangePicker
         value={null}
         onChange={(_, formatString) => onChange(formatString)}
@@ -41,10 +41,10 @@ export function FilterRangePicker({
         onClick={onOpen}
       >
         {!!title ? (
-          title
+          <span className={`${_classes["heading-verbage-selected"]}`}>{title}</span>
         ) : (
-          <div className={`flex justify-between items-center w-full px-2`}>
-            <div className="flex items-center font-thin">
+          <div className={`${_classes["filter-date-wrapper"]} flex justify-between items-center w-full px-2`}>
+            <div className="flex items-center  text-base">
               <span className="mr-1 mt-1">
                 <Image
                   priority={true}
@@ -54,7 +54,8 @@ export function FilterRangePicker({
                   alt=""
                 />
               </span>
-              {heading}
+             <span className={`${_classes["heading-verbage"]}`}> {heading}</span>
+          
             </div>
             <div>
               <CaretDownOutlined />
