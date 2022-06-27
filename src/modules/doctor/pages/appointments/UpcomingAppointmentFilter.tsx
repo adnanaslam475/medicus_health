@@ -16,7 +16,7 @@ type Props = {
 };
 function UpcomingAppointmentFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
-  const [bookingDate,setBookingDate]=useState<BookingDate>({})
+  const [bookingDate, setBookingDate] = useState<BookingDate>({});
   function clear() {
     setFilterState({});
     onChange({});
@@ -25,8 +25,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
-    onChangeFields("bookingDate",bookingDate)
-
+    onChangeFields("bookingDate", bookingDate);
   };
 
   function onChangeFields(key: string, value: string | number | object) {
@@ -83,7 +82,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
               </div>
             )
           }
-          heading="Date"
+          heading="Due Date"
         />
       </div>
       <div className="flex-none sm:flex xs:-mt-5 flex-wrap sm:-mt-3 lg:mt-0">
