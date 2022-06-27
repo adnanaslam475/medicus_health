@@ -6,6 +6,7 @@
   :global .ant-select-selector {
     background-color:#E2F8F7 !important;
     color: green !important;
+    border : 2px solid #E2F8F7 !important;
   }
 }
 
@@ -13,5 +14,13 @@
   :global .ant-select-selector {
     background-color:#f3c3c7e3 !important;
     color: red !important;
+    border : 2px solid #f3c3c7e3 !important;
   }
 }
+
+.staff-wrapper{
+  :global .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border:none !important
+  }
+}
+
