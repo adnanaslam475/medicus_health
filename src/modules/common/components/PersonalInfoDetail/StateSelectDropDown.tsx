@@ -20,12 +20,12 @@ const StateSelectDropDown = (props: Props) => {
     <Form.Item
       className="flex-1"
       name="state_id"
-      rules={[
-        {
-          required: true,
-          message: "Please enter your state",
-        },
-      ]}
+      // rules={[
+      //   {
+      //     required: true,
+      //     message: "Please enter your state",
+      //   },
+      // ]}
     >
       <Select
         showSearch

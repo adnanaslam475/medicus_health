@@ -25,8 +25,6 @@ function MessageItem(props: Props) {
   const backgroundColor = isMyMessage ? "#E0EEFD" : "#F6F8FA";
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
 
-  // console.log({ data });
-
   return (
     <div className="p-4">
       <div
@@ -55,11 +53,7 @@ function MessageItem(props: Props) {
                 className={`flex items-center gap-2`}
                 style={{ backgroundColor }}
               >
-                {messageType === "Text" ? (
-                  <p className={`p-3 text-secondary rounded inline-block`}>
-                    {message}
-                  </p>
-                ) : (
+                {messageType === "Media" ? (
                   <p className={`p-3 text-secondary rounded inline-block`}>
                     <Image
                       priority={true}
@@ -68,7 +62,12 @@ function MessageItem(props: Props) {
                       height={25}
                       src={fileIcon}
                     />
-                    {/* {message} */}
+                    <a href={message} target="_blank" rel="noreferrer">
+                      {message}
+                    </a>
+                  </p>
+                ) : (
+                  <p className={`p-3 text-secondary rounded inline-block`}>
                     <a href={message} target="_blank" rel="noreferrer">
                       {message}
                     </a>
