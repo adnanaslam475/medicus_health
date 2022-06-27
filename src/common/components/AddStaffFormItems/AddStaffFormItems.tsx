@@ -39,7 +39,9 @@ function AddStaffFormItems(props: Props) {
   return (
     <>
       {createStaffForm.map((value) => (
+        <div className={`{${_classes["form-item-wrapper"]}}`}>
         <Form.Item
+        // className={`{${_classes["form-item-wrapper"]}}`}
           key={value.name}
           label={value.label}
           rules={[
@@ -59,9 +61,10 @@ function AddStaffFormItems(props: Props) {
         >
           <Input placeholder="" className="" />
         </Form.Item>
+        </div>
       ))}
       <div className="flex flex-col gap-2 account-creation-date">
-        <span className="text-gray font-semibold text-sm py-1">
+        <span className="text-secondary font-semibold text-sm py-1">
           Account Creation Date
         </span>
         <div className="border border-gray-4 rounded min-h-[48px] bg-gray-4  flex items-center pl-5">
