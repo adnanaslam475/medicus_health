@@ -135,10 +135,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
           <div className="border border-gray-3 px-0 rounded custom-list-items">
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">First Name</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">First Name</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <Form.Item
                     name="firstName"
                     rules={[
@@ -157,10 +155,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Last Name</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Last Name</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <Form.Item
                     name="lastName"
                     rules={[
@@ -179,10 +175,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Gender</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Gender</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <Form.Item className="bottom-margin-0" name="gender">
                     <Select placeholder="Gender" size="large">
                       <Select.Option value="male">Male</Select.Option>
@@ -198,10 +192,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Date of Birth</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Date of Birth</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <Form.Item
                     className="flex-1 bottom-margin-0"
                     name="date_of_birth"
@@ -226,10 +218,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Contact Number</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Contact Number</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <Form.Item noStyle name="conntactNumber">
                     <Input size="large" placeholder="Contact Number" />
                   </Form.Item>
@@ -239,10 +229,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Email Address</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Email Address</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <Form.Item
                     name="email"
                     rules={[
@@ -261,10 +249,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Password</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Password</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <Form.Item name="password" className="bottom-margin-0">
                     <Input.Password size="large" placeholder="Password" />
                   </Form.Item>
@@ -274,10 +260,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Country</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Country</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <CountrySelectDropDown
                     onChange={(e) => {
                       selectCountryId(e);
@@ -293,10 +277,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">State</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">State</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <StateSelectDropDown
                     countryId={countryId}
                     onChange={(e) => {
@@ -312,10 +294,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">City</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">City</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <CitySelectDropDown stateId={stateId} />
                 </div>
               </div>
@@ -323,10 +303,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Postal Code</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Postal Code</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <Form.Item noStyle name="postalCode">
                     <Input
                       size="large"
@@ -340,10 +318,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Street Address</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-secondary `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Street Address</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}>
                   <Form.Item noStyle name="streetAddress">
                     <Input size="large" placeholder="Street Address" />
                   </Form.Item>
@@ -353,10 +329,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Marital Status</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-gray-1 `}
-                >
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Marital Status</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}>
                   <Form.Item className="mb-0">
                     <Form.Item className="mb-0" name="maritalStatus">
                       <Select placeholder="Marital Status" size="large">
@@ -373,12 +347,10 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1">
                   Do you have any children?
                 </div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-gray-1 `}
-                >
+                <div className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}>
                   <Form.Item className="mb-0" name="childrenExists">
                     <Radio.Group
                       defaultValue={radioChildren}
@@ -401,12 +373,10 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1">
                   What is your Occupation?
                 </div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-gray-1 `}
-                >
+                <div className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}>
                   <Form.Item noStyle name="occupation">
                     <Input size="large" placeholder="Occupation" />
                   </Form.Item>
@@ -416,12 +386,10 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1">
                   Do you have any Occupational Exposure?
                 </div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-gray-1 `}
-                >
+                <div className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}>
                   <Form.Item className="mb-0" name="occupationalExposure">
                     <Radio.Group
                       onChange={(e) => {
@@ -461,10 +429,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 text-gray-1">Do you have any pets?</div>
-                <div
-                  className={`${_classes["custom_text_field"]} w-1/2 text-gray-1 `}
-                >
+                <div className="w-1/2  sm:w-1/3 text-gray-1">Do you have any pets?</div>
+                <div className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}>
                   <Form.Item className="mb-0" name="pets">
                     <Radio.Group>
                       <Radio value="Yes">Yes</Radio>

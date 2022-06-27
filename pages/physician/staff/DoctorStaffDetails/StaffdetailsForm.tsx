@@ -41,7 +41,7 @@ function StaffDetailsFrom({
         {staffDetail?.first_name} {staffDetail?.last_name}
       </h1>
       <p>{staffDetail?.email}</p>
-      <div className="sm:flex mb-8 ">
+      <div className={`${_classes["staff-wrapper"]} sm:flex mb-8`}>
         {/* <Select className="mr-5" onChange={handleChange} style={{ width: 200 }}> */}
         <div
           className={
