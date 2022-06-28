@@ -6,7 +6,8 @@ import {
 } from "@ant-design/icons";
 import { ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
 import { Button } from "antd";
-import React, { useState } from "react";
+import { Router } from "next/router";
+import React, { useEffect, useState } from "react";
 import { useClient } from "./settings";
 
 type Props = {
@@ -16,9 +17,7 @@ type Props = {
 
 function Controls(props: Props) {
   const client = useClient();
-  const {
-    tracks,
-  } = props;
+  const { tracks } = props;
   const [trackState, setTrackState] = useState({ video: true, audio: true });
 
   const mute = async (type: string) => {
@@ -41,6 +40,13 @@ function Controls(props: Props) {
     tracks[0].close();
     tracks[1].close();
   };
+
+  useEffect(() => {
+    return () => {
+      leaveChannel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="flex gap-2">

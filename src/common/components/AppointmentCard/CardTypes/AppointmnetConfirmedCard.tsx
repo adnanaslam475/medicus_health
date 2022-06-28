@@ -38,7 +38,9 @@ function AppointmnetConfirmedCard({
       <h3 className="mb-0">Dr. {doctor}</h3>
       <span className="text-gray text-base block mb-4">{serviceType}</span>
       <span className="text-sm pt-5">Date</span>
-      <h6 className="mb-4">{date.formatMMMMDDYYYY(selectedAppointment?.startTime)}</h6>
+      <h6 className="mb-4">
+        {date.formatMMMMDDYYYY(selectedAppointment?.startTime)}
+      </h6>
       <span className="text-sm">Time</span>
       {!selectedAppointment ? (
         <div className="text-cyan font-semibold mb-4">{" - "}</div>
