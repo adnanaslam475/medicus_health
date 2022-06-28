@@ -124,7 +124,7 @@ function AdminPatientProfileTab({}: Props) {
   const handleResetLink = async () => {
     try {
       const response = await setForgotPass({
-        input: query.id as string,
+        input: user?.email as string,
       });
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);

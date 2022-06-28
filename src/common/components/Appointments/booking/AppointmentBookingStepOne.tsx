@@ -101,7 +101,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       let charge = allAppoinments?.filter(
         (serviceType) => serviceType.id === value
       );
-      setServiceInfo(charge);
+      setServiceInfo(charge as any);
     }
 
     function disabledDate(current: any) {

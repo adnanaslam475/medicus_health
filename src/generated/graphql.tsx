@@ -108,6 +108,7 @@ export type AppointmentNote = {
   appointmentId: Scalars['Int'];
   assessment?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
+  deletedAt: Scalars['DateTime'];
   id: Scalars['Int'];
   isPublished: Scalars['Boolean'];
   note?: Maybe<Scalars['String']>;
@@ -128,6 +129,7 @@ export type AppointmentPriceResponse = {
 export type AppointmentServiceType = {
   __typename?: 'AppointmentServiceType';
   appointment?: Maybe<Appointment>;
+  deletedAt: Scalars['DateTime'];
   id: Scalars['Int'];
   name: Scalars['String'];
   price: Scalars['Float'];
@@ -356,9 +358,9 @@ export type CreateUserByAdminInput = {
 };
 
 export type CreateUserInput = {
-  city_id: Scalars['Float'];
+  city_id?: InputMaybe<Scalars['Float']>;
   contact_number: Scalars['String'];
-  country_id: Scalars['Float'];
+  country_id?: InputMaybe<Scalars['Float']>;
   date_of_birth?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
   email_token?: InputMaybe<Scalars['String']>;
@@ -367,7 +369,7 @@ export type CreateUserInput = {
   last_name: Scalars['String'];
   password: Scalars['String'];
   role?: InputMaybe<Scalars['String']>;
-  state_id: Scalars['Float'];
+  state_id?: InputMaybe<Scalars['Float']>;
   streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
   zip_code: Scalars['String'];
@@ -427,6 +429,7 @@ export type DoctorProfile = {
 
 export type DoctorQuestionnaire = {
   __typename?: 'DoctorQuestionnaire';
+  deletedAt: Scalars['DateTime'];
   doctor: User;
   doctorId: Scalars['Int'];
   id: Scalars['Int'];
@@ -1409,7 +1412,7 @@ export type User = {
   country_id?: Maybe<Scalars['Int']>;
   createdAt: Scalars['DateTime'];
   date_of_birth?: Maybe<Scalars['DateTime']>;
-  deleted: Scalars['Boolean'];
+  deletedAt: Scalars['DateTime'];
   doctorBillingMethods?: Maybe<Array<DoctorBillingMethod>>;
   doctorId?: Maybe<Scalars['Int']>;
   doctorProfile?: Maybe<DoctorProfile>;
@@ -1438,6 +1441,7 @@ export type UserCard = {
   card_holder_name?: Maybe<Scalars['String']>;
   card_id: Scalars['String'];
   card_type: Scalars['String'];
+  deletedAt: Scalars['DateTime'];
   exp_month: Scalars['String'];
   exp_year: Scalars['String'];
   id: Scalars['Int'];
@@ -1469,7 +1473,7 @@ export type UserResponse = {
   country_id: Scalars['Int'];
   createdAt: Scalars['DateTime'];
   date_of_birth?: Maybe<Scalars['DateTime']>;
-  deleted: Scalars['Boolean'];
+  deletedAt: Scalars['DateTime'];
   doctorBillingMethods?: Maybe<Array<DoctorBillingMethod>>;
   doctorId?: Maybe<Scalars['Int']>;
   doctorProfile?: Maybe<DoctorProfile>;
@@ -1774,7 +1778,7 @@ export type CreatePatientByAdminMutationVariables = Exact<{
 }>;
 
 
-export type CreatePatientByAdminMutation = { __typename?: 'Mutation', createPatientByAdmin: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, deleted: boolean, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorId?: number | null, createdAt: any, patientHealthHistory?: { __typename?: 'PatientHealthHistory', id?: number | null, user_id: number, history?: any | null } | null } };
+export type CreatePatientByAdminMutation = { __typename?: 'Mutation', createPatientByAdmin: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, deletedAt: any, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorId?: number | null, createdAt: any, patientHealthHistory?: { __typename?: 'PatientHealthHistory', id?: number | null, user_id: number, history?: any | null } | null } };
 
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
@@ -2026,7 +2030,7 @@ export type GetAppointmentByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, status?: string | null, scheduleId?: number | null, doctorId?: number | null, patientId?: number | null, requestedDate?: any | null, reportUrl?: any | null, charges: number, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transaction?: { __typename?: 'Transaction', createdAt: any, status: string } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, doctorNote?: { __typename?: 'AppointmentNote', id: number, isPublished: boolean, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null } | null } };
+export type GetAppointmentByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, status?: string | null, scheduleId?: number | null, doctorId?: number | null, patientId?: number | null, requestedDate?: any | null, reportUrl?: any | null, createdAt: any, charges: number, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, transaction?: { __typename?: 'Transaction', createdAt: any, status: string } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, doctorNote?: { __typename?: 'AppointmentNote', id: number, isPublished: boolean, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null } | null } };
 
 export type GetAllTransactionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2750,7 +2754,7 @@ export const CreatePatientByAdminDocument = gql`
     contact_number
     streetAddress
     country_id
-    deleted
+    deletedAt
     state_id
     city_id
     zip_code
@@ -3843,6 +3847,7 @@ export const GetAppointmentByIdDocument = gql`
       createdAt
       status
     }
+    createdAt
     charges
     appointmentHealthHistory {
       history
@@ -4705,6 +4710,17 @@ export default {
             "args": []
           },
           {
+            "name": "deletedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "id",
             "type": {
               "kind": "NON_NULL",
@@ -4821,6 +4837,17 @@ export default {
               "kind": "OBJECT",
               "name": "Appointment",
               "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "deletedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },
@@ -5591,6 +5618,17 @@ export default {
         "kind": "OBJECT",
         "name": "DoctorQuestionnaire",
         "fields": [
+          {
+            "name": "deletedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
           {
             "name": "doctor",
             "type": {
@@ -8945,7 +8983,7 @@ export default {
             "args": []
           },
           {
-            "name": "deleted",
+            "name": "deletedAt",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -9202,6 +9240,17 @@ export default {
             "args": []
           },
           {
+            "name": "deletedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "exp_month",
             "type": {
               "kind": "NON_NULL",
@@ -9426,7 +9475,7 @@ export default {
             "args": []
           },
           {
-            "name": "deleted",
+            "name": "deletedAt",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

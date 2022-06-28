@@ -94,7 +94,7 @@ Payment.defaultProps = {
 };
 
 type propsBilling = {
-  data: UserCard[];
+  data: UserCard[] | any;
   loading: string;
   onSubmit: (id: {} | undefined) => void;
   onRemove: (id: number) => void;
@@ -185,7 +185,7 @@ function Billing({
                   </Space>
                 </div>
               ) : (
-                data.map((card) => (
+                data.map((card:any) => (
                   <Payment
                     isDefault={card?.is_default}
                     title={`${card?.card_type} Ending with ${card?.card_digits}`}

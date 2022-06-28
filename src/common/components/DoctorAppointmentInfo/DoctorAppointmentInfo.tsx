@@ -523,7 +523,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     let charge = allAppoinments?.find(
       (serviceType) => serviceType.id === value
     );
-    setServiceInfo(charge);
+    setServiceInfo(charge as any);
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
