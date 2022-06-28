@@ -129,11 +129,13 @@ function SearchFilters(props: Props) {
     setOpenDueDateRange(false);
     selectBookingDateRange(null);
     selectDueDateRange(null);
+    selectDueDateRange(null);
     setPatientName("");
     setSearchPatient && setSearchPatient(null);
     setAppointmentId(undefined);
     setLocalAppointment_Id(null);
     setBookingDate?.({});
+    setDueDate?.({});
     setClearFilter?.((prev: boolean) => !prev);
   };
   const applyBookingDateRange = () => {

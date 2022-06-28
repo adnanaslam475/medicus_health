@@ -18,7 +18,7 @@ type Props = {
 
 function AdminPhysicianSearchFilters(props: Props) {
   const [filterState, setFilterState] = useState<GetPhysiciansInput | any>({});
-  const [creationDate,setCreationDate]=useState<BookingDate>({})
+  const [creationDate, setCreationDate] = useState<BookingDate>({});
 
   const { onChange } = props;
   function clear() {
@@ -46,7 +46,7 @@ function AdminPhysicianSearchFilters(props: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange1(false);
-    onChangeFields("creationDate",creationDate)
+    onChangeFields("creationDate", creationDate);
   };
   const [openDateRange1, setOpenDateRange1] = useState(false);
 
@@ -64,81 +64,47 @@ function AdminPhysicianSearchFilters(props: Props) {
       </div>
       <div className="lg:ml-3 mt-3 sm:mt-0">
         <Select
-          placeholder="Language"
+          placeholder="Specialization"
           className="w-full sm:w-40"
-          onChange={(e) => onChangeFields("language", e)}
-          value={filterState.language}
+          onChange={(e) => onChangeFields("specialization", e)}
+          value={filterState.specialization}
+        >
+          <Option>Abcd</Option>
+          <Option>EFG</Option>
+        </Select>
+      </div>
+      <div className="lg:ml-3 mt-3 sm:mt-0">
+        <Select
+          placeholder="Country"
+          className="w-full sm:w-40"
+          onChange={(e) => onChangeFields("country", e)}
+          value={filterState.country}
         >
           <Option value="English">English</Option>
           <Option value="Spanish">Espanol</Option>
         </Select>
       </div>
-      <div className="flex-none sm:flex lg:ml-3 mt-3 sm:mt-0">
-        <Space
-          direction="vertical"
-          size={0}
-          className="w-full md:w-44 xl:w-60 sm:mb-3"
+      <div className="lg:ml-3 mt-3 sm:mt-0">
+        <Select
+          placeholder="State"
+          className="w-full sm:w-40"
+          onChange={(e) => onChangeFields("state", e)}
+          value={filterState.state}
         >
-          <div className="relative -mt-3">
-            <RangePicker
-              value={null}
-              open={openDateRange1}
-              className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
-              onChange={(_, dateString: string[]) =>
-                setCreationDate({
-                  startDate: dateString[0],
-                  endDate: dateString[1],
-                })
-              }
-              renderExtraFooter={() => (
-                <div className="flex gap-3 justify-end p-3">
-                  <Button
-                    className="bg-gray-300"
-                    onClick={() => {
-                      setOpenDateRange1(false);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    className=" text-white"
-                    type="primary"
-                    onClick={() => {
-                      applyDateRange();
-                    }}
-                  >
-                    Apply
-                  </Button>
-                </div>
-              )}
-            />
-            <Button
-              className="flex date-btn"
-              block
-              type="default"
-              onClick={() => setOpenDateRange1?.(!openDateRange1)}
-            >
-              {filterState?.creationDate?.endDate ? (
-                <div>
-                  {filterState?.creationDate?.endDate
-                    ? `${getDateInFormat(
-                        filterState?.creationDate?.startDate
-                      )} -> ${getDateInFormat(
-                        filterState?.creationDate?.endDate
-                      )}`
-                    : "Account Created At"}
-                </div>
-              ) : (
-                <div className="flex justify-between items-center w-full px-3">
-                  <div>Account Created At</div>
-                  <div>
-                    <CaretDownOutlined style={{ color: `primary` }} />
-                  </div>
-                </div>
-              )}
-            </Button>
-          </div>
-        </Space>
+          <Option value="English">English</Option>
+          <Option value="Spanish">Espanol</Option>
+        </Select>
+      </div>
+      <div className="lg:ml-3 mt-3 sm:mt-0">
+        <Select
+          placeholder="Language"
+          className="w-full sm:w-40"
+          onChange={(e) => onChangeFields("language", e.toLowerCase())}
+          value={filterState.language}
+        >
+          <Option value="English">English</Option>
+          <Option value="Spanish">Espanol</Option>
+        </Select>
       </div>
       <Button type="text" className="sm:ml-3" onClick={clear}>
         <CloseOutlined className="text-sm" />

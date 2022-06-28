@@ -6,7 +6,7 @@ import Router from "next/router";
 import Image from "next/image";
 import { Button, Table } from "antd";
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
-import { useGetPhysiciansQuery, User } from "generated/graphql";
+import { City, Country, DoctorProfile, State, useGetPhysiciansQuery, User } from "generated/graphql";
 import { date } from "common/utils";
 import { FLAG_BY_LANGUAGE } from "utils/helper";
 
@@ -47,10 +47,57 @@ function AdminPhysicianList() {
       sorter: true,
     },
     {
+      title: "Specialization",
+      dataIndex: "doctorProfile",
+      key: "doctorProfile",
+      render: (doctorProfile: DoctorProfile) => {
+        return <div>{doctorProfile?.specialization || ""}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "City",
+      dataIndex: "city",
+      key: "city",
+      render: (city: City) => {
+        return <div>{city?.city_name || ""}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "State",
+      dataIndex: "state",
+      key: "state",
+      render: (state: State) => {
+        return <div>{state?.state_name || ""}</div>;
+      },
+      sorter: true,
+    },
+
+    {
+      title: "Country",
+      dataIndex: "country",
+      key: "country",
+      render: (country: Country) => {
+        return <div>{country?.country_name || ""}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "Zip Code",
+      dataIndex: "zip_code",
+      key: "zip_code",
+      render: (zip_code: string) => {
+        return <div>{zip_code || ""}</div>;
+      },
+      sorter: true,
+    },
+
+    {
       title: "Language",
       dataIndex: "doctorProfile",
       key: "doctorProfile",
-      render: (doctorProfile: any) => {
+      render: (doctorProfile: DoctorProfile) => {
         let language = doctorProfile?.language?.toLowerCase() || "english";
         return (
           <div className="flagAvatar engFlag pr-2">
@@ -69,30 +116,15 @@ function AdminPhysicianList() {
       sorter: true,
     },
     {
-      title: "Address",
-      dataIndex: "streetAddress",
-      key: "streetAddress",
-      sorter: true,
-    },
-    {
-      title: "Account Creation Date",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      sorter: true,
-      render: (createdAt: string) => {
-        return <div>{`${date.formatMMMMDDYYYY(createdAt)}`}</div>;
-      },
-    },
-    {
       title: "",
       dataIndex: "id",
       key: "view",
       className: "table-action-icon",
-      render: (value: any) => (
+      render: (id: string) => (
         <div className="text-primary">
           <EyeFilled
             onClick={() => {
-              return Router.push(`/admin/physicians/${value}`);
+              return Router.push(`/admin/physicians/${id}`);
             }}
           />
         </div>

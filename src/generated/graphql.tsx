@@ -356,9 +356,9 @@ export type CreateUserByAdminInput = {
 };
 
 export type CreateUserInput = {
-  city_id: Scalars['Float'];
+  city_id?: InputMaybe<Scalars['Float']>;
   contact_number: Scalars['String'];
-  country_id: Scalars['Float'];
+  country_id?: InputMaybe<Scalars['Float']>;
   date_of_birth?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
   email_token?: InputMaybe<Scalars['String']>;
@@ -367,7 +367,7 @@ export type CreateUserInput = {
   last_name: Scalars['String'];
   password: Scalars['String'];
   role?: InputMaybe<Scalars['String']>;
-  state_id: Scalars['Float'];
+  state_id?: InputMaybe<Scalars['Float']>;
   streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
   zip_code: Scalars['String'];
@@ -1915,7 +1915,7 @@ export type GetPhysiciansQueryVariables = Exact<{
 }>;
 
 
-export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, doctorProfile?: { __typename?: 'DoctorProfile', language?: any | null } | null }> };
+export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, zip_code?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, doctorProfile?: { __typename?: 'DoctorProfile', language?: any | null, specialization?: string | null } | null }> };
 
 export type GetAppointmentNoteByIdQueryVariables = Exact<{
   appointmentId: Scalars['Int'];
@@ -3378,8 +3378,19 @@ export const GetPhysiciansDocument = gql`
     email
     streetAddress
     createdAt
+    city {
+      city_name
+    }
+    state {
+      state_name
+    }
+    country {
+      country_name
+    }
+    zip_code
     doctorProfile {
       language
+      specialization
     }
   }
 }
