@@ -21,7 +21,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
   const [openDateRange, setOpenDateRange] = React.useState<string>("");
   const [dueDate, setDueDate] = useState<BookingDate>({});
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
-  
+
   function clear() {
     onChange({});
   }
@@ -154,6 +154,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
           >
             <Select.Option value="paid">PAID</Select.Option>
             <Select.Option value="unpaid">UNPAID</Select.Option>
+            <Select.Option value="refunded">REFUNDED</Select.Option>
           </Select>
         </div>
         <FilterClearButton onClear={clear} />
