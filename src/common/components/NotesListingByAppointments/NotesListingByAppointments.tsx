@@ -54,8 +54,9 @@ function NotesListingByAppointments(props: Props) {
   // console.log(actualDoctorNotes, "notesByAppointmentId");
 
   return (
+    
     <>
-      <div className="flex justify-start flex-col py-3 border border-gray-9 rounded p-4">
+      <div className="flex justify-start flex-col py-3 rounded p-4 bg-gray-10">
         {/* <Collapse
           className="w-full mx-3 p-3"
           defaultActiveKey={["1"]}
