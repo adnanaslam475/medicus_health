@@ -290,8 +290,19 @@ query getPhysicians($filter: GetPhysiciansInput!) {
     email
     streetAddress
     createdAt
+    city {
+      city_name
+    }
+    state {
+      state_name
+    }
+    country {
+      country_name
+    }
+    zip_code
     doctorProfile {
       language
+      specialization
     }
   }
 }
