@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppLayout from "../../../../../../common/components/AppLayout/AppLayout";
 import AppointmentTabs from "../../../../../../../src/modules/doctor/pages/physicians/Appointments/Tabs/AppointmentTabs";
 import RequestedList from "modules/doctor/pages/RequestedList/RequestedList";
@@ -13,14 +13,16 @@ function RequestedAppointment() {
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<BookingDate>({});
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentId, setAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Requested");
   const [searchPatient, setSearchPatient] = useState<string>();
+  const [clearFilter, setClearFilter] = useState<boolean>(false);
 
-  const [{ data,fetching }] = useGetAllRequestedAppointmentsQuery({
+  const [{ data,fetching },executeUseGetAllRequestedAppointmentsQuery] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
         status: status,
@@ -28,13 +30,18 @@ function RequestedAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentId,
         serviceId: serviceIds,
-        dueDate: bookingDate,
+        dueDate: dueDate,
+        bookingDate: bookingDate,
         searchString: searchPatient,
       },
     },
+    requestPolicy:"network-only"
   });
   const { appointments } = data || {};
 
+  useEffect(()=>{
+    executeUseGetAllRequestedAppointmentsQuery({requestPolicy:"network-only"})
+  },[clearFilter])
   return (
     <AppLayout>
       <div className="w-full">
@@ -53,7 +60,9 @@ function RequestedAppointment() {
             setServiceIds={setServiceIds}
             setSearchPatient={setSearchPatient}
             setBookingDate={setBookingDate}
+            setDueDate={setDueDate}
             isFromPhysician
+            setClearFilter={setClearFilter}
           />
         </div>
         <RequestedList appointmentsData={appointments as Appointment[]}  loading={fetching}/>

@@ -39,7 +39,7 @@ function AppointmentInfo(props: Props) {
       <div className="max-w-[700px]">
         <LabelValueRow label="ID" value={Number(id)} />
         <LabelValueRow
-          label="Due date"
+          label="Requested date"
           value={date?.formatMMMMDDYYYY(requestedDate)}
         />
         <LabelValueRow
@@ -48,7 +48,11 @@ function AppointmentInfo(props: Props) {
         />
         <LabelValueRow label="Type" value={name || "--"} />
         <LabelValueRow
-          label="Appointment creation date"
+          label="Due date"
+          value={date.formatMMMMDDYYYY(selectedAppointment?.startTime)}
+        />
+        <LabelValueRow
+          label="Booking date"
           value={date.formatMMMMDDYYYY(selectedAppointment?.startTime)}
         />
         <LabelValueRow
@@ -57,7 +61,10 @@ function AppointmentInfo(props: Props) {
             selectedAppointment?.startTime
           )} - ${date?.formathhmma(selectedAppointment?.endTime)}`}
         />
-        <LabelValueRow label="Total Amount" value={price ? `$${price}` : "--"} />
+        <LabelValueRow
+          label="Total Amount"
+          value={price ? `$${price}` : "--"}
+        />
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">Status</div>

@@ -30,10 +30,10 @@ const AppHeader = () => {
   const { pathname, query, asPath } = router;
 
   const logout = () => {
+    Router.push("/login");
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("loginTime");
     setVisible(false);
-    Router.push("/login");
   };
 
   const showPopover = () => {
@@ -124,10 +124,18 @@ const AppHeader = () => {
               trigger={["click"]}
             >
               <div onClick={showPopover}>
-                <Avatar className="ml-3" size="large" src={profilePicture} />
-                <span className="justify-center px-2 hidden xl:block">
-                  {userName}
-                </span>
+                {user?.first_name && (
+                  <>
+                    <Avatar
+                      className="ml-3"
+                      size="large"
+                      src={profilePicture}
+                    />
+                    <span className="justify-center px-2 hidden xl:block">
+                      {userName}
+                    </span>
+                  </>
+                )}
                 <div className="hidden md:block">
                   <CaretDownOutlined />
                 </div>

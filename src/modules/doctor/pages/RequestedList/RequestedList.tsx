@@ -16,11 +16,11 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {
   appointmentsData?: Appointment[] | undefined;
-  loading:boolean |undefined;
+  loading: boolean | undefined;
 };
 
 const RequestedList = (props: Props) => {
-  const { appointmentsData,loading } = props || {};
+  const { appointmentsData, loading } = props || {};
 
   const Columns = [
     {
@@ -70,19 +70,26 @@ const RequestedList = (props: Props) => {
         multiple: 3,
       },
       render: (value: AppointmentServiceType) => {
-        return <div className="someclass">{`${value?.name}`}</div>;
+        return <div>{`${value?.name}`}</div>;
       },
     },
     {
       title: "Due Date ",
-      dataIndex: "requestedDate",
-      key: "requestedDate",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
       sorter: {
         compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
         multiple: 3,
       },
-      render: (value: string) => {
-        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        return (
+          <div >
+            {" "}
+            {appointmentDateTime?.startTime
+              ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+              : "-"}
+          </div>
+        );
       },
     },
     {
@@ -95,7 +102,7 @@ const RequestedList = (props: Props) => {
       },
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-          <div >
+          <div>
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime
               ? `${date?.formathhmma(
                   appointmentDateTime?.startTime
@@ -159,7 +166,7 @@ const RequestedList = (props: Props) => {
       dataSource={appointmentsData}
       onChange={onChange}
       loading={loading}
-      scroll={{x:true}}
+      scroll={{ x: true }}
     />
   );
 };
