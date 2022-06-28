@@ -33,7 +33,7 @@ function AccountsProfile() {
 
   // GET USER ID
   const { user } = getUserData();
-  const role = user?.role
+  const role = user?.role;
   const id = role == "Admin" ? Number(adminId) : user?.id;
 
   const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
@@ -68,9 +68,9 @@ function AccountsProfile() {
     }
   }, [deleteScheduleId]);
 
-  const [{ data }] = useDoctorProfileQuery({
+  const [{ data ,fetching:doctorDataLoading}] = useDoctorProfileQuery({
     variables: { doctor_id: id as number },
-    pause: !id
+    pause: !id,
   });
   const { doctorProfile } = data || {};
   return (
@@ -96,6 +96,7 @@ function AccountsProfile() {
           schedules={schedules}
           doctorId={String(id)}
           doctorData={doctorProfile}
+          loading={doctorDataLoading}
         />
       )}
     </div>

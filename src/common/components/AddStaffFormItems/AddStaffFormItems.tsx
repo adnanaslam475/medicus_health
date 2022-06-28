@@ -56,7 +56,7 @@ function AddStaffFormItems(props: Props) {
                 }
               : {},
           ]}
-          className={`font-bold ${_classes["clr-black"]} text-black`}
+          className={`${_classes["clr-black"]} text-black`}
           name={value.name}
         >
           <Input placeholder="" className="" />

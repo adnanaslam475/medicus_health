@@ -9,7 +9,10 @@ import {
   BookingDate,
   DoctorProfile,
   useGetAllRequestedAppointmentsQuery,
+  useGetPhysiciansQuery,
+  User,
 } from "../../../../../generated/graphql";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 function CancelledAppointment() {
   const [dueDates, setDueDates] = useState<Date | null>();
@@ -35,6 +38,13 @@ function CancelledAppointment() {
     },
   });
 
+  const [{ data: physicianList }] = useGetPhysiciansQuery({
+    variables: {
+      filter: {},
+    },
+  });
+  const { getPhysicians } = physicianList || {};
+
   function onViewSuggestedSlots(id: number) {
     setCurrentAppointmentId(id);
     setShowModal(true);
@@ -43,6 +53,19 @@ function CancelledAppointment() {
   const { appointments } = data || {};
 
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showAppointmentBookingModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <AppLayout>
@@ -55,7 +78,7 @@ function CancelledAppointment() {
               ullamcorperequesty tortor a fringilla tempus.
             </h5>
           </div>
-          <Button type="primary" size="large">
+          <Button type="primary" size="large" onClick={showAppointmentBookingModal}>
             Request an Appointment
           </Button>
         </div>
@@ -112,6 +135,12 @@ function CancelledAppointment() {
           </div>
         )}
       </div>
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        patientData={getPhysicians as User[]}
+      />
     </AppLayout>
   );
 }

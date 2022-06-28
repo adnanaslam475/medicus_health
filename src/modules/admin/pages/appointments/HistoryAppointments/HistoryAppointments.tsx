@@ -6,15 +6,33 @@ import {
   Appointment,
   GetAppointmentInput,
   useGetAllRequestedAppointmentsQuery,
+  useGetPhysiciansQuery,
+  User,
 } from "generated/graphql";
 import AppointmentHistoryTable from "common/components/AppointmentHistoryTable/AppointmentHistoryTable";
 import _classes from "./HistoryAppointments.module.scss";
 import PatientAppointmentHistoryFilter from "common/components/PatientAppointmentHistoryFilter/PatientAppointmentHistoryFilter";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 const { RangePicker } = DatePicker;
 
 function CancelledAppointment() {
-  const [filterValues, setFilterValues] = useState<GetAppointmentInput>({status:"Completed"});
+  const [filterValues, setFilterValues] = useState<GetAppointmentInput>({
+    status: "Completed",
+  });
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showAppointmentBookingModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   // GET ALL APPOINMENTS
   const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =
@@ -25,8 +43,15 @@ function CancelledAppointment() {
     });
   const { appointments } = data || {};
 
+  const [{ data: physicianList }] = useGetPhysiciansQuery({
+    variables: {
+      filter: {},
+    },
+  });
+  const { getPhysicians } = physicianList || {};
+
   function onChangeFilters(values: GetAppointmentInput) {
-    setFilterValues({...values,status:"Completed"});
+    setFilterValues({ ...values, status: "Completed" });
     executeUseGetAllRequestedAppointmentsQuery({
       filter: filterValues,
       requestPolicy: "network-only",
@@ -39,7 +64,11 @@ function CancelledAppointment() {
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">History</h2>
           </div>
-          <Button type="primary" size="large">
+          <Button
+            type="primary"
+            size="large"
+            onClick={showAppointmentBookingModal}
+          >
             Request an Appointment
           </Button>
         </div>
@@ -51,6 +80,12 @@ function CancelledAppointment() {
             loading={fetching}
           />
         </div>
+        <BookAppointmentJourney
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          patientData={getPhysicians as User[]}
+        />
       </div>
     </AppLayout>
   );

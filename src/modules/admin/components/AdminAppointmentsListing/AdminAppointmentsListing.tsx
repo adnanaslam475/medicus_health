@@ -229,7 +229,11 @@ function AdminAppointmentsListing({}: Props) {
             </div>
             <div className="flex gap-3">
               <div className="lg:ml-3 mt-0 sm:mt-0">
-                <Select defaultValue="List View" className="w-full sm:w-40">
+                <Select
+                  defaultValue="List View"
+                  className="w-full sm:w-40"
+                  onChange={(value) => value === "Calendar View" && Router.push("/admin/appointments/calendar")}
+                >
                   <Select.Option value="Calendar View">
                     <Link href="/admin/appointments/calendar">
                       <a>Calendar View</a>
