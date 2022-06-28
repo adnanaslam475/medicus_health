@@ -228,7 +228,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
               disabledDate={disabledDate}
             />
           </Form.Item>
-          <Form.Item label="Availability*" name="availability">
+          <Form.Item label="Availability* - Select (One)" name="availability">
             <div className="flex flex-wrap availability-label">
               {isShow ? (
                 <Radio.Group

@@ -36,11 +36,11 @@
     .ant-radio-button-wrapper {
       color: rgba(0, 0, 0, 0.85);
       height: inherit;
-      background: #F6F8FA;
+      background: #f6f8fa;
       padding: 8px 15px;
       border: none !important;
       border-radius: 0.25rem !important;
-      border: 1px solid #d9d9d9;
+      border: 0.5px solid rgb(152 154 179) !important;
       margin: 0 10px 10px 0;
       &:before {
         display: none;
@@ -48,13 +48,14 @@
       &.ant-radio-button-wrapper-checked {
         color: #fff;
         background: #30cec2;
+        border: 1px solid transparent !important;
       }
     }
   }
   :global .ant-upload-list {
     .ant-upload-list-text-container {
-      background-color: #F6F8FA;
-      border: 1px solid #DEE2EA;
+      background-color: #f6f8fa;
+      border: 1px solid #dee2ea;
       border-radius: 6px;
       margin-top: 10px;
       .ant-upload-list-item {
@@ -73,7 +74,7 @@
             .anticon {
               display: block;
               svg {
-                color: #D53E4F;
+                color: #d53e4f;
               }
             }
           }
