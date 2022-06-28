@@ -1,14 +1,20 @@
 import { ChatChannels } from "generated/graphql";
+import { getToken, getUserData } from "common/utils/userData";
 
 export function getOppositeParticipant(
   value: ChatChannels | undefined,
   role: string
 ) {
   if (!value) return undefined;
+  console.log({ value, role }, "detail");
+
+  const { user } = getUserData();
+  const loginUserId = user?.id;
+  console.log(loginUserId, "myUser");
+
   const oppositeParticipantId =
-    role === "Doctor" || role === "User" || role === "Admin"
-      ? value?.patientId
-      : value?.doctorId;
+    role === "Doctor" ? value?.patientId : value?.doctorId;
+
   const oppositeParticipant = value?.participants?.find(
     ({ participantId }) => oppositeParticipantId === participantId
   );
