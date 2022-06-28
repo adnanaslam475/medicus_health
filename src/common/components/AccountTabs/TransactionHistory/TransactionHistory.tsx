@@ -110,7 +110,7 @@ const TransactionHistory = (props: Props) => {
       render: (value: string) => {
         return (
           <div className="someclass">{`${
-            value ? date?.formatMMMMDDYYYY(value) : "--"
+            value ? date?.formatDate_n_Time(value) : "--"
           }`}</div>
         );
       },

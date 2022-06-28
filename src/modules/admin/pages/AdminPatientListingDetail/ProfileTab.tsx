@@ -209,10 +209,10 @@ function AdminPatientProfileTab({}: Props) {
           maritalStatus: values.maritalStatus,
           haveChildren: values?.haveChildren,
           children: Number(values?.children) | 0,
-          occupation: values.occupation,
+          occupation: values.occupation || "No",
           occupationalExposure: values.occupation
             ? values.occupationalExposure
-            : "",
+            : "No",
           exposureDuration: values?.exposureDuration,
           pets: values.pets,
         },

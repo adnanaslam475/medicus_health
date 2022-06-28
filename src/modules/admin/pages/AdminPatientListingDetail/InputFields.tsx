@@ -52,12 +52,6 @@ const InputFields = ({
               <Form.Item
                 label={value.label}
                 name={value.option_name}
-                rules={[
-                  {
-                    required: value.required,
-                    message: `${value.label} is required`,
-                  },
-                ]}
               >
                 <Select
                   placeholder={value.label}
@@ -96,12 +90,6 @@ const InputFields = ({
             {value.type === "text" && !value?.relationName && (
               <Form.Item
                 label={value.label}
-                rules={[
-                  {
-                    required: value.required,
-                    message: `${value.label} is required`,
-                  },
-                ]}
                 name={value.name}
               >
                 <Input type={value.inputType} />
@@ -111,12 +99,6 @@ const InputFields = ({
               showChildren?.[value?.relationName] === "Yes" && (
                 <Form.Item
                   label={value.label}
-                  rules={[
-                    {
-                      required: value.required,
-                      message: `${value.label} is required`,
-                    },
-                  ]}
                   name={value.name}
                 >
                   <Input type={value.inputType} />
@@ -136,12 +118,6 @@ const InputFields = ({
               <Form.Item
                 className="mb-0"
                 label={value.label}
-                rules={[
-                  {
-                    required: value.required,
-                    message: `${value.label} is required`,
-                  },
-                ]}
                 name={value.option_name || value.name}
               >
                 <Radio.Group

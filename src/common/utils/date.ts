@@ -28,6 +28,10 @@ export function formathhmma(date: string) {
   return dayjs.utc(date).format("hh:mm a");
 }
 
+export function formatDate_n_Time(date: string) {
+  return dayjs.utc(date).format("MMMM-YYYY-DD hh:mm:ss");
+}
+
 export const getDateInFormat = (
   getDate: string | number | Date | dayjs.Dayjs | null | undefined
 ) => {
