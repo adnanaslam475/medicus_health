@@ -13,7 +13,8 @@ type Props = {
 function MessageItem(props: Props) {
   const { user } = getUserData();
   const { data } = props;
-  const { message, senderId, messageType } = data || {};
+  console.log(data, "messageData");
+  const { message, senderId, messageType, sender } = data || {};
   const { messageInfo } = useMessageContext();
   const { currentChannel } = messageInfo || {};
   const { participants } = currentChannel || {};
@@ -68,9 +69,7 @@ function MessageItem(props: Props) {
                   </p>
                 ) : (
                   <p className={`p-3 text-secondary rounded inline-block`}>
-                    <a href={message} target="_blank" rel="noreferrer">
-                      {message}
-                    </a>
+                    {message}
                   </p>
                 )}
               </div>
