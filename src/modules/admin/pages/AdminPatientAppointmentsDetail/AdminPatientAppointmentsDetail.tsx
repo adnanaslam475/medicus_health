@@ -18,7 +18,8 @@ function AdminPatientAppointmentDetail() {
   const { appointment } = data || {};
 
   let doctorNotes =
-    appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
+    appointment?.currentAppointmentNote &&
+    Object?.entries(appointment?.currentAppointmentNote);
 
   return (
     <AppLayout>
@@ -42,15 +43,17 @@ function AdminPatientAppointmentDetail() {
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachment" key="5">
-              <AdminPatientAttachmentTab appointment={appointment as Appointment} />
+              <AdminPatientAttachmentTab
+                appointment={appointment as Appointment}
+              />
             </Tabs.TabPane>
-            
-              <Tabs.TabPane tab="Notes" key="6">
-                <AdminPatientNotesWithTextTab
-                  appointment={appointment as Appointment}
-                  doctorNotes={doctorNotes as [[string, string]]}
-                />
-              </Tabs.TabPane>
+
+            <Tabs.TabPane tab="Notes" key="6">
+              <AdminPatientNotesWithTextTab
+                appointment={appointment as Appointment}
+                doctorNotes={doctorNotes as [[string, string]]}
+              />
+            </Tabs.TabPane>
           </Tabs>
         </div>
       </>

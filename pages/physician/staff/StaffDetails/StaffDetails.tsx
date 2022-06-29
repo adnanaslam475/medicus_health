@@ -91,7 +91,7 @@ function DoctorStaffDetails() {
           email: values?.email,
           contact_number: values?.contact_number,
           doctorId: doctorId as number,
-          deleted: false,
+          // deleted: false,
         },
       });
 

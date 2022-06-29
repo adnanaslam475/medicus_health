@@ -219,15 +219,31 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
         }
       }
     }
-    doctorNote {
-      id
-      appointmentId
+    # doctorNote {
+    #   id
+    #   appointmentId
+    #   subjective
+    #   objective
+    #   assessment
+    #   plan
+    #   isPublished
+    #   note
+    # }
+    currentAppointmentNote {
       subjective
       objective
       assessment
       plan
-      isPublished
       note
+      isPublished
+    }
+    notesHistory {
+      subjective
+      objective
+      assessment
+      plan
+      note
+      isPublished
     }
     status
     transaction {

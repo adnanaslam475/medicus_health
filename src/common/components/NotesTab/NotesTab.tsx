@@ -12,6 +12,7 @@ import {
   useDoctorAppointmentDetailAppointmentInfoQuery,
   useGetAppointmentByIdQuery,
   useGetAppointmentNoteByIdQuery,
+  useGetAppointmentNotesByIdQuery,
   useGetDoctorNotesByAppIdQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
@@ -40,18 +41,26 @@ function NotesTab({}: Props) {
 
   // GET NOTES API CALL
 
-  const [{ data: notesByAppointmentId }, executeGetDoctorNotesByAppIdQuery] =
-    useGetDoctorNotesByAppIdQuery({
+  // const [{ data: notesByAppointmentId }, executeGetDoctorNotesByAppIdQuery] =
+  //   useGetDoctorNotesByAppIdQuery({
+  //     variables: {
+  //       id: Number(query?.id),
+  //     },
+  //   });
+
+  const [{ data: notesByAppointmentId }, executeGetAppointmentNotesByIdQuery] =
+    useGetAppointmentNotesByIdQuery({
       variables: {
         id: Number(query?.id),
       },
     });
 
-  console.log(notesByAppointmentId, "notesByAppointmentIdnotesByAppointmentId");
-
   const appointmentChild = notesByAppointmentId;
 
-  const actualDoctorNotes = appointmentChild?.appointment.doctorNote;
+  const actualDoctorNotes =
+    appointmentChild?.appointment.currentAppointmentNote;
+
+  console.log(actualDoctorNotes, "actualDoctorNotesactualDoctorNotes");
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
@@ -72,7 +81,7 @@ function NotesTab({}: Props) {
       notification.success({
         message: "Successfully Added",
       });
-      executeGetDoctorNotesByAppIdQuery({ requestPolicy: "network-only" });
+      executeGetAppointmentNotesByIdQuery({ requestPolicy: "network-only" });
     } else {
       notification.error({
         message: "Something went wrong",
@@ -86,17 +95,17 @@ function NotesTab({}: Props) {
         serviceName={serviceType?.name}
         imageUrl={patient?.patientProfile?.profileImage}
       >
-        {(getRole() === "Doctor" || getRole() === "Admin" ) && (
+        {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}
             {/* {!actualDoctorNotes && ( */}
-              <>
-                <Notes
-                  onFinish={addNote}
-                  // disabled={actualDoctorNotes !== null}
-                />
-                <div className="mb-3"></div>
-              </>
+            <>
+              <Notes
+                onFinish={addNote}
+                // disabled={actualDoctorNotes !== null}
+              />
+              <div className="mb-3"></div>
+            </>
             {/* )} */}
           </>
         )}
