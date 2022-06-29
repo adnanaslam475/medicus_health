@@ -2,6 +2,14 @@
   background-color: #f6f8fa;
   border: 0;
   margin-bottom: 20px;
+  :global .ant-card-body {
+    .flagAvatar {
+      > span {
+        margin-right: 10px !important;
+        width: 25px !important;
+      }
+    }
+  }
 }
 .card-body {
   text-align: left !important;
@@ -65,7 +73,8 @@
   margin-left: auto;
   height: 48px !important;
 }
-.btn-tooltip{
-  :global .ant-btn{
-  width: 100% !important;}
+.btn-tooltip {
+  :global .ant-btn {
+    width: 100% !important;
+  }
 }

@@ -104,21 +104,41 @@ function DoctorCard({
             <div className="lg:pr-5">
               <div className="flex-row md:flex">
                 <h2 className="font-bold mb-0 mr-3">
-                <span>Dr. <span className="-ml-1">{name}</span></span>
+                  <span>
+                    Dr. <span className="-ml-1">{name}</span>
+                  </span>
                 </h2>
                 <div className="flex">
-                  <div className="flagAvatar engFlag pr-2">
-                    {FLAG_BY_LANGUAGE[language] && (
-                      <Tooltip title={language || "flag"} color="#FFF">
-                        <Image
-                          priority={true}
-                          src={FLAG_BY_LANGUAGE[language]}
-                          alt={language || "flag"}
-                          width={25}
-                          height={25}
-                        />
-                      </Tooltip>
-                    )}
+                  <div className="flagAvatar engFlag pr-2 pt-1">
+                    {language &&
+                      [JSON.parse(language)]?.map((item: any) => {
+                        const keys = Object.keys(item).filter(
+                          (k) => item[k] === true
+                        );
+                        return (
+                          <>
+                            {keys.map((v) => {
+                              return (
+                                <>
+                                  <Tooltip title={v || "flag"} color="#FFF">
+                                    <Image
+                                      priority={true}
+                                      src={
+                                        (v === "English" && engFlag.src) ||
+                                        (v === "Spanish" && espanolFlag.src) ||
+                                        ""
+                                      }
+                                      alt={"flag"}
+                                      width={25}
+                                      height={25}
+                                    />
+                                  </Tooltip>
+                                </>
+                              );
+                            })}
+                          </>
+                        );
+                      })}
                   </div>
                 </div>
               </div>
