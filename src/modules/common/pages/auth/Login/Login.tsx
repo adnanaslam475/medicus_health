@@ -139,9 +139,9 @@ function Login() {
                     <div className="flex justify-between text-base">
                       <Checkbox
                         disabled={fetching}
-                        className="text-base primary-checkbox"
+                        className="text-gray primary-checkbox"
                       >
-                        Remember me
+                       <span className="text-gray">Remember me</span> 
                       </Checkbox>
                       <Link href="/forgotPassword">
                         <a>
