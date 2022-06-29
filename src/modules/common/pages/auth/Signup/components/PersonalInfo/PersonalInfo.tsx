@@ -7,7 +7,12 @@ import {
   useGetStatesByCountryQuery,
   useGetCitiesByStateQuery,
   useCountriesQuery,
+  useCheckEmailAvailabilityQuery,
 } from "../../../../../../../generated/graphql";
+
+import { Typography } from "antd";
+
+const { Text } = Typography;
 
 type props = {
   validateForm?: (value: any) => void;
@@ -22,7 +27,7 @@ export default function PersonalInfo({ onFinish }: props) {
 
   function selectCountryId(id: number): void {
     setCountryId(id);
-    form.resetFields(['state_id','city_id'])
+    form.resetFields(["state_id", "city_id"]);
   }
 
   function selectStateId(id: number): void {
@@ -54,6 +59,25 @@ export default function PersonalInfo({ onFinish }: props) {
     console.log("Failed:", errorInfo);
   };
 
+  const [isEmailAlreadyExist, setIsEmailAlreadyExist] = useState(false);
+
+  const [userEmail, setUserEmail] = useState<any>("");
+  const [{ data: emailData }, executeUseCheckEmailAvailabilityQuery] =
+    useCheckEmailAvailabilityQuery({
+      variables: {
+        emailAvailableInput: { email: userEmail },
+      },
+    });
+  const { checkEmailAvailability } = emailData || {};
+  const { isEmailAvailable } = checkEmailAvailability || {};
+  const emailHandler = (e: string) => {
+    if (e.includes("@") && e.includes(".")) {
+      setUserEmail(e);
+      setEmailError(isEmailAvailable)
+      executeUseCheckEmailAvailabilityQuery();
+    } else setEmailError(false);
+  };
+  const [emailError, setEmailError] = useState(isEmailAvailable);
   return (
     <Form
       layout="vertical"
@@ -146,7 +170,8 @@ export default function PersonalInfo({ onFinish }: props) {
           },
         ]}
       >
-        <Input />
+        <Input onChange={(e) => emailHandler(e.target.value)} />
+        {!isEmailAvailable && <Text type="danger">Email is not available</Text>}
       </Form.Item>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -318,6 +343,7 @@ export default function PersonalInfo({ onFinish }: props) {
             htmlType="submit"
             className="ant-btn ant-btn-primary ant-btn-block nb-button"
             type="primary"
+            disabled={!isEmailAvailable}
           >
             Next
           </Button>
