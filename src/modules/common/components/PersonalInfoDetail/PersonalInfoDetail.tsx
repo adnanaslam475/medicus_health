@@ -326,7 +326,16 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
                 >
-                  <Form.Item noStyle name="postalCode">
+                  <Form.Item
+                    name="postalCode"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Postal Code is required",
+                      },
+                    ]}
+                    className="bottom-margin-0"
+                  >
                     <Input
                       size="large"
                       placeholder="Postal Code"
