@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Select, DatePicker } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
@@ -8,11 +8,7 @@ import {
   useGetCitiesByStateQuery,
   useCountriesQuery,
   useCheckEmailAvailabilityQuery,
-} from "../../../../../../../generated/graphql";
-
-import { Typography } from "antd";
-
-const { Text } = Typography;
+} from "generated/graphql";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -59,25 +55,33 @@ export default function PersonalInfo({ onFinish }: props) {
     console.log("Failed:", errorInfo);
   };
 
-  const [isEmailAlreadyExist, setIsEmailAlreadyExist] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [result] = useCheckEmailAvailabilityQuery({
+    variables: {
+      emailAvailableInput: { email: String(userEmail) },
+    },
+    pause: !userEmail,
+  });
+  const { data: emailData, fetching } = result;
 
-  const [userEmail, setUserEmail] = useState<any>("");
-  const [{ data: emailData }, executeUseCheckEmailAvailabilityQuery] =
-    useCheckEmailAvailabilityQuery({
-      variables: {
-        emailAvailableInput: { email: userEmail },
-      },
-    });
-  const { checkEmailAvailability } = emailData || {};
-  const { isEmailAvailable } = checkEmailAvailability || {};
-  const emailHandler = (e: string) => {
-    if (e.includes("@") && e.includes(".")) {
-      setUserEmail(e);
-      setEmailError(isEmailAvailable)
-      executeUseCheckEmailAvailabilityQuery();
-    } else setEmailError(false);
+  useEffect(() => {
+    if (userEmail && !fetching) {
+      form.validateFields(["email"]);
+    }
+  }, [emailData]);
+  const emailValidator = async (rule: any, value: string) => {
+    setUserEmail(value);
+    if (
+      value.length &&
+      value.includes("@") &&
+      value.includes(".") &&
+      !fetching &&
+      !emailData?.checkEmailAvailability?.isEmailAvailable
+    ) {
+      return Promise.reject("Email already exist ");
+    }
+    return Promise.resolve();
   };
-  const [emailError, setEmailError] = useState(isEmailAvailable);
   return (
     <Form
       layout="vertical"
@@ -168,10 +172,10 @@ export default function PersonalInfo({ onFinish }: props) {
             type: "email",
             message: "Email is invalid",
           },
+          { validator: emailValidator },
         ]}
       >
-        <Input onChange={(e) => emailHandler(e.target.value)} />
-        {!isEmailAvailable && <Text type="danger">Email is not available</Text>}
+        <Input />
       </Form.Item>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -343,7 +347,6 @@ export default function PersonalInfo({ onFinish }: props) {
             htmlType="submit"
             className="ant-btn ant-btn-primary ant-btn-block nb-button"
             type="primary"
-            disabled={!isEmailAvailable}
           >
             Next
           </Button>
