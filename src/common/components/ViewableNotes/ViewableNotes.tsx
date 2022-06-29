@@ -4,6 +4,7 @@ import {
   Appointment,
   GetAppointmentNoteByIdQuery,
   GetDoctorNotesByAppIdQuery,
+  useGetAppointmentNotesByIdQuery,
   useGetDoctorNotesByAppIdQuery,
 } from "generated/graphql";
 import AcronymWithText from "../AcronymWithText/AcronymWithText";
@@ -23,16 +24,25 @@ function ViewableNotes({ doctorNotes }: Props) {
     setNoteType(value);
   }
 
-  const [{ data: notesByAppointmentId }] = useGetDoctorNotesByAppIdQuery({
-    variables: {
-      id: Number(query?.id),
-    },
-  });
+  // const [{ data: notesByAppointmentId }] = useGetDoctorNotesByAppIdQuery({
+  //   variables: {
+  //     id: Number(query?.id),
+  //   },
+  // });
 
-  const { doctorNote } = notesByAppointmentId?.appointment || {};
-  const { isPublished } = doctorNote || {};
+  const [{ data: notesByAppointmentId }, executeGetAppointmentNotesByIdQuery] =
+    useGetAppointmentNotesByIdQuery({
+      variables: {
+        id: Number(query?.id),
+      },
+    });
+  console.log(notesByAppointmentId, "notesByAppointmentIdnotesByAppointmentId");
 
-  const { note, subjective, objective, assessment, plan } = doctorNote || {};
+  const { currentAppointmentNote } = notesByAppointmentId?.appointment || {};
+  const { isPublished } = currentAppointmentNote || {};
+
+  const { note, subjective, objective, assessment, plan } =
+    currentAppointmentNote || {};
 
   return (
     <>

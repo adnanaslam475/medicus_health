@@ -30,7 +30,8 @@ function PhysicianAppointmentHistoryDetail() {
   const appointment = appointments && appointments[0];
 
   let doctorNotes =
-    appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
+    appointment?.currentAppointmentNote &&
+    Object?.entries(appointment?.currentAppointmentNote);
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));

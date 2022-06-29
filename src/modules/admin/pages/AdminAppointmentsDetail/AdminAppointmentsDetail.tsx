@@ -22,7 +22,8 @@ function AdminAppointmentHistoryDetail() {
   const status = appointment?.status;
 
   const doctorNotes =
-    appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
+    appointment?.currentAppointmentNote &&
+    Object?.entries(appointment?.currentAppointmentNote);
   const isNotesShow = [REQUESTED, SUGGESTED, COMPLETED].includes(
     appointment?.status || ""
   );

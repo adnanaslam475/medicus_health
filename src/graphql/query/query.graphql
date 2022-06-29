@@ -410,15 +410,31 @@ query getAppointmentById($id: Int!) {
     appointmentHealthHistory {
       history
     }
-    doctorNote {
-      id
-      isPublished
-      appointmentId
+    # doctorNote {
+    #   id
+    #   isPublished
+    #   appointmentId
+    #   subjective
+    #   objective
+    #   assessment
+    #   plan
+    #   note
+    # }
+    currentAppointmentNote {
       subjective
       objective
       assessment
       plan
       note
+      isPublished
+    }
+    notesHistory {
+      subjective
+      objective
+      assessment
+      plan
+      note
+      isPublished
     }
   }
 }
@@ -616,5 +632,30 @@ query getAdminUserById($id: Int!) {
     email
     createdAt
     status
+  }
+}
+
+query getAppointmentNotesById($id: Int!) {
+  appointment(id: $id) {
+    currentAppointmentNote {
+      id
+      appointmentId
+      subjective
+      objective
+      assessment
+      plan
+      note
+      isPublished
+    }
+    notesHistory {
+      id
+      appointmentId
+      subjective
+      objective
+      assessment
+      plan
+      note
+      isPublished
+    }
   }
 }

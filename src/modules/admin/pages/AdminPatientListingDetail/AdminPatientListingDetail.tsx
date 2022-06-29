@@ -16,7 +16,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import PatientAppointmentsTab from "./PatientAppointmentsTab";
-import _classes from './ProfileTab.module.scss';
+import _classes from "./ProfileTab.module.scss";
 
 function AdminPatientListingDetail() {
   const { query } = useRouter();
@@ -30,7 +30,8 @@ function AdminPatientListingDetail() {
   const appointment = appointments && appointments[0];
 
   let doctorNotes =
-    appointment?.doctorNote && Object?.entries(appointment?.doctorNote);
+    appointment?.currentAppointmentNote &&
+    Object?.entries(appointment?.currentAppointmentNote);
 
   return (
     <AppLayout>

@@ -3,11 +3,8 @@ import React, { useState } from "react";
 import _classes from "./EditableNotes.module.scss";
 import {
   Appointment,
-  AppointmentNote,
-  GetAppointmentNoteByIdQuery,
   GetDoctorNotesByAppIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
-  useGetAppointmentNoteByIdQuery,
   useGetDoctorNotesByAppIdQuery,
   useRemoveAppointmentNoteMutation,
 } from "generated/graphql";
@@ -37,9 +34,10 @@ function EditableNotes({ doctorNotes }: Props) {
     setNoteType(value);
   }
 
-  const { doctorNote } = doctorNotes?.appointment || {};
+  const { currentAppointmentNote } = doctorNotes?.appointment || {};
 
-  const { note, subjective, objective, assessment, plan } = doctorNote || {};
+  const { note, subjective, objective, assessment, plan } =
+    currentAppointmentNote || {};
 
   const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
     useCreateOrUpdateAppointmentNoteMutation();
