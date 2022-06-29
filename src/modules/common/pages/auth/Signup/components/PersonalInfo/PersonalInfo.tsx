@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Select, DatePicker } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
@@ -7,7 +7,8 @@ import {
   useGetStatesByCountryQuery,
   useGetCitiesByStateQuery,
   useCountriesQuery,
-} from "../../../../../../../generated/graphql";
+  useCheckEmailAvailabilityQuery,
+} from "generated/graphql";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -22,7 +23,7 @@ export default function PersonalInfo({ onFinish }: props) {
 
   function selectCountryId(id: number): void {
     setCountryId(id);
-    form.resetFields(['state_id','city_id'])
+    form.resetFields(["state_id", "city_id"]);
   }
 
   function selectStateId(id: number): void {
@@ -54,6 +55,33 @@ export default function PersonalInfo({ onFinish }: props) {
     console.log("Failed:", errorInfo);
   };
 
+  const [userEmail, setUserEmail] = useState("");
+  const [result] = useCheckEmailAvailabilityQuery({
+    variables: {
+      emailAvailableInput: { email: String(userEmail) },
+    },
+    pause: !userEmail,
+  });
+  const { data: emailData, fetching } = result;
+
+  useEffect(() => {
+    if (userEmail && !fetching) {
+      form.validateFields(["email"]);
+    }
+  }, [emailData]);
+  const emailValidator = async (rule: any, value: string) => {
+    setUserEmail(value);
+    if (
+      value.length &&
+      value.includes("@") &&
+      value.includes(".") &&
+      !fetching &&
+      !emailData?.checkEmailAvailability?.isEmailAvailable
+    ) {
+      return Promise.reject("Email already exist ");
+    }
+    return Promise.resolve();
+  };
   return (
     <Form
       layout="vertical"
@@ -144,6 +172,7 @@ export default function PersonalInfo({ onFinish }: props) {
             type: "email",
             message: "Email is invalid",
           },
+          { validator: emailValidator },
         ]}
       >
         <Input />

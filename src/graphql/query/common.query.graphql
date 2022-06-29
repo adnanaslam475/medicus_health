@@ -51,3 +51,9 @@ query getChannelMessages($channelId: Int!) {
     }
   }
 }
+
+query checkEmailAvailability($emailAvailableInput: EmailAvailableInput!) {
+  checkEmailAvailability(emailAvailableInput: $emailAvailableInput) {
+    isEmailAvailable
+  }
+}
