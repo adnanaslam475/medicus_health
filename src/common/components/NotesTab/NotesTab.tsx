@@ -86,18 +86,18 @@ function NotesTab({}: Props) {
         serviceName={serviceType?.name}
         imageUrl={patient?.patientProfile?.profileImage}
       >
-        {(getRole() === "Doctor" || getRole() === "Admin") && (
+        {(getRole() === "Doctor" || getRole() === "Admin" ) && (
           <>
             {/* {!notesByAppointmentId && ( */}
-            {!actualDoctorNotes && (
+            {/* {!actualDoctorNotes && ( */}
               <>
                 <Notes
                   onFinish={addNote}
-                  disabled={actualDoctorNotes !== null}
+                  // disabled={actualDoctorNotes !== null}
                 />
                 <div className="mb-3"></div>
               </>
-            )}
+            {/* )} */}
           </>
         )}
 
