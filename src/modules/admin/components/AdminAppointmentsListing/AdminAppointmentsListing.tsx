@@ -96,12 +96,16 @@ const appointmentColumns = [
       multiple: 3,
     },
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+      let formatedStartTime = `${
+        appointmentDateTime?.startTime?.split(" ")[1]
+      } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+      let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+        appointmentDateTime?.endTime?.split(" ")[2]
+      }`;
       return (
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${date?.formathhmma(
-                appointmentDateTime?.startTime
-              )} - ${date?.formathhmma(appointmentDateTime?.endTime)} `
+            ? `${formatedStartTime} - ${formatedEndTime} `
             : "--"}
         </div>
       );
@@ -232,7 +236,10 @@ function AdminAppointmentsListing({}: Props) {
                 <Select
                   defaultValue="List View"
                   className="w-full sm:w-40"
-                  onChange={(value) => value === "Calendar View" && Router.push("/admin/appointments/calendar")}
+                  onChange={(value) =>
+                    value === "Calendar View" &&
+                    Router.push("/admin/appointments/calendar")
+                  }
                 >
                   <Select.Option value="Calendar View">
                     <Link href="/admin/appointments/calendar">

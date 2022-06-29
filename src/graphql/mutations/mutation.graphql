@@ -354,7 +354,7 @@ mutation createPatientByAdmin($createPatientInput: CreateUserByAdminInput!) {
     contact_number
     streetAddress
     country_id
-    deleted
+    deletedAt
     state_id
     city_id
     zip_code

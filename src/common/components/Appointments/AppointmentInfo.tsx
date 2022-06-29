@@ -21,7 +21,7 @@ function AppointmentInfo(props: Props) {
   const { first_name, last_name } =
     appoinmentDetails?.appointment?.doctor || {};
 
-  const { id, status, requestedDate, appointmentTimeSlots } =
+  const { id, status, requestedDate, appointmentTimeSlots,createdAt } =
     appoinmentDetails?.appointment || {};
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
@@ -53,7 +53,7 @@ function AppointmentInfo(props: Props) {
         />
         <LabelValueRow
           label="Booking date"
-          value={date.formatMMMMDDYYYY(selectedAppointment?.startTime)}
+          value={date.formatMMMMDDYYYY(createdAt)}
         />
         <LabelValueRow
           label="Time"
