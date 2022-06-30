@@ -76,7 +76,7 @@ export type Appointment = {
   notesHistory?: Maybe<Array<AppointmentNote>>;
   patient?: Maybe<User>;
   patientId?: Maybe<Scalars['Int']>;
-  questionnaire: Scalars['JSON'];
+  questionnaire?: Maybe<Scalars['JSON']>;
   reportUrl?: Maybe<Scalars['JSON']>;
   requestedDate?: Maybe<Scalars['DateTime']>;
   scheduleId?: Maybe<Scalars['Int']>;
@@ -229,7 +229,7 @@ export type CreateAdminSettingInput = {
 export type CreateAppointmentInput = {
   doctorId: Scalars['Int'];
   patientId: Scalars['Int'];
-  questionnaire: Scalars['JSON'];
+  questionnaire?: InputMaybe<Scalars['JSON']>;
   reportUrl: Scalars['JSON'];
   requestedDate: Scalars['DateTime'];
   scheduleId: Scalars['Int'];
@@ -346,14 +346,14 @@ export type CreateStaffInput = {
 };
 
 export type CreateUserByAdminInput = {
-  city_id: Scalars['Float'];
+  city_id?: InputMaybe<Scalars['Float']>;
   contact_number: Scalars['String'];
   country_id: Scalars['Float'];
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
   profileImage?: InputMaybe<Scalars['String']>;
-  state_id: Scalars['Float'];
+  state_id?: InputMaybe<Scalars['Float']>;
   streetAddress: Scalars['String'];
   zip_code: Scalars['String'];
 };
@@ -1553,6 +1553,13 @@ export type RemoveAppointmentNoteMutationVariables = Exact<{
 
 export type RemoveAppointmentNoteMutation = { __typename?: 'Mutation', removeAppointmentNote: { __typename?: 'AppointmentNote', id: number, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, createdAt: any, updatedAt: any } };
 
+export type SuggestNewTimeMutationVariables = Exact<{
+  suggestNewTime: SuggestNewTimeInput;
+}>;
+
+
+export type SuggestNewTimeMutation = { __typename?: 'Mutation', suggestNewTime: { __typename?: 'Appointment', appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
+
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
 }>;
@@ -1884,7 +1891,7 @@ export type DoctorAppointmentDetailAppointmentInfoQueryVariables = Exact<{
 }>;
 
 
-export type DoctorAppointmentDetailAppointmentInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, status?: string | null, requestedDate?: any | null, createdAt: any, charges: number, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null } };
+export type DoctorAppointmentDetailAppointmentInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, status?: string | null, requestedDate?: any | null, createdAt: any, charges: number, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null } };
 
 export type DoctorAppointmentDetailPatientInfoQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -2283,6 +2290,21 @@ export const RemoveAppointmentNoteDocument = gql`
 
 export function useRemoveAppointmentNoteMutation() {
   return Urql.useMutation<RemoveAppointmentNoteMutation, RemoveAppointmentNoteMutationVariables>(RemoveAppointmentNoteDocument);
+};
+export const SuggestNewTimeDocument = gql`
+    mutation suggestNewTime($suggestNewTime: SuggestNewTimeInput!) {
+  suggestNewTime(suggestNewTime: $suggestNewTime) {
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+  }
+}
+    `;
+
+export function useSuggestNewTimeMutation() {
+  return Urql.useMutation<SuggestNewTimeMutation, SuggestNewTimeMutationVariables>(SuggestNewTimeDocument);
 };
 export const CreateUserDocument = gql`
     mutation createUser($input: CreateUserInput!) {
@@ -3162,6 +3184,10 @@ export const DoctorAppointmentDetailAppointmentInfoDocument = gql`
       startTime
       endTime
       selected
+    }
+    appointmentDateTime {
+      startTime
+      endTime
     }
     appointmentSchedule {
       startTime
@@ -4595,11 +4621,8 @@ export default {
           {
             "name": "questionnaire",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },

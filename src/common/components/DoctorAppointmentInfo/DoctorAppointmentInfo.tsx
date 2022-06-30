@@ -71,6 +71,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     requestedDate,
     appointmentTimeSlots,
     appointmentSchedule,
+    appointmentDateTime,
     createdAt,
   } = data || {};
 
@@ -84,7 +85,6 @@ function DoctorAppointmentInfo({ data }: Props) {
 
   const [{ fetching: cancelFetching }, executeCancelAppointment] =
     useCancelAppointmentByDoctorMutation();
-
   function timeSlots() {
     if (appointmentTimeSlots) {
       let selectedTimeSlots = appointmentTimeSlots?.find(
@@ -95,6 +95,9 @@ function DoctorAppointmentInfo({ data }: Props) {
     }
   }
 
+  let dueDate = appointmentDateTime?.startTime || timeSlots()?.startTime;
+  let startTime = appointmentDateTime?.startTime || timeSlots()?.startTime;
+  let endTime = appointmentDateTime?.startTime || timeSlots()?.startTime;
   async function onCancelRequestedAppointment() {
     try {
       const res = await executeCancelAppointment({
@@ -159,11 +162,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="Due Date"
-          text={
-            timeSlots()?.startTime
-              ? `${formatMMMM_Dcoma_YYYY(timeSlots()?.startTime)} `
-              : "--"
-          }
+          text={dueDate ? `${formatMMMM_Dcoma_YYYY(dueDate)} ` : "--"}
         />
         <LabelWithText
           label="Appointment creation date"
@@ -172,10 +171,10 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText
           label="Time"
           text={
-            timeSlots()?.startTime
-              ? `${date?.formathhmma(
-                  timeSlots()?.startTime
-                )} - ${date?.formathhmma(timeSlots()?.endTime)}`
+            startTime
+              ? `${date?.formathhmma(startTime)} - ${date?.formathhmma(
+                  endTime
+                )}`
               : "--"
           }
         />
@@ -471,7 +470,13 @@ function DoctorUpcomingAppointmentInfoFooter({
         onOk={onCancelUpcomingAppointment}
         message="Are you sure you want to Cancel Appointment?"
       />
-      {showRescheduleModal && <RescheduleAppointmentModal showRescheduleModal={showRescheduleModal} setShowRescheduleModal={setShowRescheduleModal} data={data} />}
+      {showRescheduleModal && (
+        <RescheduleAppointmentModal
+          showRescheduleModal={showRescheduleModal}
+          setShowRescheduleModal={setShowRescheduleModal}
+          data={data}
+        />
+      )}
     </div>
   );
 }
