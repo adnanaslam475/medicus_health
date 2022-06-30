@@ -75,7 +75,15 @@ export function MessageContextProvider({
   const [{ data }, executeGetAllChatChannelsMutation] =
     useGetAllChatChannelsQuery();
   const { getAllChatChannels } = data || {};
-  console.log(data, "allchatchannerlsDta");
+
+  const receiversData = data?.getAllChatChannels.map(
+    (item) => item.receiverDetail
+  );
+
+  // data?.getAllChatChannels?.map((item) => item?.)
+
+  // const { receiverDetail } = getAllChatChannels || {};
+
   const [{ data: channelMessageData }, executeGetChannelMessagesQuery] =
     useGetChannelMessagesQuery({
       variables: {

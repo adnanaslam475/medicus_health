@@ -28,7 +28,6 @@ function UserProfile({ thread }: Props) {
     thread,
     user?.role as string
   );
-  console.log(opposite, "myopposite");
   const profileImage = messageUtils.getOppositeParticipantProfileImage(
     thread,
     user?.role as string
