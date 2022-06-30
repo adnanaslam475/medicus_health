@@ -41,13 +41,6 @@ function NotesTab({}: Props) {
 
   // GET NOTES API CALL
 
-  // const [{ data: notesByAppointmentId }, executeGetDoctorNotesByAppIdQuery] =
-  //   useGetDoctorNotesByAppIdQuery({
-  //     variables: {
-  //       id: Number(query?.id),
-  //     },
-  //   });
-
   const [{ data: notesByAppointmentId }, executeGetAppointmentNotesByIdQuery] =
     useGetAppointmentNotesByIdQuery({
       variables: {

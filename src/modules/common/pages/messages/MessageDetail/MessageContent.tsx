@@ -23,12 +23,20 @@ function MessageContent({}: Props) {
 
   return (
     <div className="border border-gray-4 w-full">
-      <div className={`${_classes["custom-height"]}`}>
-        {currentChannelMessages?.map((message: any) => {
-          return <ChatBar data={message} />;
-        })}
-        <div ref={messagesEndRef} />
-      </div>
+      {currentChannelMessages ? (
+        <div className={`${_classes["custom-height"]}`}>
+          {currentChannelMessages?.map((message: any) => {
+            return <ChatBar data={message} />;
+          })}
+          <div ref={messagesEndRef} />
+        </div>
+      ) : (
+        <div className="flex justify-center items-center h-screen">
+          <div className="text-gray">
+            Click on the chat thread to continue chat.
+          </div>
+        </div>
+      )}
       <MessageInput />
     </div>
   );

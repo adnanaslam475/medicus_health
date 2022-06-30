@@ -13,7 +13,6 @@ type Props = {
 function MessageItem(props: Props) {
   const { user } = getUserData();
   const { data } = props;
-  console.log(data, "messageData");
   const { message, senderId, messageType, sender } = data || {};
   const { messageInfo } = useMessageContext();
   const { currentChannel } = messageInfo || {};
@@ -26,6 +25,8 @@ function MessageItem(props: Props) {
   const backgroundColor = isMyMessage ? "#E0EEFD" : "#F6F8FA";
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
 
+  // get file name from Media
+  const fileName = message.split("com")[1]?.replace("/", "");
   return (
     <div className="p-4">
       <div
@@ -64,7 +65,7 @@ function MessageItem(props: Props) {
                       src={fileIcon}
                     />
                     <a href={message} target="_blank" rel="noreferrer">
-                      {message}
+                      {fileName}
                     </a>
                   </p>
                 ) : (

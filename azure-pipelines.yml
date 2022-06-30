@@ -38,6 +38,9 @@ stages:
 
           - script: yarn lint
             displayName: "Code Analysis"
+          
+          - script: yarn build
+            displayName: "Build"
 
           - task: SonarQubePrepare@5
             displayName: "Prepare SonarQube Analysis"
