@@ -64,6 +64,7 @@ function AdminAppointmentHistoryDetail() {
             {(status === "Confirmed" ||
               status === "Completed" ||
               status === "Cancelled" ||
+              status === "Requested" ||
               status === "OnGoing") && (
               <>
                 {/* {pathname.includes("appointments") && ( */}
