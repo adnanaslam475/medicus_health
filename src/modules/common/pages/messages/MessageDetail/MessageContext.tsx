@@ -333,7 +333,8 @@ export function MessageContextProvider({
       {
         senderId: user?.id,
         message: text,
-        messageType: "text",
+        // messageType: "text",
+        messageType,
         createdAt: new Date().getTime(),
       },
     ];
