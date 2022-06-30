@@ -47,6 +47,7 @@ import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import MessageButtons from "../MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
+import RescheduleAppointmentModal from "../RescheduleAppointment/RescheduleAppointment";
 
 type Props = {
   data: Appointment | undefined;
@@ -413,6 +414,7 @@ function DoctorUpcomingAppointmentInfoFooter({
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
 
+  const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
@@ -425,17 +427,27 @@ function DoctorUpcomingAppointmentInfoFooter({
         </Button>
       </div>
       {data?.status === "Confirmed" && (
-        <Button
-          type="primary"
-          icon={<VideoCameraFilled />}
-          className={`${_classes["appointments-btn"]} bg-current`}
-          onClick={() =>
-            Router.push(`/physician/appointments/${appointmentId}/call`)
-          }
-          disabled={disabled}
-        >
-          Join Now
-        </Button>
+        <>
+          <Button
+            type="primary"
+            icon={<VideoCameraFilled />}
+            className={`${_classes["appointments-btn"]} bg-current`}
+            onClick={() => setShowRescheduleModal(true)}
+          >
+            Reschedule Appointment
+          </Button>
+          <Button
+            type="primary"
+            icon={<VideoCameraFilled />}
+            className={`${_classes["appointments-btn"]} bg-current`}
+            onClick={() =>
+              Router.push(`/physician/appointments/${appointmentId}/call`)
+            }
+            disabled={disabled}
+          >
+            Join Now
+          </Button>
+        </>
       )}
       {getRole() === "User" && data?.status === "Completed" && (
         <Button
@@ -459,6 +471,7 @@ function DoctorUpcomingAppointmentInfoFooter({
         onOk={onCancelUpcomingAppointment}
         message="Are you sure you want to Cancel Appointment?"
       />
+      {showRescheduleModal && <RescheduleAppointmentModal showRescheduleModal={showRescheduleModal} setShowRescheduleModal={setShowRescheduleModal} data={data} />}
     </div>
   );
 }
@@ -659,7 +672,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           </Form.Item>
 
           <label>Availability*</label>
-          {/* Availability Time Slots Starts */}
           <div className="date-time-picker block mb-3">
             <AvailabilityTimeSlots
               form={datePickerInstance}
@@ -677,7 +689,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               </div>
             ))}
           </div>
-          {/* Availability Time Slots Ends*/}
           <div className="text-primary flex">
             <Button
               onClick={addTimeSlot}
