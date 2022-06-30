@@ -522,6 +522,10 @@ query ViewSuggestedTimeSlots($id: Int!) {
       first_name
       last_name
     }
+    transaction{
+      status
+      amountReceived
+    }
   }
 }
 
