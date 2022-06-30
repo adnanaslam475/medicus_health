@@ -6,6 +6,12 @@ query getAllChatChannels {
     patientId
     isAdminChat
     createdAt
+    receiverDetail {
+      first_name
+      last_name
+      role
+      email
+    }
     participants {
       id
       channelId
@@ -21,6 +27,14 @@ query getAllChatChannels {
         id
         first_name
         last_name
+        email
+        role
+        chatChannel {
+          channelName
+          doctorId
+          patientId
+          isAdminChat
+        }
         doctorProfile {
           profile_image
         }

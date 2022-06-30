@@ -6,7 +6,17 @@ import Router from "next/router";
 import Image from "next/image";
 import { Button, Table } from "antd";
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
-import { City, Country, DoctorProfile, State, useGetPhysiciansQuery, User } from "generated/graphql";
+import {
+  City,
+  Country,
+  DoctorProfile,
+  State,
+  useCountriesQuery,
+  useGetCitiesByStateQuery,
+  useGetPhysiciansQuery,
+  useGetStatesByCountryQuery,
+  User,
+} from "generated/graphql";
 import { date } from "common/utils";
 import { FLAG_BY_LANGUAGE } from "utils/helper";
 

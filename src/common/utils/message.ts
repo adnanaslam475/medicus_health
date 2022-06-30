@@ -6,20 +6,19 @@ export function getOppositeParticipant(
   role: string
 ) {
   if (!value) return undefined;
-  console.log({ value, role }, "detail");
 
   const { user } = getUserData();
   const loginUserId = user?.id;
-  console.log(loginUserId, "myUser");
 
   const oppositeParticipantId =
     role === "Doctor" ? value?.patientId : value?.doctorId;
 
-  const oppositeParticipant = value?.participants?.find(
-    ({ participantId }) => oppositeParticipantId === participantId
-  );
-  const { userDetails } = oppositeParticipant || {};
-  return userDetails;
+  // const oppositeParticipant = value?.participants?.find(
+  //   ({ participantId }) => oppositeParticipantId === participantId
+  // );
+  // const { userDetails } = oppositeParticipant || {};
+  // return userDetails;
+  return value?.receiverDetail;
 }
 
 export function getOppositeParticipantProfileImage(
