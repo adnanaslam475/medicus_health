@@ -20,8 +20,8 @@ type Props = {
   appointment?: Appointment | undefined;
   doctorNotes?: GetDoctorNotesByAppIdQuery;
 };
-
-function EditableNotes({ doctorNotes }: Props) {
+// function EditableNotes({ doctorNotes }: Props) {
+function EditableNotes() {
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isPublish, setIsPublish] = useState(false);
@@ -34,26 +34,21 @@ function EditableNotes({ doctorNotes }: Props) {
     setNoteType(value);
   }
 
-  const { currentAppointmentNote } = doctorNotes?.appointment || {};
-
-  const { note, subjective, objective, assessment, plan } =
-    currentAppointmentNote || {};
-
-  const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
-    useCreateOrUpdateAppointmentNoteMutation();
-
   // GET NOTES API CALL
+
   // const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
   //   useGetAppointmentNoteByIdQuery({
   //     variables: {
   //       appointmentId: Number(query?.id),
   //     },
   //   });
+
   const [{ data: notesById }, executeGetDoctorNotesByAppIdQuery] =
     useGetDoctorNotesByAppIdQuery({
       variables: {
         id: Number(query?.id),
       },
+      requestPolicy: "network-only",
     });
 
   console.log(notesById, query?.id, "majidUsma");
@@ -62,6 +57,9 @@ function EditableNotes({ doctorNotes }: Props) {
   const { id: noteId } = currentNote || {};
 
   // ADD NOTES API CALL
+
+  const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
+    useCreateOrUpdateAppointmentNoteMutation();
 
   const addNote = async (value: any) => {
     const res = await createOrUpdateAppointmentNote({
@@ -81,6 +79,7 @@ function EditableNotes({ doctorNotes }: Props) {
         message: "Successfully Added",
       });
       setEdit(false);
+      executeGetDoctorNotesByAppIdQuery({ requestPolicy: "network-only" });
     } else {
       notification.error({
         message: "Something went wrong",
@@ -114,6 +113,12 @@ function EditableNotes({ doctorNotes }: Props) {
     }
   };
 
+  // FORM REFERENCE
+  const { currentAppointmentNote } = notesById?.appointment || {};
+
+  const { note, subjective, objective, assessment, plan } =
+    currentAppointmentNote || {};
+
   return (
     <>
       <h2>View Notes</h2>
@@ -129,7 +134,10 @@ function EditableNotes({ doctorNotes }: Props) {
           <Select.Option value="soap">SOAP</Select.Option>
         </Select>
       </div> */}
-      <Form onFinish={addNote}>
+      <Form
+        // form={formInstance}
+        onFinish={addNote}
+      >
         {/* {noteType == "narrative" && (
           <>
             <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE</h4>

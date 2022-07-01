@@ -53,7 +53,7 @@ function NotesTab({}: Props) {
   const actualDoctorNotes =
     appointmentChild?.appointment.currentAppointmentNote;
 
-  console.log(actualDoctorNotes, "actualDoctorNotesactualDoctorNotes");
+  console.log(appointmentChild, "actualDoctorNotesactualDoctorNotes");
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
@@ -108,6 +108,16 @@ function NotesTab({}: Props) {
             doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
           />
         )}
+
+        {/* FOR PATIENT ONLY */}
+        {getRole() === "User" &&
+          (actualDoctorNotes ? (
+            <NotesListingByAppointments
+              doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
+            />
+          ) : (
+            <div className="div">No Published Notes Available</div>
+          ))}
 
         {/* NotesListingByAppointments */}
       </CardWithProfileImageInfo>

@@ -5,7 +5,8 @@ import _classes from "./AcronymWithTextEditable.module.scss";
 
 type Props = {
   character: string;
-  sentence: string | number | readonly string[] | undefined;
+  // sentence: string | number | readonly string[] | undefined;
+  sentence: string | null | undefined;
   word: string;
   editable: boolean;
 };
@@ -22,7 +23,7 @@ function AcronymWithTextEditable(props: Props) {
           {editable ? (
             <Form.Item name={word.toLocaleLowerCase()}>
               {/* <Form.Item name={word.toLocaleLowerCase()}> */}
-              <TextArea defaultValue={sentence} />
+              <TextArea defaultValue={sentence || ""} />
             </Form.Item>
           ) : (
             <p className="pb-0 mb-0">{sentence}</p>

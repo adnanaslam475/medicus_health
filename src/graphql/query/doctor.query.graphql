@@ -230,6 +230,7 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
     #   note
     # }
     currentAppointmentNote {
+      id
       subjective
       objective
       assessment
@@ -238,6 +239,7 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
       isPublished
     }
     notesHistory {
+      id
       subjective
       objective
       assessment

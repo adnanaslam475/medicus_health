@@ -157,7 +157,12 @@ function PatientAppointmentHistoryTable(props: Props) {
     console.log("params", pagination, filters, sorter, extra);
   }
   return (
-    <Table columns={historyColumns} dataSource={data} onChange={onChange} scroll={{x:true}}/>
+    <Table
+      columns={historyColumns}
+      dataSource={data}
+      onChange={onChange}
+      scroll={{ x: true }}
+    />
   );
 }
 
