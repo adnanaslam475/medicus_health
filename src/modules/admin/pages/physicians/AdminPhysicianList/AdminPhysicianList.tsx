@@ -108,18 +108,30 @@ function AdminPhysicianList() {
       dataIndex: "doctorProfile",
       key: "doctorProfile",
       render: (doctorProfile: DoctorProfile) => {
+        let formatedLanguage =
+          doctorProfile?.language !== undefined &&
+          doctorProfile?.language?.includes("{")
+            ? JSON.parse(doctorProfile?.language)
+            : doctorProfile?.language;
+
         let language = doctorProfile?.language?.toLowerCase() || "english";
+
         return (
           <div className="flagAvatar engFlag pr-2">
-            {FLAG_BY_LANGUAGE[language] && (
-              <Image
-                priority={true}
-                src={FLAG_BY_LANGUAGE[language]}
-                alt={language || "flag"}
-                width={25}
-                height={25}
-              />
-            )}
+            {formatedLanguage &&
+              Object.entries(formatedLanguage)
+                .filter((item) => item[1])
+                ?.map((value) => {
+                  return (
+                    <Image
+                      priority={true}
+                      src={FLAG_BY_LANGUAGE[String(value[0]).toLowerCase()]}
+                      alt={language || "flag"}
+                      width={25}
+                      height={25}
+                    /> 
+                  );
+                })}
           </div>
         );
       },
