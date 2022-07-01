@@ -76,7 +76,7 @@ export type Appointment = {
   notesHistory?: Maybe<Array<AppointmentNote>>;
   patient?: Maybe<User>;
   patientId?: Maybe<Scalars['Int']>;
-  questionnaire: Scalars['JSON'];
+  questionnaire?: Maybe<Scalars['JSON']>;
   reportUrl?: Maybe<Scalars['JSON']>;
   requestedDate?: Maybe<Scalars['DateTime']>;
   scheduleId?: Maybe<Scalars['Int']>;
@@ -229,7 +229,7 @@ export type CreateAdminSettingInput = {
 export type CreateAppointmentInput = {
   doctorId: Scalars['Int'];
   patientId: Scalars['Int'];
-  questionnaire: Scalars['JSON'];
+  questionnaire?: InputMaybe<Scalars['JSON']>;
   reportUrl: Scalars['JSON'];
   requestedDate: Scalars['DateTime'];
   scheduleId: Scalars['Int'];
@@ -346,14 +346,14 @@ export type CreateStaffInput = {
 };
 
 export type CreateUserByAdminInput = {
-  city_id: Scalars['Float'];
+  city_id?: InputMaybe<Scalars['Float']>;
   contact_number: Scalars['String'];
   country_id: Scalars['Float'];
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
   profileImage?: InputMaybe<Scalars['String']>;
-  state_id: Scalars['Float'];
+  state_id?: InputMaybe<Scalars['Float']>;
   streetAddress: Scalars['String'];
   zip_code: Scalars['String'];
 };
@@ -542,10 +542,12 @@ export type GetPhysicianAppointmentInput = {
 };
 
 export type GetPhysiciansInput = {
+  countryId?: InputMaybe<Scalars['Int']>;
   creationDate?: InputMaybe<PhysicianAccountCreationDate>;
   language?: InputMaybe<Scalars['String']>;
   searchField?: InputMaybe<Scalars['String']>;
   specialization?: InputMaybe<Scalars['String']>;
+  stateId?: InputMaybe<Scalars['Int']>;
 };
 
 export type GetPhysiciansPatientsInput = {
@@ -1849,7 +1851,7 @@ export type RemoveAdminUserMutation = { __typename?: 'Mutation', removeUser: { _
 export type GetAllChatChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean, createdAt: any, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null }> | null }> };
+export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean, createdAt: any, receiverDetail?: { __typename?: 'User', first_name: string, last_name: string, role?: string | null, email: string } | null, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, role?: string | null, chatChannel?: { __typename?: 'ChatChannels', channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null }> | null }> };
 
 export type GetChannelMessagesQueryVariables = Exact<{
   channelId: Scalars['Int'];
@@ -3009,6 +3011,12 @@ export const GetAllChatChannelsDocument = gql`
     patientId
     isAdminChat
     createdAt
+    receiverDetail {
+      first_name
+      last_name
+      role
+      email
+    }
     participants {
       id
       channelId
@@ -3024,6 +3032,14 @@ export const GetAllChatChannelsDocument = gql`
         id
         first_name
         last_name
+        email
+        role
+        chatChannel {
+          channelName
+          doctorId
+          patientId
+          isAdminChat
+        }
         doctorProfile {
           profile_image
         }
@@ -4595,11 +4611,8 @@ export default {
           {
             "name": "questionnaire",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
