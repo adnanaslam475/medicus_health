@@ -85,6 +85,7 @@ function BookAppointmentModal({
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
   const [successModal, setSuccessModal] = React.useState<boolean>(false);
+  const { saveStepOne, saveStepTwo, saveStepThree } = useBookAppointment();
 
   // File Upload Hook
   const mediaUploader = useMediaUploader();
@@ -164,19 +165,21 @@ function BookAppointmentModal({
           ({ originFileObj }: { originFileObj: File }) => originFileObj
         )
       );
+      const patientIdforCreateAppointment =
+        Number(adminApp_Details?.patient?.patient_id) ||
+        Number(adminPatientId) ||
+        (id as number);
+
+      const doctorIdforCreateAppointment =
+        Number(doctorData?.doctor_id) ||
+        Number(adminApp_Details?.doctor?.doctor_Id) ||
+        Number(adminPhysicianId) ||
+        Number(query?.id);
 
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
-          patientId:
-            Number(adminApp_Details?.patient?.patient_id) ||
-            Number(adminPatientId) ||
-            (id as number),
-          doctorId:
-            Number(doctorData?.doctor_id) ||
-            Number(adminApp_Details?.doctor?.doctor_Id) ||
-            Number(adminPhysicianId) ||
-            Number(query?.id),
-          // Number(doctorData?.doctor_id),
+          patientId: patientIdforCreateAppointment,
+          doctorId: doctorIdforCreateAppointment,
           serviceId: serviceId,
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
@@ -187,10 +190,33 @@ function BookAppointmentModal({
 
       if (res?.data?.createAppointment) {
         setSuccessModal(true);
+        saveStepOne?.({});
+        saveStepTwo?.({});
+        saveStepThree?.({});
       }
     } catch (error) {}
   }
 
+  const NextClickHandler = ({ propsCurrentStepName }: any) => {
+    const stepOneFields = form?.current?.getFieldsValue([
+      "physician",
+      "availability",
+      "requestedDate",
+      "service",
+    ]);
+    const stepTwoFields = form?.current?.getFieldsValue(["questionnair"]);
+    if (
+      currentStepName === "stepOne" &&
+      Object.values(stepOneFields).some((value) => value === undefined)
+    ) {
+      form.current?.submit();
+    } else if (
+      currentStepName === "stepTwo" &&
+      Object.values(stepTwoFields).some((value) => value === undefined)
+    ) {
+      form.current?.submit();
+    } else next(currentStepName);
+  };
   return (
     <Modal
       centered
@@ -219,7 +245,7 @@ function BookAppointmentModal({
           </div>
           <BookAppointmentFooter
             stepName={currentStepName}
-            onNext={() => next(currentStepName)}
+            onNext={() => NextClickHandler(currentStepName)}
             onPrevious={() => prev(currentStepName)}
             onRequestAppointment={onRequestAppointment}
           />
