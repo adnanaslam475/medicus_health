@@ -1,5 +1,5 @@
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import _classes from "./EditableNotes.module.scss";
 import {
   Appointment,
@@ -28,6 +28,7 @@ function EditableNotes() {
   const [localDocNotes, setlocalDocNotes] = useState();
   const [noteType, setNoteType] = useState("");
   const [open, setOpen] = React.useState<boolean>(false);
+  const [formInstance] = Form.useForm();
 
   const { query } = useRouter();
   function handleChange(value: string) {
@@ -35,13 +36,6 @@ function EditableNotes() {
   }
 
   // GET NOTES API CALL
-
-  // const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
-  //   useGetAppointmentNoteByIdQuery({
-  //     variables: {
-  //       appointmentId: Number(query?.id),
-  //     },
-  //   });
 
   const [{ data: notesById }, executeGetDoctorNotesByAppIdQuery] =
     useGetDoctorNotesByAppIdQuery({
@@ -66,11 +60,11 @@ function EditableNotes() {
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
         isPublished: isPublish,
-        subjective: value?.subjective || "",
-        objective: value?.objective || "",
-        assessment: value?.assessment || "",
-        plan: value?.plan || "",
-        note: value?.narrative || "",
+        subjective: value?.subjective,
+        objective: value?.objective,
+        assessment: value?.assessment,
+        plan: value?.plan,
+        note: value?.narrative,
         // noteType: "SOAP",
       },
     });
@@ -119,6 +113,16 @@ function EditableNotes() {
   const { note, subjective, objective, assessment, plan } =
     currentAppointmentNote || {};
 
+  useEffect(() => {
+    formInstance.setFieldsValue({
+      subjective,
+      objective,
+      assessment,
+      plan,
+      narrative: note,
+    });
+  }, [assessment, formInstance, note, objective, plan, subjective]);
+
   return (
     <>
       <h2>View Notes</h2>
@@ -134,10 +138,7 @@ function EditableNotes() {
           <Select.Option value="soap">SOAP</Select.Option>
         </Select>
       </div> */}
-      <Form
-        // form={formInstance}
-        onFinish={addNote}
-      >
+      <Form form={formInstance} onFinish={addNote}>
         {/* {noteType == "narrative" && (
           <>
             <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE</h4>
