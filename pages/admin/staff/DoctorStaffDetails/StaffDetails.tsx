@@ -77,7 +77,8 @@ function DoctorStaffDetails() {
       });
     }
   };
-
+  const doctorId =
+    user?.role === "Admin" ? Number(query?.adminId) : Number(user?.id);
   const onFinish = async (values: UpdateStaffInput) => {
     try {
       const response = await executeUpdateStaffProfileMutation({
@@ -87,7 +88,7 @@ function DoctorStaffDetails() {
           last_name: values?.last_name,
           email: values?.email,
           contact_number: values?.contact_number,
-          doctorId: id as number,
+          doctorId: doctorId,
           // deletedAt: false,
         },
       });
