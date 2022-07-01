@@ -411,17 +411,9 @@ query getAppointmentById($id: Int!) {
     appointmentHealthHistory {
       history
     }
-    # doctorNote {
-    #   id
-    #   isPublished
-    #   appointmentId
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   note
-    # }
+
     currentAppointmentNote {
+      id
       subjective
       objective
       assessment
@@ -430,6 +422,7 @@ query getAppointmentById($id: Int!) {
       isPublished
     }
     notesHistory {
+      id
       subjective
       objective
       assessment
@@ -523,7 +516,7 @@ query ViewSuggestedTimeSlots($id: Int!) {
       first_name
       last_name
     }
-    transaction{
+    transaction {
       status
       amountReceived
     }

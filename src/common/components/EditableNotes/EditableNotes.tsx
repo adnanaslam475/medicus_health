@@ -1,5 +1,5 @@
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import _classes from "./EditableNotes.module.scss";
 import {
   Appointment,
@@ -21,39 +21,28 @@ type Props = {
   doctorNotes?: GetDoctorNotesByAppIdQuery;
 };
 
-function EditableNotes({ doctorNotes }: Props) {
+function EditableNotes() {
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isPublish, setIsPublish] = useState(false);
   const [localDocNotes, setlocalDocNotes] = useState();
   const [noteType, setNoteType] = useState("");
   const [open, setOpen] = React.useState<boolean>(false);
+  const [formInstance] = Form.useForm();
 
   const { query } = useRouter();
   function handleChange(value: string) {
     setNoteType(value);
   }
 
-  const { currentAppointmentNote } = doctorNotes?.appointment || {};
-
-  const { note, subjective, objective, assessment, plan } =
-    currentAppointmentNote || {};
-
-  const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
-    useCreateOrUpdateAppointmentNoteMutation();
-
   // GET NOTES API CALL
-  // const [{ data: notesById }, executeGetAppointmentNoteByIdQuery] =
-  //   useGetAppointmentNoteByIdQuery({
-  //     variables: {
-  //       appointmentId: Number(query?.id),
-  //     },
-  //   });
+
   const [{ data: notesById }, executeGetDoctorNotesByAppIdQuery] =
     useGetDoctorNotesByAppIdQuery({
       variables: {
         id: Number(query?.id),
       },
+      requestPolicy: "network-only",
     });
 
   console.log(notesById, query?.id, "majidUsma");
@@ -63,16 +52,19 @@ function EditableNotes({ doctorNotes }: Props) {
 
   // ADD NOTES API CALL
 
+  const [{ data: notes, fetching }, createOrUpdateAppointmentNote] =
+    useCreateOrUpdateAppointmentNoteMutation();
+
   const addNote = async (value: any) => {
     const res = await createOrUpdateAppointmentNote({
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
         isPublished: isPublish,
-        subjective: value?.subjective || "",
-        objective: value?.objective || "",
-        assessment: value?.assessment || "",
-        plan: value?.plan || "",
-        note: value?.narrative || "",
+        subjective: value?.subjective,
+        objective: value?.objective,
+        assessment: value?.assessment,
+        plan: value?.plan,
+        note: value?.narrative,
         // noteType: "SOAP",
       },
     });
@@ -81,6 +73,7 @@ function EditableNotes({ doctorNotes }: Props) {
         message: "Successfully Added",
       });
       setEdit(false);
+      executeGetDoctorNotesByAppIdQuery({ requestPolicy: "network-only" });
     } else {
       notification.error({
         message: "Something went wrong",
@@ -114,6 +107,22 @@ function EditableNotes({ doctorNotes }: Props) {
     }
   };
 
+  // FORM REFERENCE
+  const { currentAppointmentNote } = notesById?.appointment || {};
+
+  const { note, subjective, objective, assessment, plan } =
+    currentAppointmentNote || {};
+
+  useEffect(() => {
+    formInstance.setFieldsValue({
+      subjective,
+      objective,
+      assessment,
+      plan,
+      narrative: note,
+    });
+  }, [assessment, formInstance, note, objective, plan, subjective]);
+
   return (
     <>
       <h2>View Notes</h2>
@@ -129,7 +138,7 @@ function EditableNotes({ doctorNotes }: Props) {
           <Select.Option value="soap">SOAP</Select.Option>
         </Select>
       </div> */}
-      <Form onFinish={addNote}>
+      <Form form={formInstance} onFinish={addNote}>
         {/* {noteType == "narrative" && (
           <>
             <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE</h4>
@@ -150,8 +159,6 @@ function EditableNotes({ doctorNotes }: Props) {
         )} */}
         {/* {noteType == "soap" && ( */}
         <>
-          {/* <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE & SOAP</h4> */}
-
           <div className={`${_classes["narrative-cover"]} `}>
             <AcronymWithTextEditable
               editable={edit}

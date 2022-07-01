@@ -5,5 +5,11 @@
   },
   "AccountDetail": {
     "title": "Account"
+  },
+  "UpcomingAppointments": {
+    "upcomingAppointmentsHead":"Upcoming Appointments"  
   }
+
 }
+
+

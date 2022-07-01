@@ -75,11 +75,17 @@ const AppHeader = () => {
         </Menu.Item>
       )}
 
-      <Menu.Item>
-        <Link href={{ pathname, query }} as={asPath} locale={otherLocales?.[0]}>
-          {`switch to ${otherLocales?.[0]}`}
-        </Link>
-      </Menu.Item>
+      <div className="hidden">
+        <Menu.Item>
+          <Link
+            href={{ pathname, query }}
+            as={asPath}
+            locale={otherLocales?.[0]}
+          >
+            {`switch to ${otherLocales?.[0]}`}
+          </Link>
+        </Menu.Item>
+      </div>
 
       <Menu.Item onClick={logout}>
         <span className="text-red">Logout</span>

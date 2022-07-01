@@ -35,7 +35,7 @@ query doctorAppointmentDetail($id: Int!) {
       endTime
       selected
     }
-    appointmentDateTime{
+    appointmentDateTime {
       startTime
       endTime
     }
@@ -79,7 +79,7 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       endTime
       selected
     }
-    appointmentDateTime{
+    appointmentDateTime {
       startTime
       endTime
     }
@@ -231,17 +231,9 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
         }
       }
     }
-    # doctorNote {
-    #   id
-    #   appointmentId
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   isPublished
-    #   note
-    # }
+
     currentAppointmentNote {
+      id
       subjective
       objective
       assessment
@@ -250,6 +242,7 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
       isPublished
     }
     notesHistory {
+      id
       subjective
       objective
       assessment

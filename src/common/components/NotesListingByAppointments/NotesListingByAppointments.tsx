@@ -78,8 +78,8 @@ function NotesListingByAppointments(props: Props) {
                   actualDoctorNotes !== null && (
                     <>
                       <EditableNotes
-                        // appointment={appointment as Appointment}
-                        doctorNotes={doctorNotes}
+                      // appointment={appointment as Appointment}
+                      // doctorNotes={doctorNotes}
                       />
                     </>
                   )}
