@@ -13,7 +13,7 @@ import Router from "next/router";
 import { isAppointmentTimeValid } from "common/utils/date";
 
 type Props = {
-  appointmentId: number | undefined;
+  appointmentId: number | null | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;

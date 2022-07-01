@@ -78,7 +78,11 @@ function CancelledAppointment() {
               ullamcorperequesty tortor a fringilla tempus.
             </h5>
           </div>
-          <Button type="primary" size="large" onClick={showAppointmentBookingModal}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={showAppointmentBookingModal}
+          >
             Request an Appointment
           </Button>
         </div>
@@ -100,7 +104,9 @@ function CancelledAppointment() {
               // <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
                 {appointments?.map((appointmentDetail, i) => {
+                  console.log("appointmentDetail", appointmentDetail?.id);
                   const {
+                    id,
                     requestedDate,
                     status,
                     serviceType,
@@ -109,6 +115,7 @@ function CancelledAppointment() {
                   } = appointmentDetail || {};
                   return (
                     <AppointmentCard
+                      appointmentId={Number(id)}
                       requestedDate={requestedDate}
                       status={status}
                       serviceType={serviceType?.name}

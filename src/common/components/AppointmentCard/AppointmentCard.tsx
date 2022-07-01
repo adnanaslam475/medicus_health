@@ -15,7 +15,7 @@ import _classes from "./AppointmentCard.module.scss";
 import AppointmnetCurrentCard from "./CardTypes/AppointmnetCurrentCard";
 
 type props = {
-  appointmentId?: number | undefined;
+  appointmentId?: number |null| undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
@@ -43,6 +43,7 @@ function AppointmentCard({
   doctorId,
   patientId,
 }: props) {
+
   function getStatus() {
     const { user } = getUserData();
     const { role } = user || {};
@@ -80,12 +81,12 @@ function AppointmentCard({
           appointmentTimeSlots={appointmentTimeSlots}
           setShowModal={setShowModal}
           appointmentDateTime={appointmentDateTime}
-
         />
       );
     case "Cancelled":
       return (
         <AppointmnetCancelledCard
+          appointmentId={appointmentId}
           requestedDate={requestedDate}
           status={getStatus()}
           serviceType={serviceType}
