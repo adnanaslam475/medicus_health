@@ -76,3 +76,9 @@ query currentAppointments($filter: GetCurrentAppointmentInput!) {
     status
   }
 }
+
+mutation reBookAppointment($rebookAppointmentInput: ReBookAppointmentInput!) {
+  reBookAppointment(rebookAppointmentInput: $rebookAppointmentInput) {
+    status
+  }
+}

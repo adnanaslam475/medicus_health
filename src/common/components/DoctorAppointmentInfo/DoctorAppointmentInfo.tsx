@@ -71,6 +71,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     requestedDate,
     appointmentTimeSlots,
     appointmentSchedule,
+    appointmentDateTime,
     createdAt,
   } = data || {};
 
@@ -84,7 +85,6 @@ function DoctorAppointmentInfo({ data }: Props) {
 
   const [{ fetching: cancelFetching }, executeCancelAppointment] =
     useCancelAppointmentByDoctorMutation();
-
   function timeSlots() {
     if (appointmentTimeSlots) {
       let selectedTimeSlots = appointmentTimeSlots?.find(
@@ -95,6 +95,9 @@ function DoctorAppointmentInfo({ data }: Props) {
     }
   }
 
+  let dueDate = appointmentDateTime?.startTime || timeSlots()?.startTime;
+  let startTime = appointmentDateTime?.startTime || timeSlots()?.startTime;
+  let endTime = appointmentDateTime?.startTime || timeSlots()?.startTime;
   async function onCancelRequestedAppointment() {
     try {
       const res = await executeCancelAppointment({
@@ -159,11 +162,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="Due Date"
-          text={
-            timeSlots()?.startTime
-              ? `${formatMMMM_Dcoma_YYYY(timeSlots()?.startTime)} `
-              : "--"
-          }
+          text={dueDate ? `${formatMMMM_Dcoma_YYYY(dueDate)} ` : "--"}
         />
         <LabelWithText
           label="Appointment creation date"
@@ -172,10 +171,10 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText
           label="Time"
           text={
-            timeSlots()?.startTime
-              ? `${date?.formathhmma(
-                  timeSlots()?.startTime
-                )} - ${date?.formathhmma(timeSlots()?.endTime)}`
+            startTime
+              ? `${date?.formathhmma(startTime)} - ${date?.formathhmma(
+                  endTime
+                )}`
               : "--"
           }
         />
@@ -471,7 +470,13 @@ function DoctorUpcomingAppointmentInfoFooter({
         onOk={onCancelUpcomingAppointment}
         message="Are you sure you want to Cancel Appointment?"
       />
-      {showRescheduleModal && <RescheduleAppointmentModal showRescheduleModal={showRescheduleModal} setShowRescheduleModal={setShowRescheduleModal} data={data} />}
+      {showRescheduleModal && (
+        <RescheduleAppointmentModal
+          showRescheduleModal={showRescheduleModal}
+          setShowRescheduleModal={setShowRescheduleModal}
+          data={data}
+        />
+      )}
     </div>
   );
 }
@@ -486,6 +491,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     status,
     requestedDate,
     appointmentTimeSlots,
+    appointmentDateTime,
   } = data || {};
 
   const [slot, setSlot] = useState<dateArray>({ startDate: "", endDate: "" });
@@ -663,13 +669,30 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               </Form.Item>
             </div>
           </div>
-          <Form.Item label="Requested Date*" name="requestedDate">
+
+          {/* <Form.Item label="Requested Date*" name="requestedDate">
             <DatePicker
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
               className="w-full pointer-events-none"
             />
-          </Form.Item>
+          </Form.Item> */}
+          {appointmentDateTime?.startTime && appointmentDateTime?.endTime && (
+            <Form.Item label="Existing Schedule" name="requestedDate">
+              <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
+                <div className="">
+                  <div className="text-sm mb-0 w-full">Date : {`${date.formatMMMMDDYYYY(
+                    appointmentDateTime?.startTime
+                  )}`}</div>{" "}
+                  <br/>
+                  <div className="text-sm mb-0 w-full">Time: {`${ date.formathhmma(
+                    appointmentDateTime?.startTime
+                  )} -   ${date.formathhmma(appointmentDateTime?.endTime)}`}</div>
+                </div>
+                <span className="hover:bg-white p-2 rounded-xl"></span>
+              </div>
+            </Form.Item>
+          )}
 
           <label>Availability*</label>
           <div className="date-time-picker block mb-3">

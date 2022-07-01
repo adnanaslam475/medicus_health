@@ -35,6 +35,10 @@ query doctorAppointmentDetail($id: Int!) {
       endTime
       selected
     }
+    appointmentDateTime{
+      startTime
+      endTime
+    }
     serviceType {
       id
       name
@@ -74,6 +78,10 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       startTime
       endTime
       selected
+    }
+    appointmentDateTime{
+      startTime
+      endTime
     }
     appointmentSchedule {
       startTime
