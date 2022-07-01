@@ -25,14 +25,7 @@ query getDoctorNotesByAppId($id: Int!) {
     id
     patientId
     status
-    # doctorNote {
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   note
-    #   isPublished
-    # }
+
     currentAppointmentNote {
       id
       subjective

@@ -5,7 +5,6 @@ import _classes from "./AcronymWithTextEditable.module.scss";
 
 type Props = {
   character: string;
-  // sentence: string | number | readonly string[] | undefined;
   sentence: string | null | undefined;
   word: string;
   editable: boolean;
