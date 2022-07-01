@@ -15,10 +15,12 @@ import { getUserData } from "common/utils/userData";
 import Router from "next/router";
 import React from "react";
 import {
+  Appointment,
   useBookAppointmentMutation,
   useCancelAppointmentByPatientMutation,
   useCreateCardMutation,
   useGetAllCardsQuery,
+  useReBookAppointmentMutation,
 } from "../../../../../generated/graphql";
 import { useAppointmentModal } from "../AppointmentModalProvider";
 import _classes from "../AppointmentReschedule/AppointmentReschedule.module.scss";
@@ -31,6 +33,7 @@ type Props = {
   setCurrentStepName: (param: string) => void;
   appointmentId: number | undefined;
   onReject?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  appointmentDetails?: Appointment | undefined;
 };
 
 function AppointmentModalFooter({
@@ -41,6 +44,7 @@ function AppointmentModalFooter({
   stepName,
   appointmentId,
   onReject,
+  appointmentDetails,
 }: Props) {
   const [showConfirmationModal, setShowConfirmationModal] =
     React.useState<boolean>(false);
@@ -86,6 +90,33 @@ function AppointmentModalFooter({
         });
       }
       onReject?.(e);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const [
+    { data: rebookAppointmentData, fetching },
+    executeUseReBookAppointmentMutation,
+  ] = useReBookAppointmentMutation();
+
+  async function onFinalizeTransaction() {
+    const selectedSlotId = contextData?.stepOne?.selectedSlotId
+    const appointmentId = appointmentDetails?.id
+    try {
+      const res = await executeUseReBookAppointmentMutation({
+        rebookAppointmentInput: { appointmentId: Number(appointmentId), selectedSlotId: selectedSlotId },
+      });
+      if (res?.data) {
+        // notification.success({
+        //   message: "Appointment Rescheduled Successfully",
+        // });
+        onNext()
+      } else {
+        notification.error({
+          message: "Something went wrong",
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -177,6 +208,7 @@ function AppointmentModalFooter({
     }
   }
 
+  const paymentStatus = appointmentDetails?.transaction?.status;
   return (
     <div>
       {stepName === "stepOne" && (
@@ -191,9 +223,11 @@ function AppointmentModalFooter({
           <Button
             type="primary"
             className={`${_classes["button-background-color"]}`}
-            onClick={onNext}
+            onClick={
+              paymentStatus === "succeeded" ? onFinalizeTransaction : onNext
+            }
           >
-            Proceed To Payment
+            {paymentStatus === "succeeded" ? "Submit" : "Proceed To Payment"}
           </Button>
           <ConfirmationModal
             visible={showConfirmationModal}

@@ -53,6 +53,8 @@ function AppointmentCard({
       return "Requested";
     } else if (role === "Doctor" && status === "Requested") {
       return "Requested";
+    } else if (role === "User" && status === "Rescheduled") {
+      return "Rescheduled";
     } else if (role === "Doctor" && status === "Suggested") {
       return "Suggested";
     }
@@ -81,6 +83,19 @@ function AppointmentCard({
           appointmentTimeSlots={appointmentTimeSlots}
           setShowModal={setShowModal}
           appointmentDateTime={appointmentDateTime}
+        />
+      );
+    case "Rescheduled":
+      return (
+        <AppointmnetSuggestedCard
+          appointmentId={appointmentId}
+          requestedDate={requestedDate}
+          status={getStatus()}
+          serviceType={serviceType}
+          doctor={doctor}
+          appointmentTimeSlots={appointmentTimeSlots}
+          setShowModal={setShowModal}
+          onViewSuggestedSlots={onViewSuggestedSlots}
         />
       );
     case "Cancelled":

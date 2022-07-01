@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Form, Modal, Select, Space } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Modal,
+  notification,
+  Select,
+  Space,
+} from "antd";
 
 // scss
 import _classes from "./RescheduleAppointment.module.scss";
-import { Appointment, AppointmentServiceType } from "generated/graphql";
+import {
+  Appointment,
+  AppointmentServiceType,
+  SuggestedTimeSlots,
+  useSuggestNewTimeMutation,
+} from "generated/graphql";
 import { getDayJsObject } from "common/utils/date";
 import { date } from "common/utils";
 import { FormInstance } from "rc-field-form";
@@ -19,16 +32,16 @@ type Props = {
 };
 
 type dateArray = {
-  endDate: string;
-  startDate: string;
+  endTime: string;
+  startTime: string;
 };
 
 function RescheduleAppointmentModal(props: Props) {
   const { data, showRescheduleModal, setShowRescheduleModal } = props || {};
   const { serviceType, requestedDate, appointmentTimeSlots } = data || {};
 
-  const [slot, setSlot] = useState<dateArray>({ startDate: "", endDate: "" });
-  const [slots, setSlots] = useState<Array<dateArray>>([]);
+  const [slot, setSlot] = useState<dateArray>({ startTime: "", endTime: "" });
+  const [slots, setSlots] = useState<SuggestedTimeSlots[] | any[]>([]);
 
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
@@ -53,10 +66,31 @@ function RescheduleAppointmentModal(props: Props) {
   const onChangeDatePicker = (dateString: string, name: string): void => {
     setSlot({ ...slot, [name]: dateString });
   };
+  const [
+    { data: suggestNewTimeData, fetching },
+    executeUseSuggestNewTimeMutation,
+  ] = useSuggestNewTimeMutation();
 
   async function onRescheduleAppointment() {
     setShowRescheduleModal(false);
-    console.log("re-schedule data is", slots, data?.id);
+    const response = await executeUseSuggestNewTimeMutation({
+      suggestNewTime: {
+        id: Number(data?.id),
+        proposedTimeSlots: slots,
+      },
+    });
+    try {
+      if (response?.data?.suggestNewTime)
+        notification.success({
+          message: "Successfully Rescheduled Appointment",
+        });
+    } catch (error: any) {
+      notification.error({
+        message:
+          error?.message ||
+          "Something went wrong while rescheduling appointment",
+      });
+    }
   }
 
   function deleteTimeSlot(index: number) {
@@ -65,7 +99,7 @@ function RescheduleAppointmentModal(props: Props) {
 
   function addTimeSlot() {
     setSlots([...slots, slot]);
-    setSlot({ startDate: "", endDate: "" });
+    setSlot({ startTime: "", endTime: "" });
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
   const selectedAppointment = appointmentTimeSlots?.find(
@@ -146,8 +180,8 @@ function RescheduleAppointmentModal(props: Props) {
             {slots?.map((v, index) => (
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="flex gap-2  rounded leading-3 max-w-max">
-                  <p className="text-sm mb-0">{v?.startDate}</p> -
-                  <p className="text-sm mb-0">{v?.endDate}</p>
+                  <p className="text-sm mb-0">{v?.startTime}</p> -
+                  <p className="text-sm mb-0">{v?.endTime}</p>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl">
                   <DeleteOutlined onClick={() => deleteTimeSlot(index)} />
@@ -204,7 +238,7 @@ function AvailabilityTimeSlots({
                 format={FORMAT_D_T_W_AM_PM}
                 showNow={false}
                 onChange={(_, date: string) => {
-                  onChangeDatePicker?.(date, "startDate");
+                  onChangeDatePicker?.(date, "startTime");
                 }}
               />
             </Space>
@@ -218,7 +252,7 @@ function AvailabilityTimeSlots({
                 showTime
                 format={FORMAT_D_T_W_AM_PM}
                 showNow={false}
-                onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
+                onChange={(_, date) => onChangeDatePicker?.(date, "endTime")}
               />
             </Space>
           </Form.Item>
