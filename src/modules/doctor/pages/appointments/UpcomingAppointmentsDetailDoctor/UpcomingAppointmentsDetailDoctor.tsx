@@ -37,6 +37,7 @@ function UpcomingAppointmentsDetailDoctor() {
     variables: {
       id: Number(appointment?.id),
     },
+    pause: !appointment?.id
   });
 
   //get appointment URL

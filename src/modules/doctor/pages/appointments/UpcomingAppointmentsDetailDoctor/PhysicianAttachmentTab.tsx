@@ -22,6 +22,7 @@ function PhysicianAttachmentTab() {
       variables: {
         id: Number(appointment?.id),
       },
+      pause:!appointment?.id
     });
   
     //get appointment URL
