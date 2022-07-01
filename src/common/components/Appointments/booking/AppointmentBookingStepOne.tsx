@@ -102,6 +102,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         (serviceType) => serviceType.id === value
       );
       setServiceInfo(charge as any);
+      formInstance?.setFieldsValue({ requestedDate: "" });
     }
 
     function disabledDate(current: any) {
