@@ -85,7 +85,6 @@ function BookAppointmentModal({
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
   const [successModal, setSuccessModal] = React.useState<boolean>(false);
-  const { saveStepOne, saveStepTwo, saveStepThree } = useBookAppointment();
 
   // File Upload Hook
   const mediaUploader = useMediaUploader();
@@ -93,7 +92,12 @@ function BookAppointmentModal({
   //   GET ID FROM URL
   const { query } = useRouter();
 
-  const { data: appoinmentData } = useBookAppointment();
+  const {
+    data: appoinmentData,
+    saveStepOne,
+    saveStepTwo,
+    saveStepThree,
+  } = useBookAppointment();
 
   // GET USER ID
   const { user } = getUserData();
@@ -205,6 +209,7 @@ function BookAppointmentModal({
       "service",
     ]);
     const stepTwoFields = form?.current?.getFieldsValue(["questionnair"]);
+    const stepThreeFields = form?.current?.getFieldsValue();
     if (
       currentStepName === "stepOne" &&
       Object.values(stepOneFields).some((value) => value === undefined)
@@ -212,7 +217,14 @@ function BookAppointmentModal({
       form.current?.submit();
     } else if (
       currentStepName === "stepTwo" &&
+      !appoinmentData?.stepTwo?.length &&
       Object.values(stepTwoFields).some((value) => value === undefined)
+    ) {
+      form.current?.submit();
+    } else if (
+      currentStepName === "stepThree" &&
+      !appoinmentData?.stepThree?.length &&
+      Object.values(stepThreeFields).some((value) => value === undefined)
     ) {
       form.current?.submit();
     } else next(currentStepName);

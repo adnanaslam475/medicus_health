@@ -111,7 +111,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       <h2>Request an Appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         {doctorQuestionnaire && (
-          <Form.Item valuePropName="checked">
+          <Form.Item valuePropName="checked" >
             <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
               <Checkbox
                 value={data?.stepThree?.isLastFilled || 0}
@@ -141,6 +141,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                   label={item.label}
                   className="text-secondary"
                   name={item.name}
+                  rules={[{required:true,message:`${item?.label}`}]}
                 >
                   <Input />
                 </Form.Item>
@@ -151,6 +152,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                   label={item.label}
                   className="text-secondary"
                   name={item.name}
+                  rules={[{required:true,message:`${item?.name} is required`}]}
                 >
                   <Radio.Group>
                     {item?.options?.map(({ value, label }) => {
