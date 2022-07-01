@@ -79,6 +79,10 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       startTime
       endTime
     }
+    transaction{
+      status
+      amountReceived
+    }
   }
 }
 

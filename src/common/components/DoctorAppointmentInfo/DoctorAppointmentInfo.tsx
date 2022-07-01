@@ -214,6 +214,21 @@ function DoctorAppointmentInfo({ data }: Props) {
             </Tag>
           </div>
         </li>
+        {status === "Cancelled" && (
+          <li className="flex border-b border-gray-5 py-3">
+            <div className="w-full text-gray-1 max-w-[300px]">
+              Payment Status
+            </div>
+            <div className="w-full text-secondary">
+              <Tag
+                color="#e2f8f7"
+                className="ant-typography ant-typography-secondary"
+              >
+                {transaction?.status}
+              </Tag>
+            </div>
+          </li>
+        )}
       </div>
       {status === "Confirmed" && (
         <DoctorUpcomingAppointmentInfoFooter
@@ -471,7 +486,13 @@ function DoctorUpcomingAppointmentInfoFooter({
         onOk={onCancelUpcomingAppointment}
         message="Are you sure you want to Cancel Appointment?"
       />
-      {showRescheduleModal && <RescheduleAppointmentModal showRescheduleModal={showRescheduleModal} setShowRescheduleModal={setShowRescheduleModal} data={data} />}
+      {showRescheduleModal && (
+        <RescheduleAppointmentModal
+          showRescheduleModal={showRescheduleModal}
+          setShowRescheduleModal={setShowRescheduleModal}
+          data={data}
+        />
+      )}
     </div>
   );
 }
