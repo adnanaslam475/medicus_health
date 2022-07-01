@@ -8,9 +8,9 @@ import { AppointmentTimeSlots } from "../../../../generated/graphql";
 import { isAppointmentTimeValid } from "common/utils/date";
 
 type Props = {
-  appointmentId: number | undefined;
-  requestedDate: string;
-  status: string | null | undefined;
+  appointmentId: number |null| undefined;
+  requestedDate?: string;
+  status?: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;

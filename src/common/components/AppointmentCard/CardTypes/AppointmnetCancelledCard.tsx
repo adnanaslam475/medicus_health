@@ -9,6 +9,7 @@ import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 
 type Props = {
+  appointmentId: number | null | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
@@ -18,6 +19,7 @@ type Props = {
 };
 
 function AppointmnetCancelledCard({
+  appointmentId,
   requestedDate,
   status,
   serviceType,
@@ -25,7 +27,6 @@ function AppointmnetCancelledCard({
   doctorProfile,
   appointmentTimeSlots,
 }: Props) {
-
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
   //   setShowModal(true);
@@ -61,6 +62,7 @@ function AppointmnetCancelledCard({
   return (
     <>
       <Card className={`${_classes["appointment-card"]}`}>
+        <span className="text-sm mb-0"> {appointmentId || ""}</span>
         <h3 className="mb-0">Dr. {doctor}</h3>
         <span className="text-gray text-base block">{serviceType}</span>
         <span className="text-sm">Date</span>
@@ -75,7 +77,8 @@ function AppointmnetCancelledCard({
             )} - ${date.formathhmma(item.endTime)}`}</div>
           ))
         )}
-        <span className="text-base text-red font-bold ">{status}</span>
+        <span className="text-sm">Status</span>
+        <span className="flex text-base text-red font-bold ">{status}</span>
         <div className="flex">
           <Button
             type={"primary"}
