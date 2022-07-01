@@ -17,8 +17,13 @@ import {
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
+import NotesHistory from "../NotesHistoryNotes/NotesHistory";
 
-type Props = {};
+type Props = {
+  // onFinish?: (values: any, setModalVisible: () => void) => void;
+  // onChange?: () => void;
+  // status: string | null | undefined;
+};
 
 function NotesTab({}: Props) {
   const { query } = useRouter();
@@ -36,8 +41,9 @@ function NotesTab({}: Props) {
   const { appointment } = data || {};
   const status = appointment?.status;
   const { patient, serviceType } = appointment || {};
-
   const appointmentId = Number(query.id);
+
+  console.log(status, "statusstatusstatus");
 
   // GET NOTES API CALL
 
@@ -53,7 +59,11 @@ function NotesTab({}: Props) {
   const actualDoctorNotes =
     appointmentChild?.appointment.currentAppointmentNote;
 
-  console.log(appointmentChild, "actualDoctorNotesactualDoctorNotes");
+  // GET HISTORY NOTES
+
+  const historyNotes = appointmentChild?.appointment.notesHistory;
+
+  console.log(historyNotes, "history Notes");
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
@@ -102,13 +112,11 @@ function NotesTab({}: Props) {
             {/* )} */}
           </>
         )}
-
         {actualDoctorNotes && (
           <NotesListingByAppointments
             doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
           />
         )}
-
         {/* FOR PATIENT ONLY */}
         {getRole() === "User" &&
           (actualDoctorNotes ? (
@@ -118,8 +126,14 @@ function NotesTab({}: Props) {
           ) : (
             <div className="div">No Published Notes Available</div>
           ))}
+        {/* HISTORY NOTES */}
 
-        {/* NotesListingByAppointments */}
+        <div className="history-notes-cover">
+          <h3>Notes History</h3>
+          {(getRole() === "User" ||
+            getRole() === "Admin" ||
+            getRole() === "Doctor") && <NotesHistory />}
+        </div>
       </CardWithProfileImageInfo>
     </div>
   );

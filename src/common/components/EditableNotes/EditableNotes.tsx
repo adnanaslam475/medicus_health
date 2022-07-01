@@ -20,7 +20,7 @@ type Props = {
   appointment?: Appointment | undefined;
   doctorNotes?: GetDoctorNotesByAppIdQuery;
 };
-// function EditableNotes({ doctorNotes }: Props) {
+
 function EditableNotes() {
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -159,8 +159,6 @@ function EditableNotes() {
         )} */}
         {/* {noteType == "soap" && ( */}
         <>
-          {/* <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE & SOAP</h4> */}
-
           <div className={`${_classes["narrative-cover"]} `}>
             <AcronymWithTextEditable
               editable={edit}
