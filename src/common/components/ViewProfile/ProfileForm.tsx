@@ -100,8 +100,6 @@ function ProfileForm({
                     ) : (
                       <Input disabled={true} />
                     )}
-                    {/* <Input disabled={true} /> */}
-
                   </Form.Item>
                 );
               })}

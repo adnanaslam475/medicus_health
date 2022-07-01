@@ -73,7 +73,6 @@ function AccountsProfile() {
     pause: !id,
   });
   const { doctorProfile } = data || {};
-  console.log(doctorProfile,"Dd")
   return (
     <div>
       {isEdit ? (
