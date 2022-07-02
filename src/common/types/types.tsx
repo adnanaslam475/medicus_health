@@ -40,8 +40,8 @@ export type physicianFilterType = {
     startDate?: string;
     endDate?: string;
   };
-  paymentStatus?:string;
-  status?:string
+  paymentStatus?: string;
+  status?: string;
 };
 
 export type cancelledAppointmentFilterType = {
@@ -82,8 +82,8 @@ export type AdminPatientUpdateInput = {
   pets: string;
   No_of_childrens?: number;
   Occupational_Exposure_duration?: string;
-  haveChildren?:string;
-  exposureDuration?:string
+  haveChildren?: string;
+  exposureDuration?: string;
 };
 
 export type physicianMyEarningsFilterType = {
@@ -98,8 +98,8 @@ export type physicianMyEarningsFilterType = {
     startDate?: string;
     endDate?: string;
   };
-  paymentStatus?:string;
-  status?:string
+  paymentStatus?: string;
+  status?: string;
 };
 
 export type cancelAppointmentFilterType = {
@@ -172,7 +172,8 @@ export type StatusName =
   | "CONFIRMED"
   | "REQUESTED"
   | "SUGGESTED"
-  | "CANCELLED";
+  | "CANCELLED"
+  | "REFUNDED";
 
 export type AttachmentObject = {
   name: string;

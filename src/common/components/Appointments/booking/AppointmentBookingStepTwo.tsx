@@ -14,7 +14,7 @@ import Image from "next/image";
 const { Dragger } = Upload;
 
 const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
-  const { saveStepTwo } = useBookAppointment();
+  const { data, saveStepTwo } = useBookAppointment();
   const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
@@ -25,7 +25,8 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
     // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
       setFileList(info.fileList);
-      const { status } = info.file;
+      saveStepTwo?.(info.fileList);
+      const { status } = info?.file;
       // if (status !== "uploading") {
       //   console.log(info.file, info.fileList);
       // }
@@ -35,13 +36,15 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
       //   message.error(`${info.file.name} file upload failed.`);
       // }
     },
+    defaultFileList: data?.stepTwo && data?.stepTwo,
     onDrop(e: { dataTransfer: { files: any } }) {
+      // saveStepTwo?.(e.dataTransfer.files);
       console.log("Dropped files", e.dataTransfer.files);
     },
   };
 
   function onFinishLocal(values: any) {
-    saveStepTwo?.(fileList);
+    saveStepTwo?.(data?.stepTwo || fileList);
   }
 
   useEffect(() => {
@@ -49,7 +52,6 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
       ref.current = formInstance;
     }
   }, []);
-
   return (
     <>
       <h2>Request an Appointment</h2>
@@ -81,9 +83,18 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
           </Dragger>
         </Form.Item>
 
-        <Form.Item label="General Health Questionnaire*">
+        <Form.Item
+          label="General Health Questionnaire*"
+          name={"questionnair"}
+          rules={[
+            {
+              required: !data?.stepTwo?.length ? true : false,
+              message: "General Health Questionnaire is required",
+            },
+          ]}
+        >
           <div className="w-full bg-gray-4 rounded flex items-center p-3">
-            <Checkbox value="0">
+            <Checkbox defaultChecked={data?.stepTwo?.length}>
               <span className="text-gray-2">Health Questionnaire attached</span>
             </Checkbox>
           </div>

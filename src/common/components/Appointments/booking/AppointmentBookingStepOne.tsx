@@ -43,8 +43,15 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const [formInstance] = Form.useForm();
     const [data] = useGetAllAppointmentServiceTypesQuery();
     const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
-    const { physicianName, service, price, requestedDate, availability } =
-      appoinmentDetails?.stepOne || {};
+    const {
+      physician,
+      service,
+      price,
+      requestedDate,
+      availability,
+      charges,
+      serviceName,
+    } = appoinmentDetails?.stepOne || {};
     const {
       physicianData,
       onFinish,
@@ -60,38 +67,46 @@ export const AppointmentBookingStepOne = React.forwardRef(
     //   GET ID FROM URL
     const { query } = useRouter();
     const [doctorId, setDoctorId] = useState<number>();
+    const stepOneDoctorId = physician?.split(":")[0];
+    let doctorScheduleId =
+      Number(id) ||
+      Number(adminApp_Details?.doctor?.doctor_Id) ||
+      Number(query?.id) ||
+      Number(doctorId) ||
+      Number(stepOneDoctorId);
 
-    const [{ data: scheduleDetails }] = useDoctorSchedulesQuery({
-      variables: {
-        doctorId:
-          Number(id) ||
-          Number(adminApp_Details?.doctor?.doctor_Id) ||
-          Number(query?.id) ||
-          Number(doctorId),
-        // Number(id) ||
-        // Number(adminApp_Details?.doctor?.doctor_Id),
-      },
-    });
+    const [{ data: scheduleDetails }, executeUseDoctorSchedulesQuery] =
+      useDoctorSchedulesQuery({
+        variables: {
+          doctorId: doctorScheduleId,
+        },
+        pause: !doctorScheduleId,
+      });
 
+    useEffect(() => {
+      executeUseDoctorSchedulesQuery({ requestPolicy: "network-only" });
+    }, []);
     useEffect(() => {
       if (ref) {
         ref.current = formInstance;
       }
     }, []);
-
     useEffect(() => {
       if (appoinmentDetails) {
         prepareAndSetEditPayload();
       }
     }, [appoinmentDetails]);
-
     function prepareAndSetEditPayload() {
-      formInstance.setFieldsValue({
-        physicianName: adminApp_Details?.doctor
+      let consultationCharges =
+        charges || price || (serviceInfo && serviceInfo[0]?.price);
+      let physicianName = formInstance.setFieldsValue({
+        physician: adminApp_Details?.doctor
           ? `${doctor_first_name} ${doctor_last_name}`
-          : `${first_name} ${last_name}`,
+          : physicianData?.user
+          ? `${first_name} ${last_name}`
+          : physician,
         service: service,
-        charges: price,
+        charges: consultationCharges,
         requestedDate: requestedDate,
         availability: availability,
       });
@@ -101,6 +116,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       let charge = allAppoinments?.filter(
         (serviceType) => serviceType.id === value
       );
+
       setServiceInfo(charge as any);
       formInstance?.setFieldsValue({ requestedDate: "" });
     }
@@ -120,7 +136,15 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }
 
     function onFinishLocal(values: any) {
-      saveStepOne?.({ ...values, serviceInfo });
+      let tempObj = {
+        ...values,
+        physicianId: values.physician,
+        physician: values.physician,
+        charges: serviceInfo?.[0].price || values.charges,
+        serviceName: serviceInfo?.[0]?.name || serviceName,
+        serviceInfo,
+      };
+      saveStepOne?.(tempObj);
     }
 
     const allAppoinments = data?.data?.appointmentServiceTypes;
@@ -133,6 +157,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const PhysicianHandler = (physicianId: string) => {
       let doctorId = physicianId.split(":")[0];
       setDoctorId(Number(doctorId));
+      setDoctorId(Number(doctorId));
     };
 
     return (
@@ -140,7 +165,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
         <h2>Request an Appointment</h2>
         <Form form={formInstance} layout="vertical" onFinish={onFinishLocal}>
           {adminData || patientData ? (
-            <Form.Item label="Physicians*" name="physician">
+            <Form.Item
+              label="Physicians*"
+              name="physician"
+              rules={[
+                { required: true, message: "Physician Name is required" },
+              ]}
+            >
               <Select
                 className="w-full"
                 showSearch
@@ -164,12 +195,22 @@ export const AppointmentBookingStepOne = React.forwardRef(
               </Select>
             </Form.Item>
           ) : (
-            <Form.Item label="Physician*" name="physicianName">
+            <Form.Item
+              label="Physician*"
+              name="physician"
+              rules={[
+                { required: true, message: "Physician Name is required" },
+              ]}
+            >
               <Input placeholder="Dr. name" className="w-full" readOnly />
             </Form.Item>
           )}
           {adminData && (
-            <Form.Item label="Patient*" name="patient">
+            <Form.Item
+              label="Patient*"
+              name="patient"
+              rules={[{ required: true, message: "Patient Name is required" }]}
+            >
               <Select
                 className="w-full"
                 showSearch
@@ -195,7 +236,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
           <div className="flex">
             <div className="w-5/6">
-              <Form.Item label="Service*" name="service">
+              <Form.Item
+                label="Service*"
+                name="service"
+                rules={[{ required: true, message: "Service is required" }]}
+              >
                 <Select
                   placeholder="Service Type"
                   className="w-full"
@@ -212,16 +257,30 @@ export const AppointmentBookingStepOne = React.forwardRef(
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  $
-                  {serviceInfo &&
+                  <Input
+                    disabled
+                    value={
+                      serviceInfo
+                        ? `${serviceInfo?.map((item) =>
+                            item?.price ? item?.price : ""
+                          )}`
+                        : price || charges
+                    }
+                  />
+                  {/* $
+                  {serviceInfo ?
                     `${serviceInfo?.map((item) =>
                       item?.price ? item?.price : ""
-                    )}`}
+                    )}` : charges || price} */}
                 </div>
               </Form.Item>
             </div>
           </div>
-          <Form.Item label="Requested Date*" name="requestedDate">
+          <Form.Item
+            label="Requested Date*"
+            name="requestedDate"
+            rules={[{ required: true, message: "Requested date is required" }]}
+          >
             <DatePicker
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
@@ -229,7 +288,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
               disabledDate={disabledDate}
             />
           </Form.Item>
-          <Form.Item label="Availability* - Select (One)" name="availability">
+          <Form.Item
+            label="Availability* - Select (One)"
+            name="availability"
+            rules={[{ required: true, message: "Availability is required" }]}
+          >
             <div className="flex flex-wrap availability-label">
               {isShow ? (
                 <Radio.Group

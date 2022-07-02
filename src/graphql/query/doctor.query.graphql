@@ -138,6 +138,10 @@ query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
       endTime
       selected
     }
+    appointmentDateTime{
+      startTime
+      endTime
+    }
     createdAt
     requestedDate
     charges

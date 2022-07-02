@@ -37,30 +37,38 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const physicianId = data?.stepOne?.physician?.split(":")[0];
   const patientIdFromStepOne = data?.stepOne?.patient?.split(":")[0];
 
+  let doctorQuestionnaireId =
+    Number(adminApp_Details?.doctor?.doctor_Id) ||
+    Number(physicianId) ||
+    Number(id) ||
+    Number(query?.id);
+
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
-      doctorId:
-        Number(adminApp_Details?.doctor?.doctor_Id) ||
-        Number(physicianId) ||
-        Number(id) ||
-        Number(query?.id),
+      doctorId: doctorQuestionnaireId,
     },
+    pause: !doctorQuestionnaireId,
   });
   const { doctorQuestionnaire } = dataList || {};
   const { user } = getUserData();
   const role = user?.role;
   const loggedinPatientId = role === "Admin" ? patientIdFromStepOne : user?.id;
+  const physicianQuestionnairePatientId =
+    Number(loggedinPatientId) || Number(adminApp_Details?.patient?.patient_id);
+
+  const physicianQuestionnaireDoctorId =
+    Number(id) ||
+    Number(physicianId) ||
+    Number(adminApp_Details?.doctor?.doctor_Id);
+
   const [{ data: patientLastQuestionaryData }] =
     usePatientLastQuestionnaireQuery({
       variables: {
-        patientId:
-          Number(loggedinPatientId) ||
-          Number(adminApp_Details?.patient?.patient_id),
-        doctorId:
-          Number(id) ||
-          Number(physicianId) ||
-          Number(adminApp_Details?.doctor?.doctor_Id),
+        patientId: physicianQuestionnairePatientId,
+        doctorId: physicianQuestionnaireDoctorId,
       },
+      pause:
+        !physicianQuestionnaireDoctorId || !physicianQuestionnairePatientId,
     });
   const { patientLastQuestionnaire } = patientLastQuestionaryData || {};
   function onFinishLocal(values: any) {
@@ -103,7 +111,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       <h2>Request an Appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         {doctorQuestionnaire && (
-          <Form.Item valuePropName="checked">
+          <Form.Item valuePropName="checked" >
             <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
               <Checkbox
                 value={data?.stepThree?.isLastFilled || 0}
@@ -133,6 +141,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                   label={item.label}
                   className="text-secondary"
                   name={item.name}
+                  rules={[{required:true,message:`${item?.label}`}]}
                 >
                   <Input />
                 </Form.Item>
@@ -143,6 +152,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                   label={item.label}
                   className="text-secondary"
                   name={item.name}
+                  rules={[{required:true,message:`${item?.name} is required`}]}
                 >
                   <Radio.Group>
                     {item?.options?.map(({ value, label }) => {
