@@ -25,8 +25,21 @@ query getDoctorNotesByAppId($id: Int!) {
     id
     patientId
     status
+    doctor {
+      first_name
+      last_name
+    }
 
     currentAppointmentNote {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
       id
       subjective
       objective
@@ -36,6 +49,15 @@ query getDoctorNotesByAppId($id: Int!) {
       isPublished
     }
     notesHistory {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
       id
       subjective
       objective
