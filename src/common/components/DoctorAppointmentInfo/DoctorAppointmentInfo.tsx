@@ -179,7 +179,7 @@ function DoctorAppointmentInfo({ data }: Props) {
               : "--"
           }
         />
-        {status === "Confirmed" && (
+        {(status === "Confirmed" || status==="Completed") && (
           <LabelWithText
             label="Total Amount"
             text={
