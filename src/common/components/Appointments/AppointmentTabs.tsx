@@ -90,6 +90,7 @@ const AppointmentTabs = (props: Props) => {
         </TabPane>
         {(status === "Confirmed" ||
           status === "Completed" ||
+          status === "Upcoming" ||
           status === "OnGoing") && (
           <>
             {/* {pathname.includes("appointments") && ( */}

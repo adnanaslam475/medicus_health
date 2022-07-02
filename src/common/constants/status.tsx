@@ -12,3 +12,5 @@ export const ACTIVE = "Enable";
 export const INACTIVE = "Disable";
 export const PAID = "Paid";
 export const UNPAID = "Unpaid";
+export const REFUNDED = "Refunded";
+export const RESCHEDULED = "Rescheduled";

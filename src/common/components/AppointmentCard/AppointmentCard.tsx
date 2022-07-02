@@ -15,7 +15,7 @@ import _classes from "./AppointmentCard.module.scss";
 import AppointmnetCurrentCard from "./CardTypes/AppointmnetCurrentCard";
 
 type props = {
-  appointmentId?: number | undefined;
+  appointmentId?: number |null| undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
@@ -43,6 +43,7 @@ function AppointmentCard({
   doctorId,
   patientId,
 }: props) {
+
   function getStatus() {
     const { user } = getUserData();
     const { role } = user || {};
@@ -52,6 +53,8 @@ function AppointmentCard({
       return "Requested";
     } else if (role === "Doctor" && status === "Requested") {
       return "Requested";
+    } else if (role === "User" && status === "Rescheduled") {
+      return "Rescheduled";
     } else if (role === "Doctor" && status === "Suggested") {
       return "Suggested";
     }
@@ -80,12 +83,25 @@ function AppointmentCard({
           appointmentTimeSlots={appointmentTimeSlots}
           setShowModal={setShowModal}
           appointmentDateTime={appointmentDateTime}
-
+        />
+      );
+    case "Rescheduled":
+      return (
+        <AppointmnetSuggestedCard
+          appointmentId={appointmentId}
+          requestedDate={requestedDate}
+          status={getStatus()}
+          serviceType={serviceType}
+          doctor={doctor}
+          appointmentTimeSlots={appointmentTimeSlots}
+          setShowModal={setShowModal}
+          onViewSuggestedSlots={onViewSuggestedSlots}
         />
       );
     case "Cancelled":
       return (
         <AppointmnetCancelledCard
+          appointmentId={appointmentId}
           requestedDate={requestedDate}
           status={getStatus()}
           serviceType={serviceType}

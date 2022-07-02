@@ -5,10 +5,11 @@ import AppointmentModalFooter from "./AppointmentModalFooter/AppointmentModalFoo
 import CurrentStepContent from "./CurrentStepContent/CurrentStepContent";
 import {
   Appointment,
+  useReBookAppointmentMutation,
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../generated/graphql";
 import _classes from ".//AppointmentModal.module.scss";
-import { AppointmentModalProvider } from "./AppointmentModalProvider";
+import { AppointmentModalProvider, useAppointmentModal } from "./AppointmentModalProvider";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import config from "./../../../../../config";
@@ -36,17 +37,6 @@ function AppointmentModalJourney({
     }
   }, [visible]);
 
-  const next = (stepName: string) => {
-    if (stepName === "stepFour") return;
-    if (stepName === "stepOne") {
-      setCurrentStepName("stepTwo");
-    } else if (stepName === "stepTwo") {
-      setCurrentStepName("stepThree");
-    } else if (stepName === "stepThree") {
-      setCurrentStepName("stepFour");
-    }
-    setCurrentStepNumber((prev) => prev + 1);
-  };
   const prev = (stepName: string) => {
     if (stepName === "stepOne") return;
     else if (stepName === "stepTwo") {
@@ -71,6 +61,28 @@ function AppointmentModalJourney({
   });
 
   const { appointment } = data || {};
+  const appointmentPaymentStatus = appointment?.transaction?.status;
+  const [
+    { data: rebookAppointmentData, fetching },
+    executeUseReBookAppointmentMutation,
+  ] = useReBookAppointmentMutation();
+
+  const { data:appointmentContextData } = useAppointmentModal();
+  const next = (stepName: string) => {
+    console.log("appointmentContextDataappointmentContextData",appointmentContextData)
+    if (stepName === "stepFour") return;
+    if (appointmentPaymentStatus === "succeeded") {
+      return setCurrentStepName("stepFour");
+    }
+    if (stepName === "stepOne") {
+      setCurrentStepName("stepTwo");
+    } else if (stepName === "stepTwo") {
+      setCurrentStepName("stepThree");
+    } else if (stepName === "stepThree") {
+      setCurrentStepName("stepFour");
+    }
+    setCurrentStepNumber((prev) => prev + 1);
+  };
 
   return (
     <Modal
@@ -96,6 +108,7 @@ function AppointmentModalJourney({
             </div>
 
             <AppointmentModalFooter
+              appointmentDetails={appointment as Appointment}
               stepName={currentStepName}
               onNext={() => next(currentStepName)}
               onPrevious={() => prev(currentStepName)}

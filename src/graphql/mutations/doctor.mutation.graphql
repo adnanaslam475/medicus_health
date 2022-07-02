@@ -51,3 +51,19 @@ mutation removeAppointmentNote($id: Int!) {
     updatedAt
   }
 }
+
+mutation suggestNewTime($suggestNewTime: SuggestNewTimeInput!) {
+  suggestNewTime(suggestNewTime: $suggestNewTime) {
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+  }
+}
+
+mutation reBookAppointment($rebookAppointmentInput: ReBookAppointmentInput!) {
+  reBookAppointment(rebookAppointmentInput: $rebookAppointmentInput) {
+    status
+  }
+}

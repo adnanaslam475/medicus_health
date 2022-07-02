@@ -25,15 +25,9 @@ query getDoctorNotesByAppId($id: Int!) {
     id
     patientId
     status
-    # doctorNote {
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   note
-    #   isPublished
-    # }
+
     currentAppointmentNote {
+      id
       subjective
       objective
       assessment
@@ -42,6 +36,7 @@ query getDoctorNotesByAppId($id: Int!) {
       isPublished
     }
     notesHistory {
+      id
       subjective
       objective
       assessment
@@ -73,6 +68,12 @@ query currentAppointments($filter: GetCurrentAppointmentInput!) {
     serviceType {
       name
     }
+    status
+  }
+}
+
+mutation reBookAppointment($rebookAppointmentInput: ReBookAppointmentInput!) {
+  reBookAppointment(rebookAppointmentInput: $rebookAppointmentInput) {
     status
   }
 }
