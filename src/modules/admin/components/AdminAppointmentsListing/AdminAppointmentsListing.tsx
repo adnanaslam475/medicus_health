@@ -133,6 +133,8 @@ const appointmentColumns = [
       let _status = null;
       if (value?.status === "succeeded") {
         _status = "paid";
+      } else if (value?.status === "Refunded") {
+        _status = value?.status;
       } else {
         _status = "Unpaid";
       }
