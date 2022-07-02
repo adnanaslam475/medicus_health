@@ -83,8 +83,7 @@ const RequestedList = (props: Props) => {
       },
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-          <div >
-            {" "}
+          <div>
             {appointmentDateTime?.startTime
               ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
               : "-"}
