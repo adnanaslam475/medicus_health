@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useGetDoctorNotesByAppIdQuery } from "generated/graphql";
 import { getRole } from "common/utils/userData";
 import AcronymWithText from "../AcronymWithText/AcronymWithText";
+import { convertStringDateToUTC } from "common/utils/date";
 
 type Props = {
   // historyNotes: AppointmentNote;
@@ -56,9 +57,12 @@ function NotesHistory(props: Props) {
   console.log(historyNotes, "getHistoryNotesData");
 
   const appointmentId = getHistoryNotesData?.appointment?.id;
+console.log(getHistoryNotesData?.appointment.doctor?.first_name,"ss");
+ 
+   const firstName=getHistoryNotesData?.appointment.doctor?.first_name;
+   const lastName=getHistoryNotesData?.appointment?.doctor?.last_name;
 
-  // const patientName={getHistoryNotesData?.appointment?.doctor?.first_name + " " + getHistoryNotesData?.appointment?.doctor?.last_name}
-
+   const physicianFullName=firstName +" " +lastName;
   // const status = appointment;
 
   return (
@@ -76,10 +80,11 @@ function NotesHistory(props: Props) {
           )}
         >
           {historyNotes?.map((data, index) => {
+            
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header={`AP-${appointmentId} `}
+                header={`AP-${data?.appointment?.id}  ${physicianFullName}   ${convertStringDateToUTC(data?.createdAt)} `}
                 key={index}
               >
                 <>
