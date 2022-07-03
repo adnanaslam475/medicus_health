@@ -51,8 +51,8 @@ function NotesListingByAppointments(props: Props) {
 
   const actualDoctorNotes = appointmentChild?.currentAppointmentNote;
 
-  // console.log(actualDoctorNotes, "notesByAppointmentId");
-  const a = [1, 2, 4, 5, 6];
+   console.log(actualDoctorNotes,data, "notesByAppointmentId");
+  const a = [1];
   return (
     <>
       <div
@@ -72,6 +72,7 @@ function NotesListingByAppointments(props: Props) {
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
                 header="Appointment Note"
+                // header={`AP-${data?.appointment?.id}  ${physicianFullName}   ${convertStringDateToUTC(data?.createdAt)} `}
                 key={index}
               >
                 {(getRole() === "Admin" || getRole() === "Doctor") &&
