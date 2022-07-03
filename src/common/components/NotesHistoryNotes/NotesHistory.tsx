@@ -57,12 +57,12 @@ function NotesHistory(props: Props) {
   console.log(historyNotes, "getHistoryNotesData");
 
   const appointmentId = getHistoryNotesData?.appointment?.id;
-console.log(getHistoryNotesData?.appointment.doctor?.first_name,"ss");
- 
-   const firstName=getHistoryNotesData?.appointment.doctor?.first_name;
-   const lastName=getHistoryNotesData?.appointment?.doctor?.last_name;
+  console.log(getHistoryNotesData?.appointment.doctor?.first_name, "ss");
 
-   const physicianFullName=firstName +" " +lastName;
+  const firstName = getHistoryNotesData?.appointment.doctor?.first_name;
+  const lastName = getHistoryNotesData?.appointment?.doctor?.last_name;
+
+  const physicianFullName = firstName + " " + lastName;
   // const status = appointment;
 
   return (
@@ -80,11 +80,14 @@ console.log(getHistoryNotesData?.appointment.doctor?.first_name,"ss");
           )}
         >
           {historyNotes?.map((data, index) => {
-            
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header={`AP-${data?.appointment?.id}  ${physicianFullName}   ${convertStringDateToUTC(data?.createdAt)} `}
+                header={`AP-${
+                  data?.appointment?.id
+                }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                  data?.createdAt
+                )} `}
                 key={index}
               >
                 <>
