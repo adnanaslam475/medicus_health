@@ -1872,7 +1872,7 @@ export type GetChannelMessagesQueryVariables = Exact<{
 }>;
 
 
-export type GetChannelMessagesQuery = { __typename?: 'Query', getChannelMessages: Array<{ __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, message?: string | null, messageType?: string | null, sender: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } }> };
+export type GetChannelMessagesQuery = { __typename?: 'Query', getChannelMessages: Array<{ __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, message?: string | null, messageType?: string | null, createdAt: any, sender: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } }> };
 
 export type CheckEmailAvailabilityQueryVariables = Exact<{
   emailAvailableInput: EmailAvailableInput;
@@ -3103,6 +3103,7 @@ export const GetChannelMessagesDocument = gql`
     senderId
     message
     messageType
+    createdAt
     sender {
       first_name
       last_name
