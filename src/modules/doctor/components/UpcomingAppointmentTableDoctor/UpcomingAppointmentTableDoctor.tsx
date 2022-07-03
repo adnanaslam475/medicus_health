@@ -1,6 +1,7 @@
 import { Table } from "antd";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
   User,
@@ -60,9 +61,15 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
     },
     {
       title: "Due Date",
-      dataIndex: "requestedDate",
-      render: (dueDate: string) => {
-        return <div>{date.formatMMMMDDYYYY(dueDate)}</div>;
+      dataIndex: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        return (
+          <div>
+            {appointmentDateTime?.startTime
+              ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+              : "--"}
+          </div>
+        );
       },
       sorter: {
         compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
@@ -71,17 +78,20 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
     },
     {
       title: "Time",
-      dataIndex: "appointmentTimeSlots",
-      render: (value: AppointmentTimeSlots[]) => {
-        let filteredVal = value?.filter(
-          (val: AppointmentTimeSlots) => val?.selected
-        );
+      dataIndex: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedStartTime = `${
+          appointmentDateTime?.startTime?.split(" ")[1]
+        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+          appointmentDateTime?.endTime?.split(" ")[2]
+        }`;
+
         return (
           <div>
-            {filteredVal[0]?.startTime &&
-              `${date.formathhmma(
-                filteredVal[0]?.startTime
-              )} - ${date.formathhmma(filteredVal[0]?.endTime)}`}
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${formatedStartTime} - ${formatedEndTime}`
+              : "-"}
           </div>
         );
       },
@@ -131,7 +141,13 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
 
   return (
     // <span className={`${_classes["upcomming-appointment-doctor-table"]}`}>
-      <Table columns={columns} dataSource={dataSource} footer={footer} loading={loading}   scroll={{ x: true }}/>
+    <Table
+      columns={columns}
+      dataSource={dataSource}
+      footer={footer}
+      loading={loading}
+      scroll={{ x: true }}
+    />
     // </span>
   );
 }

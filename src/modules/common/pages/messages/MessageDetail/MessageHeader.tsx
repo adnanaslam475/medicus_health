@@ -2,7 +2,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import Image from "next/image";
 import React from "react";
-import profile from "./../../../../../../public/assets/images/doc-pic.png";
+import profile from "./../../../../../../public/assets/images/nullicon.png";
 import ThreeDot from "./../../../../../../public/assets/images/threedot.svg";
 import Inputicon from "../../../../../../public/assets/images/inputicon.svg";
 

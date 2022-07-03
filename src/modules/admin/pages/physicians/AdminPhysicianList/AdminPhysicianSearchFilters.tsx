@@ -8,6 +8,8 @@ import {
 import { getDateInFormat } from "common/utils/date";
 import { DateType } from "common/types/types";
 import { BookingDate, GetPhysiciansInput, useCountriesQuery,useGetStatesByCountryQuery} from "generated/graphql";
+import { SelectCountryTypeFilter } from "common/components/SelectCountryTypeFilter/SelectCountryTypeFilter";
+import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter copy/SelectStateTypeFilter";
 const { RangePicker } = DatePicker;
 
 const { Option } = Select;
@@ -31,7 +33,10 @@ function AdminPhysicianSearchFilters(props: Props) {
     const filters = {
       ...filterState,
       [key]: value,
+  
+      
     };
+
     setFilterState(filters);
 
     if (!filters?.searchField) {
@@ -43,7 +48,9 @@ function AdminPhysicianSearchFilters(props: Props) {
     }
 
     onChange(filters);
+    console.log(filters,"ddd")
   }
+
 
   const applyDateRange = () => {
     setOpenDateRange1(false);
@@ -78,46 +85,26 @@ function AdminPhysicianSearchFilters(props: Props) {
           onChange={(e) => onChangeFields("specialization", e)}
           value={filterState.specialization}
         >
-          <Option>Abcd</Option>
-          <Option>EFG</Option>
+           <Option value="Cardiologist">Cardiologist</Option>
+            <Option value="Family Physician">Family Physician</Option>
+            <Option value="Neurologist">Neurologist</Option>
+          
+          
         </Select>
       </div>
-      <div className="lg:ml-3 mt-3 sm:mt-0">
-        <Select
-          placeholder="Country"
-          className="w-full sm:w-40"
-          onChange={(e) => onChangeFields("country", e)}
-          value={filterState.country}
-        >
-     { React.Children.toArray(
-              countries?.map((el, i) => {
-                return (
-                  <Select.Option value={el?.id}>
-                    {el?.country_name}
-                  </Select.Option>
-                );
-              })
-            )}
-        </Select>
+      <div className="lg:ml-3 mt-3 sm:mt-0 w-full md:w-44 xl:w-44 mr-2 ">
+     
+         <SelectCountryTypeFilter
+            onChange={(value) => onChangeFields("countryId", Number(value))}
+            value={filterState?.countryId}
+          />
       </div>
-      <div className="lg:ml-3 mt-3 sm:mt-0">
-        <Select
-          placeholder="State"
-          className="w-full sm:w-40"
-          onChange={(e) => onChangeFields("state", e)}
-          filterOption={(input, state: any) =>
-            state.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-          value={filterState.state}
-        >
-              {React.Children.toArray(
-              getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
-                return (
-                  <Select.Option value={el.id}>{el?.state_name}</Select.Option>
-                );
-              })
-            )}
-        </Select>
+      <div className="lg:ml-2 mt-3 sm:mt-0">
+      <SelectStateTypeFilter 
+            onChange={(value) => onChangeFields("stateId", Number(value))}
+            value={filterState?.stateId}
+            selectedCountryId={filterState.countryId}
+          />
       </div>
       <div className="lg:ml-3 mt-3 sm:mt-0">
         <Select

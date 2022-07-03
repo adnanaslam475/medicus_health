@@ -9,6 +9,8 @@ import config from "../../../../../config";
 import { UploadChangeParam } from "antd/lib/upload";
 import ReactS3Client from "react-aws-s3-typescript";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
+import type { UploadFile } from 'antd/es/upload/interface';
+
 import Image from "next/image";
 
 const { Dragger } = Upload;
@@ -60,6 +62,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
           <Dragger
             {...props}
             customRequest={({ onSuccess }) => onSuccess?.({})}
+            listType="picture"
           >
             <p className="ant-upload-drag-icon mb-0">
               <Image
@@ -77,7 +80,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
             <span className="font-circular text-xs ant-upload-text text-white p-1 px-3 mt-1 mb-3 rounded inline-block bg-primary">
               Upload
             </span>
-            <span className="hidden ant-upload-hint block text-xs text-gray-1">
+            <span className=" ant-upload-hint block text-xs text-gray-1">
               Max 3 files and 10mb upload limit.
             </span>
           </Dragger>

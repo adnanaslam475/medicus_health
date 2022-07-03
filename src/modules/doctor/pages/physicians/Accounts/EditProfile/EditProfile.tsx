@@ -483,7 +483,7 @@ function EditProfile({
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
-                <Form.Item label="Password" name="password" className="flex-1">
+                <Form.Item label="Password" name="password" className="flex-1"  dependencies={["password"]}>
                   <Input.Password />
                 </Form.Item>
 
