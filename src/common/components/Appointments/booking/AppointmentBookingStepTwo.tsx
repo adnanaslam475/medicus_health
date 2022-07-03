@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Upload, message, Form, Button } from "antd";
-import {
-  FilePdfOutlined,
-  FileJpgOutlined,
-  CloseOutlined,
-} from "@ant-design/icons";
-import config from "../../../../../config";
-import { UploadChangeParam } from "antd/lib/upload";
-import ReactS3Client from "react-aws-s3-typescript";
+import { Checkbox, Upload, Form } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
-import type { UploadFile } from 'antd/es/upload/interface';
-
 import Image from "next/image";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
 
 const { Dragger } = Upload;
 
@@ -20,11 +11,12 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
   const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
+  const [checked, setChecked] = useState(!data?.stepTwo?.length ? true : false);
+
   const props = {
     accept: ".doc, .pdf, image/jpg, image/jpeg,",
     name: "file",
     multiple: true,
-    // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
       setFileList(info.fileList);
       saveStepTwo?.(info.fileList);
@@ -41,7 +33,6 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
     defaultFileList: data?.stepTwo && data?.stepTwo,
     onDrop(e: { dataTransfer: { files: any } }) {
       // saveStepTwo?.(e.dataTransfer.files);
-      console.log("Dropped files", e.dataTransfer.files);
     },
   };
 
@@ -54,6 +45,10 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
       ref.current = formInstance;
     }
   }, []);
+
+  const handlechecked = (e: CheckboxChangeEvent) => {
+    setChecked(e.target.checked);
+  };
   return (
     <>
       <h2>Request an Appointment</h2>
@@ -88,16 +83,16 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
 
         <Form.Item
           label="General Health Questionnaire*"
-          name={"questionnair"}
+          name="questionnair"
           rules={[
             {
-              required: !data?.stepTwo?.length ? true : false,
+              required: !checked,
               message: "General Health Questionnaire is required",
             },
           ]}
         >
           <div className="w-full bg-gray-4 rounded flex items-center p-3">
-            <Checkbox defaultChecked={data?.stepTwo?.length}>
+            <Checkbox checked={checked} onChange={handlechecked}>
               <span className="text-gray-2">Health Questionnaire attached</span>
             </Checkbox>
           </div>
