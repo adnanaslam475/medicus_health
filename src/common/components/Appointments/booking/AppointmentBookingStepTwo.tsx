@@ -11,7 +11,9 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
   const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
-  const [checked, setChecked] = useState(!data?.stepTwo?.length ? true : false);
+  const [checked, setChecked] = useState(
+    data?.stepTwo?.length > 0 ? false : true
+  );
 
   const props = {
     accept: ".doc, .pdf, image/jpg, image/jpeg,",
@@ -49,6 +51,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
   const handlechecked = (e: CheckboxChangeEvent) => {
     setChecked(e.target.checked);
   };
+
   return (
     <>
       <h2>Request an Appointment</h2>
@@ -80,7 +83,6 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
             </span>
           </Dragger>
         </Form.Item>
-
         <Form.Item
           label="General Health Questionnaire*"
           name="questionnair"
@@ -92,7 +94,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
           ]}
         >
           <div className="w-full bg-gray-4 rounded flex items-center p-3">
-            <Checkbox checked={checked} onChange={handlechecked}>
+            <Checkbox onChange={handlechecked}>
               <span className="text-gray-2">Health Questionnaire attached</span>
             </Checkbox>
           </div>
