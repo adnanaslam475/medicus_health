@@ -704,12 +704,12 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="">
                   <div className="text-sm mb-0 w-full">
-                    Date :{" "}
+                    Date :
                     {`${date.formatMMMMDDYYYY(appointmentDateTime?.startTime)}`}
-                  </div>{" "}
+                  </div>
                   <br />
                   <div className="text-sm mb-0 w-full">
-                    Time:{" "}
+                    Time:
                     {`${date.formathhmma(
                       appointmentDateTime?.startTime
                     )} -   ${date.formathhmma(appointmentDateTime?.endTime)}`}
