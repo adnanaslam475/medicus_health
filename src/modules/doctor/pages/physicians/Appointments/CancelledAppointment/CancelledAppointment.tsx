@@ -18,7 +18,7 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
   const [filterValues, setFilterValues] =
     React.useState<cancelAppointmentFilterType>({});
 
-  const [{ data,fetching }, executeUseCancelledAppointmentsQuery] =
+  const [{ data, fetching }, executeUseCancelledAppointmentsQuery] =
     useGetAllRequestedAppointmentsQuery({
       variables: {
         filter: {
@@ -28,6 +28,7 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
       },
     });
   const { appointments } = data || {};
+
   function onChangeFilters(values: physicianFilterType) {
     setFilterValues(values);
     executeUseCancelledAppointmentsQuery({
@@ -54,7 +55,10 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
               <Empty />
             </div>
           )} */}
-          <Table dataSource={appointments as Appointment[]} loading={fetching}/>
+          <Table
+            dataSource={appointments as Appointment[]}
+            loading={fetching}
+          />
         </div>
       </div>
     </AppLayout>
