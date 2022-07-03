@@ -85,7 +85,7 @@ function NotesHistory(props: Props) {
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
                 header={`AP-${
                   data?.appointment?.id
-                }  ${physicianFullName}   ${convertStringDateToUTC(
+                }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                   data?.createdAt
                 )} `}
                 key={index}
