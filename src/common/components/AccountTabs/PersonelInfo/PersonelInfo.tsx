@@ -59,6 +59,7 @@ const PersonalInfo = () => {
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
           profileImage: image ? image : userProfileImage,
+          // haveChildren: values?.children,
           children: Number(values?.children),
           occupation: values?.occupation,
           occupationalExposure: values?.occupationalExposure,
