@@ -34,3 +34,9 @@
     border: 1px solid red !important;
   }
 }
+
+.narrative-cover > div:first-child > div > span {
+  visibility: hidden;
+  // display: none;
+  // border: 1px solid #1a82fe;
+}
