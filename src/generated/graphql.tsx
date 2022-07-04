@@ -1949,7 +1949,7 @@ export type GetAppointmentNoteByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetAppointmentNoteByIdQuery = { __typename?: 'Query', appointmentNote: { __typename?: 'AppointmentNote', id: number, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, createdAt: any, updatedAt: any, appointment?: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null } | null } };
+export type GetAppointmentNoteByIdQuery = { __typename?: 'Query', appointmentNote: { __typename?: 'AppointmentNote', id: number, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, createdAt: any, updatedAt: any, appointment?: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } | null } };
 
 export type GetAllAppointmentNotesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3554,6 +3554,11 @@ export const GetAppointmentNoteByIdDocument = gql`
       id
       patientId
       doctorId
+      doctor {
+        id
+        first_name
+        last_name
+      }
     }
   }
 }

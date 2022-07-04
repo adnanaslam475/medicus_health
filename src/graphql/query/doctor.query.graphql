@@ -139,7 +139,7 @@ query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
       endTime
       selected
     }
-    appointmentDateTime{
+    appointmentDateTime {
       startTime
       endTime
     }
@@ -389,6 +389,11 @@ query getAppointmentNoteById($appointmentId: Int!) {
       id
       patientId
       doctorId
+      doctor {
+        id
+        first_name
+        last_name
+      }
     }
   }
 }

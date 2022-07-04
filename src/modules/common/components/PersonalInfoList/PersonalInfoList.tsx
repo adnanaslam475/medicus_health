@@ -29,6 +29,8 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
     patientProfile,
   } = userDetail || {};
 
+  console.log(userDetail, "userDetails");
+
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
 
@@ -180,7 +182,20 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             Do you have any children?
           </div>
           <div
-            className={`sm:w-1/2 ${!patientProfile?.children && "text-gray-1"}`}
+            className={`sm:w-1/2 ${
+              !patientProfile?.haveChildren && "text-gray-1"
+            }`}
+          >
+            {patientProfile?.haveChildren || "N/A"}
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Number of children</div>
+          <div
+            className={`sm:w-1/2 ${!!patientProfile?.children && "text-black"}`}
           >
             {patientProfile?.children || "N/A"}
           </div>
