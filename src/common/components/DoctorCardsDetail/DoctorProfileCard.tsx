@@ -116,6 +116,7 @@ function DoctorProfileCard(props: Props) {
             </span>
             <Collapse className="lg:w-4/5">
               <Collapse.Panel
+                className="w-full"
                 key="1"
                 header={
                   <div className="flex-none sm:flex flex-grow justify-between">

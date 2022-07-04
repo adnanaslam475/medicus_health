@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import { Form, Select, Avatar, notification, Button } from "antd";
+import { Form, Select, Avatar, notification, Button, Skeleton } from "antd";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import ConfirmationModal from "./ConfirmationModal";
 import InputFields from "./InputFields";
@@ -86,6 +86,9 @@ function AdminPatientProfileTab({}: Props) {
   const { getStatesByCountry } = states_data || {};
 
   function prepareAndSetEditPayload() {
+    const userGender = user?.gender
+      ? `${user?.gender?.charAt(0)?.toUpperCase()}${user?.gender?.slice(1)}`
+      : "";
     formInstance.setFieldsValue({
       ...user,
       ...patientProfile,
@@ -93,9 +96,7 @@ function AdminPatientProfileTab({}: Props) {
       state_name: state_id,
       city_name: city_id,
       date_of_birth: user?.date_of_birth ? moment(user?.date_of_birth) : "",
-      gender: `${user?.gender?.charAt(0)?.toUpperCase()}${user?.gender?.slice(
-        1
-      )}`,
+      gender: userGender,
     });
     setUserDisableInput(status || false);
   }
@@ -269,9 +270,13 @@ function AdminPatientProfileTab({}: Props) {
         </div>
 
         <div>
-          <h2 className="mb-0">
-            {`${first_name && first_name} ${last_name && last_name}` || ""}
-          </h2>
+          <Skeleton
+            loading={loading || !first_name}
+            paragraph={{ rows: 1 }}
+            active
+          >
+            <h2 className="mb-0">{`${first_name || ""} ${last_name || ""}`}</h2>
+          </Skeleton>
           <span className="block">{email}</span>
           <div className="flex gap-2 pt-2">
             <div

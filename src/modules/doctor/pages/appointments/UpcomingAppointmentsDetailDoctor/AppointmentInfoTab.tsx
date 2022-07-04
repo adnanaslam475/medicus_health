@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
 import {
@@ -13,7 +14,7 @@ type Props = {};
 function AppointmentInfoTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data }] = useDoctorAppointmentDetailAppointmentInfoQuery({
+  const [{ data, fetching }] = useDoctorAppointmentDetailAppointmentInfoQuery({
     variables: {
       id: Number(query.id),
     },
@@ -22,8 +23,12 @@ function AppointmentInfoTab({}: Props) {
   const { appointment } = data || {};
   const { patient, serviceType } = appointment || {};
   const { patientProfile } = patient || {};
-
-  return (
+  const loading = fetching || !query.id;
+  return loading ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
       serviceName={serviceType?.name}

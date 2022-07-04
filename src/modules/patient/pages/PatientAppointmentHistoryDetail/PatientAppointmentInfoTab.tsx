@@ -6,11 +6,12 @@ import { useRouter } from "next/router";
 import React from "react";
 import DoctorAppointmentInfo from "common/components/DoctorAppointmentInfo/DoctorAppointmentInfo";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
+import { Spin } from "antd";
 
 function PatientAppointmentInfoTab() {
   const { query } = useRouter();
 
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
+  const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
       filter: { appointmentId: Number(query?.id), status: "Completed" },
     },
@@ -20,7 +21,11 @@ function PatientAppointmentInfoTab() {
   const appointment = appointments && appointments[0];
   const { patient, serviceType } = appointment || {};
 
-  return (
+  return fetching ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
       serviceName={serviceType?.name}
