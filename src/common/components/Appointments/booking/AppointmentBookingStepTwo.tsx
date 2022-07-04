@@ -79,7 +79,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
               Upload
             </span>
             <span className=" ant-upload-hint block text-xs text-gray-1">
-              Max 3 files and 10mb upload limit.
+              Max 10mb upload limit.
             </span>
           </Dragger>
         </Form.Item>
