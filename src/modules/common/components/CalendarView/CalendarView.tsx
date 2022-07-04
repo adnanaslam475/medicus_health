@@ -61,7 +61,7 @@ function AdminCalender(props: Props) {
   const [{ data: physicianData }, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
       variables: {
-        filter: { ...filterValues },
+        filter: { ...filterValues, status: "Confirmed" },
       },
     });
   const { physicianAppointments } = physicianData || {};
