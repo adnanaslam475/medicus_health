@@ -43,8 +43,6 @@ function NotesTab({}: Props) {
   const { patient, serviceType } = appointment || {};
   const appointmentId = Number(query.id);
 
-  console.log(status, "statusstatusstatus");
-
   // GET NOTES API CALL
 
   const [{ data: notesByAppointmentId }, executeGetAppointmentNotesByIdQuery] =
@@ -58,6 +56,8 @@ function NotesTab({}: Props) {
 
   const actualDoctorNotes =
     appointmentChild?.appointment.currentAppointmentNote;
+
+  console.log(notesByAppointmentId, "mynotesByAppointmentId");
 
   // GET HISTORY NOTES
 
@@ -112,11 +112,16 @@ function NotesTab({}: Props) {
             {/* )} */}
           </>
         )}
-        {actualDoctorNotes && (
-          <NotesListingByAppointments
-            doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
-          />
-        )}
+
+        <div className="my-3">
+          <h3>Current Appointment Notes</h3>
+          {actualDoctorNotes && (
+            <NotesListingByAppointments
+              doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
+            />
+          )}
+        </div>
+
         {/* FOR PATIENT ONLY */}
         {getRole() === "User" &&
           (actualDoctorNotes ? (
@@ -129,7 +134,7 @@ function NotesTab({}: Props) {
         {/* HISTORY NOTES */}
 
         <div className="history-notes-cover">
-          <h3>Notes History</h3>
+          <h3>History Notes</h3>
           {(getRole() === "User" ||
             getRole() === "Admin" ||
             getRole() === "Doctor") && <NotesHistory />}

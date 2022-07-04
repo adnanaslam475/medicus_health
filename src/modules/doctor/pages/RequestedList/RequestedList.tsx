@@ -83,8 +83,7 @@ const RequestedList = (props: Props) => {
       },
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-          <div >
-            {" "}
+          <div>
             {appointmentDateTime?.startTime
               ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
               : "-"}
@@ -101,12 +100,16 @@ const RequestedList = (props: Props) => {
         multiple: 3,
       },
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedStartTime = `${
+          appointmentDateTime?.startTime?.split(" ")[1]
+        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+          appointmentDateTime?.endTime?.split(" ")[2]
+        }`;
         return (
           <div>
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-              ? `${date?.formathhmma(
-                  appointmentDateTime?.startTime
-                )} - ${date?.formathhmma(appointmentDateTime?.endTime)}`
+              ? `${formatedStartTime} - ${formatedEndTime}`
               : "-"}
           </div>
         );

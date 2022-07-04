@@ -1,31 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Upload, message, Form, Button } from "antd";
-import {
-  FilePdfOutlined,
-  FileJpgOutlined,
-  CloseOutlined,
-} from "@ant-design/icons";
-import config from "../../../../../config";
-import { UploadChangeParam } from "antd/lib/upload";
-import ReactS3Client from "react-aws-s3-typescript";
+import { Checkbox, Upload, Form } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import Image from "next/image";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
 
 const { Dragger } = Upload;
 
 const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
-  const { saveStepTwo } = useBookAppointment();
+  const { data, saveStepTwo } = useBookAppointment();
   const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
+  const [checked, setChecked] = useState(
+    data?.stepTwo?.length > 0 ? false : true
+  );
+
   const props = {
     accept: ".doc, .pdf, image/jpg, image/jpeg,",
     name: "file",
     multiple: true,
-    // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
       setFileList(info.fileList);
-      const { status } = info.file;
+      saveStepTwo?.(info.fileList);
+      const { status } = info?.file;
       // if (status !== "uploading") {
       //   console.log(info.file, info.fileList);
       // }
@@ -35,13 +32,14 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
       //   message.error(`${info.file.name} file upload failed.`);
       // }
     },
+    defaultFileList: data?.stepTwo && data?.stepTwo,
     onDrop(e: { dataTransfer: { files: any } }) {
-      console.log("Dropped files", e.dataTransfer.files);
+      // saveStepTwo?.(e.dataTransfer.files);
     },
   };
 
   function onFinishLocal(values: any) {
-    saveStepTwo?.(fileList);
+    saveStepTwo?.(data?.stepTwo || fileList);
   }
 
   useEffect(() => {
@@ -49,6 +47,10 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
       ref.current = formInstance;
     }
   }, []);
+
+  const handlechecked = (e: CheckboxChangeEvent) => {
+    setChecked(e.target.checked);
+  };
 
   return (
     <>
@@ -58,6 +60,7 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
           <Dragger
             {...props}
             customRequest={({ onSuccess }) => onSuccess?.({})}
+            listType="picture"
           >
             <p className="ant-upload-drag-icon mb-0">
               <Image
@@ -75,15 +78,23 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
             <span className="font-circular text-xs ant-upload-text text-white p-1 px-3 mt-1 mb-3 rounded inline-block bg-primary">
               Upload
             </span>
-            <span className="hidden ant-upload-hint block text-xs text-gray-1">
+            <span className=" ant-upload-hint block text-xs text-gray-1">
               Max 3 files and 10mb upload limit.
             </span>
           </Dragger>
         </Form.Item>
-
-        <Form.Item label="General Health Questionnaire*">
+        <Form.Item
+          label="General Health Questionnaire*"
+          name="questionnair"
+          rules={[
+            {
+              required: !checked,
+              message: "General Health Questionnaire is required",
+            },
+          ]}
+        >
           <div className="w-full bg-gray-4 rounded flex items-center p-3">
-            <Checkbox value="0">
+            <Checkbox onChange={handlechecked}>
               <span className="text-gray-2">Health Questionnaire attached</span>
             </Checkbox>
           </div>

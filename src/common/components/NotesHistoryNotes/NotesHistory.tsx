@@ -4,17 +4,10 @@ import Image from "next/image";
 import React, { useRef, useState } from "react";
 import _classes from "./NotesHistory.module.scss";
 import { useRouter } from "next/router";
-import {
-  Appointment,
-  AppointmentNote,
-  GetDoctorNotesByAppIdQuery,
-  useGetAppointmentNoteByIdQuery,
-  useGetDoctorNotesByAppIdQuery,
-} from "generated/graphql";
-import EditableNotes from "../EditableNotes/EditableNotes";
+import { useGetDoctorNotesByAppIdQuery } from "generated/graphql";
 import { getRole } from "common/utils/userData";
-import ViewableNotes from "../ViewableNotes/ViewableNotes";
 import AcronymWithText from "../AcronymWithText/AcronymWithText";
+import { convertStringDateToUTC } from "common/utils/date";
 
 type Props = {
   // historyNotes: AppointmentNote;
@@ -24,7 +17,7 @@ type Props = {
 
 function NotesHistory(props: Props) {
   const { query } = useRouter();
-  const appointmentId = Number(query.id);
+  // const appointmentId = Number(query.id);
   // const { historyNotes } = props;
 
   // const [{ data: getHistoryNotesData }] = useGetAppointmentNoteByIdQuery({
@@ -46,19 +39,30 @@ function NotesHistory(props: Props) {
     console.log(key);
   };
 
+  const noteId = getHistoryNotesData?.appointment?.currentAppointmentNote?.id;
+
   const appointmentChild = getHistoryNotesData;
 
-  const actualDoctorNotes =
-    appointmentChild?.appointment?.currentAppointmentNote;
+  // const actualDoctorNotes =
+  //   appointmentChild?.appointment?.currentAppointmentNote;
 
-  const { note, subjective, objective, assessment, plan } =
-    actualDoctorNotes || {};
-  console.log(appointmentChild, "getactualDoctorNotes");
+  // const { note, subjective, objective, assessment, plan } =
+  //   actualDoctorNotes || {};
+  // console.log(appointmentChild, "getactualDoctorNotes");
+
+  const doctor = getHistoryNotesData?.appointment;
 
   const historyNotes = appointmentChild?.appointment?.notesHistory;
 
   console.log(historyNotes, "getHistoryNotesData");
 
+  const appointmentId = getHistoryNotesData?.appointment?.id;
+  console.log(getHistoryNotesData?.appointment.doctor?.first_name, "ss");
+
+  const firstName = getHistoryNotesData?.appointment.doctor?.first_name;
+  const lastName = getHistoryNotesData?.appointment?.doctor?.last_name;
+
+  const physicianFullName = firstName + " " + lastName;
   // const status = appointment;
 
   return (
@@ -79,36 +83,42 @@ function NotesHistory(props: Props) {
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header="Appointment Note"
+                header={`AP-${
+                  data?.appointment?.id
+                }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                  data?.createdAt
+                )} `}
                 key={index}
               >
                 <>
-                  <AcronymWithText
-                    character={"N"}
-                    word={"Narrative"}
-                    sentence={data.note || "No Details"}
-                  />
-                  <AcronymWithText
-                    character={"S"}
-                    word={"Subjective"}
-                    sentence={data.subjective || "No Details"}
-                  />
-                  <AcronymWithText
-                    character={"S"}
-                    word={"Objective"}
-                    sentence={data.objective || "No Details"}
-                  />
+                  <div className={`${_classes["narrative-cover"]} `}>
+                    <AcronymWithText
+                      character={"N"}
+                      word={"Narrative"}
+                      sentence={data.note || "No Details"}
+                    />
+                    <AcronymWithText
+                      character={"S"}
+                      word={"Subjective"}
+                      sentence={data.subjective || "No Details"}
+                    />
+                    <AcronymWithText
+                      character={"S"}
+                      word={"Objective"}
+                      sentence={data.objective || "No Details"}
+                    />
 
-                  <AcronymWithText
-                    character={"A"}
-                    word={"Assessment"}
-                    sentence={data.assessment || "No Details"}
-                  />
-                  <AcronymWithText
-                    character={"P"}
-                    word={"Plan"}
-                    sentence={data.plan || "No Details"}
-                  />
+                    <AcronymWithText
+                      character={"A"}
+                      word={"Assessment"}
+                      sentence={data.assessment || "No Details"}
+                    />
+                    <AcronymWithText
+                      character={"P"}
+                      word={"Plan"}
+                      sentence={data.plan || "No Details"}
+                    />
+                  </div>
                 </>
               </Panel>
             );

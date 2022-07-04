@@ -4,25 +4,31 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 
 function StepFour() {
   const { data } = useBookAppointment();
-  const { physicianName, requestedDate, serviceInfo, physician } =
-    data?.stepOne || {};
+  const {
+    physicianName,
+    requestedDate,
+    serviceInfo,
+    physician,
+    serviceName,
+    charges,
+  } = data?.stepOne || {};
   const [{ price, name }] = serviceInfo || [{}];
-  let doctorName = physician?.split(":")[1]
+  let doctorName = physician?.split(":")[1];
   return (
     <>
       <h2>Summary</h2>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
         <label className="block">Doctor</label>
-        <span>Dr. {physicianName || doctorName || ""}</span>
+        <span>Dr. {doctorName || physician || ""}</span>
       </div>
       <div className="flex">
         <div className="w-4/6 border-b border-gray-5 pb-2 mb-5">
           <label className="block">Service</label>
-          <span>{name}</span>
+          <span>{name || serviceName}</span>
         </div>
         <div className="w-2/6 ml-4 border-b border-gray-5 pb-2 mb-5">
           <label className="block">Charges</label>
-          <span>${price}</span>
+          <span>${price || charges}</span>
         </div>
       </div>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">

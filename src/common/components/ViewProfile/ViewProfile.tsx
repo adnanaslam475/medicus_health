@@ -28,7 +28,7 @@ export const ViewProfile = React.forwardRef(function Profile({
   loading,
 }: props) {
   const [formInstance] = Form.useForm();
-  const { first_name, last_name, email, contact_number, status, language } =
+  const { first_name, last_name, email, contact_number, status, language ,password} =
     doctorData?.user || {};
 
   const [{ data: userData }] = useGetUserQuery({
@@ -69,8 +69,8 @@ export const ViewProfile = React.forwardRef(function Profile({
       year_of_experience: year_of_experience,
       contact: contact_number,
       email: email,
-      password: "",
-      confirmPassword: "",
+      password: password,
+      confirmPassword: password,
       ["eb-institution-0"]: educationalBackground[0]?.institution,
       ["eb-degree-0"]: educationalBackground[0]?.degree,
       ["eb-institution-1"]: educationalBackground[1]?.institution,

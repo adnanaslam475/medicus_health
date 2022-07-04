@@ -7,18 +7,21 @@ import Image from "next/image";
 import { Button, Table } from "antd";
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
 import {
-  City,
-  Country,
-  DoctorProfile,
-  State,
-  useCountriesQuery,
-  useGetCitiesByStateQuery,
-  useGetPhysiciansQuery,
-  useGetStatesByCountryQuery,
-  User,
+	City,
+	Country,
+	DoctorProfile,
+	State,
+	useCountriesQuery,
+	useGetCitiesByStateQuery,
+	useGetPhysiciansQuery,
+	useGetStatesByCountryQuery,
+	User,
 } from "generated/graphql";
+import engFlag from "../../../../../../public/assets/images/engFlag.png";
+import espanolFlag from "../../../../../../public/assets//images/espanolFlag.png";
 import { date } from "common/utils";
 import { FLAG_BY_LANGUAGE } from "utils/helper";
+import { json } from "node:stream/consumers";
 
 function AdminPhysicianList() {
   const [filterValues, setFilterValues] = useState({});
@@ -135,58 +138,58 @@ function AdminPhysicianList() {
           </div>
         );
       },
-      sorter: true,
-    },
-    {
-      title: "",
-      dataIndex: "id",
-      key: "view",
-      className: "table-action-icon",
-      render: (id: string) => (
-        <div className="text-primary">
-          <EyeFilled
-            onClick={() => {
-              return Router.push(`/admin/physicians/${id}`);
-            }}
-          />
-        </div>
-      ),
-    },
-  ];
+			sorter: true,
+		},
+		{
+			title: "",
+			dataIndex: "id",
+			key: "view",
+			className: "table-action-icon",
+			render: (id: string) => (
+				<div className="text-primary">
+					<EyeFilled
+						onClick={() => {
+							return Router.push(`/admin/physicians/${id}`);
+						}}
+					/>
+				</div>
+			),
+		},
+	];
 
-  function onChangeFilters(values: any) {
-    setFilterValues(values);
-    executeUseGetPhysiciansQuery({
-      filter: filterValues,
-      requestPolicy: "network-only",
-    });
-  }
-  return (
-    <AppLayout>
-      <div className="w-full">
-        <div className="flex justify-between mb-10">
-          <h2 className="mb-4">Physicians</h2>
-          <Link passHref href={`/admin/physicians/addPhysician`}>
-            <a>
-              <Button type="primary">
-                <PlusOutlined />
-                Add a Physician
-              </Button>
-            </a>
-          </Link>
-        </div>
-        <AdminPhysicianSearchFilters onChange={onChangeFilters} />
-        <div className="w-full">
-          <div className="">
-            <Table
-              columns={columns}
-              dataSource={getPhysicians}
-              loading={fetching}
-            />
-          </div>
-        </div>
-      </div>
-    </AppLayout>
-  );
+	function onChangeFilters(values: any) {
+		setFilterValues(values);
+		executeUseGetPhysiciansQuery({
+			filter: filterValues,
+			requestPolicy: "network-only",
+		});
+	}
+	return (
+		<AppLayout>
+			<div className="w-full">
+				<div className="flex justify-between mb-10">
+					<h2 className="mb-4">Physicians</h2>
+					<Link passHref href={`/admin/physicians/addPhysician`}>
+						<a>
+							<Button type="primary">
+								<PlusOutlined />
+								Add a Physician
+							</Button>
+						</a>
+					</Link>
+				</div>
+				<AdminPhysicianSearchFilters onChange={onChangeFilters} />
+				<div className="w-full">
+					<div className="">
+						<Table
+							columns={columns}
+							dataSource={getPhysicians}
+							loading={fetching}
+						/>
+					</div>
+				</div>
+			</div>
+		</AppLayout>
+	);
 }
 export default AdminPhysicianList;

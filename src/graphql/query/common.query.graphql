@@ -11,6 +11,15 @@ query getAllChatChannels {
       last_name
       role
       email
+     adminProfilePicture {
+        profile_picture
+      }
+      doctorProfile {
+        profile_image
+      }
+      patientProfile {
+        profileImage
+      }
     }
     participants {
       id
@@ -53,6 +62,7 @@ query getChannelMessages($channelId: Int!) {
     senderId
     message
     messageType
+    createdAt
     sender {
       first_name
       last_name

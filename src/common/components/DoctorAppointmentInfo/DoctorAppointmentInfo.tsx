@@ -182,7 +182,7 @@ function DoctorAppointmentInfo({ data }: Props) {
               : "--"
           }
         />
-        {status === "Confirmed" && (
+        {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
             label="Total Amount"
             text={
@@ -223,12 +223,19 @@ function DoctorAppointmentInfo({ data }: Props) {
               Payment Status
             </div>
             <div className="w-full text-secondary">
-              <Tag
-                color="#e2f8f7"
-                className="ant-typography ant-typography-secondary"
-              >
-                {transaction?.status}
-              </Tag>
+              {transaction?.status ? (
+                <Tag
+                  color="#e2f8f7"
+                  className="ant-typography ant-typography-secondary"
+                >
+                  {transaction?.status}
+                </Tag>
+              ) : (
+                <Tag
+                  color="#FEF6E0"
+                  className="ant-typography ant-typography-secondary"
+                >Unpaid</Tag>
+              )}
             </div>
           </li>
         )}
@@ -701,12 +708,12 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="">
                   <div className="text-sm mb-0 w-full">
-                    Date :{" "}
+                    Date :
                     {`${date.formatMMMMDDYYYY(appointmentDateTime?.startTime)}`}
-                  </div>{" "}
+                  </div>
                   <br />
                   <div className="text-sm mb-0 w-full">
-                    Time:{" "}
+                    Time:
                     {`${date.formathhmma(
                       appointmentDateTime?.startTime
                     )} -   ${date.formathhmma(appointmentDateTime?.endTime)}`}
