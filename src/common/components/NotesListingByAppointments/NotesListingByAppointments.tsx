@@ -31,7 +31,7 @@ function NotesListingByAppointments(props: Props) {
   const appointmentId = Number(query.id);
   const { doctorNotes, appointment } = props;
 
-  const [{ data }] = useGetAppointmentNoteByIdQuery({
+  const [{ data: currentAppointmentNotes }] = useGetAppointmentNoteByIdQuery({
     variables: {
       appointmentId,
     },
@@ -51,8 +51,9 @@ function NotesListingByAppointments(props: Props) {
 
   const actualDoctorNotes = appointmentChild?.currentAppointmentNote;
 
-   console.log(actualDoctorNotes,data, "notesByAppointmentId");
+  console.log(currentAppointmentNotes, "notesByAppointmentIdsadsd");
   const a = [1];
+
   return (
     <>
       <div
@@ -68,11 +69,16 @@ function NotesListingByAppointments(props: Props) {
           )}
         >
           {a.map((data, index) => {
+            console.log(data, "sadasds");
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
                 header="Appointment Note"
-                // header={`AP-${data?.appointment?.id}  ${physicianFullName}   ${convertStringDateToUTC(data?.createdAt)} `}
+                // header={`AP-${
+                //   data?.appointment?.id
+                // }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                //   data?.createdAt
+                // )} `}
                 key={index}
               >
                 {(getRole() === "Admin" || getRole() === "Doctor") &&
