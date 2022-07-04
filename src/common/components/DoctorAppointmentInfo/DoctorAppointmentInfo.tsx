@@ -165,8 +165,12 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={dueDate ? `${formatMMMM_Dcoma_YYYY(dueDate)} ` : "--"}
         />
         <LabelWithText
-          label="Appointment creation date"
+          label="Booking Date"
           text={formatMMMM_Dcoma_YYYY(createdAt)}
+        />
+        <LabelWithText
+          label="Requested Date"
+          text={formatMMMM_Dcoma_YYYY(requestedDate)}
         />
         <LabelWithText
           label="Time"
@@ -178,7 +182,7 @@ function DoctorAppointmentInfo({ data }: Props) {
               : "--"
           }
         />
-        {(status === "Confirmed" || status==="Completed") && (
+        {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
             label="Total Amount"
             text={
@@ -219,12 +223,19 @@ function DoctorAppointmentInfo({ data }: Props) {
               Payment Status
             </div>
             <div className="w-full text-secondary">
-              <Tag
-                color="#e2f8f7"
-                className="ant-typography ant-typography-secondary"
-              >
-                {transaction?.status}
-              </Tag>
+              {transaction?.status ? (
+                <Tag
+                  color="#e2f8f7"
+                  className="ant-typography ant-typography-secondary"
+                >
+                  {transaction?.status}
+                </Tag>
+              ) : (
+                <Tag
+                  color="#FEF6E0"
+                  className="ant-typography ant-typography-secondary"
+                >Unpaid</Tag>
+              )}
             </div>
           </li>
         )}
@@ -696,13 +707,17 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <Form.Item label="Existing Schedule" name="requestedDate">
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="">
-                  <div className="text-sm mb-0 w-full">Date : {`${date.formatMMMMDDYYYY(
-                    appointmentDateTime?.startTime
-                  )}`}</div>{" "}
-                  <br/>
-                  <div className="text-sm mb-0 w-full">Time: {`${ date.formathhmma(
-                    appointmentDateTime?.startTime
-                  )} -   ${date.formathhmma(appointmentDateTime?.endTime)}`}</div>
+                  <div className="text-sm mb-0 w-full">
+                    Date :
+                    {`${date.formatMMMMDDYYYY(appointmentDateTime?.startTime)}`}
+                  </div>
+                  <br />
+                  <div className="text-sm mb-0 w-full">
+                    Time:
+                    {`${date.formathhmma(
+                      appointmentDateTime?.startTime
+                    )} -   ${date.formathhmma(appointmentDateTime?.endTime)}`}
+                  </div>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl"></span>
               </div>

@@ -24,114 +24,117 @@ import { FLAG_BY_LANGUAGE } from "utils/helper";
 import { json } from "node:stream/consumers";
 
 function AdminPhysicianList() {
-	const [filterValues, setFilterValues] = useState({});
+  const [filterValues, setFilterValues] = useState({});
 
-	const [{ data, fetching }, executeUseGetPhysiciansQuery] =
-		useGetPhysiciansQuery({
-			variables: {
-				filter: filterValues,
-			},
-		});
-	const { getPhysicians } = data || {};
+  const [{ data, fetching }, executeUseGetPhysiciansQuery] =
+    useGetPhysiciansQuery({
+      variables: {
+        filter: filterValues,
+      },
+    });
+  const { getPhysicians } = data || {};
 
-	const columns = [
-		{
-			title: "ID",
-			dataIndex: "id",
-			key: "id",
-			sorter: true,
-		},
-		{
-			title: "Name",
-			dataIndex: "first_name",
-			key: "first_name",
-			render: (value: User) => {
-				return <div>{`${value}`}</div>;
-			},
-			sorter: true,
-		},
-		{
-			title: "Email",
-			dataIndex: "email",
-			key: "email",
-			render: (email: User) => {
-				return <div>{email}</div>;
-			},
-			sorter: true,
-		},
-		{
-			title: "Specialization",
-			dataIndex: "doctorProfile",
-			key: "doctorProfile",
-			render: (doctorProfile: DoctorProfile) => {
-				return <div>{doctorProfile?.specialization || ""}</div>;
-			},
-			sorter: true,
-		},
-		{
-			title: "City",
-			dataIndex: "city",
-			key: "city",
-			render: (city: City) => {
-				return <div>{city?.city_name || ""}</div>;
-			},
-			sorter: true,
-		},
-		{
-			title: "State",
-			dataIndex: "state",
-			key: "state",
-			render: (state: State) => {
-				return <div>{state?.state_name || ""}</div>;
-			},
-			sorter: true,
-		},
-
-		{
-			title: "Country",
-			dataIndex: "country",
-			key: "country",
-			render: (country: Country) => {
-				return <div>{country?.country_name || ""}</div>;
-			},
-			sorter: true,
-		},
-		{
-			title: "Zip Code",
-			dataIndex: "zip_code",
-			key: "zip_code",
-			render: (zip_code: string) => {
-				return <div>{zip_code || ""}</div>;
-			},
-			sorter: true,
-		},
-
-		{
-			title: "Language",
-			dataIndex: "doctorProfile",
-			key: "doctorProfile",
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      sorter: true,
+    },
+    {
+      title: "Name",
+      dataIndex: "first_name",
+      key: "first_name",
+      render: (value: User) => {
+        return <div>{`${value}`}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      render: (email: User) => {
+        return <div>{email}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "Specialization",
+      dataIndex: "doctorProfile",
+      key: "doctorProfile",
       render: (doctorProfile: DoctorProfile) => {
-        let language = doctorProfile?.language?.toLowerCase();
-  
-        let languageobject = doctorProfile?.language?.toLowerCase() ;
-      const objcustom=doctorProfile?.language && JSON.parse(languageobject)
-      const objectkeyenglist=doctorProfile?.language && Object.values(objcustom)[0];
-      const objectkeyspanishlist=doctorProfile?.language && Object.values(objcustom)[1];
+        return <div>{doctorProfile?.specialization || ""}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "City",
+      dataIndex: "city",
+      key: "city",
+      render: (city: City) => {
+        return <div>{city?.city_name || ""}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "State",
+      dataIndex: "state",
+      key: "state",
+      render: (state: State) => {
+        return <div>{state?.state_name || ""}</div>;
+      },
+      sorter: true,
+    },
+
+    {
+      title: "Country",
+      dataIndex: "country",
+      key: "country",
+      render: (country: Country) => {
+        return <div>{country?.country_name || ""}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "Zip Code",
+      dataIndex: "zip_code",
+      key: "zip_code",
+      render: (zip_code: string) => {
+        return <div>{zip_code || ""}</div>;
+      },
+      sorter: true,
+    },
+
+    {
+      title: "Language",
+      dataIndex: "doctorProfile",
+      key: "doctorProfile",
+      render: (doctorProfile: DoctorProfile) => {
+        let formatedLanguage =
+          doctorProfile?.language !== undefined &&
+          doctorProfile?.language?.includes("{")
+            ? JSON.parse(doctorProfile?.language)
+            : doctorProfile?.language;
+
+        let language = doctorProfile?.language?.toLowerCase() || "english";
+
         return (
           <div className="flagAvatar engFlag pr-2">
-            {language && (
-              <Image
-                priority={true}
-                src={((objectkeyenglist && engFlag.src) ||
-                (objectkeyspanishlist && espanolFlag.src)) ||
-                engFlag.src}
-               
-                alt={language || "flag"}
-                width={25}
-                height={25}
-              />
-            )}
-
+            {formatedLanguage &&
+              Object.entries(formatedLanguage)
+                .filter((item) => item[1])
+                ?.map((value) => {
+                  return (
+                    <Image
+                      priority={true}
+                      src={FLAG_BY_LANGUAGE[String(value[0]).toLowerCase()]}
+                      alt={language || "flag"}
+                      width={25}
+                      height={25}
+                    /> 
+                  );
+                })}
           </div>
         );
       },
