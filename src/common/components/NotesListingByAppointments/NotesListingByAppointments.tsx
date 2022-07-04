@@ -18,9 +18,9 @@ import AdminNotesWithTextTab from "modules/admin/pages/AdminAppointmentsDetail/A
 import EditableNotes from "../EditableNotes/EditableNotes";
 import { getRole } from "common/utils/userData";
 import ViewableNotes from "../ViewableNotes/ViewableNotes";
+import { convertStringDateToUTC } from "common/utils/date";
 
 type Props = {
-  // onFinish?: (values: any, setModalVisible: () => void) => void;
   appointment?: Appointment | undefined;
   onChange?: () => void;
   doctorNotes?: GetDoctorNotesByAppIdQuery;
@@ -38,21 +38,24 @@ function NotesListingByAppointments(props: Props) {
   });
 
   const { Panel } = Collapse;
-  const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+
   const onChangeCollapse = (key: string | string[]) => {
     console.log(key);
   };
 
-  const appointmentChild = appointment;
+  const appointmentChild = currentAppointmentNotes;
 
-  const actualDoctorNotes = appointmentChild?.currentAppointmentNote;
+  const actualDoctorNotes = appointmentChild?.appointmentNote;
 
-  console.log(currentAppointmentNotes, "notesByAppointmentIdsadsd");
-  const a = [1];
+  const docData = actualDoctorNotes?.appointment?.doctor;
+
+  const docName = docData?.first_name + " " + docData?.last_name;
+
+  const appId = actualDoctorNotes?.appointmentId;
+
+  const appDate = actualDoctorNotes?.createdAt;
+
+  const a = [0];
 
   return (
     <>
@@ -73,19 +76,15 @@ function NotesListingByAppointments(props: Props) {
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header="Appointment Note"
-                // header={`AP-${
-                //   data?.appointment?.id
-                // }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
-                //   data?.createdAt
-                // )} `}
+                header={`AP-${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${docName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                  appDate
+                )} `}
                 key={index}
               >
                 {(getRole() === "Admin" || getRole() === "Doctor") &&
                   actualDoctorNotes !== null && (
                     <>
                       <EditableNotes
-                      // appointment={appointment as Appointment}
                       // doctorNotes={doctorNotes}
                       />
                     </>
@@ -93,10 +92,7 @@ function NotesListingByAppointments(props: Props) {
 
                 {getRole() === "User" && (
                   <>
-                    <ViewableNotes
-                      // appointment={appointment as Appointment}
-                      doctorNotes={doctorNotes}
-                    />
+                    <ViewableNotes doctorNotes={doctorNotes} />
                   </>
                 )}
               </Panel>
