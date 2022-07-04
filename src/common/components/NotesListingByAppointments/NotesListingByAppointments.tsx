@@ -38,11 +38,11 @@ function NotesListingByAppointments(props: Props) {
   });
 
   const { Panel } = Collapse;
-  const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+  //   const text = `
+  //   A dog is a type of domesticated animal.
+  //   Known for its loyalty and faithfulness,
+  //   it can be found as a welcome guest in many households across the world.
+  // `;
   const onChangeCollapse = (key: string | string[]) => {
     console.log(key);
   };
@@ -51,7 +51,7 @@ function NotesListingByAppointments(props: Props) {
 
   const actualDoctorNotes = appointmentChild?.currentAppointmentNote;
 
-  console.log(currentAppointmentNotes, "notesByAppointmentIdsadsd");
+  console.log(appointmentChild, "actualDN");
   const a = [1];
 
   return (

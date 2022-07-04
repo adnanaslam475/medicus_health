@@ -101,15 +101,15 @@ function NotesTab({}: Props) {
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}
-            {/* {!actualDoctorNotes && ( */}
-            <>
-              <Notes
-                onFinish={addNote}
-                // disabled={actualDoctorNotes !== null}
-              />
-              <div className="mb-3"></div>
-            </>
-            {/* )} */}
+            {!actualDoctorNotes && (
+              <>
+                <Notes
+                  onFinish={addNote}
+                  // disabled={actualDoctorNotes !== null}
+                />
+                <div className="mb-3"></div>
+              </>
+            )}
           </>
         )}
 
@@ -123,14 +123,14 @@ function NotesTab({}: Props) {
         </div>
 
         {/* FOR PATIENT ONLY */}
-        {getRole() === "User" &&
+        {/* {getRole() === "User" &&
           (actualDoctorNotes ? (
             <NotesListingByAppointments
               doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
             />
           ) : (
             <div className="div">No Published Notes Available</div>
-          ))}
+          ))} */}
         {/* HISTORY NOTES */}
 
         <div className="history-notes-cover">
