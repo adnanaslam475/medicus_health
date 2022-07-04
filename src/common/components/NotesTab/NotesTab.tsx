@@ -28,7 +28,7 @@ type Props = {
 function NotesTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data,fetching }] = useDoctorAppointmentDetailAppointmentInfoQuery({
+  const [{ data, fetching }] = useDoctorAppointmentDetailAppointmentInfoQuery({
     variables: {
       id: Number(query.id),
     },
@@ -91,12 +91,11 @@ function NotesTab({}: Props) {
       });
     }
   };
-  return (
-    fetching ? (
-      <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
-        <Spin />
-      </div>
-    ) : (
+  return fetching ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <div className="md:max-w-1/2">
       <CardWithProfileImageInfo
         name={`${patient?.first_name} ${patient?.last_name}`}
@@ -145,7 +144,7 @@ function NotesTab({}: Props) {
             getRole() === "Doctor") && <NotesHistory />}
         </div>
       </CardWithProfileImageInfo>
-    </div>)
+    </div>
   );
 }
 
