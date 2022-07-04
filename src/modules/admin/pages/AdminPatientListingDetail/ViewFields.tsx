@@ -28,9 +28,12 @@ const ViewProfileFields = ({
     // country_name,
   } = data || {};
   let childrenCount = patientProfile?.children && patientProfile?.children > 0;
-  console.log(childrenCount, "childrenCount");
   const showExposureDuration =
     patientProfile?.occupationalExposure === "Yes" ? true : false;
+
+  const userGender = gender
+    ? `${gender?.charAt(0)?.toUpperCase()}${gender?.slice(1)}`
+    : "";
   return (
     <div className="max-w-[800px]">
       <div className="flex flex-col md:flex-row gap-2">
@@ -40,7 +43,7 @@ const ViewProfileFields = ({
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv
           label="Gender"
-          value={`${gender?.charAt(0)?.toUpperCase()}${gender?.slice(1)}`}
+          value={userGender}
         />
         <LabelWithTextDiv
           label="Date of birth"

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, notification, Table } from "antd";
+import { Button, notification, Skeleton, Spin, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
@@ -32,7 +32,7 @@ function AdminPatientAppointmentList() {
   const { query } = useRouter();
   const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
 
-  const [{ data }, executeUseAdminPhysicianAppointmentQuery] =
+  const [{ data, fetching }, executeUseAdminPhysicianAppointmentQuery] =
     useAdminPhysicianAppointmentQuery({
       variables: {
         filter: {
@@ -42,10 +42,11 @@ function AdminPatientAppointmentList() {
       },
     });
   const { appointments } = data || {};
-  const patientFirstName = appointments && appointments[0]?.patient?.first_name
-  const patientLastName = appointments && appointments[0]?.patient?.last_name
-  const patientEmail = appointments && appointments[0]?.patient?.email
-  const patientProfilePicture = appointments && appointments[0]?.patient?.patientProfile?.profileImage
+  const patientFirstName = appointments && appointments[0]?.patient?.first_name;
+  const patientLastName = appointments && appointments[0]?.patient?.last_name;
+  const patientEmail = appointments && appointments[0]?.patient?.email;
+  const patientProfilePicture =
+    appointments && appointments[0]?.patient?.patientProfile?.profileImage;
 
   // Physician Payment By Admin Mutatio
   const [result, PhysicianPaymentByAdmin] =
@@ -200,7 +201,11 @@ function AdminPatientAppointmentList() {
     });
   }
 
-  return (
+  return fetching ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <div className="w-full">
       <CardWithProfileImageInfo
         name={`${patientFirstName} ${patientLastName}`}

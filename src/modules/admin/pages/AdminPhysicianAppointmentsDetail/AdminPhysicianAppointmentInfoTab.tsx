@@ -4,12 +4,14 @@ import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/
 import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
 import { date } from "common/utils";
 import { Appointment } from "generated/graphql";
+import { Spin } from "antd";
 
 type Props = {
 	appointment: Appointment | undefined;
+	loading?:boolean
 };
 
-function AdminPhysicianAppointmentInfoTab({ appointment }: Props) {
+function AdminPhysicianAppointmentInfoTab({ appointment,loading }: Props) {
 	let selectedAppointment = appointment?.appointmentTimeSlots?.find(
 		(item) => item.selected
 	);
@@ -35,7 +37,11 @@ function AdminPhysicianAppointmentInfoTab({ appointment }: Props) {
 		paymentStatus: appointment?.transaction?.status,
 	};
 
-	return (
+	return (loading ? (
+		<div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+		  <Spin />
+		</div>
+	  ) : 
 		<CardWithProfileImageInfo
 			name={`${normalizedAppointmentData.patient}`}
 			serviceName={normalizedAppointmentData.service}

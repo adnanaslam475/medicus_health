@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
 import {
@@ -20,6 +20,7 @@ import _classes from "./ProfileTab.module.scss";
 
 function AdminPatientListingDetail() {
   const { query } = useRouter();
+  const [activeTab, setActiveTab] = React.useState<string>("");
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
@@ -33,11 +34,24 @@ function AdminPatientListingDetail() {
     appointment?.currentAppointmentNote &&
     Object?.entries(appointment?.currentAppointmentNote);
 
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
+  useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+  }, [query]);
+
   return (
     <AppLayout>
       <>
         <div className="tab-active-style">
-          <Tabs>
+          <Tabs
+            type="card"
+            defaultActiveKey="1"
+            activeKey={activeTab || "1"}
+            onChange={onChangeTabHandler}
+          >
             <Tabs.TabPane
               tab={
                 <span>

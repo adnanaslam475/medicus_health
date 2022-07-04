@@ -118,6 +118,7 @@ query doctorAppointmentDetailPatientInfo($id: Int!) {
         occupation
         occupationalExposure
         pets
+        profileImage
       }
     }
   }

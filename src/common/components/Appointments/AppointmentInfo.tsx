@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, Tag } from "antd";
+import { Button, Spin, Tag } from "antd";
 import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
 import {
@@ -13,15 +13,16 @@ import { CustomTimeSlot } from "common/types/types";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
+  loading?: boolean;
 };
 
 function AppointmentInfo(props: Props) {
-  const { appoinmentDetails } = props;
+  const { appoinmentDetails, loading } = props;
   const { appointment } = appoinmentDetails || {};
   const { first_name, last_name } =
     appoinmentDetails?.appointment?.doctor || {};
 
-  const { id, status, requestedDate, appointmentTimeSlots,createdAt } =
+  const { id, status, requestedDate, appointmentTimeSlots, createdAt } =
     appoinmentDetails?.appointment || {};
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
@@ -34,8 +35,12 @@ function AppointmentInfo(props: Props) {
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
-  return (
-    <React.Fragment>
+  return loading ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
+    <>
       <div className="max-w-[700px]">
         <LabelValueRow label="ID" value={Number(id)} />
         <LabelValueRow
@@ -124,7 +129,7 @@ function AppointmentInfo(props: Props) {
           Join Now
         </Button>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 export default AppointmentInfo;
