@@ -24,6 +24,7 @@ type Props = {
     streetAddress: string;
     maritalStatus: string;
     profileImage: string;
+    haveChildren: boolean;
     children: string;
     occupation: string;
     occupationalExposure: string;
@@ -62,6 +63,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
   } = user || {};
 
   const {
+    haveChildren,
     children,
     maritalStatus,
     occupation,
@@ -99,7 +101,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       streetAddress: streetAddress,
       maritalStatusExist: false,
       maritalStatus: maritalStatus,
-      childrenExists: false,
+      haveChildren: false,
       children: children,
       occupation: occupation,
       occupationalExposure: occupationalExposure,
@@ -387,7 +389,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
                 >
-                  <Form.Item className="mb-0" name="childrenExists">
+                  <Form.Item className="mb-0" name="haveChildren">
                     <Radio.Group
                       defaultValue={radioChildren}
                       onChange={(e) => {

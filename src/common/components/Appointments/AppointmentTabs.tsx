@@ -28,7 +28,7 @@ const AppointmentTabs = (props: Props) => {
   const { pathname } = router || {};
   const { query } = router;
 
-  const [{ data }] = useGetAppointmentByIdQuery({
+  const [{ data,fetching:appointmentsLoading }] = useGetAppointmentByIdQuery({
     variables: { id: Number(appointmentId) },
   });
 
@@ -69,7 +69,7 @@ const AppointmentTabs = (props: Props) => {
         onChange={onChangeTabHandler}
       >
         <TabPane tab="Appointment Info" key="1" className="">
-          <AppointmentInfo appoinmentDetails={data} />
+          <AppointmentInfo appoinmentDetails={data} loading={appointmentsLoading}/>
         </TabPane>
         <Tabs.TabPane tab="Health Questionnaire" key="2">
           <div className="md:max-w-1/2">

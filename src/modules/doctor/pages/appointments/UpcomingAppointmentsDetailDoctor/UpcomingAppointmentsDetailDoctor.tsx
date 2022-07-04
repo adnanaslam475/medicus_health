@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppointmentTabs from "../../../../../common/components/Appointments/AppointmentTabs";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
@@ -22,7 +22,10 @@ import { AttachmentObject } from "common/types/types";
 function UpcomingAppointmentsDetailDoctor() {
   const { query } = useRouter();
   const router = useRouter();
-
+  const [activeTab, setActiveTab] = React.useState<string>("");
+	useEffect(() => {
+		query?.activeTab && setActiveTab(String(query?.activeTab));
+	}, [query]);
   const { pathname } = router || {};
 
   const [{ data }] = useDoctorAppointmentDetailQuery({
@@ -37,6 +40,7 @@ function UpcomingAppointmentsDetailDoctor() {
     variables: {
       id: Number(appointment?.id),
     },
+    pause: !appointment?.id,
   });
 
   //get appointment URL
@@ -57,12 +61,22 @@ function UpcomingAppointmentsDetailDoctor() {
     variables: { input: patientId as number },
   });
 
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
+
   return (
     <AppLayout>
       <>
         <h2 className="mb-4">Appointment Detail</h2>
         <div className="profile-tabs">
-          <Tabs type="card">
+          <Tabs
+            type="card"
+            defaultActiveKey="1"
+            activeKey={activeTab || "1"}
+            onChange={onChangeTabHandler}
+          >
             <Tabs.TabPane tab="Appointment Info" key="1" className="">
               <AppointmentInfoTab />
             </Tabs.TabPane>

@@ -53,7 +53,7 @@ function AdminPhysicianAdd() {
         streetAddress: values?.streetAddress,
         country_id: values?.country,
         state_id: values?.state,
-        city_id: values?.city_id,
+        city_id: values?.city_id | 0,
         zip_code: values?.postalCode,
       },
     });

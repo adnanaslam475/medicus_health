@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
 import { date } from "common/utils";
@@ -15,7 +16,7 @@ type Props = {};
 function PatientInfoTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
+  const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
       filter: { searchString: String(query?.id), status: "Completed" },
     },
@@ -56,7 +57,11 @@ function PatientInfoTab({}: Props) {
 
   const { city_name } = city?.city || {};
 
-  return (
+  return fetching ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
       serviceName={serviceType?.name}

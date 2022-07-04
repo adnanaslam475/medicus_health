@@ -165,8 +165,12 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={dueDate ? `${formatMMMM_Dcoma_YYYY(dueDate)} ` : "--"}
         />
         <LabelWithText
-          label="Appointment creation date"
+          label="Booking Date"
           text={formatMMMM_Dcoma_YYYY(createdAt)}
+        />
+        <LabelWithText
+          label="Requested Date"
+          text={formatMMMM_Dcoma_YYYY(requestedDate)}
         />
         <LabelWithText
           label="Time"

@@ -8,13 +8,14 @@ import {
   useGetCountryByIdQuery,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
+import { Spin } from "antd";
 
 type Props = {};
 
 function PatientInfoTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
+  const [{ data ,fetching}] = usePhysicianAppointmentsHistoryQuery({
     variables: {
       filter: { searchString: String(query?.id), status: "Completed" },
     },
@@ -55,7 +56,11 @@ function PatientInfoTab({}: Props) {
 
   const { city_name } = city?.city || {};
 
-  return (
+  return fetching ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
       serviceName={serviceType?.name}

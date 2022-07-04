@@ -35,12 +35,7 @@ function PhysicianAppointmentHistoryDetail() {
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));
-    window.onpopstate = () => {
-      if (window?.location?.search?.includes("activeTab")) {
-        setActiveTab(String(window?.location?.search?.split("=")[1]));
-      }
-    };
-  }, [query, window?.location?.href]);
+  }, [query]);
   const onChangeTabHandler = (key: string) => {
     setActiveTab(key);
     history.pushState({}, "", "?activeTab=" + key);

@@ -1907,7 +1907,7 @@ export type DoctorAppointmentDetailPatientInfoQueryVariables = Exact<{
 }>;
 
 
-export type DoctorAppointmentDetailPatientInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', id: number, maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null } | null } };
+export type DoctorAppointmentDetailPatientInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', id: number, maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, profileImage?: string | null } | null } | null } };
 
 export type PhysicianAppointmentsQueryVariables = Exact<{
   filter: GetPhysicianAppointmentInput;
@@ -1949,7 +1949,7 @@ export type GetAppointmentNoteByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetAppointmentNoteByIdQuery = { __typename?: 'Query', appointmentNote: { __typename?: 'AppointmentNote', id: number, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, createdAt: any, updatedAt: any, appointment?: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null } | null } };
+export type GetAppointmentNoteByIdQuery = { __typename?: 'Query', appointmentNote: { __typename?: 'AppointmentNote', id: number, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, createdAt: any, updatedAt: any, appointment?: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } | null } };
 
 export type GetAllAppointmentNotesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3277,6 +3277,7 @@ export const DoctorAppointmentDetailPatientInfoDocument = gql`
         occupation
         occupationalExposure
         pets
+        profileImage
       }
     }
   }
@@ -3553,6 +3554,11 @@ export const GetAppointmentNoteByIdDocument = gql`
       id
       patientId
       doctorId
+      doctor {
+        id
+        first_name
+        last_name
+      }
     }
   }
 }
