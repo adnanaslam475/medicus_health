@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
 import { date } from "common/utils";
@@ -14,7 +15,7 @@ type Props = {};
 function PatientInfoTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data }] = useDoctorAppointmentDetailPatientInfoQuery({
+  const [{ data, fetching }] = useDoctorAppointmentDetailPatientInfoQuery({
     variables: {
       id: Number(query.id),
     },
@@ -50,13 +51,17 @@ function PatientInfoTab({}: Props) {
       id: city_id!,
     },
   });
-
+  console.log("data is sssss", data);
   const { city_name } = city?.city || {};
-
-  return (
+  return fetching ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <CardWithProfileImageInfo
-      name={`${patient?.first_name} ${patient?.last_name}`}
-      serviceName={serviceType?.name}
+      name={`${patient?.first_name || ""} ${patient?.last_name || ""}`}
+      serviceName={serviceType?.name || ""}
+      imageUrl={patient?.patientProfile?.profileImage || ""}
     >
       <div className="max-w-[800px]">
         <div className="flex flex-col md:flex-row gap-2">

@@ -28,7 +28,12 @@ const ViewProfileFields = ({
     // country_name,
   } = data || {};
   let childrenCount = patientProfile?.children && patientProfile?.children > 0;
-  const showExposureDuration = patientProfile?.occupationalExposure === "Yes" ? true : false
+  const showExposureDuration =
+    patientProfile?.occupationalExposure === "Yes" ? true : false;
+
+  const userGender = gender
+    ? `${gender?.charAt(0)?.toUpperCase()}${gender?.slice(1)}`
+    : "";
   return (
     <div className="max-w-[800px]">
       <div className="flex flex-col md:flex-row gap-2">
@@ -36,7 +41,10 @@ const ViewProfileFields = ({
         <LabelWithTextDiv label="Last Name" value={last_name} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Gender" value={`${gender?.charAt(0)?.toUpperCase()}${gender?.slice(1)}`} />
+        <LabelWithTextDiv
+          label="Gender"
+          value={userGender}
+        />
         <LabelWithTextDiv
           label="Date of birth"
           value={
@@ -82,10 +90,12 @@ const ViewProfileFields = ({
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-      {showExposureDuration && <LabelWithTextDiv
-          label="Do you have any Occupational Duration?"
-          value={patientProfile?.exposureDuration}
-        />}
+        {showExposureDuration && (
+          <LabelWithTextDiv
+            label="Do you have any Occupational Duration?"
+            value={patientProfile?.exposureDuration}
+          />
+        )}
         <LabelWithTextDiv
           label="Do you have any pets?"
           value={patientProfile?.pets}
