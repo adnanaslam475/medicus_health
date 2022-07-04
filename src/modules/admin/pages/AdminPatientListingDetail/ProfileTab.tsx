@@ -93,8 +93,9 @@ function AdminPatientProfileTab({}: Props) {
       state_name: state_id,
       city_name: city_id,
       date_of_birth: user?.date_of_birth ? moment(user?.date_of_birth) : "",
-      gender: `${user?.gender?.charAt(0)?.toUpperCase()}${user?.gender?.slice(1)}`
-
+      gender: `${user?.gender?.charAt(0)?.toUpperCase()}${user?.gender?.slice(
+        1
+      )}`,
     });
     setUserDisableInput(status || false);
   }
