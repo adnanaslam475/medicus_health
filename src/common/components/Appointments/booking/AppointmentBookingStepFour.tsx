@@ -11,9 +11,16 @@ function StepFour() {
     physician,
     serviceName,
     charges,
+    availability,
+    doctorSchedule,
   } = data?.stepOne || {};
   const [{ price, name }] = serviceInfo || [{}];
   let doctorName = physician?.split(":")[1];
+
+  const availabilityTime = doctorSchedule?.doctorSchedules?.find(
+    (time: any) => time.id === availability
+  );
+
   return (
     <>
       <h2>Summary</h2>
@@ -35,7 +42,8 @@ function StepFour() {
         <label className="block">Requested Date & Time</label>
         <span>{date.formatMMMMDDYYYY(requestedDate)}</span>
         <span className="text-sm"></span>
-        <span className="ml-3">{date.formathhmma(requestedDate)}</span>
+        {/* <span className="ml-3">{date.formathhmma(requestedDate)}</span> */}
+        <span className="ml-3">{`${availabilityTime?.startTime} - ${availabilityTime?.endTime}`}</span>
       </div>
       <p className="font-rubik text-gray">
         Please note that your payment will only be charged once the physician
