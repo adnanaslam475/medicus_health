@@ -4,9 +4,11 @@ import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/
 import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
 import { date } from "common/utils";
 import { Appointment } from "generated/graphql";
+import { Spin } from "antd";
 
 type Props = {
   appointment: Appointment | undefined;
+  loading?: boolean;
 };
 
 type DoctorData = {
@@ -20,7 +22,7 @@ type DoctorData = {
   };
 };
 
-function AdminAppointmentInfoTab({ appointment }: Props) {
+function AdminAppointmentInfoTab({ appointment, loading }: Props) {
   let selectedAppointment = appointment?.appointmentTimeSlots?.find(
     (item) => item.selected
   );
@@ -45,9 +47,13 @@ function AdminAppointmentInfoTab({ appointment }: Props) {
     physician:
       appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
     service: appointment?.serviceType?.name,
-    dueDate: formatMMMM_Dcoma_YYYY(appointment?.appointmentDateTime?.startTime || selectedAppointment?.startTime),
+    dueDate: formatMMMM_Dcoma_YYYY(
+      appointment?.appointmentDateTime?.startTime ||
+        selectedAppointment?.startTime
+    ),
     time: `${
-      appointment?.appointmentDateTime?.startTime && appointment?.appointmentDateTime?.endTime
+      appointment?.appointmentDateTime?.startTime &&
+      appointment?.appointmentDateTime?.endTime
         ? `${date?.formathhmma(
             appointment?.appointmentDateTime?.startTime
           )} - ${date?.formathhmma(appointment?.appointmentDateTime?.endTime)}`
@@ -56,12 +62,17 @@ function AdminAppointmentInfoTab({ appointment }: Props) {
     totalAmount: appointment?.charges,
     appointmentStatus: appointment?.status,
     paymentStatus: appointment?.transaction?.status,
+    profilePicture: appointment?.patient?.patientProfile?.profileImage,
   };
-
-  return (
+  return loading ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <CardWithProfileImageInfo
       name={`${normalizedAppointmentData.patient}`}
       serviceName={normalizedAppointmentData.service}
+      imageUrl={normalizedAppointmentData?.profilePicture}
     >
       <div className="max-w-[800px]">
         <AdminAppointmentInfo

@@ -57,13 +57,9 @@ export const ViewProfile = React.forwardRef(function Profile({
           <div className="w-full mb-10 flex gap-8 items-center">
             <div className="relative">
               <Avatar
-              icon={ <UserOutlined className="pt-5" />} 
+                icon={<UserOutlined />}
                 size={130}
-                style={{
-                  borderColor: "transparent",
-                  borderWidth: 2,
-                  lineHeight: "40px",
-                }}
+                className="border-transparent border-2 leading-10 profile-avatar"
                 src={userProfileImage || profile_picture}
               />
             </div>

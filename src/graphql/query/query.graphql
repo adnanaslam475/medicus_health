@@ -383,6 +383,9 @@ query getAppointmentById($id: Int!) {
       id
       first_name
       last_name
+      patientProfile{
+        profileImage
+      }
       patientHealthHistory {
         history
       }

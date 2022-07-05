@@ -215,7 +215,7 @@ label.ant-radio-wrapper {
     word-spacing: -5px;
     margin-bottom: 0px;
   }
- h1 {
+  h1 {
     word-spacing: -10px !important;
   }
 
@@ -247,7 +247,7 @@ label.ant-radio-wrapper {
   h6 {
     font-weight: book;
     // font-size: 1rem !important;
-     font-size: 16px !important;
+    font-size: 16px !important;
   }
 }
 
@@ -420,4 +420,9 @@ label.ant-radio-wrapper {
   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #1d84fe !important;
   }
+}
+.profile-avatar {
+  display: flex !important;
+  align-items: center  !important;
+  justify-content: center  !important;
 }

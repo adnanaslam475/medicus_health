@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import profile from "./../../../../../../public/assets/images/doc-pic.png";
+import profile from "./../../../../../../public/assets/images/profile.jpg";
 import ThreeDot from "./../../../../../../public/assets/images/threedot.svg";
 
 function ChatHeader() {

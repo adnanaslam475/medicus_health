@@ -78,7 +78,7 @@ function DoctorProfileCard(props: Props) {
                   width={86}
                   height={86}
                   className=" rounded-full h-[86px] w-[86px] overflow-hidden"
-                  fallbackImage={"/assets/images/doc-pic.png"}
+                  fallbackImage={"/assets/images/profile.jpg"}
                 />
               )}
             </div>
