@@ -33,7 +33,6 @@ function UserProfile({ thread }: Props) {
 		thread,
 		user?.role as string
 	);
-  console.log(opposite,"fffff")
 	return (
 		<div
 			onClick={onJoinChat}

@@ -143,6 +143,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         charges: serviceInfo?.[0].price || values.charges,
         serviceName: serviceInfo?.[0]?.name || serviceName,
         serviceInfo,
+        doctorSchedule:scheduleDetails
       };
       saveStepOne?.(tempObj);
     }
