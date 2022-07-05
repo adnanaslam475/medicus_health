@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import yourImage from "../../../../public/assets/images/profile.svg";
+import yourImage from "../../../../public/assets/images/profile.jpg";
 
 type props = {
   name: string | undefined;
@@ -20,6 +20,7 @@ function ProfileImageWithInfo({ name, serviceName, imageUrl }: props) {
           onError={(e) => console.log(e)}
           src={imageUrl || yourImage}
           className="bg-gray border rounded-full border-gray"
+          objectFit="cover"
         />
       </div>
 

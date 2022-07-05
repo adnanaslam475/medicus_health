@@ -78,7 +78,7 @@ function DoctorProfileCard(props: Props) {
                   width={86}
                   height={86}
                   className=" rounded-full h-[86px] w-[86px] overflow-hidden"
-                  fallbackImage={"/assets/images/doc-pic.png"}
+                  fallbackImage={"/assets/images/profile.jpg"}
                 />
               )}
             </div>
@@ -125,15 +125,19 @@ function DoctorProfileCard(props: Props) {
                         <div className="text-gray-8 ant-collapse-available">
                           Available Today
                         </div>
-                        <span className="ant-collapse-time">
-                          {`${date.time24HrConvert(matchDay?.startTime)} -
-                          ${date.time24HrConvert(matchDay?.endTime)}`}
-                        </span>
                       </>
                     ) : (
                       <span className="text-cyan-1">Not Available Today</span>
                     )}
                   </div>
+                }
+                extra={
+                  matchDay && (
+                    <span className="ant-collapse-time">
+                      {`${date.time24HrConvert(matchDay?.startTime)} -
+                ${date.time24HrConvert(matchDay?.endTime)}`}
+                    </span>
+                  )
                 }
               >
                 <div className="ant-collapse-time-body">
@@ -205,7 +209,9 @@ function DoctorProfileCard(props: Props) {
         </div>
         <Divider />
         <h4 className="font-bold mb-1">About Me</h4>
-        <div className="text-gray text-md"><h6 className="text-gray ">{doctorData?.about_me}</h6></div>
+        <div className="text-gray text-md">
+          <h6 className="text-gray ">{doctorData?.about_me}</h6>
+        </div>
         <Divider />
         <h4 className="font-bold mb-1">Conditions Treated</h4>
         <h6 className="text-secondary">{doctorData?.condition_treated}</h6>

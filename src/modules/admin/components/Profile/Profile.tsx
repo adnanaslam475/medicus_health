@@ -138,9 +138,9 @@ export const Profile = React.forwardRef(function Profile({
             >
               <div className="relative">
                 <Avatar
-                 icon={ <UserOutlined className="pt-5" />} 
+                 icon={ <UserOutlined  />} 
                   size={130}
-                  className="border-transparent border-2 leading-10"
+                  className="border-transparent border-2 leading-10 profile-avatar"
                   src={
                     fetching
                       ? yourImage
