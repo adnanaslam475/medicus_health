@@ -11,6 +11,7 @@ import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilt
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter/SelectStatusTypeFilter";
+import { getRole } from "common/utils/userData";
 
 type Props = {
   onChange: (value: GetAdminUsersFilterInput) => void;
@@ -142,14 +143,16 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
           />
         </div>
 
-        <div className="lg:ml-3 sm:mt-0">
-          <SelectStatusTypeFilter
-            placeholder="Appointment Status"
-            onChange={(value) => onChangeFields("status", value as string)}
-            value={filterValues.status}
-            isAdminFilter={true}
-          />
-        </div>
+        {getRole() === "Admin" && (
+          <div className="lg:ml-3 sm:mt-0">
+            <SelectStatusTypeFilter
+              placeholder="Appointment Status"
+              onChange={(value) => onChangeFields("status", value as string)}
+              value={filterValues.status}
+              isAdminFilter={true}
+            />
+          </div>
+        )}
         <div className="lg:ml-3 sm:mt-0">
           <Select
             placeholder="Payment Status"

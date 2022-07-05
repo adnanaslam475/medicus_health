@@ -63,10 +63,13 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
       title: "Due Date",
       dataIndex: "appointmentDateTime",
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedDueDate = `${
+          appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
         return (
           <div>
             {appointmentDateTime?.startTime
-              ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
               : "--"}
           </div>
         );

@@ -3,7 +3,7 @@ import moment from "moment";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import { Form, Select, Avatar, notification, Button, Skeleton } from "antd";
-import { CloseOutlined, EditOutlined } from "@ant-design/icons";
+import { CloseOutlined, EditOutlined, UserOutlined } from "@ant-design/icons";
 import ConfirmationModal from "./ConfirmationModal";
 import InputFields from "./InputFields";
 import Envelope from "../../../../../public/assets/images/envelope.svg";
@@ -22,6 +22,7 @@ import {
 import _classes from "./ProfileTab.module.scss";
 import { AdminPatientUpdateInput } from "common/types/types";
 import { GraphQLError } from "graphql";
+import userDefaultPicture from "../../../../../public/assets/images/profile.jpg";
 
 type Props = {};
 type CountryOrStateObject = { id: number | string | undefined | null };
@@ -259,13 +260,10 @@ function AdminPatientProfileTab({}: Props) {
       <div className="w-full mb-10 flex gap-8 items-center">
         <div className="relative">
           <Avatar
-            size={130}
-            style={{
-              borderColor: "transparent",
-              borderWidth: 2,
-              lineHeight: "40px",
-            }}
+            size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
+            className={`profile-avatar`}
             src={patientProfile?.profileImage}
+            icon={!patientProfile?.profileImage && <UserOutlined />}
           />
         </div>
 

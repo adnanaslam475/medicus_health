@@ -1,15 +1,12 @@
 import { Badge, Input, notification, Upload } from "antd";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import _classes from "./MessageInput.module.scss";
 import attachIcon from "./../../../../../../public/assets/images/attach.svg";
 import smile from "./../../../../../../public/assets/images/smile.svg";
 import send from "./../../../../../../public/assets/images/send.svg";
 import { useMessageContext } from "../MessageDetail/MessageContext";
 import { useMediaUploader } from "common/hooks/media";
-import { UploadChangeParam } from "antd/lib/upload";
-import error from "next/error";
-import { UploadFile } from "antd/lib/upload/interface";
 import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import Dragger from "antd/lib/upload/Dragger";
@@ -17,8 +14,6 @@ import Dragger from "antd/lib/upload/Dragger";
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
   const { messageInfo, onMessage } = useMessageContext();
-  const [image, setImage] = useState<string>("");
-  const [files, setFiles] = useState<UploadFile<any>[]>([]);
   const [fileList, setFileList] = useState([]);
 
   // File Upload Hook
@@ -56,7 +51,6 @@ function MessageInput() {
         urls.map((url) => {
           onMessage?.(url?.url, "Media");
         });
-        setFiles([]);
         setFileList([]);
       } else {
         onMessage?.(messageText, "Text");
@@ -71,7 +65,6 @@ function MessageInput() {
   // For Attachment in Chat
   const fileChange = async (info: any) => {
     try {
-      setFiles(info.fileList);
       setFileList(info.fileList);
     } catch (error) {
       console.log(error);
@@ -82,6 +75,13 @@ function MessageInput() {
     const isPNG = file.type === "image/png";
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
+  };
+
+  const deleteFile = (index: number) => {
+    let filteredFiles = fileList.filter(
+      (item, itemIndex) => itemIndex != index
+    );
+    setFileList(filteredFiles);
   };
 
   return (
@@ -95,10 +95,10 @@ function MessageInput() {
             value={messageText}
           />
           <div className="absolute left-0 top-2 bg-gray-5">
-            {files.map((file, index) => (
+            {fileList.map((file, index) => (
               <span
                 className="box-border p-1 pt-3 mr-4 bg-gray-9 font-semibold text-white border rounded-md text-left left-0 mx-1"
-                onClick={() => setFiles(files.splice(index, 1))}
+                onClick={() => deleteFile(index)}
               >
                 <Badge
                   count={<CloseCircleOutlined style={{ color: "#F5222D" }} />}
@@ -123,7 +123,7 @@ function MessageInput() {
                 multiple
                 beforeUpload={onBeforeUpload}
                 itemRender={() => <div />}
-                fileList={files}
+                fileList={fileList}
                 customRequest={() => null}
                 accept="image/jpg, image/jpeg,.doc, .pdf,"
                 className={`${_classes["attachment-upload-btn"]} py-0`}
