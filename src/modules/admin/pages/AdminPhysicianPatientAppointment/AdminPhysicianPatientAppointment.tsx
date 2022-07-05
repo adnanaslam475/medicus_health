@@ -3,14 +3,14 @@ import { Button, notification, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
-	Appointment,
-	AppointmentDateTimeResponse,
-	AppointmentServiceType,
-	AppointmentTimeSlots,
-	GetAppointmentInput,
-	useAdminPhysicianAppointmentQuery,
-	usePhysicianPaymentByAdminMutation,
-	User,
+  Appointment,
+  AppointmentDateTimeResponse,
+  AppointmentServiceType,
+  AppointmentTimeSlots,
+  GetAppointmentInput,
+  useAdminPhysicianAppointmentQuery,
+  usePhysicianPaymentByAdminMutation,
+  User,
 } from "generated/graphql";
 import AdminPhysicianPatientAppointmentSearchFilters from "./AdminPhysicianPatientAppointmentSearchFilters";
 import StatusChip from "common/components/StatusChip/StatusChip";
@@ -19,199 +19,216 @@ import { date } from "common/utils";
 import { StatusName } from "common/types/types";
 
 function AdminPhysicianList() {
-	const { query } = useRouter();
-	const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
+  const { query } = useRouter();
+  const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
 
-	const [{ data,fetching }, executeUseAdminPhysicianAppointmentQuery] =
-		useAdminPhysicianAppointmentQuery({
-			variables: {
-				filter: {
-					...filterValues,
-					doctorId: Number(query.id),
-				},
-			},
-		});
-	const { appointments } = data || {};
+  const [{ data, fetching }, executeUseAdminPhysicianAppointmentQuery] =
+    useAdminPhysicianAppointmentQuery({
+      variables: {
+        filter: {
+          ...filterValues,
+          doctorId: Number(query.id),
+        },
+      },
+    });
+  const { appointments } = data || {};
 
-	// Physician Payment By Admin Mutatio
-	const [result, PhysicianPaymentByAdmin] =
-		usePhysicianPaymentByAdminMutation();
+  // Physician Payment By Admin Mutatio
+  const [result, PhysicianPaymentByAdmin] =
+    usePhysicianPaymentByAdminMutation();
 
-	const onPayPhysician = async (appointmentId: number) => {
-		try {
-			appointmentId;
-			const res = await PhysicianPaymentByAdmin({
-				paymeninput: {
-					appointmentId: appointmentId,
-				},
-			});
+  const onPayPhysician = async (appointmentId: number) => {
+    try {
+      appointmentId;
+      const res = await PhysicianPaymentByAdmin({
+        paymeninput: {
+          appointmentId: appointmentId,
+        },
+      });
 
-			if (res?.data) {
-				res?.data &&
-					notification.success({
-						message: "Payment Successfull",
-					});
-			}
+      if (res?.data) {
+        res?.data &&
+          notification.success({
+            message: "Payment Successfull",
+          });
+      }
 
-			if (res?.error) {
-				notification.error({
-					message:
-						res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-				});
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+      if (res?.error) {
+        notification.error({
+          message:
+            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-	const columns = [
-		{
-			title: "Appointment ID",
-			dataIndex: "id",
-			key: "id",
-			sorter: {
-				compare: (a: any, b: any) => a.id - b.id,
-				multiple: 3,
-			},
-		},
-		{
-			title: "Patient",
-			dataIndex: "patient",
-			key: "patient",
-			render: (patient: User) => {
-				return <div>{`${patient?.first_name} ${patient?.last_name}`}</div>;
-			},
-			sorter: {
-				compare: (a: any, b: any) => a.first_name - b.first_name,
-				multiple: 3,
-			},
-		},
-		{
-			title: "Service",
-			dataIndex: "serviceType",
-			key: "serviceType",
-			render: (serviceType: AppointmentServiceType) => {
-				return <div>{serviceType?.name}</div>;
-			},
-			sorter: {
-				compare: (a: any, b: any) => a.service - b.service,
-				multiple: 3,
-			},
-		},
-		{
-			title: "Time Slot",
-			dataIndex: "appointmentDateTime",
-			key: "appointmentDateTime",
-			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-				return (
-					<div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formathhmma(
-						appointmentDateTime?.startTime
-					)} - ${date?.formathhmma(appointmentDateTime.endTime)}` : "--"}</div>
-				);
-			},
-			sorter: {
-				compare: (a: any, b: any) => a.timeslot - b.timeslot,
-				multiple: 3,
-			},
-		},
-		{
-			title: "Date",
-			dataIndex: "appointmentDateTime",
-			key: "appointmentDateTime",
-			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-				return (
-					<div className="someclass">{appointmentDateTime?.startTime ? `${date?.formatMMMMDDYYYY(
-						appointmentDateTime?.startTime
-					)} ` : "--"}</div>
-				);
-			},
-			sorter: {
-				compare: (a: any, b: any) => a.timeslot - b.timeslot,
-				multiple: 3,
-			},
-		},
-		{
-			title: "Total Amount",
-			dataIndex: "charges",
-			key: "charges",
-			render: (value: User) => {
-				return <div>${value}</div>;
-			},
-			sorter: {
-				compare: (a: any, b: any) => a.charges - b.charges,
-				multiple: 3,
-			},
-		},
-		{
-			title: "Status",
-			dataIndex: "status",
-			key: "status",
-			render: (status: string) => {
-				return <StatusChip type={status.toUpperCase() as StatusName} />;
-			},
-			sorter: {
-				compare: (a: any, b: any) => a.service - b.service,
-				multiple: 3,
-			},
-		},
-		{
-			title: "",
-			dataIndex: "id",
-			key: "id",
-			render: (appointmentId: number) => {
-				return (
-					<Button
-						className=""
-						type="primary"
-						size={"large"}
-						onClick={() => onPayPhysician(appointmentId)}
-					>
-						Pay Now
-					</Button>
-				);
-			},
-		},
-		{
-			title: "",
-			dataIndex: "id",
-			key: "view",
-			className: "table-action-icon",
-			render: (value: string) => (
-				<div className="text-primary">
-					<EyeFilled
-						className="text-primary"
-						onClick={() => {
-							Router.push(`/admin/physicians/detail/${value}`);
-						}}
-					/>
-				</div>
-			),
-		},
-	];
+  const columns = [
+    {
+      title: "Appointment ID",
+      dataIndex: "id",
+      key: "id",
+      sorter: {
+        compare: (a: any, b: any) => a.id - b.id,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Patient",
+      dataIndex: "patient",
+      key: "patient",
+      render: (patient: User) => {
+        return <div>{`${patient?.first_name} ${patient?.last_name}`}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.first_name - b.first_name,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Service",
+      dataIndex: "serviceType",
+      key: "serviceType",
+      render: (serviceType: AppointmentServiceType) => {
+        return <div>{serviceType?.name}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.service - b.service,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Time Slot",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedStartTime = `${
+          appointmentDateTime?.startTime?.split(" ")[1]
+        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+          appointmentDateTime?.endTime?.split(" ")[2]
+        }`;
+        return (
+          <div>
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${formatedStartTime} - ${formatedEndTime}`
+              : "--"}
+          </div>
+        );
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.timeslot - b.timeslot,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Date",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedDueDate = `${
+          appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
+        return (
+          <div>
+            {appointmentDateTime?.startTime
+              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+              : "--"}
+          </div>
+        );
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.timeslot - b.timeslot,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Total Amount",
+      dataIndex: "charges",
+      key: "charges",
+      render: (value: User) => {
+        return <div>${value}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.charges - b.charges,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status: string) => {
+        return <StatusChip type={status.toUpperCase() as StatusName} />;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.service - b.service,
+        multiple: 3,
+      },
+    },
+    {
+      title: "",
+      dataIndex: "id",
+      key: "id",
+      render: (appointmentId: number) => {
+        return (
+          <Button
+            className=""
+            type="primary"
+            size={"large"}
+            onClick={() => onPayPhysician(appointmentId)}
+          >
+            Pay Now
+          </Button>
+        );
+      },
+    },
+    {
+      title: "",
+      dataIndex: "id",
+      key: "view",
+      className: "table-action-icon",
+      render: (value: string) => (
+        <div className="text-primary">
+          <EyeFilled
+            className="text-primary"
+            onClick={() => {
+              Router.push(`/admin/physicians/detail/${value}`);
+            }}
+          />
+        </div>
+      ),
+    },
+  ];
 
-	function onChangeFilters(filterValue: GetAppointmentInput) {
-		setFilterValues(filterValue);
-		executeUseAdminPhysicianAppointmentQuery({
-			filter: filterValues,
-			requestPolicy: "network-only",
-		});
-	}
+  function onChangeFilters(filterValue: GetAppointmentInput) {
+    setFilterValues(filterValue);
+    executeUseAdminPhysicianAppointmentQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
 
-	return (
-		<div className="w-full">
-			<div className="flex justify-between">
-				<h2 className="pb-0">Appointments</h2>
-			</div>
+  return (
+    <div className="w-full">
+      <div className="flex justify-between">
+        <h2 className="pb-0">Appointments</h2>
+      </div>
 
-			<AdminPhysicianPatientAppointmentSearchFilters
-				onChange={onChangeFilters}
-			/>
-			<div className="w-full">
-				<div>
-					<Table columns={columns} dataSource={appointments} loading={fetching} />
-				</div>
-			</div>
-		</div>
-	);
+      <AdminPhysicianPatientAppointmentSearchFilters
+        onChange={onChangeFilters}
+      />
+      <div className="w-full">
+        <div>
+          <Table
+            columns={columns}
+            dataSource={appointments}
+            loading={fetching}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 export default AdminPhysicianList;

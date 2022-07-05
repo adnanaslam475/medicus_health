@@ -37,7 +37,12 @@ function AdminAppointmentInfoTab({ appointment, loading }: Props) {
       patient_id: appointment?.patient?.id,
     },
   };
-
+  let formatedStartTime = `${
+    appointment?.appointmentDateTime?.startTime?.split(" ")[1]
+  } ${appointment?.appointmentDateTime?.startTime?.split(" ")[2]}`;
+  let formatedEndTime = `${
+    appointment?.appointmentDateTime?.endTime?.split(" ")[1]
+  } ${appointment?.appointmentDateTime?.endTime?.split(" ")[2]}`;
   const normalizedAppointmentData = {
     id: appointment?.id,
     bookingDate: appointment?.requestedDate,
@@ -51,12 +56,11 @@ function AdminAppointmentInfoTab({ appointment, loading }: Props) {
       appointment?.appointmentDateTime?.startTime ||
         selectedAppointment?.startTime
     ),
+
     time: `${
       appointment?.appointmentDateTime?.startTime &&
       appointment?.appointmentDateTime?.endTime
-        ? `${date?.formathhmma(
-            appointment?.appointmentDateTime?.startTime
-          )} - ${date?.formathhmma(appointment?.appointmentDateTime?.endTime)}`
+        ? `${formatedStartTime} - ${formatedEndTime}`
         : "--"
     }`,
     totalAmount: appointment?.charges,
