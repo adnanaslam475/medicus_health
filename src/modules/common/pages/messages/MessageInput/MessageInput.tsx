@@ -15,7 +15,6 @@ function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
   const { messageInfo, onMessage } = useMessageContext();
   const [fileList, setFileList] = useState([]);
-  const [filteredFiles, setFilteredFiles] = useState<any[]>([]);
 
   // File Upload Hook
   const mediaUploader = useMediaUploader();
@@ -66,9 +65,6 @@ function MessageInput() {
   // For Attachment in Chat
   const fileChange = async (info: any) => {
     try {
-      let compareFiles = info.fileList?.filter(
-        (item: any, index: any) => item?.name == filteredFiles[index]?.name
-      );
       setFileList(info.fileList);
     } catch (error) {
       console.log(error);
@@ -86,7 +82,6 @@ function MessageInput() {
       (item, itemIndex) => itemIndex != index
     );
     setFileList(filteredFiles);
-    setFilteredFiles(filteredFiles);
   };
 
   return (
