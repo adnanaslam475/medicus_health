@@ -8,6 +8,7 @@ import {
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   DoctorProfile,
+  Transaction,
 } from "../../../generated/graphql";
 
 // scss
@@ -27,6 +28,7 @@ type props = {
   appointmentDateTime?: AppointmentDateTimeResponse;
   doctorId?: number | null | undefined;
   patientId?: number | null | undefined;
+  transaction?: Transaction | undefined
 };
 
 function AppointmentCard({
@@ -42,6 +44,7 @@ function AppointmentCard({
   appointmentDateTime,
   doctorId,
   patientId,
+  transaction
 }: props) {
 
   function getStatus() {
@@ -108,6 +111,7 @@ function AppointmentCard({
           doctor={doctor}
           doctorProfile={doctorProfile}
           appointmentTimeSlots={appointmentTimeSlots}
+          transaction={transaction}
         />
       );
     case "Suggested":
