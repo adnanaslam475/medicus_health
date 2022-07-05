@@ -71,7 +71,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
 
   return (
     <div className="page-filters flex-none lg:flex items-center mb-5">
-      <div className="flex items-center sm:flex sm:mb-3 lg:mb-0 flex-wrap">
+      <div className="flex items-center sm:flex sm:mb-3 lg:mb-0 flex-wrap lg:w-full">
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:max-w-[400px]">
           <Input
             value={filterValues.searchString as string}
@@ -80,7 +80,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);
             }}
-            // className={`${_classes["mobile-tabs"]} bg-gray-4`}
+            className={`admin-filter text-sm font-rubik`}
           />
         </div>
         <div className="flex-none sm:flex">
@@ -88,10 +88,11 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             <SelectServiceTypeFilter
               onChange={(value) => onChangeFields("serviceId", value)}
               value={filterValues.serviceId as number}
+              isAdminFilter={true}
             />
           </div>
         </div>
-        <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
+        <div className="w-full sm:w-full md:w-full lg:max-w-[200px] text-sm font-rubik">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
               setBookingDate({
@@ -99,6 +100,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 endDate: dateString[1],
               })
             }
+            isAdminFilter={true}
             open={openDateRange === BOOKING}
             onOpen={() => setOpenDateRange(BOOKING)}
             onCancel={() => setOpenDateRange("")}
@@ -123,6 +125,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 endDate: dateString[1],
               })
             }
+            isAdminFilter={true}
             open={openDateRange === SCHEDULED}
             onOpen={() => setOpenDateRange(SCHEDULED)}
             onCancel={() => setOpenDateRange("")}
@@ -146,6 +149,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
               placeholder="Appointment Status"
               onChange={(value) => onChangeFields("status", value as string)}
               value={filterValues.status}
+              isAdminFilter={true}
             />
           </div>
         )}
@@ -153,7 +157,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
           <Select
             placeholder="Payment Status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
-            className="w-full sm:w-50"
+            className="admin-filter w-full sm:w-50 text-sm font-rubik"
           >
             <Select.Option value="paid">PAID</Select.Option>
             <Select.Option value="unpaid">UNPAID</Select.Option>
