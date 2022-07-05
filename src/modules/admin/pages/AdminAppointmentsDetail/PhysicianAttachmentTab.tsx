@@ -8,11 +8,13 @@ import {
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { AttachmentObject } from "common/types/types";
+import { Spin } from "antd";
 
 type Props = {
   appointment: Appointment | undefined;
+  loading?: boolean;
 };
-function AdminAttachmentTab({ appointment }: Props) {
+function AdminAttachmentTab({ appointment, loading }: Props) {
   const { reportUrl } = appointment || {};
 
   let urlArr = parseJson(reportUrl);
@@ -23,11 +25,16 @@ function AdminAttachmentTab({ appointment }: Props) {
     }));
   }
   const { patient, serviceType } = appointment || {};
-  return (
+  return loading ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <>
       <CardWithProfileImageInfo
         name={`${patient?.first_name} ${patient?.last_name}`}
         serviceName={serviceType?.name}
+        imageUrl={appointment?.patient?.patientProfile?.profileImage}
       >
         <div className="flex gap-2">
           {urlArr?.map((item: AttachmentObject) => (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
 import { Button, notification, Tabs } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
@@ -14,7 +14,9 @@ import NotesTab from "common/components/NotesTab/NotesTab";
 
 function AdminAppointmentHistoryDetail() {
   const { query } = useRouter();
-  const [{ data }] = useGetAppointmentByIdQuery({
+  const [activeTab, setActiveTab] = useState<string>("");
+
+  const [{ data, fetching }] = useGetAppointmentByIdQuery({
     variables: { id: Number(query?.id) },
   });
 
@@ -28,30 +30,46 @@ function AdminAppointmentHistoryDetail() {
     appointment?.status || ""
   );
 
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
+  useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+  }, [query]);
+
   return (
     <AppLayout>
       <div>
         <h2 className="mb-4">Appointment History Detail</h2>
 
         <div className="profile-tabs">
-          <Tabs type="card">
+          <Tabs
+            type="card"
+            defaultActiveKey="1"
+            activeKey={activeTab || "1"}
+            onChange={onChangeTabHandler}
+          >
             <Tabs.TabPane tab="Appointment Info" key="1" className="">
               <AdminAppointmentInfoTab
                 appointment={appointment as Appointment}
+                loading={fetching}
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health Questionnaire" key="3">
               <AdminHealthQuestionnaireFormTab
                 appointment={appointment as Appointment}
+                loading={fetching}
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician Questionnaire" key="4">
               <AdminQuestionnaireFormTab
                 appointment={appointment as Appointment}
+                loading={fetching} 
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachment" key="5">
-              <AdminAttachmentTab appointment={appointment as Appointment} />
+              <AdminAttachmentTab appointment={appointment as Appointment} loading={fetching} />
             </Tabs.TabPane>
             {/* {isNotesShow && (
               <Tabs.TabPane tab="Notes" key="6">
