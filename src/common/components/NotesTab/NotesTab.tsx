@@ -28,7 +28,7 @@ type Props = {
 function NotesTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data,fetching }] = useDoctorAppointmentDetailAppointmentInfoQuery({
+  const [{ data, fetching }] = useDoctorAppointmentDetailAppointmentInfoQuery({
     variables: {
       id: Number(query.id),
     },
@@ -91,12 +91,11 @@ function NotesTab({}: Props) {
       });
     }
   };
-  return (
-    fetching ? (
-      <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
-        <Spin />
-      </div>
-    ) : (
+  return fetching ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <div className="md:max-w-1/2">
       <CardWithProfileImageInfo
         name={`${patient?.first_name} ${patient?.last_name}`}
@@ -106,15 +105,15 @@ function NotesTab({}: Props) {
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}
-            {/* {!actualDoctorNotes && ( */}
-            <>
-              <Notes
-                onFinish={addNote}
-                // disabled={actualDoctorNotes !== null}
-              />
-              <div className="mb-3"></div>
-            </>
-            {/* )} */}
+            {!actualDoctorNotes && (
+              <>
+                <Notes
+                  onFinish={addNote}
+                  // disabled={actualDoctorNotes !== null}
+                />
+                <div className="mb-3"></div>
+              </>
+            )}
           </>
         )}
 
@@ -128,14 +127,14 @@ function NotesTab({}: Props) {
         </div>
 
         {/* FOR PATIENT ONLY */}
-        {getRole() === "User" &&
+        {/* {getRole() === "User" &&
           (actualDoctorNotes ? (
             <NotesListingByAppointments
               doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
             />
           ) : (
             <div className="div">No Published Notes Available</div>
-          ))}
+          ))} */}
         {/* HISTORY NOTES */}
 
         <div className="history-notes-cover">
@@ -145,7 +144,7 @@ function NotesTab({}: Props) {
             getRole() === "Doctor") && <NotesHistory />}
         </div>
       </CardWithProfileImageInfo>
-    </div>)
+    </div>
   );
 }
 

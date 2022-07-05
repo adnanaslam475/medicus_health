@@ -36,7 +36,7 @@ function UserProfile({ thread }: Props) {
 	return (
 		<div
 			onClick={onJoinChat}
-			className={`flex px-5 py-4 items-center border border-gray-4 cursor-pointer hover:bg-gray-4`}
+			className={`flex px-1 sm:px-5 py-4 items-center border border-gray-4 cursor-pointer hover:bg-gray-4`}
 		>
 			<div className="relative">
 				<MDNextImage
@@ -65,10 +65,10 @@ function UserProfile({ thread }: Props) {
 			</div>
 			<div className="w-full pl-3">
 				<div className="flex justify-between">
-					<span className="text-black text-base">{`${opposite?.first_name} ${opposite?.last_name}`}</span>
-					<span className="text-base text-gray">03:30 PM</span>
+					<span className="text-black text-base">{`${opposite?.first_name} `} <span className="hidden sm:inline">{`${opposite?.last_name}`}</span></span>
+					<span className="text-base text-gray hidden sm:inline">03:30 PM</span>
 				</div>
-				<div className="flex justify-between">
+				<div className="sm:flex justify-between hidden ">
 					<span className="text-gray text-base block">
 						You :what is the pro..
 					</span>
