@@ -215,7 +215,7 @@ label.ant-radio-wrapper {
     word-spacing: -5px;
     margin-bottom: 0px;
   }
- h1 {
+  h1 {
     word-spacing: -10px !important;
   }
 
@@ -247,7 +247,7 @@ label.ant-radio-wrapper {
   h6 {
     font-weight: book;
     // font-size: 1rem !important;
-     font-size: 16px !important;
+    font-size: 16px !important;
   }
 }
 
@@ -419,5 +419,30 @@ label.ant-radio-wrapper {
 .tab-active-style {
   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #1d84fe !important;
+  }
+}
+
+.admin-filter,
+.admin-filter > input {
+  background: #f6f8fa 0% 0% no-repeat padding-box !important;
+  border: none !important;
+  border-radius: 6px !important;
+}
+
+.admin-filter .ant-select-selector {
+  background: #f6f8fa 0% 0% no-repeat padding-box !important;
+  border: none !important;
+  color: #9295af !important;
+  font-family: "Rubik";
+  border-radius: 6px !important;
+  word-spacing: 1px !important;
+}
+.admin-filter-date-picker {
+  button {
+    color: #9295af !important;
+    background: #f6f8fa 0% 0% no-repeat padding-box !important;
+    border: none !important;
+    border-radius: 6px !important;
+    word-spacing: 1px !important;
   }
 }
