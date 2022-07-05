@@ -8,6 +8,7 @@ import {
   AppointmentTimeSlots,
   BookingDate,
   DoctorProfile,
+  Transaction,
   useGetAllRequestedAppointmentsQuery,
   useGetPhysiciansQuery,
   User,
@@ -111,6 +112,7 @@ function CancelledAppointment() {
                     serviceType,
                     doctor,
                     appointmentTimeSlots,
+                    transaction
                   } = appointmentDetail || {};
                   return (
                     <AppointmentCard
@@ -125,6 +127,7 @@ function CancelledAppointment() {
                       onViewSuggestedSlots={() => {}}
                       setShowModal={setShowModal}
                       doctorProfile={doctor?.doctorProfile as DoctorProfile}
+                      transaction={transaction as Transaction}
                     />
                   );
                 })}
