@@ -164,12 +164,12 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           className="flex-1"
           label="State"
           name="state"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your state",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: "Please enter your state",
+          //   },
+          // ]}
         >
           <Select
             showSearch
