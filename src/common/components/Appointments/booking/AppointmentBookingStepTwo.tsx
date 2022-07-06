@@ -3,19 +3,44 @@ import { Checkbox, Upload, Form } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import Image from "next/image";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
+import GeneralHealthQuesionnairModal from "./GeneralHealthQuesionnairModal";
+import { DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
+import { getUserData } from "common/utils/userData";
 
 const { Dragger } = Upload;
+type Props = {
+  physicianData?: DoctorProfile | undefined | null;
+  adminApp_Details?: DoctorData;
+};
 
-const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
+type DoctorData = {
+  doctor: {
+    doctor_Id: number;
+    doctor_first_name: string;
+    doctor_last_name: string;
+  };
+  patient: {
+    patient_id: number;
+  };
+};
+
+const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const { data, saveStepTwo } = useBookAppointment();
+  const { physicianData, adminApp_Details } = props || {};
+  const { user } = getUserData();
   const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
+  const patientId =  user?.role === "User" ? user?.id : 0;
+  const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
+    variables: { input: patientId as number },
+  });
+  const { patientHealthHistory } = patientHealthData || {};
   const [checked, setChecked] = useState(
     data?.stepTwo?.length > 0 ? false : true
   );
 
-  const props = {
+  const attachmentProps = {
     accept: ".doc, .pdf, image/jpg, image/jpeg,",
     name: "file",
     multiple: true,
@@ -52,13 +77,15 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
     setChecked(e.target.checked);
   };
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   return (
     <>
       <h2>Request an Appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         <Form.Item label="Medical History*">
           <Dragger
-            {...props}
+            {...attachmentProps}
             customRequest={({ onSuccess }) => onSuccess?.({})}
             listType="picture"
           >
@@ -88,30 +115,36 @@ const StepTwo = React.forwardRef(function StepTwo({}, ref: any) {
           name="questionnair"
           rules={[
             {
-              required: !checked,
+              required: !(!!patientHealthHistory?.id),
               message: "General Health Questionnaire is required",
             },
           ]}
         >
           <div className="w-full bg-gray-4 rounded flex items-center p-3">
-            <Checkbox onChange={handlechecked}>
-              <span className="text-gray-2">Health Questionnaire attached</span>
+            <Checkbox
+              onChange={handlechecked}
+              defaultChecked={!!patientHealthHistory?.id}
+              disabled={true}
+            >
+              <span className="text-gray-2">Health Questionnaire is attached</span>
             </Checkbox>
           </div>
         </Form.Item>
         <p className="text-gray-2">
           If you wish to update the make changes in your current Health
-          questionnaire, <a href="#">Click Here.</a>
+          questionnaire,
+          <a onClick={() => setIsModalVisible(true)}>Click Here.</a>
         </p>
-
-        {/* <Form.Item>
-          <div className="flex items-center justify-end">
-            <Button type="primary" htmlType="submit">
-              Save
-            </Button>
-          </div>
-        </Form.Item> */}
       </Form>
+      {isModalVisible && (
+        <GeneralHealthQuesionnairModal
+          setIsModalVisible={setIsModalVisible}
+          isModalVisible={isModalVisible}
+          ref={ref}
+          physicianData={physicianData}
+          adminApp_Details={adminApp_Details}
+        />
+      )}
     </>
   );
 });

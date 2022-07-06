@@ -29,8 +29,11 @@ export type AccountCreationDate = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type AdminDashResponse = {
-  __typename?: 'AdminDashResponse';
+export type AdminDashboardResponse = {
+  __typename?: 'AdminDashboardResponse';
+  gross_sale?: Maybe<Scalars['Float']>;
+  net_gross_sale?: Maybe<Scalars['Float']>;
+  net_physician_fee?: Maybe<Scalars['Float']>;
   total_number_of_appointments?: Maybe<Scalars['Float']>;
   total_number_of_physicians?: Maybe<Scalars['Float']>;
   total_number_of_users?: Maybe<Scalars['Float']>;
@@ -170,6 +173,7 @@ export type ChatChannels = {
   doctorId?: Maybe<Scalars['Int']>;
   id: Scalars['Int'];
   isAdminChat: Scalars['Boolean'];
+  lastMessage?: Maybe<ChatMessages>;
   participants?: Maybe<Array<ChatParticipants>>;
   patientId?: Maybe<Scalars['Int']>;
   receiverDetail?: Maybe<User>;
@@ -177,15 +181,15 @@ export type ChatChannels = {
 
 export type ChatMessages = {
   __typename?: 'ChatMessages';
-  channel: ChatChannels;
+  channel?: Maybe<ChatChannels>;
   channelId: Scalars['Int'];
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   message?: Maybe<Scalars['String']>;
   messageType?: Maybe<Scalars['String']>;
-  receiver: User;
+  receiver?: Maybe<User>;
   receiverId: Scalars['Int'];
-  sender: User;
+  sender?: Maybe<User>;
   senderId: Scalars['Int'];
 };
 
@@ -644,6 +648,7 @@ export type Mutation = {
   removePatientHealthHistory: PatientHealthHistory;
   removeStaff: User;
   removeUser: User;
+  resendActivationLink: User;
   setAsDefaultCard: UserCard;
   setDoctorPassword: User;
   suggestNewTime: Appointment;
@@ -885,6 +890,11 @@ export type MutationRemoveUserArgs = {
 };
 
 
+export type MutationResendActivationLinkArgs = {
+  email: Scalars['String'];
+};
+
+
 export type MutationSetAsDefaultCardArgs = {
   id: Scalars['Int'];
 };
@@ -1006,7 +1016,7 @@ export type ProposedTimeSlots = {
 
 export type Query = {
   __typename?: 'Query';
-  adminDash: AdminDashResponse;
+  adminDashboard: AdminDashboardResponse;
   adminSettings: AdminSettingResponse;
   adminUser: User;
   adminUsers: Array<User>;
@@ -1371,6 +1381,7 @@ export type UpdateStaffInput = {
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
+  password?: InputMaybe<Scalars['String']>;
 };
 
 export type UpdateUserInput = {
@@ -1522,7 +1533,7 @@ export type CreateChatMessageMutationVariables = Exact<{
 }>;
 
 
-export type CreateChatMessageMutation = { __typename?: 'Mutation', createChatMessage: { __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, receiverId: number, message?: string | null, messageType?: string | null, createdAt: any, sender: { __typename?: 'User', id: number, first_name: string, last_name: string }, receiver: { __typename?: 'User', id: number, first_name: string, last_name: string } } };
+export type CreateChatMessageMutation = { __typename?: 'Mutation', createChatMessage: { __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, receiverId: number, message?: string | null, messageType?: string | null, createdAt: any, sender?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null, receiver?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } };
 
 export type CreateDoctorScheduleMutationVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -1813,7 +1824,7 @@ export type GetAdminUsersQuery = { __typename?: 'Query', adminUsers: Array<{ __t
 export type AdminDashboardStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AdminDashboardStatisticsQuery = { __typename?: 'Query', adminDash: { __typename?: 'AdminDashResponse', total_number_of_users?: number | null, total_revenue?: number | null, total_number_of_physicians?: number | null, total_number_of_appointments?: number | null } };
+export type AdminDashboardStatisticsQuery = { __typename?: 'Query', adminDashboard: { __typename?: 'AdminDashboardResponse', total_number_of_users?: number | null, total_revenue?: number | null, total_number_of_physicians?: number | null, total_number_of_appointments?: number | null } };
 
 export type AdminPhysicianAppointmentQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -1872,7 +1883,7 @@ export type GetChannelMessagesQueryVariables = Exact<{
 }>;
 
 
-export type GetChannelMessagesQuery = { __typename?: 'Query', getChannelMessages: Array<{ __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, message?: string | null, messageType?: string | null, createdAt: any, sender: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } }> };
+export type GetChannelMessagesQuery = { __typename?: 'Query', getChannelMessages: Array<{ __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, message?: string | null, messageType?: string | null, createdAt: any, sender?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null }> };
 
 export type CheckEmailAvailabilityQueryVariables = Exact<{
   emailAvailableInput: EmailAvailableInput;
@@ -2872,7 +2883,7 @@ export function useGetAdminUsersQuery(options: Omit<Urql.UseQueryArgs<GetAdminUs
 };
 export const AdminDashboardStatisticsDocument = gql`
     query adminDashboardStatistics {
-  adminDash {
+  adminDashboard {
     total_number_of_users
     total_revenue
     total_number_of_physicians
@@ -4450,8 +4461,32 @@ export default {
     "types": [
       {
         "kind": "OBJECT",
-        "name": "AdminDashResponse",
+        "name": "AdminDashboardResponse",
         "fields": [
+          {
+            "name": "gross_sale",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "net_gross_sale",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "net_physician_fee",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
           {
             "name": "total_number_of_appointments",
             "type": {
@@ -5283,6 +5318,15 @@ export default {
             "args": []
           },
           {
+            "name": "lastMessage",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ChatMessages",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "participants",
             "type": {
               "kind": "LIST",
@@ -5324,12 +5368,9 @@ export default {
           {
             "name": "channel",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "ChatChannels",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "ChatChannels",
+              "ofType": null
             },
             "args": []
           },
@@ -5385,12 +5426,9 @@ export default {
           {
             "name": "receiver",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "User",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
             "args": []
           },
@@ -5408,12 +5446,9 @@ export default {
           {
             "name": "sender",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "User",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
             "args": []
           },
@@ -7191,6 +7226,29 @@ export default {
             ]
           },
           {
+            "name": "resendActivationLink",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "email",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "setAsDefaultCard",
             "type": {
               "kind": "NON_NULL",
@@ -7677,12 +7735,12 @@ export default {
         "name": "Query",
         "fields": [
           {
-            "name": "adminDash",
+            "name": "adminDashboard",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "AdminDashResponse",
+                "name": "AdminDashboardResponse",
                 "ofType": null
               }
             },
