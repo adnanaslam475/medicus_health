@@ -59,6 +59,8 @@ function NotesListingByAppointments(props: Props) {
 
   const status = appointment?.status;
 
+  console.log(actualDoctorNotes, "actualDoctorNotesMy");
+
   return (
     <>
       <div

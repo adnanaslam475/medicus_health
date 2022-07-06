@@ -75,9 +75,7 @@ function PatientAppointmentHistoryDetail() {
                 doctorNotes={doctorNotes as [[string, string]]}
               />
             </Tabs.TabPane> */}
-            {(status === "Confirmed" ||
-              status === "Completed" ||
-              status === "OnGoing") && (
+            {(status === "Confirmed" || status === "Completed") && (
               <>
                 {/* {pathname.includes("appointments") && ( */}
                 <Tabs.TabPane tab={<span>Notes</span>} key="6">
