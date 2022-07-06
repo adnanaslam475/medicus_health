@@ -1892,6 +1892,14 @@ export type CheckEmailAvailabilityQueryVariables = Exact<{
 
 export type CheckEmailAvailabilityQuery = { __typename?: 'Query', checkEmailAvailability: { __typename?: 'EmailAvailableResponse', isEmailAvailable: boolean } };
 
+export type GetAppointmentPriceForRequestQueryVariables = Exact<{
+  serviceId: Scalars['Int'];
+  patientId: Scalars['Int'];
+}>;
+
+
+export type GetAppointmentPriceForRequestQuery = { __typename?: 'Query', getAppointmentPriceForRequest: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -3159,6 +3167,20 @@ export const CheckEmailAvailabilityDocument = gql`
 
 export function useCheckEmailAvailabilityQuery(options: Omit<Urql.UseQueryArgs<CheckEmailAvailabilityQueryVariables>, 'query'>) {
   return Urql.useQuery<CheckEmailAvailabilityQuery>({ query: CheckEmailAvailabilityDocument, ...options });
+};
+export const GetAppointmentPriceForRequestDocument = gql`
+    query getAppointmentPriceForRequest($serviceId: Int!, $patientId: Int!) {
+  getAppointmentPriceForRequest(serviceId: $serviceId, patientId: $patientId) {
+    appointmentPrice
+    tax
+    systemFee
+    total
+  }
+}
+    `;
+
+export function useGetAppointmentPriceForRequestQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentPriceForRequestQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAppointmentPriceForRequestQuery>({ query: GetAppointmentPriceForRequestDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
