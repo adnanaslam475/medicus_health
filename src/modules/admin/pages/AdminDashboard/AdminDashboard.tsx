@@ -9,13 +9,13 @@ import _classes from "./AdminDashboard.module.scss";
 import { useAdminDashboardStatisticsQuery } from "generated/graphql";
 function AdminDashboard() {
   const [{ data }] = useAdminDashboardStatisticsQuery();
-  const { adminDash } = data || {};
+  const { adminDashboard } = data || {};
   const {
     total_number_of_appointments,
     total_number_of_physicians,
     total_number_of_users,
     total_revenue,
-  } = adminDash || {};
+  } = adminDashboard || {};
 
   return (
     <AppLayout>

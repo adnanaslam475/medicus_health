@@ -10,6 +10,7 @@ import { useMediaUploader } from "common/hooks/media";
 import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import Dragger from "antd/lib/upload/Dragger";
+import { hasValidMessage } from "common/utils/helper";
 
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
@@ -53,7 +54,10 @@ function MessageInput() {
         });
         setFileList([]);
       } else {
-        onMessage?.(messageText, "Text");
+        //checking if message contains Aplhanumeric and special characters and not contain only white spaces
+        if (hasValidMessage(messageText)) {
+          onMessage?.(messageText, "Text");
+        }
       }
     }
 
