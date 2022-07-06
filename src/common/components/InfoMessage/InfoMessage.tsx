@@ -23,7 +23,7 @@ const InfoMessage = () => {
         with our Physicians.
       </span>
       <span className="ml-3 min-h-max block md:hidden">Questionnaire</span>
-      <Link href="/">
+      <Link href="/patient/account?activeTab=2">
         <a className="underline text-primary px-3 whitespace-nowrap">
           Complete Now
         </a>
