@@ -35,6 +35,7 @@ function NotesListingByAppointments(props: Props) {
     variables: {
       appointmentId,
     },
+    requestPolicy: "network-only",
   });
 
   const { Panel } = Collapse;
@@ -59,7 +60,7 @@ function NotesListingByAppointments(props: Props) {
 
   const status = appointment?.status;
 
-  console.log(actualDoctorNotes, "actualDoctorNotesMy");
+  console.log(currentAppointmentNotes, "actualDoctorNotesMy");
 
   return (
     <>
