@@ -57,7 +57,7 @@ function NotesTab({}: Props) {
   const actualDoctorNotes =
     appointmentChild?.appointment.currentAppointmentNote;
 
-  console.log(notesByAppointmentId, "mynotesByAppointmentId");
+  console.log(status, "statusMy");
 
   // GET HISTORY NOTES
 
@@ -107,25 +107,36 @@ function NotesTab({}: Props) {
             {/* {!notesByAppointmentId && ( */}
             {!actualDoctorNotes && (
               <>
-                <Notes
-                  onFinish={addNote}
-                  // disabled={actualDoctorNotes !== null}
-                />
-                <div className="mb-3"></div>
+                {(status === "!Requested" ||
+                  status === "!Completed" ||
+                  status === "Confirmed") && (
+                  <>
+                    <Notes
+                      onFinish={addNote}
+                      // disabled={actualDoctorNotes !== null}
+                    />
+                    <div className="mb-3"></div>
+                  </>
+                )}
               </>
             )}
           </>
         )}
-
-        <div className="my-3">
-          <h3>Current Appointment Notes</h3>
-          {actualDoctorNotes && (
-            <NotesListingByAppointments
-              doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
-            />
-          )}
-        </div>
-
+        {/* // || status === "Upcoming"  */}
+        <>
+          <div className="my-3">
+            {actualDoctorNotes && status === "Confirmed" && (
+              <>
+                <h3>Current Appointment Notes</h3>
+                <NotesListingByAppointments
+                  doctorNotes={
+                    notesByAppointmentId as GetDoctorNotesByAppIdQuery
+                  }
+                />
+              </>
+            )}
+          </div>
+        </>
         {/* FOR PATIENT ONLY */}
         {/* {getRole() === "User" &&
           (actualDoctorNotes ? (
@@ -136,7 +147,6 @@ function NotesTab({}: Props) {
             <div className="div">No Published Notes Available</div>
           ))} */}
         {/* HISTORY NOTES */}
-
         <div className="history-notes-cover">
           <h3>History Notes</h3>
           {(getRole() === "User" ||

@@ -35,6 +35,7 @@ function NotesListingByAppointments(props: Props) {
     variables: {
       appointmentId,
     },
+    requestPolicy: "network-only",
   });
 
   const { Panel } = Collapse;
@@ -56,6 +57,10 @@ function NotesListingByAppointments(props: Props) {
   const appDate = actualDoctorNotes?.createdAt;
 
   const a = [0];
+
+  const status = appointment?.status;
+
+  console.log(currentAppointmentNotes, "actualDoctorNotesMy");
 
   return (
     <>

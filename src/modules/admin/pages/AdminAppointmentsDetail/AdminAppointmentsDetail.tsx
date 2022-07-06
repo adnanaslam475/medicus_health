@@ -65,11 +65,14 @@ function AdminAppointmentHistoryDetail() {
             <Tabs.TabPane tab="Physician Questionnaire" key="4">
               <AdminQuestionnaireFormTab
                 appointment={appointment as Appointment}
-                loading={fetching} 
+                loading={fetching}
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachment" key="5">
-              <AdminAttachmentTab appointment={appointment as Appointment} loading={fetching} />
+              <AdminAttachmentTab
+                appointment={appointment as Appointment}
+                loading={fetching}
+              />
             </Tabs.TabPane>
             {/* {isNotesShow && (
               <Tabs.TabPane tab="Notes" key="6">
@@ -82,8 +85,7 @@ function AdminAppointmentHistoryDetail() {
             {(status === "Confirmed" ||
               status === "Completed" ||
               status === "Cancelled" ||
-              status === "Requested" ||
-              status === "OnGoing") && (
+              status === "Requested") && (
               <>
                 {/* {pathname.includes("appointments") && ( */}
                 <Tabs.TabPane tab={<span>Notes</span>} key="6">

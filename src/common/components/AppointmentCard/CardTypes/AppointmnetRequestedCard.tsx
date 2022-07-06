@@ -29,6 +29,12 @@ function AppointmnetRequestedCard({
   setShowModal,
   appointmentDateTime,
 }: Props) {
+  let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
+    appointmentDateTime?.startTime?.split(" ")[2]
+  }`;
+  let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+    appointmentDateTime?.endTime?.split(" ")[2]
+  }`;
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0"> {appointmentId || ""}</span>
@@ -39,8 +45,8 @@ function AppointmnetRequestedCard({
       <span className="text-sm mt-4 block">Time</span>
       <div className="text-secondary">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
-          ? `${date.formathhmma(appointmentDateTime?.startTime)}
-             - ${date.formathhmma(appointmentDateTime?.endTime)}`
+          ? `${formatedStartTime}
+             - ${formatedEndTime}`
           : "--"}
       </div>
       <span className="text-sm mt-4 block font-normal">Status</span>

@@ -6,12 +6,20 @@ query getAllChatChannels {
     patientId
     isAdminChat
     createdAt
+    lastMessage {
+      channelId
+      senderId
+      receiverId
+      message
+      messageType
+      createdAt
+    }
     receiverDetail {
       first_name
       last_name
       role
       email
-     adminProfilePicture {
+      adminProfilePicture {
         profile_picture
       }
       doctorProfile {
@@ -79,5 +87,14 @@ query getChannelMessages($channelId: Int!) {
 query checkEmailAvailability($emailAvailableInput: EmailAvailableInput!) {
   checkEmailAvailability(emailAvailableInput: $emailAvailableInput) {
     isEmailAvailable
+  }
+}
+
+query getAppointmentPriceForRequest($serviceId: Int!, $patientId: Int!) {
+  getAppointmentPriceForRequest(serviceId: $serviceId, patientId: $patientId) {
+    appointmentPrice
+    tax
+    systemFee
+    total
   }
 }

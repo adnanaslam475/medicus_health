@@ -44,7 +44,7 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
         />
       );
     case "stepTwo":
-      return <AppointmentBookingStepTwo ref={ref} />;
+      return <AppointmentBookingStepTwo ref={ref} adminApp_Details={adminApp_Details} physicianData={doctorData}/>;
     case "stepThree":
       return (
         <AppointmentBookingStepThree

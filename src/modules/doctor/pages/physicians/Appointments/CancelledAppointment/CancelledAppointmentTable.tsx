@@ -16,10 +16,10 @@ import { getUserData } from "common/utils/userData";
 
 type Props = {
   dataSource: Appointment[] | undefined;
-  loading:boolean|undefined;
+  loading: boolean | undefined;
 };
 
-function CancelledAppointmentTable({ dataSource,loading }: Props) {
+function CancelledAppointmentTable({ dataSource, loading }: Props) {
   const columns = [
     {
       title: "ID",
@@ -58,7 +58,15 @@ function CancelledAppointmentTable({ dataSource,loading }: Props) {
       key: "appointmentDateTime",
 
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        return <div className="someclass">{appointmentDateTime?.startTime ? date?.formatMMMMDDYYYY(appointmentDateTime?.startTime) : "--"}</div>;
+        let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+
+        return (
+          <div>
+            {appointmentDateTime?.startTime
+              ? date?.formatMMMMDDYYYY(formatedDueDate)
+              : "--"}
+          </div>
+        );
       },
     },
     {
@@ -70,10 +78,18 @@ function CancelledAppointmentTable({ dataSource,loading }: Props) {
         multiple: 3,
       },
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedStartTime = `${
+          appointmentDateTime?.startTime?.split(" ")[1]
+        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+          appointmentDateTime?.endTime?.split(" ")[2]
+        }`;
         return (
-					<div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formathhmma(
-						appointmentDateTime?.startTime
-					)} - ${date?.formathhmma(appointmentDateTime.endTime)}` : "--"}</div>
+          <div>
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${formatedStartTime} - ${formatedEndTime}`
+              : "--"}
+          </div>
         );
       },
     },
@@ -82,7 +98,7 @@ function CancelledAppointmentTable({ dataSource,loading }: Props) {
       dataIndex: "charges",
       key: "charges",
       render: (value: number) => {
-        return <div className="someclass">{value ? `$${value}` : ""}</div>;
+        return <div>{value ? `$${value}` : ""}</div>;
       },
     },
     {
@@ -102,6 +118,13 @@ function CancelledAppointmentTable({ dataSource,loading }: Props) {
       ),
     },
   ];
-  return <Table columns={columns} dataSource={dataSource} loading={loading} scroll={{x:true}} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={dataSource}
+      loading={loading}
+      scroll={{ x: true }}
+    />
+  );
 }
 export default CancelledAppointmentTable;

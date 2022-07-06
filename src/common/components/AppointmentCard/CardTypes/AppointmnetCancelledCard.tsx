@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import {
   AppointmentTimeSlots,
   DoctorProfile,
+  Transaction,
 } from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
@@ -16,6 +17,7 @@ type Props = {
   doctor: string | undefined;
   doctorProfile?: DoctorProfile | undefined | null;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
+  transaction?: Transaction | undefined;
 };
 
 function AppointmnetCancelledCard({
@@ -26,6 +28,7 @@ function AppointmnetCancelledCard({
   doctor,
   doctorProfile,
   appointmentTimeSlots,
+  transaction,
 }: Props) {
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
@@ -77,8 +80,23 @@ function AppointmnetCancelledCard({
             )} - ${date.formathhmma(item.endTime)}`}</div>
           ))
         )}
-        <span className="text-sm">Status</span>
-        <span className="flex text-base text-red font-bold ">{status}</span>
+        <div className="inline-block mr-24">
+          <span className="text-sm">Status</span>
+          <span className="flex text-base text-red font-bold ">{status}</span>
+        </div>
+        <div className="inline-block">
+          <span className="text-sm">Payment Status</span>
+          {transaction ? (
+            <span className="flex text-base text-yellow font-bold ">
+              {transaction?.status}
+            </span>
+          ) : (
+            <span className="flex text-base text-yellow font-bold ">
+              Unpaid
+            </span>
+          )}
+        </div>
+
         <div className="flex">
           <Button
             type={"primary"}
