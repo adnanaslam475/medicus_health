@@ -57,6 +57,8 @@ function NotesListingByAppointments(props: Props) {
 
   const a = [0];
 
+  const status = appointment?.status;
+
   return (
     <>
       <div

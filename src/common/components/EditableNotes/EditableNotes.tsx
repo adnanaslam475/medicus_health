@@ -168,6 +168,8 @@ function EditableNotes() {
             />
           </div>
 
+          <div className="font-bold text-black my-3">SOAP</div>
+
           <AcronymWithTextEditable
             editable={edit}
             character={"S"}

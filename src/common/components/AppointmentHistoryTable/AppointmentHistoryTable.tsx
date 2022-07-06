@@ -33,7 +33,9 @@ const AppointmentHistoryTable = (props: Props) => {
       sorter: true,
       render: (createdAt: string) => {
         return (
-          <div>{createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}</div>
+          <div className="w-full whitespace-nowrap">
+            {createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}
+          </div>
         );
       },
     },
@@ -62,9 +64,11 @@ const AppointmentHistoryTable = (props: Props) => {
       sorter: true,
 
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+        let formatedDueDate = `${
+          appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
         return (
-          <div>
+          <div className="w-full whitespace-nowrap">
             {appointmentDateTime?.startTime
               ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
               : "-"}
@@ -78,14 +82,14 @@ const AppointmentHistoryTable = (props: Props) => {
       key: "appointmentDateTime",
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
-          appointmentDateTime?.startTime?.split(" ")[2]
-        }`;
+        let formatedStartTime = `${
+          appointmentDateTime?.startTime?.split(" ")[1]
+        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
         let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
           appointmentDateTime?.endTime?.split(" ")[2]
         }`;
         return (
-          <div>
+          <div className="w-full whitespace-nowrap">
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime
               ? `${formatedStartTime} - ${formatedEndTime}`
               : "-"}
@@ -99,7 +103,7 @@ const AppointmentHistoryTable = (props: Props) => {
       key: "charges",
       sorter: true,
       render: (charges: AppointmentServiceType) => {
-        return <div>{`$${charges }`} </div>;
+        return <div>{`$${charges}`} </div>;
       },
     },
     {
@@ -110,7 +114,7 @@ const AppointmentHistoryTable = (props: Props) => {
 
       render: (transaction: Transaction) => {
         return (
-          <div>{`${
+          <div className="w-full whitespace-nowrap">{`${
             transaction?.createdAt
               ? date?.formatMMMMDDYYYY(transaction?.createdAt)
               : "--"
@@ -148,7 +152,14 @@ const AppointmentHistoryTable = (props: Props) => {
     },
   ];
 
-  return <Table columns={historyColumns} dataSource={data} loading={loading} scroll={{x:true}}/>;
+  return (
+    <Table
+      columns={historyColumns}
+      dataSource={data}
+      loading={loading}
+      scroll={{ x: true }}
+    />
+  );
 };
 
 export default AppointmentHistoryTable;
