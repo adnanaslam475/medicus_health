@@ -152,7 +152,7 @@ function SearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 gap-y-2 gap-2 flex-wrap`}
     >
-      <span className="text-gray-1 mr-3 mb-3 w-full 2xl:w-fit">Filter</span>
+      <span className="text-gray-1 mr-3  w-full 2xl:w-fit">Filter</span>
       {/* <div className="flex gap-x-2 gap-2"> */}
         <div className="  w-full  lg:w-60  ">
           <Input
@@ -164,7 +164,7 @@ function SearchFilters(props: Props) {
           />
         </div>
         {isFromPhysician ? (
-          <div className="w-full sm:w-full md:w-full lg:w-70 ">
+          <div className="w-full sm:w-full md:w-full lg:w-96 ">
             <Input
               placeholder={placeholder || "Search by ID or patient name"}
               prefix={<SearchOutlined />}

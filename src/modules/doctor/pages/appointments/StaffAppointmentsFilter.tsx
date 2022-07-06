@@ -47,9 +47,9 @@ function StaffAppointmentsFilter({ onChange }: Props) {
   }
 
   return (
-    <div className="page-filters flex-wrap lg:flex items-center">
-      <div className="flex flex-wrap sm:flex-nowrap items-center sm:mb-3 lg:mb-0">
-        <div className="w-full sm:w-full md:w-full lg:w-70">
+    <div className="page-filters flex-wrap lg:flex items-center my-3">
+      <div className="flex  flex-wrap items-center  gap-2 ">
+        <div className="w-full md:w-96">
           <Input
             value={filterState.searchString || ""}
             placeholder="Search by ID, name, email address or contact number"
@@ -59,7 +59,7 @@ function StaffAppointmentsFilter({ onChange }: Props) {
             }}
           />
         </div>
-        <div className="-ml-2 sm:ml-0">
+        <div className="-mt-6 w-full sm:w-60">
         <FilterRangePicker
           onChange={(dateString: string[]) =>
             setCreationDate({
@@ -83,12 +83,12 @@ function StaffAppointmentsFilter({ onChange }: Props) {
           heading="Creation Date"
         />
         </div>
-      </div>
-      <div className={`flex-none sm:flex ${_classes["staff-filter"]}`}>
-        <div className="lg:ml-3 mt-0 sm:mt-0">
+     
+     
+        <div className="w-full sm:w-60">
           <Select
             placeholder="Status"
-            className="w-full sm:w-40"
+            className="w-full sm:w-60"
             onChange={(value) => onChangeFields("status", value as string)}
           >
             <Option value="true">Enable</Option>
