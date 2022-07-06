@@ -54,7 +54,7 @@ function NotesHistory(props: Props) {
 
   const historyNotes = appointmentChild?.appointment?.notesHistory;
 
-  console.log(historyNotes, "getHistoryNotesData");
+  console.log(getHistoryNotesData, "getHistoryNotesData");
 
   const appointmentId = getHistoryNotesData?.appointment?.id;
   console.log(getHistoryNotesData?.appointment.doctor?.first_name, "ss");
@@ -63,7 +63,8 @@ function NotesHistory(props: Props) {
   const lastName = getHistoryNotesData?.appointment?.doctor?.last_name;
 
   const physicianFullName = firstName + " " + lastName;
-  // const status = appointment;
+
+  const status = getHistoryNotesData?.appointment.status;
 
   return (
     <>
@@ -92,33 +93,38 @@ function NotesHistory(props: Props) {
               >
                 <>
                   <div className={`${_classes["narrative-cover"]} `}>
-                    <AcronymWithText
-                      character={"N"}
-                      word={"Narrative"}
-                      sentence={data.note || "No Details"}
-                    />
-                    <div className="font-bold text-black my-3">SOAP</div>
-                    <AcronymWithText
-                      character={"S"}
-                      word={"Subjective"}
-                      sentence={data.subjective || "No Details"}
-                    />
-                    <AcronymWithText
-                      character={"O"}
-                      word={"Objective"}
-                      sentence={data.objective || "No Details"}
-                    />
-
-                    <AcronymWithText
-                      character={"A"}
-                      word={"Assessment"}
-                      sentence={data.assessment || "No Details"}
-                    />
-                    <AcronymWithText
-                      character={"P"}
-                      word={"Plan"}
-                      sentence={data.plan || "No Details"}
-                    />
+                    {(getRole() === "Doctor" || getRole() === "Admin") && (
+                      <>
+                        <AcronymWithText
+                          character={"N"}
+                          word={"Narrative"}
+                          sentence={data.note || "No Details"}
+                        />
+                        <div className="font-bold text-black my-3">SOAP</div>
+                        <AcronymWithText
+                          character={"S"}
+                          word={"Subjective"}
+                          sentence={data.subjective || "No Details"}
+                        />
+                        <AcronymWithText
+                          character={"O"}
+                          word={"Objective"}
+                          sentence={data.objective || "No Details"}
+                        />
+                      </>
+                    )}
+                    <div className="only-patient">
+                      <AcronymWithText
+                        character={"A"}
+                        word={"Assessment"}
+                        sentence={data.assessment || "No Details"}
+                      />
+                      <AcronymWithText
+                        character={"P"}
+                        word={"Plan"}
+                        sentence={data.plan || "No Details"}
+                      />
+                    </div>
                   </div>
                 </>
               </Panel>

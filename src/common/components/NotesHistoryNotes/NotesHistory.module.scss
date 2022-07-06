@@ -40,3 +40,7 @@
   // display: none;
   // border: 1px solid #1a82fe;
 }
+
+.only-patient > div:first-child > div > span {
+  visibility: visible !important;
+}
