@@ -63,9 +63,9 @@ function TransactionReportListFilter({ onChange }: Props) {
 	}
 
 	return (
-		<div className="page-filters flex-none lg:flex items-center ">
-			<div className="flex items-center sm:flex sm:mb-3 lg:mb-0">
-				<div className="w-full sm:w-full md:w-full lg:w-70">
+		<div className="page-filters flex-none lg:flex items-center mb-3 ">
+			<div className="flex items-center sm:flex gap-2 flex-wrap">
+				<div className=" w-full sm:w-80">
 					<Input
 						value={filterState.searchString}
 						placeholder="Search by ID, appointment ID or patient name"
@@ -75,14 +75,14 @@ function TransactionReportListFilter({ onChange }: Props) {
 						}}
 					/>
 				</div>
-				<div className="flex-none sm:flex">
-					<div className="lg:ml-3 mt-3 sm:mt-0">
+				<div className="flex-none w-full sm:w-44 sm:flex">
+					
 						<SelectServiceTypeFilter
 							onChange={(value) => onChangeFields("serviceId", value)}
 							value={filterState?.serviceId}
 						/>
-					</div>
 				</div>
+        <div className="-mt-6 w-full sm:w-60">
 				<FilterRangePicker
 					onChange={(dateString: string[]) =>
 						setBookingDate({startDate: dateString[0],endDate: dateString[1]})}
@@ -101,6 +101,8 @@ function TransactionReportListFilter({ onChange }: Props) {
 					}
 					heading="Booking Date"
 					/>
+           </div>
+          <div className="-mt-6 w-full sm:w-60">
 				<FilterRangePicker
 					onChange={(dateString: string[]) =>
 					setCreationDate({startDate: dateString[0],endDate: dateString[1]})}
@@ -119,14 +121,15 @@ function TransactionReportListFilter({ onChange }: Props) {
 					}
 					heading="Schedule Date"
 				/>
-				<div className="lg:ml-3 sm:mt-0">
+        </div>
+				<div className="w-full sm:w-40">
 					<SelectStatusTypeFilter
 						placeholder="Status"
 						onChange={(value) => onChangeFields("status", value as string)}
 						value={filterState?.status || "Status"}
 					/>
 				</div>
-				<div className="lg:ml-3 sm:mt-0">
+				<div className="w-full sm:w-40">
 					<Select
 						placeholder="Payment Status"
 						onChange={(value) => onChangeFields("paymentStatus", value)}

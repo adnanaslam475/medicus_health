@@ -71,18 +71,18 @@ function PayoutReportListing() {
 				<Panel header="june $448" key="1">
 					<Collapse defaultActiveKey="1">
 						<Panel header="james clark" key="1">
-							<Table columns={columns} dataSource={Ddata} />
+							<Table columns={columns} dataSource={Ddata} scroll={{x:true}} />
 						</Panel>
 						<Panel header="james chadwick" key="2">
-							<Table columns={columns} dataSource={Ddata} />
+							<Table columns={columns} dataSource={Ddata} scroll={{x:true}} />
 						</Panel>
 					</Collapse>
 				</Panel>
 				<Panel header="May $231" key="3">
-					<Table columns={columns} dataSource={Ddata} />
+					<Table columns={columns} dataSource={Ddata} scroll={{x:true}}/>
 				</Panel>
 				<Panel header="April $324" key="4">
-					<Table columns={columns} dataSource={Ddata} loading={true} />
+					<Table columns={columns} dataSource={Ddata} loading={false} scroll={{x:true}} />
 				</Panel>
 			</Collapse>
 		</AppLayout>

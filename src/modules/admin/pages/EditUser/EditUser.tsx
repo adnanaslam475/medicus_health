@@ -5,6 +5,7 @@ import Router, { useRouter } from "next/router";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MessageIcon from "../../../../../public/assets/images/messageIcon.svg";
+import _classes from './EditUser.module.scss';
 import {
   useEnableOrDisablePatientMutation,
   useGetAdminUserByIdQuery,
@@ -13,7 +14,7 @@ import {
   useUpdateAdminMutation,
   useUserForgotPasswordMutation,
 } from "generated/graphql";
-import _classes from "../../staff/staff.module.scss";
+// import _classes from "../../staff/staff.module.scss";
 import EditAdminUserForm from "common/components/EditAdminUserFormItems/EditAdminUserFormItems";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
@@ -143,15 +144,15 @@ function EditAdminUserDetails({}: Props) {
   return (
     <AppLayout>
       <>
-        <div className="flex justify-between items-center">
-          <div className="lg:w-3/5">
-            <h6 className="">{adminUser?.id}</h6>
-            <h1>
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <div className="w-full lg:w-3/5">
+            <h6 className="my-0">{adminUser?.id}</h6>
+            <h1 className="my-0 text-xs leading-8  md:text-lg">
               {adminUser?.first_name} {adminUser?.last_name}
             </h1>
             <p>{adminUser?.email}</p>
           </div>
-          <div className="flex">
+          <div className={`${_classes["btn-wrapper-user"]} my-2 sm:my-0 flex flex-col sm:flex-row justify-self-start items-start mr-auto sm:mr-0`}>
             <div className="flex">
               <Button
                 loading={loading}
@@ -168,13 +169,13 @@ function EditAdminUserDetails({}: Props) {
                 disabled={loading}
                 onClick={handleResetLink}
               >
-                <span className="mx-3">Send Password Reset link</span>
+                <span className="sm:mx-3">Send Password Reset link</span>
               </Button>
             </div>
-            <div className="flex">
+            <div className="flex px-0 mx-0">
               <Button
                 type="link"
-                className="ml-auto"
+                className="sm:ml-auto"
                 danger
                 icon={<CloseOutlined />}
                 onClick={() => setOpen(true)}

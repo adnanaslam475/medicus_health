@@ -151,7 +151,7 @@ function AdminSettings() {
           <div>
             <h2>Appointment Service Charges</h2>
             <h3>Consultation</h3>
-            <div className="flex">
+            <div className="sm:flex">
               <Form.Item
                 label="Total Charges"
                 name="total_consultation_charges"
@@ -161,15 +161,15 @@ function AdminSettings() {
               </Form.Item>
             </div>
 
-            <div className="flex">
+            <div className= {`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}>
               <Form.Item
                 label="Medicus Cut"
                 name="consultation_charges_medicus_cut"
-                className={`${_classes["label-design"]}`}
+                className={`${_classes["label-design "]}`}
               >
                 <InputNumber addonAfter="%" type="number" min={0} />
               </Form.Item>
-              <div className="ml-4">
+              <div className="">
                 <SmallLabelWithTextDiv
                   label={""}
                   value={`${
@@ -179,7 +179,7 @@ function AdminSettings() {
               </div>
             </div>
 
-            <div className="flex">
+            <div className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}>
               <Form.Item
                 label="Physician Cut"
                 name="consultation_charges_physician_cut"
@@ -187,7 +187,7 @@ function AdminSettings() {
               >
                 <InputNumber addonAfter="%" type="number" min={0} />
               </Form.Item>
-              <div className="ml-4">
+              <div className="">
                 <SmallLabelWithTextDiv
                   label={""}
                   value={`${
@@ -201,7 +201,7 @@ function AdminSettings() {
 
             <div>
               <h3>Second Opnion</h3>
-              <div className="flex">
+              <div className="sm:flex">
                 <Form.Item
                   label="Total Charges"
                   name="total_second_opinion_charges"
@@ -211,7 +211,7 @@ function AdminSettings() {
                 </Form.Item>
               </div>
 
-              <div className="flex">
+              <div className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}>
                 <Form.Item
                   label="Medicus Cut"
                   name="second_opinion_charges_medicus_cut"
@@ -219,7 +219,7 @@ function AdminSettings() {
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
-                <div className="ml-4">
+                <div className="">
                   <SmallLabelWithTextDiv
                     label={""}
                     value={`${
@@ -229,7 +229,7 @@ function AdminSettings() {
                 </div>
               </div>
 
-              <div className="flex">
+              <div className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}>
                 <Form.Item
                   label="Physician Cut"
                   name="second_opinion_charges_physician_cut"
@@ -237,7 +237,7 @@ function AdminSettings() {
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
-                <div className="ml-4">
+                <div className="">
                   <SmallLabelWithTextDiv
                     label={""}
                     value={`${

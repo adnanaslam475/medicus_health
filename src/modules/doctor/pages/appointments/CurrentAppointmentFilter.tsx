@@ -48,10 +48,10 @@ function CurrentAppointmentFilter({ onChange }: Props) {
   }
 
   return (
-    <div className="page-filters flex-none lg:flex items-center sm:mb-3 lg:mb-0">
-       <span className="text-gray-1 mr-3">Filter</span>
-      <div className="flex items-center sm:flex sm:mb-0 lg:mb-0">
-        <div className="w-full sm:w-full md:w-full lg:w-70">
+    <div className="page-filters my-4">
+       <span className="text-gray-1 mr-3 w-full lg:w-fit">Filter</span>
+      <div className="flex items-center  sm:mb-0 lg:mb-0 gap-2 flex-wrap">
+        <div className="w-full sm:w-full md:w-full lg:w-60">
           <Input
             value={filterState.searchString}
             placeholder="Search by ID or physician name"
@@ -61,6 +61,7 @@ function CurrentAppointmentFilter({ onChange }: Props) {
             }}
           />
         </div>
+        <div className="-mt-6 w-full sm:w-60">
         <FilterRangePicker
           onChange={(dateString: string[]) =>
             setDueDate({
@@ -85,9 +86,10 @@ function CurrentAppointmentFilter({ onChange }: Props) {
           }
           heading="Date"
         />
-      </div>
-      <div className="flex-none sm:flex xs:-mt-5 flex-wrap sm:-mt-3 lg:mt-0">
-        <div className="lg:ml-3 mt-3 sm:mt-0">
+        </div>
+      
+ 
+        <div className="w-full sm:w-60">
           <SelectServiceTypeFilter
             onChange={(value) => onChangeFields("serviceId", value)}
             value={filterState?.serviceId}
@@ -95,7 +97,8 @@ function CurrentAppointmentFilter({ onChange }: Props) {
         </div>
         <FilterClearButton onClear={clear} />
       </div>
-    </div>
+      </div>
+   
   );
 }
 

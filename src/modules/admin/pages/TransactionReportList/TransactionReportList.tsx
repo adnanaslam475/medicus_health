@@ -205,7 +205,7 @@ function TransactionReportList() {
 	}
 	return (
 		<AppLayout>
-			<div className="flex mb-0">
+			<div className="sm:flex mb-0">
 				<MyEarningsStats
 					label={"Total Consultants"}
 					// text={String(total_number_of_consultation)}
@@ -225,7 +225,7 @@ function TransactionReportList() {
 				<TransactionReportListFilter onChange={onChangeFilters} />
 				<div className="w-full">
 					<div className="">
-						<Table columns={columns} dataSource={Ddata} loading={false}/>  #do loading to true when api is being implemented
+						<Table columns={columns} dataSource={Ddata} loading={false} scroll={{x:true}}/>  
 					</div>
 				</div>
 			</div>

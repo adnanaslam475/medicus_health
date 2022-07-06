@@ -21,7 +21,7 @@ function EmailNotificationPage() {
     <div>
       <div className="w-full mb-10 flex gap-8 items-center">
         <Avatar
-          size={128}
+           size={{ xs: 70, sm: 70, md: 70, lg: 130, xl: 130, xxl: 130 }}
           src={
             <Image
               priority={true}
@@ -35,11 +35,11 @@ function EmailNotificationPage() {
         />
         <div>
           <span>PY-123</span>
-          <h2 className="mb-0">Maxime Bauwents</h2>
+          <h2 className="mb-0  sm:text-base text-lg">Maxime Bauwents</h2>
           <span className="block">usama@gmail.com</span>
         </div>
       </div>
-      <div className="flex md:flex-row gap-0 max-w-[60%]">
+      <div className="flex md:flex-row gap-0 md:max-w-[60%]">
         <div className=" w-full border py-0 rounded-lg border-gray-7">
           <EmailNotification
             title="Patient registration update"

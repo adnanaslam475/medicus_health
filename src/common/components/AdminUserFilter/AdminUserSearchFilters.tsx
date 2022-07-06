@@ -78,11 +78,11 @@ function AdminUserSearchFilters(props: Props) {
 
   return (
     <div
-      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}
+      className={`${_classes["page-filters"]} flex items-center mb-5 flex-wrap`}
     >
-      <span className="text-gray-1 mr-3 mb-3"></span>
-      <div className="flex-none sm:flex">
-        <div className=" w-full sm:w-full md:w-full lg:w-96 mr-2">
+      <span className="text-gray-1  mb-3"></span>
+      <div className="flex gap-2 flex-wrap">
+        <div className=" w-full sm:w-full md:w-full lg:w-96">
           <Input
             placeholder="Search by ID, name or email address"
             prefix={<SearchOutlined />}
@@ -91,7 +91,7 @@ function AdminUserSearchFilters(props: Props) {
           />
         </div>
 
-        <div className="w-full md:w-44 xl:w-60 mr-2 mb-3">
+        <div className="w-full sm:w-44 xl:w-60  ">
           <Select
             placeholder="Status"
             className={`${searchStyle.placeholderColor} w-full`}
@@ -107,11 +107,11 @@ function AdminUserSearchFilters(props: Props) {
           </Select>
         </div>
 
-        <div className="flex-none sm:flex">
+        <div className="w-full  sm:w-60">
           <Space
             direction="vertical"
             size={0}
-            className="w-full md:w-44 xl:w-60 sm:mb-3 mr-2"
+            className="sm:w-60 flex w-full"
           >
             <div className="relative">
               <RangePicker
@@ -169,16 +169,17 @@ function AdminUserSearchFilters(props: Props) {
               </Button>
             </div>
           </Space>
-
+          </div>
+          <div>
           <Button
             onClick={clear}
             type="text"
-            className={`${_classes["btn-clear"]} sm:ml-3`}
+            className={`${_classes["btn-clear"]}`}
           >
             <CloseOutlined className="text-sm" />
             <span className="text-gray-1 text-sm">Clear</span>
           </Button>
-        </div>
+          </div>
       </div>
     </div>
   );

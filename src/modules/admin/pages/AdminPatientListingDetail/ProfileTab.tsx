@@ -257,7 +257,7 @@ function AdminPatientProfileTab({}: Props) {
 
   return (
     <div className={`relative ${_classes["admin-patient-profile-page"]}`}>
-      <div className="w-full mb-10 flex gap-8 items-center">
+      <div className="w-full mb-10 flex gap-8 items-center pt-10">
         <div className="relative">
           <Avatar
             size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
@@ -276,9 +276,10 @@ function AdminPatientProfileTab({}: Props) {
             <h2 className="mb-0">{`${first_name || ""} ${last_name || ""}`}</h2>
           </Skeleton>
           <span className="block">{email}</span>
-          <div className="flex gap-2 pt-2">
+          <div className="gap-y-2 flex-col sm:flex-row flex gap-2 pt-2">
             <div
               className={
+                
                 userDisableInput
                   ? `${_classes["profile-select-enable"]}`
                   : `${_classes["profile-select-disable"]}`
@@ -303,9 +304,9 @@ function AdminPatientProfileTab({}: Props) {
           </div>
         </div>
       </div>
-      <div className="flex mb-8 absolute top-0 right-0">
+      <div className="flex mb-8 absolute top-0 left-0 md:right-0">
         <Button
-          className="ml-auto"
+          className={`${_classes["first-btn"]}} md:ml-auto`}
           loading={loading}
           type="link"
           disabled={loading || disableLoading}

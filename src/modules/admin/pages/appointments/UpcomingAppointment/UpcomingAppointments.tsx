@@ -103,7 +103,7 @@ function UpcomingAppointments() {
             </Button>
           </div>
         </div>
-        <div className="md:w-5/6">
+        <div className="">
           <SearchFilters
             setDataListPhysician={setDataListPhysician}
             setDoctorId={setDoctorId}
