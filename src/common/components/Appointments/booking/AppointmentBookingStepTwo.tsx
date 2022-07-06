@@ -31,9 +31,11 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
-  const patientId =  user?.role === "User" ? user?.id : 0;
+  const patientId =
+    user?.role === "User" ? Number(user?.id) : Number(data?.stepOne?.patient?.split(":")[0]);
   const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
-    variables: { input: patientId as number },
+    variables: { input: patientId  },
+    pause: !patientId,
   });
   const { patientHealthHistory } = patientHealthData || {};
   const [checked, setChecked] = useState(
@@ -126,7 +128,9 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
               defaultChecked={!!patientHealthHistory?.id}
               disabled={true}
             >
-              <span className="text-gray-2">Health Questionnaire is attached</span>
+              <span className="text-gray-2">
+                Health Questionnaire is attached
+              </span>
             </Checkbox>
           </div>
         </Form.Item>
