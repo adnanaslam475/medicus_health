@@ -12,7 +12,7 @@ export function SelectStatusTypeFilter({
   return (
     <Select
       placeholder={placeholder}
-      className="w-full sm:w-50"
+      className="w-full md:w-50"
       onChange={onChange}
       value={value || "Appointment Status"}
     >

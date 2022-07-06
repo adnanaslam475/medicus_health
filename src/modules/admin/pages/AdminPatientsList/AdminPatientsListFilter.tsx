@@ -51,11 +51,11 @@ function AdminPatientsListFilter(props: Props) {
 
   return (
     <div
-      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}
+      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5 flex-wrap`}
     >
       <span className="text-gray-1 mr-3 mb-3"></span>
-      <div className="flex-none sm:flex">
-        <div className=" w-full sm:w-full md:w-full lg:w-96 mr-2">
+      <div className="flex flex-wrap gap-2 ">
+        <div className=" w-full sm:w-full md:w-full lg:w-96 ">
           <Input
             value={filterState.searchField}
             placeholder="Search by ID or name or email address"
@@ -66,14 +66,14 @@ function AdminPatientsListFilter(props: Props) {
           />
         </div>
 
-        <div className="w-full md:w-44 xl:w-44 mr-2 mb-3">
+        <div className="w-full md:w-44 xl:w-44 sm:mt-0">
           <SelectCountryTypeFilter
             onChange={(value) => onChangeFields("countryId", Number(value))}
             value={filterState?.countryId}
           />
         </div>
 
-        <div className="flex-none sm:flex">
+        <div className="w-full md:w-44 xl:w-44 sm:mt-0  flex">
           <SelectStateTypeFilter
             onChange={(value) => onChangeFields("stateId", Number(value))}
             value={filterState?.stateId}
@@ -82,7 +82,7 @@ function AdminPatientsListFilter(props: Props) {
           <Button
             onClick={clear}
             type="text"
-            className={`${_classes["btn-clear"]} sm:ml-3`}
+            className={`${_classes["btn-clear"]} ml-3`}
           >
             <CloseOutlined className="text-sm" />
             <span className="text-gray-1 text-sm">Clear</span>

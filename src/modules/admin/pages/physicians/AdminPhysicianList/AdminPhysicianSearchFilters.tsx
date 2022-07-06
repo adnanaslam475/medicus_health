@@ -67,9 +67,9 @@ function AdminPhysicianSearchFilters(props: Props) {
     pause: countryId === undefined,
   });
   return (
-    <div className="page-filters flex-none lg:flex items-center mb-5">
-      <div className="flex-none sm:flex sm:mb-3 lg:mb-0">
-        <div className="lg:ml-3 sm:w-full md:w-full lg:w-80">
+    <div className="page-filters flex lg:flex items-center mb-5 flex-wrap gap-2">
+      <div className="flex lg:mb-0 ">
+        <div className="flex-1 flex w-80">
           <Input
             value={filterState.searchField || ""}
             placeholder="Search by ID, name or email address"
@@ -78,7 +78,7 @@ function AdminPhysicianSearchFilters(props: Props) {
           />
         </div>
       </div>
-      <div className="lg:ml-3 mt-3 sm:mt-0">
+      <div className="  sm:mt-0">
         <Select
           placeholder="Specialization"
           className="w-full sm:w-40"
@@ -92,21 +92,21 @@ function AdminPhysicianSearchFilters(props: Props) {
           
         </Select>
       </div>
-      <div className="lg:ml-3 mt-3 sm:mt-0 w-full md:w-44 xl:w-44 mr-2 ">
+      <div className=" sm:mt-0  md:w-44 xl:w-44">
      
          <SelectCountryTypeFilter
             onChange={(value) => onChangeFields("countryId", Number(value))}
             value={filterState?.countryId}
           />
       </div>
-      <div className="lg:ml-2 mt-3 sm:mt-0">
+      <div className="sm:mt-0">
       <SelectStateTypeFilter 
             onChange={(value) => onChangeFields("stateId", Number(value))}
             value={filterState?.stateId}
             selectedCountryId={filterState.countryId}
           />
       </div>
-      <div className="lg:ml-3 mt-3 sm:mt-0">
+      <div className="sm:mt-0">
         <Select
           placeholder="Language"
           className="w-full sm:w-40"
@@ -117,7 +117,7 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="Spanish">Espanol</Option>
         </Select>
       </div>
-      <Button type="text" className="sm:ml-3" onClick={clear}>
+      <Button type="text" className="" onClick={clear}>
         <CloseOutlined className="text-sm" />
         <span className="text-gray-1">Clear</span>
       </Button>

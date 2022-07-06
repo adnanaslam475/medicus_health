@@ -271,6 +271,7 @@ function AdminAppointmentsListing({}: Props) {
                 dataSource={appointments}
                 onChange={onChange}
                 loading={fetching}
+                scroll={{x:true}}
               />
             </div>
           </div>

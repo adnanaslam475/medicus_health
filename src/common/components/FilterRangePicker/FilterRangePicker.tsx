@@ -24,7 +24,7 @@ export function FilterRangePicker({
   onOpen: () => void;
 }) {
   return (
-    <div className={`relative mb-6 my-0 pl-2 " ${_classes["filter-date-wrapper"]}`} >
+    <div className={`relative  my-0  " ${_classes["filter-date-wrapper"]}`} >
       <DatePicker.RangePicker
         value={null}
         onChange={(_, formatString) => onChange(formatString)}

@@ -70,9 +70,9 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
   }
 
   return (
-    <div className="page-filters flex-none lg:flex items-center mb-5">
-      <div className="flex items-center sm:flex sm:mb-3 lg:mb-0 flex-wrap">
-        <div className="lg:ml-3 w-full sm:w-full md:w-full lg:max-w-[400px]">
+    <div className="page-filters flex-none lg:flex items-center mb-5 flex-wrap">
+      <div className="flex items-center sm:flex sm:mb-3 lg:mb-0 flex-wrap gap-2">
+        <div className=" w-full sm:w-full md:w-full lg:max-w-[400px] mb-2 sm:mb-0">
           <Input
             value={filterValues.searchString as string}
             placeholder="Search by ID, physician name or patient name"
@@ -83,15 +83,15 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             // className={`${_classes["mobile-tabs"]} bg-gray-4`}
           />
         </div>
-        <div className="flex-none sm:flex">
-          <div className="lg:ml-3 mt-3 sm:mt-0">
+        <div className="flex-1 flex flex-col sm:flex-row  sm:w-60">
+          <div className="w-full sm:mt-0">
             <SelectServiceTypeFilter
               onChange={(value) => onChangeFields("serviceId", value)}
               value={filterValues.serviceId as number}
             />
           </div>
         </div>
-        <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
+        <div className="w-full sm:w-full md:w-full lg:max-w-[200px] -mt-6">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
               setBookingDate({
@@ -115,7 +115,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             heading="Booking Date"
           />
         </div>
-        <div className="w-full sm:w-full md:w-full lg:max-w-[200px]">
+        <div className="w-full sm:w-full md:w-full lg:max-w-[200px] -mt-6">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
               setDueDate({
@@ -141,7 +141,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
         </div>
 
         {getRole() === "Admin" && (
-          <div className="lg:ml-3 sm:mt-0">
+          <div className="w-full lg:max-w-[200px] sm:mt-0   flex flex-col sm:flex-row">
             <SelectStatusTypeFilter
               placeholder="Appointment Status"
               onChange={(value) => onChangeFields("status", value as string)}
@@ -149,7 +149,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             />
           </div>
         )}
-        <div className="lg:ml-3 sm:mt-0">
+        <div className=" sm:mt-0 flex-1 flex flex-col sm:flex-row lg:max-w-[200px]">
           <Select
             placeholder="Payment Status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
@@ -160,7 +160,8 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             <Select.Option value="refunded">REFUNDED</Select.Option>
           </Select>
         </div>
-        <FilterClearButton onClear={clear} />
+       
+      <FilterClearButton onClear={clear} />
       </div>
     </div>
   );
