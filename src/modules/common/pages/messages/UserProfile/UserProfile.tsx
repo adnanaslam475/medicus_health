@@ -21,9 +21,6 @@ function UserProfile({ thread }: Props) {
   //get last message
   const { message, messageType } = lastMessage || {};
 
-  //get media name
-  const fileName = message && message.split("com")[1]?.replace("/", "");
-
   async function onJoinChat() {
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
@@ -83,7 +80,7 @@ function UserProfile({ thread }: Props) {
         </div>
         <div className="sm:flex justify-between hidden ">
           <span className="text-gray text-base block">
-            {messageType === "Media" ? fileName : message}
+            {messageType === "Media" ? "Sent a Photo" : message}
           </span>
           {/* <span className="rounded-lg bg-red px-2 py-0 text-white">3</span> */}
         </div>
