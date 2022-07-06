@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   DoctorProfile,
   useCreateAppointmentMutation,
+  usePatientHealthHistoryQuery,
   User,
 } from "../../../generated/graphql";
 import CurrentStepContent from "./CurrentStepContent";
@@ -162,6 +163,10 @@ function BookAppointmentModal({
     }
   };
 
+  const patientIdforCreateAppointment =
+    Number(adminApp_Details?.patient?.patient_id) ||
+    Number(adminPatientId) ||
+    (id as number);
   async function onRequestAppointment() {
     try {
       const urls = await fileUpload(
@@ -169,10 +174,6 @@ function BookAppointmentModal({
           ({ originFileObj }: { originFileObj: File }) => originFileObj
         )
       );
-      const patientIdforCreateAppointment =
-        Number(adminApp_Details?.patient?.patient_id) ||
-        Number(adminPatientId) ||
-        (id as number);
 
       const doctorIdforCreateAppointment =
         Number(doctorData?.doctor_id) ||
@@ -201,6 +202,11 @@ function BookAppointmentModal({
     } catch (error) {}
   }
 
+  const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
+    variables: { input: patientIdforCreateAppointment as number },
+  });
+  const { patientHealthHistory } = patientHealthData || {};
+
   const NextClickHandler = ({ propsCurrentStepName }: any) => {
     const stepOneFields = form?.current?.getFieldsValue([
       "physician",
@@ -208,18 +214,13 @@ function BookAppointmentModal({
       "requestedDate",
       "service",
     ]);
-    const stepTwoFields = form?.current?.getFieldsValue(["questionnair"]);
     const stepThreeFields = form?.current?.getFieldsValue();
     if (
       currentStepName === "stepOne" &&
       Object.values(stepOneFields).some((value) => value === undefined)
     ) {
       form.current?.submit();
-    } else if (
-      currentStepName === "stepTwo" &&
-      !appoinmentData?.stepTwo?.length &&
-      Object.values(stepTwoFields).some((value) => value === undefined)
-    ) {
+    } else if (currentStepName === "stepTwo" && !patientHealthHistory?.id) {
       form.current?.submit();
     } else if (
       currentStepName === "stepThree" &&
