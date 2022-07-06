@@ -97,13 +97,14 @@ function NotesHistory(props: Props) {
                       word={"Narrative"}
                       sentence={data.note || "No Details"}
                     />
+                    <div className="font-bold text-black my-3">SOAP</div>
                     <AcronymWithText
                       character={"S"}
                       word={"Subjective"}
                       sentence={data.subjective || "No Details"}
                     />
                     <AcronymWithText
-                      character={"S"}
+                      character={"O"}
                       word={"Objective"}
                       sentence={data.objective || "No Details"}
                     />

@@ -57,7 +57,7 @@ function NotesTab({}: Props) {
   const actualDoctorNotes =
     appointmentChild?.appointment.currentAppointmentNote;
 
-  console.log(notesByAppointmentId, "mynotesByAppointmentId");
+  console.log(status, "statusMy");
 
   // GET HISTORY NOTES
 
@@ -117,14 +117,22 @@ function NotesTab({}: Props) {
           </>
         )}
 
-        <div className="my-3">
-          <h3>Current Appointment Notes</h3>
-          {actualDoctorNotes && (
-            <NotesListingByAppointments
-              doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
-            />
-          )}
-        </div>
+        {status === "Upcoming" && (
+          // || status === "Upcoming" ||
+          // status === "OnGoing"
+          <>
+            <div className="my-3">
+              <h3>Current Appointment Notes</h3>
+              {actualDoctorNotes && (
+                <NotesListingByAppointments
+                  doctorNotes={
+                    notesByAppointmentId as GetDoctorNotesByAppIdQuery
+                  }
+                />
+              )}
+            </div>
+          </>
+        )}
 
         {/* FOR PATIENT ONLY */}
         {/* {getRole() === "User" &&

@@ -13,7 +13,7 @@ export const PATIENT_ROUTES: routes = [
 
     route: "+",
     submenu: [
-      { name: "Current", route: "/patient/appointments/current" },
+      // { name: "Current", route: "/patient/appointments/current" },
       { name: "Upcoming", route: "/patient/appointments/upcoming" },
       { name: "Requested", route: "/patient/appointments/requested" },
       { name: "Cancelled", route: "/patient/appointments/cancelled" },
@@ -55,7 +55,7 @@ export const DOCTOR_ROUTES: routes = [
     route: "/physician/dashboard",
     toggleName: "Appointments",
     submenu: [
-      { name: "Current", route: "/physician/appointments/current" },
+      // { name: "Current", route: "/physician/appointments/current" },
       { name: "Upcoming", route: "/physician/appointments/upcoming" },
       { name: "Requested", route: "/physician/appointments/requested" },
       { name: "Cancelled", route: "/physician/appointments/cancelled" },
