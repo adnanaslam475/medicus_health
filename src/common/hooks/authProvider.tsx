@@ -68,6 +68,7 @@ function AuthProvider({ children }: any) {
       "/user/resetPassword",
       "/admin/physicians/setPassword",
       "/successScreen",
+      "/sendResetPasswordLink",
     ];
     const path = url.split("?")[0];
     if (!userData?.access_token && !publicPaths.includes(path)) {
