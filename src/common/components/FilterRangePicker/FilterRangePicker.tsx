@@ -14,7 +14,7 @@ export function FilterRangePicker({
   onApply,
   onOpen,
   heading,
-  isAdminFilter
+  isAdminFilter,
 }: {
   open: boolean;
   title: ReactChild | undefined | null;
@@ -23,7 +23,7 @@ export function FilterRangePicker({
   onCancel: () => void;
   onApply: () => void;
   onOpen: () => void;
-  isAdminFilter?:boolean
+  isAdminFilter?: boolean;
 }) {
   return (
     <div className={` ${isAdminFilter && "admin-filter-date-picker"} relative my-0  " ${_classes["filter-date-wrapper"]}`} >
@@ -43,9 +43,13 @@ export function FilterRangePicker({
         onClick={onOpen}
       >
         {!!title ? (
-          <span className={`${_classes["heading-verbage-selected"]}`}>{title}</span>
+          <span className={`${_classes["heading-verbage-selected"]}`}>
+            {title}
+          </span>
         ) : (
-          <div className={`${_classes["filter-date-wrapper"]} flex justify-between items-center w-full px-2`}>
+          <div
+            className={`${_classes["filter-date-wrapper"]} flex justify-between items-center w-full px-2`}
+          >
             <div className="flex items-center">
               <span className="mr-1 mt-1">
                 <Image
@@ -56,8 +60,9 @@ export function FilterRangePicker({
                   alt=""
                 />
               </span>
-             <span className={`${_classes["heading-verbage"]}`}> {heading}</span>
-          
+              <span className={`${_classes["heading-verbage"]}`}>
+                {heading}
+              </span>
             </div>
             <div className="flex">
               <CaretDownOutlined />
