@@ -74,11 +74,11 @@ function SearchFilters(props: Props) {
 
   return (
     <div
-      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5 flex-wrap`}
+      className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 flex-wrap gap-2`}
     >
-      <span className="text-gray-1 mr-3 mb-3 sm:block">Filter</span>
-      <div className="flex-none sm:flex">
-        <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-0 lg:mr-0">
+      <span className="text-gray-1 sm:mr-3 sm:block mr-auto w-full xl:w-fit">Filter</span>
+      {/* <div className="flex-none sm:flex"> */}
+        <div className="   w-full sm:w-full md:w-full lg:w-60 ">
           <Input
             placeholder={"Search by ID"}
             prefix={<SearchOutlined />}
@@ -88,7 +88,7 @@ function SearchFilters(props: Props) {
           />
         </div>
         {isFromPhysician ? (
-          <div className="sm:mb-0 mb:2 lg:ml-3 w-full sm:w-full md:w-full lg:w-70 mr-2">
+          <div className="  w-full sm:w-full md:w-full lg:w-70 ">
             <Input
               placeholder={"Search by ID or patient name"}
               prefix={<SearchOutlined />}
@@ -97,7 +97,7 @@ function SearchFilters(props: Props) {
             />
           </div>
         ) : (
-          <div className=" sm:mb-0 w-full md:w-44 xl:w-60 mx-2 lg:mx-3 mb-2">
+          <div className=" w-full md:w-44 xl:w-60  ">
             <Select
               placeholder="Physician"
               className={`${searchStyle.placeholderColor} w-full`}
@@ -113,7 +113,7 @@ function SearchFilters(props: Props) {
           </div>
         )}
 
-        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3 mt-3 sm:mt-0">
+        <div className="w-full md:w-44 xl:w-60 ">
           <Select
             suffixIcon={
               <div className="text-gray">
@@ -132,12 +132,12 @@ function SearchFilters(props: Props) {
             ))}
           </Select>
         </div>
-      </div>
-      <div className="flex-none sm:flex">
+      {/* </div> */}
+      <div className="flex-none sm:flex w-full md:w-44 xl:w-60">
         <Space
           direction="vertical"
           size={0}
-          className="w-full md:w-44 xl:w-60 sm:mb-3"
+          className="w-full md:w-44 xl:w-60 "
         >
           <div className="relative">
             <RangePicker
@@ -209,15 +209,16 @@ function SearchFilters(props: Props) {
             </Button>
           </div>
         </Space>
-        <Button
+  
+      </div>
+      <Button
           onClick={onClear}
           type="text"
-          className={`${_classes["btn-clear"]} sm:ml-3`}
+          className={`${_classes["btn-clear"]} ml-3 mr-auto sm:ml-0 sm:mr-0`}
         >
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1 text-sm">Clear</span>
         </Button>
-      </div>
     </div>
   );
 }
