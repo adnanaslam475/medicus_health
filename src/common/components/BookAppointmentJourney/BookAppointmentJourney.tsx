@@ -124,7 +124,6 @@ function BookAppointmentModal({
     if (stepName === "stepOne") {
       setCurrentStepName("stepTwo");
     } else if (stepName === "stepTwo") {
-      console.log("sssssssstemp is ", stepName);
       setCurrentStepName("stepThree");
     } else if (stepName === "stepThree") {
       setCurrentStepName("stepFour");
@@ -220,12 +219,6 @@ function BookAppointmentModal({
       "service",
     ]);
     const stepThreeFields = form?.current?.getFieldsValue();
-    console.log(
-      "farhan bhai is",
-      currentStepName ,
-      Object.values(stepThreeFields),
-      Object.values(stepThreeFields).every(item=>item !== "" && item !== undefined)
-    );
     if (
       currentStepName === "stepOne" &&
       Object.values(stepOneFields).some((value) => !value)
@@ -235,11 +228,12 @@ function BookAppointmentModal({
       return form.current?.submit();
     } else if (
       currentStepName === "stepThree" &&
-      Object.values(stepThreeFields).some(item=>item === "" || item === undefined)
+      Object.values(stepThreeFields).some(
+        (item) => item === "" || item === undefined
+      )
     ) {
       return form.current?.submit();
     } else {
-      console.log("alexa");
       return next(currentStepName);
     }
   };

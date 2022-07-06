@@ -63,7 +63,6 @@ export function FilterRangePicker({
                 />
               </span>
               <span className={`${_classes["heading-verbage"]}`}>
-                {" "}
                 {heading}
               </span>
             </div>

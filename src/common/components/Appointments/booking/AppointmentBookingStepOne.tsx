@@ -122,7 +122,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }
 
     function disabledDate(current: any) {
-      console.log("current is",current,dayjs(current).isBefore(dayjs().add(1, "day")));
       if (serviceInfo) {
         if (
           serviceInfo[0]?.name === "Consultation" ||
@@ -133,7 +132,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
           return dayjs(current).isBefore(dayjs().add(4, "day"));
         }
         return true;
-      } else return false
+      } else return false;
     }
 
     function onFinishLocal(values: any) {
@@ -144,7 +143,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         charges: serviceInfo?.[0].price || values.charges,
         serviceName: serviceInfo?.[0]?.name || serviceName,
         serviceInfo,
-        doctorSchedule:scheduleDetails
+        doctorSchedule: scheduleDetails,
       };
       saveStepOne?.(tempObj);
     }

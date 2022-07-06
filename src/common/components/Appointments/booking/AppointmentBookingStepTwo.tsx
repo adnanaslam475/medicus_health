@@ -82,7 +82,6 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  console.log("main step two file", !!patientHealthHistory?.id);
   return (
     <>
       <h2>Request an Appointment</h2>
