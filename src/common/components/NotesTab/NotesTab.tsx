@@ -57,7 +57,7 @@ function NotesTab({}: Props) {
   const actualDoctorNotes =
     appointmentChild?.appointment.currentAppointmentNote;
 
-  console.log(appointmentChild, "statusMy");
+  console.log(status, "statusMy");
 
   // GET HISTORY NOTES
 
@@ -107,16 +107,22 @@ function NotesTab({}: Props) {
             {/* {!notesByAppointmentId && ( */}
             {!actualDoctorNotes && (
               <>
-                <Notes
-                  onFinish={addNote}
-                  // disabled={actualDoctorNotes !== null}
-                />
-                <div className="mb-3"></div>
+                {(status === "!Requested" ||
+                  status === "!Completed" ||
+                  status === "Confirmed") && (
+                  <>
+                    <Notes
+                      onFinish={addNote}
+                      // disabled={actualDoctorNotes !== null}
+                    />
+                    <div className="mb-3"></div>
+                  </>
+                )}
               </>
             )}
           </>
         )}
-        {/* // || status === "Upcoming" || // status === "OnGoing" */}
+        {/* // || status === "Upcoming"  */}
         <>
           <div className="my-3">
             {actualDoctorNotes && status === "Confirmed" && (
