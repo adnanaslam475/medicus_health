@@ -4,18 +4,16 @@ import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 export function SelectServiceTypeFilter({
   onChange,
   value,
-  isAdminFilter,
 }: {
   onChange: (value: string | number) => void;
   value?: string | number;
-  isAdminFilter?: boolean;
 }) {
   const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = serviceTypes || {};
   return (
     <Select
       placeholder="Appointment Type"
-      className={isAdminFilter ? `admin-filter w-full text-sm font-rubik` : "w-full"}
+      className={"w-full"}
       onChange={onChange}
       value={value}
     >

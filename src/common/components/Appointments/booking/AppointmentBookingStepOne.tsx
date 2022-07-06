@@ -131,8 +131,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
         } else if (serviceInfo[0]?.name === "Second Opinion") {
           return dayjs(current).isBefore(dayjs().add(4, "day"));
         }
-      }
-      return true;
+        return true;
+      } else return false;
     }
 
     function onFinishLocal(values: any) {
@@ -143,7 +143,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         charges: serviceInfo?.[0].price || values.charges,
         serviceName: serviceInfo?.[0]?.name || serviceName,
         serviceInfo,
-        doctorSchedule:scheduleDetails
+        doctorSchedule: scheduleDetails,
       };
       saveStepOne?.(tempObj);
     }

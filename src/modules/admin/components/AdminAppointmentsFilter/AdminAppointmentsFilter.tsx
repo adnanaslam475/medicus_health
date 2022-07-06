@@ -80,7 +80,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);
             }}
-            className={`admin-filter text-sm font-rubik`}
+            className={`text-sm font-rubik`}
           />
         </div>
         <div className="flex-none sm:flex">
@@ -88,7 +88,6 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             <SelectServiceTypeFilter
               onChange={(value) => onChangeFields("serviceId", value)}
               value={filterValues.serviceId as number}
-              isAdminFilter={true}
             />
           </div>
         </div>
@@ -100,7 +99,6 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 endDate: dateString[1],
               })
             }
-            isAdminFilter={true}
             open={openDateRange === BOOKING}
             onOpen={() => setOpenDateRange(BOOKING)}
             onCancel={() => setOpenDateRange("")}
@@ -125,7 +123,6 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 endDate: dateString[1],
               })
             }
-            isAdminFilter={true}
             open={openDateRange === SCHEDULED}
             onOpen={() => setOpenDateRange(SCHEDULED)}
             onCancel={() => setOpenDateRange("")}
@@ -157,7 +154,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
           <Select
             placeholder="Payment Status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
-            className="admin-filter w-full sm:w-50 text-sm font-rubik"
+            className="w-full sm:w-50 text-sm font-rubik text-grey"
           >
             <Select.Option value="paid">PAID</Select.Option>
             <Select.Option value="unpaid">UNPAID</Select.Option>
