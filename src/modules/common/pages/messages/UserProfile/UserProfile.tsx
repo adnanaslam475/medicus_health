@@ -16,7 +16,13 @@ function UserProfile({ thread }: Props) {
   const { setCurrentChannel, loginToRtm, onJoinChannel } = useMessageContext();
 
   //get channel dateTime
-  const { createdAt } = thread || {};
+  const { createdAt, lastMessage } = thread || {};
+
+  //get last message
+  const { message, messageType } = lastMessage || {};
+
+  //get media name
+  const fileName = message && message.split("com")[1]?.replace("/", "");
 
   async function onJoinChat() {
     setCurrentChannel(thread);
@@ -77,7 +83,7 @@ function UserProfile({ thread }: Props) {
         </div>
         <div className="sm:flex justify-between hidden ">
           <span className="text-gray text-base block">
-            You :what is the pro..
+            {messageType === "Media" ? fileName : message}
           </span>
           {/* <span className="rounded-lg bg-red px-2 py-0 text-white">3</span> */}
         </div>
