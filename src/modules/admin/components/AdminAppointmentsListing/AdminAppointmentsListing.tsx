@@ -65,7 +65,7 @@ const appointmentColumns = [
   {
     title: "Due Date",
     dataIndex: "appointmentDateTime",
-    key: "appointmentDateTime",
+    key: "startTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
@@ -234,7 +234,6 @@ function AdminAppointmentsListing({}: Props) {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    console.log("sorter=========>", sorter);
     setSorting({
       order:
         (["transaction", "status"].includes(sorter.field) &&
@@ -246,7 +245,8 @@ function AdminAppointmentsListing({}: Props) {
         `${
           (["transaction"].includes(sorter.field) && "transaction") ||
           (sorter.columnKey === "name" && "appointment_service_type") ||
-          (["status", "charges", "requestedDate", "id"].includes(
+          (/startTime/.test(sorter.columnKey) && "appointment_time_slots") ||
+          (/(status|charges|requestedDate|createdAt|id)/.test(
             sorter.columnKey
           ) &&
             "appointment") ||

@@ -50,7 +50,7 @@ const historyColumns = [
   {
     title: "Date",
     dataIndex: "appointmentDateTime",
-    key: "appointment_time_slots",
+    key: "startTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
@@ -91,7 +91,7 @@ const historyColumns = [
   {
     title: "Transaction Date",
     dataIndex: "transaction",
-    key: "transaction",
+    key: "createdAt",
     sorter: true,
     render: (transaction: Transaction) => {
       return (

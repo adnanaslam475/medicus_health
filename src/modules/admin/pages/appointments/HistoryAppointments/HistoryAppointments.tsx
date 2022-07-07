@@ -47,6 +47,7 @@ function CancelledAppointment() {
       variables: {
         filter: filterValues,
         pagination: { limit: -1, page: 1 },
+        sorting,
       },
     });
   const { appointments } = data || {};
@@ -72,16 +73,19 @@ function CancelledAppointment() {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    // console.log("sorter", sorter);
+    console.log("sorter===>", sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
         ? `${
-            (["charges", "requestedDate", "createdAt", "status"].includes(
+            (sorter.field === "transaction" && "transaction") ||
+            (/(status|charges|requestedDate|createdAt|id)/.test(
               sorter.columnKey
             ) &&
               "appointment") ||
-            "doctor"
+            (sorter.columnKey === "name" && "appointment_service_type") ||
+            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+            "user"
           }.${sorter.columnKey || sorter.field}`
         : "",
     });
