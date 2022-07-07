@@ -12,6 +12,7 @@ import png from "../../../../../public/assets/images/png.png";
 import zip from "../../../../../public/assets/images/zip.jpeg";
 import docx from "../../../../../public/assets/images/docx.png";
 import doc from "../../../../../public/assets/images/doc.jpg";
+import { StarOutlined } from "@ant-design/icons";
 
 const { Dragger } = Upload;
 type Props = {
@@ -94,6 +95,10 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
     fileList: data?.stepTwo || fileList,
     onDrop(e: { dataTransfer: { files: any } }) {
       // saveStepTwo?.(e.dataTransfer.files);
+    },
+    showUploadList: {
+      showRemoveIcon: true,
+      removeIcon: "X",
     },
   };
 
