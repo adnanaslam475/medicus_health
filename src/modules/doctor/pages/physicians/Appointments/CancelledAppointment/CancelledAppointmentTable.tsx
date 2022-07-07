@@ -9,6 +9,9 @@ import {
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
+// import { getUserData } from "common/utils/userData";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
 
 type Props = {
   dataSource: Appointment[] | undefined;
@@ -56,6 +59,10 @@ function CancelledAppointmentTable({
       key: "appointment_time_slots",
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        // let formatedDueDate = `${
+        //   appointmentDateTime?.startTime?.split(" ")[0]
+        // }`;
+
         return (
           <div className="someclass">
             {appointmentDateTime?.startTime
@@ -84,6 +91,40 @@ function CancelledAppointmentTable({
                   appointmentDateTime?.startTime
                 )} - ${date?.formathhmma(appointmentDateTime.endTime)}`
               : "--"}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Appointment Status",
+      dataIndex: "status",
+      key: "status",
+      className: "table-action-icon",
+      render: (value: any) => {
+        return (
+          <div className="text-primary">
+            <StatusChip type={value?.toUpperCase()} />
+          </div>
+        );
+      },
+    },
+    {
+      title: "Payment Status",
+      dataIndex: "transaction",
+      key: "transaction",
+      className: "table-action-icon",
+      render: (value: any) => {
+        let _status = null;
+        if (value?.status === "succeeded") {
+          _status = "paid";
+        } else if (value?.status === "Refunded") {
+          _status = value?.status;
+        } else {
+          _status = "Unpaid";
+        }
+        return (
+          <div className="text-primary">
+            <StatusChip type={_status.toUpperCase() as StatusName} />
           </div>
         );
       },

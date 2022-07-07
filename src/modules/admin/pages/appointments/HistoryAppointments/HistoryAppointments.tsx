@@ -1,5 +1,5 @@
+import { DatePicker, Button, Tooltip } from "antd";
 import React, { useState } from "react";
-import { Button } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 
 import {
@@ -7,14 +7,21 @@ import {
   GetAppointmentInput,
   useGetAllRequestedAppointmentsQuery,
   useGetPhysiciansQuery,
+  usePatientHealthHistoryQuery,
   User,
 } from "generated/graphql";
 import AppointmentHistoryTable from "common/components/AppointmentHistoryTable/AppointmentHistoryTable";
 import _classes from "./HistoryAppointments.module.scss";
 import PatientAppointmentHistoryFilter from "common/components/PatientAppointmentHistoryFilter/PatientAppointmentHistoryFilter";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import { getUserData } from "common/utils/userData";
+import Link from "next/link";
 
 function CancelledAppointment() {
+  //Get logged in User
+  const { user } = getUserData();
+  const { id: loggedInUser } = user || {};
+
   const [filterValues, setFilterValues] = useState<GetAppointmentInput>({
     status: "Completed",
   });
@@ -90,6 +97,10 @@ function CancelledAppointment() {
         : "",
     });
   };
+  const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
+    variables: { input: Number(loggedInUser) },
+    requestPolicy: "network-only",
+  });
 
   return (
     <AppLayout>
@@ -98,13 +109,30 @@ function CancelledAppointment() {
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">History</h2>
           </div>
-          <Button
-            type="primary"
-            size="large"
-            onClick={showAppointmentBookingModal}
+          <Tooltip
+            title={
+              patientHealthHistory?.patientHealthHistory?.id ? (
+                ""
+              ) : (
+                <Link passHref href={`/patient/account?activeTab=2`}>
+                  please complete health questionnaire
+                </Link>
+              )
+            }
           >
-            Request an Appointment
-          </Button>
+            <Button
+              type="primary"
+              className="text-sm"
+              onClick={showAppointmentBookingModal}
+              disabled={
+                patientHealthHistory?.patientHealthHistory?.id ? false : true
+              }
+            >
+              <span className="text-xs sm:text-base">
+                Request an Appointment
+              </span>
+            </Button>
+          </Tooltip>
         </div>
 
         <PatientAppointmentHistoryFilter onChange={onChangeFilters} />

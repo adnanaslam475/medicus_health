@@ -15,6 +15,7 @@ function MessageConversationSider({}: Props) {
         height: "calc(100vh - 225px)",
         overflowY: "auto",
       }}
+      className={`${_classes["custom-height"]}`}
     >
       {allChannels?.map((thread) => {
         return <UserProfile thread={thread} />;

@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { Button, Empty, Select, Spin } from "antd";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import { Button, Empty, Select, Spin, Tooltip } from "antd";
 import {
   AppointmentTimeSlots,
   BookingDate,
   useGetAllRequestedAppointmentsQuery,
   useGetPhysiciansQuery,
+  usePatientHealthHistoryQuery,
   User,
 } from "../../../../../generated/graphql";
+import { getUserData } from "common/utils/userData";
 
 function UpcomingAppointments() {
   // const t = useTranslations("UpcomingAppointments");
+  //Get logged in User
+  const { user } = getUserData();
+  const { id: loggedInUser } = user || {};
+
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -25,7 +31,7 @@ function UpcomingAppointments() {
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Confirmed");
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
-  
+
   const [{ data, fetching }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
@@ -69,6 +75,12 @@ function UpcomingAppointments() {
   });
   const { getPhysicians } = physicianList || {};
 
+  // Get patient Health History
+  const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
+    variables: { input: Number(loggedInUser) },
+    requestPolicy: "network-only",
+  });
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -94,15 +106,30 @@ function UpcomingAppointments() {
                 </Select.Option>
               </Select>
             </div>
-            <Button
-              type="primary"
-              className="text-sm"
-              onClick={showAppointmentBookingModal}
+            <Tooltip
+              title={
+                patientHealthHistory?.patientHealthHistory?.id ? (
+                  ""
+                ) : (
+                  <Link passHref href={`/patient/account?activeTab=2`}>
+                    please complete health questionnaire
+                  </Link>
+                )
+              }
             >
-              <span className="text-xs sm:text-base">
-                Request an Appointment
-              </span>
-            </Button>
+              <Button
+                type="primary"
+                className="text-sm"
+                onClick={showAppointmentBookingModal}
+                disabled={
+                  patientHealthHistory?.patientHealthHistory?.id ? false : true
+                }
+              >
+                <span className="text-xs sm:text-base">
+                  Request an Appointment
+                </span>
+              </Button>
+            </Tooltip>
           </div>
         </div>
         <div className="">
