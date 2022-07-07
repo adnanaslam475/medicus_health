@@ -2,6 +2,7 @@ import { Button, Modal, notification } from "antd";
 import React, { useEffect, useRef } from "react";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import {
+  Appointment,
   DoctorProfile,
   usePatientHealthHistoryQuery,
   useUpdatePatientHealthHistoryMutation,
@@ -26,9 +27,10 @@ type Props = {
   ref: any;
   physicianData: DoctorProfile | undefined | null;
   adminApp_Details: DoctorData | undefined | null;
+  rebookData?: Appointment;
 };
 const GeneralHealthQuesionnairModal = (props: Props) => {
-  const { adminApp_Details } = props || {};
+  const { adminApp_Details, rebookData } = props || {};
 
   const { isModalVisible, setIsModalVisible } = props || {};
 
@@ -39,11 +41,12 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
   const adminPatientId = appoinmentData?.stepOne?.patient?.split(":")[0];
 
   const patientId =
+    rebookData?.patientId ||
     Number(adminApp_Details?.patient?.patient_id) ||
     Number(adminPatientId) ||
     (id as number);
 
-  const form: any = useRef();
+    const form: any = useRef();
 
   const [result, updatePatientHealthHistory] =
     useUpdatePatientHealthHistoryMutation();

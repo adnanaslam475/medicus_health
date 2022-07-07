@@ -5,6 +5,7 @@ import AppointmnetCancelledCard from "./CardTypes/AppointmnetCancelledCard";
 import AppointmnetSuggestedCard from "./CardTypes/AppointmnetSuggestedCard";
 import { getUserData } from "../../utils/userData";
 import {
+  Appointment,
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   DoctorProfile,
@@ -28,7 +29,8 @@ type props = {
   appointmentDateTime?: AppointmentDateTimeResponse;
   doctorId?: number | null | undefined;
   patientId?: number | null | undefined;
-  transaction?: Transaction | undefined
+  transaction?: Transaction | undefined;
+  appointmentDetail?:Appointment | undefined
 };
 
 function AppointmentCard({
@@ -44,7 +46,8 @@ function AppointmentCard({
   appointmentDateTime,
   doctorId,
   patientId,
-  transaction
+  transaction,
+  appointmentDetail
 }: props) {
 
   function getStatus() {
@@ -112,6 +115,7 @@ function AppointmentCard({
           doctorProfile={doctorProfile}
           appointmentTimeSlots={appointmentTimeSlots}
           transaction={transaction}
+          appointmentDetail={appointmentDetail}
         />
       );
     case "Suggested":

@@ -4,13 +4,14 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 import Image from "next/image";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import GeneralHealthQuesionnairModal from "./GeneralHealthQuesionnairModal";
-import { DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
+import { Appointment, DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 
 const { Dragger } = Upload;
 type Props = {
   physicianData?: DoctorProfile | undefined | null;
   adminApp_Details?: DoctorData;
+  rebookData?:Appointment
 };
 
 type DoctorData = {
@@ -26,7 +27,7 @@ type DoctorData = {
 
 const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const { data, saveStepTwo } = useBookAppointment();
-  const { physicianData, adminApp_Details } = props || {};
+  const { physicianData, adminApp_Details, rebookData } = props || {};
   const { user } = getUserData();
   const [formInstance] = Form.useForm();
 
@@ -34,7 +35,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const patientId =
     user?.role === "User"
       ? Number(user?.id)
-      : Number(data?.stepOne?.patient?.split(":")[0]);
+      : rebookData?.doctorId || Number(data?.stepOne?.patient?.split(":")[0])
   const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
     variables: { input: patientId },
     pause: !patientId,
@@ -148,6 +149,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
           ref={ref}
           physicianData={physicianData}
           adminApp_Details={adminApp_Details}
+          rebookData={rebookData}
         />
       )}
     </>

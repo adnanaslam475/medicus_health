@@ -1,5 +1,5 @@
 import React from "react";
-import { DoctorProfile, User } from "../../../generated/graphql";
+import { Appointment, DoctorProfile, User } from "../../../generated/graphql";
 import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
 import { AppointmentBookingStepOne } from "../Appointments/booking/AppointmentBookingStepOne";
 import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
@@ -26,10 +26,11 @@ type Props = {
   adminData?: AdminData;
   patientData?: User[];
   adminApp_Details?: DoctorData;
+  rebookData?:Appointment
 };
 
 const CurrentStepContent = React.forwardRef(function CurrentStepContent(
-  { stepName, doctorData, adminData, adminApp_Details, patientData }: Props,
+  { stepName, doctorData, adminData, adminApp_Details, patientData,rebookData }: Props,
   ref: any
 ) {
   switch (stepName) {
@@ -41,16 +42,18 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
           adminData={adminData}
           patientData={patientData}
           adminApp_Details={adminApp_Details}
+          rebookData={rebookData}
         />
       );
     case "stepTwo":
-      return <AppointmentBookingStepTwo ref={ref} adminApp_Details={adminApp_Details} physicianData={doctorData}/>;
+      return <AppointmentBookingStepTwo ref={ref} adminApp_Details={adminApp_Details} physicianData={doctorData} rebookData={rebookData}/>;
     case "stepThree":
       return (
         <AppointmentBookingStepThree
           physicianData={doctorData}
           ref={ref}
           adminApp_Details={adminApp_Details}
+          rebookData={rebookData}
         />
       );
     case "stepFour":

@@ -2,6 +2,7 @@ import { Button, Card } from "antd";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import React, { useState } from "react";
 import {
+  Appointment,
   AppointmentTimeSlots,
   DoctorProfile,
   Transaction,
@@ -18,6 +19,7 @@ type Props = {
   doctorProfile?: DoctorProfile | undefined | null;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   transaction?: Transaction | undefined;
+  appointmentDetail?:Appointment | undefined
 };
 
 function AppointmnetCancelledCard({
@@ -29,6 +31,7 @@ function AppointmnetCancelledCard({
   doctorProfile,
   appointmentTimeSlots,
   transaction,
+  appointmentDetail
 }: Props) {
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
@@ -111,7 +114,7 @@ function AppointmnetCancelledCard({
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        doctorData={doctorProfile}
+        rebookData={appointmentDetail}
       />
     </>
   );
