@@ -174,20 +174,17 @@ function AdminPatientsList() {
               columns={columns}
               dataSource={getPatients?.items as User[]}
               loading={fetching}
-<<<<<<< HEAD
               onChange={onChange}
               pagination={{
-                total: getPatients?.meta?.totalItems,
-                pageSize: getPatients?.meta?.itemCount,
+                // total: getPatients?.meta?.totalItems,
+                // pageSize: getPatients?.meta?.itemCount,
                 current: getPatients?.meta?.currentPage,
                 defaultPageSize: 10,
                 onChange: onPaginationChange,
                 pageSizeOptions: ["10", "20", "30", "40"],
                 showSizeChanger: true,
               }}
-=======
-              scroll={{x:true}}
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
+              scroll={{ x: true }}
             />
           </div>
         </div>

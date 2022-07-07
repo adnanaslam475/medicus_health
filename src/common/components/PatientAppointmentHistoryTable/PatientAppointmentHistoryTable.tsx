@@ -109,7 +109,6 @@ function PatientAppointmentHistoryTable(props: Props) {
       dataSource={data}
       onChange={onChange}
       scroll={{ x: true }}
-<<<<<<< HEAD
       pagination={{
         total: meta?.totalItems,
         current: meta?.currentPage,
@@ -118,8 +117,6 @@ function PatientAppointmentHistoryTable(props: Props) {
         pageSizeOptions: ["10", "20", "30", "40"],
         showSizeChanger: true,
       }}
-=======
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
     />
   );
 }

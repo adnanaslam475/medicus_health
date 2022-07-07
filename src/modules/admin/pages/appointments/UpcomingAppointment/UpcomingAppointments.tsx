@@ -12,12 +12,6 @@ import {
   useGetPhysiciansQuery,
   User,
 } from "../../../../../generated/graphql";
-<<<<<<< HEAD
-=======
-import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
 
 function UpcomingAppointments() {
   // const t = useTranslations("UpcomingAppointments");

@@ -161,8 +161,8 @@ function PatientList() {
               onChange={onChange}
               scroll={{ x: true }}
               pagination={{
-                total: physiciansPatients?.meta?.totalItems,
-                pageSize: physiciansPatients?.meta?.itemCount,
+                // total: physiciansPatients?.meta?.totalItems,
+                // pageSize: physiciansPatients?.meta?.itemCount,
                 current: physiciansPatients?.meta?.currentPage,
                 defaultPageSize: 10,
                 onChange: onPaginationChange,

@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import Router from "next/router";
 import CalendarView from "../../../../common/components/CalendarView/CalendarView";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import {
@@ -7,7 +8,6 @@ import {
 } from "../../../../../generated/graphql";
 import CalendarModalComponent from "../../../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
-import Router from "next/router";
 
 type events = {
   calenderEvents: Appointment | undefined | any;
@@ -21,14 +21,10 @@ function AppointmentCalendar() {
   const [modalVisible, setModalVisible] = useState(false);
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
-<<<<<<< HEAD
-      filter: {},
-      pagination: { limit: -1, page: 1 },
-=======
       filter: {
-        "status":"Confirmed"
+        status: "Confirmed",
       },
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
+      pagination: { limit: -1, page: 1 },
     },
   });
   const redirectToRequested = function () {

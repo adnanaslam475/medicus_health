@@ -146,7 +146,6 @@ function AdminPatientAppointmentList() {
     });
 
   const { appointments } = data || {};
-<<<<<<< HEAD
   const patientFirstName =
     appointments?.items && appointments.items[0]?.patient?.first_name;
   const patientLastName =
@@ -156,13 +155,6 @@ function AdminPatientAppointmentList() {
   const patientProfilePicture =
     appointments &&
     appointments?.items[0]?.patient?.patientProfile?.profileImage;
-=======
-  const patientFirstName = appointments && appointments[0]?.patient?.first_name;
-  const patientLastName = appointments && appointments[0]?.patient?.last_name;
-  const patientEmail = appointments && appointments[0]?.patient?.email;
-  const patientProfilePicture =
-    appointments && appointments[0]?.patient?.patientProfile?.profileImage;
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
 
   // Physician Payment By Admin Mutatio
   // const [result, PhysicianPaymentByAdmin] =
@@ -179,34 +171,6 @@ function AdminPatientAppointmentList() {
     });
   };
 
-<<<<<<< HEAD
-  // const onPayPhysician = async (appointmentId: number) => {
-  //   try {
-  //     appointmentId;
-  //     const res = await PhysicianPaymentByAdmin({
-  //       paymeninput: {
-  //         appointmentId: appointmentId,
-  //       },
-  //     });
-
-  //     if (res?.data) {
-  //       res?.data &&
-  //         notification.success({
-  //           message: "Payment Successfull",
-  //         });
-  //     }
-
-  //     if (res?.error) {
-  //       notification.error({
-  //         message:
-  //           res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-=======
   const columns = [
     {
       title: "Appointment ID",
@@ -327,7 +291,6 @@ function AdminPatientAppointmentList() {
       ),
     },
   ];
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
 
   function onChangeFilters(filterValue: GetAppointmentInput) {
     setFilterValues(filterValue);
@@ -357,14 +320,12 @@ function AdminPatientAppointmentList() {
         <AdminPatientAppointmentSearchFilters onChange={onChangeFilters} />
         <div className="w-full">
           <div>
-<<<<<<< HEAD
             <Table
               columns={columns}
               dataSource={appointments?.items}
               onChange={onChange}
               pagination={{
                 total: appointments?.meta?.totalItems,
-                // pageSize: appointments?.meta?.itemCount,
                 current: appointments?.meta?.currentPage,
                 defaultPageSize: 10,
                 onChange: onPaginationChange,
@@ -372,9 +333,6 @@ function AdminPatientAppointmentList() {
                 showSizeChanger: true,
               }}
             />
-=======
-            <Table columns={columns} dataSource={appointments} scroll={{x:true}} />
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
           </div>
         </div>
       </CardWithProfileImageInfo>

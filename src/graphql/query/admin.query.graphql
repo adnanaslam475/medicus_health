@@ -11,6 +11,7 @@ query getAdminUsers(
       email
       createdAt
       status
+      # adminUser
     }
     meta {
       totalPages
@@ -107,8 +108,8 @@ query getPatients(
 }
 
 # Pay Physician From Admin
-mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
-  payment(paymentInput: $paymeninput) {
+mutation physicianPaymentByAdmin($paymentInput: PaymentInput!) {
+  payment(paymentInput: $paymentInput) {
     id
     transactionId
     appointmentId
@@ -139,7 +140,6 @@ mutation createAdminSettings(
     stripe_variable_amount
   }
 }
-
 # Get Admin General Settings
 query getAdminSettings {
   adminSettings {

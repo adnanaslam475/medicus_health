@@ -273,8 +273,8 @@ const PhysicianMyEarningsList = (props: Props) => {
           onChange={onChange}
           loading={fetching}
           pagination={{
-            total: getTransectionFilter?.meta?.totalItems,
-            pageSize: getTransectionFilter?.meta?.itemCount,
+            // total: getTransectionFilter?.meta?.totalItems,
+            // pageSize: getTransectionFilter?.meta?.itemCount,
             current: getTransectionFilter?.meta?.currentPage,
             defaultPageSize: 10,
             onChange: onPaginationChange,

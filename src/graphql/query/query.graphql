@@ -289,24 +289,8 @@ query getAllRequestedAppointments(
       currentPage
     }
   }
-
-    # appointmentTimeSlots {
-    #   id
-    #   startTime
-    #   endTime
-    #   selected
-    # }
-    # transaction {
-    #   createdAt
-    #   amountReceived
-    #   status
-    # }
-    # appointmentSchedule {
-    #   startTime
-    #   endTime
-    # }
-    
 }
+
 # query getAllRequestedAppointments($filter: GetAppointmentInput!) {
 #   appointments(filter: $filter) {
 #     id
@@ -409,11 +393,13 @@ query getAppointmentById($id: Int!) {
       id
       first_name
       last_name
-      patientProfile{
+      patientProfile {
         profileImage
       }
       patientHealthHistory {
         history
+        # doctor
+        # doctor_id
       }
     }
     appointmentTimeSlots {
@@ -695,26 +681,26 @@ query getStaffDetailsUrlById($id: Int!) {
   }
 }
 
-query getAdminUsers(
-  $filter: GetAdminUsersFilterInput!
-  $pagination: PaginationParams
-  $sorting: SortingParams
-) {
-  adminUsers(filter: $filter, pagination: $pagination, sorting: $sorting) {
-    items {
-      id
-      first_name
-      last_name
-      email
-      createdAt
-      status
-    }
-    meta {
-      totalPages
-      currentPage
-    }
-  }
-}
+# query getAdminUsers(
+#   $filter: GetAdminUsersFilterInput!
+#   $pagination: PaginationParams
+#   $sorting: SortingParams
+# ) {
+#   adminUsers(filter: $filter, pagination: $pagination, sorting: $sorting) {
+#     items {
+#       id
+#       first_name
+#       last_name
+#       email
+#       createdAt
+#       status
+#     }
+#     meta {
+#       totalPages
+#       currentPage
+#     }
+#   }
+# }
 
 query getAdminUserById($id: Int!) {
   user(id: $id) {

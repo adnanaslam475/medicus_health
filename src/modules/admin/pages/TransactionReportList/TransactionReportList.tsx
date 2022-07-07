@@ -229,7 +229,6 @@ function TransactionReportList() {
     });
   }
 
-<<<<<<< HEAD
   return (
     <AppLayout>
       <div className="flex mb-0">
@@ -258,8 +257,8 @@ function TransactionReportList() {
               onChange={onChange}
               loading={fetching}
               pagination={{
-                total: getPhysicians?.meta?.totalItems,
-                pageSize: getPhysicians?.meta?.itemCount,
+                // total: getPhysicians?.meta?.totalItems,
+                // pageSize: getPhysicians?.meta?.itemCount,
                 current: getPhysicians?.meta?.currentPage,
                 defaultPageSize: 10,
                 onChange: onPaginationChange,
@@ -273,106 +272,5 @@ function TransactionReportList() {
       </div>
     </AppLayout>
   );
-=======
-	const Ddata = [
-		{
-			id: "1",
-			// name: "John Brown",
-			appointment_id: "MD-2312",
-			patient_name: "Dr. Paul Wallner",
-			service: "First Consultation",
-			timeslot: "09:00 AM - 09:30 AM",
-			date: "Jan 30, 2022",
-			totalamount: "$40.00",
-			transactiondate: "Jan 24, 2022",
-			// status: ["completed", "pending"],
-			status: ["completed", "pending"],
-			view: "Eye",
-		},
-		{
-			id: "2",
-			appointment_id: "MD-2312",
-			patient_name: "Dr. Paul Wallner",
-			service: "First Consultation",
-			timeslot: "09:00 AM - 09:30 AM",
-			date: "Jan 30, 2022",
-			totalamount: "$40.00",
-			transactiondate: "Jan 24, 2022",
-			status: ["completed", "pending"],
-			view: "Eye",
-		},
-		{
-			id: "3",
-			appointment_id: "MD-2312",
-			patient_name: "Dr. Paul Wallner",
-			service: "First Consultation",
-			timeslot: "09:00 AM - 09:30 AM",
-			date: "Jan 30, 2022",
-			totalamount: "$40.00",
-			transactiondate: "Jan 24, 2022",
-			status: ["completed", "pending"],
-			view: "Eye",
-		},
-		{
-			id: "4",
-			appointment_id: "MD-2312",
-			patient_name: "Dr. Paul Wallner",
-			service: "First Consultation",
-			timeslot: "09:00 AM - 09:30 AM",
-			date: "Jan 30, 2022",
-			totalamount: "$40.00",
-			transactiondate: "Jan 24, 2022",
-			status: ["completed", "pending"],
-			view: "Eye",
-		},
-		{
-			id: "5",
-			appointment_id: "MD-2312",
-			patient_name: "Dr. Paul Wallner",
-			service: "First Consultation",
-			timeslot: "09:00 AM - 09:30 AM",
-			date: "Jan 30, 2022",
-			totalamount: "$40.00",
-			transactiondate: "Jan 24, 2022",
-			status: ["completed", "pending"],
-			view: "Eye",
-		},
-	];
-	function onChangeFilters(values: any) {
-		setFilterValues(values);
-		executeUseGetPhysiciansQuery({
-			filter: filterValues,
-			requestPolicy: "network-only",
-		});
-	}
-	return (
-		<AppLayout>
-			<div className="sm:flex mb-0">
-				<MyEarningsStats
-					label={"Total Consultants"}
-					// text={String(total_number_of_consultation)}
-					text={10}
-				/>
-				<MyEarningsStats label={"Total Second Opinions"} text={10} />
-				<MyEarningsStats label={"Total Patients"} text={10} />
-				<MyEarningsStats label={"Earnings through Consultants"} text={10} />
-				<MyEarningsStats label={"Earnings through Second Opinion"} text={10} />
-				<MyEarningsStats label={"Total Earnings"} text={10} />
-			</div>
-			<Divider className="my-0 py-0" />
-			<div className="w-full">
-				<div className="flex justify-between">
-					<h2 className="mb-0">Transaction Reports</h2>
-				</div>
-				<TransactionReportListFilter onChange={onChangeFilters} />
-				<div className="w-full">
-					<div className="">
-						<Table columns={columns} dataSource={Ddata} loading={false} scroll={{x:true}}/>  
-					</div>
-				</div>
-			</div>
-		</AppLayout>
-	);
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
 }
 export default TransactionReportList;

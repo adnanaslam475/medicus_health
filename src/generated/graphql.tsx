@@ -158,6 +158,11 @@ export type AppointmentTimeSlots = {
   startTime: Scalars['DateTime'];
 };
 
+export type AppointmentTotalCharges = {
+  finalCharges?: InputMaybe<Scalars['Int']>;
+  initialCharges?: InputMaybe<Scalars['Int']>;
+};
+
 export type BookAppointmentInput = {
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
@@ -417,6 +422,7 @@ export type DoctorEarningsResponse = {
   total_earnings?: Maybe<Scalars['Float']>;
   total_earnings_from_consultation?: Maybe<Scalars['Float']>;
   total_earnings_from_second_opinions?: Maybe<Scalars['Float']>;
+  total_net_earnings?: Maybe<Scalars['Float']>;
   total_number_of_consultation?: Maybe<Scalars['Float']>;
   total_number_of_patients?: Maybe<Scalars['Float']>;
   total_number_of_second_opinions?: Maybe<Scalars['Float']>;
@@ -464,11 +470,6 @@ export type DoctorSchedule = {
 export type DueDate = {
   endDate?: InputMaybe<Scalars['String']>;
   startDate?: InputMaybe<Scalars['String']>;
-};
-
-export type EarningRange = {
-  final?: InputMaybe<Scalars['Int']>;
-  initial?: InputMaybe<Scalars['Int']>;
 };
 
 export type EducationalBackground = {
@@ -576,10 +577,15 @@ export type GetStaffFilter = {
 export type GetTransectionInput = {
   DateRange?: InputMaybe<DateRange>;
   appointmentId?: InputMaybe<Scalars['Int']>;
-  earnings?: InputMaybe<EarningRange>;
+  charges?: InputMaybe<AppointmentTotalCharges>;
+  dueDate?: InputMaybe<ScheduleDate>;
+  paymentStatus?: InputMaybe<Scalars['String']>;
+  refunds?: InputMaybe<RefundCharges>;
   searchString?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   serviceName?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  stripeFee?: InputMaybe<StripeProcessingFee>;
   transectionId?: InputMaybe<Scalars['Int']>;
 };
 
@@ -609,9 +615,6 @@ export type LoginUserInput = {
 export type Meta = {
   __typename?: 'Meta';
   currentPage: Scalars['Int'];
-  itemCount: Scalars['Int'];
-  itemsPerPage: Scalars['Int'];
-  totalItems: Scalars['Int'];
   totalPages: Scalars['Int'];
 };
 
@@ -1318,6 +1321,11 @@ export type ReBookAppointmentInput = {
   selectedSlotId: Scalars['Float'];
 };
 
+export type RefundCharges = {
+  finalRefunds?: InputMaybe<Scalars['Int']>;
+  initialRefunds?: InputMaybe<Scalars['Int']>;
+};
+
 export type ResetPasswordInput = {
   password: Scalars['String'];
   password_token?: InputMaybe<Scalars['String']>;
@@ -1336,6 +1344,11 @@ export type Schedule = {
   startTime: Scalars['String'];
 };
 
+export type ScheduleDate = {
+  endDate?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['String']>;
+};
+
 export type SortingParams = {
   column: Scalars['String'];
   order: Scalars['String'];
@@ -1346,6 +1359,11 @@ export type State = {
   country_id: Scalars['Float'];
   id: Scalars['Float'];
   state_name: Scalars['String'];
+};
+
+export type StripeProcessingFee = {
+  finalFee?: InputMaybe<Scalars['Int']>;
+  initialFee?: InputMaybe<Scalars['Int']>;
 };
 
 export type SuggestNewTimeInput = {
@@ -1875,7 +1893,7 @@ export type GetAdminUsersQueryVariables = Exact<{
 }>;
 
 
-export type GetAdminUsersQuery = { __typename?: 'Query', adminUsers: { __typename?: 'UserPaginatedFilterResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
+export type GetAdminUsersQuery = { __typename?: 'Query', adminUsers: { __typename?: 'UserPaginatedFilterResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type AdminDashboardStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1889,7 +1907,7 @@ export type AdminPhysicianAppointmentQueryVariables = Exact<{
 }>;
 
 
-export type AdminPhysicianAppointmentQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, charges: number, status?: string | null, patient?: { __typename?: 'User', first_name: string, last_name: string, email: string, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
+export type AdminPhysicianAppointmentQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, charges: number, status?: string | null, patient?: { __typename?: 'User', first_name: string, last_name: string, email: string, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type GetPatientsQueryVariables = Exact<{
   filter: GetPatientsInput;
@@ -1898,10 +1916,10 @@ export type GetPatientsQueryVariables = Exact<{
 }>;
 
 
-export type GetPatientsQuery = { __typename?: 'Query', getPatients: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, createdAt: any, streetAddress?: string | null, zip_code?: string | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
+export type GetPatientsQuery = { __typename?: 'Query', getPatients: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, createdAt: any, streetAddress?: string | null, zip_code?: string | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type PhysicianPaymentByAdminMutationVariables = Exact<{
-  paymeninput: PaymentInput;
+  paymentInput: PaymentInput;
 }>;
 
 
@@ -1995,11 +2013,7 @@ export type PhysicianAppointmentsQueryVariables = Exact<{
 }>;
 
 
-<<<<<<< HEAD
-export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, charges: number, status?: string | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, currentAppointmentNote?: { __typename?: 'AppointmentNote', subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean } | null, notesHistory?: Array<{ __typename?: 'AppointmentNote', subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean }> | null, transaction?: { __typename?: 'Transaction', createdAt: any, status: string } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
-=======
-export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: Array<{ __typename?: 'Appointment', id?: number | null, createdAt: any, requestedDate?: any | null, charges: number, status?: string | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null }> };
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
+export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, createdAt: any, requestedDate?: any | null, charges: number, status?: string | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -2008,11 +2022,7 @@ export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
 }>;
 
 
-<<<<<<< HEAD
-export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, patientId?: number | null, createdAt: any, requestedDate?: any | null, charges: number, reportUrl?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
-=======
-export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id?: number | null, patientId?: number | null, createdAt: any, requestedDate?: any | null, charges: number, reportUrl?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, currentAppointmentNote?: { __typename?: 'AppointmentNote', createdAt: any, id: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, appointment?: { __typename?: 'Appointment', id?: number | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } | null } | null, notesHistory?: Array<{ __typename?: 'AppointmentNote', createdAt: any, id: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, appointment?: { __typename?: 'Appointment', id?: number | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } | null }> | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }> };
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
+export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, patientId?: number | null, createdAt: any, requestedDate?: any | null, charges: number, reportUrl?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type GetTransectionFilterQueryVariables = Exact<{
   filter: GetTransectionInput;
@@ -2021,7 +2031,7 @@ export type GetTransectionFilterQueryVariables = Exact<{
 }>;
 
 
-export type GetTransectionFilterQuery = { __typename?: 'Query', getTransectionFilter: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, appointment?: { __typename?: 'Appointment', patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
+export type GetTransectionFilterQuery = { __typename?: 'Query', getTransectionFilter: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, appointment?: { __typename?: 'Appointment', patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type PhysiciansPatientsQueryVariables = Exact<{
   searchField?: InputMaybe<Scalars['String']>;
@@ -2030,7 +2040,7 @@ export type PhysiciansPatientsQueryVariables = Exact<{
 }>;
 
 
-export type PhysiciansPatientsQuery = { __typename?: 'Query', physiciansPatients: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, streetAddress?: string | null, country?: { __typename?: 'Country', country_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
+export type PhysiciansPatientsQuery = { __typename?: 'Query', physiciansPatients: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, streetAddress?: string | null, country?: { __typename?: 'Country', country_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type GetPhysiciansQueryVariables = Exact<{
   filter: GetPhysiciansInput;
@@ -2039,7 +2049,7 @@ export type GetPhysiciansQueryVariables = Exact<{
 }>;
 
 
-export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, zip_code?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, doctorProfile?: { __typename?: 'DoctorProfile', language?: any | null, specialization?: string | null } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
+export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, zip_code?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, doctorProfile?: { __typename?: 'DoctorProfile', language?: any | null, specialization?: string | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type GetAppointmentNoteByIdQueryVariables = Exact<{
   appointmentId: Scalars['Int'];
@@ -2119,11 +2129,7 @@ export type GetAllRequestedAppointmentsQueryVariables = Exact<{
 }>;
 
 
-<<<<<<< HEAD
-export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null, serviceId?: number | null, requestedDate?: any | null, createdAt: any, status?: string | null, charges: number, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', createdAt: any, amountReceived: number } | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
-=======
-export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null, serviceId?: number | null, requestedDate?: any | null, createdAt: any, status?: string | null, charges: number, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', createdAt: any, amountReceived: number, status: string } | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null }> };
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
+export type GetAllRequestedAppointmentsQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null, serviceId?: number | null, requestedDate?: any | null, createdAt: any, status?: string | null, charges: number, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string, price: number } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, transaction?: { __typename?: 'Transaction', createdAt: any, amountReceived: number } | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type DoctorProfileDetailsQueryVariables = Exact<{
   input: Scalars['Int'];
@@ -2164,7 +2170,7 @@ export type GetAllTransactionsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllTransactionsQuery = { __typename?: 'Query', transactions: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, transactionId: string, appointmentId: number, amountReceived: number, status: string, createdAt: any, appointment?: { __typename?: 'Appointment', requestedDate?: any | null, reportUrl?: any | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
+export type GetAllTransactionsQuery = { __typename?: 'Query', transactions: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, transactionId: string, appointmentId: number, amountReceived: number, status: string, createdAt: any, appointment?: { __typename?: 'Appointment', requestedDate?: any | null, reportUrl?: any | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type ScheduleQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -2220,7 +2226,7 @@ export type GetAllStaffByDoctorQueryVariables = Exact<{
 }>;
 
 
-export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null, createdAt: any, status: boolean }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
+export type GetAllStaffByDoctorQuery = { __typename?: 'Query', staff: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, role?: string | null, email: string, first_name: string, last_name: string, contact_number?: string | null, doctorId?: number | null, createdAt: any, status: boolean }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type GetStaffDetailsUrlByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -2270,7 +2276,7 @@ export type CurrentAppointmentsQueryVariables = Exact<{
 }>;
 
 
-export type CurrentAppointmentsQuery = { __typename?: 'Query', currentAppointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, patientId?: number | null, status?: string | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, itemCount: number, currentPage: number } } };
+export type CurrentAppointmentsQuery = { __typename?: 'Query', currentAppointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, patientId?: number | null, status?: string | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 
 export const UpdateAdminUserDocument = gql`
@@ -3003,9 +3009,7 @@ export const GetAdminUsersDocument = gql`
       status
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -3066,9 +3070,7 @@ export const AdminPhysicianAppointmentDocument = gql`
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -3101,9 +3103,7 @@ export const GetPatientsDocument = gql`
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -3114,8 +3114,8 @@ export function useGetPatientsQuery(options: Omit<Urql.UseQueryArgs<GetPatientsQ
   return Urql.useQuery<GetPatientsQuery>({ query: GetPatientsDocument, ...options });
 };
 export const PhysicianPaymentByAdminDocument = gql`
-    mutation physicianPaymentByAdmin($paymeninput: PaymentInput!) {
-  payment(paymentInput: $paymeninput) {
+    mutation physicianPaymentByAdmin($paymentInput: PaymentInput!) {
+  payment(paymentInput: $paymentInput) {
     id
     transactionId
     appointmentId
@@ -3491,46 +3491,19 @@ export const PhysicianAppointmentsDocument = gql`
         endTime
         selected
       }
+      appointmentDateTime {
+        startTime
+        endTime
+      }
+      createdAt
+      requestedDate
       charges
-      currentAppointmentNote {
-        subjective
-        objective
-        assessment
-        plan
-        note
-        isPublished
-      }
-      notesHistory {
-        subjective
-        objective
-        assessment
-        plan
-        note
-        isPublished
-      }
       status
-      transaction {
-        createdAt
-        status
-      }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
-<<<<<<< HEAD
-=======
-    appointmentDateTime {
-      startTime
-      endTime
-    }
-    createdAt
-    requestedDate
-    charges
-    status
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
   }
 }
     `;
@@ -3633,54 +3606,9 @@ export const PhysicianAppointmentsHistoryDocument = gql`
       }
       charges
     }
-<<<<<<< HEAD
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
-=======
-    currentAppointmentNote {
-      appointment {
-        id
-        doctor {
-          id
-          first_name
-          last_name
-        }
-      }
-      createdAt
-      id
-      subjective
-      objective
-      assessment
-      plan
-      note
-      isPublished
-    }
-    notesHistory {
-      appointment {
-        id
-        doctor {
-          id
-          first_name
-          last_name
-        }
-      }
-      createdAt
-      id
-      subjective
-      objective
-      assessment
-      plan
-      note
-      isPublished
-    }
-    status
-    transaction {
-      status
-      amountReceived
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
     }
   }
 }
@@ -3720,9 +3648,7 @@ export const GetTransectionFilterDocument = gql`
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -3754,9 +3680,7 @@ export const PhysiciansPatientsDocument = gql`
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -3792,9 +3716,7 @@ export const GetPhysiciansDocument = gql`
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -4139,32 +4061,9 @@ export const GetAllRequestedAppointmentsDocument = gql`
         endTime
       }
     }
-<<<<<<< HEAD
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
-=======
-    appointmentTimeSlots {
-      id
-      startTime
-      endTime
-      selected
-    }
-    transaction {
-      createdAt
-      amountReceived
-      status
-    }
-    appointmentSchedule {
-      startTime
-      endTime
-    }
-    appointmentDateTime {
-      startTime
-      endTime
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
     }
   }
 }
@@ -4377,9 +4276,7 @@ export const GetAllTransactionsDocument = gql`
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -4537,9 +4434,7 @@ export const GetAllStaffByDoctorDocument = gql`
       status
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -4744,9 +4639,7 @@ export const CurrentAppointmentsDocument = gql`
       status
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -6153,6 +6046,14 @@ export default {
             "args": []
           },
           {
+            "name": "total_net_earnings",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "total_number_of_consultation",
             "type": {
               "kind": "SCALAR",
@@ -6517,39 +6418,6 @@ export default {
         "fields": [
           {
             "name": "currentPage",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "itemCount",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "itemsPerPage",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "totalItems",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

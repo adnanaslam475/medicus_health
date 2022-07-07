@@ -124,7 +124,6 @@ query doctorAppointmentDetailPatientInfo($id: Int!) {
   }
 }
 
-<<<<<<< HEAD
 query physicianAppointments(
   $filter: GetPhysicianAppointmentInput!
   $pagination: PaginationParams
@@ -140,58 +139,6 @@ query physicianAppointments(
       patient {
         first_name
         last_name
-=======
-query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
-  physicianAppointments(filter: $filter) {
-    id
-    patient {
-      first_name
-      last_name
-    }
-    serviceType {
-      name
-    }
-    appointmentTimeSlots {
-      startTime
-      endTime
-      selected
-    }
-    appointmentDateTime {
-      startTime
-      endTime
-    }
-    createdAt
-    requestedDate
-    charges
-    status
-  }
-}
-
-query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
-  appointments(filter: $filter) {
-    id
-    patientId
-    createdAt
-    requestedDate
-    serviceType {
-      name
-    }
-    patient {
-      first_name
-      last_name
-      gender
-      email
-      date_of_birth
-      contact_number
-      country_id
-      city_id
-      patientProfile {
-        maritalStatus
-        children
-        occupation
-        occupationalExposure
-        pets
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
       }
       serviceType {
         name
@@ -201,102 +148,14 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
         endTime
         selected
       }
+      appointmentDateTime {
+        startTime
+        endTime
+      }
+      createdAt
+      requestedDate
       charges
-      # doctorNote {
-      #   id
-      #   appointmentId
-      #   subjective
-      #   objective
-      #   assessment
-      #   plan
-      #   isPublished
-      #   note
-      # }
-      currentAppointmentNote {
-        subjective
-        objective
-        assessment
-        plan
-        note
-        isPublished
-      }
-      notesHistory {
-        subjective
-        objective
-        assessment
-        plan
-        note
-        isPublished
-      }
-<<<<<<< HEAD
-=======
-    }
-
-    # currentAppointmentNote {
-    #   id
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   note
-    #   isPublished
-    # }
-    # notesHistory {
-    #   id
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   note
-    #   isPublished
-    # }
-
-    currentAppointmentNote {
-      appointment {
-        id
-        doctor {
-          id
-          first_name
-          last_name
-        }
-      }
-      createdAt
-      id
-      subjective
-      objective
-      assessment
-      plan
-      note
-      isPublished
-    }
-    notesHistory {
-      appointment {
-        id
-        doctor {
-          id
-          first_name
-          last_name
-        }
-      }
-      createdAt
-      id
-      subjective
-      objective
-      assessment
-      plan
-      note
-      isPublished
-    }
-    status
-    transaction {
->>>>>>> 740466185523c2e92632e96b041b6efa743f279e
       status
-      transaction {
-        createdAt
-        # requestedDate
-        # charges
-        status
-      }
     }
     meta {
       totalPages
@@ -304,6 +163,140 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
     }
   }
 }
+
+# query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
+#   appointments(filter: $filter) {
+#     id
+#     patientId
+#     createdAt
+#     requestedDate
+#     serviceType {
+#       name
+#     }
+#     patient {
+#       first_name
+#       last_name
+#       gender
+#       email
+#       date_of_birth
+#       contact_number
+#       country_id
+#       city_id
+#       patientProfile {
+#         maritalStatus
+#         children
+#         occupation
+#         occupationalExposure
+#         pets
+#       }
+#       serviceType {
+#         name
+#       }
+#       appointmentTimeSlots {
+#         startTime
+#         endTime
+#         selected
+#       }
+#       charges
+#       # doctorNote {
+#       #   id
+#       #   appointmentId
+#       #   subjective
+#       #   objective
+#       #   assessment
+#       #   plan
+#       #   isPublished
+#       #   note
+#       # }
+#       currentAppointmentNote {
+#         subjective
+#         objective
+#         assessment
+#         plan
+#         note
+#         isPublished
+#       }
+#       notesHistory {
+#         subjective
+#         objective
+#         assessment
+#         plan
+#         note
+#         isPublished
+#       }
+#     }
+
+#     # currentAppointmentNote {
+#     #   id
+#     #   subjective
+#     #   objective
+#     #   assessment
+#     #   plan
+#     #   note
+#     #   isPublished
+#     # }
+#     # notesHistory {
+#     #   id
+#     #   subjective
+#     #   objective
+#     #   assessment
+#     #   plan
+#     #   note
+#     #   isPublished
+#     # }
+
+#     currentAppointmentNote {
+#       appointment {
+#         id
+#         doctor {
+#           id
+#           first_name
+#           last_name
+#         }
+#       }
+#       createdAt
+#       id
+#       subjective
+#       objective
+#       assessment
+#       plan
+#       note
+#       isPublished
+#     }
+#     notesHistory {
+#       appointment {
+#         id
+#         doctor {
+#           id
+#           first_name
+#           last_name
+#         }
+#       }
+#       createdAt
+#       id
+#       subjective
+#       objective
+#       assessment
+#       plan
+#       note
+#       isPublished
+#     }
+#     status
+#     transaction {
+#       status
+#       transaction {
+#         createdAt
+#         # requestedDate
+#         # charges
+#         status
+#       }
+#     }
+#     meta {
+#       totalPages
+#       currentPage
+#     }
+#   }
+# }
 
 query physicianAppointmentsHistory(
   $filter: GetAppointmentInput!
