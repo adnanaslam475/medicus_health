@@ -7,7 +7,7 @@ import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import Container from "../../../../../common/components/Container/Container";
 
-import { useUserForgotPasswordMutation } from "../../../../../generated/graphql";
+import { useResendActivationLinkMutation } from "../../../../../generated/graphql";
 
 const ResendLink = () => {
   const [form] = Form.useForm();
@@ -26,14 +26,14 @@ const ResendLink = () => {
 
   // Forgot Password API call
 
-  const [resendLink, setResendLink] = useUserForgotPasswordMutation();
+  const [resendLink, setResendLink] = useResendActivationLinkMutation();
   const { error, fetching, data } = resendLink;
 
   const onFinish = async (value: { email: string }) => {
     let payload = value.email;
     try {
       const res = await setResendLink({
-        input: payload as string,
+        email: payload as string,
       });
       if (!error) {
         form.setFieldsValue({
@@ -122,7 +122,7 @@ const ResendLink = () => {
                       type="error"
                     />
                   )}
-                  {data?.UserForgotPassword && (
+                  {data?.resendActivationLink && (
                     <Alert
                       className=""
                       message={
