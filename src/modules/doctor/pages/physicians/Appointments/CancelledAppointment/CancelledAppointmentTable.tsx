@@ -13,6 +13,8 @@ import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import { date } from "common/utils";
 import { getUserData } from "common/utils/userData";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
 
 type Props = {
   dataSource: Appointment[] | undefined;
@@ -58,7 +60,9 @@ function CancelledAppointmentTable({ dataSource, loading }: Props) {
       key: "appointmentDateTime",
 
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+        let formatedDueDate = `${
+          appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
 
         return (
           <div>
@@ -89,6 +93,40 @@ function CancelledAppointmentTable({ dataSource, loading }: Props) {
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime
               ? `${formatedStartTime} - ${formatedEndTime}`
               : "--"}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Appointment Status",
+      dataIndex: "status",
+      key: "status",
+      className: "table-action-icon",
+      render: (value: any) => {
+        return (
+          <div className="text-primary">
+            <StatusChip type={value?.toUpperCase()} />
+          </div>
+        );
+      },
+    },
+    {
+      title: "Payment Status",
+      dataIndex: "transaction",
+      key: "transaction",
+      className: "table-action-icon",
+      render: (value: any) => {
+        let _status = null;
+        if (value?.status === "succeeded") {
+          _status = "paid";
+        } else if (value?.status === "Refunded") {
+          _status = value?.status;
+        } else {
+          _status = "Unpaid";
+        }
+        return (
+          <div className="text-primary">
+            <StatusChip type={_status.toUpperCase() as StatusName} />
           </div>
         );
       },
