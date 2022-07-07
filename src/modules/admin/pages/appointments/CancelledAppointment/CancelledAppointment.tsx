@@ -128,6 +128,7 @@ function CancelledAppointment() {
                       setShowModal={setShowModal}
                       doctorProfile={doctor?.doctorProfile as DoctorProfile}
                       transaction={transaction as Transaction}
+                      appointmentDetail={appointmentDetail as Appointment}
                     />
                   );
                 })}

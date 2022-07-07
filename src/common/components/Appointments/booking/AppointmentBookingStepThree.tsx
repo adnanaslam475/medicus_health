@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Radio, Checkbox, Form, Input } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import {
+  Appointment,
   DoctorProfile,
   useDoctorQuestionnaireQuery,
   usePatientLastQuestionnaireQuery,
@@ -15,6 +16,7 @@ import { getUserData } from "common/utils/userData";
 type Props = {
   physicianData?: DoctorProfile | undefined | null;
   adminApp_Details?: DoctorData;
+  rebookData?: Appointment;
 };
 
 type DoctorData = {
@@ -30,7 +32,7 @@ type DoctorData = {
 
 const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const { query } = useRouter();
-  const { physicianData, adminApp_Details } = props || {};
+  const { physicianData, adminApp_Details, rebookData } = props || {};
   const { id } = physicianData?.user || {};
   const { saveStepThree, data } = useBookAppointment();
   const [formInstance] = Form.useForm();
@@ -41,7 +43,8 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     Number(adminApp_Details?.doctor?.doctor_Id) ||
     Number(physicianId) ||
     Number(id) ||
-    Number(query?.id);
+    Number(query?.id) ||
+    Number(rebookData?.doctorId);
 
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
@@ -52,14 +55,22 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const { doctorQuestionnaire } = dataList || {};
   const { user } = getUserData();
   const role = user?.role;
-  const loggedinPatientId = role === "Admin" ? patientIdFromStepOne : user?.id;
-  const physicianQuestionnairePatientId =
-    Number(loggedinPatientId) || Number(adminApp_Details?.patient?.patient_id);
+  const loggedinPatientId =
+    role === "Admin"
+      ? patientIdFromStepOne
+      : rebookData
+      ? Number(rebookData?.patientId)
+      : user?.id;
+  const physicianQuestionnairePatientId = rebookData
+    ? Number(rebookData?.patientId)
+    : Number(loggedinPatientId) ||
+      Number(adminApp_Details?.patient?.patient_id);
 
-  const physicianQuestionnaireDoctorId =
-    Number(id) ||
-    Number(physicianId) ||
-    Number(adminApp_Details?.doctor?.doctor_Id);
+  const physicianQuestionnaireDoctorId = rebookData
+    ? Number(rebookData?.doctorId)
+    : Number(id) ||
+      Number(physicianId) ||
+      Number(adminApp_Details?.doctor?.doctor_Id);
 
   const [{ data: patientLastQuestionaryData }] =
     usePatientLastQuestionnaireQuery({
