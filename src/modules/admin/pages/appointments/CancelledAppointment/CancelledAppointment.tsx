@@ -15,7 +15,6 @@ import {
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 
 function CancelledAppointment() {
-  const [dueDates, setDueDates] = useState<Date | null>();
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -35,6 +34,7 @@ function CancelledAppointment() {
         serviceId: serviceIds,
         bookingDate: bookingDate,
       },
+      pagination: { limit: -1, page: 1 },
     },
   });
 
@@ -78,7 +78,11 @@ function CancelledAppointment() {
               ullamcorperequesty tortor a fringilla tempus.
             </h5>
           </div>
-          <Button type="primary" size="large" onClick={showAppointmentBookingModal}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={showAppointmentBookingModal}
+          >
             Request an Appointment
           </Button>
         </div>
@@ -96,10 +100,10 @@ function CancelledAppointment() {
         </div>
         {fetching == false ? (
           <div className="w-full">
-            {appointments?.length !== 0 && appointments ? (
+            {appointments?.items?.length !== 0 && appointments ? (
               // <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
-                {appointments?.map((appointmentDetail, i) => {
+                {appointments.items?.map((appointmentDetail, i) => {
                   const {
                     requestedDate,
                     status,
@@ -139,7 +143,7 @@ function CancelledAppointment() {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        patientData={getPhysicians as User[]}
+        patientData={getPhysicians?.items as User[]}
       />
     </AppLayout>
   );

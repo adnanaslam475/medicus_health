@@ -1,18 +1,39 @@
-import { DatePicker } from "antd";
 import React from "react";
 import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 import PatientAppointmentHistoryTable from "common/components/PatientAppointmentHistoryTable/PatientAppointmentHistoryTable";
-import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 
 function AppointmentHistory() {
   // GET ALL APPOINMENTS
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
         status: "Completed",
       },
+      pagination,
+      sorting,
     },
   });
+
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: `user.${sorter.field}` || "",
+    });
+  };
 
   const { appointments } = data || {};
   return (
@@ -23,7 +44,12 @@ function AppointmentHistory() {
         </div>
       </div>
       <div className="custom-table-ui">
-        <PatientAppointmentHistoryTable data={appointments} />
+        <PatientAppointmentHistoryTable
+          data={appointments?.items}
+          meta={appointments?.meta}
+          onChange={onChange}
+          onPaginationChange={onPaginationChange}
+        />
       </div>
     </div>
   );

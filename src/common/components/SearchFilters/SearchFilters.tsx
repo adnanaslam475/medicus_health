@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, Input, Button, Select, Space, DatePicker, Form } from "antd";
 import {
   CaretDownOutlined,
@@ -122,7 +122,7 @@ function SearchFilters(props: Props) {
     setDoctorId(undefined);
     setServiceIds(undefined);
     selectBookingDateRangeValues(null);
-    selectDueDateRangeValues(null)
+    selectDueDateRangeValues(null);
     setEndDate(null);
     setStartDate(null);
     setOpenBookingDateRange(false);

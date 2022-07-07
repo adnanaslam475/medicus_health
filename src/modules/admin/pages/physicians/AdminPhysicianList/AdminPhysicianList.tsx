@@ -1,154 +1,181 @@
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
 import { Button, Table } from "antd";
+import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
 import {
   City,
   Country,
   DoctorProfile,
   State,
-  useCountriesQuery,
-  useGetCitiesByStateQuery,
   useGetPhysiciansQuery,
-  useGetStatesByCountryQuery,
   User,
 } from "generated/graphql";
-import { date } from "common/utils";
 import { FLAG_BY_LANGUAGE } from "utils/helper";
+
+const columns = [
+  {
+    title: "ID",
+    dataIndex: "id",
+    key: "id",
+    sorter: true,
+  },
+  {
+    title: "Name",
+    dataIndex: "first_name",
+    key: "first_name",
+    render: (value: User) => {
+      return <div>{`${value}`}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+    render: (email: User) => {
+      return <div>{email}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "Specialization",
+    dataIndex: "doctorProfile",
+    key: "specialization",
+    render: (doctorProfile: DoctorProfile) => {
+      return <div>{doctorProfile?.specialization || ""}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "City",
+    dataIndex: "city",
+    key: "city_name",
+    render: (city: City) => {
+      return <div>{city?.city_name || ""}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "State",
+    dataIndex: "state",
+    key: "state_name",
+    render: (state: State) => {
+      return <div>{state?.state_name || ""}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "Country",
+    dataIndex: "country",
+    key: "country_name",
+    render: (country: Country) => {
+      return <div>{country?.country_name || ""}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "Zip Code",
+    dataIndex: "zip_code",
+    key: "zip_code",
+    render: (zip_code: string) => {
+      return <div>{zip_code || ""}</div>;
+    },
+    sorter: true,
+  },
+
+  {
+    title: "Language",
+    dataIndex: "doctorProfile",
+    key: "language",
+    render: (doctorProfile: DoctorProfile) => {
+      let language = doctorProfile?.language?.toLowerCase() || "english";
+      return (
+        <div className="flagAvatar engFlag pr-2">
+          {FLAG_BY_LANGUAGE[language] && (
+            <Image
+              priority={true}
+              src={FLAG_BY_LANGUAGE[language]}
+              alt={language || "flag"}
+              width={25}
+              height={25}
+            />
+          )}
+        </div>
+      );
+    },
+    sorter: true,
+  },
+  {
+    title: "",
+    dataIndex: "id",
+    key: "view",
+    className: "table-action-icon",
+    render: (id: string) => (
+      <div className="text-primary">
+        <EyeFilled
+          onClick={() => {
+            return Router.push(`/admin/physicians/${id}`);
+          }}
+        />
+      </div>
+    ),
+  },
+];
 
 function AdminPhysicianList() {
   const [filterValues, setFilterValues] = useState({});
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
 
   const [{ data, fetching }, executeUseGetPhysiciansQuery] =
     useGetPhysiciansQuery({
       variables: {
         filter: filterValues,
+        pagination,
+        sorting,
       },
     });
+
   const { getPhysicians } = data || {};
 
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      sorter: true,
-    },
-    {
-      title: "Name",
-      dataIndex: "first_name",
-      key: "first_name",
-      render: (value: User) => {
-        return <div>{`${value}`}</div>;
-      },
-      sorter: true,
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      render: (email: User) => {
-        return <div>{email}</div>;
-      },
-      sorter: true,
-    },
-    {
-      title: "Specialization",
-      dataIndex: "doctorProfile",
-      key: "doctorProfile",
-      render: (doctorProfile: DoctorProfile) => {
-        return <div>{doctorProfile?.specialization || ""}</div>;
-      },
-      sorter: true,
-    },
-    {
-      title: "City",
-      dataIndex: "city",
-      key: "city",
-      render: (city: City) => {
-        return <div>{city?.city_name || ""}</div>;
-      },
-      sorter: true,
-    },
-    {
-      title: "State",
-      dataIndex: "state",
-      key: "state",
-      render: (state: State) => {
-        return <div>{state?.state_name || ""}</div>;
-      },
-      sorter: true,
-    },
-
-    {
-      title: "Country",
-      dataIndex: "country",
-      key: "country",
-      render: (country: Country) => {
-        return <div>{country?.country_name || ""}</div>;
-      },
-      sorter: true,
-    },
-    {
-      title: "Zip Code",
-      dataIndex: "zip_code",
-      key: "zip_code",
-      render: (zip_code: string) => {
-        return <div>{zip_code || ""}</div>;
-      },
-      sorter: true,
-    },
-
-    {
-      title: "Language",
-      dataIndex: "doctorProfile",
-      key: "doctorProfile",
-      render: (doctorProfile: DoctorProfile) => {
-        let language = doctorProfile?.language?.toLowerCase() || "english";
-        return (
-          <div className="flagAvatar engFlag pr-2">
-            {FLAG_BY_LANGUAGE[language] && (
-              <Image
-                priority={true}
-                src={FLAG_BY_LANGUAGE[language]}
-                alt={language || "flag"}
-                width={25}
-                height={25}
-              />
-            )}
-          </div>
-        );
-      },
-      sorter: true,
-    },
-    {
-      title: "",
-      dataIndex: "id",
-      key: "view",
-      className: "table-action-icon",
-      render: (id: string) => (
-        <div className="text-primary">
-          <EyeFilled
-            onClick={() => {
-              return Router.push(`/admin/physicians/${id}`);
-            }}
-          />
-        </div>
-      ),
-    },
-  ];
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
 
   function onChangeFilters(values: any) {
+    setPagination({ ...pagination, page: 1 });
+    setSorting({ column: "", order: "" });
     setFilterValues(values);
     executeUseGetPhysiciansQuery({
       filter: filterValues,
       requestPolicy: "network-only",
     });
   }
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: sorter.order
+        ? `${
+            (["city", "country", "state"].includes(sorter.field) &&
+              sorter.field) ||
+            (sorter.columnKey === "specialization" && "doctor_profile") ||
+            "user"
+          }.${sorter.columnKey}`
+        : "",
+    });
+  };
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -168,8 +195,18 @@ function AdminPhysicianList() {
           <div className="">
             <Table
               columns={columns}
-              dataSource={getPhysicians}
+              dataSource={getPhysicians?.items}
+              onChange={onChange}
               loading={fetching}
+              pagination={{
+                total: getPhysicians?.meta?.totalItems,
+                pageSize: getPhysicians?.meta?.itemCount,
+                current: getPhysicians?.meta?.currentPage,
+                defaultPageSize: 10,
+                onChange: onPaginationChange,
+                pageSizeOptions: ["10", "20", "30", "40"],
+                showSizeChanger: true,
+              }}
             />
           </div>
         </div>

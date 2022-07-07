@@ -2,15 +2,165 @@ import React, { useState } from "react";
 import { Table, Divider } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MyEarningsStats from "../../../../../common/components/MyEarningsStats/MyEarningsStats";
+import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
 import {
   Appointment,
   useGetDoctorEarningsQuery,
   useGetTransectionFilterQuery,
 } from "generated/graphql";
 import { date, userData } from "common/utils";
-import SearchFilters from "common/components/SearchFilters/SearchFilters";
+// import SearchFilters from "common/components/SearchFilters/SearchFilters";
 import { physicianMyEarningsFilterType } from "common/types/types";
-import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
+
+const Columns = [
+  {
+    title: "Transaction ID",
+    dataIndex: "id",
+    key: "id",
+    sorter: true,
+  },
+  {
+    title: "Appointment ID",
+    dataIndex: "appointmentId",
+    key: "appointment",
+    sorter: true,
+  },
+  {
+    title: "Patient Name",
+    dataIndex: "appointment",
+    key: "first_name",
+    sorter: true,
+    render: (value: Appointment) => {
+      return (
+        <div className="someclass">{`${value?.patient?.first_name} ${value?.patient?.last_name}`}</div>
+      );
+    },
+  },
+
+  {
+    title: "Service Type",
+    dataIndex: "appointment",
+    key: "appointment_service_type",
+    sorter: true,
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
+  },
+  {
+    title: "Booking Date",
+    dataIndex: "appointment",
+    key: "appointment_time_slots",
+    sorter: true,
+    render: (value: Appointment) => {
+      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      return (
+        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+          time?.startTime
+        )} `}</div>
+      );
+    },
+  },
+  {
+    title: "Scheduled Date",
+    dataIndex: "appointment",
+    key: "appointment_time_slots",
+    sorter: true,
+    render: (value: Appointment) => {
+      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      return (
+        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+          time?.startTime
+        )} `}</div>
+      );
+    },
+  },
+  {
+    title: "Status",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: true,
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
+  },
+  {
+    title: "Payment Status",
+    dataIndex: "appointment",
+    key: "transaction",
+    sorter: true,
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
+  },
+  {
+    title: "Total Payment($)",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: true,
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
+  },
+  {
+    title: "Refund($)",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: true,
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
+  },
+  {
+    title: "Return Processing Fee($)",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: true,
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
+  },
+  {
+    title: "Stripe Processing Fee($)",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: true,
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
+  },
+  {
+    title: "Net Physician Fee($)",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: true,
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
+  },
+  {
+    title: "Transaction Date",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: true,
+    render: (value: Appointment) => {
+      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      return (
+        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+          time?.startTime
+        )} `}</div>
+      );
+    },
+  },
+  {
+    title: "Total Earnings",
+    dataIndex: "amountReceived",
+    key: "amountReceived",
+    sorter: {
+      compare: (a: any, b: any) => a.amountReceived - b.amountReceived,
+      multiple: 3,
+    },
+  },
+];
 
 type Props = {};
 
@@ -19,6 +169,15 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const [filterValues, setFilterValues] =
     useState<physicianMyEarningsFilterType>({});
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+  
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
 
   // get Doctor Earnings Stats
   const [{ data }] = useGetDoctorEarningsQuery({
@@ -38,218 +197,38 @@ const PhysicianMyEarningsList = (props: Props) => {
   } = getDoctorEarnings || {};
 
   //GET ALL TRANSACTIONS WITH FILTERS
-  const [{ data: transactionData,fetching }, executeUseGetTransectionFilterQuery] =
-    useGetTransectionFilterQuery({
-      variables: {
-        filter: filterValues,
-      },
-    });
+  const [
+    { data: transactionData, fetching },
+    executeUseGetTransectionFilterQuery,
+  ] = useGetTransectionFilterQuery({
+    variables: {
+      filter: filterValues,
+      pagination,
+      sorting,
+    },
+  });
 
   const { getTransectionFilter } = transactionData || {};
 
   function onChangeFilters(values: physicianMyEarningsFilterType) {
     setFilterValues(values);
+    setPagination({ ...pagination, page: 1 });
     executeUseGetTransectionFilterQuery({
       filter: filterValues,
       requestPolicy: "network-only",
     });
   }
 
-  const Columns = [
-    {
-      title: "Transaction ID",
-      dataIndex: "id",
-      key: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Appointment ID",
-      dataIndex: "appointmentId",
-      key: "appointmentId",
-      sorter: {
-        compare: (a: any, b: any) => a.appointmentId - b.appointmentId,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Patient Name",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        return (
-          <div className="someclass">{`${value?.patient?.first_name} ${value?.patient?.last_name}`}</div>
-        );
-      },
-    },
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: sorter.order ? `user.${sorter.columnKey || sorter.field}` : "",
+    });
+  };
 
-    {
-      title: "Service Type",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-      },
-    },
-    {
-      title: "Booking Date",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            time?.startTime
-          )} `}</div>
-        );
-      },
-    },
-    {
-      title: "Scheduled Date",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            time?.startTime
-          )} `}</div>
-        );
-      },
-    },
-    {
-      title: "Status",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-      },
-    },
-    {
-      title: "Payment Status",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-      },
-    },
-    {
-      title: "Total Payment($)",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-      },
-    },
-    {
-      title: "Refund($)",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-      },
-    },
-    {
-      title: "Return Processing Fee($)",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-      },
-    },
-    {
-      title: "Stripe Processing Fee($)",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-      },
-    },
-    {
-      title: "Net Physician Fee($)",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-      },
-    },
-    {
-      title: "Transaction Date",
-      dataIndex: "appointment",
-      key: "appointment",
-      sorter: {
-        compare: (a: any, b: any) => a.appointment - b.appointment,
-        multiple: 3,
-      },
-      render: (value: Appointment) => {
-        let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            time?.startTime
-          )} `}</div>
-        );
-      },
-    },
-    {
-      title: "Total Earnings",
-      dataIndex: "amountReceived",
-      key: "amountReceived",
-      sorter: {
-        compare: (a: any, b: any) => a.amountReceived - b.amountReceived,
-        multiple: 3,
-      },
-    },
-  ];
-
-  function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-    console.log("params", pagination, filters, sorter, extra);
-  }
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
 
   return (
     <AppLayout>
@@ -287,7 +266,22 @@ const PhysicianMyEarningsList = (props: Props) => {
         </div>
 
         <MyEarningsSearchFilters onChange={onChangeFilters} />
-        <Table columns={Columns} dataSource={getTransectionFilter}  scroll={{ x: true }} loading={fetching} />
+        <Table
+          columns={Columns}
+          dataSource={getTransectionFilter?.items}
+          scroll={{ x: true }}
+          onChange={onChange}
+          loading={fetching}
+          pagination={{
+            total: getTransectionFilter?.meta?.totalItems,
+            pageSize: getTransectionFilter?.meta?.itemCount,
+            current: getTransectionFilter?.meta?.currentPage,
+            defaultPageSize: 10,
+            onChange: onPaginationChange,
+            pageSizeOptions: ["10", "20", "30", "40"],
+            showSizeChanger: true,
+          }}
+        />
       </div>
     </AppLayout>
   );

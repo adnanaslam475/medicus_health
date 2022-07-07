@@ -13,51 +13,40 @@ import { date } from "common/utils";
 
 type Props = {
   dataSource: Appointment[] | undefined;
-  loading:boolean|undefined;
-  
+  loading: boolean | undefined;
 };
 
-function CancelledAppointmentTable({ dataSource ,loading}: Props) {
+function CancelledAppointmentTable({ dataSource, loading }: Props) {
   const columns = [
     {
       title: "ID",
       dataIndex: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
-        multiple: 3,
-      },
+      key: "id",
+      sorter: true,
     },
     {
       title: "Name",
       dataIndex: "patient",
+      key: "first_name",
+      sorter: true,
       render: (value: User) => {
         return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
-      },
-
-      sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
       },
     },
     {
       title: "Type",
       dataIndex: "serviceType",
+      key: "appointment_service_type",
+      sorter: true,
       render: (value: AppointmentServiceType) => {
         return <div>{value?.name}</div>;
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
       },
     },
     {
       title: "Date",
       dataIndex: "requestedDate",
       key: "requestedDate",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      //   multiple: 3,
-      // },
+      sorter: true,
       render: (value: string) => {
         return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
       },
@@ -65,7 +54,8 @@ function CancelledAppointmentTable({ dataSource ,loading}: Props) {
     {
       title: "Time",
       dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
+      key: "appointment_time_slots",
+      sorter: true,
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time?.selected);
         return (
@@ -83,6 +73,7 @@ function CancelledAppointmentTable({ dataSource ,loading}: Props) {
       title: "Total Amount",
       dataIndex: "charges",
       key: "charges",
+      sorter: true,
       render: (value: number) => {
         return <div className="someclass">{value ? `$${value}` : ""}</div>;
       },

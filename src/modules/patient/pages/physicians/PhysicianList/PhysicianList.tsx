@@ -1,11 +1,11 @@
 import React from "react";
+import Link from "next/link";
 import DoctorCard from "common/components/DoctorCards/DoctorCards";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { DoctorProfile, useDoctorProfilesQuery } from "generated/graphql";
-import Link from "next/link";
 
 function Physicians() {
-  const [{ data, fetching }] = useDoctorProfilesQuery();
+  const [{ data, fetching }] = useDoctorProfilesQuery({ variables: {} });
   const { doctorProfiles } = data || {};
 
   return (

@@ -34,7 +34,6 @@ export function BookAppointmentProvider({
     setData({ ...data, stepThree: values });
   }
 
-
   return (
     <BookAppointmentContext.Provider
       value={{

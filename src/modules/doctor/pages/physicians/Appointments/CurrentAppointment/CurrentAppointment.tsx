@@ -1,42 +1,61 @@
 import React from "react";
-import { Empty } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import Table from "./CurrentAppointmentTable";
-import CanncelledAppointmentFilter from "modules/doctor/pages/appointments/CancelAppointmentFilter";
-import {
-  Appointment,
-  useGetAllRequestedAppointmentsQuery,
-} from "generated/graphql";
+import CurrentAppointmentTable from "./CurrentAppointmentTable";
+import CurrentAppointmentFilter from "modules/doctor/pages/appointments/CurrentAppointmentFilter";
+import { useGetAllRequestedAppointmentsQuery } from "generated/graphql";
 import {
   cancelAppointmentFilterType,
   physicianFilterType,
 } from "common/types/types";
-import CurrentAppointmentTable from "./CurrentAppointmentTable";
-import CurrentAppointmentFilter from "modules/doctor/pages/appointments/CurrentAppointmentFilter";
 
 type CancelledAppointmentProps = {};
 
 function CurrentAppointment({}: CancelledAppointmentProps) {
   const [filterValues, setFilterValues] =
     React.useState<cancelAppointmentFilterType>({});
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
 
-  const [{ data,fetching }, executeUseCancelledAppointmentsQuery] =
+  const [{ data, fetching }, executeUseCancelledAppointmentsQuery] =
     useGetAllRequestedAppointmentsQuery({
       variables: {
         filter: {
           status: "Cancelled",
           ...filterValues,
         },
+        pagination,
+        sorting,
       },
     });
+
   const { appointments } = data || {};
   function onChangeFilters(values: physicianFilterType) {
+    setPagination({ ...pagination, page: 1 });
+    setSorting({ column: "", order: "" });
     setFilterValues(values);
     executeUseCancelledAppointmentsQuery({
       filter: filterValues,
       requestPolicy: "network-only",
     });
   }
+
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: `user.${sorter.field}` || "",
+    });
+  };
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -57,7 +76,13 @@ function CurrentAppointment({}: CancelledAppointmentProps) {
             </div>
           )} */}
           {/* <Table dataSource={appointments as Appointment[]} loading={fetching}/> */}
-          <CurrentAppointmentTable loading={false}/>
+          <CurrentAppointmentTable
+            loading={fetching}
+            onChange={onChange}
+            data={appointments?.items}
+            meta={appointments?.meta}
+            onPaginationChange={onPaginationChange}
+          />
         </div>
       </div>
     </AppLayout>

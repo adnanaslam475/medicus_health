@@ -13,25 +13,21 @@ type events = {
   calenderEvents: Appointment | undefined | any;
 };
 function AppointmentCalendar() {
-
   const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
     calenderEvents: [],
   });
   const [modalData, setModalData] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
-  const [doctorIds, setDoctorId] = useState<number>();
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
-      filter: {
-       
-      },
+      filter: {},
+      pagination: { limit: -1, page: 1 },
     },
   });
-  const redirectToRequested =function () {
+  const redirectToRequested = function () {
     Router.push("/patient/appointments/upcoming");
-  }
-
+  };
 
   const { appointments } = data || {};
 
@@ -61,7 +57,7 @@ function AppointmentCalendar() {
   const setCalendarData = () => {
     setCalender({
       ...calender,
-      calenderEvents: appointments?.map(
+      calenderEvents: appointments?.items?.map(
         ({ id, patient, requestedDate, doctor, serviceType }) => ({
           id: id,
           title: doctor?.first_name,

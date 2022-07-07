@@ -1,79 +1,84 @@
+import React from "react";
+import Router from "next/router";
 import { Table } from "antd";
 import {
   Appointment,
   AppointmentDateTimeResponse,
   AppointmentServiceType,
-  AppointmentTimeSlots,
-  DoctorSchedule,
   User,
 } from "generated/graphql";
-import React from "react";
-
 import { EyeFilled } from "@ant-design/icons";
-import Router from "next/router";
 import { date } from "common/utils";
-import { getUserData } from "common/utils/userData";
 
 type Props = {
   dataSource: Appointment[] | undefined;
-  loading:boolean|undefined;
+  loading: boolean | undefined;
+  onChange: any;
+  meta: any;
+  onPaginationChange: any;
 };
 
-function CancelledAppointmentTable({ dataSource,loading }: Props) {
+function CancelledAppointmentTable({
+  dataSource,
+  loading,
+  meta,
+  onChange,
+  onPaginationChange,
+}: Props) {
   const columns = [
     {
       title: "ID",
       dataIndex: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
-        multiple: 3,
-      },
+      key: "id",
+      sorter: true,
     },
     {
       title: "Name",
       dataIndex: "patient",
+      key: "first_name",
       render: (value: User) => {
         return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
       },
-
-      sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "Type",
       dataIndex: "serviceType",
+      key: "name",
+      sorter: true,
       render: (value: AppointmentServiceType) => {
         return <div>{value?.name}</div>;
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
       },
     },
     {
       title: "Date",
       dataIndex: "appointmentDateTime",
-      key: "appointmentDateTime",
-
+      key: "appointment_time_slots",
+      sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        return <div className="someclass">{appointmentDateTime?.startTime ? date?.formatMMMMDDYYYY(appointmentDateTime?.startTime) : "--"}</div>;
+        return (
+          <div className="someclass">
+            {appointmentDateTime?.startTime
+              ? date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)
+              : "--"}
+          </div>
+        );
       },
     },
     {
       title: "Time",
       dataIndex: "appointmentDateTime",
-      key: "appointmentDateTime",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
+      key: "appointment_time_slots",
+      sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
-					<div>{appointmentDateTime?.startTime && appointmentDateTime?.endTime ? `${date?.formathhmma(
-						appointmentDateTime?.startTime
-					)} - ${date?.formathhmma(appointmentDateTime.endTime)}` : "--"}</div>
+          <div>
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${date?.formathhmma(
+                  appointmentDateTime?.startTime
+                )} - ${date?.formathhmma(appointmentDateTime.endTime)}`
+              : "--"}
+          </div>
         );
       },
     },
@@ -81,6 +86,7 @@ function CancelledAppointmentTable({ dataSource,loading }: Props) {
       title: "Total Amount",
       dataIndex: "charges",
       key: "charges",
+      sorter: true,
       render: (value: number) => {
         return <div className="someclass">{value ? `$${value}` : ""}</div>;
       },
@@ -102,6 +108,23 @@ function CancelledAppointmentTable({ dataSource,loading }: Props) {
       ),
     },
   ];
-  return <Table columns={columns} dataSource={dataSource} loading={loading} scroll={{x:true}} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={dataSource}
+      loading={loading}
+      onChange={onChange}
+      scroll={{ x: true }}
+      pagination={{
+        total: meta?.totalItems,
+        pageSize: meta?.itemCount,
+        current: meta?.currentPage,
+        defaultPageSize: 10,
+        onChange: onPaginationChange,
+        pageSizeOptions: ["10", "20", "30", "40"],
+        showSizeChanger: true,
+      }}
+    />
+  );
 }
 export default CancelledAppointmentTable;

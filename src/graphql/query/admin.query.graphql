@@ -1,11 +1,23 @@
-query getAdminUsers($filter: GetAdminUsersFilterInput!) {
-  adminUsers(filter: $filter) {
-    id
-    first_name
-    last_name
-    email
-    createdAt
-    status
+query getAdminUsers(
+  $filter: GetAdminUsersFilterInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  adminUsers(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+      first_name
+      last_name
+      email
+      createdAt
+      status
+    }
+    meta {
+      totalItems
+      totalPages
+      itemCount
+      currentPage
+    }
   }
 }
 
@@ -18,60 +30,84 @@ query adminDashboardStatistics {
   }
 }
 
-query AdminPhysicianAppointment($filter: GetAppointmentInput!) {
-  appointments(filter: $filter) {
-    id
-    patient {
-      first_name
-      last_name
-      email
-      patientProfile {
-        profileImage
+query AdminPhysicianAppointment(
+  $filter: GetAppointmentInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+      patient {
+        first_name
+        last_name
+        email
+        patientProfile {
+          profileImage
+        }
+      }
+      doctor {
+        first_name
+        last_name
+      }
+      appointmentTimeSlots {
+        startTime
+        endTime
+        selected
+      }
+      appointmentSchedule {
+        startTime
+        endTime
+      }
+      appointmentDateTime {
+        startTime
+        endTime
+      }
+      charges
+      status
+      serviceType {
+        name
       }
     }
-    doctor {
-      first_name
-      last_name
-    }
-    appointmentTimeSlots {
-      startTime
-      endTime
-      selected
-    }
-    appointmentSchedule {
-      startTime
-      endTime
-    }
-    appointmentDateTime {
-      startTime
-      endTime
-    }
-    charges
-    status
-    serviceType {
-      name
+    meta {
+      totalItems
+      totalPages
+      itemCount
+      currentPage
     }
   }
 }
 
-query getPatients($filter: GetPatientsInput!) {
-  getPatients(filter: $filter) {
-    id
-    first_name
-    last_name
-    email
-    contact_number
-    createdAt
-    streetAddress
-    zip_code
-    state {
-      state_name
+query getPatients(
+  $filter: GetPatientsInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  getPatients(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+      first_name
+      last_name
+      email
+      contact_number
+      createdAt
+      streetAddress
+      zip_code
+      state {
+        state_name
+      }
+      city {
+        city_name
+      }
+      country {
+        country_name
+      }
     }
-    city {
-      city_name
-    }
-    country {
-      country_name
+    meta {
+      totalItems
+      totalPages
+      itemCount
+      currentPage
     }
   }
 }
