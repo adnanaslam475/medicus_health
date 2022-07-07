@@ -1,19 +1,22 @@
 import { VideoCameraFilled } from "@ant-design/icons";
 import { Button, Card } from "antd";
 import React from "react";
-import { AppointmentDateTimeResponse, AppointmentTimeSlots } from "../../../../generated/graphql";
+import {
+  AppointmentDateTimeResponse,
+  AppointmentTimeSlots,
+} from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 
 type Props = {
-  appointmentId: number | undefined;
+  appointmentId: number | null | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal: any;
-  appointmentDateTime?:AppointmentDateTimeResponse
+  appointmentDateTime?: AppointmentDateTimeResponse;
 };
 
 function AppointmnetRequestedCard({
@@ -24,21 +27,28 @@ function AppointmnetRequestedCard({
   doctor,
   appointmentTimeSlots,
   setShowModal,
-  appointmentDateTime
+  appointmentDateTime,
 }: Props) {
+  let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
+    appointmentDateTime?.startTime?.split(" ")[2]
+  }`;
+  let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+    appointmentDateTime?.endTime?.split(" ")[2]
+  }`;
   return (
     <Card className={`${_classes["appointment-card"]}`}>
+      <span className="text-sm mb-0"> {appointmentId || ""}</span>
       <h3 className="mb-0">Dr. {doctor}</h3>
       <span className="text-gray text-base block">{serviceType}</span>
       <span className="text-sm mt-6 block">Date</span>
       <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
       <span className="text-sm mt-4 block">Time</span>
       <div className="text-secondary">
-          {appointmentDateTime?.endTime && appointmentDateTime?.startTime
-            ? `${date.formathhmma(appointmentDateTime?.startTime)}
-             - ${date.formathhmma(appointmentDateTime?.endTime)}`
-            : "--"}
-        </div>
+        {appointmentDateTime?.endTime && appointmentDateTime?.startTime
+          ? `${formatedStartTime}
+             - ${formatedEndTime}`
+          : "--"}
+      </div>
       <span className="text-sm mt-4 block font-normal">Status</span>
       <span className="text-base text-yellow font-bold ">{status}</span>
     </Card>

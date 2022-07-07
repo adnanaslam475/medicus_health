@@ -99,7 +99,7 @@ function CurrentAppointment() {
           </div>
         </div>
 
-        <div className="md:w-5/6">
+        <div className="">
           <SearchFilter onChange={onChangeFilters} />
         </div>
         {!fetching ? (

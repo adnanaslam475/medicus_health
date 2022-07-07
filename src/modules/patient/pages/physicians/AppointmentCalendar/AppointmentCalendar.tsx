@@ -21,8 +21,14 @@ function AppointmentCalendar() {
   const [modalVisible, setModalVisible] = useState(false);
   const [{ data }] = useGetAllRequestedAppointmentsQuery({
     variables: {
+<<<<<<< HEAD
       filter: {},
       pagination: { limit: -1, page: 1 },
+=======
+      filter: {
+        "status":"Confirmed"
+      },
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
     },
   });
   const redirectToRequested = function () {

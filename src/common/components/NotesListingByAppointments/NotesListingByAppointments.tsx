@@ -18,9 +18,9 @@ import AdminNotesWithTextTab from "modules/admin/pages/AdminAppointmentsDetail/A
 import EditableNotes from "../EditableNotes/EditableNotes";
 import { getRole } from "common/utils/userData";
 import ViewableNotes from "../ViewableNotes/ViewableNotes";
+import { convertStringDateToUTC } from "common/utils/date";
 
 type Props = {
-  // onFinish?: (values: any, setModalVisible: () => void) => void;
   appointment?: Appointment | undefined;
   onChange?: () => void;
   doctorNotes?: GetDoctorNotesByAppIdQuery;
@@ -31,28 +31,37 @@ function NotesListingByAppointments(props: Props) {
   const appointmentId = Number(query.id);
   const { doctorNotes, appointment } = props;
 
-  const [{ data }] = useGetAppointmentNoteByIdQuery({
+  const [{ data: currentAppointmentNotes }] = useGetAppointmentNoteByIdQuery({
     variables: {
       appointmentId,
     },
+    requestPolicy: "network-only",
   });
 
   const { Panel } = Collapse;
-  const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+
   const onChangeCollapse = (key: string | string[]) => {
     console.log(key);
   };
 
-  const appointmentChild = appointment;
+  const appointmentChild = currentAppointmentNotes;
 
-  const actualDoctorNotes = appointmentChild?.currentAppointmentNote;
+  const actualDoctorNotes = appointmentChild?.appointmentNote;
 
-  // console.log(actualDoctorNotes, "notesByAppointmentId");
-  const a = [1, 2, 4, 5, 6];
+  const docData = actualDoctorNotes?.appointment?.doctor;
+
+  const docName = docData?.first_name + " " + docData?.last_name;
+
+  const appId = actualDoctorNotes?.appointmentId;
+
+  const appDate = actualDoctorNotes?.createdAt;
+
+  const a = [0];
+
+  const status = appointment?.status;
+
+  console.log(currentAppointmentNotes, "actualDoctorNotesMy");
+
   return (
     <>
       <div
@@ -68,28 +77,27 @@ function NotesListingByAppointments(props: Props) {
           )}
         >
           {a.map((data, index) => {
+            console.log(data, "sadasds");
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header="Appointment Note"
+                header={`AP-${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${docName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                  appDate
+                )} `}
                 key={index}
               >
                 {(getRole() === "Admin" || getRole() === "Doctor") &&
                   actualDoctorNotes !== null && (
                     <>
                       <EditableNotes
-                        // appointment={appointment as Appointment}
-                        doctorNotes={doctorNotes}
+                      // doctorNotes={doctorNotes}
                       />
                     </>
                   )}
 
                 {getRole() === "User" && (
                   <>
-                    <ViewableNotes
-                      // appointment={appointment as Appointment}
-                      doctorNotes={doctorNotes}
-                    />
+                    <ViewableNotes doctorNotes={doctorNotes} />
                   </>
                 )}
               </Panel>

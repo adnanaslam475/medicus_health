@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { Avatar, Form, Button, Skeleton } from "antd";
+import { UserOutlined } from '@ant-design/icons';
 
 import { useGetUserQuery, User } from "generated/graphql";
 import { Schedule } from "common/types/types";
@@ -9,6 +10,7 @@ import { parseJson } from "common/utils/helper";
 import ProfileForm from "./ProfileForm";
 import _classes from "./PhysicianProfile.module.scss";
 import { getRole } from "common/utils/userData";
+import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 
 type props = {
   doctorId?: string;
@@ -28,7 +30,7 @@ export const ViewProfile = React.forwardRef(function Profile({
   loading,
 }: props) {
   const [formInstance] = Form.useForm();
-  const { first_name, last_name, email, contact_number, status, language } =
+  const { first_name, last_name, email, contact_number, status, language ,password} =
     doctorData?.user || {};
 
   const [{ data: userData }] = useGetUserQuery({
@@ -69,8 +71,8 @@ export const ViewProfile = React.forwardRef(function Profile({
       year_of_experience: year_of_experience,
       contact: contact_number,
       email: email,
-      password: "",
-      confirmPassword: "",
+      password: password,
+      confirmPassword: password,
       ["eb-institution-0"]: educationalBackground[0]?.institution,
       ["eb-degree-0"]: educationalBackground[0]?.degree,
       ["eb-institution-1"]: educationalBackground[1]?.institution,
@@ -94,12 +96,9 @@ export const ViewProfile = React.forwardRef(function Profile({
             <div className="relative">
               <Avatar
                 size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
-                style={{
-                  borderColor: "transparent",
-                  borderWidth: 2,
-                  lineHeight: "40px",
-                }}
+                className={"profile-avatar"}
                 src={profile_image}
+                icon={!profile_image && <UserOutlined />}
               />
             </div>
 

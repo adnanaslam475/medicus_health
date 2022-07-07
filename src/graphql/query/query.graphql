@@ -285,12 +285,27 @@ query getAllRequestedAppointments(
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
+
+    # appointmentTimeSlots {
+    #   id
+    #   startTime
+    #   endTime
+    #   selected
+    # }
+    # transaction {
+    #   createdAt
+    #   amountReceived
+    #   status
+    # }
+    # appointmentSchedule {
+    #   startTime
+    #   endTime
+    # }
+    
 }
 # query getAllRequestedAppointments($filter: GetAppointmentInput!) {
 #   appointments(filter: $filter) {
@@ -394,6 +409,9 @@ query getAppointmentById($id: Int!) {
       id
       first_name
       last_name
+      patientProfile{
+        profileImage
+      }
       patientHealthHistory {
         history
       }
@@ -422,17 +440,18 @@ query getAppointmentById($id: Int!) {
     appointmentHealthHistory {
       history
     }
-    # doctorNote {
-    #   id
-    #   isPublished
-    #   appointmentId
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   note
-    # }
+
     currentAppointmentNote {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
+      id
       subjective
       objective
       assessment
@@ -441,6 +460,16 @@ query getAppointmentById($id: Int!) {
       isPublished
     }
     notesHistory {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
+      id
       subjective
       objective
       assessment
@@ -448,6 +477,24 @@ query getAppointmentById($id: Int!) {
       note
       isPublished
     }
+    # currentAppointmentNote {
+    #   id
+    #   subjective
+    #   objective
+    #   assessment
+    #   plan
+    #   note
+    #   isPublished
+    # }
+    # notesHistory {
+    #   id
+    #   subjective
+    #   objective
+    #   assessment
+    #   plan
+    #   note
+    #   isPublished
+    # }
   }
 }
 
@@ -487,9 +534,7 @@ query getAllTransactions(
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -545,7 +590,7 @@ query ViewSuggestedTimeSlots($id: Int!) {
       first_name
       last_name
     }
-    transaction{
+    transaction {
       status
       amountReceived
     }
@@ -631,9 +676,7 @@ query getAllStaffByDoctor(
       status
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -667,9 +710,7 @@ query getAdminUsers(
       status
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -688,9 +729,23 @@ query getAdminUserById($id: Int!) {
 
 query getAppointmentNotesById($id: Int!) {
   appointment(id: $id) {
-    currentAppointmentNote {
+    doctor {
       id
-      appointmentId
+      first_name
+      last_name
+    }
+
+    currentAppointmentNote {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
+      id
       subjective
       objective
       assessment
@@ -699,8 +754,16 @@ query getAppointmentNotesById($id: Int!) {
       isPublished
     }
     notesHistory {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
       id
-      appointmentId
       subjective
       objective
       assessment
@@ -708,5 +771,25 @@ query getAppointmentNotesById($id: Int!) {
       note
       isPublished
     }
+    # currentAppointmentNote {
+    #   id
+    #   appointmentId
+    #   subjective
+    #   objective
+    #   assessment
+    #   plan
+    #   note
+    #   isPublished
+    # }
+    # notesHistory {
+    #   id
+    #   appointmentId
+    #   subjective
+    #   objective
+    #   assessment
+    #   plan
+    #   note
+    #   isPublished
+    # }
   }
 }

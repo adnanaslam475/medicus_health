@@ -155,7 +155,7 @@ function AdminPatientsList() {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex justify-between mb-10">
+        <div className="flex justify-between">
           <h2 className="mb-4">Patients</h2>
           <Link passHref href={`/admin/patients/addPatients`}>
             <a>
@@ -174,6 +174,7 @@ function AdminPatientsList() {
               columns={columns}
               dataSource={getPatients?.items as User[]}
               loading={fetching}
+<<<<<<< HEAD
               onChange={onChange}
               pagination={{
                 total: getPatients?.meta?.totalItems,
@@ -184,6 +185,9 @@ function AdminPatientsList() {
                 pageSizeOptions: ["10", "20", "30", "40"],
                 showSizeChanger: true,
               }}
+=======
+              scroll={{x:true}}
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
             />
           </div>
         </div>

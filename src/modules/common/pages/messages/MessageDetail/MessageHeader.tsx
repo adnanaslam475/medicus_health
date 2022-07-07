@@ -2,7 +2,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import Image from "next/image";
 import React from "react";
-import profile from "./../../../../../../public/assets/images/doc-pic.png";
+import profile from "./../../../../../../public/assets/images/nullicon.png";
 import ThreeDot from "./../../../../../../public/assets/images/threedot.svg";
 import Inputicon from "../../../../../../public/assets/images/inputicon.svg";
 
@@ -38,17 +38,17 @@ function MessageHeader({}: Props) {
           prefix={<SearchOutlined className={`{${_classes["search-color"]}`} />}
         />
 
-        <Image
+        {/* <Image
           priority={true}
           alt=""
           src={Inputicon}
           width={54}
           height={44}
           className="border rounded border-gray-1 "
-        />
+        /> */}
       </div>
       {isShowHeaderInfo && (
-        <div className="flex gap-2 w-full px-4">
+        <div className="flex gap-2 w-full sm:px-4">
           <div className="flex items-center gap-2 flex-1">
             <MDNextImage
               alt=""

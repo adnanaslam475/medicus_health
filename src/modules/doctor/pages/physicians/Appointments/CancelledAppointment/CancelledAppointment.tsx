@@ -89,12 +89,18 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
               <Empty />
             </div>
           )} */}
+<<<<<<< HEAD
           <CancelledAppointmentTable
             dataSource={appointments?.items as Appointment[]}
             loading={fetching}
             onChange={onChange}
             onPaginationChange={onPaginationChange}
             meta={appointments?.meta}
+=======
+          <Table
+            dataSource={appointments as Appointment[]}
+            loading={fetching}
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
           />
         </div>
       </div>

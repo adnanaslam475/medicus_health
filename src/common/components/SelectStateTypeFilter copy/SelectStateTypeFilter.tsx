@@ -22,7 +22,7 @@ export function SelectStateTypeFilter({
   return (
     <Select
       placeholder="State"
-      className="w-full sm:w-40"
+      className="w-full sm:w-50"
       onChange={onChange}
       value={value}
     >

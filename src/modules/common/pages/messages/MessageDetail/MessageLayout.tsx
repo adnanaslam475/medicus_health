@@ -11,7 +11,7 @@ function MessageLayout({ children }: Props) {
       <div className="w-full border border-gray-4">
         <div>{children[0]}</div>
         <div className="flex">
-          <div className="max-w-[340px] w-full">{children[1]}</div>
+          <div className="max-w-[120px] sm:max-w-[340px] w-full">{children[1]}</div>
           {children[2]}
         </div>
       </div>

@@ -8,6 +8,7 @@ import {
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   DoctorProfile,
+  Transaction,
 } from "../../../generated/graphql";
 
 // scss
@@ -15,7 +16,7 @@ import _classes from "./AppointmentCard.module.scss";
 import AppointmnetCurrentCard from "./CardTypes/AppointmnetCurrentCard";
 
 type props = {
-  appointmentId?: number | undefined;
+  appointmentId?: number |null| undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
@@ -27,6 +28,7 @@ type props = {
   appointmentDateTime?: AppointmentDateTimeResponse;
   doctorId?: number | null | undefined;
   patientId?: number | null | undefined;
+  transaction?: Transaction | undefined
 };
 
 function AppointmentCard({
@@ -42,7 +44,9 @@ function AppointmentCard({
   appointmentDateTime,
   doctorId,
   patientId,
+  transaction
 }: props) {
+
   function getStatus() {
     const { user } = getUserData();
     const { role } = user || {};
@@ -100,12 +104,14 @@ function AppointmentCard({
     case "Cancelled":
       return (
         <AppointmnetCancelledCard
+          appointmentId={appointmentId}
           requestedDate={requestedDate}
           status={getStatus()}
           serviceType={serviceType}
           doctor={doctor}
           doctorProfile={doctorProfile}
           appointmentTimeSlots={appointmentTimeSlots}
+          transaction={transaction}
         />
       );
     case "Suggested":

@@ -10,6 +10,8 @@ import { getRole, getUserData } from "../../utils/userData";
 import InfoMessageBannerReminder from "../InfoMessageBannerReminder/InfoMessageBannerReminder";
 import { usePatientHealthHistoryQuery } from "generated/graphql";
 import Link from "next/link";
+import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
+
 
 const { Header } = Layout;
 
@@ -75,11 +77,17 @@ const AppHeader = () => {
         </Menu.Item>
       )}
 
-      <Menu.Item>
-        <Link href={{ pathname, query }} as={asPath} locale={otherLocales?.[0]}>
-          {`switch to ${otherLocales?.[0]}`}
-        </Link>
-      </Menu.Item>
+      <div className="hidden">
+        <Menu.Item>
+          <Link
+            href={{ pathname, query }}
+            as={asPath}
+            locale={otherLocales?.[0]}
+          >
+            {`switch to ${otherLocales?.[0]}`}
+          </Link>
+        </Menu.Item>
+      </div>
 
       <Menu.Item onClick={logout}>
         <span className="text-red">Logout</span>
@@ -133,10 +141,14 @@ const AppHeader = () => {
               <div onClick={showPopover}>
                 {user?.first_name && (
                   <>
-                    <Avatar
-                      className="ml-3"
-                      size="large"
-                      src={profilePicture}
+                    <Image
+                      priority={true}
+                      alt="Profile Image"
+                      height="40"
+                      width="40"
+                      onError={(e) => console.log(e)}
+                      src={profilePicture || userDefaultPicture}
+                      className="bg-gray border rounded-full border-gray"
                     />
                     <span className="justify-center px-2 hidden xl:block">
                       {userName}

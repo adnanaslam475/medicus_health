@@ -101,11 +101,11 @@ function MyEarningsSearchFilters(props: Props) {
 
 	return (
 		<div
-			className={`${_classes["page-filters"]} flex items-center mb-5 flex-wrap`}
+			className={`${_classes["page-filters"]} flex items-center mb-5 flex-wrap gap-2`}
 		>
-			<span className="text-gray-1 mr-3 mb-3"></span>
-			<div className="flex flex-wrap">
-				<div className=" w-full sm:w-full md:w-full xl:w-96 mr-2 md:mb-2">
+			<span className="text-gray-1 mr-3 "></span>
+			<div className="flex flex-wrap gap-2">
+				<div className=" w-full sm:w-full md:w-full xl:w-96">
 					<Input
 						placeholder="Search by ID, appointment ID or patient name"
 						prefix={<SearchOutlined />}
@@ -113,7 +113,7 @@ function MyEarningsSearchFilters(props: Props) {
 						onChange={(e) => onChangeFields("searchString", e?.target.value)}
 					/>
 				</div>
-				<div className="w-full md:w-56 xl:w-36 mr-2 mb-3 mt-3 md:mt-0">
+				<div className="w-full md:w-56 xl:w-36 ">
 					<Select
 						placeholder="Service"
 						className={`${searchStyle.placeholderColor} w-full`}
@@ -127,12 +127,12 @@ function MyEarningsSearchFilters(props: Props) {
 						))}
 					</Select>
 				</div>
-				<div className=" flex mr-2 mt-0 md:mt-0">
-					{/* <Space
+				<div className="flex w-full  sm:w-60">
+					<Space
             direction="vertical"
             size={0}
-            className="w-full md:w-44 xl:w-60 sm:mb-3 mr-2"
-          > */}
+            className="w-full   sm:w-60"
+          >
 					<div className="relative ">
 						<RangePicker
 							value={null}
@@ -188,8 +188,14 @@ function MyEarningsSearchFilters(props: Props) {
 							)}
 						</Button>
 					</div>
+          </Space>
 				</div>
-				<div className="flex-none sm:flex mr-2 mt-0 md:mt-0  ">
+				<div className="flex w-full  sm:w-60">
+        <Space
+            direction="vertical"
+            size={0}
+            className="w-full   sm:w-60"
+          >
 					<div className="relative">
 						<RangePicker
 							value={null}
@@ -245,6 +251,8 @@ function MyEarningsSearchFilters(props: Props) {
 							)}
 						</Button>
 					</div>
+        
+          </Space>
 				</div>
 				{/* </Space> */}
 
@@ -261,7 +269,7 @@ function MyEarningsSearchFilters(props: Props) {
               </Space>
             </a>
           </Dropdown> */}
-				<div className="w-full sm:w-56 sm:w-44  mt-0  mr-2  md:mt-0 sm:my-0 xs:my-3">
+				<div className="w-full sm:w-40  ">
 					<SelectStatusTypeFilter
 						placeholder="Status"
 						onChange={(value) => onChangeFields("status", value as string)}
@@ -269,7 +277,7 @@ function MyEarningsSearchFilters(props: Props) {
 						value={filterState?.status || "Status"}
 					/>
 				</div>
-				<div className="w-full md:w-96 md:ml-2 lg:ml-2  sm:mt-3 md:mt-0">
+				<div className="w-full sm:w-40 ">
 					<Select
 						placeholder="Payment Status"
 						onChange={(value) => onChangeFields("paymentStatus", value)}

@@ -3,6 +3,7 @@ import Router from "next/router";
 import { Table } from "antd";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
   User,
@@ -52,6 +53,7 @@ const columns = [
     render: (dueDate: string) => {
       return <div>{date.formatMMMMDDYYYY(dueDate)}</div>;
     },
+<<<<<<< HEAD
     sorter: true,
   },
   {
@@ -69,6 +71,76 @@ const columns = [
             `${date.formathhmma(
               filteredVal[0]?.startTime
             )} - ${date.formathhmma(filteredVal[0]?.endTime)}`}
+=======
+    {
+      title: "Due Date",
+      dataIndex: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedDueDate = `${
+          appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
+        return (
+          <div>
+            {appointmentDateTime?.startTime
+              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+              : "--"}
+          </div>
+        );
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
+        // multiple: 3,
+      },
+    },
+    {
+      title: "Time",
+      dataIndex: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedStartTime = `${
+          appointmentDateTime?.startTime?.split(" ")[1]
+        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+          appointmentDateTime?.endTime?.split(" ")[2]
+        }`;
+
+        return (
+          <div>
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${formatedStartTime} - ${formatedEndTime}`
+              : "-"}
+          </div>
+        );
+      },
+      sorter: {
+        compare: (a: any, b: any) =>
+          a.appointmentTimeSlots - b.appointmentTimeSlots,
+        // multiple: 3,
+      },
+    },
+    {
+      title: "Total Amount",
+      dataIndex: "charges",
+      render: (value: number) => {
+        return <div>{value}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.charges - b.charges,
+        // multiple: 3,
+      },
+    },
+    {
+      dataIndex: "id",
+      className: "table-action-icon",
+      render: (appointmentId: number) => (
+        <div className="text-primary">
+          <EyeFilled
+            onClick={() => {
+              return Router.push(
+                `/physician/appointments/upcoming/${appointmentId}`
+              );
+            }}
+          />
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
         </div>
       );
     },
@@ -132,6 +204,7 @@ function UpcomingAppointmentTableDoctor({
       footer={footer}
       loading={loading}
       scroll={{ x: true }}
+<<<<<<< HEAD
       onChange={onChange}
       pagination={{
         total: meta?.totalItems,
@@ -141,6 +214,8 @@ function UpcomingAppointmentTableDoctor({
         pageSizeOptions: ["10", "20", "30", "40"],
         showSizeChanger: true,
       }}
+=======
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
     />
     // </span>
   );

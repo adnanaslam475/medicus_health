@@ -6,7 +6,8 @@ import {
   formatMMMMDDYYYY,
   formathhmma,
   isAppoinentDateIsSame,
-  formatDate_n_Time
+  formatDate_n_Time,
+  addHoursToDate
 } from "./date";
 
 import { isObjectEmpty } from "./object";
@@ -26,7 +27,8 @@ const date = {
   formatMMMMDDYYYY,
   formathhmma,
   isAppoinentDateIsSame,
-  formatDate_n_Time
+  formatDate_n_Time,
+  addHoursToDate
 };
 
 const object = {

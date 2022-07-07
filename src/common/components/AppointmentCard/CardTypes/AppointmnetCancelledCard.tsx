@@ -4,28 +4,32 @@ import React, { useState } from "react";
 import {
   AppointmentTimeSlots,
   DoctorProfile,
+  Transaction,
 } from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 
 type Props = {
+  appointmentId: number | null | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
   doctorProfile?: DoctorProfile | undefined | null;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
+  transaction?: Transaction | undefined;
 };
 
 function AppointmnetCancelledCard({
+  appointmentId,
   requestedDate,
   status,
   serviceType,
   doctor,
   doctorProfile,
   appointmentTimeSlots,
+  transaction,
 }: Props) {
-
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
   //   setShowModal(true);
@@ -61,6 +65,7 @@ function AppointmnetCancelledCard({
   return (
     <>
       <Card className={`${_classes["appointment-card"]}`}>
+        <span className="text-sm mb-0"> {appointmentId || ""}</span>
         <h3 className="mb-0">Dr. {doctor}</h3>
         <span className="text-gray text-base block">{serviceType}</span>
         <span className="text-sm">Date</span>
@@ -75,7 +80,23 @@ function AppointmnetCancelledCard({
             )} - ${date.formathhmma(item.endTime)}`}</div>
           ))
         )}
-        <span className="text-base text-red font-bold ">{status}</span>
+        <div className="inline-block mr-24">
+          <span className="text-sm">Status</span>
+          <span className="flex text-base text-red font-bold ">{status}</span>
+        </div>
+        <div className="inline-block">
+          <span className="text-sm">Payment Status</span>
+          {transaction ? (
+            <span className="flex text-base text-yellow font-bold ">
+              {transaction?.status}
+            </span>
+          ) : (
+            <span className="flex text-base text-yellow font-bold ">
+              Unpaid
+            </span>
+          )}
+        </div>
+
         <div className="flex">
           <Button
             type={"primary"}

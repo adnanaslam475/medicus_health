@@ -95,9 +95,13 @@ function DoctorAppointmentInfo({ data }: Props) {
     }
   }
 
-  let dueDate = appointmentDateTime?.startTime || timeSlots()?.startTime;
-  let startTime = appointmentDateTime?.startTime || timeSlots()?.startTime;
-  let endTime = appointmentDateTime?.startTime || timeSlots()?.startTime;
+  let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+  let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
+    appointmentDateTime?.startTime?.split(" ")[2]
+  }`;
+  let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+    appointmentDateTime?.endTime?.split(" ")[2]
+  }`;
   async function onCancelRequestedAppointment() {
     try {
       const res = await executeCancelAppointment({
@@ -162,23 +166,29 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="Due Date"
-          text={dueDate ? `${formatMMMM_Dcoma_YYYY(dueDate)} ` : "--"}
+          text={
+            appointmentDateTime?.startTime
+              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+              : "--"
+          }
         />
         <LabelWithText
-          label="Appointment creation date"
-          text={formatMMMM_Dcoma_YYYY(createdAt)}
+          label="Booking Date"
+          text={date?.formatMMMMDDYYYY(createdAt)}
+        />
+        <LabelWithText
+          label="Requested Date"
+          text={date?.formatMMMMDDYYYY(requestedDate)}
         />
         <LabelWithText
           label="Time"
           text={
-            startTime
-              ? `${date?.formathhmma(startTime)} - ${date?.formathhmma(
-                  endTime
-                )}`
+            appointmentDateTime?.startTime
+              ? `${formatedStartTime} - ${formatedEndTime}`
               : "--"
           }
         />
-        {status === "Confirmed" && (
+        {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
             label="Total Amount"
             text={
@@ -213,6 +223,30 @@ function DoctorAppointmentInfo({ data }: Props) {
             </Tag>
           </div>
         </li>
+        {status === "Cancelled" && (
+          <li className="flex border-b border-gray-5 py-3">
+            <div className="w-full text-gray-1 max-w-[300px]">
+              Payment Status
+            </div>
+            <div className="w-full text-secondary">
+              {transaction?.status ? (
+                <Tag
+                  color="#e2f8f7"
+                  className="ant-typography ant-typography-secondary"
+                >
+                  {transaction?.status}
+                </Tag>
+              ) : (
+                <Tag
+                  color="#FEF6E0"
+                  className="ant-typography ant-typography-secondary"
+                >
+                  Unpaid
+                </Tag>
+              )}
+            </div>
+          </li>
+        )}
       </div>
       {status === "Confirmed" && (
         <DoctorUpcomingAppointmentInfoFooter
@@ -415,7 +449,7 @@ function DoctorUpcomingAppointmentInfoFooter({
 
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   return (
-    <div className="flex justify-between mt-6">
+    <div className="flex justify-center sm:justify-between mt-6 flex-wrap gap-y-2 gap-x-2 ">
       <div className="flex">
         <Button
           danger
@@ -595,6 +629,15 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
 
+  let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+
+  let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
+    appointmentDateTime?.startTime?.split(" ")[2]
+  }`;
+  let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+    appointmentDateTime?.endTime?.split(" ")[2]
+  }`;
+
   return (
     <>
       <div className=" flex-col sm:flex-row  flex justify-between mt-6 flex-wrap">
@@ -681,13 +724,14 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <Form.Item label="Existing Schedule" name="requestedDate">
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="">
-                  <div className="text-sm mb-0 w-full">Date : {`${date.formatMMMMDDYYYY(
-                    appointmentDateTime?.startTime
-                  )}`}</div>{" "}
-                  <br/>
-                  <div className="text-sm mb-0 w-full">Time: {`${ date.formathhmma(
-                    appointmentDateTime?.startTime
-                  )} -   ${date.formathhmma(appointmentDateTime?.endTime)}`}</div>
+                  <div className="text-sm mb-0 w-full">
+                    Date :{`${date.formatMMMMDDYYYY(formatedDueDate)}`}
+                  </div>
+                  <br />
+                  <div className="text-sm mb-0 w-full">
+                    Time:
+                    {`${formatedStartTime} - ${formatedEndTime}`}
+                  </div>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl"></span>
               </div>

@@ -12,8 +12,15 @@ import {
   useGetPhysiciansQuery,
   User,
 } from "../../../../../generated/graphql";
+<<<<<<< HEAD
+=======
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
 
 function UpcomingAppointments() {
+  // const t = useTranslations("UpcomingAppointments");
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -74,6 +81,7 @@ function UpcomingAppointments() {
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">Upcoming Appointments</h2>
+            {/* <h2 className="mb-0">{t("upcomingAppointmentsHead")}</h2>                       */}
             <p className="text-gray mb-0">
               Suspendisse ac nulla non ante viverra feugiat. Duis
               ullamcorperequesty tortor a fringilla tempus.
@@ -103,7 +111,7 @@ function UpcomingAppointments() {
             </Button>
           </div>
         </div>
-        <div className="md:w-5/6">
+        <div className="">
           <SearchFilters
             setDataListPhysician={setDataListPhysician}
             setDoctorId={setDoctorId}

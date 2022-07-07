@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Tabs } from "antd";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
@@ -17,6 +17,7 @@ import { AttachmentObject } from "common/types/types";
 
 function CancelledAppointmentsDetailDoctor() {
   const { query } = useRouter();
+  const [activeTab, setActiveTab] = React.useState<string>("");
 
   const [{ data }] = useDoctorAppointmentDetailQuery({
     variables: {
@@ -40,12 +41,25 @@ function CancelledAppointmentsDetailDoctor() {
     }));
   }
 
+  useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+  }, [query]);
+
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
   return (
     <AppLayout>
       <>
         <h2 className="mb-4">Cancelled Appointments</h2>
         <div className="profile-tabs">
-          <Tabs type="card">
+          <Tabs
+            type="card"
+            defaultActiveKey="1"
+            activeKey={activeTab || "1"}
+            onChange={onChangeTabHandler}
+          >
             <Tabs.TabPane tab="Appointment Info" key="1">
               <AppointmentInfoTab />
             </Tabs.TabPane>

@@ -59,8 +59,12 @@ function AdminCalender(props: Props) {
   const [{ data: physicianData }, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
       variables: {
+<<<<<<< HEAD
         filter: { ...filterValues },
         pagination: { page: 1, limit: -1 },
+=======
+        filter: { ...filterValues, status: "Confirmed" },
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
       },
     });
   const { physicianAppointments } = physicianData || {};

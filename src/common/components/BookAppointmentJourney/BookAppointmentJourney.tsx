@@ -3,6 +3,7 @@ import { FormInstance, Modal, notification } from "antd";
 import {
   DoctorProfile,
   useCreateAppointmentMutation,
+  usePatientHealthHistoryQuery,
   User,
 } from "../../../generated/graphql";
 import CurrentStepContent from "./CurrentStepContent";
@@ -92,7 +93,12 @@ function BookAppointmentModal({
   //   GET ID FROM URL
   const { query } = useRouter();
 
-  const { data: appoinmentData } = useBookAppointment();
+  const {
+    data: appoinmentData,
+    saveStepOne,
+    saveStepTwo,
+    saveStepThree,
+  } = useBookAppointment();
 
   // GET USER ID
   const { user } = getUserData();
@@ -182,6 +188,10 @@ function BookAppointmentModal({
     }
   };
 
+  const patientIdforCreateAppointment =
+    Number(adminApp_Details?.patient?.patient_id) ||
+    Number(adminPatientId) ||
+    (id as number);
   async function onRequestAppointment() {
     try {
       const urls = await fileUpload(
@@ -190,18 +200,16 @@ function BookAppointmentModal({
         )
       );
 
+      const doctorIdforCreateAppointment =
+        Number(doctorData?.doctor_id) ||
+        Number(adminApp_Details?.doctor?.doctor_Id) ||
+        Number(adminPhysicianId) ||
+        Number(query?.id);
+
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
-          patientId:
-            Number(adminApp_Details?.patient?.patient_id) ||
-            Number(adminPatientId) ||
-            (id as number),
-          doctorId:
-            Number(doctorData?.doctor_id) ||
-            Number(adminApp_Details?.doctor?.doctor_Id) ||
-            Number(adminPhysicianId) ||
-            Number(query?.id),
-          // Number(doctorData?.doctor_id),
+          patientId: patientIdforCreateAppointment,
+          doctorId: doctorIdforCreateAppointment,
           serviceId: serviceId,
           scheduleId: Number(appoinmentData?.stepOne?.availability),
           requestedDate: date?.convertToUTC(requestedDate),
@@ -212,10 +220,48 @@ function BookAppointmentModal({
 
       if (res?.data?.createAppointment) {
         setSuccessModal(true);
+        saveStepOne?.({});
+        saveStepTwo?.({});
+        saveStepThree?.({});
       }
     } catch (error) {}
   }
 
+  const [{ data: patientHealthData }, executeUsePatientHealthHistoryQuery] =
+    usePatientHealthHistoryQuery({
+      variables: { input: patientIdforCreateAppointment as number },
+    });
+  const { patientHealthHistory } = patientHealthData || {};
+
+  useEffect(() => {
+    executeUsePatientHealthHistoryQuery({ requestPolicy: "network-only" });
+  }, [currentStepName === "stepTwo"]);
+  const NextClickHandler = () => {
+    const stepOneFields = form?.current?.getFieldsValue([
+      "physician",
+      "availability",
+      "requestedDate",
+      "service",
+    ]);
+    const stepThreeFields = form?.current?.getFieldsValue();
+    if (
+      currentStepName === "stepOne" &&
+      Object.values(stepOneFields).some((value) => !value)
+    ) {
+      return form.current?.submit();
+    } else if (currentStepName === "stepTwo" && !patientHealthHistory?.id) {
+      return form.current?.submit();
+    } else if (
+      currentStepName === "stepThree" &&
+      Object.values(stepThreeFields).some(
+        (item) => item === "" || item === undefined
+      )
+    ) {
+      return form.current?.submit();
+    } else {
+      return next(currentStepName);
+    }
+  };
   return (
     <Modal
       centered
@@ -244,7 +290,7 @@ function BookAppointmentModal({
           </div>
           <BookAppointmentFooter
             stepName={currentStepName}
-            onNext={() => next(currentStepName)}
+            onNext={() => NextClickHandler()}
             onPrevious={() => prev(currentStepName)}
             onRequestAppointment={onRequestAppointment}
           />

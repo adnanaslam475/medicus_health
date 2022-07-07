@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, notification, Table } from "antd";
+import { Button, notification, Skeleton, Spin, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
@@ -133,7 +133,7 @@ function AdminPatientAppointmentList() {
     order: "",
   });
 
-  const [{ data }, executeUseAdminPhysicianAppointmentQuery] =
+  const [{ data, fetching }, executeUseAdminPhysicianAppointmentQuery] =
     useAdminPhysicianAppointmentQuery({
       variables: {
         filter: {
@@ -146,6 +146,7 @@ function AdminPatientAppointmentList() {
     });
 
   const { appointments } = data || {};
+<<<<<<< HEAD
   const patientFirstName =
     appointments?.items && appointments.items[0]?.patient?.first_name;
   const patientLastName =
@@ -155,6 +156,13 @@ function AdminPatientAppointmentList() {
   const patientProfilePicture =
     appointments &&
     appointments?.items[0]?.patient?.patientProfile?.profileImage;
+=======
+  const patientFirstName = appointments && appointments[0]?.patient?.first_name;
+  const patientLastName = appointments && appointments[0]?.patient?.last_name;
+  const patientEmail = appointments && appointments[0]?.patient?.email;
+  const patientProfilePicture =
+    appointments && appointments[0]?.patient?.patientProfile?.profileImage;
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
 
   // Physician Payment By Admin Mutatio
   // const [result, PhysicianPaymentByAdmin] =
@@ -171,6 +179,7 @@ function AdminPatientAppointmentList() {
     });
   };
 
+<<<<<<< HEAD
   // const onPayPhysician = async (appointmentId: number) => {
   //   try {
   //     appointmentId;
@@ -197,6 +206,128 @@ function AdminPatientAppointmentList() {
   //     console.log(error);
   //   }
   // };
+=======
+  const columns = [
+    {
+      title: "Appointment ID",
+      dataIndex: "id",
+      key: "id",
+      sorter: {
+        compare: (a: any, b: any) => a.id - b.id,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Physician Name",
+      dataIndex: "doctor",
+      key: "doctor",
+      render: (doctor: User) => {
+        return <div>{`${doctor?.first_name} ${doctor?.last_name}`}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.first_name - b.first_name,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Service",
+      dataIndex: "serviceType",
+      key: "serviceType",
+      render: (serviceType: AppointmentServiceType) => {
+        return <div>{serviceType?.name}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.service - b.service,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Time Slot",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedStartTime = `${
+          appointmentDateTime?.startTime?.split(" ")[1]
+        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+          appointmentDateTime?.endTime?.split(" ")[2]
+        }`;
+        return (
+          <div>
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${formatedStartTime} - ${formatedEndTime}`
+              : "--"}
+          </div>
+        );
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.timeslot - b.timeslot,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Date",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedDueDate = `${
+          appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
+        return (
+          <div>
+            {appointmentDateTime?.startTime
+              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+              : "--"}
+          </div>
+        );
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.timeslot - b.timeslot,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Total Amount",
+      dataIndex: "charges",
+      key: "charges",
+      render: (value: User) => {
+        return <div>${value}</div>;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.charges - b.charges,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status: StatusName | string) => {
+        return <StatusChip type={status.toUpperCase() as StatusName} />;
+      },
+      sorter: {
+        compare: (a: any, b: any) => a.service - b.service,
+        multiple: 3,
+      },
+    },
+    {
+      title: "",
+      dataIndex: "id",
+      key: "id",
+      className: "table-action-icon",
+      render: (id: string) => (
+        <div className="text-primary">
+          <EyeFilled
+            className="text-primary"
+            onClick={() => {
+              return Router.push(`/admin/patients/detail/${id}`);
+            }}
+          />
+        </div>
+      ),
+    },
+  ];
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
 
   function onChangeFilters(filterValue: GetAppointmentInput) {
     setFilterValues(filterValue);
@@ -208,7 +339,11 @@ function AdminPatientAppointmentList() {
     });
   }
 
-  return (
+  return fetching ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <div className="w-full">
       <CardWithProfileImageInfo
         name={`${patientFirstName} ${patientLastName}`}
@@ -222,6 +357,7 @@ function AdminPatientAppointmentList() {
         <AdminPatientAppointmentSearchFilters onChange={onChangeFilters} />
         <div className="w-full">
           <div>
+<<<<<<< HEAD
             <Table
               columns={columns}
               dataSource={appointments?.items}
@@ -236,6 +372,9 @@ function AdminPatientAppointmentList() {
                 showSizeChanger: true,
               }}
             />
+=======
+            <Table columns={columns} dataSource={appointments} scroll={{x:true}} />
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
           </div>
         </div>
       </CardWithProfileImageInfo>

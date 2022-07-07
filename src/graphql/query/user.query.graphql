@@ -25,15 +25,22 @@ query getDoctorNotesByAppId($id: Int!) {
     id
     patientId
     status
-    # doctorNote {
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   note
-    #   isPublished
-    # }
+    doctor {
+      first_name
+      last_name
+    }
+
     currentAppointmentNote {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
+      id
       subjective
       objective
       assessment
@@ -42,6 +49,16 @@ query getDoctorNotesByAppId($id: Int!) {
       isPublished
     }
     notesHistory {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
+      id
       subjective
       objective
       assessment
@@ -85,9 +102,7 @@ query currentAppointments(
       status
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }

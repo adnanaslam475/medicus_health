@@ -47,6 +47,8 @@ const appointmentColumns = [
   {
     title: "Type",
     dataIndex: "serviceType",
+    key: "name",
+    sorter: true,
     render: (serviceType: AppointmentServiceType) => {
       return <div>{`${serviceType?.name}`}</div>;
     },
@@ -66,10 +68,11 @@ const appointmentColumns = [
     key: "appointmentDateTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
       return (
         <div>
           {appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+            ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
             : "--"}
         </div>
       );
@@ -120,6 +123,8 @@ const appointmentColumns = [
       let _status = null;
       if (value?.status === "succeeded") {
         _status = "paid";
+      } else if (value?.status === "Refunded") {
+        _status = value?.status;
       } else {
         _status = "Unpaid";
       }
@@ -229,7 +234,7 @@ function AdminAppointmentsListing({}: Props) {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    // console.log("sorter=========>", sorter.field);
+    console.log("sorter=========>", sorter);
     setSorting({
       order:
         (["transaction", "status"].includes(sorter.field) &&
@@ -240,10 +245,13 @@ function AdminAppointmentsListing({}: Props) {
       column:
         `${
           (["transaction"].includes(sorter.field) && "transaction") ||
-          (["status", "charges", "requestedDate"].includes(sorter.columnKey) &&
+          (sorter.columnKey === "name" && "appointment_service_type") ||
+          (["status", "charges", "requestedDate", "id"].includes(
+            sorter.columnKey
+          ) &&
             "appointment") ||
-          (["doctor"].includes(sorter.field) && "doctor") ||
-          "user"
+          (["doctor"].includes(sorter.field) && "user") ||
+          "patient"
         }.${sorter.columnKey}` || "",
     });
   };
@@ -296,6 +304,7 @@ function AdminAppointmentsListing({}: Props) {
                 dataSource={appointmentItems}
                 onChange={onChange}
                 loading={fetching}
+<<<<<<< HEAD
                 pagination={{
                   total: meta?.totalItems,
                   current: meta?.currentPage,
@@ -304,6 +313,9 @@ function AdminAppointmentsListing({}: Props) {
                   pageSizeOptions: ["10", "20", "30", "40"],
                   showSizeChanger: true,
                 }}
+=======
+                scroll={{x:true}}
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
               />
             </div>
           </div>

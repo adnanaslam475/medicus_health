@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "antd";
+import { Input, Space } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { cancelledAppointmentFilterType } from "common/types/types";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
@@ -48,10 +48,10 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
   }
 
   return (
-    <div className="page-filters flex-none lg:flex items-center sm:mb-3 lg:mb-0">
+    <div className="page-filters  items-center mb-4 flex-wrap">
        <span className="text-gray-1 mr-3">Filter</span>
-      <div className="flex items-center sm:flex sm:mb-0 lg:mb-0">
-        <div className="w-full sm:w-full md:w-full lg:w-70">
+      <div className="flex items-center sm:mb-0 lg:mb-0 gap-2 flex-col sm:flex-row flex-wrap">
+        <div className="w-full sm:w-full md:w-full lg:w-96">
           <Input
             value={filterState.searchString}
             placeholder="Search by ID or patient name"
@@ -61,6 +61,8 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             }}
           />
         </div>
+        <div className="-mt-6 w-full sm:w-60">
+          <Space className="w-full sm:w-60">
         <FilterRangePicker
           onChange={(dateString: string[]) =>
             setDueDate({
@@ -85,17 +87,20 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
           }
           heading="Date"
         />
-      </div>
-      <div className="flex-none sm:flex xs:-mt-5 flex-wrap sm:-mt-3 lg:mt-0">
-        <div className="lg:ml-3 mt-3 sm:mt-0">
+        </Space>
+        </div>
+     
+     
+        <div className="w-full sm:w-60">
           <SelectServiceTypeFilter
             onChange={(value) => onChangeFields("serviceId", value)}
             value={filterState?.serviceId}
           />
         </div>
         <FilterClearButton onClear={clear} />
+        </div>
       </div>
-    </div>
+    
   );
 }
 

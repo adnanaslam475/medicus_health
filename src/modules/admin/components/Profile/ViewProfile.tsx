@@ -52,18 +52,14 @@ export const ViewProfile = React.forwardRef(function Profile({
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
-      <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
+      <div className="grid  md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
         <div className="flex flex-col w-full justify-start  py-3">
           <div className="w-full mb-10 flex gap-8 items-center">
             <div className="relative">
               <Avatar
-              icon={ <UserOutlined className="pt-5" />} 
+                icon={<UserOutlined />}
                 size={130}
-                style={{
-                  borderColor: "transparent",
-                  borderWidth: 2,
-                  lineHeight: "40px",
-                }}
+                className="border-transparent border-2 leading-10 profile-avatar"
                 src={userProfileImage || profile_picture}
               />
             </div>
@@ -89,7 +85,7 @@ export const ViewProfile = React.forwardRef(function Profile({
             <Form form={formInstance} name="basic" layout="vertical">
               {adminBioForm.map((item, index) => {
                 return (
-                  <div className="flex flex-row gap-3" key={index}>
+                  <div className="sm:flex flex-row gap-3" key={index}>
                     {item.map((val, valIndex) => {
                       return (
                         <Form.Item

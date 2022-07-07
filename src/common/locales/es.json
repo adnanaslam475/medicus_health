@@ -5,5 +5,9 @@
   },
   "AccountDetail": {
     "title": "Cuenta"
+  },
+  "UpcomingAppointments": {
+    "upcomingAppointmentsHead":"próximas citas"  
   }
+
 }

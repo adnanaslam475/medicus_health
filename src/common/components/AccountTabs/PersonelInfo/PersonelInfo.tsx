@@ -13,6 +13,8 @@ import { Upload } from "antd";
 import { date } from "../../../utils";
 import { UploadChangeParam } from "antd/lib/upload";
 import { useMediaUploader } from "common/hooks/media";
+import userDefaultPicture from "../../../../../public/assets/images/profile.jpg";
+import Image from "next/image";
 
 const PersonalInfo = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -58,7 +60,8 @@ const PersonalInfo = () => {
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
           profileImage: image ? image : userProfileImage,
-          children: Number(values?.children),
+          haveChildren: values?.haveChildren ? "No" : "Yes",
+          children: Number(values?.children) | 0,
           occupation: values?.occupation,
           occupationalExposure: values?.occupationalExposure,
           exposureDuration: values?.exposureDuration,
@@ -124,14 +127,14 @@ const PersonalInfo = () => {
       <div className="w-full md:w-4/6">
         <div className="flex justify-between items-center">
           <div>
-            <Avatar
-              size={62}
-              style={{
-                borderColor: "transparent",
-                borderWidth: 2,
-                lineHeight: "40px",
-              }}
-              src={image ? image : userProfileImage}
+            <Image
+              priority={true}
+              alt="Profile Image"
+              height="74"
+              width="74"
+              onError={(e) => console.log(e)}
+              src={image || userProfileImage || userDefaultPicture}
+              className="bg-gray border rounded-full border-gray"
             />
             {isEdit && (
               <Upload

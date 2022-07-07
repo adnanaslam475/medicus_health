@@ -8,9 +8,9 @@ import { AppointmentTimeSlots } from "../../../../generated/graphql";
 import { isAppointmentTimeValid } from "common/utils/date";
 
 type Props = {
-  appointmentId: number | undefined;
-  requestedDate: string;
-  status: string | null | undefined;
+  appointmentId: number | null | undefined;
+  requestedDate?: string;
+  status?: string | null | undefined;
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
@@ -35,6 +35,7 @@ function AppointmnetConfirmedCard({
 
   return (
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
+      <span className="text-sm mb-0"> {appointmentId || ""}</span>
       <h3 className="mb-0">Dr. {doctor}</h3>
       <span className="text-gray text-base block mb-4">{serviceType}</span>
       <span className="text-sm pt-5">Date</span>

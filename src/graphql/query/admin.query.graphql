@@ -13,16 +13,14 @@ query getAdminUsers(
       status
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
 }
 
 query adminDashboardStatistics {
-  adminDash {
+  adminDashboard {
     total_number_of_users
     total_revenue
     total_number_of_physicians
@@ -70,9 +68,7 @@ query AdminPhysicianAppointment(
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }
@@ -104,9 +100,7 @@ query getPatients(
       }
     }
     meta {
-      totalItems
       totalPages
-      itemCount
       currentPage
     }
   }

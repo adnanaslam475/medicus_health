@@ -44,6 +44,8 @@ function ViewableNotes({ doctorNotes }: Props) {
   const { note, subjective, objective, assessment, plan } =
     currentAppointmentNote || {};
 
+  // const status = appointment?.status;
+
   return (
     <>
       <h2>Patient Notes</h2>

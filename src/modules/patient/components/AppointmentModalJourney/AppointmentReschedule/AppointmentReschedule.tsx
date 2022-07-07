@@ -28,7 +28,7 @@ function AppointmentReschedule(props: Props) {
 
   const { first_name, last_name } = doctor || {};
   const { name } = serviceType || {};
-  const doctorName = first_name + " " + last_name;
+  const doctorName = `${first_name || ""}  ${last_name || ""}`;
 
   const [value, setValue] = useState(0);
   const { data, saveStepOne } = useAppointmentModal();
@@ -62,11 +62,11 @@ function AppointmentReschedule(props: Props) {
         <div className="grid grid-cols-3 gap-4">
           <div className="border-b col-span-2 border-gray-4 pt-4 ">
             <h5>Service</h5>
-            <p>{name}</p>
+            <p>{name || " "}</p>
           </div>
           <div className="border-b border-gray-4  pt-4">
             <h5>Charges</h5>
-            <p>${charges}</p>
+            <p>${charges || ""}</p>
           </div>
         </div>
       </div>

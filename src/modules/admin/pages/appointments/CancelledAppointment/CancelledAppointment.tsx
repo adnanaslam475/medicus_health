@@ -8,6 +8,7 @@ import {
   AppointmentTimeSlots,
   BookingDate,
   DoctorProfile,
+  Transaction,
   useGetAllRequestedAppointmentsQuery,
   useGetPhysiciansQuery,
   User,
@@ -105,14 +106,17 @@ function CancelledAppointment() {
               <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
                 {appointments.items?.map((appointmentDetail, i) => {
                   const {
+                    id,
                     requestedDate,
                     status,
                     serviceType,
                     doctor,
                     appointmentTimeSlots,
+                    transaction
                   } = appointmentDetail || {};
                   return (
                     <AppointmentCard
+                      appointmentId={Number(id)}
                       requestedDate={requestedDate}
                       status={status}
                       serviceType={serviceType?.name}
@@ -123,6 +127,7 @@ function CancelledAppointment() {
                       onViewSuggestedSlots={() => {}}
                       setShowModal={setShowModal}
                       doctorProfile={doctor?.doctorProfile as DoctorProfile}
+                      transaction={transaction as Transaction}
                     />
                   );
                 })}

@@ -86,7 +86,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       key: "charges",
       sorter: true,
       render: (value: Transaction) => {
-        return <div>{`$${value?.amountReceived}`}</div>;
+        return <div>{value?.amountReceived ? "$" + value?.amountReceived :"--"}</div>;
       },
     },
     {

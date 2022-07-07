@@ -11,6 +11,7 @@ import {
   User,
 } from "generated/graphql";
 
+<<<<<<< HEAD
 const historyColumns = [
   {
     title: "ID",
@@ -27,6 +28,34 @@ const historyColumns = [
       return (
         <div>{createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}</div>
       );
+=======
+type Props = {
+  data?: Appointment[];
+  loading: boolean | undefined;
+};
+
+const AppointmentHistoryTable = (props: Props) => {
+  const { data, loading } = props || {};
+  const historyColumns = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      sorter: true,
+    },
+    {
+      title: "Booked On",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      sorter: true,
+      render: (createdAt: string) => {
+        return (
+          <div className="w-full whitespace-nowrap">
+            {createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}
+          </div>
+        );
+      },
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
     },
   },
   {
@@ -37,6 +66,7 @@ const historyColumns = [
     render: (doctor: User) => {
       return <div>{`${doctor.first_name} ${doctor.last_name}`}</div>;
     },
+<<<<<<< HEAD
   },
   {
     title: "Type",
@@ -86,6 +116,81 @@ const historyColumns = [
     sorter: true,
     render: (charges: AppointmentServiceType) => {
       return <div>{`$${charges}`}</div>;
+=======
+    {
+      title: "Type",
+      dataIndex: "serviceType",
+      key: "serviceType",
+      sorter: true,
+      render: (serviceType: AppointmentServiceType) => {
+        return <div>{`${serviceType?.name || "-"}`}</div>;
+      },
+    },
+    {
+      title: "Date",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+      sorter: true,
+
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedDueDate = `${
+          appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
+        return (
+          <div className="w-full whitespace-nowrap">
+            {appointmentDateTime?.startTime
+              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+              : "-"}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Time",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+      sorter: true,
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        let formatedStartTime = `${
+          appointmentDateTime?.startTime?.split(" ")[1]
+        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+          appointmentDateTime?.endTime?.split(" ")[2]
+        }`;
+        return (
+          <div className="w-full whitespace-nowrap">
+            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+              ? `${formatedStartTime} - ${formatedEndTime}`
+              : "-"}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Total Amount",
+      dataIndex: "charges",
+      key: "charges",
+      sorter: true,
+      render: (charges: AppointmentServiceType) => {
+        return <div>{`$${charges}`} </div>;
+      },
+    },
+    {
+      title: "Transaction Date",
+      dataIndex: "transaction",
+      key: "transaction",
+      sorter: true,
+
+      render: (transaction: Transaction) => {
+        return (
+          <div className="w-full whitespace-nowrap">{`${
+            transaction?.createdAt
+              ? date?.formatMMMMDDYYYY(transaction?.createdAt)
+              : "--"
+          }`}</div>
+        );
+      },
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
     },
   },
   {
@@ -149,6 +254,7 @@ const AppointmentHistoryTable = (props: Props) => {
       columns={historyColumns}
       dataSource={data}
       loading={loading}
+<<<<<<< HEAD
       onChange={onChange}
       scroll={{ x: true }}
       pagination={{
@@ -159,6 +265,9 @@ const AppointmentHistoryTable = (props: Props) => {
         pageSizeOptions: ["10", "20", "30", "40"],
         showSizeChanger: true,
       }}
+=======
+      scroll={{ x: true }}
+>>>>>>> 740466185523c2e92632e96b041b6efa743f279e
     />
   );
 };

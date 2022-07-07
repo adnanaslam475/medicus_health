@@ -35,6 +35,8 @@ import { parseJson } from "common/utils/helper";
 import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
+import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
+import { UserOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 
@@ -396,7 +398,9 @@ function EditProfile({
               <div className="relative">
                 <Avatar
                   size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
+                  className={"profile-avatar"}
                   src={image || userProfileImage}
+                  icon={!image && !userProfileImage && <UserOutlined />}
                 />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
                   <Image
@@ -483,7 +487,12 @@ function EditProfile({
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
-                <Form.Item label="Password" name="password" className="flex-1">
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  className="flex-1"
+                  dependencies={["password"]}
+                >
                   <Input.Password />
                 </Form.Item>
 

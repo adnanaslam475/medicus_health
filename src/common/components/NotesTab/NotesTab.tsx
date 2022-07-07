@@ -1,4 +1,4 @@
-import { notification } from "antd";
+import { notification, Spin } from "antd";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import Notes from "common/components/Notes/Notes";
 import NotesListingByAppointments from "common/components/NotesListingByAppointments/NotesListingByAppointments";
@@ -17,13 +17,18 @@ import {
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
+import NotesHistory from "../NotesHistoryNotes/NotesHistory";
 
-type Props = {};
+type Props = {
+  // onFinish?: (values: any, setModalVisible: () => void) => void;
+  // onChange?: () => void;
+  // status: string | null | undefined;
+};
 
 function NotesTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data }] = useDoctorAppointmentDetailAppointmentInfoQuery({
+  const [{ data, fetching }] = useDoctorAppointmentDetailAppointmentInfoQuery({
     variables: {
       id: Number(query.id),
     },
@@ -36,7 +41,6 @@ function NotesTab({}: Props) {
   const { appointment } = data || {};
   const status = appointment?.status;
   const { patient, serviceType } = appointment || {};
-
   const appointmentId = Number(query.id);
 
   // GET NOTES API CALL
@@ -53,7 +57,13 @@ function NotesTab({}: Props) {
   const actualDoctorNotes =
     appointmentChild?.appointment.currentAppointmentNote;
 
-  console.log(actualDoctorNotes, "actualDoctorNotesactualDoctorNotes");
+  console.log(status, "statusMy");
+
+  // GET HISTORY NOTES
+
+  const historyNotes = appointmentChild?.appointment.notesHistory;
+
+  console.log(historyNotes, "history Notes");
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
@@ -81,7 +91,11 @@ function NotesTab({}: Props) {
       });
     }
   };
-  return (
+  return fetching ? (
+    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+      <Spin />
+    </div>
+  ) : (
     <div className="md:max-w-1/2">
       <CardWithProfileImageInfo
         name={`${patient?.first_name} ${patient?.last_name}`}
@@ -91,25 +105,54 @@ function NotesTab({}: Props) {
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}
-            {/* {!actualDoctorNotes && ( */}
-            <>
-              <Notes
-                onFinish={addNote}
-                // disabled={actualDoctorNotes !== null}
-              />
-              <div className="mb-3"></div>
-            </>
-            {/* )} */}
+            {!actualDoctorNotes && (
+              <>
+                {(status === "!Requested" ||
+                  status === "!Completed" ||
+                  status === "Confirmed") && (
+                  <>
+                    <Notes
+                      onFinish={addNote}
+                      // disabled={actualDoctorNotes !== null}
+                    />
+                    <div className="mb-3"></div>
+                  </>
+                )}
+              </>
+            )}
           </>
         )}
-
-        {actualDoctorNotes && (
-          <NotesListingByAppointments
-            doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
-          />
-        )}
-
-        {/* NotesListingByAppointments */}
+        {/* // || status === "Upcoming"  */}
+        <>
+          <div className="my-3">
+            {actualDoctorNotes && status === "Confirmed" && (
+              <>
+                <h3>Current Appointment Notes</h3>
+                <NotesListingByAppointments
+                  doctorNotes={
+                    notesByAppointmentId as GetDoctorNotesByAppIdQuery
+                  }
+                />
+              </>
+            )}
+          </div>
+        </>
+        {/* FOR PATIENT ONLY */}
+        {/* {getRole() === "User" &&
+          (actualDoctorNotes ? (
+            <NotesListingByAppointments
+              doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
+            />
+          ) : (
+            <div className="div">No Published Notes Available</div>
+          ))} */}
+        {/* HISTORY NOTES */}
+        <div className="history-notes-cover">
+          <h3>History Notes</h3>
+          {(getRole() === "User" ||
+            getRole() === "Admin" ||
+            getRole() === "Doctor") && <NotesHistory />}
+        </div>
       </CardWithProfileImageInfo>
     </div>
   );
