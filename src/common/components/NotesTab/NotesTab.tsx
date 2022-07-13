@@ -6,11 +6,9 @@ import { getRole } from "common/utils/userData";
 import {
   Appointment,
   AppointmentNote,
-  GetAppointmentNoteByIdQuery,
   GetDoctorNotesByAppIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
   useDoctorAppointmentDetailAppointmentInfoQuery,
-  useGetAppointmentNoteByIdQuery,
   useGetAppointmentNotesByIdQuery,
   useGetDoctorNotesByAppIdQuery,
 } from "generated/graphql";
@@ -106,25 +104,18 @@ function NotesTab({}: Props) {
             {/* {!notesByAppointmentId && ( */}
             {!actualDoctorNotes && (
               <>
-                {(status === "!Requested" ||
-                  status === "!Completed" ||
-                  status === "Confirmed") && (
-                  <>
-                    <Notes
-                      onFinish={addNote}
-                      // disabled={actualDoctorNotes !== null}
-                    />
-                    <div className="mb-3"></div>
-                  </>
-                )}
+                <Notes onFinish={addNote} />
+                <div className="mb-3"></div>
               </>
             )}
           </>
         )}
-        {/* // || status === "Upcoming"  */}
+
         <>
           <div className="my-3">
-            {actualDoctorNotes && status === "Confirmed" && (
+            {((actualDoctorNotes && status === "Confirmed") ||
+              status === "Requested" ||
+              status === "Completed") && (
               <>
                 <h3>Current Appointment Notes</h3>
                 <NotesListingByAppointments
@@ -134,6 +125,12 @@ function NotesTab({}: Props) {
                 />
               </>
             )}
+            {!actualDoctorNotes &&
+              (status === "Confirmed" ||
+                status === "Requested" ||
+                status === "Completed") && (
+                <>No current appointment notes available.</>
+              )}
           </div>
         </>
         {/* FOR PATIENT ONLY */}
