@@ -398,7 +398,7 @@ function DoctorAppointmentInfoFooter({
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        doctorData={doctor?.doctorProfile}
+        rebookData={data}
       />
     </div>
   );

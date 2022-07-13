@@ -8,12 +8,14 @@ type Props = {
   onPrevious: () => void;
   onRequestAppointment: () => void;
   stepName: string;
+  loading?: boolean;
 };
 function BookAppointmentFooter({
   onNext,
   onPrevious,
   onRequestAppointment,
   stepName,
+  loading,
 }: Props) {
   return (
     <div className={_classes["book-appointment-footer"]}>
@@ -32,10 +34,7 @@ function BookAppointmentFooter({
         </Button>
       )}
       {stepName === "stepFour" && (
-        <Button
-          type="primary"
-          onClick={onRequestAppointment}
-        >
+        <Button type="primary" onClick={onRequestAppointment} loading={loading}>
           Request an Appointment
         </Button>
       )}

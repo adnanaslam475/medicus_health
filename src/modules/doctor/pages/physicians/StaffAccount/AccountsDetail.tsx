@@ -69,16 +69,16 @@ function Accounts() {
               <StaffDetails />
             </div>
           </Tabs.TabPane>
-          {/* <Tabs.TabPane
+          <Tabs.TabPane
             className="w-full"
             tab={
-              <span className="font-Circular font-medium flex">Profile</span>
+              <span className="font-Circular font-medium flex">Physician Profile</span>
             }
-            key="1"
+            key="2"
           >
-            <AccountsProfile />
+            <AccountsProfile isStaff={true} />
           </Tabs.TabPane>
-          <Tabs.TabPane
+          {/* <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium flex">Bank Info</span>
             }
@@ -89,7 +89,7 @@ function Accounts() {
                 <BankInfo />
               </Elements>
             </div>
-          </Tabs.TabPane> */}
+          </Tabs.TabPane>  */}
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">Questionnaire</span>
