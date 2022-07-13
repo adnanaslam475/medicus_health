@@ -84,7 +84,6 @@ function NotesListingByAppointments(props: Props) {
           )}
         >
           {a.map((data, index) => {
-            console.log(data, "sadasds");
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
