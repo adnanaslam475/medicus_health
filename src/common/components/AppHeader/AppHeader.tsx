@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import { Layout, Avatar, Dropdown, Menu, Badge, Divider, Skeleton } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
@@ -9,13 +10,15 @@ import SidebarDrawer from "../../../modules/common/components/SidebarDrawer";
 import { getRole, getUserData } from "../../utils/userData";
 import InfoMessageBannerReminder from "../InfoMessageBannerReminder/InfoMessageBannerReminder";
 import { usePatientHealthHistoryQuery } from "generated/graphql";
-import Link from "next/link";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
-
 
 const { Header } = Layout;
 
-const AppHeader = () => {
+type Props = {
+  isShowBanner: boolean | undefined;
+};
+
+const AppHeader = ({ isShowBanner }: Props) => {
   //Get logged in User
   const { user: loggedInUser } = getUserData();
   const { id: loggedInUserId } = loggedInUser || {};
@@ -119,7 +122,7 @@ const AppHeader = () => {
               {/* if patient health questionnaire completed than showing appointment banner 
               otherwise health questionnaire complete banner */}
 
-              {patientHealthHistory?.patientHealthHistory ? (
+              {patientHealthHistory?.patientHealthHistory || !isShowBanner ? (
                 <div className="p-0">
                   {getRole() === "User" ? <InfoMessageBannerReminder /> : null}
                 </div>
