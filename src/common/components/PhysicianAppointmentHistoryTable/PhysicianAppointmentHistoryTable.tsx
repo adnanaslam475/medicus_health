@@ -37,7 +37,6 @@ function PhysicianAppointmentHistoryTable(props: Props) {
         return <div>{`${date?.formatMMMMDDYYYY(value)} `}</div>;
       },
     },
-
     {
       title: " Appointment Type",
       dataIndex: "serviceType",
@@ -53,7 +52,13 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       key: "first_name",
       sorter: true,
       render: (value: User) => {
-        return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
+        return (
+          <div>
+            {value?.first_name
+              ? `${value?.first_name} ${value?.last_name}`
+              : "--"}
+          </div>
+        );
       },
     },
     {
@@ -83,10 +88,14 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     {
       title: "Total Amount",
       dataIndex: "transaction",
-      key: "charges",
+      key: "amountReceived",
       sorter: true,
       render: (value: Transaction) => {
-        return <div>{value?.amountReceived ? "$" + value?.amountReceived :"--"}</div>;
+        return (
+          <div>
+            {value?.amountReceived ? "$" + value?.amountReceived : "--"}
+          </div>
+        );
       },
     },
     {

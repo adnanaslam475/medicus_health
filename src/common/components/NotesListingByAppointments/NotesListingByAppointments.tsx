@@ -1,12 +1,12 @@
+import React, { useRef, useState } from "react";
 import { CaretRightOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Collapse, Form, Input, Modal } from "antd";
+import { useRouter } from "next/router";
 import TextArea from "antd/lib/input/TextArea";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import { Button, Collapse, Form, Input, Modal } from "antd";
 import smile from "../../../../public/assets/images/smile.svg";
 import Acronym from "common/components/Acronym/Acronym";
 import _classes from "./NotesListingByAppointments.module.scss";
-import { useRouter } from "next/router";
 import {
   Appointment,
   AppointmentNote,

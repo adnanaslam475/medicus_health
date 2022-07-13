@@ -46,16 +46,17 @@ function PatientAppointmentHistory() {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    console.log("sorter", sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
         ? `${
             (sorter.columnKey === "name" && "appointment_service_type") ||
-            (["charges", "status", "createdAt"].includes(sorter.columnKey) &&
+            (/(status|charges|createdAt)/.test(sorter.columnKey) &&
               "appointment") ||
-            (sorter.columnKey === "appointment_time_slots" &&
+            (/appointment_time_slots/.test(sorter.columnKey) &&
               "appointment_time_slots") ||
+            (sorter.columnKey === "first_name" && "patient") ||
+            (sorter.columnKey === "amountReceived" && "transaction") ||
             "user"
           }.${
             (sorter.columnKey === "appointment_time_slots" && "startTime") ||
@@ -65,7 +66,6 @@ function PatientAppointmentHistory() {
     });
   };
 
-  console.log("sroting", sorting);
   return (
     <AppLayout>
       <div className="w-full">
