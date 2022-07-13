@@ -1,4 +1,4 @@
-import { FormInstance, Modal } from "antd";
+import { FormInstance, Modal, notification } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Appointment,
@@ -21,6 +21,7 @@ import BookAppointmentFooter from "./BookAppointmentFooter";
 import { getUserData } from "../../utils/userData";
 import SuccessMessage from "../Appointments/booking/SuccessMessage";
 import { useMediaUploader } from "common/hooks/media";
+import { GraphQLError } from "graphql";
 
 type AdminData = {
   patientList: User[];
@@ -44,11 +45,11 @@ type Props = {
   onCancel?:
     | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
-  doctorData?:  DoctorProfile | undefined | null;
+  doctorData?: DoctorProfile | undefined | null;
   adminData?: AdminData;
   patientData?: User[] | undefined;
   adminApp_Details?: DoctorData;
-  rebookData?:Appointment
+  rebookData?: Appointment;
 };
 
 function BookAppointmentJourney({
@@ -59,7 +60,7 @@ function BookAppointmentJourney({
   adminData,
   patientData,
   adminApp_Details,
-  rebookData
+  rebookData,
 }: Props) {
   return (
     <BookAppointmentProvider>
@@ -85,7 +86,7 @@ function BookAppointmentModal({
   adminData,
   patientData,
   adminApp_Details,
-  rebookData
+  rebookData,
 }: Props) {
   const form = useRef<FormInstance>();
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
@@ -109,8 +110,9 @@ function BookAppointmentModal({
   const { user } = getUserData();
   const id = user?.id;
 
-  const [data, executeCreateAppointmentMutation] =
+  const [result, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
+  const { fetching } = result || {};
 
   useEffect(() => {
     if (visible) {
@@ -167,8 +169,8 @@ function BookAppointmentModal({
       console.log(error);
     }
   };
-
   const patientIdforCreateAppointment =
+    Number(rebookData?.patientId) ||
     Number(adminApp_Details?.patient?.patient_id) ||
     Number(adminPatientId) ||
     (id as number);
@@ -181,6 +183,7 @@ function BookAppointmentModal({
       );
 
       const doctorIdforCreateAppointment =
+        Number(rebookData?.doctorId) ||
         Number(doctorData?.doctor_id) ||
         Number(adminApp_Details?.doctor?.doctor_Id) ||
         Number(adminPhysicianId) ||
@@ -203,6 +206,18 @@ function BookAppointmentModal({
         saveStepOne?.({});
         saveStepTwo?.({});
         saveStepThree?.({});
+      } else if (res?.error?.graphQLErrors) {
+        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = res?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
       }
     } catch (error) {}
   }
@@ -274,6 +289,7 @@ function BookAppointmentModal({
             onNext={() => NextClickHandler()}
             onPrevious={() => prev(currentStepName)}
             onRequestAppointment={onRequestAppointment}
+            loading={fetching}
           />
         </>
       )}

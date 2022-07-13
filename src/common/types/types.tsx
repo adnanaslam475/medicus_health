@@ -100,6 +100,8 @@ export type physicianMyEarningsFilterType = {
   };
   paymentStatus?: string;
   status?: string;
+  refunds?: { initialRefunds: number; finalRefunds: number };
+  charges?: { initialCharges: number; finalCharges: number };
 };
 
 export type cancelAppointmentFilterType = {

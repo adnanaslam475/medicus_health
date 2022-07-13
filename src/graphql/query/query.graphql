@@ -210,6 +210,7 @@ query getAllRequestedAppointments($filter: GetAppointmentInput!) {
     doctorId
     serviceId
     requestedDate
+    reportUrl
     createdAt
     status
     charges
