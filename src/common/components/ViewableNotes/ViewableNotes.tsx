@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import _classes from "./NotesWithText.module.scss";
 import {
   Appointment,
-  GetAppointmentNoteByIdQuery,
   GetDoctorNotesByAppIdQuery,
   useGetAppointmentNotesByIdQuery,
   useGetDoctorNotesByAppIdQuery,
