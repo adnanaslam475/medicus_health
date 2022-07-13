@@ -43,10 +43,10 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
-  const patientId =
-    user?.role === "User"
+   const patientId =
+    rebookData?.patientId || user?.role === "User"
       ? Number(user?.id)
-      : rebookData?.doctorId || Number(data?.stepOne?.patient?.split(":")[0]);
+      : Number(data?.stepOne?.patient?.split(":")[0]);
   const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
     variables: { input: patientId },
     pause: !patientId,
