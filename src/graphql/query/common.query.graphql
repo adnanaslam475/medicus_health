@@ -98,3 +98,12 @@ query getAppointmentPriceForRequest($serviceId: Int!, $patientId: Int!) {
     total
   }
 }
+
+query getAppointmentPrice($id: Int!) {
+  getAppointmentPrice(id: $id) {
+    appointmentPrice
+    tax
+    systemFee
+    total
+  }
+}

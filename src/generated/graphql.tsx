@@ -153,6 +153,11 @@ export type AppointmentTimeSlots = {
   startTime: Scalars['DateTime'];
 };
 
+export type AppointmentTotalCharges = {
+  finalCharges?: InputMaybe<Scalars['Int']>;
+  initialCharges?: InputMaybe<Scalars['Int']>;
+};
+
 export type BookAppointmentInput = {
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
@@ -412,6 +417,7 @@ export type DoctorEarningsResponse = {
   total_earnings?: Maybe<Scalars['Float']>;
   total_earnings_from_consultation?: Maybe<Scalars['Float']>;
   total_earnings_from_second_opinions?: Maybe<Scalars['Float']>;
+  total_net_earnings?: Maybe<Scalars['Float']>;
   total_number_of_consultation?: Maybe<Scalars['Float']>;
   total_number_of_patients?: Maybe<Scalars['Float']>;
   total_number_of_second_opinions?: Maybe<Scalars['Float']>;
@@ -459,11 +465,6 @@ export type DoctorSchedule = {
 export type DueDate = {
   endDate?: InputMaybe<Scalars['String']>;
   startDate?: InputMaybe<Scalars['String']>;
-};
-
-export type EarningRange = {
-  final?: InputMaybe<Scalars['Int']>;
-  initial?: InputMaybe<Scalars['Int']>;
 };
 
 export type EducationalBackground = {
@@ -571,10 +572,15 @@ export type GetStaffFilter = {
 export type GetTransectionInput = {
   DateRange?: InputMaybe<DateRange>;
   appointmentId?: InputMaybe<Scalars['Int']>;
-  earnings?: InputMaybe<EarningRange>;
+  charges?: InputMaybe<AppointmentTotalCharges>;
+  dueDate?: InputMaybe<ScheduleDate>;
+  paymentStatus?: InputMaybe<Scalars['String']>;
+  refunds?: InputMaybe<RefundCharges>;
   searchString?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   serviceName?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  stripeFee?: InputMaybe<StripeProcessingFee>;
   transectionId?: InputMaybe<Scalars['Int']>;
 };
 
@@ -1053,7 +1059,7 @@ export type Query = {
   getPatients: Array<User>;
   getPhysicians: Array<User>;
   getStatesByCountry: Array<State>;
-  getTransectionFilter: Array<Transaction>;
+  getTransactionFilter: Array<Transaction>;
   getUserFilter: Array<UserResponse>;
   patientHealthHistory?: Maybe<PatientHealthHistory>;
   patientHealthHistorys: Array<PatientHealthHistory>;
@@ -1208,7 +1214,7 @@ export type QueryGetStatesByCountryArgs = {
 };
 
 
-export type QueryGetTransectionFilterArgs = {
+export type QueryGetTransactionFilterArgs = {
   filter: GetTransectionInput;
 };
 
@@ -1268,6 +1274,11 @@ export type ReBookAppointmentInput = {
   selectedSlotId: Scalars['Float'];
 };
 
+export type RefundCharges = {
+  finalRefunds?: InputMaybe<Scalars['Int']>;
+  initialRefunds?: InputMaybe<Scalars['Int']>;
+};
+
 export type ResetPasswordInput = {
   password: Scalars['String'];
   password_token?: InputMaybe<Scalars['String']>;
@@ -1286,11 +1297,21 @@ export type Schedule = {
   startTime: Scalars['String'];
 };
 
+export type ScheduleDate = {
+  endDate?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['String']>;
+};
+
 export type State = {
   __typename?: 'State';
   country_id: Scalars['Float'];
   id: Scalars['Float'];
   state_name: Scalars['String'];
+};
+
+export type StripeProcessingFee = {
+  finalFee?: InputMaybe<Scalars['Int']>;
+  initialFee?: InputMaybe<Scalars['Int']>;
 };
 
 export type SuggestNewTimeInput = {
@@ -1907,6 +1928,13 @@ export type GetAppointmentPriceForRequestQueryVariables = Exact<{
 
 export type GetAppointmentPriceForRequestQuery = { __typename?: 'Query', getAppointmentPriceForRequest: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } };
 
+export type GetAppointmentPriceQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetAppointmentPriceQuery = { __typename?: 'Query', getAppointmentPrice: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -1954,7 +1982,7 @@ export type GetTransectionFilterQueryVariables = Exact<{
 }>;
 
 
-export type GetTransectionFilterQuery = { __typename?: 'Query', getTransectionFilter: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, appointment?: { __typename?: 'Appointment', patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }> };
+export type GetTransectionFilterQuery = { __typename?: 'Query', getTransactionFilter: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, appointment?: { __typename?: 'Appointment', patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }> };
 
 export type PhysiciansPatientsQueryVariables = Exact<{
   searchField?: InputMaybe<Scalars['String']>;
@@ -3216,6 +3244,20 @@ export const GetAppointmentPriceForRequestDocument = gql`
 export function useGetAppointmentPriceForRequestQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentPriceForRequestQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAppointmentPriceForRequestQuery>({ query: GetAppointmentPriceForRequestDocument, ...options });
 };
+export const GetAppointmentPriceDocument = gql`
+    query getAppointmentPrice($id: Int!) {
+  getAppointmentPrice(id: $id) {
+    appointmentPrice
+    tax
+    systemFee
+    total
+  }
+}
+    `;
+
+export function useGetAppointmentPriceQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentPriceQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAppointmentPriceQuery>({ query: GetAppointmentPriceDocument, ...options });
+};
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
   doctorBillingMethods(doctorId: $doctorId) {
@@ -3531,7 +3573,7 @@ export function usePhysicianAppointmentsHistoryQuery(options: Omit<Urql.UseQuery
 };
 export const GetTransectionFilterDocument = gql`
     query getTransectionFilter($filter: GetTransectionInput!) {
-  getTransectionFilter(filter: $filter) {
+  getTransactionFilter(filter: $filter) {
     id
     appointmentId
     transactionId
@@ -5857,6 +5899,14 @@ export default {
           },
           {
             "name": "total_earnings_from_second_opinions",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_net_earnings",
             "type": {
               "kind": "SCALAR",
               "name": "Any"
@@ -8661,7 +8711,7 @@ export default {
             ]
           },
           {
-            "name": "getTransectionFilter",
+            "name": "getTransactionFilter",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

@@ -303,7 +303,7 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
 
 #Get My Earnings Of Doctor
 query getTransectionFilter($filter: GetTransectionInput!) {
-  getTransectionFilter(filter: $filter) {
+  getTransactionFilter(filter: $filter) {
     id
     appointmentId
     transactionId
