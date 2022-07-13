@@ -4,7 +4,11 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 import Image from "next/image";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import GeneralHealthQuesionnairModal from "./GeneralHealthQuesionnairModal";
-import { Appointment, DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
+import {
+  Appointment,
+  DoctorProfile,
+  usePatientHealthHistoryQuery,
+} from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 import pdf from "../../../../../public/assets/images/word-file.svg";
 import jpg from "../../../../../public/assets/images/jpg.svg";
@@ -18,7 +22,7 @@ const { Dragger } = Upload;
 type Props = {
   physicianData?: DoctorProfile | undefined | null;
   adminApp_Details?: DoctorData;
-  rebookData?:Appointment
+  rebookData?: Appointment;
 };
 
 type DoctorData = {
@@ -40,9 +44,9 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
 
   const [fileList, setFileList] = useState([]);
   const patientId =
-    user?.role === "User"
+    rebookData?.patientId || user?.role === "User"
       ? Number(user?.id)
-      : rebookData?.doctorId || Number(data?.stepOne?.patient?.split(":")[0])
+      : Number(data?.stepOne?.patient?.split(":")[0]);
   const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
     variables: { input: patientId },
     pause: !patientId,

@@ -45,7 +45,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     });
 
-  const { getTransectionFilter } = transactionData || {};
+  const { getTransactionFilter } = transactionData || {};
 
   function onChangeFilters(values: physicianMyEarningsFilterType) {
     setFilterValues(values);
@@ -287,7 +287,7 @@ const PhysicianMyEarningsList = (props: Props) => {
         </div>
 
         <MyEarningsSearchFilters onChange={onChangeFilters} />
-        <Table columns={Columns} dataSource={getTransectionFilter}  scroll={{ x: true }} loading={fetching} />
+        <Table columns={Columns} dataSource={getTransactionFilter}  scroll={{ x: true }} loading={fetching} />
       </div>
     </AppLayout>
   );
