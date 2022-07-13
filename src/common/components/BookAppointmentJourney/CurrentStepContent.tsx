@@ -26,11 +26,22 @@ type Props = {
   adminData?: AdminData;
   patientData?: User[];
   adminApp_Details?: DoctorData;
-  rebookData?:Appointment
+  rebookData?: Appointment;
+  clear?: boolean | undefined;
+  setClear?: any;
 };
 
 const CurrentStepContent = React.forwardRef(function CurrentStepContent(
-  { stepName, doctorData, adminData, adminApp_Details, patientData,rebookData }: Props,
+  {
+    stepName,
+    doctorData,
+    adminData,
+    adminApp_Details,
+    patientData,
+    clear,
+    setClear,
+    rebookData,
+  }: Props,
   ref: any
 ) {
   switch (stepName) {
@@ -39,6 +50,8 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
         <AppointmentBookingStepOne
           physicianData={doctorData}
           ref={ref}
+          clear={clear}
+          setClear={setClear}
           adminData={adminData}
           patientData={patientData}
           adminApp_Details={adminApp_Details}
@@ -46,12 +59,21 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
         />
       );
     case "stepTwo":
-      return <AppointmentBookingStepTwo ref={ref} adminApp_Details={adminApp_Details} physicianData={doctorData} rebookData={rebookData}/>;
+      return (
+        <AppointmentBookingStepTwo
+          ref={ref}
+          adminApp_Details={adminApp_Details}
+          physicianData={doctorData}
+          clear={clear}
+          rebookData={rebookData}
+        />
+      );
     case "stepThree":
       return (
         <AppointmentBookingStepThree
           physicianData={doctorData}
           ref={ref}
+          clear={clear}
           adminApp_Details={adminApp_Details}
           rebookData={rebookData}
         />
