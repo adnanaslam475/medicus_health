@@ -1977,12 +1977,12 @@ export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
 
 export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, charges: number, serviceId?: number | null, patientId?: number | null, createdAt: any, reportUrl?: any | null, requestedDate?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, currentAppointmentNote?: { __typename?: 'AppointmentNote', createdAt: any, id: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, appointment?: { __typename?: 'Appointment', id?: number | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } | null } | null, notesHistory?: Array<{ __typename?: 'AppointmentNote', createdAt: any, id: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, appointment?: { __typename?: 'Appointment', id?: number | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } | null }> | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }> };
 
-export type GetTransectionFilterQueryVariables = Exact<{
+export type GetTransactionFilterQueryVariables = Exact<{
   filter: GetTransectionInput;
 }>;
 
 
-export type GetTransectionFilterQuery = { __typename?: 'Query', getTransactionFilter: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, appointment?: { __typename?: 'Appointment', patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }> };
+export type GetTransactionFilterQuery = { __typename?: 'Query', getTransactionFilter: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, status: string, stripeFee: number, doctor_percentage: string, createdAt: any, appointmentCharges: number, tax: number, appointment?: { __typename?: 'Appointment', status?: string | null, patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }> };
 
 export type PhysiciansPatientsQueryVariables = Exact<{
   searchField?: InputMaybe<Scalars['String']>;
@@ -3575,15 +3575,24 @@ export const PhysicianAppointmentsHistoryDocument = gql`
 export function usePhysicianAppointmentsHistoryQuery(options: Omit<Urql.UseQueryArgs<PhysicianAppointmentsHistoryQueryVariables>, 'query'>) {
   return Urql.useQuery<PhysicianAppointmentsHistoryQuery>({ query: PhysicianAppointmentsHistoryDocument, ...options });
 };
-export const GetTransectionFilterDocument = gql`
-    query getTransectionFilter($filter: GetTransectionInput!) {
+export const GetTransactionFilterDocument = gql`
+    query getTransactionFilter($filter: GetTransectionInput!) {
   getTransactionFilter(filter: $filter) {
     id
     appointmentId
     transactionId
     payment_status
     amountReceived
+    status
+    stripeFee
+    doctor_percentage
+    payment_status
+    createdAt
+    appointmentCharges
+    stripeFee
+    tax
     appointment {
+      status
       patient {
         first_name
         last_name
@@ -3603,8 +3612,8 @@ export const GetTransectionFilterDocument = gql`
 }
     `;
 
-export function useGetTransectionFilterQuery(options: Omit<Urql.UseQueryArgs<GetTransectionFilterQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetTransectionFilterQuery>({ query: GetTransectionFilterDocument, ...options });
+export function useGetTransactionFilterQuery(options: Omit<Urql.UseQueryArgs<GetTransactionFilterQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetTransactionFilterQuery>({ query: GetTransactionFilterDocument, ...options });
 };
 export const PhysiciansPatientsDocument = gql`
     query physiciansPatients($searchField: String) {

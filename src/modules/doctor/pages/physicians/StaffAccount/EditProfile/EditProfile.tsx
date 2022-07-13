@@ -60,6 +60,7 @@ type Props = {
   };
   addScheduleDay: string;
   loading?: boolean;
+  isStaff?: boolean;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -78,6 +79,7 @@ function EditProfile({
   setAddScheduleClick,
   onAddClick,
   addScheduleTime,
+  isStaff,
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -451,7 +453,7 @@ function EditProfile({
                   rules={[{ required: true, message: "First Name!" }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input disabled={isStaff} />
                 </Form.Item>
                 <Form.Item
                   label="Last name"
@@ -459,7 +461,7 @@ function EditProfile({
                   rules={[{ required: true, message: "Last Name!" }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input disabled={isStaff} />
                 </Form.Item>
               </div>
 
@@ -470,7 +472,7 @@ function EditProfile({
                   rules={[{ type: "email" }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input disabled={isStaff} />
                 </Form.Item>
                 <Form.Item
                   name="contact"
@@ -478,12 +480,12 @@ function EditProfile({
                   rules={[{ required: true }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input disabled={isStaff} />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
                 <Form.Item label="Password" name="password" className="flex-1">
-                  <Input.Password />
+                  <Input.Password disabled={isStaff} />
                 </Form.Item>
 
                 <Form.Item
@@ -510,7 +512,7 @@ function EditProfile({
                     }),
                   ]}
                 >
-                  <Input.Password />
+                  <Input.Password disabled={isStaff} />
                 </Form.Item>
               </div>
 
@@ -520,14 +522,14 @@ function EditProfile({
                   name="specialization"
                   className="flex-1"
                 >
-                  <Input />
+                  <Input disabled={isStaff} />
                 </Form.Item>
                 <Form.Item
                   label="Years of Experience"
                   name="year_of_experience"
                   className="flex-1"
                 >
-                  <Input type="number" />
+                  <Input type="number" disabled={isStaff} />
                 </Form.Item>
               </div>
 
@@ -550,6 +552,7 @@ function EditProfile({
                       <Checkbox
                         defaultChecked={formatedLanguage?.English}
                         onChange={(e) => handleChangeLanguage(e, "English")}
+                        disabled={isStaff}
                       ></Checkbox>
                     </div>
                   </Form.Item>
@@ -572,6 +575,7 @@ function EditProfile({
                       <Checkbox
                         defaultChecked={formatedLanguage?.Spanish}
                         onChange={(e) => handleChangeLanguage(e, "Spanish")}
+                        disabled={isStaff}
                       ></Checkbox>
                     </div>
                   </Form.Item>
@@ -583,12 +587,13 @@ function EditProfile({
                   <TextArea
                     rows={10}
                     placeholder="Vivamus efficitur, risus eu gravida gravida, ante metus accumsan nulla, eu iaculis ex ante id nibh. In vehicula ligula vitae pulvinar malesuada. Pellentesque dictum suscipit risus, sit amet euismod dui interdum et. Sed iaculis justo at feugiat porttitor. In auctor egestas urna, sit amet aliquam ex vulputate eu. Proin ultricies, enim sit amet porta tincidunt, nulla elit hendrerit nibh, vel molestie lectus massa a nisl. Aenean ac dolor consectetur, tincidunt risus finibus, tempor risus. Curabitur a eros sed ex molestie interdum. In dapibus elit metus, quis scelerisque elit dignissim sed. Morbi ultricies, risus in viverra rhoncus, massa libero hendrerit lacus, sit amet posuere mi nibh mollis neque."
+                    disabled={isStaff}
                   />
                 </Form.Item>
               </div>
 
               <InputWithLi
-                disable={false}
+                disable={isStaff}
                 onChange={(list) => {
                   handleConditionTreated(list);
                 }}
@@ -626,7 +631,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of Oklahoma College of Medicine" />
+                    <Input
+                      value="University of Oklahoma College of Medicine"
+                      disabled={isStaff}
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Role"
@@ -634,7 +642,7 @@ function EditProfile({
                     rules={[{ required: false, message: "role" }]}
                     className="flex-1"
                   >
-                    <Input />
+                    <Input disabled={isStaff} />
                   </Form.Item>
                 </div>
                 <div className="border-b border-gray-4 my-3">
@@ -649,7 +657,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of Oklahoma College of Medicine" />
+                    <Input
+                      value="University of Oklahoma College of Medicine"
+                      disabled={isStaff}
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Role"
@@ -657,7 +668,7 @@ function EditProfile({
                     rules={[{ required: false, message: "role" }]}
                     className="flex-1"
                   >
-                    <Input />
+                    <Input disabled={isStaff} />
                   </Form.Item>
                 </div>
                 <div className="border-b border-gray-4 my-3">
@@ -672,7 +683,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of Oklahoma College of Medicine" />
+                    <Input
+                      value="University of Oklahoma College of Medicine"
+                      disabled={isStaff}
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Role"
@@ -680,7 +694,7 @@ function EditProfile({
                     rules={[{ required: false, message: "role" }]}
                     className="flex-1"
                   >
-                    <Input />
+                    <Input disabled={isStaff} />
                   </Form.Item>
                 </div>
               </div>
@@ -699,7 +713,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of Oklahoma College of Medicine" />
+                    <Input
+                      value="University of Oklahoma College of Medicine"
+                      disabled={isStaff}
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Degree/Diploma/Certification"
@@ -712,7 +729,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of Oklahoma College of Medicine" />
+                    <Input
+                      value="University of Oklahoma College of Medicine"
+                      disabled={isStaff}
+                    />
                   </Form.Item>
                 </div>
                 <div className="my-3">
@@ -727,7 +747,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of Oklahoma College of Medicine" />
+                    <Input
+                      value="University of Oklahoma College of Medicine"
+                      disabled={isStaff}
+                    />
                   </Form.Item>
                   <Form.Item
                     label="Degree/Diploma/Certification"
@@ -740,7 +763,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of Oklahoma College of Medicine" />
+                    <Input
+                      value="University of Oklahoma College of Medicine"
+                      disabled={isStaff}
+                    />
                   </Form.Item>
                 </div>
               </div>
@@ -771,7 +797,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of Oklahoma College of Medicine" />
+                    <Input
+                      value="University of Oklahoma College of Medicine"
+                      disabled={isStaff}
+                    />
                   </Form.Item>
                   <div className="flex flex-col sm:flex-row  sm:gap-3">
                     <Form.Item
@@ -789,7 +818,7 @@ function EditProfile({
                       // rules={[{ required: true, message: "Confirm password!" }]}
                       className="flex-1"
                     >
-                      <Input.Password />
+                      <Input.Password disabled={isStaff} />
                     </Form.Item>
                   </div>
                 </div>
