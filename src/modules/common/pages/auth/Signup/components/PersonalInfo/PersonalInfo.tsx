@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Select, DatePicker } from "antd";
+import { Form, Input, Button, Select, DatePicker, Checkbox } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
 import {
@@ -22,6 +22,7 @@ export default function PersonalInfo({ onFinish }: props) {
   const [form] = Form.useForm();
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
+  const [terms, setTerms] = useState(false);
 
   function selectCountryId(id: number): void {
     setCountryId(id);
@@ -72,7 +73,7 @@ export default function PersonalInfo({ onFinish }: props) {
     }
   }, [emailData]);
   const emailValidator = async (rule: any, value: string) => {
-    if(!value?.length) return Promise.resolve()
+    if (!value?.length) return Promise.resolve();
     setUserEmail(value);
     if (
       value.length &&
@@ -344,12 +345,25 @@ export default function PersonalInfo({ onFinish }: props) {
         </Form.Item>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <div className="flex justify-between items-center">
+          <Checkbox
+            value={terms}
+            onChange={(e) => {
+              setTerms(e.target.checked);
+            }}
+          >
+            <span className="mb-10 text-gray text-xs">
+              I agree to the <Link href={"#"}>Terms & Condition</Link>
+            </span>
+          </Checkbox>
+        </div>
         <Form.Item>
           <Button
             htmlType="submit"
             className="ant-btn ant-btn-primary ant-btn-block nb-button"
             type="primary"
+            disabled={!terms}
           >
             Next
           </Button>
@@ -357,8 +371,8 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
       <div className="flex justify-center mt-8">
         <p className="text-secondary-1">
-        {t("AlreadyHaveAnAccount")}
-        {/* Already have an account? */}
+          {t("AlreadyHaveAnAccount")}
+          {/* Already have an account? */}
           <Link href="/login">
             <span className="text-primary cursor-pointer"> {t("Login")}</span>
           </Link>

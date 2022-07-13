@@ -45,8 +45,6 @@ function EditableNotes() {
       requestPolicy: "network-only",
     });
 
-  console.log(notesById, query?.id, "majidUsma");
-
   const { appointment: currentNote } = notesById || {};
   const { id: noteId } = currentNote || {};
 
