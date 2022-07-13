@@ -1,14 +1,36 @@
 {
   "Login": {
     "title": "Login to continue",
-    "description": "Enter your credentials to access your account."
+    "description": "Enter your credentials to access your account.",
+    "remember":"Remember me",
+    "forgot":"Forgot Password?",
+    "login":"Login",
+    "account":"Don't have an account?",
+    "register":"Register",
+    "email":"Email Address",
+    "password":"Password"
   },
   "AccountDetail": {
     "title": "Account"
   },
+  
+  "Signup":{
+    "createAccount":"Create Your Account",
+    "createYourAccountToStart":"Create your account to start using Medicus",
+    "personalInfo":"Personal Info",
+    "healthQuestionnaire":"Health Questionnaire",
+    "login":"Login",
+    "account":"Don't have an account?"
+      },
+
   "UpcomingAppointments": {
     "upcomingAppointmentsHead":"Upcoming Appointments"  
+  },
+  "PersonalInfo":{
+    "Login":"Login",
+    "AlreadyHaveAnAccount":"Already have an account?"
   }
+  
 
 }
 
