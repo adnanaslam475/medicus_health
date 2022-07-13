@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Upload, Form } from "antd";
+import { Checkbox, Upload, Form, UploadProps } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import Image from "next/image";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import GeneralHealthQuesionnairModal from "./GeneralHealthQuesionnairModal";
-import { DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
+import { Appointment, DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
+import pdf from "../../../../../public/assets/images/word-file.svg";
+import jpg from "../../../../../public/assets/images/jpg.svg";
+import png from "../../../../../public/assets/images/png.png";
+import zip from "../../../../../public/assets/images/zip.jpeg";
+import docx from "../../../../../public/assets/images/docx.png";
+import doc from "../../../../../public/assets/images/doc.jpg";
+import { StarOutlined } from "@ant-design/icons";
 
 const { Dragger } = Upload;
 type Props = {
   physicianData?: DoctorProfile | undefined | null;
   adminApp_Details?: DoctorData;
+  rebookData?:Appointment
 };
 
 type DoctorData = {
@@ -26,7 +34,7 @@ type DoctorData = {
 
 const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const { data, saveStepTwo } = useBookAppointment();
-  const { physicianData, adminApp_Details } = props || {};
+  const { physicianData, adminApp_Details, rebookData } = props || {};
   const { user } = getUserData();
   const [formInstance] = Form.useForm();
 
@@ -34,7 +42,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const patientId =
     user?.role === "User"
       ? Number(user?.id)
-      : Number(data?.stepOne?.patient?.split(":")[0]);
+      : rebookData?.doctorId || Number(data?.stepOne?.patient?.split(":")[0])
   const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
     variables: { input: patientId },
     pause: !patientId,
@@ -44,13 +52,36 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
     data?.stepTwo?.length > 0 ? false : true
   );
 
-  const attachmentProps = {
+  const attachmentProps: UploadProps = {
     accept: ".doc, .pdf, image/jpg, image/jpeg,",
     name: "file",
     multiple: true,
     onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
-      setFileList(info.fileList);
-      saveStepTwo?.(info.fileList);
+      let fileListing = info.fileList;
+
+      const stepTwoFiles = fileListing?.map((item: any) => {
+        if (fileListing.length) {
+          switch (item?.type) {
+            case "application/pdf":
+              return { ...item, thumbUrl: pdf?.src };
+            case "application/doc":
+              return { ...item, thumbUrl: doc?.src };
+            case "application/docx":
+              return { ...item, thumbUrl: docx?.src };
+            case "image/jpeg":
+              return { ...item, thumbUrl: jpg?.src };
+            case "image/png":
+              return { ...item, thumbUrl: png?.src };
+            case "application/zip":
+              return { ...item, thumbUrl: zip?.src };
+            default:
+              return { ...item, thumbUrl: pdf?.src };
+          }
+        }
+      });
+      setFileList(stepTwoFiles);
+      saveStepTwo?.(stepTwoFiles);
+
       const { status } = info?.file;
       // if (status !== "uploading") {
       //   console.log(info.file, info.fileList);
@@ -62,8 +93,13 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
       // }
     },
     defaultFileList: data?.stepTwo && data?.stepTwo,
+    fileList: data?.stepTwo || fileList,
     onDrop(e: { dataTransfer: { files: any } }) {
       // saveStepTwo?.(e.dataTransfer.files);
+    },
+    showUploadList: {
+      showRemoveIcon: true,
+      removeIcon: "X",
     },
   };
 
@@ -148,6 +184,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
           ref={ref}
           physicianData={physicianData}
           adminApp_Details={adminApp_Details}
+          rebookData={rebookData}
         />
       )}
     </>

@@ -10,7 +10,6 @@ import {
   GetDoctorNotesByAppIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
   useDoctorAppointmentDetailAppointmentInfoQuery,
-  useGetAppointmentByIdQuery,
   useGetAppointmentNoteByIdQuery,
   useGetAppointmentNotesByIdQuery,
   useGetDoctorNotesByAppIdQuery,
@@ -57,7 +56,7 @@ function NotesTab({}: Props) {
   const actualDoctorNotes =
     appointmentChild?.appointment.currentAppointmentNote;
 
-  console.log(status, "statusMy");
+  console.log(notesByAppointmentId, "statusMy");
 
   // GET HISTORY NOTES
 
@@ -149,9 +148,7 @@ function NotesTab({}: Props) {
         {/* HISTORY NOTES */}
         <div className="history-notes-cover">
           <h3>History Notes</h3>
-          {(getRole() === "User" ||
-            getRole() === "Admin" ||
-            getRole() === "Doctor") && <NotesHistory />}
+          <NotesHistory />
         </div>
       </CardWithProfileImageInfo>
     </div>

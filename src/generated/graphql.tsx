@@ -1535,6 +1535,13 @@ export type CreateChatMessageMutationVariables = Exact<{
 
 export type CreateChatMessageMutation = { __typename?: 'Mutation', createChatMessage: { __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, receiverId: number, message?: string | null, messageType?: string | null, createdAt: any, sender?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null, receiver?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } };
 
+export type ResendActivationLinkMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type ResendActivationLinkMutation = { __typename?: 'Mutation', resendActivationLink: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorId?: number | null, createdAt: any } };
+
 export type CreateDoctorScheduleMutationVariables = Exact<{
   doctorId: Scalars['Int'];
   day: Scalars['Int'];
@@ -2254,6 +2261,33 @@ export const CreateChatMessageDocument = gql`
 
 export function useCreateChatMessageMutation() {
   return Urql.useMutation<CreateChatMessageMutation, CreateChatMessageMutationVariables>(CreateChatMessageDocument);
+};
+export const ResendActivationLinkDocument = gql`
+    mutation resendActivationLink($email: String!) {
+  resendActivationLink(email: $email) {
+    id
+    first_name
+    last_name
+    email
+    gender
+    date_of_birth
+    contact_number
+    streetAddress
+    country_id
+    state_id
+    city_id
+    zip_code
+    password
+    status
+    role
+    doctorId
+    createdAt
+  }
+}
+    `;
+
+export function useResendActivationLinkMutation() {
+  return Urql.useMutation<ResendActivationLinkMutation, ResendActivationLinkMutationVariables>(ResendActivationLinkDocument);
 };
 export const CreateDoctorScheduleDocument = gql`
     mutation createDoctorSchedule($doctorId: Int!, $day: Int!, $startTime: String!, $endTime: String!) {

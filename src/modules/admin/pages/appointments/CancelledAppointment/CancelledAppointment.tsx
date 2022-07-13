@@ -1,4 +1,4 @@
-import { Button, Empty, Spin } from "antd";
+import { Button, Empty, Spin, Tooltip } from "antd";
 import React, { useState } from "react";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
@@ -11,9 +11,12 @@ import {
   Transaction,
   useGetAllRequestedAppointmentsQuery,
   useGetPhysiciansQuery,
+  usePatientHealthHistoryQuery,
   User,
 } from "../../../../../generated/graphql";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import { getUserData } from "common/utils/userData";
+import Link from "next/link";
 
 function CancelledAppointment() {
   const [dueDates, setDueDates] = useState<Date | null>();
@@ -38,6 +41,10 @@ function CancelledAppointment() {
       },
     },
   });
+
+  //Get logged in User
+  const { user } = getUserData();
+  const { id: loggedInUser } = user || {};
 
   const [{ data: physicianList }] = useGetPhysiciansQuery({
     variables: {
@@ -68,6 +75,11 @@ function CancelledAppointment() {
     setIsModalVisible(false);
   };
 
+  const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
+    variables: { input: Number(loggedInUser) },
+    requestPolicy: "network-only",
+  });
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -79,13 +91,30 @@ function CancelledAppointment() {
               ullamcorperequesty tortor a fringilla tempus.
             </h5>
           </div>
-          <Button
-            type="primary"
-            size="large"
-            onClick={showAppointmentBookingModal}
+          <Tooltip
+            title={
+              patientHealthHistory?.patientHealthHistory?.id ? (
+                ""
+              ) : (
+                <Link passHref href={`/patient/account?activeTab=2`}>
+                  please complete health questionnaire
+                </Link>
+              )
+            }
           >
-            Request an Appointment
-          </Button>
+            <Button
+              type="primary"
+              className="text-sm"
+              onClick={showAppointmentBookingModal}
+              disabled={
+                patientHealthHistory?.patientHealthHistory?.id ? false : true
+              }
+            >
+              <span className="text-xs sm:text-base">
+                Request an Appointment
+              </span>
+            </Button>
+          </Tooltip>
         </div>
 
         <div className="md:w-5/6">
@@ -112,7 +141,7 @@ function CancelledAppointment() {
                     serviceType,
                     doctor,
                     appointmentTimeSlots,
-                    transaction
+                    transaction,
                   } = appointmentDetail || {};
                   return (
                     <AppointmentCard
@@ -128,6 +157,7 @@ function CancelledAppointment() {
                       setShowModal={setShowModal}
                       doctorProfile={doctor?.doctorProfile as DoctorProfile}
                       transaction={transaction as Transaction}
+                      appointmentDetail={appointmentDetail as Appointment}
                     />
                   );
                 })}

@@ -4,7 +4,10 @@ import Image from "next/image";
 import React, { useRef, useState } from "react";
 import _classes from "./NotesHistory.module.scss";
 import { useRouter } from "next/router";
-import { useGetDoctorNotesByAppIdQuery } from "generated/graphql";
+import {
+  useGetAppointmentNotesByIdQuery,
+  useGetDoctorNotesByAppIdQuery,
+} from "generated/graphql";
 import { getRole } from "common/utils/userData";
 import AcronymWithText from "../AcronymWithText/AcronymWithText";
 import { convertStringDateToUTC } from "common/utils/date";
@@ -20,17 +23,17 @@ function NotesHistory(props: Props) {
   // const appointmentId = Number(query.id);
   // const { historyNotes } = props;
 
-  // const [{ data: getHistoryNotesData }] = useGetAppointmentNoteByIdQuery({
+  // const [{ data: getHistoryNotesData }] = useGetDoctorNotesByAppIdQuery({
   //   variables: {
-  //     appointmentId,
+  //     id: Number(query?.id),
   //   },
   // });
+
   const [{ data: getHistoryNotesData }, executeGetDoctorNotesByAppIdQuery] =
     useGetDoctorNotesByAppIdQuery({
       variables: {
         id: Number(query?.id),
       },
-      requestPolicy: "network-only",
     });
 
   const { Panel } = Collapse;
@@ -80,56 +83,80 @@ function NotesHistory(props: Props) {
             <CaretRightOutlined rotate={isActive ? 90 : 0} />
           )}
         >
-          {historyNotes?.map((data, index) => {
-            return (
-              <Panel
-                className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header={`AP-${
-                  data?.appointment?.id
-                }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
-                  data?.createdAt
-                )} `}
-                key={index}
-              >
-                <>
-                  <div className={`${_classes["narrative-cover"]} `}>
-                    {(getRole() === "Doctor" || getRole() === "Admin") && (
-                      <>
-                        <AcronymWithText
-                          character={"N"}
-                          word={"Narrative"}
-                          sentence={data.note || "No Details"}
-                        />
-                        <div className="font-bold text-black my-3">SOAP</div>
-                        <AcronymWithText
-                          character={"S"}
-                          word={"Subjective"}
-                          sentence={data.subjective || "No Details"}
-                        />
-                        <AcronymWithText
-                          character={"O"}
-                          word={"Objective"}
-                          sentence={data.objective || "No Details"}
-                        />
-                      </>
-                    )}
-                    <div className="only-patient">
-                      <AcronymWithText
-                        character={"A"}
-                        word={"Assessment"}
-                        sentence={data.assessment || "No Details"}
-                      />
-                      <AcronymWithText
-                        character={"P"}
-                        word={"Plan"}
-                        sentence={data.plan || "No Details"}
-                      />
-                    </div>
-                  </div>
-                </>
-              </Panel>
-            );
-          })}
+          {(historyNotes || [])?.length > 0 ? (
+            <>
+              {historyNotes?.map((data: any, index: number) => {
+                console.log("adnanknotes", historyNotes);
+                return (
+                  <Panel
+                    className={`${_classes["site-collapse-custom-panel"]} w-full`}
+                    header={`AP-${
+                      data?.appointment?.id
+                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                      data?.createdAt
+                    )} `}
+                    key={index + 1}
+                  >
+                    <>
+                      {(getRole() === "Admin" || getRole() === "Doctor") && (
+                        <div className={`${_classes["narrative-cover"]} `}>
+                          <AcronymWithText
+                            character={"N"}
+                            word={"Narrative"}
+                            sentence={data.note || "No Details"}
+                          />
+                          <div className="font-bold text-black my-3">SOAP</div>
+                          <AcronymWithText
+                            character={"S"}
+                            word={"Subjective"}
+                            sentence={data.subjective || "No Details"}
+                          />
+                          <AcronymWithText
+                            character={"O"}
+                            word={"Objective"}
+                            sentence={data.objective || "No Details"}
+                          />
+
+                          <div className="only-patient">
+                            <AcronymWithText
+                              character={"A"}
+                              word={"Assessment"}
+                              sentence={data.assessment || "No Details"}
+                            />
+                            <AcronymWithText
+                              character={"P"}
+                              word={"Plan"}
+                              sentence={data.plan || "No Details"}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {getRole() === "User" && (
+                        <div className={`${_classes["narrative-cover"]} `}>
+                          <div className="only-patient">
+                            <AcronymWithText
+                              character={"A"}
+                              word={"Assessment"}
+                              sentence={data.assessment || "No Details"}
+                            />
+                            <AcronymWithText
+                              character={"P"}
+                              word={"Plan"}
+                              sentence={data.plan || "No Details"}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  </Panel>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              <h5>No history notes Available</h5>
+            </>
+          )}
         </Collapse>
       </div>
     </>
