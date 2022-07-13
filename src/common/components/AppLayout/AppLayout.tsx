@@ -6,7 +6,7 @@ import Container from "../Container/Container";
 
 type props = {
   children: React.ReactChild | React.ReactChild[] | (() => React.ReactChild);
-  isShowBanner: boolean | undefined;
+  isShowBanner?: boolean | undefined;
 };
 
 function AppLayout({ children, isShowBanner }: props) {
