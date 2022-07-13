@@ -35,6 +35,7 @@ function NotesListingByAppointments(props: Props) {
     variables: {
       appointmentId,
     },
+    requestPolicy: "network-only",
   });
 
   const { Panel } = Collapse;
@@ -59,7 +60,7 @@ function NotesListingByAppointments(props: Props) {
 
   const status = appointment?.status;
 
-  console.log(actualDoctorNotes, "actualDoctorNotesMy");
+  console.log(currentAppointmentNotes, "actualDoctorNotesMy");
 
   return (
     <>
@@ -83,7 +84,7 @@ function NotesListingByAppointments(props: Props) {
                 header={`AP-${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${docName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                   appDate
                 )} `}
-                key={index}
+                key={index + 1}
               >
                 {(getRole() === "Admin" || getRole() === "Doctor") &&
                   actualDoctorNotes !== null && (

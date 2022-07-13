@@ -4,35 +4,31 @@ import Image from "next/image";
 import pdf from "../../../../public/assets/images/word-file.svg";
 import jpg from "../../../../public/assets/images/jpg.svg";
 import png from "../../../../public/assets/images/png.png";
+import zip from "../../../../public/assets/images/zip.jpeg";
+import docx from "../../../../public/assets/images/docx.png";
+import doc from "../../../../public/assets/images/doc.jpg";
 
-let availableTypes = ["pdf", "jpg", "jpeg", "png"];
-function MediaFile({ type }: any) {
-  const fileIcons = {
-    pdf: pdf,
-    jpg: jpg,
-    jpeg: jpg,
-    png: png,
-    doc: pdf,
-    docx: pdf,
-    other: pdf,
-  };
+const availableTypes = {
+  pdf: pdf.src,
+  msword: doc.src,
+  doc: doc.src,
+  docx: docx.src,
+  vnd: docx.src,
+  "vnd.openxmlformats-officedocument.wordprocessingml.document": docx.src,
+  jpeg: jpg.src,
+  png: png.src,
+  zip: zip.src,
+};
 
-  if (availableTypes?.includes(type))
-    return (
-      <Image
-        priority={true}
-        alt=""
-        src={fileIcons[type as keyof typeof fileIcons]}
-        width={24}
-        height={24}
-        className="border rounded border-gray-2 "
-      />
-    );
+type Props = {
+  type?: string;
+};
+function MediaFile({ type }: Props) {
   return (
     <Image
       priority={true}
       alt=""
-      src={pdf}
+      src={availableTypes[type as keyof typeof availableTypes] || pdf.src}
       width={24}
       height={24}
       className="border rounded border-gray-2 "

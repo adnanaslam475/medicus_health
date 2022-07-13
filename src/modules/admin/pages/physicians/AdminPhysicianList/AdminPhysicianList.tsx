@@ -167,7 +167,7 @@ function AdminPhysicianList() {
 	return (
 		<AppLayout>
 			<div className="w-full">
-				<div className="flex justify-between mb-10">
+				<div className="flex justify-between mb-2">
 					<h2 className="mb-4">Physicians</h2>
 					<Link passHref href={`/admin/physicians/addPhysician`}>
 						<a>
@@ -185,6 +185,7 @@ function AdminPhysicianList() {
 							columns={columns}
 							dataSource={getPhysicians}
 							loading={fetching}
+              scroll={{x:true}}
 						/>
 					</div>
 				</div>

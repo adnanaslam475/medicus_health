@@ -1,3 +1,5 @@
+import { getUserData } from "common/utils/userData";
+import { useGetAppointmentPriceForRequestQuery } from "generated/graphql";
 import React from "react";
 import { date } from "../../../utils";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
@@ -20,6 +22,20 @@ function StepFour() {
   const availabilityTime = doctorSchedule?.doctorSchedules?.find(
     (time: any) => time.id === availability
   );
+  const { user } = getUserData();
+  const id = user?.id;
+  const patientId =
+    user?.role === "User" ? id : data?.stepOne?.patient?.split(":")[0];
+  const serviceId = data?.stepOne?.service;
+  const [{ data: appointmentPriceBreakup }] =
+    useGetAppointmentPriceForRequestQuery({
+      variables: { serviceId: Number(serviceId), patientId: Number(patientId) },
+    });
+  const { getAppointmentPriceForRequest } = appointmentPriceBreakup || {};
+  const appointmentPrice = getAppointmentPriceForRequest?.appointmentPrice;
+  const systemFee = getAppointmentPriceForRequest?.systemFee;
+  const tax = getAppointmentPriceForRequest?.tax;
+  const total = getAppointmentPriceForRequest?.total;
 
   return (
     <>
@@ -29,13 +45,29 @@ function StepFour() {
         <span>Dr. {doctorName || physician || ""}</span>
       </div>
       <div className="flex">
-        <div className="w-4/6 border-b border-gray-5 pb-2 mb-5">
-          <label className="block">Service</label>
-          <span>{name || serviceName}</span>
-        </div>
-        <div className="w-2/6 ml-4 border-b border-gray-5 pb-2 mb-5">
-          <label className="block">Charges</label>
-          <span>${price || charges}</span>
+        <div className="w-full ml-4 border-b border-gray-5 pb-2 mb-5">
+          <div className="flex justify-between  font-semibold">
+            <span>Service</span>
+            <span>{name || serviceName}</span>
+          </div>
+
+          <div className="flex justify-between ">
+            <span>Appointment Fee</span>
+            <span>${appointmentPrice || "-"}</span>
+          </div>
+          <div className="flex justify-between ">
+            <span>Tax</span>
+            <span>${tax || "0"}</span>
+          </div>
+
+          <div className="flex justify-between ">
+            <span>System fee</span>
+            <span>${systemFee || "0"}</span>
+          </div>
+          <div className="flex justify-between font-semibold">
+            <span>Total Charges</span>
+            <span>${total || "0"}</span>
+          </div>
         </div>
       </div>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
@@ -48,6 +80,9 @@ function StepFour() {
       <p className="font-rubik text-gray">
         Please note that your payment will only be charged once the physician
         will confirm the appointment. This is only an appointment request.
+      </p>
+      <p className="text-red">
+        System fee is not refundable in case of appointment cancellation
       </p>
     </>
   );

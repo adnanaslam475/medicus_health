@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Radio, Select, DatePicker, Input } from "antd";
 import {
+  Appointment,
   AppointmentServiceType,
   DoctorProfile,
   useDoctorSchedulesQuery,
@@ -36,6 +37,7 @@ type Props = {
   adminData?: AdminData;
   patientData?: User[];
   adminApp_Details?: DoctorData;
+  rebookData?: Appointment;
 };
 
 export const AppointmentBookingStepOne = React.forwardRef(
@@ -58,9 +60,10 @@ export const AppointmentBookingStepOne = React.forwardRef(
       adminData,
       patientData,
       adminApp_Details,
+      rebookData,
     } = props || {};
-    const { first_name, last_name, id } = physicianData?.user || {};
-
+    const { first_name, last_name, id } =
+      physicianData?.user || rebookData?.doctor || {};
     const { doctor_Id, doctor_first_name, doctor_last_name } =
       adminApp_Details?.doctor || {};
     const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
@@ -73,7 +76,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
       Number(adminApp_Details?.doctor?.doctor_Id) ||
       Number(query?.id) ||
       Number(doctorId) ||
-      Number(stepOneDoctorId);
+      Number(stepOneDoctorId) ||
+      Number(rebookData?.doctorId);
 
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesQuery] =
       useDoctorSchedulesQuery({
@@ -98,14 +102,18 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }, [appoinmentDetails]);
     function prepareAndSetEditPayload() {
       let consultationCharges =
-        charges || price || (serviceInfo && serviceInfo[0]?.price);
+        rebookData?.charges ||
+        charges ||
+        price ||
+        (serviceInfo && serviceInfo[0]?.price);
       let physicianName = formInstance.setFieldsValue({
-        physician: adminApp_Details?.doctor
-          ? `${doctor_first_name} ${doctor_last_name}`
-          : physicianData?.user
-          ? `${first_name} ${last_name}`
-          : physician,
-        service: service,
+        physician:
+          rebookData || physicianData?.user
+            ? `${first_name} ${last_name}`
+            : adminApp_Details?.doctor
+            ? `${doctor_first_name} ${doctor_last_name}`
+            : physician,
+        service: rebookData?.serviceId || service,
         charges: consultationCharges,
         requestedDate: requestedDate,
         availability: availability,
@@ -131,8 +139,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
         } else if (serviceInfo[0]?.name === "Second Opinion") {
           return dayjs(current).isBefore(dayjs().add(4, "day"));
         }
-      }
-      return true;
+        return true;
+      } else return false;
     }
 
     function onFinishLocal(values: any) {
@@ -143,7 +151,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         charges: serviceInfo?.[0].price || values.charges,
         serviceName: serviceInfo?.[0]?.name || serviceName,
         serviceInfo,
-        doctorSchedule:scheduleDetails
+        doctorSchedule: scheduleDetails,
       };
       saveStepOne?.(tempObj);
     }
@@ -265,7 +273,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                         ? `${serviceInfo?.map((item) =>
                             item?.price ? item?.price : ""
                           )}`
-                        : price || charges
+                        : price || charges || rebookData?.charges
                     }
                   />
                   {/* $

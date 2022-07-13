@@ -449,7 +449,7 @@ function DoctorUpcomingAppointmentInfoFooter({
 
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   return (
-    <div className="flex justify-between mt-6">
+    <div className="flex justify-center sm:justify-between mt-6 flex-wrap gap-y-2 gap-x-2 ">
       <div className="flex">
         <Button
           danger

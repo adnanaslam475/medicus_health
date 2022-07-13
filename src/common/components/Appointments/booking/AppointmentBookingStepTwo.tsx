@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Upload, Form } from "antd";
+import { Checkbox, Upload, Form, UploadProps } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import Image from "next/image";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import GeneralHealthQuesionnairModal from "./GeneralHealthQuesionnairModal";
-import { DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
+import {
+  Appointment,
+  DoctorProfile,
+  usePatientHealthHistoryQuery,
+} from "generated/graphql";
 import { getUserData } from "common/utils/userData";
+import pdf from "../../../../../public/assets/images/word-file.svg";
+import jpg from "../../../../../public/assets/images/jpg.svg";
+import png from "../../../../../public/assets/images/png.png";
+import zip from "../../../../../public/assets/images/zip.jpeg";
+import docx from "../../../../../public/assets/images/docx.png";
+import doc from "../../../../../public/assets/images/doc.jpg";
+import { StarOutlined } from "@ant-design/icons";
 
 const { Dragger } = Upload;
 type Props = {
   physicianData?: DoctorProfile | undefined | null;
   adminApp_Details?: DoctorData;
+  rebookData?: Appointment;
 };
 
 type DoctorData = {
@@ -26,27 +38,52 @@ type DoctorData = {
 
 const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const { data, saveStepTwo } = useBookAppointment();
-  const { physicianData, adminApp_Details } = props || {};
+  const { physicianData, adminApp_Details, rebookData } = props || {};
   const { user } = getUserData();
   const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
-  const patientId =  user?.role === "User" ? user?.id : 0;
+  const patientId =
+    user?.role === "User"
+      ? Number(user?.id)
+      : rebookData?.doctorId || Number(data?.stepOne?.patient?.split(":")[0]);
   const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
-    variables: { input: patientId as number },
+    variables: { input: patientId },
+    pause: !patientId,
   });
   const { patientHealthHistory } = patientHealthData || {};
   const [checked, setChecked] = useState(
     data?.stepTwo?.length > 0 ? false : true
   );
 
-  const attachmentProps = {
-    accept: ".doc, .pdf, image/jpg, image/jpeg,",
+  const attachmentProps: UploadProps = {
+    accept: ".doc,.docx, .pdf, image/jpg, image/jpeg,",
     name: "file",
     multiple: true,
     onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
-      setFileList(info.fileList);
-      saveStepTwo?.(info.fileList);
+      let fileListing = info.fileList;
+
+      const availableTypes: Object = {
+        "application/pdf": pdf.src,
+        "application/msword": doc.src,
+        "application/doc": doc.src,
+        "application/docx": docx.src,
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+          docx.src,
+        "image/jpeg": jpg.src,
+        "image/png": png.src,
+        "application/zip": zip.src,
+      };
+      const stepTwoFiles = fileListing?.map((item: any) => {
+        return {
+          ...item,
+          thumbUrl:
+            availableTypes[item.type as keyof typeof availableTypes] || pdf.src,
+        };
+      });
+      setFileList(stepTwoFiles);
+      saveStepTwo?.(stepTwoFiles);
+
       const { status } = info?.file;
       // if (status !== "uploading") {
       //   console.log(info.file, info.fileList);
@@ -58,8 +95,13 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
       // }
     },
     defaultFileList: data?.stepTwo && data?.stepTwo,
+    fileList: data?.stepTwo || fileList,
     onDrop(e: { dataTransfer: { files: any } }) {
       // saveStepTwo?.(e.dataTransfer.files);
+    },
+    showUploadList: {
+      showRemoveIcon: true,
+      removeIcon: "X",
     },
   };
 
@@ -78,7 +120,6 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   return (
     <>
       <h2>Request an Appointment</h2>
@@ -115,7 +156,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
           name="questionnair"
           rules={[
             {
-              required: !(!!patientHealthHistory?.id),
+              required: !patientHealthHistory?.id ? true : false,
               message: "General Health Questionnaire is required",
             },
           ]}
@@ -123,10 +164,12 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
           <div className="w-full bg-gray-4 rounded flex items-center p-3">
             <Checkbox
               onChange={handlechecked}
-              defaultChecked={!!patientHealthHistory?.id}
+              defaultChecked={patientHealthHistory?.id ? true : false}
               disabled={true}
             >
-              <span className="text-gray-2">Health Questionnaire is attached</span>
+              <span className="text-gray-2">
+                Health Questionnaire is attached
+              </span>
             </Checkbox>
           </div>
         </Form.Item>
@@ -143,6 +186,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
           ref={ref}
           physicianData={physicianData}
           adminApp_Details={adminApp_Details}
+          rebookData={rebookData}
         />
       )}
     </>

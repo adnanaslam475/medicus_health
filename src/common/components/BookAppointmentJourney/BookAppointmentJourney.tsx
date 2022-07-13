@@ -1,6 +1,7 @@
 import { FormInstance, Modal } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Appointment,
   DoctorProfile,
   useCreateAppointmentMutation,
   usePatientHealthHistoryQuery,
@@ -43,10 +44,11 @@ type Props = {
   onCancel?:
     | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
-  doctorData?: DoctorProfile | undefined | null;
+  doctorData?:  DoctorProfile | undefined | null;
   adminData?: AdminData;
   patientData?: User[] | undefined;
   adminApp_Details?: DoctorData;
+  rebookData?:Appointment
 };
 
 function BookAppointmentJourney({
@@ -57,6 +59,7 @@ function BookAppointmentJourney({
   adminData,
   patientData,
   adminApp_Details,
+  rebookData
 }: Props) {
   return (
     <BookAppointmentProvider>
@@ -68,6 +71,7 @@ function BookAppointmentJourney({
         adminData={adminData}
         patientData={patientData}
         adminApp_Details={adminApp_Details}
+        rebookData={rebookData}
       />
     </BookAppointmentProvider>
   );
@@ -81,6 +85,7 @@ function BookAppointmentModal({
   adminData,
   patientData,
   adminApp_Details,
+  rebookData
 }: Props) {
   const form = useRef<FormInstance>();
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
@@ -202,12 +207,16 @@ function BookAppointmentModal({
     } catch (error) {}
   }
 
-  const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
-    variables: { input: patientIdforCreateAppointment as number },
-  });
+  const [{ data: patientHealthData }, executeUsePatientHealthHistoryQuery] =
+    usePatientHealthHistoryQuery({
+      variables: { input: patientIdforCreateAppointment as number },
+    });
   const { patientHealthHistory } = patientHealthData || {};
 
-  const NextClickHandler = ({ propsCurrentStepName }: any) => {
+  useEffect(() => {
+    executeUsePatientHealthHistoryQuery({ requestPolicy: "network-only" });
+  }, [currentStepName === "stepTwo"]);
+  const NextClickHandler = () => {
     const stepOneFields = form?.current?.getFieldsValue([
       "physician",
       "availability",
@@ -217,18 +226,21 @@ function BookAppointmentModal({
     const stepThreeFields = form?.current?.getFieldsValue();
     if (
       currentStepName === "stepOne" &&
-      Object.values(stepOneFields).some((value) => value === undefined)
+      Object.values(stepOneFields).some((value) => !value)
     ) {
-      form.current?.submit();
+      return form.current?.submit();
     } else if (currentStepName === "stepTwo" && !patientHealthHistory?.id) {
-      form.current?.submit();
+      return form.current?.submit();
     } else if (
       currentStepName === "stepThree" &&
-      !appoinmentData?.stepThree?.length &&
-      Object.values(stepThreeFields).some((value) => value === undefined)
+      Object.values(stepThreeFields).some(
+        (item) => item === "" || item === undefined
+      )
     ) {
-      form.current?.submit();
-    } else next(currentStepName);
+      return form.current?.submit();
+    } else {
+      return next(currentStepName);
+    }
   };
   return (
     <Modal
@@ -254,11 +266,12 @@ function BookAppointmentModal({
               adminData={adminData}
               patientData={patientData}
               adminApp_Details={adminApp_Details}
+              rebookData={rebookData}
             />
           </div>
           <BookAppointmentFooter
             stepName={currentStepName}
-            onNext={() => NextClickHandler(currentStepName)}
+            onNext={() => NextClickHandler()}
             onPrevious={() => prev(currentStepName)}
             onRequestAppointment={onRequestAppointment}
           />

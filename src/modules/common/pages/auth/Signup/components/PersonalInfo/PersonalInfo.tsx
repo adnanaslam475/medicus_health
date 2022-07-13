@@ -9,6 +9,7 @@ import {
   useCountriesQuery,
   useCheckEmailAvailabilityQuery,
 } from "generated/graphql";
+import { useTranslations } from "next-intl";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -17,6 +18,7 @@ type props = {
 };
 
 export default function PersonalInfo({ onFinish }: props) {
+  const t = useTranslations("PersonalInfo");
   const [form] = Form.useForm();
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
@@ -70,6 +72,7 @@ export default function PersonalInfo({ onFinish }: props) {
     }
   }, [emailData]);
   const emailValidator = async (rule: any, value: string) => {
+    if(!value?.length) return Promise.resolve()
     setUserEmail(value);
     if (
       value.length &&
@@ -354,9 +357,10 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
       <div className="flex justify-center mt-8">
         <p className="text-secondary-1">
-          Already have an account?
+        {t("AlreadyHaveAnAccount")}
+        {/* Already have an account? */}
           <Link href="/login">
-            <span className="text-primary cursor-pointer"> Login</span>
+            <span className="text-primary cursor-pointer"> {t("Login")}</span>
           </Link>
         </p>
       </div>

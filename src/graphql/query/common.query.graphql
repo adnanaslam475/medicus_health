@@ -89,3 +89,12 @@ query checkEmailAvailability($emailAvailableInput: EmailAvailableInput!) {
     isEmailAvailable
   }
 }
+
+query getAppointmentPriceForRequest($serviceId: Int!, $patientId: Int!) {
+  getAppointmentPriceForRequest(serviceId: $serviceId, patientId: $patientId) {
+    appointmentPrice
+    tax
+    systemFee
+    total
+  }
+}

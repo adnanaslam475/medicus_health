@@ -135,7 +135,7 @@ function AdminPatientsList() {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex justify-between mb-10">
+        <div className="flex justify-between">
           <h2 className="mb-4">Patients</h2>
           <Link passHref href={`/admin/patients/addPatients`}>
             <a>
@@ -154,6 +154,7 @@ function AdminPatientsList() {
               columns={columns}
               dataSource={getPatients as User[]}
               loading={fetching}
+              scroll={{x:true}}
             />
           </div>
         </div>
