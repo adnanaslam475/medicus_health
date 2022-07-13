@@ -30,7 +30,14 @@ type Props = {
 };
 
 const CurrentStepContent = React.forwardRef(function CurrentStepContent(
-  { stepName, doctorData, adminData, adminApp_Details, patientData,rebookData }: Props,
+  {
+    stepName,
+    doctorData,
+    adminData,
+    adminApp_Details,
+    patientData,
+    rebookData,
+  }: Props,
   ref: any
 ) {
   switch (stepName) {
@@ -46,7 +53,14 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
         />
       );
     case "stepTwo":
-      return <AppointmentBookingStepTwo ref={ref} adminApp_Details={adminApp_Details} physicianData={doctorData} rebookData={rebookData}/>;
+      return (
+        <AppointmentBookingStepTwo
+          ref={ref}
+          adminApp_Details={adminApp_Details}
+          physicianData={doctorData}
+          rebookData={rebookData}
+        />
+      );
     case "stepThree":
       return (
         <AppointmentBookingStepThree
