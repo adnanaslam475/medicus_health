@@ -256,7 +256,7 @@ function AdminAppointmentsListing({}: Props) {
               </div>
               <Button type="primary" className="text-sm" onClick={showModal}>
                 <span className="text-xs sm:text-base">
-                  Request an Appointment
+                  Request an appointment
                 </span>
               </Button>
             </div>

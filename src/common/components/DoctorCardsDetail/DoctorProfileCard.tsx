@@ -187,7 +187,7 @@ function DoctorProfileCard(props: Props) {
                     width={20}
                     height={11}
                   />
-                  <span className="ml-2">Request an Appointment</span>
+                  <span className="ml-2">Request an appointment</span>
                 </Button>
               </Tooltip>
               <div className="flex-none sm:flex">

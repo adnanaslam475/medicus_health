@@ -36,7 +36,7 @@ function BookAppointmentFooter({
           type="primary"
           onClick={onRequestAppointment}
         >
-          Request an Appointment
+          Request an appointment
         </Button>
       )}
     </div>

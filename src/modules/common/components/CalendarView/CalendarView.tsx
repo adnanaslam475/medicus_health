@@ -199,7 +199,7 @@ function AdminCalender(props: Props) {
                     text: "Appointments",
                   },
                   custom1: {
-                    text: "Request an Appointment",
+                    text: "Request an appointment",
                     click: showModal,
                   },
                   listview: {
@@ -281,7 +281,7 @@ function AdminCalender(props: Props) {
                     text: "Upcomming Appointments",
                   },
                   custom1: {
-                    text: "Request an Appointment",
+                    text: "Request an appointment",
                     click: showModal,
                   },
                   listview: {
@@ -361,10 +361,10 @@ function AdminCalender(props: Props) {
                   },
                 },
                 customText: {
-                  text: "Upcoming Appointments",
+                  text: "Upcoming appointments",
                 },
                 custom1: {
-                  text: "Request an Appointment",
+                  text: "Request an appointment",
                   click: showModal,
                 },
                 listview: {

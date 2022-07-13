@@ -111,7 +111,7 @@ function CancelledAppointment() {
               }
             >
               <span className="text-xs sm:text-base">
-                Request an Appointment
+                Request an appointment
               </span>
             </Button>
           </Tooltip>

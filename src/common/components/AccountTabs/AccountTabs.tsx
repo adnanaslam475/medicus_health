@@ -82,7 +82,7 @@ function AccountTabs() {
 						className="w-full"
 						tab={
 							<span className="font-Circular font-medium">
-								Personal Information
+								Personal information
 							</span>
 						}
 						key="1"
@@ -92,7 +92,7 @@ function AccountTabs() {
 					<Tabs.TabPane
 						tab={
 							<span className="font-Circular font-medium">
-								Health Questionnaire
+								Health questionnaire
 							</span>
 						}
 						key="2"
@@ -119,7 +119,7 @@ function AccountTabs() {
 					</Tabs.TabPane>
 					<Tabs.TabPane
 						tab={
-							<span className="font-Circular font-medium">Payment Methods</span>
+							<span className="font-Circular font-medium">Payment methods</span>
 						}
 						key="3"
 					>
@@ -128,7 +128,7 @@ function AccountTabs() {
 					<Tabs.TabPane
 						tab={
 							<span className="font-Circular font-medium">
-								Transaction History
+								Transaction history
 							</span>
 						}
 						key="4"
@@ -138,7 +138,7 @@ function AccountTabs() {
 					<Tabs.TabPane
 						tab={
 							<span className="font-Circular font-medium">
-								Email Notification
+								Email notification
 							</span>
 						}
 						key="5"

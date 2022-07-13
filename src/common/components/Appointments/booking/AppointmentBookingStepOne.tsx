@@ -171,7 +171,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     return (
       <>
-        <h2>Request an Appointment</h2>
+        <h2>Request an appointment</h2>
         <Form form={formInstance} layout="vertical" onFinish={onFinishLocal}>
           {adminData || patientData ? (
             <Form.Item
