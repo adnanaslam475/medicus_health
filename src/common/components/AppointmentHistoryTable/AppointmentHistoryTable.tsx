@@ -138,7 +138,7 @@ type Props = {
   loading: boolean | undefined;
   meta: any;
   onChange: (values: any) => void;
-  onPaginationChange: (values: any) => void;
+  onPaginationChange: any;
 };
 
 const AppointmentHistoryTable = (props: Props) => {
@@ -152,7 +152,6 @@ const AppointmentHistoryTable = (props: Props) => {
       onChange={onChange}
       scroll={{ x: true }}
       pagination={{
-        total: meta?.totalItems,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

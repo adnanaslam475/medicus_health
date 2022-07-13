@@ -25,7 +25,6 @@ const columns = [
     render: (value: User) => {
       return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
     },
-
     sorter: true,
   },
   {
@@ -144,7 +143,7 @@ function CurrentAppointmentTable({
       onChange={onChange}
       scroll={{ x: true }}
       pagination={{
-        total: meta?.totalItems,
+        // total: meta?.totalItems,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

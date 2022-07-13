@@ -127,7 +127,6 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       scroll={{ x: true }}
       onChange={onChange}
       pagination={{
-        total: meta?.totalItems,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

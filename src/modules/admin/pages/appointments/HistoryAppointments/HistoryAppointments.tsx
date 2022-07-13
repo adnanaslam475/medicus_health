@@ -1,4 +1,4 @@
-import { DatePicker, Button, Tooltip } from "antd";
+import { Button, Tooltip } from "antd";
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 
@@ -80,7 +80,6 @@ function CancelledAppointment() {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    console.log("sorter===>", sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
@@ -97,6 +96,7 @@ function CancelledAppointment() {
         : "",
     });
   };
+
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: Number(loggedInUser) },
     requestPolicy: "network-only",

@@ -305,7 +305,6 @@ function AdminAppointmentsListing({}: Props) {
                 onChange={onChange}
                 loading={fetching}
                 pagination={{
-                  total: meta?.totalItems,
                   current: meta?.currentPage,
                   defaultPageSize: 10,
                   onChange: onPaginationChange,

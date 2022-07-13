@@ -1,7 +1,8 @@
 import React from "react";
+import Router from "next/router";
 import { Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
-import Router from "next/router";
+import StatusChip from "common/components/StatusChip/StatusChip";
 import {
   Appointment,
   AppointmentDateTimeResponse,
@@ -9,7 +10,6 @@ import {
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
-import StatusChip from "common/components/StatusChip/StatusChip";
 
 const Columns = [
   {
@@ -144,7 +144,7 @@ const RequestedList = (props: Props) => {
       loading={loading}
       scroll={{ x: true }}
       pagination={{
-        total: meta?.totalItems,
+        // total: meta?.totalItems,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

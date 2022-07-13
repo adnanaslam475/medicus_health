@@ -117,7 +117,7 @@ function StaffTable({
       scroll={{ x: true }}
       onChange={onChange}
       pagination={{
-        total: meta?.totalItems,
+        // total: meta?.totalItems,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,
