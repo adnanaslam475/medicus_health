@@ -105,7 +105,7 @@ function Login() {
                   onFinishFailed={onFinishFailed}
                 >
                   <Form.Item
-                    label="Email Address"
+                    label={t("email")}
                     name="email"
                     className="mb-1"
                     rules={[
@@ -123,7 +123,7 @@ function Login() {
                   </Form.Item>
 
                   <Form.Item
-                    label="Password"
+                    label={t("password")}
                     name="password"
                     rules={[
                       {
@@ -141,12 +141,13 @@ function Login() {
                         disabled={fetching}
                         className="text-gray primary-checkbox"
                       >
-                       <span className="text-gray">Remember me</span> 
+                       <span className="text-gray">
+                         {t("remember")}</span> 
                       </Checkbox>
                       <Link href="/forgotPassword">
                         <a>
-                          <span className="text-primary cursor-pointer">
-                            Forgot Password?
+                          <span className="text-primary cursor-pointer"> 
+                            {t("forgot")}
                           </span>
                         </a>
                       </Link>
@@ -161,7 +162,7 @@ function Login() {
                       type="primary"
                       htmlType="submit"
                     >
-                      Login
+                      {t("login")}
                     </Button>
                   </Form.Item>
 
@@ -176,9 +177,9 @@ function Login() {
               </div>
               <Form.Item>
                 <div className="flex justify-center mt-8">
-                  Don&apos;t have an account?
+                  {t("account")}
                   <span className="ml-1">
-                    <Link href="/signup">Register</Link>
+                    <Link href="/signup">{t("register")}</Link>
                   </span>
                 </div>
               </Form.Item>

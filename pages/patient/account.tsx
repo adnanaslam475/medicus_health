@@ -9,7 +9,7 @@ export default account;
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
-      messages: require(`./../../src/common/locales/${locale}.json`),
+      messages: require(`./../src/common/locales/${locale}.json`),
     },
   };
 }

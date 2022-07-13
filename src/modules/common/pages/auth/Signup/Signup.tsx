@@ -17,7 +17,7 @@ import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import successSmall from "../../../../../../public/assets/icon/success-small.svg";
 import { GraphQLError } from "graphql";
-
+import { useTranslations } from "next-intl";
 const { TabPane } = Tabs;
 const { confirm } = Modal;
 
@@ -26,6 +26,9 @@ interface CreateUserPayload extends CreateUserInput {
 }
 
 function Signup() {
+  const t = useTranslations("Signup");
+
+  
   const router = useRouter();
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
@@ -144,15 +147,14 @@ function Signup() {
                   className="main-logo mx-auto"
                   height={34}
                   width={216}
-                  src="/assets/images/logo-medi.svg"
-                  // loading="eager"
+                  src="/assets/images/logo-medi.svg"                  
                 />
               </div>
               <h1 className="text-center text-secondary mb-3">
-                Create Your Account
+              {t("createAccount")}
               </h1>
               <div className="text-center text-gray font-rubik font-normal text-sm">
-                Create your account to start using Medicus
+              {t("createYourAccountToStart")}
               </div>
               <div className="mt-5">
                 <Tabs
@@ -188,11 +190,11 @@ function Signup() {
                         )}
                         {!nextTab ? (
                           <span className="ml-3 text-cyan text-xs sm:text-base">
-                            Personal Info
+                           {t("personalInfo")}
                           </span>
                         ) : (
                           <span className="ml-3 text-xs sm:text-base">
-                            Personal Info
+                            {t("personalInfo")}
                           </span>
                         )}
                       </span>
@@ -220,7 +222,7 @@ function Signup() {
                           }
                         ></Badge>
                         <span className="ml-3 text-xs sm:text-base">
-                          Health Questionnaire
+                        {t("healthQuestionnaire")}
                         </span>
                       </span>
                     }

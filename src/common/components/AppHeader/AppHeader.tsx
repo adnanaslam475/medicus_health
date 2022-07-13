@@ -77,7 +77,7 @@ const AppHeader = () => {
         </Menu.Item>
       )}
 
-      <div className="hidden">
+      {/* <div className="hidden">
         <Menu.Item>
           <Link
             href={{ pathname, query }}
@@ -87,7 +87,7 @@ const AppHeader = () => {
             {`switch to ${otherLocales?.[0]}`}
           </Link>
         </Menu.Item>
-      </div>
+      </div> */}
 
       <Menu.Item onClick={logout}>
         <span className="text-red">Logout</span>
