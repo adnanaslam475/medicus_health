@@ -302,14 +302,23 @@ query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
 }
 
 #Get My Earnings Of Doctor
-query getTransectionFilter($filter: GetTransectionInput!) {
-  getTransectionFilter(filter: $filter) {
+query getTransactionFilter($filter: GetTransectionInput!) {
+  getTransactionFilter(filter: $filter) {
     id
     appointmentId
     transactionId
     payment_status
     amountReceived
+    status
+    stripeFee
+    doctor_percentage
+    payment_status
+    createdAt
+    appointmentCharges
+    stripeFee
+    tax
     appointment {
+      status
       patient {
         first_name
         last_name

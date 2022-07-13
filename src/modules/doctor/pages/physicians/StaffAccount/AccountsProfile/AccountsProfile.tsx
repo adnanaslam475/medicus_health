@@ -13,7 +13,12 @@ import {
 import EditProfile from "../EditProfile/EditProfile";
 import { RangeValue } from "rc-picker/lib/interface";
 
-function AccountsProfile() {
+type Props = {
+  isStaff?: boolean;
+};
+
+function AccountsProfile(props: Props) {
+  const { isStaff } = props || {};
   const editData = () => {
     setIsEdit(!isEdit);
   };
@@ -33,7 +38,7 @@ function AccountsProfile() {
 
   // GET USER ID
   const { user } = getUserData();
-  const role = user?.role
+  const role = user?.role;
   const id = role == "Admin" ? Number(adminId) : user?.doctorId;
 
   const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
@@ -70,7 +75,7 @@ function AccountsProfile() {
 
   const [{ data }] = useDoctorProfileQuery({
     variables: { doctor_id: id as number },
-    pause: !id
+    pause: !id,
   });
   const { doctorProfile } = data || {};
   return (
@@ -89,6 +94,7 @@ function AccountsProfile() {
           addScheduleTime={addScheduleTime}
           onAddClick={onAddClick}
           loading={fetching}
+          isStaff={isStaff}
         />
       ) : (
         <ViewProfile
