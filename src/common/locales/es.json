@@ -8,7 +8,7 @@
 		"account": "¿No tienes una cuenta?",
 		"register": "Registro",
 		"email": "Dirección de correo electrónico",
-		"password": "clave"
+		"password": "contraseña"
 	},
 
   "AccountDetail": {
@@ -28,7 +28,27 @@
   },
   "PersonalInfo":{
     "Login":"Acceso",
-    "AlreadyHaveAnAccount":"Ya tienes una cuenta"
+    "AlreadyHaveAnAccount":"Ya tienes una cuenta",
+    "Gender":"Género",
+    "first_name":"Primer nombre",
+    "last_name":"Apellido",    
+    "male":"Masculino",
+    "female":"Femenina",
+    "i_prefer_not_to_say":"Prefiero no contestar",
+    "date_of_Birth":"Fecha de nacimiento",
+    "email_address":"Dirección de correo electrónico",
+    "password": "Contraseña",
+    "confirm_password": "Confirmar contraseña",
+    "street_address": "Dirección",
+    "contact_number":"número de contacto",
+    "country":"País",
+    "state":"Estado",
+    "city":"Ciudad",
+    "postal_code":"Código postal",
+    "postal_code_message":"Por favor ingrese su código postal",
+    "i_agree_to_the":"Estoy de acuerdo con la",
+    "terms_n_conditions":"Términos y condiciones",
+    "next":"Próximo"
   }
   
   
