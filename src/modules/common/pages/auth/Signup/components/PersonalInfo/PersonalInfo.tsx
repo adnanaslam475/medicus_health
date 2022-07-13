@@ -70,6 +70,7 @@ export default function PersonalInfo({ onFinish }: props) {
     }
   }, [emailData]);
   const emailValidator = async (rule: any, value: string) => {
+    if(!value?.length) return Promise.resolve()
     setUserEmail(value);
     if (
       value.length &&
