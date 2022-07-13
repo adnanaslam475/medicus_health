@@ -4,6 +4,7 @@ import _classes from "./AppointmentReschedule.module.scss";
 import {
   Appointment,
   useGetAllCardsQuery,
+  useGetAppointmentPriceQuery,
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../../generated/graphql";
 import { getUserData } from "../../../../../common/utils/userData";
@@ -16,7 +17,7 @@ type Props = {
 };
 
 function AppointmentReschedule(props: Props) {
-  const { appointmentDetails } = props;
+  const { appointmentDetails,appointmentId } = props;
   const {
     doctor,
     serviceType,
@@ -51,6 +52,15 @@ function AppointmentReschedule(props: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [charges, appointmentDetails, appointmentTimeSlots]);
 
+  const [{ data: appointmentPriceBreakup }] = useGetAppointmentPriceQuery({
+    variables: { id: Number(appointmentId) },
+    pause: !appointmentId,
+  });
+  const { getAppointmentPrice } = appointmentPriceBreakup || {};
+  const appointmentPrice = getAppointmentPrice?.appointmentPrice;
+  const systemFee = getAppointmentPrice?.systemFee;
+  const tax = getAppointmentPrice?.tax;
+  const total = getAppointmentPrice?.total;
   return (
     <div>
       <h2>Appointment Reschedule</h2>
@@ -59,16 +69,32 @@ function AppointmentReschedule(props: Props) {
           <h5>Physician</h5>
           <p>Dr. {doctorName}</p>
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="border-b col-span-2 border-gray-4 pt-4 ">
-            <h5>Service</h5>
-            <p>{name || " "}</p>
+        <div className="flex">
+        <div className="w-full border-b border-gray-5 pb-2 pt-2">
+          <div className="flex justify-between  font-semibold">
+            <span>Service</span>
+            <span>{name || ""}</span>
           </div>
-          <div className="border-b border-gray-4  pt-4">
-            <h5>Charges</h5>
-            <p>${charges || ""}</p>
+
+          <div className="flex justify-between ">
+            <span>Appointment Fee</span>
+            <span>${appointmentPrice || "-"}</span>
+          </div>
+          <div className="flex justify-between ">
+            <span>Tax</span>
+            <span>${tax || "0"}</span>
+          </div>
+
+          <div className="flex justify-between ">
+            <span>System fee</span>
+            <span>${systemFee || "0"}</span>
+          </div>
+          <div className="flex justify-between font-semibold pt-2">
+            <span>Total Charges</span>
+            <span>${total || "0"}</span>
           </div>
         </div>
+      </div>
       </div>
       <div className={`py-4 ${_classes["available-slots-container"]}`}>
         <h5>Available Slots (select one)</h5>
