@@ -13,6 +13,8 @@ import {
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import { date } from "common/utils";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
 
 type Props = {
   data?: {
@@ -53,7 +55,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
     time,
     totalAmount,
     appointmentStatus,
-    paymentStatus,
+    paymentStatus = "unpaid",
     status,
   } = data || {};
 
@@ -88,7 +90,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
   const deleteModalHandler = () => setOpen(!open);
   const deleteAppointmentHandler = async () => {
     try {
-      const id = query?.appointmentId || query?.id
+      const id = query?.appointmentId || query?.id;
       const response = await removeAppointmentByAdmin({
         id: Number(id),
       });
@@ -108,7 +110,6 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
       });
     }
   };
-
   return (
     <>
       <div className="max-w-[700px]">
@@ -129,13 +130,10 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
             <div className="w-full text-gray-1 max-w-[300px]">
               Appointment Status
             </div>
-            <div className="w-full text-secondary">
-              <Tag
-                color="#e2f8f7"
-                className="ant-typography ant-typography-secondary"
-              >
-                {appointmentStatus}
-              </Tag>
+            <div className="w-full ">
+              <StatusChip
+                type={appointmentStatus?.toUpperCase() as StatusName}
+              />
             </div>
           </li>
 
@@ -143,13 +141,8 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
             <div className="w-full text-gray-1 max-w-[300px]">
               Payment Status
             </div>
-            <div className="w-full text-secondary">
-              <Tag
-                color="#e2f8f7"
-                className="ant-typography ant-typography-secondary"
-              >
-                {paymentStatus}
-              </Tag>
+            <div className="w-full">
+              <StatusChip type={paymentStatus?.toUpperCase() as StatusName} />
             </div>
           </li>
         </div>
