@@ -56,7 +56,7 @@ function BankInfo() {
     routingNumber: string;
   }) {
     try {
-
+      // @ts-ignore
       const stripeResponse = await stripe?.createToken("bank_account", {
         country: "US",
         currency: "USD",
