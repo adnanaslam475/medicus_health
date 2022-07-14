@@ -49,7 +49,7 @@ const RequestedList = (props: Props) => {
       },
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "createdAt",
       key: "createdAt",
       sorter: {

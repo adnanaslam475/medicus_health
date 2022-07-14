@@ -176,11 +176,11 @@ function MyEarningsSearchFilters(props: Props) {
 								<div>
 									{filterState.bookingDate
 										? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-										: "Booking Date"}
+										: "Booking date"}
 								</div>
 							) : (
 								<div className="flex justify-between items-center w-full px-3">
-									<div>Booking Date</div>
+									<div>Booking date</div>
 									<div>
 										<CaretDownOutlined />
 									</div>

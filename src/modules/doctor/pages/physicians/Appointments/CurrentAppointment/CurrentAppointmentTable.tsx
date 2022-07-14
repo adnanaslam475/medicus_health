@@ -49,7 +49,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       },
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "requestedDate",
       key: "requestedDate",
       // sorter: {

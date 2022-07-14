@@ -115,7 +115,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
         <div>
           <LabelWithText label="ID" text={id} />
           <LabelWithText
-            label="Booking Date"
+            label="Booking date"
             text={date?.formatMMMMDDYYYY(bookingDate as string)}
           />
           <LabelWithText label="Patient" text={patient} />

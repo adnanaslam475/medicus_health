@@ -102,7 +102,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {

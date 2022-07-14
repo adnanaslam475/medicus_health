@@ -68,7 +68,7 @@ const appointmentColumns = [
     },
   },
   {
-    title: "Booking Date",
+    title: "Booking date",
     dataIndex: "createdAt",
     render: (bookingDate: string) => {
       return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;
@@ -237,20 +237,20 @@ function AdminAppointmentsListing({}: Props) {
             <div className="flex gap-3">
               <div className="lg:ml-3 mt-0 sm:mt-0">
                 <Select
-                  defaultValue="List View"
+                  defaultValue="List view"
                   className="w-full sm:w-40"
                   onChange={(value) =>
-                    value === "Calendar View" &&
+                    value === "Calendar view" &&
                     Router.push("/admin/appointments/calendar")
                   }
                 >
-                  <Select.Option value="Calendar View">
+                  <Select.Option value="Calendar view">
                     <Link href="/admin/appointments/calendar">
-                      <a>Calendar View</a>
+                      <a>Calendar view</a>
                     </Link>
                   </Select.Option>
-                  <Select.Option selected value="List View">
-                    List View
+                  <Select.Option selected value="List view">
+                    List view
                   </Select.Option>
                 </Select>
               </div>

@@ -165,7 +165,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={serviceType?.name ? serviceType?.name : "--"}
         />
         <LabelWithText
-          label="Due Date"
+          label="Due date"
           text={
             appointmentDateTime?.startTime
               ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
@@ -173,11 +173,11 @@ function DoctorAppointmentInfo({ data }: Props) {
           }
         />
         <LabelWithText
-          label="Booking Date"
+          label="Booking date"
           text={date?.formatMMMMDDYYYY(createdAt)}
         />
         <LabelWithText
-          label="Requested Date"
+          label="Requested date"
           text={date?.formatMMMMDDYYYY(requestedDate)}
         />
         <LabelWithText
@@ -328,7 +328,7 @@ function DoctorAppointmentInfoFooter({
                 })
               }
             >
-              Message Admin
+              Message admin
             </Button>
           ))}
 
@@ -368,7 +368,7 @@ function DoctorAppointmentInfoFooter({
                 })
               }
             >
-              Message Patient
+              Message patient
             </Button>
           ))}
       </div>
@@ -382,7 +382,7 @@ function DoctorAppointmentInfoFooter({
           }
           disabled={disabled}
         >
-          Join Now
+          Join now
         </Button>
       )}
       {getRole() === "User" && data?.status === "Completed" && (
@@ -391,7 +391,7 @@ function DoctorAppointmentInfoFooter({
           className={`${_classes["appointments-rebook-btn"]}`}
           onClick={showModal}
         >
-          Rebook Appointment
+          Rebook appointment
         </Button>
       )}
       <BookAppointmentJourney
@@ -456,7 +456,7 @@ function DoctorUpcomingAppointmentInfoFooter({
           className={`${_classes["appointments-btn"]}`}
           onClick={() => setShowConfirmationModal(true)}
         >
-          Cancel Appointment
+          Cancel appointment
         </Button>
       </div>
       {data?.status === "Confirmed" && (
@@ -467,7 +467,7 @@ function DoctorUpcomingAppointmentInfoFooter({
             className={`${_classes["appointments-btn"]} bg-current`}
             onClick={() => setShowRescheduleModal(true)}
           >
-            Reschedule Appointment
+            Reschedule appointment
           </Button>
           <Button
             type="primary"
@@ -478,7 +478,7 @@ function DoctorUpcomingAppointmentInfoFooter({
             }
             disabled={disabled}
           >
-            Join Now
+            Join now
           </Button>
         </>
       )}
@@ -488,7 +488,7 @@ function DoctorUpcomingAppointmentInfoFooter({
           className={`${_classes["appointments-rebook-btn"]}`}
           onClick={showModal}
         >
-          Rebook Appointment
+          Rebook appointment
         </Button>
       )}
       <BookAppointmentJourney
@@ -655,7 +655,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             className={`${_classes["appointments-btn"]} my-2 sm:my-0`}
             onClick={showModal}
           >
-            Propose Time
+            Propose time
           </Button>
           <Button
             type="primary"
@@ -663,7 +663,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             className={`${_classes["appointments-btn"]} bg-current sm:ml-3`}
             onClick={showModal}
           >
-            Edit Appointment
+            Edit appointment
           </Button>
         </div>
       </div>
@@ -682,7 +682,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         onCancel={handleCancel}
         footer={null}
       >
-        <h2>Propose New Time</h2>
+        <h2>Propose new time</h2>
         <Form
           layout="vertical"
           form={formInstance}

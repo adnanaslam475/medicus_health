@@ -203,7 +203,7 @@ function AdminCalender(props: Props) {
                     click: showModal,
                   },
                   listview: {
-                    text: "List View",
+                    text: "List view",
                     click: redirectToListing,
                   },
                   search: {
@@ -285,7 +285,7 @@ function AdminCalender(props: Props) {
                     click: showModal,
                   },
                   listview: {
-                    text: "List View",
+                    text: "List view",
                     click: redirectToListing,
                   },
                   search: {
@@ -368,7 +368,7 @@ function AdminCalender(props: Props) {
                   click: showModal,
                 },
                 listview: {
-                  text: "List View",
+                  text: "List view",
                   click: redirectToListing,
                 },
                 search: {

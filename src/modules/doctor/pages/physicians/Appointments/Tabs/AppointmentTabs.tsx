@@ -9,16 +9,16 @@ function AppointmentTabs() {
   return (
     <div className="profile-tabs">
       <Tabs type="card">
-        <TabPane tab="Appointment Info" key="1">
+        <TabPane tab="Appointment info" key="1">
             <AppointmentInfo />
         </TabPane>
-        <TabPane tab="Patient Info" key="2">
+        <TabPane tab="Patient info" key="2">
             Patient Info
         </TabPane>
-        <TabPane tab="Health Questionnaire" key="3">
+        <TabPane tab="Health questionnaire" key="3">
             Health Questionnaire
         </TabPane>
-        <TabPane tab="Physician Questionnaire" key="4">
+        <TabPane tab="Physician questionnaire" key="4">
             Physician Questionnaire
         </TabPane>
         <TabPane tab="Attachments" key="5">
