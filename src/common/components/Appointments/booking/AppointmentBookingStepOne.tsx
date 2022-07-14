@@ -105,6 +105,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         charges ||
         price ||
         (serviceInfo && serviceInfo[0]?.price);
+
       let physicianName = formInstance.setFieldsValue({
         physician:
           rebookData || physicianData?.user

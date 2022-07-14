@@ -1,3 +1,4 @@
+import { translationJson } from "common/locales/translationJson";
 import AccountDetail from "../../src/modules/admin/pages/accounts/AccountDetail/AccountDetail";
 
 function account() {
@@ -9,7 +10,8 @@ export default account;
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
-      messages: require(`./../../src/common/locales/${locale}.json`),
+      // messages: require(`./../src/common/locales/${locale}.json`),
+      messages: translationJson(locale),
     },
   };
 }
