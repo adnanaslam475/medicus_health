@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Upload, Form, UploadProps, notification, message } from "antd";
+import { Checkbox, Upload, Form, UploadProps, notification } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import Image from "next/image";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
@@ -19,8 +19,6 @@ import doc from "../../../../../public/assets/images/doc.jpg";
 import tiff from "../../../../../public/assets/images/tiff.png";
 import bmp from "../../../../../public/assets/images/bmp.png";
 import tga from "../../../../../public/assets/images/tga.png";
-import { StarOutlined } from "@ant-design/icons";
-import { RcFile } from "antd/lib/upload";
 
 const { Dragger } = Upload;
 type Props = {
@@ -61,11 +59,14 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
     data?.stepTwo?.length > 0 ? false : true
   );
 
-  const attachmentProps: UploadProps = {
-    accept: ".doc,.docx, .pdf, image/jpg, image/jpeg,",
+  const attachmentProps: UploadProps | Object = {
+    accept: ".doc,.docx,.pdf,.zip,.tiff,.tga,image/jpg,image/jpeg,image/jpg,image/bmp,image/x-tga,image/png,image/tga,application/msword,",
     name: "file",
     multiple: true,
-    onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
+    onChange(info: {
+      file: { name?: string; size: number };
+      fileList: any
+ }) {
       let fileListing = info.fileList;
 
       const availableTypes: Object = {
@@ -89,18 +90,12 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
             availableTypes[item.type as keyof typeof availableTypes] || pdf.src,
         };
       });
-      setFileList(stepTwoFiles);
-      saveStepTwo?.(stepTwoFiles);
+      let in10MBLimit = info?.file?.size / 1024 / 1024 < 10;
+      if (in10MBLimit) {
+        setFileList(stepTwoFiles);
+        saveStepTwo?.(stepTwoFiles);
+      } else notification.error({ message: "File must smaller than 10 MB!" });
 
-      const { status } = info?.file;
-      // if (status !== "uploading") {
-      //   console.log(info.file, info.fileList);
-      // }
-      // if (status === "done") {
-      //   message.success(`${info.file.name} file uploaded successfully.`);
-      // } else if (status === "error") {
-      //   message.error(`${info.file.name} file upload failed.`);
-      // }
     },
     defaultFileList: data?.stepTwo && data?.stepTwo,
     fileList: data?.stepTwo || fileList,
@@ -113,7 +108,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
     },
   };
 
-  function onFinishLocal(values: any) {
+  function onFinishLocal() {
     saveStepTwo?.(data?.stepTwo || fileList);
   }
 
@@ -132,15 +127,6 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const handlechecked = (e: CheckboxChangeEvent) => {
     setChecked(e.target.checked);
   };
-  const beforeUpload = (file: RcFile) => {
-    let in10MBLimit = file.size / 1024 / 1024 < 10;
-    if (!in10MBLimit) {
-      notification.error({ message: "File must smaller than 10 MB!" });
-      message.error( "File must smaller than 10 MB!" );
-    return true
-    }
-    return in10MBLimit;
-  };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   return (
@@ -152,7 +138,6 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
             {...attachmentProps}
             customRequest={({ onSuccess }) => onSuccess?.({})}
             listType="picture"
-            beforeUpload={(e) => beforeUpload(e)}
           >
             <p className="ant-upload-drag-icon mb-0">
               <Image
