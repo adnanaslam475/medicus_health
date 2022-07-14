@@ -72,11 +72,6 @@ function AppointmentModalJourney({
   const { data: appointmentContextData } = useAppointmentModal();
 
   const next = (stepName: string) => {
-    console.log(
-      "appointmentContextDataappointmentContextData",
-      appointmentContextData
-    );
-
     if (stepName === "stepFour") return;
     if (appointmentPaymentStatus === "succeeded") {
       return setCurrentStepName("stepFour");

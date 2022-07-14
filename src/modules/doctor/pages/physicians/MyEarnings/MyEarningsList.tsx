@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table, Divider, Tag } from "antd";
+import { Table, Divider, Tag, Skeleton } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MyEarningsStats from "../../../../../common/components/MyEarningsStats/MyEarningsStats";
 import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
@@ -184,7 +184,7 @@ const PhysicianMyEarningsList = (props: Props) => {
   });
 
   // get Doctor Earnings Stats
-  const [{ data }] = useGetDoctorEarningsQuery({
+  const [{ data ,fetching:myEarningStatsLoading}] = useGetDoctorEarningsQuery({
     variables: {
       id: Number(user?.id),
     },
@@ -253,6 +253,7 @@ const PhysicianMyEarningsList = (props: Props) => {
   return (
     <AppLayout>
       <div className="w-full">
+      <Skeleton loading={myEarningStatsLoading} paragraph={{ rows: 0 }} active>
         <div className="flex mb-0 flex-wrap">
           <MyEarningsStats
             label={"Total Consultants"}
@@ -279,6 +280,7 @@ const PhysicianMyEarningsList = (props: Props) => {
             text={`$ ${total_earnings}`}
           />
         </div>
+      </Skeleton>
         <Divider />
 
         <div className="flex justify-between">
