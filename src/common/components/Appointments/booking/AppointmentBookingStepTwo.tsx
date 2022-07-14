@@ -27,6 +27,7 @@ type Props = {
   physicianData?: DoctorProfile | undefined | null;
   adminApp_Details?: DoctorData;
   rebookData?: Appointment;
+  clear?: boolean | undefined;
 };
 
 type DoctorData = {
@@ -42,7 +43,7 @@ type DoctorData = {
 
 const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const { data, saveStepTwo } = useBookAppointment();
-  const { physicianData, adminApp_Details, rebookData } = props || {};
+  const { physicianData, adminApp_Details, rebookData, clear } = props || {};
   const { user } = getUserData();
   const [formInstance] = Form.useForm();
 
@@ -121,6 +122,12 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
       ref.current = formInstance;
     }
   }, []);
+
+  useEffect(() => {
+    if (clear) {
+      formInstance.resetFields();
+    }
+  }, [data.stepThree, clear]);
 
   const handlechecked = (e: CheckboxChangeEvent) => {
     setChecked(e.target.checked);
