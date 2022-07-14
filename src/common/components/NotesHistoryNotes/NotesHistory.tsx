@@ -57,10 +57,7 @@ function NotesHistory(props: Props) {
 
   const historyNotes = appointmentChild?.appointment?.notesHistory;
 
-  console.log(getHistoryNotesData, "getHistoryNotesData");
-
   const appointmentId = getHistoryNotesData?.appointment?.id;
-  console.log(getHistoryNotesData?.appointment.doctor?.first_name, "ss");
 
   const firstName = getHistoryNotesData?.appointment.doctor?.first_name;
   const lastName = getHistoryNotesData?.appointment?.doctor?.last_name;
@@ -86,7 +83,6 @@ function NotesHistory(props: Props) {
           {(historyNotes || [])?.length > 0 ? (
             <>
               {historyNotes?.map((data: any, index: number) => {
-                console.log("adnanknotes", historyNotes);
                 return (
                   <Panel
                     className={`${_classes["site-collapse-custom-panel"]} w-full`}

@@ -72,13 +72,12 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const [doctorId, setDoctorId] = useState<number>();
     const stepOneDoctorId = physician?.split(":")[0];
     let doctorScheduleId =
+      Number(rebookData?.doctorId) ||
       Number(id) ||
       Number(adminApp_Details?.doctor?.doctor_Id) ||
       Number(query?.id) ||
       Number(doctorId) ||
-      Number(stepOneDoctorId) ||
-      Number(rebookData?.doctorId);
-
+      Number(stepOneDoctorId);
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesQuery] =
       useDoctorSchedulesQuery({
         variables: {

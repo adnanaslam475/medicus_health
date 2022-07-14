@@ -80,7 +80,11 @@ function UserProfile({ thread }: Props) {
         </div>
         <div className="sm:flex justify-between hidden ">
           <span className="text-gray text-base block">
-            {messageType === "Media" ? "Sent a Photo" : message}
+            {messageType === "Media"
+              ? "Sent a File"
+              : message && message.length > 100
+              ? message.substring(0, 100).concat("...")
+              : message}
           </span>
           {/* <span className="rounded-lg bg-red px-2 py-0 text-white">3</span> */}
         </div>

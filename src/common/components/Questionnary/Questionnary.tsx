@@ -63,30 +63,16 @@ const HealthQuestionnary = ({
       <div className="flex justify-center items-center text-red">
         {signupError}
       </div>
-      <div className="flex justify-between items-center">
-        {!isUpdateMode && disable && (
-          <Checkbox
-            value={terms}
-            onChange={(e) => {
-              setTerms(e.target.checked);
-            }}
-          >
-            <span className="mb-10 text-gray text-xs">
-              I agree to the <Link href={"#"}>Terms & Condition</Link>
-            </span>
-          </Checkbox>
-        )}
-        {disable && (
-          <Button
-            loading={isLoading}
-            disabled={!terms || isLoading}
-            className="ant-btn ant-btn-primary ant-btn mb-0"
-            type="primary"
-            onClick={() => form?.current?.submit()}
-          >
-            {isUpdateMode ? "Update" : "Complete"}
-          </Button>
-        )}
+      <div className="flex justify-end items-center">
+        <Button
+          loading={isLoading}
+          disabled={isLoading}
+          className="ant-btn ant-btn-primary ant-btn mb-0"
+          type="primary"
+          onClick={() => form?.current?.submit()}
+        >
+          {isUpdateMode ? "Update" : "Complete"}
+        </Button>
       </div>
       {!isUpdateMode && disable && (
         <div className="flex justify-center">
