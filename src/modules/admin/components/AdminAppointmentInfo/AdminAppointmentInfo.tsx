@@ -248,7 +248,7 @@ function AdminAppointmentInfoFooter({
               })
             }
           >
-            Message Physician
+            Message physician
           </Button>
           {(appointmentStatus === "Cancelled" ||
             appointmentStatus === "Completed") && (
@@ -312,7 +312,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
             })
           }
         >
-          Message Physician
+          Message physician
         </Button>
       </div>
     </div>

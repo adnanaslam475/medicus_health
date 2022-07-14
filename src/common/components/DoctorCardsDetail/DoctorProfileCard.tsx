@@ -201,7 +201,7 @@ function DoctorProfileCard(props: Props) {
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
                   onClick={() => Router.push("/physician/messages")}
                 >
-                  <span className="hidden">Message Physician</span>
+                  <span className="hidden">Message physician</span>
                 </Button>
               </div>
             </div>

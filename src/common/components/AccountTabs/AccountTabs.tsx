@@ -119,7 +119,7 @@ function AccountTabs() {
 					</Tabs.TabPane>
 					<Tabs.TabPane
 						tab={
-							<span className="font-Circular font-medium">Payment methods</span>
+							<span className="font-Circular font-medium">Payment settings</span>
 						}
 						key="3"
 					>

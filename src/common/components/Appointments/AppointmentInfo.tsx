@@ -116,7 +116,7 @@ function AppointmentInfo(props: Props) {
               })
             }
           >
-            Message Physician
+            Message physician
           </Button>
         </div>
         <Button
