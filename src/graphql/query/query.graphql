@@ -267,7 +267,6 @@ query getAllRequestedAppointments(
           }
         }
       }
-
       appointmentTimeSlots {
         id
         startTime

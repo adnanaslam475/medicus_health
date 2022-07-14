@@ -11,7 +11,6 @@ import {
   useGetTransactionFilterQuery,
 } from "generated/graphql";
 import { date, userData } from "common/utils";
-// import SearchFilters from "common/components/SearchFilters/SearchFilters";
 import { physicianMyEarningsFilterType } from "common/types/types";
 import { physicianMyEarningsFilterType, StatusName } from "common/types/types";
 import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
@@ -47,7 +46,7 @@ const Columns = [
   {
     title: "Service Type",
     dataIndex: "appointment",
-    key: "appointment_service_type",
+    key: "name",
     sorter: true,
     render: (value: Appointment) => {
       return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
@@ -56,7 +55,7 @@ const Columns = [
   {
     title: "Booking Date",
     dataIndex: "appointment",
-    key: "appointment_time_slots",
+    key: "startTime",
     sorter: true,
     render: (value: Appointment) => {
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
@@ -84,10 +83,10 @@ const Columns = [
   {
     title: "Status",
     dataIndex: "appointment",
-    key: "appointment",
+    key: "status",
     sorter: true,
     render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+      return <div className="someclass">{`${value?.status}`}</div>;
     },
   },
   {
@@ -128,20 +127,20 @@ const Columns = [
   },
   {
     title: "Stripe Processing Fee($)",
-    dataIndex: "appointment",
-    key: "appointment",
+    dataIndex: "stripeFee",
+    key: "stripeFee",
     sorter: true,
     render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+      return <div className="someclass">{`${value}`}</div>;
     },
   },
   {
     title: "Net Physician Fee($)",
-    dataIndex: "appointment",
-    key: "appointment",
+    dataIndex: "doctor_percentage",
+    key: "doctor_percentage",
     sorter: true,
     render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+      return <div className="someclass">{`${value}`}</div>;
     },
   },
   {
@@ -162,10 +161,7 @@ const Columns = [
     title: "Total Earnings",
     dataIndex: "amountReceived",
     key: "amountReceived",
-    sorter: {
-      compare: (a: any, b: any) => a.amountReceived - b.amountReceived,
-      multiple: 3,
-    },
+    sorter: true,
   },
 ];
 
@@ -208,7 +204,7 @@ const PhysicianMyEarningsList = (props: Props) => {
   const [
     { data: transactionData, fetching },
     executeUseGetTransectionFilterQuery,
-  ] = useGetTransectionFilterQuery({
+  ] = useGetTransactionFilterQuery({
     variables: {
       filter: filterValues,
       pagination,
@@ -229,9 +225,25 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
+    console.log("sorter", sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
-      column: sorter.order ? `user.${sorter.columnKey || sorter.field}` : "",
+      column: sorter.order
+        ? `${
+            (/(appointment|status)/.test(sorter.columnKey) && "appointment") ||
+            (sorter.columnKey === "first_name" && "patient") ||
+            (sorter.columnKey === "name" && "appointment_service_type") ||
+            (sorter.columnKey === "appointment_time_slots" &&
+              "appointment_time_slots") ||
+            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+            "transaction"
+          }.${
+            (sorter.field === "status" && "status") ||
+            (sorter.columnKey === "appointment" && "id") ||
+            sorter.columnKey ||
+            sorter.field
+          }`
+        : "",
     });
   };
 

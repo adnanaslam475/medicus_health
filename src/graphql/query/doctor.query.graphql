@@ -420,7 +420,10 @@ query getTransactionFilter(
       transactionId
       payment_status
       amountReceived
+      stripeFee
+      doctor_percentage
       appointment {
+        status
         patient {
           first_name
           last_name

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, notification, Skeleton, Spin, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
+import { useRouter } from "next/router";
 import Router from "next/router";
 import {
   Appointment,
@@ -13,10 +14,9 @@ import {
   User,
 } from "generated/graphql";
 import StatusChip from "common/components/StatusChip/StatusChip";
-import { useRouter } from "next/router";
-import { date } from "common/utils";
 import AdminPatientAppointmentSearchFilters from "./AdminPatientAppointmentSearchFilters";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
+import { date } from "common/utils";
 
 type StatusName =
   | "UPCOMING"
@@ -27,6 +27,7 @@ type StatusName =
   | "REQUESTED"
   | "SUGGESTED"
   | "CANCELLED";
+
 const columns = [
   {
     title: "Appointment ID",
@@ -37,61 +38,66 @@ const columns = [
   {
     title: "Physician Name",
     dataIndex: "doctor",
-    key: "doctor",
+    key: "first_name",
+    sorter: true,
     render: (doctor: User) => {
       return <div>{`${doctor?.first_name} ${doctor?.last_name}`}</div>;
     },
-    sorter: true,
   },
   {
     title: "Service",
     dataIndex: "serviceType",
-    key: "serviceType",
+    key: "name",
+    sorter: true,
     render: (serviceType: AppointmentServiceType) => {
       return <div>{serviceType?.name}</div>;
     },
-    sorter: true,
   },
   {
     title: "Time Slot",
     dataIndex: "appointmentDateTime",
-    key: "appointmentDateTime",
+    key: "appointment_time_slots",
+    sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+      let formatedStartTime = `${
+        appointmentDateTime?.startTime?.split(" ")[1]
+      } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+      let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+        appointmentDateTime?.endTime?.split(" ")[2]
+      }`;
       return (
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${date?.formathhmma(
-                appointmentDateTime?.startTime
-              )} - ${date?.formathhmma(appointmentDateTime.endTime)}`
+            ? `${formatedStartTime} - ${formatedEndTime}`
             : "--"}
         </div>
       );
     },
-    sorter: true,
   },
   {
     title: "Date",
     dataIndex: "appointmentDateTime",
     key: "appointmentDateTime",
+    sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
       return (
-        <div className="someclass">
+        <div>
           {appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+            ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
             : "--"}
         </div>
       );
     },
-    sorter: true,
   },
   {
     title: "Total Amount",
     dataIndex: "charges",
     key: "charges",
+    sorter: true,
     render: (value: User) => {
       return <div>${value}</div>;
     },
-    sorter: true,
   },
   {
     title: "Status",
@@ -165,143 +171,35 @@ function AdminPatientAppointmentList() {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
+    console.log("sorter", sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
-      column: `user.${sorter.field}` || "",
+      column: sorter.order
+        ? `${
+            (sorter.columnKey === "name" && "appointment_service_type") ||
+            (/(status|charges)/.test(sorter.columnKey) && "appointment") ||
+            (sorter.columnKey === "appointment_time_slots" &&
+              "appointment_time_slots") ||
+            (/first_name/.test(sorter.columnKey) && "user")
+          }.${
+            (sorter.columnKey === "appointment_time_slots" && "startTime") ||
+            sorter.columnKey
+          }`
+        : "",
     });
   };
-
-  const columns = [
-    {
-      title: "Appointment ID",
-      dataIndex: "id",
-      key: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Physician Name",
-      dataIndex: "doctor",
-      key: "doctor",
-      render: (doctor: User) => {
-        return <div>{`${doctor?.first_name} ${doctor?.last_name}`}</div>;
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Service",
-      dataIndex: "serviceType",
-      key: "serviceType",
-      render: (serviceType: AppointmentServiceType) => {
-        return <div>{serviceType?.name}</div>;
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Time Slot",
-      dataIndex: "appointmentDateTime",
-      key: "appointmentDateTime",
-      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedStartTime = `${
-          appointmentDateTime?.startTime?.split(" ")[1]
-        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
-        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-          appointmentDateTime?.endTime?.split(" ")[2]
-        }`;
-        return (
-          <div>
-            {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-              ? `${formatedStartTime} - ${formatedEndTime}`
-              : "--"}
-          </div>
-        );
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Date",
-      dataIndex: "appointmentDateTime",
-      key: "appointmentDateTime",
-      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedDueDate = `${
-          appointmentDateTime?.startTime?.split(" ")[0]
-        }`;
-        return (
-          <div>
-            {appointmentDateTime?.startTime
-              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
-              : "--"}
-          </div>
-        );
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Total Amount",
-      dataIndex: "charges",
-      key: "charges",
-      render: (value: User) => {
-        return <div>${value}</div>;
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.charges - b.charges,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (status: StatusName | string) => {
-        return <StatusChip type={status.toUpperCase() as StatusName} />;
-      },
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
-    },
-    {
-      title: "",
-      dataIndex: "id",
-      key: "id",
-      className: "table-action-icon",
-      render: (id: string) => (
-        <div className="text-primary">
-          <EyeFilled
-            className="text-primary"
-            onClick={() => {
-              return Router.push(`/admin/patients/detail/${id}`);
-            }}
-          />
-        </div>
-      ),
-    },
-  ];
 
   function onChangeFilters(filterValue: GetAppointmentInput) {
     setFilterValues(filterValue);
     setPagination({ ...pagination, page: 1 });
     setSorting({ column: "", order: "" });
-    executeUseAdminPhysicianAppointmentQuery({
-      filter: filterValues,
-      requestPolicy: "network-only",
-    });
+    // executeUseAdminPhysicianAppointmentQuery({
+    //   filter: filterValues,
+    //   requestPolicy: "network-only",
+    // });
   }
 
+  console.log(appointments, "appointmentssdaddsasd");
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -319,21 +217,19 @@ function AdminPatientAppointmentList() {
 
         <AdminPatientAppointmentSearchFilters onChange={onChangeFilters} />
         <div className="w-full">
-          <div>
-            <Table
-              columns={columns}
-              dataSource={appointments?.items}
-              onChange={onChange}
-              pagination={{
-                // total: appointments?.meta?.totalItems,
-                current: appointments?.meta?.currentPage,
-                defaultPageSize: 10,
-                onChange: onPaginationChange,
-                pageSizeOptions: ["10", "20", "30", "40"],
-                showSizeChanger: true,
-              }}
-            />
-          </div>
+          <Table
+            columns={columns}
+            dataSource={appointments?.items}
+            onChange={onChange}
+            pagination={{
+              // total: appointments?.meta?.totalItems,
+              current: appointments?.meta?.currentPage,
+              defaultPageSize: 10,
+              onChange: onPaginationChange,
+              pageSizeOptions: ["10", "20", "30", "40"],
+              showSizeChanger: true,
+            }}
+          />
         </div>
       </CardWithProfileImageInfo>
     </div>
