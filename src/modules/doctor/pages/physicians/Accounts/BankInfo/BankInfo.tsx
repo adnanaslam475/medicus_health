@@ -56,8 +56,8 @@ function BankInfo() {
     routingNumber: string;
   }) {
     try {
-      // @ts-ignore
-      const { token } = await stripe?.createToken("bank_account", {
+
+      const stripeResponse = await stripe?.createToken("bank_account", {
         country: "US",
         currency: "USD",
         routing_number: values.routingNumber,
@@ -65,28 +65,34 @@ function BankInfo() {
         account_holder_name: values.accountTitle,
         account_holder_type: "individual",
       });
-      if (!token) {
-        throw new Error("Something went wrong! Please try again.");
+      const token = stripeResponse?.token;
+      if (stripeResponse?.error?.message) {
+        return notification.error({ message: stripeResponse?.error?.message });
       }
-      const { error } = await executeCreateDoctorBillingMethodMutation(
-        {
-          createDoctorBillingMethodInput: {
-            ...values,
-            doctorId: id as number,
-            source: token.id,
-            bankId: token.bank_account.id,
-            is_default: true,
+      if (token?.bank_account) {
+        const { error } = await executeCreateDoctorBillingMethodMutation(
+          {
+            createDoctorBillingMethodInput: {
+              ...values,
+              doctorId: id as number,
+              source: token.id,
+              bankId: token?.bank_account?.id,
+              is_default: true,
+            },
           },
-        },
-        { requestPolicy: "network-only" }
-      );
-      if (error && error?.message) {
-        throw new Error(error.message);
+          { requestPolicy: "network-only" }
+        );
+        if (error && error?.message) {
+          throw new Error(error.message);
+        }
+        executeDoctorBillingMethodsQuery({
+          requestPolicy: "network-only",
+        });
+        setShowForm(false);
+        notification.success({
+          message: "Card saved successfully",
+        });
       }
-      executeDoctorBillingMethodsQuery({
-        requestPolicy: "network-only",
-      });
-      setShowForm(false);
     } catch (error: any) {
       notification.error({
         message: error?.message,
