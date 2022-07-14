@@ -162,7 +162,12 @@ function BookAppointmentModal({
         const urls = await mediaUploader.uploadMultiple(files);
 
         allUrl.push(
-          urls?.map((url: any) => ({ url: url.location, name: url.key }))
+          urls?.map((url: any) => {
+            let fileName = `${url?.key?.split(".")[0]}.${
+              url?.key?.split(".")[1]
+            }`;
+            return { url: url.location, name: fileName };
+          })
         );
         return allUrl;
       }

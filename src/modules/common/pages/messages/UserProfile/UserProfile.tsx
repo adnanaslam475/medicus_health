@@ -81,7 +81,7 @@ function UserProfile({ thread }: Props) {
         <div className="sm:flex justify-between hidden ">
           <span className="text-gray text-base block">
             {messageType === "Media"
-              ? "Sent a Photo"
+              ? "Sent a File"
               : message && message.length > 100
               ? message.substring(0, 100).concat("...")
               : message}

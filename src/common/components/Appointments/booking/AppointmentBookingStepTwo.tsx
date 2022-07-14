@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Upload, Form, UploadProps } from "antd";
+import { Checkbox, Upload, Form, UploadProps, notification, message } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import Image from "next/image";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
@@ -13,10 +13,14 @@ import { getUserData } from "common/utils/userData";
 import pdf from "../../../../../public/assets/images/word-file.svg";
 import jpg from "../../../../../public/assets/images/jpg.svg";
 import png from "../../../../../public/assets/images/png.png";
-import zip from "../../../../../public/assets/images/zip.jpeg";
+import zip from "../../../../../public/assets/images/zip.png";
 import docx from "../../../../../public/assets/images/docx.png";
 import doc from "../../../../../public/assets/images/doc.jpg";
+import tiff from "../../../../../public/assets/images/tiff.png";
+import bmp from "../../../../../public/assets/images/bmp.png";
+import tga from "../../../../../public/assets/images/tga.png";
 import { StarOutlined } from "@ant-design/icons";
+import { RcFile } from "antd/lib/upload";
 
 const { Dragger } = Upload;
 type Props = {
@@ -73,6 +77,9 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
           docx.src,
         "image/jpeg": jpg.src,
         "image/png": png.src,
+        "image/tiff": tiff.src,
+        "image/x-tga": tga.src,
+        "image/bmp": bmp.src,
         "application/zip": zip.src,
       };
       const stepTwoFiles = fileListing?.map((item: any) => {
@@ -125,6 +132,15 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const handlechecked = (e: CheckboxChangeEvent) => {
     setChecked(e.target.checked);
   };
+  const beforeUpload = (file: RcFile) => {
+    let in10MBLimit = file.size / 1024 / 1024 < 10;
+    if (!in10MBLimit) {
+      notification.error({ message: "File must smaller than 10 MB!" });
+      message.error( "File must smaller than 10 MB!" );
+    return true
+    }
+    return in10MBLimit;
+  };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   return (
@@ -136,6 +152,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
             {...attachmentProps}
             customRequest={({ onSuccess }) => onSuccess?.({})}
             listType="picture"
+            beforeUpload={(e) => beforeUpload(e)}
           >
             <p className="ant-upload-drag-icon mb-0">
               <Image
