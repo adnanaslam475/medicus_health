@@ -72,7 +72,6 @@ function AccountTabs({ setIsShowBanner }: Props) {
     history.pushState({}, "", "?activeTab=" + key);
   };
 
-<<<<<<< HEAD
 	return (
 		<div>
 			<div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
@@ -155,90 +154,6 @@ function AccountTabs({ setIsShowBanner }: Props) {
 			</div>
 		</div>
 	);
-=======
-  return (
-    <div>
-      <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
-        <Tabs
-          type="card"
-          defaultActiveKey="1"
-          activeKey={activeTab || "1"}
-          onChange={onChangeTabHandler}
-        >
-          <Tabs.TabPane
-            className="w-full"
-            tab={
-              <span className="font-Circular font-medium">
-                Personal Information
-              </span>
-            }
-            key="1"
-          >
-            <PersonalInfo />
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            tab={
-              <span className="font-Circular font-medium">
-                Health Questionnaire
-              </span>
-            }
-            key="2"
-          >
-            <div className="md:w-3/6">
-              <QuestionnaireForm
-                ref={form}
-                data={data?.patientHealthHistory?.history}
-                onFinishSuccess={onFinishHealthQuestionnarySuccess}
-              />
-
-              <div className="flex items-center justify-end">
-                <Button
-                  loading={fetching}
-                  disabled={fetching}
-                  className="ant-btn ant-btn-primary ant-btn mb-0"
-                  type="primary"
-                  onClick={() => form?.current?.submit()}
-                >
-                  Update
-                </Button>
-              </div>
-            </div>
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            tab={
-              <span className="font-Circular font-medium">Payment Methods</span>
-            }
-            key="3"
-          >
-            <PaymentMethods />
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            tab={
-              <span className="font-Circular font-medium">
-                Transaction History
-              </span>
-            }
-            key="4"
-          >
-            <TransactionHistory data={transactions as Transaction[]} />
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            tab={
-              <span className="font-Circular font-medium">
-                Email Notification
-              </span>
-            }
-            key="5"
-          >
-            <div className="lg:max-w-[60%]">
-              <EmailNotificationPage />
-            </div>
-          </Tabs.TabPane>
-        </Tabs>
-      </div>
-    </div>
-  );
->>>>>>> e4cd5c5739aaa79fc764b8ae15298fc5fc7c03ed
 }
 
 export default AccountTabs;
