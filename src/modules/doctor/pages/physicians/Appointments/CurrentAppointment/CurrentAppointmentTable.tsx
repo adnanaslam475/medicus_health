@@ -49,7 +49,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       },
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "requestedDate",
       key: "requestedDate",
       // sorter: {
@@ -95,7 +95,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       dataIndex: "",
       key: "",
       render: () => {
-        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined/>}  type="primary" className="bg-primary">Message Physician</Button></div>;
+        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined/>}  type="primary" className="bg-primary">Message physician</Button></div>;
       },
 
    
@@ -105,7 +105,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       dataIndex: "",
       key: "",
       render: () => {
-        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined />} type="primary" className="bg-primary">Message Admin</Button></div>;
+        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined />} type="primary" className="bg-primary">Message admin</Button></div>;
       },
 
    

@@ -84,23 +84,23 @@ function UpcomingAppointments() {
       <div className="w-full">
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
-            <h2 className="mb-0">Upcoming Appointments</h2>
+            <h2 className="mb-0">Upcoming appointments</h2>
             {/* <h2 className="mb-0">{t("upcomingAppointmentsHead")}</h2>                       */}
-            <p className="text-gray mb-0">
+            {/* <p className="text-gray mb-0">
               Suspendisse ac nulla non ante viverra feugiat. Duis
               ullamcorperequesty tortor a fringilla tempus.
-            </p>
+            </p> */}
           </div>
           <div className="flex gap-3">
             <div className="lg:ml-3 mt-0 sm:mt-0">
-              <Select defaultValue="List View" className="w-full sm:w-40">
-                <Select.Option value="Calendar View">
+              <Select defaultValue="List view" className="w-full sm:w-40">
+                <Select.Option value="Calendar view">
                   <Link href="/patient/calendar">
-                    <a>Calendar View</a>
+                    <a>Calendar view</a>
                   </Link>
                 </Select.Option>
-                <Select.Option selected value="List View">
-                  List View
+                <Select.Option selected value="List view">
+                  List view
                 </Select.Option>
               </Select>
             </div>
@@ -124,7 +124,7 @@ function UpcomingAppointments() {
                 }
               >
                 <span className="text-xs sm:text-base">
-                  Request an Appointment
+                  Request an appointment
                 </span>
               </Button>
             </Tooltip>

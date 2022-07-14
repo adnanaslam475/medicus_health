@@ -50,19 +50,19 @@ function AdminAppointmentHistoryDetail() {
             activeKey={activeTab || "1"}
             onChange={onChangeTabHandler}
           >
-            <Tabs.TabPane tab="Appointment Info" key="1" className="">
+            <Tabs.TabPane tab="Appointment info" key="1" className="">
               <AdminAppointmentInfoTab
                 appointment={appointment as Appointment}
                 loading={fetching}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Health Questionnaire" key="3">
+            <Tabs.TabPane tab="Health questionnaire" key="3">
               <AdminHealthQuestionnaireFormTab
                 appointment={appointment as Appointment}
                 loading={fetching}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Physician Questionnaire" key="4">
+            <Tabs.TabPane tab="Physician questionnaire" key="4">
               <AdminQuestionnaireFormTab
                 appointment={appointment as Appointment}
                 loading={fetching}

@@ -61,7 +61,7 @@ function AppointmnetConfirmedCard({
           }
           disabled={disabled}
         >
-          Join Now
+          Join now
         </Button>
         <Button
           className={`${_classes["card-btn"]} bg-transparent`}

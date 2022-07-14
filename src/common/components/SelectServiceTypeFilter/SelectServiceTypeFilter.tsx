@@ -12,7 +12,7 @@ export function SelectServiceTypeFilter({
   const { appointmentServiceTypes } = serviceTypes || {};
   return (
     <Select
-      placeholder="Appointment Type"
+      placeholder="Appointment type"
       className={"w-full"}
       onChange={onChange}
       value={value}
