@@ -50,9 +50,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const {
       physician,
       price,
-      // service,
-      // requestedDate,
-      // availability,
+      service,
+      requestedDate,
+      availability,
 
       charges,
       serviceName,
@@ -70,8 +70,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     const { first_name, last_name, id } =
       physicianData?.user || rebookData?.doctor || {};
-    // const { doctor_Id, doctor_first_name, doctor_last_name } =
-    //   adminApp_Details?.doctor || {};
+    const { doctor_Id, doctor_first_name, doctor_last_name } =
+      adminApp_Details?.doctor || {};
     const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
     //   GET ID FROM URL
     const { query } = useRouter();
@@ -121,23 +121,23 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }, [appoinmentDetails, clear, isShow]);
 
     function prepareAndSetEditPayload() {
-      // let consultationCharges =
-      //   rebookData?.charges ||
-      //   charges ||
-      //   price ||
-      //   (serviceInfo && serviceInfo[0]?.price);
-      // let physicianName = formInstance.setFieldsValue({
-      //   physician:
-      //     rebookData || physicianData?.user
-      //       ? `${first_name} ${last_name}`
-      //       : adminApp_Details?.doctor
-      //       ? `${doctor_first_name} ${doctor_last_name}`
-      //       : physician,
-      //   service: rebookData?.serviceId || service,
-      //   charges: consultationCharges,
-      //   requestedDate: requestedDate,
-      //   availability: availability,
-      // });
+      let consultationCharges =
+        rebookData?.charges ||
+        charges ||
+        price ||
+        (serviceInfo && serviceInfo[0]?.price);
+      let physicianName = formInstance.setFieldsValue({
+        physician:
+          rebookData || physicianData?.user
+            ? `${first_name} ${last_name}`
+            : adminApp_Details?.doctor
+            ? `${doctor_first_name} ${doctor_last_name}`
+            : physician,
+        service: rebookData?.serviceId || service,
+        charges: consultationCharges,
+        requestedDate: requestedDate,
+        availability: availability,
+      });
     }
 
     function handleServiceChange(value: any) {

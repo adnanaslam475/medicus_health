@@ -154,7 +154,7 @@ function RescheduleAppointmentModal(props: Props) {
             />
           </Form.Item>
 
-          <Form.Item label="Existing Schedule" name="requestedDate">
+          <Form.Item label="Booked Requested Slot" name="requestedDate">
             <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
               <div className="flex gap-2  rounded leading-3 max-w-max">
                 <p className="text-sm mb-0">{`${date.formatMMMMDDYYYY(

@@ -84,6 +84,7 @@ function AppointmentModalFooter({
         notification.success({
           message: "Appointment Cancelled",
         });
+        setShowConfirmationModal(false);
       } else {
         notification.error({
           message: "Something went wrong",
@@ -101,17 +102,20 @@ function AppointmentModalFooter({
   ] = useReBookAppointmentMutation();
 
   async function onFinalizeTransaction() {
-    const selectedSlotId = contextData?.stepOne?.selectedSlotId
-    const appointmentId = appointmentDetails?.id
+    const selectedSlotId = contextData?.stepOne?.selectedSlotId;
+    const appointmentId = appointmentDetails?.id;
     try {
       const res = await executeUseReBookAppointmentMutation({
-        rebookAppointmentInput: { appointmentId: Number(appointmentId), selectedSlotId: selectedSlotId },
+        rebookAppointmentInput: {
+          appointmentId: Number(appointmentId),
+          selectedSlotId: selectedSlotId,
+        },
       });
       if (res?.data) {
         // notification.success({
         //   message: "Appointment Rescheduled Successfully",
         // });
-        onNext()
+        onNext();
       } else {
         notification.error({
           message: "Something went wrong",
