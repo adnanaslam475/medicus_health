@@ -16,10 +16,14 @@ function UserProfile({ thread }: Props) {
   const { setCurrentChannel, loginToRtm, onJoinChannel } = useMessageContext();
 
   //get channel dateTime
-  const { createdAt, lastMessage } = thread || {};
+  const { lastMessage } = thread || {};
 
   //get last message
-  const { message, messageType } = lastMessage || {};
+  const { message, messageType, createdAt } = lastMessage || {};
+
+  //adding 5 hours to datetime
+  const messageTime = date?.addHoursToDate(new Date(createdAt), 5);
+  const messageTimein12HoursFomrat = date?.formathhmma(messageTime?.toString());
 
   async function onJoinChat() {
     setCurrentChannel(thread);
@@ -75,7 +79,7 @@ function UserProfile({ thread }: Props) {
             <span className="hidden sm:inline">{`${opposite?.last_name}`}</span>
           </span>
           <span className="text-base text-gray hidden sm:inline">
-            {date?.formathhmma(createdAt)}
+            {messageTimein12HoursFomrat}
           </span>
         </div>
         <div className="sm:flex justify-between hidden ">
