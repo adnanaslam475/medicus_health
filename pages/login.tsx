@@ -1,3 +1,4 @@
+import { translationJson } from "common/locales/translationJson";
 import Login from "../src/modules/common/pages/auth/Login/Login";
 
 function login() {
@@ -9,7 +10,8 @@ export default login;
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
-      messages: require(`./../src/common/locales/${locale}.json`),
+      // messages: require(`./../src/common/locales/${locale}.json`),
+      messages: translationJson(locale),
     },
   };
 }

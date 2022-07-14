@@ -206,7 +206,7 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: "Please confirm your password!",
+              message: t("confirm_your_password"),
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
@@ -214,7 +214,7 @@ export default function PersonalInfo({ onFinish }: props) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
-                  new Error("The two passwords that you entered do not match!")
+                  new Error(t("two_passwords_mismatch_message"))
                 );
               },
             }),
@@ -230,7 +230,7 @@ export default function PersonalInfo({ onFinish }: props) {
         rules={[
           {
             required: true,
-            message: "Please enter your street address",
+            message: t("street_address_message"),
           },
         ]}
       >
@@ -245,7 +245,7 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: "Please enter your contact number",
+              message: t("contact_number_message"),
             },
           ]}
         >
@@ -259,7 +259,7 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: "Please enter your country",
+              message: t("country_message"),
             },
           ]}
         >
@@ -338,7 +338,7 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: "Please enter your postal code",
+              message: t("postal_address_message"),
             },
           ]}
         >
