@@ -116,7 +116,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         formInstance.resetFields();
       }
       if (isShow && !clear) {
-        setSchedules(scheduleDetails?.doctorSchedules);
+        setSchedules(scheduleDetails?.doctorSchedules as any);
       }
     }, [appoinmentDetails, clear, isShow]);
 

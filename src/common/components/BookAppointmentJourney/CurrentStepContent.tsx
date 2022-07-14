@@ -37,6 +37,8 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
     doctorData,
     adminData,
     adminApp_Details,
+    clear,
+    setClear,
     patientData,
     rebookData,
   }: Props,
@@ -62,10 +64,7 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
           ref={ref}
           adminApp_Details={adminApp_Details}
           physicianData={doctorData}
-<<<<<<< HEAD
           clear={clear}
-=======
->>>>>>> 8646271b94b898e68ba63138a9147086d6c8d86e
           rebookData={rebookData}
         />
       );
