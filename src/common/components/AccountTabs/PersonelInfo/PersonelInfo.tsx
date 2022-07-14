@@ -185,7 +185,7 @@ const PersonalInfo = () => {
                 size="large"
                 onClick={() => setIsEdit(true)}
               >
-                <span className="text-xs">EDIT</span>
+                <span className="text-xs">Edit</span>
               </Button>
             )}
           </div>

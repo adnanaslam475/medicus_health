@@ -91,7 +91,6 @@ export const STAFF_ROUTES: routes = [
     ],
   },
   { name: "Patients", route: "/physician/patients" },
-  { name: "Staff", route: "/physician/staff" },
   { name: "Messages", route: "/physician/messages" },
   { name: "Account", route: "/physician/staffaccount" },
 ];

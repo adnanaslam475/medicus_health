@@ -52,7 +52,7 @@ function CancelledAppointmentsDetailDoctor() {
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Cancelled Appointments</h2>
+        <h2 className="mb-4">Canceled appointments</h2>
         <div className="profile-tabs">
           <Tabs
             type="card"
@@ -60,20 +60,20 @@ function CancelledAppointmentsDetailDoctor() {
             activeKey={activeTab || "1"}
             onChange={onChangeTabHandler}
           >
-            <Tabs.TabPane tab="Appointment Info" key="1">
+            <Tabs.TabPane tab="Appointment info" key="1">
               <AppointmentInfoTab />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Patient Info" key="2">
+            <Tabs.TabPane tab="Patient info" key="2">
               <PatientInfoTab />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Health Questionnaire" key="3">
+            <Tabs.TabPane tab="Health questionnaire" key="3">
               <div className="md:max-w-1/2">
                 <QuestionnaireForm
                   data={patientHealthHistory?.patientHealthHistory?.history}
                 />
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Physician Questionnaire" key="4">
+            <Tabs.TabPane tab="Physician questionnaire" key="4">
               <div>
                 <PhysicianQuestionnaire
                   appointmentHealthHistory={

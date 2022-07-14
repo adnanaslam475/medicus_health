@@ -61,7 +61,7 @@ const InfoMessageBannerReminder = () => {
           size="small"
           onClick={() => Router.push(`/patient/appointments/${id}/call`)}
         >
-          Join Now
+          Join now
         </Button>
       )}
     </div>

@@ -120,10 +120,10 @@ function SearchFilters(props: Props) {
                 <CaretDownOutlined className="text-sm text-gray" />
               </div>
             }
-            placeholder="Appointment Type"
+            placeholder="Appointment type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={(e) => onChangeFields("serviceId", e)}
-            value={filterState.serviceId || "Appointment Type"}
+            value={filterState.serviceId || "Appointment type"}
           >
             {appointmentServiceTypes?.map((item) => (
               <Select.Option key={item?.id} value={item?.id}>

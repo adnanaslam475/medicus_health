@@ -56,7 +56,7 @@ const MessageButtons = (props: Props) => {
                 })
               }
             >
-              Message Physician
+              Message physician
             </Button>
           ))}
 
