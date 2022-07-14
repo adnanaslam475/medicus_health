@@ -119,7 +119,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   };
   return (
     <>
-      <h2>Request an Appointment</h2>
+      <h2>Request an appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         {doctorQuestionnaire && (
           <Form.Item valuePropName="checked">

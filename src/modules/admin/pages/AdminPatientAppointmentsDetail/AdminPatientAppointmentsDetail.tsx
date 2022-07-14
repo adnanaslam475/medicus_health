@@ -41,19 +41,19 @@ function AdminPatientAppointmentDetail() {
             activeKey={activeTab || "1"}
             onChange={onChangeTabHandler}
           >
-            <Tabs.TabPane tab="Appointment Info" key="1" className="">
+            <Tabs.TabPane tab="Appointment info" key="1" className="">
               <AdminPatientAppointmentInfoTab
                 appointment={appointment as Appointment}
                 loading={fetching}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Health Questionnaire" key="3">
+            <Tabs.TabPane tab="Health questionnaire" key="3">
               <AdminPatientHealthQuestionnaireFormTab
                 appointment={appointment as Appointment}
                 loading={fetching}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Physician Questionnaire" key="4">
+            <Tabs.TabPane tab="Physician questionnaire" key="4">
               <AdminPatientQuestionnaireFormTab
                 appointment={appointment as Appointment}
                 loading={fetching}
