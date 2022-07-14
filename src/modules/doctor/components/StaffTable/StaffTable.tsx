@@ -10,9 +10,9 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {
   dataSource: User[] | undefined;
-  meta: User[] | undefined;
+  meta: any;
   loading: boolean | undefined;
-  onPaginationChange: (values: any) => void;
+  onPaginationChange: any;
   onChange: (values: any) => void;
 };
 
@@ -118,7 +118,7 @@ function StaffTable({
       onChange={onChange}
       pagination={{
         // total: meta?.totalItems,
-        current: meta?.currentPage,
+        // current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,
         pageSizeOptions: ["10", "20", "30", "40"],

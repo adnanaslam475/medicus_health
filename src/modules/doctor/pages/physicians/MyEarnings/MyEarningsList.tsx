@@ -11,10 +11,8 @@ import {
   useGetTransactionFilterQuery,
 } from "generated/graphql";
 import { date, userData } from "common/utils";
-import { physicianMyEarningsFilterType } from "common/types/types";
 import { physicianMyEarningsFilterType, StatusName } from "common/types/types";
-import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
-import StatusChip from "common/components/StatusChip/StatusChip";
+// import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {};
 
@@ -184,11 +182,13 @@ const PhysicianMyEarningsList = (props: Props) => {
   });
 
   // get Doctor Earnings Stats
-  const [{ data ,fetching:myEarningStatsLoading}] = useGetDoctorEarningsQuery({
-    variables: {
-      id: Number(user?.id),
-    },
-  });
+  const [{ data, fetching: myEarningStatsLoading }] = useGetDoctorEarningsQuery(
+    {
+      variables: {
+        id: Number(user?.id),
+      },
+    }
+  );
 
   const { getDoctorEarnings } = data || {};
   const {
@@ -253,34 +253,38 @@ const PhysicianMyEarningsList = (props: Props) => {
   return (
     <AppLayout>
       <div className="w-full">
-      <Skeleton loading={myEarningStatsLoading} paragraph={{ rows: 0 }} active>
-        <div className="flex mb-0 flex-wrap">
-          <MyEarningsStats
-            label={"Total Consultants"}
-            text={String(total_number_of_consultation)}
-          />
-          <MyEarningsStats
-            label={"Total Second Opinions"}
-            text={String(total_number_of_second_opinions)}
-          />
-          <MyEarningsStats
-            label={"Total Patients"}
-            text={String(total_number_of_patients)}
-          />
-          <MyEarningsStats
-            label={"Earnings through Consultants"}
-            text={`$ ${total_earnings_from_consultation}`}
-          />
-          <MyEarningsStats
-            label={"Earnings through Second Opinion"}
-            text={`$ ${total_earnings_from_second_opinions}`}
-          />
-          <MyEarningsStats
-            label={"Total Earnings"}
-            text={`$ ${total_earnings}`}
-          />
-        </div>
-      </Skeleton>
+        <Skeleton
+          loading={myEarningStatsLoading}
+          paragraph={{ rows: 0 }}
+          active
+        >
+          <div className="flex mb-0 flex-wrap">
+            <MyEarningsStats
+              label={"Total Consultants"}
+              text={String(total_number_of_consultation)}
+            />
+            <MyEarningsStats
+              label={"Total Second Opinions"}
+              text={String(total_number_of_second_opinions)}
+            />
+            <MyEarningsStats
+              label={"Total Patients"}
+              text={String(total_number_of_patients)}
+            />
+            <MyEarningsStats
+              label={"Earnings through Consultants"}
+              text={`$ ${total_earnings_from_consultation}`}
+            />
+            <MyEarningsStats
+              label={"Earnings through Second Opinion"}
+              text={`$ ${total_earnings_from_second_opinions}`}
+            />
+            <MyEarningsStats
+              label={"Total Earnings"}
+              text={`$ ${total_earnings}`}
+            />
+          </div>
+        </Skeleton>
         <Divider />
 
         <div className="flex justify-between">

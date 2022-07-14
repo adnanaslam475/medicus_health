@@ -37,6 +37,7 @@ function StaffListing() {
     column: "",
     order: "",
   });
+
   const [{ data, fetching: loading }, executeUseStaffQuery] =
     useGetAllStaffByDoctorQuery({
       variables: {
@@ -71,7 +72,7 @@ function StaffListing() {
           !(sorter.columnKey === "status") &&
           "desc") ||
         "",
-      column: `user.${sorter.field || sorter.columnKey}` || "",
+      column: sorter.order ? `user.${sorter.field || sorter.columnKey}` : "",
     });
   };
 
@@ -136,6 +137,7 @@ function StaffListing() {
     setVisibleModal(false);
   };
 
+  console.log("stf", staff?.items);
   return (
     <>
       <div className="w-full">
@@ -160,7 +162,7 @@ function StaffListing() {
               dataSource={staff.items as User[]}
               loading={loading}
               onChange={onChange}
-              meta={staff.meta}
+              meta={staff?.meta}
               onPaginationChange={onPaginationChange}
             />
           ) : (

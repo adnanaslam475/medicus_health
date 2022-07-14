@@ -20,7 +20,7 @@ function AdminHealthQuestionnaireFrom() {
     requestPolicy: "network-only",
   });
   const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
+  const appointment = appointments?.items && appointments.items[0];
 
   console.log("appointments", appointments);
 

@@ -17,12 +17,12 @@ import Router from "next/router";
 type Props = {
   data?: any;
   meta?: any;
-  onPaginationChange: () => void;
+  onPaginationChange: any;
   onChange: () => void;
 };
 
 function PatientAppointmentHistoryTable(props: Props) {
-  const { data, meta, onPaginationChange, onChange } = props || {};
+  const { data = {}, meta, onPaginationChange, onChange } = props || {};
 
   // const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
   //   {}
@@ -43,7 +43,7 @@ function PatientAppointmentHistoryTable(props: Props) {
   //     requestPolicy: "network-only",
   //   });
   // };
-  const { data } = props || {};
+  // const { data } = props || {};
 
   const historyColumns = [
     {

@@ -218,8 +218,8 @@ function AdminAppointmentsListing({}: Props) {
 
   const { getPatients } = patientList || {};
   let adminData = {
-    physicianList: getPhysicians?.meta,
-    patientList: getPatients?.meta,
+    physicianList: getPhysicians?.items,
+    patientList: getPatients?.items,
   };
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -250,7 +250,7 @@ function AdminAppointmentsListing({}: Props) {
             sorter.columnKey
           ) &&
             "appointment") ||
-          (["doctor"].includes(sorter.field) && "user") ||
+          (/doctor/.test(sorter.field) && "user") ||
           "patient"
         }.${sorter.columnKey}` || "",
     });

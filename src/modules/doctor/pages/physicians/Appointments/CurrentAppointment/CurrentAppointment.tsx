@@ -2,7 +2,10 @@ import React from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import CurrentAppointmentTable from "./CurrentAppointmentTable";
 import CurrentAppointmentFilter from "modules/doctor/pages/appointments/CurrentAppointmentFilter";
-import { useGetAllRequestedAppointmentsQuery } from "generated/graphql";
+import {
+  Appointment,
+  useGetAllRequestedAppointmentsQuery,
+} from "generated/graphql";
 import {
   cancelAppointmentFilterType,
   physicianFilterType,
@@ -52,7 +55,7 @@ function CurrentAppointment({}: CancelledAppointmentProps) {
     const [, , sorter] = params;
     setSorting({
       order: sorter.order?.replace("end", "") || "",
-      column: `user.${sorter.field}` || "",
+      column: sorter.order ? `user.${sorter.field}` : "",
     });
   };
 
@@ -79,7 +82,7 @@ function CurrentAppointment({}: CancelledAppointmentProps) {
           <CurrentAppointmentTable
             loading={fetching}
             onChange={onChange}
-            data={appointments?.items}
+            data={appointments?.items as Appointment[]}
             meta={appointments?.meta}
             onPaginationChange={onPaginationChange}
           />

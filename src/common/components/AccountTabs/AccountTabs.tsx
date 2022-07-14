@@ -138,7 +138,7 @@ function AccountTabs({ setIsShowBanner }: Props) {
             }
             key="4"
           >
-            <TransactionHistory data={transactions as Transaction[]} />
+            <TransactionHistory data={transactions?.items as Transaction[]} />
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={

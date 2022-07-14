@@ -127,7 +127,7 @@ const Columns = [
 type Props = {
   appointmentsData?: Appointment[] | undefined;
   loading: boolean | undefined;
-  onPaginationChange: () => void;
+  onPaginationChange: any;
   onChange: () => void;
   meta: any;
 };
