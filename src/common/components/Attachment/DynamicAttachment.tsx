@@ -7,17 +7,23 @@ import png from "../../../../public/assets/images/png.png";
 import zip from "../../../../public/assets/images/zip.jpeg";
 import docx from "../../../../public/assets/images/docx.png";
 import doc from "../../../../public/assets/images/doc.jpg";
+import tiff from "../../../../public/assets/images/tiff.png";
+import bmp from "../../../../public/assets/images/bmp.png";
+import tga from "../../../../public/assets/images/tga.png";
 
 const availableTypes = {
-  pdf: pdf.src,
-  msword: doc.src,
-  doc: doc.src,
-  docx: docx.src,
-  vnd: docx.src,
-  "vnd.openxmlformats-officedocument.wordprocessingml.document": docx.src,
-  jpeg: jpg.src,
-  png: png.src,
-  zip: zip.src,
+  "application/pdf": pdf.src,
+  "application/msword": doc.src,
+  "application/doc": doc.src,
+  "application/docx": docx.src,
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+    docx.src,
+  "image/jpeg": jpg.src,
+  "image/png": png.src,
+  "image/tiff": tiff.src,
+  "image/x-tga": tga.src,
+  "image/bmp": bmp.src,
+  "application/zip": zip.src,
 };
 
 type Props = {

@@ -66,10 +66,10 @@ const classesAccordingToType: StatusType<StatusName> = {
     border: "border border-yellow-1",
   },
   CONFIRMED: {
-    background: "bg-blue",
-    color: "text-blue-1",
+    background: "bg-green",
+    color: "text-green-1",
+    border: "border border-green",
     text: CONFIRMED,
-    border: "border border-blue",
   },
   CANCELLED: {
     background: "bg-red-1",
@@ -84,16 +84,16 @@ const classesAccordingToType: StatusType<StatusName> = {
     border: "border border-yellow-1",
   },
   SUGGESTED: {
-    background: "bg-gray",
-    color: "text-gray-7",
+    background: "bg-yellow-1",
+    color: "text-yellow",
+    border: "border border-yellow-1",
     text: SUGGESTED || "Suggested",
-    border: "border border-gray",
   },
   RESCHEDULED: {
-    background: "bg-gray",
-    color: "text-gray-7",
+    background: "bg-yellow-1",
+    color: "text-yellow",
+    border: "border border-yellow-1",
     text: RESCHEDULED || "Rescheduled",
-    border: "border border-gray",
   },
   TRUE: {
     background: "bg-green",
@@ -114,10 +114,10 @@ const classesAccordingToType: StatusType<StatusName> = {
     border: "border border-green",
   },
   UNPAID: {
-    background: "bg-yellow-1",
-    color: "text-yellow",
+    background: "bg-red-1",
+    color: "text-red",
+    border: "border border-red-1",
     text: UNPAID,
-    border: "border border-yellow-1",
   },
   REFUNDED: {
     background: "bg-yellow-1",
