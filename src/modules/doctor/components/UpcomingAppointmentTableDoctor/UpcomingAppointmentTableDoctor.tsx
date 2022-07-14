@@ -49,7 +49,7 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
       },
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "createdAt",
       render: (bookingDate: string) => {
         return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;

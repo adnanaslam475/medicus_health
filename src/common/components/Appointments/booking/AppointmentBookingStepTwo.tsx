@@ -145,7 +145,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   return (
     <>
-      <h2>Request an Appointment</h2>
+      <h2>Request an appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         <Form.Item label="Medical History*">
           <Dragger

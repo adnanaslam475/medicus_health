@@ -32,22 +32,22 @@ const AppointmentsDetailTabs = (props: Props) => {
   return (
     <div className="profile-tabs">
       <Tabs type="card">
-        <TabPane tab="Appointment Info" key="1" className="">
+        <TabPane tab="Appointment info" key="1" className="">
           {/* <ProfileImageWithInfo /> */}
           {/* <AppointmentInfo /> */}
           {/* <DoctorAppointmentInfo /> */}
         </TabPane>
-        <TabPane tab="Patient Info" key="2">
+        <TabPane tab="Patient info" key="2">
           {/* <ProfileImageWithInfo /> */}
           <PatientInfo />
         </TabPane>
-        <TabPane tab="Health Questionnaire" key="3">
+        <TabPane tab="Health questionnaire" key="3">
           <div className="max-w-1/2">
             {/* <ProfileImageWithInfo /> */}
             <Questionnary disable={true} handleBackChange={handleChange} />
           </div>
         </TabPane>
-        <TabPane tab="Physician Questionnaire" key="4">
+        <TabPane tab="Physician questionnaire" key="4">
           <div className="">
             {/* <ProfileImageWithInfo /> */}
             {/* <PhysicianQuestionnaire  /> */}

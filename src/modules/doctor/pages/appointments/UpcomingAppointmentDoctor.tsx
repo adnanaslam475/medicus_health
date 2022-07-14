@@ -36,7 +36,7 @@ function UpcomingAppointmentDoctor() {
           <h2 className="mb-4">Upcoming Appointments</h2>
           <Link passHref href={`/physician/appointments/calendar`}>
             <a>
-              <Button>Calendar View</Button>
+              <Button>Calendar view</Button>
             </a>
           </Link>
         </div>

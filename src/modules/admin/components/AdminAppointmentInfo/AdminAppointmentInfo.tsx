@@ -116,7 +116,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
         <div>
           <LabelWithText label="ID" text={id} />
           <LabelWithText
-            label="Booking Date"
+            label="Booking date"
             text={date?.formatMMMMDDYYYY(bookingDate as string)}
           />
           <LabelWithText label="Patient" text={patient} />
@@ -241,7 +241,7 @@ function AdminAppointmentInfoFooter({
               })
             }
           >
-            Message Physician
+            Message physician
           </Button>
           {(appointmentStatus === "Cancelled" ||
             appointmentStatus === "Completed") && (
@@ -305,7 +305,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
             })
           }
         >
-          Message Physician
+          Message physician
         </Button>
       </div>
     </div>
