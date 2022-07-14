@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Upload, Form, UploadProps } from "antd";
+import { Checkbox, Upload, Form, UploadProps, notification, message } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import Image from "next/image";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import GeneralHealthQuesionnairModal from "./GeneralHealthQuesionnairModal";
-import { Appointment, DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
+import {
+  Appointment,
+  DoctorProfile,
+  usePatientHealthHistoryQuery,
+} from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 import pdf from "../../../../../public/assets/images/word-file.svg";
 import jpg from "../../../../../public/assets/images/jpg.svg";
 import png from "../../../../../public/assets/images/png.png";
-import zip from "../../../../../public/assets/images/zip.jpeg";
+import zip from "../../../../../public/assets/images/zip.png";
 import docx from "../../../../../public/assets/images/docx.png";
 import doc from "../../../../../public/assets/images/doc.jpg";
+import tiff from "../../../../../public/assets/images/tiff.png";
+import bmp from "../../../../../public/assets/images/bmp.png";
+import tga from "../../../../../public/assets/images/tga.png";
 import { StarOutlined } from "@ant-design/icons";
+import { RcFile } from "antd/lib/upload";
 
 const { Dragger } = Upload;
 type Props = {
   physicianData?: DoctorProfile | undefined | null;
   adminApp_Details?: DoctorData;
-  rebookData?:Appointment
+  rebookData?: Appointment;
+  clear?: boolean | undefined;
 };
 
 type DoctorData = {
@@ -34,15 +43,15 @@ type DoctorData = {
 
 const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const { data, saveStepTwo } = useBookAppointment();
-  const { physicianData, adminApp_Details, rebookData } = props || {};
+  const { physicianData, adminApp_Details, rebookData, clear } = props || {};
   const { user } = getUserData();
   const [formInstance] = Form.useForm();
 
   const [fileList, setFileList] = useState([]);
   const patientId =
-    user?.role === "User"
+    rebookData?.patientId || user?.role === "User"
       ? Number(user?.id)
-      : rebookData?.doctorId || Number(data?.stepOne?.patient?.split(":")[0])
+      : Number(data?.stepOne?.patient?.split(":")[0]);
   const [{ data: patientHealthData }] = usePatientHealthHistoryQuery({
     variables: { input: patientId },
     pause: !patientId,
@@ -53,31 +62,32 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   );
 
   const attachmentProps: UploadProps = {
-    accept: ".doc, .pdf, image/jpg, image/jpeg,",
+    accept: ".doc,.docx, .pdf, image/jpg, image/jpeg,",
     name: "file",
     multiple: true,
     onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
       let fileListing = info.fileList;
 
+      const availableTypes: Object = {
+        "application/pdf": pdf.src,
+        "application/msword": doc.src,
+        "application/doc": doc.src,
+        "application/docx": docx.src,
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+          docx.src,
+        "image/jpeg": jpg.src,
+        "image/png": png.src,
+        "image/tiff": tiff.src,
+        "image/x-tga": tga.src,
+        "image/bmp": bmp.src,
+        "application/zip": zip.src,
+      };
       const stepTwoFiles = fileListing?.map((item: any) => {
-        if (fileListing.length) {
-          switch (item?.type) {
-            case "application/pdf":
-              return { ...item, thumbUrl: pdf?.src };
-            case "application/doc":
-              return { ...item, thumbUrl: doc?.src };
-            case "application/docx":
-              return { ...item, thumbUrl: docx?.src };
-            case "image/jpeg":
-              return { ...item, thumbUrl: jpg?.src };
-            case "image/png":
-              return { ...item, thumbUrl: png?.src };
-            case "application/zip":
-              return { ...item, thumbUrl: zip?.src };
-            default:
-              return { ...item, thumbUrl: pdf?.src };
-          }
-        }
+        return {
+          ...item,
+          thumbUrl:
+            availableTypes[item.type as keyof typeof availableTypes] || pdf.src,
+        };
       });
       setFileList(stepTwoFiles);
       saveStepTwo?.(stepTwoFiles);
@@ -113,20 +123,36 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
     }
   }, []);
 
+  useEffect(() => {
+    if (clear) {
+      formInstance.resetFields();
+    }
+  }, [data.stepThree, clear]);
+
   const handlechecked = (e: CheckboxChangeEvent) => {
     setChecked(e.target.checked);
+  };
+  const beforeUpload = (file: RcFile) => {
+    let in10MBLimit = file.size / 1024 / 1024 < 10;
+    if (!in10MBLimit) {
+      notification.error({ message: "File must smaller than 10 MB!" });
+      message.error( "File must smaller than 10 MB!" );
+    return true
+    }
+    return in10MBLimit;
   };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   return (
     <>
-      <h2>Request an Appointment</h2>
+      <h2>Request an appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         <Form.Item label="Medical History*">
           <Dragger
             {...attachmentProps}
             customRequest={({ onSuccess }) => onSuccess?.({})}
             listType="picture"
+            beforeUpload={(e) => beforeUpload(e)}
           >
             <p className="ant-upload-drag-icon mb-0">
               <Image

@@ -116,7 +116,7 @@ function AppointmentInfo(props: Props) {
               })
             }
           >
-            Message Physician
+            Message physician
           </Button>
         </div>
         <Button
@@ -126,7 +126,7 @@ function AppointmentInfo(props: Props) {
           onClick={() => Router.push(`/patient/appointments/${id}/call`)}
           disabled={disabled}
         >
-          Join Now
+          Join now
         </Button>
       </div>
     </>

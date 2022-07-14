@@ -1,7 +1,9 @@
 import React from "react";
-import Router from "next/router";
 import { Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
+import { date } from "../../utils";
+import { AppointmentServiceType } from "generated/graphql";
+import Router from "next/router";
 // import {
 //   AppointmentServiceType,
 //   AppointmentTimeSlots,
@@ -41,6 +43,7 @@ function PatientAppointmentHistoryTable(props: Props) {
   //     requestPolicy: "network-only",
   //   });
   // };
+  const { data } = props || {};
 
   const historyColumns = [
     {
@@ -63,8 +66,8 @@ function PatientAppointmentHistoryTable(props: Props) {
       dataIndex: "serviceType",
       sorter: true,
       key: "type",
-      render: (value: any) => {
-        return <div>{`${value?.service_name}`}</div>;
+      render: (value: AppointmentServiceType) => {
+        return <div>{`${value ? value?.name : "--"}`}</div>;
       },
     },
     {
@@ -72,8 +75,8 @@ function PatientAppointmentHistoryTable(props: Props) {
       dataIndex: "requestedDate",
       key: "requestedDate",
       sorter: true,
-      render: (value: any) => {
-        return <div>{`${value?.requestedDate}`}</div>;
+      render: (value: string) => {
+        return <div>{`${value ? date?.formatMMMMDDYYYY(value) : "--"}`}</div>;
       },
     },
     {
@@ -81,8 +84,8 @@ function PatientAppointmentHistoryTable(props: Props) {
       dataIndex: "requestedDate",
       key: "requestedDate",
       sorter: true,
-      render: (value: any) => {
-        return <div>{`${value?.requestedDate}`}</div>;
+      render: (value: string) => {
+        return <div>{`${value ? date?.formathhmma(value) : "--"}`}</div>;
       },
     },
 

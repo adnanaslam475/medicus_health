@@ -152,11 +152,11 @@ function SearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 gap-y-2 gap-2 flex-wrap`}
     >
-      <span className="text-gray-1 mr-3  w-full 2xl:w-fit">Filter</span>
+      <span className="text-gray-1 mr-3  w-full 2xl:w-fit">Search by</span>
       {/* <div className="flex gap-x-2 gap-2"> */}
         <div className="  w-full  lg:w-60  ">
           <Input
-            placeholder={"Search by ID"}
+            placeholder={"ID#"}
             prefix={<SearchOutlined />}
             onChange={(event) => handleAppointmentId(event)}
             value={localAppointment_Id || undefined}
@@ -182,7 +182,8 @@ function SearchFilters(props: Props) {
             >
               {doctorProfiles?.map((item) => (
                 <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
-                  {item?.user?.first_name}
+                {/* {item?.user?.first_name}  {item?.user?.last_name} */}
+                {`Dr.${item?.user?.first_name} ${item?.user?.last_name}`}
                 </Select.Option>
               ))}
             </Select>
@@ -196,7 +197,7 @@ function SearchFilters(props: Props) {
                 <CaretDownOutlined className="text-sm text-gray" />
               </div>
             }
-            placeholder="Appointment Type"
+            placeholder="Appointment type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={handleServiceChange}
             value={selectedServiceItems}
@@ -255,7 +256,7 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         bookingDateRange?.[0]
                       )} -> ${getDateInFormat(bookingDateRange?.[1])}`
-                    : "Booking Date"}
+                    : "Booking date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -269,7 +270,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Booking Date
+                    Booking date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />

@@ -99,14 +99,14 @@ function RequestedAppointment() {
             </div>
             <div className="flex gap-3">
               {/* <div className="lg:ml-3 mt-0 sm:mt-0">
-                <Select defaultValue="List View" className="w-full sm:w-40">
-                  <Select.Option value="Calendar View">
+                <Select defaultValue="List view" className="w-full sm:w-40">
+                  <Select.Option value="Calendar view">
                     <Link href="/patient/calendar">
-                      <a>Calendar View</a>
+                      <a>Calendar view</a>
                     </Link>
                   </Select.Option>
-                  <Select.Option selected value="List View">
-                    List View
+                  <Select.Option selected value="List view">
+                    List view
                   </Select.Option>
                 </Select>
               </div> */}
@@ -130,7 +130,7 @@ function RequestedAppointment() {
                   }
                 >
                   <span className="text-xs sm:text-base">
-                    Request an Appointment
+                    Request an appointment
                   </span>
                 </Button>
               </Tooltip>

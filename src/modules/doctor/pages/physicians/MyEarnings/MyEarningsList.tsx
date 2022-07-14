@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { Table, Divider } from "antd";
+import { Table, Divider, Tag } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MyEarningsStats from "../../../../../common/components/MyEarningsStats/MyEarningsStats";
 import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
 import {
   Appointment,
+  GetTransactionFilterQuery,
+  Transaction,
   useGetDoctorEarningsQuery,
-  useGetTransectionFilterQuery,
+  useGetTransactionFilterQuery,
 } from "generated/graphql";
 import { date, userData } from "common/utils";
 // import SearchFilters from "common/components/SearchFilters/SearchFilters";
 import { physicianMyEarningsFilterType } from "common/types/types";
+import { physicianMyEarningsFilterType, StatusName } from "common/types/types";
+import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
+import StatusChip from "common/components/StatusChip/StatusChip";
+
+type Props = {};
 
 const Columns = [
   {
@@ -162,10 +169,11 @@ const Columns = [
   },
 ];
 
-type Props = {};
-
 const PhysicianMyEarningsList = (props: Props) => {
   const { user } = userData.getUserData();
+  const [paymentStatus, setPaymentStatus] = useState<
+    string | undefined | null
+  >();
 
   const [filterValues, setFilterValues] =
     useState<physicianMyEarningsFilterType>({});
@@ -173,7 +181,7 @@ const PhysicianMyEarningsList = (props: Props) => {
     page: 1,
     limit: 10,
   });
-  
+
   const [sorting, setSorting] = React.useState({
     column: "",
     order: "",
@@ -208,7 +216,7 @@ const PhysicianMyEarningsList = (props: Props) => {
     },
   });
 
-  const { getTransectionFilter } = transactionData || {};
+  const { getTransactionFilter } = transactionData || {};
 
   function onChangeFilters(values: physicianMyEarningsFilterType) {
     setFilterValues(values);
@@ -268,14 +276,14 @@ const PhysicianMyEarningsList = (props: Props) => {
         <MyEarningsSearchFilters onChange={onChangeFilters} />
         <Table
           columns={Columns}
-          dataSource={getTransectionFilter?.items}
+          dataSource={getTransactionFilter?.items}
           scroll={{ x: true }}
           onChange={onChange}
           loading={fetching}
           pagination={{
             // total: getTransectionFilter?.meta?.totalItems,
             // pageSize: getTransectionFilter?.meta?.itemCount,
-            current: getTransectionFilter?.meta?.currentPage,
+            current: getTransactionFilter?.meta?.currentPage,
             defaultPageSize: 10,
             onChange: onPaginationChange,
             pageSizeOptions: ["10", "20", "30", "40"],

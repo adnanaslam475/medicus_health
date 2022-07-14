@@ -16,10 +16,14 @@ function UserProfile({ thread }: Props) {
   const { setCurrentChannel, loginToRtm, onJoinChannel } = useMessageContext();
 
   //get channel dateTime
-  const { createdAt, lastMessage } = thread || {};
+  const { lastMessage } = thread || {};
 
   //get last message
-  const { message, messageType } = lastMessage || {};
+  const { message, messageType, createdAt } = lastMessage || {};
+
+  //adding 5 hours to datetime
+  const messageTime = date?.addHoursToDate(new Date(createdAt), 5);
+  const messageTimein12HoursFomrat = date?.formathhmma(messageTime?.toString());
 
   async function onJoinChat() {
     setCurrentChannel(thread);
@@ -75,12 +79,16 @@ function UserProfile({ thread }: Props) {
             <span className="hidden sm:inline">{`${opposite?.last_name}`}</span>
           </span>
           <span className="text-base text-gray hidden sm:inline">
-            {date?.formathhmma(createdAt)}
+            {messageTimein12HoursFomrat}
           </span>
         </div>
         <div className="sm:flex justify-between hidden ">
           <span className="text-gray text-base block">
-            {messageType === "Media" ? "Sent a Photo" : message}
+            {messageType === "Media"
+              ? "Sent a File"
+              : message && message.length > 100
+              ? message.substring(0, 100).concat("...")
+              : message}
           </span>
           {/* <span className="rounded-lg bg-red px-2 py-0 text-white">3</span> */}
         </div>

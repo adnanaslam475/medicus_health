@@ -29,7 +29,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       sorter: true,
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "createdAt",
       key: "createdAt",
       sorter: true,
@@ -38,7 +38,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       },
     },
     {
-      title: " Appointment Type",
+      title: " Appointment type",
       dataIndex: "serviceType",
       key: "name",
       sorter: true,

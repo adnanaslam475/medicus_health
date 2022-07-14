@@ -17,6 +17,7 @@ type Props = {
   physicianData?: DoctorProfile | undefined | null;
   adminApp_Details?: DoctorData;
   rebookData?: Appointment;
+  clear?: boolean | undefined;
 };
 
 type DoctorData = {
@@ -32,7 +33,7 @@ type DoctorData = {
 
 const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const { query } = useRouter();
-  const { physicianData, adminApp_Details, rebookData } = props || {};
+  const { physicianData, adminApp_Details, rebookData, clear } = props || {};
   const { id } = physicianData?.user || {};
   const { saveStepThree, data } = useBookAppointment();
   const [formInstance] = Form.useForm();
@@ -40,11 +41,11 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const patientIdFromStepOne = data?.stepOne?.patient?.split(":")[0];
 
   let doctorQuestionnaireId =
+    Number(rebookData?.doctorId) ||
     Number(adminApp_Details?.doctor?.doctor_Id) ||
     Number(physicianId) ||
     Number(id) ||
-    Number(query?.id) ||
-    Number(rebookData?.doctorId);
+    Number(query?.id);
 
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
@@ -93,7 +94,10 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
 
   useEffect(() => {
     prepareAndSetEditPayload();
-  }, [data.stepThree]);
+    if (clear) {
+      formInstance.resetFields();
+    }
+  }, [data.stepThree, clear]);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -117,9 +121,10 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       formInstance.resetFields();
     }
   };
+
   return (
     <>
-      <h2>Request an Appointment</h2>
+      <h2>Request an appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
         {doctorQuestionnaire && (
           <Form.Item valuePropName="checked">

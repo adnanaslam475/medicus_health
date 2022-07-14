@@ -4,7 +4,7 @@ import _Classes from "./InputWitLi.module.scss";
 import { PlusOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons";
 
 type IMyProps = {
-  disable: boolean;
+  disable: boolean |undefined;
   loading?: boolean;
   initialValue?: string[];
   onChange?: (list: string[]) => void;

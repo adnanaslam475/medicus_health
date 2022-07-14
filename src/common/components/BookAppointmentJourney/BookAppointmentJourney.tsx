@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
 import { FormInstance, Modal, notification } from "antd";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Appointment,
   DoctorProfile,
@@ -21,6 +21,7 @@ import BookAppointmentFooter from "./BookAppointmentFooter";
 import { getUserData } from "../../utils/userData";
 import SuccessMessage from "../Appointments/booking/SuccessMessage";
 import { useMediaUploader } from "common/hooks/media";
+import { GraphQLError } from "graphql";
 
 type AdminData = {
   patientList: User[];
@@ -44,11 +45,11 @@ type Props = {
   onCancel?:
     | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
-  doctorData?:  DoctorProfile | undefined | null;
+  doctorData?: DoctorProfile | undefined | null;
   adminData?: AdminData;
   patientData?: User[] | undefined;
   adminApp_Details?: DoctorData;
-  rebookData?:Appointment
+  rebookData?: Appointment;
 };
 
 function BookAppointmentJourney({
@@ -59,7 +60,7 @@ function BookAppointmentJourney({
   adminData,
   patientData,
   adminApp_Details,
-  rebookData
+  rebookData,
 }: Props) {
   return (
     <BookAppointmentProvider>
@@ -85,9 +86,10 @@ function BookAppointmentModal({
   adminData,
   patientData,
   adminApp_Details,
-  rebookData
+  rebookData,
 }: Props) {
   const form = useRef<FormInstance>();
+  const [clear, setClear] = React.useState<boolean>(false);
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
   const [successModal, setSuccessModal] = React.useState<boolean>(false);
@@ -109,8 +111,9 @@ function BookAppointmentModal({
   const { user } = getUserData();
   const id = user?.id;
 
-  const [data, executeCreateAppointmentMutation] =
+  const [result, executeCreateAppointmentMutation] =
     useCreateAppointmentMutation();
+  const { fetching } = result || {};
 
   useEffect(() => {
     if (visible) {
@@ -184,7 +187,12 @@ function BookAppointmentModal({
         const urls = await mediaUploader.uploadMultiple(files);
 
         allUrl.push(
-          urls?.map((url: any) => ({ url: url.location, name: url.key }))
+          urls?.map((url: any) => {
+            let fileName = `${url?.key?.split(".")[0]}.${
+              url?.key?.split(".")[1]
+            }`;
+            return { url: url.location, name: fileName };
+          })
         );
         return allUrl;
       }
@@ -192,11 +200,12 @@ function BookAppointmentModal({
       console.log(error);
     }
   };
-
   const patientIdforCreateAppointment =
+    Number(rebookData?.patientId) ||
     Number(adminApp_Details?.patient?.patient_id) ||
     Number(adminPatientId) ||
     (id as number);
+
   async function onRequestAppointment() {
     try {
       const urls = await fileUpload(
@@ -204,13 +213,12 @@ function BookAppointmentModal({
           ({ originFileObj }: { originFileObj: File }) => originFileObj
         )
       );
-
       const doctorIdforCreateAppointment =
+        Number(rebookData?.doctorId) ||
         Number(doctorData?.doctor_id) ||
         Number(adminApp_Details?.doctor?.doctor_Id) ||
         Number(adminPhysicianId) ||
         Number(query?.id);
-
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
           patientId: patientIdforCreateAppointment,
@@ -222,12 +230,24 @@ function BookAppointmentModal({
           questionnaire: JSON.stringify(appoinmentData?.stepThree),
         },
       });
-
       if (res?.data?.createAppointment) {
+        setClear(true);
         setSuccessModal(true);
         saveStepOne?.({});
         saveStepTwo?.({});
         saveStepThree?.({});
+      } else if (res?.error?.graphQLErrors) {
+        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = res?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
       }
     } catch (error) {}
   }
@@ -267,6 +287,7 @@ function BookAppointmentModal({
       return next(currentStepName);
     }
   };
+
   return (
     <Modal
       centered
@@ -287,6 +308,8 @@ function BookAppointmentModal({
             <CurrentStepContent
               stepName={currentStepName}
               doctorData={doctorData}
+              clear={clear}
+              setClear={setClear}
               ref={form}
               adminData={adminData}
               patientData={patientData}
@@ -299,6 +322,7 @@ function BookAppointmentModal({
             onNext={() => NextClickHandler()}
             onPrevious={() => prev(currentStepName)}
             onRequestAppointment={onRequestAppointment}
+            loading={fetching}
           />
         </>
       )}

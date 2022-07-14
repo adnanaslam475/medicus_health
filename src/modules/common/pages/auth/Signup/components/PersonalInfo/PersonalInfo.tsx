@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Select, DatePicker } from "antd";
+import { Form, Input, Button, Select, DatePicker, Checkbox } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
 import {
@@ -22,6 +22,7 @@ export default function PersonalInfo({ onFinish }: props) {
   const [form] = Form.useForm();
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
+  const [terms, setTerms] = useState(false);
 
   function selectCountryId(id: number): void {
     setCountryId(id);
@@ -72,7 +73,7 @@ export default function PersonalInfo({ onFinish }: props) {
     }
   }, [emailData]);
   const emailValidator = async (rule: any, value: string) => {
-    if(!value?.length) return Promise.resolve()
+    if (!value?.length) return Promise.resolve();
     setUserEmail(value);
     if (
       value.length &&
@@ -95,7 +96,7 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label="First Name"
+          label={t("first_name")}
           name="first_name"
           rules={[
             {
@@ -109,7 +110,7 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label="Last Name"
+          label={t("last_name")}
           name="last_name"
           rules={[
             {
@@ -125,7 +126,7 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label="Gender"
+          label={t("Gender")}
           name="gender"
           rules={[
             {
@@ -134,18 +135,19 @@ export default function PersonalInfo({ onFinish }: props) {
             },
           ]}
         >
-          <Select placeholder="Gender" className="nb-select-input">
-            <Select.Option value="male">Male</Select.Option>
-            <Select.Option value="female">Female</Select.Option>
+          <Select placeholder={t("Gender")} className="nb-select-input">
+            <Select.Option value="male">{t("male")}</Select.Option>
+            <Select.Option value="female">{t("female")}</Select.Option>
             <Select.Option value="prefer not to answer">
-              I prefer not to answer
+              {t("i_prefer_not_to_say")}
+              {/* I prefer not to answer */}
             </Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item
           className="flex-1"
-          label="Date of Birth"
+          label={t("date_of_Birth")}
           name="date_of_birth"
           rules={[
             {
@@ -164,7 +166,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <Form.Item
-        label="Email Address"
+        label={t("email_address")}
         name="email"
         rules={[
           {
@@ -184,7 +186,7 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label="Password"
+          label={t("password")}
           name="password"
           rules={[
             {
@@ -199,7 +201,7 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label="Confirm Password"
+          label={t("confirm_password")}
           name="confirmPassword"
           rules={[
             {
@@ -223,7 +225,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <Form.Item
-        label="Street Address"
+        label={t("street_address")}
         name="streetAddress"
         rules={[
           {
@@ -238,7 +240,7 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label="Contact Number"
+          label={t("contact_number")}
           name="contact_number"
           rules={[
             {
@@ -252,7 +254,7 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label="Country"
+          label={t("country")}
           name="country_id"
           rules={[
             {
@@ -269,7 +271,7 @@ export default function PersonalInfo({ onFinish }: props) {
             onChange={(e) => {
               selectCountryId(e);
             }}
-            placeholder="Country"
+            placeholder={t("country")}
           >
             {React.Children.toArray(
               countries?.map((el, i) => {
@@ -285,7 +287,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item className="flex-1" label="State" name="state_id">
+        <Form.Item className="flex-1" label={t("state")} name="state_id">
           <Select
             showSearch
             filterOption={(input, state: any) =>
@@ -297,7 +299,7 @@ export default function PersonalInfo({ onFinish }: props) {
                 city_id: null,
               });
             }}
-            placeholder="State"
+            placeholder={t("state")}
           >
             {React.Children.toArray(
               getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
@@ -311,9 +313,9 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item className="flex-1" label="City" name="city_id">
+        <Form.Item className="flex-1" label={t("city")} name="city_id">
           <Select
-            placeholder="City"
+            placeholder={t("city")}
             showSearch
             filterOption={(input, city: any) =>
               city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -331,7 +333,7 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label="Postal Code"
+          label={t("postal_code")}
           name="zip_code"
           rules={[
             {
@@ -344,21 +346,40 @@ export default function PersonalInfo({ onFinish }: props) {
         </Form.Item>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <div className="flex justify-between items-center">
+          <Checkbox
+            value={terms}
+            onChange={(e) => {
+              setTerms(e.target.checked);
+            }}
+          >
+            <span className="mb-10 text-gray text-xs">
+              {t("i_agree_to_the")}
+              {/* I agree to the  */}
+              <Link href={"#"}>
+                {t("terms_n_conditions")}
+                {/* Terms & Conditions */}
+              </Link>
+            </span>
+          </Checkbox>
+        </div>
         <Form.Item>
           <Button
             htmlType="submit"
             className="ant-btn ant-btn-primary ant-btn-block nb-button"
             type="primary"
+            disabled={!terms}
           >
-            Next
+            {t("next")}
+            {/* Next */}
           </Button>
         </Form.Item>
       </div>
       <div className="flex justify-center mt-8">
         <p className="text-secondary-1">
-        {t("AlreadyHaveAnAccount")}
-        {/* Already have an account? */}
+          {t("AlreadyHaveAnAccount")}
+          {/* Already have an account? */}
           <Link href="/login">
             <span className="text-primary cursor-pointer"> {t("Login")}</span>
           </Link>

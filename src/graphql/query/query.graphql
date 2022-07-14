@@ -215,6 +215,7 @@ query getAllRequestedAppointments(
       doctorId
       serviceId
       requestedDate
+      reportUrl
       createdAt
       status
       charges
@@ -241,6 +242,7 @@ query getAllRequestedAppointments(
           about_me
           profile_image
           user {
+            doctorId
             id
             first_name
             last_name
@@ -265,6 +267,7 @@ query getAllRequestedAppointments(
           }
         }
       }
+
       appointmentTimeSlots {
         id
         startTime

@@ -38,6 +38,8 @@ type Props = {
   patientData?: User[];
   adminApp_Details?: DoctorData;
   rebookData?: Appointment;
+  clear?: boolean | undefined;
+  setClear?: any;
 };
 
 export const AppointmentBookingStepOne = React.forwardRef(
@@ -47,10 +49,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
     const {
       physician,
-      service,
       price,
-      requestedDate,
-      availability,
+      // service,
+      // requestedDate,
+      // availability,
+
       charges,
       serviceName,
     } = appoinmentDetails?.stepOne || {};
@@ -60,24 +63,29 @@ export const AppointmentBookingStepOne = React.forwardRef(
       adminData,
       patientData,
       adminApp_Details,
+      setClear,
+      clear,
       rebookData,
     } = props || {};
+
     const { first_name, last_name, id } =
       physicianData?.user || rebookData?.doctor || {};
-    const { doctor_Id, doctor_first_name, doctor_last_name } =
-      adminApp_Details?.doctor || {};
+    // const { doctor_Id, doctor_first_name, doctor_last_name } =
+    //   adminApp_Details?.doctor || {};
     const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
     //   GET ID FROM URL
     const { query } = useRouter();
     const [doctorId, setDoctorId] = useState<number>();
+    const [schedules, setSchedules] = useState([]);
+
     const stepOneDoctorId = physician?.split(":")[0];
     let doctorScheduleId =
+      Number(rebookData?.doctorId) ||
       Number(id) ||
       Number(adminApp_Details?.doctor?.doctor_Id) ||
       Number(query?.id) ||
       Number(doctorId) ||
-      Number(stepOneDoctorId) ||
-      Number(rebookData?.doctorId);
+      Number(stepOneDoctorId);
 
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesQuery] =
       useDoctorSchedulesQuery({
@@ -90,34 +98,46 @@ export const AppointmentBookingStepOne = React.forwardRef(
     useEffect(() => {
       executeUseDoctorSchedulesQuery({ requestPolicy: "network-only" });
     }, []);
+
     useEffect(() => {
       if (ref) {
         ref.current = formInstance;
       }
     }, []);
+    const isShow =
+      scheduleDetails?.doctorSchedules &&
+      scheduleDetails?.doctorSchedules.length > 0;
     useEffect(() => {
       if (appoinmentDetails) {
         prepareAndSetEditPayload();
       }
-    }, [appoinmentDetails]);
+      if (clear) {
+        setSchedules([]);
+        formInstance.resetFields();
+      }
+      if (isShow && !clear) {
+        setSchedules(scheduleDetails?.doctorSchedules as any);
+      }
+    }, [appoinmentDetails, clear, isShow]);
+
     function prepareAndSetEditPayload() {
-      let consultationCharges =
-        rebookData?.charges ||
-        charges ||
-        price ||
-        (serviceInfo && serviceInfo[0]?.price);
-      let physicianName = formInstance.setFieldsValue({
-        physician:
-          rebookData || physicianData?.user
-            ? `${first_name} ${last_name}`
-            : adminApp_Details?.doctor
-            ? `${doctor_first_name} ${doctor_last_name}`
-            : physician,
-        service: rebookData?.serviceId || service,
-        charges: consultationCharges,
-        requestedDate: requestedDate,
-        availability: availability,
-      });
+      // let consultationCharges =
+      //   rebookData?.charges ||
+      //   charges ||
+      //   price ||
+      //   (serviceInfo && serviceInfo[0]?.price);
+      // let physicianName = formInstance.setFieldsValue({
+      //   physician:
+      //     rebookData || physicianData?.user
+      //       ? `${first_name} ${last_name}`
+      //       : adminApp_Details?.doctor
+      //       ? `${doctor_first_name} ${doctor_last_name}`
+      //       : physician,
+      //   service: rebookData?.serviceId || service,
+      //   charges: consultationCharges,
+      //   requestedDate: requestedDate,
+      //   availability: availability,
+      // });
     }
 
     function handleServiceChange(value: any) {
@@ -158,12 +178,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     const allAppoinments = data?.data?.appointmentServiceTypes;
 
-    const isShow =
-      scheduleDetails?.doctorSchedules &&
-      scheduleDetails?.doctorSchedules.length > 0;
-
     const { physicianList, patientList } = adminData || {};
     const PhysicianHandler = (physicianId: string) => {
+      setClear(false);
       let doctorId = physicianId.split(":")[0];
       setDoctorId(Number(doctorId));
       setDoctorId(Number(doctorId));
@@ -171,7 +188,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     return (
       <>
-        <h2>Request an Appointment</h2>
+        <h2>Request an appointment</h2>
         <Form form={formInstance} layout="vertical" onFinish={onFinishLocal}>
           {adminData || patientData ? (
             <Form.Item
@@ -307,7 +324,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 <Radio.Group
                   defaultValue={appoinmentDetails?.stepOne?.availability}
                 >
-                  {scheduleDetails?.doctorSchedules?.map((item: any) => (
+                  {schedules.map((item: any) => (
                     <Radio.Button
                       key={item?.id}
                       value={item?.id}

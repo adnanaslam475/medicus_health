@@ -10,9 +10,8 @@ import _classes from "./NotesListingByAppointments.module.scss";
 import {
   Appointment,
   AppointmentNote,
-  GetAppointmentNoteByIdQuery,
   GetDoctorNotesByAppIdQuery,
-  useGetAppointmentNoteByIdQuery,
+  useGetAppointmentNotesByIdQuery,
 } from "generated/graphql";
 import AdminNotesWithTextTab from "modules/admin/pages/AdminAppointmentsDetail/AdminNotesWithTextTab";
 import EditableNotes from "../EditableNotes/EditableNotes";
@@ -31,12 +30,22 @@ function NotesListingByAppointments(props: Props) {
   const appointmentId = Number(query.id);
   const { doctorNotes, appointment } = props;
 
-  const [{ data: currentAppointmentNotes }] = useGetAppointmentNoteByIdQuery({
+  // const [{ data: currentAppointmentNotes }] = useGetAppointmentNoteByIdQuery({
+  //   variables: {
+  //     appointmentId,
+  //   },
+  //   requestPolicy: "network-only",
+  // });
+
+  // getAppointmentNoteById;
+  const [{ data: currentAppointmentNotes }] = useGetAppointmentNotesByIdQuery({
     variables: {
-      appointmentId,
+      id: Number(query?.id),
     },
     requestPolicy: "network-only",
   });
+
+  // GET NOTES API CALL
 
   const { Panel } = Collapse;
 
@@ -46,21 +55,19 @@ function NotesListingByAppointments(props: Props) {
 
   const appointmentChild = currentAppointmentNotes;
 
-  const actualDoctorNotes = appointmentChild?.appointmentNote;
+  const actualDoctorNotes = appointmentChild?.appointment;
 
-  const docData = actualDoctorNotes?.appointment?.doctor;
+  const docData = actualDoctorNotes?.doctor;
 
   const docName = docData?.first_name + " " + docData?.last_name;
 
-  const appId = actualDoctorNotes?.appointmentId;
+  const appId = actualDoctorNotes?.currentAppointmentNote?.appointment?.id;
 
-  const appDate = actualDoctorNotes?.createdAt;
+  const appDate = actualDoctorNotes?.currentAppointmentNote?.createdAt;
 
   const a = [0];
 
   const status = appointment?.status;
-
-  console.log(currentAppointmentNotes, "actualDoctorNotesMy");
 
   return (
     <>
@@ -77,7 +84,6 @@ function NotesListingByAppointments(props: Props) {
           )}
         >
           {a.map((data, index) => {
-            console.log(data, "sadasds");
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}

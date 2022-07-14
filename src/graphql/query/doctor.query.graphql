@@ -306,8 +306,12 @@ query physicianAppointmentsHistory(
   appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
     items {
       id
+      doctorId
+      charges
+      serviceId
       patientId
       createdAt
+      reportUrl
       requestedDate
       serviceType {
         name
@@ -331,10 +335,6 @@ query physicianAppointmentsHistory(
         patientHealthHistory {
           history
         }
-      }
-      doctor {
-        first_name
-        last_name
       }
       charges
       appointmentHealthHistory {
@@ -404,12 +404,12 @@ query physicianAppointmentsHistory(
 }
 
 #Get My Earnings Of Doctor
-query getTransectionFilter(
+query getTransactionFilter(
   $filter: GetTransectionInput!
   $pagination: PaginationParams
   $sorting: SortingParams
 ) {
-  getTransectionFilter(
+  getTransactionFilter(
     filter: $filter
     pagination: $pagination
     sorting: $sorting

@@ -19,7 +19,10 @@ import { date } from "../../utils";
 import { EyeFilled } from "@ant-design/icons";
 import EmailNotificationPage from "modules/common/components/EmailNotification/EmailNotificationPage";
 
-function AccountTabs() {
+type Props = {
+  setIsShowBanner: any;
+};
+function AccountTabs({ setIsShowBanner }: Props) {
   const form: any = useRef();
   const [activeTab, setActiveTab] = React.useState<string>("");
   // GET USER ID
@@ -54,11 +57,11 @@ function AccountTabs() {
           user_id: id as number,
         },
       });
-      {
-        res?.data?.updatePatientHealthHistory &&
-          notification.success({
-            message: "Successfully Updated",
-          });
+      if (res?.data?.updatePatientHealthHistory) {
+        notification.success({
+          message: "Successfully Updated",
+        });
+        setIsShowBanner(false);
       }
     } catch (err) {
       console.log(err);
@@ -82,7 +85,7 @@ function AccountTabs() {
             className="w-full"
             tab={
               <span className="font-Circular font-medium">
-                Personal Information
+                Personal information
               </span>
             }
             key="1"
@@ -92,7 +95,7 @@ function AccountTabs() {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">
-                Health Questionnaire
+                Health questionnaire
               </span>
             }
             key="2"
@@ -119,7 +122,9 @@ function AccountTabs() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium">Payment Methods</span>
+              <span className="font-Circular font-medium">
+                Payment settings
+              </span>
             }
             key="3"
           >
@@ -128,7 +133,7 @@ function AccountTabs() {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">
-                Transaction History
+                Transaction history
               </span>
             }
             key="4"
@@ -138,7 +143,7 @@ function AccountTabs() {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">
-                Email Notification
+                Email notification
               </span>
             }
             key="5"

@@ -11,102 +11,6 @@ const transactionsColumns = [
     key: "id",
     sorter: true,
   },
-
-  {
-    title: "Doctor",
-    dataIndex: "appointment",
-    key: "appointment",
-    sorter: true,
-    render: (value: Appointment) => {
-      return (
-        <div className="someclass">{`${value?.doctor?.first_name} ${value?.doctor?.last_name}`}</div>
-      );
-    },
-  },
-  {
-    title: "Service",
-    dataIndex: "appointment",
-    key: "appointment",
-    sorter: true,
-    render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-    },
-  },
-  {
-    title: "Time Slot",
-    dataIndex: "appointment",
-    key: "appointment",
-    sorter: true,
-    render: (value: Appointment) => {
-      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-      return (
-        <div className="someclass">{`${date?.formathhmma(
-          time?.startTime
-        )} - ${date?.formathhmma(time?.endTime)}`}</div>
-      );
-    },
-  },
-  {
-    title: "Date",
-    dataIndex: "appointment",
-    key: "appointment",
-    sorter: true,
-    render: (value: Appointment) => {
-      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-      return (
-        <div className="someclass">{`${date?.formatMMMMDDYYYY(
-          time?.startTime
-        )} `}</div>
-      );
-    },
-  },
-
-  {
-    title: "Total Amount",
-    dataIndex: "amountReceived",
-    key: "amountReceived",
-    sorter: true,
-    render: (value: number) => {
-      return <div className="someclass">{`$${value}`}</div>;
-    },
-  },
-  {
-    title: "Transaction Date",
-    dataIndex: "createdAt",
-    key: "createdAt",
-    sorter: true,
-    render: (value: string) => {
-      return (
-        <div className="someclass">{`${
-          value ? date?.formatDate_n_Time(value) : "--"
-        }`}</div>
-      );
-    },
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    sorter: true,
-    render: (value: string) => {
-      return (
-        <div className="someclass">
-          <Tag color="cyan">{value}</Tag>
-        </div>
-      );
-    },
-  },
-  {
-    title: "",
-    dataIndex: "",
-    key: "view",
-    className: "table-action-icon",
-    render: () => (
-      <div className="text-primary">
-        <EyeFilled />
-      </div>
-    ),
-  },
 ];
 
 type Props = {
@@ -131,7 +35,7 @@ const TransactionHistory = (props: Props) => {
   //     column: `user.${sorter.field}` || "",
   //   });
   // };
-  
+
   function onChange(pagination: any, filters: any, sorter: any, extra: any) {
     console.log("params", pagination, filters, sorter, extra);
   }

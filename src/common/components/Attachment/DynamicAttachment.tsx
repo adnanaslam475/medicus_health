@@ -7,36 +7,34 @@ import png from "../../../../public/assets/images/png.png";
 import zip from "../../../../public/assets/images/zip.jpeg";
 import docx from "../../../../public/assets/images/docx.png";
 import doc from "../../../../public/assets/images/doc.jpg";
+import tiff from "../../../../public/assets/images/tiff.png";
+import bmp from "../../../../public/assets/images/bmp.png";
+import tga from "../../../../public/assets/images/tga.png";
 
-let availableTypes = ["pdf", "jpg", "jpeg", "png", "zip", "doc", "docx"];
-function MediaFile({ type }: any) {
-  const fileIcons = {
-    pdf: pdf,
-    jpg: jpg,
-    jpeg: jpg,
-    png: png,
-    zip: zip,
-    doc: doc,
-    docx: docx,
-    other: pdf,
-  };
+const availableTypes = {
+  "application/pdf": pdf.src,
+  "application/msword": doc.src,
+  "application/doc": doc.src,
+  "application/docx": docx.src,
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+    docx.src,
+  "image/jpeg": jpg.src,
+  "image/png": png.src,
+  "image/tiff": tiff.src,
+  "image/x-tga": tga.src,
+  "image/bmp": bmp.src,
+  "application/zip": zip.src,
+};
 
-  if (availableTypes?.includes(type))
-    return (
-      <Image
-        priority={true}
-        alt=""
-        src={fileIcons[type as keyof typeof fileIcons]}
-        width={24}
-        height={24}
-        className="border rounded border-gray-2 "
-      />
-    );
+type Props = {
+  type?: string;
+};
+function MediaFile({ type }: Props) {
   return (
     <Image
       priority={true}
       alt=""
-      src={pdf}
+      src={availableTypes[type as keyof typeof availableTypes] || pdf.src}
       width={24}
       height={24}
       className="border rounded border-gray-2 "
