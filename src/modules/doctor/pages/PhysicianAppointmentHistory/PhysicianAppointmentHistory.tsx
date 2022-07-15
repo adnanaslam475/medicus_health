@@ -81,6 +81,7 @@ function PatientAppointmentHistory() {
           <PhysicianAppointmentHistoryTable
             data={appointments?.items as Appointment[]}
             loading={fetching}
+            pagination={pagination}
             onChange={onChange}
             meta={appointments?.meta}
             onPaginationChange={onPaginationChange}

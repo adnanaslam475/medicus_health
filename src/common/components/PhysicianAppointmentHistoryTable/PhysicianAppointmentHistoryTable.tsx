@@ -15,12 +15,14 @@ type Props = {
   data?: Appointment[] | undefined;
   loading: boolean | undefined;
   meta: any;
+  pagination: any;
   onPaginationChange: any;
   onChange: () => void;
 };
 
 function PhysicianAppointmentHistoryTable(props: Props) {
-  const { data, loading, meta, onPaginationChange, onChange } = props || {};
+  const { data, loading, meta, onPaginationChange, pagination, onChange } =
+    props || {};
   const historyColumns = [
     {
       title: "ID",
@@ -137,6 +139,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       onChange={onChange}
       pagination={{
         current: meta?.currentPage,
+        total: meta?.totalPages * pagination.limit,
         defaultPageSize: 10,
         onChange: onPaginationChange,
         pageSizeOptions: ["10", "20", "30", "40"],

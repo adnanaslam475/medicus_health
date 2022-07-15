@@ -151,7 +151,7 @@ function AdminPatientsList() {
         : "",
     });
   };
-  console.log("sorteing", sorting);
+
   return (
     <AppLayout>
       <div className="w-full">

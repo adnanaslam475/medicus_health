@@ -1,6 +1,6 @@
 import React from "react";
-import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 import PatientAppointmentHistoryTable from "common/components/PatientAppointmentHistoryTable/PatientAppointmentHistoryTable";
+import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
 
 function AppointmentHistory() {
   // GET ALL APPOINMENTS
@@ -31,11 +31,12 @@ function AppointmentHistory() {
     const [, , sorter] = params;
     setSorting({
       order: sorter.order?.replace("end", "") || "",
-      column: `user.${sorter.field}` || "",
+      column: sorter.order ? `user.${sorter.columnKey}` : "",
     });
   };
 
   const { appointments } = data || {};
+
   return (
     <div className="w-full">
       <div className="flex-none sm:flex items-center justify-between mb-5">
@@ -46,6 +47,7 @@ function AppointmentHistory() {
       <div className="custom-table-ui">
         <PatientAppointmentHistoryTable
           data={appointments?.items}
+          pagination={pagination}
           meta={appointments?.meta}
           onChange={onChange}
           onPaginationChange={onPaginationChange}
