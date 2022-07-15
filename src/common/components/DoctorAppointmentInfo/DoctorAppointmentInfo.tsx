@@ -48,6 +48,7 @@ import MessageButtons from "../MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import RescheduleAppointmentModal from "../RescheduleAppointment/RescheduleAppointment";
+import moment from "moment";
 
 type Props = {
   data: Appointment | undefined;
@@ -528,7 +529,10 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     appointmentDateTime,
   } = data || {};
 
-  const [slot, setSlot] = useState<dateArray>({ startDate: "", endDate: "" });
+  const [slot, setSlot] = useState<dateArray>({
+    startDate: "",
+    endDate: "",
+  });
   const [slots, setSlots] = useState<Array<dateArray>>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] =
@@ -556,6 +560,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
   const [visible, setVisible] = useState<boolean>(true);
+  const [endDateValue, setEndDateValue] = useState<string>("");
 
   useEffect(() => {
     if (data) {
@@ -580,7 +585,12 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
-    setSlot({ ...slot, [name]: dateString });
+    let formatedDate = moment(dateString)
+      .add(30, "minutes")
+      .local()
+      .format("MM-DD-YYYY hh:mm A");
+    setEndDateValue(formatedDate);
+    setSlot({ startDate: dateString, endDate: formatedDate });
   };
 
   function onOkDatePicker(value: any) {}
@@ -626,6 +636,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   function addTimeSlot() {
     setSlots([...slots, slot]);
     setSlot({ startDate: "", endDate: "" });
+    setEndDateValue("");
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
 
@@ -721,16 +732,19 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             />
           </Form.Item> */}
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime && (
-            <Form.Item label="Existing Schedule" name="requestedDate">
+            <Form.Item
+              label="Booked Requested Slot"
+              name="requestedDate"
+              className="font-semibold"
+            >
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
-                <div className="">
+                <div className="font-normal">
                   <div className="text-sm mb-0 w-full">
-                    Date :{`${date.formatMMMMDDYYYY(formatedDueDate)}`}
+                    Date : {`${date.formatMMMMDDYYYY(formatedDueDate)}`}
                   </div>
                   <br />
                   <div className="text-sm mb-0 w-full">
-                    Time:
-                    {`${formatedStartTime} - ${formatedEndTime}`}
+                    Time :{` ${formatedStartTime} - ${formatedEndTime}`}
                   </div>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl"></span>
@@ -743,6 +757,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <AvailabilityTimeSlots
               form={datePickerInstance}
               onChangeDatePicker={onChangeDatePicker}
+              endDateValue={endDateValue}
             />
             {slots?.map((v, index) => (
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
@@ -785,10 +800,18 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 function AvailabilityTimeSlots({
   form,
   onChangeDatePicker,
+  endDateValue,
 }: {
   form: FormInstance<any>;
   onChangeDatePicker?: (dateString: string, name: string) => void;
+  endDateValue?: string;
 }) {
+  console.log(
+    "end date value is",
+    endDateValue,
+    endDateValue === "Invalid date"
+  );
+
   return (
     <div className="block mb-10">
       {/* <TimeSlotPickerForm onChangeDatePicker={onChangeDatePicker} /> */}
@@ -815,13 +838,19 @@ function AvailabilityTimeSlots({
         <div className="w-50">
           <Form.Item label="End Time" name="end_time">
             <Space direction="vertical" size={12}>
-              <DatePicker
-                className="w-full"
-                showTime
-                format={FORMAT_D_T_W_AM_PM}
-                showNow={false}
-                onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
-              />
+              {endDateValue === "Invalid date" || !endDateValue ? (
+                <DatePicker disabled={true} className="w-full" showTime />
+              ) : (
+                <DatePicker
+                  value={moment(endDateValue)}
+                  disabled={true}
+                  className="w-full"
+                  showTime
+                  format={FORMAT_D_T_W_AM_PM}
+                  showNow={false}
+                  // onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
+                />
+              )}
             </Space>
           </Form.Item>
         </div>

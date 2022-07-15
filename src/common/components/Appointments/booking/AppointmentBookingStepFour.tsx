@@ -1,6 +1,6 @@
+import React from "react";
 import { getUserData } from "common/utils/userData";
 import { useGetAppointmentPriceForRequestQuery } from "generated/graphql";
-import React from "react";
 import { date } from "../../../utils";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 

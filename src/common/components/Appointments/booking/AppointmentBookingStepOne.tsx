@@ -38,6 +38,8 @@ type Props = {
   patientData?: User[];
   adminApp_Details?: DoctorData;
   rebookData?: Appointment;
+  clear?: boolean | undefined;
+  setClear?: any;
 };
 
 export const AppointmentBookingStepOne = React.forwardRef(
@@ -47,10 +49,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
     const {
       physician,
-      service,
       price,
+      service,
       requestedDate,
       availability,
+
       charges,
       serviceName,
     } = appoinmentDetails?.stepOne || {};
@@ -60,8 +63,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
       adminData,
       patientData,
       adminApp_Details,
+      setClear,
+      clear,
       rebookData,
     } = props || {};
+
     const { first_name, last_name, id } =
       physicianData?.user || rebookData?.doctor || {};
     const { doctor_Id, doctor_first_name, doctor_last_name } =
@@ -70,6 +76,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
     //   GET ID FROM URL
     const { query } = useRouter();
     const [doctorId, setDoctorId] = useState<number>();
+    const [schedules, setSchedules] = useState([]);
+
     const stepOneDoctorId = physician?.split(":")[0];
     let doctorScheduleId =
       Number(rebookData?.doctorId) ||
@@ -78,6 +86,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       Number(query?.id) ||
       Number(doctorId) ||
       Number(stepOneDoctorId);
+
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesQuery] =
       useDoctorSchedulesQuery({
         variables: {
@@ -89,16 +98,32 @@ export const AppointmentBookingStepOne = React.forwardRef(
     useEffect(() => {
       executeUseDoctorSchedulesQuery({ requestPolicy: "network-only" });
     }, []);
+
     useEffect(() => {
       if (ref) {
         ref.current = formInstance;
       }
     }, []);
+    const isShow =
+      scheduleDetails?.doctorSchedules &&
+      scheduleDetails?.doctorSchedules.length > 0;
+
     useEffect(() => {
       if (appoinmentDetails) {
         prepareAndSetEditPayload();
       }
     }, [appoinmentDetails]);
+
+    useEffect(() => {
+      if (clear) {
+        setSchedules([]);
+        formInstance.resetFields();
+      }
+      if (isShow && !clear) {
+        setSchedules((scheduleDetails?.doctorSchedules as any) || []);
+      }
+    }, [clear, isShow]);
+
     function prepareAndSetEditPayload() {
       let consultationCharges =
         rebookData?.charges ||
@@ -157,12 +182,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     const allAppoinments = data?.data?.appointmentServiceTypes;
 
-    const isShow =
-      scheduleDetails?.doctorSchedules &&
-      scheduleDetails?.doctorSchedules.length > 0;
-
     const { physicianList, patientList } = adminData || {};
     const PhysicianHandler = (physicianId: string) => {
+      setClear(false);
       let doctorId = physicianId.split(":")[0];
       setDoctorId(Number(doctorId));
       setDoctorId(Number(doctorId));
@@ -306,7 +328,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 <Radio.Group
                   defaultValue={appoinmentDetails?.stepOne?.availability}
                 >
-                  {scheduleDetails?.doctorSchedules?.map((item: any) => (
+                  {schedules.map((item: any) => (
                     <Radio.Button
                       key={item?.id}
                       value={item?.id}

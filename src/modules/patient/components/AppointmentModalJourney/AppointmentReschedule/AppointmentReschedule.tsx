@@ -122,6 +122,9 @@ function AppointmentReschedule(props: Props) {
           </Space>
         </Radio.Group>
       </div>
+      <p className="text-red text-center">
+        System fee is not refundable in case of appointment cancellation
+      </p>
     </div>
   );
 }

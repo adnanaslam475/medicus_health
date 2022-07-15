@@ -17,7 +17,7 @@ import _classes from "./AppointmentCard.module.scss";
 import AppointmnetCurrentCard from "./CardTypes/AppointmnetCurrentCard";
 
 type props = {
-  appointmentId?: number |null| undefined;
+  appointmentId?: number | null | undefined;
   requestedDate: string;
   status: string | null | undefined;
   serviceType: string | undefined;
@@ -30,7 +30,7 @@ type props = {
   doctorId?: number | null | undefined;
   patientId?: number | null | undefined;
   transaction?: Transaction | undefined;
-  appointmentDetail?:Appointment | undefined
+  appointmentDetail?: Appointment | undefined;
 };
 
 function AppointmentCard({
@@ -47,22 +47,21 @@ function AppointmentCard({
   doctorId,
   patientId,
   transaction,
-  appointmentDetail
+  appointmentDetail,
 }: props) {
-
   function getStatus() {
     const { user } = getUserData();
     const { role } = user || {};
     if (role === "User" && status === "Requested") {
       return "Pending";
-    } else if (role === "User" && status === "Suggested") {
+    } else if (role === "User" && status === "Proposed") {
       return "Requested";
     } else if (role === "Doctor" && status === "Requested") {
       return "Requested";
     } else if (role === "User" && status === "Rescheduled") {
       return "Rescheduled";
-    } else if (role === "Doctor" && status === "Suggested") {
-      return "Suggested";
+    } else if (role === "Doctor" && status === "Proposed") {
+      return "Proposed";
     }
     return status;
   }
@@ -118,7 +117,7 @@ function AppointmentCard({
           appointmentDetail={appointmentDetail}
         />
       );
-    case "Suggested":
+    case "Proposed":
       return (
         <AppointmnetSuggestedCard
           appointmentId={appointmentId}
