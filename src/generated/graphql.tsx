@@ -13,7 +13,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -426,6 +428,12 @@ export type DoctorEarningsResponse = {
   total_number_of_consultation?: Maybe<Scalars['Float']>;
   total_number_of_patients?: Maybe<Scalars['Float']>;
   total_number_of_second_opinions?: Maybe<Scalars['Float']>;
+};
+
+export type DoctorPayoutResponse = {
+  __typename?: 'DoctorPayoutResponse';
+  appointmentMonths: Array<Scalars['String']>;
+  monthAppointments: Array<Array<Appointment>>;
 };
 
 export type DoctorProfile = {
@@ -1059,6 +1067,7 @@ export type Query = {
   currentAppointments: AppointmentPaginatedResponse;
   doctorBillingMethod: DoctorBillingMethod;
   doctorBillingMethods: Array<DoctorBillingMethod>;
+  doctorPayouts?: Maybe<DoctorPayoutResponse>;
   doctorProfile: DoctorProfile;
   doctorProfiles: Array<DoctorProfile>;
   doctorQuestionnaire: DoctorQuestionnaire;
@@ -1166,6 +1175,11 @@ export type QueryDoctorBillingMethodArgs = {
 
 
 export type QueryDoctorBillingMethodsArgs = {
+  doctorId: Scalars['Int'];
+};
+
+
+export type QueryDoctorPayoutsArgs = {
   doctorId: Scalars['Int'];
 };
 
@@ -2068,6 +2082,13 @@ export type GetAllAppointmentNotesQueryVariables = Exact<{ [key: string]: never;
 
 
 export type GetAllAppointmentNotesQuery = { __typename?: 'Query', appointmentNotes: Array<{ __typename?: 'AppointmentNote', id: number, appointmentId: number, subjective?: string | null, objective?: string | null, assessment?: string | null, plan?: string | null, note?: string | null, isPublished: boolean, createdAt: any, updatedAt: any, appointment?: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null } | null }> };
+
+export type DoctorPayoutsQueryVariables = Exact<{
+  doctorId: Scalars['Int'];
+}>;
+
+
+export type DoctorPayoutsQuery = { __typename?: 'Query', doctorPayouts?: { __typename?: 'DoctorPayoutResponse', appointmentMonths: Array<string>, monthAppointments: Array<Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, transaction?: { __typename?: 'Transaction', transactionId: string, appointmentId: number, id: number, doctor_percentage: string } | null }>> } | null };
 
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3803,6 +3824,39 @@ export const GetAllAppointmentNotesDocument = gql`
 
 export function useGetAllAppointmentNotesQuery(options?: Omit<Urql.UseQueryArgs<GetAllAppointmentNotesQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAllAppointmentNotesQuery>({ query: GetAllAppointmentNotesDocument, ...options });
+};
+export const DoctorPayoutsDocument = gql`
+    query doctorPayouts($doctorId: Int!) {
+  doctorPayouts(doctorId: $doctorId) {
+    appointmentMonths
+    monthAppointments {
+      id
+      doctorId
+      patientId
+      patient {
+        first_name
+        last_name
+      }
+      serviceType {
+        name
+      }
+      appointmentDateTime {
+        startTime
+        endTime
+      }
+      transaction {
+        transactionId
+        appointmentId
+        id
+        doctor_percentage
+      }
+    }
+  }
+}
+    `;
+
+export function useDoctorPayoutsQuery(options: Omit<Urql.UseQueryArgs<DoctorPayoutsQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorPayoutsQuery>({ query: DoctorPayoutsDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {
@@ -6099,6 +6153,54 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DoctorPayoutResponse",
+        "fields": [
+          {
+            "name": "appointmentMonths",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "monthAppointments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "OBJECT",
+                        "name": "Appointment",
+                        "ofType": null
+                      }
+                    }
+                  }
+                }
+              }
             },
             "args": []
           }
@@ -8512,6 +8614,26 @@ export default {
                   }
                 }
               }
+            },
+            "args": [
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "doctorPayouts",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DoctorPayoutResponse",
+              "ofType": null
             },
             "args": [
               {
