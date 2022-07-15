@@ -75,11 +75,13 @@ function UserProfile({ thread }: Props) {
       <div className="w-full pl-3">
         <div className="flex justify-between">
           <span className="text-black text-base">
-            {`${opposite?.first_name} `}
-            <span className="hidden sm:inline">{`${opposite?.last_name}`}</span>
+            {`${opposite?.first_name ? opposite?.first_name : ""} `}
+            <span className="hidden sm:inline">{`${
+              opposite?.last_name ? opposite?.last_name : ""
+            }`}</span>
           </span>
           <span className="text-base text-gray hidden sm:inline">
-            {messageTimein12HoursFomrat}
+            {createdAt ? messageTimein12HoursFomrat : "--"}
           </span>
         </div>
         <div className="sm:flex justify-between hidden ">
@@ -88,7 +90,9 @@ function UserProfile({ thread }: Props) {
               ? "Sent a File"
               : message && message.length > 25
               ? message.substring(0, 25).concat("...")
-              : message}
+              : message
+              ? message
+              : "no message available"}
           </span>
           {/* <span className="rounded-lg bg-red px-2 py-0 text-white">3</span> */}
         </div>

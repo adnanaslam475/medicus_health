@@ -31,7 +31,7 @@ function AppointmentInfo(props: Props) {
       <Form layout="vertical" className="w-1/2">
         <div className="grid grid-cols-2 gap-4">
           <Form.Item
-            label="First Name"
+            label="First name"
             className="text-secondary"
             name="firstName"
           >
@@ -39,7 +39,7 @@ function AppointmentInfo(props: Props) {
           </Form.Item>
 
           <Form.Item
-            label="Last Name"
+            label="Last name"
             className="text-secondary"
             name="lastName"
           >
@@ -53,7 +53,7 @@ function AppointmentInfo(props: Props) {
           </Form.Item>
 
           <Form.Item
-            label="Date of Birth"
+            label="Date of birth"
             className="text-secondary"
             name="dob"
           >
@@ -62,14 +62,14 @@ function AppointmentInfo(props: Props) {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <Form.Item
-            label="Email Address"
+            label="Email address"
             className="text-secondary"
             name="emailaddress"
           >
             <Input disabled />
           </Form.Item>
 
-          <Form.Item label="Cell Number" className="text-secondary" name="cell">
+          <Form.Item label="Cell number" className="text-secondary" name="cell">
             <Input disabled />
           </Form.Item>
         </div>
@@ -84,7 +84,7 @@ function AppointmentInfo(props: Props) {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <Form.Item
-            label="Marital Status"
+            label="Marital status"
             className="text-secondary"
             name="status"
           >
@@ -92,7 +92,7 @@ function AppointmentInfo(props: Props) {
           </Form.Item>
 
 					<Form.Item
-						label="Do you have any Occupational Exposure?"
+						label="Do you have any occupational exposure?"
 						className="text-secondary"
 						name="Exposure"
 					>
