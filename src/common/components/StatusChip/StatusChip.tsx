@@ -6,7 +6,7 @@ import {
   CONFIRMED,
   CANCELLED,
   SUCCEEDED,
-  SUGGESTED,
+  PROPOSED,
   REQUESTED,
   ACTIVE,
   INACTIVE,
@@ -22,7 +22,7 @@ type StatusName =
   | "SUCCEEDED"
   | "CONFIRMED"
   | "REQUESTED"
-  | "SUGGESTED"
+  | "PROPOSED"
   | "CANCELLED"
   | "TRUE"
   | "FALSE"
@@ -83,11 +83,11 @@ const classesAccordingToType: StatusType<StatusName> = {
     text: REQUESTED || "Requested",
     border: "border border-yellow-1",
   },
-  SUGGESTED: {
+  PROPOSED: {
     background: "bg-yellow-1",
     color: "text-yellow",
     border: "border border-yellow-1",
-    text: SUGGESTED || "Suggested",
+    text: PROPOSED || "Proposed",
   },
   RESCHEDULED: {
     background: "bg-yellow-1",

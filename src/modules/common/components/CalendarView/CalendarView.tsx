@@ -234,7 +234,7 @@ function AdminCalender(props: Props) {
                   if (arg.event.extendedProps?.status === "Cancelled") {
                     return [`${_Classes["clsCanceled"]}`];
                   }
-                  if (arg.event.extendedProps?.status === "Suggested") {
+                  if (arg.event.extendedProps?.status === "Proposed") {
                     return [`${_Classes["clsUpcoming"]}`];
                   } else {
                     return [`${_Classes["clsUpcoming"]}`];
@@ -316,7 +316,7 @@ function AdminCalender(props: Props) {
                   if (arg.event.extendedProps?.status === "Cancelled") {
                     return [`${_Classes["clsCanceled"]}`];
                   }
-                  if (arg.event.extendedProps?.status === "Suggested") {
+                  if (arg.event.extendedProps?.status === "Proposed") {
                     return [`${_Classes["clsUpcoming"]}`];
                   } else {
                     return [`${_Classes["clsUpcoming"]}`];
@@ -399,7 +399,7 @@ function AdminCalender(props: Props) {
                 if (arg.event.extendedProps?.status === "Cancelled") {
                   return [`${_Classes["clsCancelled"]}`];
                 }
-                if (arg.event.extendedProps?.status === "Suggested") {
+                if (arg.event.extendedProps?.status === "Proposed") {
                   return [`${_Classes["clsUpcoming"]}`];
                 } else {
                   return [`${_Classes["clsUpcoming"]}`];
