@@ -5,7 +5,6 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import PatientInfoTab from "../UpcomingAppointmentsDetailDoctor/PatientInfoTab";
 import AppointmentInfoTab from "../UpcomingAppointmentsDetailDoctor/AppointmentInfoTab";
-import word from "../../../../../../public/assets/images/word-file.svg";
 import Attachment from "common/components/Attachment/Attachment";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
@@ -36,14 +35,14 @@ function CurrentAppointmentsDetailDoctor() {
   if (urlArr && urlArr.length > 0) {
     urlArr = urlArr[0]?.map((item: any) => ({
       name: item.split("com/")[1],
-      url: item
+      url: item,
     }));
   }
 
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Current Appointments</h2>
+        <h2 className="mb-4">Current appointments</h2>
         <div className="profile-tabs">
           <Tabs type="card">
             <Tabs.TabPane tab="Appointment info" key="1">

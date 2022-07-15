@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, Input, Button, Select, Space, DatePicker, Form } from "antd";
 import {
   CaretDownOutlined,
@@ -122,7 +122,7 @@ function SearchFilters(props: Props) {
     setDoctorId(undefined);
     setServiceIds(undefined);
     selectBookingDateRangeValues(null);
-    selectDueDateRangeValues(null)
+    selectDueDateRangeValues(null);
     setEndDate(null);
     setStartDate(null);
     setOpenBookingDateRange(false);
@@ -327,7 +327,7 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         dueDateRange?.[0]
                       )} -> ${getDateInFormat(dueDateRange?.[1])}`
-                    : "Due Date"}
+                    : "Due date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -341,7 +341,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Due Date
+                    Due date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />

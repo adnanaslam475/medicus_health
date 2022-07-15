@@ -1,71 +1,69 @@
 import React from "react";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import { Table } from "antd";
 import { AppointmentServiceType, User } from "generated/graphql";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "common/utils";
 import { ColumnsType } from "antd/lib/table";
 import { useRoleGuard } from "common/components/RoleGuard/useRoleGuard";
-import { useQuery } from "urql";
 import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {
   dataSource: User[] | undefined;
-  loading:boolean |undefined;
+  meta: any;
+  loading: boolean | undefined;
+  onPaginationChange: any;
+  pagination: any;
+  onChange: (values: any) => void;
 };
 
-function StaffTable({ dataSource,loading }: Props) {
+function StaffTable({
+  dataSource,
+  loading,
+  meta,
+  pagination,
+  onPaginationChange,
+  onChange,
+}: Props) {
   const { isAdmin, isDoctor } = useRoleGuard();
+
   const columns: ColumnsType<User> = [
     {
       title: "ID",
       dataIndex: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "Name",
       dataIndex: "",
-      key: "user",
+      key: "first_name",
       render: (value: any) => {
         return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
       },
-      sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "Email",
       dataIndex: "email",
+      key: "email",
       render: (value: AppointmentServiceType) => {
         return <div>{value}</div>;
       },
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
-      title: "Contact Number",
+      title: "Contact number",
       dataIndex: "contact_number",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
+      sorter: true,
       render: (value: string) => {
         return <div>{value}</div>;
       },
     },
     {
-      title: "Account Creation Date",
+      title: "Account creation date",
       dataIndex: "createdAt",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
+      key: "createdAt",
+      sorter: true,
       render: (value: string) => {
         return <div>{date?.formatMMMMDDYYYY(value)}</div>;
       },
@@ -74,7 +72,7 @@ function StaffTable({ dataSource,loading }: Props) {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      sorter:true,
+      sorter: true,
       className: "table-action-icon",
       render: (value: any) => {
         return (
@@ -113,7 +111,23 @@ function StaffTable({ dataSource,loading }: Props) {
     }
   }
 
-  return <Table columns={columns} dataSource={dataSource} loading={loading} scroll={{x:true}}/>;
+  return (
+    <Table
+      columns={columns}
+      dataSource={dataSource}
+      loading={loading}
+      scroll={{ x: true }}
+      onChange={onChange}
+      pagination={{
+        total: meta?.totalPages * pagination.limit,
+        current: meta?.currentPage,
+        defaultPageSize: 10,
+        onChange: onPaginationChange,
+        pageSizeOptions: ["10", "20", "30", "40"],
+        showSizeChanger: true,
+      }}
+    />
+  );
 }
 
 export default StaffTable;

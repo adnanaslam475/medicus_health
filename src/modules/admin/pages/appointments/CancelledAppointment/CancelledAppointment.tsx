@@ -19,7 +19,6 @@ import { getUserData } from "common/utils/userData";
 import Link from "next/link";
 
 function CancelledAppointment() {
-  const [dueDates, setDueDates] = useState<Date | null>();
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -39,6 +38,7 @@ function CancelledAppointment() {
         serviceId: serviceIds,
         bookingDate: bookingDate,
       },
+      pagination: { limit: -1, page: 1 },
     },
   });
 
@@ -130,10 +130,10 @@ function CancelledAppointment() {
         </div>
         {fetching == false ? (
           <div className="w-full">
-            {appointments?.length !== 0 && appointments ? (
+            {appointments?.items?.length !== 0 && appointments ? (
               // <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
-                {appointments?.map((appointmentDetail, i) => {
+                {appointments.items?.map((appointmentDetail, i) => {
                   const {
                     id,
                     requestedDate,
@@ -178,7 +178,7 @@ function CancelledAppointment() {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        patientData={getPhysicians as User[]}
+        patientData={getPhysicians?.items as User[]}
       />
     </AppLayout>
   );

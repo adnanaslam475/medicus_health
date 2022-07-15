@@ -27,11 +27,11 @@ function PhysicianAppointmentHistoryDetail() {
     },
   });
   const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
+  const appointment = appointments?.items && appointments.items[0];
 
-  let doctorNotes =
-    appointment?.currentAppointmentNote &&
-    Object?.entries(appointment?.currentAppointmentNote);
+  // let doctorNotes =
+  //   appointment?.currentAppointmentNote &&
+  //   Object?.entries(appointment?.currentAppointmentNote);
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));
@@ -44,7 +44,7 @@ function PhysicianAppointmentHistoryDetail() {
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Appointment History Detail</h2>
+        <h2 className="mb-4">Appointment history detail</h2>
         <div className="profile-tabs">
           <Tabs
             type="card"

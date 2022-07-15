@@ -97,7 +97,7 @@ function PhysicianSearchFilters(props: Props) {
         </div>
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
-            placeholder="Payment Status"
+            placeholder="Payment status"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={(e) => onFilterValuesChange("paymentStatus", e)}
             value={filterState.paymentStatus}
@@ -234,7 +234,7 @@ function PhysicianSearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         filterState.dueDate.startDate
                       )} -> ${getDateInFormat(filterState.dueDate.endDate)}`
-                    : "Due Date"}
+                    : "Due date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full ">
@@ -249,7 +249,7 @@ function PhysicianSearchFilters(props: Props) {
                           alt=""
                         />
                       </span>
-                      Due Date
+                      Due date
                     </div>
                     <div>
                       <CaretDownOutlined />

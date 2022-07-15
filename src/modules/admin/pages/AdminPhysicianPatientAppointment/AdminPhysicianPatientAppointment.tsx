@@ -3,7 +3,6 @@ import { Button, notification, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
-  Appointment,
   AppointmentDateTimeResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
@@ -20,6 +19,16 @@ import { StatusName } from "common/types/types";
 
 function AdminPhysicianList() {
   const { query } = useRouter();
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
   const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
 
   const [{ data, fetching }, executeUseAdminPhysicianAppointmentQuery] =
@@ -29,6 +38,8 @@ function AdminPhysicianList() {
           ...filterValues,
           doctorId: Number(query.id),
         },
+        pagination,
+        sorting,
       },
     });
   const { appointments } = data || {};
@@ -41,7 +52,7 @@ function AdminPhysicianList() {
     try {
       appointmentId;
       const res = await PhysicianPaymentByAdmin({
-        paymeninput: {
+        paymentInput: {
           appointmentId: appointmentId,
         },
       });
@@ -69,10 +80,7 @@ function AdminPhysicianList() {
       title: "Appointment ID",
       dataIndex: "id",
       key: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "Patient",
@@ -81,10 +89,7 @@ function AdminPhysicianList() {
       render: (patient: User) => {
         return <div>{`${patient?.first_name} ${patient?.last_name}`}</div>;
       },
-      sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "Service",
@@ -93,55 +98,39 @@ function AdminPhysicianList() {
       render: (serviceType: AppointmentServiceType) => {
         return <div>{serviceType?.name}</div>;
       },
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "Time Slot",
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedStartTime = `${
-          appointmentDateTime?.startTime?.split(" ")[1]
-        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
-        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-          appointmentDateTime?.endTime?.split(" ")[2]
-        }`;
         return (
           <div>
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-              ? `${formatedStartTime} - ${formatedEndTime}`
+              ? `${date?.formathhmma(
+                  appointmentDateTime?.startTime
+                )} - ${date?.formathhmma(appointmentDateTime.endTime)}`
               : "--"}
           </div>
         );
       },
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "Date",
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedDueDate = `${
-          appointmentDateTime?.startTime?.split(" ")[0]
-        }`;
         return (
-          <div>
+          <div className="someclass">
             {appointmentDateTime?.startTime
-              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+              ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
               : "--"}
           </div>
         );
       },
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "Total Amount",
@@ -150,10 +139,7 @@ function AdminPhysicianList() {
       render: (value: User) => {
         return <div>${value}</div>;
       },
-      sorter: {
-        compare: (a: any, b: any) => a.charges - b.charges,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "Status",
@@ -162,10 +148,7 @@ function AdminPhysicianList() {
       render: (status: string) => {
         return <StatusChip type={status.toUpperCase() as StatusName} />;
       },
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
+      sorter: true,
     },
     {
       title: "",
@@ -202,8 +185,20 @@ function AdminPhysicianList() {
     },
   ];
 
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: sorter.order ? `user.${sorter.field}` : "",
+    });
+  };
+
   function onChangeFilters(filterValue: GetAppointmentInput) {
     setFilterValues(filterValue);
+    setPagination({ ...pagination, page: 1 });
     executeUseAdminPhysicianAppointmentQuery({
       filter: filterValues,
       requestPolicy: "network-only",
@@ -223,8 +218,17 @@ function AdminPhysicianList() {
         <div>
           <Table
             columns={columns}
-            dataSource={appointments}
+            dataSource={appointments?.items}
             loading={fetching}
+            onChange={onChange}
+            pagination={{
+              total: Number(appointments?.meta?.totalPages) * pagination.limit,
+              current: appointments?.meta?.currentPage,
+              defaultPageSize: 10,
+              onChange: onPaginationChange,
+              pageSizeOptions: ["10", "20", "30", "40"],
+              showSizeChanger: true,
+            }}
           />
         </div>
       </div>

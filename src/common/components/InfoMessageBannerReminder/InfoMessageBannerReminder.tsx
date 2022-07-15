@@ -38,21 +38,25 @@ const InfoMessageBannerReminder = () => {
         src="/assets/icon/warning-small.svg"
       />
       <span className="ml-3 min-h-max hidden md:block">
-        You Have An Upcomming Appointment With
+        You have an appointment with Dr.
         {getRole() === "Doctor" && (
           <span> {`${patient_first_name} ${patient_last_name}`} </span>
         )}
         {getRole() === "User" && (
           <span> {`${doctor_first_name} ${doctor_last_name}`} </span>
         )}
-        At
+        at
       </span>
-      <span>{date?.formatMMMMDDYYYY(selectedTime?.startTime)}</span>
+      {/* <span>{date?.formatMMMMDDYYYY(selectedTime?.startTime)}</span> */}
+    
+     
       <span>
-        {`${date?.formathhmma(selectedTime?.startTime)} -  ${date?.formathhmma(
+        {/* {`${date?.formathhmma(selectedTime?.startTime)} -  ${date?.formathhmma(
           selectedTime?.endTime
-        )}`}
+        )}`} */}
+          {`${date?.formathhmma(selectedTime?.startTime)}`}
       </span>
+      <span>on {date?.formatDAYMMDD(selectedTime?.startTime)}</span>
 
       {isAppoinmetnStartTime && (
         <Button

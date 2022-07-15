@@ -94,16 +94,16 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
         </div>
         <div className="max-w-[800px]">
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="First Name" value={first_name} />
-            <LabelWithTextDiv label="Last Name" value={last_name} />
+            <LabelWithTextDiv label="First name" value={first_name} />
+            <LabelWithTextDiv label="Last name" value={last_name} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv label="Gender" value={gender} />
             <LabelWithTextDiv label="Date of birth" value={date_of_birth} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Email Address" value={email} />
-            <LabelWithTextDiv label="Cell Number" value={contact_number} />
+            <LabelWithTextDiv label="Email address" value={email} />
+            <LabelWithTextDiv label="Cell number" value={contact_number} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv label="Country" value={countryName} />
@@ -111,25 +111,25 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
           </div>
           <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv label="State" value={state} />
-            <LabelWithTextDiv label="Postal Code" value={zip_code} />
+            <LabelWithTextDiv label="Postal code" value={zip_code} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Street Address" value={streetAddress} />
+            <LabelWithTextDiv label="Street address" value={streetAddress} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Marital Status" value={maritalStatus} />
+            <LabelWithTextDiv label="Marital status" value={maritalStatus} />
             <LabelWithTextDiv
-              label="Do you have any Children?"
+              label="Do you have any children?"
               value={children}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv
-              label="What is your Occupation?"
+              label="What is your occupation?"
               value={occupation}
             />
             <LabelWithTextDiv
-              label="Do you have any Occupational Exposure?"
+              label="Do you have any occupational exposure?"
               value={`${occupationalExposure} ${exposureDuration}`}
             />
           </div>

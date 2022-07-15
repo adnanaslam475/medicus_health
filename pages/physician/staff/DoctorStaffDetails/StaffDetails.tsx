@@ -2,11 +2,11 @@ import React, { SetStateAction } from "react";
 import Router, { useRouter } from "next/router";
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Form, notification } from "antd";
-import AppLayout from "common/components/AppLayout/AppLayout";
+import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import StaffDetailsFrom from "./StaffdetailsForm";
+import AppLayout from "common/components/AppLayout/AppLayout";
 import {
   UpdateStaffInput,
-  useEnableOrDisableDoctorMutation,
   useEnableOrDisableStaffMutation,
   useGetStaffDetailsUrlByIdQuery,
   User,
@@ -18,7 +18,6 @@ import { getUserData } from "common/utils/userData";
 
 // scss
 import _classes from "../../staff/staff.module.scss";
-import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
 function DoctorStaffDetails() {
   const { query } = useRouter();
@@ -68,7 +67,7 @@ function DoctorStaffDetails() {
       }
       if (response.data) {
         notification.success({
-          message: "Staff Delete Successfully",
+          message: "Staff delete successfully",
         });
         Router.push(`/physician/staff`);
 
@@ -76,7 +75,7 @@ function DoctorStaffDetails() {
       }
     } catch (error: any) {
       notification.error({
-        message: error?.message || "Something Went Wrong",
+        message: error?.message || "Something went wrong",
       });
     }
   };
@@ -101,7 +100,7 @@ function DoctorStaffDetails() {
       if (response.data) {
         formInstance.resetFields();
         notification.success({
-          message: "Successfully Updated",
+          message: "Successfully updated",
         });
         Router.push(`/physician/staff`);
         // Router.push({
@@ -126,14 +125,14 @@ function DoctorStaffDetails() {
       }
       if (response.data) {
         notification.success({
-          message: "Staff Updated Successfully",
+          message: "Staff updated successfully",
         });
 
         Router.push(`/physician/staff`);
       }
     } catch (error: any) {
       notification.error({
-        message: error?.message || "Something Went Wrong",
+        message: error?.message || "Something went wrong",
       });
     }
   };
@@ -149,7 +148,7 @@ function DoctorStaffDetails() {
       }
     } catch (error: any) {
       notification.error({
-        message: error?.message || "Something Went Wrong",
+        message: error?.message || "Something went wrong",
       });
     }
   };

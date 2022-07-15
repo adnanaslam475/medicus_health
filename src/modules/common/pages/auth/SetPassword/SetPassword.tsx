@@ -56,7 +56,7 @@ function SetPassword() {
                 // loading="eager"
               />
             </div>
-            <h1 className="text-center text-secondary mb-3">Set Password</h1>
+            <h1 className="text-center text-secondary mb-3">Set password</h1>
             <h5 className="text-center text-gray font-rubik font-normal">
               Enter your new password
             </h5>
