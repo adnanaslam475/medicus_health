@@ -98,7 +98,7 @@ function CancelledAppointmentTable({
       },
     },
     {
-      title: "Appointment Status",
+      title: "Appointment status",
       dataIndex: "status",
       key: "status",
       className: "table-action-icon",
@@ -111,7 +111,7 @@ function CancelledAppointmentTable({
       },
     },
     {
-      title: "Payment Status",
+      title: "Payment status",
       dataIndex: "transaction",
       key: "transaction",
       className: "table-action-icon",
@@ -132,7 +132,7 @@ function CancelledAppointmentTable({
       },
     },
     {
-      title: "Total Amount",
+      title: "Total amount",
       dataIndex: "charges",
       key: "charges",
       sorter: true,

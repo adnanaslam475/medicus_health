@@ -9,9 +9,9 @@ function ConsultationRates() {
 
 	return (
 		<div>
-			<h3 className="pb-0 mb-0 text-base">Appointment Services Charges</h3>
+			<h3 className="pb-0 mb-0 text-base">Appointment services charges</h3>
 			<p className="py-2">
-				The appointment charges are set by the Medicus administrator.
+				The appointment charges are set by the medicus administrator.
 			</p>
       {/* // for loader */}
 			{/* {fetching == false ? (

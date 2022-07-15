@@ -98,7 +98,7 @@ function PatientDetail() {
             tab={
               <span>
                 <UnorderedListOutlined />
-                Health Questionnaire
+                Health questionnaire
               </span>
             }
             key="2"
@@ -110,7 +110,7 @@ function PatientDetail() {
             tab={
               <span>
                 <CalendarOutlined />
-                Appointments History
+                Appointments history
               </span>
             }
             key="3"

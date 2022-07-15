@@ -42,7 +42,7 @@ function CurrentAppointmentsDetailDoctor() {
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Current Appointments</h2>
+        <h2 className="mb-4">Current appointments</h2>
         <div className="profile-tabs">
           <Tabs type="card">
             <Tabs.TabPane tab="Appointment info" key="1">

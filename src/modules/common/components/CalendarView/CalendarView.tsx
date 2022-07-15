@@ -271,7 +271,7 @@ function AdminCalender(props: Props) {
                     },
                   },
                   customText: {
-                    text: "Upcomming Appointments",
+                    text: "Upcomming appointments",
                   },
                   custom1: {
                     text: "Request an appointment",

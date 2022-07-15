@@ -24,13 +24,13 @@ interface Question {
 const HealthQuestionnaryData: Questions = {
   q1: {
     name: "radio_drink",
-    label: "Do you drink Alcohol?*",
+    label: "Do you drink alcohol?*",
     type: "radio",
     ans: null,
     option: ["yes", "no"],
     q: {
       name: "drinks",
-      label: "How many Drinks on average and how often?*",
+      label: "How many drinks on average and how often?*",
       type: "text",
       ans: "",
     },
@@ -115,7 +115,7 @@ const HealthQuestionnaryData: Questions = {
   q4: {
     name: "surgical_history",
     label:
-      "Please list your past Surgical History you have gone thorough. (You can select multiple)*",
+      "Please list your past surgical history you have gone thorough. (You can select multiple)*",
     type: "checkbox",
     ans: "",
     option: [

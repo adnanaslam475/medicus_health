@@ -35,7 +35,7 @@ const MessageButtons = (props: Props) => {
                 })
               }
             >
-              Message Patient
+              Message patient
             </Button>
           ))}
 
@@ -78,7 +78,7 @@ const MessageButtons = (props: Props) => {
                 })
               }
             >
-              Message Admin
+              Message admin
             </Button>
           ))}
       </div>
