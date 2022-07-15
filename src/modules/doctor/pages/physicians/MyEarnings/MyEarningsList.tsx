@@ -320,13 +320,8 @@ const PhysicianMyEarningsList = (props: Props) => {
     },
     {
       title: "Booking date",
-<<<<<<< HEAD
       dataIndex: "createdAt",
       key: "createdAt",
-=======
-      dataIndex: "appointment",
-      key: "appointment",
->>>>>>> 63a203ce1900f690a3a4f4b0fe5f17cea16e337f
       sorter: {
         compare: (a: any, b: any) => a.createAt - b.createAt,
         multiple: 3,
