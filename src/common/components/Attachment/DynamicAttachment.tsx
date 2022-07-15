@@ -16,12 +16,14 @@ const availableTypes = {
   "application/msword": doc.src,
   "application/doc": doc.src,
   "application/docx": docx.src,
+  "application/x-zip-compressed": zip.src,
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
     docx.src,
   "image/jpeg": jpg.src,
   "image/png": png.src,
   "image/tiff": tiff.src,
   "image/x-tga": tga.src,
+  "image/targa": tga.src,
   "image/bmp": bmp.src,
   "application/zip": zip.src,
 };

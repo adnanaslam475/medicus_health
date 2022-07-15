@@ -127,18 +127,43 @@ function BookAppointmentModal({
     setSuccessModal(false);
   };
 
-  const next = (stepName: string) => {
-    if (stepName === "stepFour") return;
-    if (stepName === "stepOne") {
-      setCurrentStepName("stepTwo");
-    } else if (stepName === "stepTwo") {
-      setCurrentStepName("stepThree");
-    } else if (stepName === "stepThree") {
-      setCurrentStepName("stepFour");
+  // const next = (stepName: string) => {
+  //   console.log("netxfunc", stepName);
+  //   if (stepName === "stepFour") return;
+  //   if (stepName === "stepOne") {
+  //     setCurrentStepName("stepTwo");
+  //   } else if (stepName === "stepTwo") {
+  //     setCurrentStepName("stepThree");
+  //   } else if (stepName === "stepThree") {
+  //     setCurrentStepName("stepFour");
+  //   }
+  //   setCurrentStepNumber((prev) => prev + 1);
+  //   form.current?.submit();
+  // };
+
+  const next = async (stepName: string) => {
+    try {
+      const res = await form?.current?.validateFields();
+      if (stepName === "stepFour") return;
+      if (stepName === "stepOne") {
+        setCurrentStepName("stepTwo");
+      } else if (stepName === "stepTwo") {
+        setCurrentStepName("stepThree");
+      } else if (stepName === "stepThree") {
+        setCurrentStepName("stepFour");
+      }
+      setCurrentStepNumber((prev) => prev + 1);
+      form.current?.submit();
+    } catch (error: any) {
+      console.log("error", error);
+      error?.errorFields?.forEach((e: any) => {
+        notification.error({
+          message: e.errors[0],
+        });
+      });
     }
-    setCurrentStepNumber((prev) => prev + 1);
-    form.current?.submit();
   };
+
   const prev = (stepName: string) => {
     if (stepName === "stepOne") return;
     else if (stepName === "stepTwo") {

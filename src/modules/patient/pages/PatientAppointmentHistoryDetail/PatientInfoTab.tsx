@@ -15,14 +15,14 @@ type Props = {};
 function PatientInfoTab({}: Props) {
   const { query } = useRouter();
 
-  const [{ data ,fetching}] = usePhysicianAppointmentsHistoryQuery({
+  const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
       filter: { searchString: String(query?.id), status: "Completed" },
     },
   });
 
   const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
+  const appointment = appointments?.items && appointments.items[0];
 
   const { patient, serviceType } = appointment || {};
   const {

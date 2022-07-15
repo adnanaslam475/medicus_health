@@ -22,8 +22,10 @@ function AdminAppointmentsCalendar() {
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
       filter: {},
+      pagination: { limit: -1, page: 1 },
     },
   });
+
   const redirectToListing = function () {
     Router.push("/admin/appointments");
   };
@@ -55,7 +57,7 @@ function AdminAppointmentsCalendar() {
   const setCalendarData = () => {
     setCalender({
       ...calender,
-      calenderEvents: appointments?.map(
+      calenderEvents: appointments?.items?.map(
         ({
           id,
           patient,

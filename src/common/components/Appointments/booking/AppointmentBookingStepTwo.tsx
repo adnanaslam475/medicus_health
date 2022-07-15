@@ -60,13 +60,11 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   );
 
   const attachmentProps: UploadProps | Object = {
-    accept: ".doc,.docx,.pdf,.zip,.tiff,.tga,image/jpg,image/jpeg,image/jpg,image/bmp,image/x-tga,image/png,image/tga,application/msword,",
+    accept:
+      ".doc,.docx,.pdf,.zip,.tiff,.tga,image/jpg,image/jpeg,image/jpg,image/bmp,image/x-tga,image/png,image/tga,application/msword,",
     name: "file",
     multiple: true,
-    onChange(info: {
-      file: { name?: string; size: number };
-      fileList: any
- }) {
+    onChange(info: { file: { name?: string; size: number }; fileList: any }) {
       let fileListing = info.fileList;
 
       const availableTypes: Object = {
@@ -74,12 +72,14 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
         "application/msword": doc.src,
         "application/doc": doc.src,
         "application/docx": docx.src,
+        "application/x-zip-compressed": zip.src,
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
           docx.src,
         "image/jpeg": jpg.src,
         "image/png": png.src,
         "image/tiff": tiff.src,
         "image/x-tga": tga.src,
+        "image/targa": tga.src,
         "image/bmp": bmp.src,
         "application/zip": zip.src,
       };
@@ -95,7 +95,6 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
         setFileList(stepTwoFiles);
         saveStepTwo?.(stepTwoFiles);
       } else notification.error({ message: "File must smaller than 10 MB!" });
-
     },
     defaultFileList: data?.stepTwo && data?.stepTwo,
     fileList: data?.stepTwo || fileList,

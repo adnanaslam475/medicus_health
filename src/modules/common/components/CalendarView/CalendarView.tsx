@@ -3,9 +3,10 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
-import { getRole } from "../../../../common/utils/userData";
 import _Classes from "./CalendarView.module.scss";
-import { Input, Button } from "antd";
+// import { CloseOutlined } from "@ant-design/icons";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import AdminAppointmentsFilter from "modules/admin/components/AdminAppointmentsFilter/AdminAppointmentsFilter";
 import {
   Appointment,
   GetAppointmentInput,
@@ -14,9 +15,7 @@ import {
   usePhysicianAppointmentsQuery,
   User,
 } from "generated/graphql";
-import { CloseOutlined } from "@ant-design/icons";
-import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
-import AdminAppointmentsFilter from "modules/admin/components/AdminAppointmentsFilter/AdminAppointmentsFilter";
+import { getRole } from "../../../../common/utils/userData";
 
 type Props = {
   handleDateChange: (arg: any | undefined) => void;
@@ -47,7 +46,6 @@ function AdminCalender(props: Props) {
   } = props;
 
   const [isSearch, setIsSearch] = useState<boolean>(false);
-  const [searchText, setSearchText] = useState<string | undefined>("");
   const [filterCalender, setFilterCalender] = useState<events>({
     calenderEvents: [],
   });
@@ -62,6 +60,7 @@ function AdminCalender(props: Props) {
     usePhysicianAppointmentsQuery({
       variables: {
         filter: { ...filterValues, status: "Confirmed" },
+        pagination: { page: 1, limit: -1 },
       },
     });
   const { physicianAppointments } = physicianData || {};
@@ -69,7 +68,7 @@ function AdminCalender(props: Props) {
   const setCalendarData = () => {
     setFilterCalender({
       ...calender,
-      calenderEvents: physicianAppointments?.map(
+      calenderEvents: physicianAppointments?.items?.map(
         ({
           id,
           patient,
@@ -99,17 +98,10 @@ function AdminCalender(props: Props) {
     setCalendarData();
   }, [physicianAppointments]);
 
-  const handleChange = (searchText: string) => {
-    setSearchText(searchText);
-  };
-
-  const onClear = () => {
-    setSearchText("");
-  };
-
   const [{ data: physicianList }] = useGetPhysiciansQuery({
     variables: {
       filter: {},
+      pagination: { page: 1, limit: -1 },
     },
   });
   const { getPhysicians } = physicianList || {};
@@ -117,6 +109,7 @@ function AdminCalender(props: Props) {
   const [{ data: patientList }] = useGetPatientsQuery({
     variables: {
       filter: {},
+      pagination: { page: 1, limit: -1 },
     },
   });
 
@@ -136,8 +129,8 @@ function AdminCalender(props: Props) {
   };
 
   let adminData = {
-    physicianList: getPhysicians,
-    patientList: getPatients,
+    physicianList: getPhysicians?.items,
+    patientList: getPatients?.items,
   };
 
   const onChangeFilters = (values: GetAppointmentInput) => {

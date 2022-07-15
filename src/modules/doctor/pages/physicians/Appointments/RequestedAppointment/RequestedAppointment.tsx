@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AppLayout from "../../../../../../common/components/AppLayout/AppLayout";
-import AppointmentTabs from "../../../../../../../src/modules/doctor/pages/physicians/Appointments/Tabs/AppointmentTabs";
 import RequestedList from "modules/doctor/pages/RequestedList/RequestedList";
+import SearchFilters from "common/components/SearchFilters/SearchFilters";
 import {
   Appointment,
   BookingDate,
   useGetAllRequestedAppointmentsQuery,
 } from "generated/graphql";
-import SearchFilters from "common/components/SearchFilters/SearchFilters";
 
 function RequestedAppointment() {
   const [dueStartDate, setStartDate] = useState<Date | null>();
@@ -18,30 +17,64 @@ function RequestedAppointment() {
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentId, setAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
-  const [status, setStatus] = useState<string>("Requested");
   const [searchPatient, setSearchPatient] = useState<string>();
   const [clearFilter, setClearFilter] = useState<boolean>(false);
-
-  const [{ data,fetching },executeUseGetAllRequestedAppointmentsQuery] = useGetAllRequestedAppointmentsQuery({
-    variables: {
-      filter: {
-        status: status,
-        physicianName: dataListPhysician,
-        doctorId: doctorIds,
-        appointmentId: appointmentId,
-        serviceId: serviceIds,
-        dueDate: dueDate,
-        bookingDate: bookingDate,
-        searchString: searchPatient,
-      },
-    },
-    requestPolicy:"network-only"
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
   });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
+  const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =
+    useGetAllRequestedAppointmentsQuery({
+      variables: {
+        filter: {
+          status: "Requested",
+          physicianName: dataListPhysician,
+          doctorId: doctorIds,
+          appointmentId: appointmentId,
+          serviceId: serviceIds,
+          dueDate: dueDate,
+          bookingDate: bookingDate,
+          searchString: searchPatient,
+        },
+        pagination,
+        sorting,
+      },
+      requestPolicy: "network-only",
+    });
   const { appointments } = data || {};
 
-  useEffect(()=>{
-    executeUseGetAllRequestedAppointmentsQuery({requestPolicy:"network-only"})
-  },[clearFilter])
+  // useEffect(() => {
+  //   executeUseGetAllRequestedAppointmentsQuery({
+  //     requestPolicy: "network-only",
+  //   });
+  // }, [clearFilter]);
+
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: sorter.order
+        ? `${
+            (sorter.columnKey === "name" && "appointment_service_type") ||
+            (["charges", "requestedDate", "createdAt"].includes(
+              sorter.columnKey
+            ) &&
+              "appointment") ||
+            "user"
+          }.${sorter.columnKey || sorter.field}`
+        : "",
+    });
+  };
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -65,7 +98,14 @@ function RequestedAppointment() {
             setClearFilter={setClearFilter}
           />
         </div>
-        <RequestedList appointmentsData={appointments as Appointment[]}  loading={fetching}/>
+        <RequestedList
+          appointmentsData={appointments?.items as Appointment[]}
+          meta={appointments?.meta}
+          onChange={onChange}
+          pagination={pagination}
+          loading={fetching}
+          onPaginationChange={onPaginationChange}
+        />
       </div>
     </AppLayout>
   );

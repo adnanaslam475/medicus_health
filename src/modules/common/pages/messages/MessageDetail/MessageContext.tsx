@@ -31,6 +31,7 @@ type state = {
   loginToRtm?: () => Promise<void>;
   onMessage: (text: string, messageType?: string) => void;
   setCurrentChannel: (channel: ChatChannels) => void;
+  createChatFetching?: boolean | undefined | null;
 };
 
 type MessageInfo = {
@@ -47,6 +48,7 @@ const initialState: state = {
     messagesWithChannel: {},
     currentChannel: undefined,
   },
+  createChatFetching: null,
 };
 
 const MessageContext = createContext(initialState);
@@ -67,6 +69,7 @@ export function MessageContextProvider({
     messagesWithChannel: {},
     currentChannel: undefined,
   });
+  const [createChatFetching, setCreateChatFetching] = useState(false);
   const { query } = useRouter();
   const messageInfoRef = useRef<MessageInfo>(messageInfo);
   messageInfoRef.current = messageInfo;
@@ -75,14 +78,6 @@ export function MessageContextProvider({
   const [{ data }, executeGetAllChatChannelsMutation] =
     useGetAllChatChannelsQuery();
   const { getAllChatChannels } = data || {};
-
-  const receiversData = data?.getAllChatChannels.map(
-    (item) => item.receiverDetail
-  );
-
-  // data?.getAllChatChannels?.map((item) => item?.)
-
-  // const { receiverDetail } = getAllChatChannels || {};
 
   const [{ data: channelMessageData }, executeGetChannelMessagesQuery] =
     useGetChannelMessagesQuery({
@@ -153,7 +148,13 @@ export function MessageContextProvider({
   }, [query?.chat]);
 
   const [, executeGenerateRtcTokenMutation] = useGenerateRtcTokenMutation();
-  const [, executeCreateChatMessageMutation] = useCreateChatMessageMutation();
+  const [{ fetching }, executeCreateChatMessageMutation] =
+    useCreateChatMessageMutation();
+
+  useEffect(() => {
+    setCreateChatFetching(fetching);
+  }, [fetching]);
+
   const { user } = getUserData();
 
   async function getRtmToken(
@@ -365,6 +366,7 @@ export function MessageContextProvider({
           ...messageInfo,
           allChannels: getAllChatChannels as ChatChannels[],
         },
+        createChatFetching,
         onLoginJoinChannel,
         onJoinChannel,
         loginToRtm,
