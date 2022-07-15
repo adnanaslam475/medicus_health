@@ -53,11 +53,12 @@ const Columns = [
     dataIndex: "appointment",
     key: "startTime",
     sorter: true,
-    render: (value: string) => {
+    render: (value: Appointment) => {
+      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
       return (
         <div className="someclass">{`${date?.formatMMMMDDYYYY(
-          String(value)
-        )}`}</div>
+          time?.startTime
+        )} `}</div>
       );
     },
   },
