@@ -81,6 +81,7 @@ function CurrentAppointment({}: CancelledAppointmentProps) {
           {/* <Table dataSource={appointments as Appointment[]} loading={fetching}/> */}
           <CurrentAppointmentTable
             loading={fetching}
+            pagination={pagination}
             onChange={onChange}
             data={appointments?.items as Appointment[]}
             meta={appointments?.meta}

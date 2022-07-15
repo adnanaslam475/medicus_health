@@ -1,6 +1,6 @@
 import React from "react";
 import Router from "next/router";
-import { Table } from "antd";
+import { Pagination, Table } from "antd";
 import {
   Appointment,
   AppointmentDateTimeResponse,
@@ -106,6 +106,7 @@ type Props = {
   onPaginationChange: any;
   onChange: (values: any) => void;
   meta: any;
+  pagination: any;
 };
 
 function UpcomingAppointmentTableDoctor({
@@ -113,6 +114,7 @@ function UpcomingAppointmentTableDoctor({
   loading,
   meta,
   onPaginationChange,
+  pagination,
   onChange,
 }: Props) {
   const footer = (currentPageData: any) => {
@@ -135,7 +137,7 @@ function UpcomingAppointmentTableDoctor({
       scroll={{ x: true }}
       onChange={onChange}
       pagination={{
-        total: meta?.totalItems,
+        total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

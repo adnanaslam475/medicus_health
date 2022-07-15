@@ -92,6 +92,7 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
           <CancelledAppointmentTable
             dataSource={appointments?.items as Appointment[]}
             loading={fetching}
+            pagination={pagination}
             onChange={onChange}
             onPaginationChange={onPaginationChange}
             meta={appointments?.meta}

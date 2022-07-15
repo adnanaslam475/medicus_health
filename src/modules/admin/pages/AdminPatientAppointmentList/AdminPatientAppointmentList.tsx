@@ -222,7 +222,7 @@ function AdminPatientAppointmentList() {
             dataSource={appointments?.items}
             onChange={onChange}
             pagination={{
-              // total: appointments?.meta?.totalItems,
+              total: Number(appointments?.meta?.totalPages) * pagination.limit,
               current: appointments?.meta?.currentPage,
               defaultPageSize: 10,
               onChange: onPaginationChange,

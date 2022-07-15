@@ -102,6 +102,7 @@ function RequestedAppointment() {
           appointmentsData={appointments?.items as Appointment[]}
           meta={appointments?.meta}
           onChange={onChange}
+          pagination={pagination}
           loading={fetching}
           onPaginationChange={onPaginationChange}
         />

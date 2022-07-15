@@ -171,8 +171,7 @@ const UserList = ({}: Props) => {
           loading={fetching}
           onChange={onChange}
           pagination={{
-            // total: adminUsers?.meta?.totalItems,
-            // pageSize: adminUsers?.meta?.itemCount,
+            total: Number(adminUsers?.meta?.totalPages) * pagination.limit,
             current: adminUsers?.meta?.currentPage,
             defaultPageSize: 10,
             onChange: onPaginationChange,

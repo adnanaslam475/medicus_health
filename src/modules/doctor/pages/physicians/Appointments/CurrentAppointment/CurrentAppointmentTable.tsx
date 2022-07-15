@@ -126,12 +126,14 @@ type Props = {
   onPaginationChange: any;
   onChange: () => void;
   meta: any;
+  pagination: any;
 };
 
 function CurrentAppointmentTable({
   data,
   loading,
   meta,
+  pagination,
   onPaginationChange,
   onChange,
 }: Props) {
@@ -143,7 +145,7 @@ function CurrentAppointmentTable({
       onChange={onChange}
       scroll={{ x: true }}
       pagination={{
-        total: meta?.totalItems,
+        total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

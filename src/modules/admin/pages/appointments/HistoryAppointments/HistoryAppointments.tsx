@@ -138,6 +138,7 @@ function CancelledAppointment() {
         <PatientAppointmentHistoryFilter onChange={onChangeFilters} />
         <div className="custom-table-ui">
           <AppointmentHistoryTable
+            pagination={pagination}
             data={appointments?.items as Appointment[]}
             loading={fetching}
             meta={appointments?.meta}

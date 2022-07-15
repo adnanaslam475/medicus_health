@@ -236,7 +236,7 @@ function AdminAppointmentsListing({}: Props) {
     const [, , sorter] = params;
     setSorting({
       order:
-        (["transaction", "status"].includes(sorter.field) &&
+        (/(status|transaction)/.test(sorter.field) &&
           ((sorter.order === "descend" && "asc") ||
             (sorter.order === "ascend" && "desc"))) ||
         sorter.order?.replace("end", "") ||
@@ -255,8 +255,6 @@ function AdminAppointmentsListing({}: Props) {
         }.${sorter.columnKey}` || "",
     });
   };
-
-  console.log("sorintg", sorting);
 
   return (
     <>
@@ -305,6 +303,7 @@ function AdminAppointmentsListing({}: Props) {
                 onChange={onChange}
                 loading={fetching}
                 pagination={{
+                  total: pagination.limit * Number(meta?.totalPages),
                   current: meta?.currentPage,
                   defaultPageSize: 10,
                   onChange: onPaginationChange,

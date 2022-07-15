@@ -79,6 +79,7 @@ function UpcomingAppointmentDoctor() {
         <UpcomingAppointmentTableDoctor
           dataSource={physicianAppointments?.items as Array<Appointment>}
           loading={fetching}
+          pagination={pagination}
           onChange={onChange}
           meta={physicianAppointments?.meta}
           onPaginationChange={onPaginationChange}

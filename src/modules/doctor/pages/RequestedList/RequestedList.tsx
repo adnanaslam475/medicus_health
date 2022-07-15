@@ -130,11 +130,18 @@ type Props = {
   onPaginationChange: any;
   onChange: () => void;
   meta: any;
+  pagination: any;
 };
 
 const RequestedList = (props: Props) => {
-  const { appointmentsData, loading, onPaginationChange, meta, onChange } =
-    props || {};
+  const {
+    appointmentsData,
+    loading,
+    onPaginationChange,
+    pagination,
+    meta,
+    onChange,
+  } = props || {};
 
   return (
     <Table
@@ -144,7 +151,7 @@ const RequestedList = (props: Props) => {
       loading={loading}
       scroll={{ x: true }}
       pagination={{
-        total: meta?.totalItems,
+        total: pagination.limit * meta?.totalPages,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

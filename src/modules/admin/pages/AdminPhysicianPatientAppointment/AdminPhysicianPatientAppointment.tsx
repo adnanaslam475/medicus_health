@@ -192,7 +192,7 @@ function AdminPhysicianList() {
     const [, , sorter] = params;
     setSorting({
       order: sorter.order?.replace("end", "") || "",
-      column: `user.${sorter.field}` || "",
+      column: sorter.order ? `user.${sorter.field}` : "",
     });
   };
 
@@ -222,8 +222,7 @@ function AdminPhysicianList() {
             loading={fetching}
             onChange={onChange}
             pagination={{
-              // total: appointments?.meta?.totalItems,
-              // pageSize: appointments?.meta?.itemCount,
+              total: Number(appointments?.meta?.totalPages) * pagination.limit,
               current: appointments?.meta?.currentPage,
               defaultPageSize: 10,
               onChange: onPaginationChange,

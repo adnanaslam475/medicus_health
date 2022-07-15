@@ -206,8 +206,8 @@ function AdminPhysicianList() {
               onChange={onChange}
               loading={fetching}
               pagination={{
-                // total: getPhysicians?.meta?.totalItems,
-                // pageSize: getPhysicians?.meta?.itemCount,
+                total:
+                  Number(getPhysicians?.meta?.totalPages) * pagination.limit,
                 current: getPhysicians?.meta?.currentPage,
                 defaultPageSize: 10,
                 onChange: onPaginationChange,

@@ -222,7 +222,7 @@ const PhysicianList = (props: Props) => {
         (sorter.order === "ascend" && "asc") ||
         (sorter.order === "descend" && "desc") ||
         "",
-      column: (!!sorter.order && `user.${sorter.field}`) || "",
+      column: sorter.order ? `user.${sorter.field}` : "",
     });
   };
 
@@ -235,7 +235,7 @@ const PhysicianList = (props: Props) => {
       dataSource={Ddata}
       onChange={onChange}
       pagination={{
-        // total: meta?.totalItems,
+        // total: pagination.limit * meta?.totalPages,
         // current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

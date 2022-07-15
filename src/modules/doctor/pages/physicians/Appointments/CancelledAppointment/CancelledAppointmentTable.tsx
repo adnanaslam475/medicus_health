@@ -19,6 +19,7 @@ type Props = {
   onChange: any;
   meta: any;
   onPaginationChange: any;
+  pagination: any;
 };
 
 function CancelledAppointmentTable({
@@ -26,6 +27,7 @@ function CancelledAppointmentTable({
   loading,
   meta,
   onChange,
+  pagination,
   onPaginationChange,
 }: Props) {
   const columns = [
@@ -163,8 +165,7 @@ function CancelledAppointmentTable({
       onChange={onChange}
       scroll={{ x: true }}
       pagination={{
-        total: meta?.totalItems,
-        // pageSize: meta?.itemCount,
+        total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

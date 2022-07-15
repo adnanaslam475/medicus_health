@@ -139,10 +139,12 @@ type Props = {
   meta: any;
   onChange: (values: any) => void;
   onPaginationChange: any;
+  pagination: any;
 };
 
 const AppointmentHistoryTable = (props: Props) => {
-  const { data, loading, meta, onPaginationChange, onChange } = props || {};
+  const { data, loading, meta, onPaginationChange, pagination, onChange } =
+    props || {};
 
   return (
     <Table
@@ -152,8 +154,8 @@ const AppointmentHistoryTable = (props: Props) => {
       onChange={onChange}
       scroll={{ x: true }}
       pagination={{
+        total: pagination.limit * meta?.totalPages,
         current: meta?.currentPage,
-        total: meta?.totalItems,
         defaultPageSize: 10,
         onChange: onPaginationChange,
         pageSizeOptions: ["10", "20", "30", "40"],

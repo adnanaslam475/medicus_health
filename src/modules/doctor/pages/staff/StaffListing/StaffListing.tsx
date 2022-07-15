@@ -162,6 +162,7 @@ function StaffListing() {
               dataSource={staff.items as User[]}
               loading={loading}
               onChange={onChange}
+              pagination={pagination}
               meta={staff?.meta}
               onPaginationChange={onPaginationChange}
             />

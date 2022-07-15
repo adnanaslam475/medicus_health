@@ -13,6 +13,7 @@ type Props = {
   meta: any;
   loading: boolean | undefined;
   onPaginationChange: any;
+  pagination: any;
   onChange: (values: any) => void;
 };
 
@@ -20,6 +21,7 @@ function StaffTable({
   dataSource,
   loading,
   meta,
+  pagination,
   onPaginationChange,
   onChange,
 }: Props) {
@@ -108,7 +110,7 @@ function StaffTable({
       Router.push(`/physician/staff/DoctorStaffDetails/${staffId}`);
     }
   }
-  console.log("meta", meta);
+
   return (
     <Table
       columns={columns}
@@ -117,7 +119,7 @@ function StaffTable({
       scroll={{ x: true }}
       onChange={onChange}
       pagination={{
-        total: meta?.totalItems,
+        total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,
