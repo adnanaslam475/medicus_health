@@ -44,7 +44,7 @@ function PhysicianAppointmentHistoryDetail() {
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Appointment History Detail</h2>
+        <h2 className="mb-4">Appointment history detail</h2>
         <div className="profile-tabs">
           <Tabs
             type="card"

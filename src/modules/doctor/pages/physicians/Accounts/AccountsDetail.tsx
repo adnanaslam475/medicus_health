@@ -68,7 +68,7 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex">Bank Info</span>
+              <span className="font-Circular font-medium flex">Bank info</span>
             }
             key="2"
           >
@@ -93,7 +93,7 @@ function Accounts() {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium flex">
-                Consultation Rates
+                Consultation rates
               </span>
             }
             key="4"
@@ -106,7 +106,7 @@ function Accounts() {
         <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium flex">
-              Email Notification
+              Email notification
               </span>
             }
             key="5"

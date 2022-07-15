@@ -72,7 +72,7 @@ function Accounts() {
           <Tabs.TabPane
             className="w-full"
             tab={
-              <span className="font-Circular font-medium flex">Physician Profile</span>
+              <span className="font-Circular font-medium flex">Physician profile</span>
             }
             key="2"
           >
@@ -105,7 +105,7 @@ function Accounts() {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium flex">
-                Consultation Rates
+                Consultation rates
               </span>
             }
             key="4"

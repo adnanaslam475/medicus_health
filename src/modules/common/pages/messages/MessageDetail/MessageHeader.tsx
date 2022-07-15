@@ -31,7 +31,7 @@ function MessageHeader({}: Props) {
 
   return (
     <div className="flex gap-2 items-center border-b border-gray-4">
-      <div className="flex gap-2 py-4 px-4 max-w-[340px] w-full border-r border-gray-4">
+      <div  className={`flex gap-2 py-4 px-4 max-w-[340px] w-full border-r border-gray-4 ${_classes["search-color-wrapper"]}`} >
         <Input
           size="large"
           placeholder="Search"

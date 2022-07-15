@@ -29,7 +29,7 @@ const columns = [
     },
   },
   {
-    title: "Service",
+    title: "Service type",
     dataIndex: "serviceType",
     key: "name",
     sorter: true,
@@ -38,7 +38,7 @@ const columns = [
     },
   },
   {
-    title: "Booking Date",
+    title: "Booking date",
     dataIndex: "createdAt",
     key: "createdAt",
     render: (bookingDate: string) => {
@@ -47,7 +47,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Due Date",
+    title: "Due date",
     dataIndex: "requestedDate",
     key: "requestedDate",
     render: (dueDate: string) => {
@@ -75,7 +75,7 @@ const columns = [
     },
   },
   {
-    title: "Total Amount",
+    title: "Total amount",
     dataIndex: "charges",
     key: "charges",
     render: (value: number) => {
