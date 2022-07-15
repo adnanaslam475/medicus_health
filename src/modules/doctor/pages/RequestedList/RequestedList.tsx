@@ -144,7 +144,7 @@ const RequestedList = (props: Props) => {
       loading={loading}
       scroll={{ x: true }}
       pagination={{
-        // total: meta?.totalItems,
+        total: meta?.totalItems,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

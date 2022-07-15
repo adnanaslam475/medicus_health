@@ -153,6 +153,7 @@ const AppointmentHistoryTable = (props: Props) => {
       scroll={{ x: true }}
       pagination={{
         current: meta?.currentPage,
+        total: meta?.totalItems,
         defaultPageSize: 10,
         onChange: onPaginationChange,
         pageSizeOptions: ["10", "20", "30", "40"],

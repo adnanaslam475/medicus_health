@@ -108,7 +108,7 @@ function StaffTable({
       Router.push(`/physician/staff/DoctorStaffDetails/${staffId}`);
     }
   }
-
+  console.log("meta", meta);
   return (
     <Table
       columns={columns}
@@ -117,8 +117,8 @@ function StaffTable({
       scroll={{ x: true }}
       onChange={onChange}
       pagination={{
-        // total: meta?.totalItems,
-        // current: meta?.currentPage,
+        total: meta?.totalItems,
+        current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,
         pageSizeOptions: ["10", "20", "30", "40"],

@@ -163,7 +163,7 @@ function CancelledAppointmentTable({
       onChange={onChange}
       scroll={{ x: true }}
       pagination={{
-        // total: meta?.totalItems,
+        total: meta?.totalItems,
         // pageSize: meta?.itemCount,
         current: meta?.currentPage,
         defaultPageSize: 10,

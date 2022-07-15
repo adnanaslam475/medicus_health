@@ -143,7 +143,7 @@ function CurrentAppointmentTable({
       onChange={onChange}
       scroll={{ x: true }}
       pagination={{
-        // total: meta?.totalItems,
+        total: meta?.totalItems,
         current: meta?.currentPage,
         defaultPageSize: 10,
         onChange: onPaginationChange,

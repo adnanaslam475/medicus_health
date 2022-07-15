@@ -12,10 +12,9 @@ import {
 } from "generated/graphql";
 import { date, userData } from "common/utils";
 import { physicianMyEarningsFilterType, StatusName } from "common/types/types";
-// import StatusChip from "common/components/StatusChip/StatusChip";
+import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {};
-
 const Columns = [
   {
     title: "Transaction ID",
@@ -40,7 +39,6 @@ const Columns = [
       );
     },
   },
-
   {
     title: "Service Type",
     dataIndex: "appointment",
@@ -51,23 +49,22 @@ const Columns = [
     },
   },
   {
-    title: "Booking Date",
+    title: "Booking date",
     dataIndex: "appointment",
     key: "startTime",
     sorter: true,
-    render: (value: Appointment) => {
-      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+    render: (value: string) => {
       return (
         <div className="someclass">{`${date?.formatMMMMDDYYYY(
-          time?.startTime
-        )} `}</div>
+          String(value)
+        )}`}</div>
       );
     },
   },
   {
     title: "Scheduled Date",
     dataIndex: "appointment",
-    key: "appointment_time_slots",
+    key: "startTime",
     sorter: true,
     render: (value: Appointment) => {
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
@@ -84,83 +81,109 @@ const Columns = [
     key: "status",
     sorter: true,
     render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.status}`}</div>;
+      return (
+        <div className="w-full text-secondary">
+          <StatusChip type={value?.status?.toUpperCase() as StatusName} />
+        </div>
+      );
     },
   },
   {
     title: "Payment Status",
-    dataIndex: "appointment",
+    dataIndex: "status",
     key: "transaction",
     sorter: true,
-    render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    render: (value: string) => {
+      return (
+        <div className="w-full text-secondary">
+          <StatusChip
+            type={
+              value === "Refunded"
+                ? (value.toUpperCase() as StatusName)
+                : value === "succeeded"
+                ? ("paid".toUpperCase() as StatusName)
+                : ("unpaid".toUpperCase() as StatusName)
+            }
+          />
+        </div>
+      );
     },
   },
   {
     title: "Total Payment($)",
-    dataIndex: "appointment",
+    dataIndex: "appointmentCharges",
     key: "appointment",
     sorter: true,
-    render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+
+    render: (value: number) => {
+      return (
+        <div className="someclass">{`${parseFloat(String(value)).toFixed(
+          2
+        )}`}</div>
+      );
     },
   },
   {
     title: "Refund($)",
-    dataIndex: "appointment",
+    dataIndex: ["appointmentCharges", "status"],
     key: "appointment",
     sorter: true,
-    render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    render: (text: any, row: any) => {
+      return (
+        <div className="someclass">
+          {`${row?.status === "Refunded" ? row?.appointmentCharges : 0}`}
+        </div>
+      );
     },
   },
-  {
-    title: "Return Processing Fee($)",
-    dataIndex: "appointment",
-    key: "appointment",
-    sorter: true,
-    render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
-    },
-  },
-  {
-    title: "Stripe Processing Fee($)",
-    dataIndex: "stripeFee",
-    key: "stripeFee",
-    sorter: true,
-    render: (value: Appointment) => {
-      return <div className="someclass">{`${value}`}</div>;
-    },
-  },
+  // {
+  //   title: "Return Processing Fee($)",
+  //   dataIndex: "appointment",
+  //   key: "appointment",
+
+  //   render: (value: Appointment) => {
+  //     return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+  //   },
+  // },
+  // {
+  //   title: "Stripe Processing Fee($)",
+  //   dataIndex: "stripeFee",
+  //   key: "stripeFee",
+
+  //   render: (value: number) => {
+  //     return <div className="someclass">{`${value}`}</div>;
+  //   },
+  // },
   {
     title: "Net Physician Fee($)",
     dataIndex: "doctor_percentage",
     key: "doctor_percentage",
     sorter: true,
-    render: (value: Appointment) => {
+
+    render: (value: string) => {
       return <div className="someclass">{`${value}`}</div>;
     },
   },
-  {
-    title: "Transaction Date",
-    dataIndex: "appointment",
-    key: "appointment",
-    sorter: true,
-    render: (value: Appointment) => {
-      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-      return (
-        <div className="someclass">{`${date?.formatMMMMDDYYYY(
-          time?.startTime
-        )} `}</div>
-      );
-    },
-  },
-  {
-    title: "Total Earnings",
-    dataIndex: "amountReceived",
-    key: "amountReceived",
-    sorter: true,
-  },
+  // {
+  //   title: "Transaction Date",
+  //   dataIndex: "appointment",
+  //   key: "appointment",
+
+  //   render: (value: Appointment) => {
+  //     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+  //     return (
+  //       <div className="someclass">{`${date?.formatMMMMDDYYYY(
+  //         time?.startTime
+  //       )} `}</div>
+  //     );
+  //   },
+  // },
+  // {
+  //   title: "Total Earnings",
+  //   dataIndex: "amountReceived",
+  //   key: "amountReceived",
+
+  // },
 ];
 
 const PhysicianMyEarningsList = (props: Props) => {
@@ -294,7 +317,7 @@ const PhysicianMyEarningsList = (props: Props) => {
         <MyEarningsSearchFilters onChange={onChangeFilters} />
         <Table
           columns={Columns}
-          dataSource={getTransactionFilter?.items}
+          dataSource={getTransactionFilter?.items as Transaction[]}
           scroll={{ x: true }}
           onChange={onChange}
           loading={fetching}
