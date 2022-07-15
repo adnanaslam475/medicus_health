@@ -1,4 +1,4 @@
-import { Badge, Input, notification, Upload } from "antd";
+import { Badge, Input, notification, Spin, Upload } from "antd";
 import Image from "next/image";
 import React, { useState } from "react";
 import _classes from "./MessageInput.module.scss";
@@ -14,9 +14,10 @@ import { hasValidMessage } from "common/utils/helper";
 
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
-  const { messageInfo, onMessage } = useMessageContext();
-  const [fileList, setFileList] = useState([]);
+  const { messageInfo, onMessage, createChatFetching } = useMessageContext();
 
+  const [fileList, setFileList] = useState([]);
+  const [messageType, setMessageType] = useState("");
   // File Upload Hook
   const mediaUploader = useMediaUploader();
 
@@ -51,12 +52,14 @@ function MessageInput() {
       if (urls.length > 0) {
         urls.map((url) => {
           onMessage?.(url?.url, "Media");
+          setMessageType("Media");
         });
         setFileList([]);
       } else {
         //checking if message contains Aplhanumeric and special characters and not contain only white spaces
         if (hasValidMessage(messageText)) {
           onMessage?.(messageText, "Text");
+          setMessageType("Text");
         }
       }
     }
@@ -100,22 +103,24 @@ function MessageInput() {
           />
           <div className="absolute left-0 top-2 bg-gray-5">
             {fileList.map((file, index) => (
-              <span
-                className="box-border p-1 pt-3 mr-4 bg-gray-9 font-semibold text-white border rounded-md text-left left-0 mx-1"
-                onClick={() => deleteFile(index)}
-              >
-                <Badge
-                  count={<CloseCircleOutlined style={{ color: "#F5222D" }} />}
+              <>
+                <span
+                  className="box-border p-1 pt-3 mr-4 bg-gray-9 font-semibold text-white border rounded-md text-left left-0 mx-1"
+                  onClick={() => deleteFile(index)}
                 >
-                  <Image
-                    priority={true}
-                    alt=""
-                    width={25}
-                    height={25}
-                    src={fileIcon}
-                  />
-                </Badge>
-              </span>
+                  <Badge
+                    count={<CloseCircleOutlined style={{ color: "#F5222D" }} />}
+                  >
+                    <Image
+                      priority={true}
+                      alt=""
+                      width={25}
+                      height={25}
+                      src={fileIcon}
+                    />
+                  </Badge>
+                </span>
+              </>
             ))}
           </div>
 
@@ -142,21 +147,22 @@ function MessageInput() {
               </Dragger>
             </span>
           </span>
-          {/* <span className="absolute top-3 right-14">
-            <Image priority={true} alt="" width={25} height={25} src={smile} />
-          </span> */}
           <span
             className="absolute top-3 right-4 cursor-pointer"
             onClick={onSendMessage}
           >
-            <Image
-              priority
-              unoptimized
-              alt=""
-              width={25}
-              height={25}
-              src={send}
-            />
+            {createChatFetching && messageType === "Media" ? (
+              <Spin />
+            ) : (
+              <Image
+                priority
+                unoptimized
+                alt=""
+                width={25}
+                height={25}
+                src={send}
+              />
+            )}
           </span>
         </>
       )}
