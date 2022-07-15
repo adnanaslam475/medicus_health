@@ -14,7 +14,7 @@ function Physicians() {
         <div className="lg:w-4/5 mx-auto">
           <h2 className="mb-0">Physicians</h2>
           <div className="mb-6">
-            <span className=" min-h-max hidden md:block">
+            <span className=" min-h-max hidden md:block text-secondary">
               If you need help in selecting a suitable physician, our admin team
               is a
               <span>

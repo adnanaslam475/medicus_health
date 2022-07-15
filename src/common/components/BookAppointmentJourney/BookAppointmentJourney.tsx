@@ -89,6 +89,7 @@ function BookAppointmentModal({
   rebookData,
 }: Props) {
   const form = useRef<FormInstance>();
+  const [clear, setClear] = React.useState<boolean>(false);
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
   const [successModal, setSuccessModal] = React.useState<boolean>(false);
@@ -179,6 +180,7 @@ function BookAppointmentModal({
     Number(adminApp_Details?.patient?.patient_id) ||
     Number(adminPatientId) ||
     (id as number);
+
   async function onRequestAppointment() {
     try {
       const urls = await fileUpload(
@@ -186,14 +188,12 @@ function BookAppointmentModal({
           ({ originFileObj }: { originFileObj: File }) => originFileObj
         )
       );
-
       const doctorIdforCreateAppointment =
         Number(rebookData?.doctorId) ||
         Number(doctorData?.doctor_id) ||
         Number(adminApp_Details?.doctor?.doctor_Id) ||
         Number(adminPhysicianId) ||
         Number(query?.id);
-
       const res = await executeCreateAppointmentMutation({
         createAppointment: {
           patientId: patientIdforCreateAppointment,
@@ -205,8 +205,8 @@ function BookAppointmentModal({
           questionnaire: JSON.stringify(appoinmentData?.stepThree),
         },
       });
-
       if (res?.data?.createAppointment) {
+        setClear(true);
         setSuccessModal(true);
         saveStepOne?.({});
         saveStepTwo?.({});
@@ -262,6 +262,7 @@ function BookAppointmentModal({
       return next(currentStepName);
     }
   };
+
   return (
     <Modal
       centered
@@ -282,6 +283,8 @@ function BookAppointmentModal({
             <CurrentStepContent
               stepName={currentStepName}
               doctorData={doctorData}
+              clear={clear}
+              setClear={setClear}
               ref={form}
               adminData={adminData}
               patientData={patientData}

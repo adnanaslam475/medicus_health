@@ -41,7 +41,11 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
       <div className="w-full">
         <div className="flex-none sm:flex items-center justify-between">
           <div className="pr-3 mb-3 sm:mb-0">
+<<<<<<< HEAD
             <h2 className="mb-0">Cancelled appointments</h2>
+=======
+            <h2 className="mb-0">Canceled appointments</h2>
+>>>>>>> 63a203ce1900f690a3a4f4b0fe5f17cea16e337f
           </div>
         </div>
         <div className="">

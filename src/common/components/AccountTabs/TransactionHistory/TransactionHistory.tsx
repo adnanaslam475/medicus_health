@@ -17,7 +17,7 @@ const TransactionHistory = (props: Props) => {
 
   const transactionsColumns = [
     {
-      title: "Transaction ID",
+      title: "ID#",
       dataIndex: "id",
       key: "id",
       sorter: {
@@ -27,7 +27,7 @@ const TransactionHistory = (props: Props) => {
     },
 
     {
-      title: "Doctor",
+      title: "Physician",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {
@@ -41,7 +41,7 @@ const TransactionHistory = (props: Props) => {
       },
     },
     {
-      title: "Service",
+      title: "Service type",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {
@@ -53,7 +53,7 @@ const TransactionHistory = (props: Props) => {
       },
     },
     {
-      title: "Time Slot",
+      title: "Time slot",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {
@@ -70,7 +70,7 @@ const TransactionHistory = (props: Props) => {
       },
     },
     {
-      title: "Date",
+      title: "Appointment date",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {
@@ -88,7 +88,7 @@ const TransactionHistory = (props: Props) => {
     },
 
     {
-      title: "Total Amount",
+      title: "Total amount",
       dataIndex: "amountReceived",
       key: "amountReceived",
       sorter: {
@@ -100,7 +100,7 @@ const TransactionHistory = (props: Props) => {
       },
     },
     {
-      title: "Transaction Date",
+      title: "Transaction date",
       dataIndex: "createdAt",
       key: "createdAt",
       sorter: {
@@ -116,7 +116,7 @@ const TransactionHistory = (props: Props) => {
       },
     },
     {
-      title: "Status",
+      title: "Payment status",
       dataIndex: "status",
       key: "status",
       sorter: {

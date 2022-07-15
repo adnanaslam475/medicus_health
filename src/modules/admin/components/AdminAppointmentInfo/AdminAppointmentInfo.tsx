@@ -116,7 +116,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
         <div>
           <LabelWithText label="ID" text={id} />
           <LabelWithText
-            label="Booking Date"
+            label="Booking date"
             text={date?.formatMMMMDDYYYY(bookingDate as string)}
           />
           <LabelWithText label="Patient" text={patient} />
@@ -130,10 +130,12 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
             <div className="w-full text-gray-1 max-w-[300px]">
               Appointment Status
             </div>
-            <div className="w-full ">
-              <StatusChip
-                type={appointmentStatus?.toUpperCase() as StatusName}
-              />
+            <div className="w-full table-action-icon">
+              <div className="text-primary">
+                <StatusChip
+                  type={appointmentStatus?.toUpperCase() as StatusName}
+                />
+              </div>
             </div>
           </li>
 
@@ -241,7 +243,7 @@ function AdminAppointmentInfoFooter({
               })
             }
           >
-            Message Physician
+            Message physician
           </Button>
           {(appointmentStatus === "Cancelled" ||
             appointmentStatus === "Completed") && (
@@ -305,7 +307,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
             })
           }
         >
-          Message Physician
+          Message physician
         </Button>
       </div>
     </div>

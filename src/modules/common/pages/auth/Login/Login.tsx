@@ -47,7 +47,7 @@ function Login() {
         let userPayload: any = res?.data?.login;
         userPayload.remember = values.remember;
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
-        localStorage.setItem("loginTime",String(new Date().getTime()))
+        localStorage.setItem("loginTime", String(new Date().getTime()));
         if (
           userPayload.user.role === "Doctor" ||
           userPayload.user.role === "Staff"
@@ -57,7 +57,7 @@ function Login() {
           });
         } else if (userPayload.user.role === "User") {
           Router.replace({
-            pathname: "/patient/appointments/upcoming",
+            pathname: "/es/patient/appointments/upcoming",
           });
         } else if (userPayload.user.role === "Admin") {
           Router.replace({
@@ -141,12 +141,11 @@ function Login() {
                         disabled={fetching}
                         className="text-gray primary-checkbox"
                       >
-                       <span className="text-gray">
-                         {t("remember")}</span> 
+                        <span className="text-gray">{t("remember")}</span>
                       </Checkbox>
                       <Link href="/forgotPassword">
                         <a>
-                          <span className="text-primary cursor-pointer"> 
+                          <span className="text-primary cursor-pointer">
                             {t("forgot")}
                           </span>
                         </a>

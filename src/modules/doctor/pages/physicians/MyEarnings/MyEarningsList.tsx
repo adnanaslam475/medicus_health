@@ -1,19 +1,231 @@
 import React, { useState } from "react";
-import { Table, Divider, Tag } from "antd";
+import { Table, Divider, Tag, Skeleton } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MyEarningsStats from "../../../../../common/components/MyEarningsStats/MyEarningsStats";
 import {
   Appointment,
+  GetTransactionFilterQuery,
+  Transaction,
   useGetDoctorEarningsQuery,
   useGetTransactionFilterQuery,
 } from "generated/graphql";
 import { date, userData } from "common/utils";
-import SearchFilters from "common/components/SearchFilters/SearchFilters";
+// import SearchFilters from "common/components/SearchFilters/SearchFilters";
 import { physicianMyEarningsFilterType, StatusName } from "common/types/types";
 import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
 import StatusChip from "common/components/StatusChip/StatusChip";
 
 type Props = {};
+
+const Columns = [
+  {
+    title: "Transaction ID",
+    dataIndex: "id",
+    key: "id",
+    sorter: {
+      compare: (a: any, b: any) => a.id - b.id,
+      multiple: 3,
+    },
+  },
+  {
+    title: "Appointment ID",
+    dataIndex: "appointmentId",
+    key: "appointmentId",
+    sorter: {
+      compare: (a: any, b: any) => a.appointmentId - b.appointmentId,
+      multiple: 3,
+    },
+  },
+  {
+    title: "Patient Name",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: {
+      compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
+      multiple: 3,
+    },
+    render: (value: Appointment) => {
+      return (
+        <div className="someclass">{`${value?.patient?.first_name} ${value?.patient?.last_name}`}</div>
+      );
+    },
+  },
+  {
+    title: "Service Type",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: {
+      compare: (a: any, b: any) => a.appointment - b.appointment,
+      multiple: 3,
+    },
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
+  },
+  {
+    title: "Booking Date",
+    dataIndex: "createdAt",
+    key: "createdAt",
+    sorter: {
+      compare: (a: any, b: any) => a.createAt - b.createAt,
+      multiple: 3,
+    },
+    render: (value: string) => {
+      return (
+        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+          String(value)
+        )}`}</div>
+      );
+    },
+  },
+  {
+    title: "Scheduled Date",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: {
+      compare: (a: any, b: any) => a.appointment - b.appointment,
+      multiple: 3,
+    },
+    render: (value: Appointment) => {
+      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      return (
+        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+          time?.startTime
+        )} `}</div>
+      );
+    },
+  },
+  {
+    title: "Status",
+    dataIndex: "appointment",
+    key: "appointment",
+    sorter: {
+      compare: (a: any, b: any) => a.appointment - b.status,
+      multiple: 3,
+    },
+    render: (value: Appointment) => {
+      return (
+        <div className="w-full text-secondary">
+          <StatusChip type={value?.status?.toUpperCase() as StatusName} />
+        </div>
+      );
+    },
+  },
+  {
+    title: "Payment Status",
+    dataIndex: "status",
+    key: "status",
+    sorter: {
+      compare: (a: any, b: any) => a.status - b.status,
+      multiple: 3,
+    },
+    render: (value: string) => {
+      return (
+        <div className="w-full text-secondary">
+          <StatusChip
+            type={
+              value === "Refunded"
+                ? (value.toUpperCase() as StatusName)
+                : value === "succeeded"
+                ? ("paid".toUpperCase() as StatusName)
+                : ("unpaid".toUpperCase() as StatusName)
+            }
+          />
+        </div>
+      );
+    },
+  },
+  {
+    title: "Total Payment($)",
+    dataIndex: "appointmentCharges",
+    key: "appointmentCharges",
+    sorter: {
+      compare: (a: any, b: any) => a.appointmentCharges - b.appointmentCharges,
+      multiple: 3,
+    },
+    render: (value: number) => {
+      return (
+        <div className="someclass">{`${parseFloat(String(value)).toFixed(
+          2
+        )}`}</div>
+      );
+    },
+  },
+  {
+    title: "Refund($)",
+    dataIndex: ["appointmentCharges", "status"],
+    key: "status",
+    render: (text: any, row: any) => {
+      return (
+        <div className="someclass">
+          {`${row?.status === "Refunded" ? row?.appointmentCharges : 0}`}
+        </div>
+      );
+    },
+  },
+  // {
+  //   title: "Return Processing Fee($)",
+  //   dataIndex: "appointment",
+  //   key: "appointment",
+  //   sorter: {
+  //     compare: (a: any, b: any) => a.appointment - b.appointment,
+  //     multiple: 3,
+  //   },
+  //   render: (value: Appointment) => {
+  //     return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+  //   },
+  // },
+  // {
+  //   title: "Stripe Processing Fee($)",
+  //   dataIndex: "stripeFee",
+  //   key: "stripeFee",
+  //   sorter: {
+  //     compare: (a: any, b: any) => a.stripeFee - b.stripeFee,
+  //     multiple: 3,
+  //   },
+  //   render: (value: number) => {
+  //     return <div className="someclass">{`${value}`}</div>;
+  //   },
+  // },
+  {
+    title: "Net Physician Fee($)",
+    dataIndex: "doctor_percentage",
+    key: "doctor_percentage",
+    sorter: {
+      compare: (a: any, b: any) => a.doctor_percentage - b.doctor_percentage,
+      multiple: 3,
+    },
+    render: (value: string) => {
+      return <div className="someclass">{`${value}`}</div>;
+    },
+  },
+  // {
+  //   title: "Transaction Date",
+  //   dataIndex: "appointment",
+  //   key: "appointment",
+  //   sorter: {
+  //     compare: (a: any, b: any) => a.appointment - b.appointment,
+  //     multiple: 3,
+  //   },
+  //   render: (value: Appointment) => {
+  //     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+  //     return (
+  //       <div className="someclass">{`${date?.formatMMMMDDYYYY(
+  //         time?.startTime
+  //       )} `}</div>
+  //     );
+  //   },
+  // },
+  // {
+  //   title: "Total Earnings",
+  //   dataIndex: "amountReceived",
+  //   key: "amountReceived",
+  //   sorter: {
+  //     compare: (a: any, b: any) => a.amountReceived - b.amountReceived,
+  //     multiple: 3,
+  //   },
+  // },
+];
 
 const PhysicianMyEarningsList = (props: Props) => {
   const { user } = userData.getUserData();
@@ -25,7 +237,7 @@ const PhysicianMyEarningsList = (props: Props) => {
     useState<physicianMyEarningsFilterType>({});
 
   // get Doctor Earnings Stats
-  const [{ data }] = useGetDoctorEarningsQuery({
+  const [{ data ,fetching:myEarningStatsLoading}] = useGetDoctorEarningsQuery({
     variables: {
       id: Number(user?.id),
     },
@@ -108,8 +320,13 @@ const PhysicianMyEarningsList = (props: Props) => {
     },
     {
       title: "Booking date",
+<<<<<<< HEAD
       dataIndex: "createdAt",
       key: "createdAt",
+=======
+      dataIndex: "appointment",
+      key: "appointment",
+>>>>>>> 63a203ce1900f690a3a4f4b0fe5f17cea16e337f
       sorter: {
         compare: (a: any, b: any) => a.createAt - b.createAt,
         multiple: 3,
@@ -279,6 +496,7 @@ const PhysicianMyEarningsList = (props: Props) => {
   return (
     <AppLayout>
       <div className="w-full">
+      <Skeleton loading={myEarningStatsLoading} paragraph={{ rows: 0 }} active>
         <div className="flex mb-0 flex-wrap">
           <MyEarningsStats
             label={"Total consultants"}
@@ -305,6 +523,7 @@ const PhysicianMyEarningsList = (props: Props) => {
             text={`$ ${total_earnings}`}
           />
         </div>
+      </Skeleton>
         <Divider />
 
         <div className="flex justify-between">

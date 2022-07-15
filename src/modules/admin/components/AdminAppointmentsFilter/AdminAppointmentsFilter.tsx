@@ -108,11 +108,11 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 <div>
                   {filterValues.bookingDate
                     ? `${filterValues.bookingDate.startDate} -> ${filterValues.bookingDate.endDate}`
-                    : "Booking Date"}
+                    : "Booking date"}
                 </div>
               )
             }
-            heading="Booking Date"
+            heading="Booking date"
           />
         </div>
         <div className="w-full sm:w-full md:w-full lg:max-w-[200px] -mt-6">

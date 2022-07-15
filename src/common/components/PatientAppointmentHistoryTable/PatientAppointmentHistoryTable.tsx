@@ -1,15 +1,8 @@
-import React, { useState } from "react";
-import { Table, Input, Button, Space, Tag } from "antd";
+import React from "react";
+import { Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "../../utils";
-import {
-  AppointmentServiceType,
-  AppointmentTimeSlots,
-  Transaction,
-  User,
-  usePhysicianAppointmentsHistoryQuery,
-  GetAppointmentInput,
-} from "generated/graphql";
+import { AppointmentServiceType } from "generated/graphql";
 import Router from "next/router";
 
 type Props = {
@@ -18,36 +11,13 @@ type Props = {
 
 function PatientAppointmentHistoryTable(props: Props) {
   const { data } = props || {};
-  // const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
-  //   {}
-  // );
-  // const [{ data, fetching }, executeUsePhysicianAppointmentsQuery] =
-  //   usePhysicianAppointmentsHistoryQuery({
-  //     variables: {
-  //       filter: { ...filterValues },
-  //     },
-  //   });
 
-  // const { appointments } = data || {};
-  // const onChangeFilters = (values: GetAppointmentInput) => {
-  //   setFilterValues(values);
-  //   executeUsePhysicianAppointmentsQuery({
-  //     filter: filterValues,
-  //     requestPolicy: "network-only",
-  //   });
-  // };
-
-  console.log(data, "historyappointmentsData");
 
   const historyColumns = [
     {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.id - b.id,
-      //   multiple: 3,
-      // },
     },
     {
       title: "Doctor",
@@ -61,36 +31,26 @@ function PatientAppointmentHistoryTable(props: Props) {
       title: "Service type",
       dataIndex: "serviceType",
       key: "type",
-      render: (value: any) => {
-        return <div>{`${value?.service_name}`}</div>;
+      render: (value: AppointmentServiceType) => {
+        return <div>{`${value ? value?.name : "--"}`}</div>;
       },
-      // sorter: {
-      //   compare: (a: any, b: any) => a.doctor - b.doctor,
-      //   multiple: 3,
-      // },
     },
     {
       title: "Date",
       dataIndex: "requestedDate",
       key: "requestedDate",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.service - b.service,
-      //   multiple: 3,
-      // },
-      render: (value: any) => {
-        return <div>{`${value?.requestedDate}`}</div>;
+
+      render: (value: string) => {
+        return <div>{`${value ? date?.formatMMMMDDYYYY(value) : "--"}`}</div>;
       },
     },
     {
       title: "Time",
       dataIndex: "requestedDate",
       key: "requestedDate",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      //   multiple: 3,
-      // },
-      render: (value: any) => {
-        return <div>{`${value?.requestedDate}`}</div>;
+
+      render: (value: string) => {
+        return <div>{`${value ? date?.formathhmma(value) : "--"}`}</div>;
       },
     },
 
@@ -108,48 +68,6 @@ function PatientAppointmentHistoryTable(props: Props) {
           />
         </div>
       ),
-    },
-  ];
-  const Ddata = [
-    {
-      ID: "1",
-      // name: "John Brown",
-      doctor: "MD khan",
-      type: "First Consultation",
-      date: "10 march 1998",
-      time: "09:00 AM - 09:30 AM",
-    },
-    {
-      ID: "1",
-      // name: "John Brown",
-      doctor: "MD khan",
-      type: "First Consultation",
-      date: "10 march 1998",
-      time: "09:00 AM - 09:30 AM",
-    },
-    {
-      ID: "1",
-      // name: "John Brown",
-      doctor: "MD khan",
-      type: "First Consultation",
-      date: "10 march 1998",
-      time: "09:00 AM - 09:30 AM",
-    },
-    {
-      ID: "1",
-      // name: "John Brown",
-      doctor: "MD khan",
-      type: "First Consultation",
-      date: "10 march 1998",
-      time: "09:00 AM - 09:30 AM",
-    },
-    {
-      ID: "1",
-      // name: "John Brown",
-      doctor: "MD khan",
-      type: "First Consultation",
-      date: "10 march 1998",
-      time: "09:00 AM - 09:30 AM",
     },
   ];
 

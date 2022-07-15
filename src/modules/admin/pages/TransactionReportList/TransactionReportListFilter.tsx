@@ -95,11 +95,11 @@ function TransactionReportListFilter({ onChange }: Props) {
 								<div>
 								{filterState.bookingDate
 									? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-									: "Booking Date"}
+									: "Booking date"}
 							</div>
 						)
 					}
-					heading="Booking Date"
+					heading="Booking date"
 					/>
            </div>
           <div className="-mt-6 w-full sm:w-60">

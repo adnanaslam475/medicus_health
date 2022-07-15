@@ -226,7 +226,11 @@ function AdminPatientAppointmentList() {
         <AdminPatientAppointmentSearchFilters onChange={onChangeFilters} />
         <div className="w-full">
           <div>
-            <Table columns={columns} dataSource={appointments} scroll={{x:true}} />
+            <Table
+              columns={columns}
+              dataSource={appointments}
+              scroll={{ x: true }}
+            />
           </div>
         </div>
       </CardWithProfileImageInfo>

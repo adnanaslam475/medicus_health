@@ -52,7 +52,11 @@ function CancelledAppointmentsDetailDoctor() {
   return (
     <AppLayout>
       <>
+<<<<<<< HEAD
         <h2 className="mb-4">Cancelled appointments</h2>
+=======
+        <h2 className="mb-4">Canceled appointments</h2>
+>>>>>>> 63a203ce1900f690a3a4f4b0fe5f17cea16e337f
         <div className="profile-tabs">
           <Tabs
             type="card"
