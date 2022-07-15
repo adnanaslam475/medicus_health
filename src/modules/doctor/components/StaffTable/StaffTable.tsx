@@ -49,7 +49,7 @@ function StaffTable({ dataSource,loading }: Props) {
       },
     },
     {
-      title: "Contact Number",
+      title: "Contact number",
       dataIndex: "contact_number",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,
@@ -60,7 +60,7 @@ function StaffTable({ dataSource,loading }: Props) {
       },
     },
     {
-      title: "Account Creation Date",
+      title: "Account creation date",
       dataIndex: "createdAt",
       sorter: {
         compare: (a: any, b: any) => a.timeslot - b.timeslot,

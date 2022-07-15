@@ -70,7 +70,7 @@ const ForgotPassword = () => {
                 />
               </div>
               <h1 className="text-center text-secondary mb-0">
-                Forgot Password
+                Forgot password
               </h1>
               <h5 className="text-center text-gray font-rubik font-normal">
                 Enter your email below to reset password.
@@ -86,7 +86,7 @@ const ForgotPassword = () => {
                   autoComplete="off"
                 >
                   <Form.Item
-                    label="Email Address"
+                    label="Email address"
                     name="email"
                     className="mb-1"
                     rules={[
@@ -112,7 +112,7 @@ const ForgotPassword = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      Reset Password
+                      Reset password
                     </Button>
                   </Form.Item>
 

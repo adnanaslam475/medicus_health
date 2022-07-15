@@ -28,7 +28,7 @@ function PatientSearchFilters() {
         <div className="sm:ml-3 mt-3 sm:mt-0">
           <Select placeholder="Specialization" className="w-full sm:w-40">
             <Option value="Dr.Paul Wallner">Cardiologist</Option>
-            <Option value="Dr.Carolina Giménez">Family Physician</Option>
+            <Option value="Dr.Carolina Giménez">Family physician</Option>
             <Option value="Dr.Megan Perkins">Neurologist</Option>
           </Select>
         </div>

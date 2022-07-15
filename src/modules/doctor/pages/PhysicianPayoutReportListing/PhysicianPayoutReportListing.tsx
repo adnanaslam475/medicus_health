@@ -10,32 +10,32 @@ function PhysicianPayoutReportListing() {
 	const columns = [
 		{ title: "ID", dataIndex: "id", key: "id" },
 		{ title: "Appointment ID", dataIndex: "appointment_id", key: "platform" },
-		{ title: "Patient Name", dataIndex: "patient_name", key: "version" },
+		{ title: "Patient name", dataIndex: "patient_name", key: "version" },
 		{ title: "Service", dataIndex: "service", key: "service" },
 		{
-			title: "Scheduled Date",
+			title: "Scheduled date",
 			dataIndex: "scheduled_date",
 			key: "scheduled_date",
 		},
 		{
-			title: "Physician Fee ($)",
+			title: "Physician fee ($)",
 			dataIndex: "physician_fee",
 			key: "physician_fee",
 		},
 		{
-			title: "Stripe Processing Fee ($)",
+			title: "Stripe processing fee ($)",
 			dataIndex: "stripe_fee",
 			key: "stripe_fee",
 		},
 		{ title: "Refunds ($)", dataIndex: "refund", key: "refund" },
 		{
-			title: "Return Processing Fee ($)",
+			title: "Return processing fee ($)",
 			dataIndex: "return_fee",
 			key: "return_fee",
 		},
 
 		{
-			title: "Net Physician Fee($)",
+			title: "Net physician fee($)",
 			dataIndex: "net_fee",
 			key: "net_fee",
 		},

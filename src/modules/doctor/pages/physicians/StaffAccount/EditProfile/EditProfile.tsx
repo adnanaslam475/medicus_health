@@ -227,7 +227,7 @@ function EditProfile({
     if (res?.data) {
       res?.data?.updateDoctorProfile &&
         notification.success({
-          message: "Updated Successfully",
+          message: "Updated successfully",
         });
       if (getRole() === "Doctor") {
         //checking logged in user email matched with updated email
@@ -237,7 +237,7 @@ function EditProfile({
         // if user changed the email logged out the user
         if (!emailMatched) {
           notification.success({
-            message: "Credentials Updated User Logged out",
+            message: "Credentials updated user logged out",
           });
           logout();
         }
@@ -448,7 +448,7 @@ function EditProfile({
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
-                  label="First Name"
+                  label="First name"
                   name="firstName"
                   rules={[{ required: true, message: "First Name!" }]}
                   className="flex-1"
@@ -489,7 +489,7 @@ function EditProfile({
                 </Form.Item>
 
                 <Form.Item
-                  label="Confirm Password"
+                  label="Confirm password"
                   name="confirmPassword"
                   className="flex-1"
                   dependencies={["password"]}
@@ -525,7 +525,7 @@ function EditProfile({
                   <Input disabled={isStaff} />
                 </Form.Item>
                 <Form.Item
-                  label="Years of Experience"
+                  label="Years of experience"
                   name="year_of_experience"
                   className="flex-1"
                 >
@@ -618,7 +618,7 @@ function EditProfile({
                 </div>
               )}
               <div className={`my-6 ${_classes["professional"]}`}>
-                <h5>Professional Background</h5>
+                <h5>Professional background</h5>
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
                     label="Hospital/Clinic/Institution"
@@ -632,7 +632,7 @@ function EditProfile({
                     className="flex-1"
                   >
                     <Input
-                      value="University of Oklahoma College of Medicine"
+                      value="University of oklahoma college of medicine"
                       disabled={isStaff}
                     />
                   </Form.Item>
@@ -658,7 +658,7 @@ function EditProfile({
                     className="flex-1"
                   >
                     <Input
-                      value="University of Oklahoma College of Medicine"
+                      value="University of oklahoma college of medicine"
                       disabled={isStaff}
                     />
                   </Form.Item>
@@ -684,7 +684,7 @@ function EditProfile({
                     className="flex-1"
                   >
                     <Input
-                      value="University of Oklahoma College of Medicine"
+                      value="University of oklahoma college of medicine"
                       disabled={isStaff}
                     />
                   </Form.Item>
@@ -700,7 +700,7 @@ function EditProfile({
               </div>
 
               <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Educational Background</h6>
+                <h6>Educational background</h6>
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
                     label="University/Institution"
@@ -714,7 +714,7 @@ function EditProfile({
                     className="flex-1"
                   >
                     <Input
-                      value="University of Oklahoma College of Medicine"
+                      value="University of oklahoma college of medicine"
                       disabled={isStaff}
                     />
                   </Form.Item>
@@ -730,7 +730,7 @@ function EditProfile({
                     className="flex-1"
                   >
                     <Input
-                      value="University of Oklahoma College of Medicine"
+                      value="University of oklahoma college of medicine"
                       disabled={isStaff}
                     />
                   </Form.Item>
@@ -748,7 +748,7 @@ function EditProfile({
                     className="flex-1"
                   >
                     <Input
-                      value="University of Oklahoma College of Medicine"
+                      value="University of oklahoma college of medicine"
                       disabled={isStaff}
                     />
                   </Form.Item>
@@ -764,7 +764,7 @@ function EditProfile({
                     className="flex-1"
                   >
                     <Input
-                      value="University of Oklahoma College of Medicine"
+                      value="University of oklahoma college of medicine"
                       disabled={isStaff}
                     />
                   </Form.Item>
@@ -777,14 +777,14 @@ function EditProfile({
                     Close
                   </Button>
                   <Button type="primary" htmlType="submit">
-                    Save Changes
+                    Save changes
                   </Button>
                 </div>
               </Form.Item>
             </Form>
             <Form layout="vertical">
               <div className={`my-6 hidden ${_classes["educational"]}`}>
-                <h6>Login Information</h6>
+                <h6>Login information</h6>
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
                     label="Email Address"
@@ -798,7 +798,7 @@ function EditProfile({
                     className="flex-1"
                   >
                     <Input
-                      value="University of Oklahoma College of Medicine"
+                      value="University of oklahoma college of medicine"
                       disabled={isStaff}
                     />
                   </Form.Item>
@@ -813,7 +813,7 @@ function EditProfile({
                     </Form.Item>
 
                     <Form.Item
-                      label="Confirm Password"
+                      label="Confirm password"
                       name="confirmPassword"
                       // rules={[{ required: true, message: "Confirm password!" }]}
                       className="flex-1"

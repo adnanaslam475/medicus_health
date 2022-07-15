@@ -27,7 +27,7 @@ function PatientList() {
       key: "id",
     },
     {
-      title: "Profile Picture",
+      title: "Profile picture",
       dataIndex: "patientProfile",
       key: "patientProfile",
       render: (value: PatientProfile) => {
@@ -50,7 +50,7 @@ function PatientList() {
       },
     },
     {
-      title: "First Name",
+      title: "First name",
       dataIndex: "first_name",
       key: "first_name",
       render: (value: string) => {
@@ -58,7 +58,7 @@ function PatientList() {
       },
     },
     {
-      title: "Last Name",
+      title: "Last name",
       dataIndex: "last_name",
       key: "last_name",
       render: (value: string) => {
@@ -66,7 +66,7 @@ function PatientList() {
       },
     },
     {
-      title: "Email Address",
+      title: "Email address",
       dataIndex: "email",
       key: "email",
       render: (email: string) => {
@@ -74,7 +74,7 @@ function PatientList() {
       },
     },
     {
-      title: "Contact Number",
+      title: "Contact number",
       dataIndex: "contact_number",
       key: "contact_number",
     },

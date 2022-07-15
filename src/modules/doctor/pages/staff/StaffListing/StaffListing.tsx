@@ -105,7 +105,7 @@ function StaffListing() {
             type="primary"
             icon={<PlusOutlined />}
           >
-            Add Staff
+            Add staff
           </Button>
         </div>
         <div className="">
