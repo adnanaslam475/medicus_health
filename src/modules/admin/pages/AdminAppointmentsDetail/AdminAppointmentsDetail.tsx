@@ -9,7 +9,7 @@ import AdminHealthQuestionnaireFormTab from "./AdminHealthQuestionnaireFormTab";
 import AdminNotesWithTextTab from "./AdminNotesWithTextTab";
 import AdminAttachmentTab from "./PhysicianAttachmentTab";
 import { Appointment, useGetAppointmentByIdQuery } from "generated/graphql";
-import { REQUESTED, SUGGESTED, COMPLETED } from "common/constants/status";
+import { REQUESTED, PROPOSED, COMPLETED } from "common/constants/status";
 import NotesTab from "common/components/NotesTab/NotesTab";
 
 function AdminAppointmentHistoryDetail() {
@@ -26,7 +26,7 @@ function AdminAppointmentHistoryDetail() {
   const doctorNotes =
     appointment?.currentAppointmentNote &&
     Object?.entries(appointment?.currentAppointmentNote);
-  const isNotesShow = [REQUESTED, SUGGESTED, COMPLETED].includes(
+  const isNotesShow = [REQUESTED, PROPOSED, COMPLETED].includes(
     appointment?.status || ""
   );
 
