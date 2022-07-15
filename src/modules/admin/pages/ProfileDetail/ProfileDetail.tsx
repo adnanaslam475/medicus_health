@@ -159,14 +159,17 @@ function ProfileDetail() {
             >
               <StaffListing />
             </TabPane>
-            <Tabs.TabPane  tab={
+            <Tabs.TabPane
+              tab={
                 <span>
-                  <DollarCircleOutlined/>
+                  <DollarCircleOutlined />
                   Consultation Rates
                 </span>
-              }  key="7">
-						<ConsultationRates/>
-						</Tabs.TabPane>
+              }
+              key="7"
+            >
+              <ConsultationRates />
+            </Tabs.TabPane>
           </Tabs>
         </div>
       </div>

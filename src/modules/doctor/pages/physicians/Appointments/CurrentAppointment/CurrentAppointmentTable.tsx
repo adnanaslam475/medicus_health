@@ -11,142 +11,148 @@ import React from "react";
 import { EyeFilled, MessageOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import { date } from "common/utils";
-import { getUserData } from "common/utils/userData";
-import _classes from './CurrentAppointment.module.scss';
+import _classes from "./CurrentAppointment.module.scss";
+
+const columns = [
+  {
+    title: "ID",
+    dataIndex: "id",
+    sorter: true,
+  },
+  {
+    title: "Physician Name",
+    dataIndex: "physician",
+    render: (value: User) => {
+      return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "Type",
+    dataIndex: "serviceType",
+    sorter: true,
+  },
+  {
+    title: "Booking Date",
+    dataIndex: "requestedDate",
+    key: "requestedDate",
+    sorter: true,
+    render: (value: string) => {
+      return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+    },
+  },
+  {
+    title: "Appointment Due Date",
+    dataIndex: "appointmentSchedule",
+    key: "appointmentSchedule",
+    sorter: true,
+  },
+  {
+    title: "Appointment Time",
+    dataIndex: "appointmentScheduletime",
+    key: "appointmentScheduletime",
+    sorter: true,
+  },
+  {
+    title: "",
+    dataIndex: "",
+    key: "",
+    render: () => {
+      return (
+        <div className={`${_classes["button-wrap1"]}`}>
+          <Button>Join</Button>
+        </div>
+      );
+    },
+  },
+  {
+    title: "",
+    dataIndex: "",
+    key: "",
+    render: () => {
+      return (
+        <div className={`${_classes["button-wrap"]}`}>
+          <Button
+            icon={<MessageOutlined />}
+            type="primary"
+            className="bg-primary"
+          >
+            Message Physician
+          </Button>
+        </div>
+      );
+    },
+  },
+  {
+    title: "",
+    dataIndex: "",
+    // key: "",
+    render: () => {
+      return (
+        <div className={`${_classes["button-wrap"]}`}>
+          <Button
+            icon={<MessageOutlined />}
+            type="primary"
+            className="bg-primary"
+          >
+            Message Admin
+          </Button>
+        </div>
+      );
+    },
+  },
+  {
+    title: "",
+    dataIndex: "id",
+    key: "id",
+    className: "table-action-icon text-primary",
+    render: (appointmentId: number) => (
+      <div className="text-primary">
+        <EyeFilled
+          onClick={() => {
+            return Router.push(
+              `/physician/appointments/current/${appointmentId}`
+            );
+          }}
+        />
+      </div>
+    ),
+  },
+];
+
 type Props = {
-  loading:boolean|undefined;
+  loading: boolean | undefined;
+  data: Appointment[] | undefined;
+  onPaginationChange: any;
+  onChange: () => void;
+  meta: any;
+  pagination: any;
 };
 
-function CurrentAppointmentTable({ loading }: Props) {
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Physician Name",
-      dataIndex: "physician",
-      render: (value: User) => {
-        return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
-      },
-
-      sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Type",
-      dataIndex: "serviceType",
-    
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Booking date",
-      dataIndex: "requestedDate",
-      key: "requestedDate",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      //   multiple: 3,
-      // },
-      render: (value: string) => {
-        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
-      },
-    },
-    {
-      title: "Appointment Due Date",
-      dataIndex: "appointmentSchedule",
-      key: "appointmentSchedule",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-     
-    },
-    {
-      title: "Appointment Time",
-      dataIndex: "appointmentScheduletime",
-      key: "appointmentScheduletime",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-   
-    },
-    {
-      title: "",
-      dataIndex: "",
-      key: "",
-      render: () => {
-        return <div className={`${_classes["button-wrap1"]}`}><Button>Join</Button></div>;
-      },
-
-   
-    },
-    {
-      title: "",
-      dataIndex: "",
-      key: "",
-      render: () => {
-        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined/>}  type="primary" className="bg-primary">Message physician</Button></div>;
-      },
-
-   
-    },
-    {
-      title: "",
-      dataIndex: "",
-      key: "",
-      render: () => {
-        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined />} type="primary" className="bg-primary">Message admin</Button></div>;
-      },
-
-   
-    },
-    {
-      title: "",
-      dataIndex: "id",
-      key: "id",
-      className: "table-action-icon text-primary",
-      render: (appointmentId: number) => (
-        <div className="text-primary">
-          <EyeFilled
-            onClick={() => {
-              return Router.push(
-                `/physician/appointments/current/${appointmentId}`
-              );
-            }}
-          />
-        </div>
-      ),
-    },
-
-
-  ];
-  const Ddata = [
-		{
-			id: "1",
-			// name: "John Brown",
-			physician: "MD-2312",
-      serviceType: "First Consultation",
-		
-			requestedDate: "09:00 AM - 09:30 AM",
-			appointmentSchedule: "$40.00",
-      appointmentScheduletime: "$40.00",
-			refund: "$40.00",
-			return_fee: "$40.00",
-      stripe_fee:"$3232",
-			net_fee: "$40.00",
-		},
-		
-	];
-  return <Table columns={columns} dataSource={Ddata} loading={loading} scroll={{x:true}}/>;
+function CurrentAppointmentTable({
+  data,
+  loading,
+  meta,
+  pagination,
+  onPaginationChange,
+  onChange,
+}: Props) {
+  return (
+    <Table
+      columns={columns}
+      dataSource={data}
+      loading={loading}
+      onChange={onChange}
+      scroll={{ x: true }}
+      pagination={{
+        total: meta?.totalPages * pagination.limit,
+        current: meta?.currentPage,
+        defaultPageSize: 10,
+        onChange: onPaginationChange,
+        pageSizeOptions: ["10", "20", "30", "40"],
+        showSizeChanger: true,
+      }}
+    />
+  );
 }
 export default CurrentAppointmentTable;

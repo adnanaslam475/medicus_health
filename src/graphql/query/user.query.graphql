@@ -69,28 +69,42 @@ query getDoctorNotesByAppId($id: Int!) {
   }
 }
 
-query currentAppointments($filter: GetCurrentAppointmentInput!) {
-  currentAppointments(filter: $filter) {
-    id
-    doctorId
-    patientId
-    appointmentDateTime {
-      startTime
-      endTime
+query currentAppointments(
+  $filter: GetCurrentAppointmentInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  currentAppointments(
+    filter: $filter
+    pagination: $pagination
+    sorting: $sorting
+  ) {
+    items {
+      id
+      doctorId
+      patientId
+      appointmentDateTime {
+        startTime
+        endTime
+      }
+      appointmentTimeSlots {
+        startTime
+        endTime
+        selected
+      }
+      doctor {
+        first_name
+        last_name
+      }
+      serviceType {
+        name
+      }
+      status
     }
-    appointmentTimeSlots {
-      startTime
-      endTime
-      selected
+    meta {
+      totalPages
+      currentPage
     }
-    doctor {
-      first_name
-      last_name
-    }
-    serviceType {
-      name
-    }
-    status
   }
 }
 
