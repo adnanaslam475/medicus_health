@@ -1,4 +1,4 @@
-import { DatePicker, Button, Tooltip } from "antd";
+import { Button, Tooltip } from "antd";
 import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 
@@ -17,8 +17,6 @@ import BookAppointmentJourney from "common/components/BookAppointmentJourney/Boo
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
 
-const { RangePicker } = DatePicker;
-
 function CancelledAppointment() {
   //Get logged in User
   const { user } = getUserData();
@@ -27,6 +25,15 @@ function CancelledAppointment() {
   const [filterValues, setFilterValues] = useState<GetAppointmentInput>({
     status: "Completed",
   });
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showAppointmentBookingModal = () => {
@@ -46,6 +53,8 @@ function CancelledAppointment() {
     useGetAllRequestedAppointmentsQuery({
       variables: {
         filter: filterValues,
+        pagination: { limit: -1, page: 1 },
+        sorting,
       },
     });
   const { appointments } = data || {};
@@ -53,17 +62,41 @@ function CancelledAppointment() {
   const [{ data: physicianList }] = useGetPhysiciansQuery({
     variables: {
       filter: {},
+      pagination: { limit: -1, page: 1 },
     },
   });
   const { getPhysicians } = physicianList || {};
 
   function onChangeFilters(values: GetAppointmentInput) {
+    setPagination({ ...pagination, page: 1 });
     setFilterValues({ ...values, status: "Completed" });
     executeUseGetAllRequestedAppointmentsQuery({
       filter: filterValues,
       requestPolicy: "network-only",
     });
   }
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: sorter.order
+        ? `${
+            (sorter.field === "transaction" && "transaction") ||
+            (/(status|charges|requestedDate|createdAt|id)/.test(
+              sorter.columnKey
+            ) &&
+              "appointment") ||
+            (sorter.columnKey === "name" && "appointment_service_type") ||
+            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+            "user"
+          }.${sorter.columnKey || sorter.field}`
+        : "",
+    });
+  };
+
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: Number(loggedInUser) },
     requestPolicy: "network-only",
@@ -105,15 +138,19 @@ function CancelledAppointment() {
         <PatientAppointmentHistoryFilter onChange={onChangeFilters} />
         <div className="custom-table-ui">
           <AppointmentHistoryTable
-            data={appointments as Appointment[]}
+            pagination={pagination}
+            data={appointments?.items as Appointment[]}
             loading={fetching}
+            meta={appointments?.meta}
+            onChange={onChange}
+            onPaginationChange={onPaginationChange}
           />
         </div>
         <BookAppointmentJourney
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
-          patientData={getPhysicians as User[]}
+          patientData={getPhysicians?.items as User[]}
         />
       </div>
     </AppLayout>

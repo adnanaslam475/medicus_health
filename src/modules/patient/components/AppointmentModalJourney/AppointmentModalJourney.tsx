@@ -9,7 +9,10 @@ import {
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../generated/graphql";
 import _classes from ".//AppointmentModal.module.scss";
-import { AppointmentModalProvider, useAppointmentModal } from "./AppointmentModalProvider";
+import {
+  AppointmentModalProvider,
+  useAppointmentModal,
+} from "./AppointmentModalProvider";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import config from "./../../../../../config";
@@ -29,7 +32,6 @@ function AppointmentModalJourney({
 }: Props) {
   const [currentStepName, setCurrentStepName] = useState<string>("stepOne");
   const [currentStepNumber, setCurrentStepNumber] = React.useState<number>(0);
-  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   useEffect(() => {
     if (visible) {
@@ -62,12 +64,13 @@ function AppointmentModalJourney({
 
   const { appointment } = data || {};
   const appointmentPaymentStatus = appointment?.transaction?.status;
-  const [
-    { data: rebookAppointmentData, fetching },
-    executeUseReBookAppointmentMutation,
-  ] = useReBookAppointmentMutation();
+  // const [
+  //   { data: rebookAppointmentData, fetching },
+  //   executeUseReBookAppointmentMutation,
+  // ] = useReBookAppointmentMutation();
 
-  const { data:appointmentContextData } = useAppointmentModal();
+  const { data: appointmentContextData } = useAppointmentModal();
+
   const next = (stepName: string) => {
     if (stepName === "stepFour") return;
     if (appointmentPaymentStatus === "succeeded") {

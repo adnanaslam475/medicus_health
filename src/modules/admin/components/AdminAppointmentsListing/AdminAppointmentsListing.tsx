@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Table, Tag, Modal, Select } from "antd";
+import { Button, Table, Select } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Link from "next/link";
 import Router from "next/router";
@@ -7,7 +7,6 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import AdminAppointmentsFilter from "../AdminAppointmentsFilter/AdminAppointmentsFilter";
 import {
-  Appointment,
   AppointmentDateTimeResponse,
   AppointmentServiceType,
   GetAppointmentInput,
@@ -20,49 +19,36 @@ import { date } from "common/utils";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { StatusName } from "common/types/types";
 
-type AdminData = {
-  patientList: User[];
-  physicianList: User[];
-};
-
 const appointmentColumns = [
   {
     title: "ID",
     dataIndex: "id",
-    key: "",
-    sorter: {
-      compare: (a: any, b: any) => a.doctor_id - b.doctor_id,
-      multiple: 3,
-    },
+    key: "id",
+    sorter: true,
   },
   {
     title: "Patient Name",
     dataIndex: "patient",
-    key: "patient",
+    key: "first_name",
     render: (value: User) => {
       return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
     },
-    sorter: {
-      compare: (a: any, b: any) => a.first_name - b.first_name,
-      multiple: 3,
-    },
+    sorter: true,
   },
   {
     title: "Physician",
     dataIndex: "doctor",
-    key: "doctor",
+    key: "first_name",
     render: (value: User) => {
       return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
     },
-    sorter: {
-      compare: (a: any, b: any) => a.first_name - b.first_name,
-      multiple: 3,
-    },
+    sorter: true,
   },
   {
     title: "Type",
     dataIndex: "serviceType",
-    key: "serviceType",
+    key: "name",
+    sorter: true,
     render: (serviceType: AppointmentServiceType) => {
       return <div>{`${serviceType?.name}`}</div>;
     },
@@ -70,6 +56,8 @@ const appointmentColumns = [
   {
     title: "Booking date",
     dataIndex: "createdAt",
+    key: "createdAt",
+    sorter: true,
     render: (bookingDate: string) => {
       return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;
     },
@@ -77,6 +65,8 @@ const appointmentColumns = [
   {
     title: "Due Date",
     dataIndex: "appointmentDateTime",
+    key: "startTime",
+    sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
       return (
@@ -91,11 +81,8 @@ const appointmentColumns = [
   {
     title: "Appointment Time",
     dataIndex: "appointmentDateTime",
-    key: "appointmentDateTime",
-    sorter: {
-      compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      multiple: 3,
-    },
+    key: "requestedDate",
+    sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedStartTime = `${
         appointmentDateTime?.startTime?.split(" ")[1]
@@ -116,6 +103,7 @@ const appointmentColumns = [
     title: "Appointment Status",
     dataIndex: "status",
     key: "status",
+    sorter: true,
     className: "table-action-icon",
     render: (value: any) => {
       return (
@@ -128,8 +116,9 @@ const appointmentColumns = [
   {
     title: "Payment Status",
     dataIndex: "transaction",
-    key: "transaction",
+    key: "status",
     className: "table-action-icon",
+    sorter: true,
     render: (value: any) => {
       let _status = null;
       if (value?.status === "succeeded") {
@@ -150,6 +139,7 @@ const appointmentColumns = [
     title: "Total Amount",
     dataIndex: "charges",
     key: "charges",
+    sorter: true,
     render: (charges: AppointmentServiceType) => <div>{`$${charges}`}</div>,
   },
   {
@@ -169,61 +159,101 @@ const appointmentColumns = [
   },
 ];
 
+type AdminData = {
+  patientList: User[];
+  physicianList: User[];
+};
+
 type Props = {};
 
 function AdminAppointmentsListing({}: Props) {
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
   );
-  const [{ data, fetching }, executeUsePhysicianAppointmentsQuery] =
-    usePhysicianAppointmentsHistoryQuery({
-      variables: {
-        filter: { ...filterValues },
-      },
-    });
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
+  const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
+    variables: {
+      filter: { ...filterValues },
+      pagination,
+      sorting,
+    },
+  });
 
   const { appointments } = data || {};
+  const { items: appointmentItems, meta } = appointments || {};
+
   const onChangeFilters = (values: GetAppointmentInput) => {
+    setSorting({ column: "", order: "" });
+    setPagination({ ...pagination, page: 1 });
     setFilterValues(values);
-    executeUsePhysicianAppointmentsQuery({
-      filter: filterValues,
-      requestPolicy: "network-only",
-    });
   };
+
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
 
   const [{ data: physicianList }] = useGetPhysiciansQuery({
     variables: {
       filter: {},
+      pagination: { limit: -1, page: 1 },
     },
   });
+
   const { getPhysicians } = physicianList || {};
 
   const [{ data: patientList }] = useGetPatientsQuery({
     variables: {
       filter: {},
+      pagination: { limit: -1, page: 1 },
     },
   });
 
   const { getPatients } = patientList || {};
-
   let adminData = {
-    physicianList: getPhysicians,
-    patientList: getPatients,
+    physicianList: getPhysicians?.items,
+    patientList: getPatients?.items,
   };
-  function onChange() {}
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+  const showModal = () => setIsModalVisible(true);
 
   const handleOk = () => {
     setIsModalVisible(false);
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const handleCancel = () => setIsModalVisible(false);
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order:
+        (/(status|transaction)/.test(sorter.field) &&
+          ((sorter.order === "descend" && "asc") ||
+            (sorter.order === "ascend" && "desc"))) ||
+        sorter.order?.replace("end", "") ||
+        "",
+      column:
+        `${
+          (["transaction"].includes(sorter.field) && "transaction") ||
+          (sorter.columnKey === "name" && "appointment_service_type") ||
+          (/startTime/.test(sorter.columnKey) && "appointment_time_slots") ||
+          (/(status|charges|requestedDate|createdAt|id)/.test(
+            sorter.columnKey
+          ) &&
+            "appointment") ||
+          (/doctor/.test(sorter.field) && "user") ||
+          "patient"
+        }.${sorter.columnKey}` || "",
+    });
   };
 
   return (
@@ -269,10 +299,17 @@ function AdminAppointmentsListing({}: Props) {
             <div className="">
               <Table
                 columns={appointmentColumns}
-                dataSource={appointments}
+                dataSource={appointmentItems}
                 onChange={onChange}
                 loading={fetching}
-                scroll={{x:true}}
+                pagination={{
+                  total: pagination.limit * Number(meta?.totalPages),
+                  current: meta?.currentPage,
+                  defaultPageSize: 10,
+                  onChange: onPaginationChange,
+                  pageSizeOptions: ["10", "20", "30", "40"],
+                  showSizeChanger: true,
+                }}
               />
             </div>
           </div>

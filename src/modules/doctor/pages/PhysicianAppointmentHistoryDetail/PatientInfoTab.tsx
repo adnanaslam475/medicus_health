@@ -23,7 +23,7 @@ function PatientInfoTab({}: Props) {
   });
 
   const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
+  const appointment = appointments?.items && appointments.items[0];
 
   const { patient, serviceType } = appointment || {};
   const {

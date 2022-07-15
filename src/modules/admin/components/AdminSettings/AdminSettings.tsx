@@ -161,7 +161,9 @@ function AdminSettings() {
               </Form.Item>
             </div>
 
-            <div className= {`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}>
+            <div
+              className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}
+            >
               <Form.Item
                 label="Medicus Cut"
                 name="consultation_charges_medicus_cut"
@@ -179,7 +181,9 @@ function AdminSettings() {
               </div>
             </div>
 
-            <div className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}>
+            <div
+              className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}
+            >
               <Form.Item
                 label="Physician Cut"
                 name="consultation_charges_physician_cut"
@@ -211,7 +215,9 @@ function AdminSettings() {
                 </Form.Item>
               </div>
 
-              <div className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}>
+              <div
+                className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}
+              >
                 <Form.Item
                   label="Medicus Cut"
                   name="second_opinion_charges_medicus_cut"
@@ -229,7 +235,9 @@ function AdminSettings() {
                 </div>
               </div>
 
-              <div className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}>
+              <div
+                className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}
+              >
                 <Form.Item
                   label="Physician Cut"
                   name="second_opinion_charges_physician_cut"

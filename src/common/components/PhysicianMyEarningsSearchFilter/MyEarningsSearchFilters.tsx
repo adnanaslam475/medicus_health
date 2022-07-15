@@ -40,11 +40,14 @@ function MyEarningsSearchFilters(props: Props) {
   const [openDateRangeTwo, setOpenDateRangeTwo] = useState(false);
   const [dateRange, setDateRange] = useState<BookingDate>({});
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
+
   const [visible, setVisible] = useState(false);
   const [refundVisible, setRefundVisible] = useState(false);
   const [totalPaymentsVisible, setTotalPaymentsVisible] = useState(false);
+
   const [{ data }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = data || {};
+
   function clear() {
     form.resetFields();
     setFilterState({});
@@ -64,15 +67,19 @@ function MyEarningsSearchFilters(props: Props) {
       [key]: value,
     };
     setFilterState(filters);
+
     if (!filters?.searchString) {
       delete filters?.searchString;
     }
+
     if (!filters?.serviceId) {
       delete filters?.serviceId;
     }
+
     if (!filters?.DateRange?.startDate && !filters?.DateRange?.startDate) {
       delete filters?.DateRange;
     }
+
     if (!filters?.earnings?.initial && !filters?.earnings?.final) {
       delete filters?.earnings;
     }
@@ -82,8 +89,10 @@ function MyEarningsSearchFilters(props: Props) {
     // if (!filters?.charges?.initialCharges && !filters?.charges?.finalCharges) {
     //   delete filters?.refunds;
     // }
+
     onChange(filters);
   }
+
   function onFinishLocal(values: { minValue: number; maxValue: number }) {
     onChangeFields("earnings", {
       initial: Number(values?.minValue),
@@ -115,15 +124,19 @@ function MyEarningsSearchFilters(props: Props) {
   const totalPaymentsRangeFilter = (
     <TotalPaymentsDropdown onFinishLocal={onFinishLocalTotalPayments} form={form} />
   );
+
   const onHandleVisible = () => {
     setVisible(!visible);
   };
+
   const onHandleRefundsVisible = () => {
     setRefundVisible(!refundVisible);
   };
+
   const onHandleTotalPaymentsVisible = () => {
     setTotalPaymentsVisible(!totalPaymentsVisible);
   };
+
   return (
     <div
       className={`${_classes["page-filters"]} flex items-center mb-5 flex-wrap`}
@@ -295,10 +308,10 @@ function MyEarningsSearchFilters(props: Props) {
         </div>
         <div className="w-full md:w-96 md:ml-2 lg:ml-2  sm:mt-3 md:mt-0">
           <Select
-            placeholder="Payment status"
+            placeholder="Payment Status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
             className="w-full sm:w-50"
-            value={filterState?.paymentStatus || "Payment status"}
+            value={filterState?.paymentStatus || "Payment Status"}
           >
             <Select.Option value="paid">PAID</Select.Option>
             <Select.Option value="unpaid">UNPAID</Select.Option>

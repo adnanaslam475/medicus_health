@@ -1,7 +1,7 @@
 import React from "react";
+import Router from "next/router";
 import { Table, Tag } from "antd";
 import { EyeFilled } from "@ant-design/icons";
-import { date } from "../../utils";
 import {
   Appointment,
   AppointmentServiceType,
@@ -9,15 +9,20 @@ import {
   Transaction,
   User,
 } from "generated/graphql";
-import Router from "next/router";
+import { date } from "../../utils";
 
 type Props = {
   data?: Appointment[] | undefined;
   loading: boolean | undefined;
+  meta: any;
+  pagination: any;
+  onPaginationChange: any;
+  onChange: () => void;
 };
 
 function PhysicianAppointmentHistoryTable(props: Props) {
-  const { data, loading } = props || {};
+  const { data, loading, meta, onPaginationChange, pagination, onChange } =
+    props || {};
   const historyColumns = [
     {
       title: "ID",
@@ -34,11 +39,10 @@ function PhysicianAppointmentHistoryTable(props: Props) {
         return <div>{`${date?.formatMMMMDDYYYY(value)} `}</div>;
       },
     },
-
     {
       title: "Appointment type",
       dataIndex: "serviceType",
-      key: "serviceType",
+      key: "name",
       sorter: true,
       render: (value: AppointmentServiceType) => {
         return <div>{`${value?.name}`}</div>;
@@ -47,16 +51,22 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     {
       title: "Patient name",
       dataIndex: "patient",
-      key: "patient",
+      key: "first_name",
       sorter: true,
       render: (value: User) => {
-        return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
+        return (
+          <div>
+            {value?.first_name
+              ? `${value?.first_name} ${value?.last_name}`
+              : "--"}
+          </div>
+        );
       },
     },
     {
       title: "Appointment due date",
       dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
+      key: "appointment_time_slots",
       sorter: true,
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time.selected);
@@ -66,7 +76,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     {
       title: "Appointment time",
       dataIndex: "appointmentTimeSlots",
-      key: "appointmentTimeSlots",
+      key: "appointment_time_slots",
       sorter: true,
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time.selected);
@@ -80,13 +90,16 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     {
       title: "Total amount",
       dataIndex: "transaction",
-      key: "transaction",
+      key: "amountReceived",
       sorter: true,
       render: (value: Transaction) => {
-        return <div>{value?.amountReceived ? "$" + value?.amountReceived :"--"}</div>;
+        return (
+          <div>
+            {value?.amountReceived ? "$" + value?.amountReceived : "--"}
+          </div>
+        );
       },
     },
-
     {
       title: "Payment status",
       dataIndex: "status",
@@ -117,7 +130,23 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     },
   ];
 
-  return <Table columns={historyColumns} dataSource={data} loading={loading} scroll={{x:true}} />;
+  return (
+    <Table
+      columns={historyColumns}
+      dataSource={data}
+      loading={loading}
+      scroll={{ x: true }}
+      onChange={onChange}
+      pagination={{
+        current: meta?.currentPage,
+        total: meta?.totalPages * pagination.limit,
+        defaultPageSize: 10,
+        onChange: onPaginationChange,
+        pageSizeOptions: ["10", "20", "30", "40"],
+        showSizeChanger: true,
+      }}
+    />
+  );
 }
 
 export default PhysicianAppointmentHistoryTable;

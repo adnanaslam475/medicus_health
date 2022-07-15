@@ -7,7 +7,6 @@ import {
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   GetCurrentAppointmentInput,
-  BookingDate,
   useCurrentAppointmentsQuery,
   useGetPhysiciansQuery,
   User,
@@ -18,9 +17,22 @@ function CurrentAppointment() {
   const [filterValues, setFilterValues] = useState({});
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
   const [{ data, fetching }, executeUseCurrentAppointmentsQuery] =
     useCurrentAppointmentsQuery({
-      variables: { filter: filterValues },
+      variables: {
+        filter: { status: "ongoing", ...filterValues },
+        pagination,
+        sorting,
+      },
     });
 
   const { currentAppointments } = data || {};
@@ -45,12 +57,22 @@ function CurrentAppointment() {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
   const [{ data: physicianList }] = useGetPhysiciansQuery({
     variables: {
       filter: {},
+      pagination,
+      sorting,
     },
   });
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: `user.${sorter.field}` || "",
+    });
+  };
+
   const { getPhysicians } = physicianList || {};
 
   return (
@@ -82,10 +104,10 @@ function CurrentAppointment() {
         </div>
         {!fetching ? (
           <div className="w-full">
-            {currentAppointments?.length ? (
+            {currentAppointments?.items?.length ? (
               // <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
-                {currentAppointments?.map((currentAppointment) => {
+                {currentAppointments.items?.map((currentAppointment) => {
                   return (
                     <AppointmentCard
                       doctorId={currentAppointment?.doctorId}
@@ -127,7 +149,7 @@ function CurrentAppointment() {
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
-          patientData={getPhysicians as User[]}
+          patientData={getPhysicians?.items as User[]}
         />
       </div>
     </AppLayout>

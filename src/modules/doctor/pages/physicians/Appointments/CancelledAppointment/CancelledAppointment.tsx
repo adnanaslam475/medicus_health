@@ -1,7 +1,6 @@
 import React from "react";
-import { Empty } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import Table from "./CancelledAppointmentTable";
+import CancelledAppointmentTable from "./CancelledAppointmentTable";
 import CanncelledAppointmentFilter from "modules/doctor/pages/appointments/CancelAppointmentFilter";
 import {
   Appointment,
@@ -17,6 +16,14 @@ type CancelledAppointmentProps = {};
 function CancelledAppointment({}: CancelledAppointmentProps) {
   const [filterValues, setFilterValues] =
     React.useState<cancelAppointmentFilterType>({});
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
 
   const [{ data, fetching }, executeUseCancelledAppointmentsQuery] =
     useGetAllRequestedAppointmentsQuery({
@@ -25,17 +32,44 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
           status: "Cancelled",
           ...filterValues,
         },
+        pagination,
+        sorting,
       },
     });
   const { appointments } = data || {};
 
   function onChangeFilters(values: physicianFilterType) {
+    setPagination({ ...pagination, page: 1 });
     setFilterValues(values);
+    setSorting({ column: "", order: "" });
     executeUseCancelledAppointmentsQuery({
       filter: filterValues,
       requestPolicy: "network-only",
     });
   }
+
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: sorter.order
+        ? `${
+            (sorter.columnKey === "name" && "appointment_service_type") ||
+            (/(status|charges)/.test(sorter.columnKey) && "appointment") ||
+            (sorter.columnKey === "appointment_time_slots" &&
+              "appointment_time_slots") ||
+            "patient"
+          }.${
+            (sorter.columnKey === "appointment_time_slots" && "startTime") ||
+            sorter.columnKey
+          }`
+        : "",
+    });
+  };
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -55,9 +89,13 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
               <Empty />
             </div>
           )} */}
-          <Table
-            dataSource={appointments as Appointment[]}
+          <CancelledAppointmentTable
+            dataSource={appointments?.items as Appointment[]}
             loading={fetching}
+            pagination={pagination}
+            onChange={onChange}
+            onPaginationChange={onPaginationChange}
+            meta={appointments?.meta}
           />
         </div>
       </div>
