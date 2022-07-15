@@ -3,7 +3,6 @@ import CalendarView from "../../common/components/CalendarView/CalendarView";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import {
   Appointment,
-  useGetAllRequestedAppointmentsQuery,
   usePhysicianAppointmentsQuery,
 } from "../../../generated/graphql";
 import CalendarModalComponent from "../../common/components/CalendarModal";
@@ -24,28 +23,33 @@ function DoctorCalendar() {
   });
   const [modalData, setModalData] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
-  const [doctorIds, setDoctorId] = useState<number>();
   const [{ data }] = usePhysicianAppointmentsQuery({
     variables: {
-      filter: {status:"Confirmed"},
+      filter: { status: "Confirmed" },
+      pagination: { limit: -1, page: 1 },
     },
   });
   const { physicianAppointments } = data || {};
 
   const handleDateClick = (arg: any) => {
     const data = arg?.event?.toJSON();
-    let selectedTimeSlot = data?.extendedProps?.appointmentTimeSlots && data?.extendedProps?.appointmentTimeSlots.find((item:any)=>item.selected)
+    let selectedTimeSlot =
+      data?.extendedProps?.appointmentTimeSlots &&
+      data?.extendedProps?.appointmentTimeSlots.find(
+        (item: any) => item.selected
+      );
     setModalData({
       id: data?.id,
       patient: data?.extendedProps?.patient,
       serviceType: data?.extendedProps?.serviceType,
       dateValue: selectedTimeSlot?.startTime || data.start,
       className: data?.extendedProps?.extraData?.class_name,
-      startDate:  selectedTimeSlot?.startTime || data?.extendedProps?.extraData?.start,
+      startDate:
+        selectedTimeSlot?.startTime || data?.extendedProps?.extraData?.start,
       endDate: selectedTimeSlot?.endTime || data?.extendedProps?.extraData?.end,
       status: data?.extendedProps?.status,
       charges: data?.extendedProps?.charges,
-      appointmentTimeSlots:data?.extendedProps?.appointmentTimeSlots,
+      appointmentTimeSlots: data?.extendedProps?.appointmentTimeSlots,
       type: "Assignment",
     });
 
@@ -59,15 +63,25 @@ function DoctorCalendar() {
   const setCalendarData = () => {
     setCalender({
       ...calender,
-      calenderEvents: physicianAppointments?.map(
-        ({ id, patient, requestedDate, serviceType, charges,appointmentTimeSlots }) => ({
+      calenderEvents: physicianAppointments?.items?.map(
+        ({
+          id,
+          patient,
+          requestedDate,
+          serviceType,
+          charges,
+          appointmentTimeSlots,
+        }) => ({
           id: id,
           title: patient?.first_name,
-          start: appointmentTimeSlots && appointmentTimeSlots.find((item)=>item.selected)?.startTime || requestedDate,
+          start:
+            (appointmentTimeSlots &&
+              appointmentTimeSlots.find((item) => item.selected)?.startTime) ||
+            requestedDate,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
           charges: charges,
-          appointmentTimeSlot:appointmentTimeSlots
+          appointmentTimeSlot: appointmentTimeSlots,
         })
       ),
     });

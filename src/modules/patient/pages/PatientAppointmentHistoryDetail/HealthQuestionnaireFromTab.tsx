@@ -14,7 +14,7 @@ function HealthQuestionnaireFrom() {
     requestPolicy: "network-only",
   });
   const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
+  const appointment = appointments?.items && appointments.items[0];
   return (fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />

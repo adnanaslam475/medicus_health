@@ -8,21 +8,109 @@ import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import AdminUserSearchFilters from "common/components/AdminUserFilter/AdminUserSearchFilters";
 
+const Columns = [
+  {
+    title: "ID",
+    dataIndex: "id",
+    key: "id",
+    sorter: true,
+  },
+
+  {
+    title: "Name",
+    dataIndex: "",
+    key: "first_name",
+    sorter: true,
+    render: (value: User) => {
+      return (
+        <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
+      );
+    },
+  },
+
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+    sorter: true,
+    render: (value: User) => {
+      return <div className="someclass">{`${value}`}</div>;
+    },
+  },
+  {
+    title: "Account Creation Date",
+    dataIndex: "createdAt",
+    key: "createdAt",
+    sorter: true,
+    render: (value: User) => {
+      return (
+        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+          String(value)
+        )} `}</div>
+      );
+    },
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    sorter: true,
+    render: (value: string) => {
+      return (
+        <div className="someclass">
+          {value ? (
+            <Tag color="cyan">{"Active"}</Tag>
+          ) : (
+            <Tag color="red">{"Disabled"}</Tag>
+          )}
+        </div>
+      );
+    },
+  },
+  {
+    dataIndex: "id",
+    className: "table-action-icon",
+    key: "id",
+    render: (userId: number) => (
+      <div className="text-primary">
+        <EyeFilled
+          onClick={() => {
+            return Router.push(`/admin/edituser/${userId}`);
+          }}
+        />
+      </div>
+    ),
+  },
+];
+
 type Props = {};
 
-const UserList = (props: Props) => {
+const UserList = ({}: Props) => {
   const [filterValues, setFilterValues] = useState<adminUserFilterType>({});
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
 
   //GET ALL ADMIN USERS LIST WITH FILTERS
-  const [{ data ,fetching}, executeUseGetAdminUsersQuery] = useGetAdminUsersQuery({
-    variables: {
-      filter: filterValues,
-    },
-  });
+  const [{ data, fetching }, executeUseGetAdminUsersQuery] =
+    useGetAdminUsersQuery({
+      variables: {
+        filter: filterValues,
+        pagination,
+        sorting,
+      },
+    });
 
   const { adminUsers } = data || {};
 
   function onChangeFilters(values: adminUserFilterType) {
+    setPagination({ ...pagination, page: 1 });
+    setSorting({ column: "", order: "" });
     setFilterValues(values);
     executeUseGetAdminUsersQuery({
       filter: filterValues,
@@ -30,95 +118,35 @@ const UserList = (props: Props) => {
     });
   }
 
-  const Columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
-        multiple: 3,
-      },
-    },
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
 
-    {
-      title: "Name",
-      dataIndex: "",
-      key: "user",
-      sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
-        multiple: 3,
-      },
-      render: (value: User) => {
-        return (
-          <div className="someclass">{`${value?.first_name} ${value?.last_name}`}</div>
-        );
-      },
-    },
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
 
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      sorter: {
-        compare: (a: any, b: any) => a.email - b.email,
-        multiple: 3,
-      },
-      render: (value: User) => {
-        return <div className="someclass">{`${value}`}</div>;
-      },
-    },
-    {
-      title: "Account Creation Date",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      sorter: {
-        compare: (a: any, b: any) => a.createdAt - b.createdAt,
-        multiple: 3,
-      },
-      render: (value: User) => {
-        return (
-          <div className="someclass">{`${date?.formatMMMMDDYYYY(
-            String(value)
-          )} `}</div>
-        );
-      },
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.status - b.status,
-        multiple: 3,
-      },
-      render: (value: string) => {
-        return (
-          <div className="someclass">
-            {value ? (
-              <Tag color="cyan">{"Active"}</Tag>
-            ) : (
-              <Tag color="red">{"Disabled"}</Tag>
-            )}
-          </div>
-        );
-      },
-    },
-    {
-      dataIndex: "id",
-      className: "table-action-icon",
-      key: "id",
-      render: (userId: number) => (
-        <div className="text-primary">
-          <EyeFilled
-            onClick={() => {
-              return Router.push(`/admin/edituser/${userId}`);
-            }}
-          />
-        </div>
-      ),
-    },
-  ];
+    setSorting({
+      order:
+        (sorter.order === "ascend" &&
+          sorter.columnKey === "status" &&
+          "desc") ||
+        (sorter.order === "ascend" &&
+          !(sorter.columnKey === "status") &&
+          "asc") ||
+        (sorter.order === "ascend" &&
+          !(sorter.columnKey === "status") &&
+          "asc") ||
+        (sorter.order === "descend" &&
+          sorter.columnKey === "status" &&
+          "asc") ||
+        (sorter.order === "descend" &&
+          !(sorter.columnKey === "status") &&
+          "desc") ||
+        "",
+      column: sorter.order
+        ? `user.${sorter.columnKey || sorter.field}` || ""
+        : "",
+    });
+  };
 
   return (
     <AppLayout>
@@ -137,7 +165,20 @@ const UserList = (props: Props) => {
         </div>
 
         <AdminUserSearchFilters onChange={onChangeFilters} />
-        <Table columns={Columns} dataSource={adminUsers} loading={fetching} />
+        <Table
+          columns={Columns}
+          dataSource={adminUsers?.items}
+          loading={fetching}
+          onChange={onChange}
+          pagination={{
+            total: Number(adminUsers?.meta?.totalPages) * pagination.limit,
+            current: adminUsers?.meta?.currentPage,
+            defaultPageSize: 10,
+            onChange: onPaginationChange,
+            pageSizeOptions: ["10", "20", "30", "40"],
+            showSizeChanger: true,
+          }}
+        />
       </div>
     </AppLayout>
   );

@@ -14,7 +14,7 @@ function HealthQuestionnaireFromTab() {
     requestPolicy: "network-only",
   });
   const { appointments } = data || {};
-  const appointment = appointments && appointments[0];
+  const appointment = appointments?.items && appointments.items[0];
 
   return (
     <div className="md:max-w-1/2">

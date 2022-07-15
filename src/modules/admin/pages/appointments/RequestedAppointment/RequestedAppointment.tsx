@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import {
-  Appointment,
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   BookingDate,
@@ -11,14 +10,14 @@ import {
   usePatientHealthHistoryQuery,
   User,
 } from "../../../../../generated/graphql";
-import { Button, Empty, Select, Spin, Tooltip } from "antd";
+import { Button, Empty, Spin, Tooltip } from "antd";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
 import Link from "next/link";
 import AppointmentModalJourney from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { getUserData } from "common/utils/userData";
 
-function  RequestedAppointment() {
+function RequestedAppointment() {
   const [dueStartDate, setStartDate] = useState<BookingDate>();
   const [dueEndDate, setEndDate] = useState<BookingDate>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -56,6 +55,8 @@ function  RequestedAppointment() {
         serviceId: serviceIds,
         dueDate: bookingDate,
       },
+      pagination: { limit: -1, page: 1 },
+      sorting: { order: "", column: "" },
     },
   });
 
@@ -77,6 +78,7 @@ function  RequestedAppointment() {
   const [{ data: physicianList }] = useGetPhysiciansQuery({
     variables: {
       filter: {},
+      pagination: { limit: -1, page: 1 },
     },
   });
   const { getPhysicians } = physicianList || {};
@@ -149,10 +151,10 @@ function  RequestedAppointment() {
 
           {fetching == false ? (
             <div className="w-full">
-              {appointments?.length !== 0 && appointments ? (
+              {appointments?.items?.length !== 0 && appointments ? (
                 // <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 gap-4">
                 <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
-                  {appointments?.map((appointmentDetail, i) => {
+                  {appointments?.items?.map((appointmentDetail, i) => {
                     const {
                       id,
                       requestedDate,
@@ -160,7 +162,7 @@ function  RequestedAppointment() {
                       serviceType,
                       doctor,
                       appointmentTimeSlots,
-                      appointmentDateTime
+                      appointmentDateTime,
                     } = appointmentDetail || {};
                     return (
                       <AppointmentCard
@@ -175,7 +177,6 @@ function  RequestedAppointment() {
                         appointmentDateTime={
                           appointmentDateTime as AppointmentDateTimeResponse
                         }
-                        
                         onViewSuggestedSlots={() =>
                           onViewSuggestedSlots(Number(appointmentDetail?.id))
                         }
@@ -205,7 +206,7 @@ function  RequestedAppointment() {
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
-          patientData={getPhysicians as User[]}
+          patientData={getPhysicians?.items as User[]}
         />
       </>
     </AppLayout>

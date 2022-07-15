@@ -124,261 +124,391 @@ query doctorAppointmentDetailPatientInfo($id: Int!) {
   }
 }
 
-query physicianAppointments($filter: GetPhysicianAppointmentInput!) {
-  physicianAppointments(filter: $filter) {
-    id
-    patient {
-      first_name
-      last_name
-    }
-    serviceType {
-      name
-    }
-    appointmentTimeSlots {
-      startTime
-      endTime
-      selected
-    }
-    appointmentDateTime {
-      startTime
-      endTime
-    }
-    createdAt
-    requestedDate
-    charges
-    status
-  }
-}
-
-query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
-  appointments(filter: $filter) {
-    id
-    doctorId
-    charges
-    serviceId
-    patientId
-    createdAt
-    reportUrl
-    requestedDate
-    serviceType {
-      name
-    }
-    patient {
-      first_name
-      last_name
-      gender
-      email
-      date_of_birth
-      contact_number
-      country_id
-      city_id
-      patientProfile {
-        maritalStatus
-        children
-        occupation
-        occupationalExposure
-        pets
-      }
-      patientHealthHistory {
-        history
-      }
-    }
-    doctor {
-      first_name
-      last_name
-    }
-    charges
-    appointmentHealthHistory {
-      history
-    }
-    reportUrl
-    appointmentTimeSlots {
-      startTime
-      endTime
-      selected
-    }
-    appointmentDateTime {
-      startTime
-      endTime
-    }
-    doctor {
-      first_name
-      last_name
-      doctorProfile {
-        id
-        doctor_id
-        year_of_experience
-        specialization
-        condition_treated
-        educational_background
-        professional_experience
-        language
-        about_me
-        profile_image
-        user {
-          id
-          first_name
-          last_name
-          email
-          gender
-          country_id
-          state_id
-          city_id
-          zip_code
-          password
-          status
-          role
-          doctorSchedules {
-            id
-            doctorId
-            day
-            startTime
-            endTime
-            createdAt
-            updatedAt
-          }
-        }
-      }
-    }
-
-    # currentAppointmentNote {
-    #   id
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   note
-    #   isPublished
-    # }
-    # notesHistory {
-    #   id
-    #   subjective
-    #   objective
-    #   assessment
-    #   plan
-    #   note
-    #   isPublished
-    # }
-
-    currentAppointmentNote {
-      appointment {
-        id
-        doctor {
-          id
-          first_name
-          last_name
-        }
-      }
-      createdAt
+query physicianAppointments(
+  $filter: GetPhysicianAppointmentInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  physicianAppointments(
+    filter: $filter
+    pagination: $pagination
+    sorting: $sorting
+  ) {
+    items {
       id
-      subjective
-      objective
-      assessment
-      plan
-      note
-      isPublished
-    }
-    notesHistory {
-      appointment {
-        id
-        doctor {
-          id
-          first_name
-          last_name
-        }
-      }
-      createdAt
-      id
-      subjective
-      objective
-      assessment
-      plan
-      note
-      isPublished
-    }
-    status
-    transaction {
-      status
-      amountReceived
-    }
-    charges
-  }
-}
-
-#Get My Earnings Of Doctor
-query getTransactionFilter($filter: GetTransectionInput!) {
-  getTransactionFilter(filter: $filter) {
-    id
-    appointmentId
-    transactionId
-    payment_status
-    amountReceived
-    status
-    stripeFee
-    doctor_percentage
-    payment_status
-    createdAt
-    appointmentCharges
-    stripeFee
-    tax
-    appointment {
-      status
       patient {
         first_name
         last_name
       }
-      patientId
       serviceType {
-        id
         name
       }
       appointmentTimeSlots {
+        startTime
+        endTime
         selected
+      }
+      appointmentDateTime {
         startTime
         endTime
       }
+      createdAt
+      requestedDate
+      charges
+      status
+    }
+    meta {
+      totalPages
+      currentPage
     }
   }
 }
 
-query physiciansPatients($searchField: String) {
-  physiciansPatients(filter: { searchField: $searchField }) {
-    id
-    first_name
-    last_name
-    email
-    contact_number
-    streetAddress
-    country {
-      country_name
+# query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
+#   appointments(filter: $filter) {
+#     id
+#     patientId
+#     createdAt
+#     requestedDate
+#     serviceType {
+#       name
+#     }
+#     patient {
+#       first_name
+#       last_name
+#       gender
+#       email
+#       date_of_birth
+#       contact_number
+#       country_id
+#       city_id
+#       patientProfile {
+#         maritalStatus
+#         children
+#         occupation
+#         occupationalExposure
+#         pets
+#       }
+#       serviceType {
+#         name
+#       }
+#       appointmentTimeSlots {
+#         startTime
+#         endTime
+#         selected
+#       }
+#       charges
+#       # doctorNote {
+#       #   id
+#       #   appointmentId
+#       #   subjective
+#       #   objective
+#       #   assessment
+#       #   plan
+#       #   isPublished
+#       #   note
+#       # }
+#       currentAppointmentNote {
+#         subjective
+#         objective
+#         assessment
+#         plan
+#         note
+#         isPublished
+#       }
+#       notesHistory {
+#         subjective
+#         objective
+#         assessment
+#         plan
+#         note
+#         isPublished
+#       }
+#     }
+
+#     # currentAppointmentNote {
+#     #   id
+#     #   subjective
+#     #   objective
+#     #   assessment
+#     #   plan
+#     #   note
+#     #   isPublished
+#     # }
+#     # notesHistory {
+#     #   id
+#     #   subjective
+#     #   objective
+#     #   assessment
+#     #   plan
+#     #   note
+#     #   isPublished
+#     # }
+
+#     currentAppointmentNote {
+#       appointment {
+#         id
+#         doctor {
+#           id
+#           first_name
+#           last_name
+#         }
+#       }
+#       createdAt
+#       id
+#       subjective
+#       objective
+#       assessment
+#       plan
+#       note
+#       isPublished
+#     }
+#     notesHistory {
+#       appointment {
+#         id
+#         doctor {
+#           id
+#           first_name
+#           last_name
+#         }
+#       }
+#       createdAt
+#       id
+#       subjective
+#       objective
+#       assessment
+#       plan
+#       note
+#       isPublished
+#     }
+#     status
+#     transaction {
+#       status
+#       transaction {
+#         createdAt
+#         # requestedDate
+#         # charges
+#         status
+#       }
+#     }
+#     meta {
+#       totalPages
+#       currentPage
+#     }
+#   }
+# }
+
+query physicianAppointmentsHistory(
+  $filter: GetAppointmentInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+      doctorId
+      charges
+      serviceId
+      patientId
+      createdAt
+      reportUrl
+      requestedDate
+      serviceType {
+        name
+      }
+      patient {
+        first_name
+        last_name
+        gender
+        email
+        date_of_birth
+        contact_number
+        country_id
+        city_id
+        patientProfile {
+          maritalStatus
+          children
+          occupation
+          occupationalExposure
+          pets
+        }
+        patientHealthHistory {
+          history
+        }
+      }
+      charges
+      appointmentHealthHistory {
+        history
+      }
+      reportUrl
+      appointmentTimeSlots {
+        startTime
+        endTime
+        selected
+      }
+      appointmentDateTime {
+        startTime
+        endTime
+      }
+      doctor {
+        first_name
+        last_name
+        doctorProfile {
+          id
+          doctor_id
+          year_of_experience
+          specialization
+          condition_treated
+          educational_background
+          professional_experience
+          language
+          about_me
+          profile_image
+          user {
+            id
+            first_name
+            last_name
+            email
+            gender
+            country_id
+            state_id
+            city_id
+            zip_code
+            password
+            status
+            role
+            doctorSchedules {
+              id
+              doctorId
+              day
+              startTime
+              endTime
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+      status
+      transaction {
+        status
+        amountReceived
+      }
+      charges
     }
-    patientProfile {
-      profileImage
+    meta {
+      totalPages
+      currentPage
     }
   }
 }
 
-query getPhysicians($filter: GetPhysiciansInput!) {
-  getPhysicians(filter: $filter) {
-    id
-    first_name
-    last_name
-    email
-    streetAddress
-    createdAt
-    city {
-      city_name
+#Get My Earnings Of Doctor
+query getTransactionFilter(
+  $filter: GetTransectionInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  getTransactionFilter(
+    filter: $filter
+    pagination: $pagination
+    sorting: $sorting
+  ) {
+    items {
+      id
+      appointmentId
+      transactionId
+      payment_status
+      amountReceived
+      stripeFee
+      doctor_percentage
+      appointment {
+        status
+        patient {
+          first_name
+          last_name
+        }
+        patientId
+        serviceType {
+          id
+          name
+        }
+        appointmentTimeSlots {
+          selected
+          startTime
+          endTime
+        }
+      }
     }
-    state {
-      state_name
+    meta {
+      totalPages
+      currentPage
     }
-    country {
-      country_name
+  }
+}
+
+query physiciansPatients(
+  $searchField: String
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  physiciansPatients(
+    filter: { searchField: $searchField }
+    pagination: $pagination
+    sorting: $sorting
+  ) {
+    items {
+      id
+      first_name
+      last_name
+      email
+      contact_number
+      streetAddress
+      country {
+        country_name
+      }
+      patientProfile {
+        profileImage
+      }
     }
-    zip_code
-    doctorProfile {
-      language
-      specialization
+    meta {
+      totalPages
+      currentPage
+    }
+  }
+}
+
+query getPhysicians(
+  $filter: GetPhysiciansInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  getPhysicians(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+      first_name
+      last_name
+      email
+      streetAddress
+      createdAt
+      city {
+        city_name
+      }
+      state {
+        state_name
+      }
+      country {
+        country_name
+      }
+      zip_code
+      doctorProfile {
+        language
+        specialization
+      }
+    }
+    meta {
+      totalPages
+      currentPage
     }
   }
 }

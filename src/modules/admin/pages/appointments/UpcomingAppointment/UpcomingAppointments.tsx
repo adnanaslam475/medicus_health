@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { Button, Empty, Select, Spin, Tooltip } from "antd";
 import {
   AppointmentTimeSlots,
@@ -11,12 +13,8 @@ import {
   usePatientHealthHistoryQuery,
   User,
 } from "../../../../../generated/graphql";
-import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
 import { getUserData } from "common/utils/userData";
 
-const { Option } = Select;
 function UpcomingAppointments() {
   // const t = useTranslations("UpcomingAppointments");
   //Get logged in User
@@ -33,6 +31,7 @@ function UpcomingAppointments() {
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Confirmed");
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
+
   const [{ data, fetching }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
@@ -43,6 +42,8 @@ function UpcomingAppointments() {
         serviceId: serviceIds,
         dueDate: bookingDate,
       },
+      pagination: { limit: -1, page: 1 },
+      sorting: { order: "", column: "" },
     },
   });
   function onViewSuggestedSlots(id: number) {
@@ -69,6 +70,7 @@ function UpcomingAppointments() {
   const [{ data: physicianList }] = useGetPhysiciansQuery({
     variables: {
       filter: {},
+      pagination: { page: 1, limit: -1 },
     },
   });
   const { getPhysicians } = physicianList || {};
@@ -143,10 +145,10 @@ function UpcomingAppointments() {
         </div>
         {fetching == false ? (
           <div className="w-full">
-            {appointments?.length !== 0 && appointments ? (
+            {appointments?.items?.length !== 0 && appointments ? (
               // <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
-                {appointments?.map((appointmentDetail, i) => {
+                {appointments.items?.map((appointmentDetail, i) => {
                   const {
                     id,
                     requestedDate,
@@ -188,7 +190,7 @@ function UpcomingAppointments() {
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
-          patientData={getPhysicians as User[]}
+          patientData={getPhysicians?.items as User[]}
         />
       </div>
     </AppLayout>
