@@ -107,18 +107,22 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const isShow =
       scheduleDetails?.doctorSchedules &&
       scheduleDetails?.doctorSchedules.length > 0;
+
     useEffect(() => {
       if (appoinmentDetails) {
         prepareAndSetEditPayload();
       }
+    }, [appoinmentDetails]);
+
+    useEffect(() => {
       if (clear) {
         setSchedules([]);
         formInstance.resetFields();
       }
       if (isShow && !clear) {
-        setSchedules(scheduleDetails?.doctorSchedules as any);
+        setSchedules((scheduleDetails?.doctorSchedules as any) || []);
       }
-    }, [appoinmentDetails, clear, isShow]);
+    }, [clear, isShow]);
 
     function prepareAndSetEditPayload() {
       let consultationCharges =
