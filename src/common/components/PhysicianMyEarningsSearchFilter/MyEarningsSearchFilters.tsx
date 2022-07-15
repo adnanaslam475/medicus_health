@@ -223,11 +223,11 @@ function MyEarningsSearchFilters(props: Props) {
                 <div>
                   {filterState.bookingDate
                     ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-                    : "Booking Date"}
+                    : "Booking date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  <div>Booking Date</div>
+                  <div>Booking date</div>
                   <div>
                     <CaretDownOutlined />
                   </div>
@@ -280,11 +280,11 @@ function MyEarningsSearchFilters(props: Props) {
                 <div>
                   {filterState.DateRange
                     ? `${filterState.DateRange.startDate} -> ${filterState.DateRange.endDate}`
-                    : "Scheduled Date"}
+                    : "Scheduled date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  <div>Scheduled Date</div>
+                  <div>Scheduled date</div>
                   <div>
                     <CaretDownOutlined />
                   </div>
@@ -350,7 +350,7 @@ function MyEarningsSearchFilters(props: Props) {
         >
           <a onClick={onHandleTotalPaymentsVisible}>
             <Space>
-              Total Payment
+              Total payment
               <DownOutlined />
             </Space>
           </a>

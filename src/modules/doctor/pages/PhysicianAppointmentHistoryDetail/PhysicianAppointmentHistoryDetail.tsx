@@ -44,7 +44,7 @@ function PhysicianAppointmentHistoryDetail() {
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Appointment History Detail</h2>
+        <h2 className="mb-4">Appointment history detail</h2>
         <div className="profile-tabs">
           <Tabs
             type="card"
@@ -52,16 +52,16 @@ function PhysicianAppointmentHistoryDetail() {
             activeKey={activeTab || "1"}
             onChange={onChangeTabHandler}
           >
-            <Tabs.TabPane tab="Appointment Info" key="1" className="">
+            <Tabs.TabPane tab="Appointment info" key="1" className="">
               <PatientAppointmentInfoTab />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Patient Info" key="2">
+            <Tabs.TabPane tab="Patient info" key="2">
               <PatientInfoTab />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Health Questionnaire" key="3">
+            <Tabs.TabPane tab="Health questionnaire" key="3">
               <HealthQuestionnaireFormTab />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Physician Questionnaire" key="4">
+            <Tabs.TabPane tab="Physician questionnaire" key="4">
               <PhysicianQuestionnaireFormTab />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachment" key="5">

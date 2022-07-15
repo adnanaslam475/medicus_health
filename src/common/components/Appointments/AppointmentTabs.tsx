@@ -68,20 +68,20 @@ const AppointmentTabs = (props: Props) => {
         activeKey={activeTab || "1"}
         onChange={onChangeTabHandler}
       >
-        <TabPane tab="Appointment Info" key="1" className="">
+        <TabPane tab="Appointment info" key="1" className="">
           <AppointmentInfo
             appoinmentDetails={data}
             loading={appointmentsLoading}
           />
         </TabPane>
-        <Tabs.TabPane tab="Health Questionnaire" key="2">
+        <Tabs.TabPane tab="Health questionnaire" key="2">
           <div className="md:max-w-1/2">
             <QuestionnaireForm
               data={patientHealthHistory?.patientHealthHistory?.history}
             />
           </div>
         </Tabs.TabPane>
-        <TabPane tab="Physician Questionnaire" key="3">
+        <TabPane tab="Physician questionnaire" key="3">
           <PhysicianQuestionnaire
             appointmentHealthHistory={appointmentHealthHistory?.history}
           />

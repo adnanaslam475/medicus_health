@@ -83,10 +83,10 @@ function PhysicianSearchFilters(props: Props) {
 
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
-            placeholder="Appointment Type"
+            placeholder="Appointment type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={(e) => onFilterValuesChange("serviceId", e)}
-            value={filterState.serviceId || "Appointment Type"}
+            value={filterState.serviceId || "Appointment type"}
           >
             {appointmentServiceTypes?.map((item) => (
               <Select.Option key={item?.id} value={item?.id}>
@@ -97,7 +97,7 @@ function PhysicianSearchFilters(props: Props) {
         </div>
         <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
           <Select
-            placeholder="Payment Status"
+            placeholder="Payment status"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={(e) => onFilterValuesChange("paymentStatus", e)}
             value={filterState.paymentStatus}
@@ -158,7 +158,7 @@ function PhysicianSearchFilters(props: Props) {
                       )} -> ${getDateInFormat(
                         filterState?.bookingDate?.endDate
                       )}`
-                    : "Booking Date"}
+                    : "Booking date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full">
@@ -173,7 +173,7 @@ function PhysicianSearchFilters(props: Props) {
                           alt=""
                         />
                       </span>
-                      Booking Date
+                      Booking date
                     </div>
                     <div>
                       <CaretDownOutlined />
@@ -234,7 +234,7 @@ function PhysicianSearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         filterState.dueDate.startDate
                       )} -> ${getDateInFormat(filterState.dueDate.endDate)}`
-                    : "Due Date"}
+                    : "Due date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full ">
@@ -249,7 +249,7 @@ function PhysicianSearchFilters(props: Props) {
                           alt=""
                         />
                       </span>
-                      Due Date
+                      Due date
                     </div>
                     <div>
                       <CaretDownOutlined />

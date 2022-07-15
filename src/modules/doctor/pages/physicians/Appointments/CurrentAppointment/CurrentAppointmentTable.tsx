@@ -28,7 +28,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       },
     },
     {
-      title: "Physician Name",
+      title: "Physician name",
       dataIndex: "physician",
       render: (value: User) => {
         return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
@@ -40,7 +40,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       },
     },
     {
-      title: "Type",
+      title: "Service type",
       dataIndex: "serviceType",
     
       sorter: {
@@ -49,7 +49,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       },
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "requestedDate",
       key: "requestedDate",
       // sorter: {
@@ -61,7 +61,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       },
     },
     {
-      title: "Appointment Due Date",
+      title: "Appointment due date",
       dataIndex: "appointmentSchedule",
       key: "appointmentSchedule",
       sorter: {
@@ -71,7 +71,7 @@ function CurrentAppointmentTable({ loading }: Props) {
      
     },
     {
-      title: "Appointment Time",
+      title: "Appointment time",
       dataIndex: "appointmentScheduletime",
       key: "appointmentScheduletime",
       sorter: {
@@ -95,7 +95,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       dataIndex: "",
       key: "",
       render: () => {
-        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined/>}  type="primary" className="bg-primary">Message Physician</Button></div>;
+        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined/>}  type="primary" className="bg-primary">Message physician</Button></div>;
       },
 
    
@@ -105,7 +105,7 @@ function CurrentAppointmentTable({ loading }: Props) {
       dataIndex: "",
       key: "",
       render: () => {
-        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined />} type="primary" className="bg-primary">Message Admin</Button></div>;
+        return <div className={`${_classes["button-wrap"]}`}><Button  icon={<MessageOutlined />} type="primary" className="bg-primary">Message admin</Button></div>;
       },
 
    
@@ -135,7 +135,7 @@ function CurrentAppointmentTable({ loading }: Props) {
 			id: "1",
 			// name: "John Brown",
 			physician: "MD-2312",
-      serviceType: "First Consultation",
+      serviceType: "First consultation",
 		
 			requestedDate: "09:00 AM - 09:30 AM",
 			appointmentSchedule: "$40.00",

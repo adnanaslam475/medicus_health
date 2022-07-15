@@ -33,10 +33,10 @@ function UpcomingAppointmentDoctor() {
     <AppLayout>
       <div className="w-full">
         <div className="flex justify-between">
-          <h2 className="mb-4">Upcoming Appointments</h2>
+          <h2 className="mb-4">Upcoming appointments</h2>
           <Link passHref href={`/physician/appointments/calendar`}>
             <a>
-              <Button>Calendar View</Button>
+              <Button>Calendar view</Button>
             </a>
           </Link>
         </div>

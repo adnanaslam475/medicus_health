@@ -81,7 +81,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     },
     {
-      title: "Patient Name",
+      title: "Patient name",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {
@@ -95,7 +95,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     },
     {
-      title: "Service Type",
+      title: "Service type",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {
@@ -107,7 +107,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "createdAt",
       key: "createdAt",
       sorter: {
@@ -123,7 +123,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     },
     {
-      title: "Scheduled Date",
+      title: "Scheduled date",
       dataIndex: "appointment",
       key: "appointment",
       sorter: {
@@ -156,7 +156,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     },
     {
-      title: "Payment Status",
+      title: "Payment status",
       dataIndex: "status",
       key: "status",
       sorter: {
@@ -180,7 +180,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       },
     },
     {
-      title: "Total Payment($)",
+      title: "Total payment($)",
       dataIndex: "appointmentCharges",
       key: "appointmentCharges",
       sorter: {
@@ -233,7 +233,7 @@ const PhysicianMyEarningsList = (props: Props) => {
     //   },
     // },
     {
-      title: "Net Physician Fee($)",
+      title: "Net physician fee($)",
       dataIndex: "doctor_percentage",
       key: "doctor_percentage",
       sorter: {
@@ -281,34 +281,34 @@ const PhysicianMyEarningsList = (props: Props) => {
       <div className="w-full">
         <div className="flex mb-0 flex-wrap">
           <MyEarningsStats
-            label={"Total Consultants"}
+            label={"Total consultants"}
             text={String(total_number_of_consultation)}
           />
           <MyEarningsStats
-            label={"Total Second Opinions"}
+            label={"Total second opinions"}
             text={String(total_number_of_second_opinions)}
           />
           <MyEarningsStats
-            label={"Total Patients"}
+            label={"Total patients"}
             text={String(total_number_of_patients)}
           />
           <MyEarningsStats
-            label={"Earnings through Consultants"}
+            label={"Earnings through consultants"}
             text={`$ ${total_earnings_from_consultation}`}
           />
           <MyEarningsStats
-            label={"Earnings through Second Opinion"}
+            label={"Earnings through second opinion"}
             text={`$ ${total_earnings_from_second_opinions}`}
           />
           <MyEarningsStats
-            label={"Total Earnings"}
+            label={"Total earnings"}
             text={`$ ${total_earnings}`}
           />
         </div>
         <Divider />
 
         <div className="flex justify-between">
-          <h2 className="mb-4">My Earnings</h2>
+          <h2 className="mb-4">My earnings</h2>
         </div>
 
         <MyEarningsSearchFilters onChange={onChangeFilters} />

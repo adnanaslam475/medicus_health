@@ -33,7 +33,7 @@ const PhysicianList = (props: Props) => {
     },
 
     {
-      title: "Type",
+      title: "Service type",
       dataIndex: "service",
       key: "service",
       // sorter: {
@@ -79,7 +79,7 @@ const PhysicianList = (props: Props) => {
       //   },
     },
     {
-      title: "Total Amount",
+      title: "Total amount",
       dataIndex: "totalamount",
       key: "totalamount",
       // sorter: {

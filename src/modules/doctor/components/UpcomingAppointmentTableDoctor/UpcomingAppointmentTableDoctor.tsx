@@ -37,7 +37,7 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
       },
     },
     {
-      title: "Service",
+      title: "Service type",
       dataIndex: "serviceType",
       render: (value: AppointmentServiceType) => {
         return <div>{value?.name}</div>;
@@ -49,7 +49,7 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
       },
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "createdAt",
       render: (bookingDate: string) => {
         return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;
@@ -60,7 +60,7 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
       },
     },
     {
-      title: "Due Date",
+      title: "Due date",
       dataIndex: "appointmentDateTime",
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         let formatedDueDate = `${
@@ -105,7 +105,7 @@ function UpcomingAppointmentTableDoctor({ dataSource, loading }: Props) {
       },
     },
     {
-      title: "Total Amount",
+      title: "Total amount",
       dataIndex: "charges",
       render: (value: number) => {
         return <div>{value}</div>;

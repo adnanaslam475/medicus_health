@@ -196,7 +196,7 @@ function SearchFilters(props: Props) {
                 <CaretDownOutlined className="text-sm text-gray" />
               </div>
             }
-            placeholder="Appointment Type"
+            placeholder="Appointment type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={handleServiceChange}
             value={selectedServiceItems}
@@ -255,7 +255,7 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         bookingDateRange?.[0]
                       )} -> ${getDateInFormat(bookingDateRange?.[1])}`
-                    : "Booking Date"}
+                    : "Booking date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -269,7 +269,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Booking Date
+                    Booking date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
@@ -326,7 +326,7 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         dueDateRange?.[0]
                       )} -> ${getDateInFormat(dueDateRange?.[1])}`
-                    : "Due Date"}
+                    : "Due date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -340,7 +340,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Due Date
+                    Due date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />

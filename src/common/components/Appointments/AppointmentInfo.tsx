@@ -67,7 +67,7 @@ function AppointmentInfo(props: Props) {
           )} - ${date?.formathhmma(selectedAppointment?.endTime)}`}
         />
         <LabelValueRow
-          label="Total Amount"
+          label="Total amount"
           value={price ? `$${price}` : "--"}
         />
 
@@ -100,7 +100,7 @@ function AppointmentInfo(props: Props) {
               })
             }
           >
-            Message Admin
+            Message admin
           </Button>
           <Button
             icon={<MessageOutlined />}
@@ -116,7 +116,7 @@ function AppointmentInfo(props: Props) {
               })
             }
           >
-            Message Physician
+            Message physician
           </Button>
         </div>
         <Button
@@ -126,7 +126,7 @@ function AppointmentInfo(props: Props) {
           onClick={() => Router.push(`/patient/appointments/${id}/call`)}
           disabled={disabled}
         >
-          Join Now
+          Join now
         </Button>
       </div>
     </>

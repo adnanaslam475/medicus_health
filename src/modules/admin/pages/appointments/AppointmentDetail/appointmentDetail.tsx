@@ -9,7 +9,7 @@ function AccountDetail() {
   return (
     <AppLayout>
       <div className="w-full">
-        <h2 className="mb-4">Appointment Detail</h2>
+        <h2 className="mb-4">Appointment detail</h2>
         <div className="w-full">
           <AppointmentTabs appointmentId={Number(query?.id)} />
         </div>

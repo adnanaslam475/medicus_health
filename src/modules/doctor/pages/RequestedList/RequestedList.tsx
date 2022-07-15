@@ -49,7 +49,7 @@ const RequestedList = (props: Props) => {
       },
     },
     {
-      title: "Booking Date",
+      title: "Booking date",
       dataIndex: "createdAt",
       key: "createdAt",
       sorter: {
@@ -62,7 +62,7 @@ const RequestedList = (props: Props) => {
     },
 
     {
-      title: "Type",
+      title: "Service type",
       dataIndex: "serviceType",
       key: "serviceType",
       sorter: {
@@ -74,7 +74,7 @@ const RequestedList = (props: Props) => {
       },
     },
     {
-      title: "Due Date ",
+      title: "Due date ",
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
       sorter: {
@@ -116,7 +116,7 @@ const RequestedList = (props: Props) => {
       },
     },
     {
-      title: "Total Amount",
+      title: "Total amount",
       dataIndex: "charges",
       key: "charges",
       sorter: {
@@ -128,7 +128,7 @@ const RequestedList = (props: Props) => {
       },
     },
     {
-      title: "Appointment Status",
+      title: "Appointment status",
       dataIndex: "status",
       key: "status",
       className: "table-action-icon",
