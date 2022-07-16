@@ -1,103 +1,151 @@
-import React from "react";
-import { Collapse, Table } from "antd";
+import React, { useEffect, useState } from "react";
+import { Collapse, Space, Spin, Table } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import _classes from "./PhysicianPayoutReportListing.module.scss";
+import {
+  AppointmentDateTimeResponse,
+  AppointmentServiceType,
+  Transaction,
+  useDoctorPayoutsQuery,
+  User,
+} from "generated/graphql";
+import { getUserData } from "common/utils/userData";
+import { date } from "common/utils";
 
 function PhysicianPayoutReportListing() {
   const { Panel } = Collapse;
   const onChange = (key: string | string[]) => {};
-
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
-    { title: "Appointment ID", dataIndex: "appointment_id", key: "platform" },
-    { title: "Patient Name", dataIndex: "patient_name", key: "version" },
-    { title: "Service", dataIndex: "service", key: "service" },
     {
-      title: "Scheduled date",
-      dataIndex: "scheduled_date",
-      key: "scheduled_date",
+      title: "ID",
+      key: "transaction",
+      dataIndex: "transaction",
+      render: (transaction: Transaction) => {
+        const transactionId = transaction?.id || "-";
+        return <div>{transactionId}</div>;
+      },
     },
     {
-      title: "Physician fee ($)",
-      dataIndex: "physician_fee",
-      key: "physician_fee",
+      title: "Appointment ID",
+      key: "id",
+      dataIndex: "id",
+      render: (id: string) => {
+        return <div>{id || "-"}</div>;
+      },
     },
     {
-      title: "Stripe processing fee ($)",
-      dataIndex: "stripe_fee",
-      key: "stripe_fee",
+      title: "Patient Name",
+      key: "patient",
+      dataIndex: "patient",
+      render: (patient: User) => {
+        const patientName = `${patient?.first_name || "-"} ${
+          patient?.last_name || ""
+        }`;
+        return <div>{patientName}</div>;
+      },
     },
-    { title: "Refunds ($)", dataIndex: "refund", key: "refund" },
     {
-      title: "Return processing fee ($)",
-      dataIndex: "return_fee",
-      key: "return_fee",
+      title: "Service",
+      key: "serviceType",
+      dataIndex: "serviceType",
+      render: (serviceType: AppointmentServiceType) => {
+        const serviceName = serviceType?.name || "-";
+        return <div>{serviceName}</div>;
+      },
     },
+    {
+      title: "Scheduled Date",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+      render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+        const appointmentTime =
+          appointmentDateTime?.startTime && appointmentDateTime?.endTime
+            ? `${date.formathhmma(
+                appointmentDateTime?.startTime
+              )} ${date.formathhmma(appointmentDateTime?.endTime)}`
+            : "--";
+        return <div>{appointmentTime}</div>;
+      },
+    },
+    {
+      title: "Physician Fee ($)",
+      dataIndex: "transaction",
+      key: "physicianFee",
+      render: (transaction: Transaction) => {
+        const physicianFee = transaction?.doctor_percentage || "0";
+        return <div>${physicianFee}</div>;
+      },
+    },
+    {
+      title: "Refunds ($)",
+      dataIndex: "refund",
+      key: "refund",
+      render: (transaction: Transaction) => {
+        const refundAmount = transaction?.appointmentCharges || "0";
+        return <div>${refundAmount}</div>;
+      },
+    },
+    {
+      title: "Net Physician Fee($)",
+      dataIndex: "transaction",
+      key: "netPhysicianFee",
+      render: (transaction: Transaction) => {
+        const physicianFee = transaction?.doctor_percentage || "0";
+        return <div>${physicianFee}</div>;
+      },
+    },
+  ];
 
-    {
-      title: "Net physician fee($)",
-      dataIndex: "net_fee",
-      key: "net_fee",
+  const { user } = getUserData();
+  const doctorId = user?.role === "Doctor" ? user?.id : undefined;
+  const [{ data, fetching }] = useDoctorPayoutsQuery({
+    variables: {
+      doctorId: Number(doctorId),
     },
-  ];
-  const Ddata = [
-    {
-      id: "1",
-      // name: "John Brown",
-      appointment_id: "MD-2312",
-      patient_name: "Dr. Paul Wallner",
-      service: "First Consultation",
-      scheduled_date: "09:00 AM - 09:30 AM",
-      sales: "$40.00",
-      physician_fee: "$40.00",
-      refund: "$40.00",
-      return_fee: "$40.00",
-      stripe_fee: "$3232",
-      net_fee: "$40.00",
-    },
-    {
-      id: "2",
-      appointment_id: "MD-2312",
-      patient_name: "Dr. Paul Wallner",
-      service: "First Consultation",
-      scheduled_date: "09:00 AM - 09:30 AM",
-      physician_fee: "$40.00",
-      sales: "$40.0",
-      refund: "$40.00",
-      return_fee: "$40.00",
-      stripe_fee: "$3232",
-      net_fee: "$40.00",
-    },
-  ];
+    pause: !doctorId,
+  });
+  const { doctorPayouts } = data || {};
+  const { appointmentMonths, monthAppointments } = doctorPayouts || {};
+
   return (
     <AppLayout>
       <h2 className="text-2xl">Payouts</h2>
-      <Collapse onChange={onChange} className={`${_classes["payout_report"]}`}>
-        <Panel header="june $448" key="1">
-          <Table
-            columns={columns}
-            dataSource={Ddata}
-            loading={false}
-            scroll={{ x: true }}
-          />
-        </Panel>
-        <Panel header="May $231" key="3">
-          <Table
-            columns={columns}
-            dataSource={Ddata}
-            loading={false}
-            scroll={{ x: true }}
-          />
-        </Panel>
-        <Panel header="April $324" key="4">
-          <Table
-            columns={columns}
-            dataSource={Ddata}
-            loading={false}
-            scroll={{ x: true }}
-          />
-        </Panel>
-      </Collapse>
+      {fetching ? (
+        <div className="w-full bg-gray-4 rounded-md border-primary my-2 h-20 flex flex-col justify-center items-center">
+          <Space size="middle">
+            <Spin size="small" />
+          </Space>
+        </div>
+      ) : (
+        <>
+          <Collapse
+            onChange={onChange}
+            className={`${_classes["payout_report"]}`}
+          >
+            {appointmentMonths?.map((appointmentMonth, appointmentIndex) => {
+              return (
+                <Panel header={appointmentMonth} key={appointmentIndex}>
+                  {monthAppointments
+                    ?.filter(
+                      (_, filteredIndex) => filteredIndex === appointmentIndex
+                    )
+                    ?.map((appointmentData) => {
+                      return (
+                        <Table
+                          pagination={false}
+                          columns={columns}
+                          dataSource={appointmentData}
+                          loading={false}
+                          scroll={{ x: true }}
+                        />
+                      );
+                    })}
+                </Panel>
+              );
+            })}
+          </Collapse>
+        </>
+      )}
     </AppLayout>
   );
 }
