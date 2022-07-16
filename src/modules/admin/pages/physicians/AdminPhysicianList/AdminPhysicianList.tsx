@@ -21,6 +21,7 @@ import {
 // import espanolFlag from "../../../../../../public/assets//images/espanolFlag.png";
 // import { date } from "common/utils";
 import { FLAG_BY_LANGUAGE } from "utils/helper";
+import { date } from "common/utils";
 // import { json } from "node:stream/consumers";
 
 const columns = [
@@ -93,7 +94,6 @@ const columns = [
     },
     sorter: true,
   },
-
   {
     title: "Language",
     dataIndex: "doctorProfile",
@@ -104,15 +104,24 @@ const columns = [
         <div className="flagAvatar engFlag pr-2">
           {FLAG_BY_LANGUAGE[language] && (
             <Image
-              priority={true}
-              src={FLAG_BY_LANGUAGE[language]}
-              alt={language || "flag"}
-              width={25}
-              height={25}
+            priority={true}
+            src={FLAG_BY_LANGUAGE[language]}
+            alt={language || "flag"}
+            width={25}
+            height={25}
             />
-          )}
+            )}
         </div>
       );
+    },
+    sorter: true,
+  },
+  {
+    title: "Account Creation Date",
+    dataIndex: "createdAt",
+    key: "createdAt",
+    render: (createdAt: string) => {
+      return <div>{date?.formatMMMMDDYYYY(createdAt) || ""}</div>;
     },
     sorter: true,
   },
