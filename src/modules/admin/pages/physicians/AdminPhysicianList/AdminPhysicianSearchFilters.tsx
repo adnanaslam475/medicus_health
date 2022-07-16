@@ -7,9 +7,15 @@ import {
 } from "@ant-design/icons";
 import { getDateInFormat } from "common/utils/date";
 import { DateType } from "common/types/types";
-import { BookingDate, GetPhysiciansInput, useCountriesQuery,useGetStatesByCountryQuery} from "generated/graphql";
+import {
+  BookingDate,
+  GetPhysiciansInput,
+  useCountriesQuery,
+  useGetStatesByCountryQuery,
+} from "generated/graphql";
 import { SelectCountryTypeFilter } from "common/components/SelectCountryTypeFilter/SelectCountryTypeFilter";
-import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter copy/SelectStateTypeFilter";
+import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter/SelectStateTypeFilter";
+import { SelectCityTypeFilter } from "common/components/SelectCityTypeFilter/SelectCityTypeFilter";
 const { RangePicker } = DatePicker;
 
 const { Option } = Select;
@@ -19,6 +25,10 @@ type Props = {
 };
 
 function AdminPhysicianSearchFilters(props: Props) {
+  const [filterPostalCode, setPostalCode] = useState<GetPhysiciansInput | any>(
+    {}
+  );
+  const [filterCity, setFilterCity] = useState<GetPhysiciansInput | any>({});
   const [filterState, setFilterState] = useState<GetPhysiciansInput | any>({});
   const [countryId, setCountryId] = useState<number | undefined>();
   const [creationDate, setCreationDate] = useState<BookingDate>({});
@@ -33,8 +43,6 @@ function AdminPhysicianSearchFilters(props: Props) {
     const filters = {
       ...filterState,
       [key]: value,
-  
-      
     };
 
     setFilterState(filters);
@@ -48,9 +56,8 @@ function AdminPhysicianSearchFilters(props: Props) {
     }
 
     onChange(filters);
-    console.log(filters,"ddd")
+    console.log(filters, "ddd");
   }
-
 
   const applyDateRange = () => {
     setOpenDateRange1(false);
@@ -85,27 +92,41 @@ function AdminPhysicianSearchFilters(props: Props) {
           onChange={(e) => onChangeFields("specialization", e)}
           value={filterState.specialization}
         >
-           <Option value="Cardiologist">Cardiologist</Option>
-            <Option value="Family Physician">Family Physician</Option>
-            <Option value="Neurologist">Neurologist</Option>
-          
-          
+          <Option value="Cardiologist">Cardiologist</Option>
+          <Option value="Family Physician">Family Physician</Option>
+          <Option value="Neurologist">Neurologist</Option>
         </Select>
       </div>
       <div className=" sm:mt-0  md:w-44 xl:w-44">
-     
-         <SelectCountryTypeFilter
-            onChange={(value) => onChangeFields("countryId", Number(value))}
-            value={filterState?.countryId}
-          />
+        <SelectCountryTypeFilter
+          onChange={(value) => onChangeFields("countryId", Number(value))}
+          value={filterState?.countryId}
+        />
       </div>
       <div className="sm:mt-0">
-      <SelectStateTypeFilter 
-            onChange={(value) => onChangeFields("stateId", Number(value))}
-            value={filterState?.stateId}
-            selectedCountryId={filterState.countryId}
-          />
+        <SelectStateTypeFilter
+          onChange={(value) => onChangeFields("stateId", Number(value))}
+          value={filterState?.stateId}
+          selectedCountryId={filterState.countryId}
+        />
       </div>
+
+      <div className="sm:mt-0 md:w-30 xl:w-30">
+        <SelectCityTypeFilter
+          onChange={(value) => onChangeFields("cityId", Number(value))}
+          value={filterState?.cityId}
+          stateId={filterCity.stateId}
+        />
+      </div>
+
+      {/* <div className="sm:mt-0">
+        <SelectPostalCodeFilter
+          onChange={(value) => onChangeFields("Postal Code", Number(value))}
+          value={filterPostalCode?.stateId}
+          selectedCountryId={filterPostalCode.cityId}
+        />
+      </div> */}
+
       <div className="sm:mt-0">
         <Select
           placeholder="Language"
