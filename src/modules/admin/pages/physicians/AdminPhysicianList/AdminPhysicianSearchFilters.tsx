@@ -10,6 +10,9 @@ import { DateType } from "common/types/types";
 import { BookingDate, GetPhysiciansInput, useCountriesQuery,useGetStatesByCountryQuery} from "generated/graphql";
 import { SelectCountryTypeFilter } from "common/components/SelectCountryTypeFilter/SelectCountryTypeFilter";
 import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter copy/SelectStateTypeFilter";
+import { SelectCityFilter } from "common/components/SelectCityFilter/SelectCityFilter";
+import _classes from "./AdminPhysicianSearchFilters.module.scss";
+
 const { RangePicker } = DatePicker;
 
 const { Option } = Select;
@@ -45,6 +48,13 @@ function AdminPhysicianSearchFilters(props: Props) {
 
     if (!filters?.language) {
       delete filters?.language;
+    }
+    if (!filters?.countryId) {
+      delete filters?.stateId;
+    }
+
+    if (!filters?.stateId) {
+      delete filters?.cityId;
     }
 
     onChange(filters);
@@ -107,6 +117,14 @@ function AdminPhysicianSearchFilters(props: Props) {
           />
       </div>
       <div className="sm:mt-0">
+      <SelectCityFilter 
+            onChange={(value) => onChangeFields("cityId", Number(value))}
+            value={filterState?.cityId}
+            selectedStateId={filterState.stateId}
+          />
+      </div>
+
+      <div className="sm:mt-0">
         <Select
           placeholder="Language"
           className="w-full sm:w-40"
@@ -116,6 +134,71 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="English">English</Option>
           <Option value="Spanish">Espanol</Option>
         </Select>
+      </div>
+      <div className="flex-none sm:flex mt-4 sm:mt-0">
+        <Space
+          direction="vertical"
+          size={0}
+          className="w-full md:w-44 xl:w-60 sm:mb-3"
+        >
+          <div className="relative -mt-4">
+            <RangePicker
+              value={null}
+              open={openDateRange1}
+              className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible "
+              onChange={(_, dateString: string[]) =>
+                setCreationDate({
+                  startDate: dateString[0],
+                  endDate: dateString[1],
+                })
+              }
+              renderExtraFooter={() => (
+                <div className="flex gap-3 justify-end p-3">
+                  <Button
+                    className="bg-gray-300"
+                    onClick={() => {
+                      setOpenDateRange1(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className=" text-white"
+                    type="primary"
+                    onClick={() => {
+                      applyDateRange();
+                    }}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              )}
+            />
+            <Button
+              className={`${_classes["dropdown"]} flex date-btn border-double`}
+              block
+              type="default"
+              onClick={() => setOpenDateRange1?.(!openDateRange1)}
+            >
+              {filterState?.creationDate?.endDate ? (
+                <div className="border-4 border-indigo-600">
+                  {filterState?.creationDate?.endDate
+                    ? `${getDateInFormat(
+                        filterState?.creationDate?.startDate
+                      )} -> ${getDateInFormat(
+                        filterState?.creationDate?.endDate
+                      )}`
+                    : "Account Created At"}
+                </div>
+              ) : (
+                <div className="flex justify-between items-center w-full px-3 border-gray text-gray-1">
+                  <div>Account Created At</div>
+                    <CaretDownOutlined />
+                </div>
+              )}
+            </Button>
+          </div>
+        </Space>
       </div>
       <Button type="text" className="" onClick={clear}>
         <CloseOutlined className="text-sm" />

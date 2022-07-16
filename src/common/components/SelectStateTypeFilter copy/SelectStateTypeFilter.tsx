@@ -26,7 +26,7 @@ export function SelectStateTypeFilter({
       onChange={onChange}
       value={value}
     >
-      {getStatesByCountry?.map(({ id, state_name }) => (
+      {selectedCountryId && getStatesByCountry?.map(({ id, state_name }) => (
         <Select.Option value={id}>{state_name}</Select.Option>
       ))}
     </Select>
