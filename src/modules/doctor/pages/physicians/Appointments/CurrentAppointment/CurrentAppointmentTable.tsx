@@ -95,7 +95,7 @@ const columns = [
             type="primary"
             className="bg-primary"
           >
-            Message admin
+            Message support
           </Button>
         </div>
       );

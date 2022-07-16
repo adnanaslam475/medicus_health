@@ -45,23 +45,23 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow label="ID" value={Number(id)} />
         <LabelValueRow
           label="Requested date"
-          value={date?.formatMMMMDDYYYY(requestedDate)}
+          value={date?.formatDAYMMDDYY(requestedDate)}
         />
         <LabelValueRow
-          label="Doctor"
+          label="Physician"
           value={`Dr. ${first_name} ${last_name}`}
         />
-        <LabelValueRow label="Type" value={name || "--"} />
-        <LabelValueRow
+        <LabelValueRow label="Appointment type" value={name || "--"} />
+        {/* <LabelValueRow
           label="Due date"
           value={date.formatMMMMDDYYYY(selectedAppointment?.startTime)}
-        />
-        <LabelValueRow
+        /> */}
+        {/* <LabelValueRow
           label="Booking date"
           value={date.formatMMMMDDYYYY(createdAt)}
-        />
+        /> */}
         <LabelValueRow
-          label="Time"
+          label="Appointment time"
           value={`${date?.formathhmma(
             selectedAppointment?.startTime
           )} - ${date?.formathhmma(selectedAppointment?.endTime)}`}
@@ -72,7 +72,7 @@ function AppointmentInfo(props: Props) {
         />
 
         <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1 max-w-[300px]">Status</div>
+          <div className="w-full text-gray-1 max-w-[200px]">Status</div>
           <div className="w-full text-secondary">
             <Tag
               color="#e2f8f7"
@@ -100,7 +100,7 @@ function AppointmentInfo(props: Props) {
               })
             }
           >
-            Message admin
+            Message support
           </Button>
           <Button
             icon={<MessageOutlined />}
@@ -143,7 +143,7 @@ function LabelValueRow({
 }) {
   return (
     <div className="flex border-b border-gray-5 py-3 ">
-      <div className="w-full text-gray-1 max-w-[300px]">{label}</div>
+      <div className="w-full text-gray-1 max-w-[200px]">{label}</div>
       <div className="w-full text-secondary">{value}</div>
     </div>
   );

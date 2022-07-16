@@ -157,13 +157,14 @@ function UpcomingAppointments() {
                     doctor,
                     appointmentTimeSlots,
                   } = appointmentDetail || {};
+                  var doctors=`${doctor?.first_name} ${doctor?.last_name}`
                   return (
                     <AppointmentCard
                       appointmentId={Number(id)}
                       requestedDate={requestedDate}
                       status={status}
                       serviceType={serviceType?.name}
-                      doctor={doctor?.first_name}
+                      doctor={doctors} 
                       appointmentTimeSlots={
                         appointmentTimeSlots as AppointmentTimeSlots[]
                       }

@@ -12,11 +12,10 @@ function Physicians() {
     <AppLayout>
       <div className="w-full">
         <div className="lg:w-4/5 mx-auto">
-          <h2 className="mb-0">Physicians</h2>
+          <h2 className="mb-0">Our physicians</h2>
           <div className="mb-6">
             <span className=" min-h-max hidden md:block text-secondary">
-              If you need help in selecting a suitable physician, our admin team
-              is a
+            If you need help selecting a physician, our support team is a
               <span>
                 <Link href="/patient/messages">
                   <a className="underline text-primary px-3 whitespace-nowrap">
