@@ -13,7 +13,7 @@ type Props = {};
 
 function Messages({}: Props) {
   const [removeCurrentChatHeader, setRemoveCurrentChatHeader] =
-    React.useState(false);
+    React.useState<boolean>(false);
   return (
     <AppLayout>
       <MessageContextProvider>
