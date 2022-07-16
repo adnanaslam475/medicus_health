@@ -78,7 +78,7 @@ const MessageButtons = (props: Props) => {
                 })
               }
             >
-              Message admin
+              Message support
             </Button>
           ))}
       </div>
