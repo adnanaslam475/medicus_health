@@ -329,7 +329,7 @@ function DoctorAppointmentInfoFooter({
                 })
               }
             >
-              Message admin
+              Message support
             </Button>
           ))}
 
