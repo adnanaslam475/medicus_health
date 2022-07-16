@@ -80,7 +80,7 @@ function RequestedAppointment() {
       <div className="w-full">
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
-            <h2 className="mb-0">Requested Appointments</h2>
+            <h2 className="mb-0">Requested appointments</h2>
           </div>
         </div>
         <div className="">

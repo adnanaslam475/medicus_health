@@ -158,7 +158,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
         )}
 
         {(appointmentStatus === "Requested" ||
-          appointmentStatus === "Suggested") && (
+          appointmentStatus === "Proposed") && (
           <AdminAppointmentRequestedInfoFooter
             adminApp_Details={adminApp_Details}
             onCancelRequestedAppointment={onCancelRequestedAppointment}

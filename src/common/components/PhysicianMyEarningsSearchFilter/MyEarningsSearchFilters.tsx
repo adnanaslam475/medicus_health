@@ -26,20 +26,16 @@ import AmountDropdown from "../AmountDropdown/AmountDropdown";
 import { SelectStatusTypeFilter } from "../SelectStatusTypeFilter/SelectStatusTypeFilter";
 import RefundsDropdown from "../RefundsDropdown/RefundsDropdown";
 import TotalPaymentsDropdown from "../TotalPaymentsDropdown /TotalPaymentsDropdown";
-
 const { RangePicker } = DatePicker;
-
 type Props = {
   onChange: (value: physicianMyEarningsFilterType) => void;
 };
-
 function MyEarningsSearchFilters(props: Props) {
   const [filterState, setFilterState] = useState<physicianMyEarningsFilterType>(
     {}
   );
   const [form] = Form.useForm();
   const { onChange } = props;
-
   const [openDateRange, setOpenDateRange] = useState(false);
   const [openDateRangeTwo, setOpenDateRangeTwo] = useState(false);
   const [dateRange, setDateRange] = useState<BookingDate>({});
@@ -57,7 +53,6 @@ function MyEarningsSearchFilters(props: Props) {
     setFilterState({});
     onChange({});
   }
-
   const applyDateRange = () => {
     setOpenDateRange(false);
     onChangeFields("bookingDate", bookingDate);
@@ -66,7 +61,6 @@ function MyEarningsSearchFilters(props: Props) {
     setOpenDateRangeTwo(false);
     onChangeFields("DateRange", dateRange);
   };
-
   function onChangeFields(key: string, value: string | object) {
     const filters = {
       ...filterState,
@@ -105,7 +99,6 @@ function MyEarningsSearchFilters(props: Props) {
       final: Number(values?.maxValue),
     });
   }
-
   function onFinishLocalRefunds(values: {
     initialRefunds: number;
     finalRefunds: number;
@@ -115,7 +108,6 @@ function MyEarningsSearchFilters(props: Props) {
       finalRefunds: Number(values?.finalRefunds),
     });
   }
-
   function onFinishLocalTotalPayments(values: {
     initialCharges: number;
     finalCharges: number;
@@ -125,7 +117,6 @@ function MyEarningsSearchFilters(props: Props) {
       finalCharges: Number(values?.finalCharges),
     });
   }
-
   // const amountRangeFilter = <AmountDropdown onFinishLocal={onFinishLocal} />;
   const refundsRangeFilter = (
     <RefundsDropdown onFinishLocal={onFinishLocalRefunds} form={form} />
@@ -223,11 +214,11 @@ function MyEarningsSearchFilters(props: Props) {
                 <div>
                   {filterState.bookingDate
                     ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-                    : "Booking Date"}
+                    : "Booking date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  <div>Booking Date</div>
+                  <div>Booking date</div>
                   <div>
                     <CaretDownOutlined />
                   </div>
@@ -280,11 +271,11 @@ function MyEarningsSearchFilters(props: Props) {
                 <div>
                   {filterState.DateRange
                     ? `${filterState.DateRange.startDate} -> ${filterState.DateRange.endDate}`
-                    : "Scheduled Date"}
+                    : "Scheduled date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  <div>Scheduled Date</div>
+                  <div>Scheduled date</div>
                   <div>
                     <CaretDownOutlined />
                   </div>
@@ -294,7 +285,6 @@ function MyEarningsSearchFilters(props: Props) {
           </div>
         </div>
         {/* </Space> */}
-
         {/* <Dropdown
             className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg ml-0 p-3 border `}
             overlay={amountRangeFilter}
@@ -328,7 +318,6 @@ function MyEarningsSearchFilters(props: Props) {
             <Select.Option value="refunded">REFUNDED</Select.Option>
           </Select>
         </div>
-
         <Dropdown
           className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg ml-0 p-3 mr-2 border `}
           overlay={refundsRangeFilter}
@@ -350,7 +339,7 @@ function MyEarningsSearchFilters(props: Props) {
         >
           <a onClick={onHandleTotalPaymentsVisible}>
             <Space>
-              Total Payment
+              Total payment
               <DownOutlined />
             </Space>
           </a>
@@ -368,5 +357,4 @@ function MyEarningsSearchFilters(props: Props) {
     // </div>
   );
 }
-
 export default MyEarningsSearchFilters;

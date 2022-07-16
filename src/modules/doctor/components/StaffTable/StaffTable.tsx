@@ -52,7 +52,7 @@ function StaffTable({
       sorter: true,
     },
     {
-      title: "Contact Number",
+      title: "Contact number",
       dataIndex: "contact_number",
       sorter: true,
       render: (value: string) => {
@@ -60,7 +60,7 @@ function StaffTable({
       },
     },
     {
-      title: "Account Creation Date",
+      title: "Account creation date",
       dataIndex: "createdAt",
       key: "createdAt",
       sorter: true,

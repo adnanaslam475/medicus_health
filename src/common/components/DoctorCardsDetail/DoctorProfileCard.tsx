@@ -123,11 +123,11 @@ function DoctorProfileCard(props: Props) {
                     {matchDay ? (
                       <>
                         <div className="text-gray-8 ant-collapse-available">
-                          Available Today
+                          Available today
                         </div>
                       </>
                     ) : (
-                      <span className="text-cyan-1">Not Available Today</span>
+                      <span className="text-cyan-1">Not available today</span>
                     )}
                   </div>
                 }
@@ -195,7 +195,7 @@ function DoctorProfileCard(props: Props) {
                   className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3"
                   onClick={() => Router.push("/admin/messages")}
                 >
-                  <span className="hidden">Message Admin</span>
+                  <span className="hidden">Message admin</span>
                 </Button>
                 <Button
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
@@ -208,15 +208,15 @@ function DoctorProfileCard(props: Props) {
           </div>
         </div>
         <Divider />
-        <h4 className="font-bold mb-1">About Me</h4>
+        <h4 className="font-bold mb-1">About me</h4>
         <div className="text-gray text-md">
           <h6 className="text-gray ">{doctorData?.about_me}</h6>
         </div>
         <Divider />
-        <h4 className="font-bold mb-1">Conditions Treated</h4>
+        <h4 className="font-bold mb-1">Conditions treated</h4>
         <h6 className="text-secondary">{doctorData?.condition_treated}</h6>
         <Divider />
-        <h4 className="font-bold mb-1">Professional Background</h4>
+        <h4 className="font-bold mb-1">Professional background</h4>
         <div className="text-secondary">
           {doctorData?.professional_experience &&
             JSON.parse(doctorData?.professional_experience).map((item: any) => (
@@ -227,7 +227,7 @@ function DoctorProfileCard(props: Props) {
             ))}
         </div>
         <Divider />
-        <h4 className="font-bold mb-1">Educational Background</h4>
+        <h4 className="font-bold mb-1">Educational background</h4>
         <div className="text-secondary">
           {doctorData?.educational_background &&
             JSON.parse(doctorData?.educational_background).map((item: any) => (
@@ -243,7 +243,7 @@ function DoctorProfileCard(props: Props) {
           className="text-base flex items-center"
           onClick={() => Router.push("/patient/physicians")}
         >
-          <ArrowLeftOutlined /> <span className="ml-2">Back to Physicians</span>
+          <ArrowLeftOutlined /> <span className="ml-2">Back to physicians</span>
         </a>
       </Card>
       <BookAppointmentJourney

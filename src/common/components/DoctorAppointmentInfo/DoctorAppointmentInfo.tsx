@@ -111,7 +111,7 @@ function DoctorAppointmentInfo({ data }: Props) {
 
       if (res?.data?.cancelAppointment) {
         notification.success({
-          message: "Appointment Cancelled",
+          message: "Appointment cancelled",
         });
       } else {
         notification.error({
@@ -131,7 +131,7 @@ function DoctorAppointmentInfo({ data }: Props) {
 
       if (res?.data?.cancelAppointment) {
         notification.success({
-          message: "Appointment Cancelled",
+          message: "Appointment cancelled",
         });
       }
       if (res?.error) {
@@ -191,7 +191,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
-            label="Total Amount"
+            label="Total amount"
             text={
               transaction?.amountReceived
                 ? `$${transaction?.amountReceived}`
@@ -202,13 +202,13 @@ function DoctorAppointmentInfo({ data }: Props) {
 
         {status === "Requested" && (
           <LabelWithText
-            label="Total Amount"
+            label="Total amount"
             text={charges ? `$${charges}` : "--"}
           />
         )}
         {status === "Cancelled" && (
           <LabelWithText
-            label="Total Amount"
+            label="Total amount"
             text={charges ? `$${charges}` : "--"}
           />
         )}
@@ -227,7 +227,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         {status === "Cancelled" && (
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[300px]">
-              Payment Status
+              Payment status
             </div>
             <div className="w-full text-secondary">
               {transaction?.status ? (
@@ -616,7 +616,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         throw new Error(error.message);
       }
       notification.success({
-        message: "Successfully Updated",
+        message: "Successfully updated",
       });
     } catch (error: any) {
       notification.error({
@@ -777,7 +777,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               disabled={Object.values(slot).some((value) => value === "")}
               type="link"
             >
-              + Add Slot
+              + Add slot
             </Button>
           </div>
 

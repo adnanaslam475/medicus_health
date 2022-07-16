@@ -40,7 +40,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       },
     },
     {
-      title: " Appointment type",
+      title: "Appointment type",
       dataIndex: "serviceType",
       key: "name",
       sorter: true,
@@ -49,7 +49,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       },
     },
     {
-      title: "Patient Name",
+      title: "Patient name",
       dataIndex: "patient",
       key: "first_name",
       sorter: true,
@@ -64,7 +64,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       },
     },
     {
-      title: "Appointment Due Date",
+      title: "Appointment due date",
       dataIndex: "appointmentTimeSlots",
       key: "appointment_time_slots",
       sorter: true,
@@ -74,7 +74,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       },
     },
     {
-      title: "Appointment Time",
+      title: "Appointment time",
       dataIndex: "appointmentTimeSlots",
       key: "appointment_time_slots",
       sorter: true,
@@ -88,7 +88,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       },
     },
     {
-      title: "Total Amount",
+      title: "Total amount",
       dataIndex: "transaction",
       key: "amountReceived",
       sorter: true,
@@ -101,7 +101,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       },
     },
     {
-      title: "Payment Status",
+      title: "Payment status",
       dataIndex: "status",
       key: "status",
       sorter: true,
