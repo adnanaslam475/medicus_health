@@ -1,7 +1,7 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Input, notification } from "antd";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import profile from "./../../../../../../public/assets/images/nullicon.png";
 import ThreeDot from "./../../../../../../public/assets/images/threedot.svg";
 import Inputicon from "../../../../../../public/assets/images/inputicon.svg";
@@ -14,12 +14,18 @@ import { ChatChannels, useDeleteChatChannelMutation } from "generated/graphql";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
-type Props = {};
+type Props = {
+  setRemoveCurrentChatHeader?: any;
+  removeCurrentChatHeader?: boolean | undefined;
+};
 
-function MessageHeader({}: Props) {
+function MessageHeader({
+  removeCurrentChatHeader,
+  setRemoveCurrentChatHeader,
+}: Props) {
   const { messageInfo } = useMessageContext();
   const { user } = getUserData();
-  const [{ fetching, data }, deleteChatChannelMutation] =
+  const [{ fetching }, deleteChatChannelMutation] =
     useDeleteChatChannelMutation();
 
   const opposite = messageUtils.getOppositeParticipant(
@@ -34,24 +40,31 @@ function MessageHeader({}: Props) {
 
   const deleteChatChannelHandler = async () => {
     try {
-      const res = await deleteChatChannelMutation({
+      await deleteChatChannelMutation({
         id: Number(messageInfo.currentChannel?.id),
       });
       setOpen("");
+      setRemoveCurrentChatHeader(true);
     } catch (error: any) {
-      console.log("errdelte", error);
       notification.error({
         message: error?.message || "Something went wrong",
       });
     }
   };
+
+  useEffect(() => {
+    if (removeCurrentChatHeader) {
+      document.getElementsByClassName("chatremove")[0].remove();
+    }
+  }, [removeCurrentChatHeader]);
+
   const modalHandler = (id: string) => setOpen(id);
-  const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName;
+  const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName; // not working
   return (
     <>
       <ConfirmationModal
         visible={!!open}
-        confirmLoading={false}
+        confirmLoading={fetching}
         onCancel={() => modalHandler("")}
         onOk={deleteChatChannelHandler}
         message="Are you sure you want ot delete this Channel?"
@@ -76,7 +89,7 @@ function MessageHeader({}: Props) {
         /> */}
         </div>
         {isShowHeaderInfo && (
-          <div className="flex gap-2 w-full sm:px-4">
+          <div className="flex gap-2 w-full sm:px-4 chatremove">
             <div className="flex items-center gap-2 flex-1">
               <MDNextImage
                 alt=""

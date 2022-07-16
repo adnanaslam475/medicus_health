@@ -4,10 +4,11 @@ import MessageInput from "../MessageInput/MessageInput";
 import _classes from "./Message-detail.module.scss";
 import { useMessageContext } from "./MessageContext";
 
-type Props = {};
+type Props = { removeCurrentChatHeader?: boolean | undefined };
 
-function MessageContent({}: Props) {
+function MessageContent({ removeCurrentChatHeader }: Props) {
   const messagesEndRef: any = useRef<null | HTMLElement>(null);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
   };
@@ -21,8 +22,14 @@ function MessageContent({}: Props) {
     scrollToBottom();
   }, [currentChannelMessages]);
 
+  useEffect(() => {
+    if (removeCurrentChatHeader) {
+      document.getElementsByClassName("chatremove")[0].remove();
+    }
+  }, [removeCurrentChatHeader]);
+
   return (
-    <div className="border border-gray-4 w-full">
+    <div className="border border-gray-4 w-full chatremove">
       {currentChannelMessages ? (
         <div className={`${_classes["custom-height"]}`}>
           {currentChannelMessages?.map((message: any) => {
