@@ -210,7 +210,7 @@ function SearchFilters(props: Props) {
           </Select>
         </div>
       {/* </div> */}
-      <div className="flex w-full sm:w-60 ">
+      {/* <div className="flex w-full sm:w-60 ">
         <Space
           direction="vertical"
           size={0}
@@ -280,7 +280,7 @@ function SearchFilters(props: Props) {
             </Button>
           </div>
         </Space>
-      </div>
+      </div> */}
       <div className="flex w-full sm:w-60 ">
         <Space
           direction="vertical"
@@ -327,12 +327,12 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         dueDateRange?.[0]
                       )} -> ${getDateInFormat(dueDateRange?.[1])}`
-                    : "Due date"}
+                    : "Appointment Due Date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
                   <div className="flex items-center font-thin">
-                    <span className=" mt-1">
+                    <span className=" mt-1 mr-2">
                       <Image
                         priority={true}
                         width={18}
@@ -341,7 +341,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Due date
+                    Appointment Due Date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
