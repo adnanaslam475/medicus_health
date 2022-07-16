@@ -13,9 +13,9 @@ import { messageUtils } from "common/utils";
 import { ChatChannels } from "generated/graphql";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
 
-type Props = {};
+type Props = { modalHandler: any };
 
-function MessageHeader({}: Props) {
+function MessageHeader({ modalHandler }: Props) {
   const { messageInfo } = useMessageContext();
   const { user } = getUserData();
   const opposite = messageUtils.getOppositeParticipant(
@@ -28,7 +28,7 @@ function MessageHeader({}: Props) {
   );
 
   const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName;
-
+  console.log("mesageinfo", messageInfo);
   return (
     <div className="flex gap-2 items-center border-b border-gray-4">
       <div className="flex gap-2 py-4 px-4 max-w-[340px] w-full border-r border-gray-4">
@@ -60,7 +60,15 @@ function MessageHeader({}: Props) {
             />
             <h4 className="pb-0 mb-0">{`${opposite?.first_name} ${opposite?.last_name}`}</h4>
           </div>
-          {/* <Image priority={true} alt="" width={20} height={30} src={ThreeDot} /> */}
+          <Image
+            priority={true}
+            alt=""
+            className="cursor-pointer"
+            onClick={() => modalHandler(messageInfo.currentChannel?.id)}
+            width={20}
+            height={30}
+            src={ThreeDot}
+          />
         </div>
       )}
     </div>
