@@ -1,5 +1,5 @@
-query getAllChatChannels {
-  getAllChatChannels {
+query getAllChatChannels($filter: GetAllChannelFilterInput!) {
+  getAllChatChannels(filter: $filter) {
     id
     channelName
     doctorId
@@ -105,5 +105,12 @@ query getAppointmentPrice($id: Int!) {
     tax
     systemFee
     total
+  }
+}
+
+# remove chat channel
+mutation deleteChatChannel($id: Int!) {
+  deleteChat(channelId: $id) {
+    id
   }
 }
