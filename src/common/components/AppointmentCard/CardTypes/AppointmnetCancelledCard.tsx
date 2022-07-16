@@ -69,7 +69,7 @@ function AppointmnetCancelledCard({
     <>
       <Card className={`${_classes["appointment-card"]}`}>
         <span className="text-sm mb-0"> {appointmentId || ""}</span>
-        <h3 className="mb-0">Dr. {doctor}</h3>
+        <h3 className="mb-0">Dr.{doctor}</h3>
         <span className="text-gray text-base block">{serviceType}</span>
         <span className="text-sm">Date</span>
         <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>

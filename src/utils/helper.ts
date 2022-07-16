@@ -332,27 +332,27 @@ export const days = [
 export const patientEmailPreferencesData = [
   {
     key: "admin_appointment_create_update",
-    value: "Admin Creates/Update Appointment",
+    value: "Support team creates and/or updates appointment",
   },
   {
     key: "appointment_accepted_by_doctor",
-    value: "Appointment Accepted by Doctor",
+    value: "Appointment accepted by physician",
   },
   {
     key: "appointment_reminder",
-    value: "Appointment Reminder (24 hours before the appointment)",
+    value: "Appointment reminder (4 hours before the appointment)",
   },
   {
     key: "appointment_rescheduled_by_doctor",
-    value: "Appointment rescheduled by Doctor",
+    value: "Appointment canceled and/or rescheduled by physician",
   },
   {
     key: "new_message_received",
-    value: "The Patient/Physician/Administrator receives a chat message",
+    value: "Chat message received",
   },
   {
     key: "appointment_slot_suggested_by_doctor",
-    value: "Appointment slot suggested by doctor",
+    value: "Appointment slot suggested by physician",
   },
   // mine
   // {
@@ -398,15 +398,15 @@ export const physicianEmailPreferencesData = [
   },
   {
     key: "appointment_reminder",
-    value: "Appointment Reminder (24 hours before the appointment)",
+    value: "Appointment reminder (4 hours before the appointment)",
   },
   {
     key: "admin_appointment_create_update",
-    value: "Admin Creates/Update Appointment",
+    value: "Support team creates and/or updates appointment",
   },
   {
     key: "new_message_received",
-    value: "The Patient/Physician/Administrator receives a chat message",
+    value: "Chat message received",
   },
   // {
   //   key:"transaction_successful_alert",
@@ -417,7 +417,7 @@ export const adminEmailPreferencesData = [
  
   {
     key: "new_message_received",
-    value: "The Patient/Physician/Administrator receives a chat message",
+    value: "Chat message received",
   },
   {
     key:"transaction_successful_alert",

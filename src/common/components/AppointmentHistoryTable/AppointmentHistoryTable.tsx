@@ -13,33 +13,33 @@ import {
 
 const historyColumns = [
   {
-    title: "ID",
+    title: "ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,
   },
-  {
-    title: "Booked On",
-    dataIndex: "createdAt",
-    key: "createdAt",
-    sorter: true,
-    render: (createdAt: string) => {
-      return (
-        <div>{createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}</div>
-      );
-    },
-  },
+  // {
+  //   title: "Booked On",
+  //   dataIndex: "createdAt",
+  //   key: "createdAt",
+  //   sorter: true,
+  //   render: (createdAt: string) => {
+  //     return (
+  //       <div>{createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}</div>
+  //     );
+  //   },
+  // },
   {
     title: "Physician",
     dataIndex: "doctor",
     key: "first_name",
     sorter: true,
     render: (doctor: User) => {
-      return <div>{`${doctor.first_name} ${doctor.last_name}`}</div>;
+      return <div>{`Dr.${doctor.first_name} ${doctor.last_name}`}</div>;
     },
   },
   {
-    title: "Type",
+    title: "Service type",
     dataIndex: "serviceType",
     key: "name",
     sorter: true,
@@ -48,7 +48,7 @@ const historyColumns = [
     },
   },
   {
-    title: "Date",
+    title: "Appointment date",
     dataIndex: "appointmentDateTime",
     key: "startTime",
     sorter: true,
@@ -63,7 +63,7 @@ const historyColumns = [
     },
   },
   {
-    title: "Time",
+    title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "appointment_time_slots",
     sorter: true,
@@ -80,7 +80,7 @@ const historyColumns = [
     },
   },
   {
-    title: "Total Amount",
+    title: "Total amount",
     dataIndex: "charges",
     key: "charges",
     sorter: true,
@@ -89,7 +89,7 @@ const historyColumns = [
     },
   },
   {
-    title: "Transaction Date",
+    title: "Transaction date",
     dataIndex: "transaction",
     key: "createdAt",
     sorter: true,
