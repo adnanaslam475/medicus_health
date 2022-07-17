@@ -328,6 +328,7 @@ export function MessageContextProvider({
         receiverId: messageInfo.currentChannel?.id as number,
         message: text,
         messageType,
+        isRead:false
       },
     });
     await rtmRef.current?.sendChannelMessage(
