@@ -20,7 +20,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Physician Name",
+    title: "Physician name",
     dataIndex: "physician",
     render: (value: User) => {
       return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
@@ -28,12 +28,12 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Type",
+    title: "Service type",
     dataIndex: "serviceType",
     sorter: true,
   },
   {
-    title: "Booking Date",
+    title: "Booking date",
     dataIndex: "requestedDate",
     key: "requestedDate",
     sorter: true,
@@ -42,13 +42,13 @@ const columns = [
     },
   },
   {
-    title: "Appointment Due Date",
+    title: "Appointment due date",
     dataIndex: "appointmentSchedule",
     key: "appointmentSchedule",
     sorter: true,
   },
   {
-    title: "Appointment Time",
+    title: "Appointment time",
     dataIndex: "appointmentScheduletime",
     key: "appointmentScheduletime",
     sorter: true,
@@ -77,7 +77,7 @@ const columns = [
             type="primary"
             className="bg-primary"
           >
-            Message Physician
+            Message physician
           </Button>
         </div>
       );
@@ -95,7 +95,7 @@ const columns = [
             type="primary"
             className="bg-primary"
           >
-            Message Admin
+            Message support
           </Button>
         </div>
       );

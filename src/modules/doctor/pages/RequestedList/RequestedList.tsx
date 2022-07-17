@@ -32,7 +32,7 @@ const Columns = [
     },
   },
   {
-    title: "Booking Date",
+    title: "Booking date",
     dataIndex: "createdAt",
     key: "createdAt",
     sorter: true,
@@ -41,7 +41,7 @@ const Columns = [
     },
   },
   {
-    title: "Type",
+    title: "Service type",
     dataIndex: "serviceType",
     key: "name",
     sorter: true,
@@ -50,7 +50,7 @@ const Columns = [
     },
   },
   {
-    title: "Due Date ",
+    title: "Due date ",
     dataIndex: "appointmentDateTime",
     key: "appointment_time_slots",
     sorter: true,
@@ -83,7 +83,7 @@ const Columns = [
     },
   },
   {
-    title: "Total Amount",
+    title: "Total amount",
     dataIndex: "charges",
     key: "charges",
     sorter: true,
@@ -92,7 +92,7 @@ const Columns = [
     },
   },
   {
-    title: "Appointment Status",
+    title: "Appointment status",
     dataIndex: "status",
     key: "status",
     className: "table-action-icon",

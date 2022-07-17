@@ -23,9 +23,16 @@ export function convertStringDateToUTC(date: string) {
 export function formatMMMMDDYYYY(date: string) {
   return dayjs.utc(date).format("MMMM, D, YYYY");
 }
+export function formatDAYMMDD(date: string) {
+  return dayjs.utc(date).format("dddd, MMMM D ");
+}
+
+export function formatDAYMMDDYY(date: string) {
+  return dayjs.utc(date).format("dddd, MMMM D, YYYY");
+}
 
 export function formathhmma(date: string) {
-  return dayjs.utc(date).format("hh:mm a");
+  return dayjs.utc(date).format("h:mma");
 }
 
 export function formatDate_n_Time(date: string) {

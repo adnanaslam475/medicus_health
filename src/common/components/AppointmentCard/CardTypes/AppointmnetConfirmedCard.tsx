@@ -36,8 +36,8 @@ function AppointmnetConfirmedCard({
   return (
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
       <span className="text-sm mb-0"> {appointmentId || ""}</span>
-      <h3 className="mb-0">Dr. {doctor}</h3>
-      <span className="text-gray text-base block mb-4">{serviceType}</span>
+      <h3 className="mb-0">Dr.{doctor}</h3>
+      <span className="text-gray text-base block mb-4 normal-case">{serviceType}</span>
       <span className="text-sm pt-5">Date</span>
       <h6 className="mb-4">
         {date.formatMMMMDDYYYY(selectedAppointment?.startTime)}

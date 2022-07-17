@@ -30,7 +30,7 @@ const historyColumns = [
     },
   },
   {
-    title: "Type",
+    title: "Service type",
     dataIndex: "serviceType",
     sorter: true,
     key: "type",

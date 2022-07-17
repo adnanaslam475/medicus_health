@@ -32,7 +32,7 @@ function AppointmnetSuggestedCard({
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0"> {appointmentId || ""}</span>
-      <h3 className="mb-0">Dr. {doctor}</h3>
+      <h3 className="mb-0">Dr.{doctor}</h3>
       <span className="text-gray text-base block mb-6">{serviceType}</span>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Date</span>
@@ -58,7 +58,7 @@ function AppointmnetSuggestedCard({
           className={`${_classes["card-btn"]} mt-4`}
           onClick={() => onViewSuggestedSlots()}
         >
-          View Suggested Slots
+          View proposed slots
         </Button>
       </div>
     </Card>

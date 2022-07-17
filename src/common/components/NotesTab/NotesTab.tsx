@@ -54,13 +54,13 @@ function NotesTab({}: Props) {
   const actualDoctorNotes =
     appointmentChild?.appointment.currentAppointmentNote;
 
-  console.log(notesByAppointmentId, "statusMy");
+  
 
   // GET HISTORY NOTES
 
   const historyNotes = appointmentChild?.appointment.notesHistory;
 
-  console.log(historyNotes, "history Notes");
+  
 
   const addNote = async (value: any, closeModal: () => void) => {
     console.log({ value });
@@ -79,7 +79,7 @@ function NotesTab({}: Props) {
     if (res?.data?.createOrUpdateAppointmentNote.id) {
       closeModal();
       notification.success({
-        message: "Successfully Added",
+        message: "Successfully added",
       });
       executeGetAppointmentNotesByIdQuery({ requestPolicy: "network-only" });
     } else {
@@ -117,7 +117,7 @@ function NotesTab({}: Props) {
               status === "Requested" ||
               status === "Completed") && (
               <>
-                <h3>Current Appointment Notes</h3>
+                <h3>Current appointment notes</h3>
                 <NotesListingByAppointments
                   doctorNotes={
                     notesByAppointmentId as GetDoctorNotesByAppIdQuery
@@ -144,7 +144,7 @@ function NotesTab({}: Props) {
           ))} */}
         {/* HISTORY NOTES */}
         <div className="history-notes-cover">
-          <h3>History Notes</h3>
+          <h3>History notes</h3>
           <NotesHistory />
         </div>
       </CardWithProfileImageInfo>

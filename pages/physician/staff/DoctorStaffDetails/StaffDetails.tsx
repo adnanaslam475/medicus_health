@@ -67,7 +67,7 @@ function DoctorStaffDetails() {
       }
       if (response.data) {
         notification.success({
-          message: "Staff Delete Successfully",
+          message: "Staff delete successfully",
         });
         Router.push(`/physician/staff`);
 
@@ -75,7 +75,7 @@ function DoctorStaffDetails() {
       }
     } catch (error: any) {
       notification.error({
-        message: error?.message || "Something Went Wrong",
+        message: error?.message || "Something went wrong",
       });
     }
   };
@@ -100,7 +100,7 @@ function DoctorStaffDetails() {
       if (response.data) {
         formInstance.resetFields();
         notification.success({
-          message: "Successfully Updated",
+          message: "Successfully updated",
         });
         Router.push(`/physician/staff`);
         // Router.push({
@@ -125,14 +125,14 @@ function DoctorStaffDetails() {
       }
       if (response.data) {
         notification.success({
-          message: "Staff Updated Successfully",
+          message: "Staff updated successfully",
         });
 
         Router.push(`/physician/staff`);
       }
     } catch (error: any) {
       notification.error({
-        message: error?.message || "Something Went Wrong",
+        message: error?.message || "Something went wrong",
       });
     }
   };
@@ -148,7 +148,7 @@ function DoctorStaffDetails() {
       }
     } catch (error: any) {
       notification.error({
-        message: error?.message || "Something Went Wrong",
+        message: error?.message || "Something went wrong",
       });
     }
   };

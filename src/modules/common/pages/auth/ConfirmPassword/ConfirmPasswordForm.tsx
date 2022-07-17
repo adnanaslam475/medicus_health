@@ -32,7 +32,7 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
       </Form.Item>
 
       <Form.Item
-        label="Confirm Password"
+        label="Confirm password"
         name="confirmpassword"
         rules={[
           {
@@ -63,7 +63,7 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
           type="primary"
           htmlType="submit"
         >
-          Confirm Password
+          Confirm password
         </Button>
       </Form.Item>
     </Form>

@@ -29,7 +29,7 @@ const Columns = [
     sorter: true,
   },
   {
-    title: "Patient Name",
+    title: "Patient name",
     dataIndex: "appointment",
     key: "first_name",
     sorter: true,
@@ -40,7 +40,7 @@ const Columns = [
     },
   },
   {
-    title: "Service Type",
+    title: "Service type",
     dataIndex: "appointment",
     key: "name",
     sorter: true,
@@ -63,7 +63,7 @@ const Columns = [
     },
   },
   {
-    title: "Scheduled Date",
+    title: "Scheduled date",
     dataIndex: "appointment",
     key: "startTime",
     sorter: true,
@@ -90,7 +90,7 @@ const Columns = [
     },
   },
   {
-    title: "Payment Status",
+    title: "Payment status",
     dataIndex: "status",
     key: "transaction",
     sorter: true,
@@ -111,7 +111,7 @@ const Columns = [
     },
   },
   {
-    title: "Total Payment($)",
+    title: "Total payment($)",
     dataIndex: "appointmentCharges",
     key: "appointment",
     sorter: true,
@@ -156,7 +156,7 @@ const Columns = [
   //   },
   // },
   {
-    title: "Net Physician Fee($)",
+    title: "Net physician fee($)",
     dataIndex: "doctor_percentage",
     key: "doctor_percentage",
     sorter: true,
@@ -277,42 +277,38 @@ const PhysicianMyEarningsList = (props: Props) => {
   return (
     <AppLayout>
       <div className="w-full">
-        <Skeleton
-          loading={myEarningStatsLoading}
-          paragraph={{ rows: 0 }}
-          active
-        >
-          <div className="flex mb-0 flex-wrap">
-            <MyEarningsStats
-              label={"Total Consultants"}
-              text={String(total_number_of_consultation)}
-            />
-            <MyEarningsStats
-              label={"Total Second Opinions"}
-              text={String(total_number_of_second_opinions)}
-            />
-            <MyEarningsStats
-              label={"Total Patients"}
-              text={String(total_number_of_patients)}
-            />
-            <MyEarningsStats
-              label={"Earnings through Consultants"}
-              text={`$ ${total_earnings_from_consultation}`}
-            />
-            <MyEarningsStats
-              label={"Earnings through Second Opinion"}
-              text={`$ ${total_earnings_from_second_opinions}`}
-            />
-            <MyEarningsStats
-              label={"Total Earnings"}
-              text={`$ ${total_earnings}`}
-            />
-          </div>
-        </Skeleton>
+      <Skeleton loading={myEarningStatsLoading} paragraph={{ rows: 0 }} active>
+        <div className="flex mb-0 flex-wrap">
+          <MyEarningsStats
+            label={"Total consultants"}
+            text={String(total_number_of_consultation)}
+          />
+          <MyEarningsStats
+            label={"Total second opinions"}
+            text={String(total_number_of_second_opinions)}
+          />
+          <MyEarningsStats
+            label={"Total patients"}
+            text={String(total_number_of_patients)}
+          />
+          <MyEarningsStats
+            label={"Earnings through consultants"}
+            text={`$ ${total_earnings_from_consultation}`}
+          />
+          <MyEarningsStats
+            label={"Earnings through second opinion"}
+            text={`$ ${total_earnings_from_second_opinions}`}
+          />
+          <MyEarningsStats
+            label={"Total earnings"}
+            text={`$ ${total_earnings}`}
+          />
+        </div>
+      </Skeleton>
         <Divider />
 
         <div className="flex justify-between">
-          <h2 className="mb-4">My Earnings</h2>
+          <h2 className="mb-4">My earnings</h2>
         </div>
 
         <MyEarningsSearchFilters onChange={onChangeFilters} />

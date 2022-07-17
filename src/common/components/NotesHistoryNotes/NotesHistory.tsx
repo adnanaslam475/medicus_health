@@ -99,30 +99,30 @@ function NotesHistory(props: Props) {
                           <AcronymWithText
                             character={"N"}
                             word={"Narrative"}
-                            sentence={data.note || "No Details"}
+                            sentence={data.note || "No details"}
                           />
                           <div className="font-bold text-black my-3">SOAP</div>
                           <AcronymWithText
                             character={"S"}
                             word={"Subjective"}
-                            sentence={data.subjective || "No Details"}
+                            sentence={data.subjective || "No details"}
                           />
                           <AcronymWithText
                             character={"O"}
                             word={"Objective"}
-                            sentence={data.objective || "No Details"}
+                            sentence={data.objective || "No details"}
                           />
 
                           <div className="only-patient">
                             <AcronymWithText
                               character={"A"}
                               word={"Assessment"}
-                              sentence={data.assessment || "No Details"}
+                              sentence={data.assessment || "No details"}
                             />
                             <AcronymWithText
                               character={"P"}
                               word={"Plan"}
-                              sentence={data.plan || "No Details"}
+                              sentence={data.plan || "No details"}
                             />
                           </div>
                         </div>
@@ -133,12 +133,12 @@ function NotesHistory(props: Props) {
                             <AcronymWithText
                               character={"A"}
                               word={"Assessment"}
-                              sentence={data.assessment || "No Details"}
+                              sentence={data.assessment || "No details"}
                             />
                             <AcronymWithText
                               character={"P"}
                               word={"Plan"}
-                              sentence={data.plan || "No Details"}
+                              sentence={data.plan || "No details"}
                             />
                           </div>
                         </div>
@@ -150,7 +150,7 @@ function NotesHistory(props: Props) {
             </>
           ) : (
             <>
-              <h5>No history notes Available</h5>
+              <h5>No history notes available</h5>
             </>
           )}
         </Collapse>

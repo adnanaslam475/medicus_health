@@ -20,10 +20,9 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Profile Picture",
+    title: "Profile picture",
     dataIndex: "patientProfile",
     key: "patientProfile",
-    // sorter: true,
     render: (value: PatientProfile) => {
       return (
         <div>

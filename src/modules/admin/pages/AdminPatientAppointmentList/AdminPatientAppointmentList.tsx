@@ -25,7 +25,7 @@ type StatusName =
   | "SUCCEEDED"
   | "CONFIRMED"
   | "REQUESTED"
-  | "SUGGESTED"
+  | "PROPOSED"
   | "CANCELLED";
 
 const columns = [

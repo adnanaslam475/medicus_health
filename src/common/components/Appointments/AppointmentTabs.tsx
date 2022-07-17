@@ -96,7 +96,7 @@ const AppointmentTabs = (props: Props) => {
           status === "Upcoming") && (
           <>
             {/* {pathname.includes("appointments") && ( */}
-            <Tabs.TabPane tab={<span>Notes</span>} key="6">
+            <Tabs.TabPane tab={<span>Notes history</span>} key="6">
               <NotesTab />
             </Tabs.TabPane>
             {/* )} */}

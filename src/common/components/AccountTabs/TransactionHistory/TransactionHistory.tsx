@@ -99,7 +99,7 @@ const transactionsColumns = [
     render: (value: string) => {
       return (
         <div className="someclass">{`${
-          value ? date?.formatDate_n_Time(value) : "--"
+          value ? date?.formatDAYMMDDYY(value) : "--"
         }`}</div>
       );
     },
