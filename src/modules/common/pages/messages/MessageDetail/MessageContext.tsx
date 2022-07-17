@@ -31,6 +31,7 @@ type state = {
   loginToRtm?: () => Promise<void>;
   onMessage: (text: string, messageType?: string) => void;
   setCurrentChannel: (channel: ChatChannels) => void;
+  setChatSearch: (value: string) => void;
   createChatFetching?: boolean | undefined | null;
 };
 
@@ -42,6 +43,7 @@ type MessageInfo = {
 
 const initialState: state = {
   onMessage: () => null,
+  setChatSearch: () => null,
   setCurrentChannel: () => null,
   messageInfo: {
     allChannels: [],
@@ -69,12 +71,12 @@ export function MessageContextProvider({
     messagesWithChannel: {},
     currentChannel: undefined,
   });
-  const [createChatFetching, setCreateChatFetching] = useState(false);
+  const [createChatFetching, setCreateChatFetching] = useState<boolean>(false);
+  const [searchString, setChatSearch] = React.useState<string>("");
   const { query } = useRouter();
   const messageInfoRef = useRef<MessageInfo>(messageInfo);
   messageInfoRef.current = messageInfo;
   const rtmRef = useRef<Client>();
-  const [searchString, setSearchString] = React.useState<string>("");
   const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
   const [{ data }, executeGetAllChatChannelsMutation] =
     useGetAllChatChannelsQuery({ variables: { filter: { searchString } } });
@@ -328,6 +330,7 @@ export function MessageContextProvider({
         receiverId: messageInfo.currentChannel?.id as number,
         message: text,
         messageType,
+        isRead: false, // will discuss
       },
     });
     await rtmRef.current?.sendChannelMessage(
@@ -370,6 +373,7 @@ export function MessageContextProvider({
         createChatFetching,
         onLoginJoinChannel,
         onJoinChannel,
+        setChatSearch,
         loginToRtm,
         setCurrentChannel,
         onMessage,

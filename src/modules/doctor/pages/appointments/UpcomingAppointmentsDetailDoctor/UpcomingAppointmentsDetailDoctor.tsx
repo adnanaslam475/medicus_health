@@ -23,9 +23,9 @@ function UpcomingAppointmentsDetailDoctor() {
   const { query } = useRouter();
   const router = useRouter();
   const [activeTab, setActiveTab] = React.useState<string>("");
-	useEffect(() => {
-		query?.activeTab && setActiveTab(String(query?.activeTab));
-	}, [query]);
+  useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+  }, [query]);
   const { pathname } = router || {};
 
   const [{ data }] = useDoctorAppointmentDetailQuery({
@@ -59,6 +59,7 @@ function UpcomingAppointmentsDetailDoctor() {
   // Get patient Health History
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: patientId as number },
+    pause: !patientId, // this was calling unnecessary
   });
 
   const onChangeTabHandler = (key: string) => {

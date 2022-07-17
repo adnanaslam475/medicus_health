@@ -15,15 +15,12 @@ import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
 type Props = {
-  setRemoveCurrentChatHeader?: any;
-  removeCurrentChatHeader?: boolean | undefined;
+  setRemoveCurrentChat?: any;
+  removeCurrentChat?: boolean | undefined;
 };
 
-function MessageHeader({
-  removeCurrentChatHeader,
-  setRemoveCurrentChatHeader,
-}: Props) {
-  const { messageInfo } = useMessageContext();
+function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
+  const { messageInfo, setChatSearch } = useMessageContext();
   const { user } = getUserData();
   const [{ fetching }, deleteChatChannelMutation] =
     useDeleteChatChannelMutation();
@@ -44,7 +41,7 @@ function MessageHeader({
         id: Number(messageInfo.currentChannel?.id),
       });
       setOpen("");
-      setRemoveCurrentChatHeader(true);
+      setRemoveCurrentChat(true);
     } catch (error: any) {
       notification.error({
         message: error?.message || "Something went wrong",
@@ -53,10 +50,10 @@ function MessageHeader({
   };
 
   useEffect(() => {
-    if (removeCurrentChatHeader) {
+    if (removeCurrentChat) {
       document.getElementsByClassName("chatremove")[0].remove();
     }
-  }, [removeCurrentChatHeader]);
+  }, [removeCurrentChat]);
 
   const modalHandler = (id: string) => setOpen(id);
   const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName; // not working
@@ -77,6 +74,7 @@ function MessageHeader({
             prefix={
               <SearchOutlined className={`{${_classes["search-color"]}`} />
             }
+            onChange={(e) => setChatSearch(e.target.value)}
           />
 
           {/* <Image
