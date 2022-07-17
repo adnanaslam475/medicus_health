@@ -75,13 +75,7 @@ const historyColumns = [
 ];
 
 function PatientAppointmentHistoryTable(props: Props) {
-  const {
-    data = {},
-    meta,
-    pagination,
-    onPaginationChange,
-    onChange,
-  } = props || {};
+  const { data, meta, pagination, onPaginationChange, onChange } = props || {};
 
   // const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
   //   {}
