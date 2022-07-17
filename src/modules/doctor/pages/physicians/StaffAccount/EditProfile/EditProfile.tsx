@@ -776,9 +776,9 @@ function EditProfile({
                   <Button type="default" onClick={() => setIsEdit(false)}>
                     Close
                   </Button>
-                  <Button type="primary" htmlType="submit">
+                  {/* <Button type="primary" htmlType="submit">
                     Save Changes
-                  </Button>
+                  </Button> */}
                 </div>
               </Form.Item>
             </Form>
