@@ -11,6 +11,7 @@ type Props = {
   pagination?: any;
   onPaginationChange: any;
   onChange: () => void;
+  loading?: boolean;
 };
 
 const historyColumns = [
@@ -75,7 +76,8 @@ const historyColumns = [
 ];
 
 function PatientAppointmentHistoryTable(props: Props) {
-  const { data, meta, pagination, onPaginationChange, onChange } = props || {};
+  const { data, meta, pagination, onPaginationChange, onChange, loading } =
+    props || {};
 
   // const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
   //   {}
@@ -112,6 +114,7 @@ function PatientAppointmentHistoryTable(props: Props) {
         pageSizeOptions: ["10", "20", "30", "40"],
         showSizeChanger: true,
       }}
+      loading={loading}
     />
   );
 }

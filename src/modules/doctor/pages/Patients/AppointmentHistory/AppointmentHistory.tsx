@@ -14,7 +14,7 @@ function AppointmentHistory() {
     order: "",
   });
 
-  const [{ data }] = useGetAllRequestedAppointmentsQuery({
+  const [{ data, fetching: loading }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
         status: "Completed",
@@ -51,6 +51,7 @@ function AppointmentHistory() {
           meta={appointments?.meta}
           onChange={onChange}
           onPaginationChange={onPaginationChange}
+          loading={loading}
         />
       </div>
     </div>
