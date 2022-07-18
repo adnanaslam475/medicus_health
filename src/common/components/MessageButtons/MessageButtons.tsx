@@ -23,17 +23,17 @@ const MessageButtons = (props: Props) => {
               icon={<MessageOutlined />}
               className={`${_classes["appointments-btn"]} mr-1 sm:mr-3`}
               // onClick={() => Router.push("/physician/messages")}
-              onClick={() =>
+              onClick={() => {
                 Router.push({
                   pathname: "/physician/messages",
                   query: {
                     chat: "patient",
                     // patientId: adminApp_Details?.patient.patient_id,
-                    doctorId: doctorId,
+                    doctorId,
                     patientId: patientID,
                   },
-                })
-              }
+                });
+              }}
             >
               Message patient
             </Button>

@@ -3,9 +3,9 @@ import _classes from "./Message-detail.module.scss";
 import UserProfile from "../UserProfile/UserProfile";
 import { useMessageContext } from "./MessageContext";
 
-type Props = { setRemoveCurrentChatHeader?: any };
+type Props = { setRemoveCurrentChat?: any };
 
-function MessageConversationSider({ setRemoveCurrentChatHeader }: Props) {
+function MessageConversationSider({ setRemoveCurrentChat }: Props) {
   const { messageInfo } = useMessageContext();
   const { allChannels } = messageInfo || {};
 
@@ -21,7 +21,7 @@ function MessageConversationSider({ setRemoveCurrentChatHeader }: Props) {
         return (
           <UserProfile
             thread={thread}
-            setRemoveCurrentChatHeader={setRemoveCurrentChatHeader}
+            setRemoveCurrentChat={setRemoveCurrentChat}
           />
         );
       })}
