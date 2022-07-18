@@ -53,14 +53,26 @@ query getAllChatChannels($filter: GetAllChannelFilterInput!) {
           isAdminChat
         }
         doctorProfile {
+          user {
+            first_name
+            last_name
+          }
           profile_image
         }
         patientProfile {
+          user {
+            first_name
+            last_name
+          }
           profileImage
         }
         adminProfilePicture {
           id
           profile_picture
+          user {
+            first_name
+            last_name
+          }
         }
       }
     }
