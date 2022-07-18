@@ -49,19 +49,6 @@ function MessageItem(props: Props) {
         <div className="md:w-1/2">
           <div className="flex items-start gap-2">
             <div className="w-1/12">
-              {/* <Image
-                priority={true}
-                alt=""
-                width={39}
-                height={39}
-                src={
-                  role === "Doctor"
-                    ? doctorImage as string
-                    : role === "User"
-                    ? patientImage as string
-                    : ""
-                }
-              /> */}
               <MDNextImage
                 alt=""
                 width={39}
