@@ -58,6 +58,10 @@ query getAllChatChannels($filter: GetAllChannelFilterInput!) {
         patientProfile {
           profileImage
         }
+        adminProfilePicture {
+          id
+          profile_picture
+        }
       }
     }
   }
@@ -79,6 +83,17 @@ query getChannelMessages($channelId: Int!) {
       }
       patientProfile {
         profileImage
+      }
+      adminProfilePicture {
+        id
+        profile_picture
+      }
+    }
+    receiver {
+      role
+      adminProfilePicture {
+        id
+        profile_picture
       }
     }
   }

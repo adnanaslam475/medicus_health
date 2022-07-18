@@ -103,7 +103,6 @@ export function MessageContextProvider({
       ];
 
       info.messagesWithChannel = messages;
-
       setMessageInfo(info);
     }
   }, [getChannelMessages?.[0]?.channelId]);
