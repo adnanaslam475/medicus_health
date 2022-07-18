@@ -40,7 +40,6 @@ function PatientDetail() {
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: Number(query?.id) },
   });
-  console.log("userdtaaa", userData?.user);
 
   // Get patient Health History
   const [{ data }] = usePatientHealthHistoryQuery({

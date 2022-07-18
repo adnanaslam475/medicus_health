@@ -118,33 +118,26 @@ export function MessageContextProvider({
             isAdminChat: query.chat === "admin",
           },
         });
-        executeGetAllChatChannelsMutation({
-          requestPolicy: "network-only",
-        });
-        console.log(query?.chat);
       } else if (query?.chat && query.doctorId) {
         // for admin to doctor
-        await executeCreateChatChannelMutation({
+        const res = await executeCreateChatChannelMutation({
           createChatChannelInput: {
             doctorId: Number(query.doctorId),
             isAdminChat: query.chat === "admin",
           },
         });
-        executeGetAllChatChannelsMutation({
-          requestPolicy: "network-only",
-        });
       } else if (query?.chat && query.patientId) {
         // for admin to patient
-        await executeCreateChatChannelMutation({
+        const res = await executeCreateChatChannelMutation({
           createChatChannelInput: {
             patientId: Number(query.patientId),
             isAdminChat: query.chat === "admin",
           },
         });
-        executeGetAllChatChannelsMutation({
-          requestPolicy: "network-only",
-        });
       }
+      executeGetAllChatChannelsMutation({
+        requestPolicy: "network-only",
+      });
     } catch (error) {
       console.log("error to carete", error);
     }
@@ -192,6 +185,7 @@ export function MessageContextProvider({
   }
 
   async function loginToRtm() {
+    console.log("logintormt");
     const res = await getRtmToken("channelName", String(user?.id));
     const { rtmAccessToken } = res || {};
     let rtmLocal = rtmRef.current;
