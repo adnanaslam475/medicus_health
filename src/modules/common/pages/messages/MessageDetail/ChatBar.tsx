@@ -6,6 +6,7 @@ import { getUserData } from "common/utils/userData";
 import attachIcon from "./../../../../../../public/assets/images/attach.svg";
 import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
 import { date } from "common/utils";
+import MDNextImage from "common/components/MDNextImage/MDNextImage";
 
 type Props = {
   data: any;
@@ -22,6 +23,11 @@ function MessageItem(props: Props) {
     ({ participantId }) => Number(senderId) === participantId
   );
   const { userDetails } = messageOwner || {};
+  const { role, doctorProfile, patientProfile, adminProfilePicture } =
+    userDetails || {};
+  const { profile_image: doctorImage } = doctorProfile || {};
+  const { profileImage: patientImage } = patientProfile || {};
+  const { profile_picture } = adminProfilePicture || {};
   const isMyMessage = Number(senderId) === Number(user?.id);
   const backgroundColor = isMyMessage ? "#E0EEFD" : "#F6F8FA";
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
@@ -43,12 +49,34 @@ function MessageItem(props: Props) {
         <div className="md:w-1/2">
           <div className="flex items-start gap-2">
             <div className="w-1/12">
-              <Image
+              {/* <Image
                 priority={true}
                 alt=""
                 width={39}
                 height={39}
-                src={profile}
+                src={
+                  role === "Doctor"
+                    ? doctorImage as string
+                    : role === "User"
+                    ? patientImage as string
+                    : ""
+                }
+              /> */}
+              <MDNextImage
+                alt=""
+                width={39}
+                height={39}
+                className="rounded-full"
+                src={
+                  role === "Doctor"
+                    ? (doctorImage as string)
+                    : role === "User"
+                    ? (patientImage as string)
+                    : role === "Admin"
+                    ? (profile_picture as string)
+                    : ""
+                }
+                fallbackImage={profile}
               />
             </div>
             <div className="gap-3 w-11/12">
@@ -76,7 +104,9 @@ function MessageItem(props: Props) {
                     </a>
                   </p>
                 ) : (
-                  <p className={`p-3 text-secondary rounded inline-block break-all`}>
+                  <p
+                    className={`p-3 text-secondary rounded inline-block break-all`}
+                  >
                     {message}
                   </p>
                 )}

@@ -101,7 +101,6 @@ export function MessageContextProvider({
       ];
 
       info.messagesWithChannel = messages;
-
       setMessageInfo(info);
     }
   }, [getChannelMessages?.[0]?.channelId]);
@@ -328,7 +327,7 @@ export function MessageContextProvider({
         receiverId: messageInfo.currentChannel?.id as number,
         message: text,
         messageType,
-        isRead:false
+        isRead: false,
       },
     });
     await rtmRef.current?.sendChannelMessage(
