@@ -11,7 +11,6 @@ import {
 } from "../../../../../generated/graphql";
 import { getRole, getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
-import PurifiedInnerHtml from "common/components/PurifiedInnerHtml/PurifiedInnerHtml";
 
 function Login() {
   const t = useTranslations("Login");
@@ -58,7 +57,7 @@ function Login() {
           });
         } else if (userPayload.user.role === "User") {
           Router.replace({
-            pathname: "/patient/appointments/upcoming",
+            pathname: "/es/patient/appointments/upcoming",
           });
         } else if (userPayload.user.role === "Admin") {
           Router.replace({

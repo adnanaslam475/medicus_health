@@ -44,7 +44,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Medicus</title>
         {/* <meta name="description" content="Patient Physicians and Admins" /> */}
-        {/* <link rel="shortcut icon" href={favicon} type="image/x-icon" /> */}
       </Head>
       <NextIntlProvider messages={pageProps.messages}>
         <AuthProvider>
