@@ -28,7 +28,7 @@ export function getOppositeParticipantProfileImage(
   if (!value) return undefined;
   const opposite = getOppositeParticipant(value, role);
   const oppositeParticipantProfileImage =
-    role === "Doctor"
+    role === "Doctor" || role === "Staff"
       ? opposite?.patientProfile?.profileImage
       : opposite?.doctorProfile?.profile_image;
   return oppositeParticipantProfileImage;

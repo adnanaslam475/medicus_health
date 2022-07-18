@@ -72,6 +72,6 @@ export default class Client extends EventEmitter {
   async sendChannelMessage(text: string, channelName: string) {
     if (!this.channels[channelName] || !this.channels[channelName].joined)
       return;
-    return this.channels[channelName].channel.sendMessage({ text });
+    return this.channels[channelName].channel?.sendMessage({ text });
   }
 }
