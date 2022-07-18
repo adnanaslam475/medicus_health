@@ -52,7 +52,7 @@ const Columns = [
   {
     title: "Due date ",
     dataIndex: "appointmentDateTime",
-    key: "appointment_time_slots",
+    key: "requestedDate",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
@@ -68,7 +68,7 @@ const Columns = [
   {
     title: "Time",
     dataIndex: "appointmentDateTime",
-    key: "appointment_time_slots",
+    key: "requestedDate",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (

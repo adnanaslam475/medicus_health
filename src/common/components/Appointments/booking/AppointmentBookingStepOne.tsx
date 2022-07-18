@@ -289,6 +289,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
                   <Input
                     disabled
+                    prefix={<p className="mb-0">$</p>}
                     value={
                       serviceInfo
                         ? `${serviceInfo?.map((item) =>

@@ -11,8 +11,9 @@ import MDNextImage from "common/components/MDNextImage/MDNextImage";
 
 type Props = {
   thread: ChatChannels;
+  setRemoveCurrentChat?: any;
 };
-function UserProfile({ thread }: Props) {
+function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const { setCurrentChannel, loginToRtm, onJoinChannel } = useMessageContext();
 
   //get channel dateTime
@@ -26,6 +27,7 @@ function UserProfile({ thread }: Props) {
   const messageTimein12HoursFomrat = date?.formathhmma(messageTime?.toString());
 
   async function onJoinChat() {
+    setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
   }

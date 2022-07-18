@@ -4,10 +4,11 @@ import MessageInput from "../MessageInput/MessageInput";
 import _classes from "./Message-detail.module.scss";
 import { useMessageContext } from "./MessageContext";
 
-type Props = {};
+type Props = { removeCurrentChat?: boolean | undefined };
 
-function MessageContent({}: Props) {
+function MessageContent({ removeCurrentChat }: Props) {
   const messagesEndRef: any = useRef<null | HTMLElement>(null);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
   };
@@ -22,8 +23,8 @@ function MessageContent({}: Props) {
   }, [currentChannelMessages]);
 
   return (
-    <div className="border border-gray-4 w-full">
-      {currentChannelMessages ? (
+    <div className="border border-gray-4 w-full chatremove">
+      {currentChannelMessages && !removeCurrentChat ? (
         <div className={`${_classes["custom-height"]}`}>
           {currentChannelMessages?.map((message: any) => {
             return <ChatBar data={message} />;
@@ -31,13 +32,13 @@ function MessageContent({}: Props) {
           <div ref={messagesEndRef} />
         </div>
       ) : (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center mt-80">
           <div className="text-gray">
             Click on the chat thread to continue chat.
           </div>
         </div>
       )}
-      <MessageInput />
+      {!removeCurrentChat && <MessageInput />}
     </div>
   );
 }

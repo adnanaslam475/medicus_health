@@ -7,9 +7,18 @@ import {
 } from "@ant-design/icons";
 import { getDateInFormat } from "common/utils/date";
 import { DateType } from "common/types/types";
-import { BookingDate, GetPhysiciansInput, useCountriesQuery,useGetStatesByCountryQuery} from "generated/graphql";
+import {
+  BookingDate,
+  GetPhysiciansInput,
+  useCountriesQuery,
+  useGetStatesByCountryQuery,
+} from "generated/graphql";
 import { SelectCountryTypeFilter } from "common/components/SelectCountryTypeFilter/SelectCountryTypeFilter";
-import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter copy/SelectStateTypeFilter";
+import { SelectCityTypeFilter } from "common/components/SelectCityTypeFilter/SelectCityTypeFilter";
+import { SelectCityFilter } from "common/components/SelectCityFilter/SelectCityFilter";
+import _classes from "./AdminPhysicianSearchFilters.module.scss";
+import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter/SelectStateTypeFilter";
+
 const { RangePicker } = DatePicker;
 
 const { Option } = Select;
@@ -19,6 +28,10 @@ type Props = {
 };
 
 function AdminPhysicianSearchFilters(props: Props) {
+  const [filterPostalCode, setPostalCode] = useState<GetPhysiciansInput | any>(
+    {}
+  );
+  const [filterCity, setFilterCity] = useState<GetPhysiciansInput | any>({});
   const [filterState, setFilterState] = useState<GetPhysiciansInput | any>({});
   const [countryId, setCountryId] = useState<number | undefined>();
   const [creationDate, setCreationDate] = useState<BookingDate>({});
@@ -33,8 +46,6 @@ function AdminPhysicianSearchFilters(props: Props) {
     const filters = {
       ...filterState,
       [key]: value,
-  
-      
     };
 
     setFilterState(filters);
@@ -46,11 +57,17 @@ function AdminPhysicianSearchFilters(props: Props) {
     if (!filters?.language) {
       delete filters?.language;
     }
+    if (!filters?.countryId) {
+      delete filters?.stateId;
+    }
+
+    if (!filters?.stateId) {
+      delete filters?.cityId;
+    }
 
     onChange(filters);
-    console.log(filters,"ddd")
+    console.log(filters, "ddd");
   }
-
 
   const applyDateRange = () => {
     setOpenDateRange1(false);
@@ -85,27 +102,49 @@ function AdminPhysicianSearchFilters(props: Props) {
           onChange={(e) => onChangeFields("specialization", e)}
           value={filterState.specialization}
         >
-           <Option value="Cardiologist">Cardiologist</Option>
-            <Option value="Family Physician">Family Physician</Option>
-            <Option value="Neurologist">Neurologist</Option>
-          
-          
+          <Option value="Cardiologist">Cardiologist</Option>
+          <Option value="Family Physician">Family Physician</Option>
+          <Option value="Neurologist">Neurologist</Option>
         </Select>
       </div>
       <div className=" sm:mt-0  md:w-44 xl:w-44">
-     
-         <SelectCountryTypeFilter
-            onChange={(value) => onChangeFields("countryId", Number(value))}
-            value={filterState?.countryId}
-          />
+        <SelectCountryTypeFilter
+          onChange={(value) => onChangeFields("countryId", Number(value))}
+          value={filterState?.countryId}
+        />
       </div>
       <div className="sm:mt-0">
-      <SelectStateTypeFilter 
-            onChange={(value) => onChangeFields("stateId", Number(value))}
-            value={filterState?.stateId}
-            selectedCountryId={filterState.countryId}
-          />
+        <SelectStateTypeFilter
+          onChange={(value) => onChangeFields("stateId", Number(value))}
+          value={filterState?.stateId}
+          selectedCountryId={filterState.countryId}
+        />
       </div>
+
+      <div className="sm:mt-0 md:w-30 xl:w-30">
+        <SelectCityTypeFilter
+          onChange={(value) => onChangeFields("cityId", Number(value))}
+          value={filterState?.cityId}
+          stateId={filterCity.stateId}
+        />
+      </div>
+
+      {/* <div className="sm:mt-0">
+        <SelectPostalCodeFilter
+          onChange={(value) => onChangeFields("Postal Code", Number(value))}
+          value={filterPostalCode?.stateId}
+          selectedCountryId={filterPostalCode.cityId}
+        />
+      </div> */}
+
+      <div className="sm:mt-0">
+        <SelectCityFilter
+          onChange={(value) => onChangeFields("cityId", Number(value))}
+          value={filterState?.cityId}
+          selectedStateId={filterState.stateId}
+        />
+      </div>
+
       <div className="sm:mt-0">
         <Select
           placeholder="Language"
@@ -116,6 +155,71 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="English">English</Option>
           <Option value="Spanish">Espanol</Option>
         </Select>
+      </div>
+      <div className="flex-none sm:flex mt-4 sm:mt-0">
+        <Space
+          direction="vertical"
+          size={0}
+          className="w-full md:w-44 xl:w-60 sm:mb-3"
+        >
+          <div className="relative -mt-4">
+            <RangePicker
+              value={null}
+              open={openDateRange1}
+              className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible "
+              onChange={(_, dateString: string[]) =>
+                setCreationDate({
+                  startDate: dateString[0],
+                  endDate: dateString[1],
+                })
+              }
+              renderExtraFooter={() => (
+                <div className="flex gap-3 justify-end p-3">
+                  <Button
+                    className="bg-gray-300"
+                    onClick={() => {
+                      setOpenDateRange1(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className=" text-white"
+                    type="primary"
+                    onClick={() => {
+                      applyDateRange();
+                    }}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              )}
+            />
+            <Button
+              className={`${_classes["dropdown"]} flex date-btn border-double`}
+              block
+              type="default"
+              onClick={() => setOpenDateRange1?.(!openDateRange1)}
+            >
+              {filterState?.creationDate?.endDate ? (
+                <div className="border-4 border-indigo-600">
+                  {filterState?.creationDate?.endDate
+                    ? `${getDateInFormat(
+                        filterState?.creationDate?.startDate
+                      )} -> ${getDateInFormat(
+                        filterState?.creationDate?.endDate
+                      )}`
+                    : "Account Created At"}
+                </div>
+              ) : (
+                <div className="flex justify-between items-center w-full px-3 border-gray text-gray-1">
+                  <div>Account Created At</div>
+                  <CaretDownOutlined />
+                </div>
+              )}
+            </Button>
+          </div>
+        </Space>
       </div>
       <Button type="text" className="" onClick={clear}>
         <CloseOutlined className="text-sm" />

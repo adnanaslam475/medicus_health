@@ -29,6 +29,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
       variables: { input: Number(loggedInUserId) },
       requestPolicy: "network-only",
     });
+
   const [visible, setVisible] = useState(false);
   const router = useRouter();
   const { locales, locale: activeLocale } = router;

@@ -15,7 +15,6 @@ type Props = {
   loggedinDoctorDetails?: User;
 };
 
-
 function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
   const {
     first_name,
@@ -23,6 +22,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
     gender,
     date_of_birth,
     contact_number,
+    doctorProfile,
     email,
     password,
     country_id,
@@ -82,15 +82,30 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
     cityName = selectedCity?.filter((item) => item.id === city_id);
   }
 
-  const doctorFirstName = loggedinDoctorDetails?.first_name || ""
-  const doctorProfilePicture = loggedinDoctorDetails?.doctorProfile?.profile_image || ""
-  const doctorSpecialization = loggedinDoctorDetails?.doctorProfile?.specialization || ""
-  
+  const doctorFirstName = loggedinDoctorDetails?.first_name || "";
+  const doctorProfilePicture =
+    loggedinDoctorDetails?.doctorProfile?.profile_image || "";
+  const doctorSpecialization =
+    loggedinDoctorDetails?.doctorProfile?.specialization || "";
+  console.log(
+    "mags_btns parnet",
+    userDetail,
+    doctorProfile?.doctor_id,
+    patientProfile?.id
+  );
+
   return (
     <div className="max-w-[800px]">
-      <CardWithProfileImageInfo name={doctorFirstName} serviceName={String(doctorSpecialization)} imageUrl={doctorProfilePicture}>
+      <CardWithProfileImageInfo
+        name={doctorFirstName}
+        serviceName={String(doctorSpecialization)}
+        imageUrl={doctorProfilePicture}
+      >
         <div className="messageButtons">
-          <MessageButtons />
+          <MessageButtons
+            doctorId={doctorProfile?.doctor_id}
+            patientID={patientProfile?.userId}
+          />
         </div>
         <div className="max-w-[800px]">
           <div className="flex flex-col md:flex-row gap-2">

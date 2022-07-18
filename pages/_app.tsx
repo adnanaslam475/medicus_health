@@ -12,6 +12,7 @@ import "./../styles/cutomized-antd.css";
 import { useEffect } from "react";
 import Router from "next/router";
 import Head from "next/head";
+import favicon from "../public/favicon.ico";
 
 const client = createClient({
   url: config.baseURL || "",
@@ -31,34 +32,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     const loginTime =
       typeof window !== "undefined" && localStorage?.getItem("loginTime");
     let expireTime = Number(loginTime) + Number(86400000);
-
-    setTimeout(() => {
-      Router.push("/login");
-      localStorage.clear();
-    }, expireTime - Date.now());
+    if (loginTime) {
+      setTimeout(() => {
+        Router.push("/login");
+        localStorage.clear();
+      }, expireTime - Date.now());
+    }
   }, [loginTime]);
   return (
     <>
       <Head>
         <title>Medicus</title>
-        <meta name="description" content="Patient Physicians and Admins" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="./../public/favicon-32x32.png"
-        />
-        <link rel="icon" type="image/ico" href="./../public/favicon.ico" />
-        <link
-          rel="icon"
-          type="image/ico/png"
-          sizes="16x16"
-          href="./../public/favicon-16x16.png"
-        />
-        {/*         
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" /> */}
-        <meta name="theme-color" content="#ffffff" />
+        {/* <meta name="description" content="Patient Physicians and Admins" /> */}
+        {/* <link rel="shortcut icon" href={favicon} type="image/x-icon" /> */}
       </Head>
       <NextIntlProvider messages={pageProps.messages}>
         <AuthProvider>

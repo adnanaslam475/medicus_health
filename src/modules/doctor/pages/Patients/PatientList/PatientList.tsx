@@ -126,7 +126,7 @@ function PatientList() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${/country_name/.test(sorter.field) ? "country" : "user"}.${
+        ? `${/country_name/.test(sorter.field) ? "country" : "patient"}.${
             sorter.columnKey || sorter.field
           }`
         : "",

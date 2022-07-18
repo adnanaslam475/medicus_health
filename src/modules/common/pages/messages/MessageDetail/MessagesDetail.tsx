@@ -9,14 +9,23 @@ import { MessageContextProvider } from "./MessageContext";
 // scss
 import _classes from "./Message-detail.module.scss";
 
-function Messages() {
+type Props = {};
+
+function Messages({}: Props) {
+  const [removeCurrentChat, setRemoveCurrentChat] =
+    React.useState<boolean>(false);
   return (
     <AppLayout>
       <MessageContextProvider>
         <MessageLayout>
-          <MessageHeader />
-          <MessageConversationSider />
-          <MessageContent />
+          <MessageHeader
+            removeCurrentChat={removeCurrentChat}
+            setRemoveCurrentChat={setRemoveCurrentChat}
+          />
+          <MessageConversationSider
+            setRemoveCurrentChat={setRemoveCurrentChat}
+          />
+          <MessageContent removeCurrentChat={removeCurrentChat} />
         </MessageLayout>
       </MessageContextProvider>
     </AppLayout>

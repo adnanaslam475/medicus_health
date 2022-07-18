@@ -420,8 +420,14 @@ query getTransactionFilter(
       transactionId
       payment_status
       amountReceived
+      status
       stripeFee
       doctor_percentage
+      payment_status
+      createdAt
+      appointmentCharges
+      stripeFee
+      tax
       appointment {
         status
         patient {
@@ -560,6 +566,35 @@ query getAllAppointmentNotes {
       id
       patientId
       doctorId
+    }
+  }
+}
+
+query doctorPayouts($doctorId: Int!) {
+  doctorPayouts(doctorId: $doctorId) {
+    appointmentMonths
+    monthAppointments {
+      id
+      doctorId
+      patientId
+      patient {
+        first_name
+        last_name
+      }
+      serviceType {
+        name
+      }
+      appointmentDateTime {
+        startTime
+        endTime
+      }
+
+      transaction {
+        transactionId
+        appointmentId
+        id
+        doctor_percentage
+      }
     }
   }
 }

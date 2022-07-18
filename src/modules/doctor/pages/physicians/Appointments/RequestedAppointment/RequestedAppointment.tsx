@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppLayout from "../../../../../../common/components/AppLayout/AppLayout";
 import RequestedList from "modules/doctor/pages/RequestedList/RequestedList";
 import SearchFilters from "common/components/SearchFilters/SearchFilters";
@@ -49,11 +49,11 @@ function RequestedAppointment() {
     });
   const { appointments } = data || {};
 
-  // useEffect(() => {
-  //   executeUseGetAllRequestedAppointmentsQuery({
-  //     requestPolicy: "network-only",
-  //   });
-  // }, [clearFilter]);
+  useEffect(() => {
+    executeUseGetAllRequestedAppointmentsQuery({
+      requestPolicy: "network-only",
+    });
+  }, [clearFilter]);
 
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
@@ -65,7 +65,7 @@ function RequestedAppointment() {
       column: sorter.order
         ? `${
             (sorter.columnKey === "name" && "appointment_service_type") ||
-            (["charges", "requestedDate", "createdAt"].includes(
+            (/(charges|requestedDate|createdAt)/.test(
               sorter.columnKey
             ) &&
               "appointment") ||

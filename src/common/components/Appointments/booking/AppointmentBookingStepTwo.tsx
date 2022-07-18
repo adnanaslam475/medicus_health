@@ -117,11 +117,11 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
     }
   }, []);
 
-  useEffect(() => {
-    if (clear) {
-      formInstance.resetFields();
-    }
-  }, [data.stepThree, clear]);
+  // useEffect(() => {
+  //   if (clear) {
+  //     formInstance.resetFields();
+  //   }
+  // }, [data.stepThree, clear]);
 
   const handlechecked = (e: CheckboxChangeEvent) => {
     setChecked(e.target.checked);

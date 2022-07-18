@@ -6,7 +6,7 @@ interface Props extends ImageProps {
 }
 
 function isNextImageSrcValid(src: string = ""): boolean {
-	return src.startsWith("https://medicus-dev2.s3-us-east-2.amazonaws.com/");
+	return src?.startsWith("https://medicus-dev2.s3-us-east-2.amazonaws.com/");
 }
 
 function MDNextImage(props: Props): ReactElement {

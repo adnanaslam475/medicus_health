@@ -22,6 +22,7 @@ import { getDayJsObject } from "common/utils/date";
 import { date } from "common/utils";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
+import moment from "moment";
 
 type Props = {
   showRescheduleModal?: boolean;
@@ -42,6 +43,8 @@ function RescheduleAppointmentModal(props: Props) {
 
   const [slot, setSlot] = useState<dateArray>({ startTime: "", endTime: "" });
   const [slots, setSlots] = useState<SuggestedTimeSlots[] | any[]>([]);
+  const [endDateValue, setEndDateValue] = useState<string>("");
+
 
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
@@ -64,7 +67,12 @@ function RescheduleAppointmentModal(props: Props) {
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
-    setSlot({ ...slot, [name]: dateString });
+    let formatedDate = moment(dateString)
+      .add(30, "minutes")
+      .local()
+      .format("MM-DD-YYYY hh:mm A");
+    setEndDateValue(formatedDate);
+    setSlot({ startTime: dateString, endTime: formatedDate });
   };
   const [
     { data: suggestNewTimeData, fetching },
@@ -101,6 +109,7 @@ function RescheduleAppointmentModal(props: Props) {
     setSlots([...slots, slot]);
     setSlot({ startTime: "", endTime: "" });
     datePickerInstance.resetFields(["start_time", "end_time"]);
+    setEndDateValue("");
   }
   const selectedAppointment = appointmentTimeSlots?.find(
     (appointment) => appointment.selected
@@ -176,6 +185,7 @@ function RescheduleAppointmentModal(props: Props) {
             <AvailabilityTimeSlots
               form={datePickerInstance}
               onChangeDatePicker={onChangeDatePicker}
+              endDateValue={endDateValue}
             />
             {slots?.map((v, index) => (
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
@@ -218,9 +228,11 @@ function RescheduleAppointmentModal(props: Props) {
 function AvailabilityTimeSlots({
   form,
   onChangeDatePicker,
+  endDateValue,
 }: {
   form: FormInstance<any>;
   onChangeDatePicker?: (dateString: string, name: string) => void;
+  endDateValue?: string;
 }) {
   return (
     <div className="block mb-10">
@@ -238,7 +250,7 @@ function AvailabilityTimeSlots({
                 format={FORMAT_D_T_W_AM_PM}
                 showNow={false}
                 onChange={(_, date: string) => {
-                  onChangeDatePicker?.(date, "startTime");
+                  onChangeDatePicker?.(date, "startDate");
                 }}
               />
             </Space>
@@ -247,13 +259,18 @@ function AvailabilityTimeSlots({
         <div className="w-50">
           <Form.Item label="End Time" name="end_time">
             <Space direction="vertical" size={12}>
-              <DatePicker
-                className="w-full"
-                showTime
-                format={FORMAT_D_T_W_AM_PM}
-                showNow={false}
-                onChange={(_, date) => onChangeDatePicker?.(date, "endTime")}
-              />
+              {endDateValue === "Invalid date" || !endDateValue ? (
+                <DatePicker disabled={true} className="w-full" showTime />
+              ) : (
+                <DatePicker
+                  value={moment(endDateValue)}
+                  disabled={true}
+                  className="w-full"
+                  showTime
+                  format={FORMAT_D_T_W_AM_PM}
+                  showNow={false}
+                />
+              )}
             </Space>
           </Form.Item>
         </div>

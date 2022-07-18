@@ -147,7 +147,9 @@ function DoctorAppointmentInfo({ data }: Props) {
   return (
     <div className="max-w-[700px]">
       <div className="message-button mb-3">
-        {(status === "Requested" || status === "Confirmed") && (
+        {(status === "Requested" ||
+          status === "Confirmed" ||
+          status === "Cancelled") && (
           <MessageButtons patientID={patientID} doctorId={doctorId} />
         )}
       </div>
@@ -806,12 +808,6 @@ function AvailabilityTimeSlots({
   onChangeDatePicker?: (dateString: string, name: string) => void;
   endDateValue?: string;
 }) {
-  console.log(
-    "end date value is",
-    endDateValue,
-    endDateValue === "Invalid date"
-  );
-
   return (
     <div className="block mb-10">
       {/* <TimeSlotPickerForm onChangeDatePicker={onChangeDatePicker} /> */}
@@ -848,7 +844,6 @@ function AvailabilityTimeSlots({
                   showTime
                   format={FORMAT_D_T_W_AM_PM}
                   showNow={false}
-                  // onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
                 />
               )}
             </Space>
