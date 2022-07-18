@@ -13,7 +13,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -166,7 +168,6 @@ export type AppointmentTotalCharges = {
 export type BookAppointmentInput = {
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
-  requestedDate: Scalars['DateTime'];
   scheduleId: Scalars['Int'];
   selectedSlotId: Scalars['Float'];
 };
@@ -541,6 +542,10 @@ export type GetCurrentAppointmentInput = {
   searchString?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
+};
+
+export type GetDoctorScheduleFilterInput = {
+  day?: InputMaybe<Scalars['Int']>;
 };
 
 export type GetPatientsInput = {
@@ -1083,6 +1088,7 @@ export type Query = {
   doctorQuestionnaire: DoctorQuestionnaire;
   doctorQuestionnaires: Array<DoctorQuestionnaire>;
   doctorSchedules: Array<DoctorSchedule>;
+  doctorSchedulesByDay: Array<DoctorSchedule>;
   getAllCards: Array<UserCard>;
   getAllChatChannels: Array<ChatChannels>;
   getAppointmentPrice: AppointmentPriceResponse;
@@ -1206,6 +1212,12 @@ export type QueryDoctorQuestionnaireArgs = {
 
 export type QueryDoctorSchedulesArgs = {
   doctorId: Scalars['Int'];
+};
+
+
+export type QueryDoctorSchedulesByDayArgs = {
+  doctorId: Scalars['Int'];
+  filter: GetDoctorScheduleFilterInput;
 };
 
 
@@ -8852,6 +8864,45 @@ export default {
             "args": [
               {
                 "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "doctorSchedulesByDay",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "DoctorSchedule",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "filter",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

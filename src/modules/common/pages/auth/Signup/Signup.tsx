@@ -28,7 +28,6 @@ interface CreateUserPayload extends CreateUserInput {
 function Signup() {
   const t = useTranslations("Signup");
 
-  
   const router = useRouter();
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
@@ -147,14 +146,14 @@ function Signup() {
                   className="main-logo mx-auto"
                   height={34}
                   width={216}
-                  src="/assets/images/logo-medi.svg"                  
+                  src="/assets/images/logo-medi.svg"
                 />
               </div>
               <h1 className="text-center text-secondary mb-3">
-              {t("createAccount")}
+                {t("createAccount")}
               </h1>
               <div className="text-center text-gray font-rubik font-normal text-sm">
-              {t("createYourAccountToStart")}
+                {t("createYourAccountToStart")}
               </div>
               <div className="mt-5">
                 <Tabs
@@ -190,7 +189,7 @@ function Signup() {
                         )}
                         {!nextTab ? (
                           <span className="ml-3 text-cyan text-xs sm:text-base">
-                           {t("personalInfo")}
+                            {t("personalInfo")}
                           </span>
                         ) : (
                           <span className="ml-3 text-xs sm:text-base">
@@ -222,7 +221,7 @@ function Signup() {
                           }
                         ></Badge>
                         <span className="ml-3 text-xs sm:text-base">
-                        {t("healthQuestionnaire")}
+                          {t("healthQuestionnaire")}
                         </span>
                       </span>
                     }
