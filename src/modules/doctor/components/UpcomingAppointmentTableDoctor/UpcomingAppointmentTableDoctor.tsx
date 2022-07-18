@@ -6,11 +6,14 @@ import {
   AppointmentDateTimeResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
+  Transaction,
   User,
 } from "generated/graphql";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "common/utils";
 import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
 
 const columns = [
   {
@@ -80,6 +83,19 @@ const columns = [
     key: "charges",
     render: (value: number) => {
       return <div>{value}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "Payment Status",
+    dataIndex: "transaction",
+    key: "transaction",
+    render: (transaction: Transaction) => {
+      return (
+        <StatusChip
+          type={String(transaction?.payment_status).toUpperCase() as StatusName}
+        />
+      );
     },
     sorter: true,
   },
