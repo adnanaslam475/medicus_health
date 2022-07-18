@@ -42,7 +42,7 @@ function StepFour() {
       <h2>Summary</h2>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
         <label className="block">Doctor</label>
-        <span>Dr. {doctorName || physician || ""}</span>
+        <span>Dr.{doctorName || physician || ""}</span>
       </div>
       <div className="flex">
         <div className="w-full ml-4 border-b border-gray-5 pb-2 mb-5">
@@ -52,7 +52,7 @@ function StepFour() {
           </div>
 
           <div className="flex justify-between ">
-            <span>Appointment Fee</span>
+            <span>Appointment fee</span>
             <span>${appointmentPrice || "-"}</span>
           </div>
           <div className="flex justify-between ">
@@ -65,14 +65,14 @@ function StepFour() {
             <span>${systemFee || "0"}</span>
           </div>
           <div className="flex justify-between font-semibold">
-            <span>Total Charges</span>
+            <span>Total charges</span>
             <span>${total || "0"}</span>
           </div>
         </div>
       </div>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
-        <label className="block">Requested Date & Time</label>
-        <span>{date.formatMMMMDDYYYY(requestedDate)}</span>
+        <label className="block">Requested date & time</label>
+        <span>{date.formatDAYMMDDYY(requestedDate)}</span>
         <span className="text-sm"></span>
         {/* <span className="ml-3">{date.formathhmma(requestedDate)}</span> */}
         <span className="ml-3">{`${availabilityTime?.startTime} - ${availabilityTime?.endTime}`}</span>

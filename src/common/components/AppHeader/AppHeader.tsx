@@ -69,7 +69,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
         className="border-b border-gray-4"
         onClick={() => Router.push(accountPath)}
       >
-        Accounts Settings
+        Account
       </Menu.Item>
 
       {userRole === "User" && (
@@ -77,7 +77,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
           className="border-b border-gray-4"
           onClick={() => Router.push(`/patient/account?activeTab=3`)}
         >
-          Payment Settings
+          Payment settings
         </Menu.Item>
       )}
 

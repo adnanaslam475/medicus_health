@@ -36,7 +36,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       key: "createdAt",
       sorter: true,
       render: (value: string) => {
-        return <div>{`${date?.formatMMMMDDYYYY(value)} `}</div>;
+        return <div>{`${date?.formatDAYMMDDYY(value)} `}</div>;
       },
     },
     {

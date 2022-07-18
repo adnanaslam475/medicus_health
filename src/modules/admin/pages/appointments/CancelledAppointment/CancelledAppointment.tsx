@@ -142,14 +142,17 @@ function CancelledAppointment() {
                     doctor,
                     appointmentTimeSlots,
                     transaction,
+
                   } = appointmentDetail || {};
+                  var doctorFullName=`${doctor?.first_name} ${doctor?.last_name}`
                   return (
                     <AppointmentCard
                       appointmentId={Number(id)}
                       requestedDate={requestedDate}
                       status={status}
                       serviceType={serviceType?.name}
-                      doctor={doctor?.first_name}
+                      // doctor={doctor?.first_name}
+                      doctor={doctorFullName}
                       appointmentTimeSlots={
                         appointmentTimeSlots as AppointmentTimeSlots[]
                       }

@@ -110,7 +110,7 @@ function AppointmentReschedule(props: Props) {
                 >
                   <div className="text-secondary">
                     <span className="mr-3">
-                      {date.formatMMMMDDYYYY(item.startTime)}
+                      {date.formatDAYMMDDYY(item.startTime)}
                     </span>
                     {`${date.formathhmma(item.startTime)} - ${date.formathhmma(
                       item.endTime

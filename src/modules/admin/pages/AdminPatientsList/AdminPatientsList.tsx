@@ -85,7 +85,7 @@ const columns: ColumnsType<User> = [
     sorter: true,
     render: (value: String) => {
       return (
-        <div>{value ? `${date?.formatMMMMDDYYYY(value as string)}` : "--"}</div>
+        <div>{value ? `${date?.formatDAYMMDDYY(value as string)}` : "--"}</div>
       );
     },
   },

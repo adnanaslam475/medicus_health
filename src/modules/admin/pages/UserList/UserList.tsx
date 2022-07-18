@@ -44,7 +44,7 @@ const Columns = [
     sorter: true,
     render: (value: User) => {
       return (
-        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+        <div className="someclass">{`${date?.formatDAYMMDDYY(
           String(value)
         )} `}</div>
       );

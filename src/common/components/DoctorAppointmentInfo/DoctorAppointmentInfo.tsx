@@ -147,12 +147,14 @@ function DoctorAppointmentInfo({ data }: Props) {
   return (
     <div className="max-w-[700px]">
       <div className="message-button mb-3">
-        {(status === "Requested" || status === "Confirmed") && (
+        {(status === "Requested" ||
+          status === "Confirmed" ||
+          status === "Cancelled") && (
           <MessageButtons patientID={patientID} doctorId={doctorId} />
         )}
       </div>
       <div>
-        <LabelWithText label="ID" text={Number(id)} />
+        <LabelWithText label="ID#" text={Number(id)} />
         <LabelWithText
           label="Patient"
           text={
@@ -169,17 +171,17 @@ function DoctorAppointmentInfo({ data }: Props) {
           label="Due date"
           text={
             appointmentDateTime?.startTime
-              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+              ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
               : "--"
           }
         />
         <LabelWithText
           label="Booking date"
-          text={date?.formatMMMMDDYYYY(createdAt)}
+          text={date?.formatDAYMMDDYY(createdAt)}
         />
         <LabelWithText
           label="Requested date"
-          text={date?.formatMMMMDDYYYY(requestedDate)}
+          text={date?.formatDAYMMDDYY(requestedDate)}
         />
         <LabelWithText
           label="Time"
@@ -740,7 +742,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="font-normal">
                   <div className="text-sm mb-0 w-full">
-                    Date : {`${date.formatMMMMDDYYYY(formatedDueDate)}`}
+                    Date : {`${date.formatDAYMMDDYY(formatedDueDate)}`}
                   </div>
                   <br />
                   <div className="text-sm mb-0 w-full">
@@ -806,7 +808,6 @@ function AvailabilityTimeSlots({
   onChangeDatePicker?: (dateString: string, name: string) => void;
   endDateValue?: string;
 }) {
-
   return (
     <div className="block mb-10">
       {/* <TimeSlotPickerForm onChangeDatePicker={onChangeDatePicker} /> */}

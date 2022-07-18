@@ -59,7 +59,7 @@ function CurrentAppointmentTable({ dataSource ,loading}: Props) {
       //   multiple: 3,
       // },
       render: (value: string) => {
-        return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+        return <div className="someclass">{date?.formatDAYMMDDYY(value)}</div>;
       },
     },
     {

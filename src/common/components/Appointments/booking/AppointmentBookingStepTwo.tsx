@@ -176,15 +176,15 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
               disabled={true}
             >
               <span className="text-gray-2">
-                Health Questionnaire is attached
+                Health questionnaire is attached
               </span>
             </Checkbox>
           </div>
         </Form.Item>
         <p className="text-gray-2">
-          If you wish to update the make changes in your current Health
+          If you wish to update the make changes in your current health
           questionnaire,
-          <a onClick={() => setIsModalVisible(true)}>Click Here.</a>
+          <a onClick={() => setIsModalVisible(true)}>Click here.</a>
         </p>
       </Form>
       {isModalVisible && (

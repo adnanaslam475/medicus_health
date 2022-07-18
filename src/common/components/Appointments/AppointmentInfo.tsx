@@ -42,7 +42,7 @@ function AppointmentInfo(props: Props) {
   ) : (
     <>
       <div className="max-w-[700px]">
-        <LabelValueRow label="ID" value={Number(id)} />
+        <LabelValueRow label="ID#" value={Number(id)} />
         <LabelValueRow
           label="Requested date"
           value={date?.formatDAYMMDDYY(requestedDate)}
@@ -54,11 +54,11 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow label="Appointment type" value={name || "--"} />
         {/* <LabelValueRow
           label="Due date"
-          value={date.formatMMMMDDYYYY(selectedAppointment?.startTime)}
+          value={date.formatDAYMMDDYY(selectedAppointment?.startTime)}
         /> */}
         {/* <LabelValueRow
           label="Booking date"
-          value={date.formatMMMMDDYYYY(createdAt)}
+          value={date.formatDAYMMDDYY(createdAt)}
         /> */}
         <LabelValueRow
           label="Appointment time"
