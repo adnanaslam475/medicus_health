@@ -12,20 +12,20 @@ import _classes from "./Message-detail.module.scss";
 type Props = {};
 
 function Messages({}: Props) {
-  const [removeCurrentChatHeader, setRemoveCurrentChatHeader] =
+  const [removeCurrentChat, setRemoveCurrentChat] =
     React.useState<boolean>(false);
   return (
     <AppLayout>
       <MessageContextProvider>
         <MessageLayout>
           <MessageHeader
-            removeCurrentChatHeader={removeCurrentChatHeader}
-            setRemoveCurrentChatHeader={setRemoveCurrentChatHeader}
+            removeCurrentChat={removeCurrentChat}
+            setRemoveCurrentChat={setRemoveCurrentChat}
           />
           <MessageConversationSider
-            setRemoveCurrentChatHeader={setRemoveCurrentChatHeader}
+            setRemoveCurrentChat={setRemoveCurrentChat}
           />
-          <MessageContent removeCurrentChatHeader={removeCurrentChatHeader} />
+          <MessageContent removeCurrentChat={removeCurrentChat} />
         </MessageLayout>
       </MessageContextProvider>
     </AppLayout>
