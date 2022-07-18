@@ -199,7 +199,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
               label="Physicians*"
               name="physician"
               rules={[
-                { required: true, message: "Physician Name is required" },
+                { required: true, message: "Physician name is required" },
               ]}
             >
               <Select
@@ -229,7 +229,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
               label="Physician*"
               name="physician"
               rules={[
-                { required: true, message: "Physician Name is required" },
+                { required: true, message: "Physician name is required" },
               ]}
             >
               <Input placeholder="Dr. name" className="w-full" readOnly />
@@ -239,7 +239,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             <Form.Item
               label="Patient*"
               name="patient"
-              rules={[{ required: true, message: "Patient Name is required" }]}
+              rules={[{ required: true, message: "Patient name is required" }]}
             >
               <Select
                 className="w-full"
@@ -272,7 +272,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 rules={[{ required: true, message: "Service is required" }]}
               >
                 <Select
-                  placeholder="Service Type"
+                  placeholder="Service type"
                   className="w-full"
                   onChange={handleServiceChange}
                 >
@@ -308,7 +308,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             </div>
           </div>
           <Form.Item
-            label="Requested Date*"
+            label="Requested date*"
             name="requestedDate"
             rules={[{ required: true, message: "Requested date is required" }]}
           >
@@ -340,7 +340,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                   ))}
                 </Radio.Group>
               ) : (
-                "No Time Slots Available"
+                "No time slots available"
               )}
             </div>
           </Form.Item>

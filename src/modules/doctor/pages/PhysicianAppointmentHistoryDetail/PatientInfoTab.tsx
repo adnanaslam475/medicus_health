@@ -75,7 +75,7 @@ function PatientInfoTab({}: Props) {
           <LabelWithTextDiv label="Gender" value={gender} />
           <LabelWithTextDiv
             label="Date of birth"
-            value={date?.formatMMMMDDYYYY(date_of_birth)}
+            value={date?.formatDAYMMDDYY(date_of_birth)}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">

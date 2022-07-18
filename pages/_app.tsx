@@ -32,18 +32,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     const loginTime =
       typeof window !== "undefined" && localStorage?.getItem("loginTime");
     let expireTime = Number(loginTime) + Number(86400000);
-
-    setTimeout(() => {
-      Router.push("/login");
-      localStorage.clear();
-    }, expireTime - Date.now());
+    if (loginTime) {
+      setTimeout(() => {
+        Router.push("/login");
+        localStorage.clear();
+      }, expireTime - Date.now());
+    }
   }, [loginTime]);
   return (
     <>
       <Head>
         <title>Medicus</title>
         {/* <meta name="description" content="Patient Physicians and Admins" /> */}
-        {/* <link rel="shortcut icon" href={favicon as any} type="image/x-icon" /> */}
+        {/* <link rel="shortcut icon" href={favicon} type="image/x-icon" /> */}
       </Head>
       <NextIntlProvider messages={pageProps.messages}>
         <AuthProvider>

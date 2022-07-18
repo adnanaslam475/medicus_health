@@ -38,7 +38,7 @@ const columns = [
     key: "requestedDate",
     sorter: true,
     render: (value: string) => {
-      return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      return <div className="someclass">{date?.formatDAYMMDDYY(value)}</div>;
     },
   },
   {

@@ -86,8 +86,8 @@ function DoctorProfileCard(props: Props) {
           <div className="lg:pr-5 w-full mb-5">
             <div className="flex-row md:flex items-center">
               <h1 className="font-bold mb-0 mr-3">
-                <span>
-                  Dr. {doctorData ? first_name + " " + last_name : ""}
+                <span className="">
+                  Dr.{doctorData ? first_name + " " + last_name : ""}
                 </span>
               </h1>
               <div className="flex">
@@ -157,7 +157,7 @@ function DoctorProfileCard(props: Props) {
                             </div>
                           </div>
                         ))
-                    : "Doctor Schedules not available"}
+                    : "Doctor schedules not available"}
                 </div>
               </Collapse.Panel>
             </Collapse>
@@ -195,7 +195,7 @@ function DoctorProfileCard(props: Props) {
                   className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3"
                   onClick={() => Router.push("/admin/messages")}
                 >
-                  <span className="hidden">Message admin</span>
+                  <span className="hidden">Message support</span>
                 </Button>
                 <Button
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"

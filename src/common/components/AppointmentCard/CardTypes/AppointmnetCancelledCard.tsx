@@ -68,11 +68,11 @@ function AppointmnetCancelledCard({
   return (
     <>
       <Card className={`${_classes["appointment-card"]}`}>
-        <span className="text-sm mb-0"> {appointmentId || ""}</span>
-        <h3 className="mb-0">Dr.{doctor}</h3>
+        <span className="text-sm mb-0">ID#-{appointmentId || ""}</span>
+        <h3 className="mb-0 capitalize">Dr.{doctor}</h3>
         <span className="text-gray text-base block">{serviceType}</span>
         <span className="text-sm">Date</span>
-        <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
+        <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
         <span className="text-sm">Time</span>
         {appointmentTimeSlots?.length === 0 ? (
           <div className="text-cyan font-semibold">{" - "}</div>
@@ -88,7 +88,7 @@ function AppointmnetCancelledCard({
           <span className="flex text-base text-red font-bold ">{status}</span>
         </div>
         <div className="inline-block">
-          <span className="text-sm">Payment Status</span>
+          <span className="text-sm">Payment status</span>
           {transaction ? (
             <span className="flex text-base text-yellow font-bold ">
               {transaction?.status}

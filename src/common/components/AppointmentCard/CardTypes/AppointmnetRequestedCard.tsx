@@ -37,11 +37,11 @@ function AppointmnetRequestedCard({
   }`;
   return (
     <Card className={`${_classes["appointment-card"]}`}>
-      <span className="text-sm mb-0"> {appointmentId || ""}</span>
-      <h3 className="mb-0">Dr.{doctor}</h3>
+      <span className="text-sm mb-0"> ID#-{appointmentId || ""}</span>
+      <h3 className="mb-0 capitalize">Dr.{doctor}</h3>
       <span className="text-gray text-base block">{serviceType}</span>
       <span className="text-sm mt-6 block">Date</span>
-      <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
+      <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
       <span className="text-sm mt-4 block">Time</span>
       <div className="text-secondary">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime

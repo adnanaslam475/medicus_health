@@ -48,11 +48,15 @@ export const getDateInFormat = (
     : "";
 };
 
+
+
 export function time24HrConvert(time: any) {
   // Check correct time format and split into components
   time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [
     time,
   ];
+
+
 
   if (time.length > 1) {
     // If time format correct
@@ -69,7 +73,7 @@ export function dayName(date: number) {
 }
 
 export function twelveHourTime(date: string) {
-  return dayjs("1/1/1 " + date).format("hh:mm a");
+  return dayjs("1/1/1 " + date).format("h:mm a");
 }
 
 export function isAppoinentDateIsSame(date: string) {

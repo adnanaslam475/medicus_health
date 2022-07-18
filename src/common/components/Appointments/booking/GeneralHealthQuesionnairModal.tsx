@@ -71,7 +71,7 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
         executeUsePatientHealthHistoryQuery({ requestPolicy: "network-only" });
         setIsModalVisible(false);
         notification.success({
-          message: "Successfully Updated",
+          message: "Successfully updated",
         });
       }
     } catch (err) {
@@ -112,7 +112,7 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
         ]}
       >
         <>
-          <h2>General Health Questioniar</h2>
+          <h2>General health questioniar</h2>
           <QuestionnaireForm
             ref={form}
             data={data?.patientHealthHistory?.history}

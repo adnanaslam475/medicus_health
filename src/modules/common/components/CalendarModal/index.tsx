@@ -57,8 +57,8 @@ function CalendarModalComponent(props: Props) {
       footer={null}
     >
       <div className="border-b pb-0 pt-2">
-        <p className="text-grey-4 ">ID</p>
-        <h4 className="text-base">{id}</h4>
+        <p className="text-grey-4 ">ID#</p>
+        <h4 className="text-base">ID#-{id}</h4>
       </div>
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 "> Patient</p>
@@ -73,7 +73,7 @@ function CalendarModalComponent(props: Props) {
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">Date</p>
         <h4 className="text-xl">
-          {date.formatMMMMDDYYYY(selectedAppointment?.startTime || dateValue)}
+          {date.formatDAYMMDDYY(selectedAppointment?.startTime || dateValue)}
         </h4>
       </div>
 

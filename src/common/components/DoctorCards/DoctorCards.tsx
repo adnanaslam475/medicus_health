@@ -105,7 +105,7 @@ function DoctorCard({
               <div className="flex-row md:flex">
                 <h2 className="font-bold mb-0 mr-3">
                   <span>
-                    Dr. <span className="-ml-1">{name}</span>
+                    Dr.<span className="capitalize">{name}</span>
                   </span>
                 </h2>
                 <div className="flex">
@@ -152,7 +152,7 @@ function DoctorCard({
               <Divider />
 
               <h6 className="text-gray font-normal">
-                <span className="text-sm font-rubik">CONDITIONS TREATED </span>
+                <span className="text-sm font-rubik">Conditions treated</span>
               </h6>
               <h6 className="font-normal font-rubik">{conditionTreated}</h6>
             </div>
@@ -196,7 +196,7 @@ function DoctorCard({
                   width={20}
                   height={11}
                 />
-                <span className="ml-2">Request an Appointment</span>
+                <span className="ml-2">Request an appointment</span>
               </Button>
             </Tooltip>
           </div>

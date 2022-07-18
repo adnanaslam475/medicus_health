@@ -37,7 +37,7 @@ const Columns = [
     key: "createdAt",
     sorter: true,
     render: (value: string) => {
-      return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      return <div className="someclass">{date?.formatDAYMMDDYY(value)}</div>;
     },
   },
   {
@@ -59,7 +59,7 @@ const Columns = [
         <div>
           {" "}
           {appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+            ? `${date?.formatDAYMMDDYY(appointmentDateTime?.startTime)} `
             : "-"}
         </div>
       );
