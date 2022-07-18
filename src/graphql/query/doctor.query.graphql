@@ -156,6 +156,10 @@ query physicianAppointments(
       requestedDate
       charges
       status
+      transaction {
+        payment_status
+        status
+      }
     }
     meta {
       totalPages

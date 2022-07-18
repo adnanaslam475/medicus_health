@@ -134,7 +134,7 @@ function AppointmentModalFooter({
       bookAppointmentInput: {
         appointmentId: appointmentId as number,
         cardId: contextData.stepTwo.cardId as number,
-        requestedDate: contextData.stepOne?.requestedDate,
+        // requestedDate: contextData.stepOne?.requestedDate,
         selectedSlotId: contextData.stepOne?.selectedSlotId,
         scheduleId: contextData.stepOne?.scheduleId,
       },
@@ -187,7 +187,7 @@ function AppointmentModalFooter({
         bookAppointmentInput: {
           appointmentId: appointmentId as number,
           cardId: data?.createCard.id as number,
-          requestedDate: contextData.stepOne?.requestedDate,
+          // requestedDate: contextData.stepOne?.requestedDate,
           selectedSlotId: contextData.stepOne?.selectedSlotId,
           scheduleId: contextData.stepOne?.scheduleId,
         },
