@@ -42,13 +42,14 @@ import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
-import { CustomTimeSlot } from "common/types/types";
+import { CustomTimeSlot, StatusName } from "common/types/types";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import MessageButtons from "../MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import RescheduleAppointmentModal from "../RescheduleAppointment/RescheduleAppointment";
 import moment from "moment";
+import StatusChip from "../StatusChip/StatusChip";
 
 type Props = {
   data: Appointment | undefined;
@@ -218,12 +219,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">Status</div>
           <div className="w-full text-secondary">
-            <Tag
-              color="#e2f8f7"
-              className="ant-typography ant-typography-secondary"
-            >
-              {status}
-            </Tag>
+            <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
         {status === "Cancelled" && (
@@ -233,19 +229,11 @@ function DoctorAppointmentInfo({ data }: Props) {
             </div>
             <div className="w-full text-secondary">
               {transaction?.status ? (
-                <Tag
-                  color="#e2f8f7"
-                  className="ant-typography ant-typography-secondary"
-                >
-                  {transaction?.status}
-                </Tag>
+                <StatusChip
+                  type={transaction?.status?.toUpperCase() as StatusName}
+                />
               ) : (
-                <Tag
-                  color="#FEF6E0"
-                  className="ant-typography ant-typography-secondary"
-                >
-                  Unpaid
-                </Tag>
+                <StatusChip type={"Unpaid".toUpperCase() as StatusName} />
               )}
             </div>
           </li>
