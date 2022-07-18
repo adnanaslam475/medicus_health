@@ -78,7 +78,7 @@ export function MessageContextProvider({
   const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
   const [{ data }, executeGetAllChatChannelsMutation] =
     useGetAllChatChannelsQuery({
-      // variables: { filter: { any(searchString); } },
+      variables: { filter: { searchString } },
     });
   const { getAllChatChannels } = data || {};
 

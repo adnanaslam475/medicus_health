@@ -168,7 +168,6 @@ function Login() {
 
                   {error?.message && (
                     <>
-                      {/* <PurifiedInnerHtml></PurifiedInnerHtml> */}
                       {/* <Alert
                         className=""
                         message={error?.message.split("]")[1].trim()}
