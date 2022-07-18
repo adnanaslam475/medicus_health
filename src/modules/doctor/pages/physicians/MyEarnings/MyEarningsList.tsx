@@ -118,9 +118,8 @@ const Columns = [
 
     render: (value: number) => {
       return (
-        <div className="someclass">{`${parseFloat(String(value)).toFixed(
-          2
-        )}`}</div>
+        <div className="someclass">{`${value}
+       `}</div>
       );
     },
   },
@@ -249,7 +248,6 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    console.log("sorter", sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
@@ -277,34 +275,38 @@ const PhysicianMyEarningsList = (props: Props) => {
   return (
     <AppLayout>
       <div className="w-full">
-      <Skeleton loading={myEarningStatsLoading} paragraph={{ rows: 0 }} active>
-        <div className="flex mb-0 flex-wrap">
-          <MyEarningsStats
-            label={"Total consultants"}
-            text={String(total_number_of_consultation)}
-          />
-          <MyEarningsStats
-            label={"Total second opinions"}
-            text={String(total_number_of_second_opinions)}
-          />
-          <MyEarningsStats
-            label={"Total patients"}
-            text={String(total_number_of_patients)}
-          />
-          <MyEarningsStats
-            label={"Earnings through consultants"}
-            text={`$ ${total_earnings_from_consultation}`}
-          />
-          <MyEarningsStats
-            label={"Earnings through second opinion"}
-            text={`$ ${total_earnings_from_second_opinions}`}
-          />
-          <MyEarningsStats
-            label={"Total earnings"}
-            text={`$ ${total_earnings}`}
-          />
-        </div>
-      </Skeleton>
+        <Skeleton
+          loading={myEarningStatsLoading}
+          paragraph={{ rows: 0 }}
+          active
+        >
+          <div className="flex mb-0 flex-wrap">
+            <MyEarningsStats
+              label={"Total consultants"}
+              text={String(total_number_of_consultation)}
+            />
+            <MyEarningsStats
+              label={"Total second opinions"}
+              text={String(total_number_of_second_opinions)}
+            />
+            <MyEarningsStats
+              label={"Total patients"}
+              text={String(total_number_of_patients)}
+            />
+            <MyEarningsStats
+              label={"Earnings through consultants"}
+              text={`$ ${total_earnings_from_consultation}`}
+            />
+            <MyEarningsStats
+              label={"Earnings through second opinion"}
+              text={`$ ${total_earnings_from_second_opinions}`}
+            />
+            <MyEarningsStats
+              label={"Total earnings"}
+              text={`$ ${total_earnings}`}
+            />
+          </div>
+        </Skeleton>
         <Divider />
 
         <div className="flex justify-between">

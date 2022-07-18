@@ -78,7 +78,7 @@ export function MessageContextProvider({
   const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
   const [{ data }, executeGetAllChatChannelsMutation] =
     useGetAllChatChannelsQuery({
-      // variables: { filter: { any(searchString); } },
+      variables: { filter: { searchString } },
     });
   const { getAllChatChannels } = data || {};
 
@@ -90,7 +90,6 @@ export function MessageContextProvider({
       pause: !messageInfo.currentChannel,
     });
   const { getChannelMessages } = channelMessageData || {};
-
   useEffect(() => {
     if (getChannelMessages) {
       const info = { ...messageInfoRef.current };
