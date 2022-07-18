@@ -107,3 +107,11 @@ query getAppointmentPrice($id: Int!) {
     total
   }
 }
+
+
+# remove chat channel
+# mutation deleteChatChannel($id: Int!) {
+#   deleteChat(channelId: $id) {
+#     id
+#   }
+# }

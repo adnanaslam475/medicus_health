@@ -74,9 +74,12 @@ export function MessageContextProvider({
   const messageInfoRef = useRef<MessageInfo>(messageInfo);
   messageInfoRef.current = messageInfo;
   const rtmRef = useRef<Client>();
+  const [searchString, setSearchString] = React.useState<string>("");
   const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
   const [{ data }, executeGetAllChatChannelsMutation] =
-    useGetAllChatChannelsQuery();
+    useGetAllChatChannelsQuery({
+      // variables: { filter: { any(searchString); } },
+    });
   const { getAllChatChannels } = data || {};
 
   const [{ data: channelMessageData }, executeGetChannelMessagesQuery] =

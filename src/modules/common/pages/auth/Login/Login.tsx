@@ -169,11 +169,17 @@ function Login() {
                   {error?.message && (
                     <>
                       {/* <PurifiedInnerHtml></PurifiedInnerHtml> */}
-                      <Alert
+                      {/* <Alert
                         className=""
                         message={error?.message.split("]")[1].trim()}
                         type="error"
-                      />
+                      /> */}
+                      <p
+                        className="text-white	bg-red p-3 rounded resendClass"
+                        dangerouslySetInnerHTML={{
+                          __html: error?.message.split("]")[1].trim(),
+                        }}
+                      ></p>
                     </>
                   )}
                 </Form>
