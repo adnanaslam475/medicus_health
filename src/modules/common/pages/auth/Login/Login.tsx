@@ -58,7 +58,7 @@ function Login() {
           });
         } else if (userPayload.user.role === "User") {
           Router.replace({
-            pathname: "/es/patient/appointments/upcoming",
+            pathname: "/patient/appointments/upcoming",
           });
         } else if (userPayload.user.role === "Admin") {
           Router.replace({
