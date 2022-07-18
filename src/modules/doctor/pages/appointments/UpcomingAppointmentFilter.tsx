@@ -93,7 +93,17 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
             onChange={(value) => onChangeFields("serviceId", value)}
             value={filterState?.serviceId}
           />
-        
+
+        </div>
+          <div className="flex w-full md:w-44 xl:w-60 mr-3">
+          <Select
+            placeholder="Payment status"
+            onChange={(e) => onChangeFields("paymentStatus", e)}
+            value={filterState.paymentStatus}
+          >
+            <Select.Option value="paid">Paid</Select.Option>
+            <Select.Option value="unpaid">Unpaid</Select.Option>
+          </Select>
         <FilterClearButton onClear={clear} />
       </div>
       </div>
