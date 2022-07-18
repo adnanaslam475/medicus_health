@@ -22,15 +22,9 @@ function MessageContent({ removeCurrentChat }: Props) {
     scrollToBottom();
   }, [currentChannelMessages]);
 
-  useEffect(() => {
-    if (removeCurrentChat) {
-      document.getElementsByClassName("chatremove")[0].remove();
-    }
-  }, [removeCurrentChat]);
-
   return (
     <div className="border border-gray-4 w-full chatremove">
-      {currentChannelMessages ? (
+      {currentChannelMessages && !removeCurrentChat ? (
         <div className={`${_classes["custom-height"]}`}>
           {currentChannelMessages?.map((message: any) => {
             return <ChatBar data={message} />;
@@ -44,7 +38,7 @@ function MessageContent({ removeCurrentChat }: Props) {
           </div>
         </div>
       )}
-      <MessageInput />
+      {!removeCurrentChat && <MessageInput />}
     </div>
   );
 }

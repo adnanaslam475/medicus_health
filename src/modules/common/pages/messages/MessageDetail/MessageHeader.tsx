@@ -15,8 +15,8 @@ import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
 type Props = {
-  setRemoveCurrentChat?: any;
   removeCurrentChat?: boolean | undefined;
+  setRemoveCurrentChat?: any;
 };
 
 function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
@@ -49,12 +49,6 @@ function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
     }
   };
 
-  useEffect(() => {
-    if (removeCurrentChat) {
-      document.getElementsByClassName("chatremove")[0].remove();
-    }
-  }, [removeCurrentChat]);
-
   const modalHandler = (id: string) => setOpen(id);
   const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName; // not working
   return (
@@ -86,7 +80,7 @@ function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
           className="border rounded border-gray-1 "
         /> */}
         </div>
-        {isShowHeaderInfo && (
+        {isShowHeaderInfo && !removeCurrentChat && (
           <div className="flex gap-2 w-full sm:px-4 chatremove">
             <div className="flex items-center gap-2 flex-1">
               <MDNextImage

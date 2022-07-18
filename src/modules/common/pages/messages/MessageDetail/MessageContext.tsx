@@ -79,7 +79,9 @@ export function MessageContextProvider({
   const rtmRef = useRef<Client>();
   const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
   const [{ data }, executeGetAllChatChannelsMutation] =
-    useGetAllChatChannelsQuery({ variables: { filter: { searchString } } });
+    useGetAllChatChannelsQuery({
+      variables: { filter: { searchString } },
+    });
   const { getAllChatChannels } = data || {};
 
   const [{ data: channelMessageData }, executeGetChannelMessagesQuery] =
@@ -109,40 +111,44 @@ export function MessageContextProvider({
   }, [getChannelMessages?.[0]?.channelId]);
 
   async function createOrJoinChannel() {
-    if (query?.chat && query.doctorId && query.patientId) {
-      await executeCreateChatChannelMutation({
-        createChatChannelInput: {
-          doctorId: Number(query.doctorId),
-          patientId: Number(query.patientId),
-          isAdminChat: query.chat === "admin",
-        },
-      });
-      executeGetAllChatChannelsMutation({
-        requestPolicy: "network-only",
-      });
-      console.log(query?.chat);
-    } else if (query?.chat && query.doctorId) {
-      // for admin to doctor
-      await executeCreateChatChannelMutation({
-        createChatChannelInput: {
-          doctorId: Number(query.doctorId),
-          isAdminChat: query.chat === "admin",
-        },
-      });
-      executeGetAllChatChannelsMutation({
-        requestPolicy: "network-only",
-      });
-    } else if (query?.chat && query.patientId) {
-      // for admin to patient
-      await executeCreateChatChannelMutation({
-        createChatChannelInput: {
-          patientId: Number(query.patientId),
-          isAdminChat: query.chat === "admin",
-        },
-      });
-      executeGetAllChatChannelsMutation({
-        requestPolicy: "network-only",
-      });
+    try {
+      if (query?.chat && query.doctorId && query.patientId) {
+        await executeCreateChatChannelMutation({
+          createChatChannelInput: {
+            doctorId: Number(query.doctorId),
+            patientId: Number(query.patientId),
+            isAdminChat: query.chat === "admin",
+          },
+        });
+        executeGetAllChatChannelsMutation({
+          requestPolicy: "network-only",
+        });
+        console.log(query?.chat);
+      } else if (query?.chat && query.doctorId) {
+        // for admin to doctor
+        await executeCreateChatChannelMutation({
+          createChatChannelInput: {
+            doctorId: Number(query.doctorId),
+            isAdminChat: query.chat === "admin",
+          },
+        });
+        executeGetAllChatChannelsMutation({
+          requestPolicy: "network-only",
+        });
+      } else if (query?.chat && query.patientId) {
+        // for admin to patient
+        await executeCreateChatChannelMutation({
+          createChatChannelInput: {
+            patientId: Number(query.patientId),
+            isAdminChat: query.chat === "admin",
+          },
+        });
+        executeGetAllChatChannelsMutation({
+          requestPolicy: "network-only",
+        });
+      }
+    } catch (error) {
+      console.log("error to carete", error);
     }
   }
 
@@ -196,9 +202,9 @@ export function MessageContextProvider({
       rtmRef.current = rtmLocal;
       try {
         await rtmLocal.login(String(user?.id), rtmAccessToken || "");
-        // notification.success({
-        //   message: "user logged in successfully",
-        // });
+        notification.success({
+          message: "user logged in successfully uncomment",
+        });
         rtmLocal?.on("MemberLeft", ({ channelName, args }) => {
           const memberId = args[0];
           console.log(`%c${memberId} left the ${channelName}`, "color:red");
