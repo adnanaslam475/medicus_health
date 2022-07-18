@@ -8,6 +8,7 @@ import AdminPatientNotesWithTextTab from "./AdminPatientNotesWithTextTab";
 import AdminPatientAppointmentInfoTab from "./AdminPatientAppointmentInfoTab";
 import AdminPatientHealthQuestionnaireFormTab from "./AdminPatientHealthQuestionnaireFormTab";
 import AdminPatientAttachmentTab from "./AdminPatientAttachmentTab";
+import NotesTab from "common/components/NotesTab/NotesTab";
 
 function AdminPatientAppointmentDetail() {
   const { query } = useRouter();
@@ -67,10 +68,7 @@ function AdminPatientAppointmentDetail() {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab="Notes" key="6">
-              <AdminPatientNotesWithTextTab
-                appointment={appointment as Appointment}
-                doctorNotes={doctorNotes as [[string, string]]}
-              />
+              <NotesTab />
             </Tabs.TabPane>
           </Tabs>
         </div>
