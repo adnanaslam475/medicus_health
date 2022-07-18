@@ -90,7 +90,6 @@ export function MessageContextProvider({
       pause: !messageInfo.currentChannel,
     });
   const { getChannelMessages } = channelMessageData || {};
-
   useEffect(() => {
     if (getChannelMessages) {
       const info = { ...messageInfoRef.current };
@@ -103,7 +102,6 @@ export function MessageContextProvider({
       ];
 
       info.messagesWithChannel = messages;
-
       setMessageInfo(info);
     }
   }, [getChannelMessages?.[0]?.channelId]);

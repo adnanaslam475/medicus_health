@@ -1986,14 +1986,14 @@ export type GetAllChatChannelsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean, createdAt: any, lastMessage?: { __typename?: 'ChatMessages', channelId: number, senderId: number, receiverId: number, message?: string | null, messageType?: string | null, createdAt: any } | null, receiverDetail?: { __typename?: 'User', first_name: string, last_name: string, role?: string | null, email: string, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, role?: string | null, chatChannel?: { __typename?: 'ChatChannels', channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null }> | null }> };
+export type GetAllChatChannelsQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean, createdAt: any, lastMessage?: { __typename?: 'ChatMessages', channelId: number, senderId: number, receiverId: number, message?: string | null, messageType?: string | null, createdAt: any } | null, receiverDetail?: { __typename?: 'User', first_name: string, last_name: string, role?: string | null, email: string, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null, participants?: Array<{ __typename?: 'ChatParticipants', id: number, channelId: number, participantId: number, channel?: { __typename?: 'ChatChannels', id: number, channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean } | null, userDetails?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, role?: string | null, chatChannel?: { __typename?: 'ChatChannels', channelName: string, doctorId?: number | null, patientId?: number | null, isAdminChat: boolean } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null, user?: { __typename?: 'User', first_name: string, last_name: string } | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null, user?: { __typename?: 'User', first_name: string, last_name: string } | null } | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', id: number, profile_picture?: string | null, user?: { __typename?: 'User', first_name: string, last_name: string } | null } | null } | null }> | null }> };
 
 export type GetChannelMessagesQueryVariables = Exact<{
   channelId: Scalars['Int'];
 }>;
 
 
-export type GetChannelMessagesQuery = { __typename?: 'Query', getChannelMessages: Array<{ __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, message?: string | null, messageType?: string | null, createdAt: any, sender?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null }> };
+export type GetChannelMessagesQuery = { __typename?: 'Query', getChannelMessages: Array<{ __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, message?: string | null, messageType?: string | null, createdAt: any, sender?: { __typename?: 'User', first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null } | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', id: number, profile_picture?: string | null } | null } | null, receiver?: { __typename?: 'User', role?: string | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', id: number, profile_picture?: string | null } | null } | null }> };
 
 export type CheckEmailAvailabilityQueryVariables = Exact<{
   emailAvailableInput: EmailAvailableInput;
@@ -2077,7 +2077,7 @@ export type GetTransactionFilterQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionFilterQuery = { __typename?: 'Query', getTransactionFilter: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, stripeFee: number, doctor_percentage: string, appointment?: { __typename?: 'Appointment', status?: string | null, patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
+export type GetTransactionFilterQuery = { __typename?: 'Query', getTransactionFilter: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, status: string, stripeFee: number, doctor_percentage: string, createdAt: any, appointmentCharges: number, tax: number, appointment?: { __typename?: 'Appointment', status?: string | null, patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type PhysiciansPatientsQueryVariables = Exact<{
   searchField?: InputMaybe<Scalars['String']>;
@@ -3313,10 +3313,26 @@ export const GetAllChatChannelsDocument = gql`
           isAdminChat
         }
         doctorProfile {
+          user {
+            first_name
+            last_name
+          }
           profile_image
         }
         patientProfile {
+          user {
+            first_name
+            last_name
+          }
           profileImage
+        }
+        adminProfilePicture {
+          id
+          profile_picture
+          user {
+            first_name
+            last_name
+          }
         }
       }
     }
@@ -3344,6 +3360,17 @@ export const GetChannelMessagesDocument = gql`
       }
       patientProfile {
         profileImage
+      }
+      adminProfilePicture {
+        id
+        profile_picture
+      }
+    }
+    receiver {
+      role
+      adminProfilePicture {
+        id
+        profile_picture
       }
     }
   }
@@ -3709,8 +3736,14 @@ export const GetTransactionFilterDocument = gql`
       transactionId
       payment_status
       amountReceived
+      status
       stripeFee
       doctor_percentage
+      payment_status
+      createdAt
+      appointmentCharges
+      stripeFee
+      tax
       appointment {
         status
         patient {
