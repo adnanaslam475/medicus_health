@@ -90,15 +90,24 @@ const columns = [
     title: "Payment Status",
     dataIndex: "transaction",
     key: "transaction",
+    className: "table-action-icon",
     render: (transaction: Transaction) => {
+      let _status = null;
+      if (transaction?.status === "succeeded") {
+        _status = "paid";
+      } else if (transaction?.status === "Refunded") {
+        _status = transaction?.status;
+      } else {
+        _status = "Unpaid";
+      }
       return (
-        <StatusChip
-          type={String(transaction?.payment_status).toUpperCase() as StatusName}
-        />
+        <div className="text-primary">
+          <StatusChip type={_status.toUpperCase() as StatusName} />
+        </div>
       );
     },
-    sorter: true,
   },
+
   {
     dataIndex: "id",
     className: "table-action-icon",

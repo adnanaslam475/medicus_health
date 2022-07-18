@@ -103,6 +103,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
           >
             <Select.Option value="paid">Paid</Select.Option>
             <Select.Option value="unpaid">Unpaid</Select.Option>
+            <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
         <FilterClearButton onClear={clear} />
       </div>

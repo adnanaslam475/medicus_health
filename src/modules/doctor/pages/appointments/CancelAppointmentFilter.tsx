@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Space } from "antd";
+import { Input, Select, Space } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { cancelledAppointmentFilterType } from "common/types/types";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
@@ -97,7 +97,18 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             value={filterState?.serviceId}
           />
         </div>
+        <div className="flex w-full md:w-44 xl:w-60 mr-3">
+          <Select
+            placeholder="Payment status"
+            onChange={(e) => onChangeFields("paymentStatus", e)}
+            value={filterState.paymentStatus}
+          >
+            <Select.Option value="paid">Paid</Select.Option>
+            <Select.Option value="unpaid">Unpaid</Select.Option>
+            <Select.Option value="refunded">Refunded</Select.Option>
+          </Select>
         <FilterClearButton onClear={clear} />
+      </div>
         </div>
       </div>
     
