@@ -13,3 +13,4 @@ generates:
   ./graphql.schema.json:
     plugins:
       - "introspection"
+# http://localhost:3000/graphql

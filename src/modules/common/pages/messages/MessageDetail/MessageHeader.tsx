@@ -15,15 +15,12 @@ import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
 type Props = {
-  setRemoveCurrentChatHeader?: any;
-  removeCurrentChatHeader?: boolean | undefined;
+  removeCurrentChat?: boolean | undefined;
+  setRemoveCurrentChat?: any;
 };
 
-function MessageHeader({
-  removeCurrentChatHeader,
-  setRemoveCurrentChatHeader,
-}: Props) {
-  const { messageInfo } = useMessageContext();
+function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
+  const { messageInfo, setChatSearch } = useMessageContext();
   const { user } = getUserData();
   const [{ fetching }, deleteChatChannelMutation] =
     useDeleteChatChannelMutation();
@@ -44,19 +41,13 @@ function MessageHeader({
         id: Number(messageInfo.currentChannel?.id),
       });
       setOpen("");
-      setRemoveCurrentChatHeader(true);
+      setRemoveCurrentChat(true);
     } catch (error: any) {
       notification.error({
         message: error?.message || "Something went wrong",
       });
     }
   };
-
-  useEffect(() => {
-    if (removeCurrentChatHeader) {
-      document.getElementsByClassName("chatremove")[0].remove();
-    }
-  }, [removeCurrentChatHeader]);
 
   const modalHandler = (id: string) => setOpen(id);
   const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName; // not working
@@ -77,6 +68,7 @@ function MessageHeader({
             prefix={
               <SearchOutlined className={`{${_classes["search-color"]}`} />
             }
+            onChange={(e) => setChatSearch(e.target.value)}
           />
 
           {/* <Image
@@ -88,7 +80,7 @@ function MessageHeader({
           className="border rounded border-gray-1 "
         /> */}
         </div>
-        {isShowHeaderInfo && (
+        {isShowHeaderInfo && !removeCurrentChat && (
           <div className="flex gap-2 w-full sm:px-4 chatremove">
             <div className="flex items-center gap-2 flex-1">
               <MDNextImage
