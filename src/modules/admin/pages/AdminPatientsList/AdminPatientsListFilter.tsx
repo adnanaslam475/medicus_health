@@ -4,7 +4,7 @@ import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import _classes from "./AdminPatientListFilter.module.scss";
 import { PatientListFilterType } from "common/types/types";
 import { SelectCountryTypeFilter } from "common/components/SelectCountryTypeFilter/SelectCountryTypeFilter";
-import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter copy/SelectStateTypeFilter";
+import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter/SelectStateTypeFilter";
 import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 
 type Props = {

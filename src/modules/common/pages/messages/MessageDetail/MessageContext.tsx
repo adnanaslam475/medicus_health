@@ -77,7 +77,9 @@ export function MessageContextProvider({
   const [searchString, setSearchString] = React.useState<string>("");
   const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
   const [{ data }, executeGetAllChatChannelsMutation] =
-    useGetAllChatChannelsQuery({ variables: { filter: { searchString } } });
+    useGetAllChatChannelsQuery({
+      // variables: { filter: { any(searchString); } },
+    });
   const { getAllChatChannels } = data || {};
 
   const [{ data: channelMessageData }, executeGetChannelMessagesQuery] =
@@ -328,7 +330,7 @@ export function MessageContextProvider({
         receiverId: messageInfo.currentChannel?.id as number,
         message: text,
         messageType,
-        isRead:false
+        isRead: false,
       },
     });
     await rtmRef.current?.sendChannelMessage(

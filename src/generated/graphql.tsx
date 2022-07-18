@@ -1628,7 +1628,7 @@ export type CreateChatMessageMutationVariables = Exact<{
 }>;
 
 
-export type CreateChatMessageMutation = { __typename?: 'Mutation', createChatMessage: { __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, receiverId: number, message?: string | null, messageType?: string | null, createdAt: any, sender?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null, receiver?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } };
+export type CreateChatMessageMutation = { __typename?: 'Mutation', createChatMessage: { __typename?: 'ChatMessages', id: number, channelId: number, senderId: number, receiverId: number, message?: string | null, isRead: boolean, messageType?: string | null, createdAt: any, sender?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null, receiver?: { __typename?: 'User', id: number, first_name: string, last_name: string } | null } };
 
 export type ResendActivationLinkMutationVariables = Exact<{
   email: Scalars['String'];
@@ -2386,6 +2386,7 @@ export const CreateChatMessageDocument = gql`
     senderId
     receiverId
     message
+    isRead
     messageType
     createdAt
     sender {
