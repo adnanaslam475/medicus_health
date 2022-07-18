@@ -24,7 +24,7 @@ const InfoMessageBannerReminder = () => {
 
   //checking is appointment time is same as current datetime
   let isAppoinmetnStartTime = date?.isAppoinentDateIsSame(
-    date.formatMMMMDDYYYY(selectedTime?.startTime)
+    date.formatDAYMMDDYY(selectedTime?.startTime)
   );
 
   return data?.appointmentsReminderBanner ? (
@@ -47,7 +47,7 @@ const InfoMessageBannerReminder = () => {
         )}
         at
       </span>
-      {/* <span>{date?.formatMMMMDDYYYY(selectedTime?.startTime)}</span> */}
+      {/* <span>{date?.formatDAYMMDDYY(selectedTime?.startTime)}</span> */}
     
      
       <span>

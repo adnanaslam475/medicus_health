@@ -59,7 +59,7 @@ const appointmentColumns = [
     key: "createdAt",
     sorter: true,
     render: (bookingDate: string) => {
-      return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;
+      return <div>{date.formatDAYMMDDYY(bookingDate)}</div>;
     },
   },
   {
@@ -72,7 +72,7 @@ const appointmentColumns = [
       return (
         <div>
           {appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
             : "--"}
         </div>
       );

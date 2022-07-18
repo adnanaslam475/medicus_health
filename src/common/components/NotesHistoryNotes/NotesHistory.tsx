@@ -86,9 +86,9 @@ function NotesHistory(props: Props) {
                 return (
                   <Panel
                     className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                    header={`AP-${
+                    header={`ID#-AP-${
                       data?.appointment?.id
-                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Dr.${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                       data?.createdAt
                     )} `}
                     key={index + 1}

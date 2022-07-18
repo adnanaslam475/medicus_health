@@ -115,7 +115,7 @@ function VideoCall() {
           <>{start && tracks && <Video tracks={tracks} users={users} />}</>
         </>
       ) : (
-        <Result icon={<SmileOutlined />} title="Your Call has ended" />
+        <Result icon={<SmileOutlined />} title="Your call has ended" />
       )}
     </div>
   );

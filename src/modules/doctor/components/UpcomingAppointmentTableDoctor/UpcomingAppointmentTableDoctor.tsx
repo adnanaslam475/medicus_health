@@ -42,7 +42,7 @@ const columns = [
     dataIndex: "createdAt",
     key: "createdAt",
     render: (bookingDate: string) => {
-      return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;
+      return <div>{date.formatDAYMMDDYY(bookingDate)}</div>;
     },
     sorter: true,
   },
@@ -51,7 +51,7 @@ const columns = [
     dataIndex: "requestedDate",
     key: "requestedDate",
     render: (dueDate: string) => {
-      return <div>{date.formatMMMMDDYYYY(dueDate)}</div>;
+      return <div>{date.formatDAYMMDDYY(dueDate)}</div>;
     },
     sorter: true,
   },

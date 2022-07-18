@@ -51,12 +51,12 @@ function AppointmnetCurrentCard({
 
   return (
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
-      <h3 className="mb-0"> {appointmentId || "Appointment-id"}</h3>
+      <h3 className="mb-0">ID#-{appointmentId || "Appointment-id"}</h3>
       <h3 className="mb-0">Dr.{doctor}</h3>
       <span className="text-gray text-base block">{serviceType}</span>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Date</span>
-      <h6>{date.formatMMMMDDYYYY(requestedDate)}</h6>
+      <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Time</span>
       <div className="text-cyan font-semibold">
@@ -85,7 +85,7 @@ function AppointmnetCurrentCard({
             className="mb-0"
             alt="camera"
           />
-          <span className="ml-2 mt-1">Join Now</span>
+          <span className="ml-2 mt-1">Join now</span>
         </Button>
         <Button
           type="default"
