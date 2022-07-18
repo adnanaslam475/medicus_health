@@ -2077,7 +2077,7 @@ export type GetTransactionFilterQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionFilterQuery = { __typename?: 'Query', getTransactionFilter: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, stripeFee: number, doctor_percentage: string, appointment?: { __typename?: 'Appointment', status?: string | null, patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
+export type GetTransactionFilterQuery = { __typename?: 'Query', getTransactionFilter: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, transactionId: string, payment_status?: string | null, amountReceived: number, status: string, stripeFee: number, doctor_percentage: string, createdAt: any, appointmentCharges: number, tax: number, appointment?: { __typename?: 'Appointment', status?: string | null, patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', selected: boolean, startTime: any, endTime: any }> | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type PhysiciansPatientsQueryVariables = Exact<{
   searchField?: InputMaybe<Scalars['String']>;
@@ -3736,8 +3736,14 @@ export const GetTransactionFilterDocument = gql`
       transactionId
       payment_status
       amountReceived
+      status
       stripeFee
       doctor_percentage
+      payment_status
+      createdAt
+      appointmentCharges
+      stripeFee
+      tax
       appointment {
         status
         patient {
