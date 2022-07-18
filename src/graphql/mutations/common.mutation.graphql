@@ -27,6 +27,7 @@ mutation createChatMessage($createChatMessageInput: CreateChatMessageInput!) {
     senderId
     receiverId
     message
+    isRead
     messageType
     createdAt
     sender {
@@ -39,6 +40,7 @@ mutation createChatMessage($createChatMessageInput: CreateChatMessageInput!) {
       first_name
       last_name
     }
+    # isRead
   }
 }
 
