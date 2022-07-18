@@ -11,6 +11,7 @@ import {
 } from "../../../../../generated/graphql";
 import { getRole, getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
+import PurifiedInnerHtml from "common/components/PurifiedInnerHtml/PurifiedInnerHtml";
 
 function Login() {
   const t = useTranslations("Login");
@@ -166,11 +167,20 @@ function Login() {
                   </Form.Item>
 
                   {error?.message && (
-                    <Alert
-                      className=""
-                      message={error?.message.split("]")[1].trim()}
-                      type="error"
-                    />
+                    <>
+                      {/* <PurifiedInnerHtml></PurifiedInnerHtml> */}
+                      {/* <Alert
+                        className=""
+                        message={error?.message.split("]")[1].trim()}
+                        type="error"
+                      /> */}
+                      <p
+                        className="text-white	bg-red p-3 rounded resendClass"
+                        dangerouslySetInnerHTML={{
+                          __html: error?.message.split("]")[1].trim(),
+                        }}
+                      ></p>
+                    </>
                   )}
                 </Form>
               </div>

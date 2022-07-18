@@ -806,11 +806,6 @@ function AvailabilityTimeSlots({
   onChangeDatePicker?: (dateString: string, name: string) => void;
   endDateValue?: string;
 }) {
-  console.log(
-    "end date value is",
-    endDateValue,
-    endDateValue === "Invalid date"
-  );
 
   return (
     <div className="block mb-10">
@@ -848,7 +843,6 @@ function AvailabilityTimeSlots({
                   showTime
                   format={FORMAT_D_T_W_AM_PM}
                   showNow={false}
-                  // onChange={(_, date) => onChangeDatePicker?.(date, "endDate")}
                 />
               )}
             </Space>

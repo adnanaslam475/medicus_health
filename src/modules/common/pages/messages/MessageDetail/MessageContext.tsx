@@ -92,7 +92,6 @@ export function MessageContextProvider({
       pause: !messageInfo.currentChannel,
     });
   const { getChannelMessages } = channelMessageData || {};
-
   useEffect(() => {
     if (getChannelMessages) {
       const info = { ...messageInfoRef.current };
@@ -105,7 +104,6 @@ export function MessageContextProvider({
       ];
 
       info.messagesWithChannel = messages;
-
       setMessageInfo(info);
     }
   }, [getChannelMessages?.[0]?.channelId]);
@@ -336,7 +334,7 @@ export function MessageContextProvider({
         receiverId: messageInfo.currentChannel?.id as number,
         message: text,
         messageType,
-        isRead: false, // will discuss
+        isRead: false,
       },
     });
     await rtmRef.current?.sendChannelMessage(

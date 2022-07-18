@@ -431,3 +431,16 @@ label.ant-radio-wrapper {
   align-items: center !important;
   justify-content: center !important;
 }
+
+.resendClass {
+  & a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    &:hover {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}

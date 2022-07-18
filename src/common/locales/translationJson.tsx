@@ -132,8 +132,8 @@ export function translationJson(local: string) {
           city: "City",
           postal_code: "Postal Code",
           postal_code_message: "Please enter your postal code",
-          i_agree_to_the: "I agree to the",
-          terms_n_conditions: "Terms & Conditions",
+          i_agree_to_the: "I agree to the ",
+          terms_n_conditions: " Terms & Conditions",
           next: "Next",
         },
       };
