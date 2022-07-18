@@ -10,10 +10,7 @@ import _classes from "./Message-detail.module.scss";
 import { useMessageContext } from "./MessageContext";
 import { getUserData } from "common/utils/userData";
 import { messageUtils } from "common/utils";
-import {
-  ChatChannels,
-  // useDeleteChatChannelMutation
-} from "generated/graphql";
+import { ChatChannels, useDeleteChatChannelMutation } from "generated/graphql";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
@@ -28,8 +25,8 @@ function MessageHeader({
 }: Props) {
   const { messageInfo } = useMessageContext();
   const { user } = getUserData();
-  // const [{ fetching }, deleteChatChannelMutation] =
-  //   useDeleteChatChannelMutation();
+  const [{ fetching }, deleteChatChannelMutation] =
+    useDeleteChatChannelMutation();
 
   const opposite = messageUtils.getOppositeParticipant(
     messageInfo.currentChannel as ChatChannels,
@@ -41,19 +38,19 @@ function MessageHeader({
   );
   const [open, setOpen] = React.useState<string>("");
 
-  // const deleteChatChannelHandler = async () => {
-  //   try {
-  //     await deleteChatChannelMutation({
-  //       id: Number(messageInfo.currentChannel?.id),
-  //     });
-  //     setOpen("");
-  //     setRemoveCurrentChatHeader(true);
-  //   } catch (error: any) {
-  //     notification.error({
-  //       message: error?.message || "Something went wrong",
-  //     });
-  //   }
-  // };
+  const deleteChatChannelHandler = async () => {
+    try {
+      await deleteChatChannelMutation({
+        id: Number(messageInfo.currentChannel?.id),
+      });
+      setOpen("");
+      setRemoveCurrentChatHeader(true);
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something went wrong",
+      });
+    }
+  };
 
   useEffect(() => {
     if (removeCurrentChatHeader) {
@@ -65,13 +62,13 @@ function MessageHeader({
   const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName; // not working
   return (
     <>
-      {/* <ConfirmationModal
+      <ConfirmationModal
         visible={!!open}
         confirmLoading={fetching}
         onCancel={() => modalHandler("")}
         onOk={deleteChatChannelHandler}
         message="Are you sure you want ot delete this Channel?"
-      /> */}
+      />
       <div className="flex gap-2 items-center border-b border-gray-4">
         <div className="flex gap-2 py-4 px-4 max-w-[340px] w-full border-r border-gray-4">
           <Input
