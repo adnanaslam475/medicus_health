@@ -16,7 +16,7 @@ const Columns = [
     sorter: true,
     //   render: (value: Appointment) => {
     //     return (
-    //       <div className="someclass">{`${date?.formatMMMMDDYYYY(
+    //       <div className="someclass">{`${date?.formatDAYMMDDYY(
     //         value?.requestedDate
     //       )} `}</div>
     //     );

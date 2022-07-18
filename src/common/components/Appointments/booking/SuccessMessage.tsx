@@ -47,7 +47,7 @@ function SuccessMessage({ onCancel }: Props) {
           className="text-white bg-primary text-sm rounded-md p-3 px-8"
           onClick={clickHandler}
         >
-          Back to Appointments
+          Back to appointments
         </button>
       </div>
     </>

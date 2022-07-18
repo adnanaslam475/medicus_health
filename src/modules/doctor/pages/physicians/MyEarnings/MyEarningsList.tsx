@@ -56,7 +56,7 @@ const Columns = [
     render: (value: Appointment) => {
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
       return (
-        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+        <div className="someclass">{`${date?.formatDAYMMDDYY(
           time?.startTime
         )} `}</div>
       );
@@ -70,7 +70,7 @@ const Columns = [
     render: (value: Appointment) => {
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
       return (
-        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+        <div className="someclass">{`${date?.formatDAYMMDDYY(
           time?.startTime
         )} `}</div>
       );
@@ -173,7 +173,7 @@ const Columns = [
   //   render: (value: Appointment) => {
   //     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
   //     return (
-  //       <div className="someclass">{`${date?.formatMMMMDDYYYY(
+  //       <div className="someclass">{`${date?.formatDAYMMDDYY(
   //         time?.startTime
   //       )} `}</div>
   //     );

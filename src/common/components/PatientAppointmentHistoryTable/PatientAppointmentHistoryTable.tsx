@@ -44,7 +44,7 @@ const historyColumns = [
     key: "requestedDate",
     sorter: true,
     render: (value: string) => {
-      return <div>{`${value ? date?.formatMMMMDDYYYY(value) : "--"}`}</div>;
+      return <div>{`${value ? date?.formatDAYMMDDYY(value) : "--"}`}</div>;
     },
   },
   {

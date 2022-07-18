@@ -84,7 +84,7 @@ const columns = [
       return (
         <div>
           {appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
             : "--"}
         </div>
       );
