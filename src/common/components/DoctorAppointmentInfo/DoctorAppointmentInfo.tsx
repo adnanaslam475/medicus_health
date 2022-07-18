@@ -147,7 +147,9 @@ function DoctorAppointmentInfo({ data }: Props) {
   return (
     <div className="max-w-[700px]">
       <div className="message-button mb-3">
-        {(status === "Requested" || status === "Confirmed") && (
+        {(status === "Requested" ||
+          status === "Confirmed" ||
+          status === "Cancelled") && (
           <MessageButtons patientID={patientID} doctorId={doctorId} />
         )}
       </div>
@@ -806,7 +808,6 @@ function AvailabilityTimeSlots({
   onChangeDatePicker?: (dateString: string, name: string) => void;
   endDateValue?: string;
 }) {
-
   return (
     <div className="block mb-10">
       {/* <TimeSlotPickerForm onChangeDatePicker={onChangeDatePicker} /> */}
