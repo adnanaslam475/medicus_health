@@ -275,6 +275,7 @@ query getAllRequestedAppointments(
       }
       transaction {
         createdAt
+        status
         amountReceived
       }
       appointmentSchedule {
