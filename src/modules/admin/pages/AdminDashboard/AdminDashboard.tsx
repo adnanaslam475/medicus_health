@@ -6,9 +6,13 @@ import appointments from "../../../../../public/assets/icon/appointments.svg";
 import physician from "../../../../../public/assets/images/admin/menu/physicians-hover.svg";
 import revenue from "../../../../../public/assets/icon/dollars.svg";
 import _classes from "./AdminDashboard.module.scss";
-import { useAdminDashboardStatisticsQuery } from "generated/graphql";
+import {} from "generated/graphql";
 function AdminDashboard() {
-  const [{ data }] = useAdminDashboardStatisticsQuery({variables:{filter:{}}});
+  const [{ data }] = useAdminDashboardStatisticsQuery({
+    variables: {
+      filter: {},
+    },
+  });
   const { adminDashboard } = data || {};
   const {
     total_number_of_appointments,
@@ -21,32 +25,32 @@ function AdminDashboard() {
     <AppLayout>
       <div className="xl:flex flex-wrap">
         <div className="basis-1/2">
-        <StatisticsCard
-          src={users}
-          title="Total Number of Users "
-          value={total_number_of_users || 0}
-        />
+          <StatisticsCard
+            src={users}
+            title="Total Number of Users "
+            value={total_number_of_users || 0}
+          />
         </div>
         <div className="basis-1/2">
-        <StatisticsCard
-          src={appointments}
-          title="Number of Appointments "
-          value={total_number_of_appointments || 0}
-        />
+          <StatisticsCard
+            src={appointments}
+            title="Number of Appointments "
+            value={total_number_of_appointments || 0}
+          />
         </div>
         <div className="basis-1/2">
-        <StatisticsCard
-          src={physician}
-          title="Number of Physicians "
-          value={total_number_of_physicians || 0}
-        />
+          <StatisticsCard
+            src={physician}
+            title="Number of Physicians "
+            value={total_number_of_physicians || 0}
+          />
         </div>
         <div className="basis-1/2">
-        <StatisticsCard
-          src={revenue}
-          title="The total revenue to date ($)"
-          value={total_revenue || 0}
-        />
+          <StatisticsCard
+            src={revenue}
+            title="The total revenue to date ($)"
+            value={total_revenue || 0}
+          />
         </div>
       </div>
     </AppLayout>
@@ -54,3 +58,8 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
+function useAdminDashboardStatisticsQuery(arg0: {
+  variables: { filter: {} };
+}): [{ data: any }] {
+  throw new Error("Function not implemented.");
+}

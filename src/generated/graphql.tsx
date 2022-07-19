@@ -1943,12 +1943,12 @@ export type GetAdminUsersQueryVariables = Exact<{
 
 export type GetAdminUsersQuery = { __typename?: 'Query', adminUsers: { __typename?: 'UserPaginatedFilterResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, createdAt: any, status: boolean }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
-export type AdminDashboardStatisticsQueryVariables = Exact<{
+export type AdminDashboardQueryVariables = Exact<{
   filter: GetTransectionInput;
 }>;
 
 
-export type AdminDashboardStatisticsQuery = { __typename?: 'Query', adminDashboard: { __typename?: 'AdminDashboardResponse', total_number_of_users?: number | null, total_revenue?: number | null, total_number_of_physicians?: number | null, total_number_of_appointments?: number | null } };
+export type AdminDashboardQuery = { __typename?: 'Query', adminDashboard: { __typename?: 'AdminDashboardResponse', total_number_of_users?: number | null, total_number_of_appointments?: number | null, total_number_of_physicians?: number | null, total_revenue?: number | null, gross_sale?: number | null, net_gross_sale?: number | null, net_physician_fee?: number | null, total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null } };
 
 export type AdminPhysicianAppointmentQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -2294,6 +2294,7 @@ export type GetAppointmentReportUrlByIdQueryVariables = Exact<{
 export type GetAppointmentReportUrlByIdQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, doctorId?: number | null, patientId?: number | null, reportUrl?: any | null } };
 
 export type GetDoctorEarningsQueryVariables = Exact<{
+  filter: GetTransectionInput;
   id: Scalars['Int'];
 }>;
 
@@ -3101,19 +3102,24 @@ export const GetAdminUsersDocument = gql`
 export function useGetAdminUsersQuery(options: Omit<Urql.UseQueryArgs<GetAdminUsersQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAdminUsersQuery>({ query: GetAdminUsersDocument, ...options });
 };
-export const AdminDashboardStatisticsDocument = gql`
-    query adminDashboardStatistics($filter: GetTransectionInput!) {
+export const AdminDashboardDocument = gql`
+    query adminDashboard($filter: GetTransectionInput!) {
   adminDashboard(filter: $filter) {
     total_number_of_users
-    total_revenue
-    total_number_of_physicians
     total_number_of_appointments
+    total_number_of_physicians
+    total_revenue
+    gross_sale
+    net_gross_sale
+    net_physician_fee
+    total_number_of_consultation
+    total_number_of_second_opinions
   }
 }
     `;
 
-export function useAdminDashboardStatisticsQuery(options: Omit<Urql.UseQueryArgs<AdminDashboardStatisticsQueryVariables>, 'query'>) {
-  return Urql.useQuery<AdminDashboardStatisticsQuery>({ query: AdminDashboardStatisticsDocument, ...options });
+export function useAdminDashboardQuery(options: Omit<Urql.UseQueryArgs<AdminDashboardQueryVariables>, 'query'>) {
+  return Urql.useQuery<AdminDashboardQuery>({ query: AdminDashboardDocument, ...options });
 };
 export const AdminPhysicianAppointmentDocument = gql`
     query AdminPhysicianAppointment($filter: GetAppointmentInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -4601,8 +4607,8 @@ export function useGetAppointmentReportUrlByIdQuery(options: Omit<Urql.UseQueryA
   return Urql.useQuery<GetAppointmentReportUrlByIdQuery>({ query: GetAppointmentReportUrlByIdDocument, ...options });
 };
 export const GetDoctorEarningsDocument = gql`
-    query getDoctorEarnings($id: Int!) {
-  getDoctorEarnings(filter: {}, id: $id) {
+    query getDoctorEarnings($filter: GetTransectionInput!, $id: Int!) {
+  getDoctorEarnings(filter: $filter, id: $id) {
     total_number_of_consultation
     total_number_of_second_opinions
     total_number_of_patients
