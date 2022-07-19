@@ -29,11 +29,8 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
     patientProfile,
   } = userDetail || {};
 
-  // console.log(userDetail, "userDetails");
-
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
-  console.log("useCountriesQuery6", data);
 
   const [getStatesByCountry] = useGetStatesByCountryQuery({
     variables: {
