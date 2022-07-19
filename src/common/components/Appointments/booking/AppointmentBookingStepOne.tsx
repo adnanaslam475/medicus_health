@@ -4,6 +4,7 @@ import {
   Appointment,
   AppointmentServiceType,
   DoctorProfile,
+  useDoctorSchedulesByDayQuery,
   useDoctorSchedulesQuery,
   useGetAllAppointmentServiceTypesQuery,
   User,
@@ -77,6 +78,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const { query } = useRouter();
     const [doctorId, setDoctorId] = useState<number>();
     const [schedules, setSchedules] = useState([]);
+    const [selectedDay, setSelectedDay] = useState<number>();
 
     const stepOneDoctorId = physician?.split(":")[0];
     let doctorScheduleId =
@@ -87,17 +89,18 @@ export const AppointmentBookingStepOne = React.forwardRef(
       Number(doctorId) ||
       Number(stepOneDoctorId);
 
-    const [{ data: scheduleDetails }, executeUseDoctorSchedulesQuery] =
-      useDoctorSchedulesQuery({
+    const [{ data: scheduleDetails }, executeUseDoctorSchedulesByDayQuery] =
+      useDoctorSchedulesByDayQuery({
         variables: {
-          doctorId: doctorScheduleId,
+          doctorId: Number(doctorScheduleId),
+          filter: { day: selectedDay },
         },
-        pause: !doctorScheduleId,
+        pause: !selectedDay,
       });
 
     useEffect(() => {
-      executeUseDoctorSchedulesQuery({ requestPolicy: "network-only" });
-    }, []);
+      executeUseDoctorSchedulesByDayQuery({ requestPolicy: "network-only" });
+    }, [selectedDay]);
 
     useEffect(() => {
       if (ref) {
@@ -105,8 +108,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
       }
     }, []);
     const isShow =
-      scheduleDetails?.doctorSchedules &&
-      scheduleDetails?.doctorSchedules.length > 0;
+      scheduleDetails?.doctorSchedulesByDay &&
+      scheduleDetails?.doctorSchedulesByDay.length > 0;
 
     useEffect(() => {
       if (appoinmentDetails) {
@@ -120,7 +123,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         formInstance.resetFields();
       }
       if (isShow && !clear) {
-        setSchedules((scheduleDetails?.doctorSchedules as any) || []);
+        setSchedules((scheduleDetails?.doctorSchedulesByDay as any) || []);
       }
     }, [clear, isShow]);
 
@@ -316,6 +319,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
               className="w-full"
+              onChange={(_, e) => setSelectedDay(new Date(e).getDay())}
               disabledDate={disabledDate}
             />
           </Form.Item>
@@ -329,7 +333,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 <Radio.Group
                   defaultValue={appoinmentDetails?.stepOne?.availability}
                 >
-                  {schedules.map((item: any) => (
+                  {scheduleDetails?.doctorSchedulesByDay?.map((item: any) => (
                     <Radio.Button
                       key={item?.id}
                       value={item?.id}

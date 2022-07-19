@@ -1,5 +1,5 @@
 import React from "react";
-import { Appointment } from "../../../../../generated/graphql";
+import { Appointment, AppointmentPriceResponse } from "../../../../../generated/graphql";
 import AppointmentReschedule from "../AppointmentReschedule/AppointmentReschedule";
 import AppointmentSuccess from "../AppointmentSuccess/AppointmentSuccess";
 import MakePayment from "../MakePayment/MakePayment";
@@ -9,10 +9,11 @@ type Props = {
   stepName: string;
   appointmentId: number | undefined;
   appointmentDetails: Appointment;
+  appointmentCharges:AppointmentPriceResponse
 };
 
 const CurrentStepContent = React.forwardRef(function CurrentStepContent(
-  { stepName, appointmentId, appointmentDetails }: Props,
+  { stepName, appointmentId, appointmentDetails,appointmentCharges }: Props,
   ref: any
 ) {
   switch (stepName) {
@@ -21,6 +22,7 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
         <AppointmentReschedule
           appointmentId={appointmentId as number}
           appointmentDetails={appointmentDetails as Appointment}
+          appointmentCharges={appointmentCharges}
         />
       );
     case "stepTwo":

@@ -2136,6 +2136,14 @@ export type DoctorPayoutsQueryVariables = Exact<{
 
 export type DoctorPayoutsQuery = { __typename?: 'Query', doctorPayouts?: { __typename?: 'DoctorPayoutResponse', appointmentMonths: Array<string>, monthAppointments: Array<Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, patientId?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, transaction?: { __typename?: 'Transaction', transactionId: string, appointmentId: number, id: number, doctor_percentage: string } | null }>> } | null };
 
+export type DoctorSchedulesByDayQueryVariables = Exact<{
+  doctorId: Scalars['Int'];
+  filter: GetDoctorScheduleFilterInput;
+}>;
+
+
+export type DoctorSchedulesByDayQuery = { __typename?: 'Query', doctorSchedulesByDay: Array<{ __typename?: 'DoctorSchedule', id: string, day: number, startTime: string, endTime: string }> };
+
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3958,6 +3966,20 @@ export const DoctorPayoutsDocument = gql`
 
 export function useDoctorPayoutsQuery(options: Omit<Urql.UseQueryArgs<DoctorPayoutsQueryVariables>, 'query'>) {
   return Urql.useQuery<DoctorPayoutsQuery>({ query: DoctorPayoutsDocument, ...options });
+};
+export const DoctorSchedulesByDayDocument = gql`
+    query doctorSchedulesByDay($doctorId: Int!, $filter: GetDoctorScheduleFilterInput!) {
+  doctorSchedulesByDay(doctorId: $doctorId, filter: $filter) {
+    id
+    day
+    startTime
+    endTime
+  }
+}
+    `;
+
+export function useDoctorSchedulesByDayQuery(options: Omit<Urql.UseQueryArgs<DoctorSchedulesByDayQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorSchedulesByDayQuery>({ query: DoctorSchedulesByDayDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {

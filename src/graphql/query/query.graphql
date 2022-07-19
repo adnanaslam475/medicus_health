@@ -646,6 +646,7 @@ query getDoctorEarnings($filter: GetTransectionInput!, $id: Int!) {
   }
 }
 
+
 # get staff listing
 query getAllStaffByDoctor(
   $filter: GetStaffFilter!
