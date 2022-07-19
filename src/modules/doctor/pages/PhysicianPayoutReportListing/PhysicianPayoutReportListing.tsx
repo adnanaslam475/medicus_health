@@ -125,21 +125,13 @@ function PhysicianPayoutReportListing() {
             {appointmentMonths?.map((appointmentMonth, appointmentIndex) => {
               return (
                 <Panel header={appointmentMonth} key={appointmentIndex}>
-                  {monthAppointments
-                    ?.filter(
-                      (_, filteredIndex) => filteredIndex === appointmentIndex
-                    )
-                    ?.map((appointmentData) => {
-                      return (
-                        <Table
-                          pagination={false}
-                          columns={columns}
-                          dataSource={appointmentData}
-                          loading={false}
-                          scroll={{ x: true }}
-                        />
-                      );
-                    })}
+                  <Table
+                    pagination={false}
+                    columns={columns}
+                    dataSource={monthAppointments?.[appointmentIndex]}
+                    loading={false}
+                    scroll={{ x: true }}
+                  />
                 </Panel>
               );
             })}

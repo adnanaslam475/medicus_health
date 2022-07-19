@@ -12,6 +12,20 @@ import bmp from "../../../../public/assets/images/bmp.png";
 import tga from "../../../../public/assets/images/tga.png";
 
 const availableTypes = {
+  // for patient appointmetn
+  pdf: pdf.src,
+  docx: docx.src,
+  zip: zip.src,
+  bmp: bmp.src,
+  "x-tga": tga.src,
+  targa: tga.src,
+  png: png.src,
+  jpeg: jpg.src,
+  jpg: jpg.src,
+  tga: tga.src,
+  tiff: tiff.src,
+
+  // For all other areas like appointment booking form etc
   "application/pdf": pdf.src,
   "application/msword": doc.src,
   "application/doc": doc.src,
