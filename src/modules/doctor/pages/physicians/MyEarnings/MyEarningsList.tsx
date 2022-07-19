@@ -6,6 +6,7 @@ import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearch
 import {
   Appointment,
   GetTransactionFilterQuery,
+  GetTransectionInput,
   Transaction,
   useGetDoctorEarningsQuery,
   useGetTransactionFilterQuery,
@@ -194,6 +195,8 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const [filterValues, setFilterValues] =
     useState<physicianMyEarningsFilterType>({});
+  const [DoctorEarningsfilterValues, setDoctorEarningsFilterValues] =
+    useState<GetTransectionInput>({});
   const [pagination, setPagination] = React.useState({
     page: 1,
     limit: 10,
@@ -205,13 +208,15 @@ const PhysicianMyEarningsList = (props: Props) => {
   });
 
   // get Doctor Earnings Stats
-  const [{ data, fetching: myEarningStatsLoading }] = useGetDoctorEarningsQuery(
-    {
-      variables: {
-        id: Number(user?.id),
-      },
-    }
-  );
+  const [
+    { data, fetching: myEarningStatsLoading },
+    executeUseGetDoctorEarningsQuery,
+  ] = useGetDoctorEarningsQuery({
+    variables: {
+      filter: DoctorEarningsfilterValues,
+      id: Number(user?.id),
+    },
+  });
 
   const { getDoctorEarnings } = data || {};
   const {
@@ -239,9 +244,14 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   function onChangeFilters(values: physicianMyEarningsFilterType) {
     setFilterValues(values);
+    setDoctorEarningsFilterValues(values);
     setPagination({ ...pagination, page: 1 });
     executeUseGetTransectionFilterQuery({
       filter: filterValues,
+      requestPolicy: "network-only",
+    });
+    executeUseGetDoctorEarningsQuery({
+      filter: DoctorEarningsfilterValues,
       requestPolicy: "network-only",
     });
   }
