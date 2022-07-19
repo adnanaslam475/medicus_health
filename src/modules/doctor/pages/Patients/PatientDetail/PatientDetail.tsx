@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { Tabs, notification } from "antd";
 import {
@@ -29,6 +29,8 @@ type props = {
 };
 function PatientDetail() {
   const form: any = useRef();
+  const [activeTab, setActiveTab] = React.useState<string>("");
+
 
   const { query } = useRouter();
 
@@ -37,7 +39,7 @@ function PatientDetail() {
   const { user } = getUserData();
   const id = user?.id;
 
-  const [{ data: userData }] = useGetUserQuery({
+  const [{ data: userData ,fetching:userDatatFetching}] = useGetUserQuery({
     variables: { input: Number(query?.id) },
   });
   console.log("userdtaaa", userData?.user);
@@ -76,10 +78,25 @@ function PatientDetail() {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    query?.activeTab && setActiveTab(String(query?.activeTab));
+  }, [query]);
+
+  const onChangeTabHandler = (key: string) => {
+    setActiveTab(key);
+    history.pushState({}, "", "?activeTab=" + key);
+  };
+
   return (
     <AppLayout>
       <div className="w-full">
-        <Tabs defaultActiveKey="1">
+        <Tabs
+          type="card"
+          defaultActiveKey="1"
+          activeKey={activeTab || "1"}
+          onChange={onChangeTabHandler}
+        >
           <TabPane
             tab={
               <span>
@@ -104,7 +121,7 @@ function PatientDetail() {
             }
             key="2"
           >
-            <QuestionnaireFormTab />
+            <QuestionnaireFormTab userDetail={userData?.user as User} fetching={userDatatFetching}/>
           </TabPane>
 
           <TabPane

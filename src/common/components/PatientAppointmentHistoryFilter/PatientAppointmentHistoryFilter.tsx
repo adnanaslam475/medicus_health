@@ -156,7 +156,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                 <div>
                   {filterState.dueDate
                     ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                    : "Due Date"}
+                    : "Appointment Due Date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -169,7 +169,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                         alt=""
                       />
                     </span>
-                    Due Date
+                    Appointment Due Date
                   </div>
                   <div>
                     <CaretDownOutlined />
