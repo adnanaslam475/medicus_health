@@ -20,8 +20,8 @@ query getAdminUsers(
   }
 }
 
-query adminDashboardStatistics {
-  adminDashboard {
+query adminDashboardStatistics($filter: GetTransectionInput!) {
+  adminDashboard (filter:$filter){
     total_number_of_users
     total_revenue
     total_number_of_physicians
