@@ -1,16 +1,3 @@
-// const common: any = {
-//   remember: "Acuérdate de mí",
-//   forgot: "¿Has olvidado tu contraseña?",
-//   login: "Acceso",
-//   account: "¿No tienes una cuenta?",
-//   register: "Registro",
-//   email: "Dirección de correo electrónico",
-//   password: "contraseña",
-//   contact_number_message:"Please enter your contact number",
-//   country_message: "Please enter your country",
-//   postal_address_message: "Please enter your postal code",
-// };
-
 import { englishCommon, spanishCommon } from "./commonTranslationJson";
 
 export function translationJson(local: string) {
@@ -70,8 +57,8 @@ export function translationJson(local: string) {
           city: "Ciudad",
           postal_code: "Código postal",
           postal_code_message: "Por favor ingrese su código postal",
-          i_agree_to_the: "Estoy de acuerdo con la",
-          terms_n_conditions: "Términos y condiciones",
+          i_agree_to_the: "Estoy de acuerdo con la ",
+          terms_n_conditions: " Términos y condiciones",
           next: "Próximo",
         },
       };
