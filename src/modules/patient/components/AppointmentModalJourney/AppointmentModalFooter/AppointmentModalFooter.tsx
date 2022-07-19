@@ -16,6 +16,7 @@ import Router from "next/router";
 import React from "react";
 import {
   Appointment,
+  AppointmentPriceResponse,
   useBookAppointmentMutation,
   useCancelAppointmentByPatientMutation,
   useCreateCardMutation,
@@ -34,6 +35,7 @@ type Props = {
   appointmentId: number | undefined;
   onReject?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   appointmentDetails?: Appointment | undefined;
+  totalAppointmentCharges: number | undefined | null;
 };
 
 function AppointmentModalFooter({
@@ -45,6 +47,7 @@ function AppointmentModalFooter({
   appointmentId,
   onReject,
   appointmentDetails,
+  totalAppointmentCharges,
 }: Props) {
   const [showConfirmationModal, setShowConfirmationModal] =
     React.useState<boolean>(false);
@@ -267,7 +270,7 @@ function AppointmentModalFooter({
               disabled={!contextData.stepTwo?.cardId}
               loading={paymentFetching}
             >
-              Pay ${contextData?.stepOne?.charges}
+              Pay ${totalAppointmentCharges}
             </Button>
           </Tooltip>
         </div>
