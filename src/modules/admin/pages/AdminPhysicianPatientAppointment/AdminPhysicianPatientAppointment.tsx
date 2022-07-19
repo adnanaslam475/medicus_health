@@ -150,23 +150,23 @@ function AdminPhysicianList() {
       },
       sorter: true,
     },
-    {
-      title: "",
-      dataIndex: "id",
-      key: "id",
-      render: (appointmentId: number) => {
-        return (
-          <Button
-            className=""
-            type="primary"
-            size={"large"}
-            onClick={() => onPayPhysician(appointmentId)}
-          >
-            Pay Now
-          </Button>
-        );
-      },
-    },
+    // {
+    //   title: "",
+    //   dataIndex: "id",
+    //   key: "id",
+    //   render: (appointmentId: number) => {
+    //     return (
+    //       <Button
+    //         className=""
+    //         type="primary"
+    //         size={"large"}
+    //         onClick={() => onPayPhysician(appointmentId)}
+    //       >
+    //         Pay Now
+    //       </Button>
+    //     );
+    //   },
+    // },
     {
       title: "",
       dataIndex: "id",
