@@ -6,9 +6,9 @@ import appointments from "../../../../../public/assets/icon/appointments.svg";
 import physician from "../../../../../public/assets/images/admin/menu/physicians-hover.svg";
 import revenue from "../../../../../public/assets/icon/dollars.svg";
 import _classes from "./AdminDashboard.module.scss";
-import {} from "generated/graphql";
+import { useAdminDashboardQuery } from "generated/graphql";
 function AdminDashboard() {
-  const [{ data }] = useAdminDashboardStatisticsQuery({
+  const [{ data }] = useAdminDashboardQuery({
     variables: {
       filter: {},
     },
@@ -58,8 +58,5 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
-function useAdminDashboardStatisticsQuery(arg0: {
-  variables: { filter: {} };
-}): [{ data: any }] {
-  throw new Error("Function not implemented.");
-}
+
+
