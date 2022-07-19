@@ -269,6 +269,7 @@ function AdminAppointmentInfoFooter({
 
 function AdminAppointmentRequestedInfoFooter(props: Props) {
   const { onCancelRequestedAppointment, adminApp_Details } = props || {};
+  console.log("adminApp_Details", adminApp_Details);
   return (
     <div className="flex justify-between mt-6 flex-wrap wrap">
       <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2">
@@ -282,15 +283,15 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
         <Button
           icon={<MessageOutlined />}
           className={`${_classes["appointments-btn"]}  flex-1`}
-          onClick={() =>
+          onClick={() => {
             Router.push({
               pathname: "/admin/messages",
               query: {
                 chat: "admin",
                 patientId: adminApp_Details?.patient.patient_id,
               },
-            })
-          }
+            });
+          }}
         >
           Message Patient
         </Button>

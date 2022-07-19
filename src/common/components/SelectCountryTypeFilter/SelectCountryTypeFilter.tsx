@@ -8,7 +8,7 @@ export function SelectCountryTypeFilter({
   onChange: (value: string | undefined | number) => void;
   value: string | undefined | number;
 }) {
-  const [{ data }] = useCountriesQuery();
+  const [{ data }] = useCountriesQuery(); // call fail sometimes
   const { countries } = data || {};
 
   return (

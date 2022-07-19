@@ -76,6 +76,7 @@ function AdminPhysicianSearchFilters(props: Props) {
   const [openDateRange1, setOpenDateRange1] = useState(false);
 
   const [{ data }] = useCountriesQuery();
+
   const { countries } = data || {};
   const [getStatesByCountry] = useGetStatesByCountryQuery({
     variables: {

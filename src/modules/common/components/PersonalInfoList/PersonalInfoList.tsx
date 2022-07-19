@@ -33,6 +33,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
+  console.log("useCountriesQuery6", data);
 
   const [getStatesByCountry] = useGetStatesByCountryQuery({
     variables: {

@@ -10,9 +10,10 @@ function MessageConversationSider({ setRemoveCurrentChat }: Props) {
   const { setCurrentChannel, onJoinChannel, messageInfo } = useMessageContext();
   const { query } = useRouter();
   const { allChannels } = messageInfo || {};
+  console.log("query", query);
 
   async function onJoinChat(params: any = {}) {
-    // console.log("onJoinChat=======>", params);
+    console.log("onJoinChat=======>", params);
     setRemoveCurrentChat(false);
     setCurrentChannel(params);
     onJoinChannel?.(params?.channelName);
@@ -22,6 +23,7 @@ function MessageConversationSider({ setRemoveCurrentChat }: Props) {
     if (query && allChannels) {
       let params = {} as any;
       if (query.patientId && query.doctorId) {
+        // console.log("iffff1", query);
         params =
           allChannels?.find(
             (v) =>
@@ -33,16 +35,20 @@ function MessageConversationSider({ setRemoveCurrentChat }: Props) {
         ) {
           onJoinChat(params);
         }
-      } else if (query.chat === "admin") {
+      } else if (query.chat == "admin" && query.patientId) {
         params = allChannels?.find(
-          (v) => v.patientId == query.patientId && v.doctorId == query.doctorId
+          (v) => v.patientId == query.patientId && v.isAdminChat
         );
-        // onJoinChat({});
+        onJoinChat(params);
+      } else if (query.chat == "admin" && query.doctorId) {
+        params = allChannels?.find(
+          (v) => v.doctorId == query.doctorId && v.isAdminChat
+        );
+        console.log("prms===========>", query, params, allChannels);
+        onJoinChat(params);
       }
     }
-  }, [query]);
-
-  // console.log("alchanels", allChannels);
+  }, [query, allChannels]);
 
   return (
     <div

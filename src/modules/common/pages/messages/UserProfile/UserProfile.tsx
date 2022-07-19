@@ -30,7 +30,8 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const messageTime = date?.addHoursToDate(new Date(createdAt), 5);
   const messageTimein12HoursFomrat = date?.formathhmma(messageTime?.toString());
 
-  async function onJoinChat(params: any = {}) {
+  async function onJoinChat() {
+    console.log("onjiojcat");
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
@@ -49,6 +50,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     thread,
     user?.role as string
   );
+
   return (
     <div
       onClick={onJoinChat}

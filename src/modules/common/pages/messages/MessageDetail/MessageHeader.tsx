@@ -50,7 +50,8 @@ function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
   };
 
   const modalHandler = (id: string) => setOpen(id);
-  const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName; // not working
+  const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName;
+
   return (
     <>
       <ConfirmationModal
