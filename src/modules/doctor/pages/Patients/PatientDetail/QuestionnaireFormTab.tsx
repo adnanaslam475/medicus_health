@@ -4,16 +4,19 @@ import CardWithProfileImageInfo from 'common/components/CardWithProfileImageInfo
 import { QuestionnaireForm } from 'common/components/Questionnary/Questionnary';
 import { getUserData } from 'common/utils/userData';
 import { useGetAllTransactionsQuery, usePatientHealthHistoryQuery, useUpdatePatientHealthHistoryMutation } from 'generated/graphql';
+import { useRouter } from 'next/router';
 
 
 function QuestionnaireFormTab() {
     const form: any = useRef();
       // GET USER ID
   const { user } = getUserData();
-  const id = user?.id;
+  const { query } = useRouter();
+
+  const id = Number(query?.id);
   // Get patient Health History
   const [{ data }] = usePatientHealthHistoryQuery({
-    variables: { input: id as number },
+    variables: { input: id },
   });
   //GET ALL TRANSACTIONS
   const [{ data: allTransactions }] = useGetAllTransactionsQuery();
