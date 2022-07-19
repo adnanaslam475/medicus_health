@@ -201,7 +201,7 @@ export function MessageContextProvider({
       try {
         await rtmLocal.login(String(user?.id), rtmAccessToken || "");
         notification.success({
-          message: "user logged in successfully uncomment",
+          message: "user logged in successfully",
         });
         rtmLocal?.on("MemberLeft", ({ channelName, args }) => {
           const memberId = args[0];
