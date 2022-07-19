@@ -14,8 +14,8 @@ type Props = {
 function SuccessMessage({ onCancel }: Props) {
   const role = getRole();
   const clickHandler = () => {
-    const pathname = window?.location?.pathname
-    const patientPath = pathname === "/patient/appointments/requested"
+    const pathname = window?.location?.pathname;
+    const patientPath = pathname === "/patient/appointments/requested";
     if (role === "Admin" || patientPath) {
       return onCancel();
     } else {
@@ -39,8 +39,8 @@ function SuccessMessage({ onCancel }: Props) {
         />
         <h1 className="mt-3 mb-0">Success!</h1>
         <p className="text-seconday text-base">
-          Your appointment has been requested. You will <br /> get a
-          notification once the doctor will confirm <br />
+          Your appointment has been requested.<br/> The appointment is not being
+          Charged yet You will get a notification once the doctor will confirm
           the appointment. Thank you.
         </p>
         <button

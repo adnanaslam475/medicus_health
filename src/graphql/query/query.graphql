@@ -635,8 +635,8 @@ query getAppointmentReportUrlById($id: Int!) {
   }
 }
 
-query getDoctorEarnings($id: Int!) {
-  getDoctorEarnings(id: $id) {
+query getDoctorEarnings($filter: GetTransectionInput!, $id: Int!) {
+  getDoctorEarnings(filter: $filter, id: $id) {
     total_number_of_consultation
     total_number_of_second_opinions
     total_number_of_patients
@@ -645,6 +645,7 @@ query getDoctorEarnings($id: Int!) {
     total_earnings
   }
 }
+
 
 # get staff listing
 query getAllStaffByDoctor(

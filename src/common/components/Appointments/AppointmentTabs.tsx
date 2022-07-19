@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { Tabs } from "antd";
+import { Form, Tabs } from "antd";
 import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import {
@@ -14,6 +14,8 @@ import { AttachmentObject } from "common/types/types";
 import Notes from "../Notes/Notes";
 // import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
 import NotesTab from "common/components/NotesTab/NotesTab";
+import Dragger from "antd/lib/upload/Dragger";
+import Image from "next/image";
 const { TabPane } = Tabs;
 
 type Props = {
@@ -87,9 +89,47 @@ const AppointmentTabs = (props: Props) => {
           />
         </TabPane>
         <TabPane tab="Attachments" key="4">
-          {urlArr?.map((item: AttachmentObject) => (
-            <Attachment item={item} enable />
-          ))}
+          <div className="w-3/5 mb-3">
+            <Form layout="vertical">
+              <Form.Item>
+                <Dragger
+                  customRequest={({ onSuccess }) => onSuccess?.({})}
+                  // listType="picture"
+                >
+                  <p className="ant-upload-drag-icon mb-0">
+                    <Image
+                      priority={true}
+                      alt=""
+                      className=""
+                      height={32}
+                      width={36}
+                      src="/assets/icon/upload-icon.svg"
+                    />
+                  </p>
+                  <span className="ant-upload-text text-sm block">
+                    Drag your files here or
+                  </span>
+                  <span className="font-circular text-xs ant-upload-text text-white p-1 px-3 mt-1 mb-3 rounded inline-block bg-primary">
+                    Upload
+                  </span>
+                  <span className=" ant-upload-hint block text-xs text-gray-1">
+                    Max 10mb upload limit.
+                  </span>
+                </Dragger>
+              </Form.Item>
+              <span className=" ant-upload-hint block text-xs text-gray-1 text-center -mt-4">
+                Please upload any/all files you believe will be relevant for the
+                appointment. You may upload files while before or during your
+                appointment
+              </span>
+            </Form>
+          </div>
+          <div>
+            <span className="font-semibold text-md">Your files</span>
+            {urlArr?.map((item: AttachmentObject) => (
+              <Attachment item={item} enable />
+            ))}
+          </div>
         </TabPane>
         {(status === "Confirmed" ||
           status === "Completed" ||

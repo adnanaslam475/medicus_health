@@ -19,7 +19,7 @@ function StepFour() {
   const [{ price, name }] = serviceInfo || [{}];
   let doctorName = physician?.split(":")[1];
 
-  const availabilityTime = doctorSchedule?.doctorSchedules?.find(
+  const availabilityTime = doctorSchedule?.doctorSchedulesByDay?.find(
     (time: any) => time.id === availability
   );
   const { user } = getUserData();
