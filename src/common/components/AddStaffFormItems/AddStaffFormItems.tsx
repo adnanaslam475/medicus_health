@@ -68,7 +68,7 @@ function AddStaffFormItems(props: Props) {
           Account Creation Date
         </span>
         <div className="border border-gray-4 rounded min-h-[48px] bg-gray-4  flex items-center pl-5">
-          {`${date?.formatMMMMDDYYYY(
+          {`${date?.formatDAYMMDDYY(
             accountCreatedAt as string
           )} ${date?.formathhmma(accountCreatedAt as string)}`}
         </div>

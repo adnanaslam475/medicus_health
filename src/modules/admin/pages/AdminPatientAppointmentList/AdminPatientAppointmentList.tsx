@@ -84,7 +84,7 @@ const columns = [
       return (
         <div>
           {appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
             : "--"}
         </div>
       );
@@ -171,7 +171,6 @@ function AdminPatientAppointmentList() {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    console.log("sorter", sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
@@ -199,7 +198,6 @@ function AdminPatientAppointmentList() {
     // });
   }
 
-  console.log(appointments, "appointmentssdaddsasd");
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />

@@ -194,9 +194,9 @@ export function MessageContextProvider({
       rtmRef.current = rtmLocal;
       try {
         await rtmLocal.login(String(user?.id), rtmAccessToken || "");
-        notification.success({
-          message: "user logged in successfully uncomment",
-        });
+        // notification.success({
+        //   message: "user logged in successfully",
+        // });
         rtmLocal?.on("MemberLeft", ({ channelName, args }) => {
           const memberId = args[0];
           console.log(`%c${memberId} left the ${channelName}`, "color:red");

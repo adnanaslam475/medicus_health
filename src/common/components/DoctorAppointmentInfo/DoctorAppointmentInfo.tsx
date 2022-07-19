@@ -42,13 +42,14 @@ import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
-import { CustomTimeSlot } from "common/types/types";
+import { CustomTimeSlot, StatusName } from "common/types/types";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import MessageButtons from "../MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import RescheduleAppointmentModal from "../RescheduleAppointment/RescheduleAppointment";
 import moment from "moment";
+import StatusChip from "../StatusChip/StatusChip";
 
 type Props = {
   data: Appointment | undefined;
@@ -147,12 +148,14 @@ function DoctorAppointmentInfo({ data }: Props) {
   return (
     <div className="max-w-[700px]">
       <div className="message-button mb-3">
-        {(status === "Requested" || status === "Confirmed") && (
+        {(status === "Requested" ||
+          status === "Confirmed" ||
+          status === "Cancelled") && (
           <MessageButtons patientID={patientID} doctorId={doctorId} />
         )}
       </div>
       <div>
-        <LabelWithText label="ID" text={Number(id)} />
+        <LabelWithText label="ID#" text={Number(id)} />
         <LabelWithText
           label="Patient"
           text={
@@ -169,17 +172,17 @@ function DoctorAppointmentInfo({ data }: Props) {
           label="Due date"
           text={
             appointmentDateTime?.startTime
-              ? `${date?.formatMMMMDDYYYY(formatedDueDate)} `
+              ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
               : "--"
           }
         />
         <LabelWithText
           label="Booking date"
-          text={date?.formatMMMMDDYYYY(createdAt)}
+          text={date?.formatDAYMMDDYY(createdAt)}
         />
         <LabelWithText
           label="Requested date"
-          text={date?.formatMMMMDDYYYY(requestedDate)}
+          text={date?.formatDAYMMDDYY(requestedDate)}
         />
         <LabelWithText
           label="Time"
@@ -216,12 +219,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">Status</div>
           <div className="w-full text-secondary">
-            <Tag
-              color="#e2f8f7"
-              className="ant-typography ant-typography-secondary"
-            >
-              {status}
-            </Tag>
+            <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
         {status === "Cancelled" && (
@@ -231,19 +229,11 @@ function DoctorAppointmentInfo({ data }: Props) {
             </div>
             <div className="w-full text-secondary">
               {transaction?.status ? (
-                <Tag
-                  color="#e2f8f7"
-                  className="ant-typography ant-typography-secondary"
-                >
-                  {transaction?.status}
-                </Tag>
+                <StatusChip
+                  type={transaction?.status?.toUpperCase() as StatusName}
+                />
               ) : (
-                <Tag
-                  color="#FEF6E0"
-                  className="ant-typography ant-typography-secondary"
-                >
-                  Unpaid
-                </Tag>
+                <StatusChip type={"Unpaid".toUpperCase() as StatusName} />
               )}
             </div>
           </li>
@@ -740,7 +730,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="font-normal">
                   <div className="text-sm mb-0 w-full">
-                    Date : {`${date.formatMMMMDDYYYY(formatedDueDate)}`}
+                    Date : {`${date.formatDAYMMDDYY(formatedDueDate)}`}
                   </div>
                   <br />
                   <div className="text-sm mb-0 w-full">
@@ -806,7 +796,6 @@ function AvailabilityTimeSlots({
   onChangeDatePicker?: (dateString: string, name: string) => void;
   endDateValue?: string;
 }) {
-
   return (
     <div className="block mb-10">
       {/* <TimeSlotPickerForm onChangeDatePicker={onChangeDatePicker} /> */}

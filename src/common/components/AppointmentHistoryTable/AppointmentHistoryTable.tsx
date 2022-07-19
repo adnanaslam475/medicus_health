@@ -25,7 +25,7 @@ const historyColumns = [
   //   sorter: true,
   //   render: (createdAt: string) => {
   //     return (
-  //       <div>{createdAt ? `${date?.formatMMMMDDYYYY(createdAt)}` : "-"}</div>
+  //       <div>{createdAt ? `${date?.formatDAYMMDDYY(createdAt)}` : "-"}</div>
   //     );
   //   },
   // },
@@ -35,7 +35,9 @@ const historyColumns = [
     key: "first_name",
     sorter: true,
     render: (doctor: User) => {
-      return <div>{`Dr.${doctor.first_name} ${doctor.last_name}`}</div>;
+      return (
+        <div className="capitalize">{`Dr.${doctor.first_name} ${doctor.last_name}`}</div>
+      );
     },
   },
   {
@@ -56,7 +58,7 @@ const historyColumns = [
       return (
         <div>
           {appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+            ? `${date?.formatDAYMMDDYY(appointmentDateTime?.startTime)} `
             : "-"}
         </div>
       );
@@ -65,7 +67,7 @@ const historyColumns = [
   {
     title: "Appointment time",
     dataIndex: "appointmentDateTime",
-    key: "appointment_time_slots",
+    key: "startTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
@@ -97,7 +99,7 @@ const historyColumns = [
       return (
         <div>{`${
           transaction?.createdAt
-            ? date?.formatMMMMDDYYYY(transaction?.createdAt)
+            ? date?.formatDAYMMDDYY(transaction?.createdAt)
             : "--"
         }`}</div>
       );

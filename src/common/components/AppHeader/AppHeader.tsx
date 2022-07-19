@@ -69,7 +69,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
         className="border-b border-gray-4"
         onClick={() => Router.push(accountPath)}
       >
-        Accounts Settings
+        Account
       </Menu.Item>
 
       {userRole === "User" && (
@@ -77,11 +77,11 @@ const AppHeader = ({ isShowBanner }: Props) => {
           className="border-b border-gray-4"
           onClick={() => Router.push(`/patient/account?activeTab=3`)}
         >
-          Payment Settings
+          Payment settings
         </Menu.Item>
       )}
 
-      {/* <div className="hidden">
+      <div className="hidden">
         <Menu.Item>
           <Link
             href={{ pathname, query }}
@@ -91,7 +91,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
             {`switch to ${otherLocales?.[0]}`}
           </Link>
         </Menu.Item>
-      </div> */}
+      </div>
 
       <Menu.Item onClick={logout}>
         <span className="text-red">Logout</span>

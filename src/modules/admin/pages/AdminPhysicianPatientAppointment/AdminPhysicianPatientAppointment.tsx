@@ -125,7 +125,7 @@ function AdminPhysicianList() {
         return (
           <div className="someclass">
             {appointmentDateTime?.startTime
-              ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+              ? `${date?.formatDAYMMDDYY(appointmentDateTime?.startTime)} `
               : "--"}
           </div>
         );

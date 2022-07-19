@@ -3,6 +3,7 @@ import { Button, Radio, RadioChangeEvent, Space } from "antd";
 import _classes from "./AppointmentReschedule.module.scss";
 import {
   Appointment,
+  AppointmentPriceResponse,
   useGetAllCardsQuery,
   useGetAppointmentPriceQuery,
   useViewSuggestedTimeSlotsQuery,
@@ -14,10 +15,11 @@ import { useAppointmentModal } from "../AppointmentModalProvider";
 type Props = {
   appointmentId: number;
   appointmentDetails: Appointment;
+  appointmentCharges:AppointmentPriceResponse
 };
 
 function AppointmentReschedule(props: Props) {
-  const { appointmentDetails,appointmentId } = props;
+  const { appointmentDetails,appointmentId ,appointmentCharges} = props;
   const {
     doctor,
     serviceType,
@@ -52,15 +54,7 @@ function AppointmentReschedule(props: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [charges, appointmentDetails, appointmentTimeSlots]);
 
-  const [{ data: appointmentPriceBreakup }] = useGetAppointmentPriceQuery({
-    variables: { id: Number(appointmentId) },
-    pause: !appointmentId,
-  });
-  const { getAppointmentPrice } = appointmentPriceBreakup || {};
-  const appointmentPrice = getAppointmentPrice?.appointmentPrice;
-  const systemFee = getAppointmentPrice?.systemFee;
-  const tax = getAppointmentPrice?.tax;
-  const total = getAppointmentPrice?.total;
+  const {appointmentPrice,systemFee,tax,total} = appointmentCharges
   return (
     <div>
       <h2>Appointment Reschedule</h2>
@@ -110,7 +104,7 @@ function AppointmentReschedule(props: Props) {
                 >
                   <div className="text-secondary">
                     <span className="mr-3">
-                      {date.formatMMMMDDYYYY(item.startTime)}
+                      {date.formatDAYMMDDYY(item.startTime)}
                     </span>
                     {`${date.formathhmma(item.startTime)} - ${date.formathhmma(
                       item.endTime

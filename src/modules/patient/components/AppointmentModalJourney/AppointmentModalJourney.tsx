@@ -5,6 +5,7 @@ import AppointmentModalFooter from "./AppointmentModalFooter/AppointmentModalFoo
 import CurrentStepContent from "./CurrentStepContent/CurrentStepContent";
 import {
   Appointment,
+  useGetAppointmentPriceQuery,
   useReBookAppointmentMutation,
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../generated/graphql";
@@ -86,6 +87,22 @@ function AppointmentModalJourney({
     setCurrentStepNumber((prev) => prev + 1);
   };
 
+  const [{ data: appointmentPriceBreakup }] = useGetAppointmentPriceQuery({
+    variables: { id: Number(appointmentId) },
+    pause: !appointmentId,
+  });
+  const { getAppointmentPrice } = appointmentPriceBreakup || {};
+  const appointmentPrice = getAppointmentPrice?.appointmentPrice;
+  const systemFee = getAppointmentPrice?.systemFee;
+  const tax = getAppointmentPrice?.tax;
+  const total = getAppointmentPrice?.total;
+  const appointmentCharges = {
+    appointmentPrice,
+    systemFee,
+    tax,
+    total,
+  };
+
   return (
     <Modal
       forceRender={false}
@@ -106,6 +123,7 @@ function AppointmentModalJourney({
                 appointmentId={appointmentId}
                 appointmentDetails={appointment as Appointment}
                 stepName={currentStepName}
+                appointmentCharges={appointmentCharges}
               />
             </div>
 
@@ -118,6 +136,7 @@ function AppointmentModalJourney({
               setCurrentStepName={setCurrentStepName}
               appointmentId={appointmentId}
               onReject={onCancel}
+              totalAppointmentCharges={total}
             />
           </>
         </AppointmentModalProvider>

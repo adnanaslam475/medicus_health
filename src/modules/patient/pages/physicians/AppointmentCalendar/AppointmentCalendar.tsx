@@ -62,7 +62,7 @@ function AppointmentCalendar() {
       calenderEvents: appointments?.items?.map(
         ({ id, patient, requestedDate, doctor, serviceType }) => ({
           id: id,
-          title: doctor?.first_name,
+          title: "Appointmetn with Dr." + doctor?.first_name + " " +doctor?.last_name,
           start: requestedDate,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,

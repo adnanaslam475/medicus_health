@@ -37,7 +37,7 @@ const Columns = [
     key: "createdAt",
     sorter: true,
     render: (value: string) => {
-      return <div className="someclass">{date?.formatMMMMDDYYYY(value)}</div>;
+      return <div className="someclass">{date?.formatDAYMMDDYY(value)}</div>;
     },
   },
   {
@@ -52,14 +52,14 @@ const Columns = [
   {
     title: "Due date ",
     dataIndex: "appointmentDateTime",
-    key: "appointment_time_slots",
+    key: "requestedDate",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
         <div>
           {" "}
           {appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(appointmentDateTime?.startTime)} `
+            ? `${date?.formatDAYMMDDYY(appointmentDateTime?.startTime)} `
             : "-"}
         </div>
       );
@@ -68,7 +68,7 @@ const Columns = [
   {
     title: "Time",
     dataIndex: "appointmentDateTime",
-    key: "appointment_time_slots",
+    key: "requestedDate",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (

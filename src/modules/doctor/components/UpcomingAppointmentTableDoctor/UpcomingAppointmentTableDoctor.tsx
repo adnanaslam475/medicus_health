@@ -6,11 +6,14 @@ import {
   AppointmentDateTimeResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
+  Transaction,
   User,
 } from "generated/graphql";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "common/utils";
 import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
 
 const columns = [
   {
@@ -42,7 +45,7 @@ const columns = [
     dataIndex: "createdAt",
     key: "createdAt",
     render: (bookingDate: string) => {
-      return <div>{date.formatMMMMDDYYYY(bookingDate)}</div>;
+      return <div>{date.formatDAYMMDDYY(bookingDate)}</div>;
     },
     sorter: true,
   },
@@ -51,7 +54,7 @@ const columns = [
     dataIndex: "requestedDate",
     key: "requestedDate",
     render: (dueDate: string) => {
-      return <div>{date.formatMMMMDDYYYY(dueDate)}</div>;
+      return <div>{date.formatDAYMMDDYY(dueDate)}</div>;
     },
     sorter: true,
   },
@@ -83,6 +86,28 @@ const columns = [
     },
     sorter: true,
   },
+  {
+    title: "Payment Status",
+    dataIndex: "transaction",
+    key: "transaction",
+    className: "table-action-icon",
+    render: (transaction: Transaction) => {
+      let _status = null;
+      if (transaction?.status === "succeeded") {
+        _status = "paid";
+      } else if (transaction?.status === "Refunded") {
+        _status = transaction?.status;
+      } else {
+        _status = "Unpaid";
+      }
+      return (
+        <div className="text-primary">
+          <StatusChip type={_status.toUpperCase() as StatusName} />
+        </div>
+      );
+    },
+  },
+
   {
     dataIndex: "id",
     className: "table-action-icon",
