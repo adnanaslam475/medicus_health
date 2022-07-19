@@ -35,7 +35,9 @@ const historyColumns = [
     key: "first_name",
     sorter: true,
     render: (doctor: User) => {
-      return <div className="capitalize">{`Dr.${doctor.first_name} ${doctor.last_name}`}</div>;
+      return (
+        <div className="capitalize">{`Dr.${doctor.first_name} ${doctor.last_name}`}</div>
+      );
     },
   },
   {
@@ -65,7 +67,7 @@ const historyColumns = [
   {
     title: "Appointment time",
     dataIndex: "appointmentDateTime",
-    key: "appointment_time_slots",
+    key: "startTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
