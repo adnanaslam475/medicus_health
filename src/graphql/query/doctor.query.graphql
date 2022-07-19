@@ -602,3 +602,15 @@ query doctorPayouts($doctorId: Int!) {
     }
   }
 }
+
+query doctorSchedulesByDay(
+  $doctorId: Int!
+  $filter: GetDoctorScheduleFilterInput!
+) {
+  doctorSchedulesByDay(doctorId: $doctorId, filter: $filter) {
+    id
+    day
+    startTime
+    endTime
+  }
+}

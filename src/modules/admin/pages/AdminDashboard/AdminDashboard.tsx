@@ -8,7 +8,7 @@ import revenue from "../../../../../public/assets/icon/dollars.svg";
 import _classes from "./AdminDashboard.module.scss";
 import { useAdminDashboardStatisticsQuery } from "generated/graphql";
 function AdminDashboard() {
-  const [{ data }] = useAdminDashboardStatisticsQuery();
+  const [{ data }] = useAdminDashboardStatisticsQuery({variables:{filter:{}}});
   const { adminDashboard } = data || {};
   const {
     total_number_of_appointments,
