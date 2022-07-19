@@ -151,12 +151,12 @@ function EditProfile({
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
-      firstName: first_name || "",
-      lastName: last_name,
+      firstName: doctor_first_name,
+      lastName: doctor_last_name,
       specialization: specialization,
       year_of_experience: year_of_experience,
       contact: contact_number,
-      email: email,
+      email: doctor_email,
       password: "",
       confirmPassword: "",
       ["eb-institution-0"]: educationalBackground[0]?.institution,
@@ -267,10 +267,10 @@ function EditProfile({
   };
 
   useEffect(() => {
-    if (doctorData) {
+    if (doctorData || userData?.user) {
       prepareAndSetEditPayload();
     }
-  }, [doctorData]);
+  }, [doctorData, userData?.user]);
 
   const configS3 = {
     region: config?.region || "",
