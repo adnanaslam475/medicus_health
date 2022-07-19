@@ -136,7 +136,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 </div>
               )
             }
-            heading="Due Date"
+            heading="Appointment Due Date"
           />
         </div>
 

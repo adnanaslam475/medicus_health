@@ -50,7 +50,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Due date",
+    title: "Appointment Due date",
     dataIndex: "requestedDate",
     key: "requestedDate",
     render: (dueDate: string) => {

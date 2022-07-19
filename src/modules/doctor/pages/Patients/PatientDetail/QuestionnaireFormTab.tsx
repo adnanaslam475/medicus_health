@@ -1,14 +1,19 @@
 import React, { useRef } from 'react'
-import { notification } from 'antd';
+import { notification, Skeleton } from 'antd';
 import CardWithProfileImageInfo from 'common/components/CardWithProfileImageInfo/CardWithProfileImageInfo'
 import { QuestionnaireForm } from 'common/components/Questionnary/Questionnary';
 import { getUserData } from 'common/utils/userData';
-import { useGetAllTransactionsQuery, usePatientHealthHistoryQuery, useUpdatePatientHealthHistoryMutation } from 'generated/graphql';
+import { useGetAllTransactionsQuery, usePatientHealthHistoryQuery, User, useUpdatePatientHealthHistoryMutation } from 'generated/graphql';
 import { useRouter } from 'next/router';
 
 
-function QuestionnaireFormTab() {
-    const form: any = useRef();
+type Props = {
+  userDetail:User
+  fetching:boolean
+}
+function QuestionnaireFormTab(props:Props) {
+const {userDetail,fetching:userDataFetching} = props 
+  const form: any = useRef();
       // GET USER ID
   const { user } = getUserData();
   const { query } = useRouter();
@@ -48,10 +53,14 @@ function QuestionnaireFormTab() {
       console.log(err);
     }
   };
+  const firstName = userDetail?.first_name;
+  const email = userDetail?.email
+  const profilePicture = userDetail?.patientProfile?.profileImage
 
   return (
     <div className="max-w-[800px]">
-    <CardWithProfileImageInfo name="usama" serviceName="consultation">
+      <Skeleton loading={userDataFetching} paragraph={{ rows: 0 }} active>
+    <CardWithProfileImageInfo name={firstName} serviceName={email} imageUrl={profilePicture}>
       {
         <QuestionnaireForm
           ref={form}
@@ -60,6 +69,7 @@ function QuestionnaireFormTab() {
         />
       }
     </CardWithProfileImageInfo>
+    </Skeleton>
   </div>
   )
 }
