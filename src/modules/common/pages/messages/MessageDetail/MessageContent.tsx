@@ -22,7 +22,6 @@ function MessageContent({ removeCurrentChat }: Props) {
     scrollToBottom();
   }, [currentChannelMessages]);
 
-  // console.log("all-->", currentChannelMessages && !removeCurrentChat);
   return (
     <div className="border border-gray-4 w-full chatremove">
       {currentChannelMessages && !removeCurrentChat ? (

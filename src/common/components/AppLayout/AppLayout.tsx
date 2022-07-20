@@ -11,7 +11,6 @@ type props = {
 };
 
 function AppLayout({ children, isShowBanner }: props) {
-  // console.log("role====>", getUserData().user?.role);
   return (
     <Layout className="h-full">
       <AdminSideMenu />

@@ -51,7 +51,6 @@ function PatientInfoTab({}: Props) {
       id: city_id!,
     },
   });
-  // console.log("data is sssss", data);
   const { city_name } = city?.city || {};
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
