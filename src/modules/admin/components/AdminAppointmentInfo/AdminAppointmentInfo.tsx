@@ -269,7 +269,6 @@ function AdminAppointmentInfoFooter({
 
 function AdminAppointmentRequestedInfoFooter(props: Props) {
   const { onCancelRequestedAppointment, adminApp_Details } = props || {};
-  console.log("adminApp_Details", adminApp_Details);
   return (
     <div className="flex justify-between mt-6 flex-wrap wrap">
       <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2">
