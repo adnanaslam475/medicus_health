@@ -55,7 +55,7 @@ function MessageItem(props: Props) {
                 height={39}
                 className="rounded-full"
                 src={
-                  role === "Doctor"
+                  role === "Doctor" || role === "Staff"
                     ? (doctorImage as string)
                     : role === "User"
                     ? (patientImage as string)

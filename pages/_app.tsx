@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (loginTime) {
       setTimeout(() => {
         Router.push("/login");
-        localStorage.clear();
+        localStorage.removeItem("loggedInUserData");
       }, expireTime - Date.now());
     }
   }, [loginTime]);
@@ -43,7 +43,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Medicus</title>
-        {/* <meta name="description" content="Patient Physicians and Admins" /> */}
       </Head>
       <NextIntlProvider messages={pageProps.messages}>
         <AuthProvider>

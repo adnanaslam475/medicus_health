@@ -24,7 +24,7 @@ export const spanishCommon: any = {
   register: "Registro",
   email: "Dirección de correo electrónico",
   password: "contraseña",
-  confirm_your_password: "Please confirm your password!",
+  confirm_your_password: "¡Por favor, confirme su contraseña!",
   password_message: "Please confirm your password!",
   two_passwords_mismatch_message:
     "The two passwords that you entered do not match",
