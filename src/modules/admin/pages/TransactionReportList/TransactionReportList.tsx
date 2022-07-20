@@ -265,7 +265,7 @@ function TransactionReportList() {
                 showSizeChanger: true,
               }}
             />{" "}
-            #do loading to true when api is being implemented
+            {/* #do loading to true when api is being implemented */}
           </div>
         </div>
       </div>
