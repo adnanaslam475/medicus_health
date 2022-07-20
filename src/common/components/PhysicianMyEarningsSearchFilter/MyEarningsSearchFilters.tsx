@@ -118,9 +118,9 @@ function MyEarningsSearchFilters(props: Props) {
     });
   }
   // const amountRangeFilter = <AmountDropdown onFinishLocal={onFinishLocal} />;
-  const refundsRangeFilter = (
-    <RefundsDropdown onFinishLocal={onFinishLocalRefunds} form={form} />
-  );
+  // const refundsRangeFilter = (
+  //   <RefundsDropdown onFinishLocal={onFinishLocalRefunds} form={form} />
+  // );
   const totalPaymentsRangeFilter = (
     <TotalPaymentsDropdown onFinishLocal={onFinishLocalTotalPayments} form={form} />
   );
@@ -318,7 +318,7 @@ function MyEarningsSearchFilters(props: Props) {
             <Select.Option value="refunded">REFUNDED</Select.Option>
           </Select>
         </div>
-        <Dropdown
+        {/* <Dropdown
           className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg ml-0 p-3 mr-2 border `}
           overlay={refundsRangeFilter}
           trigger={["click"]}
@@ -330,7 +330,7 @@ function MyEarningsSearchFilters(props: Props) {
               <DownOutlined />
             </Space>
           </a>
-        </Dropdown>
+        </Dropdown> */}
         <Dropdown
           className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg ml-0 p-3  border `}
           overlay={totalPaymentsRangeFilter}
