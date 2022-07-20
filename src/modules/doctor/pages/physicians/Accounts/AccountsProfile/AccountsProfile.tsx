@@ -51,7 +51,7 @@ function AccountsProfile() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
       const variable = {
         doctorId: Number(id),
-        day: Number(addScheduleDay),
+        day: Number(addScheduleDay === 7 ? 0 :addScheduleDay ),
         startTime: addScheduleTime?.timeString[0],
         endTime: addScheduleTime?.timeString[1],
       };
