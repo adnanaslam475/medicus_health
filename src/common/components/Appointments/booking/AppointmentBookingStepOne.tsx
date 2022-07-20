@@ -89,7 +89,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
       Number(doctorId) ||
       Number(stepOneDoctorId);
 
-    const queryDay = selectedDay || selectedDateDay || dayjs(requestedDate).get("day")
+    const queryDay =
+      selectedDay || selectedDateDay || dayjs(requestedDate).get("day");
 
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesByDayQuery] =
       useDoctorSchedulesByDayQuery({
@@ -161,17 +162,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }
 
     function disabledDate(current: any) {
-      if (serviceInfo) {
-        if (
-          serviceInfo[0]?.name === "Consultation" ||
-          serviceInfo[0]?.name === "consultation"
-        ) {
-          return dayjs(current).isBefore(dayjs().add(1, "day"));
-        } else if (serviceInfo[0]?.name === "Second Opinion") {
-          return dayjs(current).isBefore(dayjs().add(4, "day"));
-        }
-        return true;
-      } else return false;
+      if (
+        serviceInfo &&
+        serviceInfo[0]?.name?.toLowerCase().includes("consultation")
+      ) {
+        return dayjs(current).isBefore(dayjs().add(1, "day"));
+      }
+      return dayjs(current).isBefore(dayjs().add(4, "day"));
     }
 
     function onFinishLocal(values: any) {
