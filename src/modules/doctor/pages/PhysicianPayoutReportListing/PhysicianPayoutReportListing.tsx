@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Collapse, Space, Spin, Table } from "antd";
+import { Collapse, Empty, Space, Spin, Table } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import _classes from "./PhysicianPayoutReportListing.module.scss";
 import {
@@ -115,6 +115,10 @@ function PhysicianPayoutReportListing() {
           <Space size="middle">
             <Spin size="small" />
           </Space>
+        </div>
+      ) : !appointmentMonths?.length ? (
+        <div className="flex items-center justify-center w-full">
+          <Empty />
         </div>
       ) : (
         <>
