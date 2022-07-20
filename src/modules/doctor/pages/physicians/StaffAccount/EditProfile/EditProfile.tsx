@@ -178,6 +178,7 @@ function EditProfile({
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
     Router.push("/login");
+    localStorage.clear();
   };
 
   const updateDoctorProfile = async (values: any) => {

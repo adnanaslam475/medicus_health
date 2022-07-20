@@ -234,7 +234,7 @@ function PhysicianSearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         filterState.dueDate.startDate
                       )} -> ${getDateInFormat(filterState.dueDate.endDate)}`
-                    : "Due date"}
+                    : "Appointment Due date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full ">
@@ -249,7 +249,7 @@ function PhysicianSearchFilters(props: Props) {
                           alt=""
                         />
                       </span>
-                      Due date
+                      Appointment Due date
                     </div>
                     <div>
                       <CaretDownOutlined />

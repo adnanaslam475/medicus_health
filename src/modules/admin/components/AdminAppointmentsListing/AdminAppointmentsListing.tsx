@@ -63,7 +63,7 @@ const appointmentColumns = [
     },
   },
   {
-    title: "Due Date",
+    title: "Appointment Due Date",
     dataIndex: "appointmentDateTime",
     key: "startTime",
     sorter: true,
