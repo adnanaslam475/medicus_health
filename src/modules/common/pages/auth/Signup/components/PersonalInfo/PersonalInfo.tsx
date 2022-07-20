@@ -101,6 +101,7 @@ export default function PersonalInfo({ onFinish }: props) {
             {
               required: true,
               message: "Please enter your first name",
+              max: 30,
             },
           ]}
         >
@@ -115,6 +116,7 @@ export default function PersonalInfo({ onFinish }: props) {
             {
               required: true,
               message: "Please enter your last name",
+              max: 30,
             },
           ]}
         >
@@ -230,6 +232,7 @@ export default function PersonalInfo({ onFinish }: props) {
           {
             required: true,
             message: t("street_address_message"),
+            max: 30,
           },
         ]}
       >
@@ -245,6 +248,8 @@ export default function PersonalInfo({ onFinish }: props) {
             {
               required: true,
               message: t("contact_number_message"),
+              min: 9,
+              max: 15,
             },
           ]}
         >
