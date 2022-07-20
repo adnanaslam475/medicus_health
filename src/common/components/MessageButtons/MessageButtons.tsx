@@ -8,7 +8,7 @@ import { getRole } from "../../utils/userData";
 
 type Props = {
   patientID?: number;
-  doctorId?: number;
+  doctorId?: number | string;
 };
 
 const MessageButtons = (props: Props) => {

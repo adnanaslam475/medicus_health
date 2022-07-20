@@ -57,7 +57,6 @@ export default function PersonalInfo({ onFinish }: props) {
   const onFinishRegistrationFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-
   const [userEmail, setUserEmail] = useState("");
   const [result] = useCheckEmailAvailabilityQuery({
     variables: {

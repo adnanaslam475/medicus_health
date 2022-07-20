@@ -9,6 +9,7 @@ import {
   User,
 } from "../../../../../../generated/graphql";
 import MessageButtons from "common/components/MessageButtons/MessageButtons";
+import { getUserData } from "common/utils/userData";
 // const props = {};
 type Props = {
   userDetail?: User;
@@ -87,12 +88,6 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
     loggedinDoctorDetails?.doctorProfile?.profile_image || "";
   const doctorSpecialization =
     loggedinDoctorDetails?.doctorProfile?.specialization || "";
-  console.log(
-    "mags_btns parnet",
-    userDetail,
-    doctorProfile?.doctor_id,
-    patientProfile?.id
-  );
 
   return (
     <div className="max-w-[800px]">
@@ -103,7 +98,11 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
       >
         <div className="messageButtons">
           <MessageButtons
-            doctorId={doctorProfile?.doctor_id}
+            doctorId={
+              getUserData().user?.role === "Doctor"
+                ? getUserData().user?.id
+                : ""
+            }
             patientID={patientProfile?.userId}
           />
         </div>

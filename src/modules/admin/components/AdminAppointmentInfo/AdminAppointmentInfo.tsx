@@ -282,15 +282,15 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
         <Button
           icon={<MessageOutlined />}
           className={`${_classes["appointments-btn"]}  flex-1`}
-          onClick={() =>
+          onClick={() => {
             Router.push({
               pathname: "/admin/messages",
               query: {
                 chat: "admin",
                 patientId: adminApp_Details?.patient.patient_id,
               },
-            })
-          }
+            });
+          }}
         >
           Message Patient
         </Button>
