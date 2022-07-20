@@ -1,12 +1,29 @@
 import React from "react";
+import Router from "next/router";
 import Link from "next/link";
 import DoctorCard from "common/components/DoctorCards/DoctorCards";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { DoctorProfile, useDoctorProfilesQuery } from "generated/graphql";
+import { getUserData } from "common/utils/userData";
 
 function Physicians() {
   const [{ data, fetching }] = useDoctorProfilesQuery({ variables: {} });
   const { doctorProfiles } = data || {};
+  const { user } = getUserData();
+  const { id: loggedInUser } = user || {};
+
+  const routeToMessage = () => {
+    const query = {
+      chat: "admin",
+      ...(user?.role === "Doctor"
+        ? { doctorId: loggedInUser }
+        : { patientId: loggedInUser }),
+    };
+    Router.push({
+      pathname: "/physician/messages",
+      query,
+    });
+  };
 
   return (
     <AppLayout>
@@ -14,11 +31,14 @@ function Physicians() {
         <div className="lg:w-4/5 mx-auto">
           <h2 className="mb-0">Our physicians</h2>
           <div className="mb-6">
-            <span className="text-sm min-h-max hidden md:block text-secondary">
+            <span className=" min-h-max hidden md:block text-secondary">
               If you need help selecting a physician, our support team is a
               <span>
                 <Link href="/patient/messages">
-                  <a className="underline text-primary px-3 whitespace-nowrap text-sm">
+                  <a
+                    onClick={routeToMessage}
+                    className="underline text-primary px-3 whitespace-nowrap"
+                  >
                     message away
                   </a>
                 </Link>

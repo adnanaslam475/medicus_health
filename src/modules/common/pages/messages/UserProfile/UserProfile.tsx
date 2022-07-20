@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { ChatChannels } from "generated/graphql";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { useMessageContext } from "../MessageDetail/MessageContext";
 import profile from "./../../../../../../public/assets/images/doc-pic.png";
@@ -13,8 +14,11 @@ type Props = {
   thread: ChatChannels;
   setRemoveCurrentChat?: any;
 };
+
 function UserProfile({ thread, setRemoveCurrentChat }: Props) {
-  const { setCurrentChannel, loginToRtm, onJoinChannel } = useMessageContext();
+  const { setCurrentChannel, loginToRtm, onJoinChannel, messageInfo } =
+    useMessageContext();
+  const { query } = useRouter();
 
   //get channel dateTime
   const { lastMessage } = thread || {};
@@ -45,6 +49,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     thread,
     user?.role as string
   );
+
   return (
     <div
       onClick={onJoinChat}

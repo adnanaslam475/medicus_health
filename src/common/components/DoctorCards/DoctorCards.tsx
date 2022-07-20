@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tooltip, Card, Divider, Avatar, Button, Steps, Modal } from "antd";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import Link from "next/link";
 import VideoCameraFilled from "../../../../public/assets/icon/video.svg";
 import Image from "next/image";
@@ -49,7 +49,6 @@ function DoctorCard({
   //Get logged in User
   const { user } = getUserData();
   const { id: loggedInUser } = user || {};
-
   // Get patient Health History
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: Number(loggedInUser) },
@@ -159,7 +158,20 @@ function DoctorCard({
           </div>
           <div className="card-actionBtns lg:w-2/6">
             <Link passHref href={`/physician/messages`}>
-              <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
+              <a
+                onClick={() => {
+                  Router.push({
+                    pathname: "/physician/messages",
+                    query: {
+                      chat: "patient",
+                      // patientId: adminApp_Details?.patient.patient_id,
+                      doctorId: id,
+                      patientId: loggedInUser,
+                    },
+                  });
+                }}
+                className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12"
+              >
                 Message physician
               </a>
             </Link>

@@ -185,16 +185,15 @@ export const patientEditForm = [
     required: true,
     type: "radio",
     options: ["Yes", "No"],
-    relationType:"text",
-
+    relationType: "text",
   },
   {
     label: "No of childrens",
     name: "children",
     type: "text",
     required: true,
-    relationName:"haveChildren",
-    option_name:"children"
+    relationName: "haveChildren",
+    option_name: "children",
   },
   {
     label: "What is your occupation?",
@@ -212,7 +211,7 @@ export const patientEditForm = [
   {
     label: "Occupational Exposure duration?",
     name: "exposureDuration",
-    relationName:"occupationalExposure",
+    relationName: "occupationalExposure",
     type: "select",
     options: [
       { id: 1, value: "Less than a year" },
@@ -220,8 +219,7 @@ export const patientEditForm = [
       { id: 3, value: "More than three to five years (3-5)" },
     ],
     option_name: "exposureDuration",
-    relationType:"text"
-
+    relationType: "text",
   },
   {
     label: "Do you have any pets?",
@@ -344,7 +342,7 @@ export const patientEmailPreferencesData = [
   },
   {
     key: "appointment_rescheduled_by_doctor",
-    value: "Appointment canceled and/or rescheduled by physician",
+    value: "Appointment cancelled and/or rescheduled by physician",
   },
   {
     key: "new_message_received",
@@ -378,7 +376,6 @@ export const patientEmailPreferencesData = [
 ];
 
 export const physicianEmailPreferencesData = [
- 
   // mine
   // {
   //   key:"patient_registration_update",
@@ -389,12 +386,12 @@ export const physicianEmailPreferencesData = [
   //   value:"Physician registration update"
   // },
   {
-    key:"appointment_requested",
-    value:"Appointment requested"
+    key: "appointment_requested",
+    value: "Appointment requested",
   },
   {
-    key:"appointment_accepted_by_patient",
-    value:"Appointment accepted by patient"
+    key: "appointment_accepted_by_patient",
+    value: "Appointment accepted by patient",
   },
   {
     key: "appointment_reminder",
@@ -414,17 +411,15 @@ export const physicianEmailPreferencesData = [
   // }
 ];
 export const adminEmailPreferencesData = [
- 
   {
     key: "new_message_received",
     value: "Chat message received",
   },
   {
-    key:"transaction_successful_alert",
-    value:"Transaction successful alert"
-  }
+    key: "transaction_successful_alert",
+    value: "Transaction successful alert",
+  },
 ];
-
 
 export function sorter(a: DoctorSchedule, b: DoctorSchedule) {
   return a.day - b.day || a.startTime.localeCompare(b.startTime);

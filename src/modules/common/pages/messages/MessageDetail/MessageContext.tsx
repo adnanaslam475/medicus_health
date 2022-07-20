@@ -1,4 +1,4 @@
-import { notification } from "antd";
+import { message, notification } from "antd";
 import { getUserData } from "common/utils/userData";
 import {
   ChatChannels,
@@ -28,6 +28,7 @@ type state = {
     channelName: string;
   }) => Promise<void>;
   onJoinChannel?: (channelName: string) => Promise<void>;
+  createOrJoinChannel?: (channelName: string) => Promise<void>;
   loginToRtm?: () => Promise<void>;
   onMessage: (text: string, messageType?: string) => void;
   setCurrentChannel: (channel: ChatChannels) => void;
@@ -92,6 +93,7 @@ export function MessageContextProvider({
       pause: !messageInfo.currentChannel,
     });
   const { getChannelMessages } = channelMessageData || {};
+
   useEffect(() => {
     if (getChannelMessages) {
       const info = { ...messageInfoRef.current };
@@ -118,10 +120,6 @@ export function MessageContextProvider({
             isAdminChat: query.chat === "admin",
           },
         });
-        executeGetAllChatChannelsMutation({
-          requestPolicy: "network-only",
-        });
-        console.log(query?.chat);
       } else if (query?.chat && query.doctorId) {
         // for admin to doctor
         await executeCreateChatChannelMutation({
@@ -129,9 +127,6 @@ export function MessageContextProvider({
             doctorId: Number(query.doctorId),
             isAdminChat: query.chat === "admin",
           },
-        });
-        executeGetAllChatChannelsMutation({
-          requestPolicy: "network-only",
         });
       } else if (query?.chat && query.patientId) {
         // for admin to patient
@@ -141,10 +136,10 @@ export function MessageContextProvider({
             isAdminChat: query.chat === "admin",
           },
         });
-        executeGetAllChatChannelsMutation({
-          requestPolicy: "network-only",
-        });
       }
+      executeGetAllChatChannelsMutation({
+        requestPolicy: "network-only",
+      });
     } catch (error) {
       console.log("error to carete", error);
     }
@@ -231,7 +226,6 @@ export function MessageContextProvider({
           setMessageInfo(info);
         });
       } catch (error) {
-        console.log(error);
         notification.error({
           message: "login failed",
         });
@@ -380,6 +374,7 @@ export function MessageContextProvider({
         setChatSearch,
         loginToRtm,
         setCurrentChannel,
+        createOrJoinChannel,
         onMessage,
       }}
     >
