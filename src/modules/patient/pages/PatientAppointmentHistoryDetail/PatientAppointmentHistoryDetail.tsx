@@ -3,6 +3,7 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
 import {
   Appointment,
+  GetAppointmentInput,
   useDoctorAppointmentDetailQuery,
   useGetAppointmentReportUrlByIdQuery,
   usePhysicianAppointmentsHistoryQuery,
@@ -30,9 +31,8 @@ function PatientAppointmentHistoryDetail() {
   const appointment = appointments?.items && appointments.items[0];
 
   const status = appointment?.status;
-  // let doctorNotes =
-  //   appointment?.currentAppointmentNote &&
-  //   Object?.entries(appointment?.currentAppointmentNote);
+
+  console.log(data, "adnanData");
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));

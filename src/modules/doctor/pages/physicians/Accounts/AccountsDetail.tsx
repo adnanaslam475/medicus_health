@@ -102,17 +102,17 @@ function Accounts() {
               <ConsultationRates />
             </div>
           </Tabs.TabPane>
-     
-        <Tabs.TabPane
+
+          <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium flex">
-              Email notification
+                Email notification
               </span>
             }
             key="5"
           >
             <div className="w-full md:w-1/2 lg:w-1/2 xl:w-2/5">
-             <EmailNotificationPage/>
+              <EmailNotificationPage />
             </div>
           </Tabs.TabPane>
         </Tabs>
