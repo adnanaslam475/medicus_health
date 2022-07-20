@@ -61,6 +61,13 @@ function NotesListingByAppointments(props: Props) {
 
   const docName = docData?.first_name + " " + docData?.last_name;
 
+  const finalPhysicianName =
+    docName?.charAt(0).toUpperCase() + "" + docName.slice(1);
+
+  // const physicianFullName = capitalFirstname + "" + docName?.slice(1);
+
+  // const finalPhysicianName = physicianFullName + " " + lastName;
+
   const appId = actualDoctorNotes?.currentAppointmentNote?.appointment?.id;
 
   const appDate = actualDoctorNotes?.currentAppointmentNote?.createdAt;
@@ -87,7 +94,7 @@ function NotesListingByAppointments(props: Props) {
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header={`AP-${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${docName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                header={`AP-${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Dr.${finalPhysicianName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                   appDate
                 )} `}
                 key={index + 1}

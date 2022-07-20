@@ -60,9 +60,14 @@ function NotesHistory(props: Props) {
   const appointmentId = getHistoryNotesData?.appointment?.id;
 
   const firstName = getHistoryNotesData?.appointment.doctor?.first_name;
+
   const lastName = getHistoryNotesData?.appointment?.doctor?.last_name;
 
-  const physicianFullName = firstName + " " + lastName;
+  const capitalFirstname = firstName?.charAt(0).toUpperCase();
+
+  const physicianFullName = capitalFirstname + "" + firstName?.slice(1);
+
+  const finalPhysicianName = physicianFullName + " " + lastName;
 
   const status = getHistoryNotesData?.appointment.status;
 
@@ -88,7 +93,7 @@ function NotesHistory(props: Props) {
                     className={`${_classes["site-collapse-custom-panel"]} w-full`}
                     header={`ID#-AP-${
                       data?.appointment?.id
-                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Dr.${physicianFullName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Dr.${finalPhysicianName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                       data?.createdAt
                     )} `}
                     key={index + 1}
