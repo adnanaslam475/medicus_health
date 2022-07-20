@@ -114,7 +114,7 @@ const columns = [
         </div>
       );
     },
-    sorter: true,
+    // sorter: true,
   },
   {
     title: "Account Creation Date",
