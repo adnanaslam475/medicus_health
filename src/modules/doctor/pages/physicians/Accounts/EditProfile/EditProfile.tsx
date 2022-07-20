@@ -541,7 +541,6 @@ function EditProfile({
                 </Form.Item>
               </div>
 
-              {languageCheck && (
                 <div className="flex items-center ">
                   <Form.Item
                     name="languageEnglish"
@@ -586,7 +585,6 @@ function EditProfile({
                     </div>
                   </Form.Item>
                 </div>
-              )}
 
               <div className="mt-5">
                 <Form.Item label="About me" name="about_me">
