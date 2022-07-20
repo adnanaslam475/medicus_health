@@ -18,6 +18,7 @@ function PatientAppointmentInfoTab() {
   });
 
   const { appointments } = data || {};
+  console.log(appointments, "sadasdasd completed");
   const appointment = appointments?.items && appointments.items[0];
   const { patient, serviceType } = appointment || {};
 
