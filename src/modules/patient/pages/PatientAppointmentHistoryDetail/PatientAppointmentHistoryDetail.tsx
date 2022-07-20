@@ -21,18 +21,37 @@ import NotesTab from "common/components/NotesTab/NotesTab";
 function PatientAppointmentHistoryDetail() {
   const { query } = useRouter();
   const [activeTab, setActiveTab] = React.useState<string>("");
+  // const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+  //   {}
+  // );
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>({
+    status: "Completed",
+  });
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
+    // variables: {
+    //   filter: { searchString: String(query?.id), status: "Completed" },
+    // },
     variables: {
-      filter: { searchString: String(query?.id), status: "Completed" },
+      filter: { ...filterValues },
+      // pagination,
+      // sorting,
     },
   });
   const { appointments } = data || {};
   const appointment = appointments?.items && appointments.items[0];
+  const { items: appointmentItems, meta } = appointments || {};
+
+  // const onChangeFilters = (values: GetAppointmentInput) => {
+  //   setSorting({ column: "", order: "" });
+  //   setPagination({ ...pagination, page: 1 });
+  //   setFilterValues(values);
+  // };
 
   const status = appointment?.status;
-
-  console.log(data, "adnanData");
+  // let doctorNotes =
+  //   appointment?.currentAppointmentNote &&
+  //   Object?.entries(appointment?.currentAppointmentNote);
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));
