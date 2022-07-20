@@ -54,7 +54,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       service,
       requestedDate,
       availability,
-
+      selectedDateDay,
       charges,
       serviceName,
     } = appoinmentDetails?.stepOne || {};
@@ -89,17 +89,21 @@ export const AppointmentBookingStepOne = React.forwardRef(
       Number(doctorId) ||
       Number(stepOneDoctorId);
 
+    const queryDay = selectedDay || selectedDateDay || dayjs(requestedDate).get("day")
+
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesByDayQuery] =
       useDoctorSchedulesByDayQuery({
         variables: {
           doctorId: Number(doctorScheduleId),
-          filter: { day: selectedDay },
+          filter: { day: queryDay },
         },
         pause: !selectedDay,
       });
-
     useEffect(() => {
-      executeUseDoctorSchedulesByDayQuery({ requestPolicy: "network-only" });
+      if (queryDay) {
+        executeUseDoctorSchedulesByDayQuery({ requestPolicy: "network-only" });
+        setSchedules((scheduleDetails?.doctorSchedulesByDay as any) || []);
+      }
     }, [selectedDay]);
 
     useEffect(() => {
@@ -179,6 +183,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
         serviceName: serviceInfo?.[0]?.name || serviceName,
         serviceInfo,
         doctorSchedule: scheduleDetails,
+        selectedDateDay: selectedDay,
       };
       saveStepOne?.(tempObj);
     }

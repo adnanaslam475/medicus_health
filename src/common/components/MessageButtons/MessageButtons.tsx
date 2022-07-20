@@ -17,27 +17,28 @@ const MessageButtons = (props: Props) => {
     <div className="flex justify-between mt-6">
       <div className="flex ">
         {/* ROLE BASED MESSAGE BUTTONS CONDITIONS */}
-        {getRole() === "Admin" ||
-          (getRole() === "Doctor" && (
-            <Button
-              icon={<MessageOutlined />}
-              className={`${_classes["appointments-btn"]} mr-1 sm:mr-3`}
-              // onClick={() => Router.push("/physician/messages")}
-              onClick={() => {
-                Router.push({
-                  pathname: "/physician/messages",
-                  query: {
-                    chat: "patient",
-                    // patientId: adminApp_Details?.patient.patient_id,
-                    doctorId,
-                    patientId: patientID,
-                  },
-                });
-              }}
-            >
-              Message patient
-            </Button>
-          ))}
+        {(getRole() === "Admin" ||
+          getRole() === "Doctor" ||
+          getRole() === "Staff") && (
+          <Button
+            icon={<MessageOutlined />}
+            className={`${_classes["appointments-btn"]} mr-1 sm:mr-3`}
+            // onClick={() => Router.push("/physician/messages")}
+            onClick={() => {
+              Router.push({
+                pathname: "/physician/messages",
+                query: {
+                  chat: "patient",
+                  // patientId: adminApp_Details?.patient.patient_id,
+                  doctorId,
+                  patientId: patientID,
+                },
+              });
+            }}
+          >
+            Message patient
+          </Button>
+        )}
 
         {getRole() === "User" ||
           (getRole() === "Admin" && (
@@ -60,8 +61,9 @@ const MessageButtons = (props: Props) => {
             </Button>
           ))}
 
-        {getRole() === "User" ||
-          (getRole() === "Doctor" && (
+        {(getRole() === "User" ||
+          getRole() === "Doctor" ||
+          getRole() === "Staff") && (
             <Button
               icon={<MessageOutlined />}
               className={`${_classes["appointments-btn"]}`}
@@ -80,7 +82,7 @@ const MessageButtons = (props: Props) => {
             >
               Message support
             </Button>
-          ))}
+          )}
       </div>
     </div>
   );
