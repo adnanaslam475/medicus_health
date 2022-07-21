@@ -90,7 +90,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       Number(stepOneDoctorId);
 
     const queryDay =
-      selectedDay || selectedDateDay || dayjs(requestedDate).get("day");
+      selectedDay || selectedDateDay || requestedDate &&dayjs(requestedDate).get("day");
 
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesByDayQuery] =
       useDoctorSchedulesByDayQuery({
