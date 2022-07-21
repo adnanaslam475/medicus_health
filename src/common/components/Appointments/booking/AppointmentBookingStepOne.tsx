@@ -222,7 +222,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 {(patientData || physicianList)?.map((item, index) => (
                   <Option
                     key={index}
-                    value={`${item.id}:${item?.first_name} ${item?.last_name}`}
+                    value={`${item.id}: ${item?.first_name} ${item?.last_name}`}
                   >
                     {`${item?.first_name} ${item?.last_name}`}
                   </Option>

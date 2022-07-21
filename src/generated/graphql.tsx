@@ -547,7 +547,7 @@ export type GetCurrentAppointmentInput = {
 };
 
 export type GetDoctorScheduleFilterInput = {
-  day?: InputMaybe<Scalars['Int']>;
+  day: Scalars['Int'];
 };
 
 export type GetPatientsInput = {
