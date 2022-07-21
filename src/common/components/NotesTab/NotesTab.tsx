@@ -119,24 +119,26 @@ function NotesTab({}: Props) {
 
         <>
           <div className="my-3">
-            {((actualDoctorNotes && status === "Confirmed") ||
-              status === "Requested" ||
-              status === "Completed") && (
-              <>
-                <h3>Current appointment notes</h3>
-                <NotesListingByAppointments
-                  doctorNotes={
-                    notesByAppointmentId as GetDoctorNotesByAppIdQuery
-                  }
-                />
-              </>
-            )}
-            {!actualDoctorNotes &&
+            {actualDoctorNotes &&
               (status === "Confirmed" ||
                 status === "Requested" ||
                 status === "Completed") && (
-                <>No current appointment notes available.</>
+                <>
+                  <h3>Current appointment notes</h3>
+                  <NotesListingByAppointments
+                    doctorNotes={
+                      notesByAppointmentId as GetDoctorNotesByAppIdQuery
+                    }
+                  />
+                </>
               )}
+            {!actualDoctorNotes ? (
+              status === "Confirmed" ||
+              status === "Requested" ||
+              status === "Completed"
+            ) : (
+              <>No current appointment notes available.</>
+            )}
           </div>
         </>
         {/* FOR PATIENT ONLY */}

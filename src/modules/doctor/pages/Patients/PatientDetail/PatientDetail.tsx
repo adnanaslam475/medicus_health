@@ -31,7 +31,6 @@ function PatientDetail() {
   const form: any = useRef();
   const [activeTab, setActiveTab] = React.useState<string>("");
 
-
   const { query } = useRouter();
 
   const { TabPane } = Tabs;
@@ -39,7 +38,7 @@ function PatientDetail() {
   const { user } = getUserData();
   const id = user?.id;
 
-  const [{ data: userData ,fetching:userDatatFetching}] = useGetUserQuery({
+  const [{ data: userData, fetching: userDatatFetching }] = useGetUserQuery({
     variables: { input: Number(query?.id) },
   });
 
@@ -120,7 +119,10 @@ function PatientDetail() {
             }
             key="2"
           >
-            <QuestionnaireFormTab userDetail={userData?.user as User} fetching={userDatatFetching}/>
+            <QuestionnaireFormTab
+              userDetail={userData?.user as User}
+              fetching={userDatatFetching}
+            />
           </TabPane>
 
           <TabPane

@@ -631,7 +631,10 @@ function EditProfile({
                 <h5>Professional Background</h5>
                 {clinicList?.map((clinic: clinicType, index: number) => {
                   return (
-                    <div className="border-b border-gray-4 my-3" key={index}>
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
                       <Form.Item
                         label="Hospital/Clinic/Institution"
                         rules={[
@@ -664,7 +667,7 @@ function EditProfile({
                       )}
                       &nbsp;
                       {clinicList?.length > 1 && (
-                        <Button onClick={() => removeHospital(index)}>
+                        <Button danger onClick={() => removeHospital(index)}>
                           Remove new field
                         </Button>
                       )}
@@ -677,7 +680,10 @@ function EditProfile({
                 <h6>Educational Background</h6>
                 {educationList?.map((education, index) => {
                   return (
-                    <div className="border-b border-gray-4 my-3" key={index}>
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
                       <Form.Item
                         label="University/Institution"
                         rules={[
@@ -715,7 +721,7 @@ function EditProfile({
                       )}
                       &nbsp;
                       {educationList?.length > 1 && (
-                        <Button onClick={() => removeEducation(index)}>
+                        <Button danger onClick={() => removeEducation(index)}>
                           Remove new field
                         </Button>
                       )}
@@ -738,7 +744,7 @@ function EditProfile({
             <Form layout="vertical">
               <div className={`my-6 hidden ${_classes["educational"]}`}>
                 <h6>Login Information</h6>
-                <div className="border-b border-gray-4 my-3">
+                <div className="border-b border-gray-3 my-3 py-3">
                   <Form.Item
                     label="Email Address"
                     name="institute"
