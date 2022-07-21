@@ -15,7 +15,7 @@ export const PATIENT_ROUTES: routes = [
     submenu: [
       // { name: "Current", route: "/patient/appointments/current" },
       { name: "Upcoming", route: "/patient/appointments/upcoming" },
-      { name: "Requested", route: "/patient/appointments/requested" },
+      { name: "Pending", route: "/patient/appointments/pending" },
       { name: "Cancelled", route: "/patient/appointments/cancelled" },
       { name: "History", route: "/patient/appointments/history" },
     ],
@@ -57,7 +57,7 @@ export const DOCTOR_ROUTES: routes = [
     submenu: [
       // { name: "Current", route: "/physician/appointments/current" },
       { name: "Upcoming", route: "/physician/appointments/upcoming" },
-      { name: "Requested", route: "/physician/appointments/requested" },
+      { name: "Pending", route: "/physician/appointments/pending" },
       { name: "Cancelled", route: "/physician/appointments/cancelled" },
       { name: "History", route: "/physician/appointments/history" },
     ],

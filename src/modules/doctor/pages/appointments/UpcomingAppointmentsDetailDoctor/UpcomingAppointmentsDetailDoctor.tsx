@@ -108,7 +108,7 @@ function UpcomingAppointmentsDetailDoctor() {
               </div>
             </Tabs.TabPane>
             {(pathname.includes("appointments/upcoming") ||
-              pathname.includes("appointments/requested")) && (
+              pathname.includes("appointments/pending")) && (
               <Tabs.TabPane tab={<span>Notes</span>} key="6">
                 <NotesTab />
               </Tabs.TabPane>
