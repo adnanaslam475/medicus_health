@@ -122,7 +122,10 @@ function MyEarningsSearchFilters(props: Props) {
   //   <RefundsDropdown onFinishLocal={onFinishLocalRefunds} form={form} />
   // );
   const totalPaymentsRangeFilter = (
-    <TotalPaymentsDropdown onFinishLocal={onFinishLocalTotalPayments} form={form} />
+    <TotalPaymentsDropdown
+      onFinishLocal={onFinishLocalTotalPayments}
+      form={form}
+    />
   );
 
   const onHandleVisible = () => {
@@ -298,7 +301,7 @@ function MyEarningsSearchFilters(props: Props) {
               </Space>
             </a>
           </Dropdown> */}
-        <div className="w-full sm:w-56 sm:w-44  mt-0  mr-2  md:mt-0 sm:my-0 xs:my-3">
+        <div className="w-full md:w-56 sm:w-44 mt-0 mr-2 md:mt-0 sm:my-0 xs:my-3">
           <SelectStatusTypeFilter
             placeholder="Status"
             onChange={(value) => onChangeFields("status", value as string)}
@@ -306,11 +309,11 @@ function MyEarningsSearchFilters(props: Props) {
             value={filterState?.status || "Status"}
           />
         </div>
-        <div className="w-full md:w-96 md:ml-2 lg:ml-2  sm:mt-3 md:mt-0">
+        <div className="w-full md:w-56 md:ml-2 lg:ml-2  sm:mt-3 md:mt-0">
           <Select
             placeholder="Payment Status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
-            className="w-full sm:w-50"
+            className="w-full sm:w-46"
             value={filterState?.paymentStatus || "Payment Status"}
           >
             <Select.Option value="paid">PAID</Select.Option>
@@ -332,14 +335,14 @@ function MyEarningsSearchFilters(props: Props) {
           </a>
         </Dropdown> */}
         <Dropdown
-          className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg ml-0 p-3  border `}
+          className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg ml-3 p-3 border`}
           overlay={totalPaymentsRangeFilter}
           trigger={["click"]}
           visible={totalPaymentsVisible}
         >
           <a onClick={onHandleTotalPaymentsVisible}>
             <Space>
-              Total payment
+              <span className="leading-3">Total payment</span>
               <DownOutlined />
             </Space>
           </a>

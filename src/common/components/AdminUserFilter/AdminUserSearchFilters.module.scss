@@ -1,6 +1,6 @@
 .page-filters {
-  .dropdown-head{
-    .dropdown{
+  .dropdown-head {
+    .dropdown {
       border: 1px solid #9295af !important;
     }
   }
@@ -43,7 +43,7 @@
 
 .range-filter-dropDown {
   background-color: #f6f8fa;
-  width: 123px;
+  width: 155px;
   height: 48px;
   color: #9295af;
   &:hover {
@@ -51,8 +51,6 @@
   }
   & :global .anticon svg {
     font-size: 12px !important;
-    color:#9295AF !important; 
-    
-
-}
+    color: #9295af !important;
+  }
 }
