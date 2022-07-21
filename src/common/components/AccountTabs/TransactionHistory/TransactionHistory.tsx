@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { EyeFilled } from "@ant-design/icons";
 import { Table, Input, Button, Space, Tag } from "antd";
 import { date } from "../../../utils";
-import { Appointment, Transaction } from "../../../../generated/graphql";
+import {
+  Appointment,
+  GetAppointmentInput,
+  Transaction,
+} from "../../../../generated/graphql";
 
 const transactionsColumns = [
   {
@@ -139,26 +143,32 @@ type Props = {
 
 const TransactionHistory = (props: Props) => {
   const { data } = props || {};
-  // const [pagination, setPagination] = React.useState({
-  //   page: 1,
-  //   limit: 10,
-  // });
-  // const [sorting, setSorting] = React.useState({
-  //   column: "",
-  //   order: "",
-  // });
 
-  // const onChange = (...params: any) => {
-  //   const [, , sorter] = params;
-  //   setSorting({
-  //     order: sorter.order?.replace("end", "") || "",
-  //     column: `user.${sorter.field}` || "",
-  //   });
-  // };
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+    {}
+  );
 
-  function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-    console.log("params", pagination, filters, sorter, extra);
-  }
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting({
+      order: sorter.order?.replace("end", "") || "",
+      column: `user.${sorter.field}` || "",
+    });
+  };
+
+  // function onChange(pagination: any, filters: any, sorter: any, extra: any) {
+  //   console.log("params", pagination, filters, sorter, extra);
+  // }
 
   return (
     <Table

@@ -1,3 +1,4 @@
+import { translationJson } from "common/locales/translationJson";
 import ConfirmPassword from "../src/modules/common/pages/auth/ConfirmPassword/ConfirmPassword";
 
 function confirmPassword() {
@@ -5,3 +6,11 @@ function confirmPassword() {
 }
 
 export default confirmPassword;
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      // messages: require(`./../src/common/locales/${locale}.json`),
+      messages: translationJson(locale),
+    },
+  };
+}

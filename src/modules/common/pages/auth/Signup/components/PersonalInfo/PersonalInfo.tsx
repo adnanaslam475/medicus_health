@@ -172,7 +172,7 @@ export default function PersonalInfo({ onFinish }: props) {
         rules={[
           {
             required: true,
-            message: "Please enter your email address",
+            message: t("email_address_message"),
           },
           {
             type: "email",
