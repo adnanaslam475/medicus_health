@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import profile from "./../../../../../../public/assets/images/profile.jpg";
+import nullicon from "./../../../../../../public/assets/images/nullicon.png";
 import { useMessageContext } from "./MessageContext";
 import { getUserData } from "common/utils/userData";
 import attachIcon from "./../../../../../../public/assets/images/attach.svg";
@@ -63,7 +63,7 @@ function MessageItem(props: Props) {
                     ? (profile_picture as string)
                     : ""
                 }
-                fallbackImage={profile}
+                fallbackImage={nullicon}
               />
             </div>
             <div className="gap-3 w-11/12">
