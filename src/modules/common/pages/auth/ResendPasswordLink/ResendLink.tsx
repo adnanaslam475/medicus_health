@@ -6,10 +6,11 @@ import Image from "next/image";
 import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import Container from "../../../../../common/components/Container/Container";
-
 import { useResendActivationLinkMutation } from "../../../../../generated/graphql";
+import { useTranslations } from "next-intl";
 
 const ResendLink = () => {
+  const t = useTranslations("ResendLink");
   const [form] = Form.useForm();
   const router = useRouter();
   const [authToken, setAuthToken] = useState("");
@@ -92,11 +93,12 @@ const ResendLink = () => {
                       {
                         required: true,
                         type: "email",
-                        message: "Please enter your email address",
+                        message: t("email_address_message"),
                       },
                       {
                         type: "email",
-                        message: "Email is invalid",
+                        // message: "Email is invalid",
+                        message: t("email_is_invalid"),
                       },
                     ]}
                   >

@@ -1,5 +1,6 @@
 import {
   Appointment,
+  GetAppointmentInput,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
@@ -10,15 +11,28 @@ import { Spin } from "antd";
 
 function PatientAppointmentInfoTab() {
   const { query } = useRouter();
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+    {}
+  );
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
 
   const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { appointmentId: Number(query?.id), status: "Completed" },
+      filter: { ...filterValues },
+      pagination,
+      sorting,
     },
   });
 
   const { appointments } = data || {};
-  console.log(appointments, "sadasdasd completed");
   const appointment = appointments?.items && appointments.items[0];
   const { patient, serviceType } = appointment || {};
 
