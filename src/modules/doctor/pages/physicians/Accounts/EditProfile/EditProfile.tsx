@@ -651,7 +651,10 @@ function EditProfile({
                 <h5>Professional Background</h5>
                 {clinicList?.map((item, index) => {
                   return (
-                    <div className="border-b border-gray-4 my-3" key={index}>
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
                       <Form.Item
                         label="Hospital/Clinic/Institution"
                         name="pe-institution-2"
@@ -678,7 +681,7 @@ function EditProfile({
                       )}
                       &nbsp;
                       {clinicList?.length > 1 && (
-                        <Button onClick={() => removeHospital(index)}>
+                        <Button danger onClick={() => removeHospital(index)}>
                           Remove new field
                         </Button>
                       )}
@@ -691,7 +694,10 @@ function EditProfile({
                 <h6>Educational Background</h6>
                 {instituteList?.map((item, index) => {
                   return (
-                    <div className="border-b border-gray-4 my-3" key={index}>
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
                       <Form.Item
                         label="University/Institution"
                         name="eb-institution-0"
@@ -723,7 +729,7 @@ function EditProfile({
                       )}
                       &nbsp;
                       {instituteList?.length > 1 && (
-                        <Button onClick={() => removeInstitute(index)}>
+                        <Button danger onClick={() => removeInstitute(index)}>
                           Remove new field
                         </Button>
                       )}
@@ -746,7 +752,7 @@ function EditProfile({
             <Form layout="vertical">
               <div className={`my-6 hidden ${_classes["educational"]}`}>
                 <h6>Login Information</h6>
-                <div className="border-b border-gray-4 my-3">
+                <div className="border-b border-gray-3 my-3 py-3">
                   <Form.Item
                     label="Email Address"
                     name="institute"

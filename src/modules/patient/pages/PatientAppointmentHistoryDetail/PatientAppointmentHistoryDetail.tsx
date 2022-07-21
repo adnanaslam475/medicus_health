@@ -47,11 +47,11 @@ function PatientAppointmentHistoryDetail() {
   const { items: appointmentItems, meta } = appointments || {};
   const status = appointment?.status;
 
-  const onChangeFilters = (values: GetAppointmentInput) => {
-    setSorting({ column: "", order: "" });
-    setPagination({ ...pagination, page: 1 });
-    setFilterValues(values);
-  };
+  // const onChangeFilters = (values: GetAppointmentInput) => {
+  //   setSorting({ column: "", order: "" });
+  //   setPagination({ ...pagination, page: 1 });
+  //   setFilterValues(values);
+  // };
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));
