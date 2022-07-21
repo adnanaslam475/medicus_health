@@ -71,21 +71,14 @@ export const ViewProfile = React.forwardRef(function Profile({
       email: email,
       password: password,
       confirmPassword: password,
-      ["eb-institution-0"]: educationalBackground[0]?.institution,
-      ["eb-degree-0"]: educationalBackground[0]?.degree,
-      ["eb-institution-1"]: educationalBackground[1]?.institution,
-      ["eb-degree-1"]: educationalBackground[1]?.degree,
-
-      ["pe-institution-0"]: professionalExperience[0]?.institution,
-      ["pe-role-0"]: professionalExperience[0]?.role,
-      ["pe-institution-1"]: professionalExperience[1]?.institution,
-      ["pe-role-1"]: professionalExperience[1]?.role,
-      ["pe-institution-2"]: professionalExperience[2]?.institution,
-      ["pe-role-2"]: professionalExperience[2]?.role,
+      "eb-institution-0": educationalBackground[0]?.institution,
+      "eb-degree-0": educationalBackground[0]?.degree,
+      "eb-institution-1": educationalBackground[1]?.institution,
+      "eb-degree-1": educationalBackground[1]?.degree,
       about_me: about_me,
     });
   }
-
+  
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -138,6 +131,7 @@ export const ViewProfile = React.forwardRef(function Profile({
             showLoginInfo={showLoginInfo}
             schedules={schedules}
             formInstance={formInstance}
+            professionalExperience={professionalExperience}
           />
         </div>
       </div>

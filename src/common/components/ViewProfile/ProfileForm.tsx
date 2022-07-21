@@ -19,6 +19,7 @@ interface Props {
   showLoginInfo?: boolean;
   schedules?: Schedule[] | undefined;
   formInstance?: any;
+  professionalExperience?: any;
 }
 
 function ProfileForm({
@@ -27,6 +28,7 @@ function ProfileForm({
   showLoginInfo,
   schedules,
   formInstance,
+  professionalExperience,
 }: Props) {
   // const [formInstance] = Form.useForm();
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -122,7 +124,36 @@ function ProfileForm({
           <h5 className={`${_classes["wordspacing-5"]}`}>
             Professional Background
           </h5>
-          {professionalBGData.map((item) => {
+          {professionalExperience?.map((clinic: any, index: number) => {
+            return (
+              <div className="border-b border-gray-4 my-3" key={index}>
+                <Form.Item
+                  label="Hospital/Clinic/Institution"
+                  rules={[
+                    {
+                      required: false,
+                      message: "Hospital/Clinic/Institution",
+                    },
+                  ]}
+                  className="flex-1"
+                >
+                  <Input
+                    name={`institution`}
+                    value={clinic?.institution}
+                    disabled
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Role"
+                  rules={[{ required: false, message: "role" }]}
+                  className="flex-1"
+                >
+                  <Input value={clinic?.role} name={`role`} disabled />
+                </Form.Item>
+              </div>
+            );
+          })}
+          {!professionalExperience && professionalBGData.map((item) => {
             return item.map((val, index) => {
               return (
                 <div className="border-b border-gray-4 my-3" key={index}>

@@ -87,15 +87,8 @@ function EditProfile({
     Spanish: false,
     English: false,
   });
-  const [clinicList, setClinicList] = useState([
-    { service: "" },
-    { service: "" },
-  ]);
 
-  const [instituteList, setInstituteList] = useState([
-    { service: "" },
-    { service: "" },
-  ]);
+  const [instituteList, setInstituteList] = useState([{ institution: "" }]);
 
   const user = getUserData();
   const { email: loggedInUserEmail, id: loggedInUserId } = user?.user || {};
@@ -151,6 +144,8 @@ function EditProfile({
 
   const professionalExperience = parseJson(professional_experience) || [];
 
+  const [clinicList, setClinicList] = useState([{ institution: "", role: "" }]);
+
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -158,6 +153,9 @@ function EditProfile({
 
   const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
+  useEffect(() => {
+    setClinicList(professionalExperience);
+  }, []);
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       firstName: doctor_first_name,
@@ -168,17 +166,6 @@ function EditProfile({
       email: doctor_email,
       password: "",
       confirmPassword: "",
-      ["eb-institution-0"]: educationalBackground[0]?.institution,
-      ["eb-degree-0"]: educationalBackground[0]?.degree,
-      ["eb-institution-1"]: educationalBackground[1]?.institution,
-      ["eb-degree-1"]: educationalBackground[1]?.degree,
-
-      ["pe-institution-0"]: professionalExperience[0]?.institution,
-      ["pe-role-0"]: professionalExperience[0]?.role,
-      ["pe-institution-1"]: professionalExperience[1]?.institution,
-      ["pe-role-1"]: professionalExperience[1]?.role,
-      ["pe-institution-2"]: professionalExperience[2]?.institution,
-      ["pe-role-2"]: professionalExperience[2]?.role,
       about_me: about_me,
       language: language,
     });
@@ -192,75 +179,65 @@ function EditProfile({
 
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-    const res = await updateDoctor({
-      updateDoctorProfileInput: {
-        doctor_id: pathname.includes("/admin/physicians")
-          ? Number(query?.id)
-          : Number(id) || Number(loggedInUserId),
-        first_name: values?.firstName || "",
-        last_name: values?.lastName || "",
-        specialization: values?.specialization || "",
-        year_of_experience: Number(values?.year_of_experience || 0),
-        email: values?.email || "",
-        password: values?.password,
-        profile_image: image || userProfileImage || "",
-        about_me: values?.about_me || "",
-        condition_treated: condition_treated,
-        language: physicianLanguage || "",
-        educational_background: [
-          {
-            institution: values["eb-institution-0"],
-            degree: values["eb-degree-0"],
-          },
-          {
-            institution: values["eb-institution-1"],
-            degree: values["eb-degree-1"],
-          },
-        ],
-        professional_experience: [
-          {
-            institution: values["pe-institution-0"],
-            role: values["pe-role-0"],
-          },
-          {
-            institution: values["pe-institution-1"],
-            role: values["pe-role-1"],
-          },
-          {
-            institution: values["pe-institution-2"],
-            role: values["pe-role-2"],
-          },
-        ],
-      },
-    });
+      const res = await updateDoctor({
+        updateDoctorProfileInput: {
+          doctor_id: pathname.includes("/admin/physicians")
+            ? Number(query?.id)
+            : Number(id) || Number(loggedInUserId),
+          first_name: values?.firstName || "",
+          last_name: values?.lastName || "",
+          specialization: values?.specialization || "",
+          year_of_experience: Number(values?.year_of_experience || 0),
+          email: values?.email || "",
+          password: values?.password,
+          profile_image: image || userProfileImage || "",
+          about_me: values?.about_me || "",
+          condition_treated: condition_treated,
+          language: physicianLanguage || "",
+          educational_background: [
+            {
+              institution: values["eb-institution-0"],
+              degree: values["eb-degree-0"],
+            },
+            {
+              institution: values["eb-institution-1"],
+              degree: values["eb-degree-1"],
+            },
+          ],
+          professional_experience: clinicList?.map((item: any) => ({
+            institution: item?.institution,
+            role: item?.role,
+          })),
+        },
+      });
 
-    if (res?.data) {
-      res?.data?.updateDoctorProfile &&
-        notification.success({
-          message: "Updated Successfully",
-        });
-      if (getRole() === "Doctor") {
-        //checking logged in user email matched with updated email
-        let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
-        let emailMatched = emailRegExpression.test(values?.email);
-
-        // if user changed the email logged out the user
-        if (!emailMatched) {
+      if (res?.data) {
+        res?.data?.updateDoctorProfile &&
           notification.success({
-            message: "Credentials Updated User Logged out",
+            message: "Updated Successfully",
           });
-          logout();
+        if (getRole() === "Doctor") {
+          //checking logged in user email matched with updated email
+          let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
+          let emailMatched = emailRegExpression.test(values?.email);
+
+          // if user changed the email logged out the user
+          if (!emailMatched) {
+            notification.success({
+              message: "Credentials Updated User Logged out",
+            });
+            logout();
+          }
         }
       }
-    }
 
-    if (res?.error) {
-      res?.error?.graphQLErrors[0]?.message &&
-        notification.error({
-          message:
-            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-        });
-    }
+      if (res?.error) {
+        res?.error?.graphQLErrors[0]?.message &&
+          notification.error({
+            message:
+              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+          });
+      }
     // }
   };
 
@@ -392,8 +369,8 @@ function EditProfile({
     language?.Spanish !== undefined ||
     language !== undefined;
 
-  const addHospital = () => {
-    setClinicList([...clinicList, { service: "" }]);
+  const addHospital = (index: any) => {
+    setClinicList([...clinicList, { institution: "", role: "" }]);
   };
   const removeHospital = (index: number) => {
     const clinicListLocal = [...clinicList];
@@ -402,12 +379,21 @@ function EditProfile({
   };
 
   const addInstitute = () => {
-    setInstituteList([...instituteList, { service: "" }]);
+    setInstituteList([...instituteList, { institution: "" }]);
   };
   const removeInstitute = (index: number) => {
     const instituteListLocal = [...instituteList];
     instituteListLocal?.splice(index, 1);
     setInstituteList(instituteListLocal);
+  };
+
+  const handleClinicChange = (e: any, index: any) => {
+    const { name, value } = e.target;
+    const clinicListLocal = [...clinicList];
+    console.log("change handler is", index, name, value);
+    //@ts-ignore
+    clinicListLocal[index][name] = value;
+    setClinicList(clinicListLocal);
   };
 
   return (
@@ -649,12 +635,11 @@ function EditProfile({
               )}
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
-                {clinicList?.map((item, index) => {
+                {clinicList?.map((clinic: any, index: number) => {
                   return (
                     <div className="border-b border-gray-4 my-3" key={index}>
                       <Form.Item
                         label="Hospital/Clinic/Institution"
-                        name="pe-institution-2"
                         rules={[
                           {
                             required: false,
@@ -663,18 +648,27 @@ function EditProfile({
                         ]}
                         className="flex-1"
                       >
-                        <Input value="University of Oklahoma College of Medicine" />
+                        <Input
+                          name={`institution`}
+                          value={clinic?.institution}
+                          onChange={(e) => handleClinicChange(e, index)}
+                        />
                       </Form.Item>
                       <Form.Item
                         label="Role"
-                        name="pe-role-2"
                         rules={[{ required: false, message: "role" }]}
                         className="flex-1"
                       >
-                        <Input />
+                        <Input
+                          value={clinic?.role}
+                          name={`role`}
+                          onChange={(e) => handleClinicChange(e, index)}
+                        />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
-                        <Button onClick={addHospital}>Add new field</Button>
+                        <Button onClick={() => addHospital(index)}>
+                          Add new field
+                        </Button>
                       )}
                       &nbsp;
                       {clinicList?.length > 1 && (
