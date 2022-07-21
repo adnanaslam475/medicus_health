@@ -57,6 +57,8 @@ function NotesHistory(props: Props) {
 
   const historyNotes = appointmentChild?.appointment?.notesHistory;
 
+  console.log(historyNotes, "MajidhistoryNotes");
+
   const appointmentId = getHistoryNotesData?.appointment?.id;
 
   const firstName = getHistoryNotesData?.appointment.doctor?.first_name;

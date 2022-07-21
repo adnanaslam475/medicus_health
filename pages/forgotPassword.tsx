@@ -10,7 +10,6 @@ export default forgotPassword;
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
-      // messages: require(`./../src/common/locales/${locale}.json`),
       messages: translationJson(locale),
     },
   };
