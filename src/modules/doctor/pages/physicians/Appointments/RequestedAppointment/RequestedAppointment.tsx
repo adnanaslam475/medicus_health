@@ -65,9 +65,8 @@ function RequestedAppointment() {
       column: sorter.order
         ? `${
             (sorter.columnKey === "name" && "appointment_service_type") ||
-            (/(charges|requestedDate|createdAt)/.test(
-              sorter.columnKey
-            ) &&
+            (sorter.columnKey === "first_name" && "patient") ||
+            (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
               "appointment") ||
             "user"
           }.${sorter.columnKey || sorter.field}`

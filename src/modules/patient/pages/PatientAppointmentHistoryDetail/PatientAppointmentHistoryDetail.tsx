@@ -21,37 +21,37 @@ import NotesTab from "common/components/NotesTab/NotesTab";
 function PatientAppointmentHistoryDetail() {
   const { query } = useRouter();
   const [activeTab, setActiveTab] = React.useState<string>("");
-  // const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
-  //   {}
-  // );
-  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>({
-    status: "Completed",
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+    {}
+  );
+
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
   });
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
-    // variables: {
-    //   filter: { searchString: String(query?.id), status: "Completed" },
-    // },
     variables: {
-      filter: { ...filterValues },
-      // pagination,
-      // sorting,
+      filter: { ...filterValues, status: "Completed" },
+      pagination: { limit: -1, page: 1 },
+      sorting,
     },
   });
   const { appointments } = data || {};
   const appointment = appointments?.items && appointments.items[0];
   const { items: appointmentItems, meta } = appointments || {};
-
-  // const onChangeFilters = (values: GetAppointmentInput) => {
-  //   setSorting({ column: "", order: "" });
-  //   setPagination({ ...pagination, page: 1 });
-  //   setFilterValues(values);
-  // };
-
   const status = appointment?.status;
-  // let doctorNotes =
-  //   appointment?.currentAppointmentNote &&
-  //   Object?.entries(appointment?.currentAppointmentNote);
+
+  const onChangeFilters = (values: GetAppointmentInput) => {
+    setSorting({ column: "", order: "" });
+    setPagination({ ...pagination, page: 1 });
+    setFilterValues(values);
+  };
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));
