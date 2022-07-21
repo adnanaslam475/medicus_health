@@ -88,8 +88,6 @@ function EditProfile({
     English: false,
   });
 
-  const [instituteList, setInstituteList] = useState([{ institution: "" }]);
-
   const user = getUserData();
   const { email: loggedInUserEmail, id: loggedInUserId } = user?.user || {};
 
@@ -145,6 +143,7 @@ function EditProfile({
   const professionalExperience = parseJson(professional_experience) || [];
 
   const [clinicList, setClinicList] = useState([{ institution: "", role: "" }]);
+  const [educationList, setEducationList] = useState([{ institution: "", degree: "" }]);
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
@@ -155,6 +154,7 @@ function EditProfile({
 
   useEffect(() => {
     setClinicList(professionalExperience);
+    setEducationList(educationalBackground);
   }, []);
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -179,65 +179,59 @@ function EditProfile({
 
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-      const res = await updateDoctor({
-        updateDoctorProfileInput: {
-          doctor_id: pathname.includes("/admin/physicians")
-            ? Number(query?.id)
-            : Number(id) || Number(loggedInUserId),
-          first_name: values?.firstName || "",
-          last_name: values?.lastName || "",
-          specialization: values?.specialization || "",
-          year_of_experience: Number(values?.year_of_experience || 0),
-          email: values?.email || "",
-          password: values?.password,
-          profile_image: image || userProfileImage || "",
-          about_me: values?.about_me || "",
-          condition_treated: condition_treated,
-          language: physicianLanguage || "",
-          educational_background: [
-            {
-              institution: values["eb-institution-0"],
-              degree: values["eb-degree-0"],
-            },
-            {
-              institution: values["eb-institution-1"],
-              degree: values["eb-degree-1"],
-            },
-          ],
-          professional_experience: clinicList?.map((item: any) => ({
-            institution: item?.institution,
-            role: item?.role,
-          })),
-        },
-      });
+    const res = await updateDoctor({
+      updateDoctorProfileInput: {
+        doctor_id: pathname.includes("/admin/physicians")
+          ? Number(query?.id)
+          : Number(id) || Number(loggedInUserId),
+        first_name: values?.firstName || "",
+        last_name: values?.lastName || "",
+        specialization: values?.specialization || "",
+        year_of_experience: Number(values?.year_of_experience || 0),
+        email: values?.email || "",
+        password: values?.password,
+        profile_image: image || userProfileImage || "",
+        about_me: values?.about_me || "",
+        condition_treated: condition_treated,
+        language: physicianLanguage || "",
+        educational_background: educationList?.map((item: any) => ({
+          institution: item?.institution,
+          degree: item?.degree,
+        })),
+        professional_experience: clinicList?.map((item: any) => ({
+          institution: item?.institution,
+          role: item?.role,
+        })),
+      },
+    });
 
-      if (res?.data) {
-        res?.data?.updateDoctorProfile &&
+    if (res?.data) {
+      res?.data?.updateDoctorProfile &&
+        notification.success({
+          message: "Updated Successfully",
+        });
+      if (getRole() === "Doctor") {
+        //checking logged in user email matched with updated email
+        let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
+        let emailMatched = emailRegExpression.test(values?.email);
+
+        // if user changed the email logged out the user
+        if (!emailMatched) {
           notification.success({
-            message: "Updated Successfully",
+            message: "Credentials Updated User Logged out",
           });
-        if (getRole() === "Doctor") {
-          //checking logged in user email matched with updated email
-          let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
-          let emailMatched = emailRegExpression.test(values?.email);
-
-          // if user changed the email logged out the user
-          if (!emailMatched) {
-            notification.success({
-              message: "Credentials Updated User Logged out",
-            });
-            logout();
-          }
+          logout();
         }
       }
+    }
 
-      if (res?.error) {
-        res?.error?.graphQLErrors[0]?.message &&
-          notification.error({
-            message:
-              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-          });
-      }
+    if (res?.error) {
+      res?.error?.graphQLErrors[0]?.message &&
+        notification.error({
+          message:
+            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+    }
     // }
   };
 
@@ -319,30 +313,8 @@ function EditProfile({
         about_me: values?.about_me || "",
         condition_treated: list.toString(),
         language: physicianLanguage || "",
-        educational_background: [
-          {
-            institution: values["eb-institution-0"],
-            degree: values["eb-degree-0"],
-          },
-          {
-            institution: values["eb-institution-1"],
-            degree: values["eb-degree-1"],
-          },
-        ],
-        professional_experience: [
-          {
-            institution: values["pe-institution-0"],
-            role: values["pe-role-0"],
-          },
-          {
-            institution: values["pe-institution-1"],
-            role: values["pe-role-1"],
-          },
-          {
-            institution: values["pe-institution-2"],
-            role: values["pe-role-2"],
-          },
-        ],
+        educational_background: educationalBackground,
+        professional_experience: professionalExperience,
       },
     });
 
@@ -369,7 +341,7 @@ function EditProfile({
     language?.Spanish !== undefined ||
     language !== undefined;
 
-  const addHospital = (index: any) => {
+  const addHospital = () => {
     setClinicList([...clinicList, { institution: "", role: "" }]);
   };
   const removeHospital = (index: number) => {
@@ -378,13 +350,13 @@ function EditProfile({
     setClinicList(clinicListLocal);
   };
 
-  const addInstitute = () => {
-    setInstituteList([...instituteList, { institution: "" }]);
+  const addEducation = () => {
+    setEducationList([...educationList, { institution: "", degree: "" }]);
   };
-  const removeInstitute = (index: number) => {
-    const instituteListLocal = [...instituteList];
-    instituteListLocal?.splice(index, 1);
-    setInstituteList(instituteListLocal);
+  const removeEducation = (index: number) => {
+    const educationListLocal = [...educationList];
+    educationListLocal?.splice(index, 1);
+    setEducationList(educationListLocal);
   };
 
   const handleClinicChange = (e: any, index: any) => {
@@ -394,6 +366,15 @@ function EditProfile({
     //@ts-ignore
     clinicListLocal[index][name] = value;
     setClinicList(clinicListLocal);
+  };
+
+  const handleEducationChange = (e: any, index: any) => {
+    const { name, value } = e.target;
+    const educationListLocal = [...educationList];
+    console.log("change handler is", index, name, value, educationListLocal);
+    //@ts-ignore
+    educationListLocal[index][name] = value;
+    setEducationList(educationListLocal);
   };
 
   return (
@@ -666,9 +647,7 @@ function EditProfile({
                         />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
-                        <Button onClick={() => addHospital(index)}>
-                          Add new field
-                        </Button>
+                        <Button onClick={addHospital}>Add new field</Button>
                       )}
                       &nbsp;
                       {clinicList?.length > 1 && (
@@ -683,12 +662,11 @@ function EditProfile({
 
               <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Educational Background</h6>
-                {instituteList?.map((item, index) => {
+                {educationList?.map((education, index) => {
                   return (
                     <div className="border-b border-gray-4 my-3" key={index}>
                       <Form.Item
                         label="University/Institution"
-                        name="eb-institution-0"
                         rules={[
                           {
                             required: false,
@@ -697,11 +675,14 @@ function EditProfile({
                         ]}
                         className="flex-1"
                       >
-                        <Input value="University of Oklahoma College of Medicine" />
+                        <Input
+                          name={`institution`}
+                          value={education?.institution}
+                          onChange={(e) => handleEducationChange(e, index)}
+                        />
                       </Form.Item>
                       <Form.Item
                         label="Degree/Diploma/Certification"
-                        name="eb-degree-0"
                         rules={[
                           {
                             required: false,
@@ -710,14 +691,18 @@ function EditProfile({
                         ]}
                         className="flex-1"
                       >
-                        <Input value="University of Oklahoma College of Medicine" />
+                        <Input
+                          name={`degree`}
+                          value={education?.degree}
+                          onChange={(e) => handleEducationChange(e, index)}
+                        />
                       </Form.Item>
-                      {instituteList?.length - 1 === index && (
-                        <Button onClick={addInstitute}>Add new field</Button>
+                      {educationList?.length - 1 === index && (
+                        <Button onClick={addEducation}>Add new field</Button>
                       )}
                       &nbsp;
-                      {instituteList?.length > 1 && (
-                        <Button onClick={() => removeInstitute(index)}>
+                      {educationList?.length > 1 && (
+                        <Button onClick={() => removeEducation(index)}>
                           Remove new field
                         </Button>
                       )}

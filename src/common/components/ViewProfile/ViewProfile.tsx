@@ -71,10 +71,6 @@ export const ViewProfile = React.forwardRef(function Profile({
       email: email,
       password: password,
       confirmPassword: password,
-      "eb-institution-0": educationalBackground[0]?.institution,
-      "eb-degree-0": educationalBackground[0]?.degree,
-      "eb-institution-1": educationalBackground[1]?.institution,
-      "eb-degree-1": educationalBackground[1]?.degree,
       about_me: about_me,
     });
   }
@@ -132,7 +128,8 @@ export const ViewProfile = React.forwardRef(function Profile({
             schedules={schedules}
             formInstance={formInstance}
             professionalExperience={professionalExperience}
-          />
+            educationalBackground={educationalBackground}
+/>
         </div>
       </div>
     </div>

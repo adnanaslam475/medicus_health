@@ -20,6 +20,7 @@ interface Props {
   schedules?: Schedule[] | undefined;
   formInstance?: any;
   professionalExperience?: any;
+  educationalBackground?: any;
 }
 
 function ProfileForm({
@@ -29,6 +30,7 @@ function ProfileForm({
   schedules,
   formInstance,
   professionalExperience,
+  educationalBackground,
 }: Props) {
   // const [formInstance] = Form.useForm();
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -153,53 +155,88 @@ function ProfileForm({
               </div>
             );
           })}
-          {!professionalExperience && professionalBGData.map((item) => {
-            return item.map((val, index) => {
-              return (
-                <div className="border-b border-gray-4 my-3" key={index}>
-                  <Form.Item
-                    label={val?.label || ""}
-                    name={val?.name || ""}
-                    className="flex-1"
-                  >
-                    <Input
-                      value={val.value || ""}
-                      defaultValue={val.defaultValue || ""}
-                      disabled={true}
-                    />
-                  </Form.Item>
-                </div>
-              );
-            });
-          })}
+          {!professionalExperience &&
+            professionalBGData.map((item) => {
+              return item.map((val, index) => {
+                return (
+                  <div className="border-b border-gray-4 my-3" key={index}>
+                    <Form.Item
+                      label={val?.label || ""}
+                      name={val?.name || ""}
+                      className="flex-1"
+                    >
+                      <Input
+                        value={val.value || ""}
+                        defaultValue={val.defaultValue || ""}
+                        disabled={true}
+                      />
+                    </Form.Item>
+                  </div>
+                );
+              });
+            })}
         </div>
 
         <div className={`my-6 ${_classes["educational"]}`}>
           <h6 className={`${_classes["wordspacing-5"]}`}>
             Educational Background
           </h6>
-          {educationalBGData.map((item, index) => {
-            return item.map((val) => {
+          {educationalBackground &&
+            educationalBackground?.map((education: any, index: number) => {
               return (
-                <div
-                  className={`${index === 0 && "border-b border-gray-4"} my-3`}
-                  key={index}
-                >
+                <div className="border-b border-gray-4 my-3" key={index}>
                   <Form.Item
-                    label={val?.label || ""}
-                    name={val?.name || ""}
+                    label="University/Institution"
+                    rules={[
+                      {
+                        required: false,
+                        message: "University/Institution",
+                      },
+                    ]}
                     className="flex-1"
                   >
-                    <Input
-                      value={val.value || ""}
-                      defaultValue={val.defaultValue || ""}
-                      disabled={true}
-                    />
+                    <Input value={education?.institution} disabled />
+                  </Form.Item>
+                  <Form.Item
+                    label="Degree/Diploma/Certification"
+                    rules={[
+                      {
+                        required: false,
+                        message: "Degree/Diploma/Certification",
+                      },
+                    ]}
+                    className="flex-1"
+                  >
+                    <Input value={education?.degree} disabled />
                   </Form.Item>
                 </div>
               );
-            });
-          })}
+            })}
+          {!educationalBackground &&
+            educationalBGData.map((item, index) => {
+              return item.map((val) => {
+                return (
+                  <div
+                    className={`${
+                      index === 0 && "border-b border-gray-4"
+                    } my-3`}
+                    key={index}
+                  >
+                    <Form.Item
+                      label={val?.label || ""}
+                      name={val?.name || ""}
+                      className="flex-1"
+                    >
+                      <Input
+                        value={val.value || ""}
+                        defaultValue={val.defaultValue || ""}
+                        disabled={true}
+                      />
+                    </Form.Item>
+                  </div>
+                );
+              });
+            })}
           {showLoginInfo && (
             <div className={`my-6 ${_classes["educational"]}`}>
               <h6>Login Information</h6>
