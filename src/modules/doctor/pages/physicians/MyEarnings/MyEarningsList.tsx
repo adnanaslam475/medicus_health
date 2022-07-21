@@ -158,7 +158,7 @@ const Columns = [
   {
     title: "Net physician fee($)",
     dataIndex: ["doctor_percentage", "status"],
-    key: "appointment",
+    key: "doctor_percentage",
     sorter: true,
     render: (text: any, row: any) => {
       return (
