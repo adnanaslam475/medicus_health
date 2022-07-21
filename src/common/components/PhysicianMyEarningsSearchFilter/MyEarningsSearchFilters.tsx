@@ -55,11 +55,11 @@ function MyEarningsSearchFilters(props: Props) {
   }
   const applyDateRange = () => {
     setOpenDateRange(false);
-    onChangeFields("bookingDate", bookingDate);
+    onChangeFields("DateRange", dateRange);
   };
   const applyDateRangeTwo = () => {
     setOpenDateRangeTwo(false);
-    onChangeFields("DateRange", dateRange);
+    onChangeFields("dueDate", dateRange);
   };
   function onChangeFields(key: string, value: string | object) {
     const filters = {
@@ -79,16 +79,13 @@ function MyEarningsSearchFilters(props: Props) {
     if (!filters?.DateRange?.startDate && !filters?.DateRange?.startDate) {
       delete filters?.DateRange;
     }
+    if (!filters?.dueDate?.startDate && !filters?.dueDate?.startDate) {
+      delete filters?.dueDate;
+    }
 
     if (!filters?.earnings?.initial && !filters?.earnings?.final) {
       delete filters?.earnings;
     }
-    // if (!filters?.refunds?.initialRefunds && !filters?.refunds?.finalRefunds) {
-    //   delete filters?.refunds;
-    // }
-    // if (!filters?.charges?.initialCharges && !filters?.charges?.finalCharges) {
-    //   delete filters?.refunds;
-    // }
 
     onChange(filters);
   }
@@ -213,10 +210,10 @@ function MyEarningsSearchFilters(props: Props) {
               type="default"
               onClick={() => setOpenDateRange?.(!openDateRange)}
             >
-              {filterState.bookingDate?.startDate ? (
+              {filterState.DateRange?.startDate ? (
                 <div>
-                  {filterState.bookingDate
-                    ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
+                  {filterState.DateRange
+                    ? `${filterState.DateRange.startDate} -> ${filterState.DateRange.endDate}`
                     : "Booking date"}
                 </div>
               ) : (
@@ -270,10 +267,10 @@ function MyEarningsSearchFilters(props: Props) {
               type="default"
               onClick={() => setOpenDateRangeTwo?.(!openDateRangeTwo)}
             >
-              {filterState.DateRange?.startDate ? (
+              {filterState.dueDate?.startDate ? (
                 <div>
-                  {filterState.DateRange
-                    ? `${filterState.DateRange.startDate} -> ${filterState.DateRange.endDate}`
+                  {filterState.dueDate
+                    ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
                     : "Scheduled date"}
                 </div>
               ) : (
