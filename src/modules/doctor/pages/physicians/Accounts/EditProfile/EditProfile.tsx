@@ -87,6 +87,15 @@ function EditProfile({
     Spanish: false,
     English: false,
   });
+  const [clinicList, setClinicList] = useState([
+    { service: "" },
+    { service: "" },
+  ]);
+
+  const [instituteList, setInstituteList] = useState([
+    { service: "" },
+    { service: "" },
+  ]);
 
   const user = getUserData();
   const { email: loggedInUserEmail, id: loggedInUserId } = user?.user || {};
@@ -383,6 +392,24 @@ function EditProfile({
     language?.Spanish !== undefined ||
     language !== undefined;
 
+  const addHospital = () => {
+    setClinicList([...clinicList, { service: "" }]);
+  };
+  const removeHospital = (index: number) => {
+    const clinicListLocal = [...clinicList];
+    clinicListLocal?.splice(index, 1);
+    setClinicList(clinicListLocal);
+  };
+
+  const addInstitute = () => {
+    setInstituteList([...instituteList, { service: "" }]);
+  };
+  const removeInstitute = (index: number) => {
+    const instituteListLocal = [...instituteList];
+    instituteListLocal?.splice(index, 1);
+    setInstituteList(instituteListLocal);
+  };
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -541,52 +568,50 @@ function EditProfile({
                 </Form.Item>
               </div>
 
-              {languageCheck && (
-                <div className="flex items-center ">
-                  <Form.Item
-                    name="languageEnglish"
-                    className={`${_classes["bottom-margin-0"]}`}
-                  >
-                    <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
-                      <Image
-                        priority={true}
-                        alt=""
-                        height={21}
-                        width={21}
-                        src={end}
-                        className="majid"
-                      />
-                      <span className=" pl-1 pr-10">English</span>
-                      <Checkbox
-                        defaultChecked={formatedLanguage?.English}
-                        onChange={(e) => handleChangeLanguage(e, "English")}
-                      ></Checkbox>
-                    </div>
-                  </Form.Item>
+              <div className="flex items-center ">
+                <Form.Item
+                  name="languageEnglish"
+                  className={`${_classes["bottom-margin-0"]}`}
+                >
+                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                    <Image
+                      priority={true}
+                      alt=""
+                      height={21}
+                      width={21}
+                      src={end}
+                      className="majid"
+                    />
+                    <span className=" pl-1 pr-10">English</span>
+                    <Checkbox
+                      defaultChecked={formatedLanguage?.English}
+                      onChange={(e) => handleChangeLanguage(e, "English")}
+                    ></Checkbox>
+                  </div>
+                </Form.Item>
 
-                  <Form.Item
-                    name="languageSpanish"
-                    className={`${_classes["bottom-margin-0"]}`}
-                  >
-                    <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
-                      <Image
-                        priority={true}
-                        alt=""
-                        height={21}
-                        width={21}
-                        src={esp}
-                        className="px-1 majid"
-                      />
-                      <span className=" pl-1 pr-10">Spanish</span>
+                <Form.Item
+                  name="languageSpanish"
+                  className={`${_classes["bottom-margin-0"]}`}
+                >
+                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                    <Image
+                      priority={true}
+                      alt=""
+                      height={21}
+                      width={21}
+                      src={esp}
+                      className="px-1 majid"
+                    />
+                    <span className=" pl-1 pr-10">Spanish</span>
 
-                      <Checkbox
-                        defaultChecked={formatedLanguage?.Spanish}
-                        onChange={(e) => handleChangeLanguage(e, "Spanish")}
-                      ></Checkbox>
-                    </div>
-                  </Form.Item>
-                </div>
-              )}
+                    <Checkbox
+                      defaultChecked={formatedLanguage?.Spanish}
+                      onChange={(e) => handleChangeLanguage(e, "Spanish")}
+                    ></Checkbox>
+                  </div>
+                </Form.Item>
+              </div>
 
               <div className="mt-5">
                 <Form.Item label="About me" name="about_me">
@@ -624,135 +649,87 @@ function EditProfile({
               )}
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="pe-institution-0"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="pe-role-0"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="pe-institution-1"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="pe-role-1"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="pe-institution-2"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="pe-role-2"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input />
-                  </Form.Item>
-                </div>
+                {clinicList?.map((item, index) => {
+                  return (
+                    <div className="border-b border-gray-4 my-3" key={index}>
+                      <Form.Item
+                        label="Hospital/Clinic/Institution"
+                        name="pe-institution-2"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Hospital/Clinic/Institution",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input value="University of Oklahoma College of Medicine" />
+                      </Form.Item>
+                      <Form.Item
+                        label="Role"
+                        name="pe-role-2"
+                        rules={[{ required: false, message: "role" }]}
+                        className="flex-1"
+                      >
+                        <Input />
+                      </Form.Item>
+                      {clinicList?.length - 1 === index && (
+                        <Button onClick={addHospital}>Add new field</Button>
+                      )}
+                      &nbsp;
+                      {clinicList?.length > 1 && (
+                        <Button onClick={() => removeHospital(index)}>
+                          Remove new field
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
               <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Educational Background</h6>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="eb-institution-0"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="eb-degree-0"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
-                <div className="my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="eb-institution-1"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="eb-degree-1"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value="University of Oklahoma College of Medicine" />
-                  </Form.Item>
-                </div>
+                {instituteList?.map((item, index) => {
+                  return (
+                    <div className="border-b border-gray-4 my-3" key={index}>
+                      <Form.Item
+                        label="University/Institution"
+                        name="eb-institution-0"
+                        rules={[
+                          {
+                            required: false,
+                            message: "University/Institution",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input value="University of Oklahoma College of Medicine" />
+                      </Form.Item>
+                      <Form.Item
+                        label="Degree/Diploma/Certification"
+                        name="eb-degree-0"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Degree/Diploma/Certification",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input value="University of Oklahoma College of Medicine" />
+                      </Form.Item>
+                      {instituteList?.length - 1 === index && (
+                        <Button onClick={addInstitute}>Add new field</Button>
+                      )}
+                      &nbsp;
+                      {instituteList?.length > 1 && (
+                        <Button onClick={() => removeInstitute(index)}>
+                          Remove new field
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
               <Form.Item>

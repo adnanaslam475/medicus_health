@@ -8,6 +8,7 @@ export const useMediaUploader = () => {
     bucketName: config?.bucketName || "",
     accessKeyId: config?.accessKeyId || "",
     secretAccessKey: config?.secertAccessKey || "",
+    useAccelerateEndpoint: true,
   };
 
   const s3 = new ReactS3Client(configS3);

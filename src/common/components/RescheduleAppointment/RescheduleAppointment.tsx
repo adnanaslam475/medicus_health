@@ -16,6 +16,7 @@ import {
   Appointment,
   AppointmentServiceType,
   SuggestedTimeSlots,
+  useDoctorSchedulesQuery,
   useSuggestNewTimeMutation,
 } from "generated/graphql";
 import { getDayJsObject } from "common/utils/date";
@@ -23,6 +24,8 @@ import { date } from "common/utils";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import moment from "moment";
+import { getUserData } from "common/utils/userData";
+import dayjs from "dayjs";
 
 type Props = {
   showRescheduleModal?: boolean;
@@ -234,6 +237,37 @@ function AvailabilityTimeSlots({
   onChangeDatePicker?: (dateString: string, name: string) => void;
   endDateValue?: string;
 }) {
+  const { user } = getUserData();
+  const doctorId = (user?.role === "Doctor" && user?.id) || 0;
+  const [{ data: scheduleDetails }, executeUseDoctorSchedulesQuery] =
+    useDoctorSchedulesQuery({
+      variables: {
+        doctorId: doctorId,
+      },
+      pause: !doctorId,
+    });
+  const doctorAvailableDaysList = scheduleDetails?.doctorSchedules?.map(
+    (item) => item.day
+  );
+
+  function disabledDate(current: any) {
+    const weekDays = [0, 1, 2, 3, 4, 5, 6];
+    // Remove duplicates from array
+    let doctorAvailableDays = [
+      ...(new Set(doctorAvailableDaysList) as unknown as number[]),
+    ];
+
+    // Returns list of days in which doctor is not available
+    const filteredDays = weekDays.filter(
+      (currentEl) => !doctorAvailableDays.includes(currentEl)
+    );
+    const isSunday = filteredDays.includes(0) ? 0 : NaN
+    const disabledDates =
+      current < dayjs().startOf("day") ||
+      new Date(current).getDay() === isSunday ||
+      filteredDays?.find((day) => day === new Date(current).getDay());
+    return disabledDates;
+  }
   return (
     <div className="block mb-10">
       <Form
@@ -252,6 +286,8 @@ function AvailabilityTimeSlots({
                 onChange={(_, date: string) => {
                   onChangeDatePicker?.(date, "startDate");
                 }}
+                disabledDate={disabledDate as any}
+                minuteStep={30}
               />
             </Space>
           </Form.Item>

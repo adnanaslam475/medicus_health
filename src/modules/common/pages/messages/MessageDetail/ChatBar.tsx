@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import profile from "./../../../../../../public/assets/images/your_photo.png";
+import profile from "./../../../../../../public/assets/images/profile.jpg";
 import { useMessageContext } from "./MessageContext";
 import { getUserData } from "common/utils/userData";
 import attachIcon from "./../../../../../../public/assets/images/attach.svg";
