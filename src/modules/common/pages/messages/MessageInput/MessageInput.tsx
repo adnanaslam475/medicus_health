@@ -14,6 +14,7 @@ import { hasValidMessage } from "common/utils/helper";
 
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
+  const [enabled, setEnabled] = useState(true);
   const { messageInfo, onMessage, createChatFetching } = useMessageContext();
 
   const [fileList, setFileList] = useState([]);
@@ -42,6 +43,7 @@ function MessageInput() {
   };
 
   async function onSendMessage() {
+    setEnabled(false);
     const urls = await fileUpload(
       fileList?.map(
         ({ originFileObj }: { originFileObj: File }) => originFileObj
@@ -63,7 +65,7 @@ function MessageInput() {
         }
       }
     }
-
+    setEnabled(true);
     setMessageText("");
   }
 
@@ -134,7 +136,7 @@ function MessageInput() {
                 itemRender={() => <div />}
                 fileList={fileList}
                 customRequest={() => null}
-                accept="image/jpg, image/jpeg,.doc, .pdf,"
+                accept=".doc,.docx,.pdf,.zip,.tiff,.tga,image/jpg,image/jpeg,image/jpg,image/bmp,image/x-tga,image/png,image/tga,application/msword,"
                 className={`${_classes["attachment-upload-btn"]} py-0`}
               >
                 <Image
@@ -149,7 +151,7 @@ function MessageInput() {
           </span>
           <span
             className="absolute top-3 right-4 cursor-pointer"
-            onClick={onSendMessage}
+            onClick={enabled ? onSendMessage : () => null}
           >
             {createChatFetching && messageType === "Media" ? (
               <Spin />
