@@ -95,7 +95,7 @@ export type physicianMyEarningsFilterType = {
     startDate?: string;
     endDate?: string;
   };
-  bookingDate?: {
+  dueDate?: {
     startDate?: string;
     endDate?: string;
   };
