@@ -23,6 +23,17 @@ interface Props {
   educationalBackground?: any;
 }
 
+
+type clinicType = {
+  institution: string;
+  role: string;
+};
+
+type educationType = {
+  institution: string;
+  degree: string;
+};
+
 function ProfileForm({
   doctorId,
   doctorData,
@@ -126,7 +137,7 @@ function ProfileForm({
           <h5 className={`${_classes["wordspacing-5"]}`}>
             Professional Background
           </h5>
-          {professionalExperience?.map((clinic: any, index: number) => {
+          {professionalExperience?.map((clinic: clinicType, index: number) => {
             return (
               <div className="border-b border-gray-4 my-3" key={index}>
                 <Form.Item
@@ -182,7 +193,7 @@ function ProfileForm({
             Educational Background
           </h6>
           {educationalBackground &&
-            educationalBackground?.map((education: any, index: number) => {
+            educationalBackground?.map((education: educationType, index: number) => {
               return (
                 <div className="border-b border-gray-4 my-3" key={index}>
                   <Form.Item

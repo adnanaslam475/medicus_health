@@ -40,6 +40,11 @@ import { UserOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 
+type clinicType = {
+  institution: string;
+  role: string;
+};
+
 type Props = {
   doctorId?: string;
   doctorData?: User | any;
@@ -143,7 +148,9 @@ function EditProfile({
   const professionalExperience = parseJson(professional_experience) || [];
 
   const [clinicList, setClinicList] = useState([{ institution: "", role: "" }]);
-  const [educationList, setEducationList] = useState([{ institution: "", degree: "" }]);
+  const [educationList, setEducationList] = useState([
+    { institution: "", degree: "" },
+  ]);
 
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
@@ -194,11 +201,11 @@ function EditProfile({
         about_me: values?.about_me || "",
         condition_treated: condition_treated,
         language: physicianLanguage || "",
-        educational_background: educationList?.map((item: any) => ({
+        educational_background: educationList?.map((item) => ({
           institution: item?.institution,
           degree: item?.degree,
         })),
-        professional_experience: clinicList?.map((item: any) => ({
+        professional_experience: clinicList?.map((item) => ({
           institution: item?.institution,
           role: item?.role,
         })),
@@ -359,7 +366,10 @@ function EditProfile({
     setEducationList(educationListLocal);
   };
 
-  const handleClinicChange = (e: any, index: any) => {
+  const handleClinicChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const { name, value } = e.target;
     const clinicListLocal = [...clinicList];
     console.log("change handler is", index, name, value);
@@ -368,7 +378,10 @@ function EditProfile({
     setClinicList(clinicListLocal);
   };
 
-  const handleEducationChange = (e: any, index: any) => {
+  const handleEducationChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const { name, value } = e.target;
     const educationListLocal = [...educationList];
     console.log("change handler is", index, name, value, educationListLocal);
@@ -616,7 +629,7 @@ function EditProfile({
               )}
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
-                {clinicList?.map((clinic: any, index: number) => {
+                {clinicList?.map((clinic: clinicType, index: number) => {
                   return (
                     <div className="border-b border-gray-4 my-3" key={index}>
                       <Form.Item
