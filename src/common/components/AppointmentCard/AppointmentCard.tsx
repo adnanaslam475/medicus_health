@@ -53,11 +53,11 @@ function AppointmentCard({
     const { user } = getUserData();
     const { role } = user || {};
     if (role === "User" && status === "Requested") {
-      return "Pending";
+      return "Requested";
     } else if (role === "User" && status === "Proposed") {
-      return "Requested";
-    } else if (role === "Doctor" && status === "Requested") {
-      return "Requested";
+      return "Proposed";
+    } else if (role === "Doctor" && status === "Proposed") {
+      return "Proposed";
     } else if (role === "User" && status === "Rescheduled") {
       return "Rescheduled";
     } else if (role === "Doctor" && status === "Proposed") {
