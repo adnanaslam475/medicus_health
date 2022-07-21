@@ -60,7 +60,6 @@ function RequestedAppointment() {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    console.log("sorter", sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
