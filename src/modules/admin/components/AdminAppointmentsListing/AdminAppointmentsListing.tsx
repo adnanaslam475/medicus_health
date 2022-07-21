@@ -266,7 +266,7 @@ function AdminAppointmentsListing({}: Props) {
         <div className="w-full">
           <div className="flex-none sm:flex items-center justify-between mb-5">
             <div className="pr-3 mb-3 sm:mb-0">
-              <h2 className="mb-0 pb-0">Addppointments</h2>
+              <h2 className="mb-0 pb-0">Appointments</h2>
             </div>
             <div className="flex gap-3">
               <div className="lg:ml-3 mt-0 sm:mt-0">
