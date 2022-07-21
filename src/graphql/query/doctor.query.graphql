@@ -168,8 +168,10 @@ query physicianAppointments(
   }
 }
 
-# query physicianAppointmentsHistory($filter: GetAppointmentInput!) {
-#   appointments(filter: $filter) {
+# query physicianAppointmentsHistoryWithoutPagination(
+#   $filter: GetAppointmentInput!
+# ) {
+#   appointments(filter: $filter, id: $id) {
 #     id
 #     patientId
 #     createdAt

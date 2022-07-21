@@ -28,6 +28,7 @@ import {
   AppointmentServiceType,
   AppointmentTimeSlots,
   useCancelAppointmentByDoctorMutation,
+  useDoctorSchedulesQuery,
   useGetAllAppointmentServiceTypesQuery,
   useProposeNewTimeMutation,
 } from "generated/graphql";
@@ -796,6 +797,37 @@ function AvailabilityTimeSlots({
   onChangeDatePicker?: (dateString: string, name: string) => void;
   endDateValue?: string;
 }) {
+  const { user } = getUserData();
+  const doctorId = (user?.role === "Doctor" && user?.id) || 0;
+  const [{ data: scheduleDetails }, executeUseDoctorSchedulesQuery] =
+    useDoctorSchedulesQuery({
+      variables: {
+        doctorId: doctorId,
+      },
+      pause: !doctorId,
+    });
+  const doctorAvailableDaysList = scheduleDetails?.doctorSchedules?.map(
+    (item) => item.day
+  );
+
+  function disabledDate(current: any) {
+    const weekDays = [0, 1, 2, 3, 4, 5, 6];
+    // Remove duplicates from array
+    let doctorAvailableDays = [
+      ...(new Set(doctorAvailableDaysList) as unknown as number[]),
+    ];
+
+    // Returns list of days in which doctor is not available
+    const filteredDays = weekDays.filter(
+      (currentEl) => !doctorAvailableDays.includes(currentEl)
+    );
+    const isSunday = filteredDays.includes(0) ? 0 : NaN
+    const disabledDates =
+      current < dayjs().startOf("day") ||
+      new Date(current).getDay() === isSunday ||
+      filteredDays?.find((day) => day === new Date(current).getDay());
+    return disabledDates;
+  }
   return (
     <div className="block mb-10">
       {/* <TimeSlotPickerForm onChangeDatePicker={onChangeDatePicker} /> */}
@@ -808,6 +840,7 @@ function AvailabilityTimeSlots({
           <Form.Item label="Start Time" name="start_time">
             <Space direction="vertical" size={12}>
               <DatePicker
+                disabledDate={disabledDate as any}
                 className="w-full"
                 showTime
                 format={FORMAT_D_T_W_AM_PM}
