@@ -60,14 +60,14 @@ function RequestedAppointment() {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
+    console.log("sorter", sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
         ? `${
             (sorter.columnKey === "name" && "appointment_service_type") ||
-            (/(charges|requestedDate|createdAt|id)/.test(
-              sorter.columnKey
-            ) &&
+            (sorter.columnKey === "first_name" && "patient") ||
+            (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
               "appointment") ||
             "user"
           }.${sorter.columnKey || sorter.field}`
