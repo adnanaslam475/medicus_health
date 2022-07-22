@@ -83,11 +83,11 @@ const historyColumns = [
   },
   {
     title: "Total amount",
-    dataIndex: "charges",
-    key: "charges",
+    dataIndex: "transaction",
+    key: "transaction",
     sorter: true,
-    render: (charges: AppointmentServiceType) => {
-      return <div>{`$${charges}`}</div>;
+    render: (transaction: Transaction) => {
+      return <div>{`$${transaction?.amountReceived || "-"}`}</div>;
     },
   },
   {

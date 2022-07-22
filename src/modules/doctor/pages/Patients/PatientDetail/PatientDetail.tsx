@@ -30,7 +30,10 @@ type props = {
 function PatientDetail() {
   const form: any = useRef();
   const [activeTab, setActiveTab] = React.useState<string>("");
-
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
   const { query } = useRouter();
 
   const { TabPane } = Tabs;
@@ -47,7 +50,12 @@ function PatientDetail() {
     variables: { input: id as number },
   });
   //GET ALL TRANSACTIONS
-  const [{ data: allTransactions }] = useGetAllTransactionsQuery();
+  const [{ data: allTransactions }] = useGetAllTransactionsQuery({
+    variables: {
+      pagination: { limit: -1, page: 1 },
+      sorting,
+    },
+  });
   const { transactions } = allTransactions || {};
 
   // UPDATE PATIENT HEALTH HISTORY
