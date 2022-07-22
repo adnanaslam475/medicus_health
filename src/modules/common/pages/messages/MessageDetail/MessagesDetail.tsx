@@ -18,15 +18,14 @@ function Messages({}: Props) {
   const { query } = useRouter();
 
   useEffect(() => {
-    // console.log("all==>", query, JSON.parse(localStorage.getItem("id")));
-    let local = JSON.parse(localStorage.getItem("id"));
-    if (query?.chat && local) {
+    let localData = JSON.parse(localStorage.getItem("id") as any);
+    if (query?.chat && localData) {
       history.pushState(
         {},
         "",
-        `${Object.keys(JSON.parse(localStorage.getItem("id")))
+        `${Object.keys(localData)
           .map(function (key) {
-            return key + "=" + JSON.parse(localStorage.getItem("id"))[key];
+            return key + "=" + localData[key];
           })
           .join("&")}`
       );
