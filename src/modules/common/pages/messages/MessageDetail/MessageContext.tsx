@@ -31,7 +31,7 @@ type state = {
   onJoinChannel?: (channelName: string) => Promise<void>;
   createOrJoinChannel?: (channelName: string) => Promise<void>;
   loginToRtm?: () => Promise<void>;
-  markMessageAsReadHandler?: any;
+  markMessageAsReadHandler?: (id: number) => Promise<void>;
   onMessage: (text: string, messageType?: string) => void;
   setCurrentChannel: (channel: ChatChannels) => void;
   setChatSearch: (value: string) => void;
