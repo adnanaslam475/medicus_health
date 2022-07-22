@@ -159,6 +159,7 @@ query physicianAppointments(
       transaction {
         payment_status
         status
+        amountReceived
       }
     }
     meta {

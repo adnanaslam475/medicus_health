@@ -292,7 +292,7 @@ function AppointmentModalFooter({
             }}
             loading={createCardFetching}
           >
-            Pay ${contextData?.stepOne?.charges}
+            Pay ${totalAppointmentCharges}
           </Button>
         </div>
       )}
