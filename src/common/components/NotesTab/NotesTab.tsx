@@ -122,7 +122,7 @@ function NotesTab({}: Props) {
             {actualDoctorNotes &&
               (status === "Confirmed" ||
                 status === "Requested" ||
-                status === "Completed") && (
+                status === "!Completed") && (
                 <>
                   <h3>Current appointment notes</h3>
                   <NotesListingByAppointments
@@ -133,9 +133,7 @@ function NotesTab({}: Props) {
                 </>
               )}
             {!actualDoctorNotes ? (
-              status === "Confirmed" ||
-              status === "Requested" ||
-              status === "Completed"
+              status === "Confirmed" || status === "Requested"
             ) : (
               <>No current appointment notes available.</>
             )}

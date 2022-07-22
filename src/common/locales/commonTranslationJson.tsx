@@ -15,7 +15,8 @@ export const englishCommon: any = {
   password: "Password",
   confirm_password: "Confirm Password",
   confirm_your_password: "Please confirm your password!",
-  password_message: "Password must be minimum 8 characters.",
+  password_message: "Please confirm your password!",
+  password_message_8_character: "Password must be minimum 8 characters.",
   two_passwords_mismatch_message:
     "The two passwords that you entered do not match",
 
@@ -67,10 +68,18 @@ export const englishCommon: any = {
   cancelled: "Cancelled",
   unpaid: "Unpaid",
   rebook: "Rebook",
+
   request_an_appointment: "Request an appointment",
+  physician_name_is_required: "Physician name is required",
+  service_is_required: "Service is required",
+  requested_date_is_required: "Requested date is required",
+  availability_is_required: "Availability is required",
+  is_required: "Required",
+
   list_view: "List view",
   calendar_view: "Calendar View",
   service: "Service",
+  appointment_fee: "Appointment fee",
   second_opinion: "Second opinion",
   Consultation: "consultation",
   Charges: "charges",
@@ -153,6 +162,7 @@ export const spanishCommon: any = {
   confirm_password: "Confirmar contraseña",
   confirm_your_password: "¡Por favor, confirme su contraseña!",
   password_message: "Please confirm your password!",
+  password_message_8_character: "Password must be minimum 8 characters.",
   two_passwords_mismatch_message:
     "The two passwords that you entered do not match",
 
@@ -182,7 +192,7 @@ export const spanishCommon: any = {
   contact_number_message: "Please enter your contact number",
   country_message: "Please enter your country",
   postal_address_message: "Please enter your postal code",
-  upcoming_appointments: "Upcoming appointments",
+  upcoming_appointments: "soemn thing in sapmnish",
   pending_appointments: "Pending appointments",
   cancelled_appointments: "Cancelled appointments",
   history: "History",
@@ -202,10 +212,18 @@ export const spanishCommon: any = {
   cancelled: "Cancelled",
   unpaid: "Unpaid",
   rebook: "Rebook",
+
   request_an_appointment: "Request an appointment",
+  physician_name_is_required: "Physician name is required",
+  service_is_required: "Service is required",
+  requested_date_is_required: "Requested date is required",
+  availability_is_required: "Availability is required",
+  is_required: "Required",
+
   list_view: "List view",
   calendar_view: "Calendar View",
   service: "Service",
+  appointment_fee: "Appointment fee",
   second_opinion: "Second opinion",
   Consultation: "consultation",
   Charges: "charges",

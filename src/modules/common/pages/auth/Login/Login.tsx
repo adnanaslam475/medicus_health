@@ -53,7 +53,8 @@ function Login() {
           userPayload.user.role === "Staff"
         ) {
           Router.replace({
-            pathname: "/physician/dashboard",
+            pathname: "/physician/appointments/upcoming",
+            // pathname: "/physician/dashboard",
           });
         } else if (userPayload.user.role === "User") {
           Router.replace({

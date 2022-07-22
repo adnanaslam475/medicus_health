@@ -22,7 +22,10 @@ import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRa
 import ReactS3Client from "react-aws-s3-typescript";
 
 import {
+  useCountriesQuery,
   useEnableOrDisableDoctorMutation,
+  useGetCitiesByStateQuery,
+  useGetStatesByCountryQuery,
   useGetUserQuery,
   User,
   useUpdateDoctorProfileMutation,
@@ -67,6 +70,7 @@ type Props = {
   };
   addScheduleDay: string;
   loading?: boolean;
+  setProfileUpdated?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -85,6 +89,7 @@ function EditProfile({
   setAddScheduleClick,
   onAddClick,
   addScheduleTime,
+  setProfileUpdated,
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -152,6 +157,8 @@ function EditProfile({
     { institution: "", degree: "" },
   ]);
 
+  const [countryId, setCountryId] = useState<number | undefined>();
+  const [stateId, setStateId] = useState<number | undefined>();
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -159,9 +166,22 @@ function EditProfile({
 
   const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
+  function selectCountryId(id: number): void {
+    setCountryId(id);
+    formInstance.resetFields(["state_id", "city_id"]);
+  }
+
+  function selectStateId(id: number): void {
+    setStateId(id);
+  }
+
   useEffect(() => {
-    setClinicList(professionalExperience);
-    setEducationList(educationalBackground);
+    if (professionalExperience?.length) {
+      setClinicList(professionalExperience);
+    }
+    if (educationalBackground?.length) {
+      setEducationList(educationalBackground);
+    }
   }, []);
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -217,6 +237,7 @@ function EditProfile({
         notification.success({
           message: "Updated Successfully",
         });
+      setProfileUpdated?.((prev) => !prev);
       if (getRole() === "Doctor") {
         //checking logged in user email matched with updated email
         let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
@@ -372,7 +393,6 @@ function EditProfile({
   ) => {
     const { name, value } = e.target;
     const clinicListLocal = [...clinicList];
-    console.log("change handler is", index, name, value);
     //@ts-ignore
     clinicListLocal[index][name] = value;
     setClinicList(clinicListLocal);
@@ -384,11 +404,27 @@ function EditProfile({
   ) => {
     const { name, value } = e.target;
     const educationListLocal = [...educationList];
-    console.log("change handler is", index, name, value, educationListLocal);
     //@ts-ignore
     educationListLocal[index][name] = value;
     setEducationList(educationListLocal);
   };
+
+  const [getStatesByCountry] = useGetStatesByCountryQuery({
+    variables: {
+      input: countryId || 0,
+    },
+    pause: countryId === undefined,
+  });
+
+  const [getCityByState] = useGetCitiesByStateQuery({
+    variables: {
+      input: stateId || 0,
+    },
+    pause: stateId === undefined,
+  });
+
+  const [{ data: countriesData }] = useCountriesQuery();
+  const { countries } = countriesData || {};
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -428,24 +464,27 @@ function EditProfile({
                 }`}
               </h2>
               <span className="block">{doctor_email}</span>
-              {getRole() === "Admin" && (
-                <div className=" grid grid-cols-2 gap-3">
-                  <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
-                    <Tooltip
-                      title={doctorData ? "" : "Please complete doctor profile"}
-                    >
-                      <Button
-                        type="primary"
-                        className={`${_classes["published-button"]}`}
-                        onClick={handlePublish_Unpublish}
-                        disabled={doctorData ? false : true}
+              {getRole() === "Admin" ||
+                (getRole() === "Doctor" && (
+                  <div className=" grid grid-cols-2 gap-3">
+                    <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
+                      <Tooltip
+                        title={
+                          doctorData ? "" : "Please complete doctor profile"
+                        }
                       >
-                        {status ? "Published" : "Unpublished"}
-                      </Button>
-                    </Tooltip>
+                        <Button
+                          type="primary"
+                          className={`${_classes["published-button"]}`}
+                          onClick={handlePublish_Unpublish}
+                          disabled={doctorData ? false : true}
+                        >
+                          {status ? "Published" : "Unpublished"}
+                        </Button>
+                      </Tooltip>
+                    </div>
                   </div>
-                </div>
-              )}
+                ))}
             </div>
           </div>
 
@@ -545,6 +584,124 @@ function EditProfile({
                   className="flex-1"
                 >
                   <Input type="number" />
+                </Form.Item>
+              </div>
+
+              <Form.Item
+                label={"Street Address"}
+                name="streetAddress"
+                rules={[
+                  {
+                    required: true,
+                    message: "street address required",
+                    max: 30,
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <div className="flex flex-col sm:flex-row sm:gap-3">
+                <Form.Item
+                  className="flex-1"
+                  label={"Country"}
+                  name="country_id"
+                  rules={[
+                    {
+                      required: true,
+                      message: "country_message",
+                    },
+                  ]}
+                >
+                  <Select
+                    showSearch
+                    filterOption={(input, country: any) =>
+                      country.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                    onChange={(e) => {
+                      selectCountryId(e);
+                    }}
+                    placeholder={"Country"}
+                  >
+                    {React.Children.toArray(
+                      countries?.map((el, i) => {
+                        return (
+                          <Select.Option value={el?.id}>
+                            {el?.country_name}
+                          </Select.Option>
+                        );
+                      })
+                    )}
+                  </Select>
+                </Form.Item>
+                <Form.Item className="flex-1" label={"State"} name="state_id">
+                  <Select
+                    showSearch
+                    filterOption={(input, state: any) =>
+                      state.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                    onChange={(e) => {
+                      selectStateId(e);
+                      formInstance.setFieldsValue({
+                        city_id: null,
+                      });
+                    }}
+                    placeholder={"State"}
+                  >
+                    {React.Children.toArray(
+                      getStatesByCountry?.data?.getStatesByCountry?.map(
+                        (el, i) => {
+                          return (
+                            <Select.Option value={el.id}>
+                              {el?.state_name}
+                            </Select.Option>
+                          );
+                        }
+                      )
+                    )}
+                  </Select>
+                </Form.Item>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:gap-3">
+                <Form.Item className="flex-1" label={"City"} name="city_id">
+                  <Select
+                    placeholder={"City"}
+                    showSearch
+                    filterOption={(input, city: any) =>
+                      city.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                  >
+                    {React.Children.toArray(
+                      getCityByState?.data?.getCitiesByState?.map((el, i) => {
+                        return (
+                          <Select.Option value={el.id}>
+                            {el?.city_name}
+                          </Select.Option>
+                        );
+                      })
+                    )}
+                  </Select>
+                </Form.Item>
+
+                <Form.Item
+                  className="flex-1"
+                  label={"Postal Code"}
+                  name="zip_code"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Postal address is required",
+                    },
+                  ]}
+                >
+                  <Input />
                 </Form.Item>
               </div>
 

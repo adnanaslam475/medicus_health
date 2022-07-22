@@ -83,8 +83,9 @@ function PatientAppointmentHistoryFilter(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5 flex-wrap`}
     >
-      <div className="flex-none sm:flex">
-        <div className="mb-2 sm:mb-0  w-full sm:w-full md:w-full lg:w-60 mr-2 sm:mr-0">
+      <div className="flex-none sm:flex items-center">
+        <span className="text-gray-1 mr-3">Filter</span>
+        <div className="mb-2 sm:mb-0 md:mb-2 w-full sm:w-full md:w-full lg:w-60 mr-2 sm:mr-0">
           <Input
             placeholder={"Search by ID or physician name"}
             prefix={<SearchOutlined />}
@@ -94,7 +95,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
             value={filterState?.searchString || undefined}
           />
         </div>
-        <div className="sm:mb-0  w-full md:w-44 xl:w-60 mr-3 mb-2 sm:pl-3">
+        <div className="sm:mb-0 md:mb-2 w-full md:w-44 xl:w-60 mr-3 mb-2 sm:pl-3">
           <SelectPhysicianTypeFilter
             onChange={(value) => onChangeFields("doctorId", value)}
             value={filterState?.doctorId || "Physician"}
