@@ -164,7 +164,7 @@ function RequestedAppointment() {
                       appointmentTimeSlots,
                       appointmentDateTime,
                     } = appointmentDetail || {};
-                    var doctorFullName=`${doctor?.first_name} ${doctor?.last_name}`
+                    var doctorFullName = `${doctor?.first_name} ${doctor?.last_name}`;
                     return (
                       <AppointmentCard
                         appointmentId={Number(id)}
