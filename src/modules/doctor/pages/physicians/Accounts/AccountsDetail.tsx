@@ -28,6 +28,7 @@ import {
 } from "@ant-design/icons";
 import Image from "next/image";
 import DollarSvg from "../../../../../../public/assets/icon/dollar.svg";
+import ConsultationRatesSvgGray from "../../../../../../public/assets/icon/consultation-iconGray.png";
 
 function Accounts() {
   // GET USER ID
@@ -83,15 +84,17 @@ function Accounts() {
               <span className="font-Circular font-medium flex items-center">
                 <Image
                   priority={true}
+                  unoptimized
                   alt="DollarSvg"
-                  height="20"
-                  width="20"
+                  height="18"
+                  width="18"
                   onError={(e) => console.log(e)}
                   src={DollarSvg}
+
                   // style={{ fontSize: "20px", color: "#08c" }}
                   // className="bg-gray border rounded-full border-gray"
                 />
-                Bank info
+                <span className="ml-2">Bank info</span>
               </span>
             }
             key="2"
@@ -120,11 +123,23 @@ function Accounts() {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium flex items-center">
-                <EuroCircleOutlined
+                {/* <EuroCircleOutlined
                   // style={{ fontSize: "20px", color: "#08c" }}
                   style={{ fontSize: "20px" }}
+                /> */}
+                <Image
+                  priority={true}
+                  unoptimized
+                  alt="DollarSvg"
+                  height="20"
+                  width="25"
+                  onError={(e) => console.log(e)}
+                  src={ConsultationRatesSvgGray}
+
+                  // style={{ fontSize: "20px", color: "#08c" }}
+                  // className="bg-gray border rounded-full border-gray"
                 />
-                Consultation rates
+                <span className="ml-2">Consultation rates</span>
               </span>
             }
             key="4"
