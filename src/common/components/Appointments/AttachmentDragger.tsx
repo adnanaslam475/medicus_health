@@ -5,8 +5,13 @@ import Image from "next/image";
 import { useMediaUploader } from "common/hooks/media";
 import { useUpdateAppointmentAttachmentsMutation } from "generated/graphql";
 import { useRouter } from "next/router";
+import { AttachmentObject } from "common/types/types";
 
-const AttachmentDragger = () => {
+type Props = {
+  urlArr?: AttachmentObject[];
+};
+const AttachmentDragger = (props: Props) => {
+  const { urlArr } = props || {};
   const [fileList, setFileList] = useState([]);
   const mediaUploader = useMediaUploader();
 
@@ -72,12 +77,17 @@ const AttachmentDragger = () => {
   const { query } = useRouter();
 
   useEffect(() => {
-    console.log("useEffect file list is", fileList?.flat(1), fileList?.length);
     if (fileList?.flat(1)?.length && fileList?.flat(1)[0] !== undefined) {
+      let localList = urlArr?.length
+        ? [...urlArr, ...fileList.flat(1)]
+        : fileList.flat(1);
+      let filteredArray = localList.filter(
+        (v, i, a) => a.findIndex((v2) => v2.name === v.name) === i
+      );
       executeUseUpdateAppointmentAttachmentsMutation({
         updateAppointmentAttachmentsInput: {
           id: Number(query?.id),
-          reportUrl: JSON.stringify(fileList?.flat(1)),
+          reportUrl: JSON.stringify(filteredArray),
         },
       });
     }
