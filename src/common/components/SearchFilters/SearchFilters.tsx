@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import {
   BookingDate,
+  DueDate,
   useDoctorProfilesQuery,
   useGetAllAppointmentServiceTypesQuery,
 } from "../../../generated/graphql";
@@ -33,7 +34,7 @@ type Props = {
   isFromPhysician?: boolean | null | any;
   setSearchPatient?: string | any;
   setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
-  setDueDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
+  setDueDate?: React.Dispatch<React.SetStateAction<DueDate>>;
   setClearFilter?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -67,7 +68,7 @@ function SearchFilters(props: Props) {
   const [localAppointment_Id, setLocalAppointment_Id] = useState<
     number | null | undefined
   >();
-  const [dueDateRangeState, setDueDateRangeState] = useState<BookingDate>({});
+  const [dueDateRangeState, setDueDateRangeState] = useState<DueDate>({});
   const [bookingDateRangeState, setBookingDateRangeState] =
     useState<BookingDate>({});
   // const [dueDate, setDueDate] = useState<BookingDate>({});

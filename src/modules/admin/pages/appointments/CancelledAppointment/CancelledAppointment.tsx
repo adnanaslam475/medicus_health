@@ -8,6 +8,7 @@ import {
   AppointmentTimeSlots,
   BookingDate,
   DoctorProfile,
+  DueDate,
   Transaction,
   useGetAllRequestedAppointmentsQuery,
   useGetPhysiciansQuery,
@@ -22,6 +23,7 @@ function CancelledAppointment() {
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<DueDate>({});
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentId, setAppointmentId] = useState<number>();
@@ -36,7 +38,7 @@ function CancelledAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentId,
         serviceId: serviceIds,
-        bookingDate: bookingDate,
+        dueDate: dueDate,
       },
       pagination: { limit: -1, page: 1 },
     },
@@ -122,6 +124,7 @@ function CancelledAppointment() {
             setAppointmentId={setAppointmentId}
             setServiceIds={setServiceIds}
             setBookingDate={setBookingDate}
+            setDueDate={setDueDate}
           />
         </div>
         {fetching == false ? (

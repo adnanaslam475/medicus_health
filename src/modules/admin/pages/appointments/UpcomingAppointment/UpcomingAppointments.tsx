@@ -8,6 +8,7 @@ import { Button, Empty, Select, Spin, Tooltip } from "antd";
 import {
   AppointmentTimeSlots,
   BookingDate,
+  DueDate,
   useGetAllRequestedAppointmentsQuery,
   useGetPhysiciansQuery,
   usePatientHealthHistoryQuery,
@@ -25,6 +26,7 @@ function UpcomingAppointments() {
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<DueDate>({});
 
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
@@ -41,7 +43,7 @@ function UpcomingAppointments() {
         doctorId: doctorIds,
         appointmentId: appointmentId,
         serviceId: serviceIds,
-        dueDate: bookingDate,
+        dueDate: dueDate,
       },
       pagination: { limit: -1, page: 1 },
       sorting: { order: "", column: "" },
@@ -145,6 +147,7 @@ function UpcomingAppointments() {
             setStartDate={setStartDate}
             setEndDate={setEndDate}
             setBookingDate={setBookingDate}
+            setDueDate={setDueDate}
           />
         </div>
         {fetching == false ? (
