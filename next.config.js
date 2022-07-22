@@ -26,6 +26,7 @@ module.exports = withTM(
       domains: [
         "medicus-dev2.s3-us-east-2.amazonaws.com",
         "medicus-dev.agencypartner.com",
+        "medicus-uat.agencypartner.com",
         "www.google.com",
       ],
       // minimumCacheTTL: 60,

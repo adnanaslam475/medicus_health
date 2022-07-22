@@ -1,4 +1,5 @@
 // import ForgotPassword from "../src/modules/common/pages/auth/ForgotPassword/ForgotPasswordForm";
+import { translationJson } from "common/locales/translationJson";
 import ForgotPassword from "../src/modules/common/pages/auth/ForgotPassword/ForgotPassword";
 
 function forgotPassword() {
@@ -6,3 +7,10 @@ function forgotPassword() {
 }
 
 export default forgotPassword;
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      messages: translationJson(locale),
+    },
+  };
+}

@@ -52,14 +52,14 @@ function AppointmentInfo(props: Props) {
           value={`Dr. ${first_name} ${last_name}`}
         />
         <LabelValueRow label="Appointment type" value={name || "--"} />
-        {/* <LabelValueRow
+        <LabelValueRow
           label="Due date"
           value={date.formatDAYMMDDYY(selectedAppointment?.startTime)}
-        /> */}
-        {/* <LabelValueRow
+        />
+        <LabelValueRow
           label="Booking date"
           value={date.formatDAYMMDDYY(createdAt)}
-        /> */}
+        />
         <LabelValueRow
           label="Appointment time"
           value={`${date?.formathhmma(
@@ -89,32 +89,36 @@ function AppointmentInfo(props: Props) {
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]} mr-3`}
-            onClick={() =>
+            onClick={() => {
+              const query: any = {
+                chat: "admin",
+                doctorId: appointment?.doctorId,
+                patientId: appointment?.patientId,
+              };
+              localStorage.setItem("id", JSON.stringify(query));
               Router.push({
                 pathname: "/patient/messages",
-                query: {
-                  chat: "admin",
-                  doctorId: appointment?.doctorId,
-                  patientId: appointment?.patientId,
-                },
-              })
-            }
+                query,
+              });
+            }}
           >
             Message support
           </Button>
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]} `}
-            onClick={() =>
+            onClick={() => {
+              const query: any = {
+                chat: "doctor",
+                doctorId: appointment?.doctorId,
+                patientId: appointment?.patientId,
+              };
+              localStorage.setItem("id", JSON.stringify(query));
               Router.push({
                 pathname: "/patient/messages",
-                query: {
-                  chat: "doctor",
-                  doctorId: appointment?.doctorId,
-                  patientId: appointment?.patientId,
-                },
-              })
-            }
+                query,
+              });
+            }}
           >
             Message physician
           </Button>

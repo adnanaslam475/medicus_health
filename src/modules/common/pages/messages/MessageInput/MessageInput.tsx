@@ -1,6 +1,6 @@
-import { Badge, Input, notification, Spin, Upload } from "antd";
+import React, { useEffect, useState, useRef } from "react";
+import { Badge, Input, message, notification, Spin, Upload } from "antd";
 import Image from "next/image";
-import React, { useState } from "react";
 import _classes from "./MessageInput.module.scss";
 import attachIcon from "./../../../../../../public/assets/images/attach.svg";
 import smile from "./../../../../../../public/assets/images/smile.svg";
@@ -14,9 +14,18 @@ import { hasValidMessage } from "common/utils/helper";
 
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
-  const { messageInfo, onMessage, createChatFetching } = useMessageContext();
+  const [enabled, setEnabled] = useState(true);
+  const {
+    messageInfo,
+    onMessage,
+    createChatFetching,
+    markMessageAsReadHandler,
+  } = useMessageContext();
 
   const [fileList, setFileList] = useState([]);
+  const inputRef: any = useRef<null | HTMLElement>(null);
+  // const idRef: any = useRef<null | HTMLElement>(null);
+
   const [messageType, setMessageType] = useState("");
   // File Upload Hook
   const mediaUploader = useMediaUploader();
@@ -42,6 +51,7 @@ function MessageInput() {
   };
 
   async function onSendMessage() {
+    setEnabled(false);
     const urls = await fileUpload(
       fileList?.map(
         ({ originFileObj }: { originFileObj: File }) => originFileObj
@@ -63,11 +73,22 @@ function MessageInput() {
         }
       }
     }
-
+    setEnabled(true);
     setMessageText("");
   }
 
   const isShowInput = !!messageInfo.currentChannel?.channelName;
+
+  useEffect(() => {
+    inputRef.current && inputRef?.current.focus();
+    if (
+      inputRef.current &&
+      messageInfo.currentChannel &&
+      localStorage.getItem("id")
+    ) {
+      markMessageAsReadHandler(messageInfo.currentChannel?.id);
+    }
+  }, [messageInfo.currentChannel?.id]);
 
   // For Attachment in Chat
   const fileChange = async (info: any) => {
@@ -97,6 +118,7 @@ function MessageInput() {
         <>
           <Input
             placeholder="Type a new message"
+            ref={inputRef}
             onChange={({ target }) => onMessageTextChange(target.value)}
             onPressEnter={onSendMessage}
             value={messageText}
@@ -134,7 +156,7 @@ function MessageInput() {
                 itemRender={() => <div />}
                 fileList={fileList}
                 customRequest={() => null}
-                accept="image/jpg, image/jpeg,.doc, .pdf,"
+                accept=".doc,.docx,.pdf,.zip,.tiff,.tga,image/jpg,image/jpeg,image/jpg,image/bmp,image/x-tga,image/png,image/tga,application/msword,"
                 className={`${_classes["attachment-upload-btn"]} py-0`}
               >
                 <Image
@@ -149,7 +171,7 @@ function MessageInput() {
           </span>
           <span
             className="absolute top-3 right-4 cursor-pointer"
-            onClick={onSendMessage}
+            onClick={enabled ? onSendMessage : () => null}
           >
             {createChatFetching && messageType === "Media" ? (
               <Spin />

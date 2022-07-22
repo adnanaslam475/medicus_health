@@ -25,14 +25,16 @@ const MessageButtons = (props: Props) => {
             className={`${_classes["appointments-btn"]} mr-1 sm:mr-3`}
             // onClick={() => Router.push("/physician/messages")}
             onClick={() => {
+              const query: any = {
+                chat: "patient",
+                // patientId: adminApp_Details?.patient.patient_id,
+                doctorId,
+                patientId: patientID,
+              };
+              localStorage.setItem("id", JSON.stringify(query));
               Router.push({
                 pathname: "/physician/messages",
-                query: {
-                  chat: "patient",
-                  // patientId: adminApp_Details?.patient.patient_id,
-                  doctorId,
-                  patientId: patientID,
-                },
+                query,
               });
             }}
           >
@@ -45,17 +47,18 @@ const MessageButtons = (props: Props) => {
             <Button
               icon={<MessageOutlined />}
               className={`${_classes["appointments-btn"]} mr-3`}
-              onClick={() =>
+              onClick={() => {
+                const query: any = {
+                  chat: "doctor",
+                  doctorId,
+                  patientId: patientID,
+                };
+                localStorage.setItem("id", JSON.stringify(query));
                 Router.push({
                   pathname: "/physician/messages",
-                  query: {
-                    chat: "doctor",
-
-                    doctorId: doctorId,
-                    patientId: patientID,
-                  },
-                })
-              }
+                  query,
+                });
+              }}
             >
               Message physician
             </Button>
@@ -64,25 +67,25 @@ const MessageButtons = (props: Props) => {
         {(getRole() === "User" ||
           getRole() === "Doctor" ||
           getRole() === "Staff") && (
-            <Button
-              icon={<MessageOutlined />}
-              className={`${_classes["appointments-btn"]}`}
-              // onClick={() => Router.push("/physician/messages")}
-              onClick={() =>
-                Router.push({
-                  pathname: "/physician/messages",
-                  query: {
-                    chat: "admin",
-                    // doctorId: adminApp_Details?.doctor.doctor_Id,
-                    doctorId: doctorId,
-                    patientId: patientID,
-                  },
-                })
-              }
-            >
-              Message support
-            </Button>
-          )}
+          <Button
+            icon={<MessageOutlined />}
+            className={`${_classes["appointments-btn"]}`}
+            // onClick={() => Router.push("/physician/messages")}
+            onClick={() =>
+              Router.push({
+                pathname: "/physician/messages",
+                query: {
+                  chat: "admin",
+                  // doctorId: adminApp_Details?.doctor.doctor_Id,
+                  doctorId: doctorId,
+                  patientId: patientID,
+                },
+              })
+            }
+          >
+            Message support
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import Router, { useRouter } from "next/router";
 import Link from "next/link";
 import { Form, Input, Button, Checkbox, Alert } from "antd";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 import Container from "../../../../../common/components/Container/Container";
 import {
   LoginUserInput,
@@ -11,6 +10,7 @@ import {
 } from "../../../../../generated/graphql";
 import { getRole, getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
+import { useTranslations } from "next-intl";
 
 function Login() {
   const t = useTranslations("Login");
@@ -53,7 +53,8 @@ function Login() {
           userPayload.user.role === "Staff"
         ) {
           Router.replace({
-            pathname: "/physician/dashboard",
+            pathname: "/physician/appointments/upcoming",
+            // pathname: "/physician/dashboard",
           });
         } else if (userPayload.user.role === "User") {
           Router.replace({
@@ -112,7 +113,7 @@ function Login() {
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your email address",
+                        message: t("email_address_message"),
                       },
                       {
                         type: "email",

@@ -19,6 +19,16 @@ import { parseJson } from "common/utils/helper";
 import AdminQuestionnaireFormTab from "modules/admin/pages/AdminAppointmentsDetail/AdminQuestionnaireFormTab";
 import { useRouter } from "next/router";
 import EmailNotificationPage from "modules/common/components/EmailNotification/EmailNotificationPage";
+import {
+  BellOutlined,
+  EuroCircleOutlined,
+  EuroOutlined,
+  UnorderedListOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import Image from "next/image";
+import DollarSvg from "../../../../../../public/assets/icon/dollar.svg";
+import ConsultationRatesSvgGray from "../../../../../../public/assets/icon/consultation-iconGray.png";
 
 function Accounts() {
   // GET USER ID
@@ -26,7 +36,7 @@ function Accounts() {
   const { user } = getUserData();
   const id = user?.id;
 
-  // // Get patient Health History
+  //  Get patient Health History
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId: Number(id),
@@ -60,7 +70,10 @@ function Accounts() {
           <Tabs.TabPane
             className="w-full"
             tab={
-              <span className="font-Circular font-medium flex">Profile</span>
+              <span className="font-Circular font-medium flex items-center">
+                <UserOutlined style={{ fontSize: "20px" }} />
+                Profile
+              </span>
             }
             key="1"
           >
@@ -68,7 +81,21 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex">Bank info</span>
+              <span className="font-Circular font-medium flex items-center">
+                <Image
+                  priority={true}
+                  unoptimized
+                  alt="DollarSvg"
+                  height="18"
+                  width="18"
+                  onError={(e) => console.log(e)}
+                  src={DollarSvg}
+
+                  // style={{ fontSize: "20px", color: "#08c" }}
+                  // className="bg-gray border rounded-full border-gray"
+                />
+                <span className="ml-2">Bank info</span>
+              </span>
             }
             key="2"
           >
@@ -80,7 +107,10 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium">Questionnaire</span>
+              <span className="font-Circular font-medium flex items-center">
+                <UnorderedListOutlined style={{ fontSize: "20px" }} />
+                Questionnaire
+              </span>
             }
             key="3"
           >
@@ -92,8 +122,24 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex">
-                Consultation rates
+              <span className="font-Circular font-medium flex items-center">
+                {/* <EuroCircleOutlined
+                  // style={{ fontSize: "20px", color: "#08c" }}
+                  style={{ fontSize: "20px" }}
+                /> */}
+                <Image
+                  priority={true}
+                  unoptimized
+                  alt="DollarSvg"
+                  height="20"
+                  width="25"
+                  onError={(e) => console.log(e)}
+                  src={ConsultationRatesSvgGray}
+
+                  // style={{ fontSize: "20px", color: "#08c" }}
+                  // className="bg-gray border rounded-full border-gray"
+                />
+                <span className="ml-2">Consultation rates</span>
               </span>
             }
             key="4"
@@ -102,17 +148,18 @@ function Accounts() {
               <ConsultationRates />
             </div>
           </Tabs.TabPane>
-     
-        <Tabs.TabPane
+
+          <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium flex">
-              Email notification
+                <BellOutlined style={{ fontSize: "20px" }} />
+                Email Notifications
               </span>
             }
             key="5"
           >
             <div className="w-full md:w-1/2 lg:w-1/2 xl:w-2/5">
-             <EmailNotificationPage/>
+              <EmailNotificationPage />
             </div>
           </Tabs.TabPane>
         </Tabs>

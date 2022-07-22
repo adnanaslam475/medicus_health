@@ -6,10 +6,11 @@ import Image from "next/image";
 import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import Container from "../../../../../common/components/Container/Container";
-
 import { useUserForgotPasswordMutation } from "../../../../../generated/graphql";
+import { useTranslations } from "next-intl";
 
 const ForgotPassword = () => {
+  const t = useTranslations("ForgotPass");
   const [form] = Form.useForm();
   const router = useRouter();
   const [authToken, setAuthToken] = useState("");
@@ -70,7 +71,8 @@ const ForgotPassword = () => {
                 />
               </div>
               <h1 className="text-center text-secondary mb-0">
-                Forgot password
+                {t("forgot_pass")}
+                {/* Forgot password */}
               </h1>
               <h5 className="text-center text-gray font-rubik font-normal">
                 Enter your email below to reset password.
@@ -93,7 +95,7 @@ const ForgotPassword = () => {
                       {
                         required: true,
                         type: "email",
-                        message: "Please enter your email address",
+                        message: t("email_address_message"),
                       },
                       {
                         type: "email",

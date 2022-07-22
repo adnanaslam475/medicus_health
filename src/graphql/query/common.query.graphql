@@ -141,3 +141,9 @@ mutation deleteChatChannel($id: Int!) {
     id
   }
 }
+
+mutation markMessagesAsReadMutation($id: Int!) {
+  markMessagesAsRead(channelId: $id) {
+    id
+  }
+}

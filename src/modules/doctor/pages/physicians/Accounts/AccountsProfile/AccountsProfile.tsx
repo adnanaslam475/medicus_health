@@ -30,6 +30,7 @@ function AccountsProfile() {
     timeString: string[];
   }>({ timeString: [], time: null });
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
+  const [profileUpdated,setProfileUpdated]=useState(false)
 
   // GET USER ID
   const { user } = getUserData();
@@ -51,7 +52,7 @@ function AccountsProfile() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
       const variable = {
         doctorId: Number(id),
-        day: Number(addScheduleDay),
+        day: Number(addScheduleDay === 7 ? 0 :addScheduleDay ),
         startTime: addScheduleTime?.timeString[0],
         endTime: addScheduleTime?.timeString[1],
       };
@@ -68,11 +69,14 @@ function AccountsProfile() {
     }
   }, [deleteScheduleId]);
 
-  const [{ data ,fetching:doctorDataLoading}] = useDoctorProfileQuery({
+  const [{ data ,fetching:doctorDataLoading},executeUseDoctorProfileQuery] = useDoctorProfileQuery({
     variables: { doctor_id: id as number },
     pause: !id,
   });
   const { doctorProfile } = data || {};
+  useEffect(()=>{
+    executeUseDoctorProfileQuery({requestPolicy:"network-only"})
+  },[profileUpdated])
   return (
     <div>
       {isEdit ? (
@@ -89,6 +93,7 @@ function AccountsProfile() {
           addScheduleTime={addScheduleTime}
           onAddClick={onAddClick}
           loading={fetching}
+          setProfileUpdated={setProfileUpdated}
         />
       ) : (
         <ViewProfile

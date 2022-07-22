@@ -9,13 +9,17 @@ export function translationJson(local: string) {
           ...spanishCommon,
           title: "Iniciar sesión para continuar",
           description: "Ingrese sus credenciales para acceder a su cuenta.",
-          // remember: "Acuérdate de mí",
-          // forgot: "¿Has olvidado tu contraseña?",
-          // login: "Acceso",
-          // account: "¿No tienes una cuenta?",
-          // register: "Registro",
-          // email: "Dirección de correo electrónico",
-          // password: "contraseña",
+          remember: "Acuérdate de mí",
+          forgot: "¿Has olvidado tu contraseña?",
+        },
+        ForgotPass: {
+          ...spanishCommon,
+        },
+        Confirm_pass: {
+          ...spanishCommon,
+        },
+        ResendLink: {
+          ...spanishCommon,
         },
         AccountDetail: {
           ...spanishCommon,
@@ -40,26 +44,6 @@ export function translationJson(local: string) {
           ...spanishCommon,
           Login: "Acceso",
           AlreadyHaveAnAccount: "Ya tienes una cuenta",
-          Gender: "Género",
-          first_name: "Primer nombre",
-          last_name: "Apellido",
-          male: "Masculino",
-          female: "Femenina",
-          i_prefer_not_to_say: "Prefiero no contestar",
-          date_of_Birth: "Fecha de nacimiento",
-          email_address: "Dirección de correo electrónico",
-          password: "Contraseña",
-          confirm_password: "Confirmar contraseña",
-          street_address: "Dirección",
-          contact_number: "número de contacto",
-          country: "País",
-          state: "Estado",
-          city: "Ciudad",
-          postal_code: "Código postal",
-          postal_code_message: "Por favor ingrese su código postal",
-          i_agree_to_the: "Estoy de acuerdo con la ",
-          terms_n_conditions: " Términos y condiciones",
-          next: "Próximo",
         },
       };
       break;
@@ -77,6 +61,15 @@ export function translationJson(local: string) {
           register: "Register",
           email: "Email Address",
           password: "Password",
+        },
+        ForgotPass: {
+          ...englishCommon,
+        },
+        Confirm_pass: {
+          ...englishCommon,
+        },
+        ResendLink: {
+          ...englishCommon,
         },
         AccountDetail: {
           ...englishCommon,

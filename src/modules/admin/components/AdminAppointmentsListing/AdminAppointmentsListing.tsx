@@ -38,7 +38,7 @@ const appointmentColumns = [
   {
     title: "Physician",
     dataIndex: "doctor",
-    key: "first_name",
+    key: "",
     render: (value: User) => {
       return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
     },
@@ -252,7 +252,11 @@ function AdminAppointmentsListing({}: Props) {
             "appointment") ||
           (/doctor/.test(sorter.field) && "user") ||
           "patient"
-        }.${sorter.columnKey}` || "",
+        }.${
+          /(doctor|patient)/.test(sorter.field)
+            ? "first_name"
+            : sorter.columnKey
+        }` || "",
     });
   };
 

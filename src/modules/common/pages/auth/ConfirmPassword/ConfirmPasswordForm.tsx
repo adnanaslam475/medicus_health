@@ -2,6 +2,7 @@ import { Alert, Button, Form, Input } from "antd";
 import Password from "antd/lib/input/Password";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 
 type Props = {
   onFinish: (values: { password: string }) => void;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
+  const t = useTranslations("Confirm_pass");
   return (
     <Form
       layout="vertical"

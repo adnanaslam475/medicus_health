@@ -25,6 +25,10 @@ type Props = {
 function AccountTabs({ setIsShowBanner }: Props) {
   const form: any = useRef();
   const [activeTab, setActiveTab] = React.useState<string>("");
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
   // GET USER ID
   const { user } = getUserData();
   const id = user?.id;
@@ -36,7 +40,12 @@ function AccountTabs({ setIsShowBanner }: Props) {
   const router = useRouter();
   const { query } = router;
   //GET ALL TRANSACTIONS
-  const [{ data: allTransactions }] = useGetAllTransactionsQuery();
+  const [{ data: allTransactions }] = useGetAllTransactionsQuery({
+    variables: {
+      pagination: { limit: -1, page: 1 },
+      sorting,
+    },
+  });
   const { transactions } = allTransactions || {};
 
   // UPDATE PATIENT HEALTH HISTORY

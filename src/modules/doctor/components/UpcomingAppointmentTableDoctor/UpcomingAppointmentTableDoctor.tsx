@@ -82,7 +82,7 @@ const columns = [
     dataIndex: "charges",
     key: "charges",
     render: (value: number) => {
-      return <div>{value}</div>;
+      return <div>${value}</div>;
     },
     sorter: true,
   },

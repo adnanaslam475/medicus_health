@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { Avatar, Form, Button, Skeleton } from "antd";
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from "@ant-design/icons";
 
 import { useGetUserQuery, User } from "generated/graphql";
 import { Schedule } from "common/types/types";
@@ -30,18 +30,16 @@ export const ViewProfile = React.forwardRef(function Profile({
   loading,
 }: props) {
   const [formInstance] = Form.useForm();
-  const { first_name, last_name, email, contact_number, status, language ,password} =
-    doctorData?.user || {};
+  const { contact_number, status, language, password } = doctorData?.user || {};
 
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: Number(doctorId) },
   });
-
   const {
-    first_name: doctor_first_name,
-    last_name: doctor_last_name,
-    email: doctor_email,
-  } = userData?.user || {};
+    first_name,
+    last_name,
+    email,
+  } = userData?.user || doctorData?.user || {};
 
   const {
     specialization,
@@ -58,10 +56,10 @@ export const ViewProfile = React.forwardRef(function Profile({
     parseJson(professional_experience || "[]") || [];
 
   useEffect(() => {
-    if (doctorData) {
+    if (doctorData || userData) {
       prepareAndSetEditPayload();
     }
-  }, [doctorData]);
+  }, [doctorData,userData]);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -73,21 +71,10 @@ export const ViewProfile = React.forwardRef(function Profile({
       email: email,
       password: password,
       confirmPassword: password,
-      ["eb-institution-0"]: educationalBackground[0]?.institution,
-      ["eb-degree-0"]: educationalBackground[0]?.degree,
-      ["eb-institution-1"]: educationalBackground[1]?.institution,
-      ["eb-degree-1"]: educationalBackground[1]?.degree,
-
-      ["pe-institution-0"]: professionalExperience[0]?.institution,
-      ["pe-role-0"]: professionalExperience[0]?.role,
-      ["pe-institution-1"]: professionalExperience[1]?.institution,
-      ["pe-role-1"]: professionalExperience[1]?.role,
-      ["pe-institution-2"]: professionalExperience[2]?.institution,
-      ["pe-role-2"]: professionalExperience[2]?.role,
       about_me: about_me,
     });
   }
-
+  
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -104,15 +91,15 @@ export const ViewProfile = React.forwardRef(function Profile({
 
             <div>
               <Skeleton
-                loading={loading || !doctor_first_name}
+                loading={loading || !first_name}
                 paragraph={{ rows: 1 }}
                 active
               >
                 <h2 className="mb-0">
-                  {`${doctor_first_name || " "} ${doctor_last_name || " "}`}
+                  {`${first_name || " "} ${last_name || " "}`}
                 </h2>
               </Skeleton>
-              <span className="block">{doctor_email}</span>
+              <span className="block">{email}</span>
               <div className="flex gap-2 pt-2">
                 {getRole() === "Admin" && (
                   <Button
@@ -140,7 +127,9 @@ export const ViewProfile = React.forwardRef(function Profile({
             showLoginInfo={showLoginInfo}
             schedules={schedules}
             formInstance={formInstance}
-          />
+            professionalExperience={professionalExperience}
+            educationalBackground={educationalBackground}
+/>
         </div>
       </div>
     </div>
