@@ -13,9 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -670,6 +668,7 @@ export type Mutation = {
   enableOrDisableStaff: User;
   generateRTCToken: RtcTokenResponse;
   login: LoginResponse;
+  markMessagesAsRead: ChatChannels;
   markedAppointmentAsCompleted: Appointment;
   payment: Transaction;
   proposeNewTime: Appointment;
@@ -691,6 +690,7 @@ export type Mutation = {
   suggestNewTime: Appointment;
   toggleEmailPreferences: UserEmailPreferencesResponse;
   updateAdminUser: User;
+  updateAppointmentAttachments: Appointment;
   updateDctorPercentage: Transaction;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
@@ -857,6 +857,11 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationMarkMessagesAsReadArgs = {
+  channelId: Scalars['Int'];
+};
+
+
 export type MutationMarkedAppointmentAsCompletedArgs = {
   appointmentId: Scalars['Int'];
 };
@@ -960,6 +965,11 @@ export type MutationToggleEmailPreferencesArgs = {
 export type MutationUpdateAdminUserArgs = {
   id: Scalars['Int'];
   updateAdminUserInput: UpdateAdminUserInput;
+};
+
+
+export type MutationUpdateAppointmentAttachmentsArgs = {
+  updateAppointmentAttachmentsInput: UpdateAppointmentAttachmentsInput;
 };
 
 
@@ -1472,6 +1482,11 @@ export type UpdateAdminUserInput = {
   last_name: Scalars['String'];
   password?: InputMaybe<Scalars['String']>;
   profile_picture?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateAppointmentAttachmentsInput = {
+  id: Scalars['Int'];
+  reportUrl: Scalars['JSON'];
 };
 
 export type UpdateDoctorPercentage = {
@@ -2043,6 +2058,13 @@ export type DeleteChatChannelMutationVariables = Exact<{
 
 
 export type DeleteChatChannelMutation = { __typename?: 'Mutation', deleteChat: { __typename?: 'ChatChannels', id: number } };
+
+export type MarkMessagesAsReadMutationMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type MarkMessagesAsReadMutationMutation = { __typename?: 'Mutation', markMessagesAsRead: { __typename?: 'ChatChannels', id: number } };
 
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
@@ -3463,6 +3485,17 @@ export const DeleteChatChannelDocument = gql`
 
 export function useDeleteChatChannelMutation() {
   return Urql.useMutation<DeleteChatChannelMutation, DeleteChatChannelMutationVariables>(DeleteChatChannelDocument);
+};
+export const MarkMessagesAsReadMutationDocument = gql`
+    mutation markMessagesAsReadMutation($id: Int!) {
+  markMessagesAsRead(channelId: $id) {
+    id
+  }
+}
+    `;
+
+export function useMarkMessagesAsReadMutationMutation() {
+  return Urql.useMutation<MarkMessagesAsReadMutationMutation, MarkMessagesAsReadMutationMutationVariables>(MarkMessagesAsReadMutationDocument);
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
@@ -7465,6 +7498,29 @@ export default {
             ]
           },
           {
+            "name": "markMessagesAsRead",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ChatChannels",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "channelId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "markedAppointmentAsCompleted",
             "type": {
               "kind": "NON_NULL",
@@ -7947,6 +8003,29 @@ export default {
               },
               {
                 "name": "updateAdminUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateAppointmentAttachments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "updateAppointmentAttachmentsInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

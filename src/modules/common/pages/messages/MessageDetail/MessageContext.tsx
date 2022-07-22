@@ -1,3 +1,10 @@
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { message, notification } from "antd";
 import { getUserData } from "common/utils/userData";
 import {
@@ -8,16 +15,10 @@ import {
   useGenerateRtcTokenMutation,
   useGetAllChatChannelsQuery,
   useGetChannelMessagesQuery,
+  useMarkMessagesAsReadMutationMutation,
 } from "generated/graphql";
 
 import { useRouter } from "next/router";
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
 import Client from "./client";
 
 type state = {
@@ -30,6 +31,7 @@ type state = {
   onJoinChannel?: (channelName: string) => Promise<void>;
   createOrJoinChannel?: (channelName: string) => Promise<void>;
   loginToRtm?: () => Promise<void>;
+  markMessageAsReadHandler?: any;
   onMessage: (text: string, messageType?: string) => void;
   setCurrentChannel: (channel: ChatChannels) => void;
   setChatSearch: (value: string) => void;
@@ -72,12 +74,16 @@ export function MessageContextProvider({
     messagesWithChannel: {},
     currentChannel: undefined,
   });
+  const [againFetchAllChannel, setAgainFetchAllChannel] =
+    useState<boolean>(false);
   const [createChatFetching, setCreateChatFetching] = useState<boolean>(false);
   const [searchString, setChatSearch] = React.useState<string>("");
   const { query } = useRouter();
   const messageInfoRef = useRef<MessageInfo>(messageInfo);
   messageInfoRef.current = messageInfo;
   const rtmRef = useRef<Client>();
+  const [{}, markAsReadMutation] = useMarkMessagesAsReadMutationMutation();
+
   const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
   const [{ data }, executeGetAllChatChannelsMutation] =
     useGetAllChatChannelsQuery({
@@ -137,13 +143,22 @@ export function MessageContextProvider({
           },
         });
       }
-      executeGetAllChatChannelsMutation({
-        requestPolicy: "network-only",
-      });
+      setAgainFetchAllChannel(true);
+      // executeGetAllChatChannelsMutation({
+      //   requestPolicy: "network-only",
+      // });
     } catch (error) {
       console.log("error to carete", error);
     }
   }
+
+  useEffect(() => {
+    if (againFetchAllChannel) {
+      executeGetAllChatChannelsMutation({
+        requestPolicy: "network-only",
+      });
+    }
+  }, [againFetchAllChannel]);
 
   useEffect(() => {
     createOrJoinChannel();
@@ -319,7 +334,16 @@ export function MessageContextProvider({
       }
     }
   }
-
+  async function markMessageAsReadHandler(id: number) {
+    try {
+      await markAsReadMutation({
+        id,
+      });
+      localStorage.removeItem("id");
+    } catch (error) {
+      console.log("something went wrong");
+    }
+  }
   async function onMessage(text: string, messageType: string = "Text") {
     executeCreateChatMessageMutation({
       createChatMessageInput: {
@@ -373,6 +397,7 @@ export function MessageContextProvider({
         onJoinChannel,
         setChatSearch,
         loginToRtm,
+        markMessageAsReadHandler,
         setCurrentChannel,
         createOrJoinChannel,
         onMessage,

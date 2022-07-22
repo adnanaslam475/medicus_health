@@ -31,6 +31,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const messageTimein12HoursFomrat = date?.formathhmma(messageTime?.toString());
 
   async function onJoinChat() {
+    localStorage.setItem("id", JSON.stringify(query));
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
