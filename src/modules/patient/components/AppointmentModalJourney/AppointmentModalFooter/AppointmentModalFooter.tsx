@@ -304,7 +304,7 @@ function AppointmentModalFooter({
             onClick={() => Router.push(`/patient/appointments/upcoming`)}
             className={`${_classes["button-background-color"]}`}
           >
-            Upcoming Appointments
+            Upcoming appointments
           </Button>
         </div>
       )}

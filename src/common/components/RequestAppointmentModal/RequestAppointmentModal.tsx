@@ -58,7 +58,7 @@ const RequestAppointmentModal = () => {
   return (
       <></>
     // <Modal
-    //   title="Request an Appointment"
+    //   title="Request an appointment"
     //   visible={isModalVisible}
     //   onOk={handleOk}
     //   onCancel={handleCancel}
@@ -92,7 +92,7 @@ const RequestAppointmentModal = () => {
     //         className={`${_classes["btn-next"]}`}
     //         onClick={() => next()}
     //       >
-    //         Request an Appointment
+    //         Request an appointment
     //       </Button>
     //     )}
     //   </div>
