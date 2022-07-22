@@ -13,9 +13,9 @@ export const englishCommon: any = {
   email_address: "Email Address",
 
   password: "Password",
+  password_message: "Please enter your password!",
   confirm_password: "Confirm Password",
   confirm_your_password: "Please confirm your password!",
-  password_message: "Please confirm your password!",
   password_message_8_character: "Password must be minimum 8 characters.",
   two_passwords_mismatch_message:
     "The two passwords that you entered do not match",
@@ -159,12 +159,13 @@ export const spanishCommon: any = {
   email_address: "Dirección de correo electrónico",
 
   password: "Contraseña",
+  password_message: "¡Por favor, introduzca su contraseña!",
   confirm_password: "Confirmar contraseña",
   confirm_your_password: "¡Por favor, confirme su contraseña!",
-  password_message: "Please confirm your password!",
-  password_message_8_character: "Password must be minimum 8 characters.",
+  password_message_8_character:
+    "La contraseña debe tener un mínimo de 8 caracteres.",
   two_passwords_mismatch_message:
-    "The two passwords that you entered do not match",
+    "Las dos contraseñas que ingresaste no coinciden",
 
   street_address: "Dirección",
   contact_number: "número de contacto",
@@ -188,10 +189,10 @@ export const spanishCommon: any = {
     "Por favor, introduzca su dirección de correo electrónico",
   email_invalid_message: "el correo electrónico es invalido",
   email_already_exist: "Ya existe el correo electrónico",
-  street_address_message: "Please enter your street address",
-  contact_number_message: "Please enter your contact number",
-  country_message: "Please enter your country",
-  postal_address_message: "Please enter your postal code",
+  street_address_message: "Por favor ingrese su dirección postal",
+  contact_number_message: "Por favor ingrese su número de contacto",
+  country_message: "Por favor ingrese su país",
+  postal_address_message: "Por favor ingrese su código postal",
   upcoming_appointments: "soemn thing in sapmnish",
   pending_appointments: "Pending appointments",
   cancelled_appointments: "Cancelled appointments",
