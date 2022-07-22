@@ -115,7 +115,7 @@ const Columns = [
         <EyeFilled
           onClick={() => {
             return Router.push(
-              `/physician/appointments/requested/${appointmentId}`
+              `/physician/appointments/pending/${appointmentId}`
             );
           }}
         />

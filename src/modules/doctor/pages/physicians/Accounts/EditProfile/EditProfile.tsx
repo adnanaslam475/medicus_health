@@ -40,6 +40,11 @@ import { UserOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 
+type clinicType = {
+  institution: string;
+  role: string;
+};
+
 type Props = {
   doctorId?: string;
   doctorData?: User | any;
@@ -62,6 +67,7 @@ type Props = {
   };
   addScheduleDay: string;
   loading?: boolean;
+  setProfileUpdated?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -80,6 +86,7 @@ function EditProfile({
   setAddScheduleClick,
   onAddClick,
   addScheduleTime,
+  setProfileUpdated,
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -87,15 +94,6 @@ function EditProfile({
     Spanish: false,
     English: false,
   });
-  const [clinicList, setClinicList] = useState([
-    { service: "" },
-    { service: "" },
-  ]);
-
-  const [instituteList, setInstituteList] = useState([
-    { service: "" },
-    { service: "" },
-  ]);
 
   const user = getUserData();
   const { email: loggedInUserEmail, id: loggedInUserId } = user?.user || {};
@@ -151,6 +149,11 @@ function EditProfile({
 
   const professionalExperience = parseJson(professional_experience) || [];
 
+  const [clinicList, setClinicList] = useState([{ institution: "", role: "" }]);
+  const [educationList, setEducationList] = useState([
+    { institution: "", degree: "" },
+  ]);
+
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -158,6 +161,14 @@ function EditProfile({
 
   const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
+  useEffect(() => {
+    if (professionalExperience?.length) {
+      setClinicList(professionalExperience);
+    }
+    if (educationalBackground?.length) {
+      setEducationList(educationalBackground);
+    }
+  }, []);
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       firstName: doctor_first_name,
@@ -168,17 +179,6 @@ function EditProfile({
       email: doctor_email,
       password: "",
       confirmPassword: "",
-      ["eb-institution-0"]: educationalBackground[0]?.institution,
-      ["eb-degree-0"]: educationalBackground[0]?.degree,
-      ["eb-institution-1"]: educationalBackground[1]?.institution,
-      ["eb-degree-1"]: educationalBackground[1]?.degree,
-
-      ["pe-institution-0"]: professionalExperience[0]?.institution,
-      ["pe-role-0"]: professionalExperience[0]?.role,
-      ["pe-institution-1"]: professionalExperience[1]?.institution,
-      ["pe-role-1"]: professionalExperience[1]?.role,
-      ["pe-institution-2"]: professionalExperience[2]?.institution,
-      ["pe-role-2"]: professionalExperience[2]?.role,
       about_me: about_me,
       language: language,
     });
@@ -207,30 +207,14 @@ function EditProfile({
         about_me: values?.about_me || "",
         condition_treated: condition_treated,
         language: physicianLanguage || "",
-        educational_background: [
-          {
-            institution: values["eb-institution-0"],
-            degree: values["eb-degree-0"],
-          },
-          {
-            institution: values["eb-institution-1"],
-            degree: values["eb-degree-1"],
-          },
-        ],
-        professional_experience: [
-          {
-            institution: values["pe-institution-0"],
-            role: values["pe-role-0"],
-          },
-          {
-            institution: values["pe-institution-1"],
-            role: values["pe-role-1"],
-          },
-          {
-            institution: values["pe-institution-2"],
-            role: values["pe-role-2"],
-          },
-        ],
+        educational_background: educationList?.map((item) => ({
+          institution: item?.institution,
+          degree: item?.degree,
+        })),
+        professional_experience: clinicList?.map((item) => ({
+          institution: item?.institution,
+          role: item?.role,
+        })),
       },
     });
 
@@ -239,6 +223,7 @@ function EditProfile({
         notification.success({
           message: "Updated Successfully",
         });
+        setProfileUpdated?.((prev)=>!prev);
       if (getRole() === "Doctor") {
         //checking logged in user email matched with updated email
         let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
@@ -342,30 +327,8 @@ function EditProfile({
         about_me: values?.about_me || "",
         condition_treated: list.toString(),
         language: physicianLanguage || "",
-        educational_background: [
-          {
-            institution: values["eb-institution-0"],
-            degree: values["eb-degree-0"],
-          },
-          {
-            institution: values["eb-institution-1"],
-            degree: values["eb-degree-1"],
-          },
-        ],
-        professional_experience: [
-          {
-            institution: values["pe-institution-0"],
-            role: values["pe-role-0"],
-          },
-          {
-            institution: values["pe-institution-1"],
-            role: values["pe-role-1"],
-          },
-          {
-            institution: values["pe-institution-2"],
-            role: values["pe-role-2"],
-          },
-        ],
+        educational_background: educationalBackground,
+        professional_experience: professionalExperience,
       },
     });
 
@@ -393,7 +356,7 @@ function EditProfile({
     language !== undefined;
 
   const addHospital = () => {
-    setClinicList([...clinicList, { service: "" }]);
+    setClinicList([...clinicList, { institution: "", role: "" }]);
   };
   const removeHospital = (index: number) => {
     const clinicListLocal = [...clinicList];
@@ -401,13 +364,35 @@ function EditProfile({
     setClinicList(clinicListLocal);
   };
 
-  const addInstitute = () => {
-    setInstituteList([...instituteList, { service: "" }]);
+  const addEducation = () => {
+    setEducationList([...educationList, { institution: "", degree: "" }]);
   };
-  const removeInstitute = (index: number) => {
-    const instituteListLocal = [...instituteList];
-    instituteListLocal?.splice(index, 1);
-    setInstituteList(instituteListLocal);
+  const removeEducation = (index: number) => {
+    const educationListLocal = [...educationList];
+    educationListLocal?.splice(index, 1);
+    setEducationList(educationListLocal);
+  };
+
+  const handleClinicChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+    const clinicListLocal = [...clinicList];
+    //@ts-ignore
+    clinicListLocal[index][name] = value;
+    setClinicList(clinicListLocal);
+  };
+
+  const handleEducationChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+    const educationListLocal = [...educationList];
+    //@ts-ignore
+    educationListLocal[index][name] = value;
+    setEducationList(educationListLocal);
   };
 
   return (
@@ -649,12 +634,14 @@ function EditProfile({
               )}
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional Background</h5>
-                {clinicList?.map((item, index) => {
+                {clinicList?.map((clinic: clinicType, index: number) => {
                   return (
-                    <div className="border-b border-gray-4 my-3" key={index}>
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
                       <Form.Item
                         label="Hospital/Clinic/Institution"
-                        name="pe-institution-2"
                         rules={[
                           {
                             required: false,
@@ -663,22 +650,29 @@ function EditProfile({
                         ]}
                         className="flex-1"
                       >
-                        <Input value="University of Oklahoma College of Medicine" />
+                        <Input
+                          name={`institution`}
+                          value={clinic?.institution}
+                          onChange={(e) => handleClinicChange(e, index)}
+                        />
                       </Form.Item>
                       <Form.Item
                         label="Role"
-                        name="pe-role-2"
                         rules={[{ required: false, message: "role" }]}
                         className="flex-1"
                       >
-                        <Input />
+                        <Input
+                          value={clinic?.role}
+                          name={`role`}
+                          onChange={(e) => handleClinicChange(e, index)}
+                        />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
                         <Button onClick={addHospital}>Add new field</Button>
                       )}
                       &nbsp;
                       {clinicList?.length > 1 && (
-                        <Button onClick={() => removeHospital(index)}>
+                        <Button danger onClick={() => removeHospital(index)}>
                           Remove new field
                         </Button>
                       )}
@@ -689,12 +683,14 @@ function EditProfile({
 
               <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Educational Background</h6>
-                {instituteList?.map((item, index) => {
+                {educationList?.map((education, index) => {
                   return (
-                    <div className="border-b border-gray-4 my-3" key={index}>
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
                       <Form.Item
                         label="University/Institution"
-                        name="eb-institution-0"
                         rules={[
                           {
                             required: false,
@@ -703,11 +699,14 @@ function EditProfile({
                         ]}
                         className="flex-1"
                       >
-                        <Input value="University of Oklahoma College of Medicine" />
+                        <Input
+                          name={`institution`}
+                          value={education?.institution}
+                          onChange={(e) => handleEducationChange(e, index)}
+                        />
                       </Form.Item>
                       <Form.Item
                         label="Degree/Diploma/Certification"
-                        name="eb-degree-0"
                         rules={[
                           {
                             required: false,
@@ -716,14 +715,18 @@ function EditProfile({
                         ]}
                         className="flex-1"
                       >
-                        <Input value="University of Oklahoma College of Medicine" />
+                        <Input
+                          name={`degree`}
+                          value={education?.degree}
+                          onChange={(e) => handleEducationChange(e, index)}
+                        />
                       </Form.Item>
-                      {instituteList?.length - 1 === index && (
-                        <Button onClick={addInstitute}>Add new field</Button>
+                      {educationList?.length - 1 === index && (
+                        <Button onClick={addEducation}>Add new field</Button>
                       )}
                       &nbsp;
-                      {instituteList?.length > 1 && (
-                        <Button onClick={() => removeInstitute(index)}>
+                      {educationList?.length > 1 && (
+                        <Button danger onClick={() => removeEducation(index)}>
                           Remove new field
                         </Button>
                       )}
@@ -746,7 +749,7 @@ function EditProfile({
             <Form layout="vertical">
               <div className={`my-6 hidden ${_classes["educational"]}`}>
                 <h6>Login Information</h6>
-                <div className="border-b border-gray-4 my-3">
+                <div className="border-b border-gray-3 my-3 py-3">
                   <Form.Item
                     label="Email Address"
                     name="institute"

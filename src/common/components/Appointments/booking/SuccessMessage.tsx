@@ -15,11 +15,11 @@ function SuccessMessage({ onCancel }: Props) {
   const role = getRole();
   const clickHandler = () => {
     const pathname = window?.location?.pathname;
-    const patientPath = pathname === "/patient/appointments/requested";
+    const patientPath = pathname === "/patient/appointments/pending";
     if (role === "Admin" || patientPath) {
       return onCancel();
     } else {
-      Router.push("/patient/appointments/requested");
+      Router.push("/patient/appointments/pending");
     }
   };
   return (

@@ -126,13 +126,13 @@ const Columns = [
   },
   {
     title: "Refund($)",
-    dataIndex: ["appointmentCharges", "status"],
-    key: "appointment",
+    dataIndex: ["doctor_percentage", "status"],
+    key: "doctor_percentage",
     sorter: true,
     render: (text: any, row: any) => {
       return (
         <div className="someclass">
-          {`${row?.status === "Refunded" ? row?.appointmentCharges : 0}`}
+          {`${row?.status === "Refunded" ? row?.doctor_percentage : 0}`}
         </div>
       );
     },
@@ -157,12 +157,15 @@ const Columns = [
   // },
   {
     title: "Net physician fee($)",
-    dataIndex: "doctor_percentage",
+    dataIndex: ["doctor_percentage", "status"],
     key: "doctor_percentage",
     sorter: true,
-
-    render: (value: string) => {
-      return <div className="someclass">{`${value}`}</div>;
+    render: (text: any, row: any) => {
+      return (
+        <div className="someclass">
+          {`${row?.status === "Refunded" ? 0 : row?.doctor_percentage}`}
+        </div>
+      );
     },
   },
   // {

@@ -10,8 +10,11 @@ import {
   useUserResetPasswordMutation,
 } from "../../../../../generated/graphql";
 import Router, { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 
 function ConfirmPassword() {
+  const t = useTranslations("Confirm_pass");
+
   // Reset Password API call
 
   const [result, resetPassword] = useUserResetPasswordMutation();
@@ -57,7 +60,8 @@ function ConfirmPassword() {
               />
             </div>
             <h1 className="text-center text-secondary mb-3">
-              Confirm password
+              {t("confirm_password")}
+              {/* Confirm password */}
             </h1>
             <h5 className="text-center text-gray font-rubik font-normal">
               Enter your new password

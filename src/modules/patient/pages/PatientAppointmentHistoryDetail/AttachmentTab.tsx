@@ -1,6 +1,9 @@
 import Attachment from "common/components/Attachment/Attachment";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
+import {
+  GetAppointmentInput,
+  usePhysicianAppointmentsHistoryQuery,
+} from "generated/graphql";
 import React from "react";
 import jpgIcon from "../../../../../public/assets/images/jpg.svg";
 import word from "../../../../../public/assets/images/word-file.svg";
@@ -12,9 +15,26 @@ import { Spin } from "antd";
 function AttachmentTab() {
   const { query } = useRouter();
 
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+    {}
+  );
+
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
   const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { searchString: String(query?.id), status: "Completed" },
+      // filter: { searchString: String(query?.id), status: "Completed" },
+      filter: { ...filterValues, status: "Completed" },
+      pagination: { limit: -1, page: 1 },
+      sorting,
     },
   });
   const { appointments } = data || {};
@@ -31,6 +51,7 @@ function AttachmentTab() {
   }
   const { patient, serviceType } = appointment || {};
 
+  // urlArr ? console.log(urlArr, "anis----") : console.log("anis");
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />

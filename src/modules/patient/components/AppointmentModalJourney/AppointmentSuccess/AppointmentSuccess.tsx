@@ -36,7 +36,7 @@ const AppointmentSuccess = () => {
         Success!
       </h2>
       <div className="text-base text-gray text-center">
-        Your appointment has been confirmed. Please go to Upcoming Appointments
+        Your appointment has been confirmed. Please go to Upcoming appointments
         to see more details.
       </div>
     </>
