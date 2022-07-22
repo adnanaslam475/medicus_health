@@ -670,6 +670,7 @@ export type Mutation = {
   enableOrDisableStaff: User;
   generateRTCToken: RtcTokenResponse;
   login: LoginResponse;
+  markMessagesAsRead: ChatChannels;
   markedAppointmentAsCompleted: Appointment;
   payment: Transaction;
   proposeNewTime: Appointment;
@@ -691,6 +692,7 @@ export type Mutation = {
   suggestNewTime: Appointment;
   toggleEmailPreferences: UserEmailPreferencesResponse;
   updateAdminUser: User;
+  updateAppointmentAttachments: Appointment;
   updateDctorPercentage: Transaction;
   updateDoctorProfile: DoctorProfile;
   updatePatientHealthHistory: PatientHealthHistory;
@@ -857,6 +859,11 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationMarkMessagesAsReadArgs = {
+  channelId: Scalars['Int'];
+};
+
+
 export type MutationMarkedAppointmentAsCompletedArgs = {
   appointmentId: Scalars['Int'];
 };
@@ -960,6 +967,11 @@ export type MutationToggleEmailPreferencesArgs = {
 export type MutationUpdateAdminUserArgs = {
   id: Scalars['Int'];
   updateAdminUserInput: UpdateAdminUserInput;
+};
+
+
+export type MutationUpdateAppointmentAttachmentsArgs = {
+  updateAppointmentAttachmentsInput: UpdateAppointmentAttachmentsInput;
 };
 
 
@@ -1474,6 +1486,11 @@ export type UpdateAdminUserInput = {
   profile_picture?: InputMaybe<Scalars['String']>;
 };
 
+export type UpdateAppointmentAttachmentsInput = {
+  id: Scalars['Int'];
+  reportUrl: Scalars['JSON'];
+};
+
 export type UpdateDoctorPercentage = {
   doctor_percentage: Scalars['String'];
 };
@@ -1933,6 +1950,13 @@ export type ToggleEmailPreferencesMutationVariables = Exact<{
 
 
 export type ToggleEmailPreferencesMutation = { __typename?: 'Mutation', toggleEmailPreferences: { __typename?: 'UserEmailPreferencesResponse', patient_registration_update?: boolean | null, physician_registration_update?: boolean | null, appointment_accepted_by_doctor?: boolean | null, appointment_rescheduled_by_doctor?: boolean | null, appointment_reminder?: boolean | null, admin_appointment_create_update?: boolean | null, new_message_received?: boolean | null, appointment_slot_suggested_by_doctor?: boolean | null, appointment_requested?: boolean | null, appointment_accepted_by_patient?: boolean | null, transaction_successful_alert?: boolean | null } };
+
+export type UpdateAppointmentAttachmentsMutationVariables = Exact<{
+  updateAppointmentAttachmentsInput: UpdateAppointmentAttachmentsInput;
+}>;
+
+
+export type UpdateAppointmentAttachmentsMutation = { __typename?: 'Mutation', updateAppointmentAttachments: { __typename?: 'Appointment', id?: number | null, reportUrl?: any | null } };
 
 export type GetAdminUsersQueryVariables = Exact<{
   filter: GetAdminUsersFilterInput;
@@ -3079,6 +3103,20 @@ export const ToggleEmailPreferencesDocument = gql`
 
 export function useToggleEmailPreferencesMutation() {
   return Urql.useMutation<ToggleEmailPreferencesMutation, ToggleEmailPreferencesMutationVariables>(ToggleEmailPreferencesDocument);
+};
+export const UpdateAppointmentAttachmentsDocument = gql`
+    mutation updateAppointmentAttachments($updateAppointmentAttachmentsInput: UpdateAppointmentAttachmentsInput!) {
+  updateAppointmentAttachments(
+    updateAppointmentAttachmentsInput: $updateAppointmentAttachmentsInput
+  ) {
+    id
+    reportUrl
+  }
+}
+    `;
+
+export function useUpdateAppointmentAttachmentsMutation() {
+  return Urql.useMutation<UpdateAppointmentAttachmentsMutation, UpdateAppointmentAttachmentsMutationVariables>(UpdateAppointmentAttachmentsDocument);
 };
 export const GetAdminUsersDocument = gql`
     query getAdminUsers($filter: GetAdminUsersFilterInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -7465,6 +7503,29 @@ export default {
             ]
           },
           {
+            "name": "markMessagesAsRead",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ChatChannels",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "channelId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "markedAppointmentAsCompleted",
             "type": {
               "kind": "NON_NULL",
@@ -7947,6 +8008,29 @@ export default {
               },
               {
                 "name": "updateAdminUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateAppointmentAttachments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "updateAppointmentAttachmentsInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
