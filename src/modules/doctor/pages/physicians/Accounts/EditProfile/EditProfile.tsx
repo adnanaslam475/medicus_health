@@ -67,6 +67,7 @@ type Props = {
   };
   addScheduleDay: string;
   loading?: boolean;
+  setProfileUpdated?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -85,6 +86,7 @@ function EditProfile({
   setAddScheduleClick,
   onAddClick,
   addScheduleTime,
+  setProfileUpdated,
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -160,8 +162,12 @@ function EditProfile({
   const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
   useEffect(() => {
-    setClinicList(professionalExperience);
-    setEducationList(educationalBackground);
+    if (professionalExperience?.length) {
+      setClinicList(professionalExperience);
+    }
+    if (educationalBackground?.length) {
+      setEducationList(educationalBackground);
+    }
   }, []);
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -217,6 +223,7 @@ function EditProfile({
         notification.success({
           message: "Updated Successfully",
         });
+        setProfileUpdated?.((prev)=>!prev);
       if (getRole() === "Doctor") {
         //checking logged in user email matched with updated email
         let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
@@ -372,7 +379,6 @@ function EditProfile({
   ) => {
     const { name, value } = e.target;
     const clinicListLocal = [...clinicList];
-    console.log("change handler is", index, name, value);
     //@ts-ignore
     clinicListLocal[index][name] = value;
     setClinicList(clinicListLocal);
@@ -384,7 +390,6 @@ function EditProfile({
   ) => {
     const { name, value } = e.target;
     const educationListLocal = [...educationList];
-    console.log("change handler is", index, name, value, educationListLocal);
     //@ts-ignore
     educationListLocal[index][name] = value;
     setEducationList(educationListLocal);
