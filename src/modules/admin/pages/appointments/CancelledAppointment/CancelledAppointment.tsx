@@ -86,10 +86,6 @@ function CancelledAppointment() {
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">Cancelled appointments</h2>
-            <h5 className="text-gray">
-              Suspendisse ac nulla non ante viverra feugiat. Duis
-              ullamcorperequesty tortor a fringilla tempus.
-            </h5>
           </div>
           <Tooltip
             title={
