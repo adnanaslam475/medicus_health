@@ -67,6 +67,42 @@ export const bioForm = [
       defaultValue: "",
     },
   ],
+  [
+    {
+      label: "Street Address",
+      name: "street_adress",
+      disabled: true,
+      defaultValue: "",
+    },
+  ],
+  [
+    {
+      label: "Country",
+      name: "country",
+      disabled: true,
+      defaultValue: "",
+    },
+    {
+      label: "City",
+      name: "city",
+      disabled: true,
+      defaultValue: "",
+    },
+  ],
+  [
+    {
+      label: "State",
+      name: "state",
+      disabled: true,
+      defaultValue: "",
+    },
+    {
+      label: "Zip code",
+      name: "zip_code",
+      disabled: true,
+      defaultValue: "",
+    },
+  ],
 ];
 
 export const patientEditForm = [
