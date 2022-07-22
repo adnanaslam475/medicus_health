@@ -348,7 +348,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                   ))}
                 </Radio.Group>
               ) : (
-                "No time slots available"
+                "No time slots available on this date"
               )}
             </div>
           </Form.Item>
