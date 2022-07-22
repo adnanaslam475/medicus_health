@@ -58,13 +58,13 @@ function PhysicianPayoutReportListing() {
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        const appointmentTime =
-          appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${date.formathhmma(
-                appointmentDateTime?.startTime
-              )} ${date.formathhmma(appointmentDateTime?.endTime)}`
-            : "--";
-        return <div>{appointmentTime}</div>;
+        let formatedAppointmentDateTime = `${
+          appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
+        formatedAppointmentDateTime = formatedAppointmentDateTime
+          ? date?.formatDAYMMDDYY(formatedAppointmentDateTime)
+          : "-";
+        return <div>{formatedAppointmentDateTime}</div>;
       },
     },
     {
