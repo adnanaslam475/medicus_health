@@ -113,7 +113,7 @@ function EditProfile({
     first_name: doctor_first_name,
     last_name: doctor_last_name,
     email: doctor_email,
-    streetAddress: streetAddress,
+    streetAddress: street_address,
     city_id: city_id,
     country_id: country_id,
     state_id: state_id,
@@ -194,7 +194,7 @@ function EditProfile({
       lastName: doctor_last_name,
       specialization: specialization || "",
       year_of_experience: year_of_experience || "",
-      streetAddress: streetAddress || "",
+      streetAddress: street_address,
       city_id: city_id || "",
       country_id: country_id || "",
       state_id: state_id || "",
@@ -221,7 +221,6 @@ function EditProfile({
     Router.push("/login");
   };
 
-  console.log("condition treated is", conditionTreatedList);
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
     if (!conditionTreatedList) {
