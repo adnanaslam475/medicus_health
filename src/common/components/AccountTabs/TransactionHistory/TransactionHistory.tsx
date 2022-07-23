@@ -7,6 +7,8 @@ import {
   GetAppointmentInput,
   Transaction,
 } from "../../../../generated/graphql";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
 
 const transactionsColumns = [
   {
@@ -119,22 +121,13 @@ const transactionsColumns = [
     render: (value: string) => {
       return (
         <div className="someclass">
-          <Tag color="cyan">{value}</Tag>
+         
+          <StatusChip type={value.toUpperCase() as StatusName} />
         </div>
       );
     },
   },
-  {
-    title: "",
-    dataIndex: "",
-    key: "view",
-    className: "table-action-icon",
-    render: () => (
-      <div className="text-primary">
-        <EyeFilled />
-      </div>
-    ),
-  },
+ 
 ];
 
 type Props = {

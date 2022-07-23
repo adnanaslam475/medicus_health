@@ -50,12 +50,12 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 
   return (
     <div className="page-filters flex items-center my-3 flex-wrap">
-      <span className="text-gray-1 mr-3">Filter</span>
+      <span className="text-gray-1 mr-3">Search by</span>
       <div className="flex items-center gap-2 flex-wrap">
         <div className=" w-full sm:w-full md:w-64 ">
           <Input
             value={filterState.searchString}
-            placeholder="Search by ID or patient name"
+            placeholder="ID# or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);
