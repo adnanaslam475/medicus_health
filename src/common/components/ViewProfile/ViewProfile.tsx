@@ -44,6 +44,7 @@ export const ViewProfile = React.forwardRef(function Profile({
     country_id,
     state_id,
     postalCode,
+    zip_code,
   } = userData?.user || doctorData?.user || {};
 
   const {
@@ -79,11 +80,11 @@ export const ViewProfile = React.forwardRef(function Profile({
       about_me: about_me,
       // condition_treated: list.toString(),
       specialization: specialization,
-      street_address: street_address || "",
+      street_address: street_address,
       city: city_id,
       country: country_id || "",
       state: state_id || "",
-      zip_code: postalCode || "",
+      zip_code: zip_code || "",
     });
   }
 

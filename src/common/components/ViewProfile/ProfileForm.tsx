@@ -65,7 +65,7 @@ function ProfileForm({
           email: values?.email,
           password: values?.password,
           profile_image: image ? image : userProfileImage,
-          streetAddress: values.street_address || "",
+          streetAddress: values.street_address,
           city_id: values.city_id,
           country_id: values.country_id,
           state_id: values.state_id,
