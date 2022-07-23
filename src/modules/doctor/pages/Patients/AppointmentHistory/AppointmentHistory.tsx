@@ -14,15 +14,26 @@ function AppointmentHistory() {
     order: "",
   });
 
-  const [{ data, fetching: loading }] = useGetAllRequestedAppointmentsQuery({
-    variables: {
-      filter: {
-        status: "Completed",
+  const [{ data, fetching: loading }] = useGetAllRequestedAppointmentsQuery(
+    //   {
+    //   variables: {
+    //     filter: {
+    //       status: "Completed",
+    //     },
+    //     pagination: { limit: -1, page: 1 },
+    //     sorting,
+    //   },
+    // }
+    {
+      variables: {
+        filter: {
+          status: "Completed",
+        },
+        pagination: { limit: -1, page: 1 },
+        sorting,
       },
-      pagination,
-      sorting,
-    },
-  });
+    }
+  );
 
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });

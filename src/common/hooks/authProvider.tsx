@@ -62,6 +62,7 @@ function AuthProvider({ children }: any) {
     setUser(userData);
     const publicPaths = [
       "/login",
+      "/physician/setPassword",
       "/signup",
       "/forgotPassword",
       "/user/confirm",

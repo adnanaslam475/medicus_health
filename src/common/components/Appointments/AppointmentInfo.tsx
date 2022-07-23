@@ -22,19 +22,21 @@ function AppointmentInfo(props: Props) {
   const { first_name, last_name } =
     appoinmentDetails?.appointment?.doctor || {};
 
-  const { id, status, requestedDate, appointmentTimeSlots, createdAt } =
+  const { id, status, requestedDate, appointmentTimeSlots, createdAt,transaction } =
     appoinmentDetails?.appointment || {};
-
-  const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
-  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
-    () => appointmentTimeSlots?.find((item) => item.selected),
-    [appointmentTimeSlots]
-  );
-  const [disabled, setDisabled] = useState(true);
+    
+    const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
+    const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
+      () => appointmentTimeSlots?.find((item) => item.selected),
+      [appointmentTimeSlots]
+      );
+      const [disabled, setDisabled] = useState(true);
+      const appointmentCharges = transaction?.amountReceived || "-"
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
+
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -68,7 +70,7 @@ function AppointmentInfo(props: Props) {
         />
         <LabelValueRow
           label="Total amount"
-          value={price ? `$${price}` : "--"}
+          value={`$${appointmentCharges}`}
         />
 
         <li className="flex border-b border-gray-5 py-3">

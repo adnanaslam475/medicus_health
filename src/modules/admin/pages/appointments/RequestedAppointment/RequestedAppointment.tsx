@@ -5,6 +5,7 @@ import {
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   BookingDate,
+  DueDate,
   useGetAllRequestedAppointmentsQuery,
   useGetPhysiciansQuery,
   usePatientHealthHistoryQuery,
@@ -21,6 +22,7 @@ function RequestedAppointment() {
   const [dueStartDate, setStartDate] = useState<BookingDate>();
   const [dueEndDate, setEndDate] = useState<BookingDate>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<DueDate>({});
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentId, setAppointmentId] = useState<number>();
@@ -53,7 +55,7 @@ function RequestedAppointment() {
         doctorId: doctorIds,
         appointmentId: appointmentId,
         serviceId: serviceIds,
-        dueDate: bookingDate,
+        dueDate: dueDate,
       },
       pagination: { limit: -1, page: 1 },
       sorting: { order: "", column: "" },
@@ -146,6 +148,7 @@ function RequestedAppointment() {
               setAppointmentId={setAppointmentId}
               setServiceIds={setServiceIds}
               setBookingDate={setBookingDate}
+              setDueDate={setDueDate}
             />
           </div>
 
@@ -164,7 +167,7 @@ function RequestedAppointment() {
                       appointmentTimeSlots,
                       appointmentDateTime,
                     } = appointmentDetail || {};
-                    var doctorFullName=`${doctor?.first_name} ${doctor?.last_name}`
+                    var doctorFullName = `${doctor?.first_name} ${doctor?.last_name}`;
                     return (
                       <AppointmentCard
                         appointmentId={Number(id)}

@@ -8,15 +8,17 @@ import { Button, Empty, Select, Spin, Tooltip } from "antd";
 import {
   AppointmentTimeSlots,
   BookingDate,
+  DueDate,
   useGetAllRequestedAppointmentsQuery,
   useGetPhysiciansQuery,
   usePatientHealthHistoryQuery,
   User,
 } from "../../../../../generated/graphql";
 import { getUserData } from "common/utils/userData";
+import { useTranslations } from "next-intl";
 
 function UpcomingAppointments() {
-  // const t = useTranslations("UpcomingAppointments");
+  const t = useTranslations("UpcomingAppointments");
   //Get logged in User
   const { user } = getUserData();
   const { id: loggedInUser } = user || {};
@@ -24,6 +26,7 @@ function UpcomingAppointments() {
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<DueDate>({});
 
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
@@ -40,7 +43,7 @@ function UpcomingAppointments() {
         doctorId: doctorIds,
         appointmentId: appointmentId,
         serviceId: serviceIds,
-        dueDate: bookingDate,
+        dueDate: dueDate,
       },
       pagination: { limit: -1, page: 1 },
       sorting: { order: "", column: "" },
@@ -86,7 +89,10 @@ function UpcomingAppointments() {
       <div className="w-full">
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
-            <h2 className="mb-0">Upcoming appointments</h2>
+            <h2 className="mb-0">
+              {t("upcoming_appointments")}
+              {/* Upcoming appointments */}
+            </h2>
             {/* <h2 className="mb-0">{t("upcomingAppointmentsHead")}</h2>                       */}
             {/* <p className="text-gray mb-0">
               Suspendisse ac nulla non ante viverra feugiat. Duis
@@ -141,6 +147,7 @@ function UpcomingAppointments() {
             setStartDate={setStartDate}
             setEndDate={setEndDate}
             setBookingDate={setBookingDate}
+            setDueDate={setDueDate}
           />
         </div>
         {fetching == false ? (
@@ -157,14 +164,14 @@ function UpcomingAppointments() {
                     doctor,
                     appointmentTimeSlots,
                   } = appointmentDetail || {};
-                  var doctorFirstName=`${doctor?.first_name} ${doctor?.last_name}`
+                  var doctorFirstName = `${doctor?.first_name} ${doctor?.last_name}`;
                   return (
                     <AppointmentCard
                       appointmentId={Number(id)}
                       requestedDate={requestedDate}
                       status={status}
                       serviceType={serviceType?.name}
-                      doctor={doctorFirstName} 
+                      doctor={doctorFirstName}
                       appointmentTimeSlots={
                         appointmentTimeSlots as AppointmentTimeSlots[]
                       }

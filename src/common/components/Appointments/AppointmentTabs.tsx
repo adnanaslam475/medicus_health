@@ -16,6 +16,7 @@ import Notes from "../Notes/Notes";
 import NotesTab from "common/components/NotesTab/NotesTab";
 import Dragger from "antd/lib/upload/Dragger";
 import Image from "next/image";
+import AttachmentDragger from "./AttachmentDragger";
 const { TabPane } = Tabs;
 
 type Props = {
@@ -48,8 +49,8 @@ const AppointmentTabs = (props: Props) => {
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
     urlArr = urlArr?.flat(1)?.map((item: any) => ({
-      name: item.name,
-      url: item.url,
+      name: item?.name,
+      url: item?.url,
     }));
   }
 
@@ -89,41 +90,7 @@ const AppointmentTabs = (props: Props) => {
           />
         </TabPane>
         <TabPane tab="Attachments" key="4">
-          <div className="w-3/5 mb-3">
-            <Form layout="vertical">
-              <Form.Item>
-                <Dragger
-                  customRequest={({ onSuccess }) => onSuccess?.({})}
-                  // listType="picture"
-                >
-                  <p className="ant-upload-drag-icon mb-0">
-                    <Image
-                      priority={true}
-                      alt=""
-                      className=""
-                      height={32}
-                      width={36}
-                      src="/assets/icon/upload-icon.svg"
-                    />
-                  </p>
-                  <span className="ant-upload-text text-sm block">
-                    Drag your files here or
-                  </span>
-                  <span className="font-circular text-xs ant-upload-text text-white p-1 px-3 mt-1 mb-3 rounded inline-block bg-primary">
-                    Upload
-                  </span>
-                  <span className=" ant-upload-hint block text-xs text-gray-1">
-                    Max 10mb upload limit.
-                  </span>
-                </Dragger>
-              </Form.Item>
-              <span className=" ant-upload-hint block text-xs text-gray-1 text-center -mt-4">
-                Please upload any/all files you believe will be relevant for the
-                appointment. You may upload files while before or during your
-                appointment
-              </span>
-            </Form>
-          </div>
+          <AttachmentDragger urlArr={urlArr} />
           <div>
             <span className="font-semibold text-md">Your files</span>
             {urlArr?.map((item: AttachmentObject) => (

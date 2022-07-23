@@ -288,13 +288,20 @@ function BookAppointmentModal({
     }
   };
 
+  const onCancelHandler = (e: any) => {
+    saveStepOne?.({});
+    saveStepTwo?.({});
+    saveStepThree?.({});
+    onCancel?.(e);
+  };
+
   return (
     <Modal
       centered
       maskClosable={false}
       visible={visible}
       onOk={onOk}
-      onCancel={onCancel}
+      onCancel={onCancelHandler}
       footer={null}
       className={`${_classes["steps-style"]}`}
       afterClose={closeModal}

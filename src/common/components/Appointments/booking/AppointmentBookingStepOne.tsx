@@ -90,7 +90,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
       Number(stepOneDoctorId);
 
     const queryDay =
-      selectedDay || selectedDateDay || requestedDate &&dayjs(requestedDate).get("day");
+      selectedDay ||
+      selectedDateDay ||
+      (requestedDate && dayjs(requestedDate).get("day"));
 
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesByDayQuery] =
       useDoctorSchedulesByDayQuery({
@@ -346,7 +348,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                   ))}
                 </Radio.Group>
               ) : (
-                "No time slots available"
+                "No time slots available on this date"
               )}
             </div>
           </Form.Item>
