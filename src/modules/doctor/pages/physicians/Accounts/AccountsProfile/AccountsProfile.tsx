@@ -30,7 +30,7 @@ function AccountsProfile() {
     timeString: string[];
   }>({ timeString: [], time: null });
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
-  const [profileUpdated,setProfileUpdated]=useState(false)
+  const [profileUpdated,setProfileUpdated]=useState()
 
   // GET USER ID
   const { user } = getUserData();
