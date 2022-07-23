@@ -70,7 +70,7 @@ export const bioForm = [
   [
     {
       label: "Street Address",
-      name: "street_address",
+      name: "streetAddress",
       disabled: true,
       defaultValue: "",
     },

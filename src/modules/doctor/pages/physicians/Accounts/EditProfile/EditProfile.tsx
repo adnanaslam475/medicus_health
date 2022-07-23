@@ -70,7 +70,7 @@ type Props = {
   };
   addScheduleDay: string;
   loading?: boolean;
-  setProfileUpdated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setProfileUpdated?: any;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -130,8 +130,6 @@ function EditProfile({
     status,
     doctorProfile,
   } = doctorData?.user || {};
-
-  console.log(doctorData, "Usmaa Doc Dat");
 
   const {
     about_me,
@@ -210,74 +208,87 @@ function EditProfile({
     });
   }
 
+  const [conditionTreatedList, setConditionTreatedList] =
+    useState<any>(condition_treated);
+
+  useEffect(() => {
+    setConditionTreatedList(condition_treated);
+  }, []);
+
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("loginTime");
     Router.push("/login");
   };
 
+  console.log("condition treated is", conditionTreatedList);
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-    const res = await updateDoctor({
-      updateDoctorProfileInput: {
-        doctor_id: pathname.includes("/admin/physicians")
-          ? Number(query?.id)
-          : Number(id) || Number(loggedInUserId),
-        first_name: values?.firstName || "",
-        last_name: values?.lastName || "",
-        specialization: values?.specialization || "",
-        year_of_experience: Number(values?.year_of_experience || 0),
-        streetAddress: values?.streetAddress,
-        city_id: Number(values?.city_id),
-        country_id: Number(values?.country_id),
-        state_id: Number(values?.state_id),
-        zip_code: values?.zip_code,
+    if (!conditionTreatedList) {
+      notification.error({ message: "Please enter at least one condition created" });
+    } else {
+      const res = await updateDoctor({
+        updateDoctorProfileInput: {
+          doctor_id: pathname.includes("/admin/physicians")
+            ? Number(query?.id)
+            : Number(id) || Number(loggedInUserId),
+          first_name: values?.firstName || "",
+          last_name: values?.lastName || "",
+          specialization: values?.specialization || "",
+          year_of_experience: Number(values?.year_of_experience || 0),
+          streetAddress: values?.streetAddress,
+          // contact_number:values?.contact,
+          city_id: Number(values?.city_id),
+          country_id: Number(values?.country_id),
+          state_id: Number(values?.state_id),
+          zip_code: values?.zip_code,
+          email: values?.email || "",
+          password: values?.password,
+          profile_image: image || userProfileImage || "",
+          about_me: values?.about_me || "",
+          condition_treated: conditionTreatedList,
+          language: physicianLanguage || "",
+          educational_background: educationList?.map((item) => ({
+            institution: item?.institution,
+            degree: item?.degree,
+          })),
+          professional_experience: clinicList?.map((item) => ({
+            institution: item?.institution,
+            role: item?.role,
+          })),
+        },
+      });
 
-        email: values?.email || "",
-        password: values?.password,
-        profile_image: image || userProfileImage || "",
-        about_me: values?.about_me || "",
-        condition_treated: condition_treated,
-        language: physicianLanguage || "",
-        educational_background: educationList?.map((item) => ({
-          institution: item?.institution,
-          degree: item?.degree,
-        })),
-        professional_experience: clinicList?.map((item) => ({
-          institution: item?.institution,
-          role: item?.role,
-        })),
-      },
-    });
-
-    if (res?.data) {
-      res?.data?.updateDoctorProfile &&
-        notification.success({
-          message: "Updated Successfully",
-        });
-      setProfileUpdated?.((prev) => !prev);
-      if (getRole() === "Doctor") {
-        //checking logged in user email matched with updated email
-        let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
-        let emailMatched = emailRegExpression.test(values?.email);
-
-        // if user changed the email logged out the user
-        if (!emailMatched) {
+      if (res?.data) {
+        res?.data?.updateDoctorProfile &&
           notification.success({
-            message: "Credentials Updated User Logged out",
+            message: "Updated Successfully",
           });
-          logout();
+        setProfileUpdated?.(Math.random());
+        if (getRole() === "Doctor") {
+          //checking logged in user email matched with updated email
+          let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
+          let emailMatched = emailRegExpression.test(values?.email);
+
+          // if user changed the email logged out the user
+          if (!emailMatched) {
+            notification.success({
+              message: "Credentials Updated User Logged out",
+            });
+            logout();
+          }
         }
+      }
+
+      if (res?.error) {
+        res?.error?.graphQLErrors[0]?.message &&
+          notification.error({
+            message:
+              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+          });
       }
     }
 
-    if (res?.error) {
-      res?.error?.graphQLErrors[0]?.message &&
-        notification.error({
-          message:
-            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-        });
-    }
     // }
   };
 
@@ -342,41 +353,47 @@ function EditProfile({
     }
   }
 
-  const handleConditionTreated = async (list: string[]) => {
-    const values = formInstance.getFieldsValue();
-    const res = await updateDoctor({
-      updateDoctorProfileInput: {
-        doctor_id: pathname.includes("/admin/physicians")
-          ? Number(query?.id)
-          : Number(user?.user?.id),
-        first_name: values?.firstName || "",
-        last_name: values?.lastName || "",
-        specialization: values?.specialization || "",
-        year_of_experience: Number(values?.year_of_experience) || 0,
-        streetAddress: values?.streetAddress,
-        country_id: values?.country,
-        state_id: values?.state,
-        city_id: values?.city_id | 0,
-        zip_code: values?.zip_code,
-        email: values?.email || "",
-        password: values?.password,
-        profile_image: image || userProfileImage || "",
-        about_me: values?.about_me || "",
-        condition_treated: list.toString(),
-        language: physicianLanguage || "",
-        educational_background: educationalBackground,
-        professional_experience: professionalExperience,
-      },
-    });
+  // const handleConditionTreated = async (list: string[]) => {
+  //   const values = formInstance.getFieldsValue();
+  //   const res = await updateDoctor({
+  //     updateDoctorProfileInput: {
+  //       doctor_id: pathname.includes("/admin/physicians")
+  //         ? Number(query?.id)
+  //         : Number(user?.user?.id),
+  //       first_name: values?.firstName || "",
+  //       last_name: values?.lastName || "",
+  //       specialization: values?.specialization || "",
+  //       year_of_experience: Number(values?.year_of_experience) || 0,
+  //       streetAddress: values?.streetAddress,
+  //       country_id: Number(values?.country || 0),
+  //       state_id: Number(values?.state || 0),
+  //       city_id: values?.city_id || 0,
+  //       zip_code: values?.zip_code,
+  //       email: values?.email || "",
+  //       password: values?.password,
+  //       profile_image: image || userProfileImage || "",
+  //       about_me: values?.about_me || "",
+  //       condition_treated: list.toString(),
+  //       language: physicianLanguage || "",
+  //       educational_background: educationList?.map((item) => ({
+  //         institution: item?.institution,
+  //         degree: item?.degree,
+  //       })),
+  //       professional_experience: clinicList?.map((item) => ({
+  //         institution: item?.institution,
+  //         role: item?.role,
+  //       })),
+  //     },
+  //   });
 
-    if (res?.error) {
-      res?.error?.graphQLErrors[0]?.message &&
-        notification.error({
-          message:
-            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-        });
-    }
-  };
+  //   if (res?.error) {
+  //     res?.error?.graphQLErrors[0]?.message &&
+  //       notification.error({
+  //         message:
+  //           res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+  //       });
+  //   }
+  // };
 
   const handleChangeLanguage = (e: CheckboxChangeEvent, name: string) => {
     if (name === "English") {
@@ -487,27 +504,24 @@ function EditProfile({
                 }`}
               </h2>
               <span className="block">{doctor_email}</span>
-              {getRole() === "Admin" ||
-                (getRole() === "Doctor" && (
-                  <div className=" grid grid-cols-2 gap-3">
-                    <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
-                      <Tooltip
-                        title={
-                          doctorData ? "" : "Please complete doctor profile"
-                        }
+              {getRole() === "Admin" && (
+                <div className=" grid grid-cols-2 gap-3">
+                  <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
+                    <Tooltip
+                      title={doctorData ? "" : "Please complete doctor profile"}
+                    >
+                      <Button
+                        type="primary"
+                        className={`${_classes["published-button"]}`}
+                        onClick={handlePublish_Unpublish}
+                        disabled={doctorData ? false : true}
                       >
-                        <Button
-                          type="primary"
-                          className={`${_classes["published-button"]}`}
-                          onClick={handlePublish_Unpublish}
-                          disabled={doctorData ? false : true}
-                        >
-                          {status ? "Published" : "Unpublished"}
-                        </Button>
-                      </Tooltip>
-                    </div>
+                        {status ? "Published" : "Unpublished"}
+                      </Button>
+                    </Tooltip>
                   </div>
-                ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -781,13 +795,22 @@ function EditProfile({
                   />
                 </Form.Item>
               </div>
-
+              {console.log("contition db", condition_treated)}
+              {console.log(
+                "condition local",
+                condition_treated,
+                conditionTreatedList
+              )}
               <InputWithLi
+                // value={conditionTreatedList}
                 disable={false}
                 onChange={(list) => {
-                  handleConditionTreated(list);
+                  // handleConditionTreated(list);
+                  setConditionTreatedList(list.toString());
                 }}
-                initialValue={condition_treated?.split(",")}
+                initialValue={(
+                  condition_treated || conditionTreatedList
+                )?.split(",")}
               />
 
               <MultiRangeDatePicker

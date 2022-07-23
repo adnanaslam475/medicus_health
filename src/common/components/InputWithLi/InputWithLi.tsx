@@ -5,12 +5,13 @@ import { PlusOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons";
 
 type IMyProps = {
   disable: boolean |undefined;
+  // value:any
   loading?: boolean;
   initialValue?: string[];
   onChange?: (list: string[]) => void;
 };
 function InputWithLi(props: IMyProps) {
-  const { disable, initialValue, onChange } = props;
+  const { disable, initialValue, onChange} = props;
   const [treated, setTreated] = useState<string>("");
   const [treatedList, setTreatedList] = useState<string[]>(initialValue || []);
   const handleName = (event: ChangeEvent<HTMLInputElement>): void => {
