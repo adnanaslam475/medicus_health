@@ -33,7 +33,7 @@ function AppointmentInfo() {
         </li>
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Type</div>
-          <div className="w-full text-secondary">Second Opinion</div>
+          <div className="w-full text-secondary">Second opinion</div>
         </li>
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1">Date</div>

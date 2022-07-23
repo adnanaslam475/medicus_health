@@ -127,7 +127,7 @@ function StaffListingSearchFilter({ onChange }: Props) {
             value={filterState.serviceId}
           >
             <Option value="consultation">Consultation</Option>
-            <Option value="second opinion">Second Opinion</Option>
+            <Option value="second opinion">Second opinion</Option>
           </Select>
         </div>
         <Button type="text" className="sm:ml-3" onClick={clear}>

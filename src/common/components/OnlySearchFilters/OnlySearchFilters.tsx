@@ -22,11 +22,11 @@ function OnlySearchFilters({ onChange }: Props) {
     <div
       className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5`}
     >
-      <span className="text-gray-1 mr-3">Filter</span>
+      <span className="text-gray-1 mr-3">Search by</span>
 
       <div className="lg:ml-3 w-full sm:w-full md:w-full lg:max-w-[430px] mr-2">
         <Input
-          placeholder="Search by ID, patient name, contact number or email"
+          placeholder="ID#, patient name, contact number or email"
           prefix={<SearchOutlined />}
           value={searchValue}
           onChange={(e) => onChangeFields(e.target.value)}

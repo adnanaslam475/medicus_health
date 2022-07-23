@@ -76,11 +76,11 @@ function SearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 flex-wrap gap-2`}
     >
-      <span className="text-gray-1 sm:mr-3 sm:block mr-auto w-full xl:w-fit">Filter</span>
+      <span className="text-gray-1 sm:mr-3 sm:block mr-auto w-full xl:w-fit">Search by</span>
       {/* <div className="flex-none sm:flex"> */}
         <div className="   w-full sm:w-full md:w-full lg:w-60 ">
           <Input
-            placeholder={"Search by ID"}
+            placeholder={"ID#"}
             prefix={<SearchOutlined />}
             onChange={(e) => onChangeFields("searchString", e.target.value)}
             value={filterState.searchString || ""}
@@ -90,7 +90,7 @@ function SearchFilters(props: Props) {
         {isFromPhysician ? (
           <div className="  w-full sm:w-full md:w-full lg:w-70 ">
             <Input
-              placeholder={"Search by ID or patient name"}
+              placeholder={"ID# or patient name"}
               prefix={<SearchOutlined />}
               onChange={(event) => handlePaitentName_ID(event)}
               value={patientName}

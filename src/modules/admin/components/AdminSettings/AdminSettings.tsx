@@ -204,7 +204,7 @@ function AdminSettings() {
             </div>
 
             <div>
-              <h3>Second Opnion</h3>
+              <h3>Second opnion</h3>
               <div className="sm:flex">
                 <Form.Item
                   label="Total Charges"

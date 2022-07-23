@@ -167,7 +167,7 @@ function SearchFilters(props: Props) {
         {isFromPhysician ? (
           <div className="w-full sm:w-full md:w-full lg:w-96 ">
             <Input
-              placeholder={placeholder || "Search by ID or patient name"}
+              placeholder={placeholder || "ID# or patient name"}
               prefix={<SearchOutlined />}
               onChange={(event) => handlePaitentName_ID(event)}
               value={patientName}

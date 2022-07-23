@@ -86,7 +86,7 @@ function MessageInput() {
       messageInfo.currentChannel &&
       localStorage.getItem("id")
     ) {
-      markMessageAsReadHandler(messageInfo.currentChannel?.id);
+      markMessageAsReadHandler?.(messageInfo.currentChannel?.id);
     }
   }, [messageInfo.currentChannel?.id]);
 
