@@ -18,3 +18,9 @@ export function getToken() {
 export function getRole() {
   return getUserData().user?.role;
 }
+
+export function sorter(arr = [], column = "") {
+  arr.sort(function (a, b) {
+    return ("" + b[column]).localeCompare(a[column]);
+  });
+}

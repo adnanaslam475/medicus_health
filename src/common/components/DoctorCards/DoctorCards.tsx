@@ -160,14 +160,16 @@ function DoctorCard({
             <Link passHref href={`/physician/messages`}>
               <a
                 onClick={() => {
+                  const query: any = {
+                    chat: "patient",
+                    // patientId: adminApp_Details?.patient.patient_id,
+                    doctorId: id,
+                    patientId: loggedInUser,
+                  };
+                  localStorage.setItem("id", JSON.stringify(query));
                   Router.push({
                     pathname: "/physician/messages",
-                    query: {
-                      chat: "patient",
-                      // patientId: adminApp_Details?.patient.patient_id,
-                      doctorId: id,
-                      patientId: loggedInUser,
-                    },
+                    query,
                   });
                 }}
                 className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12"

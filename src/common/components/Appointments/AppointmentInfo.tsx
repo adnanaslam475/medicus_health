@@ -91,32 +91,36 @@ function AppointmentInfo(props: Props) {
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]} mr-3`}
-            onClick={() =>
+            onClick={() => {
+              const query: any = {
+                chat: "admin",
+                doctorId: appointment?.doctorId,
+                patientId: appointment?.patientId,
+              };
+              localStorage.setItem("id", JSON.stringify(query));
               Router.push({
                 pathname: "/patient/messages",
-                query: {
-                  chat: "admin",
-                  doctorId: appointment?.doctorId,
-                  patientId: appointment?.patientId,
-                },
-              })
-            }
+                query,
+              });
+            }}
           >
             Message support
           </Button>
           <Button
             icon={<MessageOutlined />}
             className={`${_classes["appointments-btn"]} `}
-            onClick={() =>
+            onClick={() => {
+              const query: any = {
+                chat: "doctor",
+                doctorId: appointment?.doctorId,
+                patientId: appointment?.patientId,
+              };
+              localStorage.setItem("id", JSON.stringify(query));
               Router.push({
                 pathname: "/patient/messages",
-                query: {
-                  chat: "doctor",
-                  doctorId: appointment?.doctorId,
-                  patientId: appointment?.patientId,
-                },
-              })
-            }
+                query,
+              });
+            }}
           >
             Message physician
           </Button>

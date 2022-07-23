@@ -13,9 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -2068,6 +2066,13 @@ export type DeleteChatChannelMutationVariables = Exact<{
 
 export type DeleteChatChannelMutation = { __typename?: 'Mutation', deleteChat: { __typename?: 'ChatChannels', id: number } };
 
+export type MarkMessagesAsReadMutationMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type MarkMessagesAsReadMutationMutation = { __typename?: 'Mutation', markMessagesAsRead: { __typename?: 'ChatChannels', id: number } };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -3501,6 +3506,17 @@ export const DeleteChatChannelDocument = gql`
 
 export function useDeleteChatChannelMutation() {
   return Urql.useMutation<DeleteChatChannelMutation, DeleteChatChannelMutationVariables>(DeleteChatChannelDocument);
+};
+export const MarkMessagesAsReadMutationDocument = gql`
+    mutation markMessagesAsReadMutation($id: Int!) {
+  markMessagesAsRead(channelId: $id) {
+    id
+  }
+}
+    `;
+
+export function useMarkMessagesAsReadMutationMutation() {
+  return Urql.useMutation<MarkMessagesAsReadMutationMutation, MarkMessagesAsReadMutationMutationVariables>(MarkMessagesAsReadMutationDocument);
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
