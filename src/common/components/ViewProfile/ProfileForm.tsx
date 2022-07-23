@@ -23,7 +23,6 @@ interface Props {
   educationalBackground?: any;
 }
 
-
 type clinicType = {
   institution: string;
   role: string;
@@ -66,6 +65,11 @@ function ProfileForm({
           email: values?.email,
           password: values?.password,
           profile_image: image ? image : userProfileImage,
+          streetAddress: values.street_address || "",
+          city_id: values.city_id,
+          country_id: values.country_id,
+          state_id: values.state_id,
+          zip_code: values.zip_code,
         },
       });
 
@@ -100,7 +104,6 @@ function ProfileForm({
         {bioForm.map((item, index) => {
           return (
             <div className="flex flex-col sm:flex-row gap-3" key={index}>
-            
               {item.map((val, valIndex) => {
                 return (
                   <Form.Item
@@ -193,36 +196,38 @@ function ProfileForm({
             Educational Background
           </h6>
           {educationalBackground &&
-            educationalBackground?.map((education: educationType, index: number) => {
-              return (
-                <div className="border-b border-gray-4 my-3" key={index}>
-                  <Form.Item
-                    label="University/Institution"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value={education?.institution} disabled />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input value={education?.degree} disabled />
-                  </Form.Item>
-                </div>
-              );
-            })}
+            educationalBackground?.map(
+              (education: educationType, index: number) => {
+                return (
+                  <div className="border-b border-gray-4 my-3" key={index}>
+                    <Form.Item
+                      label="University/Institution"
+                      rules={[
+                        {
+                          required: false,
+                          message: "University/Institution",
+                        },
+                      ]}
+                      className="flex-1"
+                    >
+                      <Input value={education?.institution} disabled />
+                    </Form.Item>
+                    <Form.Item
+                      label="Degree/Diploma/Certification"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Degree/Diploma/Certification",
+                        },
+                      ]}
+                      className="flex-1"
+                    >
+                      <Input value={education?.degree} disabled />
+                    </Form.Item>
+                  </div>
+                );
+              }
+            )}
           {!educationalBackground &&
             educationalBGData.map((item, index) => {
               return item.map((val) => {

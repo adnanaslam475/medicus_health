@@ -198,6 +198,11 @@ function EditProfile({
         about_me: values?.about_me || "",
         condition_treated: condition_treated,
         language: physicianLanguage || "",
+        city_id: values.city_id,
+        country_id: values.country_id,
+        state_id: values.state_id,
+        streetAddress: values.street_address,
+        zip_code: values.zip_code,
         educational_background: [
           {
             institution: values["eb-institution-0"],
@@ -333,6 +338,11 @@ function EditProfile({
         about_me: values?.about_me || "",
         condition_treated: list.toString(),
         language: physicianLanguage || "",
+        city_id: values.city_id,
+        country_id: values.country_id,
+        state_id: values.state_id,
+        streetAddress: values.street_address,
+        zip_code: values.zip_code,
         educational_background: [
           {
             institution: values["eb-institution-0"],
