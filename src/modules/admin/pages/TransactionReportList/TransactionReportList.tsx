@@ -237,16 +237,16 @@ function TransactionReportList() {
           // text={String(total_number_of_consultation)}
           text={10}
         />
-        <MyEarningsStats label={"Total Second Opinions"} text={10} />
+        <MyEarningsStats label={"Total Second opinions"} text={10} />
         <MyEarningsStats label={"Total Patients"} text={10} />
-        <MyEarningsStats label={"Earnings through Consultants"} text={10} />
-        <MyEarningsStats label={"Earnings through Second Opinion"} text={10} />
+        <MyEarningsStats label={"Earnings through consultants"} text={10} />
+        <MyEarningsStats label={"Earnings through second opinion"} text={10} />
         <MyEarningsStats label={"Total Earnings"} text={10} />
       </div>
       <Divider className="my-0 py-0" />
       <div className="w-full">
         <div className="flex justify-between">
-          <h2 className="mb-0">Transaction Reports</h2>
+          <h2 className="mb-0">Transaction reports</h2>
         </div>
         <TransactionReportListFilter onChange={onChangeFilters} />
         <div className="w-full">
