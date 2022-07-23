@@ -121,23 +121,13 @@ const transactionsColumns = [
     render: (value: string) => {
       return (
         <div className="someclass">
-          {/* <Tag color="cyan">{value}</Tag> */}
+         
           <StatusChip type={value.toUpperCase() as StatusName} />
         </div>
       );
     },
   },
-  // {
-  //   title: "",
-  //   dataIndex: "",
-  //   key: "view",
-  //   className: "table-action-icon",
-  //   render: () => (
-  //     <div className="text-primary">
-  //       <EyeFilled />
-  //     </div>
-  //   ),
-  // },
+ 
 ];
 
 type Props = {
