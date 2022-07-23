@@ -70,7 +70,7 @@ export const bioForm = [
   [
     {
       label: "Street Address",
-      name: "street_adress",
+      name: "street_address",
       disabled: true,
       defaultValue: "",
     },
@@ -472,7 +472,7 @@ export const adminBioForm = [
     {
       label: "First Name",
       name: "firstName",
-      defaultValue: "usama",
+      defaultValue: "John Doe",
       disabled: true,
     },
     {

@@ -181,6 +181,7 @@ query doctorProfile($doctor_id: Int!) {
       last_name
       email
       gender
+      streetAddress
       country_id
       state_id
       city_id
@@ -646,7 +647,6 @@ query getDoctorEarnings($filter: GetTransectionInput!, $id: Int!) {
     total_earnings
   }
 }
-
 
 # get staff listing
 query getAllStaffByDoctor(

@@ -13,7 +13,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -1495,7 +1497,9 @@ export type UpdateDoctorPercentage = {
 
 export type UpdateDoctorProfileInput = {
   about_me?: InputMaybe<Scalars['String']>;
+  city_id: Scalars['Float'];
   condition_treated?: InputMaybe<Scalars['String']>;
+  country_id: Scalars['Float'];
   doctor_id: Scalars['Float'];
   educational_background?: InputMaybe<Array<EducationalBackgroundUpdate>>;
   email: Scalars['String'];
@@ -1506,7 +1510,10 @@ export type UpdateDoctorProfileInput = {
   professional_experience?: InputMaybe<Array<ProfessionalExperience2>>;
   profile_image?: InputMaybe<Scalars['String']>;
   specialization?: InputMaybe<Scalars['String']>;
+  state_id: Scalars['Float'];
+  streetAddress: Scalars['String'];
   year_of_experience?: InputMaybe<Scalars['Float']>;
+  zip_code: Scalars['String'];
 };
 
 export type UpdatePatientHealthHistoryInput = {
@@ -2230,7 +2237,7 @@ export type DoctorProfileQueryVariables = Exact<{
 }>;
 
 
-export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, contact_number?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
+export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, contact_number?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
 
 export type GetAllRequestedAppointmentsQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -4213,6 +4220,7 @@ export const DoctorProfileDocument = gql`
       last_name
       email
       gender
+      streetAddress
       country_id
       state_id
       city_id

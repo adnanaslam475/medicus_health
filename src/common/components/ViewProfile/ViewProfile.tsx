@@ -39,10 +39,16 @@ export const ViewProfile = React.forwardRef(function Profile({
     first_name,
     last_name,
     email,
+    street_address,
+    city_id,
+    country_id,
+    state_id,
+    postalCode,
   } = userData?.user || doctorData?.user || {};
 
   const {
     specialization,
+    condition_treated,
     year_of_experience,
     about_me,
     educational_background,
@@ -59,22 +65,28 @@ export const ViewProfile = React.forwardRef(function Profile({
     if (doctorData || userData) {
       prepareAndSetEditPayload();
     }
-  }, [doctorData,userData]);
+  }, [doctorData, userData]);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       firstName: first_name,
       lastName: last_name,
-      specialization: specialization,
       year_of_experience: year_of_experience,
       contact: contact_number,
       email: email,
       password: password,
       confirmPassword: password,
       about_me: about_me,
+      // condition_treated: list.toString(),
+      specialization: specialization,
+      street_address: street_address || "",
+      city: city_id,
+      country: country_id || "",
+      state: state_id || "",
+      zip_code: postalCode || "",
     });
   }
-  
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -129,7 +141,7 @@ export const ViewProfile = React.forwardRef(function Profile({
             formInstance={formInstance}
             professionalExperience={professionalExperience}
             educationalBackground={educationalBackground}
-/>
+          />
         </div>
       </div>
     </div>

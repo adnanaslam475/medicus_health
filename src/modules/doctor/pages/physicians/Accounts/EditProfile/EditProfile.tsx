@@ -113,6 +113,11 @@ function EditProfile({
     first_name: doctor_first_name,
     last_name: doctor_last_name,
     email: doctor_email,
+    streetAddress: streetAddress,
+    city_id: city_id,
+    country_id: country_id,
+    state_id: state_id,
+    zip_code: zip_code,
   } = userData?.user || {};
 
   const {
@@ -125,6 +130,8 @@ function EditProfile({
     status,
     doctorProfile,
   } = doctorData?.user || {};
+
+  console.log(doctorData, "Usmaa Doc Dat");
 
   const {
     about_me,
@@ -187,8 +194,13 @@ function EditProfile({
     formInstance.setFieldsValue({
       firstName: doctor_first_name,
       lastName: doctor_last_name,
-      specialization: specialization,
-      year_of_experience: year_of_experience,
+      specialization: specialization || "",
+      year_of_experience: year_of_experience || "",
+      streetAddress: streetAddress || "",
+      city_id: city_id || "",
+      country_id: country_id || "",
+      state_id: state_id || "",
+      zip_code: zip_code || "",
       contact: contact_number,
       email: doctor_email,
       password: "",
@@ -215,6 +227,12 @@ function EditProfile({
         last_name: values?.lastName || "",
         specialization: values?.specialization || "",
         year_of_experience: Number(values?.year_of_experience || 0),
+        streetAddress: values?.streetAddress,
+        city_id: Number(values?.city_id),
+        country_id: Number(values?.country_id),
+        state_id: Number(values?.state_id),
+        zip_code: values?.zip_code,
+
         email: values?.email || "",
         password: values?.password,
         profile_image: image || userProfileImage || "",
@@ -335,6 +353,11 @@ function EditProfile({
         last_name: values?.lastName || "",
         specialization: values?.specialization || "",
         year_of_experience: Number(values?.year_of_experience) || 0,
+        streetAddress: values?.streetAddress,
+        country_id: values?.country,
+        state_id: values?.state,
+        city_id: values?.city_id | 0,
+        zip_code: values?.zip_code,
         email: values?.email || "",
         password: values?.password,
         profile_image: image || userProfileImage || "",
