@@ -49,9 +49,9 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
   }
 
   return (
-    <div className="page-filters flex-none lg:flex items-center">
-      <div className="flex items-center sm:flex  lg:mb-0">
-        <div className="w-full sm:w-full md:w-full lg:w-70">
+    <div className="page-filters flex-col sm:flex-row flex items-center gap-2 mb-3">
+      <div className=" items-center flex-col  gap-2  sm:flex-row flex  ">
+        <div className="w-full lg:w-70 flex-1">
           <Input
             value={filterState.searchString || undefined}
             placeholder="Search by ID or patient name"
@@ -61,6 +61,7 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
             }}
           />
         </div>
+        <div className="-mt-6 w-full sm:w-60 flex-1">
         <FilterRangePicker
           onChange={(dateString: string[]) =>
             onChangeFields("dueDate", {
@@ -85,9 +86,10 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
             )
           }
         />
+        </div>
       </div>
-      <div className="flex-none sm:flex">
-        <div className="lg:ml-3 sm:mt-0">
+      <div className="flex flex-col sm:flex-row flex-1 w-full sm:w-60">
+        <div className="">
           <SelectServiceTypeFilter
             onChange={(value) => onChangeFields("serviceId", value as string)}
             value={filterState.serviceId || undefined}
