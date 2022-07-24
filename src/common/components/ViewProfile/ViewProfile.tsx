@@ -1,10 +1,16 @@
 /* eslint-disable react/jsx-key */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { Avatar, Form, Button, Skeleton } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
-import { useGetUserQuery, User } from "generated/graphql";
+import {
+  useCountriesQuery,
+  useGetCitiesByStateQuery,
+  useGetStatesByCountryQuery,
+  useGetUserQuery,
+  User,
+} from "generated/graphql";
 import { Schedule } from "common/types/types";
 import { parseJson } from "common/utils/helper";
 import ProfileForm from "./ProfileForm";
@@ -45,6 +51,9 @@ export const ViewProfile = React.forwardRef(function Profile({
     state_id,
     postalCode,
     zip_code,
+    country_name,
+    state_name,
+    city_name,
   } = userData?.user || doctorData?.user || {};
 
   const {
