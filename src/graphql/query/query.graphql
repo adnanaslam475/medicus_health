@@ -72,6 +72,15 @@ query getUser($input: Int!) {
     zip_code
     streetAddress
     status
+    country {
+      country_name
+    }
+    state {
+      state_name
+    }
+    city {
+      city_name
+    }
     patientProfile {
       maritalStatus
       profileImage

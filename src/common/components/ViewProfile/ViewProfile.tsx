@@ -5,8 +5,8 @@ import { Avatar, Form, Button, Skeleton } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 import {
-  useCountriesQuery,
-  useGetCitiesByStateQuery,
+  useGetCityByIdQuery,
+  useGetCountryByIdQuery,
   useGetStatesByCountryQuery,
   useGetUserQuery,
   User,
@@ -40,21 +40,21 @@ export const ViewProfile = React.forwardRef(function Profile({
 
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: Number(doctorId) },
+    pause: doctorId === undefined,
   });
   const {
     first_name,
     last_name,
     email,
     streetAddress,
-    city_id,
-    country_id,
-    state_id,
-    postalCode,
     zip_code,
-    country_name,
-    state_name,
-    city_name,
-  } = userData?.user || doctorData?.user || {};
+    country,
+    state,
+    city,
+  } = userData?.user || {};
+  const { country_name } = country || {};
+  const { state_name } = state || {};
+  const { city_name } = city || {};
 
   const {
     specialization,
@@ -72,10 +72,10 @@ export const ViewProfile = React.forwardRef(function Profile({
     parseJson(professional_experience || "[]") || [];
 
   useEffect(() => {
-    if (doctorData || userData) {
+    if (doctorData || userData?.user) {
       prepareAndSetEditPayload();
     }
-  }, [doctorData, userData]);
+  }, [doctorData, userData?.user]);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -90,9 +90,9 @@ export const ViewProfile = React.forwardRef(function Profile({
       condition_treated: condition_treated,
       specialization: specialization,
       streetAddress: streetAddress || "",
-      city: city_id,
-      country: country_id || "",
-      state: state_id || "",
+      city: city_name || "",
+      country: country_name || "",
+      state: state_name || "",
       zip_code: zip_code || "",
     });
   }

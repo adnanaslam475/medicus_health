@@ -114,10 +114,10 @@ function EditProfile({
     last_name: doctor_last_name,
     email: doctor_email,
     streetAddress: street_address,
-    city_id: city_id,
-    country_id: country_id,
-    state_id: state_id,
-    zip_code: zip_code,
+    city_id,
+    country_id,
+    state_id,
+    zip_code,
   } = userData?.user || {};
 
   const {
@@ -162,8 +162,10 @@ function EditProfile({
     { institution: "", degree: "" },
   ]);
 
-  const [countryId, setCountryId] = useState<number | undefined>();
-  const [stateId, setStateId] = useState<number | undefined>();
+  const [countryId, setCountryId] = useState<number | undefined>(
+    Number(country_id)
+  );
+  const [stateId, setStateId] = useState<number | undefined>(Number(state_id));
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -796,12 +798,6 @@ function EditProfile({
                   />
                 </Form.Item>
               </div>
-              {/* {console.log("contition db", condition_treated)}
-              {console.log(
-                "condition local",
-                condition_treated,
-                conditionTreatedList
-              )} */}
               <InputWithLi
                 // value={conditionTreatedList}
                 disable={false}
