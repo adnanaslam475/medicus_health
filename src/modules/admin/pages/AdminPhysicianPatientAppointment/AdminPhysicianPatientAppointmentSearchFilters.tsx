@@ -50,7 +50,7 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
 
   return (
     <div className="page-filters flex-none lg:flex items-center">
-      <div className="flex items-center sm:flex  lg:mb-0">
+      <div className="flex items-center sm:flex lg:mb-0 gap-2">
         <div className="w-full sm:w-full md:w-full lg:w-70">
           <Input
             value={filterState.searchString || undefined}

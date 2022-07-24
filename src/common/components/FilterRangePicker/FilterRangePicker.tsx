@@ -26,7 +26,13 @@ export function FilterRangePicker({
   isAdminFilter?: boolean;
 }) {
   return (
-    <div className={` ${isAdminFilter && "admin-filter-date-picker"} relative my-0  " ${_classes["filter-date-wrapper"]}`} >
+    <div
+      className={` ${
+        isAdminFilter && "admin-filter-date-picker"
+      } relative my-0  " ${
+        _classes["filter-date-wrapper"]
+      } lg:mb-6 md:mb-6 sm:mb-3`}
+    >
       <DatePicker.RangePicker
         value={null}
         onChange={(_, formatString) => onChange(formatString)}
