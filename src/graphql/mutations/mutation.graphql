@@ -146,6 +146,7 @@ mutation createDoctor($createDoctorInput: CreateDoctorInput!) {
     state_id
     city_id
     zip_code
+    # specialization
     id
   }
 }
@@ -175,6 +176,15 @@ mutation updateDoctorProfile(
       country_id
       state_id
       city_id
+      city {
+        city_name
+      }
+      state {
+        state_name
+      }
+      country {
+        country_name
+      }
       zip_code
       password
       status

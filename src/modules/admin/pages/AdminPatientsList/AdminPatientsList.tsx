@@ -24,7 +24,9 @@ const columns: ColumnsType<User> = [
     key: "first_name",
     sorter: true,
     render: (value: any) => {
-      return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
+      return (
+        <div className="max-w-[120px]">{`${value?.first_name} ${value?.last_name}`}</div>
+      );
     },
   },
   {
@@ -51,7 +53,7 @@ const columns: ColumnsType<User> = [
     key: "streetAddress",
     sorter: true,
     render: (value: String) => {
-      return <div>{value || "--"}</div>;
+      return <div className="max-w-[100px]">{value || "--"}</div>;
     },
   },
   {

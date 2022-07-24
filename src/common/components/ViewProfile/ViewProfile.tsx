@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { Avatar, Form, Button, Skeleton } from "antd";
 import { UserOutlined } from "@ant-design/icons";
@@ -47,41 +47,14 @@ export const ViewProfile = React.forwardRef(function Profile({
     last_name,
     email,
     streetAddress,
-    city_id,
-    country_id,
-    state_id,
-    // postalCode,
     zip_code,
+    country,
+    state,
+    city,
   } = userData?.user || {};
-
-  const [{ data: country }] = useGetCountryByIdQuery({
-    variables: {
-      id: Number(country_id),
-    },
-    pause: country_id == undefined,
-  });
-  const { country_name } = country?.country || {};
-
-  const [data] = useGetStatesByCountryQuery({
-    variables: {
-      input: Number(country_id),
-    },
-    pause: country_id == undefined,
-  });
-
-  const { getStatesByCountry } = data?.data || {};
-
-  let getState = getStatesByCountry?.find(
-    (item) => item?.id === Number(state_id)
-  );
-
-  const [{ data: city }] = useGetCityByIdQuery({
-    variables: {
-      id: Number(city_id),
-    },
-    pause: country_id == undefined,
-  });
-  const { city_name } = city?.city || {};
+  const { country_name } = country || {};
+  const { state_name } = state || {};
+  const { city_name } = city || {};
 
   const {
     specialization,
@@ -117,9 +90,9 @@ export const ViewProfile = React.forwardRef(function Profile({
       condition_treated: condition_treated,
       specialization: specialization,
       streetAddress: streetAddress || "",
-      city: String(city_name) || "",
-      country: String(country_name) || "",
-      state: getState?.state_name || "",
+      city: city_name || "",
+      country: country_name || "",
+      state: state_name || "",
       zip_code: zip_code || "",
     });
   }

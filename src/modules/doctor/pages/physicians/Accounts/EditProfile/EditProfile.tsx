@@ -227,7 +227,7 @@ function EditProfile({
     // if (doctorData) {
     if (!conditionTreatedList) {
       notification.error({
-        message: "Please enter at least one condition created",
+        message: "Please enter at least one condition treated",
       });
     } else {
       const res = await updateDoctor({
@@ -539,7 +539,7 @@ function EditProfile({
                 <Form.Item
                   label="First Name"
                   name="firstName"
-                  rules={[{ required: true, message: "First Name!" }]}
+                  rules={[{ required: true, message: "First name!" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -547,7 +547,7 @@ function EditProfile({
                 <Form.Item
                   label="Last name"
                   name="lastName"
-                  rules={[{ required: true, message: "Last Name!" }]}
+                  rules={[{ required: true, message: "Last name!" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -583,7 +583,7 @@ function EditProfile({
                 </Form.Item>
 
                 <Form.Item
-                  label="Confirm Password"
+                  label="Confirm password"
                   name="confirmPassword"
                   className="flex-1"
                   dependencies={["password"]}
@@ -619,7 +619,7 @@ function EditProfile({
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  label="Years of Experience"
+                  label="Years of experience"
                   name="year_of_experience"
                   className="flex-1"
                 >
@@ -628,13 +628,13 @@ function EditProfile({
               </div>
 
               <Form.Item
-                label={"Street Address"}
+                label={"Street address"}
                 name="streetAddress"
                 rules={[
                   {
                     required: true,
-                    message: "street address required",
-                    max: 30,
+                    message: "Street address required",
+                    max: 300,
                   },
                 ]}
               >
@@ -649,7 +649,7 @@ function EditProfile({
                   rules={[
                     {
                       required: true,
-                      message: "country_message",
+                      message: "Country is required",
                     },
                   ]}
                 >
@@ -798,7 +798,6 @@ function EditProfile({
                   />
                 </Form.Item>
               </div>
-
               <InputWithLi
                 // value={conditionTreatedList}
                 disable={false}
@@ -947,7 +946,7 @@ function EditProfile({
                 <h6>Login Information</h6>
                 <div className="border-b border-gray-3 my-3 py-3">
                   <Form.Item
-                    label="Email Address"
+                    label="Email address"
                     name="institute"
                     rules={[
                       {
@@ -970,7 +969,7 @@ function EditProfile({
                     </Form.Item>
 
                     <Form.Item
-                      label="Confirm Password"
+                      label="Confirm password"
                       name="confirmPassword"
                       // rules={[{ required: true, message: "Confirm password!" }]}
                       className="flex-1"
