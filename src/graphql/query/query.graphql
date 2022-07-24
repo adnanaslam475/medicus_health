@@ -185,6 +185,15 @@ query doctorProfile($doctor_id: Int!) {
       country_id
       state_id
       city_id
+      country {
+        country_name
+      }
+      state {
+        state_name
+      }
+      city {
+        city_name
+      }
       zip_code
       password
       status
