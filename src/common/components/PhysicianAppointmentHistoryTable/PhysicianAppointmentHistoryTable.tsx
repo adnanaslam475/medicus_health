@@ -30,15 +30,15 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       key: "id",
       sorter: true,
     },
-    {
-      title: "Booking date",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      sorter: true,
-      render: (value: string) => {
-        return <div>{`${date?.formatDAYMMDDYY(value)} `}</div>;
-      },
-    },
+    // {
+    //   title: "Booking date",
+    //   dataIndex: "createdAt",
+    //   key: "createdAt",
+    //   sorter: true,
+    //   render: (value: string) => {
+    //     return <div>{`${date?.formatDAYMMDDYY(value)} `}</div>;
+    //   },
+    // },
     {
       title: "Appointment type",
       dataIndex: "serviceType",
