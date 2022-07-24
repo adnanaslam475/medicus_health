@@ -4,7 +4,13 @@ import { EditOutlined } from "@ant-design/icons";
 import { Avatar, Form, Button, Skeleton } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
-import { useGetUserQuery, User } from "generated/graphql";
+import {
+  useGetCityByIdQuery,
+  useGetCountryByIdQuery,
+  useGetStatesByCountryQuery,
+  useGetUserQuery,
+  User,
+} from "generated/graphql";
 import { Schedule } from "common/types/types";
 import { parseJson } from "common/utils/helper";
 import ProfileForm from "./ProfileForm";
@@ -34,6 +40,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: Number(doctorId) },
+    pause: doctorId === undefined,
   });
   const {
     first_name,
@@ -43,9 +50,38 @@ export const ViewProfile = React.forwardRef(function Profile({
     city_id,
     country_id,
     state_id,
-    postalCode,
+    // postalCode,
     zip_code,
-  } = userData?.user || doctorData?.user || {};
+  } = userData?.user || {};
+
+  const [{ data: country }] = useGetCountryByIdQuery({
+    variables: {
+      id: Number(country_id),
+    },
+    pause: country_id == undefined,
+  });
+  const { country_name } = country?.country || {};
+
+  const [data] = useGetStatesByCountryQuery({
+    variables: {
+      input: Number(country_id),
+    },
+    pause: country_id == undefined,
+  });
+
+  const { getStatesByCountry } = data?.data || {};
+
+  let getState = getStatesByCountry?.find(
+    (item) => item?.id === Number(state_id)
+  );
+
+  const [{ data: city }] = useGetCityByIdQuery({
+    variables: {
+      id: Number(city_id),
+    },
+    pause: country_id == undefined,
+  });
+  const { city_name } = city?.city || {};
 
   const {
     specialization,
@@ -63,10 +99,10 @@ export const ViewProfile = React.forwardRef(function Profile({
     parseJson(professional_experience || "[]") || [];
 
   useEffect(() => {
-    if (doctorData || userData) {
+    if (doctorData || userData?.user) {
       prepareAndSetEditPayload();
     }
-  }, [doctorData, userData]);
+  }, [doctorData, userData?.user]);
 
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
@@ -81,9 +117,9 @@ export const ViewProfile = React.forwardRef(function Profile({
       condition_treated: condition_treated,
       specialization: specialization,
       streetAddress: streetAddress || "",
-      city: city_id,
-      country: country_id || "",
-      state: state_id || "",
+      city: String(city_name) || "",
+      country: String(country_name) || "",
+      state: getState?.state_name || "",
       zip_code: zip_code || "",
     });
   }
