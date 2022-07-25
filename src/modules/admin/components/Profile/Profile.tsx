@@ -177,7 +177,7 @@ export const Profile = React.forwardRef(function Profile({
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
-                  label="First Name"
+                  label="First name"
                   name="firstName"
                   rules={[{ required: true, message: "First Name!" }]}
                   className="flex-1"
@@ -204,7 +204,7 @@ export const Profile = React.forwardRef(function Profile({
                   <Input disabled={true} />
                 </Form.Item>
                 <Form.Item
-                  label="Contact Number"
+                  label="Contact number"
                   className="flex-1"
                   name="contact"
                 >
@@ -222,7 +222,7 @@ export const Profile = React.forwardRef(function Profile({
                 </Form.Item>
 
                 <Form.Item
-                  label="Confirm Password"
+                  label="Confirm password"
                   name="confirmPassword"
                   className="flex-1"
                 >
@@ -235,7 +235,7 @@ export const Profile = React.forwardRef(function Profile({
                     Close
                   </Button>
                   <Button type="primary" htmlType="submit">
-                    Save Changes
+                    Save changes
                   </Button>
                 </div>
               </Form.Item>

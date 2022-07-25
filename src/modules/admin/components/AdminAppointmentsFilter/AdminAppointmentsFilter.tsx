@@ -143,7 +143,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
         {getRole() === "Admin" && (
           <div className="w-full lg:max-w-[200px] sm:mt-0   flex flex-col sm:flex-row">
             <SelectStatusTypeFilter
-              placeholder="Appointment Status"
+              placeholder="Appointment status"
               onChange={(value) => onChangeFields("status", value as string)}
               value={filterValues.status}
               isAdminFilter={true}
@@ -152,7 +152,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
         )}
         <div className=" sm:mt-0 flex-1 flex flex-col sm:flex-row lg:max-w-[200px]">
           <Select
-            placeholder="Payment Status"
+            placeholder="Payment status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
             className="w-full sm:w-50 text-sm font-rubik text-grey"
           >

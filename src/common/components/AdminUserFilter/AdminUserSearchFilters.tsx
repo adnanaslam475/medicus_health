@@ -156,11 +156,11 @@ function AdminUserSearchFilters(props: Props) {
                   <div>
                     {filterState.creationDate
                       ? `${filterState.creationDate.startDate} -> ${filterState.creationDate.endDate}`
-                      : "Account Creation Date"}
+                      : "Account creation date"}
                   </div>
                 ) : (
                   <div className="flex justify-between items-center w-full px-3">
-                    <div>Account Creation Date</div>
+                    <div>Account creation date</div>
                     <div>
                       <CaretDownOutlined />
                     </div>

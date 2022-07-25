@@ -37,8 +37,8 @@ const ViewProfileFields = ({
   return (
     <div className="max-w-[800px]">
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="First Name" value={first_name} />
-        <LabelWithTextDiv label="Last Name" value={last_name} />
+        <LabelWithTextDiv label="First name" value={first_name} />
+        <LabelWithTextDiv label="Last name" value={last_name} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv
@@ -53,8 +53,8 @@ const ViewProfileFields = ({
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Email Address" value={email} />
-        <LabelWithTextDiv label="Cell Number" value={contact_number} />
+        <LabelWithTextDiv label="Email address" value={email} />
+        <LabelWithTextDiv label="Cell number" value={contact_number} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv label="Country" value={country_name} />
@@ -65,34 +65,34 @@ const ViewProfileFields = ({
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv
-          label="Marital Status"
+          label="Marital status"
           value={patientProfile?.maritalStatus}
         />
         <LabelWithTextDiv
-          label="Do you have any Children?"
+          label="Do you have any children?"
           value={patientProfile?.haveChildren}
         />
         {!!childrenCount && (
           <LabelWithTextDiv
-            label="Number of Childrens"
+            label="Number of childrens"
             value={patientProfile?.children}
           />
         )}
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv
-          label="What is your Occupation?"
+          label="What is your occupation?"
           value={patientProfile?.occupation}
         />
         <LabelWithTextDiv
-          label="Do you have any Occupational Exposure?"
+          label="Do you have any occupational exposure?"
           value={patientProfile?.occupationalExposure}
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         {showExposureDuration && (
           <LabelWithTextDiv
-            label="Do you have any Occupational Duration?"
+            label="Do you have any occupational duration?"
             value={patientProfile?.exposureDuration}
           />
         )}

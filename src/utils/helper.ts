@@ -13,7 +13,7 @@ export const configS3 = {
 export const bioForm = [
   [
     {
-      label: "First Name",
+      label: "First name",
       name: "firstName",
       defaultValue: "usama",
       disabled: true,
@@ -470,7 +470,7 @@ export const FLAG_BY_LANGUAGE = {
 export const adminBioForm = [
   [
     {
-      label: "First Name",
+      label: "First name",
       name: "firstName",
       defaultValue: "usama",
       disabled: true,

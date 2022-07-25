@@ -59,7 +59,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Time",
+    title: "Appointment time",
     dataIndex: "appointmentTimeSlots",
     key: "",
     sorter: true,
@@ -87,7 +87,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Payment Status",
+    title: "Payment status",
     dataIndex: "transaction",
     key: "transaction",
     className: "table-action-icon",

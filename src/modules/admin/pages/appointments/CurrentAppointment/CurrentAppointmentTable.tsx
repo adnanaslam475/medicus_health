@@ -40,7 +40,7 @@ function CurrentAppointmentTable({ dataSource ,loading}: Props) {
       },
     },
     {
-      title: "Type",
+      title: "Service type",
       dataIndex: "serviceType",
       render: (value: AppointmentServiceType) => {
         return <div>{value?.name}</div>;
@@ -63,7 +63,7 @@ function CurrentAppointmentTable({ dataSource ,loading}: Props) {
       },
     },
     {
-      title: "Time",
+      title: "Appointment time",
       dataIndex: "appointmentTimeSlots",
       key: "appointmentTimeSlots",
       render: (value: AppointmentTimeSlots[]) => {
@@ -80,7 +80,7 @@ function CurrentAppointmentTable({ dataSource ,loading}: Props) {
       },
     },
     {
-      title: "Total Amount",
+      title: "Total amount",
       dataIndex: "charges",
       key: "charges",
       render: (value: number) => {

@@ -116,7 +116,7 @@ const columns = [
     },
   },
   {
-    title: "Account Creation Date",
+    title: "Account creation date",
     dataIndex: "createdAt",
     key: "createdAt",
     render: (createdAt: string) => {

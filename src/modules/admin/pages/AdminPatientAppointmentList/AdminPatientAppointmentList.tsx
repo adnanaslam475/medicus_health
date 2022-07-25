@@ -91,7 +91,7 @@ const columns = [
     },
   },
   {
-    title: "Total Amount",
+    title: "Total amount",
     dataIndex: "charges",
     key: "charges",
     sorter: true,

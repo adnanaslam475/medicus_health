@@ -15,7 +15,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Appointment ID",
+    title: "Appointment ID#",
     dataIndex: "appointment_id",
     key: "appointment_id",
     render: (value: User) => {
@@ -24,7 +24,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Patient Name",
+    title: "Patient name",
     dataIndex: "patient_name",
     key: "patient_name",
     render: (value: User) => {
@@ -42,7 +42,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Scheduled Date",
+    title: "Scheduled date",
     dataIndex: "first_name",
     key: "first_name",
     render: (value: User) => {
@@ -69,7 +69,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Gross Sales ($)",
+    title: "Gross sales ($)",
     dataIndex: "first_name",
     key: "first_name",
     render: (value: User) => {
@@ -96,7 +96,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Total Sales ($)",
+    title: "Total sales ($)",
     dataIndex: "first_name",
     key: "first_name",
     render: (value: User) => {

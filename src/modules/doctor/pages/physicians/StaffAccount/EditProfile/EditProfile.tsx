@@ -451,7 +451,7 @@ function EditProfile({
                 <Form.Item
                   label="First name"
                   name="firstName"
-                  rules={[{ required: true, message: "First Name!" }]}
+                  rules={[{ required: true, message: "First name!" }]}
                   className="flex-1"
                 >
                   <Input disabled={isStaff} />
@@ -459,7 +459,7 @@ function EditProfile({
                 <Form.Item
                   label="Last name"
                   name="lastName"
-                  rules={[{ required: true, message: "Last Name!" }]}
+                  rules={[{ required: true, message: "Last name!" }]}
                   className="flex-1"
                 >
                   <Input disabled={isStaff} />

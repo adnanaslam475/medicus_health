@@ -52,7 +52,7 @@ function CancelledAppointmentTable({ dataSource, loading }: Props) {
       },
     },
     {
-      title: "Time",
+      title: "Appointment time",
       dataIndex: "appointmentTimeSlots",
       key: "appointment_time_slots",
       sorter: true,
@@ -70,7 +70,7 @@ function CancelledAppointmentTable({ dataSource, loading }: Props) {
       },
     },
     {
-      title: "Total Amount",
+      title: "Total amount",
       dataIndex: "charges",
       key: "charges",
       sorter: true,
