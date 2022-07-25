@@ -27,7 +27,7 @@ const appointmentColumns = [
     sorter: true,
   },
   {
-    title: "Patient Name",
+    title: "Patient name",
     dataIndex: "patient",
     key: "first_name",
     render: (value: User) => {
@@ -79,7 +79,7 @@ const appointmentColumns = [
     },
   },
   {
-    title: "Appointment Time",
+    title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "requestedDate",
     sorter: true,
@@ -100,7 +100,7 @@ const appointmentColumns = [
     },
   },
   {
-    title: "Appointment Status",
+    title: "Appointment status",
     dataIndex: "status",
     key: "status",
     sorter: true,
@@ -114,7 +114,7 @@ const appointmentColumns = [
     },
   },
   {
-    title: "Payment Status",
+    title: "Payment status",
     dataIndex: "transaction",
     key: "status",
     className: "table-action-icon",
@@ -136,7 +136,7 @@ const appointmentColumns = [
     },
   },
   {
-    title: "Total Amount",
+    title: "Total amount",
     dataIndex: "charges",
     key: "charges",
     sorter: true,
@@ -305,6 +305,7 @@ function AdminAppointmentsListing({}: Props) {
                 columns={appointmentColumns}
                 dataSource={appointmentItems}
                 onChange={onChange}
+                scroll={{x:true}}
                 loading={fetching}
                 pagination={{
                   total: pagination.limit * Number(meta?.totalPages),

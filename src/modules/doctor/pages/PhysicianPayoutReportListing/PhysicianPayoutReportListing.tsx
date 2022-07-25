@@ -17,7 +17,7 @@ function PhysicianPayoutReportListing() {
   const onChange = (key: string | string[]) => {};
   const columns = [
     {
-      title: "ID",
+      title: "ID#",
       key: "transaction",
       dataIndex: "transaction",
       render: (transaction: Transaction) => {
@@ -26,7 +26,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Appointment ID",
+      title: "Appointment ID#",
       key: "id",
       dataIndex: "id",
       render: (id: string) => {
@@ -34,7 +34,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Patient Name",
+      title: "Patient name",
       key: "patient",
       dataIndex: "patient",
       render: (patient: User) => {
@@ -45,7 +45,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Service",
+      title: "Service type",
       key: "serviceType",
       dataIndex: "serviceType",
       render: (serviceType: AppointmentServiceType) => {
@@ -54,7 +54,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Scheduled Date",
+      title: "Scheduled date",
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
@@ -68,7 +68,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Physician Fee ($)",
+      title: "Physician fee($)",
       dataIndex: "transaction",
       key: "physicianFee",
       render: (transaction: Transaction) => {
@@ -77,7 +77,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Refunds ($)",
+      title: "Refunds($)",
       dataIndex: "refund",
       key: "refund",
       render: (transaction: Transaction) => {
@@ -86,7 +86,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Net Physician Fee($)",
+      title: "Net physician fee($)",
       dataIndex: "transaction",
       key: "netPhysicianFee",
       render: (transaction: Transaction) => {

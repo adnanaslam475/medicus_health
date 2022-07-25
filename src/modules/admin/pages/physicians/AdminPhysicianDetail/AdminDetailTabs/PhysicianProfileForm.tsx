@@ -22,7 +22,7 @@ function PhysicianProfileForm() {
     <Form name="basic" layout="vertical">
       <div className="flex flex-row gap-3">
         <Form.Item
-          label="First Name"
+          label="First name"
           name="firstName"
           rules={[{ required: true, message: "First Name!" }]}
           className="flex-1"
@@ -61,7 +61,7 @@ function PhysicianProfileForm() {
         </Form.Item>
 
         <Form.Item
-          label="Confirm Password"
+          label="Confirm password"
           name="confirmPassword"
           rules={[{ required: true, message: "Confirm password!" }]}
           className="flex-1"

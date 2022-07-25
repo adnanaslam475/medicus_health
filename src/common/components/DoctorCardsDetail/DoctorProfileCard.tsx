@@ -114,7 +114,7 @@ function DoctorProfileCard(props: Props) {
                 ? `${doctorData?.year_of_experience} + years of experience`
                 : "experience not available"}
             </span>
-            <Collapse className="lg:w-4/5">
+            <Collapse className="xl:w-4/5">
               <Collapse.Panel
                 className="w-full"
                 key="1"

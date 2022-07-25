@@ -16,7 +16,7 @@ export function SelectStatusTypeFilter({
       placeholder={placeholder}
       className={isAdminFilter ? "admin-filter w-full md:w-50 text-grey-4 font-rubik" : "w-full md:w-50"}
       onChange={onChange}
-      value={value || "Appointment Status"}
+      value={value || "Appointment status"}
     >
       {/* ---> reuquested will give both Suggested and Requested */}
       <Select.Option value="Requested">Requested</Select.Option>

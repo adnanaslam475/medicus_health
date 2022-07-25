@@ -47,7 +47,7 @@ function CancelledAppointmentTable({
       sorter: true,
     },
     {
-      title: "Type",
+      title: "Service type",
       dataIndex: "serviceType",
       key: "name",
       sorter: true,
@@ -75,7 +75,7 @@ function CancelledAppointmentTable({
       },
     },
     {
-      title: "Time",
+      title: "Appointment time",
       dataIndex: "appointmentDateTime",
       key: "appointment_time_slots",
       sorter: true,

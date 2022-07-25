@@ -18,13 +18,13 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 type Props = {};
 const Columns = [
   {
-    title: "Transaction ID",
+    title: "Transaction ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,
   },
   {
-    title: "Appointment ID",
+    title: "Appointment ID#",
     dataIndex: "appointmentId",
     key: "appointment",
     sorter: true,

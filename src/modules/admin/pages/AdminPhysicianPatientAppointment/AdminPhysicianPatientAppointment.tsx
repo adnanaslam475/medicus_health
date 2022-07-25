@@ -133,7 +133,7 @@ function AdminPhysicianList() {
       sorter: true,
     },
     {
-      title: "Total Amount",
+      title: "Total amount",
       dataIndex: "charges",
       key: "charges",
       render: (value: User) => {

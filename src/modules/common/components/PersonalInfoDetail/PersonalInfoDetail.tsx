@@ -145,12 +145,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     rules={[
                       {
                         required: true,
-                        message: "First Name is required",
+                        message: "First name is required",
                       },
                     ]}
                     className="bottom-margin-0"
                   >
-                    <Input size="large" placeholder="First Name" />
+                    <Input size="large" placeholder="First name" />
                   </Form.Item>
                 </div>
               </div>
@@ -158,7 +158,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">Last Name</div>
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Last name</div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
                 >
@@ -167,7 +167,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     rules={[
                       {
                         required: true,
-                        message: "Last Name is required",
+                        message: "Last name is required",
                       },
                     ]}
                     className="bottom-margin-0"
@@ -199,7 +199,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">Date of Birth</div>
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Date of birth</div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
                 >
@@ -227,7 +227,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">Contact Number</div>
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Contact number</div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
                 >
@@ -240,7 +240,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">Email Address</div>
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Email address</div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
                 >
@@ -324,7 +324,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">Postal Code</div>
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Postal code</div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
                 >
@@ -350,7 +350,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">Street Address</div>
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Street address</div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
                 >
@@ -369,7 +369,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 >
                   <Form.Item className="mb-0">
                     <Form.Item className="mb-0" name="maritalStatus">
-                      <Select placeholder="Marital Status" size="large">
+                      <Select placeholder="Marital status" size="large">
                         <Select.Option value="Single">Single</Select.Option>
                         <Select.Option value="Married">Married</Select.Option>
                         <Select.Option value="Widower">Widower</Select.Option>
@@ -412,7 +412,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 sm:w-1/3 text-gray-1">
-                  What is your Occupation?
+                  What is your occupation?
                 </div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
@@ -427,7 +427,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 sm:w-1/3 text-gray-1">
-                  Do you have any Occupational Exposure?
+                  Do you have any occupational exposure?
                 </div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
@@ -447,10 +447,10 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     <Form.Item
                       className="mb-0"
                       name="exposureDuration"
-                      label="Occupational Exposure duration?"
+                      label="Occupational exposure duration?"
                     >
                       <Select
-                        placeholder="Occupational Exposure Duration"
+                        placeholder="Occupational exposure duration"
                         size="large"
                       >
                         <Select.Option value="Less than a year (<1)">

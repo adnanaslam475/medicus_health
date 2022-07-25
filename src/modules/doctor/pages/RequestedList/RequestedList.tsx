@@ -66,7 +66,7 @@ const Columns = [
     },
   },
   {
-    title: "Time",
+    title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "requestedDate",
     sorter: true,
