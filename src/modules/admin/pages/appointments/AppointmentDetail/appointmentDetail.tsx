@@ -2,9 +2,16 @@ import React from "react";
 import AppointmentTabs from "../../../../../common/components/Appointments/AppointmentTabs";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
 
+initTranslation(["Login"]);
 function AccountDetail() {
   const { query } = useRouter();
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
+  console.log(t("title"));
 
   return (
     <AppLayout>
