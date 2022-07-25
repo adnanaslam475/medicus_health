@@ -305,6 +305,7 @@ function AdminAppointmentsListing({}: Props) {
                 columns={appointmentColumns}
                 dataSource={appointmentItems}
                 onChange={onChange}
+                scroll={{x:true}}
                 loading={fetching}
                 pagination={{
                   total: pagination.limit * Number(meta?.totalPages),
