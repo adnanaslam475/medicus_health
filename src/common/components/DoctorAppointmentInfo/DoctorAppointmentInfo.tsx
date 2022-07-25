@@ -576,7 +576,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
-    let formatedDate = moment(dateString)
+    let formatedDate = moment(dateString,"MM-DD-YYYY hh:mm A")
       .add(30, "minutes")
       .local()
       .format("MM-DD-YYYY hh:mm A");
@@ -859,7 +859,7 @@ function AvailabilityTimeSlots({
                 <DatePicker disabled={true} className="w-full" showTime />
               ) : (
                 <DatePicker
-                  value={moment(endDateValue)}
+                  value={moment(endDateValue,"MM-DD-YYYY hh:mm A")}
                   disabled={true}
                   className="w-full"
                   showTime

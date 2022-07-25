@@ -70,10 +70,10 @@ function RescheduleAppointmentModal(props: Props) {
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
-    let formatedDate = moment(dateString)
-      .add(30, "minutes")
-      .local()
-      .format("MM-DD-YYYY hh:mm A");
+    let formatedDate = moment(dateString,"MM-DD-YYYY hh:mm A")
+    .add(30, "minutes")
+    .local()
+    .format("MM-DD-YYYY hh:mm A");
     setEndDateValue(formatedDate);
     setSlot({ startTime: dateString, endTime: formatedDate });
   };
@@ -138,13 +138,13 @@ function RescheduleAppointmentModal(props: Props) {
                   className={`${_classes["border-color"]} w-1/6 pointer-events-none`}
                 >
                   <Select
-                    placeholder="Service Type"
+                    placeholder={data?.serviceType?.name || "Service Type"}
                     className="w-full "
                     disabled={true}
                   >
-                    <Select.Option value={data?.serviceType?.id}>
+                    {/* <Select.Option value={data?.serviceType?.id}>
                       {data?.serviceType?.name}
-                    </Select.Option>
+                    </Select.Option> */}
                   </Select>
                 </span>
               </Form.Item>
@@ -299,7 +299,7 @@ function AvailabilityTimeSlots({
                 <DatePicker disabled={true} className="w-full" showTime />
               ) : (
                 <DatePicker
-                  value={moment(endDateValue)}
+                  value={moment(endDateValue,"MM-DD-YYYY hh:mm A")}
                   disabled={true}
                   className="w-full"
                   showTime

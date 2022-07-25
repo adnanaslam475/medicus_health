@@ -25,6 +25,7 @@ function PatientAdd() {
       createDoctorInput: {
         first_name: values?.firstName,
         last_name: values?.lastName,
+        contact_number:"",
         email: values?.email,
         streetAddress: values?.streetAddress,
         country_id: values?.country,

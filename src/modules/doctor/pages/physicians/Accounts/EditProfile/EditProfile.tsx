@@ -114,10 +114,10 @@ function EditProfile({
     last_name: doctor_last_name,
     email: doctor_email,
     streetAddress: street_address,
-    city_id,
-    country_id,
-    state_id,
-    zip_code,
+    city_id: city_id,
+    country_id: country_id,
+    state_id: state_id,
+    zip_code: zip_code,
   } = userData?.user || {};
 
   const {
@@ -162,10 +162,8 @@ function EditProfile({
     { institution: "", degree: "" },
   ]);
 
-  const [countryId, setCountryId] = useState<number | undefined>(
-    Number(country_id)
-  );
-  const [stateId, setStateId] = useState<number | undefined>(Number(state_id));
+  const [countryId, setCountryId] = useState<number | undefined>();
+  const [stateId, setStateId] = useState<number | undefined>();
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -222,13 +220,10 @@ function EditProfile({
     localStorage.removeItem("loginTime");
     Router.push("/login");
   };
-
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
     if (!conditionTreatedList) {
-      notification.error({
-        message: "Please enter at least one condition treated",
-      });
+      notification.error({ message: "Please enter at least one condition created" });
     } else {
       const res = await updateDoctor({
         updateDoctorProfileInput: {
@@ -240,7 +235,7 @@ function EditProfile({
           specialization: values?.specialization || "",
           year_of_experience: Number(values?.year_of_experience || 0),
           streetAddress: values?.streetAddress,
-          // contact_number:values?.contact,
+          contact_number:values?.contact,
           city_id: Number(values?.city_id),
           country_id: Number(values?.country_id),
           state_id: Number(values?.state_id),
@@ -539,7 +534,7 @@ function EditProfile({
                 <Form.Item
                   label="First Name"
                   name="firstName"
-                  rules={[{ required: true, message: "First name!" }]}
+                  rules={[{ required: true, message: "First Name!" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -547,7 +542,7 @@ function EditProfile({
                 <Form.Item
                   label="Last name"
                   name="lastName"
-                  rules={[{ required: true, message: "Last name!" }]}
+                  rules={[{ required: true, message: "Last Name!" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -583,7 +578,7 @@ function EditProfile({
                 </Form.Item>
 
                 <Form.Item
-                  label="Confirm password"
+                  label="Confirm Password"
                   name="confirmPassword"
                   className="flex-1"
                   dependencies={["password"]}
@@ -619,7 +614,7 @@ function EditProfile({
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  label="Years of experience"
+                  label="Years of Experience"
                   name="year_of_experience"
                   className="flex-1"
                 >
@@ -628,13 +623,13 @@ function EditProfile({
               </div>
 
               <Form.Item
-                label={"Street address"}
+                label={"Street Address"}
                 name="streetAddress"
                 rules={[
                   {
                     required: true,
-                    message: "Street address required",
-                    max: 300,
+                    message: "street address required",
+                    max: 30,
                   },
                 ]}
               >
@@ -649,7 +644,7 @@ function EditProfile({
                   rules={[
                     {
                       required: true,
-                      message: "Country is required",
+                      message: "country_message",
                     },
                   ]}
                 >
@@ -946,7 +941,7 @@ function EditProfile({
                 <h6>Login Information</h6>
                 <div className="border-b border-gray-3 my-3 py-3">
                   <Form.Item
-                    label="Email address"
+                    label="Email Address"
                     name="institute"
                     rules={[
                       {
@@ -969,7 +964,7 @@ function EditProfile({
                     </Form.Item>
 
                     <Form.Item
-                      label="Confirm password"
+                      label="Confirm Password"
                       name="confirmPassword"
                       // rules={[{ required: true, message: "Confirm password!" }]}
                       className="flex-1"

@@ -49,7 +49,7 @@ function AdminDashboard() {
           <StatisticsCard
             src={revenue}
             title="The total revenue to date ($)"
-            value={total_revenue || 0}
+            value={Math.round(total_revenue || 0)}
           />
         </div>
       </div>
@@ -58,5 +58,3 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
-
-

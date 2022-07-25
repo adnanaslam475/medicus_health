@@ -17,6 +17,7 @@ import ProfileForm from "./ProfileForm";
 import _classes from "./PhysicianProfile.module.scss";
 import { getRole } from "common/utils/userData";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
+import user from "../../../../pages/admin/user";
 
 type props = {
   doctorId?: string;
@@ -92,6 +93,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       streetAddress: streetAddress || "",
       city: city_name || "",
       country: country_name || "",
+      // contact_number: contact_number || "",
       state: state_name || "",
       zip_code: zip_code || "",
     });

@@ -62,6 +62,7 @@ function ProfileForm({
           last_name: values?.lastName,
           specialization: values?.specialization,
           year_of_experience: values?.year_of_experience,
+          contact_number: values?.contact_number,
           email: values?.email,
           password: values?.password,
           profile_image: image ? image : userProfileImage,
