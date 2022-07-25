@@ -221,14 +221,17 @@ export const AppointmentBookingStepOne = React.forwardRef(
                     ?.includes(input.toLowerCase());
                 }}
               >
-                {(patientData || physicianList)?.map((item, index) => (
-                  <Option
-                    key={index}
-                    value={`${item.id}: ${item?.first_name} ${item?.last_name}`}
-                  >
-                    {`${item?.first_name} ${item?.last_name}`}
-                  </Option>
-                ))}
+                {(patientData || physicianList)?.map((item, index) => {
+                  const firstName = item?.first_name?.includes("Dr.") ? item?.first_name : `Dr. ${item?.first_name}`  
+                  return (
+                    <Option
+                      key={index}
+                      value={`${item.id}: ${item?.first_name} ${item?.last_name}`}
+                    >
+                      {`${firstName} ${item?.last_name}`}
+                    </Option>
+                  );
+                })}
               </Select>
             </Form.Item>
           ) : (
