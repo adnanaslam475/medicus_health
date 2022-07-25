@@ -328,7 +328,7 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         dueDateRange?.[0]
                       )} -> ${getDateInFormat(dueDateRange?.[1])}`
-                    : "Appointment Due Date"}
+                    : "Appointment due date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -342,7 +342,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Appointment Due Date
+                    Appointment due date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />

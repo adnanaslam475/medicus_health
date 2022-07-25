@@ -83,7 +83,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
               </div>
             )
           }
-          heading="Appointment Due date"
+          heading="Appointment due date"
         />
         </div>
      

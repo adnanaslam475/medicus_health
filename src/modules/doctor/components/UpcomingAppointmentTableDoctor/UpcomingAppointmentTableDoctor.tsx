@@ -40,17 +40,17 @@ const columns = [
       return <div>{value?.name}</div>;
     },
   },
+  // {
+  //   title: "Booking date",
+  //   dataIndex: "createdAt",
+  //   key: "createdAt",
+  //   render: (bookingDate: string) => {
+  //     return <div>{date.formatDAYMMDDYY(bookingDate)}</div>;
+  //   },
+  //   sorter: true,
+  // },
   {
-    title: "Booking date",
-    dataIndex: "createdAt",
-    key: "createdAt",
-    render: (bookingDate: string) => {
-      return <div>{date.formatDAYMMDDYY(bookingDate)}</div>;
-    },
-    sorter: true,
-  },
-  {
-    title: "Appointment Due date",
+    title: "Appointment due date",
     dataIndex: "requestedDate",
     key: "requestedDate",
     render: (dueDate: string) => {

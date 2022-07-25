@@ -49,20 +49,20 @@ const Columns = [
       return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
     },
   },
-  {
-    title: "Booking date",
-    dataIndex: "appointment",
-    key: "startTime",
-    sorter: true,
-    render: (value: Appointment) => {
-      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-      return (
-        <div className="someclass">{`${date?.formatDAYMMDDYY(
-          time?.startTime
-        )} `}</div>
-      );
-    },
-  },
+  // {
+  //   title: "Booking date",
+  //   dataIndex: "appointment",
+  //   key: "startTime",
+  //   sorter: true,
+  //   render: (value: Appointment) => {
+  //     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+  //     return (
+  //       <div className="someclass">{`${date?.formatDAYMMDDYY(
+  //         time?.startTime
+  //       )} `}</div>
+  //     );
+  //   },
+  // },
   {
     title: "Scheduled date",
     dataIndex: "appointment",

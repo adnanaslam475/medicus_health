@@ -115,14 +115,14 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
       <div className="max-w-[700px]">
         <div>
           <LabelWithText label="ID#" text={id} />
-          <LabelWithText
+          {/* <LabelWithText
             label="Booking date"
             text={date?.formatDAYMMDDYY(bookingDate as string)}
-          />
+          /> */}
           <LabelWithText label="Patient" text={patient} />
           <LabelWithText label="Physician" text={physician} />
-          <LabelWithText label="Service" text={service} />
-          <LabelWithText label="Appointment Due Date" text={dueDate} />
+          <LabelWithText label="Service type" text={service} />
+          <LabelWithText label="Appointment due date" text={dueDate} />
           <LabelWithText label="Time" text={time} />
           <LabelWithText label="Total Amount" text={totalAmount} />
 

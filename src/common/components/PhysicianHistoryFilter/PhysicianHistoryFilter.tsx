@@ -95,7 +95,7 @@ function PhysicianSearchFilters(props: Props) {
             ))}
           </Select>
         </div>
-        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
+        <div className="w-full md:w-44 xl:w-60 mr-1 mb-3">
           <Select
             placeholder="Payment status"
             className={`${searchStyle.placeholderColor} w-full`}
@@ -107,7 +107,7 @@ function PhysicianSearchFilters(props: Props) {
           </Select>
         </div>
       </div>
-      <div className="flex-none sm:flex">
+      {/* <div className="flex-none sm:flex">
         <Space
           direction="vertical"
           size={0}
@@ -184,12 +184,12 @@ function PhysicianSearchFilters(props: Props) {
             </Button>
           </div>
         </Space>
-      </div>
+      </div> */}
       <div className="flex-none sm:flex ">
         <Space
           direction="vertical"
           size={0}
-          className="w-full md:w-44 xl:w-60  mt-3 sm:mt-0 sm:mb-3 lg:ml-2 md:ml-2  "
+          className="w-full md:w-60 xl:w-60  mt-3 sm:mt-0 sm:mb-3 lg:ml-2 md:ml-2  "
         >
           <div className="relative">
             <RangePicker
@@ -234,7 +234,7 @@ function PhysicianSearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         filterState.dueDate.startDate
                       )} -> ${getDateInFormat(filterState.dueDate.endDate)}`
-                    : "Appointment Due date"}
+                    : "Appointment due date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full ">
@@ -249,7 +249,7 @@ function PhysicianSearchFilters(props: Props) {
                           alt=""
                         />
                       </span>
-                      Appointment Due date
+                      Appointment due date
                     </div>
                     <div>
                       <CaretDownOutlined />
