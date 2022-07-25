@@ -29,7 +29,6 @@ export const PATIENT_ROUTES: routes = [
 
     route: "+",
     submenu: [
-      // { name: "Current", route: "/patient/appointments/current" },
       { name: "Próximos", route: "/patient/appointments/upcoming" },
       { name: "Pendiente", route: "/patient/appointments/pending" },
       { name: "Cancelado", route: "/patient/appointments/cancelled" },

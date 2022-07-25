@@ -177,6 +177,27 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                   </Radio.Group>
                 </Form.Item>
               );
+            } else if (item.type === "checkbox") {
+              return (
+                <Form.Item
+                  label={item.label}
+                  className="text-secondary"
+                  name={item.name}
+                  // rules={[{ required: true, message: "Required!" }]}
+                >
+                  <Checkbox.Group>
+                    {item?.options?.map(({ value, label }) => {
+                      return <Checkbox value={value}>{label}</Checkbox>;
+                    })}
+                  </Checkbox.Group>
+                  {/* <CheckboxGroup
+                    options={[3]}
+                    onChange={onChangeMedicalCondition}
+                    style={{ display: "flex", flexDirection: "column" }}
+                    disabled={disabled}
+                  /> */}
+                </Form.Item>
+              );
             }
           }
         )}
