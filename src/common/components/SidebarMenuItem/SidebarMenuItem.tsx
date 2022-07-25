@@ -78,7 +78,7 @@ function SidebarMenuItem() {
                 icon={
                   <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
                 }
-                title="Appointments"
+                title="Equipo"
               >
                 {el.submenu?.map((el2, i2) => {
                   return (
