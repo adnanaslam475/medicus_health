@@ -17,6 +17,7 @@ import NotesTab from "common/components/NotesTab/NotesTab";
 import Dragger from "antd/lib/upload/Dragger";
 import Image from "next/image";
 import AttachmentDragger from "./AttachmentDragger";
+import i18next from "i18next";
 const { TabPane } = Tabs;
 
 type Props = {
@@ -53,6 +54,9 @@ const AppointmentTabs = (props: Props) => {
       url: item?.url,
     }));
   }
+
+  const t = i18next.t;
+  console.log(t("title"));
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));
