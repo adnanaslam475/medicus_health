@@ -82,7 +82,7 @@ function DoctorCard({
     <>
       <Card className={`${_classes["doctorCard"]} rounded-lg`}>
         <div className="flex-none lg:flex">
-          <div className="lg:w-4/6 flex-none sm:flex">
+          <div className="w-full lg:w-4/6 flex-none sm:flex">
             <div className="docAvatarCover pr-3">
               <div className="rounded-full flex items-center justify-center overflow-hidden sm:border border-gray-1">
                 {loading ? (
@@ -156,7 +156,7 @@ function DoctorCard({
               <h6 className="font-normal font-rubik">{conditionTreated}</h6>
             </div>
           </div>
-          <div className="card-actionBtns lg:w-2/6">
+          <div className="card-actionBtns lg:w-2/5">
             <Link passHref href={`/physician/messages`}>
               <a
                 onClick={() => {
