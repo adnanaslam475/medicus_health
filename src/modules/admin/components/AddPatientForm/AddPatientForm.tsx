@@ -62,7 +62,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
     <Form form={formInstance} onFinish={onFinish} layout="vertical">
       <div className="flex flex-row gap-3">
         <Form.Item
-          label="First Name"
+          label="First name"
           name="firstName"
           rules={[{ required: true, message: "First Name!" }]}
           className="flex-1"
@@ -94,7 +94,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label="Contact Number"
+          label="Contact number"
           name="contact_number"
           rules={[
             {

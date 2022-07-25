@@ -24,7 +24,7 @@ function AppointmentInfo() {
     <React.Fragment>
       <ul className="w-4/6">
         <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">ID</div>
+          <div className="w-full text-gray-1">ID#</div>
           <div className="w-full text-secondary">A-0001</div>
         </li>
         <li className="flex border-b border-gray-5 py-3">
@@ -44,7 +44,7 @@ function AppointmentInfo() {
           <div className="w-full text-secondary">10:30 AM - 11:00 AM</div>
         </li>
         <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1">Total Amount</div>
+          <div className="w-full text-gray-1">Total amount</div>
           <div className="w-full text-secondary">$40.00</div>
         </li>
         <li className="flex border-b border-gray-5 py-3">

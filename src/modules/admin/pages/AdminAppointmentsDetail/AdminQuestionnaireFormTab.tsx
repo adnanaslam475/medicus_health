@@ -2,7 +2,7 @@ import React from "react";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { Appointment, User } from "generated/graphql";
-import { Spin } from "antd";
+import { Empty, Spin } from "antd";
 
 type Props = {
   appointment?: Appointment | undefined;
@@ -38,12 +38,18 @@ function AdminQuestionnaireFormTab({
         serviceName={serviceName}
         imageUrl={profilePicture}
       >
-        <PhysicianQuestionnaire
-          appointmentHealthHistory={
-            appointment?.appointmentHealthHistory?.history || questionnaire
-          }
-          disable
-        />
+        {appointment?.appointmentHealthHistory?.history || questionnaire ? (
+          <PhysicianQuestionnaire
+            appointmentHealthHistory={
+              appointment?.appointmentHealthHistory?.history || questionnaire
+            }
+            disable
+          />
+        ) : (
+          <div className="flex items-center justify-center w-full">
+            <Empty />
+          </div>
+        )}
       </CardWithProfileImageInfo>
     </div>
   );

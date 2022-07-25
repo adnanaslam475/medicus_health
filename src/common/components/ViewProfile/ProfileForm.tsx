@@ -139,7 +139,7 @@ function ProfileForm({
         <MultiRangeDatePicker disable={true} schedules={schedules} />
         <div className={`my-6 ${_classes["professional"]}`}>
           <h5 className={`${_classes["wordspacing-5"]}`}>
-            Professional Background
+            Professional background
           </h5>
           {professionalExperience?.map((clinic: clinicType, index: number) => {
             return (
@@ -194,7 +194,7 @@ function ProfileForm({
 
         <div className={`my-6 ${_classes["educational"]}`}>
           <h6 className={`${_classes["wordspacing-5"]}`}>
-            Educational Background
+            Educational background
           </h6>
           {educationalBackground &&
             educationalBackground?.map(

@@ -29,7 +29,7 @@ function Physicians() {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="lg:w-4/5 mx-auto">
+        <div className="xl:w-4/5 mx-auto">
           <h2 className="mb-0">Our physicians</h2>
           <div className="mb-6">
             <span className=" min-h-max hidden md:block text-secondary text-sm">

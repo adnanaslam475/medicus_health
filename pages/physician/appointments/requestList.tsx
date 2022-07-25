@@ -61,7 +61,7 @@ const Columns = [
     //   },
   },
   {
-    title: "Total Amount",
+    title: "Total amount",
     dataIndex: "totalamount",
     key: "totalamount",
     sorter: true,

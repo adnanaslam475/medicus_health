@@ -43,7 +43,7 @@ const columns = [
     },
   },
   {
-    title: "First Name",
+    title: "First name",
     dataIndex: "first_name",
     key: "first_name",
     sorter: true,
@@ -52,7 +52,7 @@ const columns = [
     },
   },
   {
-    title: "Last Name",
+    title: "Last name",
     dataIndex: "last_name",
     key: "last_name",
     sorter: true,
@@ -61,7 +61,7 @@ const columns = [
     },
   },
   {
-    title: "Email Address",
+    title: "Email address",
     dataIndex: "email",
     key: "email",
     sorter: true,
@@ -70,7 +70,7 @@ const columns = [
     },
   },
   {
-    title: "Contact Number",
+    title: "Contact number",
     dataIndex: "contact_number",
     key: "contact_number",
     sorter: true,

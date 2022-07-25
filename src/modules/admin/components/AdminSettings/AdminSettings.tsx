@@ -149,11 +149,11 @@ function AdminSettings() {
           form={formInstance}
         >
           <div>
-            <h2>Appointment Service Charges</h2>
+            <h2>Appointment service charges</h2>
             <h3>Consultation</h3>
             <div className="sm:flex">
               <Form.Item
-                label="Total Charges"
+                label="Total charges"
                 name="total_consultation_charges"
                 className="font-bold text-black"
               >
@@ -165,7 +165,7 @@ function AdminSettings() {
               className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}
             >
               <Form.Item
-                label="Medicus Cut"
+                label="Medicus cut"
                 name="consultation_charges_medicus_cut"
                 className={`${_classes["label-design "]}`}
               >
@@ -185,7 +185,7 @@ function AdminSettings() {
               className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}
             >
               <Form.Item
-                label="Physician Cut"
+                label="Physician cut"
                 name="consultation_charges_physician_cut"
                 className="font-bold text-black"
               >
@@ -207,7 +207,7 @@ function AdminSettings() {
               <h3>Second opinion</h3>
               <div className="sm:flex">
                 <Form.Item
-                  label="Total Charges"
+                  label="Total charges"
                   name="total_second_opinion_charges"
                   className="font-bold text-black"
                 >
@@ -219,7 +219,7 @@ function AdminSettings() {
                 className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}
               >
                 <Form.Item
-                  label="Medicus Cut"
+                  label="Medicus cut"
                   name="second_opinion_charges_medicus_cut"
                   className="font-bold text-black"
                 >
@@ -239,7 +239,7 @@ function AdminSettings() {
                 className={`flex sm:gap-4 flex-col sm:flex-row  ${_classes["mb-custom"]}`}
               >
                 <Form.Item
-                  label="Physician Cut"
+                  label="Physician cut"
                   name="second_opinion_charges_physician_cut"
                   className="font-bold text-black"
                 >

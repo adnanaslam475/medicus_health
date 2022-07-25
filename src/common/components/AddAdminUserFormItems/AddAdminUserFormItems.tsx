@@ -3,13 +3,13 @@ import { Form, Input } from "antd";
 
 const createAdminUserForm = [
   {
-    label: "First Name",
+    label: "First name",
     name: "first_name",
     required: true,
     type: "text",
   },
   {
-    label: "Last Name",
+    label: "Last name",
     name: "last_name",
     type: "text",
     required: true,

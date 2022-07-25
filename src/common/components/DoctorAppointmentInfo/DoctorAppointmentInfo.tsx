@@ -170,7 +170,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={serviceType?.name ? serviceType?.name : "--"}
         />
         <LabelWithText
-          label="Appointment due date"
+          label="Appointment date"
           text={
             appointmentDateTime?.startTime
               ? `${date?.formatDAYMMDDYY(formatedDueDate)} `

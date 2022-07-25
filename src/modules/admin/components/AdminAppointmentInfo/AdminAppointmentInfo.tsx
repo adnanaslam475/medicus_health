@@ -122,13 +122,13 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
           <LabelWithText label="Patient" text={patient} />
           <LabelWithText label="Physician" text={physician} />
           <LabelWithText label="Service type" text={service} />
-          <LabelWithText label="Appointment due date" text={dueDate} />
+          <LabelWithText label="Appointment date" text={dueDate} />
           <LabelWithText label="Time" text={time} />
-          <LabelWithText label="Total Amount" text={totalAmount} />
+          <LabelWithText label="Total amount" text={totalAmount} />
 
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[300px]">
-              Appointment Status
+              Appointment status
             </div>
             <div className="w-full table-action-icon">
               <div className="text-primary">
@@ -141,7 +141,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
 
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[300px]">
-              Payment Status
+              Payment status
             </div>
             <div className="w-full">
               <StatusChip type={paymentStatus?.toUpperCase() as StatusName} />
@@ -175,7 +175,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
           icon={<CloseOutlined />}
           onClick={deleteModalHandler}
         >
-          Delete Appointment
+          Delete appointment
         </Button>
         <ConfirmationModal
           message="Are You Sure You want to delete this appointment?"
@@ -228,7 +228,7 @@ function AdminAppointmentInfoFooter({
               })
             }
           >
-            Message Patient
+            Message patient
           </Button>
           <Button
             icon={<MessageOutlined />}
@@ -252,7 +252,7 @@ function AdminAppointmentInfoFooter({
               className={`${_classes["appointments-rebook-btn"]}`}
               onClick={showModal}
             >
-              Rebook Appointment
+              Rebook appointment
             </Button>
           )}
         </div>
@@ -277,7 +277,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
           className={`${_classes["appointments-btn"]}  flex-1`}
           onClick={onCancelRequestedAppointment}
         >
-          Cancel Appointment
+          Cancel appointment
         </Button>
         <Button
           icon={<MessageOutlined />}
@@ -292,7 +292,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
             });
           }}
         >
-          Message Patient
+          Message patient
         </Button>
         <Button
           icon={<MessageOutlined />}

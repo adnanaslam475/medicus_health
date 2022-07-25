@@ -57,7 +57,7 @@ function AppointmentReschedule(props: Props) {
   const {appointmentPrice,systemFee,tax,total} = appointmentCharges
   return (
     <div>
-      <h2>Appointment Reschedule</h2>
+      <h2>Appointment reschedule</h2>
       <div>
         <div className="border-b border-gray-4 ">
           <h5>Physician</h5>
@@ -66,12 +66,12 @@ function AppointmentReschedule(props: Props) {
         <div className="flex">
         <div className="w-full border-b border-gray-5 pb-2 pt-2">
           <div className="flex justify-between  font-semibold">
-            <span>Service</span>
+            <span>Service type</span>
             <span>{name || ""}</span>
           </div>
 
           <div className="flex justify-between ">
-            <span>Appointment Fee</span>
+            <span>Appointment fee</span>
             <span>${appointmentPrice || "-"}</span>
           </div>
           <div className="flex justify-between ">
@@ -84,7 +84,7 @@ function AppointmentReschedule(props: Props) {
             <span>${systemFee || "0"}</span>
           </div>
           <div className="flex justify-between font-semibold pt-2">
-            <span>Total Charges</span>
+            <span>Total charges</span>
             <span>${total || "0"}</span>
           </div>
         </div>
