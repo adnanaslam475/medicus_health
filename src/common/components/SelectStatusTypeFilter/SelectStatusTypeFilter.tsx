@@ -20,7 +20,7 @@ export function SelectStatusTypeFilter({
     >
       {/* ---> reuquested will give both Suggested and Requested */}
       <Select.Option value="Requested">Requested</Select.Option>
-      <Select.Option value="Cancelled">Cancelled</Select.Option>
+      <Select.Option value="Canceled">Canceled</Select.Option>
       <Select.Option value="Confirmed">Confirmed</Select.Option>
       <Select.Option value="Completed">Completed</Select.Option>
     </Select>

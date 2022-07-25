@@ -29,7 +29,7 @@ function CurrentAppointment({}: CancelledAppointmentProps) {
     useGetAllRequestedAppointmentsQuery({
       variables: {
         filter: {
-          status: "Cancelled",
+          status: "Canceled",
           ...filterValues,
         },
         pagination,
