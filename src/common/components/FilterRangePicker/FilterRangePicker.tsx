@@ -29,9 +29,7 @@ export function FilterRangePicker({
     <div
       className={` ${
         isAdminFilter && "admin-filter-date-picker"
-      } relative my-0  " ${
-        _classes["filter-date-wrapper"]
-      } lg:mb-6 md:mb-6 sm:mb-3`}
+      } relative my-0  " ${_classes["filter-date-wrapper"]} `}
     >
       <DatePicker.RangePicker
         value={null}
