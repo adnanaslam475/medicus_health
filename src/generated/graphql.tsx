@@ -297,6 +297,7 @@ export type CreateDoctorBillingMethodInput = {
 
 export type CreateDoctorInput = {
   city_id: Scalars['Float'];
+  contact_number: Scalars['String'];
   country_id: Scalars['Float'];
   date_of_birth?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
@@ -1499,6 +1500,7 @@ export type UpdateDoctorProfileInput = {
   about_me?: InputMaybe<Scalars['String']>;
   city_id: Scalars['Float'];
   condition_treated?: InputMaybe<Scalars['String']>;
+  contact_number: Scalars['String'];
   country_id: Scalars['Float'];
   doctor_id: Scalars['Float'];
   educational_background?: InputMaybe<Array<EducationalBackgroundUpdate>>;
@@ -2827,6 +2829,7 @@ export const UpdateDoctorProfileDocument = gql`
       country_id
       state_id
       city_id
+      contact_number
       city {
         city_name
       }

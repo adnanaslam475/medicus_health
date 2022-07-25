@@ -177,6 +177,7 @@ mutation updateDoctorProfile(
       country_id
       state_id
       city_id
+      contact_number
       city {
         city_name
       }

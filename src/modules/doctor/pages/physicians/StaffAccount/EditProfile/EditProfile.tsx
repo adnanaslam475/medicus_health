@@ -193,6 +193,7 @@ function EditProfile({
         specialization: values?.specialization || "",
         year_of_experience: Number(values?.year_of_experience || 0),
         email: values?.email || "",
+        contact_number:"",
         password: values?.password,
         profile_image: image || userProfileImage || "",
         about_me: values?.about_me || "",
@@ -328,6 +329,7 @@ function EditProfile({
         doctor_id: pathname.includes("/admin/physicians")
           ? Number(query?.id)
           : Number(user?.user?.id),
+          contact_number:"",
         first_name: values?.firstName || "",
         last_name: values?.lastName || "",
         specialization: values?.specialization || "",

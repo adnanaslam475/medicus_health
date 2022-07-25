@@ -51,6 +51,7 @@ function AdminPhysicianAdd() {
         last_name: values?.lastName,
         email: values?.email,
         streetAddress: values?.streetAddress,
+        contact_number:"",
         country_id: values?.country,
         state_id: values?.state,
         city_id: values?.city_id | 0,
