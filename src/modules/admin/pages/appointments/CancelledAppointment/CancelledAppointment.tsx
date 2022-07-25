@@ -20,6 +20,7 @@ import { getUserData } from "common/utils/userData";
 import Link from "next/link";
 
 function CancelledAppointment() {
+  
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});

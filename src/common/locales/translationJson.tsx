@@ -34,6 +34,15 @@ export function translationJson(local: string) {
           healthQuestionnaire: "Cuestionario de Salud",
           Login: "Acceso",
           AlreadyHaveAnAccount: "Ya tienes una cuenta",
+          signup_modal_skip_questionaire_message:
+            "Estos son los campos obligatorios para reservar una cita, puede omitirlos por ahora y puede agregar/editar más tarde desde la sección Mi perfil",
+        },
+        HealthQuestionary: {
+          ...spanishCommon,
+          skip_this_for_now_fill_this_later:
+            "Saltar esto por ahora y llenar esto más tarde",
+          please_pick_an_option: "Por favor elige una opción",
+          please_fill_field: "Por favor complete el campo",
         },
 
         UpcomingAppointments: {
@@ -85,6 +94,15 @@ export function translationJson(local: string) {
           healthQuestionnaire: "Health Questionnaire",
           login: "Login",
           account: "Don't have an account?",
+          signup_modal_skip_questionaire_message:
+            "These are the mandatory fields for Book an Appointment you can Skip it for now and can Add/Edit later from My Profile section",
+        },
+        HealthQuestionary: {
+          ...englishCommon,
+          skip_this_for_now_fill_this_later:
+            "Skip This For Now & Fill This Later",
+          please_pick_an_option: "Please pick an option!",
+          please_fill_field: "Please fill field",
         },
 
         UpcomingAppointments: {
@@ -95,7 +113,7 @@ export function translationJson(local: string) {
           ...englishCommon,
           Login: "Login",
           AlreadyHaveAnAccount: "Already have an account?",
-          Gender: "Gender",
+          gender: "Gender",
           first_name: "First Name",
           last_name: "Last Name",
           male: "Male",

@@ -4,13 +4,14 @@ export const englishCommon: any = {
   first_name_message: "Please enter your first name",
   last_name: "Last Name",
   last_name_message: "Please enter your last name",
-  Gender: "Gender",
+  gender: "Gender",
   male: "Male",
   female: "Female",
   I_prefer_not_to_answer: "I prefer not to answer",
-  date_of_Birth: "Date of Birth",
-  date_of_Birth_message: "Please select date of birth",
+  date_of_birth: "Date of Birth",
+  date_of_birth_message: "Please select date of birth",
   email_address: "Email Address",
+  email_already_exist: "Email already exist",
   please_complete_health_questionnaire: "Please complete health questionnaire",
   search_by: "Search by",
 
@@ -32,6 +33,10 @@ export const englishCommon: any = {
   i_agree_to_the: "I agree to the ",
   terms_n_conditions: " Terms & Conditions",
   next: "Next",
+  update: "Update",
+  complete: "Comlete",
+  back: "Back",
+  please_fill: "Please fill",
 
   remember: "Remember me",
 
@@ -44,7 +49,6 @@ export const englishCommon: any = {
   email: "Email Address",
   email_address_message: "Please enter your email address",
   email_invalid_message: "Email is invalid",
-  email_already_exist: "Email already exist",
 
   street_address_message: "Please enter your street address",
   contact_number_message: "Please enter your contact number",
@@ -98,8 +102,6 @@ export const englishCommon: any = {
   change_health_questionnaire_message:
     "If you wish to update the make changes in your current health questionnaire,",
   click_here: "Click here",
-  // next: "Next",
-  back: "Back",
   i_want_to_use_my_last_filled_form: "I want to use my last filled form",
   summary: "Summary",
   doctor: "Doctor",
@@ -144,6 +146,8 @@ export const englishCommon: any = {
   menu_account: "Account",
   payment_settings: "Payment settings",
   logout: "Logout",
+  yes: "Yes",
+  no: "No",
 };
 
 export const spanishCommon: any = {
@@ -152,12 +156,12 @@ export const spanishCommon: any = {
   first_name_message: "Por favor, introduzca su nombre de pila",
   last_name: "Apellido",
   last_name_message: "Por favor ingrese su apellido",
-  Gender: "Género",
+  gender: "Género",
   male: "Masculino",
   female: "Femenina",
   i_prefer_not_to_say: "Prefiero no contestar",
-  date_of_Birth: "Fecha de nacimiento",
-  date_of_Birth_message: "Por favor, seleccione la fecha de nacimiento",
+  date_of_birth: "Fecha de nacimiento",
+  date_of_birth_message: "Por favor, seleccione la fecha de nacimiento",
   email_address: "Dirección de correo electrónico",
   please_complete_health_questionnaire:
     "Por favor complete el cuestionario de salud",
@@ -182,6 +186,10 @@ export const spanishCommon: any = {
   i_agree_to_the: "Estoy de acuerdo con la ",
   terms_n_conditions: " Términos y condiciones",
   next: "Próximo",
+  update: "Actualizar",
+  complete: "Completo",
+  back: "atrás",
+  please_fill: "Porfavor llene",
 
   remember: "Acuérdate de mí",
   forgot_pass: "¿Has olvidado tu contraseña?",
@@ -246,8 +254,7 @@ export const spanishCommon: any = {
   change_health_questionnaire_message:
     "Si desea actualizar los cambios en su cuestionario de salud actual,",
   click_here: "Haga clic aquí",
-  // next: "Próximo",
-  back: "atrás",
+
   i_want_to_use_my_last_filled_form:
     "Quiero usar mi último formulario completado",
   summary: "Resumen",
@@ -295,4 +302,6 @@ export const spanishCommon: any = {
   menu_account: "Cuenta",
   payment_settings: "Configuración de pago",
   logout: "Cerrar sesión",
+  yes: "Sí",
+  no: "No",
 };

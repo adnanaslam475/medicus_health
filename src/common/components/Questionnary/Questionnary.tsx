@@ -9,6 +9,7 @@ import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import _classes from "./Questionnary.module.scss";
 import { parseJson } from "common/utils/helper";
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 const CheckboxGroup = Checkbox.Group;
 
 interface HealthQuesType {
@@ -36,6 +37,7 @@ const HealthQuestionnary = ({
   setNextTab,
   setActiveKey,
 }: HealthQuesType) => {
+  const t = useTranslations("HealthQuestionary");
   const [terms, setTerms] = useState(false);
   const form: any = useRef();
   const handleChange = () => {
@@ -51,7 +53,8 @@ const HealthQuestionnary = ({
     <div>
       {!isUpdateMode && disable && (
         <Button className="mb-4" block onClick={skipHealthQues}>
-          Skip This For Now & Fill This Later
+          {/* Skip This For Now & Fill This Later */}
+          {t("skip_this_for_now_fill_this_later")}
         </Button>
       )}
 
@@ -71,7 +74,7 @@ const HealthQuestionnary = ({
           type="primary"
           onClick={() => form?.current?.submit()}
         >
-          {isUpdateMode ? "Update" : "Complete"}
+          {isUpdateMode ? t("update") : t("complete")}
         </Button>
       </div>
       {!isUpdateMode && disable && (
@@ -90,7 +93,10 @@ const HealthQuestionnary = ({
                       src="/assets/icon/arrow-left.svg"
                     />
                   </span>
-                  <span className="ml-3">Back</span>
+                  <span className="ml-3">
+                    {t("back")}
+                    {/* Back */}
+                  </span>
                 </div>
               </Button>
             </div>
@@ -242,6 +248,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
     setShowSurgicalOthers(checkedValue.includes("Others"));
   }
+  const t = useTranslations("HealthQuestionary");
   return (
     <Form
       initialValues={{
@@ -261,7 +268,13 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         name={HealthQuestionnaryData.q1.name}
         label={HealthQuestionnaryData.q1.label}
         className="text-secondary"
-        rules={[{ required: true, message: "Please pick an option!" }]}
+        rules={[
+          {
+            required: true,
+            message: t("please_pick_an_option"),
+            // message: "Please pick an option!",
+          },
+        ]}
       >
         <Radio.Group
           onChange={(e) => {
@@ -269,8 +282,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           }}
           disabled={disabled}
         >
-          <Radio value={1}>Yes</Radio>
-          <Radio value={0}>No</Radio>
+          <Radio value={1}>{t("yes")}</Radio>
+          <Radio value={0}>{t("no")}</Radio>
         </Radio.Group>
       </Form.Item>
       {!!radioDrink && (
@@ -281,7 +294,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           rules={[
             {
               required: true,
-              message: "Please fill field",
+              message: t("please_fill_field"),
+              // message: "Please fill field",
             },
           ]}
         >
@@ -292,7 +306,13 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         name={HealthQuestionnaryData.q2.name}
         label={HealthQuestionnaryData.q2.label}
         className="text-secondary"
-        rules={[{ required: true, message: "Please pick an option!" }]}
+        rules={[
+          {
+            required: true,
+            message: t("please_pick_an_option"),
+            // message: "Please pick an option!",
+          },
+        ]}
       >
         <Radio.Group
           onChange={(e) => {
@@ -300,8 +320,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           }}
           disabled={disabled}
         >
-          <Radio value={1}>Yes</Radio>
-          <Radio value={0}>No</Radio>
+          <Radio value={1}>{t("yes")}</Radio>
+          <Radio value={0}>{t("no")}</Radio>
         </Radio.Group>
       </Form.Item>
       {!!radioSmoke && (
@@ -312,7 +332,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           rules={[
             {
               required: true,
-              message: "Please fill filed",
+              message: t("please_fill_field"),
+              // message: "Please fill filed",
             },
           ]}
         >
@@ -323,7 +344,13 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         name={HealthQuestionnaryData.q3.name}
         label={HealthQuestionnaryData.q3.label}
         className="text-secondary"
-        rules={[{ required: true, message: "Please pick an option!" }]}
+        rules={[
+          {
+            required: true,
+            message: t("please_pick_an_option"),
+            // message: "Please pick an option!"
+          },
+        ]}
       >
         <Radio.Group
           onChange={(e) => {
@@ -332,8 +359,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           disabled={disabled}
           // disabled
         >
-          <Radio value={1}>Yes</Radio>
-          <Radio value={0}>No</Radio>
+          <Radio value={1}>{t("yes")}</Radio>
+          <Radio value={0}>{t("no")}</Radio>
         </Radio.Group>
       </Form.Item>
       <>
@@ -382,7 +409,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         rules={[
           {
             required: true,
-            message: "Please fill",
+            message: t("please fill"),
+            // message: "Please fill",
           },
         ]}
       >
@@ -395,7 +423,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         rules={[
           {
             required: true,
-            message: "Please fill",
+            message: t("please fill"),
+            // message: "Please fill",
           },
         ]}
       >
@@ -408,7 +437,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         rules={[
           {
             required: true,
-            message: "Please fill",
+            message: t("please fill"),
+            // message: "Please fill",
           },
         ]}
       >
@@ -421,7 +451,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         rules={[
           {
             required: true,
-            message: "Please fill",
+            message: t("please fill"),
+            // message: "Please fill",
           },
         ]}
       >

@@ -5,6 +5,8 @@ function resetPassword() {
   return <ConfirmPassword />;
 }
 
+export default resetPassword;
+
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
@@ -12,5 +14,3 @@ export function getStaticProps({ locale }: { locale: string }) {
     },
   };
 }
-
-export default resetPassword;

@@ -104,11 +104,15 @@ function UpcomingAppointments() {
               <Select defaultValue="List view" className="w-full sm:w-40">
                 <Select.Option value="Calendar view">
                   <Link href="/patient/calendar">
-                    <a>Calendar view</a>
+                    <a>
+                      {t("calendar_view")}
+                      {/* Calendar view */}
+                    </a>
                   </Link>
                 </Select.Option>
                 <Select.Option selected value="List view">
-                  List view
+                  {t("list_view")}
+                  {/* List view */}
                 </Select.Option>
               </Select>
             </div>
@@ -118,7 +122,8 @@ function UpcomingAppointments() {
                   ""
                 ) : (
                   <Link passHref href={`/patient/account?activeTab=2`}>
-                    please complete health questionnaire
+                    {t("please_complete_health_questionnaire")}
+                    {/* please complete health questionnaire */}
                   </Link>
                 )
               }
@@ -132,7 +137,8 @@ function UpcomingAppointments() {
                 }
               >
                 <span className="text-xs sm:text-base">
-                  Request an appointment
+                  {t("request_an_appointment")}
+                  {/* Request an appointment */}
                 </span>
               </Button>
             </Tooltip>
