@@ -115,7 +115,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             heading="Booking date"
           />
         </div> */}
-        <div className="w-full sm:w-full md:w-full lg:max-w-[230px] -mt-6 tracking-[.25em]">
+        <div className="w-full sm:w-full md:w-full lg:max-w-[290px] -mt-6 tracking-[.25em]">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
               setDueDate({
