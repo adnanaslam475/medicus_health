@@ -56,7 +56,7 @@ export const englishCommon: any = {
   search_by: "Search by",
   physician: "Physician",
   appointment_type: "Appointment type",
-  appointment_due_date: "Appointment due date",
+  appointment_due_date: "Appointment date",
   booking_Date: "Booking Date",
   clear: "Clear",
   consultation: "Consultation",

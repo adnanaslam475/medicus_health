@@ -132,11 +132,11 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
                 <div className="tracking-[.25em]">
                   {filterValues.dueDate
                     ? `${filterValues.dueDate.startDate} -> ${filterValues.dueDate.endDate}`
-                    : "Appointment due date"}
+                    : "Appointment date"}
                 </div>
               )
             }
-            heading="Appointment due date"
+            heading="Appointment date"
           />
         </div>
 

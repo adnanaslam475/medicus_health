@@ -64,7 +64,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       },
     },
     {
-      title: "Appointment due date",
+      title: "Appointment date",
       dataIndex: "appointmentTimeSlots",
       key: "appointment_time_slots",
       sorter: true,

@@ -42,7 +42,7 @@ const columns = [
   //   },
   // },
   {
-    title: "Appointment due date",
+    title: "Appointment date",
     dataIndex: "appointmentSchedule",
     key: "appointmentSchedule",
     sorter: true,

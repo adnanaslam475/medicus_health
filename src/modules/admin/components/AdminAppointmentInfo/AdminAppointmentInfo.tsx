@@ -122,7 +122,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
           <LabelWithText label="Patient" text={patient} />
           <LabelWithText label="Physician" text={physician} />
           <LabelWithText label="Service type" text={service} />
-          <LabelWithText label="Appointment due date" text={dueDate} />
+          <LabelWithText label="Appointment date" text={dueDate} />
           <LabelWithText label="Time" text={time} />
           <LabelWithText label="Total Amount" text={totalAmount} />
 
