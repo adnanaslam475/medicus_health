@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Form, Input, Radio, Layout, Divider } from "antd";
+import { Form, Input, Radio, Layout, Divider, Checkbox } from "antd";
 import {
   GetAppointmentByIdQuery,
   useDoctorQuestionnaireQuery,
@@ -7,23 +7,26 @@ import {
 import { useRouter } from "next/router";
 import { parseJson } from "common/utils/helper";
 import _classes from "./AppointmentButtons.module.scss";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
+import { NamePath } from "antd/lib/form/interface";
 
 type Props = {
   appointmentHealthHistory: string;
-  disable?:boolean
+  disable?: boolean;
 };
 
 function PhysicianQuestionnaire(props: Props) {
   const { query } = useRouter();
   const [formInstance] = Form.useForm();
-  const { appointmentHealthHistory,disable } = props || {};
+  const { appointmentHealthHistory, disable } = props || {};
   let History = parseJson(appointmentHealthHistory);
   const router = useRouter();
 
   const { pathname } = router || {};
   let disabled =
     pathname?.includes("/physician/appointments") ||
-    pathname?.includes("/patient/appointments") || disable
+    pathname?.includes("/patient/appointments") ||
+    disable;
 
   useEffect(() => {
     prepareAndSetEditPayload();
@@ -45,10 +48,120 @@ function PhysicianQuestionnaire(props: Props) {
       PleaseDescribe: History?.PleaseDescribe,
     });
   }
+
+  let doctorQuestionnaireId = 576;
+
+  const [{ data: dataList }] = useDoctorQuestionnaireQuery({
+    variables: {
+      doctorId: doctorQuestionnaireId,
+    },
+    pause: !doctorQuestionnaireId,
+  });
+  const { doctorQuestionnaire } = dataList || {};
+
+  const checkBoxHandler = (e: CheckboxChangeEvent) => {
+    // let formatedQuestioner = parseJson(patientLastQuestionnaire?.history);
+    // if (e?.target?.checked) {
+    //   saveStepThree?.({
+    //     ...formatedQuestioner,
+    //     isLastFilled: e?.target?.checked,
+    //   });
+    // } else {
+    //   saveStepThree?.(undefined);
+    //   formInstance.resetFields();
+    // }
+  };
+  function onFinishLocal(values: any) {
+    // saveStepThree?.({ ...values, isLastFilled: data?.stepThree?.isLastFilled });
+    console.log();
+  }
+
+  let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
+  console.log(questionnair, "my question");
+
   return (
     <React.Fragment>
       <div className="md:w-3/6">
-        <Form
+        <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
+          {/* {doctorQuestionnaire && (
+            <Form.Item valuePropName="checked">
+              <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
+                <Checkbox
+                  value={""}
+                  // value={data?.stepThree?.isLastFilled || 0}
+                  onChange={(e) => checkBoxHandler(e)}
+                  // checked={data?.stepThree?.isLastFilled || false}
+                >
+                  <span className="text-gray-2">
+                    I want to use my last filled form
+                  </span>
+                </Checkbox>
+              </div>
+            </Form.Item>
+          )} */}
+          {questionnair?.map(
+            (
+              item: {
+                type: NamePath | undefined;
+                label: {} | null | undefined;
+                name: NamePath | undefined;
+                options: { value: any; label: any }[];
+              },
+              index: any
+            ) => {
+              if (item.type === "text") {
+                return (
+                  <Form.Item
+                    label={item.label}
+                    className="text-secondary"
+                    name={item.name}
+                    rules={[{ required: true, message: "Required!" }]}
+                  >
+                    <Input />
+                  </Form.Item>
+                );
+              } else if (item.type === "radio") {
+                return (
+                  <Form.Item
+                    label={item.label}
+                    className="text-secondary"
+                    name={item.name}
+                    rules={[{ required: true, message: "Required!" }]}
+                  >
+                    <Radio.Group>
+                      {item?.options?.map(({ value, label }) => {
+                        return <Radio value={value}>{label}</Radio>;
+                      })}
+                    </Radio.Group>
+                  </Form.Item>
+                );
+              } else if (item.type === "checkbox") {
+                return (
+                  <Form.Item
+                    label={item.label}
+                    className="text-secondary"
+                    name={item.name}
+                    // rules={[{ required: true, message: "Required!" }]}
+                  >
+                    <Checkbox.Group>
+                      {item?.options?.map(({ value, label }) => {
+                        return <Checkbox value={value}>{label}</Checkbox>;
+                      })}
+                    </Checkbox.Group>
+                    {/* <CheckboxGroup
+                    options={[3]}
+                    onChange={onChangeMedicalCondition}
+                    style={{ display: "flex", flexDirection: "column" }}
+                    disabled={disabled}
+                  /> */}
+                  </Form.Item>
+                );
+              }
+            }
+          )}
+        </Form>
+
+        {/* <Form
           layout="vertical"
           form={formInstance}
           className={`${_classes[disabled ? "disabled-class" : ""]} `}
@@ -74,14 +187,14 @@ function PhysicianQuestionnaire(props: Props) {
             className="text-secondary"
             name="longSymptoms"
           >
-            <Radio.Group
+            <Checkbox.Group
               defaultValue={History?.longSymptoms}
               disabled={disabled}
             >
               <Radio value={0}>Improved</Radio>
               <Radio value={1}>Worsened</Radio>
               <Radio value={2}>Stayed the same</Radio>
-            </Radio.Group>
+            </Checkbox.Group>
           </Form.Item>
 
           <Form.Item
@@ -376,7 +489,7 @@ function PhysicianQuestionnaire(props: Props) {
           >
             <Input disabled={disabled} />
           </Form.Item>
-        </Form>
+        </Form> */}
       </div>
     </React.Fragment>
   );

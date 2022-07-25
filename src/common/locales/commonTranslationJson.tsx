@@ -11,6 +11,8 @@ export const englishCommon: any = {
   date_of_Birth: "Date of Birth",
   date_of_Birth_message: "Please select date of birth",
   email_address: "Email Address",
+  please_complete_health_questionnaire: "Please complete health questionnaire",
+  search_by: "Search by",
 
   password: "Password",
   password_message: "Please enter your password!",
@@ -50,10 +52,10 @@ export const englishCommon: any = {
   postal_address_message: "Please enter your postal code",
   upcoming_appointments: "Upcoming appointments",
   pending_appointments: "Pending appointments",
-  cancelled_appointments: "Cancelled appointments",
+  cancelled_appointments: "Canceled appointments",
   filter_search_placeholder_1: "Search by ID, physician name or patient name",
   history: "History",
-  search_by: "Search by",
+
   physician: "Physician",
   appointment_type: "Appointment type",
   appointment_due_date: "Appointment date",
@@ -157,6 +159,9 @@ export const spanishCommon: any = {
   date_of_Birth: "Fecha de nacimiento",
   date_of_Birth_message: "Por favor, seleccione la fecha de nacimiento",
   email_address: "Dirección de correo electrónico",
+  please_complete_health_questionnaire:
+    "Por favor complete el cuestionario de salud",
+  search_by: "Búsqueda por",
 
   password: "Contraseña",
   password_message: "¡Por favor, introduzca su contraseña!",
@@ -195,9 +200,9 @@ export const spanishCommon: any = {
   postal_address_message: "Por favor ingrese su código postal",
   upcoming_appointments: "próximas citas",
   pending_appointments: "Citas pendientes",
-  cancelled_appointments: "citas canceladas",
+  cancelled_appointments: "Citas canceladas",
   history: "Historia",
-  search_by: "Búsqueda por",
+
   physician: "Médica",
   appointment_type: "Tipo de cita",
   appointment_due_date: "fecha de vencimiento de la cita",
