@@ -151,7 +151,7 @@ function DoctorAppointmentInfo({ data }: Props) {
       <div className="message-button mb-3">
         {(status === "Requested" ||
           status === "Confirmed" ||
-          status === "Cancelled") && (
+          status === "Canceled") && (
           <MessageButtons patientID={patientID} doctorId={doctorId} />
         )}
       </div>
@@ -210,7 +210,7 @@ function DoctorAppointmentInfo({ data }: Props) {
             text={charges ? `$${charges}` : "--"}
           />
         )}
-        {status === "Cancelled" && (
+        {status === "Canceled" && (
           <LabelWithText
             label="Total amount"
             text={charges ? `$${charges}` : "--"}
@@ -223,7 +223,7 @@ function DoctorAppointmentInfo({ data }: Props) {
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
-        {status === "Cancelled" && (
+        {status === "Canceled" && (
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[300px]">
               Payment status

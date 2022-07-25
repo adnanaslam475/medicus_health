@@ -29,7 +29,7 @@ function CancelledAppointment() {
   const [appointmentId, setAppointmentId] = useState<number>();
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
-  const [status, setStatus] = useState<string>("Cancelled");
+  const [status, setStatus] = useState<string>("Canceled");
   const [{ data, fetching }] = useGetAllRequestedAppointmentsQuery({
     variables: {
       filter: {
@@ -87,7 +87,7 @@ function CancelledAppointment() {
       <div className="w-full">
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
-            <h2 className="mb-0">Cancelled appointments</h2>
+            <h2 className="mb-0">Canceled appointments</h2>
           </div>
           <Tooltip
             title={
@@ -132,7 +132,7 @@ function CancelledAppointment() {
             {appointments?.items?.length !== 0 && appointments ? (
               // <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
-                {appointments.items?.map((appointmentDetail, i) => {
+                {appointments?.items?.map((appointmentDetail, i) => {
                   const {
                     id,
                     requestedDate,

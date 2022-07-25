@@ -175,7 +175,7 @@ export type StatusName =
   | "CONFIRMED"
   | "REQUESTED"
   | "PROPOSED"
-  | "CANCELLED"
+  | "CANCELED"
   | "REFUNDED";
 
 export type AttachmentObject = {

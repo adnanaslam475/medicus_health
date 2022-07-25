@@ -29,7 +29,7 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
     useGetAllRequestedAppointmentsQuery({
       variables: {
         filter: {
-          status: "Cancelled",
+          status: "Canceled",
           ...filterValues,
         },
         pagination,
@@ -75,7 +75,7 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
       <div className="w-full">
         <div className="flex-none sm:flex items-center justify-between">
           <div className="pr-3 mb-3 sm:mb-0">
-            <h2 className="mb-0">Cancelled appointments</h2>
+            <h2 className="mb-0">Canceled appointments</h2>
           </div>
         </div>
         <div className="">

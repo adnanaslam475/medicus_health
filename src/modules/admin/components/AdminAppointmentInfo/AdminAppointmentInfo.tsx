@@ -70,7 +70,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
 
       if (res?.data?.cancelAppointment) {
         notification.success({
-          message: "Appointment Cancelled",
+          message: "Appointment Canceled",
         });
       } else {
         notification.error({
@@ -149,7 +149,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
           </li>
         </div>
         {(appointmentStatus === "Confirmed" ||
-          appointmentStatus === "Cancelled" ||
+          appointmentStatus === "Canceled" ||
           appointmentStatus === "Completed") && (
           <AdminAppointmentInfoFooter
             appointmentStatus={appointmentStatus}
@@ -245,7 +245,7 @@ function AdminAppointmentInfoFooter({
           >
             Message physician
           </Button>
-          {(appointmentStatus === "Cancelled" ||
+          {(appointmentStatus === "Canceled" ||
             appointmentStatus === "Completed") && (
             <Button
               type="primary"
