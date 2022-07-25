@@ -15,6 +15,7 @@ function StatisticsCard({ src, title, value }: Props) {
       <div className="rounded-full bg-white px-3 border border-gray-4 mx-auto p-2 shadow-md text-center">
         <Image
           priority={true}
+          unoptimized
           alt=""
           className=""
           height={28}

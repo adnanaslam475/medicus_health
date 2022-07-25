@@ -62,30 +62,30 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
           />
         </div>
         <div className="-mt-6 w-full sm:w-60 flex-1">
-        <FilterRangePicker
-          onChange={(dateString: string[]) =>
-            onChangeFields("dueDate", {
-              startDate: dateString[0],
-              endDate: dateString[1],
-            })
-          }
-          open={openDateRange}
-          onOpen={() => setOpenDateRange?.(!openDateRange)}
-          onCancel={() => setOpenDateRange(false)}
-          onApply={applyDateRange}
-          heading="Appointment Date"
-          title={
-            filterState.dueDate?.startDate ? (
-              <div>
-                {filterState.dueDate
-                  ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                  : "Creation Date"}
-              </div>
-            ) : (
-              ""
-            )
-          }
-        />
+          <FilterRangePicker
+            onChange={(dateString: string[]) =>
+              onChangeFields("dueDate", {
+                startDate: dateString[0],
+                endDate: dateString[1],
+              })
+            }
+            open={openDateRange}
+            onOpen={() => setOpenDateRange?.(!openDateRange)}
+            onCancel={() => setOpenDateRange(false)}
+            onApply={applyDateRange}
+            heading="Appointment Date"
+            title={
+              filterState.dueDate?.startDate ? (
+                <div>
+                  {filterState.dueDate
+                    ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
+                    : "Creation Date"}
+                </div>
+              ) : (
+                ""
+              )
+            }
+          />
         </div>
       </div>
       <div className="flex flex-col sm:flex-row flex-1 w-full sm:w-60">
