@@ -52,7 +52,7 @@ function CancelledAppointmentsDetailDoctor() {
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Cancelled appointments</h2>
+        <h2 className="mb-4">Canceled appointments</h2>
         <div className="profile-tabs">
           <Tabs
             type="card"

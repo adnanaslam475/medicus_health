@@ -165,12 +165,8 @@ function MyEarningsSearchFilters(props: Props) {
             ))}
           </Select>
         </div>
-        <div className=" flex mr-2 mt-0 md:mt-0">
-          {/* <Space
-            direction="vertical"
-            size={0}
-            className="w-full md:w-44 xl:w-60 sm:mb-3 mr-2"
-          > */}
+        {/* <div className=" flex mr-2 mt-0 md:mt-0">
+          
           <div className="relative ">
             <RangePicker
               value={null}
@@ -226,7 +222,7 @@ function MyEarningsSearchFilters(props: Props) {
               )}
             </Button>
           </div>
-        </div>
+        </div> */}
         <div className="flex-none sm:flex mr-2 mt-0 md:mt-0  ">
           <div className="relative">
             <RangePicker

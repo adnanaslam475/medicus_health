@@ -91,7 +91,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             />
           </div>
         </div>
-        <div className="w-full sm:w-full md:w-full lg:max-w-[200px] text-sm font-rubik -mt-6">
+        {/* <div className="w-full sm:w-full md:w-full lg:max-w-[200px] text-sm font-rubik -mt-6">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
               setBookingDate({
@@ -114,8 +114,8 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             }
             heading="Booking date"
           />
-        </div>
-        <div className="w-full sm:w-full md:w-full lg:max-w-[200px] -mt-6">
+        </div> */}
+        <div className="w-full sm:w-full md:w-full lg:max-w-[230px] -mt-6 tracking-[.25em]">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
               setDueDate({
@@ -129,14 +129,14 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             onApply={() => applyDateRange("dueDate")}
             title={
               filterValues.dueDate?.startDate && (
-                <div>
+                <div className="tracking-[.25em]">
                   {filterValues.dueDate
                     ? `${filterValues.dueDate.startDate} -> ${filterValues.dueDate.endDate}`
-                    : "Due Date"}
+                    : "Appointment due date"}
                 </div>
               )
             }
-            heading="Appointment Due Date"
+            heading="Appointment due date"
           />
         </div>
 

@@ -32,15 +32,15 @@ const columns = [
     dataIndex: "serviceType",
     sorter: true,
   },
-  {
-    title: "Booking date",
-    dataIndex: "requestedDate",
-    key: "requestedDate",
-    sorter: true,
-    render: (value: string) => {
-      return <div className="someclass">{date?.formatDAYMMDDYY(value)}</div>;
-    },
-  },
+  // {
+  //   title: "Booking date",
+  //   dataIndex: "requestedDate",
+  //   key: "requestedDate",
+  //   sorter: true,
+  //   render: (value: string) => {
+  //     return <div className="someclass">{date?.formatDAYMMDDYY(value)}</div>;
+  //   },
+  // },
   {
     title: "Appointment due date",
     dataIndex: "appointmentSchedule",

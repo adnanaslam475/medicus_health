@@ -1,6 +1,6 @@
 export const UPCOMING = "Upcoming";
 export const CONFIRMED = "Confirmed";
-export const CANCELLED = "Cancelled";
+export const CANCELED = "Canceled";
 export const COMPLETED = "Completed";
 export const SUCCEEDED = "Succeeded";
 export const PENDING = "Pending";

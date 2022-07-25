@@ -103,7 +103,7 @@ function AppointmentCard({
           onViewSuggestedSlots={onViewSuggestedSlots}
         />
       );
-    case "Cancelled":
+    case "Canceled":
       return (
         <AppointmnetCancelledCard
           appointmentId={appointmentId}

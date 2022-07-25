@@ -4,7 +4,7 @@ import {
   COMPLETED,
   PENDING,
   CONFIRMED,
-  CANCELLED,
+  CANCELED,
   SUCCEEDED,
   PROPOSED,
   REQUESTED,
@@ -23,7 +23,7 @@ type StatusName =
   | "CONFIRMED"
   | "REQUESTED"
   | "PROPOSED"
-  | "CANCELLED"
+  | "CANCELED"
   | "TRUE"
   | "FALSE"
   | "PAID"
@@ -71,10 +71,10 @@ const classesAccordingToType: StatusType<StatusName> = {
     border: "border border-green",
     text: CONFIRMED,
   },
-  CANCELLED: {
+  CANCELED: {
     background: "bg-red-1",
     color: "text-red",
-    text: CANCELLED || "Cancelled",
+    text: CANCELED || "Canceled",
     border: "border border-red-1",
   },
   REQUESTED: {

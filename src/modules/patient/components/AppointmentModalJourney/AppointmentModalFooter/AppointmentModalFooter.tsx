@@ -85,7 +85,7 @@ function AppointmentModalFooter({
       });
       if (res?.data?.cancelAppointmentByPatient) {
         notification.success({
-          message: "Appointment Cancelled",
+          message: "Appointment Canceled",
         });
         setShowConfirmationModal(false);
       } else {

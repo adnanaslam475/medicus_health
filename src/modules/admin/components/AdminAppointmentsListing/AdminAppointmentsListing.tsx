@@ -53,17 +53,17 @@ const appointmentColumns = [
       return <div>{`${serviceType?.name}`}</div>;
     },
   },
+  // {
+  //   title: "Booking date",
+  //   dataIndex: "createdAt",
+  //   key: "createdAt",
+  //   sorter: true,
+  //   render: (bookingDate: string) => {
+  //     return <div>{date.formatDAYMMDDYY(bookingDate)}</div>;
+  //   },
+  // },
   {
-    title: "Booking date",
-    dataIndex: "createdAt",
-    key: "createdAt",
-    sorter: true,
-    render: (bookingDate: string) => {
-      return <div>{date.formatDAYMMDDYY(bookingDate)}</div>;
-    },
-  },
-  {
-    title: "Appointment Due Date",
+    title: "Appointment due date",
     dataIndex: "appointmentDateTime",
     key: "startTime",
     sorter: true,

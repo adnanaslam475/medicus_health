@@ -82,7 +82,7 @@ function TransactionReportListFilter({ onChange }: Props) {
 							value={filterState?.serviceId}
 						/>
 				</div>
-        <div className="-mt-6 w-full sm:w-60">
+        {/* <div className="-mt-6 w-full sm:w-60">
 				<FilterRangePicker
 					onChange={(dateString: string[]) =>
 						setBookingDate({startDate: dateString[0],endDate: dateString[1]})}
@@ -101,7 +101,7 @@ function TransactionReportListFilter({ onChange }: Props) {
 					}
 					heading="Booking date"
 					/>
-           </div>
+           </div> */}
           <div className="-mt-6 w-full sm:w-60">
 				<FilterRangePicker
 					onChange={(dateString: string[]) =>
