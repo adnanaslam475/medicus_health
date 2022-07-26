@@ -140,13 +140,20 @@ export const AppointmentBookingStepOne = React.forwardRef(
         charges ||
         price ||
         (serviceInfo && serviceInfo[0]?.price);
-      let physicianName = formInstance.setFieldsValue({
-        physician:
-          rebookData || physicianData?.user
-            ? `${first_name} ${last_name}`
-            : adminApp_Details?.doctor
-            ? `${doctor_first_name} ${doctor_last_name}`
-            : physician,
+      let physicianName =
+        rebookData || physicianData?.user
+          ? `${
+              first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
+            } ${last_name}`
+          : adminApp_Details?.doctor
+          ? `${
+              doctor_first_name?.includes("Dr.")
+                ? doctor_first_name
+                : `Dr. ${doctor_first_name}`
+            } ${doctor_last_name}`
+          : physician;
+      formInstance.setFieldsValue({
+        physician: physicianName,
         service: rebookData?.serviceId || service,
         charges: consultationCharges,
         requestedDate: requestedDate,
@@ -222,7 +229,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 }}
               >
                 {(patientData || physicianList)?.map((item, index) => {
-                  const firstName = item?.first_name?.includes("Dr.") ? item?.first_name : `Dr. ${item?.first_name}`  
+                  const firstName = item?.first_name?.includes("Dr.")
+                    ? item?.first_name
+                    : `Dr. ${item?.first_name}`;
                   return (
                     <Option
                       key={index}
