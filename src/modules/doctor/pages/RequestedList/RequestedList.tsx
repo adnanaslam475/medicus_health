@@ -13,7 +13,7 @@ import { date } from "common/utils";
 
 const Columns = [
   {
-    title: "ID",
+    title: "ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,
@@ -41,7 +41,7 @@ const Columns = [
   //   },
   // },
   {
-    title: "Service type",
+    title: "Appointment type",
     dataIndex: "serviceType",
     key: "name",
     sorter: true,
