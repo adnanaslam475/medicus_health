@@ -199,7 +199,7 @@ function EditProfile({
       country_id: country_id || "",
       state_id: state_id || "",
       zip_code: zip_code || "",
-      contact: contact_number,
+      contact: contact_number || "",
       email: doctor_email,
       password: "",
       confirmPassword: "",
@@ -212,7 +212,9 @@ function EditProfile({
     useState<any>(condition_treated);
 
   useEffect(() => {
-    setConditionTreatedList(condition_treated);
+    if(condition_treated?.trim()){
+      setConditionTreatedList(condition_treated);
+    }
   }, []);
 
   const logout = () => {
@@ -222,9 +224,7 @@ function EditProfile({
   };
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-    if (!conditionTreatedList) {
-      notification.error({ message: "Please enter at least one condition created" });
-    } else {
+
       const res = await updateDoctor({
         updateDoctorProfileInput: {
           doctor_id: pathname.includes("/admin/physicians")
@@ -244,7 +244,7 @@ function EditProfile({
           password: values?.password,
           profile_image: image || userProfileImage || "",
           about_me: values?.about_me || "",
-          condition_treated: conditionTreatedList,
+          condition_treated: conditionTreatedList || "",
           language: physicianLanguage || "",
           educational_background: educationList?.map((item) => ({
             institution: item?.institution,
@@ -285,17 +285,14 @@ function EditProfile({
               res?.error?.graphQLErrors[0]?.message || "Something went wrong",
           });
       }
-    }
 
     // }
   };
 
   const onFinish = async (values: any) => {
     try {
-      if (!!schedules?.length) {
         updateDoctorProfile(values);
         setIsEdit(false);
-      }
     } catch (error) {
       setIsEdit(true);
     }
@@ -537,7 +534,7 @@ function EditProfile({
                   rules={[{ required: true, message: "First name!" }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input autoFocus={true}/>
                 </Form.Item>
                 <Form.Item
                   label="Last name"
@@ -564,7 +561,7 @@ function EditProfile({
                   rules={[{ required: true }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input type="number"/>
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
@@ -817,11 +814,6 @@ function EditProfile({
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
               />
-              {!!!schedules?.length && (
-                <div className="text-red mt-2 text-center">
-                  Please input at least one schedule
-                </div>
-              )}
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional background</h5>
                 {clinicList?.map((clinic: clinicType, index: number) => {
@@ -863,7 +855,7 @@ function EditProfile({
                       &nbsp;
                       {clinicList?.length > 1 && (
                         <Button danger onClick={() => removeHospital(index)}>
-                          Remove new field
+                          Remove field
                         </Button>
                       )}
                     </div>
@@ -917,7 +909,7 @@ function EditProfile({
                       &nbsp;
                       {educationList?.length > 1 && (
                         <Button danger onClick={() => removeEducation(index)}>
-                          Remove new field
+                          Remove field
                         </Button>
                       )}
                     </div>
