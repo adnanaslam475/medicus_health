@@ -14,6 +14,7 @@ import {
   usePatientHealthHistoryQuery,
 } from "generated/graphql";
 import { AttachmentObject } from "common/types/types";
+import { useTranslations } from "next-intl";
 
 function CancelledAppointmentsDetailDoctor() {
   const { query } = useRouter();
@@ -52,7 +53,10 @@ function CancelledAppointmentsDetailDoctor() {
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Canceled appointments</h2>
+        <h2 className="mb-4">
+          Canceled appointments
+          {/* {t("canceled_appointments")} */}
+        </h2>
         <div className="profile-tabs">
           <Tabs
             type="card"

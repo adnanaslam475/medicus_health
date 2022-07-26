@@ -6,16 +6,17 @@ import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilt
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { BookingDate } from "generated/graphql";
+import { useTranslations } from "next-intl";
 
 type Props = {
   onChange: (value: cancelledAppointmentFilterType) => void;
 };
 
 function CanncelledAppointmentFilter({ onChange }: Props) {
+  const t = useTranslations("UpcomingAppointments");
   const [filterState, setFilterState] =
     useState<cancelledAppointmentFilterType>({});
-    const [dueDate,setDueDate]=useState<BookingDate>({})
-
+  const [dueDate, setDueDate] = useState<BookingDate>({});
 
   function clear() {
     setFilterState({});
@@ -25,7 +26,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
-    onChangeFields("dueDate",dueDate)
+    onChangeFields("dueDate", dueDate);
   };
 
   function onChangeFields(key: string, value: string | number | object) {
@@ -49,7 +50,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
 
   return (
     <div className="page-filters  items-center mb-4 flex-wrap">
-       <span className="text-gray-1 mr-3">Filter</span>
+      <span className="text-gray-1 mr-3">Filter</span>
       <div className="flex items-center sm:mb-0 lg:mb-0 gap-2 flex-col sm:flex-row flex-wrap">
         <div className="w-full sm:w-full md:w-full lg:w-96">
           <Input
@@ -63,34 +64,33 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
         </div>
         <div className="-mt-6 w-full sm:w-60">
           <Space className="w-full sm:w-60">
-        <FilterRangePicker
-          onChange={(dateString: string[]) =>
-            setDueDate({
-              startDate: dateString[0],
-              endDate: dateString[1],
-            })
-          }
-          open={openDateRange}
-          onOpen={() => setOpenDateRange?.(!openDateRange)}
-          onCancel={() => setOpenDateRange(false)}
-          onApply={applyDateRange}
-          title={
-            filterState.dueDate?.startDate ? (
-              <div>
-                {filterState.dueDate
-                  ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                  : "Date"}
-              </div>
-            ) : (
-              ""
-            )
-          }
-          heading="Date"
-        />
-        </Space>
+            <FilterRangePicker
+              onChange={(dateString: string[]) =>
+                setDueDate({
+                  startDate: dateString[0],
+                  endDate: dateString[1],
+                })
+              }
+              open={openDateRange}
+              onOpen={() => setOpenDateRange?.(!openDateRange)}
+              onCancel={() => setOpenDateRange(false)}
+              onApply={applyDateRange}
+              title={
+                filterState.dueDate?.startDate ? (
+                  <div>
+                    {filterState.dueDate
+                      ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
+                      : "Date"}
+                  </div>
+                ) : (
+                  ""
+                )
+              }
+              heading="Date"
+            />
+          </Space>
         </div>
-     
-     
+
         <div className="w-full sm:w-60">
           <SelectServiceTypeFilter
             onChange={(value) => onChangeFields("serviceId", value)}
@@ -107,11 +107,10 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             <Select.Option value="unpaid">Unpaid</Select.Option>
             <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
-        <FilterClearButton onClear={clear} />
-      </div>
+          <FilterClearButton onClear={clear} />
         </div>
       </div>
-    
+    </div>
   );
 }
 

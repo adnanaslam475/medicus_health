@@ -6,6 +6,7 @@ function signup() {
 }
 
 export default signup;
+
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
