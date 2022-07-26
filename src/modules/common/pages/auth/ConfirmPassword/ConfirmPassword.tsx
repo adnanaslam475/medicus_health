@@ -64,7 +64,8 @@ function ConfirmPassword() {
               {/* Confirm password */}
             </h1>
             <h5 className="text-center text-gray font-rubik font-normal">
-              Enter your new password
+              {t("enter_your_new_password")}
+              {/* Enter your new password */}
             </h5>
             <div className="mt-5">
               <ConfirmPasswordForm

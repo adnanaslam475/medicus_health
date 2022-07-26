@@ -17,11 +17,14 @@ export const englishCommon: any = {
 
   password: "Password",
   password_message: "Please enter your password!",
+  enter_your_new_password: "Enter your new password",
   confirm_password: "Confirm Password",
   confirm_your_password: "Please confirm your password!",
   password_message_8_character: "Password must be minimum 8 characters.",
+  confirm_password_message_8_character:
+    "Confirm password must be minimum 8 characters.",
   two_passwords_mismatch_message:
-    "The two passwords that you entered do not match",
+    "The two passwords that you entered do not match!",
 
   street_address: "Street address",
   contact_number: "Contact number",
@@ -169,10 +172,13 @@ export const spanishCommon: any = {
 
   password: "Contraseña",
   password_message: "¡Por favor, introduzca su contraseña!",
+  enter_your_new_password: "Introduzca su nueva contraseña",
   confirm_password: "Confirmar contraseña",
   confirm_your_password: "¡Por favor, confirme su contraseña!",
   password_message_8_character:
     "La contraseña debe tener un mínimo de 8 caracteres.",
+  confirm_password_message_8_character:
+    "Confirmar contraseña debe tener un mínimo de 8 caracteres.!",
   two_passwords_mismatch_message:
     "Las dos contraseñas que ingresaste no coinciden",
 
