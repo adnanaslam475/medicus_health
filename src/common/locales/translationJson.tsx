@@ -25,6 +25,15 @@ export function translationJson(local: string) {
           ...spanishCommon,
           title: "Cuenta",
         },
+        SuccessScreen: {
+          ...spanishCommon,
+          success_your_account_has_been_created:
+            "¡Éxito! Tu cuenta ha sido creada.",
+          we_have_sent_you_an_email_on:
+            "Le hemos enviado un correo electrónico en",
+          verify_your_account_by_click:
+            "Haga clic en el enlace de verificación y su cuenta será verificada.",
+        },
         Signup: {
           ...spanishCommon,
           createAccount: "Crea tu cuenta",
@@ -111,7 +120,15 @@ export function translationJson(local: string) {
         },
         AccountDetail: {
           ...englishCommon,
-          title: "Account",
+          // title: "Account",
+        },
+        SuccessScreen: {
+          ...englishCommon,
+          success_your_account_has_been_created:
+            "Success! Your account has been created.",
+          we_have_sent_you_an_email_on: "We have sent you an email on",
+          verify_your_account_by_click:
+            "Please click on the verification link and your account will be verified.",
         },
 
         Signup: {

@@ -25,6 +25,9 @@ export const englishCommon: any = {
     "Confirm password must be minimum 8 characters.",
   two_passwords_mismatch_message:
     "The two passwords that you entered do not match!",
+  your_password_has_been_reset: "Your password has been reset!",
+
+  back_to_log_in: "Back to log in",
 
   street_address: "Street Address",
   contact_number: "Contact Number",
@@ -181,6 +184,9 @@ export const spanishCommon: any = {
     "Confirmar contraseña debe tener un mínimo de 8 caracteres.!",
   two_passwords_mismatch_message:
     "Las dos contraseñas que ingresaste no coinciden",
+  your_password_has_been_reset: "¡Tu contraseña ha sido restablecida!",
+
+  back_to_log_in: "Atrás para iniciar sesión",
 
   street_address: "Dirección",
   contact_number: "número de contacto",
