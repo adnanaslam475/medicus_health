@@ -78,7 +78,7 @@ export const DOCTOR_ROUTES: routes = [
     ],
   },
   {
-    name: "My Earnings",
+    name: "My earnings",
     toggleName: "My Earnings",
     route: "/physician",
     submenu: [
