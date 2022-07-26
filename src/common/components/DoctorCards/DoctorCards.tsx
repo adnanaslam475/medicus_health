@@ -13,6 +13,7 @@ import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJou
 import MDNextImage from "../MDNextImage/MDNextImage";
 import { DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
+import { useTranslations } from "next-intl";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -46,6 +47,7 @@ function DoctorCard({
   doctorProfile,
   loading,
 }: Props) {
+  const t = useTranslations("PhysicianList");
   //Get logged in User
   const { user } = getUserData();
   const { id: loggedInUser } = user || {};
@@ -143,7 +145,7 @@ function DoctorCard({
               </div>
               <h5 className="text-primary text-xs mb-1">{specialization}</h5>
               <span className="text-secondary text-sm">
-                {yearOfExperience}+ years of experience
+                {yearOfExperience}+ {t("years_of_experience")}
               </span>
               <h6 className="font-rubik text-gray mt-3 font-normal">
                 {aboutMe}
@@ -151,7 +153,9 @@ function DoctorCard({
               <Divider />
 
               <h6 className="text-gray font-normal">
-                <span className="text-sm font-rubik">Conditions treated</span>
+                <span className="text-sm font-rubik">
+                  {t("conditions_treated")}
+                </span>
               </h6>
               <h6 className="font-normal font-rubik">{conditionTreated}</h6>
             </div>
@@ -174,13 +178,15 @@ function DoctorCard({
                 }}
                 className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12"
               >
-                Message physician
+                {t("message_physician")}
+                {/* Message physician */}
               </a>
             </Link>
 
             <Link passHref href={`/patient/physicians/profile/${id}`}>
               <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">
-                View profile
+                {t("view_profile")}
+                {/* View profile */}
               </a>
             </Link>
             <Tooltip
@@ -190,7 +196,8 @@ function DoctorCard({
                   ""
                 ) : (
                   <Link passHref href={`/patient/account?activeTab=2`}>
-                    please complete health questionnaire
+                    {t("please_complete_health_questionnaire")}
+                    {/* please complete health questionnaire */}
                   </Link>
                 )
               }
@@ -210,7 +217,10 @@ function DoctorCard({
                   width={20}
                   height={11}
                 />
-                <span className="ml-2">Request an appointment</span>
+                <span className="ml-2">
+                  {t("request_an_appointment")}
+                  {/* Request an appointment */}
+                </span>
               </Button>
             </Tooltip>
           </div>

@@ -6,6 +6,7 @@ import {
   useDoctorProfileQuery,
 } from "../../../../../generated/graphql";
 import { useRouter } from "next/router";
+import { translationJson } from "common/locales/translationJson";
 function PhysiciansDetail() {
   //   GET ID FROM URL
   const { query } = useRouter();
@@ -30,3 +31,11 @@ function PhysiciansDetail() {
   );
 }
 export default PhysiciansDetail;
+
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      messages: translationJson(locale),
+    },
+  };
+}

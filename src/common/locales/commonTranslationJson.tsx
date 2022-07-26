@@ -56,7 +56,7 @@ export const englishCommon: any = {
   postal_address_message: "Please enter your postal code",
   upcoming_appointments: "Upcoming appointments",
   pending_appointments: "Pending appointments",
-  cancelled_appointments: "Canceled appointments",
+  canceled_appointments: "Canceled appointments",
   filter_search_placeholder_1: "Search by ID, physician name or patient name",
   history: "History",
 
@@ -208,7 +208,7 @@ export const spanishCommon: any = {
   postal_address_message: "Por favor ingrese su código postal",
   upcoming_appointments: "próximas citas",
   pending_appointments: "Citas pendientes",
-  cancelled_appointments: "Citas canceladas",
+  canceled_appointments: "Citas canceladas",
   history: "Historia",
 
   physician: "Médica",

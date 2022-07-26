@@ -16,8 +16,11 @@ import PatientAppointmentHistoryFilter from "common/components/PatientAppointmen
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 function CancelledAppointment() {
+  const t = useTranslations("HistoryAppointments");
+
   //Get logged in User
   const { user } = getUserData();
   const { id: loggedInUser } = user || {};
@@ -107,7 +110,10 @@ function CancelledAppointment() {
       <div className="w-full">
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
-            <h2 className="mb-0">History</h2>
+            <h2 className="mb-0">
+              {t("history")}
+              {/* History */}
+            </h2>
           </div>
           <Tooltip
             title={
@@ -115,7 +121,8 @@ function CancelledAppointment() {
                 ""
               ) : (
                 <Link passHref href={`/patient/account?activeTab=2`}>
-                  please complete health questionnaire
+                  {t("please_complete_health_questionnaire")}
+                  {/* please complete health questionnaire */}
                 </Link>
               )
             }
@@ -129,7 +136,8 @@ function CancelledAppointment() {
               }
             >
               <span className="text-xs sm:text-base">
-                Request an appointment
+                {t("request_an_appointment")}
+                {/* Request an appointment */}
               </span>
             </Button>
           </Tooltip>

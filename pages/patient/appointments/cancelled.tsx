@@ -6,6 +6,7 @@ function patientCancelledAppointment() {
 }
 
 export default patientCancelledAppointment;
+
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {

@@ -40,7 +40,7 @@ type Props = {
 };
 
 function SearchFilters(props: Props) {
-  const t = useTranslations("UpcomingAppointments");
+  const t = useTranslations("SearchFilters");
   const {
     setServiceIds,
     setDoctorId,
