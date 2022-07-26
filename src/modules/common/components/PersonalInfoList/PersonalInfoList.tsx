@@ -242,7 +242,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           >
             {patientProfile?.occupationalExposure === "Yes"
               ? patientProfile?.exposureDuration
-              : "-" }
+              : "No" }
           </div>
         </div>
       </li>
