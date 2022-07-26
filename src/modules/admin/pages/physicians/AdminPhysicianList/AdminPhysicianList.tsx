@@ -104,19 +104,19 @@ const columns = [
         <div className="flagAvatar engFlag pr-2">
           {FLAG_BY_LANGUAGE[language] && (
             <Image
-            priority={true}
-            src={FLAG_BY_LANGUAGE[language]}
-            alt={language || "flag"}
-            width={25}
-            height={25}
+              priority={true}
+              src={FLAG_BY_LANGUAGE[language]}
+              alt={language || "flag"}
+              width={25}
+              height={25}
             />
-            )}
+          )}
         </div>
       );
     },
   },
   {
-    title: "Account Creation Date",
+    title: "Account creation date",
     dataIndex: "createdAt",
     key: "createdAt",
     render: (createdAt: string) => {

@@ -145,7 +145,7 @@ function MyEarningsSearchFilters(props: Props) {
       <div className="flex flex-wrap">
         <div className=" w-full sm:w-full md:w-full xl:w-96 mr-2 md:mb-2">
           <Input
-            placeholder="Search by ID, appointment ID or patient name"
+            placeholder="Search by ID#, appointment ID# or patient name"
             prefix={<SearchOutlined />}
             value={filterState?.searchString}
             onChange={(e) => onChangeFields("searchString", e?.target.value)}
@@ -153,7 +153,7 @@ function MyEarningsSearchFilters(props: Props) {
         </div>
         <div className="w-full md:w-56 xl:w-36 mr-2 mb-3 mt-3 md:mt-0">
           <Select
-            placeholder="Service"
+            placeholder="Service type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={(value) => onChangeFields("serviceId", value as string)}
             value={filterState?.serviceId || "Service"}
@@ -165,12 +165,8 @@ function MyEarningsSearchFilters(props: Props) {
             ))}
           </Select>
         </div>
-        <div className=" flex mr-2 mt-0 md:mt-0">
-          {/* <Space
-            direction="vertical"
-            size={0}
-            className="w-full md:w-44 xl:w-60 sm:mb-3 mr-2"
-          > */}
+        {/* <div className=" flex mr-2 mt-0 md:mt-0">
+          
           <div className="relative ">
             <RangePicker
               value={null}
@@ -226,7 +222,7 @@ function MyEarningsSearchFilters(props: Props) {
               )}
             </Button>
           </div>
-        </div>
+        </div> */}
         <div className="flex-none sm:flex mr-2 mt-0 md:mt-0  ">
           <div className="relative">
             <RangePicker
@@ -308,10 +304,10 @@ function MyEarningsSearchFilters(props: Props) {
         </div>
         <div className="w-full md:w-56 md:ml-2 lg:ml-2  sm:mt-3 md:mt-0">
           <Select
-            placeholder="Payment Status"
+            placeholder="Payment status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
             className="w-full sm:w-46"
-            value={filterState?.paymentStatus || "Payment Status"}
+            value={filterState?.paymentStatus || "Payment status"}
           >
             <Select.Option value="paid">PAID</Select.Option>
             <Select.Option value="unpaid">UNPAID</Select.Option>

@@ -81,7 +81,7 @@ export default function PersonalInfo({ onFinish }: props) {
       !fetching &&
       !emailData?.checkEmailAvailability?.isEmailAvailable
     ) {
-      return Promise.reject("Email already exist ");
+      return Promise.reject(t("email_already_exist"));
     }
     return Promise.resolve();
   };
@@ -100,7 +100,8 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: "Please enter your first name",
+              message: t("first_name_message"),
+              // message: "Please enter your first name",
               max: 30,
             },
           ]}
@@ -115,7 +116,8 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: "Please enter your last name",
+              // message: "Please enter your last name",
+              message: t("last_name_message"),
               max: 30,
             },
           ]}
@@ -127,16 +129,16 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label={t("Gender")}
+          label={t("gender")}
           name="gender"
           rules={[
             {
               required: true,
-              message: "Please enter your gender",
+              message: t("gender_message"),
             },
           ]}
         >
-          <Select placeholder={t("Gender")} className="nb-select-input">
+          <Select placeholder={t("gender")} className="nb-select-input">
             <Select.Option value="male">{t("male")}</Select.Option>
             <Select.Option value="female">{t("female")}</Select.Option>
             <Select.Option value="prefer not to answer">
@@ -148,12 +150,12 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label={t("date_of_Birth")}
+          label={t("date_of_birth")}
           name="date_of_birth"
           rules={[
             {
               required: true,
-              message: "Please select date of birth",
+              message: t("date_of_birth_message"),
             },
           ]}
         >
@@ -176,7 +178,7 @@ export default function PersonalInfo({ onFinish }: props) {
           },
           {
             type: "email",
-            message: "Email is invalid",
+            message: t("email_invalid_message"),
           },
           { validator: emailValidator },
         ]}
@@ -192,9 +194,14 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: "Please enter your password!",
+              message: t("password_message"),
+              // message: "Please enter your password!",
             },
-            { min: 8, message: "Password must be minimum 8 characters." },
+            {
+              min: 8,
+              message: t("password_message_8_character"),
+              // message: "Password must be minimum 8 characters.",
+            },
           ]}
         >
           <Input.Password />

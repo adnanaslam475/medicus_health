@@ -194,11 +194,11 @@ function AdminPhysicianSearchFilters(props: Props) {
                       )} -> ${getDateInFormat(
                         filterState?.creationDate?.endDate
                       )}`
-                    : "Account Created At"}
+                    : "Account created at"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3 border-gray text-gray-1">
-                  <div>Account Created At</div>
+                  <div>Account created at</div>
                   <CaretDownOutlined />
                 </div>
               )}

@@ -1,3 +1,4 @@
+import { translationJson } from "common/locales/translationJson";
 import SetPassword from "modules/common/pages/auth/SetPassword/SetPassword";
 
 function setPassword() {
@@ -5,3 +6,10 @@ function setPassword() {
 }
 
 export default setPassword;
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      messages: translationJson(locale),
+    },
+  };
+}

@@ -5,8 +5,10 @@ import DoctorCard from "common/components/DoctorCards/DoctorCards";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { DoctorProfile, useDoctorProfilesQuery } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
+import { useTranslations } from "next-intl";
 
 function Physicians() {
+  const t = useTranslations("PhysicianList");
   const [{ data, fetching }] = useDoctorProfilesQuery({ variables: {} });
   const { doctorProfiles } = data || {};
   const { user } = getUserData();
@@ -29,18 +31,23 @@ function Physicians() {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="lg:w-4/5 mx-auto">
-          <h2 className="mb-0">Our physicians</h2>
+        <div className="xl:w-4/5 mx-auto">
+          <h2 className="mb-0">
+            {t("our_physicians")}
+            {/* Our physicians */}
+          </h2>
           <div className="mb-6">
-            <span className=" min-h-max hidden md:block text-secondary text-md">
-              If you need help selecting a physician, our support team is a
+            <span className=" min-h-max hidden md:block text-secondary text-sm">
+              {t("message_admin_support")}
+              {/* If you need help selecting a physician, our support team is a */}
               <span>
                 <Link href="/patient/messages">
                   <a
                     onClick={routeToMessage}
                     className="underline text-primary px-3 whitespace-nowrap"
                   >
-                    message away
+                    {t("message_away")}
+                    {/* message away */}
                   </a>
                 </Link>
               </span>

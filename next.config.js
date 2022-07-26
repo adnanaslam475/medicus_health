@@ -28,6 +28,7 @@ module.exports = withTM(
         "medicus-dev.agencypartner.com",
         "medicus-uat.agencypartner.com",
         "www.google.com",
+        "staging.joinmedicus.com"
       ],
       // minimumCacheTTL: 60,
       // added for images and 502 Error Fix R&D

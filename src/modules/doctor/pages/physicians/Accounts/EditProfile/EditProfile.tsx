@@ -114,10 +114,10 @@ function EditProfile({
     last_name: doctor_last_name,
     email: doctor_email,
     streetAddress: street_address,
-    city_id,
-    country_id,
-    state_id,
-    zip_code,
+    city_id: city_id,
+    country_id: country_id,
+    state_id: state_id,
+    zip_code: zip_code,
   } = userData?.user || {};
 
   const {
@@ -162,10 +162,8 @@ function EditProfile({
     { institution: "", degree: "" },
   ]);
 
-  const [countryId, setCountryId] = useState<number | undefined>(
-    Number(country_id)
-  );
-  const [stateId, setStateId] = useState<number | undefined>(Number(state_id));
+  const [countryId, setCountryId] = useState<number | undefined>();
+  const [stateId, setStateId] = useState<number | undefined>();
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -222,13 +220,10 @@ function EditProfile({
     localStorage.removeItem("loginTime");
     Router.push("/login");
   };
-
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
     if (!conditionTreatedList) {
-      notification.error({
-        message: "Please enter at least one condition treated",
-      });
+      notification.error({ message: "Please enter at least one condition created" });
     } else {
       const res = await updateDoctor({
         updateDoctorProfileInput: {
@@ -240,7 +235,7 @@ function EditProfile({
           specialization: values?.specialization || "",
           year_of_experience: Number(values?.year_of_experience || 0),
           streetAddress: values?.streetAddress,
-          // contact_number:values?.contact,
+          contact_number:values?.contact,
           city_id: Number(values?.city_id),
           country_id: Number(values?.country_id),
           state_id: Number(values?.state_id),
@@ -537,7 +532,7 @@ function EditProfile({
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
-                  label="First Name"
+                  label="First name"
                   name="firstName"
                   rules={[{ required: true, message: "First name!" }]}
                   className="flex-1"
@@ -633,8 +628,8 @@ function EditProfile({
                 rules={[
                   {
                     required: true,
-                    message: "Street address required",
-                    max: 300,
+                    message: "street address required",
+                    max: 30,
                   },
                 ]}
               >
@@ -649,7 +644,7 @@ function EditProfile({
                   rules={[
                     {
                       required: true,
-                      message: "Country is required",
+                      message: "country_message",
                     },
                   ]}
                 >
@@ -828,7 +823,7 @@ function EditProfile({
                 </div>
               )}
               <div className={`my-6 ${_classes["professional"]}`}>
-                <h5>Professional Background</h5>
+                <h5>Professional background</h5>
                 {clinicList?.map((clinic: clinicType, index: number) => {
                   return (
                     <div
@@ -877,7 +872,7 @@ function EditProfile({
               </div>
 
               <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Educational Background</h6>
+                <h6>Educational background</h6>
                 {educationList?.map((education, index) => {
                   return (
                     <div
@@ -936,14 +931,14 @@ function EditProfile({
                     Close
                   </Button>
                   <Button type="primary" htmlType="submit">
-                    Save Changes
+                    Save changes
                   </Button>
                 </div>
               </Form.Item>
             </Form>
             <Form layout="vertical">
               <div className={`my-6 hidden ${_classes["educational"]}`}>
-                <h6>Login Information</h6>
+                <h6>Login information</h6>
                 <div className="border-b border-gray-3 my-3 py-3">
                   <Form.Item
                     label="Email address"
@@ -956,7 +951,7 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of Oklahoma College of Medicine" />
+                    <Input value="University of oklahoma college of medicine" />
                   </Form.Item>
                   <div className="flex flex-col sm:flex-row  sm:gap-3">
                     <Form.Item

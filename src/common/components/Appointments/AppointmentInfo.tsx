@@ -55,13 +55,13 @@ function AppointmentInfo(props: Props) {
         />
         <LabelValueRow label="Appointment type" value={name || "--"} />
         <LabelValueRow
-          label="Due date"
+          label="Appointment date"
           value={date.formatDAYMMDDYY(selectedAppointment?.startTime)}
         />
-        <LabelValueRow
+        {/* <LabelValueRow
           label="Booking date"
           value={date.formatDAYMMDDYY(createdAt)}
-        />
+        /> */}
         <LabelValueRow
           label="Appointment time"
           value={`${date?.formathhmma(

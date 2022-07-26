@@ -68,7 +68,7 @@ function TransactionReportListFilter({ onChange }: Props) {
 				<div className=" w-full sm:w-80">
 					<Input
 						value={filterState.searchString}
-						placeholder="Search by ID, appointment ID or patient name"
+						placeholder="Search by ID#, appointment ID# or patient name"
 						prefix={<SearchOutlined />}
 						onChange={(e) => {
 							onChangeFields("searchString", e.target.value);
@@ -82,7 +82,7 @@ function TransactionReportListFilter({ onChange }: Props) {
 							value={filterState?.serviceId}
 						/>
 				</div>
-        <div className="-mt-6 w-full sm:w-60">
+        {/* <div className="-mt-6 w-full sm:w-60">
 				<FilterRangePicker
 					onChange={(dateString: string[]) =>
 						setBookingDate({startDate: dateString[0],endDate: dateString[1]})}
@@ -101,7 +101,7 @@ function TransactionReportListFilter({ onChange }: Props) {
 					}
 					heading="Booking date"
 					/>
-           </div>
+           </div> */}
           <div className="-mt-6 w-full sm:w-60">
 				<FilterRangePicker
 					onChange={(dateString: string[]) =>
@@ -115,11 +115,11 @@ function TransactionReportListFilter({ onChange }: Props) {
 							<div>
 								{filterState.dueDate
 									? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-									: "Schedule Date"}
+									: "Schedule date"}
 							</div>
 						)
 					}
-					heading="Schedule Date"
+					heading="Schedule date"
 				/>
         </div>
 				<div className="w-full sm:w-40">
@@ -131,10 +131,10 @@ function TransactionReportListFilter({ onChange }: Props) {
 				</div>
 				<div className="w-full sm:w-40">
 					<Select
-						placeholder="Payment Status"
+						placeholder="Payment status"
 						onChange={(value) => onChangeFields("paymentStatus", value)}
 						className="w-full sm:w-50"
-						value={filterState?.paymentStatus || "Payment Status"}
+						value={filterState?.paymentStatus || "Payment status"}
 					>
 						<Select.Option value="paid">PAID</Select.Option>
 						<Select.Option value="unpaid">UNPAID</Select.Option>

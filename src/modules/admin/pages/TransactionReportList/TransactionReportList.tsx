@@ -15,7 +15,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Appointment ID",
+    title: "Appointment ID#",
     dataIndex: "appointment_id",
     key: "appointment_id",
     render: (value: User) => {
@@ -24,7 +24,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Patient Name",
+    title: "Patient name",
     dataIndex: "patient_name",
     key: "patient_name",
     render: (value: User) => {
@@ -42,7 +42,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Scheduled Date",
+    title: "Scheduled date",
     dataIndex: "first_name",
     key: "first_name",
     render: (value: User) => {
@@ -69,7 +69,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Gross Sales ($)",
+    title: "Gross sales ($)",
     dataIndex: "first_name",
     key: "first_name",
     render: (value: User) => {
@@ -96,7 +96,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Total Sales ($)",
+    title: "Total sales ($)",
     dataIndex: "first_name",
     key: "first_name",
     render: (value: User) => {
@@ -231,7 +231,7 @@ function TransactionReportList() {
 
   return (
     <AppLayout>
-      <div className="flex mb-0">
+      <div className="flex mb-0 flex-wrap">
         <MyEarningsStats
           label={"Total Consultants"}
           // text={String(total_number_of_consultation)}
@@ -256,6 +256,7 @@ function TransactionReportList() {
               dataSource={Ddata}
               onChange={onChange}
               loading={fetching}
+              scroll={{x:true}}
               pagination={{
                 total: Number(getPhysicians?.meta?.totalPages) * pagination.limit,
                 current: getPhysicians?.meta?.currentPage,

@@ -27,21 +27,21 @@ function AdminDashboard() {
         <div className="basis-1/2">
           <StatisticsCard
             src={users}
-            title="Total Number of Users "
+            title="Total number of users "
             value={total_number_of_users || 0}
           />
         </div>
         <div className="basis-1/2">
           <StatisticsCard
             src={appointments}
-            title="Number of Appointments "
+            title="Number of appointments "
             value={total_number_of_appointments || 0}
           />
         </div>
         <div className="basis-1/2">
           <StatisticsCard
             src={physician}
-            title="Number of Physicians "
+            title="Number of physicians "
             value={total_number_of_physicians || 0}
           />
         </div>
@@ -49,7 +49,7 @@ function AdminDashboard() {
           <StatisticsCard
             src={revenue}
             title="The total revenue to date ($)"
-            value={total_revenue || 0}
+            value={Math.round(total_revenue || 0)}
           />
         </div>
       </div>
@@ -58,5 +58,3 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
-
-

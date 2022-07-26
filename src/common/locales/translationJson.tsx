@@ -34,11 +34,46 @@ export function translationJson(local: string) {
           healthQuestionnaire: "Cuestionario de Salud",
           Login: "Acceso",
           AlreadyHaveAnAccount: "Ya tienes una cuenta",
+          signup_modal_skip_questionaire_message:
+            "Estos son los campos obligatorios para reservar una cita, puede omitirlos por ahora y puede agregar/editar más tarde desde la sección Mi perfil",
+        },
+        HealthQuestionary: {
+          ...spanishCommon,
+          skip_this_for_now_fill_this_later:
+            "Saltar esto por ahora y llenar esto más tarde",
+          please_pick_an_option: "Por favor elige una opción",
+          please_fill_field: "Por favor complete el campo",
         },
 
         UpcomingAppointments: {
           ...spanishCommon,
           upcomingAppointmentsHead: "próximas citas",
+        },
+        PendingAppointments: {
+          ...spanishCommon,
+          pending_appointments_head: "Citas Pendientes",
+        },
+        CanceledAppointments: {
+          ...spanishCommon,
+          cancel_appointments_head: "Citas Pendientes",
+        },
+        HistoryAppointments: {
+          ...spanishCommon,
+          history_appointments_head: "Citas Pendientes",
+        },
+        SearchFilters: {
+          ...spanishCommon,
+          // pending_appointments_head: "Citas Pendientes",
+        },
+        AppointmentCards: {
+          ...spanishCommon,
+        },
+        PhysicianList: {
+          ...spanishCommon,
+          our_physicians: "Nuestros medicos",
+          message_away: "mensaje_lejos",
+          message_admin_support:
+            "Si necesita ayuda para seleccionar un médico, nuestro equipo de apoyo es un",
         },
         PersonalInfo: {
           ...spanishCommon,
@@ -85,17 +120,52 @@ export function translationJson(local: string) {
           healthQuestionnaire: "Health Questionnaire",
           login: "Login",
           account: "Don't have an account?",
+          signup_modal_skip_questionaire_message:
+            "These are the mandatory fields for Book an Appointment you can Skip it for now and can Add/Edit later from My Profile section",
+        },
+        HealthQuestionary: {
+          ...englishCommon,
+          skip_this_for_now_fill_this_later:
+            "Skip This For Now & Fill This Later",
+          please_pick_an_option: "Please pick an option!",
+          please_fill_field: "Please fill field",
         },
 
         UpcomingAppointments: {
           ...englishCommon,
           upcomingAppointmentsHead: "Upcoming Appointments",
         },
+        PendingAppointments: {
+          ...englishCommon,
+          pending_appointments_head: "Pending Appointments",
+        },
+        CanceledAppointments: {
+          ...englishCommon,
+          cancel_appointments_head: "Citas Pendientes",
+        },
+        HistoryAppointments: {
+          ...englishCommon,
+          history_appointments_head: "Citas Pendientes",
+        },
+        SearchFilters: {
+          ...englishCommon,
+        },
+        AppointmentCards: {
+          ...englishCommon,
+        },
+        PhysicianList: {
+          ...englishCommon,
+          our_physicians: "Our physicians",
+          message_away: "message away",
+          message_admin_support:
+            "If you need help selecting a physician, our support team is a",
+        },
+
         PersonalInfo: {
           ...englishCommon,
           Login: "Login",
           AlreadyHaveAnAccount: "Already have an account?",
-          Gender: "Gender",
+          gender: "Gender",
           first_name: "First Name",
           last_name: "Last Name",
           male: "Male",

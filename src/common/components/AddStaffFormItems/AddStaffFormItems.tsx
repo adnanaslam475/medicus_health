@@ -5,13 +5,13 @@ import { date } from "common/utils";
 
 const createStaffForm = [
   {
-    label: "First Name",
+    label: "First name",
     name: "first_name",
     required: true,
     type: "text",
   },
   {
-    label: "Last Name",
+    label: "Last name",
     name: "last_name",
     type: "text",
     required: true,
@@ -23,7 +23,7 @@ const createStaffForm = [
     required: true,
   },
   {
-    label: "Contact Number",
+    label: "Contact number",
     name: "contact_number",
     type: "number",
     required: true,
@@ -65,7 +65,7 @@ function AddStaffFormItems(props: Props) {
       ))}
       <div className="flex flex-col gap-2 account-creation-date">
         <span className="text-secondary font-semibold text-sm py-1">
-          Account Creation Date
+          Account creation date
         </span>
         <div className="border border-gray-4 rounded min-h-[48px] bg-gray-4  flex items-center pl-5">
           {`${date?.formatDAYMMDDYY(

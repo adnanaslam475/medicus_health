@@ -91,7 +91,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             />
           </div>
         </div>
-        <div className="w-full sm:w-full md:w-full lg:max-w-[200px] text-sm font-rubik -mt-6">
+        {/* <div className="w-full sm:w-full md:w-full lg:max-w-[200px] text-sm font-rubik -mt-6">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
               setBookingDate({
@@ -114,8 +114,8 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             }
             heading="Booking date"
           />
-        </div>
-        <div className="w-full sm:w-full md:w-full lg:max-w-[200px] -mt-6">
+        </div> */}
+        <div className="w-full sm:w-full md:w-full lg:max-w-[290px] -mt-6 tracking-[.25em]">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
               setDueDate({
@@ -129,21 +129,21 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             onApply={() => applyDateRange("dueDate")}
             title={
               filterValues.dueDate?.startDate && (
-                <div>
+                <div className="tracking-[.25em]">
                   {filterValues.dueDate
                     ? `${filterValues.dueDate.startDate} -> ${filterValues.dueDate.endDate}`
-                    : "Due Date"}
+                    : "Appointment date"}
                 </div>
               )
             }
-            heading="Appointment Due Date"
+            heading="Appointment date"
           />
         </div>
 
         {getRole() === "Admin" && (
           <div className="w-full lg:max-w-[200px] sm:mt-0   flex flex-col sm:flex-row">
             <SelectStatusTypeFilter
-              placeholder="Appointment Status"
+              placeholder="Appointment status"
               onChange={(value) => onChangeFields("status", value as string)}
               value={filterValues.status}
               isAdminFilter={true}
@@ -152,7 +152,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
         )}
         <div className=" sm:mt-0 flex-1 flex flex-col sm:flex-row lg:max-w-[200px]">
           <Select
-            placeholder="Payment Status"
+            placeholder="Payment status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
             className="w-full sm:w-50 text-sm font-rubik text-grey"
           >

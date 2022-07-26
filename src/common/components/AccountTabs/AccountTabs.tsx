@@ -120,7 +120,7 @@ function AccountTabs({ setIsShowBanner }: Props) {
                 <Button
                   loading={fetching}
                   disabled={fetching}
-                  className="ant-btn ant-btn-primary ant-btn mb-0"
+                  className="ant-btn ant-btn-primary ant-btn mb-0 w-40"
                   type="primary"
                   onClick={() => form?.current?.submit()}
                 >

@@ -18,13 +18,13 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 type Props = {};
 const Columns = [
   {
-    title: "Transaction ID",
+    title: "Transaction ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,
   },
   {
-    title: "Appointment ID",
+    title: "Appointment ID#",
     dataIndex: "appointmentId",
     key: "appointment",
     sorter: true,
@@ -49,20 +49,20 @@ const Columns = [
       return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
     },
   },
-  {
-    title: "Booking date",
-    dataIndex: "appointment",
-    key: "startTime",
-    sorter: true,
-    render: (value: Appointment) => {
-      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
-      return (
-        <div className="someclass">{`${date?.formatDAYMMDDYY(
-          time?.startTime
-        )} `}</div>
-      );
-    },
-  },
+  // {
+  //   title: "Booking date",
+  //   dataIndex: "appointment",
+  //   key: "startTime",
+  //   sorter: true,
+  //   render: (value: Appointment) => {
+  //     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+  //     return (
+  //       <div className="someclass">{`${date?.formatDAYMMDDYY(
+  //         time?.startTime
+  //       )} `}</div>
+  //     );
+  //   },
+  // },
   {
     title: "Scheduled date",
     dataIndex: "appointment",

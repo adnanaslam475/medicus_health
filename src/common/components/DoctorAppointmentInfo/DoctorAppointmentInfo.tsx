@@ -170,17 +170,17 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={serviceType?.name ? serviceType?.name : "--"}
         />
         <LabelWithText
-          label="Appointment Due date"
+          label="Appointment date"
           text={
             appointmentDateTime?.startTime
               ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
               : "--"
           }
         />
-        <LabelWithText
+        {/* <LabelWithText
           label="Booking date"
           text={date?.formatDAYMMDDYY(createdAt)}
-        />
+        /> */}
         <LabelWithText
           label="Requested date"
           text={date?.formatDAYMMDDYY(requestedDate)}
@@ -576,7 +576,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
-    let formatedDate = moment(dateString)
+    let formatedDate = moment(dateString,"MM-DD-YYYY hh:mm A")
       .add(30, "minutes")
       .local()
       .format("MM-DD-YYYY hh:mm A");
@@ -859,7 +859,7 @@ function AvailabilityTimeSlots({
                 <DatePicker disabled={true} className="w-full" showTime />
               ) : (
                 <DatePicker
-                  value={moment(endDateValue)}
+                  value={moment(endDateValue,"MM-DD-YYYY hh:mm A")}
                   disabled={true}
                   className="w-full"
                   showTime

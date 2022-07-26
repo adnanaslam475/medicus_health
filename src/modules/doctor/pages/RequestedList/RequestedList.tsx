@@ -31,15 +31,15 @@ const Columns = [
       );
     },
   },
-  {
-    title: "Booking date",
-    dataIndex: "createdAt",
-    key: "createdAt",
-    sorter: true,
-    render: (value: string) => {
-      return <div className="someclass">{date?.formatDAYMMDDYY(value)}</div>;
-    },
-  },
+  // {
+  //   title: "Booking date",
+  //   dataIndex: "createdAt",
+  //   key: "createdAt",
+  //   sorter: true,
+  //   render: (value: string) => {
+  //     return <div className="someclass">{date?.formatDAYMMDDYY(value)}</div>;
+  //   },
+  // },
   {
     title: "Service type",
     dataIndex: "serviceType",
@@ -50,7 +50,7 @@ const Columns = [
     },
   },
   {
-    title: "Appointment Due date ",
+    title: "Appointment date ",
     dataIndex: "appointmentDateTime",
     key: "requestedDate",
     sorter: true,
@@ -66,7 +66,7 @@ const Columns = [
     },
   },
   {
-    title: "Time",
+    title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "requestedDate",
     sorter: true,

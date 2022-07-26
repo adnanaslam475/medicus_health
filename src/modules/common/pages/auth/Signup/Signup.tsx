@@ -61,8 +61,9 @@ function Signup() {
     confirm({
       title: "",
       icon: <ExclamationCircleOutlined />,
-      content:
-        "These are the mandatory fields for Book an Appointment you can Skip it for now and can Add/Edit later from My Profile section",
+      // content:
+      //   "These are the mandatory fields for Book an Appointment you can Skip it for now and can Add/Edit later from My Profile section",
+      content: t("signup_modal_skip_questionaire_message"),
       onOk() {
         submitPersonalInfo();
       },

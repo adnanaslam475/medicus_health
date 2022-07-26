@@ -173,9 +173,11 @@ mutation updateDoctorProfile(
       email
       gender
       streetAddress
+      contact_number
       country_id
       state_id
       city_id
+      contact_number
       city {
         city_name
       }

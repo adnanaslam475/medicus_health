@@ -68,8 +68,8 @@ function PatientInfoTab({}: Props) {
     >
       <div className="max-w-[800px]">
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="first Name" value={first_name} />
-          <LabelWithTextDiv label="Last Name" value={last_name} />
+          <LabelWithTextDiv label="first name" value={first_name} />
+          <LabelWithTextDiv label="Last name" value={last_name} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv label="Gender" value={gender} />
@@ -99,7 +99,7 @@ function PatientInfoTab({}: Props) {
             value={occupation}
           />
           <LabelWithTextDiv
-            label="Do you have any Occupational Exposure?"
+            label="Do you have any occupational exposure?"
             value={occupationalExposure}
           />
         </div>

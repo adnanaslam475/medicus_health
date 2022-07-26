@@ -17,6 +17,7 @@ import { sorter } from "utils/helper";
 import MDNextImage from "../MDNextImage/MDNextImage";
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -29,6 +30,7 @@ type Props = {
 };
 
 function DoctorProfileCard(props: Props) {
+  // const t = useTranslations("PhysicianList");
   //Get logged in User
   const { user } = getUserData();
   const { id: loggedInUser } = user || {};
@@ -114,7 +116,7 @@ function DoctorProfileCard(props: Props) {
                 ? `${doctorData?.year_of_experience} + years of experience`
                 : "experience not available"}
             </span>
-            <Collapse className="lg:w-4/5">
+            <Collapse className="xl:w-4/5">
               <Collapse.Panel
                 className="w-full"
                 key="1"

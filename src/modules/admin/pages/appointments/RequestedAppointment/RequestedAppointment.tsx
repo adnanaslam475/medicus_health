@@ -17,8 +17,10 @@ import Link from "next/link";
 import AppointmentModalJourney from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { getUserData } from "common/utils/userData";
+import { useTranslations } from "next-intl";
 
 function RequestedAppointment() {
+  const t = useTranslations("PendingAppointments");
   const [dueStartDate, setStartDate] = useState<BookingDate>();
   const [dueEndDate, setEndDate] = useState<BookingDate>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -97,7 +99,10 @@ function RequestedAppointment() {
         <div className="w-full">
           <div className="flex-none sm:flex items-center justify-between mb-5">
             <div className="pr-3 mb-3 sm:mb-0">
-              <h2 className="mb-0">Pending appointments</h2>
+              <h2 className="mb-0">
+                {t("pending_appointments")}
+                {/* Pending appointments */}
+              </h2>
             </div>
             <div className="flex gap-3">
               {/* <div className="lg:ml-3 mt-0 sm:mt-0">
@@ -118,7 +123,8 @@ function RequestedAppointment() {
                     ""
                   ) : (
                     <Link passHref href={`/patient/account?activeTab=2`}>
-                      please complete health questionnaire
+                      {t("please_complete_health_questionnaire")}
+                      {/* please complete health questionnaire */}
                     </Link>
                   )
                 }
@@ -132,7 +138,8 @@ function RequestedAppointment() {
                   }
                 >
                   <span className="text-xs sm:text-base">
-                    Request an appointment
+                    {t("request_an_appointment")}
+                    {/* Request an appointment */}
                   </span>
                 </Button>
               </Tooltip>

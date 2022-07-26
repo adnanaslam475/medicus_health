@@ -117,7 +117,8 @@ function Login() {
                       },
                       {
                         type: "email",
-                        message: "Email is invalid",
+                        message: t("email_invalid_message"),
+                        // message: "Email is invalid",
                       },
                     ]}
                   >
@@ -130,7 +131,8 @@ function Login() {
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your password",
+                        message: t("password_message"),
+                        // message: "Please enter your password",
                       },
                     ]}
                   >
@@ -143,7 +145,9 @@ function Login() {
                         disabled={fetching}
                         className="text-gray primary-checkbox"
                       >
-                        <span className="text-gray">{t("remember")}</span>
+                        <span className="text-gray text-base">
+                          {t("remember")}
+                        </span>
                       </Checkbox>
                       <Link href="/forgotPassword">
                         <a>

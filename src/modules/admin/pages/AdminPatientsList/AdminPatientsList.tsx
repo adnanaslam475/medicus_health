@@ -81,7 +81,7 @@ const columns: ColumnsType<User> = [
     sorter: true,
   },
   {
-    title: "Account Creation Date",
+    title: "Account creation date",
     dataIndex: "createdAt",
     key: "createdAt",
     sorter: true,

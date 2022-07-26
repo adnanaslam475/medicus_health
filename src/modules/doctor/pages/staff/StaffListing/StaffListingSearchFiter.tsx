@@ -54,7 +54,7 @@ function StaffListingSearchFilter({ onChange }: Props) {
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
           <Input
             value={filterState.patientName}
-            placeholder="Search by ID or patient name"
+            placeholder="Search by ID# or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("patientName", e.target.value);
@@ -105,11 +105,11 @@ function StaffListingSearchFilter({ onChange }: Props) {
               <div>
                 {filterState.bookingDate
                   ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-                  : "Account Creation Date"}
+                  : "Account creation date"}
               </div>
             ) : (
               <div className="flex justify-between items-center w-full px-3">
-                <div>Creation Date</div>
+                <div>Account creation date</div>
                 <div>
                   <CaretDownOutlined style={{ color: `primary` }} />
                 </div>

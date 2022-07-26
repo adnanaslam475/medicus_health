@@ -16,6 +16,7 @@ import Image from "next/image";
 import { calendarFilterIcon } from "../../../utils/images";
 import { getDateInFormat } from "../../utils/date";
 import _classes from "./SearchFilters.module.scss";
+import { useTranslations } from "next-intl";
 
 const { Option } = Select;
 
@@ -39,6 +40,7 @@ type Props = {
 };
 
 function SearchFilters(props: Props) {
+  const t = useTranslations("SearchFilters");
   const {
     setServiceIds,
     setDoctorId,
@@ -153,63 +155,66 @@ function SearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 gap-y-2 gap-2 flex-wrap`}
     >
-      <span className="text-gray-1 mr-3  w-full 2xl:w-fit">Search by</span>
+      <span className="text-gray-1 mr-3  w-full 2xl:w-fit">
+        {t("search_by")}
+        {/* Search by */}
+      </span>
       {/* <div className="flex gap-x-2 gap-2"> */}
-        <div className="  w-full  lg:w-60  ">
+      <div className="  w-full  lg:w-60  ">
+        <Input
+          placeholder={"ID#"}
+          prefix={<SearchOutlined />}
+          onChange={(event) => handleAppointmentId(event)}
+          value={localAppointment_Id || undefined}
+          type="number"
+        />
+      </div>
+      {isFromPhysician ? (
+        <div className="w-full sm:w-full md:w-full lg:w-96 ">
           <Input
-            placeholder={"ID#"}
+            placeholder={placeholder || "ID# or patient name"}
             prefix={<SearchOutlined />}
-            onChange={(event) => handleAppointmentId(event)}
-            value={localAppointment_Id || undefined}
-            type="number"
+            onChange={(event) => handlePaitentName_ID(event)}
+            value={patientName}
           />
         </div>
-        {isFromPhysician ? (
-          <div className="w-full sm:w-full md:w-full lg:w-96 ">
-            <Input
-              placeholder={placeholder || "ID# or patient name"}
-              prefix={<SearchOutlined />}
-              onChange={(event) => handlePaitentName_ID(event)}
-              value={patientName}
-            />
-          </div>
-        ) : (
-          <div className=" w-full md:w-44 xl:w-60   ">
-            <Select
-              placeholder="Physician"
-              className={`${searchStyle.placeholderColor} w-full`}
-              onChange={handlePhysicianChange}
-              value={selectedPhysicianItems}
-            >
-              {doctorProfiles?.map((item) => (
-                <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
+      ) : (
+        <div className=" w-full md:w-44 xl:w-60   ">
+          <Select
+            placeholder="Physician"
+            className={`${searchStyle.placeholderColor} w-full`}
+            onChange={handlePhysicianChange}
+            value={selectedPhysicianItems}
+          >
+            {doctorProfiles?.map((item) => (
+              <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
                 {/* {item?.user?.first_name}  {item?.user?.last_name} */}
                 {`Dr.${item?.user?.first_name} ${item?.user?.last_name}`}
-                </Select.Option>
-              ))}
-            </Select>
-          </div>
-        )}
-
-        <div className="w-full md:w-44 xl:w-60  sm:mt-0">
-          <Select
-            suffixIcon={
-              <div className="text-gray">
-                <CaretDownOutlined className="text-sm text-gray" />
-              </div>
-            }
-            placeholder="Appointment type"
-            className={`${searchStyle.placeholderColor} w-full`}
-            onChange={handleServiceChange}
-            value={selectedServiceItems}
-          >
-            {appointmentServiceTypes?.map((item) => (
-              <Select.Option key={item?.id} value={item?.id}>
-                {item?.name}
               </Select.Option>
             ))}
           </Select>
         </div>
+      )}
+
+      <div className="w-full md:w-44 xl:w-60  sm:mt-0">
+        <Select
+          suffixIcon={
+            <div className="text-gray">
+              <CaretDownOutlined className="text-sm text-gray" />
+            </div>
+          }
+          placeholder="Appointment type"
+          className={`${searchStyle.placeholderColor} w-full`}
+          onChange={handleServiceChange}
+          value={selectedServiceItems}
+        >
+          {appointmentServiceTypes?.map((item) => (
+            <Select.Option key={item?.id} value={item?.id}>
+              {item?.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </div>
       {/* </div> */}
       {/* <div className="flex w-full sm:w-60 ">
         <Space
@@ -283,11 +288,7 @@ function SearchFilters(props: Props) {
         </Space>
       </div> */}
       <div className="flex w-full sm:w-60 ">
-        <Space
-          direction="vertical"
-          size={0}
-          className="w-full  sm:w-60 "
-        >
+        <Space direction="vertical" size={0} className="w-full  sm:w-60 ">
           <div className="relative">
             <RangePicker
               value={dueDateRangeValues}
@@ -328,7 +329,7 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         dueDateRange?.[0]
                       )} -> ${getDateInFormat(dueDateRange?.[1])}`
-                    : "Appointment Due Date"}
+                    : "Appointment date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -342,7 +343,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Appointment Due Date
+                    Appointment date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
@@ -355,13 +356,13 @@ function SearchFilters(props: Props) {
         </Space>
       </div>
       <Button
-          onClick={onClear}
-          type="text"
-          className={`${_classes["btn-clear"]} ml-2 mr-auto sm:mr-0 sm:ml-0`}
-        >
-          <CloseOutlined className="text-sm mb-0.5" />
-          <span className="text-gray-1 text-sm">Clear</span>
-        </Button>
+        onClick={onClear}
+        type="text"
+        className={`${_classes["btn-clear"]} ml-2 mr-auto sm:mr-0 sm:ml-0`}
+      >
+        <CloseOutlined className="text-sm mb-0.5" />
+        <span className="text-gray-1 text-sm">Clear</span>
+      </Button>
     </div>
   );
 }
