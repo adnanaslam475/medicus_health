@@ -16,6 +16,7 @@ export const englishCommon: any = {
   search_by: "Search by",
 
   password: "Password",
+  reset_password: "Reset password",
   password_message: "Please enter your password!",
   enter_your_new_password: "Enter your new password",
   confirm_password: "Confirm Password",
@@ -26,6 +27,9 @@ export const englishCommon: any = {
   two_passwords_mismatch_message:
     "The two passwords that you entered do not match!",
   your_password_has_been_reset: "Your password has been reset!",
+
+  enter_your_email_below_to_reset_password:
+    "Enter your email below to reset password.",
 
   back_to_log_in: "Back to log in",
 
@@ -55,6 +59,7 @@ export const englishCommon: any = {
   email: "Email address",
   email_address_message: "Please enter your email address",
   email_invalid_message: "Email is invalid",
+  email_is_invalid: "Email is invalid",
 
   street_address_message: "Please enter your street address",
   contact_number_message: "Please enter your contact number",
@@ -155,6 +160,7 @@ export const englishCommon: any = {
   yes: "Yes",
   no: "No",
   submit: "Submit",
+  send_resend_link: "Send Resend Link",
 };
 
 export const spanishCommon: any = {
@@ -175,6 +181,7 @@ export const spanishCommon: any = {
   search_by: "Búsqueda por",
 
   password: "Contraseña",
+  reset_password: "Restablecer la contraseña",
   password_message: "¡Por favor, introduzca su contraseña!",
   enter_your_new_password: "Introduzca su nueva contraseña",
   confirm_password: "Confirmar contraseña",
@@ -186,6 +193,9 @@ export const spanishCommon: any = {
   two_passwords_mismatch_message:
     "Las dos contraseñas que ingresaste no coinciden",
   your_password_has_been_reset: "¡Tu contraseña ha sido restablecida!",
+
+  enter_your_email_below_to_reset_password:
+    "Ingrese su correo electrónico a continuación para restablecer la contraseña.",
 
   back_to_log_in: "Atrás para iniciar sesión",
 
@@ -214,6 +224,7 @@ export const spanishCommon: any = {
   email_address_message:
     "Por favor, introduzca su dirección de correo electrónico",
   email_invalid_message: "el correo electrónico es invalido",
+  email_is_invalid: "el correo electrónico es invalido",
   email_already_exist: "Ya existe el correo electrónico",
   street_address_message: "Por favor ingrese su dirección postal",
   contact_number_message: "Por favor ingrese su número de contacto",
@@ -318,4 +329,5 @@ export const spanishCommon: any = {
   yes: "Sí",
   no: "No",
   submit: "Enviar",
+  send_resend_link: "Enviar enlace de reenvío",
 };

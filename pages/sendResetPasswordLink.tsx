@@ -6,6 +6,7 @@ function sendResetLink() {
 }
 
 export default sendResetLink;
+
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {

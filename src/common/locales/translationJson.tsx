@@ -14,12 +14,17 @@ export function translationJson(local: string) {
         },
         ForgotPass: {
           ...spanishCommon,
+          your_password_reset_link_has_been_sent_on_your_email_please_check:
+            "Su enlace de restablecimiento de contraseña ha sido enviado a su correo electrónico, ¡compruébelo!",
         },
         Confirm_pass: {
           ...spanishCommon,
         },
         ResendLink: {
           ...spanishCommon,
+          resend_password_link: "Reenviar enlace de contraseña",
+          your_password_reset_link_has_been_resent_on_your_email_please_check:
+            "Su enlace de restablecimiento de contraseña ha sido reenviado en su correo electrónico, ¡compruébelo!",
         },
         AccountDetail: {
           ...spanishCommon,
@@ -111,12 +116,17 @@ export function translationJson(local: string) {
         },
         ForgotPass: {
           ...englishCommon,
+          your_password_reset_link_has_been_sent_on_your_email_please_check:
+            "Your password reset link has been sent on your email please check!",
         },
         Confirm_pass: {
           ...englishCommon,
         },
         ResendLink: {
           ...englishCommon,
+          resend_password_link: "Resend Password Link",
+          your_password_reset_link_has_been_resent_on_your_email_please_check:
+            "Your password reset link has been resent on your email please check!",
         },
         AccountDetail: {
           ...englishCommon,
