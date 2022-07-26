@@ -7,6 +7,7 @@ function forgotPassword() {
 }
 
 export default forgotPassword;
+
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {

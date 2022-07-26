@@ -75,7 +75,8 @@ const ForgotPassword = () => {
                 {/* Forgot password */}
               </h1>
               <h5 className="text-center text-gray font-rubik font-normal">
-                Enter your email below to reset password.
+                {t("enter_your_email_below_to_reset_password")}
+                {/* Enter your email below to reset password. */}
               </h5>
               <div className="mt-5">
                 <Form
@@ -88,7 +89,8 @@ const ForgotPassword = () => {
                   autoComplete="off"
                 >
                   <Form.Item
-                    label="Email address"
+                    // label="Email address"
+                    label={t("email_address")}
                     name="email"
                     className="mb-1"
                     rules={[
@@ -99,7 +101,8 @@ const ForgotPassword = () => {
                       },
                       {
                         type: "email",
-                        message: "Email is invalid",
+                        message: t("email_is_invalid"),
+                        // message: "Email is invalid",
                       },
                     ]}
                   >
@@ -114,7 +117,7 @@ const ForgotPassword = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      Reset password
+                      {t("reset_password")}
                     </Button>
                   </Form.Item>
 
@@ -128,9 +131,12 @@ const ForgotPassword = () => {
                   {data?.UserForgotPassword && (
                     <Alert
                       className=""
-                      message={
-                        "Your password reset link has been sent on your email please check!"
-                      }
+                      // message={
+                      //   "Your password reset link has been sent on your email please check!"
+                      // }
+                      message={t(
+                        "your_password_reset_link_has_been_sent_on_your_email_please_check"
+                      )}
                       type="success"
                     />
                   )}
@@ -152,7 +158,7 @@ const ForgotPassword = () => {
                             // loading="eager"
                           />
                           <span className="cursor-pointer text-primary ml-3">
-                            Back to log in
+                            {t("back_to_log_in")}
                           </span>
                         </div>
                       </div>

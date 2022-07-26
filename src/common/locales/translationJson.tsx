@@ -14,16 +14,30 @@ export function translationJson(local: string) {
         },
         ForgotPass: {
           ...spanishCommon,
+          your_password_reset_link_has_been_sent_on_your_email_please_check:
+            "Su enlace de restablecimiento de contraseña ha sido enviado a su correo electrónico, ¡compruébelo!",
         },
         Confirm_pass: {
           ...spanishCommon,
         },
         ResendLink: {
           ...spanishCommon,
+          resend_password_link: "Reenviar enlace de contraseña",
+          your_password_reset_link_has_been_resent_on_your_email_please_check:
+            "Su enlace de restablecimiento de contraseña ha sido reenviado en su correo electrónico, ¡compruébelo!",
         },
         AccountDetail: {
           ...spanishCommon,
           title: "Cuenta",
+        },
+        SuccessScreen: {
+          ...spanishCommon,
+          success_your_account_has_been_created:
+            "¡Éxito! Tu cuenta ha sido creada.",
+          we_have_sent_you_an_email_on:
+            "Le hemos enviado un correo electrónico en",
+          verify_your_account_by_click:
+            "Haga clic en el enlace de verificación y su cuenta será verificada.",
         },
         Signup: {
           ...spanishCommon,
@@ -102,16 +116,29 @@ export function translationJson(local: string) {
         },
         ForgotPass: {
           ...englishCommon,
+          your_password_reset_link_has_been_sent_on_your_email_please_check:
+            "Your password reset link has been sent on your email please check!",
         },
         Confirm_pass: {
           ...englishCommon,
         },
         ResendLink: {
           ...englishCommon,
+          resend_password_link: "Resend Password Link",
+          your_password_reset_link_has_been_resent_on_your_email_please_check:
+            "Your password reset link has been resent on your email please check!",
         },
         AccountDetail: {
           ...englishCommon,
-          title: "Account",
+          // title: "Account",
+        },
+        SuccessScreen: {
+          ...englishCommon,
+          success_your_account_has_been_created:
+            "Success! Your account has been created.",
+          we_have_sent_you_an_email_on: "We have sent you an email on",
+          verify_your_account_by_click:
+            "Please click on the verification link and your account will be verified.",
         },
 
         Signup: {
