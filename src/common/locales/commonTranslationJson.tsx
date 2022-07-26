@@ -71,7 +71,7 @@ export const englishCommon: any = {
   status: "Status",
   payment_status: "Payment status",
   refunded: "Refunded",
-  cancelled: "Cancelled",
+  cancelled: "Canceled",
   unpaid: "Unpaid",
   rebook: "Rebook",
 
@@ -139,7 +139,7 @@ export const englishCommon: any = {
   menu_appointments: "Appointments",
   sub_menu_upcoming: "Upcoming",
   sub_menu_requested: "Requested",
-  sub_menu_cancelled: "Cancelled",
+  sub_menu_cancelled: "Canceled",
   sub_menu_history: "History",
   menu_physicians: "Physicians",
   menu_messages: "Messages",
