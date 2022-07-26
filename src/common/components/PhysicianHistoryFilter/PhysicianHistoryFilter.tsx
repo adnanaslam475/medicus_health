@@ -66,14 +66,14 @@ function PhysicianSearchFilters(props: Props) {
 
   return (
     <div
-      className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5 flex-wrap`}
+      className={`${_classes["page-filters"]} flex flex-col md:flex-row items-center  flex-wrap gap-2 mb-3`}
     >
-      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">Search by</span>
-      <div className="flex-none sm:flex">
-        <div className="mb-3 md:mb-0  w-full sm:w-full md:w-full lg:w-70 mr-2">
+      <span className="text-gray-1  w-full 2xl:w-fit ">Search by</span>
+      {/* <div className="flex flex-col w-full lg:w-96 md:flex-row gap-2"> */}
+        <div className="w-full  md:w-full lg:w-96 ">
           <Input
             value={filterState.searchString || ""}
-            placeholder="Search by ID or patient name"
+            placeholder="ID# or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) =>
               onFilterValuesChange("searchString", e.target.value)
@@ -81,7 +81,7 @@ function PhysicianSearchFilters(props: Props) {
           />
         </div>
 
-        <div className="w-full md:w-44 xl:w-60 mr-3 mb-3">
+        <div className="w-full md:w-44 xl:w-60">
           <Select
             placeholder="Appointment type"
             className={`${searchStyle.placeholderColor} w-full`}
@@ -95,18 +95,8 @@ function PhysicianSearchFilters(props: Props) {
             ))}
           </Select>
         </div>
-        <div className="w-full md:w-44 xl:w-60 mr-1 mb-3">
-          <Select
-            placeholder="Payment status"
-            className={`${searchStyle.placeholderColor} w-full`}
-            onChange={(e) => onFilterValuesChange("paymentStatus", e)}
-            value={filterState.paymentStatus}
-          >
-            <Select.Option value="paid">Paid</Select.Option>
-            <Select.Option value="unpaid">UnPaid</Select.Option>
-          </Select>
-        </div>
-      </div>
+    
+      {/* </div> */}
       {/* <div className="flex-none sm:flex">
         <Space
           direction="vertical"
@@ -185,11 +175,11 @@ function PhysicianSearchFilters(props: Props) {
           </div>
         </Space>
       </div> */}
-      <div className="flex-none sm:flex ">
+      <div className="w-full md:w-fit flex-col sm:flex-row flex gap-2">
         <Space
           direction="vertical"
           size={0}
-          className="w-full md:w-60 xl:w-60  mt-3 sm:mt-0 sm:mb-3 lg:ml-2 md:ml-2  "
+          className="w-full md:w-60 xl:w-60   "
         >
           <div className="relative">
             <RangePicker
@@ -261,11 +251,21 @@ function PhysicianSearchFilters(props: Props) {
           </div>
         </Space>
       </div>
-
+      <div className="w-full md:w-44 xl:w-60">
+          <Select
+            placeholder="Payment status"
+            className={`${searchStyle.placeholderColor} w-full`}
+            onChange={(e) => onFilterValuesChange("paymentStatus", e)}
+            value={filterState.paymentStatus}
+          >
+            <Select.Option value="paid">Paid</Select.Option>
+            <Select.Option value="unpaid">UnPaid</Select.Option>
+          </Select>
+        </div>
       <Button
         onClick={onClear}
         type="text"
-        className={`${_classes["btn-clear"]} sm:ml-3`}
+        className={`${_classes["btn-clear"]}`}
       >
         <CloseOutlined className="text-sm" />
         <span className="text-gray-1 text-sm">Clear</span>

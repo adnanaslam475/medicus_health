@@ -16,7 +16,7 @@ export const PATIENT_ROUTES: routes = [
   //     // { name: "Current", route: "/patient/appointments/current" },
   //     { name: "Upcoming", route: "/patient/appointments/upcoming" },
   //     { name: "Pending", route: "/patient/appointments/pending" },
-  //     { name: "Cancelled", route: "/patient/appointments/cancelled" },
+  //     { name: "Cancelled", route: "/patient/appointments/canceled" },
   //     { name: "History", route: "/patient/appointments/history" },
   //   ],
   // },
@@ -31,7 +31,7 @@ export const PATIENT_ROUTES: routes = [
     submenu: [
       { name: "Próximos", route: "/patient/appointments/upcoming" },
       { name: "Pendiente", route: "/patient/appointments/pending" },
-      { name: "Cancelado", route: "/patient/appointments/cancelled" },
+      { name: "Cancelado", route: "/patient/appointments/canceled" },
       { name: "Historia", route: "/patient/appointments/history" },
     ],
   },
@@ -73,12 +73,12 @@ export const DOCTOR_ROUTES: routes = [
       // { name: "Current", route: "/physician/appointments/current" },
       { name: "Upcoming", route: "/physician/appointments/upcoming" },
       { name: "Pending", route: "/physician/appointments/pending" },
-      { name: "Cancelled", route: "/physician/appointments/cancelled" },
+      { name: "Canceled", route: "/physician/appointments/canceled" },
       { name: "History", route: "/physician/appointments/history" },
     ],
   },
   {
-    name: "My Earnings",
+    name: "My earnings",
     toggleName: "My Earnings",
     route: "/physician",
     submenu: [
@@ -101,7 +101,7 @@ export const STAFF_ROUTES: routes = [
     submenu: [
       { name: "Upcoming", route: "/physician/appointments/upcoming" },
       { name: "Requested", route: "/physician/appointments/requested" },
-      { name: "Cancelled", route: "/physician/appointments/cancelled" },
+      { name: "Canceled", route: "/physician/appointments/canceled" },
       { name: "History", route: "/physician/appointments/history" },
     ],
   },
