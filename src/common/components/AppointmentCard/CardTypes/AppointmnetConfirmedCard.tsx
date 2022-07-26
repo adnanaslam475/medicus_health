@@ -6,6 +6,7 @@ import _classes from "./../AppointmentCard.module.scss";
 import Router from "next/router";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
 import { isAppointmentTimeValid } from "common/utils/date";
+import { useTranslations } from "next-intl";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -23,6 +24,7 @@ function AppointmnetConfirmedCard({
   doctor,
   appointmentTimeSlots,
 }: Props) {
+  const t = useTranslations("AppointmentCards");
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
@@ -37,10 +39,12 @@ function AppointmnetConfirmedCard({
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
       <span className="text-sm mb-0">ID#-{appointmentId || ""}</span>
       <h3 className="mb-0 capitalize">Dr.{doctor}</h3>
-      <span className="text-gray text-base block mb-4 normal-case">{serviceType}</span>
+      <span className="text-gray text-base block mb-4 normal-case">
+        {serviceType}
+      </span>
       <span className="text-sm pt-5">Date</span>
       <h6 className="mb-4">
-        {date.formatDAYMMDDYY(selectedAppointment?.startTime)} 
+        {date.formatDAYMMDDYY(selectedAppointment?.startTime)}
       </h6>
       <span className="text-sm">Time</span>
       {!selectedAppointment ? (
@@ -50,7 +54,7 @@ function AppointmnetConfirmedCard({
           selectedAppointment?.startTime
         )} - ${date.formathhmma(selectedAppointment?.endTime)}`}</div>
       )}
-         <div className="text-sm">Status</div>
+      <div className="text-sm">Status</div>
       <span className="text-base text-primary font-bold ">{status}</span>
       <div className="flex mt-4">
         <Button

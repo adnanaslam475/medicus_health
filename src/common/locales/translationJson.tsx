@@ -49,6 +49,32 @@ export function translationJson(local: string) {
           ...spanishCommon,
           upcomingAppointmentsHead: "próximas citas",
         },
+        PendingAppointments: {
+          ...spanishCommon,
+          pending_appointments_head: "Citas Pendientes",
+        },
+        CanceledAppointments: {
+          ...spanishCommon,
+          cancel_appointments_head: "Citas Pendientes",
+        },
+        HistoryAppointments: {
+          ...spanishCommon,
+          history_appointments_head: "Citas Pendientes",
+        },
+        SearchFilters: {
+          ...spanishCommon,
+          // pending_appointments_head: "Citas Pendientes",
+        },
+        AppointmentCards: {
+          ...spanishCommon,
+        },
+        PhysicianList: {
+          ...spanishCommon,
+          our_physicians: "Nuestros medicos",
+          message_away: "mensaje_lejos",
+          message_admin_support:
+            "Si necesita ayuda para seleccionar un médico, nuestro equipo de apoyo es un",
+        },
         PersonalInfo: {
           ...spanishCommon,
           Login: "Acceso",
@@ -109,6 +135,32 @@ export function translationJson(local: string) {
           ...englishCommon,
           upcomingAppointmentsHead: "Upcoming Appointments",
         },
+        PendingAppointments: {
+          ...englishCommon,
+          pending_appointments_head: "Pending Appointments",
+        },
+        CanceledAppointments: {
+          ...englishCommon,
+          cancel_appointments_head: "Citas Pendientes",
+        },
+        HistoryAppointments: {
+          ...englishCommon,
+          history_appointments_head: "Citas Pendientes",
+        },
+        SearchFilters: {
+          ...englishCommon,
+        },
+        AppointmentCards: {
+          ...englishCommon,
+        },
+        PhysicianList: {
+          ...englishCommon,
+          our_physicians: "Our physicians",
+          message_away: "message away",
+          message_admin_support:
+            "If you need help selecting a physician, our support team is a",
+        },
+
         PersonalInfo: {
           ...englishCommon,
           Login: "Login",

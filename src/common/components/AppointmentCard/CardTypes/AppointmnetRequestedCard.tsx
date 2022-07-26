@@ -1,5 +1,6 @@
 import { VideoCameraFilled } from "@ant-design/icons";
 import { Button, Card } from "antd";
+import { useTranslations } from "next-intl";
 import React from "react";
 import {
   AppointmentDateTimeResponse,
@@ -29,6 +30,7 @@ function AppointmnetRequestedCard({
   setShowModal,
   appointmentDateTime,
 }: Props) {
+  const t = useTranslations("AppointmentCards");
   let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
     appointmentDateTime?.startTime?.split(" ")[2]
   }`;

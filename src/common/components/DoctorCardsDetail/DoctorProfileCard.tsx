@@ -17,6 +17,7 @@ import { sorter } from "utils/helper";
 import MDNextImage from "../MDNextImage/MDNextImage";
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -29,6 +30,7 @@ type Props = {
 };
 
 function DoctorProfileCard(props: Props) {
+  // const t = useTranslations("PhysicianList");
   //Get logged in User
   const { user } = getUserData();
   const { id: loggedInUser } = user || {};

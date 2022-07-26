@@ -18,9 +18,10 @@ import {
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 function CancelledAppointment() {
-  
+  const t = useTranslations("CanceledAppointments");
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -88,7 +89,10 @@ function CancelledAppointment() {
       <div className="w-full">
         <div className="flex-none sm:flex items-center justify-between mb-5">
           <div className="pr-3 mb-3 sm:mb-0">
-            <h2 className="mb-0">Canceled appointments</h2>
+            <h2 className="mb-0">
+              {t("canceled_appointments")}
+              {/* Canceled appointments */}
+            </h2>
           </div>
           <Tooltip
             title={
@@ -96,7 +100,8 @@ function CancelledAppointment() {
                 ""
               ) : (
                 <Link passHref href={`/patient/account?activeTab=2`}>
-                  please complete health questionnaire
+                  {t("please_complete_health_questionnaire")}
+                  {/* please complete health questionnaire */}
                 </Link>
               )
             }
@@ -110,7 +115,8 @@ function CancelledAppointment() {
               }
             >
               <span className="text-xs sm:text-base">
-                Request an appointment
+                {t("request_an_appointment")}
+                {/* Request an appointment */}
               </span>
             </Button>
           </Tooltip>
