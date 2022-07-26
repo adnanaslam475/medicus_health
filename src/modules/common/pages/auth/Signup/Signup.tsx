@@ -62,7 +62,7 @@ function Signup() {
       title: "",
       icon: <ExclamationCircleOutlined />,
       // content:
-      //   "These are the mandatory fields for Book an Appointment you can Skip it for now and can Add/Edit later from My Profile section",
+      //   "These are the mandatory fields for Book an appointment you can skip it for now and can Add/Edit later from my profile section",
       content: t("signup_modal_skip_questionaire_message"),
       onOk() {
         submitPersonalInfo();

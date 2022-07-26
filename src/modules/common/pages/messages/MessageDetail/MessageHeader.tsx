@@ -59,7 +59,7 @@ function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
         confirmLoading={fetching}
         onCancel={() => modalHandler("")}
         onOk={deleteChatChannelHandler}
-        message="Are you sure you want to delete this Channel?"
+        message="Are you sure you want to delete this channel?"
       />
       <h2>Messages</h2>
       <div className="flex gap-2 items-center border-b border-gray-4">

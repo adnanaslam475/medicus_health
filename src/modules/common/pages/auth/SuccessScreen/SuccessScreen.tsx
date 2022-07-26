@@ -52,9 +52,7 @@ const SuccessScreen = () => {
             <p className="text-base text-gray text-center px-7">
               {t("we_have_sent_you_an_email_on")}
               <span className="text-secondary">{` ${query?.email} `}</span>
-              {t(
-                "please_click_on_the_verification_link_and_your_account_will_be_verified"
-              )}
+              {t("verify_your_account_by_click")}
             </p>
             <div className="mt-5">
               <Form

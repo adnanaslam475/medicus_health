@@ -126,6 +126,6 @@ CalendarModalComponent.defaultProps = {
   closeModal: () => null,
   data: {},
   onOk: () => null,
-  okText: "OK",
+  okText: "Ok",
   footer: {},
 };

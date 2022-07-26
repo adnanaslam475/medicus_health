@@ -12,7 +12,7 @@ const PaymentHeader2 = () => (
       <div className="flex w-full justify-between">
         <div className="px-3">
           <div className="flex flex-col">
-            <div className="text-dark font-bold">Visa Ending with 3563</div>
+            <div className="text-dark font-bold">Visa ending with 3563</div>
             <div className="text-dark ">02/2028</div>
           </div>
         </div>

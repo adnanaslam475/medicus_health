@@ -25,7 +25,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     props || {};
   const historyColumns = [
     {
-      title: "ID",
+      title: "ID#",
       dataIndex: "id",
       key: "id",
       sorter: true,
@@ -39,17 +39,9 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     //     return <div>{`${date?.formatDAYMMDDYY(value)} `}</div>;
     //   },
     // },
+
     {
-      title: "Appointment type",
-      dataIndex: "serviceType",
-      key: "name",
-      sorter: true,
-      render: (value: AppointmentServiceType) => {
-        return <div>{`${value?.name}`}</div>;
-      },
-    },
-    {
-      title: "Patient name",
+      title: "Patient",
       dataIndex: "patient",
       key: "first_name",
       sorter: true,
@@ -61,6 +53,15 @@ function PhysicianAppointmentHistoryTable(props: Props) {
               : "--"}
           </div>
         );
+      },
+    },
+    {
+      title: "Appointment type",
+      dataIndex: "serviceType",
+      key: "name",
+      sorter: true,
+      render: (value: AppointmentServiceType) => {
+        return <div>{`${value?.name}`}</div>;
       },
     },
     {

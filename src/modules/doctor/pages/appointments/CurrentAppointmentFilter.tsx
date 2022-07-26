@@ -49,12 +49,12 @@ function CurrentAppointmentFilter({ onChange }: Props) {
 
   return (
     <div className="page-filters my-4">
-       <span className="text-gray-1 mr-3 w-full lg:w-fit">Filter</span>
+      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">Search by</span>
       <div className="flex items-center  sm:mb-0 lg:mb-0 gap-2 flex-wrap">
         <div className="w-full sm:w-full md:w-full lg:w-60">
           <Input
             value={filterState.searchString}
-            placeholder="Search by ID or physician name"
+            placeholder="ID# or physician name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);

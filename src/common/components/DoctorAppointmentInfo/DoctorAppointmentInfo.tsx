@@ -494,7 +494,7 @@ function DoctorUpcomingAppointmentInfoFooter({
         confirmLoading={cancelFetching}
         onCancel={() => setShowConfirmationModal(false)}
         onOk={onCancelUpcomingAppointment}
-        message="Are you sure you want to Cancel Appointment?"
+        message="Are you sure you want to cancel appointment?"
       />
       {showRescheduleModal && (
         <RescheduleAppointmentModal
@@ -675,7 +675,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         confirmLoading={cancelFetching}
         onCancel={() => setShowConfirmationModal(false)}
         onOk={onCancelRequestedAppointment}
-        message="Are you sure you want to Cancel Appointment?"
+        message="Are you sure you want to cancel appointment?"
       />
 
       <Modal

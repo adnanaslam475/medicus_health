@@ -17,7 +17,7 @@ import { StatusName } from "common/types/types";
 
 const columns = [
   {
-    title: "ID",
+    title: "ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,
@@ -32,7 +32,7 @@ const columns = [
     },
   },
   {
-    title: "Service type",
+    title: "Appointment type",
     dataIndex: "serviceType",
     key: "name",
     sorter: true,

@@ -61,8 +61,8 @@ function InputWithLi(props: IMyProps) {
         )}
         <div>
           <ul className="gap-2 flex flex-wrap">
-            {treatedList.map((a, i) => (
-              <li
+            {!!treatedList?.length && treatedList.map((a, i) => (
+              a.trim ()&&<li
                 key={i}
                 className=" rounded flex items-center inline-flex bg-gray-4 my-2"
               >
