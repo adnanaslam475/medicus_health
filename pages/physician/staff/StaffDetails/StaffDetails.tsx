@@ -185,7 +185,7 @@ function DoctorStaffDetails() {
         confirmLoading={deleteFetching}
         onCancel={() => setOpen(false)}
         onOk={deleteStaffHandler}
-        message="Are you sure you want ot delete this staff?"
+        message="Are you sure you want to delete this staff?"
       />
     </>
   );

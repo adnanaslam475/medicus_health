@@ -26,11 +26,11 @@ const HealthQuestionair = () => {
               }
             />
             <a href="void(0)" className="text-primary underline ml-3 text-xs">
-              Update Photo
+              Update photo
             </a>
           </div>
           <Button type="default" className="text-xs p-5" size="large">
-            <span className="text-xs">EDIT</span>
+            <span className="text-xs">Edit</span>
           </Button>
         </div>
       </div>

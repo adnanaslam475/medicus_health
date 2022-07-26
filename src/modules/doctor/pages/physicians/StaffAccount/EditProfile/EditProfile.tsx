@@ -800,7 +800,7 @@ function EditProfile({
                 <h6>Login information</h6>
                 <div className="border-b border-gray-4 my-3">
                   <Form.Item
-                    label="Email Address"
+                    label="Email address"
                     name="institute"
                     rules={[
                       {

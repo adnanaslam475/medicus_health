@@ -234,7 +234,7 @@ function AppointmentModalFooter({
               paymentStatus === "succeeded" ? onFinalizeTransaction : onNext
             }
           >
-            {paymentStatus === "succeeded" ? "Submit" : "Proceed To Payment"}
+            {paymentStatus === "succeeded" ? "Submit" : "Proceed to payment"}
           </Button>
           <ConfirmationModal
             visible={showConfirmationModal}
@@ -243,7 +243,7 @@ function AppointmentModalFooter({
             onOk={(e) => {
               onRejectAppointment(e, appointmentId);
             }}
-            message="Are you sure you want to Cancel Appointment?"
+            message="Are you sure you want to cancel appointment?"
           />
         </div>
       )}
@@ -254,7 +254,7 @@ function AppointmentModalFooter({
             onClick={onNext}
           >
             <PlusOutlined className={`${_classes["icon-color"]}`} />
-            <span className="text-primary">Add Payment Method</span>
+            <span className="text-primary">Add payment method</span>
           </div>
           <Tooltip
             title={

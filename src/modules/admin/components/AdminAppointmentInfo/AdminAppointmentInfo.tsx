@@ -178,7 +178,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
           Delete appointment
         </Button>
         <ConfirmationModal
-          message="Are You Sure You want to delete this appointment?"
+          message="Are you sure You want to delete this appointment?"
           onCancel={deleteModalHandler}
           confirmLoading={deleteFetching}
           onOk={deleteAppointmentHandler}

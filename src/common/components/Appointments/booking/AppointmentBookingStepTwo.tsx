@@ -132,7 +132,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
     <>
       <h2>Request an appointment</h2>
       <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
-        <Form.Item label="Medical History*">
+        <Form.Item label="Medical history*">
           <Dragger
             {...attachmentProps}
             customRequest={({ onSuccess }) => onSuccess?.({})}
@@ -160,12 +160,12 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
           </Dragger>
         </Form.Item>
         <Form.Item
-          label="General Health Questionnaire*"
+          label="General health questionnaire*"
           name="questionnair"
           rules={[
             {
               required: !patientHealthHistory?.id ? true : false,
-              message: "General Health Questionnaire is required",
+              message: "General health questionnaire is required",
             },
           ]}
         >
