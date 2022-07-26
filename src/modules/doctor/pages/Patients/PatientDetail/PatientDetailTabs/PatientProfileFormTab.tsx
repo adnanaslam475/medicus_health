@@ -144,7 +144,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             />
             <LabelWithTextDiv
               label="Do you have any occupational exposure?"
-              value={exposureDuration}
+              value={occupationalExposure === "Yes" ? exposureDuration : "No"}
             />
           </div>
           <div className="md:flex gap-2">

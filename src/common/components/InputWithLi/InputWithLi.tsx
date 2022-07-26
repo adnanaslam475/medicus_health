@@ -4,14 +4,15 @@ import _Classes from "./InputWitLi.module.scss";
 import { PlusOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons";
 
 type IMyProps = {
-  disable: boolean |undefined;
+  disable: boolean | undefined;
   // value:any
   loading?: boolean;
   initialValue?: string[];
   onChange?: (list: string[]) => void;
+  disabled?: boolean|undefined;
 };
 function InputWithLi(props: IMyProps) {
-  const { disable, initialValue, onChange} = props;
+  const { disable, initialValue, onChange, disabled } = props;
   const [treated, setTreated] = useState<string>("");
   const [treatedList, setTreatedList] = useState<string[]>(initialValue || []);
   const handleName = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -43,6 +44,7 @@ function InputWithLi(props: IMyProps) {
               className=""
               onChange={handleName}
               value={treated}
+              disabled={disabled}
             />
             <div className="absolute top-2 right-2 ">
               <Button

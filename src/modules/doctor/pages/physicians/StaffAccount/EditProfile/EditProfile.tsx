@@ -22,7 +22,10 @@ import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRa
 import ReactS3Client from "react-aws-s3-typescript";
 
 import {
+  useCountriesQuery,
   useEnableOrDisableDoctorMutation,
+  useGetCitiesByStateQuery,
+  useGetStatesByCountryQuery,
   useGetUserQuery,
   User,
   useUpdateDoctorProfileMutation,
@@ -35,8 +38,15 @@ import { parseJson } from "common/utils/helper";
 import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
+import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
+import { UserOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
+
+type clinicType = {
+  institution: string;
+  role: string;
+};
 
 type Props = {
   doctorId?: string;
@@ -60,7 +70,8 @@ type Props = {
   };
   addScheduleDay: string;
   loading?: boolean;
-  isStaff?: boolean;
+  setProfileUpdated?: any;
+  isStaff?: boolean | undefined;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -79,6 +90,7 @@ function EditProfile({
   setAddScheduleClick,
   onAddClick,
   addScheduleTime,
+  setProfileUpdated,
   isStaff,
 }: Props) {
   const [formInstance] = Form.useForm();
@@ -103,6 +115,11 @@ function EditProfile({
     first_name: doctor_first_name,
     last_name: doctor_last_name,
     email: doctor_email,
+    streetAddress: street_address,
+    city_id,
+    country_id,
+    state_id,
+    zip_code,
   } = userData?.user || {};
 
   const {
@@ -142,6 +159,15 @@ function EditProfile({
 
   const professionalExperience = parseJson(professional_experience) || [];
 
+  const [clinicList, setClinicList] = useState([{ institution: "", role: "" }]);
+  const [educationList, setEducationList] = useState([
+    { institution: "", degree: "" },
+  ]);
+
+  const [countryId, setCountryId] = useState<number | undefined>(
+    Number(country_id)
+  );
+  const [stateId, setStateId] = useState<number | undefined>(Number(state_id));
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -149,115 +175,125 @@ function EditProfile({
 
   const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
+  function selectCountryId(id: number): void {
+    setCountryId(id);
+    formInstance.resetFields(["state_id", "city_id"]);
+  }
+
+  function selectStateId(id: number): void {
+    setStateId(id);
+  }
+
+  useEffect(() => {
+    if (professionalExperience?.length) {
+      setClinicList(professionalExperience);
+    }
+    if (educationalBackground?.length) {
+      setEducationList(educationalBackground);
+    }
+  }, []);
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
-      firstName: first_name || "",
-      lastName: last_name,
-      specialization: specialization,
-      year_of_experience: year_of_experience,
+      firstName: doctor_first_name,
+      lastName: doctor_last_name,
+      specialization: specialization || "",
+      year_of_experience: year_of_experience || "",
+      streetAddress: street_address,
+      city_id: city_id || "",
+      country_id: country_id || "",
+      state_id: state_id || "",
+      zip_code: zip_code || "",
       contact: contact_number,
-      email: email,
+      email: doctor_email,
       password: "",
       confirmPassword: "",
-      ["eb-institution-0"]: educationalBackground[0]?.institution,
-      ["eb-degree-0"]: educationalBackground[0]?.degree,
-      ["eb-institution-1"]: educationalBackground[1]?.institution,
-      ["eb-degree-1"]: educationalBackground[1]?.degree,
-
-      ["pe-institution-0"]: professionalExperience[0]?.institution,
-      ["pe-role-0"]: professionalExperience[0]?.role,
-      ["pe-institution-1"]: professionalExperience[1]?.institution,
-      ["pe-role-1"]: professionalExperience[1]?.role,
-      ["pe-institution-2"]: professionalExperience[2]?.institution,
-      ["pe-role-2"]: professionalExperience[2]?.role,
       about_me: about_me,
       language: language,
     });
   }
 
+  const [conditionTreatedList, setConditionTreatedList] =
+    useState<any>(condition_treated);
+
+  useEffect(() => {
+    setConditionTreatedList(condition_treated);
+  }, []);
+
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
+    localStorage.removeItem("loginTime");
     Router.push("/login");
-    localStorage.clear();
   };
 
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-    const res = await updateDoctor({
-      updateDoctorProfileInput: {
-        doctor_id: pathname.includes("/admin/physicians")
-          ? Number(query?.id)
-          : Number(id) || Number(loggedInUserId),
-        first_name: values?.firstName || "",
-        last_name: values?.lastName || "",
-        specialization: values?.specialization || "",
-        year_of_experience: Number(values?.year_of_experience || 0),
-        email: values?.email || "",
-        contact_number:"",
-        password: values?.password,
-        profile_image: image || userProfileImage || "",
-        about_me: values?.about_me || "",
-        condition_treated: condition_treated,
-        language: physicianLanguage || "",
-        city_id: values.city_id,
-        country_id: values.country_id,
-        state_id: values.state_id,
-        streetAddress: values.street_address,
-        zip_code: values.zip_code,
-        educational_background: [
-          {
-            institution: values["eb-institution-0"],
-            degree: values["eb-degree-0"],
-          },
-          {
-            institution: values["eb-institution-1"],
-            degree: values["eb-degree-1"],
-          },
-        ],
-        professional_experience: [
-          {
-            institution: values["pe-institution-0"],
-            role: values["pe-role-0"],
-          },
-          {
-            institution: values["pe-institution-1"],
-            role: values["pe-role-1"],
-          },
-          {
-            institution: values["pe-institution-2"],
-            role: values["pe-role-2"],
-          },
-        ],
-      },
-    });
+    if (!conditionTreatedList) {
+      notification.error({
+        message: "Please enter at least one condition treated",
+      });
+    } else {
+      const res = await updateDoctor({
+        updateDoctorProfileInput: {
+          doctor_id: pathname.includes("/admin/physicians")
+            ? Number(query?.id)
+            : Number(id) || Number(loggedInUserId),
+          first_name: values?.firstName || "",
+          last_name: values?.lastName || "",
+          specialization: values?.specialization || "",
+          year_of_experience: Number(values?.year_of_experience || 0),
+          streetAddress: values?.streetAddress,
+          contact_number:values?.contact,
+          city_id: Number(values?.city_id),
+          country_id: Number(values?.country_id),
+          state_id: Number(values?.state_id),
+          zip_code: values?.zip_code,
+          email: values?.email || "",
+          password: values?.password,
+          profile_image: image || userProfileImage || "",
+          about_me: values?.about_me || "",
+          condition_treated: conditionTreatedList,
+          language: physicianLanguage || "",
+          educational_background: educationList?.map((item) => ({
+            institution: item?.institution,
+            degree: item?.degree,
+          })),
+          professional_experience: clinicList?.map((item) => ({
+            institution: item?.institution,
+            role: item?.role,
+          })),
+        },
+      });
 
-    if (res?.data) {
-      res?.data?.updateDoctorProfile &&
-        notification.success({
-          message: "Updated successfully",
-        });
-      if (getRole() === "Doctor") {
-        //checking logged in user email matched with updated email
-        let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
-        let emailMatched = emailRegExpression.test(values?.email);
-
-        // if user changed the email logged out the user
-        if (!emailMatched) {
+      if (res?.data) {
+        res?.data?.updateDoctorProfile &&
           notification.success({
-            message: "Credentials updated user logged out",
+            message: "Updated Successfully",
           });
-          logout();
+        setProfileUpdated?.(Math.random());
+        if (getRole() === "Doctor") {
+          //checking logged in user email matched with updated email
+          let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
+          let emailMatched = emailRegExpression.test(values?.email);
+
+          // if user changed the email logged out the user
+          if (!emailMatched) {
+            notification.success({
+              message: "Credentials Updated User Logged out",
+            });
+            logout();
+          }
         }
+      }
+
+      if (res?.error) {
+        res?.error?.graphQLErrors[0]?.message &&
+          notification.error({
+            message:
+              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+          });
       }
     }
 
-    if (res?.error) {
-      res?.error?.graphQLErrors[0]?.message &&
-        notification.error({
-          message:
-            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-        });
-    }
     // }
   };
 
@@ -273,10 +309,10 @@ function EditProfile({
   };
 
   useEffect(() => {
-    if (doctorData) {
+    if (doctorData || userData?.user) {
       prepareAndSetEditPayload();
     }
-  }, [doctorData]);
+  }, [doctorData, userData?.user]);
 
   const configS3 = {
     region: config?.region || "",
@@ -322,64 +358,47 @@ function EditProfile({
     }
   }
 
-  const handleConditionTreated = async (list: string[]) => {
-    const values = formInstance.getFieldsValue();
-    const res = await updateDoctor({
-      updateDoctorProfileInput: {
-        doctor_id: pathname.includes("/admin/physicians")
-          ? Number(query?.id)
-          : Number(user?.user?.id),
-          contact_number:"",
-        first_name: values?.firstName || "",
-        last_name: values?.lastName || "",
-        specialization: values?.specialization || "",
-        year_of_experience: Number(values?.year_of_experience) || 0,
-        email: values?.email || "",
-        password: values?.password,
-        profile_image: image || userProfileImage || "",
-        about_me: values?.about_me || "",
-        condition_treated: list.toString(),
-        language: physicianLanguage || "",
-        city_id: values.city_id,
-        country_id: values.country_id,
-        state_id: values.state_id,
-        streetAddress: values.street_address,
-        zip_code: values.zip_code,
-        educational_background: [
-          {
-            institution: values["eb-institution-0"],
-            degree: values["eb-degree-0"],
-          },
-          {
-            institution: values["eb-institution-1"],
-            degree: values["eb-degree-1"],
-          },
-        ],
-        professional_experience: [
-          {
-            institution: values["pe-institution-0"],
-            role: values["pe-role-0"],
-          },
-          {
-            institution: values["pe-institution-1"],
-            role: values["pe-role-1"],
-          },
-          {
-            institution: values["pe-institution-2"],
-            role: values["pe-role-2"],
-          },
-        ],
-      },
-    });
+  // const handleConditionTreated = async (list: string[]) => {
+  //   const values = formInstance.getFieldsValue();
+  //   const res = await updateDoctor({
+  //     updateDoctorProfileInput: {
+  //       doctor_id: pathname.includes("/admin/physicians")
+  //         ? Number(query?.id)
+  //         : Number(user?.user?.id),
+  //       first_name: values?.firstName || "",
+  //       last_name: values?.lastName || "",
+  //       specialization: values?.specialization || "",
+  //       year_of_experience: Number(values?.year_of_experience) || 0,
+  //       streetAddress: values?.streetAddress,
+  //       country_id: Number(values?.country || 0),
+  //       state_id: Number(values?.state || 0),
+  //       city_id: values?.city_id || 0,
+  //       zip_code: values?.zip_code,
+  //       email: values?.email || "",
+  //       password: values?.password,
+  //       profile_image: image || userProfileImage || "",
+  //       about_me: values?.about_me || "",
+  //       condition_treated: list.toString(),
+  //       language: physicianLanguage || "",
+  //       educational_background: educationList?.map((item) => ({
+  //         institution: item?.institution,
+  //         degree: item?.degree,
+  //       })),
+  //       professional_experience: clinicList?.map((item) => ({
+  //         institution: item?.institution,
+  //         role: item?.role,
+  //       })),
+  //     },
+  //   });
 
-    if (res?.error) {
-      res?.error?.graphQLErrors[0]?.message &&
-        notification.error({
-          message:
-            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-        });
-    }
-  };
+  //   if (res?.error) {
+  //     res?.error?.graphQLErrors[0]?.message &&
+  //       notification.error({
+  //         message:
+  //           res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+  //       });
+  //   }
+  // };
 
   const handleChangeLanguage = (e: CheckboxChangeEvent, name: string) => {
     if (name === "English") {
@@ -394,6 +413,63 @@ function EditProfile({
     language?.English !== undefined ||
     language?.Spanish !== undefined ||
     language !== undefined;
+
+  const addHospital = () => {
+    setClinicList([...clinicList, { institution: "", role: "" }]);
+  };
+  const removeHospital = (index: number) => {
+    const clinicListLocal = [...clinicList];
+    clinicListLocal?.splice(index, 1);
+    setClinicList(clinicListLocal);
+  };
+
+  const addEducation = () => {
+    setEducationList([...educationList, { institution: "", degree: "" }]);
+  };
+  const removeEducation = (index: number) => {
+    const educationListLocal = [...educationList];
+    educationListLocal?.splice(index, 1);
+    setEducationList(educationListLocal);
+  };
+
+  const handleClinicChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+    const clinicListLocal = [...clinicList];
+    //@ts-ignore
+    clinicListLocal[index][name] = value;
+    setClinicList(clinicListLocal);
+  };
+
+  const handleEducationChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+    const educationListLocal = [...educationList];
+    //@ts-ignore
+    educationListLocal[index][name] = value;
+    setEducationList(educationListLocal);
+  };
+
+  const [getStatesByCountry] = useGetStatesByCountryQuery({
+    variables: {
+      input: countryId || 0,
+    },
+    pause: countryId === undefined,
+  });
+
+  const [getCityByState] = useGetCitiesByStateQuery({
+    variables: {
+      input: stateId || 0,
+    },
+    pause: stateId === undefined,
+  });
+
+  const [{ data: countriesData }] = useCountriesQuery();
+  const { countries } = countriesData || {};
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -410,7 +486,9 @@ function EditProfile({
               <div className="relative">
                 <Avatar
                   size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
+                  className={"profile-avatar"}
                   src={image || userProfileImage}
+                  icon={!image && !userProfileImage && <UserOutlined />}
                 />
                 <span className="rounded-full absolute p-1 right-0 bottom-0">
                   <Image
@@ -461,7 +539,7 @@ function EditProfile({
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
-                  label="First name"
+                  label="First Name"
                   name="firstName"
                   rules={[{ required: true, message: "First name!" }]}
                   className="flex-1"
@@ -497,7 +575,12 @@ function EditProfile({
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
-                <Form.Item label="Password" name="password" className="flex-1">
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  className="flex-1"
+                  dependencies={["password"]}
+                >
                   <Input.Password disabled={isStaff} />
                 </Form.Item>
 
@@ -546,54 +629,173 @@ function EditProfile({
                 </Form.Item>
               </div>
 
-              {languageCheck && (
-                <div className="flex items-center ">
-                  <Form.Item
-                    name="languageEnglish"
-                    className={`${_classes["bottom-margin-0"]}`}
-                  >
-                    <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
-                      <Image
-                        priority={true}
-                        alt=""
-                        height={21}
-                        width={21}
-                        src={end}
-                        className="majid"
-                      />
-                      <span className=" pl-1 pr-10">English</span>
-                      <Checkbox
-                        defaultChecked={formatedLanguage?.English}
-                        onChange={(e) => handleChangeLanguage(e, "English")}
-                        disabled={isStaff}
-                      ></Checkbox>
-                    </div>
-                  </Form.Item>
+              <Form.Item
+                label={"Street address"}
+                name="streetAddress"
+                rules={[
+                  {
+                    required: true,
+                    message: "Street address required",
+                    max: 300,
+                  },
+                ]}
+              >
+                <Input disabled={isStaff} />
+              </Form.Item>
 
-                  <Form.Item
-                    name="languageSpanish"
-                    className={`${_classes["bottom-margin-0"]}`}
+              <div className="flex flex-col sm:flex-row sm:gap-3">
+                <Form.Item
+                  className="flex-1"
+                  label={"Country"}
+                  name="country_id"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Country is required",
+                    },
+                  ]}
+                >
+                  <Select
+                    showSearch
+                    filterOption={(input, country: any) =>
+                      country.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                    onChange={(e) => {
+                      selectCountryId(e);
+                    }}
+                    placeholder={"Country"}
+                    disabled={isStaff}
                   >
-                    <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
-                      <Image
-                        priority={true}
-                        alt=""
-                        height={21}
-                        width={21}
-                        src={esp}
-                        className="px-1 majid"
-                      />
-                      <span className=" pl-1 pr-10">Spanish</span>
+                    {React.Children.toArray(
+                      countries?.map((el, i) => {
+                        return (
+                          <Select.Option value={el?.id}>
+                            {el?.country_name}
+                          </Select.Option>
+                        );
+                      })
+                    )}
+                  </Select>
+                </Form.Item>
+                <Form.Item className="flex-1" label={"State"} name="state_id">
+                  <Select
+                    showSearch
+                    filterOption={(input, state: any) =>
+                      state.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                    onChange={(e) => {
+                      selectStateId(e);
+                      formInstance.setFieldsValue({
+                        city_id: null,
+                      });
+                    }}
+                    placeholder={"State"}
+                    disabled={isStaff}
+                  >
+                    {React.Children.toArray(
+                      getStatesByCountry?.data?.getStatesByCountry?.map(
+                        (el, i) => {
+                          return (
+                            <Select.Option value={el.id}>
+                              {el?.state_name}
+                            </Select.Option>
+                          );
+                        }
+                      )
+                    )}
+                  </Select>
+                </Form.Item>
+              </div>
 
-                      <Checkbox
-                        defaultChecked={formatedLanguage?.Spanish}
-                        onChange={(e) => handleChangeLanguage(e, "Spanish")}
-                        disabled={isStaff}
-                      ></Checkbox>
-                    </div>
-                  </Form.Item>
-                </div>
-              )}
+              <div className="flex flex-col sm:flex-row sm:gap-3">
+                <Form.Item className="flex-1" label={"City"} name="city_id">
+                  <Select
+                    placeholder={"City"}
+                    showSearch
+                    filterOption={(input, city: any) =>
+                      city.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                    disabled={isStaff}
+                  >
+                    {React.Children.toArray(
+                      getCityByState?.data?.getCitiesByState?.map((el, i) => {
+                        return (
+                          <Select.Option value={el.id}>
+                            {el?.city_name}
+                          </Select.Option>
+                        );
+                      })
+                    )}
+                  </Select>
+                </Form.Item>
+
+                <Form.Item
+                  className="flex-1"
+                  label={"Postal Code"}
+                  name="zip_code"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Postal address is required",
+                    },
+                  ]}
+                >
+                  <Input disabled={isStaff} />
+                </Form.Item>
+              </div>
+
+              <div className="flex items-center ">
+                <Form.Item
+                  name="languageEnglish"
+                  className={`${_classes["bottom-margin-0"]}`}
+                >
+                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                    <Image
+                      priority={true}
+                      alt=""
+                      height={21}
+                      width={21}
+                      src={end}
+                      className="majid"
+                    />
+                    <span className=" pl-1 pr-10">English</span>
+                    <Checkbox
+                      defaultChecked={formatedLanguage?.English}
+                      onChange={(e) => handleChangeLanguage(e, "English")}
+                      disabled={isStaff}
+                    ></Checkbox>
+                  </div>
+                </Form.Item>
+
+                <Form.Item
+                  name="languageSpanish"
+                  className={`${_classes["bottom-margin-0"]}`}
+                >
+                  <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
+                    <Image
+                      priority={true}
+                      alt=""
+                      height={21}
+                      width={21}
+                      src={esp}
+                      className="px-1 majid"
+                    />
+                    <span className=" pl-1 pr-10">Spanish</span>
+
+                    <Checkbox
+                      defaultChecked={formatedLanguage?.Spanish}
+                      onChange={(e) => handleChangeLanguage(e, "Spanish")}
+                      disabled={isStaff}
+                    ></Checkbox>
+                  </div>
+                </Form.Item>
+              </div>
 
               <div className="mt-5">
                 <Form.Item label="About me" name="about_me">
@@ -604,13 +806,17 @@ function EditProfile({
                   />
                 </Form.Item>
               </div>
-
               <InputWithLi
-                disable={isStaff}
+                // value={conditionTreatedList}
+                disable={true}
+                disabled={isStaff}
                 onChange={(list) => {
-                  handleConditionTreated(list);
+                  // handleConditionTreated(list);
+                  setConditionTreatedList(list.toString());
                 }}
-                initialValue={condition_treated?.split(",")}
+                initialValue={(
+                  condition_treated || conditionTreatedList
+                )?.split(",")}
               />
 
               <MultiRangeDatePicker
@@ -631,176 +837,141 @@ function EditProfile({
                 </div>
               )}
               <div className={`my-6 ${_classes["professional"]}`}>
-                <h5>Professional background</h5>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="pe-institution-0"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input
-                      value="University of oklahoma college of medicine"
-                      disabled={isStaff}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="pe-role-0"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input disabled={isStaff} />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="pe-institution-1"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input
-                      value="University of oklahoma college of medicine"
-                      disabled={isStaff}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="pe-role-1"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input disabled={isStaff} />
-                  </Form.Item>
-                </div>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="Hospital/Clinic/Institution"
-                    name="pe-institution-2"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Hospital/Clinic/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input
-                      value="University of oklahoma college of medicine"
-                      disabled={isStaff}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Role"
-                    name="pe-role-2"
-                    rules={[{ required: false, message: "role" }]}
-                    className="flex-1"
-                  >
-                    <Input disabled={isStaff} />
-                  </Form.Item>
-                </div>
+                <h5>Professional Background</h5>
+                {clinicList?.map((clinic: clinicType, index: number) => {
+                  return (
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
+                      <Form.Item
+                        label="Hospital/Clinic/Institution"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Hospital/Clinic/Institution",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input
+                          name={`institution`}
+                          value={clinic?.institution}
+                          onChange={(e) => handleClinicChange(e, index)}
+                          disabled={isStaff}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        label="Role"
+                        rules={[{ required: false, message: "role" }]}
+                        className="flex-1"
+                      >
+                        <Input
+                          value={clinic?.role}
+                          name={`role`}
+                          onChange={(e) => handleClinicChange(e, index)}
+                          disabled={isStaff}
+                        />
+                      </Form.Item>
+                      {clinicList?.length - 1 === index && (
+                        <Button onClick={addHospital} disabled={isStaff}>
+                          Add new field
+                        </Button>
+                      )}
+                      &nbsp;
+                      {clinicList?.length > 1 && (
+                        <Button
+                          danger
+                          onClick={() => removeHospital(index)}
+                          disabled={isStaff}
+                        >
+                          Remove new field
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
               <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Educational background</h6>
-                <div className="border-b border-gray-4 my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="eb-institution-0"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input
-                      value="University of oklahoma college of medicine"
-                      disabled={isStaff}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="eb-degree-0"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input
-                      value="University of oklahoma college of medicine"
-                      disabled={isStaff}
-                    />
-                  </Form.Item>
-                </div>
-                <div className="my-3">
-                  <Form.Item
-                    label="University/Institution"
-                    name="eb-institution-1"
-                    rules={[
-                      {
-                        required: false,
-                        message: "University/Institution",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input
-                      value="University of oklahoma college of medicine"
-                      disabled={isStaff}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Degree/Diploma/Certification"
-                    name="eb-degree-1"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Degree/Diploma/Certification",
-                      },
-                    ]}
-                    className="flex-1"
-                  >
-                    <Input
-                      value="University of oklahoma college of medicine"
-                      disabled={isStaff}
-                    />
-                  </Form.Item>
-                </div>
+                <h6>Educational Background</h6>
+                {educationList?.map((education, index) => {
+                  return (
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
+                      <Form.Item
+                        label="University/Institution"
+                        rules={[
+                          {
+                            required: false,
+                            message: "University/Institution",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input
+                          name={`institution`}
+                          value={education?.institution}
+                          onChange={(e) => handleEducationChange(e, index)}
+                          disabled={isStaff}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        label="Degree/Diploma/Certification"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Degree/Diploma/Certification",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input
+                          name={`degree`}
+                          value={education?.degree}
+                          onChange={(e) => handleEducationChange(e, index)}
+                          disabled={isStaff}
+                        />
+                      </Form.Item>
+                      {educationList?.length - 1 === index && (
+                        <Button onClick={addEducation} disabled={isStaff}>
+                          Add new field
+                        </Button>
+                      )}
+                      &nbsp;
+                      {educationList?.length > 1 && (
+                        <Button
+                          danger
+                          onClick={() => removeEducation(index)}
+                          disabled={isStaff}
+                        >
+                          Remove new field
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
-              <Form.Item>
+              {/* <Form.Item>
                 <div className="flex items-center justify-end gap-2">
                   <Button type="default" onClick={() => setIsEdit(false)}>
                     Close
                   </Button>
-                  {/* <Button type="primary" htmlType="submit">
+                  <Button type="primary" htmlType="submit">
                     Save Changes
-                  </Button> */}
+                  </Button>
                 </div>
-              </Form.Item>
+              </Form.Item> */}
             </Form>
             <Form layout="vertical">
               <div className={`my-6 hidden ${_classes["educational"]}`}>
-                <h6>Login information</h6>
-                <div className="border-b border-gray-4 my-3">
+                <h6>Login Information</h6>
+                <div className="border-b border-gray-3 my-3 py-3">
                   <Form.Item
-                    label="Email Address"
+                    label="Email address"
                     name="institute"
                     rules={[
                       {
@@ -811,7 +982,7 @@ function EditProfile({
                     className="flex-1"
                   >
                     <Input
-                      value="University of oklahoma college of medicine"
+                      value="University of Oklahoma College of Medicine"
                       disabled={isStaff}
                     />
                   </Form.Item>
@@ -822,7 +993,7 @@ function EditProfile({
                       // rules={[{ required: true, message: "Password" }]}
                       className="flex-1"
                     >
-                      <Input.Password />
+                      <Input.Password disabled={isStaff} />
                     </Form.Item>
 
                     <Form.Item
