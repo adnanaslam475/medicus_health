@@ -3,7 +3,7 @@
     "title": "Login to continue",
     "description": "Enter your credentials to access your account.",
     "remember":"Remember me",
-    "forgot":"Forgot Password?",
+    "forgot":"Forgot password?",
     "login":"Login",
     "account":"Don't have an account?",
     "register":"Register",
@@ -15,10 +15,10 @@
   },
   
   "Signup":{
-    "createAccount":"Create Your Account",
+    "createAccount":"Create your account",
     "createYourAccountToStart":"Create your account to start using Medicus",
-    "personalInfo":"Personal Info",
-    "healthQuestionnaire":"Health Questionnaire",
+    "personalInfo":"Personal info",
+    "healthQuestionnaire":"Health questionnaire",
     "login":"Login",
     "account":"Don't have an account?"
       },
@@ -35,7 +35,7 @@
     "male":"Male",
     "female":"Female",
     "I_prefer_not_to_answer":"I prefer not to answer",
-    "date_of_Birth":"Date of Birth",
+    "date_of_Birth":"Date of birth",
     "email_address":"Email Address",
     "password": "Password",
     "confirm_password": "Confirm Password",

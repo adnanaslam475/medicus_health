@@ -463,5 +463,8 @@ label.ant-radio-wrapper {
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none !important; 
-  margin: 0; 
+  margin: 0;
+}
+  .ant-menu-inline.ant-menu-root .ant-menu-submenu-title > .ant-menu-title-content {
+  word-spacing: -6px !important;
 }

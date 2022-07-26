@@ -20,13 +20,15 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
       autoComplete="off"
     >
       <Form.Item
-        label="Password"
+        // label="Password"
+        label={t("password")}
         name="password"
         rules={[
           {
             required: true,
-            message: "password must be minimum 8 characters!",
+            message: t("password_message_8_character"),
             min: 8,
+            // message: "password must be minimum 8 characters!",
           },
         ]}
       >
@@ -34,12 +36,13 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
       </Form.Item>
 
       <Form.Item
-        label="Confirm password"
+        // label="Confirm password"
+        label={t("confirm_password")}
         name="confirmpassword"
         rules={[
           {
             required: true,
-            message: "Confirm password must be minimum 8 characters!",
+            message: t("confirm_password_message_8_character"),
             min: 8,
           },
           ({ getFieldValue }) => ({
@@ -48,7 +51,7 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
                 return Promise.resolve();
               }
               return Promise.reject(
-                new Error("The two passwords that you entered do not match!")
+                new Error(t("two_passwords_mismatch_message"))
               );
             },
           }),
@@ -65,7 +68,8 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
           type="primary"
           htmlType="submit"
         >
-          Confirm password
+          {t("confirm_password")}
+          {/* Confirm password */}
         </Button>
       </Form.Item>
     </Form>

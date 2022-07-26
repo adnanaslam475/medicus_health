@@ -45,12 +45,12 @@ const SuccessScreen = () => {
               </div>
             </div>
             <h2 className="text-center text-secondary mb-3 px-10 leading-8">
-              Success! Your account has been created.
+              Success! your account has been created.
             </h2>
             <p className="text-base text-gray text-center px-7">
               We have sent you an email on
               <span className="text-secondary">{` ${query?.email} `}</span>
-              Please click on the verification link and your account will be
+              please click on the verification link and your account will be
               verified.
             </p>
             <div className="mt-5">

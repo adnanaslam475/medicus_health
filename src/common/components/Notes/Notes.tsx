@@ -86,7 +86,7 @@ function Notes(props: Props) {
               type="primary"
               className={`${_classes["custom-button"]}`}
             >
-              Save Notes
+              Save notes
             </Button>
           </div>
         </Form>

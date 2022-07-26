@@ -86,7 +86,7 @@ export const Payment = (props: Props) => {
 };
 
 Payment.defaultProps = {
-  title: "Visa Ending with ****",
+  title: "Visa ending with ****",
   description: "MM/YYYY",
   isDefault: false,
   // onRemove: () => {},
@@ -204,14 +204,14 @@ function Billing({
                 className="text-primary cursor-pointer"
                 onClick={() => setModalVisible(true)}
               >
-                Add Payment Method
+                Add payment method
               </Button>
             </div>
           </div>
         </div>
       </div>
       <Modal
-        title="Make Payment"
+        title="Make payment"
         centered
         visible={modalVisible}
         onOk={closeModal}
@@ -219,7 +219,7 @@ function Billing({
         footer={null}
       >
         <Form className="" onFinish={handleSubmit} layout="vertical">
-          <span className="text-base text-secondary my-2">Card Number*</span>
+          <span className="text-base text-secondary my-2">Card number*</span>
           <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
             <CardNumberElement
               options={{

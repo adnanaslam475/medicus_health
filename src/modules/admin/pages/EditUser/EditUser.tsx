@@ -237,7 +237,7 @@ function EditAdminUserDetails({}: Props) {
         confirmLoading={RemoveFetching}
         onCancel={() => setOpen(false)}
         onOk={deleteAdminUser}
-        message="Are you sure you want ot delete this user?"
+        message="Are you sure you want to delete this user?"
       />
     </AppLayout>
   );

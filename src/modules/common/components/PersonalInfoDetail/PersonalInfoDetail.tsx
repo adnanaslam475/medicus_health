@@ -254,7 +254,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     ]}
                     className="bott-om-margin-0"
                   >
-                    <Input size="large" placeholder="Email Address" />
+                    <Input size="large" placeholder="Email address" />
                   </Form.Item>
                 </div>
               </div>
@@ -363,7 +363,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">Marital Status</div>
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Marital status</div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
                 >
