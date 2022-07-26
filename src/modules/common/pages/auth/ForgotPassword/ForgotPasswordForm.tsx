@@ -13,7 +13,7 @@ function ForgotPasswordForm({ onFinish }: Props) {
       autoComplete="off"
     >
       <Form.Item
-        label="Email Address"
+        label="Email address"
         name="email"
         className="mb-1"
         rules={[

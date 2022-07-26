@@ -89,7 +89,7 @@ function PatientAdd() {
                       type="link"
                       className="text-primary underline ml-3 text-xs"
                     >
-                      Update Photo
+                      Update photo
                     </Button>
                   </div>
                 </Upload>

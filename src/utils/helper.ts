@@ -133,19 +133,19 @@ export const patientEditForm = [
     ],
   },
   {
-    label: "Date of Birth",
+    label: "Date of birth",
     name: "date_of_birth",
     required: true,
     type: "date",
   },
   {
-    label: "Email Address",
+    label: "Email address",
     name: "email",
     required: true,
     type: "text",
   },
   {
-    label: "Cell Number",
+    label: "Cell number",
     name: "contact_number",
     type: "text",
     required: true,
@@ -158,7 +158,7 @@ export const patientEditForm = [
     required: false,
   },
   {
-    label: "Confirm Password",
+    label: "Confirm password",
     name: "confirm_password",
     type: "text",
     inputType: "password",
@@ -189,7 +189,7 @@ export const patientEditForm = [
     options: [],
   },
   {
-    label: "Street Address",
+    label: "Street address",
     name: "streetAddress",
     type: "text",
     inputType: "text",
@@ -203,7 +203,7 @@ export const patientEditForm = [
     required: true,
   },
   {
-    label: "Marital Status",
+    label: "Marital status",
     name: "maritalStatus",
     type: "select",
     option_name: "maritalStatus",
@@ -238,14 +238,14 @@ export const patientEditForm = [
     required: true,
   },
   {
-    label: "Do you have any occupational Exposure?",
+    label: "Do you have any occupational exposure?",
     name: "occupationalExposure",
     type: "radio",
     required: true,
     options: ["Yes", "No"],
   },
   {
-    label: "Occupational Exposure duration?",
+    label: "Occupational exposure duration?",
     name: "exposureDuration",
     relationName: "occupationalExposure",
     type: "select",
