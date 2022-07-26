@@ -5,6 +5,7 @@ export function translationJson(local: string) {
   switch (local) {
     case "es":
       json = {
+        Common: { ...spanishCommon },
         Login: {
           ...spanishCommon,
           title: "Iniciar sesión para continuar",
@@ -102,6 +103,7 @@ export function translationJson(local: string) {
 
     case "en":
       json = {
+        Common: { ...englishCommon },
         Login: {
           ...englishCommon,
           title: "Login to continue",

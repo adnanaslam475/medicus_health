@@ -3,8 +3,10 @@ import Router, { useRouter } from "next/router";
 import { useUserVerifyEmailMutation } from "../../../src/generated/graphql";
 import Container from "../../../src/common/components/Container/Container";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function EmailVerification() {
+  const t = useTranslations("Common");
   const [errorMsg, setErrorMsg] = useState("");
 
   const router = useRouter();
@@ -70,7 +72,7 @@ export default function EmailVerification() {
               </div>
             </div>
             <h2 className="text-center text-secondary mb-3 px-10 leading-8">
-              {!errorMsg ? "Verifying..." : errorMsg.split("]")[1].trim()}
+              {!errorMsg ? t("verifying") : errorMsg.split("]")[1].trim()}
             </h2>
           </div>
         </div>
