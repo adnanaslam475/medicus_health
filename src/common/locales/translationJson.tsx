@@ -74,6 +74,9 @@ export function translationJson(local: string) {
           message_away: "mensaje_lejos",
           message_admin_support:
             "Si necesita ayuda para seleccionar un médico, nuestro equipo de apoyo es un",
+          available_today: "Disponible hoy",
+          not_available_today: "no disponible hoy",
+          about_me: "Sobre mí",
         },
         PersonalInfo: {
           ...spanishCommon,
@@ -159,6 +162,9 @@ export function translationJson(local: string) {
           message_away: "message away",
           message_admin_support:
             "If you need help selecting a physician, our support team is a",
+          available_today: "Available Today",
+          not_available_today: "Not available today",
+          about_me: "Not available today",
         },
 
         PersonalInfo: {
