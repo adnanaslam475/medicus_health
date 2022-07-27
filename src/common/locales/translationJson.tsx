@@ -78,6 +78,8 @@ export function translationJson(local: string) {
         },
         SearchFilters: {
           ...spanishCommon,
+          cancel: "Cancel",
+          apply: "Apply",
           // pending_appointments_head: "Citas Pendientes",
         },
         AppointmentCards: {
@@ -181,6 +183,8 @@ export function translationJson(local: string) {
         },
         SearchFilters: {
           ...englishCommon,
+          cancel: "Cancel",
+          apply: "Apply",
         },
         AppointmentCards: {
           ...englishCommon,

@@ -74,7 +74,8 @@ export const englishCommon: any = {
 
   physician: "Physician",
   appointment_type: "Appointment type",
-  appointment_due_date: "Appointment date",
+  appointment_due_date: "Appointment due date",
+  appointment_date: "Appointment date",
   booking_Date: "Booking date",
   clear: "Clear",
   consultation: "Consultation",
@@ -101,8 +102,8 @@ export const englishCommon: any = {
   second_opinion: "Second opinion",
   Consultation: "consultation",
   Charges: "charges",
-  Cancel: "cancel",
-  Apply: "apply",
+  cancel: "Cancel",
+  apply: "Apply",
   requested_date: "Requested date",
   availability_select_one: "Availability* - Select (One)",
   medical_history: "Medical history",
@@ -163,6 +164,7 @@ export const englishCommon: any = {
   submit: "Submit",
   send_resend_link: "Send Resend Link",
   verifying: "Verifying...",
+  id_or_patient_name: "ID# or patient name",
 };
 
 export const spanishCommon: any = {
@@ -242,6 +244,7 @@ export const spanishCommon: any = {
   appointment_type: "Tipo de cita",
   appointment_due_date: "fecha de vencimiento de la cita",
   booking_Date: "Fecha para registrarse",
+  appointment_date: "Día de la cita",
   clear: "Claro",
   consultation: "Consulta",
   date: "Fecha",
@@ -334,4 +337,6 @@ export const spanishCommon: any = {
   submit: "Enviar",
   send_resend_link: "Enviar enlace de reenvío",
   verifying: "Verificando...",
+
+  id_or_patient_name: "Número de identificación o nombre del paciente",
 };
