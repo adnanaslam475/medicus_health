@@ -6,3 +6,11 @@ function physicianCancelledAppointments() {
 }
 
 export default physicianCancelledAppointments;
+
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      messages: translationJson(locale),
+    },
+  };
+}
