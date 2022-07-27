@@ -6,7 +6,7 @@ import { useLocale } from "next-intl";
 import initTranslation from "common/utils/initTranslation";
 import i18next from "i18next";
 
-initTranslation(["Login"]);
+initTranslation(["AppointmentDetail"]);
 function AccountDetail() {
   const { query } = useRouter();
   i18next.changeLanguage(useLocale());

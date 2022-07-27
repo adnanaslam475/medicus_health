@@ -13,7 +13,7 @@ type Props = {
 };
 
 function CanncelledAppointmentFilter({ onChange }: Props) {
-  const t = useTranslations("UpcomingAppointments");
+  const t = useTranslations("Common");
   const [filterState, setFilterState] =
     useState<cancelledAppointmentFilterType>({});
   const [dueDate, setDueDate] = useState<BookingDate>({});
@@ -50,7 +50,9 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
 
   return (
     <div className="page-filters  items-center mb-4 flex-wrap">
- <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">Search by</span>
+      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">
+        Search by
+      </span>
       <div className="flex items-center sm:mb-0 lg:mb-0 gap-2 flex-col sm:flex-row flex-wrap">
         <div className="w-full sm:w-full md:w-full lg:w-96">
           <Input
@@ -86,7 +88,8 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
                   ""
                 )
               }
-              heading="Appointment date"
+              // heading="Appointment date"
+              heading={t("appointment_date")}
             />
           </Space>
         </div>

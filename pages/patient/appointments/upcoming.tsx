@@ -6,6 +6,7 @@ function upcomingAppointments() {
 }
 
 export default upcomingAppointments;
+
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {

@@ -136,6 +136,7 @@ export const englishCommon: any = {
   details: "Details",
   page: "Page",
   message_physician: "Message physician",
+  view_profile: "View profile",
   years_of_experience: "years of experience",
   experience_not_available: "experience not available",
   not_available_today: "Not available today",
@@ -165,6 +166,7 @@ export const englishCommon: any = {
   send_resend_link: "Send Resend Link",
   verifying: "Verifying...",
   id_or_patient_name: "ID# or patient name",
+  id_or_physician_name: "ID# or physician name",
 };
 
 export const spanishCommon: any = {
@@ -339,4 +341,5 @@ export const spanishCommon: any = {
   verifying: "Verificando...",
 
   id_or_patient_name: "Número de identificación o nombre del paciente",
+  id_or_physician_name: "ID# o nombre del médico",
 };

@@ -1,5 +1,6 @@
 import { Select } from "antd";
 import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
+import { useTranslations } from "next-intl";
 
 export function SelectServiceTypeFilter({
   onChange,
@@ -10,9 +11,10 @@ export function SelectServiceTypeFilter({
 }) {
   const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = serviceTypes || {};
+  const t = useTranslations("HistoryAppointments");
   return (
     <Select
-      placeholder="Appointment type"
+      placeholder={t("appointment_type")}
       className={"w-full"}
       onChange={onChange}
       value={value}
