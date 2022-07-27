@@ -87,7 +87,7 @@ function CancelledAppointmentTable({ dataSource, loading }: Props) {
           <EyeFilled
             onClick={() => {
               return Router.push(
-                `/physician/appointments/cancelled/${appointmentId}`
+                `/physician/appointments/canceled/${appointmentId}`
               );
             }}
           />
