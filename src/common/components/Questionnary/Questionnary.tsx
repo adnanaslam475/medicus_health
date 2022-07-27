@@ -130,6 +130,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       prepareAndSetEditPayload(parseJson(data));
     }
   }, [data]);
+
+  const t = useTranslations("Questionnary");
+
   const router = useRouter();
 
   const { pathname } = router || {};
@@ -248,7 +251,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
     setShowSurgicalOthers(checkedValue.includes("Others"));
   }
-  const t = useTranslations("HealthQuestionary");
+  // const t = useTranslations("HealthQuestionary");
   return (
     <Form
       initialValues={{

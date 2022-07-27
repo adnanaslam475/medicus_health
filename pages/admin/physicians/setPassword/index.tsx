@@ -6,6 +6,7 @@ function setPassword() {
 }
 
 export default setPassword;
+
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {

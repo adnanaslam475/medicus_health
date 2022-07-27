@@ -7,8 +7,10 @@ import {
   BookingDate,
   useGetAllRequestedAppointmentsQuery,
 } from "generated/graphql";
+import { useTranslations } from "next-intl";
 
 function RequestedAppointment() {
+  const t = useTranslations("Common");
   const [dueStartDate, setStartDate] = useState<Date | null>();
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});

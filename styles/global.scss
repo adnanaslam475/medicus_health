@@ -19,6 +19,16 @@ button.ant-btn {
   }
 }
 
+button.ant-btn.ant-btn-link {
+  font-family: Circular Std;
+  word-spacing: 0px !important;
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      word-spacing: 0px;
+    }
+  }
+}
+
 @supports (-webkit-font-smoothing: antialiased) {
   button.ant-btn {
     word-spacing: -4px;
@@ -460,11 +470,13 @@ label.ant-radio-wrapper {
   }
 }
 // to remove up and down arrow on input type button
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none !important; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
   margin: 0;
 }
-  .ant-menu-inline.ant-menu-root .ant-menu-submenu-title > .ant-menu-title-content {
+.ant-menu-inline.ant-menu-root
+  .ant-menu-submenu-title
+  > .ant-menu-title-content {
   word-spacing: -6px !important;
 }

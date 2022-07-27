@@ -17,6 +17,7 @@ import { AttachmentObject } from "common/types/types";
 import { useTranslations } from "next-intl";
 
 function CancelledAppointmentsDetailDoctor() {
+  const t = useTranslations("CancelledAppointments");
   const { query } = useRouter();
   const [activeTab, setActiveTab] = React.useState<string>("");
 
@@ -54,8 +55,8 @@ function CancelledAppointmentsDetailDoctor() {
     <AppLayout>
       <>
         <h2 className="mb-4">
-          Canceled appointments
-          {/* {t("canceled_appointments")} */}
+          {/* Canceled appointments */}
+          {t("canceled_appointments")}
         </h2>
         <div className="profile-tabs">
           <Tabs

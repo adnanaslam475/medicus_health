@@ -1,5 +1,6 @@
 import { Select } from "antd";
 import { useDoctorProfilesQuery } from "generated/graphql";
+import { useTranslations } from "next-intl";
 
 export function SelectPhysicianTypeFilter({
   onChange,
@@ -10,10 +11,11 @@ export function SelectPhysicianTypeFilter({
 }) {
   const [{ data: dataList }] = useDoctorProfilesQuery();
   const { doctorProfiles } = dataList || {};
+  const t = useTranslations("HistoryAppointments");
   return (
     <Select
       className="w-full "
-      placeholder="Physician"
+      placeholder={t("physician")}
       onChange={onChange}
       value={value}
     >

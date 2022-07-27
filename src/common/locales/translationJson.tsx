@@ -5,6 +5,7 @@ export function translationJson(local: string) {
   switch (local) {
     case "es":
       json = {
+        Common: { ...spanishCommon },
         Login: {
           ...spanishCommon,
           title: "Iniciar sesión para continuar",
@@ -77,6 +78,8 @@ export function translationJson(local: string) {
         },
         SearchFilters: {
           ...spanishCommon,
+          cancel: "Cancel",
+          apply: "Apply",
           // pending_appointments_head: "Citas Pendientes",
         },
         AppointmentCards: {
@@ -102,6 +105,7 @@ export function translationJson(local: string) {
 
     case "en":
       json = {
+        Common: { ...englishCommon },
         Login: {
           ...englishCommon,
           title: "Login to continue",
@@ -179,6 +183,8 @@ export function translationJson(local: string) {
         },
         SearchFilters: {
           ...englishCommon,
+          cancel: "Cancel",
+          apply: "Apply",
         },
         AppointmentCards: {
           ...englishCommon,

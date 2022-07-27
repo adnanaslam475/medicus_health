@@ -155,7 +155,7 @@ function SearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 gap-y-2 gap-2 flex-wrap`}
     >
-       <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">
+      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">
         {t("search_by")}
         {/* Search by */}
       </span>
@@ -172,7 +172,7 @@ function SearchFilters(props: Props) {
       {isFromPhysician ? (
         <div className="w-full sm:w-full md:w-full lg:w-96 ">
           <Input
-            placeholder={placeholder || "ID# or patient name"}
+            placeholder={placeholder || t("id_or_patient_name")}
             prefix={<SearchOutlined />}
             onChange={(event) => handlePaitentName_ID(event)}
             value={patientName}
@@ -181,7 +181,7 @@ function SearchFilters(props: Props) {
       ) : (
         <div className=" w-full md:w-44 xl:w-60   ">
           <Select
-            placeholder="Physician"
+            placeholder={t("physician")}
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={handlePhysicianChange}
             value={selectedPhysicianItems}
@@ -203,7 +203,7 @@ function SearchFilters(props: Props) {
               <CaretDownOutlined className="text-sm text-gray" />
             </div>
           }
-          placeholder="Appointment type"
+          placeholder={t("appointment_type")}
           className={`${searchStyle.placeholderColor} w-full`}
           onChange={handleServiceChange}
           value={selectedServiceItems}
@@ -303,7 +303,7 @@ function SearchFilters(props: Props) {
                       setOpenDueDateRange(false);
                     }}
                   >
-                    Cancel
+                    {t("cancel")}
                   </Button>
                   <Button
                     className=" text-white"
@@ -312,7 +312,7 @@ function SearchFilters(props: Props) {
                       applyDueDateRange();
                     }}
                   >
-                    Apply
+                    {t("apply")}
                   </Button>
                 </div>
               )}
@@ -329,7 +329,7 @@ function SearchFilters(props: Props) {
                     ? `${getDateInFormat(
                         dueDateRange?.[0]
                       )} -> ${getDateInFormat(dueDateRange?.[1])}`
-                    : "Appointment date"}
+                    : t("appointment_date")}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -343,7 +343,8 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Appointment date
+                    {t("appointment_date")}
+                    {/* Appointment date */}
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
@@ -361,7 +362,7 @@ function SearchFilters(props: Props) {
         className={`${_classes["btn-clear"]} ml-2 mr-auto sm:mr-0 sm:ml-0`}
       >
         <CloseOutlined className="text-sm mb-0.5" />
-        <span className="text-gray-1 text-sm">Clear</span>
+        <span className="text-gray-1 text-sm">{t("clear")}</span>
       </Button>
     </div>
   );

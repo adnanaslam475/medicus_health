@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 type CancelledAppointmentProps = {};
 
 function CancelledAppointment({}: CancelledAppointmentProps) {
+  const t = useTranslations("Common");
   const [filterValues, setFilterValues] =
     React.useState<cancelAppointmentFilterType>({});
   const [pagination, setPagination] = React.useState({
@@ -77,8 +78,8 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
         <div className="flex-none sm:flex items-center justify-between">
           <div className="pr-3 mb-3 sm:mb-0">
             <h2 className="mb-0">
-              {/* {t("canceled_appointments")} */}
-              Canceled appointments
+              {t("canceled_appointments")}
+              {/* Canceled appointments */}
             </h2>
           </div>
         </div>

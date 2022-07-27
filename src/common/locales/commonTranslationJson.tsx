@@ -26,6 +26,7 @@ export const englishCommon: any = {
     "Confirm password must be minimum 8 characters.",
   two_passwords_mismatch_message:
     "The two passwords that you entered do not match!",
+  your_password_has_been_set: "Your password has been set!",
   your_password_has_been_reset: "Your password has been reset!",
 
   enter_your_email_below_to_reset_password:
@@ -73,7 +74,8 @@ export const englishCommon: any = {
 
   physician: "Physician",
   appointment_type: "Appointment type",
-  appointment_due_date: "Appointment date",
+  appointment_due_date: "Appointment due date",
+  appointment_date: "Appointment date",
   booking_Date: "Booking date",
   clear: "Clear",
   consultation: "Consultation",
@@ -100,8 +102,8 @@ export const englishCommon: any = {
   second_opinion: "Second opinion",
   Consultation: "consultation",
   Charges: "charges",
-  Cancel: "cancel",
-  Apply: "apply",
+  cancel: "Cancel",
+  apply: "Apply",
   requested_date: "Requested date",
   availability_select_one: "Availability* - Select (One)",
   medical_history: "Medical history",
@@ -134,6 +136,7 @@ export const englishCommon: any = {
   details: "Details",
   page: "Page",
   message_physician: "Message physician",
+  view_profile: "View profile",
   years_of_experience: "years of experience",
   experience_not_available: "experience not available",
   not_available_today: "Not available today",
@@ -161,6 +164,9 @@ export const englishCommon: any = {
   no: "No",
   submit: "Submit",
   send_resend_link: "Send Resend Link",
+  verifying: "Verifying...",
+  id_or_patient_name: "ID# or patient name",
+  id_or_physician_name: "ID# or physician name",
 };
 
 export const spanishCommon: any = {
@@ -192,6 +198,7 @@ export const spanishCommon: any = {
     "Confirmar contraseña debe tener un mínimo de 8 caracteres.!",
   two_passwords_mismatch_message:
     "Las dos contraseñas que ingresaste no coinciden",
+  your_password_has_been_set: "¡Su contraseña ha sido establecida!",
   your_password_has_been_reset: "¡Tu contraseña ha sido restablecida!",
 
   enter_your_email_below_to_reset_password:
@@ -239,6 +246,7 @@ export const spanishCommon: any = {
   appointment_type: "Tipo de cita",
   appointment_due_date: "fecha de vencimiento de la cita",
   booking_Date: "Fecha para registrarse",
+  appointment_date: "Día de la cita",
   clear: "Claro",
   consultation: "Consulta",
   date: "Fecha",
@@ -330,4 +338,8 @@ export const spanishCommon: any = {
   no: "No",
   submit: "Enviar",
   send_resend_link: "Enviar enlace de reenvío",
+  verifying: "Verificando...",
+
+  id_or_patient_name: "Número de identificación o nombre del paciente",
+  id_or_physician_name: "ID# o nombre del médico",
 };

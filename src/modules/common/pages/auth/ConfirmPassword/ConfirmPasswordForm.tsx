@@ -69,7 +69,6 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
           htmlType="submit"
         >
           {t("confirm_password")}
-          {/* Confirm password */}
         </Button>
       </Form.Item>
     </Form>

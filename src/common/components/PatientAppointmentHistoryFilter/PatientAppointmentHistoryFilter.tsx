@@ -12,6 +12,7 @@ import { SelectServiceTypeFilter } from "../SelectServiceTypeFilter/SelectServic
 import { SelectPhysicianTypeFilter } from "../SelectPhysicianTypeFilter/SelectPhysicianTypeFilter";
 import { calendarFilterIcon } from "utils/images";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const { RangePicker } = DatePicker;
 
@@ -20,6 +21,8 @@ type Props = {
 };
 
 function PatientAppointmentHistoryFilter(props: Props) {
+  const t = useTranslations("HistoryAppointments");
+
   const [filterState, setFilterState] = useState<GetAppointmentInput>({});
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
   const [dueDate, setDueDate] = useState<BookingDate>({});
@@ -84,10 +87,13 @@ function PatientAppointmentHistoryFilter(props: Props) {
       className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 flex-wrap gap-2`}
     >
       <div className="w-full sm:w-fit flex flex-col sm:flex-row items-center gap-2">
-        <span className="text-gray-1 mr-3">Search by</span>
+        <span className="text-gray-1 mr-3">
+          {t("search_by")}
+          {/* Search by */}
+        </span>
         <div className=" w-full lg:w-60 ">
           <Input
-            placeholder={"ID# or physician name"}
+            placeholder={t("id_or_physician_name")}
             prefix={<SearchOutlined />}
             onChange={(event) =>
               onChangeFields("searchString", String(event.target.value))
@@ -98,14 +104,14 @@ function PatientAppointmentHistoryFilter(props: Props) {
         <div className="w-full md:w-44 xl:w-60">
           <SelectPhysicianTypeFilter
             onChange={(value) => onChangeFields("doctorId", value)}
-            value={filterState?.doctorId || "Physician"}
+            value={filterState?.doctorId || t("physician")}
           />
         </div>
 
         <div className="w-full md:w-44 xl:w-60 ">
           <SelectServiceTypeFilter
             onChange={(value) => onChangeFields("serviceId", value)}
-            value={filterState?.serviceId || "Appointment type"}
+            value={filterState?.serviceId || t("appointment_type")}
           />
         </div>
       </div>
@@ -135,6 +141,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                       setOpenDateRange1(false);
                     }}
                   >
+                    {/* {t("cancel")} */}
                     Cancel
                   </Button>
                   <Button
@@ -143,6 +150,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                     onClick={applyDueDate}
                   >
                     Apply
+                    {/* {t("apply")} */}
                   </Button>
                 </div>
               )}
@@ -157,7 +165,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                 <div>
                   {filterState.dueDate
                     ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                    : "Appointment date"}
+                    : t("appointment_date")}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -170,7 +178,8 @@ function PatientAppointmentHistoryFilter(props: Props) {
                         alt=""
                       />
                     </span>
-                    Appointment date
+                    {t("appointment_date")}
+                    {/* Appointment date */}
                   </div>
                   <div>
                     <CaretDownOutlined />
@@ -261,7 +270,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
           className={`${_classes["btn-clear"]} `}
         >
           <CloseOutlined className="text-sm" />
-          <span className="text-gray-1 text-sm">Clear</span>
+          <span className="text-gray-1 text-sm">{t("clear")}</span>
         </Button>
       </div>
     </div>
