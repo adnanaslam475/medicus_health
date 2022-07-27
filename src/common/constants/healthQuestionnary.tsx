@@ -73,7 +73,7 @@ const HealthQuestionnaryData: Questions = {
         "Cancer",
         "COPD",
         "Congestive heart failure",
-        "Coronary artery  disease or heartattacks",
+        "Coronary artery  disease or heart attacks",
         "Dermatitis",
         "Diabetes",
         "Esophagitis",
@@ -98,8 +98,8 @@ const HealthQuestionnaryData: Questions = {
         "Skin cancer",
         "Stroke",
         "TB",
-        "Thyroiddisease",
-        "Valveproblems",
+        "Thyroid disease",
+        "Valve problems",
         "Vision or eye problems",
         "Others",
       ],
@@ -110,7 +110,7 @@ const HealthQuestionnaryData: Questions = {
       label: "",
       type: "text",
       ans: "",
-    }
+    },
   },
   q4: {
     name: "surgical_history",
@@ -136,7 +136,7 @@ const HealthQuestionnaryData: Questions = {
       label: "",
       type: "text",
       ans: "",
-    }
+    },
   },
   q5: {
     name: "allergies",
