@@ -94,7 +94,7 @@ function AppointmentInfo(props: Props) {
             onClick={() => {
               const query: any = {
                 chat: "admin",
-                doctorId: appointment?.doctorId,
+                // doctorId: appointment?.doctorId,
                 patientId: appointment?.patientId,
               };
               localStorage.setItem("id", JSON.stringify(query));

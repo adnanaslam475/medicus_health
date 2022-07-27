@@ -77,7 +77,7 @@ const MessageButtons = (props: Props) => {
                 query: {
                   chat: "admin",
                   // doctorId: adminApp_Details?.doctor.doctor_Id,
-                  doctorId: doctorId,
+                  // doctorId: doctorId,
                   patientId: patientID,
                 },
               })

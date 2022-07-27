@@ -89,7 +89,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
             }`}</span>
           </span>
           <span className="text-base text-gray hidden sm:inline">
-            {createdAt ? messageTimein12HoursFomrat : "--"}
+           {`${date?.convertStringDateToUTCChatFormat(createdAt)},${createdAt ? messageTimein12HoursFomrat : "--"}`}
           </span>
         </div>
         <div className="sm:flex justify-between hidden ">

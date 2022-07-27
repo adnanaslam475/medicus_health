@@ -317,7 +317,7 @@ function DoctorAppointmentInfoFooter({
                   pathname: "/physician/messages",
                   query: {
                     chat: "admin",
-                    doctorId: doctorId,
+                    // doctorId: doctorId,
                     patientId: patientId,
                   },
                 })

@@ -19,6 +19,9 @@ export function convertToUTC(date: string) {
 export function convertStringDateToUTC(date: string) {
 	return dayjs.utc(date).format("MM-DD-YYYY");
 }
+export function convertStringDateToUTCChatFormat(date: string) {
+	return dayjs.utc(date).format("MM/DD/YY");
+}
 
 export function formatMMMMDDYYYY(date: string) {
 	return dayjs.utc(date).format("MMMM, D, YYYY");
