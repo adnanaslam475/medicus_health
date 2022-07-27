@@ -136,6 +136,9 @@ function DoctorAppointmentInfo({ data }: Props) {
           message: "Appointment cancelled",
         });
       }
+      Router.push({
+        pathname: "/physician/appointments/upcoming",
+      });
       if (res?.error) {
         notification.error({
           message:
@@ -576,7 +579,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
-    let formatedDate = moment(dateString,"MM-DD-YYYY hh:mm A")
+    let formatedDate = moment(dateString, "MM-DD-YYYY hh:mm A")
       .add(30, "minutes")
       .local()
       .format("MM-DD-YYYY hh:mm A");
@@ -821,7 +824,7 @@ function AvailabilityTimeSlots({
     const filteredDays = weekDays.filter(
       (currentEl) => !doctorAvailableDays.includes(currentEl)
     );
-    const isSunday = filteredDays.includes(0) ? 0 : NaN
+    const isSunday = filteredDays.includes(0) ? 0 : NaN;
     const disabledDates =
       current < dayjs().startOf("day") ||
       new Date(current).getDay() === isSunday ||
@@ -859,7 +862,7 @@ function AvailabilityTimeSlots({
                 <DatePicker disabled={true} className="w-full" showTime />
               ) : (
                 <DatePicker
-                  value={moment(endDateValue,"MM-DD-YYYY hh:mm A")}
+                  value={moment(endDateValue, "MM-DD-YYYY hh:mm A")}
                   disabled={true}
                   className="w-full"
                   showTime
