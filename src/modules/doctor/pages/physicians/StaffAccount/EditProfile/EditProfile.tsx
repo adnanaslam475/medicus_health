@@ -885,7 +885,7 @@ function EditProfile({
                           onClick={() => removeHospital(index)}
                           disabled={isStaff}
                         >
-                          Remove new field
+                          Remove field
                         </Button>
                       )}
                     </div>
@@ -947,7 +947,7 @@ function EditProfile({
                           onClick={() => removeEducation(index)}
                           disabled={isStaff}
                         >
-                          Remove new field
+                          Remove field
                         </Button>
                       )}
                     </div>

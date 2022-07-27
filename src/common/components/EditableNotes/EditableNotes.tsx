@@ -241,7 +241,7 @@ function EditableNotes() {
         confirmLoading={RemoveFetching}
         onCancel={() => setOpen(false)}
         onOk={deleteAppointmentNote}
-        message="Are you sure you want ot delete this note?"
+        message="Are you sure you want to delete this note?"
       />
     </>
   );

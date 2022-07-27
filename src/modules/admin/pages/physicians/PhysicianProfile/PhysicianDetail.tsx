@@ -7,7 +7,15 @@ import {
   useDoctorProfileQuery,
 } from "../../../../../generated/graphql";
 import { useRouter } from "next/router";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
+initTranslation(["PhysicianList"]);
 function PhysiciansDetail() {
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
+  console.log(t("PhysicianList"));
+
   //   GET ID FROM URL
   const { query } = useRouter();
 

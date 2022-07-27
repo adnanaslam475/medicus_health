@@ -150,7 +150,7 @@ const PersonalInfo = () => {
                     type="link"
                     className="text-primary underline text-xs"
                   >
-                    Update Photo
+                    Update photo
                   </Button>
                 </div>
               </Upload>

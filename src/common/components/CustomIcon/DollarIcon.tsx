@@ -10,8 +10,8 @@ export function DollarIcon({ className }: props) {
 			className={className}
 			xmlns="http://www.w3.org/2000/svg"
 			width="20"
-			height="20"
-			viewBox="0 0 20 20"
+			height="25"
+			viewBox="0 0 8 19"
 		>
 			<defs>
 				<linearGradient

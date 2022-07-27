@@ -8,47 +8,58 @@ export const englishCommon: any = {
   male: "Male",
   female: "Female",
   I_prefer_not_to_answer: "I prefer not to answer",
-  date_of_birth: "Date of Birth",
+  date_of_birth: "Date of birth",
   date_of_birth_message: "Please select date of birth",
-  email_address: "Email Address",
+  email_address: "Email address",
   email_already_exist: "Email already exist",
   please_complete_health_questionnaire: "Please complete health questionnaire",
   search_by: "Search by",
 
   password: "Password",
+  reset_password: "Reset password",
   password_message: "Please enter your password!",
+  enter_your_new_password: "Enter your new password",
   confirm_password: "Confirm Password",
   confirm_your_password: "Please confirm your password!",
   password_message_8_character: "Password must be minimum 8 characters.",
+  confirm_password_message_8_character:
+    "Confirm password must be minimum 8 characters.",
   two_passwords_mismatch_message:
-    "The two passwords that you entered do not match",
+    "The two passwords that you entered do not match!",
+  your_password_has_been_reset: "Your password has been reset!",
 
-  street_address: "Street Address",
-  contact_number: "Contact Number",
+  enter_your_email_below_to_reset_password:
+    "Enter your email below to reset password.",
+
+  back_to_log_in: "Back to log in",
+
+  street_address: "Street address",
+  contact_number: "Contact number",
   country: "Country",
   state: "State",
   city: "City",
   postal_code: "Postal Code",
   postal_code_message: "Please enter your postal code",
   i_agree_to_the: "I agree to the ",
-  terms_n_conditions: " Terms & Conditions",
+  terms_n_conditions: " Terms & conditions",
   next: "Next",
   update: "Update",
-  complete: "Comlete",
+  complete: "Complete",
   back: "Back",
   please_fill: "Please fill",
 
   remember: "Remember me",
 
-  forgot_pass: "Forgot Password",
+  forgot_pass: "Forgot password",
   forgot_pass_message: "Have you forgotten your password",
   login: "Login",
   account: "You do not have an account?",
   register: "Register",
 
-  email: "Email Address",
+  email: "Email address",
   email_address_message: "Please enter your email address",
   email_invalid_message: "Email is invalid",
+  email_is_invalid: "Email is invalid",
 
   street_address_message: "Please enter your street address",
   contact_number_message: "Please enter your contact number",
@@ -63,7 +74,7 @@ export const englishCommon: any = {
   physician: "Physician",
   appointment_type: "Appointment type",
   appointment_due_date: "Appointment date",
-  booking_Date: "Booking Date",
+  booking_Date: "Booking date",
   clear: "Clear",
   consultation: "Consultation",
   date: "Date",
@@ -71,7 +82,7 @@ export const englishCommon: any = {
   status: "Status",
   payment_status: "Payment status",
   refunded: "Refunded",
-  cancelled: "Cancelled",
+  cancelled: "Canceled",
   unpaid: "Unpaid",
   rebook: "Rebook",
 
@@ -83,7 +94,7 @@ export const englishCommon: any = {
   is_required: "Required",
 
   list_view: "List view",
-  calendar_view: "Calendar View",
+  calendar_view: "Calendar view",
   service: "Service",
   appointment_fee: "Appointment fee",
   second_opinion: "Second opinion",
@@ -93,11 +104,11 @@ export const englishCommon: any = {
   Apply: "apply",
   requested_date: "Requested date",
   availability_select_one: "Availability* - Select (One)",
-  medical_history: "Medical History",
+  medical_history: "Medical history",
   drag_your_files_here: "Drag your files here or",
   upload: "Upload",
   max_upload_limit: "Max 10mb upload limit.",
-  general_Health_questionnaire: "General Health Questionnaire",
+  general_Health_questionnaire: "General health questionnaire",
   health_questionnaire_is_attached: "Health questionnaire is attached",
   change_health_questionnaire_message:
     "If you wish to update the make changes in your current health questionnaire,",
@@ -110,7 +121,7 @@ export const englishCommon: any = {
   total_charges: "Total charges",
   requested_date_n_time: "Requested date & time",
   app_system_fee_message:
-    "Please note that your payment will only be charged once the physician will confirm the appointment. This is only an appointment request.",
+    "Please note that your payment will only be charged once the physician will confirm the appointment.This is only an appointment request.",
   system_fee_non_refundable:
     "System fee is not refundable in case of appointment cancellation",
   success: "Success!",
@@ -139,7 +150,7 @@ export const englishCommon: any = {
   menu_appointments: "Appointments",
   sub_menu_upcoming: "Upcoming",
   sub_menu_requested: "Requested",
-  sub_menu_cancelled: "Cancelled",
+  sub_menu_cancelled: "Canceled",
   sub_menu_history: "History",
   menu_physicians: "Physicians",
   menu_messages: "Messages",
@@ -148,6 +159,8 @@ export const englishCommon: any = {
   logout: "Logout",
   yes: "Yes",
   no: "No",
+  submit: "Submit",
+  send_resend_link: "Send Resend Link",
 };
 
 export const spanishCommon: any = {
@@ -168,13 +181,23 @@ export const spanishCommon: any = {
   search_by: "Búsqueda por",
 
   password: "Contraseña",
+  reset_password: "Restablecer la contraseña",
   password_message: "¡Por favor, introduzca su contraseña!",
+  enter_your_new_password: "Introduzca su nueva contraseña",
   confirm_password: "Confirmar contraseña",
   confirm_your_password: "¡Por favor, confirme su contraseña!",
   password_message_8_character:
     "La contraseña debe tener un mínimo de 8 caracteres.",
+  confirm_password_message_8_character:
+    "Confirmar contraseña debe tener un mínimo de 8 caracteres.!",
   two_passwords_mismatch_message:
     "Las dos contraseñas que ingresaste no coinciden",
+  your_password_has_been_reset: "¡Tu contraseña ha sido restablecida!",
+
+  enter_your_email_below_to_reset_password:
+    "Ingrese su correo electrónico a continuación para restablecer la contraseña.",
+
+  back_to_log_in: "Atrás para iniciar sesión",
 
   street_address: "Dirección",
   contact_number: "número de contacto",
@@ -201,6 +224,7 @@ export const spanishCommon: any = {
   email_address_message:
     "Por favor, introduzca su dirección de correo electrónico",
   email_invalid_message: "el correo electrónico es invalido",
+  email_is_invalid: "el correo electrónico es invalido",
   email_already_exist: "Ya existe el correo electrónico",
   street_address_message: "Por favor ingrese su dirección postal",
   contact_number_message: "Por favor ingrese su número de contacto",
@@ -304,4 +328,6 @@ export const spanishCommon: any = {
   logout: "Cerrar sesión",
   yes: "Sí",
   no: "No",
+  submit: "Enviar",
+  send_resend_link: "Enviar enlace de reenvío",
 };

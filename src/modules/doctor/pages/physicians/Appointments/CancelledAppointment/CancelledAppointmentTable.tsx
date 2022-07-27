@@ -32,13 +32,13 @@ function CancelledAppointmentTable({
 }: Props) {
   const columns = [
     {
-      title: "ID",
+      title: "ID#",
       dataIndex: "id",
       key: "id",
       sorter: true,
     },
     {
-      title: "Name",
+      title: "Patient",
       dataIndex: "patient",
       key: "first_name",
       render: (value: User) => {
@@ -47,7 +47,7 @@ function CancelledAppointmentTable({
       sorter: true,
     },
     {
-      title: "Service type",
+      title: "Appointment type",
       dataIndex: "serviceType",
       key: "name",
       sorter: true,
@@ -56,7 +56,7 @@ function CancelledAppointmentTable({
       },
     },
     {
-      title: "Date",
+      title: "Appointment date",
       dataIndex: "appointmentDateTime",
       key: "appointment_time_slots",
       sorter: true,

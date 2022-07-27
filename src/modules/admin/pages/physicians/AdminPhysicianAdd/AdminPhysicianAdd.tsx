@@ -50,12 +50,12 @@ function AdminPhysicianAdd() {
         first_name: values?.firstName,
         last_name: values?.lastName,
         email: values?.email,
-        streetAddress: values?.streetAddress,
+        streetAddress: values?.streetAddress || " ",
         contact_number:"",
-        country_id: values?.country,
-        state_id: values?.state,
-        city_id: values?.city_id | 0,
-        zip_code: values?.postalCode,
+        country_id: values?.country || 0,
+        state_id: values?.state || 0,
+        city_id: values?.city_id || 0,
+        zip_code: values?.postalCode||" ",
       },
     });
 
@@ -113,7 +113,7 @@ function AdminPhysicianAdd() {
                       type="link"
                       className="text-primary underline ml-3 text-xs"
                     >
-                      Update Photo
+                      Update photo
                     </Button>
                   </div>
                 </Upload>

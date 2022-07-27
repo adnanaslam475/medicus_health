@@ -79,7 +79,7 @@ function PatientInfoTab({}: Props) {
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Email Address" value={email} />
+          <LabelWithTextDiv label="Email address" value={email} />
           <LabelWithTextDiv label="Cell Number" value={contact_number} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
@@ -87,7 +87,7 @@ function PatientInfoTab({}: Props) {
           <LabelWithTextDiv label="City" value={city_name} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Marital Status" value={maritalStatus} />
+          <LabelWithTextDiv label="Marital status" value={maritalStatus} />
           <LabelWithTextDiv
             label="Do you have any Children?"
             value={children}

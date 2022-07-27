@@ -70,10 +70,12 @@ const ResendLink = () => {
                 />
               </div>
               <h1 className="text-center text-secondary mb-0">
-                Resend Password Link
+                {t("resend_password_link")}
+                {/* Resend Password Link */}
               </h1>
               <h5 className="text-center text-gray font-rubik font-normal">
-                Enter your email below to reset password.
+                {/* Enter your email below to reset password. */}
+                {t("enter_your_email_below_to_reset_password")}
               </h5>
               <div className="mt-5">
                 <Form
@@ -86,7 +88,7 @@ const ResendLink = () => {
                   autoComplete="off"
                 >
                   <Form.Item
-                    label="Email Address"
+                    label={t("email_address")}
                     name="email"
                     className="mb-1"
                     rules={[
@@ -113,7 +115,8 @@ const ResendLink = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      Send Resend Link
+                      {t("send_resend_link")}
+                      {/* Send Resend Link */}
                     </Button>
                   </Form.Item>
 
@@ -127,9 +130,9 @@ const ResendLink = () => {
                   {data?.resendActivationLink && (
                     <Alert
                       className=""
-                      message={
-                        "Your password reset link has been resent on your email please check!"
-                      }
+                      message={t(
+                        "your_password_reset_link_has_been_resent_on_your_email_please_check"
+                      )}
                       type="success"
                     />
                   )}
@@ -151,7 +154,8 @@ const ResendLink = () => {
                             // loading="eager"
                           />
                           <span className="cursor-pointer text-primary ml-3">
-                            Back to log in
+                            {t("back_to_log_in")}
+                            {/* Back to log in */}
                           </span>
                         </div>
                       </div>

@@ -17,7 +17,11 @@ import { sorter } from "utils/helper";
 import MDNextImage from "../MDNextImage/MDNextImage";
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
+initTranslation(["PhysicianList"]);
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -30,6 +34,10 @@ type Props = {
 };
 
 function DoctorProfileCard(props: Props) {
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
+  console.log(t("PhysicianList"));
+
   // const t = useTranslations("PhysicianList");
   //Get logged in User
   const { user } = getUserData();
@@ -113,8 +121,10 @@ function DoctorProfileCard(props: Props) {
             </h5>
             <span className="font-rubik text-secondary text-sm block mb-2">
               {doctorData?.year_of_experience
-                ? `${doctorData?.year_of_experience} + years of experience`
-                : "experience not available"}
+                ? `${doctorData?.year_of_experience} + ${t(
+                    "years_of_experience"
+                  )}`
+                : t("experience_not_available")}
             </span>
             <Collapse className="xl:w-4/5">
               <Collapse.Panel
@@ -125,11 +135,15 @@ function DoctorProfileCard(props: Props) {
                     {matchDay ? (
                       <>
                         <div className="text-gray-8 ant-collapse-available">
-                          Available today
+                          {t("available_today")}
+                          {/* Available today */}
                         </div>
                       </>
                     ) : (
-                      <span className="text-cyan-1">Not available today</span>
+                      <span className="text-cyan-1">
+                        {t("not_available_today")}
+                        {/* Not available today */}
+                      </span>
                     )}
                   </div>
                 }
@@ -170,7 +184,8 @@ function DoctorProfileCard(props: Props) {
                     ""
                   ) : (
                     <Link passHref href={`/patient/account?activeTab=2`}>
-                      please complete health questionnaire
+                      {t("please_complete_health_questionnaire")}
+                      {/* please complete health questionnaire */}
                     </Link>
                   )
                 }
@@ -189,7 +204,10 @@ function DoctorProfileCard(props: Props) {
                     width={20}
                     height={11}
                   />
-                  <span className="ml-2">Request an appointment</span>
+                  <span className="ml-2">
+                    {t("request_an_appointment")}
+                    {/* Request an appointment */}
+                  </span>
                 </Button>
               </Tooltip>
               <div className="flex-none sm:flex">
@@ -197,28 +215,34 @@ function DoctorProfileCard(props: Props) {
                   className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3"
                   onClick={() => Router.push("/admin/messages")}
                 >
-                  <span className="hidden">Message support</span>
+                  <span className="hidden">{t("message_support")}</span>
                 </Button>
                 <Button
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
                   onClick={() => Router.push("/physician/messages")}
                 >
-                  <span className="hidden">Message physician</span>
+                  <span className="hidden">{t("message_physician")}</span>
                 </Button>
               </div>
             </div>
           </div>
         </div>
         <Divider />
-        <h4 className="font-bold mb-1">About me</h4>
+        <h4 className="font-bold mb-1">
+          {t("about_me")}
+          {/* About me */}
+        </h4>
         <div className="text-gray text-md">
           <h6 className="text-gray ">{doctorData?.about_me}</h6>
         </div>
         <Divider />
-        <h4 className="font-bold mb-1">Conditions treated</h4>
+        <h4 className="font-bold mb-1">
+          {t("conditions_treated")}
+          {/* Conditions treated */}
+        </h4>
         <h6 className="text-secondary">{doctorData?.condition_treated}</h6>
         <Divider />
-        <h4 className="font-bold mb-1">Professional background</h4>
+        <h4 className="font-bold mb-1">{t("professional_background")}</h4>
         <div className="text-secondary">
           {doctorData?.professional_experience &&
             JSON.parse(doctorData?.professional_experience).map((item: any) => (
@@ -229,7 +253,10 @@ function DoctorProfileCard(props: Props) {
             ))}
         </div>
         <Divider />
-        <h4 className="font-bold mb-1">Educational background</h4>
+        <h4 className="font-bold mb-1">
+          {t("educational_background")}
+          {/* Educational background */}
+        </h4>
         <div className="text-secondary">
           {doctorData?.educational_background &&
             JSON.parse(doctorData?.educational_background).map((item: any) => (
@@ -245,7 +272,11 @@ function DoctorProfileCard(props: Props) {
           className="text-base flex items-center"
           onClick={() => Router.push("/patient/physicians")}
         >
-          <ArrowLeftOutlined /> <span className="ml-2">Back to physicians</span>
+          <ArrowLeftOutlined />
+          <span className="ml-2">
+            {t("back_to_physicians")}
+            {/* Back to physicians */}
+          </span>
         </a>
       </Card>
       <BookAppointmentJourney

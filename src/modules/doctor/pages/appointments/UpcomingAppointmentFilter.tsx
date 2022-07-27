@@ -50,7 +50,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 
   return (
     <div className="page-filters flex items-center my-3 flex-wrap">
-      <span className="text-gray-1 mr-3">Search by</span>
+      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">Search by</span>
       <div className="flex items-center gap-2 flex-wrap">
         <div className=" w-full sm:w-full md:w-64 ">
           <Input
@@ -62,6 +62,14 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
             }}
           />
         </div>
+        <div className="flex w-full sm:w-60 ">
+        
+        <SelectServiceTypeFilter
+          onChange={(value) => onChangeFields("serviceId", value)}
+          value={filterState?.serviceId}
+        />
+
+      </div>
         <div className="-mt-6 w-full sm:w-60">
         <FilterRangePicker
           onChange={(dateString: string[]) =>
@@ -87,14 +95,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
         />
         </div>
      
-      <div className="flex w-full sm:w-60 ">
-        
-          <SelectServiceTypeFilter
-            onChange={(value) => onChangeFields("serviceId", value)}
-            value={filterState?.serviceId}
-          />
-
-        </div>
+    
           <div className="flex w-full md:w-44 xl:w-60 mr-3">
           <Select
             placeholder="Payment status"

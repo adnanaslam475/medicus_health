@@ -50,12 +50,12 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
 
   return (
     <div className="page-filters  items-center mb-4 flex-wrap">
-      <span className="text-gray-1 mr-3">Filter</span>
+ <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">Search by</span>
       <div className="flex items-center sm:mb-0 lg:mb-0 gap-2 flex-col sm:flex-row flex-wrap">
         <div className="w-full sm:w-full md:w-full lg:w-96">
           <Input
             value={filterState.searchString}
-            placeholder="Search by ID# or patient name"
+            placeholder="ID# or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);
@@ -80,13 +80,13 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
                   <div>
                     {filterState.dueDate
                       ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                      : "Date"}
+                      : "Appointment date"}
                   </div>
                 ) : (
                   ""
                 )
               }
-              heading="Date"
+              heading="Appointment date"
             />
           </Space>
         </div>

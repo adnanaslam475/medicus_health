@@ -5,8 +5,10 @@ import Container from "../../../../../common/components/Container/Container";
 import Image from "next/image";
 
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 
 const SuccessScreen = () => {
+  const t = useTranslations("SuccessScreen");
   const onFinish = async (values: object) => {
     console.log("Success:", values);
   };
@@ -45,13 +47,12 @@ const SuccessScreen = () => {
               </div>
             </div>
             <h2 className="text-center text-secondary mb-3 px-10 leading-8">
-              Success! Your account has been created.
+              {t("success_your_account_has_been_created")}
             </h2>
             <p className="text-base text-gray text-center px-7">
-              We have sent you an email on
+              {t("we_have_sent_you_an_email_on")}
               <span className="text-secondary">{` ${query?.email} `}</span>
-              Please click on the verification link and your account will be
-              verified.
+              {t("verify_your_account_by_click")}
             </p>
             <div className="mt-5">
               <Form
@@ -69,7 +70,10 @@ const SuccessScreen = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      <Link href="/login">Login</Link>
+                      <Link href="/login">
+                        {t("login")}
+                        {/* Login */}
+                      </Link>
                     </Button>
                   </div>
                 </Form.Item>
