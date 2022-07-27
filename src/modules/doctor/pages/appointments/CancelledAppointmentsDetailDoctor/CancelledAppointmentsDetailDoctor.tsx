@@ -55,8 +55,8 @@ function CancelledAppointmentsDetailDoctor() {
     <AppLayout>
       <>
         <h2 className="mb-4">
-          {/* Canceled appointments */}
-          {t("canceled_appointments")}
+          Canceled appointments
+          {/* {t("canceled_appointments")} */}
         </h2>
         <div className="profile-tabs">
           <Tabs
