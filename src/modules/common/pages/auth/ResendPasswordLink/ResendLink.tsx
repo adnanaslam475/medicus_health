@@ -155,7 +155,6 @@ const ResendLink = () => {
                           />
                           <span className="cursor-pointer text-primary ml-3">
                             {t("back_to_log_in")}
-                            {/* Back to log in */}
                           </span>
                         </div>
                       </div>

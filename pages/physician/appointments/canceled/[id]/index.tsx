@@ -7,11 +7,3 @@ function appointmentId() {
 }
 
 export default appointmentId;
-
-// export function getStaticProps({ locale }: { locale: string }) {
-//   return {
-//     props: {
-//       messages: translationJson(locale),
-//     },
-//   };
-// }

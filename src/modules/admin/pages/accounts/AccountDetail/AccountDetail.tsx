@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import AccountTabs from "../../../../../common/components/AccountTabs/AccountTabs";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
+import { translationJson } from "common/locales/translationJson";
 
 function AccountDetail() {
   const t = useTranslations("AccountDetail");
@@ -23,7 +24,14 @@ export default AccountDetail;
 export function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
-      messages: require(`../../../../../../src/common/locales/${locale}.json`),
+      messages: translationJson(locale),
     },
   };
 }
+// export function getStaticProps({ locale }: { locale: string }) {
+//   return {
+//     props: {
+//       messages: require(`../../../../../../src/common/locales/${locale}.json`),
+//     },
+//   };
+// }

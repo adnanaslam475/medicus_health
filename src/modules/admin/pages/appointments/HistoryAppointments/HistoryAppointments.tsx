@@ -17,6 +17,7 @@ import BookAppointmentJourney from "common/components/BookAppointmentJourney/Boo
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { translationJson } from "common/locales/translationJson";
 
 function CancelledAppointment() {
   const t = useTranslations("HistoryAppointments");
@@ -165,3 +166,11 @@ function CancelledAppointment() {
   );
 }
 export default CancelledAppointment;
+
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      messages: translationJson(locale),
+    },
+  };
+}

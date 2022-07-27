@@ -15,8 +15,10 @@ import { UploadChangeParam } from "antd/lib/upload";
 import { useMediaUploader } from "common/hooks/media";
 import userDefaultPicture from "../../../../../public/assets/images/profile.jpg";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const PersonalInfo = () => {
+  const t = useTranslations("AccountDetail");
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
 

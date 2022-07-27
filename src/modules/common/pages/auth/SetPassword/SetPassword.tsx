@@ -10,8 +10,10 @@ import {
   useSetDoctorPasswordMutation,
 } from "../../../../../generated/graphql";
 import Router, { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 
 function SetPassword() {
+  const t = useTranslations("Common");
   // Set Doctor Password API call
 
   const [result, setDoctorPassword] = useSetDoctorPasswordMutation();
@@ -58,7 +60,8 @@ function SetPassword() {
             </div>
             <h1 className="text-center text-secondary mb-3">Set password</h1>
             <h5 className="text-center text-gray font-rubik font-normal">
-              Enter your new password
+              {t("enter_your_new_password")}
+              {/* Enter your new password */}
             </h5>
             <div className="mt-5">
               <ConfirmPasswordForm
@@ -76,7 +79,7 @@ function SetPassword() {
               {data && (
                 <Alert
                   className=""
-                  message="Your password has been set!"
+                  message={t("your_password_has_been_set")}
                   type="success"
                 />
               )}
@@ -95,7 +98,7 @@ function SetPassword() {
                         src="/assets/icon/arrow-left.svg"
                       />
                       <span className="cursor-pointer text-primary ml-3">
-                        Back to log in
+                        {t("back_to_log_in")}
                       </span>
                     </div>
                   </div>
