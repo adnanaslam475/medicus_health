@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Tabs, Button, Alert, notification, Tag } from "antd";
+import { Tabs, Button, Alert, notification, Tag, Spin } from "antd";
 import PersonalInfo from "./PersonelInfo/PersonelInfo";
 import PaymentMethods from "./PaymentMethods/PaymentMethods";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
@@ -42,12 +42,13 @@ function AccountTabs({ setIsShowBanner }: Props) {
   const router = useRouter();
   const { query } = router;
   //GET ALL TRANSACTIONS
-  const [{ data: allTransactions }] = useGetAllTransactionsQuery({
-    variables: {
-      pagination: { limit: -1, page: 1 },
-      sorting,
-    },
-  });
+  const [{ data: allTransactions, fetching: allTransactionLoading }] =
+    useGetAllTransactionsQuery({
+      variables: {
+        pagination: { limit: -1, page: 1 },
+        sorting,
+      },
+    });
   const { transactions } = allTransactions || {};
 
   // UPDATE PATIENT HEALTH HISTORY
@@ -149,7 +150,13 @@ function AccountTabs({ setIsShowBanner }: Props) {
             }
             key="4"
           >
-            <TransactionHistory data={transactions?.items as Transaction[]} />
+            {allTransactionLoading ? (
+              <div className="lg:w-2/3 sm:w-full flex justify-center py-20 mr-5">
+                <Spin />
+              </div>
+            ) : (
+              <TransactionHistory data={transactions?.items as Transaction[]} />
+            )}
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
