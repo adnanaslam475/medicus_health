@@ -13,11 +13,10 @@ import { date } from "common/utils";
 
 type Props = {
   dataSource: Appointment[] | undefined;
-  loading:boolean|undefined;
-  
+  loading: boolean | undefined;
 };
 
-function CurrentAppointmentTable({ dataSource ,loading}: Props) {
+function CurrentAppointmentTable({ dataSource, loading }: Props) {
   const columns = [
     {
       title: "ID",
@@ -96,7 +95,7 @@ function CurrentAppointmentTable({ dataSource ,loading}: Props) {
           <EyeFilled
             onClick={() => {
               return Router.push(
-                `/physician/appointments/cancelled/${appointmentId}`
+                `/physician/appointments/canceled/${appointmentId}`
               );
             }}
           />
@@ -104,6 +103,13 @@ function CurrentAppointmentTable({ dataSource ,loading}: Props) {
       ),
     },
   ];
-  return <Table columns={columns} dataSource={dataSource} loading={loading} scroll={{x:true}} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={dataSource}
+      loading={loading}
+      scroll={{ x: true }}
+    />
+  );
 }
 export default CurrentAppointmentTable;
