@@ -70,7 +70,9 @@ function MessageItem(props: Props) {
               <div>
                 <span className="text-base text-black pr-3">{`${userDetails?.first_name} ${userDetails?.last_name}`}</span>
                 <span className="text-base text-gray">
-                  {messageTimein12HoursFomrat}
+                  {` ${date?.convertStringDateToUTCChatFormat(
+                    createdAt
+                  )}, ${messageTimein12HoursFomrat}`}
                 </span>
               </div>
               <div

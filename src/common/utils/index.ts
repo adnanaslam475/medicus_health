@@ -1,6 +1,7 @@
 import {
   convertToUTC,
   convertStringDateToUTC,
+  convertStringDateToUTCChatFormat,
   time24HrConvert,
   dayName,
   formatMMMMDDYYYY,
@@ -24,6 +25,7 @@ import {
 const date = {
   convertToUTC,
   convertStringDateToUTC,
+  convertStringDateToUTCChatFormat,
   time24HrConvert,
   dayName,
   formatMMMMDDYYYY,
