@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import _classes from "./Message-detail.module.scss";
 import UserProfile from "../UserProfile/UserProfile";
 import { useMessageContext } from "./MessageContext";
 import { useRouter } from "next/router";
+import { Spin } from "antd";
 
 type Props = { setRemoveCurrentChat?: any };
 
@@ -10,6 +11,7 @@ function MessageConversationSider({ setRemoveCurrentChat }: Props) {
   const { setCurrentChannel, onJoinChannel, messageInfo } = useMessageContext();
   const { query } = useRouter();
   const { allChannels } = messageInfo || {};
+  const [loader, setLoader] = useState(false);
 
   async function onJoinChat(params: any = {}) {
     setRemoveCurrentChat(false);
@@ -46,7 +48,11 @@ function MessageConversationSider({ setRemoveCurrentChat }: Props) {
     }
   }, [query, allChannels]);
 
-  return (
+  return !allChannels ? (
+    <div className="m-40">
+      <Spin />
+    </div>
+  ) : (
     <div
       style={{
         height: "calc(100vh - 225px)",
