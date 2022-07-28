@@ -355,45 +355,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
               className="w-full"
-              // onChange={(_, e) => setSelectedDay(new Date(e).getDay())}
-              onChange={(_, e) => {
-                const date = e.split("-");
-                const obj: any = {
-                  4: "1",
-                  5: "2",
-                  6: "3",
-                  7: "4",
-                  1: "5",
-                  2: "6",
-                  3: "7",
-                };
-                console.log(
-                  "aaaaaa",
-                  obj[
-                    new Date(
-                      Number(date[2]),
-                      Number(date[1]),
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ).getDay()
-                  ]
-                );
-                setSelectedDay(
-                  obj[
-                    new Date(
-                      Number(date[2]),
-                      Number(date[1]),
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ).getDay()
-                  ]
-                );
+              onChange={(momentDate) => {
+                setSelectedDay(momentDate?.get("weekday"));
+                // console.log(momentDate?.get("weekday"));
               }}
               disabledDate={disabledDate}
             />
