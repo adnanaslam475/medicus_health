@@ -1,7 +1,7 @@
 import { CloseOutlined, MoreOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import threeDot from "../../../../public/assets/images/threedot.svg";
 import MediaFile from "./DynamicAttachment";
 import _classes from "./Attachment.module.scss";
@@ -10,11 +10,17 @@ import { AttachmentObject } from "common/types/types";
 type Props = {
   item?: AttachmentObject;
   enable: boolean;
+  setDeletedUrl?: React.Dispatch<React.SetStateAction<string>>;
+  loading?: boolean;
 };
 function Attachment(props: Props) {
-  const { item, enable } = props;
+  const { item, enable, setDeletedUrl, loading } = props;
   const { name, url } = item || {};
-  function handleFile() {}
+  function handleFile() {
+    if (url) {
+      setDeletedUrl?.(url);
+    }
+  }
   let attachementExtension = item?.name && item?.name?.split(".")[1];
   return (
     <div className="block">
@@ -32,6 +38,9 @@ function Attachment(props: Props) {
         {enable && (
           <Popover
             placement="bottomRight"
+            destroyTooltipOnHide={{
+              keepParent: false,
+            }}
             content={
               <div>
                 <p
@@ -39,7 +48,7 @@ function Attachment(props: Props) {
                   onClick={handleFile}
                 >
                   <CloseOutlined />
-                  <span>Delete</span>
+                  <span>{loading ? "Deleting" : "Delete"}</span>
                 </p>
               </div>
             }
