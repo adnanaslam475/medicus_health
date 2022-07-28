@@ -113,7 +113,7 @@ function DoctorAppointmentInfo({ data }: Props) {
 
       if (res?.data?.cancelAppointment) {
         notification.success({
-          message: "Appointment cancelled",
+          message: "Appointment canceled",
         });
       } else {
         notification.error({
@@ -133,7 +133,7 @@ function DoctorAppointmentInfo({ data }: Props) {
 
       if (res?.data?.cancelAppointment) {
         notification.success({
-          message: "Appointment cancelled",
+          message: "Appointment canceled",
         });
       }
       Router.push({
