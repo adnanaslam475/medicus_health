@@ -139,24 +139,24 @@ function MyEarningsSearchFilters(props: Props) {
 
   return (
     <div
-      className={`${_classes["page-filters"]} flex items-center mb-5 flex-wrap`}
+      className={`${_classes["page-filters"]} flex items-center flex-wrap gap-2 mb-3`}
     >
-      <span className="text-gray-1 mr-3 mb-3"></span>
-      <div className="flex flex-wrap">
-        <div className=" w-full sm:w-full md:w-full xl:w-96 mr-2 md:mb-2">
+      <span className="text-gray-1  w-full 2xl:w-fit ">Search by</span>
+      <div className="flex flex-wrap gap-2">
+        <div className=" w-full sm:w-full md:w-full xl:w-96">
           <Input
-            placeholder="Search by ID#, appointment ID# or patient name"
+            placeholder="ID#, appointment ID# or patient name"
             prefix={<SearchOutlined />}
             value={filterState?.searchString}
             onChange={(e) => onChangeFields("searchString", e?.target.value)}
           />
         </div>
-        <div className="w-full md:w-56 xl:w-36 mr-2 mb-3 mt-3 md:mt-0">
+        <div className="w-full md:w-90 xl:w-56 ">
           <Select
-            placeholder="Service type"
+            placeholder="Appointment type"
             className={`${searchStyle.placeholderColor} w-full`}
             onChange={(value) => onChangeFields("serviceId", value as string)}
-            value={filterState?.serviceId || "Service"}
+            value={filterState?.serviceId || "Appointment type"}
           >
             {appointmentServiceTypes?.map((item) => (
               <Select.Option key={item?.id} value={item?.id}>
@@ -223,8 +223,8 @@ function MyEarningsSearchFilters(props: Props) {
             </Button>
           </div>
         </div> */}
-        <div className="flex-none sm:flex mr-2 mt-0 md:mt-0  ">
-          <div className="relative">
+        <div className="flex flex-col sm:flex-row w-full  md:w-64">
+          <div className="relative  w-full md:w-64 flex-1">
             <RangePicker
               value={null}
               onChange={(_, dateString: string[]) =>
@@ -267,11 +267,11 @@ function MyEarningsSearchFilters(props: Props) {
                 <div>
                   {filterState.dueDate
                     ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                    : "Scheduled date"}
+                    : "Appointment date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
-                  <div>Scheduled date</div>
+                  <div>Appointment date</div>
                   <div>
                     <CaretDownOutlined />
                   </div>
@@ -294,15 +294,15 @@ function MyEarningsSearchFilters(props: Props) {
               </Space>
             </a>
           </Dropdown> */}
-        <div className="w-full md:w-56 sm:w-44 mt-0 mr-2 md:mt-0 sm:my-0 xs:my-3">
+        <div className="w-full md:w-56 mt-0">
           <SelectStatusTypeFilter
-            placeholder="Status"
+            placeholder="Appointment status"
             onChange={(value) => onChangeFields("status", value as string)}
             // value={filterValues.status}
-            value={filterState?.status || "Status"}
+            value={filterState?.status || "Appointment status"}
           />
         </div>
-        <div className="w-full md:w-56 md:ml-2 lg:ml-2  sm:mt-3 md:mt-0">
+        <div className="w-full md:w-56">
           <Select
             placeholder="Payment status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
@@ -328,7 +328,7 @@ function MyEarningsSearchFilters(props: Props) {
           </a>
         </Dropdown> */}
         <Dropdown
-          className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg ml-3 p-3 border`}
+          className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg p-3 border`}
           overlay={totalPaymentsRangeFilter}
           trigger={["click"]}
           visible={totalPaymentsVisible}
