@@ -152,6 +152,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       // q2
       [HealthQuestionnaryData.q2.name]: parsedData?.q2.ans,
       [HealthQuestionnaryData.q2.q.name]: parsedData?.q2.q.ans,
+      [HealthQuestionnaryData.q2.q1.name]: parsedData?.q2.q1?.ans,
+      [HealthQuestionnaryData.q2.q2.name]: parsedData?.q2.q2?.ans,
       // q3
       [HealthQuestionnaryData.q3.name]: parsedData?.q3.ans,
       [HealthQuestionnaryData.q3.q.name]: parsedData?.q3.q.selectedOption,
@@ -328,20 +330,52 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         </Radio.Group>
       </Form.Item>
       {!!radioSmoke && (
-        <Form.Item
-          className="flex-1 text-secondary"
-          name={HealthQuestionnaryData.q2.q.name}
-          label={HealthQuestionnaryData.q2.q.label}
-          rules={[
-            {
-              required: true,
-              message: t("please_fill_field"),
-              // message: "Please fill filed",
-            },
-          ]}
-        >
-          <Input disabled={disabled} size="large" />
-        </Form.Item>
+        <>
+          <Form.Item
+            className="flex-1 text-secondary"
+            name={HealthQuestionnaryData.q2.q.name}
+            label={HealthQuestionnaryData.q2.q.label}
+            rules={[
+              {
+                required: true,
+                message: t("please_fill_field"),
+                // message: "Please fill filed",
+              },
+            ]}
+          >
+            <Input disabled={disabled} size="large" />
+          </Form.Item>
+
+          <Form.Item
+            className="flex-1 text-secondary"
+            name={HealthQuestionnaryData.q2.q1.name}
+            label={HealthQuestionnaryData.q2.q1.label}
+            rules={[
+              {
+                required: true,
+                message: t("please_fill_field"),
+                // message: "Please fill filed",
+              },
+            ]}
+          >
+            <Input disabled={disabled} size="large" />
+          </Form.Item>
+
+          <Form.Item
+            className="flex-1 text-secondary"
+            name={HealthQuestionnaryData.q2.q2.name}
+            label={HealthQuestionnaryData.q2.q2.label}
+            rules={[
+              {
+                required: true,
+                message: t("please_fill_field"),
+                // message: "Please fill filed",
+              },
+            ]}
+          >
+            <Input disabled={disabled} size="large" />
+          </Form.Item>
+        </>
       )}
       <Form.Item
         name={HealthQuestionnaryData.q3.name}
