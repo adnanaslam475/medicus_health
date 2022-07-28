@@ -16,6 +16,7 @@ import {
   User,
 } from "generated/graphql";
 import { getRole } from "../../../../common/utils/userData";
+import { translationJson } from "common/locales/translationJson";
 
 type Props = {
   handleDateChange: (arg: any | undefined) => void;
@@ -413,3 +414,11 @@ function AdminCalender(props: Props) {
 }
 
 export default AdminCalender;
+
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      messages: translationJson(locale),
+    },
+  };
+}

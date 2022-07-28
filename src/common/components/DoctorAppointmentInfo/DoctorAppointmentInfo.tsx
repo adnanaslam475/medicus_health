@@ -591,7 +591,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   // API CALL
 
-  const [{fetching}, executeProposeTimeSlotMutation] = useProposeNewTimeMutation();
+  const [{ fetching }, executeProposeTimeSlotMutation] =
+    useProposeNewTimeMutation();
 
   async function onProposeNewTimeSlot() {
     try {
@@ -687,7 +688,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         onCancel={handleCancel}
         footer={null}
       >
-        <h2>Propose new time</h2>
+        <h2>Propose/edit appointment</h2>
         <Form
           layout="vertical"
           form={formInstance}
@@ -836,12 +837,12 @@ function AvailabilityTimeSlots({
     <div className="block mb-10">
       {/* <TimeSlotPickerForm onChangeDatePicker={onChangeDatePicker} /> */}
       <Form
-        layout="horizontal"
+        layout="vertical"
         form={form as any}
         className="flex mt-2 mb-3 border-gray-8 gap-3"
       >
         <div className="w-50">
-          <Form.Item label="Start Time" name="start_time">
+          <Form.Item label="Start time" name="start_time">
             <Space direction="vertical" size={12}>
               <DatePicker
                 disabledDate={disabledDate as any}
@@ -857,7 +858,7 @@ function AvailabilityTimeSlots({
           </Form.Item>
         </div>
         <div className="w-50">
-          <Form.Item label="End Time" name="end_time">
+          <Form.Item label="End time" name="end_time">
             <Space direction="vertical" size={12}>
               {endDateValue === "Invalid date" || !endDateValue ? (
                 <DatePicker disabled={true} className="w-full" showTime />

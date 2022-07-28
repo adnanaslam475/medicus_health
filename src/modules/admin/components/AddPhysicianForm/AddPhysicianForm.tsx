@@ -64,7 +64,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
         <Form.Item
           label="First name"
           name="firstName"
-          rules={[{ required: true, message: "First Name!" }]}
+          rules={[{ required: true, message: "First name!" }]}
           className="flex-1"
         >
           <Input />
@@ -73,7 +73,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
         <Form.Item
           label="Last name"
           name="lastName"
-          rules={[{ required: true, message: "Last Name!" }]}
+          rules={[{ required: true, message: "Last name!" }]}
           className="flex-1"
         >
           <Input />
@@ -84,7 +84,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
         <Form.Item
           name="email"
           label="Email"
-          rules={[{ type: "email", required: true }]}
+          rules={[{ type: "email", required: true,message:"Email is required" }]}
           className="flex-1"
         >
           <Input />

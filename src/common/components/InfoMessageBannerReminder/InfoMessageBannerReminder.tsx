@@ -31,6 +31,7 @@ const InfoMessageBannerReminder = () => {
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-2 rounded text-xs text-nowr gap-2">
       <Image
         priority={true}
+        unoptimized
         alt=""
         className="warning-small mx-3 shadow-none border-0"
         height={34}

@@ -49,7 +49,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
   function AppointmentBookingStepOne(props: Props, ref: any) {
     const [formInstance] = Form.useForm();
     const [data] = useGetAllAppointmentServiceTypesQuery();
-    const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
+    const {
+      saveStepOne,
+      data: appoinmentDetails,
+      clearBookingContext,
+    } = useBookAppointment();
     const {
       physician,
       price,
@@ -83,34 +87,18 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const [selectedDay, setSelectedDay] = useState<number>();
 
     const stepOneDoctorId = physician?.split(":")[0];
-    // let doctorScheduleId =
-    //   Number(rebookData?.doctorId) ||
-    //   Number(id) ||
-    //   Number(adminApp_Details?.doctor?.doctor_Id) ||
-    //   Number(query?.id) ||
-    //   Number(doctorId) ||
-    //   Number(stepOneDoctorId);
+    let doctorScheduleId =
+      Number(rebookData?.doctorId) ||
+      Number(id) ||
+      Number(adminApp_Details?.doctor?.doctor_Id) ||
+      Number(query?.id) ||
+      Number(doctorId) ||
+      Number(stepOneDoctorId);
 
-    let doctorScheduleId = Number(
-      rebookData?.doctorId ||
-        id ||
-        adminApp_Details?.doctor?.doctor_Id ||
-        query?.id ||
-        doctorId ||
-        stepOneDoctorId
-    );
-    // console.log(
-    //   { rebookData, id, adminApp_Details, query, doctorId, stepOneDoctorId },
-    //   "monitoring"
-    // );
-
-    // console.log({ doctorScheduleId });
     const queryDay =
       selectedDay ||
       selectedDateDay ||
       (requestedDate && dayjs(requestedDate).get("day"));
-
-    // console.log({ queryDay });
 
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesByDayQuery] =
       useDoctorSchedulesByDayQuery({
@@ -118,7 +106,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
           doctorId: Number(doctorScheduleId),
           filter: { day: Number(queryDay) },
         },
-        pause: !selectedDay && !queryDay,
+        // pause: !selectedDay,
       });
     useEffect(() => {
       if (queryDay) {
@@ -136,8 +124,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
       scheduleDetails?.doctorSchedulesByDay &&
       scheduleDetails?.doctorSchedulesByDay.length > 0;
 
-    // console.log(isShow, "isShow");
-
     useEffect(() => {
       if (appoinmentDetails) {
         prepareAndSetEditPayload();
@@ -146,6 +132,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     useEffect(() => {
       if (clear) {
+        clearBookingContext?.({});
         setSchedules([]);
         formInstance.resetFields();
       }
@@ -187,7 +174,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
       );
 
       setServiceInfo(charge as any);
-      formInstance?.setFieldsValue({ requestedDate: "" });
+      formInstance?.resetFields( ["requestedDate","selectedDateDay"]);
+      setSelectedDay(9)
     }
 
     function disabledDate(current: any) {
@@ -223,7 +211,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
       setDoctorId(Number(doctorId));
     };
 
-    console.log({ a: scheduleDetails });
     return (
       <>
         <h2>Request an appointment</h2>
@@ -355,45 +342,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
               className="w-full"
-              // onChange={(_, e) => setSelectedDay(new Date(e).getDay())}
-              onChange={(_, e) => {
-                const date = e.split("-");
-                const obj: any = {
-                  4: "1",
-                  5: "2",
-                  6: "3",
-                  7: "4",
-                  1: "5",
-                  2: "6",
-                  3: "7",
-                };
-                console.log(
-                  "aaaaaa",
-                  obj[
-                    new Date(
-                      Number(date[2]),
-                      Number(date[1]),
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ).getDay()
-                  ]
-                );
-                setSelectedDay(
-                  obj[
-                    new Date(
-                      Number(date[2]),
-                      Number(date[1]),
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ).getDay()
-                  ]
-                );
+              onChange={(momentDate) => {
+                setSelectedDay(momentDate?.get("weekday"));
               }}
               disabledDate={disabledDate}
             />
@@ -404,7 +354,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             rules={[{ required: true, message: "Availability is required" }]}
           >
             <div className="flex flex-wrap availability-label">
-              {true ? (
+              {isShow ? (
                 <Radio.Group
                   defaultValue={appoinmentDetails?.stepOne?.availability}
                 >
