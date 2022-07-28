@@ -15,6 +15,7 @@ import {
 } from "generated/graphql";
 import { AttachmentObject } from "common/types/types";
 import { useTranslations } from "next-intl";
+import NotesTab from "common/components/NotesTab/NotesTab";
 
 function CancelledAppointmentsDetailDoctor() {
   const t = useTranslations("CancelledAppointments");
@@ -94,6 +95,17 @@ function CancelledAppointmentsDetailDoctor() {
                 })}
               </div>
             </Tabs.TabPane>
+            {/* {(status === "Confirmed" ||
+              status === "Completed" ||
+              status === "Upcoming") && (
+              <> */}
+            {/* {pathname.includes("appointments") && ( */}
+            <Tabs.TabPane tab={<span>Notes history</span>} key="6">
+              <NotesTab />
+            </Tabs.TabPane>
+            {/* )} */}
+            {/* </>
+            )} */}
           </Tabs>
         </div>
       </>

@@ -10,8 +10,9 @@ import {
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../../../generated/graphql";
-import EditProfile from "../EditProfile/EditProfile";
+// import EditProfile from "../EditProfile/EditProfile";
 import { RangeValue } from "rc-picker/lib/interface";
+import EditProfile from "../EditProfile/EditProfile";
 
 function AccountsProfile() {
   const editData = () => {
@@ -30,7 +31,7 @@ function AccountsProfile() {
     timeString: string[];
   }>({ timeString: [], time: null });
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
-  const [profileUpdated,setProfileUpdated]=useState()
+  const [profileUpdated, setProfileUpdated] = useState();
 
   // GET USER ID
   const { user } = getUserData();
@@ -52,7 +53,7 @@ function AccountsProfile() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
       const variable = {
         doctorId: Number(id),
-        day: Number(addScheduleDay === 7 ? 0 :addScheduleDay ),
+        day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
         startTime: addScheduleTime?.timeString[0],
         endTime: addScheduleTime?.timeString[1],
       };
@@ -69,14 +70,15 @@ function AccountsProfile() {
     }
   }, [deleteScheduleId]);
 
-  const [{ data ,fetching:doctorDataLoading},executeUseDoctorProfileQuery] = useDoctorProfileQuery({
-    variables: { doctor_id: id as number },
-    pause: !id,
-  });
+  const [{ data, fetching: doctorDataLoading }, executeUseDoctorProfileQuery] =
+    useDoctorProfileQuery({
+      variables: { doctor_id: id as number },
+      pause: !id,
+    });
   const { doctorProfile } = data || {};
-  useEffect(()=>{
-    executeUseDoctorProfileQuery({requestPolicy:"network-only"})
-  },[profileUpdated])
+  useEffect(() => {
+    executeUseDoctorProfileQuery({ requestPolicy: "network-only" });
+  }, [profileUpdated]);
   return (
     <div>
       {isEdit ? (

@@ -113,7 +113,7 @@ function DoctorAppointmentInfo({ data }: Props) {
 
       if (res?.data?.cancelAppointment) {
         notification.success({
-          message: "Appointment cancelled",
+          message: "Appointment canceled",
         });
       } else {
         notification.error({
@@ -133,7 +133,7 @@ function DoctorAppointmentInfo({ data }: Props) {
 
       if (res?.data?.cancelAppointment) {
         notification.success({
-          message: "Appointment cancelled",
+          message: "Appointment canceled",
         });
       }
       Router.push({
@@ -591,7 +591,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   // API CALL
 
-  const [, executeProposeTimeSlotMutation] = useProposeNewTimeMutation();
+  const [{fetching}, executeProposeTimeSlotMutation] = useProposeNewTimeMutation();
 
   async function onProposeNewTimeSlot() {
     try {
@@ -777,6 +777,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
           <div className="flex justify-end">
             <Button
+              loading={fetching}
               className={`${_classes["appointments-btn"]}`}
               onClick={onProposeNewTimeSlot}
               type="primary"

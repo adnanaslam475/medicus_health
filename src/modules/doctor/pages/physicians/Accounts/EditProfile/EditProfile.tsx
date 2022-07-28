@@ -22,6 +22,7 @@ import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRa
 import ReactS3Client from "react-aws-s3-typescript";
 
 import {
+  LoginUserInput,
   useCountriesQuery,
   useEnableOrDisableDoctorMutation,
   useGetCitiesByStateQuery,
@@ -212,7 +213,7 @@ function EditProfile({
     useState<any>(condition_treated);
 
   useEffect(() => {
-    if(condition_treated?.trim()){
+    if (condition_treated?.trim()) {
       setConditionTreatedList(condition_treated);
     }
   }, []);
@@ -225,74 +226,88 @@ function EditProfile({
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
 
-      const res = await updateDoctor({
-        updateDoctorProfileInput: {
-          doctor_id: pathname.includes("/admin/physicians")
-            ? Number(query?.id)
-            : Number(id) || Number(loggedInUserId),
-          first_name: values?.firstName || "",
-          last_name: values?.lastName || "",
-          specialization: values?.specialization || "",
-          year_of_experience: Number(values?.year_of_experience || 0),
-          streetAddress: values?.streetAddress,
-          contact_number:values?.contact,
-          city_id: Number(values?.city_id),
-          country_id: Number(values?.country_id),
-          state_id: Number(values?.state_id),
-          zip_code: values?.zip_code,
-          email: values?.email || "",
-          password: values?.password,
-          profile_image: image || userProfileImage || "",
-          about_me: values?.about_me || "",
-          condition_treated: conditionTreatedList || "",
-          language: physicianLanguage || "",
-          educational_background: educationList?.map((item) => ({
-            institution: item?.institution,
-            degree: item?.degree,
-          })),
-          professional_experience: clinicList?.map((item) => ({
-            institution: item?.institution,
-            role: item?.role,
-          })),
-        },
-      });
+    const res = await updateDoctor({
+      updateDoctorProfileInput: {
+        doctor_id: pathname.includes("/admin/physicians")
+          ? Number(query?.id)
+          : Number(id) || Number(loggedInUserId),
+        first_name: values?.firstName || "",
+        last_name: values?.lastName || "",
+        specialization: values?.specialization || "",
+        year_of_experience: Number(values?.year_of_experience || 0),
+        streetAddress: values?.streetAddress,
+        contact_number: values?.contact,
+        city_id: Number(values?.city_id),
+        country_id: Number(values?.country_id),
+        state_id: Number(values?.state_id),
+        zip_code: values?.zip_code,
+        email: values?.email || "",
+        password: values?.password,
+        profile_image: image || userProfileImage || "",
+        about_me: values?.about_me || "",
+        condition_treated: conditionTreatedList || "",
+        language: physicianLanguage || "",
+        educational_background: educationList?.map((item) => ({
+          institution: item?.institution,
+          degree: item?.degree,
+        })),
+        professional_experience: clinicList?.map((item) => ({
+          institution: item?.institution,
+          role: item?.role,
+        })),
+      },
+    });
 
-      if (res?.data) {
-        res?.data?.updateDoctorProfile &&
+    if (res?.data) {
+      res?.data?.updateDoctorProfile &&
+        notification.success({
+          message: "Updated Successfully",
+        });
+      let loggedInUserData = localStorage.getItem("loggedInUserData");
+      let updatedLoggedInUserData: LoginUserInput | any =
+        loggedInUserData && JSON.parse(loggedInUserData);
+      if (updatedLoggedInUserData?.user) {
+        updatedLoggedInUserData.user.first_name = values?.firstName;
+        updatedLoggedInUserData.user.last_name = values?.lastName;
+        updatedLoggedInUserData.user.doctorProfile.profile_image =
+          image || userProfileImage;
+        localStorage.setItem(
+          "loggedInUserData",
+          JSON.stringify(updatedLoggedInUserData)
+        );
+      }
+
+      setProfileUpdated?.(Math.random());
+      if (getRole() === "Doctor") {
+        //checking logged in user email matched with updated email
+        let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
+        let emailMatched = emailRegExpression.test(values?.email);
+
+        // if user changed the email logged out the user
+        if (!emailMatched) {
           notification.success({
-            message: "Updated Successfully",
+            message: "Credentials Updated User Logged out",
           });
-        setProfileUpdated?.(Math.random());
-        if (getRole() === "Doctor") {
-          //checking logged in user email matched with updated email
-          let emailRegExpression = new RegExp(`^(${loggedInUserEmail})$`);
-          let emailMatched = emailRegExpression.test(values?.email);
-
-          // if user changed the email logged out the user
-          if (!emailMatched) {
-            notification.success({
-              message: "Credentials Updated User Logged out",
-            });
-            logout();
-          }
+          logout();
         }
       }
+    }
 
-      if (res?.error) {
-        res?.error?.graphQLErrors[0]?.message &&
-          notification.error({
-            message:
-              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-          });
-      }
+    if (res?.error) {
+      res?.error?.graphQLErrors[0]?.message &&
+        notification.error({
+          message:
+            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+    }
 
     // }
   };
 
   const onFinish = async (values: any) => {
     try {
-        updateDoctorProfile(values);
-        setIsEdit(false);
+      updateDoctorProfile(values);
+      setIsEdit(false);
     } catch (error) {
       setIsEdit(true);
     }
@@ -534,7 +549,7 @@ function EditProfile({
                   rules={[{ required: true, message: "First name!" }]}
                   className="flex-1"
                 >
-                  <Input autoFocus={true}/>
+                  <Input autoFocus={true} />
                 </Form.Item>
                 <Form.Item
                   label="Last name"
@@ -561,7 +576,7 @@ function EditProfile({
                   rules={[{ required: true }]}
                   className="flex-1"
                 >
-                  <Input type="number"/>
+                  <Input type="number" />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">

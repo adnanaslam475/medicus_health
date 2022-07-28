@@ -41,7 +41,7 @@ const Columns = [
     },
   },
   {
-    title: "Service type",
+    title: "Appointment type",
     dataIndex: "appointment",
     key: "name",
     sorter: true,
@@ -64,7 +64,7 @@ const Columns = [
   //   },
   // },
   {
-    title: "Scheduled date",
+    title: "Appointment date",
     dataIndex: "appointment",
     key: "startTime",
     sorter: true,
@@ -78,7 +78,7 @@ const Columns = [
     },
   },
   {
-    title: "Status",
+    title: "Appointment status",
     dataIndex: "appointment",
     key: "status",
     sorter: true,
