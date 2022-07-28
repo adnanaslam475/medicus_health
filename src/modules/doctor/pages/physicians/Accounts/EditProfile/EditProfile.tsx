@@ -15,7 +15,6 @@ import {
   Select,
   DatePicker,
   Tooltip,
-  Collapse,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
@@ -476,7 +475,6 @@ function EditProfile({
 
   const [{ data: countriesData }] = useCountriesQuery();
   const { countries } = countriesData || {};
-  const { Panel } = Collapse;
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
