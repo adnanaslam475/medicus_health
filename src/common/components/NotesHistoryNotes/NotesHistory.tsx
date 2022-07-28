@@ -157,7 +157,7 @@ function NotesHistory(props: Props) {
             </>
           ) : (
             <>
-              <h5>No history notes available</h5>
+              <h5>No notes history available</h5>
             </>
           )}
         </Collapse>
