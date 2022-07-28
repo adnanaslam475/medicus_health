@@ -3,10 +3,16 @@ import Router, { useRouter } from "next/router";
 import { useUserVerifyEmailMutation } from "../../../src/generated/graphql";
 import Container from "../../../src/common/components/Container/Container";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
+
+initTranslation(["Common"]);
 
 export default function EmailVerification() {
-  const t = useTranslations("Common");
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
+
   const [errorMsg, setErrorMsg] = useState("");
 
   const router = useRouter();
