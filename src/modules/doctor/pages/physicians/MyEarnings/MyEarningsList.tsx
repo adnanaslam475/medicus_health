@@ -296,26 +296,26 @@ const PhysicianMyEarningsList = (props: Props) => {
           <div className="flex mb-0 flex-wrap gap-x-16">
             <MyEarningsStats
               label={"Total earnings"}
-              text={`$ ${total_earnings}`}
+              text={`$${total_earnings}`}
             />
             <MyEarningsStats
-              label={"Earnings through Consultants"}
-              text={`$ ${total_earnings_from_consultation}`}
+              label={"Earnings through consultants"}
+              text={`$${total_earnings_from_consultation}`}
             />
             <MyEarningsStats
-              label={"Earnings through Second Opinion"}
-              text={`$ ${total_earnings_from_second_opinions}`}
+              label={"Earnings through second opinion"}
+              text={`$${total_earnings_from_second_opinions}`}
             />
             <MyEarningsStats
-              label={"Total (Unique)Patients"}
+              label={"Total (unique)patients"}
               text={String(total_number_of_patients)}
             />
             <MyEarningsStats
-              label={"Total Consultants"}
+              label={"Total consultants"}
               text={String(total_number_of_consultation)}
             />
             <MyEarningsStats
-              label={"Total Second Opinions"}
+              label={"Total second opinions"}
               text={String(total_number_of_second_opinions)}
             />
           </div>
