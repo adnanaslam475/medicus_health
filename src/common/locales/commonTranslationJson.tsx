@@ -7,7 +7,7 @@ export const englishCommon: any = {
   gender: "Gender",
   male: "Male",
   female: "Female",
-  I_prefer_not_to_answer: "I prefer not to answer",
+  i_prefer_not_to_say: "I prefer not to answer",
   date_of_birth: "Date of birth",
   date_of_birth_message: "Please select date of birth",
   email_address: "Email address",
