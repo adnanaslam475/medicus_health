@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Form, Tabs } from "antd";
 import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
@@ -6,6 +6,7 @@ import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQues
 import {
   useGetAppointmentByIdQuery,
   usePatientHealthHistoryQuery,
+  useUpdateAppointmentAttachmentsMutation,
 } from "generated/graphql";
 import { QuestionnaireForm } from "../Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
@@ -66,7 +67,19 @@ const AppointmentTabs = (props: Props) => {
     setActiveTab(key);
     history.pushState({}, "", "?activeTab=" + key);
   };
+  const [deletedUrl, setDeletedUrl] = useState("");
+  const [{fetching}, executeUseUpdateAppointmentAttachmentsMutation] =
+    useUpdateAppointmentAttachmentsMutation();
 
+  useEffect(() => {
+    const updatedArr = urlArr?.filter((item: any) => item?.url !== deletedUrl);
+    executeUseUpdateAppointmentAttachmentsMutation({
+      updateAppointmentAttachmentsInput: {
+        id: Number(query?.id),
+        reportUrl: JSON.stringify(updatedArr),
+      },
+    });
+  }, [deletedUrl]);
   return (
     <div className="profile-tabs">
       <Tabs
@@ -98,7 +111,7 @@ const AppointmentTabs = (props: Props) => {
           <div>
             <span className="font-semibold text-md">Your files</span>
             {urlArr?.map((item: AttachmentObject) => (
-              <Attachment item={item} enable />
+              <Attachment item={item} enable setDeletedUrl={setDeletedUrl} loading={fetching} />
             ))}
           </div>
         </TabPane>
