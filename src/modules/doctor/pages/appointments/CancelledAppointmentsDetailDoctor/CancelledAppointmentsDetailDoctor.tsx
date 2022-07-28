@@ -95,17 +95,10 @@ function CancelledAppointmentsDetailDoctor() {
                 })}
               </div>
             </Tabs.TabPane>
-            {/* {(status === "Confirmed" ||
-              status === "Completed" ||
-              status === "Upcoming") && (
-              <> */}
-            {/* {pathname.includes("appointments") && ( */}
+
             <Tabs.TabPane tab={<span>Notes history</span>} key="6">
               <NotesTab />
             </Tabs.TabPane>
-            {/* )} */}
-            {/* </>
-            )} */}
           </Tabs>
         </div>
       </>
