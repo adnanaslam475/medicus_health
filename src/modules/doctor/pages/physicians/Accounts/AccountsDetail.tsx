@@ -153,7 +153,7 @@ function Accounts() {
             tab={
               <span className="font-Circular font-medium flex">
                 <BellOutlined style={{ fontSize: "20px" }} />
-                Email Notifications
+                Email notifications
               </span>
             }
             key="5"

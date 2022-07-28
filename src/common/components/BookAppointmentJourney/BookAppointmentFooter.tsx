@@ -34,7 +34,7 @@ function BookAppointmentFooter({
         </Button>
       )}
       {stepName === "stepFour" && (
-        <Button type="primary" onClick={onRequestAppointment}>
+        <Button type="primary" onClick={onRequestAppointment} loading={loading}>
           Request an appointment
         </Button>
       )}
