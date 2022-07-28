@@ -570,6 +570,7 @@ export type GetPhysicianAppointmentInput = {
 };
 
 export type GetPhysiciansInput = {
+  cityId?: InputMaybe<Scalars['Int']>;
   countryId?: InputMaybe<Scalars['Int']>;
   creationDate?: InputMaybe<PhysicianAccountCreationDate>;
   language?: InputMaybe<Scalars['String']>;
