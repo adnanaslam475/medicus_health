@@ -1,54 +1,54 @@
 {
-	"Login": {
-		"title": "Login to continue",
-		"description": "Enter your credentials to access your account.",
-		"remember": "Remember me",
-		"forgot": "Forgot password?",
-		"login": "Login",
-		"account": "Don't have an account?",
-		"register": "Register",
-		"email": "Email Address",
-		"password": "Password"
-	},
-	"AccountDetail": {
-		"title": "Account"
-	},
+  "Login": {
+    "title": "Login to continue",
+    "description": "Enter your credentials to access your account.",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "login": "Login",
+    "account": "Don't have an account?",
+    "register": "Register",
+    "email": "Email Address",
+    "password": "Password"
+  },
+  "AccountDetail": {
+    "title": "Account"
+  },
 
-	"Signup": {
-		"createAccount": "Create your account",
-		"createYourAccountToStart": "Create your account to start using Medicus",
-		"personalInfo": "Personal info",
-		"healthQuestionnaire": "Health questionnaire",
-		"login": "Login",
-		"account": "Don't have an account?"
-	},
+  "Signup": {
+    "createAccount": "Create your account",
+    "createYourAccountToStart": "Create your account to start using Medicus",
+    "personalInfo": "Personal info",
+    "healthQuestionnaire": "Health questionnaire",
+    "login": "Login",
+    "account": "Don't have an account?"
+  },
 
-	"UpcomingAppointments": {
-		"upcomingAppointmentsHead": "Upcoming appointments"
-	},
-	"PersonalInfo": {
-		"Login": "Login",
-		"AlreadyHaveAnAccount": "Already have an account?",
-		"Gender": "Gender",
-		"first_name": "First Name",
-		"last_name": "Last Name",
-		"male": "Male",
-		"female": "Female",
-		"I_prefer_not_to_answer": "I prefer not to answer",
-		"date_of_Birth": "Date of birth",
-		"email_address": "Email Address",
-		"password": "Password",
-		"confirm_password": "Confirm Password",
-		"street_address": "Street Address",
-		"contact_number": "Contact Number",
-		"country": "Country",
-		"state": "State",
-		"city": "City",
-		"postal_code": "Postal Code",
-		"postal_code_message": "Please enter your postal code",
-		"i_agree_to_the": "I agree to the ",
-		"terms_n_conditions": " Terms & Conditions",
-		"next": "Next",
-		"prefer_not_to_answer": "Prefer not to answer"
-	}
+  "UpcomingAppointments": {
+    "upcomingAppointmentsHead": "Upcoming appointments"
+  },
+  "PersonalInfo": {
+    "Login": "Login",
+    "AlreadyHaveAnAccount": "Already have an account?",
+    "Gender": "Gender",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "male": "Male",
+    "female": "Female",
+    "I_prefer_not_to_answer": "I prefer not to answer",
+    "date_of_Birth": "Date of birth",
+    "email_address": "Email Address",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "street_address": "Street Address",
+    "contact_number": "Contact Number",
+    "country": "Country",
+    "state": "State",
+    "city": "City",
+    "postal_code": "Postal Code",
+    "postal_code_message": "Please enter your postal code",
+    "i_agree_to_the": "I agree to the ",
+    "terms_n_conditions": " Terms & Conditions",
+    "next": "Next",
+    "prefer_not_to_answer": "Prefer not to answer"
+  }
 }
