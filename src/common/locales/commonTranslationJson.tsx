@@ -22,6 +22,7 @@ export const englishCommon: any = {
   confirm_password: "Confirm Password",
   confirm_your_password: "Please confirm your password!",
   password_message_8_character: "Password must be minimum 8 characters.",
+  please_input_your_email: "Please input your email!",
   confirm_password_message_8_character:
     "Confirm password must be minimum 8 characters.",
   two_passwords_mismatch_message:
@@ -120,6 +121,7 @@ export const englishCommon: any = {
   doctor: "Doctor",
   tax: "Tax",
   system_fee: "System fee",
+  marital_status: "Marital status",
   total_charges: "Total charges",
   requested_date_n_time: "Requested date & time",
   app_system_fee_message:
@@ -172,6 +174,16 @@ export const englishCommon: any = {
   health_questionnaire: "Health questionnaire",
   transaction_history: "Transaction history",
   email_notification: "Email notification",
+  update_photo: "Update photo",
+  save: "Save",
+  edit: "Edit",
+  prefer_not_to_answer: "Prefer not to answer",
+  do_you_have_any_children: "Do you have any children?",
+  number_of_children: "Number of children",
+  What_is_your_occupation: "What is your occupation?",
+  do_you_have_any_occupational_exposure:
+    "Do you have any occupational exposure?",
+  do_you_have_any_pets: "Do you have any pets?",
 };
 
 export const spanishCommon: any = {
@@ -278,7 +290,7 @@ export const spanishCommon: any = {
   second_opinion: "Segunda opinión",
   Consultation: "Consulta",
   Charges: "cargos",
-  Cancel: "cancelar",
+  cancel: "cancelar",
   Apply: "aplicar",
   requested_date: "Fecha solicitada",
   availability_select_one: "Disponibilidad* - Seleccionar (Uno)",
@@ -352,4 +364,18 @@ export const spanishCommon: any = {
   health_questionnaire: "Cuestionario de salud",
   transaction_history: "Historial de transacciones",
   email_notification: "Notificación de correo electrónico",
+  update_photo: "Actualizar foto",
+  save: "Ahorrar",
+  edit: "editar",
+  prefer_not_to_answer: "Prefiero no responder",
+  please_input_your_email: "Por favor ingrese su correo electrónico!",
+  marital_status: "Estado civil",
+  do_you_have_any_children: "¿Tienes hijos?",
+  number_of_children: "Numero de niñas",
+  What_is_your_occupation: "¿Cuál es tu ocupación?",
+  do_you_have_any_occupational_exposure:
+    "¿Tiene alguna exposición ocupacional?",
+  do_you_have_any_pets: "¿Tiene mascotas?",
 };
+
+// asdasdasd
