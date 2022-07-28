@@ -5,6 +5,7 @@ type state = {
   saveStepOne?: (values: any) => void;
   saveStepTwo?: (values: any) => void;
   saveStepThree?: (values: any) => void;
+  clearBookingContext?: (values: any) => void;
 };
 
 const initialState: state = {};
@@ -33,6 +34,9 @@ export function BookAppointmentProvider({
   function saveStepThree(values: any) {
     setData({ ...data, stepThree: values });
   }
+  function clearBookingContext() {
+    setData({});
+  }
 
   return (
     <BookAppointmentContext.Provider
@@ -41,6 +45,7 @@ export function BookAppointmentProvider({
         saveStepOne,
         saveStepTwo,
         saveStepThree,
+        clearBookingContext
       }}
     >
       {children}

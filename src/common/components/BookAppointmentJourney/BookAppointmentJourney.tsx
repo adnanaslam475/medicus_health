@@ -100,12 +100,7 @@ function BookAppointmentModal({
   //   GET ID FROM URL
   const { query } = useRouter();
 
-  const {
-    data: appoinmentData,
-    saveStepOne,
-    saveStepTwo,
-    saveStepThree,
-  } = useBookAppointment();
+  const { data: appoinmentData, clearBookingContext } = useBookAppointment();
 
   // GET USER ID
   const { user } = getUserData();
@@ -233,9 +228,7 @@ function BookAppointmentModal({
       if (res?.data?.createAppointment) {
         setClear(true);
         setSuccessModal(true);
-        saveStepOne?.({});
-        saveStepTwo?.({});
-        saveStepThree?.({});
+        clearBookingContext?.({});
       } else if (res?.error?.graphQLErrors) {
         let graphQLError = res?.error?.graphQLErrors[0]?.extensions
           ?.response as GraphQLError;
@@ -287,11 +280,31 @@ function BookAppointmentModal({
       return next(currentStepName);
     }
   };
-
   const onCancelHandler = (e: any) => {
-    saveStepOne?.({});
-    saveStepTwo?.({});
-    saveStepThree?.({});
+    form?.current?.setFields([
+      {
+        name: "charges",
+        errors: [],
+        value:null
+      },
+      {
+        name: "physician",
+        errors: [],
+      },
+      {
+        name: "availability",
+        errors: [],
+      },
+      {
+        name: "requestedDate",
+        errors: [],
+      },
+      {
+        name: "service",
+        errors: [],
+      },
+    ]);
+    clearBookingContext?.({});
     onCancel?.(e);
   };
 

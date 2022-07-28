@@ -47,7 +47,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
   function AppointmentBookingStepOne(props: Props, ref: any) {
     const [formInstance] = Form.useForm();
     const [data] = useGetAllAppointmentServiceTypesQuery();
-    const { saveStepOne, data: appoinmentDetails } = useBookAppointment();
+    const {
+      saveStepOne,
+      data: appoinmentDetails,
+      clearBookingContext,
+    } = useBookAppointment();
     const {
       physician,
       price,
@@ -100,7 +104,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
           doctorId: Number(doctorScheduleId),
           filter: { day: queryDay },
         },
-        pause: !selectedDay,
+        // pause: !selectedDay,
       });
     useEffect(() => {
       if (queryDay) {
@@ -126,6 +130,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     useEffect(() => {
       if (clear) {
+        clearBookingContext?.({});
         setSchedules([]);
         formInstance.resetFields();
       }
@@ -167,7 +172,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
       );
 
       setServiceInfo(charge as any);
-      formInstance?.setFieldsValue({ requestedDate: "" });
+      formInstance?.resetFields( ["requestedDate","selectedDateDay"]);
+      setSelectedDay(9)
     }
 
     function disabledDate(current: any) {
