@@ -123,7 +123,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
               {/* if patient health questionnaire completed than showing appointment banner 
               otherwise health questionnaire complete banner */}
 
-              {patientHealthHistory?.patientHealthHistory || !isShowBanner ? (
+              {patientHealthHistory?.patientHealthHistory || !isShowBanner  ||isShowBanner === undefined? (
                 <div className="p-0">
                   {getRole() === "User" ? <InfoMessageBannerReminder /> : null}
                 </div>
