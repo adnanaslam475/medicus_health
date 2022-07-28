@@ -293,30 +293,30 @@ const PhysicianMyEarningsList = (props: Props) => {
           paragraph={{ rows: 0 }}
           active
         >
-          <div className="flex mb-0 flex-wrap">
-            <MyEarningsStats
-              label={"Total consultations"}
-              text={String(total_number_of_consultation)}
-            />
-            <MyEarningsStats
-              label={"Total second opinions"}
-              text={String(total_number_of_second_opinions)}
-            />
-            <MyEarningsStats
-              label={"Total patients"}
-              text={String(total_number_of_patients)}
-            />
-            <MyEarningsStats
-              label={"Earnings through consultations"}
-              text={`$ ${total_earnings_from_consultation}`}
-            />
-            <MyEarningsStats
-              label={"Earnings through second opinions"}
-              text={`$ ${total_earnings_from_second_opinions}`}
-            />
+          <div className="flex mb-0 flex-wrap gap-x-16">
             <MyEarningsStats
               label={"Total earnings"}
               text={`$ ${total_earnings}`}
+            />
+            <MyEarningsStats
+              label={"Earnings through Consultants"}
+              text={`$ ${total_earnings_from_consultation}`}
+            />
+            <MyEarningsStats
+              label={"Earnings through Second Opinion"}
+              text={`$ ${total_earnings_from_second_opinions}`}
+            />
+            <MyEarningsStats
+              label={"Total (Unique)Patients"}
+              text={String(total_number_of_patients)}
+            />
+            <MyEarningsStats
+              label={"Total Consultants"}
+              text={String(total_number_of_consultation)}
+            />
+            <MyEarningsStats
+              label={"Total Second Opinions"}
+              text={String(total_number_of_second_opinions)}
             />
           </div>
         </Skeleton>

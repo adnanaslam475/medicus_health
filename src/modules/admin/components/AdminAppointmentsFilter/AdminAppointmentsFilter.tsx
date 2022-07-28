@@ -47,6 +47,14 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
       ...filterValues,
       [key]: value,
     };
+    if (key === "status") {
+      setDueDate({
+        startDate: "",
+        endDate: "",
+      });
+      delete filters.dueDate;
+
+    }
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
     }
@@ -129,7 +137,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             onApply={() => applyDateRange("dueDate")}
             title={
               filterValues.dueDate?.startDate && (
-                <div className="tracking-[.25em]">
+                <div className="">
                   {filterValues.dueDate
                     ? `${filterValues.dueDate.startDate} -> ${filterValues.dueDate.endDate}`
                     : "Appointment date"}
@@ -161,8 +169,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             <Select.Option value="refunded">REFUNDED</Select.Option>
           </Select>
         </div>
-       
-      <FilterClearButton onClear={clear} />
+        <FilterClearButton onClear={clear} />
       </div>
     </div>
   );
