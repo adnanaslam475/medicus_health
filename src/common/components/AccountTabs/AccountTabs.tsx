@@ -71,7 +71,8 @@ function AccountTabs({ setIsShowBanner }: Props) {
       });
       if (res?.data?.updatePatientHealthHistory) {
         notification.success({
-          message: "Successfully Updated",
+          // message: "Successfully Updated",
+          message: t("successfully_updated"),
         });
         setIsShowBanner(false);
       }
@@ -97,7 +98,8 @@ function AccountTabs({ setIsShowBanner }: Props) {
             className="w-full"
             tab={
               <span className="font-Circular font-medium">
-                Personal information
+                {t("personal_information")}
+                {/* Personal information */}
               </span>
             }
             key="1"
@@ -107,7 +109,8 @@ function AccountTabs({ setIsShowBanner }: Props) {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">
-                Health questionnaire
+                {t("health_questionnaire")}
+                {/* Health questionnaire */}
               </span>
             }
             key="2"
@@ -127,7 +130,8 @@ function AccountTabs({ setIsShowBanner }: Props) {
                   type="primary"
                   onClick={() => form?.current?.submit()}
                 >
-                  Update
+                  {/* Update */}
+                  {t("update")}
                 </Button>
               </div>
             </div>
@@ -135,7 +139,8 @@ function AccountTabs({ setIsShowBanner }: Props) {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">
-                Payment settings
+                {t("payment_settings")}
+                {/* Payment settings */}
               </span>
             }
             key="3"
@@ -145,7 +150,8 @@ function AccountTabs({ setIsShowBanner }: Props) {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">
-                Transaction history
+                {t("transaction_history")}
+                {/* Transaction history */}
               </span>
             }
             key="4"
@@ -161,7 +167,8 @@ function AccountTabs({ setIsShowBanner }: Props) {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium">
-                Email notification
+                {t("email_notification")}
+                {/* Email notification */}
               </span>
             }
             key="5"

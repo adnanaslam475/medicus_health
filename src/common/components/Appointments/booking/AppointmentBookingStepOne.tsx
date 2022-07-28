@@ -9,6 +9,8 @@ import {
   useGetAllAppointmentServiceTypesQuery,
   User,
 } from "generated/graphql";
+import moment from "moment";
+
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
@@ -102,13 +104,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
       useDoctorSchedulesByDayQuery({
         variables: {
           doctorId: Number(doctorScheduleId),
-          filter: { day: queryDay },
+          filter: { day: Number(queryDay) },
         },
         // pause: !selectedDay,
       });
     useEffect(() => {
       if (queryDay) {
-        executeUseDoctorSchedulesByDayQuery({ requestPolicy: "network-only" });
+        // executeUseDoctorSchedulesByDayQuery({ requestPolicy: "network-only" });
         setSchedules((scheduleDetails?.doctorSchedulesByDay as any) || []);
       }
     }, [selectedDay]);
@@ -206,7 +208,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const PhysicianHandler = (physicianId: string) => {
       setClear(false);
       let doctorId = physicianId.split(":")[0];
-      setDoctorId(Number(doctorId));
       setDoctorId(Number(doctorId));
     };
 
