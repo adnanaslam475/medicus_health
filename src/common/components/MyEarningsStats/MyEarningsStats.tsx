@@ -6,7 +6,7 @@ type Props = {
 function MyEarningsStats(props: Props) {
   const { label, text } = props || {};
   return (
-    <div className="mr-11">
+    <div >
       <p className="text-lg font-medium pb-0 mb-0">{text}</p>
       <p className="text-sm">{label}</p>
     </div>
