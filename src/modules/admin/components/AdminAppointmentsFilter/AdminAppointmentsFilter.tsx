@@ -12,6 +12,8 @@ import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRan
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter/SelectStatusTypeFilter";
 import { getRole } from "common/utils/userData";
+import { useTranslations } from "next-intl";
+import { translationJson } from "common/locales/translationJson";
 
 type Props = {
   onChange: (value: GetAdminUsersFilterInput) => void;
@@ -19,6 +21,7 @@ type Props = {
 };
 
 function AdminAppointmentFilter({ onChange, filterValues }: Props) {
+  const t = useTranslations("SearchFilters");
   const [openDateRange, setOpenDateRange] = React.useState<string>("");
   const [dueDate, setDueDate] = useState<BookingDate>({});
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -176,3 +179,11 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
 }
 
 export default AdminAppointmentFilter;
+
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      messages: translationJson(locale),
+    },
+  };
+}

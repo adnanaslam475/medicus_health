@@ -1,7 +1,11 @@
 import { Select } from "antd";
 import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 import { useTranslations } from "next-intl";
+import i18next from "i18next";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
 
+initTranslation(["SearchFilters"]);
 export function SelectServiceTypeFilter({
   onChange,
   value,
@@ -11,7 +15,10 @@ export function SelectServiceTypeFilter({
 }) {
   const [{ data: serviceTypes }] = useGetAllAppointmentServiceTypesQuery();
   const { appointmentServiceTypes } = serviceTypes || {};
-  const t = useTranslations("HistoryAppointments");
+
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
+  console.log(t("title"));
   return (
     <Select
       placeholder={t("appointment_type")}
