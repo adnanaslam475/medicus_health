@@ -687,7 +687,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         onCancel={handleCancel}
         footer={null}
       >
-        <h2>Propose new time</h2>
+        <h2>Propose/edit appointment</h2>
         <Form
           layout="vertical"
           form={formInstance}

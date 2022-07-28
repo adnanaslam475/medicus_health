@@ -150,7 +150,7 @@ function NotesTab({}: Props) {
           ))} */}
         {/* HISTORY NOTES */}
         <div className="history-notes-cover">
-          <h3>History notes</h3>
+          <h3>Notes history</h3>
           <NotesHistory />
         </div>
       </CardWithProfileImageInfo>
