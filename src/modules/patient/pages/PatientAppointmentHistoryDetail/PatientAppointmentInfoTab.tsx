@@ -26,7 +26,7 @@ function PatientAppointmentInfoTab() {
 
   const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { ...filterValues },
+      filter: { appointmentId:Number(query?.id) },
       pagination,
       sorting,
     },
