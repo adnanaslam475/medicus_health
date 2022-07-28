@@ -1,6 +1,6 @@
 export const englishCommon: any = {
   gender_message: "Please enter your gender",
-  first_name: "First Name",
+  first_name: "First name",
   first_name_message: "Please enter your first name",
   last_name: "Last Name",
   last_name_message: "Please enter your last name",
