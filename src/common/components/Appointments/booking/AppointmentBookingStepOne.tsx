@@ -342,7 +342,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
               className="w-full"
-              onChange={(_, e) => setSelectedDay(new Date(e).getDay())}
+              onChange={(momentDate) => {
+                setSelectedDay(momentDate?.get("weekday"));
+              }}
               disabledDate={disabledDate}
             />
           </Form.Item>
