@@ -22,6 +22,7 @@ import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRa
 import ReactS3Client from "react-aws-s3-typescript";
 
 import {
+  LoginUserInput,
   useCountriesQuery,
   useEnableOrDisableDoctorMutation,
   useGetCitiesByStateQuery,
@@ -262,6 +263,15 @@ function EditProfile({
           notification.success({
             message: "Updated Successfully",
           });
+          let loggedInUserData = localStorage.getItem("loggedInUserData")
+          let updatedLoggedInUserData:LoginUserInput | any = loggedInUserData &&JSON.parse(loggedInUserData)
+          if(updatedLoggedInUserData?.user){
+            updatedLoggedInUserData.user.first_name = values?.firstName;
+            updatedLoggedInUserData.user.last_name = values?.lastName;
+            updatedLoggedInUserData.user.doctorProfile.profile_image = image || userProfileImage;
+            localStorage.setItem("loggedInUserData",JSON.stringify(updatedLoggedInUserData))
+          }
+
         setProfileUpdated?.(Math.random());
         if (getRole() === "Doctor") {
           //checking logged in user email matched with updated email
