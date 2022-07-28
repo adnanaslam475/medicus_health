@@ -41,7 +41,7 @@ const Columns = [
     },
   },
   {
-    title: "Service type",
+    title: "Appointment type",
     dataIndex: "appointment",
     key: "name",
     sorter: true,
@@ -64,7 +64,7 @@ const Columns = [
   //   },
   // },
   {
-    title: "Scheduled date",
+    title: "Appointment date",
     dataIndex: "appointment",
     key: "startTime",
     sorter: true,
@@ -78,7 +78,7 @@ const Columns = [
     },
   },
   {
-    title: "Status",
+    title: "Appointment status",
     dataIndex: "appointment",
     key: "status",
     sorter: true,
@@ -295,7 +295,7 @@ const PhysicianMyEarningsList = (props: Props) => {
         >
           <div className="flex mb-0 flex-wrap">
             <MyEarningsStats
-              label={"Total consultants"}
+              label={"Total consultations"}
               text={String(total_number_of_consultation)}
             />
             <MyEarningsStats
@@ -307,11 +307,11 @@ const PhysicianMyEarningsList = (props: Props) => {
               text={String(total_number_of_patients)}
             />
             <MyEarningsStats
-              label={"Earnings through consultants"}
+              label={"Earnings through consultations"}
               text={`$ ${total_earnings_from_consultation}`}
             />
             <MyEarningsStats
-              label={"Earnings through second opinion"}
+              label={"Earnings through second opinions"}
               text={`$ ${total_earnings_from_second_opinions}`}
             />
             <MyEarningsStats

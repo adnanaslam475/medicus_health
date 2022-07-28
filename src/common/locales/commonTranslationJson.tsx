@@ -167,6 +167,11 @@ export const englishCommon: any = {
   verifying: "Verifying...",
   id_or_patient_name: "ID# or patient name",
   id_or_physician_name: "ID# or physician name",
+  successfully_updated: "Successfully Updated",
+  personal_information: "Personal information",
+  health_questionnaire: "Health questionnaire",
+  transaction_history: "Transaction history",
+  email_notification: "Email notification",
 };
 
 export const spanishCommon: any = {
@@ -342,4 +347,9 @@ export const spanishCommon: any = {
 
   id_or_patient_name: "Número de identificación o nombre del paciente",
   id_or_physician_name: "ID# o nombre del médico",
+  successfully_updated: "Actualizado exitosamente",
+  personal_information: "Informacion personal",
+  health_questionnaire: "Cuestionario de salud",
+  transaction_history: "Historial de transacciones",
+  email_notification: "Notificación de correo electrónico",
 };
