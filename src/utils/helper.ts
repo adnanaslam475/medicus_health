@@ -490,7 +490,7 @@ export const adminBioForm = [
       disabled: true,
     },
     {
-      label: "Contact Number",
+      label: "Contact number",
       name: "contact",
       defaultValue: "090078601",
       disabled: true,
@@ -504,7 +504,7 @@ export const adminBioForm = [
       defaultValue: "",
     },
     {
-      label: "Confirm Password",
+      label: "Confirm password",
       name: "confirmPassword",
       disabled: true,
       defaultValue: "",
