@@ -7,12 +7,15 @@ const createAdminUserForm = [
     name: "first_name",
     required: true,
     type: "text",
+    errorName:"first name"
   },
   {
     label: "Last name",
     name: "last_name",
     type: "text",
     required: true,
+    errorName:"last name"
+
   },
   {
     label: "Email",
@@ -22,6 +25,7 @@ const createAdminUserForm = [
   },
 ];
 
+
 function CreateAdminUserForm() {
   return (
     <>
@@ -30,11 +34,19 @@ function CreateAdminUserForm() {
           key={value.name}
           label={value.label}
           rules={[
+            value?.name ==="email"?
             {
+              type:"email",
+              required: true,
+              message: "Email must be valid",
+            }
+           
+            :{
               required: value.required,
-              message: `Please fill ${value.label}`,
-            },
+              message: `Please fill ${value.errorName}`,
+            }
           ]}
+         
           className={`font-bold`}
           name={value.name}
         >
