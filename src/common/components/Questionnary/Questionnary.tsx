@@ -9,7 +9,10 @@ import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import _classes from "./Questionnary.module.scss";
 import { parseJson } from "common/utils/helper";
 import { useRouter } from "next/router";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
 const CheckboxGroup = Checkbox.Group;
 
 interface HealthQuesType {
@@ -25,6 +28,8 @@ interface HealthQuesType {
   setActiveKey?: React.Dispatch<React.SetStateAction<string>>;
 }
 
+initTranslation(["Questionnary"]);
+
 const HealthQuestionnary = ({
   isUpdateMode,
   onFinishSuccess,
@@ -37,13 +42,16 @@ const HealthQuestionnary = ({
   setNextTab,
   setActiveKey,
 }: HealthQuesType) => {
-  const t = useTranslations("HealthQuestionary");
+  // const t = useTranslations("HealthQuestionary");
   const [terms, setTerms] = useState(false);
   const form: any = useRef();
   const handleChange = () => {
     setActiveKey?.("1");
     setNextTab?.((prev) => !prev);
   };
+
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
 
   useEffect(() => {
     //for Scroll to the top of the page
@@ -131,12 +139,14 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     }
   }, [data]);
 
-  const t = useTranslations("Questionnary");
-
   const router = useRouter();
 
   const { pathname } = router || {};
   let disabled = pathname?.includes("/physician/appointments");
+
+  const t = i18next.t;
+  console.log(t("title"));
+  // const t = useTranslations("Questionnary");
 
   function prepareAndSetEditPayload(parsedData: any) {
     setRadioDrink(parsedData?.q1.ans);

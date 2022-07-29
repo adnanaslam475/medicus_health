@@ -37,7 +37,7 @@ export const englishCommon: any = {
 
   street_address: "Street address",
   contact_number: "Contact number",
-  country: "Country",
+  country: "Country of birth",
   state: "State",
   city: "City",
   postal_code: "Postal Code",
@@ -188,7 +188,7 @@ export const englishCommon: any = {
 
 export const spanishCommon: any = {
   gender_message: "Por favor ingrese su género",
-  first_name: "Primer nombre",
+  first_name: "Nombre",
   first_name_message: "Por favor, introduzca su nombre de pila",
   last_name: "Apellido",
   last_name_message: "Por favor ingrese su apellido",
@@ -223,9 +223,9 @@ export const spanishCommon: any = {
 
   back_to_log_in: "Atrás para iniciar sesión",
 
-  street_address: "Dirección",
-  contact_number: "número de contacto",
-  country: "País",
+  street_address: "Dirección (calle y numero)",
+  contact_number: "Teléfono de contacto",
+  country: "País de nacimiento",
   state: "Estado",
   city: "Ciudad",
   postal_code: "Código postal",
@@ -251,7 +251,7 @@ export const spanishCommon: any = {
   email_is_invalid: "el correo electrónico es invalido",
   email_already_exist: "Ya existe el correo electrónico",
   street_address_message: "Por favor ingrese su dirección postal",
-  contact_number_message: "Por favor ingrese su número de contacto",
+  contact_number_message: "Por favor ingrese su teléfono de contacto",
   country_message: "Por favor ingrese su país",
   postal_address_message: "Por favor ingrese su código postal",
   upcoming_appointments: "próximas citas",
