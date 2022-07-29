@@ -581,7 +581,7 @@ function EditProfile({
                     { required: true },
                     {
                       min: 10,
-                      message: "Conctact number must be minimum 10 characters.",
+                      message: "Contact number must be minimum 10 characters.",
                     },
                   ]}
                   className="flex-1"
