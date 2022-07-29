@@ -29,7 +29,7 @@ const Columns = [
   },
 
   {
-    title: "Email",
+    title: "Email address",
     dataIndex: "email",
     key: "email",
     sorter: true,

@@ -61,7 +61,7 @@ function StepFour() {
           </div>
 
           <div className="flex justify-between ">
-            <span>System fee</span>
+            <span>Processing fee</span>
             <span>${systemFee || "0"}</span>
           </div>
           <div className="flex justify-between font-semibold">
@@ -78,11 +78,13 @@ function StepFour() {
         <span className="ml-3">{`${availabilityTime?.startTime} - ${availabilityTime?.endTime}`}</span>
       </div>
       <p className="font-rubik text-gray">
-        Please note that your payment will only be charged once the physician
-        will confirm the appointment. This is only an appointment request.
+        Please note, this is only an appointment request. Your physician will
+        respond with a 30 minute time slot within the date & time you have
+        indicated. You will be charged upon confirming the appointment time
+        proposed by your physician.
       </p>
       <p className="text-red">
-        System fee is not refundable in case of appointment cancellation
+      Processing fee is not refundable in the event you cancel your appointment.
       </p>
     </>
   );

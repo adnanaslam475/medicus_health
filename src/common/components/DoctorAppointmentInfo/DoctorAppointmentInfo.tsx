@@ -161,7 +161,7 @@ function DoctorAppointmentInfo({ data }: Props) {
       <div>
         <LabelWithText label="ID#" text={Number(id)} />
         <LabelWithText
-          label="Patient"
+          label="Patient name"
           text={
             patient?.first_name
               ? `${patient?.first_name} ${patient?.last_name}`
@@ -169,11 +169,11 @@ function DoctorAppointmentInfo({ data }: Props) {
           }
         />
         <LabelWithText
-          label="Type"
+          label="Appointment type requested"
           text={serviceType?.name ? serviceType?.name : "--"}
         />
         <LabelWithText
-          label="Appointment date"
+          label="AppoIntment date requested"
           text={
             appointmentDateTime?.startTime
               ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
@@ -189,7 +189,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={date?.formatDAYMMDDYY(requestedDate)}
         />
         <LabelWithText
-          label="Time"
+          label="Appointment time requested"
           text={
             appointmentDateTime?.startTime
               ? `${formatedStartTime} - ${formatedEndTime}`
@@ -221,7 +221,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         )}
 
         <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1 max-w-[300px]">Status</div>
+          <div className="w-full text-gray-1 max-w-[300px]">Appointment status</div>
           <div className="w-full text-secondary">
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
@@ -661,15 +661,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             className={`${_classes["appointments-btn"]} my-2 sm:my-0`}
             onClick={showModal}
           >
-            Propose time
-          </Button>
-          <Button
-            type="primary"
-            icon={<CheckOutlined />}
-            className={`${_classes["appointments-btn"]} bg-current sm:ml-3`}
-            onClick={showModal}
-          >
-            Edit appointment
+            Propose/edit appointment
           </Button>
         </div>
       </div>
@@ -679,7 +671,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         confirmLoading={cancelFetching}
         onCancel={() => setShowConfirmationModal(false)}
         onOk={onCancelRequestedAppointment}
-        message="Are you sure you want to cancel appointment?"
+        message="Are you sure you want to reject appointment?"
       />
 
       <Modal
@@ -728,7 +720,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           </Form.Item> */}
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime && (
             <Form.Item
-              label="Booked Requested Slot"
+              label="Appointment date & time requested by patient"
               name="requestedDate"
               className="font-semibold"
             >
@@ -747,7 +739,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             </Form.Item>
           )}
 
-          <label>Availability*</label>
+          <label>Propose appointment date & time</label>
           <div className="date-time-picker block mb-3">
             <AvailabilityTimeSlots
               form={datePickerInstance}
@@ -861,7 +853,7 @@ function AvailabilityTimeSlots({
           <Form.Item label="End time" name="end_time">
             <Space direction="vertical" size={12}>
               {endDateValue === "Invalid date" || !endDateValue ? (
-                <DatePicker disabled={true} className="w-full" showTime />
+                <DatePicker disabled={true} className="w-full" showTime placeholder="--" />
               ) : (
                 <DatePicker
                   value={moment(endDateValue, "MM-DD-YYYY hh:mm A")}

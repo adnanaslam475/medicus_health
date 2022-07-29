@@ -296,7 +296,7 @@ function AvailabilityTimeSlots({
           <Form.Item label="End Time" name="end_time">
             <Space direction="vertical" size={12}>
               {endDateValue === "Invalid date" || !endDateValue ? (
-                <DatePicker disabled={true} className="w-full" showTime />
+                <DatePicker disabled={true} className="w-full" showTime placeholder="--"/>
               ) : (
                 <DatePicker
                   value={moment(endDateValue,"MM-DD-YYYY hh:mm A")}

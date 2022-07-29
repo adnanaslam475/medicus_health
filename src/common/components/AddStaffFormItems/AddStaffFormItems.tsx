@@ -23,7 +23,7 @@ const createStaffForm = [
     required: true,
   },
   {
-    label: "Contact number",
+    label: "Contact #",
     name: "contact_number",
     type: "number",
     required: true,

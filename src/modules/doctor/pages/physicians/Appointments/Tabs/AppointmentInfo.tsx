@@ -68,15 +68,7 @@ function AppointmentInfo() {
               className={`${_classes["appointments-btn"]}`}
               onClick={showModal}
             >
-              Propose Time
-            </Button>
-            <Button
-              type="primary"
-              icon={<VideoCameraFilled />}
-              className={`${_classes["appointments-btn"]} bg-current ml-3`}
-              onClick={showModal}
-            >
-              Edit Appointment
+              Propose/edit appointment
             </Button>
           </div>
         </div>

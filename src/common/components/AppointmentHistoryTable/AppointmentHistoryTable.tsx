@@ -30,7 +30,7 @@ const historyColumns = [
   //   },
   // },
   {
-    title: "Physician",
+    title: "Physician name",
     dataIndex: "doctor",
     key: "first_name",
     sorter: true,
@@ -41,7 +41,7 @@ const historyColumns = [
     },
   },
   {
-    title: "Service type",
+    title: "Appointment type",
     dataIndex: "serviceType",
     key: "name",
     sorter: true,
@@ -111,7 +111,7 @@ const historyColumns = [
     },
   },
   {
-    title: "Status",
+    title: "Appointment status",
     dataIndex: "status",
     key: "status",
     sorter: true,
