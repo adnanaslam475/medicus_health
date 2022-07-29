@@ -64,6 +64,8 @@ export const ViewProfile = React.forwardRef(function Profile({
     about_me,
     educational_background,
     professional_experience,
+    certification_and_licensure,
+    awards_honors_recognition,
   } = doctorData || {};
   const { profile_image } = doctorData || {};
 
@@ -71,6 +73,9 @@ export const ViewProfile = React.forwardRef(function Profile({
 
   const professionalExperience =
     parseJson(professional_experience || "[]") || [];
+  const certificationBackground =
+    parseJson(certification_and_licensure || "[]") || [];
+  const honorsBackground = parseJson(awards_honors_recognition || "[]") || [];
 
   useEffect(() => {
     if (doctorData || userData?.user) {
@@ -153,6 +158,9 @@ export const ViewProfile = React.forwardRef(function Profile({
             formInstance={formInstance}
             professionalExperience={professionalExperience}
             educationalBackground={educationalBackground}
+            certificationBackground={certificationBackground}
+            honorsBackground={honorsBackground}
+
           />
         </div>
       </div>

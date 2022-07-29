@@ -163,6 +163,8 @@ mutation updateDoctorProfile(
     condition_treated
     educational_background
     professional_experience
+    certification_and_licensure
+    awards_honors_recognition
     language
     about_me
     profile_image

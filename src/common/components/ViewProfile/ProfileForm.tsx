@@ -5,6 +5,8 @@ import {
   bioForm,
   professionalBGData,
   educationalBGData,
+  certificationBGPlaceholder,
+  honorsBGPlaceholder,
 } from "../../../utils/helper";
 import { Schedule } from "../../types/types";
 import AboutMe from "../AboutMe/AboutMe";
@@ -21,6 +23,8 @@ interface Props {
   formInstance?: any;
   professionalExperience?: any;
   educationalBackground?: any;
+  certificationBackground: any;
+  honorsBackground: any;
 }
 
 type clinicType = {
@@ -41,6 +45,8 @@ function ProfileForm({
   formInstance,
   professionalExperience,
   educationalBackground,
+  certificationBackground,
+  honorsBackground,
 }: Props) {
   // const [formInstance] = Form.useForm();
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -293,6 +299,90 @@ function ProfileForm({
               </div>
             </div>
           )}
+        </div>
+
+        <div className={`my-6 ${_classes["professional"]}`}>
+          <h5 className={`${_classes["wordspacing-5"]}`}>
+            Certifications and licences
+          </h5>
+          {certificationBackground?.map((certificate: any, index: number) => {
+            return (
+              <div className="border-b border-gray-3 my-3 py-3" key={index}>
+                <Form.Item label="Certificates" className="flex-1">
+                  <Input
+                    name={`certification`}
+                    value={certificate?.certification}
+                    disabled
+                  />
+                </Form.Item>
+                <Form.Item label="licensure" className="flex-1">
+                  <Input
+                    name={`licensure`}
+                    value={certificate?.licensure}
+                    disabled
+                  />
+                </Form.Item>
+              </div>
+            );
+          })}
+          {!certificationBackground &&
+            certificationBGPlaceholder.map((item) => {
+              return item.map((val: any, index: number) => {
+                return (
+                  <div className="border-b border-gray-4 my-3" key={index}>
+                    <Form.Item
+                      label={val?.label || ""}
+                      name={val?.name || ""}
+                      className="flex-1"
+                    >
+                      <Input
+                        value={val.value || ""}
+                        defaultValue={val.defaultValue || ""}
+                        disabled={true}
+                      />
+                    </Form.Item>
+                  </div>
+                );
+              });
+            })}
+        </div>
+
+        <div className={`my-6 ${_classes["professional"]}`}>
+          <h5 className={`${_classes["wordspacing-5"]}`}>
+            Awards, honors and recognization
+          </h5>
+          {honorsBackground?.map((honor: any, index: number) => {
+            return (
+              <div className="border-b border-gray-3 my-3 py-3" key={index}>
+                <Form.Item label="Certificates" className="flex-1">
+                  <Input name={`awards`} value={honor?.awards} disabled />
+                </Form.Item>
+                <Form.Item label="honors" className="flex-1">
+                  <Input name={`honors_and_recognition`} value={honor?.honors_and_recognition} disabled />
+                </Form.Item>
+              </div>
+            );
+          })}
+          {!honorsBackground &&
+            honorsBGPlaceholder.map((item) => {
+              return item.map((val: any, index: number) => {
+                return (
+                  <div className="border-b border-gray-4 my-3" key={index}>
+                    <Form.Item
+                      label={val?.label || ""}
+                      name={val?.name || ""}
+                      className="flex-1"
+                    >
+                      <Input
+                        value={val.value || ""}
+                        defaultValue={val.defaultValue || ""}
+                        disabled={true}
+                      />
+                    </Form.Item>
+                  </div>
+                );
+              });
+            })}
         </div>
       </Form>
     </div>
