@@ -163,8 +163,10 @@ function EditProfile({
     { institution: "", degree: "" },
   ]);
 
-  const [countryId, setCountryId] = useState<number | undefined>();
-  const [stateId, setStateId] = useState<number | undefined>();
+  const [countryId, setCountryId] = useState<number | undefined>(
+    Number(country_id)
+  );
+  const [stateId, setStateId] = useState<number | undefined>(Number(state_id));
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -269,8 +271,10 @@ function EditProfile({
       if (updatedLoggedInUserData?.user) {
         updatedLoggedInUserData.user.first_name = values?.firstName;
         updatedLoggedInUserData.user.last_name = values?.lastName;
-        updatedLoggedInUserData.user.doctorProfile.profile_image =
-          image || userProfileImage;
+        if (updatedLoggedInUserData.user.doctorProfile) {
+          updatedLoggedInUserData.user.doctorProfile.profile_image =
+            image || userProfileImage;
+        }
         localStorage.setItem(
           "loggedInUserData",
           JSON.stringify(updatedLoggedInUserData)
@@ -573,7 +577,13 @@ function EditProfile({
                 <Form.Item
                   name="contact"
                   label="Contact number"
-                  rules={[{ required: true }]}
+                  rules={[
+                    { required: true },
+                    {
+                      min: 10,
+                      message: "Contact number must be minimum 10 characters.",
+                    },
+                  ]}
                   className="flex-1"
                 >
                   <Input type="number" />

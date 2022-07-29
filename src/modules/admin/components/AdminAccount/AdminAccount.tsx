@@ -75,7 +75,7 @@ function AdminAccount() {
               tab={
                 <span>
                   <BellOutlined />
-                  Email Notifications
+                  Email notifications
                 </span>
               }
               key="2"
