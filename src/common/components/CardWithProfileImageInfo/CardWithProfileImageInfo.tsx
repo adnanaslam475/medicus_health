@@ -4,7 +4,7 @@ import MessageButtons from "../MessageButtons/MessageButtons";
 
 type Props = {
   children: React.ReactNode | JSX.Element | undefined;
-  serviceName: string | undefined;
+  serviceName?: string | undefined;
   name: string | undefined;
   imageUrl?: string | undefined | null;
 };

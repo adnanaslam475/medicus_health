@@ -41,7 +41,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Email",
+    title: "Email address",
     dataIndex: "email",
     key: "email",
     render: (email: User) => {

@@ -239,9 +239,9 @@ function EditProfile({
         year_of_experience: Number(values?.year_of_experience || 0),
         streetAddress: values?.streetAddress,
         contact_number: values?.contact,
-        city_id: Number(values?.city_id),
+        city_id: Number(values?.city_id || 0),
         country_id: Number(values?.country_id),
-        state_id: Number(values?.state_id),
+        state_id: Number(values?.state_id || 0),
         zip_code: values?.zip_code,
         email: values?.email || "",
         password: values?.password,
@@ -268,7 +268,7 @@ function EditProfile({
       let loggedInUserData = localStorage.getItem("loggedInUserData");
       let updatedLoggedInUserData: LoginUserInput | any =
         loggedInUserData && JSON.parse(loggedInUserData);
-      if (updatedLoggedInUserData?.user) {
+      if (updatedLoggedInUserData?.user && updatedLoggedInUserData?.user?.role === "Doctor") {
         updatedLoggedInUserData.user.first_name = values?.firstName;
         updatedLoggedInUserData.user.last_name = values?.lastName;
         if (updatedLoggedInUserData.user.doctorProfile) {
@@ -550,7 +550,7 @@ function EditProfile({
                 <Form.Item
                   label="First name"
                   name="firstName"
-                  rules={[{ required: true, message: "First name!" }]}
+                  rules={[{ required: true, message: "First name is required" }]}
                   className="flex-1"
                 >
                   <Input autoFocus={true} />
@@ -558,7 +558,7 @@ function EditProfile({
                 <Form.Item
                   label="Last name"
                   name="lastName"
-                  rules={[{ required: true, message: "Last name!" }]}
+                  rules={[{ required: true, message: "Last name is required" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -576,7 +576,7 @@ function EditProfile({
                 </Form.Item>
                 <Form.Item
                   name="contact"
-                  label="Contact number"
+                  label="Contact #"
                   rules={[
                     { required: true },
                     {

@@ -39,9 +39,7 @@ function SuccessMessage({ onCancel }: Props) {
         />
         <h1 className="mt-3 mb-0">Success!</h1>
         <p className="text-seconday text-base">
-          Your appointment has been requested.<br/> The appointment is not being
-          Charged yet You will get a notification once the doctor will confirm
-          the appointment. Thank you.
+        Your appointment has been requested. Your physician will propose a 30 minute time slot within the time you have requested. Once you confirm the proposed time you will be charged.
         </p>
         <button
           className="text-white bg-primary text-sm rounded-md p-3 px-8"

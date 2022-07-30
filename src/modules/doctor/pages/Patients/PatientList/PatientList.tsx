@@ -80,7 +80,7 @@ const columns = [
 		},
 	},
 	{
-		title: "Contact number",
+		title: "Contact #",
 		dataIndex: "contact_number",
 		key: "contact_number",
 		sorter: true,

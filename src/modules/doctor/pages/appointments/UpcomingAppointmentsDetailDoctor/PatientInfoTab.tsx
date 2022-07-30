@@ -59,7 +59,7 @@ function PatientInfoTab({}: Props) {
   ) : (
     <CardWithProfileImageInfo
       name={`${patient?.first_name || ""} ${patient?.last_name || ""}`}
-      serviceName={serviceType?.name || ""}
+      // serviceName={serviceType?.name || ""}
       imageUrl={patient?.patientProfile?.profileImage || ""}
     >
       <div className="max-w-[800px]">

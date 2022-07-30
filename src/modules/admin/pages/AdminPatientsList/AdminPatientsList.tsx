@@ -30,7 +30,7 @@ const columns: ColumnsType<User> = [
     },
   },
   {
-    title: "Email",
+    title: "Email address",
     dataIndex: "email",
     key: "email",
     sorter: true,
@@ -39,7 +39,7 @@ const columns: ColumnsType<User> = [
     },
   },
   {
-    title: "Contact Number",
+    title: "Contact #",
     dataIndex: "contact_number",
     key: "contact_number",
     sorter: true,
