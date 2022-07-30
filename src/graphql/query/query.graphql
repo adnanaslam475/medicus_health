@@ -181,6 +181,8 @@ query doctorProfile($doctor_id: Int!) {
     condition_treated
     educational_background
     professional_experience
+    awards_honors_recognition
+    certification_and_licensure
     language
     about_me
     profile_image

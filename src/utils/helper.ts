@@ -353,6 +353,44 @@ export const educationalBGData = [
   ],
 ];
 
+export const certificationBGPlaceholder = [
+  [
+    {
+      label: "Certification",
+      name: "certification",
+      value: "University of Oklahoma College of Medicine",
+      defaultValue: "University of Oklahoma College of Medicine",
+      disabled: true,
+    },
+    {
+      label: "Licensure",
+      name: "licensure",
+      value: "University of Oklahoma College of Medicine",
+      defaultValue: "University of Oklahoma College of Medicine",
+      disabled: true,
+    },
+  ],
+];
+
+export const honorsBGPlaceholder = [
+  [
+    {
+      label: "Award",
+      name: "awards",
+      value: "University of Oklahoma College of Medicine",
+      defaultValue: "University of Oklahoma College of Medicine",
+      disabled: true,
+    },
+    {
+      label: "Honors",
+      name: "honors_and_recognition",
+      value: "University of Oklahoma College of Medicine",
+      defaultValue: "University of Oklahoma College of Medicine",
+      disabled: true,
+    },
+  ],
+];
+
 export const days = [
   { key: 1, value: "Monday" },
   { key: 2, value: "Tuesday" },
