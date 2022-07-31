@@ -290,9 +290,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
-                  {t("country")}{" "}
-                </div>
+                <div className="w-1/2 sm:w-1/3 text-gray-1">{t("country")}</div>
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
                 >
@@ -478,20 +476,23 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     <Form.Item
                       className="mb-0"
                       name="exposureDuration"
-                      label="Occupational exposure duration?"
+                      label={t("occupational_exposure_duration")}
                     >
                       <Select
-                        placeholder="Occupational exposure duration"
+                        placeholder={t("occupational_exposure_duration")}
                         size="large"
                       >
                         <Select.Option value="Less than a year (<1)">
-                          Less than a year
+                          {t("less_than_a_year")}
+                          {/* Less than a year */}
                         </Select.Option>
                         <Select.Option value="More than a year (1+)">
-                          More than a year (1+)
+                          {t("more_than_a_year_1")}
+                          {/* More than a year (1+) */}
                         </Select.Option>
                         <Select.Option value="More than three to five years (3-5)">
-                          More than three to five years (3-5)
+                          {t("more_than_three_to_five_years_3_5")}
+                          {/* More than three to five years (3-5) */}
                         </Select.Option>
                       </Select>
                     </Form.Item>

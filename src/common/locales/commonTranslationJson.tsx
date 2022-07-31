@@ -122,6 +122,10 @@ export const englishCommon: any = {
   tax: "Tax",
   system_fee: "System fee",
   marital_status: "Marital status",
+  single: "Single",
+  married: "Married",
+  widow: "Widow",
+  divorce: "Divorce",
   total_charges: "Total charges",
   requested_date_n_time: "Requested date & time",
   app_system_fee_message:
@@ -183,6 +187,10 @@ export const englishCommon: any = {
   What_is_your_occupation: "What is your occupation?",
   do_you_have_any_occupational_exposure:
     "Do you have any occupational exposure?",
+  occupational_exposure_duration: "Occupational exposure duration?",
+  less_than_a_year: "Less than a year",
+  more_than_a_year_1: "More than a year (1+)",
+  more_than_three_to_five_years_3_5: "More than three to five years (3-5)",
   do_you_have_any_pets: "Do you have any pets?",
 };
 
@@ -370,11 +378,19 @@ export const spanishCommon: any = {
   prefer_not_to_answer: "Prefiero no responder",
   please_input_your_email: "Por favor ingrese su correo electrónico!",
   marital_status: "Estado civil",
+  single: "Único/Única",
+  married: "Casado",
+  widow: "Viuda",
+  divorce: "Divorcio",
   do_you_have_any_children: "¿Tienes hijos?",
   number_of_children: "Numero de niñas",
   What_is_your_occupation: "¿Cuál es tu ocupación?",
   do_you_have_any_occupational_exposure:
     "¿Tiene alguna exposición ocupacional?",
+  occupational_exposure_duration: "¿Duración de la exposición ocupacional?",
+  less_than_a_year: "Menos de un año",
+  more_than_a_year_1: "Más de un año (1+)",
+  more_than_three_to_five_years_3_5: "Más de tres a cinco años (3-5)",
   do_you_have_any_pets: "¿Tiene mascotas?",
 };
 

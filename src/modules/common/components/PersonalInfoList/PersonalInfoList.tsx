@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+import { useTranslations } from "next-intl";
 import React from "react";
 import { date } from "../../../../common/utils";
 import {
@@ -13,6 +14,7 @@ type Props = {
 };
 
 function PersonalInfoList({ userDetail }: { userDetail: any }) {
+  const t = useTranslations("PersonalInfo");
   const {
     first_name,
     last_name,
@@ -242,7 +244,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           >
             {patientProfile?.occupationalExposure === "Yes"
               ? patientProfile?.exposureDuration
-              : "No" }
+              : "No"}
           </div>
         </div>
       </li>
