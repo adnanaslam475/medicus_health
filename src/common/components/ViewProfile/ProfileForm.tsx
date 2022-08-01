@@ -288,7 +288,7 @@ function ProfileForm({
                   </Form.Item>
 
                   <Form.Item
-                    label="Confirm Password"
+                    label="Confirm password"
                     name="confirmPassword"
                     // rules={[{ required: true, message: "Confirm password!" }]}
                     className="flex-1"

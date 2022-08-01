@@ -242,6 +242,21 @@ function DoctorProfileCard(props: Props) {
 				</h4>
 				<h6 className="text-secondary">{doctorData?.condition_treated}</h6>
 				<Divider />
+				
+				<h4 className="font-bold mb-1">
+					{t("certification_and_licensure")}
+				</h4>
+				<div className="text-secondary">
+					{doctorData?.certification_and_licensure &&
+						JSON.parse(doctorData?.certification_and_licensure).map((item: any) => (
+							<>
+								<b>{item?.certification}</b>
+								<span className="text-secondary block">{item?.licensure}</span>
+							</>
+						))}
+				</div>
+				<Divider />
+
 				<h4 className="font-bold mb-1">{t("professional_background")}</h4>
 				<div className="text-secondary">
 					{doctorData?.professional_experience &&
@@ -263,6 +278,21 @@ function DoctorProfileCard(props: Props) {
 							<>
 								<b>{item?.institution}</b>
 								<span className="text-secondary block">{item?.degree}</span>
+							</>
+						))}
+				</div>
+				<Divider />
+
+				<Divider />
+					<h4 className="font-bold mb-1">
+					{t("awards_honors_recognition")}
+				</h4>
+				<div className="text-secondary">
+					{doctorData?.awards_honors_recognition &&
+						JSON.parse(doctorData?.awards_honors_recognition).map((item: any) => (
+							<>
+								<b>{item?.awards}</b>
+								<span className="text-secondary block">{item?.honors_and_recognition}</span>
 							</>
 						))}
 				</div>
