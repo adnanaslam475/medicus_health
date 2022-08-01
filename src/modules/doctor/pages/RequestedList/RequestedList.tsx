@@ -55,12 +55,12 @@ const Columns = [
     key: "requestedDate",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
       return (
         <div>
-          {" "}
           {appointmentDateTime?.startTime
-            ? `${date?.formatDAYMMDDYY(appointmentDateTime?.startTime)} `
-            : "-"}
+            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
+            : "--"}
         </div>
       );
     },
@@ -71,13 +71,17 @@ const Columns = [
     key: "requestedDate",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+      let formatedStartTime = `${
+        appointmentDateTime?.startTime?.split(" ")[1]
+      } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+      let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+        appointmentDateTime?.endTime?.split(" ")[2]
+      }`;
       return (
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${date?.formathhmma(
-                appointmentDateTime?.startTime
-              )} - ${date?.formathhmma(appointmentDateTime?.endTime)}`
-            : "-"}
+            ? `${formatedStartTime} - ${formatedEndTime} `
+            : "--"}
         </div>
       );
     },
