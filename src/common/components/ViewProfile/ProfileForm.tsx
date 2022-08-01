@@ -358,7 +358,11 @@ function ProfileForm({
                   <Input name={`awards`} value={honor?.awards} disabled />
                 </Form.Item>
                 <Form.Item label="honors" className="flex-1">
-                  <Input name={`honors_and_recognition`} value={honor?.honors_and_recognition} disabled />
+                  <Input
+                    name={`honors_and_recognition`}
+                    value={honor?.honors_and_recognition}
+                    disabled
+                  />
                 </Form.Item>
               </div>
             );

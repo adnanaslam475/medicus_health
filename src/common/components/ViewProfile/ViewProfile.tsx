@@ -160,7 +160,6 @@ export const ViewProfile = React.forwardRef(function Profile({
             educationalBackground={educationalBackground}
             certificationBackground={certificationBackground}
             honorsBackground={honorsBackground}
-
           />
         </div>
       </div>
