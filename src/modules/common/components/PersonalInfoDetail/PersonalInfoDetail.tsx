@@ -148,12 +148,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     rules={[
                       {
                         required: true,
-                        message: "First name is required",
+                        message: t("first_name_is_required"),
                       },
                     ]}
                     className="bottom-margin-0"
                   >
-                    <Input size="large" placeholder="First name" />
+                    <Input size="large" placeholder={t("first_name")} />
                   </Form.Item>
                 </div>
               </div>
@@ -172,12 +172,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     rules={[
                       {
                         required: true,
-                        message: "Last name is required",
+                        message: t("last_name_is_required"),
                       },
                     ]}
                     className="bottom-margin-0"
                   >
-                    <Input size="large" placeholder="last Name" />
+                    <Input size="large" placeholder={t("last_name")} />
                   </Form.Item>
                 </div>
               </div>
@@ -350,14 +350,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     rules={[
                       {
                         required: true,
-                        message: "Postal Code is required",
+                        message: t("postal_code_is_required"),
                       },
                     ]}
                     className="bottom-margin-0"
                   >
                     <Input
                       size="large"
-                      placeholder="Postal Code"
+                      placeholder={t("postal_code")}
                       type="number"
                     />
                   </Form.Item>
@@ -390,7 +390,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 >
                   <Form.Item className="mb-0">
                     <Form.Item className="mb-0" name="maritalStatus">
-                      <Select placeholder="Marital status" size="large">
+                      <Select placeholder={t("marital_status")} size="large">
                         <Select.Option value="Single">
                           {t("single")}
                         </Select.Option>
@@ -425,12 +425,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         setradioChildren(e.target.value);
                       }}
                     >
-                      <Radio value={true}>Yes</Radio>
-                      <Radio value={false}>No</Radio>
+                      <Radio value={true}>{t("yes")}</Radio>
+                      <Radio value={false}>{t("no")}</Radio>
                     </Radio.Group>
                     {radioChildren && (
                       <Form.Item className="mb-0" name="children">
-                        <Input size="large" placeholder="No. of children" />
+                        <Input
+                          size="large"
+                          placeholder={t("number_of_children")}
+                        />
                       </Form.Item>
                     )}
                   </Form.Item>
@@ -447,7 +450,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
                 >
                   <Form.Item noStyle name="occupation">
-                    <Input size="large" placeholder="Occupation" />
+                    <Input size="large" placeholder={t("occupation")} />
                   </Form.Item>
                 </div>
               </div>
@@ -467,8 +470,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         setradioOccupationalExposure(e.target.value);
                       }}
                     >
-                      <Radio value="Yes">Yes</Radio>
-                      <Radio value="No">No</Radio>
+                      <Radio value="Yes">{t("yes")}</Radio>
+                      <Radio value="No">{t("no")}</Radio>
                     </Radio.Group>
                   </Form.Item>
 
@@ -484,15 +487,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                       >
                         <Select.Option value="Less than a year (<1)">
                           {t("less_than_a_year")}
-                          {/* Less than a year */}
                         </Select.Option>
                         <Select.Option value="More than a year (1+)">
                           {t("more_than_a_year_1")}
-                          {/* More than a year (1+) */}
                         </Select.Option>
                         <Select.Option value="More than three to five years (3-5)">
                           {t("more_than_three_to_five_years_3_5")}
-                          {/* More than three to five years (3-5) */}
                         </Select.Option>
                       </Select>
                     </Form.Item>
@@ -511,8 +511,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 >
                   <Form.Item className="mb-0" name="pets">
                     <Radio.Group>
-                      <Radio value="Yes">Yes</Radio>
-                      <Radio value="No">No</Radio>
+                      <Radio value="Yes">{t("yes")}</Radio>
+                      <Radio value="No">{t("no")}</Radio>
                     </Radio.Group>
                   </Form.Item>
                 </div>

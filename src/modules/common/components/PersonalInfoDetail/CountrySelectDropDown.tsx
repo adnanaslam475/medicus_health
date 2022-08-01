@@ -1,15 +1,23 @@
 import React from "react";
 import { Form, Select } from "antd";
 import { useCountriesQuery } from "../../../../generated/graphql";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
 
 type Props = {
   onChange: ((value: any, option: any) => void) | undefined;
 };
 
+initTranslation(["PersonalInfo"]);
+
 const CountrySelectDropDown = (props: Props) => {
   const { onChange } = props;
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
+
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
 
   return (
     <Form.Item
@@ -18,7 +26,7 @@ const CountrySelectDropDown = (props: Props) => {
       rules={[
         {
           required: true,
-          message: "Please enter your country",
+          message: t("country_message"),
         },
       ]}
     >
@@ -28,7 +36,7 @@ const CountrySelectDropDown = (props: Props) => {
           country.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
         }
         onChange={onChange}
-        placeholder="Country"
+        placeholder={t("country")}
       >
         {React.Children.toArray(
           countries?.map((el, i) => {
