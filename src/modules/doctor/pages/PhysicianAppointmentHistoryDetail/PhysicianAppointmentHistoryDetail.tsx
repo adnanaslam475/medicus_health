@@ -9,85 +9,85 @@ import NotesWithTextTab from "./NotesWithTextTab";
 
 import PhysicianAttachmentTab from "./PhysicianAttachmentTab";
 import {
-  Appointment,
-  AppointmentNote,
-  usePhysicianAppointmentsHistoryQuery,
+	Appointment,
+	AppointmentNote,
+	usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
 // import NotesTab from "../appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
 import NotesTab from "common/components/NotesTab/NotesTab";
 
 function PhysicianAppointmentHistoryDetail() {
-  const { query } = useRouter();
-  const [activeTab, setActiveTab] = React.useState<string>("");
+	const { query } = useRouter();
+	const [activeTab, setActiveTab] = React.useState<string>("");
 
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
-    variables: {
-      filter: { searchString: String(query?.id), status: "Completed" },
-    },
-  });
-  const { appointments } = data || {};
-  const appointment = appointments?.items && appointments.items[0];
+	const [{ data }] = usePhysicianAppointmentsHistoryQuery({
+		variables: {
+			filter: { searchString: String(query?.id), status: "Completed" },
+		},
+	});
+	const { appointments } = data || {};
+	const appointment = appointments?.items && appointments.items[0];
 
-  // let doctorNotes =
-  //   appointment?.currentAppointmentNote &&
-  //   Object?.entries(appointment?.currentAppointmentNote);
+	// let doctorNotes =
+	//   appointment?.currentAppointmentNote &&
+	//   Object?.entries(appointment?.currentAppointmentNote);
 
-  useEffect(() => {
-    query?.activeTab && setActiveTab(String(query?.activeTab));
-  }, [query]);
-  const onChangeTabHandler = (key: string) => {
-    setActiveTab(key);
-    history.pushState({}, "", "?activeTab=" + key);
-  };
+	useEffect(() => {
+		query?.activeTab && setActiveTab(String(query?.activeTab));
+	}, [query]);
+	const onChangeTabHandler = (key: string) => {
+		setActiveTab(key);
+		history.pushState({}, "", "?activeTab=" + key);
+	};
 
-  return (
-    <AppLayout>
-      <>
-        <h2 className="mb-4">Appointment history detail</h2>
-        <div className="profile-tabs">
-          <Tabs
-            type="card"
-            defaultActiveKey="1"
-            activeKey={activeTab || "1"}
-            onChange={onChangeTabHandler}
-          >
-            <Tabs.TabPane tab="Appointment info" key="1" className="">
-              <PatientAppointmentInfoTab />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Patient info" key="2">
-              <PatientInfoTab />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Health questionnaire" key="3">
-              <HealthQuestionnaireFormTab />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Physician questionnaire" key="4">
-              <PhysicianQuestionnaireFormTab />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Attachment" key="5">
-              <PhysicianAttachmentTab />
-            </Tabs.TabPane>
-            {/* <Tabs.TabPane tab="Notes" key="6">
+	return (
+		<AppLayout>
+			<>
+				<h2 className="mb-4">Appointment history detail</h2>
+				<div className="profile-tabs">
+					<Tabs
+						type="card"
+						defaultActiveKey="1"
+						activeKey={activeTab || "1"}
+						onChange={onChangeTabHandler}
+					>
+						<Tabs.TabPane tab="Appointment info" key="1" className="">
+							<PatientAppointmentInfoTab />
+						</Tabs.TabPane>
+						<Tabs.TabPane tab="Patient info" key="2">
+							<PatientInfoTab />
+						</Tabs.TabPane>
+						<Tabs.TabPane tab="Health questionnaire" key="3">
+							<HealthQuestionnaireFormTab />
+						</Tabs.TabPane>
+						<Tabs.TabPane tab="Physician questionnaire" key="4">
+							<PhysicianQuestionnaireFormTab />
+						</Tabs.TabPane>
+						<Tabs.TabPane tab="Attachment" key="5">
+							<PhysicianAttachmentTab />
+						</Tabs.TabPane>
+						{/* <Tabs.TabPane tab="Notes" key="6">
               <NotesWithTextTab
                 appointment={appointment as Appointment}
                 doctorNotes={doctorNotes as [[string,string]]}
               />
             </Tabs.TabPane> */}
-            <Tabs.TabPane
-              tab={
-                <span>
-                  {/* <CalendarOutlined /> */}
-                  Notes
-                </span>
-              }
-              key="6"
-            >
-              <NotesTab />
-            </Tabs.TabPane>
-          </Tabs>
-        </div>
-      </>
-    </AppLayout>
-  );
+						<Tabs.TabPane
+							tab={
+								<span>
+									{/* <CalendarOutlined /> */}
+									Notes
+								</span>
+							}
+							key="6"
+						>
+							<NotesTab />
+						</Tabs.TabPane>
+					</Tabs>
+				</div>
+			</>
+		</AppLayout>
+	);
 }
 export default PhysicianAppointmentHistoryDetail;
