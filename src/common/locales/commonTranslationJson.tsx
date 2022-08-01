@@ -18,6 +18,7 @@ export const englishCommon: any = {
   search_by: "Search by",
 
   password: "Password",
+
   reset_password: "Reset password",
   password_message: "Please enter your password!",
   enter_your_new_password: "Enter your new password",
@@ -73,8 +74,8 @@ export const englishCommon: any = {
   upcoming_appointments: "Upcoming appointments",
   pending_appointments: "Pending appointments",
   canceled_appointments: "Canceled appointments",
-  filter_search_placeholder_1: "Search by ID, physician name or patient name",
-  history: "History",
+  filter_search_placeholder_1: "Search by ID, Physician name or Patient name",
+  appointments_history: "Appointments history",
 
   physician: "Physician",
   appointment_type: "Appointment type",
@@ -117,7 +118,7 @@ export const englishCommon: any = {
   general_Health_questionnaire: "General health questionnaire",
   health_questionnaire_is_attached: "Health questionnaire is attached",
   change_health_questionnaire_message:
-    "If you wish to update the make changes in your current health questionnaire,",
+    "If you wish to update and make changes in your current health questionnaire,",
   click_here: "Click here",
   i_want_to_use_my_last_filled_form: "I want to use my last filled form",
   summary: "Summary",
@@ -176,8 +177,8 @@ export const englishCommon: any = {
   submit: "Submit",
   send_resend_link: "Send Resend Link",
   verifying: "Verifying...",
-  id_or_patient_name: "ID# or patient name",
-  id_or_physician_name: "ID# or physician name",
+  id_or_patient_name: "ID# or Patient name",
+  id_or_physician_name: "ID# or Physician name",
   successfully_updated: "Successfully Updated",
   personal_information: "Personal information",
   health_questionnaire: "Health questionnaire",
