@@ -83,16 +83,16 @@ export const bioForm = [
       defaultValue: "",
     },
     {
-      label: "City",
-      name: "city",
+      label: "State",
+      name: "state",
       disabled: true,
       defaultValue: "",
     },
   ],
   [
     {
-      label: "State",
-      name: "state",
+      label: "City",
+      name: "city",
       disabled: true,
       defaultValue: "",
     },

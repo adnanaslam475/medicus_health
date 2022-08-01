@@ -44,6 +44,7 @@ function PatientAppointmentInfoTab() {
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
       serviceName={serviceType?.name}
+      imageUrl={patient?.patientProfile?.profileImage}
     >
       <DoctorAppointmentInfo data={appointment as Appointment} />
     </CardWithProfileImageInfo>

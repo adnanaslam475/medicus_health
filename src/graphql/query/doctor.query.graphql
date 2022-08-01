@@ -338,6 +338,7 @@ query physicianAppointmentsHistory(
           occupation
           occupationalExposure
           pets
+          profileImage
         }
         patientHealthHistory {
           history
