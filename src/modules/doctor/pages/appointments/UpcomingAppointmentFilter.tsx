@@ -6,6 +6,9 @@ import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilt
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { BookingDate } from "generated/graphql";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
 
 const { Option } = Select;
 
@@ -14,6 +17,8 @@ const { RangePicker } = DatePicker;
 type Props = {
   onChange: (value: physicianFilterType) => void;
 };
+
++initTranslation(["SearchFilters"]);
 function UpcomingAppointmentFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -21,6 +26,10 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
     setFilterState({});
     onChange({});
   }
+
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
+
   const [openDateRange, setOpenDateRange] = useState(false);
 
   const applyDateRange = () => {
@@ -50,7 +59,9 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 
   return (
     <div className="page-filters flex items-center my-3 flex-wrap">
-      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">Search by</span>
+      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">
+        {t("search_by")}
+      </span>
       <div className="flex items-center gap-2 flex-wrap">
         <div className=" w-full sm:w-full md:w-64 ">
           <Input
@@ -63,40 +74,37 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
           />
         </div>
         <div className="flex w-full sm:w-60 ">
-        
-        <SelectServiceTypeFilter
-          onChange={(value) => onChangeFields("serviceId", value)}
-          value={filterState?.serviceId}
-        />
-
-      </div>
-        <div className="-mt-6 w-full sm:w-60">
-        <FilterRangePicker
-          onChange={(dateString: string[]) =>
-            setBookingDate({
-              startDate: dateString[0],
-              endDate: dateString[1],
-            })
-          }
-          open={openDateRange}
-          onOpen={() => setOpenDateRange?.(!openDateRange)}
-          onCancel={() => setOpenDateRange(false)}
-          onApply={applyDateRange}
-          title={
-            filterState.bookingDate?.startDate && (
-              <div>
-                {filterState.bookingDate
-                  ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-                  : "Date"}
-              </div>
-            )
-          }
-          heading="Appointment date"
-        />
+          <SelectServiceTypeFilter
+            onChange={(value) => onChangeFields("serviceId", value)}
+            value={filterState?.serviceId}
+          />
         </div>
-     
-    
-          <div className="flex w-full md:w-44 xl:w-60 mr-3">
+        <div className="-mt-6 w-full sm:w-60">
+          <FilterRangePicker
+            onChange={(dateString: string[]) =>
+              setBookingDate({
+                startDate: dateString[0],
+                endDate: dateString[1],
+              })
+            }
+            open={openDateRange}
+            onOpen={() => setOpenDateRange?.(!openDateRange)}
+            onCancel={() => setOpenDateRange(false)}
+            onApply={applyDateRange}
+            title={
+              filterState.bookingDate?.startDate && (
+                <div>
+                  {filterState.bookingDate
+                    ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
+                    : "Date"}
+                </div>
+              )
+            }
+            heading="Appointment date"
+          />
+        </div>
+
+        <div className="flex w-full md:w-44 xl:w-60 mr-3">
           <Select
             placeholder="Payment status"
             onChange={(e) => onChangeFields("paymentStatus", e)}
@@ -106,8 +114,8 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
             <Select.Option value="unpaid">Unpaid</Select.Option>
             <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
-        <FilterClearButton onClear={clear} />
-      </div>
+          <FilterClearButton onClear={clear} />
+        </div>
       </div>
     </div>
   );

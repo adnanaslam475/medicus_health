@@ -14,14 +14,18 @@ import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter
 import { getRole } from "common/utils/userData";
 import { useTranslations } from "next-intl";
 import { translationJson } from "common/locales/translationJson";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
 
 type Props = {
   onChange: (value: GetAdminUsersFilterInput) => void;
   filterValues: GetAppointmentInput;
 };
 
+initTranslation(["SearchFilters"]);
+
 function AdminAppointmentFilter({ onChange, filterValues }: Props) {
-  const t = useTranslations("SearchFilters");
   const [openDateRange, setOpenDateRange] = React.useState<string>("");
   const [dueDate, setDueDate] = useState<BookingDate>({});
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -56,7 +60,6 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
         endDate: "",
       });
       delete filters.dueDate;
-
     }
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
@@ -79,6 +82,9 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
     }
     onChange(filters);
   }
+
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
 
   return (
     <div className="page-filters flex-none lg:flex items-center mb-5 flex-wrap">
