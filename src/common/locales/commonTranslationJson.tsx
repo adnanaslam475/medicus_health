@@ -73,7 +73,7 @@ export const englishCommon: any = {
 	upcoming_appointments: "Upcoming appointments",
 	pending_appointments: "Pending appointments",
 	canceled_appointments: "Canceled appointments",
-	filter_search_placeholder_1: "Search by ID, physician name or Patient name",
+	filter_search_placeholder_1: "Search by ID, Physician name or Patient name",
 	history: "History",
 
 	physician: "Physician",
@@ -175,7 +175,7 @@ export const englishCommon: any = {
 	send_resend_link: "Send Resend Link",
 	verifying: "Verifying...",
 	id_or_patient_name: "ID# or Patient name",
-	id_or_physician_name: "ID# or physician name",
+	id_or_physician_name: "ID# or Physician name",
 	successfully_updated: "Successfully Updated",
 	personal_information: "Personal information",
 	health_questionnaire: "Health questionnaire",
