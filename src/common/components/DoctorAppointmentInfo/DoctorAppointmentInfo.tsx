@@ -184,10 +184,10 @@ function DoctorAppointmentInfo({ data }: Props) {
           label="Booking date"
           text={date?.formatDAYMMDDYY(createdAt)}
         /> */}
-        <LabelWithText
+        {/* <LabelWithText
           label="Requested date"
           text={date?.formatDAYMMDDYY(requestedDate)}
-        />
+        /> */}
         <LabelWithText
           label="Appointment time requested"
           text={

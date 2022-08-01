@@ -122,11 +122,17 @@ function AdminPhysicianList() {
 			dataIndex: "appointmentDateTime",
 			key: "appointmentDateTime",
 			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+				let formatedStartTime = `${
+					appointmentDateTime?.startTime?.split(" ")[1]
+				} ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+				let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+					appointmentDateTime?.endTime?.split(" ")[2]
+				}`;
 				return (
-					<div className="someclass">
-						{appointmentDateTime?.startTime
-							? `${date?.formatDAYMMDDYY(appointmentDateTime?.startTime)} `
-							: "--"}
+					<div>
+				{appointmentDateTime?.startTime && appointmentDateTime?.endTime
+				  ? `${formatedStartTime} - ${formatedEndTime} `
+				  : "--"}
 					</div>
 				);
 			},
