@@ -137,7 +137,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
             </div>
           </Skeleton>
 
-          <div className="flex items-center text-right justify-end w-full md:w-1/3 ">
+          <div className="flex items-center text-right justify-end w-full md:w-1/2">
             <Dropdown
               className="flex items-center"
               overlay={menu}

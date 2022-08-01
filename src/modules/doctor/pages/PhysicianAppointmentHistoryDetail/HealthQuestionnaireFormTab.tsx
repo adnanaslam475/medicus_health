@@ -1,18 +1,38 @@
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
-import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
+import {
+  GetAppointmentInput,
+  usePhysicianAppointmentsHistoryQuery,
+} from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
 
 function HealthQuestionnaireFromTab() {
   const { query } = useRouter();
 
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+    {}
+  );
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
+  const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
+      // filter: { appointmentId: Number(query?.id) },
       filter: { searchString: String(query?.id), status: "Completed" },
+      pagination,
+      sorting,
     },
     requestPolicy: "network-only",
   });
+
   const { appointments } = data || {};
   const appointment = appointments?.items && appointments.items[0];
 

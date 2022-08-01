@@ -10,6 +10,7 @@ import {
 
 function PatientAppointmentHistory() {
   const [filterValues, setFilterValues] = useState({});
+
   const [pagination, setPagination] = React.useState({
     page: 1,
     limit: 10,
