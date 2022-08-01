@@ -221,7 +221,9 @@ function DoctorAppointmentInfo({ data }: Props) {
         )}
 
         <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1 max-w-[300px]">Appointment status</div>
+          <div className="w-full text-gray-1 max-w-[300px]">
+            Appointment status
+          </div>
           <div className="w-full text-secondary">
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
@@ -602,8 +604,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           serviceId: serviceType?.id as number,
           charges: serviceInfo?.price as number,
           proposedTimeSlots: slots.map((slot) => ({
-            startTime: dayjs(slot.startDate).format("YYYY-MM-DD hh:mm A"),
-            endTime: dayjs(slot.endDate).format("YYYY-MM-DD hh:mm A"),
+            startTime: slot.startDate,
+            endTime: slot.endDate,
           })) as any,
         },
       });
@@ -806,7 +808,6 @@ function AvailabilityTimeSlots({
   const doctorAvailableDaysList = scheduleDetails?.doctorSchedules?.map(
     (item) => item.day
   );
-
   function disabledDate(current: any) {
     const weekDays = [0, 1, 2, 3, 4, 5, 6];
     // Remove duplicates from array
@@ -853,7 +854,12 @@ function AvailabilityTimeSlots({
           <Form.Item label="End time" name="end_time">
             <Space direction="vertical" size={12}>
               {endDateValue === "Invalid date" || !endDateValue ? (
-                <DatePicker disabled={true} className="w-full" showTime placeholder="--" />
+                <DatePicker
+                  disabled={true}
+                  className="w-full"
+                  showTime
+                  placeholder="--"
+                />
               ) : (
                 <DatePicker
                   value={moment(endDateValue, "MM-DD-YYYY hh:mm A")}

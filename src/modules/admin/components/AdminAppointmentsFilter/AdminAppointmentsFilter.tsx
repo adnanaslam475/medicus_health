@@ -14,11 +14,16 @@ import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter
 import { getRole } from "common/utils/userData";
 import { useTranslations } from "next-intl";
 import { translationJson } from "common/locales/translationJson";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
 
 type Props = {
 	onChange: (value: GetAdminUsersFilterInput) => void;
 	filterValues: GetAppointmentInput;
 };
+
+initTranslation(["SearchFilters"]);
 
 function AdminAppointmentFilter({ onChange, filterValues }: Props) {
 	const t = useTranslations("SearchFilters");

@@ -47,7 +47,7 @@ export const bioForm = [
       defaultValue: "",
     },
     {
-      label: "Confirm Password",
+      label: "Confirm password",
       name: "confirmPassword",
       disabled: true,
       defaultValue: "",
@@ -61,7 +61,7 @@ export const bioForm = [
       defaultValue: "",
     },
     {
-      label: "Years of Experience",
+      label: "Years of experience",
       name: "year_of_experience",
       disabled: true,
       defaultValue: "",
@@ -69,7 +69,7 @@ export const bioForm = [
   ],
   [
     {
-      label: "Street Address",
+      label: "Street address",
       name: "streetAddress",
       disabled: true,
       defaultValue: "",

@@ -48,7 +48,7 @@ const columns: ColumnsType<User> = [
     },
   },
   {
-    title: "Street Address",
+    title: "Street address",
     dataIndex: "streetAddress",
     key: "streetAddress",
     sorter: true,
@@ -75,7 +75,7 @@ const columns: ColumnsType<User> = [
     },
   },
   {
-    title: "Postal Code",
+    title: "Postal code",
     dataIndex: "zip_code",
     key: "zip_code",
     sorter: true,

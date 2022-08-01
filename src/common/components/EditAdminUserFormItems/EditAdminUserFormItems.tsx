@@ -27,7 +27,7 @@ const editAdminUserForm = [
     required: false,
   },
   {
-    label: "Confirm Password",
+    label: "Confirm password",
     name: "confirm_password",
     type: "password",
     required: false,

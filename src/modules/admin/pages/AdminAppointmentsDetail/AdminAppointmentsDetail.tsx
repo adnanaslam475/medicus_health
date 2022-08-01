@@ -41,7 +41,7 @@ function AdminAppointmentHistoryDetail() {
   return (
     <AppLayout>
       <div>
-        <h2 className="mb-4">Appointment History Detail</h2>
+        <h2 className="mb-4">Appointments History Detail</h2>
 
         <div className="profile-tabs">
           <Tabs
