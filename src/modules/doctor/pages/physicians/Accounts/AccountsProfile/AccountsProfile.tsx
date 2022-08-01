@@ -72,7 +72,7 @@ function AccountsProfile() {
   const [{ data, fetching: doctorDataLoading }, executeUseDoctorProfileQuery] =
     useDoctorProfileQuery({
       variables: { doctor_id: id as number },
-      pause: !id,
+      pause: !id || addScheduleDay === "Select Day" || !!deleteScheduleId,
     });
   const { doctorProfile } = data || {};
   useEffect(() => {
