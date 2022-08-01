@@ -17,42 +17,42 @@ export const englishCommon: any = {
 	please_complete_health_questionnaire: "Please complete health questionnaire",
 	search_by: "Search by",
 
-  password: "Password",
-  
-  reset_password: "Reset password",
-  password_message: "Please enter your password!",
-  enter_your_new_password: "Enter your new password",
-  confirm_password: "Confirm password",
-  confirm_your_password: "Please confirm your password!",
-  password_message_8_character: "Password must be minimum 8 characters.",
-  please_input_your_email: "Please input your email!",
-  confirm_password_message_8_character:
-    "Confirm password must be minimum 8 characters.",
-  two_passwords_mismatch_message:
-    "The two passwords that you entered do not match!",
-  your_password_has_been_set: "Your password has been set!",
-  your_password_has_been_reset: "Your password has been reset!",
+	password: "Password",
+
+	reset_password: "Reset password",
+	password_message: "Please enter your password!",
+	enter_your_new_password: "Enter your new password",
+	confirm_password: "Confirm password",
+	confirm_your_password: "Please confirm your password!",
+	password_message_8_character: "Password must be minimum 8 characters.",
+	please_input_your_email: "Please input your email!",
+	confirm_password_message_8_character:
+		"Confirm password must be minimum 8 characters.",
+	two_passwords_mismatch_message:
+		"The two passwords that you entered do not match!",
+	your_password_has_been_set: "Your password has been set!",
+	your_password_has_been_reset: "Your password has been reset!",
 
 	enter_your_email_below_to_reset_password:
 		"Enter your email below to reset password.",
 
 	back_to_log_in: "Back to log in",
 
-  street_address: "Street address",
-  contact_number: "Contact number",
-  country: "Country of birth",
-  state: "State",
-  city: "City",
-  postal_code: "Postal code",
-  postal_code_message: "Please enter your postal code",
-  postal_code_is_required: "Postal code is required.",
-  i_agree_to_the: "I agree to the ",
-  terms_n_conditions: " Terms & conditions",
-  next: "Next",
-  update: "Update",
-  complete: "Complete",
-  back: "Back",
-  please_fill: "Please fill",
+	street_address: "Street address",
+	contact_number: "Contact number",
+	country: "Country of birth",
+	state: "State",
+	city: "City",
+	postal_code: "Postal code",
+	postal_code_message: "Please enter your postal code",
+	postal_code_is_required: "Postal code is required.",
+	i_agree_to_the: "I agree to the ",
+	terms_n_conditions: " Terms & conditions",
+	next: "Next",
+	update: "Update",
+	complete: "Complete",
+	back: "Back",
+	please_fill: "Please fill",
 
 	remember: "Remember me",
 
@@ -75,7 +75,7 @@ export const englishCommon: any = {
 	pending_appointments: "Pending appointments",
 	canceled_appointments: "Canceled appointments",
 	filter_search_placeholder_1: "Search by ID, Physician name or Patient name",
-	history: "History",
+	appointments_history: "Appointments history",
 
 	physician: "Physician",
 	appointment_type: "Appointment type",
