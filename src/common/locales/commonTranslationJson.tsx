@@ -199,6 +199,7 @@ export const englishCommon: any = {
   more_than_a_year_1: "More than a year (1+)",
   more_than_three_to_five_years_3_5: "More than three to five years (3-5)",
   do_you_have_any_pets: "Do you have any pets?",
+  set_password: "Set Password",
 };
 
 export const spanishCommon: any = {
@@ -403,6 +404,7 @@ export const spanishCommon: any = {
   more_than_a_year_1: "Más de un año (1+)",
   more_than_three_to_five_years_3_5: "Más de tres a cinco años (3-5)",
   do_you_have_any_pets: "¿Tiene mascotas?",
+  set_password: "Configurar la clave",
 };
 
 // asdasdasd
