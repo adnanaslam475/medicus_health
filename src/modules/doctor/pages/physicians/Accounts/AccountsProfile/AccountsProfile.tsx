@@ -10,7 +10,6 @@ import {
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../../../generated/graphql";
-// import EditProfile from "../EditProfile/EditProfile";
 import { RangeValue } from "rc-picker/lib/interface";
 import EditProfile from "../EditProfile/EditProfile";
 

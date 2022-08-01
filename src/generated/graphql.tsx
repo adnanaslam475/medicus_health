@@ -13,7 +13,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -165,6 +167,16 @@ export type AppointmentTotalCharges = {
   initialCharges?: InputMaybe<Scalars['Int']>;
 };
 
+export type AwardsHonorsRecognition = {
+  awards: Scalars['String'];
+  honors_and_recognition: Scalars['String'];
+};
+
+export type AwardsHonorsRecognitionUpdate = {
+  awards?: InputMaybe<Scalars['String']>;
+  honors_and_recognition?: InputMaybe<Scalars['String']>;
+};
+
 export type BookAppointmentInput = {
   appointmentId: Scalars['Int'];
   cardId: Scalars['Int'];
@@ -175,6 +187,16 @@ export type BookAppointmentInput = {
 export type BookingDate = {
   endDate?: InputMaybe<Scalars['String']>;
   startDate?: InputMaybe<Scalars['String']>;
+};
+
+export type CertificationLicensure = {
+  certification: Scalars['String'];
+  licensure: Scalars['String'];
+};
+
+export type CertificationLicensureUpdate = {
+  certification?: InputMaybe<Scalars['String']>;
+  licensure?: InputMaybe<Scalars['String']>;
 };
 
 export type ChatChannels = {
@@ -311,6 +333,8 @@ export type CreateDoctorInput = {
 
 export type CreateDoctorProfileInput = {
   about_me: Scalars['String'];
+  awards_honors_recognition?: InputMaybe<Array<AwardsHonorsRecognition>>;
+  certification_and_licensure?: InputMaybe<Array<CertificationLicensure>>;
   condition_treated: Scalars['String'];
   doctor_id: Scalars['Float'];
   educational_background: Array<EducationalBackground>;
@@ -441,6 +465,8 @@ export type DoctorPayoutResponse = {
 export type DoctorProfile = {
   __typename?: 'DoctorProfile';
   about_me?: Maybe<Scalars['String']>;
+  awards_honors_recognition?: Maybe<Scalars['String']>;
+  certification_and_licensure?: Maybe<Scalars['String']>;
   condition_treated?: Maybe<Scalars['String']>;
   doctor_id: Scalars['Int'];
   educational_background?: Maybe<Scalars['String']>;
@@ -570,6 +596,7 @@ export type GetPhysicianAppointmentInput = {
 };
 
 export type GetPhysiciansInput = {
+  cityId?: InputMaybe<Scalars['Int']>;
   countryId?: InputMaybe<Scalars['Int']>;
   creationDate?: InputMaybe<PhysicianAccountCreationDate>;
   language?: InputMaybe<Scalars['String']>;
@@ -1496,6 +1523,8 @@ export type UpdateDoctorPercentage = {
 
 export type UpdateDoctorProfileInput = {
   about_me?: InputMaybe<Scalars['String']>;
+  awards_honors_recognition?: InputMaybe<Array<AwardsHonorsRecognitionUpdate>>;
+  certification_and_licensure?: InputMaybe<Array<CertificationLicensureUpdate>>;
   city_id: Scalars['Float'];
   condition_treated?: InputMaybe<Scalars['String']>;
   contact_number: Scalars['String'];
@@ -1826,7 +1855,7 @@ export type UpdateDoctorProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress?: string | null, contact_number?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null } | null } };
+export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, certification_and_licensure?: string | null, awards_honors_recognition?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress?: string | null, contact_number?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null } | null } };
 
 export type EnableOrDisableDoctorMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -1947,7 +1976,7 @@ export type CreatePatientByAdminMutationVariables = Exact<{
 }>;
 
 
-export type CreatePatientByAdminMutation = { __typename?: 'Mutation', createPatientByAdmin: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, deletedAt: any, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorId?: number | null, createdAt: any, patientHealthHistory?: { __typename?: 'PatientHealthHistory', id?: number | null, user_id: number, history?: any | null } | null } };
+export type CreatePatientByAdminMutation = { __typename?: 'Mutation', createPatientByAdmin: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorId?: number | null, createdAt: any, patientHealthHistory?: { __typename?: 'PatientHealthHistory', id?: number | null, user_id: number, history?: any | null } | null } };
 
 export type ToggleEmailPreferencesMutationVariables = Exact<{
   toggleEmailPreferencesInput: TogglePreference;
@@ -2237,7 +2266,7 @@ export type DoctorProfileQueryVariables = Exact<{
 }>;
 
 
-export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, contact_number?: string | null, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
+export type DoctorProfileQuery = { __typename?: 'Query', doctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, awards_honors_recognition?: string | null, certification_and_licensure?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, contact_number?: string | null, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } };
 
 export type GetAllRequestedAppointmentsQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -2813,6 +2842,8 @@ export const UpdateDoctorProfileDocument = gql`
     condition_treated
     educational_background
     professional_experience
+    certification_and_licensure
+    awards_honors_recognition
     language
     about_me
     profile_image
@@ -3083,7 +3114,6 @@ export const CreatePatientByAdminDocument = gql`
     contact_number
     streetAddress
     country_id
-    deletedAt
     state_id
     city_id
     zip_code
@@ -4231,6 +4261,8 @@ export const DoctorProfileDocument = gql`
     condition_treated
     educational_background
     professional_experience
+    awards_honors_recognition
+    certification_and_licensure
     language
     about_me
     profile_image
@@ -6457,6 +6489,22 @@ export default {
         "fields": [
           {
             "name": "about_me",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "awards_honors_recognition",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "certification_and_licensure",
             "type": {
               "kind": "SCALAR",
               "name": "Any"

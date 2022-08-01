@@ -163,6 +163,8 @@ mutation updateDoctorProfile(
     condition_treated
     educational_background
     professional_experience
+    certification_and_licensure
+    awards_honors_recognition
     language
     about_me
     profile_image
@@ -366,7 +368,7 @@ mutation createPatientByAdmin($createPatientInput: CreateUserByAdminInput!) {
     contact_number
     streetAddress
     country_id
-    deletedAt
+    # deletedAt
     state_id
     city_id
     zip_code

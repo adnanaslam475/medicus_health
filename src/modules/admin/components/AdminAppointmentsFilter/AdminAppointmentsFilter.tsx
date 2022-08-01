@@ -12,6 +12,8 @@ import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRan
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter/SelectStatusTypeFilter";
 import { getRole } from "common/utils/userData";
+import { useTranslations } from "next-intl";
+import { translationJson } from "common/locales/translationJson";
 
 type Props = {
   onChange: (value: GetAdminUsersFilterInput) => void;
@@ -19,6 +21,7 @@ type Props = {
 };
 
 function AdminAppointmentFilter({ onChange, filterValues }: Props) {
+  const t = useTranslations("SearchFilters");
   const [openDateRange, setOpenDateRange] = React.useState<string>("");
   const [dueDate, setDueDate] = useState<BookingDate>({});
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
@@ -47,6 +50,14 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
       ...filterValues,
       [key]: value,
     };
+    if (key === "status") {
+      setDueDate({
+        startDate: "",
+        endDate: "",
+      });
+      delete filters.dueDate;
+
+    }
     if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
       delete filters.bookingDate;
     }
@@ -129,7 +140,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             onApply={() => applyDateRange("dueDate")}
             title={
               filterValues.dueDate?.startDate && (
-                <div className="tracking-[.25em]">
+                <div className="">
                   {filterValues.dueDate
                     ? `${filterValues.dueDate.startDate} -> ${filterValues.dueDate.endDate}`
                     : "Appointment date"}
@@ -161,11 +172,18 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             <Select.Option value="refunded">REFUNDED</Select.Option>
           </Select>
         </div>
-       
-      <FilterClearButton onClear={clear} />
+        <FilterClearButton onClear={clear} />
       </div>
     </div>
   );
 }
 
 export default AdminAppointmentFilter;
+
+export function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      messages: translationJson(locale),
+    },
+  };
+}

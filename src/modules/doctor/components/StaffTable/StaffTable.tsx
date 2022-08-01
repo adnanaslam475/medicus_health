@@ -43,7 +43,7 @@ function StaffTable({
 			sorter: true,
 		},
 		{
-			title: "Email",
+			title: "Email address",
 			dataIndex: "email",
 			key: "email",
 			render: (value: AppointmentServiceType) => {
@@ -52,7 +52,7 @@ function StaffTable({
 			sorter: true,
 		},
 		{
-			title: "Contact number",
+			title: "Contact #",
 			dataIndex: "contact_number",
 			sorter: true,
 			render: (value: string) => {

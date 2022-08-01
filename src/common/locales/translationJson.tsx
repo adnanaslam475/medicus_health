@@ -134,7 +134,7 @@ export function translationJson(local: string) {
         },
         AccountDetail: {
           ...englishCommon,
-          // title: "Account",
+          title: "Account",
         },
         SuccessScreen: {
           ...englishCommon,

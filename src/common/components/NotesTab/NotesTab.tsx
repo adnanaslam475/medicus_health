@@ -92,7 +92,7 @@ function NotesTab({}: Props) {
     <div className="md:max-w-1/2">
       <CardWithProfileImageInfo
         name={`${patient?.first_name} ${patient?.last_name}`}
-        serviceName={serviceType?.name}
+        // serviceName={serviceType?.name}
         imageUrl={patient?.patientProfile?.profileImage}
       >
         {(getRole() === "Doctor" || getRole() === "Admin") && (
@@ -150,7 +150,7 @@ function NotesTab({}: Props) {
           ))} */}
         {/* HISTORY NOTES */}
         <div className="history-notes-cover">
-          <h3>History notes</h3>
+          <h3>Notes history</h3>
           <NotesHistory />
         </div>
       </CardWithProfileImageInfo>

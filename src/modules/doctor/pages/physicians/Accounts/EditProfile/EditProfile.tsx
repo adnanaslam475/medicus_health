@@ -137,9 +137,11 @@ function EditProfile({
     condition_treated,
     doctor_id,
     language,
+    year_of_experience,
     educational_background,
     professional_experience,
-    year_of_experience,
+    certification_and_licensure,
+    awards_honors_recognition,
     specialization,
   } = doctorData || {};
   let formatedLanguage =
@@ -157,14 +159,23 @@ function EditProfile({
   const educationalBackground = parseJson(educational_background) || [];
 
   const professionalExperience = parseJson(professional_experience) || [];
+  const certificationBackground = parseJson(certification_and_licensure) || [];
+  const honorsBackground = parseJson(awards_honors_recognition) || [];
 
   const [clinicList, setClinicList] = useState([{ institution: "", role: "" }]);
   const [educationList, setEducationList] = useState([
     { institution: "", degree: "" },
   ]);
 
-  const [countryId, setCountryId] = useState<number | undefined>();
-  const [stateId, setStateId] = useState<number | undefined>();
+  const [certificationList, setCertificationList] = useState([
+    { certification: "", licensure: "" },
+  ]);
+  const [honorsList, setHonorsList] = useState([{ awards: "", honors_and_recognition: "" }]);
+
+  const [countryId, setCountryId] = useState<number | undefined>(
+    Number(country_id)
+  );
+  const [stateId, setStateId] = useState<number | undefined>(Number(state_id));
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
@@ -187,6 +198,12 @@ function EditProfile({
     }
     if (educationalBackground?.length) {
       setEducationList(educationalBackground);
+    }
+    if (certificationBackground?.length) {
+      setCertificationList(certificationBackground);
+    }
+    if (honorsBackground?.length) {
+      setHonorsList(honorsBackground);
     }
   }, []);
   function prepareAndSetEditPayload() {
@@ -237,9 +254,9 @@ function EditProfile({
         year_of_experience: Number(values?.year_of_experience || 0),
         streetAddress: values?.streetAddress,
         contact_number: values?.contact,
-        city_id: Number(values?.city_id),
+        city_id: Number(values?.city_id || 0),
         country_id: Number(values?.country_id),
-        state_id: Number(values?.state_id),
+        state_id: Number(values?.state_id || 0),
         zip_code: values?.zip_code,
         email: values?.email || "",
         password: values?.password,
@@ -255,6 +272,14 @@ function EditProfile({
           institution: item?.institution,
           role: item?.role,
         })),
+        certification_and_licensure: certificationList?.map((item) => ({
+          certification: item?.certification,
+          licensure: item?.licensure,
+        })),
+        awards_honors_recognition: honorsList?.map((item) => ({
+          awards: item?.awards,
+          honors_and_recognition: item?.honors_and_recognition,
+        })),
       },
     });
 
@@ -266,11 +291,13 @@ function EditProfile({
       let loggedInUserData = localStorage.getItem("loggedInUserData");
       let updatedLoggedInUserData: LoginUserInput | any =
         loggedInUserData && JSON.parse(loggedInUserData);
-      if (updatedLoggedInUserData?.user) {
+      if (updatedLoggedInUserData?.user && updatedLoggedInUserData?.user?.role === "Doctor") {
         updatedLoggedInUserData.user.first_name = values?.firstName;
         updatedLoggedInUserData.user.last_name = values?.lastName;
-        updatedLoggedInUserData.user.doctorProfile.profile_image =
-          image || userProfileImage;
+        if (updatedLoggedInUserData.user.doctorProfile) {
+          updatedLoggedInUserData.user.doctorProfile.profile_image =
+            image || userProfileImage;
+        }
         localStorage.setItem(
           "loggedInUserData",
           JSON.stringify(updatedLoggedInUserData)
@@ -419,22 +446,53 @@ function EditProfile({
     language?.Spanish !== undefined ||
     language !== undefined;
 
-  const addHospital = () => {
-    setClinicList([...clinicList, { institution: "", role: "" }]);
-  };
-  const removeHospital = (index: number) => {
-    const clinicListLocal = [...clinicList];
-    clinicListLocal?.splice(index, 1);
-    setClinicList(clinicListLocal);
+  const addNewField = (fieldName: string) => {
+    switch (fieldName) {
+      case "clinic":
+        setClinicList([...clinicList, { institution: "", role: "" }]);
+        break;
+      case "education":
+        setEducationList([...educationList, { institution: "", degree: "" }]);
+        break;
+      case "certification":
+        setCertificationList([
+          ...certificationList,
+          { certification: "", licensure: "" },
+        ]);
+        break;
+      case "honors":
+        setHonorsList([...honorsList, { awards: "", honors_and_recognition: "" }]);
+        break;
+      default:
+        break;
+    }
   };
 
-  const addEducation = () => {
-    setEducationList([...educationList, { institution: "", degree: "" }]);
-  };
-  const removeEducation = (index: number) => {
-    const educationListLocal = [...educationList];
-    educationListLocal?.splice(index, 1);
-    setEducationList(educationListLocal);
+  const removeField = (fieldName: string, index: number) => {
+    switch (fieldName) {
+      case "clinic":
+        const clinicListLocal = [...clinicList];
+        clinicListLocal?.splice(index, 1);
+        setClinicList(clinicListLocal);
+        break;
+      case "education":
+        const educationListLocal = [...educationList];
+        educationListLocal?.splice(index, 1);
+        setEducationList(educationListLocal);
+        break;
+      case "certification":
+        const certificationListLocal = [...certificationList];
+        certificationListLocal?.splice(index, 1);
+        setCertificationList(certificationListLocal);
+        break;
+      case "honors":
+        const honorsListLocal = [...honorsList];
+        honorsListLocal?.splice(index, 1);
+        setHonorsList(honorsListLocal);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleClinicChange = (
@@ -457,6 +515,28 @@ function EditProfile({
     //@ts-ignore
     educationListLocal[index][name] = value;
     setEducationList(educationListLocal);
+  };
+
+  const handleCertificationChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+    const certificationListLocal = [...certificationList];
+    //@ts-ignore
+    certificationListLocal[index][name] = value;
+    setCertificationList(certificationListLocal);
+  };
+
+  const handleHonorsChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+    const honorsListLocal = [...honorsList];
+    //@ts-ignore
+    honorsListLocal[index][name] = value;
+    setHonorsList(honorsListLocal);
   };
 
   const [getStatesByCountry] = useGetStatesByCountryQuery({
@@ -546,7 +626,7 @@ function EditProfile({
                 <Form.Item
                   label="First name"
                   name="firstName"
-                  rules={[{ required: true, message: "First name!" }]}
+                  rules={[{ required: true, message: "First name is required" }]}
                   className="flex-1"
                 >
                   <Input autoFocus={true} />
@@ -554,7 +634,7 @@ function EditProfile({
                 <Form.Item
                   label="Last name"
                   name="lastName"
-                  rules={[{ required: true, message: "Last name!" }]}
+                  rules={[{ required: true, message: "Last name is required" }]}
                   className="flex-1"
                 >
                   <Input />
@@ -572,8 +652,14 @@ function EditProfile({
                 </Form.Item>
                 <Form.Item
                   name="contact"
-                  label="Contact number"
-                  rules={[{ required: true }]}
+                  label="Contact #"
+                  rules={[
+                    { required: true },
+                    {
+                      min: 10,
+                      message: "Contact number must be minimum 10 characters.",
+                    },
+                  ]}
                   className="flex-1"
                 >
                   <Input type="number" />
@@ -865,11 +951,16 @@ function EditProfile({
                         />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
-                        <Button onClick={addHospital}>Add new field</Button>
+                        <Button onClick={() => addNewField("clinic")}>
+                          Add new field
+                        </Button>
                       )}
                       &nbsp;
                       {clinicList?.length > 1 && (
-                        <Button danger onClick={() => removeHospital(index)}>
+                        <Button
+                          danger
+                          onClick={() => removeField("clinic", index)}
+                        >
                           Remove field
                         </Button>
                       )}
@@ -919,11 +1010,134 @@ function EditProfile({
                         />
                       </Form.Item>
                       {educationList?.length - 1 === index && (
-                        <Button onClick={addEducation}>Add new field</Button>
+                        <Button onClick={() => addNewField("education")}>
+                          Add new field
+                        </Button>
                       )}
                       &nbsp;
                       {educationList?.length > 1 && (
-                        <Button danger onClick={() => removeEducation(index)}>
+                        <Button
+                          danger
+                          onClick={() => removeField("education", index)}
+                        >
+                          Remove field
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className={`my-6 ${_classes["educational"]}`}>
+                <h6>Certifications and licences</h6>
+                {certificationList?.map((certificate, index) => {
+                  return (
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
+                      <Form.Item
+                        label="Certificates"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Certificates",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input
+                          name={`certification`}
+                          value={certificate?.certification}
+                          onChange={(e) => handleCertificationChange(e, index)}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        label="licensure"
+                        rules={[
+                          {
+                            required: false,
+                            message: "licensure",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input
+                          name={`licensure`}
+                          value={certificate?.licensure}
+                          onChange={(e) => handleCertificationChange(e, index)}
+                        />
+                      </Form.Item>
+                      {certificationList?.length - 1 === index && (
+                        <Button onClick={() => addNewField("certification")}>
+                          Add new field
+                        </Button>
+                      )}
+                      &nbsp;
+                      {certificationList?.length > 1 && (
+                        <Button
+                          danger
+                          onClick={() => removeField("certification", index)}
+                        >
+                          Remove field
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className={`my-6 ${_classes["educational"]}`}>
+                <h6>Awards, honors and recognization</h6>
+                {honorsList?.map((honor, index) => {
+                  return (
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
+                      <Form.Item
+                        label="Awards"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Awards",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input
+                          name={`awards`}
+                          value={honor?.awards}
+                          onChange={(e) => handleHonorsChange(e, index)}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        label="Honors & recognization"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Honors & recognization",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input
+                          name={`honors_and_recognition`}
+                          value={honor?.honors_and_recognition}
+                          onChange={(e) => handleHonorsChange(e, index)}
+                        />
+                      </Form.Item>
+                      {honorsList?.length - 1 === index && (
+                        <Button onClick={() => addNewField("honors")}>
+                          Add new field
+                        </Button>
+                      )}
+                      &nbsp;
+                      {honorsList?.length > 1 && (
+                        <Button
+                          danger
+                          onClick={() => removeField("honors", index)}
+                        >
                           Remove field
                         </Button>
                       )}

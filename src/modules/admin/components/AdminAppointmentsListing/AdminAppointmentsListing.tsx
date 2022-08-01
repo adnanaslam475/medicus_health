@@ -50,7 +50,7 @@ const appointmentColumns = [
     key: "name",
     sorter: true,
     render: (serviceType: AppointmentServiceType) => {
-      return <div>{`${serviceType?.name}`}</div>;
+      return <div>{`${serviceType?.name ? serviceType?.name : "-"}`}</div>;
     },
   },
   // {
@@ -305,7 +305,7 @@ function AdminAppointmentsListing({}: Props) {
                 columns={appointmentColumns}
                 dataSource={appointmentItems}
                 onChange={onChange}
-                scroll={{x:true}}
+                scroll={{ x: true }}
                 loading={fetching}
                 pagination={{
                   total: pagination.limit * Number(meta?.totalPages),

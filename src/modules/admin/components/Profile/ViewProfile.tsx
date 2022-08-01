@@ -76,7 +76,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                   onClick={() => setIsEdit?.(true)}
                 >
                   <EditOutlined />
-                  Edit Info
+                  Edit info
                 </Button>
               </div>
             </div>

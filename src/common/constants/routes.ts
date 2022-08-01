@@ -8,37 +8,37 @@ type routes = {
 	}[];
 }[];
 export const PATIENT_ROUTES: routes = [
-	// {
-	//   name: "Appointments",
-
-	//   route: "+",
-	//   submenu: [
-	//     // { name: "Current", route: "/patient/appointments/current" },
-	//     { name: "Upcoming", route: "/patient/appointments/upcoming" },
-	//     { name: "Pending", route: "/patient/appointments/pending" },
-	//     { name: "Cancelled", route: "/patient/appointments/canceled" },
-	//     { name: "History", route: "/patient/appointments/history" },
-	//   ],
-	// },
-
-	// { name: "Physicians", route: "/patient/physicians" },
-	// { name: "Messages", route: "/patient/messages" },
-	// { name: "Account", route: "/patient/account" },
 	{
-		name: "Equipo",
+		name: "Appointments",
 
 		route: "+",
 		submenu: [
-			{ name: "Próximos", route: "/patient/appointments/upcoming" },
-			{ name: "Pendiente", route: "/patient/appointments/pending" },
-			{ name: "Cancelado", route: "/patient/appointments/canceled" },
-			{ name: "Historia", route: "/patient/appointments/history" },
+			// { name: "Current", route: "/patient/appointments/current" },
+			{ name: "Upcoming", route: "/patient/appointments/upcoming" },
+			{ name: "Pending", route: "/patient/appointments/pending" },
+			{ name: "Cancelled", route: "/patient/appointments/canceled" },
+			{ name: "History", route: "/patient/appointments/history" },
 		],
 	},
 
-	{ name: "Médicos/Médicas", route: "/patient/physicians" },
-	{ name: "Mensajes", route: "/patient/messages" },
-	{ name: "Cuenta", route: "/patient/account" },
+	{ name: "Physicians", route: "/patient/physicians" },
+	{ name: "Messages", route: "/patient/messages" },
+	{ name: "Account", route: "/patient/account" },
+	// {
+	//   name: "Equipo",
+
+	//   route: "+",
+	//   submenu: [
+	//     { name: "Próximos", route: "/patient/appointments/upcoming" },
+	//     { name: "Pendiente", route: "/patient/appointments/pending" },
+	//     { name: "Cancelado", route: "/patient/appointments/canceled" },
+	//     { name: "Historia", route: "/patient/appointments/history" },
+	//   ],
+	// },
+
+	// { name: "Médicos/Médicas", route: "/patient/physicians" },
+	// { name: "Mensajes", route: "/patient/messages" },
+	// { name: "Cuenta", route: "/patient/account" },
 ];
 
 export const ADMIN_ROUTES: routes = [
