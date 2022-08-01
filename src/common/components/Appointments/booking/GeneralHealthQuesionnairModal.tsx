@@ -46,7 +46,7 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
     Number(adminPatientId) ||
     (id as number);
 
-    const form: any = useRef();
+  const form: any = useRef();
 
   const [result, updatePatientHealthHistory] =
     useUpdatePatientHealthHistoryMutation();
@@ -112,7 +112,7 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
         ]}
       >
         <>
-          <h2>General health questioniar</h2>
+          <h2>Health questionnaire</h2>
           <QuestionnaireForm
             ref={form}
             data={data?.patientHealthHistory?.history}
