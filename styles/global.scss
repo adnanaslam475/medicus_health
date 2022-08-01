@@ -242,6 +242,11 @@ label.ant-radio-wrapper {
   }
   h1 {
     word-spacing: -10px !important;
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) {
+        word-spacing: 0px !important;
+      }
+    }
   }
 
   h1 {
@@ -479,4 +484,9 @@ input[type="number"]::-webkit-outer-spin-button {
   .ant-menu-submenu-title
   > .ant-menu-title-content {
   word-spacing: -6px !important;
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      word-spacing: 0px !important;
+    }
+  }
 }
