@@ -17,7 +17,7 @@ function PhysicianPayoutReportListing() {
   const onChange = (key: string | string[]) => {};
   const columns = [
     {
-      title: "ID#",
+      title: "Transaction ID#",
       key: "transaction",
       dataIndex: "transaction",
       render: (transaction: Transaction) => {
@@ -45,7 +45,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Service type",
+      title: "Appointment type",
       key: "serviceType",
       dataIndex: "serviceType",
       render: (serviceType: AppointmentServiceType) => {
@@ -54,7 +54,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Scheduled date",
+      title: "Appointment date",
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
@@ -68,7 +68,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Physician fee($)",
+      title: "Physician fee ($)",
       dataIndex: "transaction",
       key: "physicianFee",
       render: (transaction: Transaction) => {
@@ -77,7 +77,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Refunds($)",
+      title: "Refund ($)",
       dataIndex: "refund",
       key: "refund",
       render: (transaction: Transaction) => {
@@ -86,7 +86,7 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Net physician fee($)",
+      title: "Net physician earnings ($)",
       dataIndex: "transaction",
       key: "netPhysicianFee",
       render: (transaction: Transaction) => {
@@ -128,7 +128,7 @@ function PhysicianPayoutReportListing() {
           >
             {appointmentMonths?.map((appointmentMonth, appointmentIndex) => {
               return (
-                <Panel header={appointmentMonth} key={appointmentIndex}>
+                <Panel header={`${appointmentMonth} - Net physician earnings`} key={appointmentIndex}>
                   <Table
                     pagination={false}
                     columns={columns}
