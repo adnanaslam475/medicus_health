@@ -58,7 +58,9 @@ function SetPassword() {
                 // loading="eager"
               />
             </div>
-            <h1 className="text-center text-secondary mb-3">Set password</h1>
+            <h1 className="text-center text-secondary mb-3">
+              {t("set_password")}
+            </h1>
             <h5 className="text-center text-gray font-rubik font-normal">
               {t("enter_your_new_password")}
               {/* Enter your new password */}
