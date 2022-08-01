@@ -123,7 +123,9 @@ const AppHeader = ({ isShowBanner }: Props) => {
               {/* if patient health questionnaire completed than showing appointment banner 
               otherwise health questionnaire complete banner */}
 
-              {patientHealthHistory?.patientHealthHistory || !isShowBanner  ||isShowBanner === undefined? (
+              {patientHealthHistory?.patientHealthHistory ||
+              !isShowBanner ||
+              isShowBanner === undefined ? (
                 <div className="p-0">
                   {getRole() === "User" ? <InfoMessageBannerReminder /> : null}
                 </div>
@@ -135,7 +137,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
             </div>
           </Skeleton>
 
-          <div className="flex items-center text-right justify-end w-full md:w-1/2">
+          <div className="flex items-center text-right justify-end w-full md:w-1/3 ">
             <Dropdown
               className="flex items-center"
               overlay={menu}

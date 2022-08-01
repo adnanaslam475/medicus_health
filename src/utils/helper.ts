@@ -107,7 +107,7 @@ export const bioForm = [
 
 export const patientEditForm = [
   {
-    label: "First Name",
+    label: "First name",
     name: "first_name",
     type: "text",
     inputType: "text",
@@ -196,7 +196,7 @@ export const patientEditForm = [
     required: true,
   },
   {
-    label: "Zip Code",
+    label: "Postal code",
     name: "zip_code",
     type: "text",
     inputType: "number",

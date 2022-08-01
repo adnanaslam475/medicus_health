@@ -1,10 +1,8 @@
-import PatientAppointmentHistoryDetail from 'modules/patient/pages/PatientAppointmentHistoryDetail/PatientAppointmentHistoryDetail'
-import React from 'react'
+import PatientAppointmentHistoryDetail from "modules/patient/pages/PatientAppointmentHistoryDetail/PatientAppointmentHistoryDetail";
+import React from "react";
 
 function detail() {
-  return (
-    <PatientAppointmentHistoryDetail/>
-  )
+  return <PatientAppointmentHistoryDetail />;
 }
 
-export default detail
+export default detail;
