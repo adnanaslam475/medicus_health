@@ -60,6 +60,8 @@ function AttachmentTab() {
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
       serviceName={serviceType?.name}
+      imageUrl={appointment?.patient?.patientProfile?.profileImage}
+
     >
       <div className="flex gap-2">
         {urlArr?.map((item: AttachmentObject) => (

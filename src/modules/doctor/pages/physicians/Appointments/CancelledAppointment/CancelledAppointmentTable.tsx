@@ -61,14 +61,14 @@ function CancelledAppointmentTable({
       key: "appointment_time_slots",
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        // let formatedDueDate = `${
-        //   appointmentDateTime?.startTime?.split(" ")[0]
-        // }`;
+        let formatedDueDate = `${
+          appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
 
         return (
           <div className="someclass">
             {appointmentDateTime?.startTime
-              ? date?.formatDAYMMDDYY(appointmentDateTime?.startTime)
+              ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
               : "--"}
           </div>
         );
@@ -89,9 +89,7 @@ function CancelledAppointmentTable({
         return (
           <div>
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-              ? `${date?.formathhmma(
-                  appointmentDateTime?.startTime
-                )} - ${date?.formathhmma(appointmentDateTime.endTime)}`
+              ? `${formatedStartTime} - ${formatedEndTime} `
               : "--"}
           </div>
         );
@@ -106,7 +104,6 @@ function CancelledAppointmentTable({
         return <div>{value ? `$${value}` : ""}</div>;
       },
     },
-
     {
       title: "Payment status",
       dataIndex: "transaction",
@@ -128,6 +125,7 @@ function CancelledAppointmentTable({
         );
       },
     },
+
     {
       title: "Appointment status",
       dataIndex: "status",

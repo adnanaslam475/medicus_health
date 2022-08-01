@@ -26,7 +26,7 @@ function PatientAppointmentInfoTab() {
 
   const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { appointmentId:Number(query?.id) },
+      filter: { appointmentId: Number(query?.id) },
       pagination,
       sorting,
     },
@@ -44,6 +44,7 @@ function PatientAppointmentInfoTab() {
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
       serviceName={serviceType?.name}
+      imageUrl={patient?.patientProfile?.profileImage}
     >
       <DoctorAppointmentInfo data={appointment as Appointment} />
     </CardWithProfileImageInfo>

@@ -3,6 +3,7 @@ import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
 import { date } from "common/utils";
 import {
+  GetAppointmentInput,
   useDoctorAppointmentDetailPatientInfoQuery,
   useGetCityByIdQuery,
   useGetCountryByIdQuery,
@@ -16,9 +17,25 @@ type Props = {};
 function PatientInfoTab({}: Props) {
   const { query } = useRouter();
 
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+    {}
+  );
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
   const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
+      // filter: { appointmentId: Number(query?.id) },
       filter: { searchString: String(query?.id), status: "Completed" },
+      pagination,
+      sorting,
     },
   });
 

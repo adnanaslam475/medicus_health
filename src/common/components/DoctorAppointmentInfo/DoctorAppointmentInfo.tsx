@@ -110,8 +110,9 @@ function DoctorAppointmentInfo({ data }: Props) {
       const res = await executeCancelAppointment({
         id: Number(id),
       });
-
+      
       if (res?.data?.cancelAppointment) {
+        Router.push("/physician/appointments/pending")
         notification.success({
           message: "Appointment canceled",
         });
@@ -184,10 +185,10 @@ function DoctorAppointmentInfo({ data }: Props) {
           label="Booking date"
           text={date?.formatDAYMMDDYY(createdAt)}
         /> */}
-        <LabelWithText
+        {/* <LabelWithText
           label="Requested date"
           text={date?.formatDAYMMDDYY(requestedDate)}
-        />
+        /> */}
         <LabelWithText
           label="Appointment time requested"
           text={
@@ -200,8 +201,8 @@ function DoctorAppointmentInfo({ data }: Props) {
           <LabelWithText
             label="Total amount"
             text={
-              transaction?.amountReceived
-                ? `$${transaction?.amountReceived}`
+              charges
+                ? `$${charges}`
                 : "--"
             }
           />

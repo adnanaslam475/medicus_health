@@ -11,6 +11,7 @@ import PhysicianAttachmentTab from "./PhysicianAttachmentTab";
 import {
   Appointment,
   AppointmentNote,
+  GetAppointmentInput,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
@@ -21,9 +22,30 @@ function PhysicianAppointmentHistoryDetail() {
   const { query } = useRouter();
   const [activeTab, setActiveTab] = React.useState<string>("");
 
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+    {}
+  );
+
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { searchString: String(query?.id), status: "Completed" },
+      // filter: { searchString: String(query?.id), status: "Completed" },
+      filter: {
+        ...filterValues,
+        status: "Completed",
+        searchString: String(query?.id),
+      },
+      pagination: { limit: -1, page: 1 },
+      sorting,
     },
   });
   const { appointments } = data || {};

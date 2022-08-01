@@ -128,6 +128,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const [showDrugOthers, setShowDrugOthers] = useState(false);
   const [showSurgicalOthers, setShowSurgicalOthers] = useState(false);
   const [formInstance] = Form.useForm();
+initTranslation(["HealthQuestionary"]);
+
 
   useEffect(() => {
     if (ref) {
@@ -456,7 +458,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         rules={[
           {
             required: true,
-            message: t("please fill"),
+            message: t("please_fill_field"),
             // message: "Please fill",
           },
         ]}
@@ -470,7 +472,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         rules={[
           {
             required: true,
-            message: t("please fill"),
+            message: t("please_fill_field"),
             // message: "Please fill",
           },
         ]}
@@ -484,7 +486,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         rules={[
           {
             required: true,
-            message: t("please fill"),
+            message: t("please_fill_field"),
             // message: "Please fill",
           },
         ]}
@@ -498,7 +500,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         rules={[
           {
             required: true,
-            message: t("please fill"),
+            message: t("please_fill_field"),
             // message: "Please fill",
           },
         ]}

@@ -1,6 +1,9 @@
 import Attachment from "common/components/Attachment/Attachment";
 import { parseJson } from "common/utils/helper";
-import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
+import {
+  GetAppointmentInput,
+  usePhysicianAppointmentsHistoryQuery,
+} from "generated/graphql";
 import word from "../../../../../public/assets/images/word-file.svg";
 import { useRouter } from "next/router";
 import React from "react";
@@ -10,11 +13,27 @@ import { AttachmentObject } from "common/types/types";
 function PhysicianAttachmentTab() {
   const { query } = useRouter();
 
-  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+    {}
+  );
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  const [sorting, setSorting] = React.useState({
+    column: "",
+    order: "",
+  });
+
+  const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
       filter: { searchString: String(query?.id), status: "Completed" },
+      pagination,
+      sorting,
     },
   });
+
   const { appointments } = data || {};
   const appointment = appointments?.items && appointments.items[0];
 

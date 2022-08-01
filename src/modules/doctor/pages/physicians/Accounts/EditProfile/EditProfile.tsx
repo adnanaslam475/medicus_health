@@ -915,6 +915,65 @@ function EditProfile({
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
               />
+
+<div className={`my-6 ${_classes["educational"]}`}>
+                <h6>Certifications and licences</h6>
+                {certificationList?.map((certificate, index) => {
+                  return (
+                    <div
+                      className="border-b border-gray-3 my-3 py-3"
+                      key={index}
+                    >
+                      <Form.Item
+                        label="Certificates"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Certificates",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input
+                          name={`certification`}
+                          value={certificate?.certification}
+                          onChange={(e) => handleCertificationChange(e, index)}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        label="licensure"
+                        rules={[
+                          {
+                            required: false,
+                            message: "licensure",
+                          },
+                        ]}
+                        className="flex-1"
+                      >
+                        <Input
+                          name={`licensure`}
+                          value={certificate?.licensure}
+                          onChange={(e) => handleCertificationChange(e, index)}
+                        />
+                      </Form.Item>
+                      {certificationList?.length - 1 === index && (
+                        <Button onClick={() => addNewField("certification")}>
+                          Add new field
+                        </Button>
+                      )}
+                      &nbsp;
+                      {certificationList?.length > 1 && (
+                        <Button
+                          danger
+                          onClick={() => removeField("certification", index)}
+                        >
+                          Remove field
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional background</h5>
                 {clinicList?.map((clinic: clinicType, index: number) => {
@@ -1019,65 +1078,6 @@ function EditProfile({
                         <Button
                           danger
                           onClick={() => removeField("education", index)}
-                        >
-                          Remove field
-                        </Button>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Certifications and licences</h6>
-                {certificationList?.map((certificate, index) => {
-                  return (
-                    <div
-                      className="border-b border-gray-3 my-3 py-3"
-                      key={index}
-                    >
-                      <Form.Item
-                        label="Certificates"
-                        rules={[
-                          {
-                            required: false,
-                            message: "Certificates",
-                          },
-                        ]}
-                        className="flex-1"
-                      >
-                        <Input
-                          name={`certification`}
-                          value={certificate?.certification}
-                          onChange={(e) => handleCertificationChange(e, index)}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        label="licensure"
-                        rules={[
-                          {
-                            required: false,
-                            message: "licensure",
-                          },
-                        ]}
-                        className="flex-1"
-                      >
-                        <Input
-                          name={`licensure`}
-                          value={certificate?.licensure}
-                          onChange={(e) => handleCertificationChange(e, index)}
-                        />
-                      </Form.Item>
-                      {certificationList?.length - 1 === index && (
-                        <Button onClick={() => addNewField("certification")}>
-                          Add new field
-                        </Button>
-                      )}
-                      &nbsp;
-                      {certificationList?.length > 1 && (
-                        <Button
-                          danger
-                          onClick={() => removeField("certification", index)}
                         >
                           Remove field
                         </Button>

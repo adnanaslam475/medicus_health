@@ -51,38 +51,47 @@ const columns = [
   // },
   {
     title: "Appointment date",
-    dataIndex: "requestedDate",
+    dataIndex: "appointmentDateTime",
     key: "requestedDate",
-    render: (dueDate: string) => {
-      return <div>{date.formatDAYMMDDYY(dueDate)}</div>;
-    },
     sorter: true,
+    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+      return (
+        <div>
+          {appointmentDateTime?.startTime
+            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
+            : "--"}
+        </div>
+      );
+    }
   },
   {
     title: "Appointment time",
-    dataIndex: "appointmentTimeSlots",
-    key: "",
+    dataIndex: "appointmentDateTime",
+    key: "appointmentDateTime",
     sorter: true,
-    render: (value: AppointmentTimeSlots[]) => {
-      let filteredVal = value?.filter(
-        (val: AppointmentTimeSlots) => val?.selected
-      );
+    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+      let formatedStartTime = `${
+        appointmentDateTime?.startTime?.split(" ")[1]
+      } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+      let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+        appointmentDateTime?.endTime?.split(" ")[2]
+      }`;
       return (
         <div>
-          {filteredVal[0]?.startTime &&
-            `${date.formathhmma(
-              filteredVal[0]?.startTime
-            )} - ${date.formathhmma(filteredVal[0]?.endTime)}`}
+          {appointmentDateTime?.startTime && appointmentDateTime?.endTime
+            ? `${formatedStartTime} - ${formatedEndTime} `
+            : "--"}
         </div>
       );
     },
   },
   {
     title: "Total amount",
-    dataIndex: "transaction",
-    key: "transaction",
-    render: (transaction: Transaction) => {
-      return <div>${transaction?.amountReceived || "0"}</div>;
+    dataIndex: "charges",
+    key: "charges",
+    render: (charges: string) => {
+      return <div>${charges || "0"}</div>;
     },
     sorter: true,
   },
