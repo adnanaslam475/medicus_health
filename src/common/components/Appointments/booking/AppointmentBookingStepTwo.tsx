@@ -182,9 +182,11 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
 					</div>
 				</Form.Item>
 				<p className="text-gray-2">
-					If you wish to update the make changes in your current health
+					If you wish to update and make changes in your current health
 					questionnaire,
-					<a onClick={() => setIsModalVisible(true)}>Click here.</a>
+					<a onClick={() => setIsModalVisible(true)} className="px-2">
+						Click here.
+					</a>
 				</p>
 			</Form>
 			{isModalVisible && (
