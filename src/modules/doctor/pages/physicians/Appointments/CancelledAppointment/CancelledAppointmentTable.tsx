@@ -38,7 +38,7 @@ function CancelledAppointmentTable({
       sorter: true,
     },
     {
-      title: "Patient",
+      title: "Patient name",
       dataIndex: "patient",
       key: "first_name",
       render: (value: User) => {

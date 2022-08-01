@@ -19,7 +19,7 @@ const Columns = [
     sorter: true,
   },
   {
-    title: "Patient",
+    title: "Patient name",
     dataIndex: "patient",
     key: "first_name",
     sorter: true,
