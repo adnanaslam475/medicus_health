@@ -47,6 +47,8 @@ function HealthQuestionnaireFrom() {
           appointment?.patient?.last_name || ""
         }`}
         serviceName={appointment?.serviceType?.name || ""}
+        imageUrl={appointment?.patient?.patientProfile?.profileImage}
+
       >
         <QuestionnaireForm
           data={appointment?.patient?.patientHealthHistory?.history}

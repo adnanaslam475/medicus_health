@@ -2,7 +2,7 @@ import PatientAppointmentHistoryDetail from "modules/patient/pages/PatientAppoin
 import React from "react";
 
 function detail() {
-	return <PatientAppointmentHistoryDetail />;
+  return <PatientAppointmentHistoryDetail />;
 }
 
 export default detail;
