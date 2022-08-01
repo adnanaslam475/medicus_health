@@ -110,7 +110,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label="Street Address"
+          label="Street address"
           name="streetAddress"
           rules={[
             {
@@ -226,7 +226,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
 
         <Form.Item
           className="flex-1"
-          label="Postal Code"
+          label="Postal code"
           name="postalCode"
           rules={[
             {

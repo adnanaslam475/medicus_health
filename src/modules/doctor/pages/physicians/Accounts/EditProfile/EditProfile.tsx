@@ -825,7 +825,7 @@ function EditProfile({
 
                 <Form.Item
                   className="flex-1"
-                  label={"Postal Code"}
+                  label={"Postal code"}
                   name="zip_code"
                   rules={[
                     {
