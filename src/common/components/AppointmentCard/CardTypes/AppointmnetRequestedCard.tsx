@@ -37,10 +37,14 @@ function AppointmnetRequestedCard({
   let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
     appointmentDateTime?.endTime?.split(" ")[2]
   }`;
+
+  let formatedDoctorName = `${
+    doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
+  }`;
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0"> ID#-{appointmentId || ""}</span>
-      <h3 className="mb-0 capitalize">Dr.{doctor}</h3>
+      <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
       <span className="text-gray text-base block">{serviceType}</span>
       <span className="text-sm mt-6 block">Date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>

@@ -158,6 +158,15 @@ function SearchFilters(props: Props) {
         {/* Search by */}
       </span>
       {/* <div className="flex gap-x-2 gap-2"> */}
+      {/* <div className="  w-full  lg:w-60  ">
+        <Input
+          placeholder={"ID#"}
+          prefix={<SearchOutlined />}
+          onChange={(event) => handleAppointmentId(event)}
+          value={localAppointment_Id || undefined}
+          type="number"
+        />
+      </div> */}
       {isFromPhysician ? (
         <div className="w-full sm:w-full md:w-full lg:w-96 ">
           <Input
@@ -170,13 +179,34 @@ function SearchFilters(props: Props) {
       ) : (
         <div className="  w-full  lg:w-60  ">
           <Input
-            placeholder={"ID # or physician name"}
+            placeholder={"ID# or physician name"}
             prefix={<SearchOutlined />}
             onChange={(event) => handleAppointmentId(event)}
             value={localAppointment_Id || ""}
-            type="string"
+            // type="number"
           />
         </div>
+        // <div className=" w-full md:w-44 xl:w-60   ">
+        //   <Select
+        //     placeholder={t("physician")}
+        //     className={`${searchStyle.placeholderColor} w-full`}
+        //     onChange={handlePhysicianChange}
+        //     value={selectedPhysicianItems}
+        //   >
+        //     {doctorProfiles?.map((item) => {
+        //       let formatedDoctorFirstName = item?.user?.first_name?.includes(
+        //         "Dr."
+        //       )
+        //         ? item?.user?.first_name
+        //         : `Dr. ${item?.user?.first_name}`;
+        //       return (
+        //         <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
+        //           {`${formatedDoctorFirstName} ${item?.user?.last_name}`}
+        //         </Select.Option>
+        //       );
+        //     })}
+        //   </Select>
+        // </div>
         // <div className=" w-full md:w-44 xl:w-60   ">
         //   <Select
         //     placeholder={t("physician")}
