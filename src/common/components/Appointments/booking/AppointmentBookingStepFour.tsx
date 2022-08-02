@@ -36,13 +36,17 @@ function StepFour() {
   const systemFee = getAppointmentPriceForRequest?.systemFee;
   const tax = getAppointmentPriceForRequest?.tax;
   const total = getAppointmentPriceForRequest?.total;
-
+  let formatedPhysicianName = doctorName
+    ? `${doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`}`
+    : physician
+    ? `${physician?.includes("Dr.") ? physician : `Dr. ${physician}`}`
+    : "";
   return (
     <>
       <h2>Summary</h2>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
         <label className="block">Doctor</label>
-        <span>Dr.{doctorName || physician || ""}</span>
+        <span>{formatedPhysicianName}</span>
       </div>
       <div className="flex">
         <div className="w-full ml-4 border-b border-gray-5 pb-2 mb-5">
@@ -84,7 +88,8 @@ function StepFour() {
         proposed by your physician.
       </p>
       <p className="text-red">
-      Processing fee is not refundable in the event you cancel your appointment.
+        Processing fee is not refundable in the event you cancel your
+        appointment.
       </p>
     </>
   );

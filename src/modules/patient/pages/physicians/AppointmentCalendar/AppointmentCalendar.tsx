@@ -63,7 +63,7 @@ console.log("datadata far",data);
       calenderEvents: appointments?.items?.map(
         ({ id, patient, requestedDate, doctor, serviceType,charges }) => ({
           id: id,
-          title: "Appointmetn with Dr." + doctor?.first_name + " " +doctor?.last_name,
+          title: "Appointmetn with " + doctor?.first_name?.includes("Dr.") ? doctor?.first_name : `Dr. ${doctor?.first_name}`  + " " +doctor?.last_name,
           start: requestedDate,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,

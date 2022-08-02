@@ -47,7 +47,6 @@ function CalendarModalComponent(props: Props) {
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
-console.log("datadata",data);
   return (
     <Modal
       title=""

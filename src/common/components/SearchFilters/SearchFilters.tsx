@@ -186,12 +186,18 @@ function SearchFilters(props: Props) {
             onChange={handlePhysicianChange}
             value={selectedPhysicianItems}
           >
-            {doctorProfiles?.map((item) => (
-              <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
-                {/* {item?.user?.first_name}  {item?.user?.last_name} */}
-                {`Dr.${item?.user?.first_name} ${item?.user?.last_name}`}
-              </Select.Option>
-            ))}
+            {doctorProfiles?.map((item) => {
+              let formatedDoctorFirstName = item?.user?.first_name?.includes(
+                "Dr."
+              )
+                ? item?.user?.first_name
+                : `Dr. ${item?.user?.first_name}`;
+              return (
+                <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
+                  {`${formatedDoctorFirstName} ${item?.user?.last_name}`}
+                </Select.Option>
+              );
+            })}
           </Select>
         </div>
       )}
