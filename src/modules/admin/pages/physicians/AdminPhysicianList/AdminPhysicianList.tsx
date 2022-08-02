@@ -200,7 +200,7 @@ function AdminPhysicianList() {
             <a>
               <Button type="primary">
                 <PlusOutlined />
-                Add a Physician
+                Add a physician
               </Button>
             </a>
           </Link>
