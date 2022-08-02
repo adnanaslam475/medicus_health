@@ -80,7 +80,7 @@ function AppointmentReschedule(props: Props) {
           </div>
 
           <div className="flex justify-between ">
-            <span>System fee</span>
+            <span>Processing fee</span>
             <span>${systemFee || "0"}</span>
           </div>
           <div className="flex justify-between font-semibold pt-2">

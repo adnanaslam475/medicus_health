@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Form, Radio, Select, DatePicker, Input } from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { Form, Radio, Select, DatePicker, Input, Collapse } from "antd";
 import {
   Appointment,
   AppointmentServiceType,
   DoctorProfile,
+  DoctorSchedule,
   useDoctorSchedulesByDayQuery,
   useDoctorSchedulesQuery,
   useGetAllAppointmentServiceTypesQuery,
@@ -15,6 +16,8 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import { date } from "../../../utils";
+import { sorter } from "utils/helper";
+import PhysicianAvailabilityAccordion from "common/components/PhysicianAvailabilityAccordion";
 
 const { Option } = Select;
 type AdminData = {
@@ -174,8 +177,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
       );
 
       setServiceInfo(charge as any);
-      formInstance?.resetFields( ["requestedDate","selectedDateDay"]);
-      setSelectedDay(9)
+      formInstance?.resetFields(["requestedDate", "selectedDateDay"]);
+      setSelectedDay(9);
     }
 
     function disabledDate(current: any) {
@@ -293,9 +296,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
           <div className="flex">
             <div className="w-5/6">
               <Form.Item
-                label="Service*"
+                label="Appointment type*"
                 name="service"
-                rules={[{ required: true, message: "Service is required" }]}
+                rules={[
+                  { required: true, message: "Appointment type is required" },
+                ]}
               >
                 <Select
                   placeholder="Service type"
@@ -333,6 +338,19 @@ export const AppointmentBookingStepOne = React.forwardRef(
               </Form.Item>
             </div>
           </div>
+          <div>
+            <span className="text-gray-1">Physician Availability Schedule</span>
+            <PhysicianAvailabilityAccordion
+              doctorId={
+                formInstance.getFieldValue("physician")?.length && doctorId
+                  ? Number(doctorId)
+                  : doctorScheduleId
+                  ? Number(doctorScheduleId)
+                  : 0
+              }
+            />
+          </div>
+
           <Form.Item
             label="Requested date*"
             name="requestedDate"
