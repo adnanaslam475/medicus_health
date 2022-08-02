@@ -128,7 +128,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const [showDrugOthers, setShowDrugOthers] = useState(false);
   const [showSurgicalOthers, setShowSurgicalOthers] = useState(false);
   const [formInstance] = Form.useForm();
-  initTranslation(["HealthQuestionary"]);
 
   useEffect(() => {
     if (ref) {
@@ -145,8 +144,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const { pathname } = router || {};
   let disabled = pathname?.includes("/physician/appointments");
 
+  i18next.changeLanguage(useLocale());
   const t = i18next.t;
-  console.log(t("title"));
+
   // const t = useTranslations("Questionnary");
 
   function prepareAndSetEditPayload(parsedData: any) {
