@@ -129,10 +129,12 @@ const AppHeader = ({ isShowBanner }: Props) => {
                 <div className="p-0">
                   {getRole() === "User" ? <InfoMessageBannerReminder /> : null}
                 </div>
-              ) : (
+              ) : (!patientHealthHistory?.patientHealthHistory?.id && isShowBanner)? (
                 <div className="p-0">
                   {getRole() === "User" && <InfoMessage />}
                 </div>
+              ) : (
+                <></>
               )}
             </div>
           </Skeleton>
@@ -172,9 +174,15 @@ const AppHeader = ({ isShowBanner }: Props) => {
           </div>
         </div>
       </Header>
-      <div className="bg-white md:hidden p-2 w-full">
-        {getRole() === "User" && <InfoMessage />}
-      </div>
+      {!patientHealthHistory?.patientHealthHistory?.id &&
+      !fetching &&
+      isShowBanner ? (
+        <div className="bg-white md:hidden p-2 w-full">
+          {getRole() === "User" && <InfoMessage />}
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
