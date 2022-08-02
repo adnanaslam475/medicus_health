@@ -28,7 +28,7 @@ type Props = {
   setDataListPhysician: string | any;
   placeholder?: string;
   setDoctorId: number | any;
-  setAppointmentId: number | any;
+  setAppointmentId: string | any;
   setServiceIds: number | any;
   setStartDate: Date | null | any;
   setEndDate: Date | null | any;
@@ -67,9 +67,7 @@ function SearchFilters(props: Props) {
   const [bookingDateRange, selectBookingDateRange] = useState(null);
   const [dueDateRange, selectDueDateRange] = useState(null);
   const [patientName, setPatientName] = useState<string>();
-  const [localAppointment_Id, setLocalAppointment_Id] = useState<
-    number | null | undefined
-  >();
+  const [localAppointment_Id, setLocalAppointment_Id] = useState<string>();
   const [dueDateRangeState, setDueDateRangeState] = useState<DueDate>({});
   const [bookingDateRangeState, setBookingDateRangeState] =
     useState<BookingDate>({});
@@ -82,8 +80,8 @@ function SearchFilters(props: Props) {
   const { appointmentServiceTypes } = data || {};
 
   function handleAppointmentId(event: React.ChangeEvent<HTMLInputElement>) {
-    setAppointmentId(Number(event.target.value));
-    setLocalAppointment_Id(Number(event.target.value));
+    setAppointmentId(String(event.target.value));
+    setLocalAppointment_Id(String(event.target.value));
   }
 
   function handlePaitentName_ID(event: React.ChangeEvent<HTMLInputElement>) {
@@ -135,8 +133,8 @@ function SearchFilters(props: Props) {
     selectDueDateRange(null);
     setPatientName("");
     setSearchPatient && setSearchPatient(null);
-    setAppointmentId(undefined);
-    setLocalAppointment_Id(null);
+    setAppointmentId("");
+    setLocalAppointment_Id("");
     setBookingDate?.({});
     setDueDate?.({});
     setClearFilter?.((prev: boolean) => !prev);
@@ -160,15 +158,6 @@ function SearchFilters(props: Props) {
         {/* Search by */}
       </span>
       {/* <div className="flex gap-x-2 gap-2"> */}
-      {/* <div className="  w-full  lg:w-60  ">
-        <Input
-          placeholder={"ID#"}
-          prefix={<SearchOutlined />}
-          onChange={(event) => handleAppointmentId(event)}
-          value={localAppointment_Id || undefined}
-          type="number"
-        />
-      </div> */}
       {isFromPhysician ? (
         <div className="w-full sm:w-full md:w-full lg:w-96 ">
           <Input
@@ -179,21 +168,30 @@ function SearchFilters(props: Props) {
           />
         </div>
       ) : (
-        <div className=" w-full md:w-44 xl:w-60   ">
-          <Select
-            placeholder={t("physician")}
-            className={`${searchStyle.placeholderColor} w-full`}
-            onChange={handlePhysicianChange}
-            value={selectedPhysicianItems}
-          >
-            {doctorProfiles?.map((item) => (
-              <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
-                {/* {item?.user?.first_name}  {item?.user?.last_name} */}
-                {`Dr.${item?.user?.first_name} ${item?.user?.last_name}`}
-              </Select.Option>
-            ))}
-          </Select>
+        <div className="  w-full  lg:w-60  ">
+          <Input
+            placeholder={"ID # or physician name"}
+            prefix={<SearchOutlined />}
+            onChange={(event) => handleAppointmentId(event)}
+            value={localAppointment_Id || ""}
+            type="string"
+          />
         </div>
+        // <div className=" w-full md:w-44 xl:w-60   ">
+        //   <Select
+        //     placeholder={t("physician")}
+        //     className={`${searchStyle.placeholderColor} w-full`}
+        //     onChange={handlePhysicianChange}
+        //     value={selectedPhysicianItems}
+        //   >
+        //     {doctorProfiles?.map((item) => (
+        //       <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
+        //         {/* {item?.user?.first_name}  {item?.user?.last_name} */}
+        //         {`Dr.${item?.user?.first_name} ${item?.user?.last_name}`}
+        //       </Select.Option>
+        //     ))}
+        //   </Select>
+        // </div>
       )}
 
       <div className="w-full md:w-44 xl:w-60  sm:mt-0">
