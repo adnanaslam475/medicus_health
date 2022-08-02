@@ -47,7 +47,7 @@ function CalendarModalComponent(props: Props) {
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
-
+console.log("datadata",data);
   return (
     <Modal
       title=""
@@ -61,24 +61,24 @@ function CalendarModalComponent(props: Props) {
         <h4 className="text-base">ID#-{id}</h4>
       </div>
       <div className="border-b pb-0 pt-2">
-        <p className="text-grey-4 "> Patient</p>
+        <p className="text-grey-4 "> Patient name</p>
         <h4 className="text-xl">{patient}</h4>
       </div>
 
       <div className="border-b pb-0 pt-2">
-        <p className="text-grey-4 ">Service type</p>
+        <p className="text-grey-4 ">Appointment type</p>
         <h4 className="text-xl">{serviceType}</h4>
       </div>
 
       <div className="border-b pb-0 pt-2">
-        <p className="text-grey-4 ">Date</p>
+        <p className="text-grey-4 ">Appointment date</p>
         <h4 className="text-xl">
           {date.formatDAYMMDDYY(selectedAppointment?.startTime || dateValue)}
         </h4>
       </div>
 
       <div className="border-b pb-0 pt-2">
-        <p className="text-grey-4 ">Time</p>
+        <p className="text-grey-4 ">Appointment Time</p>
         <h4 className="text-xl">{`${date.formathhmma(
           selectedAppointment?.startTime || dateValue
         )}  -  ${date.formathhmma(
