@@ -16,7 +16,7 @@ export const PATIENT_ROUTES: routes = [
       // { name: "Current", route: "/patient/appointments/current" },
       { name: "Upcoming", route: "/patient/appointments/upcoming" },
       { name: "Pending", route: "/patient/appointments/pending" },
-      { name: "Cancelled", route: "/patient/appointments/canceled" },
+      { name: "Canceled", route: "/patient/appointments/canceled" },
       { name: "History", route: "/patient/appointments/history" },
     ],
   },
