@@ -42,7 +42,7 @@ function UpcomingAppointments() {
         status: status,
         physicianName: dataListPhysician,
         doctorId: doctorIds,
-        searchString: String(appointmentId),
+        // searchString: String(appointmentId),
         serviceId: serviceIds,
         dueDate: dueDate,
         searchString: searchString,
