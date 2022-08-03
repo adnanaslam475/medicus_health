@@ -35,10 +35,13 @@ function AppointmnetConfirmedCard({
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
 
+  let formatedDoctorName = `${
+    doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
+  }`;
   return (
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
       <span className="text-sm mb-0">ID#-{appointmentId || ""}</span>
-      <h3 className="mb-0 capitalize">Dr.{doctor}</h3>
+      <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
       <span className="text-gray text-base block mb-4 normal-case">
         {serviceType}
       </span>

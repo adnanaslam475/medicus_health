@@ -71,7 +71,7 @@ function DoctorProfileCard(props: Props) {
 	let matchDay = doctorData?.user?.doctorSchedules?.find(
 		(item) => item.day == today
 	);
-
+	let formatedPhysicianName = doctorData && `${first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`}`
 	return (
 		<>
 			<Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
@@ -97,7 +97,7 @@ function DoctorProfileCard(props: Props) {
 						<div className="flex-row md:flex items-center">
 							<h1 className="font-bold mb-0 mr-3">
 								<span className="">
-									Dr.{doctorData ? first_name + " " + last_name : ""}
+									{doctorData ? formatedPhysicianName + " " + last_name : ""}
 								</span>
 							</h1>
 							<div className="flex">

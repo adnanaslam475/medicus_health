@@ -35,8 +35,11 @@ const historyColumns = [
     key: "first_name",
     sorter: true,
     render: (doctor: User) => {
+      let formatedDoctorFirstName = `${
+        doctor?.first_name?.includes("Dr.") ? doctor?.first_name : `Dr. ${doctor?.first_name}`
+      }`;
       return (
-        <div className="capitalize">{`Dr.${doctor.first_name} ${doctor.last_name}`}</div>
+        <div className="capitalize">{`${formatedDoctorFirstName} ${doctor.last_name}`}</div>
       );
     },
   },

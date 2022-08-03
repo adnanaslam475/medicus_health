@@ -29,10 +29,14 @@ function AppointmnetSuggestedCard({
   setShowModal,
   onViewSuggestedSlots,
 }: Props) {
+  let formatedDoctorName = `${
+    doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
+  }`;
+
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0">ID#-{appointmentId || ""}</span>
-      <h3 className="mb-0 capitalize">Dr.{doctor}</h3>
+      <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
       <span className="text-gray text-base block mb-6">{serviceType}</span>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Date</span>

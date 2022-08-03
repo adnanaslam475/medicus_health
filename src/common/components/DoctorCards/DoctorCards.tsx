@@ -79,7 +79,7 @@ function DoctorCard({
   const prev = () => {
     setCurrent(current - 1);
   };
-
+  let formatedDoctorName = `${name?.includes("Dr.") ? name : `Dr. ${name}`}`;
   return (
     <>
       <Card className={`${_classes["doctorCard"]} rounded-lg`}>
@@ -106,7 +106,7 @@ function DoctorCard({
               <div className="flex-row md:flex">
                 <h2 className="font-bold mb-0 mr-3">
                   <span>
-                    Dr.<span className="capitalize">{name}</span>
+                    <span className="capitalize">{formatedDoctorName}</span>
                   </span>
                 </h2>
                 <div className="flex">

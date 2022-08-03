@@ -26,6 +26,7 @@ import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import moment from "moment";
 import { getUserData } from "common/utils/userData";
 import dayjs from "dayjs";
+import Router from "next/router";
 
 type Props = {
   showRescheduleModal?: boolean;
@@ -83,7 +84,6 @@ function RescheduleAppointmentModal(props: Props) {
   ] = useSuggestNewTimeMutation();
 
   async function onRescheduleAppointment() {
-    setShowRescheduleModal(false);
     const response = await executeUseSuggestNewTimeMutation({
       suggestNewTime: {
         id: Number(data?.id),
@@ -91,10 +91,13 @@ function RescheduleAppointmentModal(props: Props) {
       },
     });
     try {
-      if (response?.data?.suggestNewTime)
-        notification.success({
-          message: "Successfully Rescheduled Appointment",
-        });
+      if (response?.data?.suggestNewTime){
+        setShowRescheduleModal(false);
+        Router.push("/physician/appointments/upcoming")
+          notification.success({
+            message: "Successfully Rescheduled Appointment",
+          });
+      }
     } catch (error: any) {
       notification.error({
         message:
@@ -218,6 +221,7 @@ function RescheduleAppointmentModal(props: Props) {
               onClick={onRescheduleAppointment}
               type="primary"
               disabled={slots.length > 0 ? false : true}
+              loading={fetching}
             >
               Submit
             </Button>

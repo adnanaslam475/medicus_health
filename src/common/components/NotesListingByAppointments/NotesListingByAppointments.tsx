@@ -63,6 +63,9 @@ function NotesListingByAppointments(props: Props) {
 
   const finalPhysicianName =
     docName?.charAt(0).toUpperCase() + "" + docName.slice(1);
+  let formatedDoctorFirstName = finalPhysicianName?.includes("Dr.")
+    ? finalPhysicianName
+    : `Dr. ${finalPhysicianName}`;
 
   // const physicianFullName = capitalFirstname + "" + docName?.slice(1);
 
@@ -94,7 +97,7 @@ function NotesListingByAppointments(props: Props) {
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header={`AP-${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Dr.${finalPhysicianName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                header={`AP-${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                   appDate
                 )} `}
                 key={index + 1}
