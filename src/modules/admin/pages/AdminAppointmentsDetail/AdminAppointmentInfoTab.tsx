@@ -82,6 +82,7 @@ function AdminAppointmentInfoTab({ appointment, loading }: Props) {
         <AdminAppointmentInfo
           data={normalizedAppointmentData as any}
           adminApp_Details={adminApp_Details as DoctorData}
+          appointmentData={appointment as Appointment}
         />
       </div>
     </CardWithProfileImageInfo>
