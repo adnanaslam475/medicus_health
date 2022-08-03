@@ -198,6 +198,7 @@ function UpcomingAppointments() {
                       onViewSuggestedSlots={() =>
                         onViewSuggestedSlots(Number(appointmentDetail?.id))
                       }
+                      specialization={String(appointmentDetail?.doctor?.doctorProfile?.specialization || "")}
                     />
                   );
                 })}

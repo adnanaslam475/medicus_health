@@ -73,7 +73,7 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
             onOpen={() => setOpenDateRange?.(!openDateRange)}
             onCancel={() => setOpenDateRange(false)}
             onApply={applyDateRange}
-            heading="Appointment Date"
+            heading="Appointment date"
             title={
               filterState.dueDate?.startDate ? (
                 <div>

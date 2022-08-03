@@ -130,6 +130,7 @@ function CurrentAppointment() {
                       }
                       onViewSuggestedSlots={() => {}}
                       setShowModal={setShowModal}
+                      specialization={""}
                     />
                   );
                 })}

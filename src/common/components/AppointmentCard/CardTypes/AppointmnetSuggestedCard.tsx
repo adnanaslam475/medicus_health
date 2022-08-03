@@ -17,6 +17,7 @@ type Props = {
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal?: (id: boolean) => void;
   onViewSuggestedSlots: () => void;
+  specialization:string
 };
 
 function AppointmnetSuggestedCard({
@@ -28,6 +29,7 @@ function AppointmnetSuggestedCard({
   appointmentTimeSlots,
   setShowModal,
   onViewSuggestedSlots,
+  specialization
 }: Props) {
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
@@ -35,14 +37,17 @@ function AppointmnetSuggestedCard({
 
   return (
     <Card className={`${_classes["appointment-card"]}`}>
-      <span className="text-sm mb-0">ID#-{appointmentId || ""}</span>
+      <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
       <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-      <span className="text-gray text-base block mb-6">{serviceType}</span>
+      <span className="text-primary text-base block mb-6">{specialization}</span>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm ">Date</span>
+      <span className="text-sm ">Appointment type</span>
+      <div className="text-sm text-gray mb-3">{serviceType}</div>
+      <Space direction="vertical" size="middle" />
+      <span className="text-sm ">Appointment date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm">Time</span>
+      <span className="text-sm">Appointment time</span>
       {appointmentTimeSlots?.length === 0 ? (
         <div className="text-cyan font-semibold">{" - "}</div>
       ) : (
@@ -53,7 +58,7 @@ function AppointmnetSuggestedCard({
         ))
       )}
       <Space direction="vertical" size="middle" />
-      <span className="text-sm  block mt-4 ">Status</span>
+      <span className="text-sm  block mt-4 ">Appointment status</span>
       <span className="text-base text-primary font-bold ">{status}</span>
       <Space direction="vertical" size="middle" />
       <div className="flex">
