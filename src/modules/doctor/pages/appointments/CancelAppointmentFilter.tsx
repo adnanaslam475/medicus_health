@@ -64,6 +64,13 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             }}
           />
         </div>
+
+        <div className="w-full sm:w-60">
+          <SelectServiceTypeFilter
+            onChange={(value) => onChangeFields("serviceId", value)}
+            value={filterState?.serviceId}
+          />
+        </div>
         <div className="-mt-6 w-full sm:w-60">
           <Space className="w-full sm:w-60">
             <FilterRangePicker
@@ -92,13 +99,6 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
               heading={t("appointment_date")}
             />
           </Space>
-        </div>
-
-        <div className="w-full sm:w-60">
-          <SelectServiceTypeFilter
-            onChange={(value) => onChangeFields("serviceId", value)}
-            value={filterState?.serviceId}
-          />
         </div>
         <div className="flex w-full md:w-44 xl:w-60 mr-3">
           <Select

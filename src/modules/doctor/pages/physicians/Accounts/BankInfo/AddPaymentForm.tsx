@@ -21,7 +21,7 @@ const AddPaymentForm = React.forwardRef(function AddPaymentForm(
   return (
     <Form form={form} onFinish={onFinish} layout="vertical">
       <Form.Item
-        label="Bank Name"
+        label="Bank name"
         name="bankName"
         rules={[
           {
@@ -37,7 +37,7 @@ const AddPaymentForm = React.forwardRef(function AddPaymentForm(
         <Input />
       </Form.Item>
       <Form.Item
-        label="Account Title"
+        label="Account title"
         name="accountTitle"
         rules={[
           {
@@ -53,7 +53,7 @@ const AddPaymentForm = React.forwardRef(function AddPaymentForm(
         <Input />
       </Form.Item>
       <Form.Item
-        label="Account Number"
+        label="Account number"
         name="bankAccountNumber"
         rules={[
           {
@@ -69,7 +69,7 @@ const AddPaymentForm = React.forwardRef(function AddPaymentForm(
         <Input />
       </Form.Item>
       <Form.Item
-        label="Routing Number"
+        label="Routing number"
         name="routingNumber"
         rules={[
           {
