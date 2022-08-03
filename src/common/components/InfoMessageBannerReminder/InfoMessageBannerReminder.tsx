@@ -63,22 +63,7 @@ const InfoMessageBannerReminder = () => {
       </div>
 
       {isAppoinmetnStartTime && (
-        // <Button
-        //   className="bg-primary text-primary px-3 whitespace-nowrap ml-auto"
-        //   type="default"
-        //   size="small"
-        //   onClick={() => Router.push(`/patient/appointments/${id}/call`)}
-        // >
-        //   Join now
-        // </Button>
         <Link passHref href={`/patient/appointments/${id}/call`}>
-          {/* <a
-            target="_blank"
-            className="ant-btn ant-btn-default ant-btn-sm bg-primary text-primary px-3 whitespace-nowrap ml-auto font-circular"
-          >
-            <span>Join Now</span>
-          </a> */}
-
           <Button
             className="link_button bg-primary text-primary px-3 whitespace-nowrap ml-auto font-circular"
             type="default"
