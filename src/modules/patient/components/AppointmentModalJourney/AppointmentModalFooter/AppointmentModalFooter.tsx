@@ -52,7 +52,7 @@ function AppointmentModalFooter({
   const [showConfirmationModal, setShowConfirmationModal] =
     React.useState<boolean>(false);
 
-    const [localStripeLoading,setLocalStripeLoading] = React.useState(false)
+  const [localStripeLoading, setLocalStripeLoading] = React.useState(false);
   // CANCEL Appointment By Patient API CALL
   const [
     { data: cancelAppointmentByPatientData, fetching: cancelFetching },
@@ -161,7 +161,7 @@ function AppointmentModalFooter({
       if (elements == null) {
         return;
       }
-      setLocalStripeLoading(true)
+      setLocalStripeLoading(true);
       const cardElement = elements.getElement(CardNumberElement);
 
       const { token } =
@@ -206,7 +206,7 @@ function AppointmentModalFooter({
         });
       }
       // executeGetAllCardsQuery({ requestPolicy: "network-only" });
-      setLocalStripeLoading(false)
+      setLocalStripeLoading(false);
       if (error) {
         notification.error({
           message: error?.message || "Something went wrong",
@@ -260,7 +260,7 @@ function AppointmentModalFooter({
           </div>
           <Tooltip
             title={
-              !contextData.stepTwo?.cardId ? "please add payment method" : ""
+              !contextData.stepTwo?.cardId ? "Please add payment method" : ""
             }
           >
             <Button
@@ -292,7 +292,7 @@ function AppointmentModalFooter({
             onClick={(e) => {
               onAddAndPay(e, appointmentId);
             }}
-            loading={localStripeLoading ||createCardFetching}
+            loading={localStripeLoading || createCardFetching}
           >
             Pay ${totalAppointmentCharges}
           </Button>
