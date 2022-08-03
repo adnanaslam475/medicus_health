@@ -45,23 +45,12 @@ function StepFour() {
     <>
       <h2>Summary</h2>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
-<<<<<<< HEAD
-        <div className="flex justify-between  font-semibold">
-          <h5 className="block font-semibold text-black">Physician</h5>
-        </div>
-        <span>Dr.{doctorName || physician || ""}</span>
-      </div>
-      <div className="flex">
-        <div className="w-full ml-4 border-b border-gray-5 pb-2 mb-5">
-          <div className="flex justify-between  font-semibold">
-=======
         <label className="block font-semibold">Physician</label>
         <span>{formatedPhysicianName}</span>
       </div>
       <div className="flex">
         <div className="w-full ml-4 border-b border-gray-5 pb-2 mb-5">
           <div className="flex justify-between font-semibold">
->>>>>>> 35e9e14a23181d17cd6e5522c70b05b193d894ad
             <span>Appointment type</span>
             <span>{name || serviceName}</span>
           </div>
