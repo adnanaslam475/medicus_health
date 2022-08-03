@@ -27,7 +27,9 @@ const InfoMessageBannerReminder = () => {
   let isAppoinmetnStartTime = date?.isAppoinentDateIsSame(
     date.formatDAYMMDDYY(selectedTime?.startTime)
   );
-
+  let formatedDoctorFirstName = `${
+    doctor_first_name?.includes("Dr.") ? doctor_first_name : `Dr. ${doctor_first_name}`
+  }`;
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
       <Image
@@ -41,12 +43,12 @@ const InfoMessageBannerReminder = () => {
       />
       <div className="flex items-start gap-1">
         <span className="ml-0 min-h-max hidden md:block md:whitespace-nowrap">
-          You have an appointment with Dr.
+          You have an appointment with
           {getRole() === "Doctor" && (
             <span> {`${patient_first_name} ${patient_last_name}`} </span>
           )}
           {getRole() === "User" && (
-            <span> {`${doctor_first_name} ${doctor_last_name}`} </span>
+            <span> {`${formatedDoctorFirstName} ${doctor_last_name}`} </span>
           )}
           at
         </span>

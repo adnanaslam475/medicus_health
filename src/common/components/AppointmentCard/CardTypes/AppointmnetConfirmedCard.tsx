@@ -15,6 +15,7 @@ type Props = {
   serviceType: string | undefined;
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
+  specialization: string;
 };
 
 function AppointmnetConfirmedCard({
@@ -23,6 +24,7 @@ function AppointmnetConfirmedCard({
   serviceType,
   doctor,
   appointmentTimeSlots,
+  specialization,
 }: Props) {
   const t = useTranslations("AppointmentCards");
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
@@ -40,16 +42,18 @@ function AppointmnetConfirmedCard({
   }`;
   return (
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
-      <span className="text-sm mb-0">ID#-{appointmentId || ""}</span>
+      <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
       <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-      <span className="text-gray text-base block mb-4 normal-case">
-        {serviceType}
+      <span className="text-primary text-base block mb-4 normal-case mb-6">
+        {specialization}
       </span>
-      <span className="text-sm pt-5">Date</span>
+      <span className="text-sm ">Appointment type</span>
+      <div className="text-sm text-gray mb-3">{serviceType}</div>
+      <span className="text-sm pt-5">Appointment date</span>
       <h6 className="mb-4">
         {date.formatDAYMMDDYY(selectedAppointment?.startTime)}
       </h6>
-      <span className="text-sm">Time</span>
+      <span className="text-sm">Appointment time</span>
       {!selectedAppointment ? (
         <div className="text-cyan font-semibold mb-4">{" - "}</div>
       ) : (
@@ -57,7 +61,7 @@ function AppointmnetConfirmedCard({
           selectedAppointment?.startTime
         )} - ${date.formathhmma(selectedAppointment?.endTime)}`}</div>
       )}
-      <div className="text-sm">Status</div>
+      <div className="text-sm">Appointment Status</div>
       <span className="text-base text-primary font-bold ">{status}</span>
       <div className="flex mt-4">
         <Button

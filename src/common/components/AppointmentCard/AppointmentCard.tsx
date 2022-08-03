@@ -31,6 +31,7 @@ type props = {
   patientId?: number | null | undefined;
   transaction?: Transaction | undefined;
   appointmentDetail?: Appointment | undefined;
+  specialization:string
 };
 
 function AppointmentCard({
@@ -48,6 +49,7 @@ function AppointmentCard({
   patientId,
   transaction,
   appointmentDetail,
+  specialization
 }: props) {
   function getStatus() {
     const { user } = getUserData();
@@ -75,6 +77,7 @@ function AppointmentCard({
           serviceType={serviceType}
           doctor={doctor}
           appointmentTimeSlots={appointmentTimeSlots}
+          specialization={specialization}
         />
       );
     case "Requested":
@@ -88,6 +91,7 @@ function AppointmentCard({
           appointmentTimeSlots={appointmentTimeSlots}
           setShowModal={setShowModal}
           appointmentDateTime={appointmentDateTime}
+          specialization={specialization}
         />
       );
     case "Rescheduled":
@@ -101,6 +105,7 @@ function AppointmentCard({
           appointmentTimeSlots={appointmentTimeSlots}
           setShowModal={setShowModal}
           onViewSuggestedSlots={onViewSuggestedSlots}
+          specialization={specialization}
         />
       );
     case "Canceled":
@@ -115,6 +120,8 @@ function AppointmentCard({
           appointmentTimeSlots={appointmentTimeSlots}
           transaction={transaction}
           appointmentDetail={appointmentDetail}
+          specialization={specialization}
+
         />
       );
     case "Proposed":
@@ -128,6 +135,7 @@ function AppointmentCard({
           appointmentTimeSlots={appointmentTimeSlots}
           setShowModal={setShowModal}
           onViewSuggestedSlots={onViewSuggestedSlots}
+          specialization={specialization}
         />
       );
     case "Current":

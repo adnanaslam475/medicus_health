@@ -169,6 +169,7 @@ function CancelledAppointment() {
                       doctorProfile={doctor?.doctorProfile as DoctorProfile}
                       transaction={transaction as Transaction}
                       appointmentDetail={appointmentDetail as Appointment}
+                      specialization={String(appointmentDetail?.doctor?.doctorProfile?.specialization || "")}
                     />
                   );
                 })}
