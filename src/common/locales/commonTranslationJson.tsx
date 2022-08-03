@@ -199,7 +199,7 @@ export const englishCommon: any = {
   more_than_a_year_1: "More than a year (1+)",
   more_than_three_to_five_years_3_5: "More than three to five years (3-5)",
   do_you_have_any_pets: "Do you have any pets?",
-  set_password: "Set Password",
+  set_password: "Set password",
   skip_this_for_now_fill_this_later: "Skip this for now & fill this later",
   please_pick_an_option: "Please pick an option!",
   please_fill_field: "Please fill field",

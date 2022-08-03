@@ -9,7 +9,7 @@ function ForgotPasswordForm({ onFinish }: Props) {
     <Form
       layout="vertical"
       initialValues={{ remember: true }}
-      onFinish={onFinish}      
+      onFinish={onFinish}
       autoComplete="off"
     >
       <Form.Item
@@ -36,7 +36,7 @@ function ForgotPasswordForm({ onFinish }: Props) {
           type="primary"
           htmlType="submit"
         >
-          Reset Password
+          Reset password
         </Button>
       </Form.Item>
     </Form>

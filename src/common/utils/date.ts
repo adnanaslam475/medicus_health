@@ -12,8 +12,8 @@ dayjs.extend(utc);
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(duration);
-dayjs.extend(timezone);
-dayjs.tz.setDefault("America/New_York");
+// dayjs.extend(timezone);
+// dayjs.tz.setDefault("America/New_York");
 // dayjs.tz.setDefault("asia/karachi");
 
 export function convertToUTC(date: string) {
@@ -39,8 +39,9 @@ export function formatDAYMMDDYY(date: string) {
 }
 
 export function formathhmma(date: string) {
-  console.log({ date });
-  return dayjs(date).tz().format("h:mma");
+  return dayjs.utc(date).format("h:mma");
+  // console.log({ date });
+  // return dayjs(date).tz().format("h:mma");
   // return dayjs(date).tz("asia/karachi").format("h:mma");
 }
 
@@ -108,6 +109,7 @@ export function isAppointmentTimeValid(
     dayjs().format("MMMM, D, YYYY")
     // dayjs(new Date().toLocaleDateString()).format("MMMM, D, YYYY")
   ) {
+    var now = dayjs();
     const startDate = selectedAppointment?.startTime?.split("T")[0];
     const startTime = selectedAppointment?.startTime
       ?.split("T")[1]
@@ -115,6 +117,7 @@ export function isAppointmentTimeValid(
     const endTime = selectedAppointment?.endTime
       ?.split("T")[1]
       ?.replace("Z", "");
+    console.log("startDate", startDate);
     let difference =
       new Date(`${startDate} ${startTime}`).getTime() - Date.now();
     setTimeout(() => {
@@ -135,6 +138,6 @@ export function addHoursToDate(date: Date, hours: number): Date {
   return new Date(new Date(date).setHours(date.getHours() + hours));
 }
 
-export function setTimeZone(timeZone: string) {
-  dayjs.tz.setDefault(timeZone);
-}
+// export function setTimeZone(timeZone: string) {
+//   dayjs.tz.setDefault(timeZone);
+// }
