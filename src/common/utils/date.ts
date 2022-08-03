@@ -121,6 +121,7 @@ export function isAppointmentTimeValid(
         }, new Date(`${startDate} ${endTime}`).getTime() - Date.now());
       }
     }, difference);
+    console.log(difference, "diff");
   }
 }
 
