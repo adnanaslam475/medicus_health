@@ -81,7 +81,7 @@ function AdminAccount() {
               key="2"
             >
               <div className="w-full  lg:max-w-[600px]">
-              <EmailNotificationPage/>
+                <EmailNotificationPage />
               </div>
             </TabPane>
           </Tabs>

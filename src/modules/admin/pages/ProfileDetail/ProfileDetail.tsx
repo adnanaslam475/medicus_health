@@ -130,7 +130,7 @@ function ProfileDetail() {
               tab={
                 <span>
                   <BellOutlined />
-                  Email Notifications
+                  Email notifications
                 </span>
               }
               key="2"
