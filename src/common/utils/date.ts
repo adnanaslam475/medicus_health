@@ -3,6 +3,7 @@ import utc from "dayjs/plugin/utc";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 import duration from "dayjs/plugin/duration";
+import timezone from "dayjs/plugin/timezone";
 import { date } from "./index";
 import { AppointmentTimeSlots } from "generated/graphql";
 import { CustomTimeSlot } from "common/types/types";
@@ -11,6 +12,9 @@ dayjs.extend(utc);
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(duration);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("America/New_York");
+// dayjs.tz.setDefault("asia/karachi");
 
 export function convertToUTC(date: string) {
   return dayjs.utc(date).format();
@@ -35,7 +39,9 @@ export function formatDAYMMDDYY(date: string) {
 }
 
 export function formathhmma(date: string) {
-  return dayjs.utc(date).format("h:mma");
+  console.log({ date });
+  return dayjs(date).tz().format("h:mma");
+  // return dayjs(date).tz("asia/karachi").format("h:mma");
 }
 
 export function formatDate_n_Time(date: string) {
@@ -127,4 +133,8 @@ export function isAppointmentTimeValid(
 
 export function addHoursToDate(date: Date, hours: number): Date {
   return new Date(new Date(date).setHours(date.getHours() + hours));
+}
+
+export function setTimeZone(timeZone: string) {
+  dayjs.tz.setDefault(timeZone);
 }
