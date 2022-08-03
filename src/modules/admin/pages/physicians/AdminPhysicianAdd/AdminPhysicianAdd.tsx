@@ -51,11 +51,11 @@ function AdminPhysicianAdd() {
         last_name: values?.lastName,
         email: values?.email,
         streetAddress: values?.streetAddress || " ",
-        contact_number:"",
+        contact_number: "",
         country_id: values?.country || 0,
         state_id: values?.state || 0,
         city_id: values?.city_id || 0,
-        zip_code: values?.postalCode||" ",
+        zip_code: values?.postalCode || " ",
       },
     });
 
@@ -89,7 +89,7 @@ function AdminPhysicianAdd() {
     <AppLayout>
       <div className="w-full">
         <div className="flex justify-between">
-          <h2 className="mb-4">Add a Physician</h2>
+          <h2 className="mb-4">Add a physician</h2>
         </div>
         <div className="w-full">
           <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4">

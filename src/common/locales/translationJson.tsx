@@ -207,7 +207,7 @@ export function translationJson(local: string) {
             "If you need help selecting a physician, our support team is a",
           available_today: "Available Today",
           not_available_today: "Not available today",
-          about_me: "Not available today",
+          about_me: "About me",
         },
 
         PersonalInfo: {

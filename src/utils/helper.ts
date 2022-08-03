@@ -97,7 +97,7 @@ export const bioForm = [
       defaultValue: "",
     },
     {
-      label: "Zip code",
+      label: "Postal code",
       name: "zip_code",
       disabled: true,
       defaultValue: "",
