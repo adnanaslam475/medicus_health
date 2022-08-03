@@ -110,9 +110,9 @@ function DoctorAppointmentInfo({ data }: Props) {
       const res = await executeCancelAppointment({
         id: Number(id),
       });
-      
+
       if (res?.data?.cancelAppointment) {
-        Router.push("/physician/appointments/pending")
+        Router.push("/physician/appointments/pending");
         notification.success({
           message: "Appointment canceled",
         });
@@ -200,11 +200,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
             label="Total amount"
-            text={
-              charges
-                ? `$${charges}`
-                : "--"
-            }
+            text={charges ? `$${charges}` : "--"}
           />
         )}
 
@@ -691,7 +687,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         >
           <div className="flex">
             <div className="w-5/6">
-              <Form.Item label="Service*" name="service">
+              <Form.Item label="Appointment type*" name="service">
                 <Select
                   placeholder="Service Type"
                   className="w-full"
@@ -836,7 +832,7 @@ function AvailabilityTimeSlots({
         className="flex mt-2 mb-3 border-gray-8 gap-3"
       >
         <div className="w-50">
-          <Form.Item label="Start time" name="start_time">
+          <Form.Item label="Start date & time" name="start_time">
             <Space direction="vertical" size={12}>
               <DatePicker
                 disabledDate={disabledDate as any}
@@ -852,7 +848,7 @@ function AvailabilityTimeSlots({
           </Form.Item>
         </div>
         <div className="w-50">
-          <Form.Item label="End time" name="end_time">
+          <Form.Item label="End date & time" name="end_time">
             <Space direction="vertical" size={12}>
               {endDateValue === "Invalid date" || !endDateValue ? (
                 <DatePicker

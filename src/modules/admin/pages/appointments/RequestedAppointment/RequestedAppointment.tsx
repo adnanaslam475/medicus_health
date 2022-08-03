@@ -30,7 +30,7 @@ function RequestedAppointment() {
   const [appointmentId, setAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Requested");
-
+  const [searchString, setSearchString] = useState<string>();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   //Get logged in User
@@ -58,6 +58,7 @@ function RequestedAppointment() {
         appointmentId: appointmentId,
         serviceId: serviceIds,
         dueDate: dueDate,
+        searchString: searchString,
       },
       pagination: { limit: -1, page: 1 },
       sorting: { order: "", column: "" },
@@ -156,6 +157,7 @@ function RequestedAppointment() {
               setServiceIds={setServiceIds}
               setBookingDate={setBookingDate}
               setDueDate={setDueDate}
+              setSearchString={setSearchString}
             />
           </div>
 

@@ -28,7 +28,7 @@ function UpcomingAppointments() {
   const [dueEndDate, setEndDate] = useState<Date | null>();
   const [bookingDate, setBookingDate] = useState<BookingDate>({});
   const [dueDate, setDueDate] = useState<DueDate>({});
-
+  const [searchString, setSearchString] = useState<string>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentId, setAppointmentId] = useState<number>();
@@ -45,6 +45,7 @@ function UpcomingAppointments() {
         appointmentId: appointmentId,
         serviceId: serviceIds,
         dueDate: dueDate,
+        searchString: searchString,
       },
       pagination: { limit: -1, page: 1 },
       sorting: { order: "", column: "" },
@@ -165,6 +166,7 @@ function UpcomingAppointments() {
             setEndDate={setEndDate}
             setBookingDate={setBookingDate}
             setDueDate={setDueDate}
+            setSearchString={setSearchString}
           />
         </div>
         {fetching == false ? (
