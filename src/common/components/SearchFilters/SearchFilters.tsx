@@ -34,6 +34,7 @@ type Props = {
   setEndDate: Date | null | any;
   isFromPhysician?: boolean | null | any;
   setSearchPatient?: string | any;
+  setSearchString?: string | any;
   setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
   setDueDate?: React.Dispatch<React.SetStateAction<DueDate>>;
   setClearFilter?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -50,6 +51,7 @@ function SearchFilters(props: Props) {
     setSearchPatient,
     isFromPhysician,
     setAppointmentId,
+    setSearchString,
     setBookingDate,
     setDueDate,
     setClearFilter,
@@ -93,6 +95,12 @@ function SearchFilters(props: Props) {
     setSelectedPhysicianItems(name.children);
     setDoctorId(selectedItem);
   };
+  function handlePaitentName_IDSearch(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    setSearchString(event.target.value);
+    console.log(event.target.value, "Sss");
+  }
 
   const handleServiceChange = (selectedItem: any, name: any) => {
     setSelectedServiceItems(name.children);
@@ -177,13 +185,27 @@ function SearchFilters(props: Props) {
           />
         </div>
       ) : (
-        <div className="  w-full  lg:w-60  ">
+        // <div className=" w-full md:w-44 xl:w-60   ">
+        //   <Select
+        //     placeholder={t("physician")}
+        //     className={`${searchStyle.placeholderColor} w-full`}
+        //     onChange={handlePhysicianChange}
+        //     value={selectedPhysicianItems}
+        //   >
+        //     {doctorProfiles?.map((item) => (
+        //       <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
+        //         {/* {item?.user?.first_name}  {item?.user?.last_name} */}
+        //         {`Dr.${item?.user?.first_name} ${item?.user?.last_name}`}
+        //       </Select.Option>
+        //     ))}
+        //   </Select>
+        // </div>
+        <div className="w-full sm:w-full md:w-full lg:w-96 ">
           <Input
-            placeholder={"ID# or physician name"}
+            placeholder={placeholder || t("id_or_physician_name")}
             prefix={<SearchOutlined />}
-            onChange={(event) => handleAppointmentId(event)}
-            value={localAppointment_Id || ""}
-            // type="number"
+            onChange={(event) => handlePaitentName_IDSearch(event)}
+            // value={patientNam}
           />
         </div>
         // <div className=" w-full md:w-44 xl:w-60   ">

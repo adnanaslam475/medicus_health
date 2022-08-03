@@ -33,12 +33,12 @@ export const Payment = (props: Props) => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <div className=" capitalize text-dark font-medium pb-0 mb-0">
+          <div className="text-dark font-medium pb-0 mb-0">
             <h6 className="text-md mb-0 pb-0">{title}</h6>
           </div>
           <div className="text-gray-2 text-sm">{description}</div>
         </div>
-        <div>{isDefault && <Tag>DEFAULT</Tag>}</div>
+        <div>{isDefault && <Tag>Default</Tag>}</div>
       </div>
       {!isDefault && (
         <div className={`${_classes["btn-stripe-card"]} mt-3 flex gap-2`}>
@@ -58,14 +58,13 @@ export const Payment = (props: Props) => {
                 });
               }}
             >
-                <p className="text-sm pb-0 mb-0"> Make Default</p>
+              <p className="text-sm pb-0 mb-0"> Make Default</p>
             </Button>
           )}
           <Button
             type="link"
             size="small"
             className="text-red-2 p-0 text-sm"
-            
             onClick={() => {
               Modal.confirm({
                 content: "Do you want to remove this card?",
@@ -174,7 +173,9 @@ function Billing({
   return (
     <>
       <div className="col-start-1 col-end-8 flex justify-between align-middle">
-        <div   className={`${_classes["payment_method_head"]} mb-8 flex flex-col w-full`}>
+        <div
+          className={`${_classes["payment_method_head"]} mb-8 flex flex-col w-full`}
+        >
           <h4 className=" text-lg mt-5">Payment methods</h4>
           <div className="flex md:flex-row gap-0 w-full">
             <div className="user-details-list w-full rounded-lg">
@@ -185,10 +186,10 @@ function Billing({
                   </Space>
                 </div>
               ) : (
-                data.map((card:any) => (
+                data.map((card: any) => (
                   <Payment
                     isDefault={card?.is_default}
-                    title={`${card?.card_type} Ending with ${card?.card_digits}`}
+                    title={`${card?.card_type} ending with ${card?.card_digits}`}
                     description={`Expires at: ${card?.exp_month}/${card?.exp_year}`}
                     onRemove={() => {
                       onRemove(card?.id);
@@ -211,7 +212,7 @@ function Billing({
         </div>
       </div>
       <Modal
-        title="Make payment"
+        title="Add card"
         centered
         visible={modalVisible}
         onOk={closeModal}
@@ -246,7 +247,7 @@ function Billing({
               </div>
             </div>
             <div>
-              <span className="text-base text-secondary my-2">Expiry*</span>
+              <span className="text-base text-secondary my-2">Expiry on*</span>
               <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
                 <CardExpiryElement />
               </div>

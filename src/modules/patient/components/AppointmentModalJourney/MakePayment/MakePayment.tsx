@@ -49,7 +49,7 @@ function MakePayment() {
               <Payment
                 cardId={card.id}
                 visa={CARD_TYPE[card?.card_type] || defaultCard}
-                title={`${card?.card_type} Ending with ${card?.card_digits}`}
+                title={`${card?.card_type} ending with ${card?.card_digits}`}
                 description={`Expires at: ${card?.exp_month}/${card?.exp_year}`}
               />
             ))}
