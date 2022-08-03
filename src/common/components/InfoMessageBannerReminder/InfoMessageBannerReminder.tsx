@@ -5,6 +5,7 @@ import { useGetAppointmentsReminderBannerQuery } from "generated/graphql";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import Router from "next/router";
+import Link from "next/link";
 
 const InfoMessageBannerReminder = () => {
   const [{ data }] = useGetAppointmentsReminderBannerQuery();
@@ -28,7 +29,7 @@ const InfoMessageBannerReminder = () => {
   );
 
   return data?.appointmentsReminderBanner ? (
-    <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-2 rounded text-xs text-nowr gap-2">
+    <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
       <Image
         priority={true}
         unoptimized
@@ -39,7 +40,7 @@ const InfoMessageBannerReminder = () => {
         src="/assets/icon/warning-small.svg"
       />
       <div className="flex items-start gap-1">
-        <span className="ml-1 min-h-max hidden md:block">
+        <span className="ml-0 min-h-max hidden md:block md:whitespace-nowrap">
           You have an appointment with Dr.
           {getRole() === "Doctor" && (
             <span> {`${patient_first_name} ${patient_last_name}`} </span>
@@ -56,18 +57,38 @@ const InfoMessageBannerReminder = () => {
         )}`} */}
           {`${date?.formathhmma(selectedTime?.startTime)}`}
         </span>
-        <span>on {date?.formatDAYMMDD(selectedTime?.startTime)}</span>
+        <span className="md:whitespace-nowrap">
+          on {date?.formatDAYMMDD(selectedTime?.startTime)}
+        </span>
       </div>
 
       {isAppoinmetnStartTime && (
-        <Button
-          className="bg-primary text-primary px-3 whitespace-nowrap ml-auto"
-          type="default"
-          size="small"
-          onClick={() => Router.push(`/patient/appointments/${id}/call`)}
-        >
-          Join now
-        </Button>
+        // <Button
+        //   className="bg-primary text-primary px-3 whitespace-nowrap ml-auto"
+        //   type="default"
+        //   size="small"
+        //   onClick={() => Router.push(`/patient/appointments/${id}/call`)}
+        // >
+        //   Join now
+        // </Button>
+        <Link passHref href={`/patient/appointments/${id}/call`}>
+          {/* <a
+            target="_blank"
+            className="ant-btn ant-btn-default ant-btn-sm bg-primary text-primary px-3 whitespace-nowrap ml-auto font-circular"
+          >
+            <span>Join Now</span>
+          </a> */}
+
+          <Button
+            className="link_button bg-primary text-primary px-3 whitespace-nowrap ml-auto font-circular"
+            type="default"
+            size="small"
+            target={"_blank"}
+            // onClick={() => Router.push(`/patient/appointments/${id}/call`)}
+          >
+            Join now
+          </Button>
+        </Link>
       )}
     </div>
   ) : null;

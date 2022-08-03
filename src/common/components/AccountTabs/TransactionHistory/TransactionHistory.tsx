@@ -9,6 +9,8 @@ import {
 } from "../../../../generated/graphql";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
+// import { setTimeZone } from "common/utils/date";
+// setTimeZone("asia/karachi");
 
 const transactionsColumns = [
   {
@@ -36,7 +38,7 @@ const transactionsColumns = [
     },
   },
   {
-    title: "Appointment type",    //change name to appointment type from service type 
+    title: "Appointment type", //change name to appointment type from service type
     dataIndex: "appointment",
     key: "appointment",
     sorter: {
@@ -121,13 +123,11 @@ const transactionsColumns = [
     render: (value: string) => {
       return (
         <div className="someclass">
-         
           <StatusChip type={value.toUpperCase() as StatusName} />
         </div>
       );
     },
   },
- 
 ];
 
 type Props = {
