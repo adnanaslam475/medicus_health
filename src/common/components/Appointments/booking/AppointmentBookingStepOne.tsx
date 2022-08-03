@@ -339,7 +339,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             </div>
           </div>
           <div>
-            <span className="text-gray-1">Physician Availability Schedule</span>
+            <span className="text-gray-1">Physician availability schedule</span>
             <PhysicianAvailabilityAccordion
               doctorId={
                 formInstance.getFieldValue("physician")?.length && doctorId

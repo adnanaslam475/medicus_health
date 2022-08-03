@@ -18,6 +18,7 @@ type Props = {
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal: any;
   appointmentDateTime?: AppointmentDateTimeResponse;
+  specialization:string
 };
 
 function AppointmnetRequestedCard({
@@ -29,6 +30,7 @@ function AppointmnetRequestedCard({
   appointmentTimeSlots,
   setShowModal,
   appointmentDateTime,
+  specialization
 }: Props) {
   const t = useTranslations("AppointmentCards");
   let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
@@ -43,19 +45,21 @@ function AppointmnetRequestedCard({
   }`;
   return (
     <Card className={`${_classes["appointment-card"]}`}>
-      <span className="text-sm mb-0"> ID#-{appointmentId || ""}</span>
+      <span className="text-sm mb-0"> ID# {appointmentId || ""}</span>
       <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-      <span className="text-gray text-base block">{serviceType}</span>
-      <span className="text-sm mt-6 block">Date</span>
+      <span className="text-primary text-base block  mb-6">{specialization}</span>
+      <span className="text-sm ">Appointment type</span>
+      <div className="text-sm text-gray mb-3">{serviceType}</div>
+      <span className="text-sm mt-6 block">Appointment date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
-      <span className="text-sm mt-4 block">Time</span>
+      <span className="text-sm mt-4 block">Appointment time</span>
       <div className="text-secondary">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${formatedStartTime}
              - ${formatedEndTime}`
           : "--"}
       </div>
-      <span className="text-sm mt-4 block font-normal">Status</span>
+      <span className="text-sm mt-4 block font-normal">Appointment status</span>
       <span className="text-base text-yellow font-bold ">{status}</span>
     </Card>
   );

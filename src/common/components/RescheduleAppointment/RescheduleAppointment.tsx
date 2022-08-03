@@ -254,24 +254,26 @@ function AvailabilityTimeSlots({
     (item) => item.day
   );
 
-  function disabledDate(current: any) {
-    const weekDays = [0, 1, 2, 3, 4, 5, 6];
-    // Remove duplicates from array
-    let doctorAvailableDays = [
-      ...(new Set(doctorAvailableDaysList) as unknown as number[]),
-    ];
+  // disable dates in which physician is not avaialble currently removed by client
 
-    // Returns list of days in which doctor is not available
-    const filteredDays = weekDays.filter(
-      (currentEl) => !doctorAvailableDays.includes(currentEl)
-    );
-    const isSunday = filteredDays.includes(0) ? 0 : NaN
-    const disabledDates =
-      current < dayjs().startOf("day") ||
-      new Date(current).getDay() === isSunday ||
-      filteredDays?.find((day) => day === new Date(current).getDay());
-    return disabledDates;
-  }
+  // function disabledDate(current: any) {
+  //   const weekDays = [0, 1, 2, 3, 4, 5, 6];
+  //   // Remove duplicates from array
+  //   let doctorAvailableDays = [
+  //     ...(new Set(doctorAvailableDaysList) as unknown as number[]),
+  //   ];
+
+  //   // Returns list of days in which doctor is not available
+  //   const filteredDays = weekDays.filter(
+  //     (currentEl) => !doctorAvailableDays.includes(currentEl)
+  //   );
+  //   const isSunday = filteredDays.includes(0) ? 0 : NaN
+  //   const disabledDates =
+  //     current < dayjs().startOf("day") ||
+  //     new Date(current).getDay() === isSunday ||
+  //     filteredDays?.find((day) => day === new Date(current).getDay());
+  //   return disabledDates;
+  // }
   return (
     <div className="block mb-10">
       <Form
@@ -290,7 +292,6 @@ function AvailabilityTimeSlots({
                 onChange={(_, date: string) => {
                   onChangeDatePicker?.(date, "startDate");
                 }}
-                disabledDate={disabledDate as any}
                 minuteStep={30}
               />
             </Space>

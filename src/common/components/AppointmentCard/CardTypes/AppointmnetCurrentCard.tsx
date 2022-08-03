@@ -54,14 +54,14 @@ function AppointmnetCurrentCard({
   }`;
   return (
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
-      <h3 className="mb-0">ID#-{appointmentId || "Appointment-id"}</h3>
+      <h3 className="mb-0">ID# {appointmentId || "Appointment-id"}</h3>
       <h3 className="mb-0">{formatedDoctorName}</h3>
       <span className="text-gray text-base block">{serviceType}</span>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm">Date</span>
+      <span className="text-sm">Appointment date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm">Time</span>
+      <span className="text-sm">Appointment time</span>
       <div className="text-cyan font-semibold">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${date.formathhmma(appointmentDateTime?.startTime)}

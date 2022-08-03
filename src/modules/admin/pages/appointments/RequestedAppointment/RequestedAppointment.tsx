@@ -184,6 +184,7 @@ function RequestedAppointment() {
                         status={status}
                         serviceType={serviceType?.name}
                         doctor={doctorFullName}
+                        specialization={String(appointmentDetail?.doctor?.doctorProfile?.specialization || "")}
                         appointmentTimeSlots={
                           appointmentTimeSlots as AppointmentTimeSlots[]
                         }

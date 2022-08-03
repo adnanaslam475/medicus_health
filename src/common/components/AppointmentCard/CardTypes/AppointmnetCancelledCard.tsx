@@ -20,6 +20,7 @@ type Props = {
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   transaction?: Transaction | undefined;
   appointmentDetail?: Appointment | undefined;
+  specialization: string;
 };
 
 function AppointmnetCancelledCard({
@@ -32,6 +33,7 @@ function AppointmnetCancelledCard({
   appointmentTimeSlots,
   transaction,
   appointmentDetail,
+  specialization,
 }: Props) {
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
@@ -70,12 +72,14 @@ function AppointmnetCancelledCard({
   return (
     <>
       <Card className={`${_classes["appointment-card"]}`}>
-        <span className="text-sm mb-0">ID#-{appointmentId || ""}</span>
+        <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
         <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-        <span className="text-gray text-base block">{serviceType}</span>
-        <span className="text-sm">Date</span>
+        <span className="text-primary text-base block mb-6">{specialization}</span>
+        <span className="text-sm ">Appointment type</span>
+        <div className="text-sm text-gray mb-3">{serviceType}</div>
+        <span className="text-sm">Appointment date</span>
         <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
-        <span className="text-sm">Time</span>
+        <span className="text-sm">Appointment time</span>
         {appointmentTimeSlots?.length === 0 ? (
           <div className="text-cyan font-semibold">{" - "}</div>
         ) : (
@@ -86,7 +90,7 @@ function AppointmnetCancelledCard({
           ))
         )}
         <div className="inline-block mr-24">
-          <span className="text-sm">Status</span>
+          <span className="text-sm">Appointment status</span>
           <span className="flex text-base text-red font-bold ">{status}</span>
         </div>
         <div className="inline-block">
