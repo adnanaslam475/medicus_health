@@ -128,8 +128,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const [showDrugOthers, setShowDrugOthers] = useState(false);
   const [showSurgicalOthers, setShowSurgicalOthers] = useState(false);
   const [formInstance] = Form.useForm();
-initTranslation(["HealthQuestionary"]);
-
 
   useEffect(() => {
     if (ref) {
@@ -146,8 +144,9 @@ initTranslation(["HealthQuestionary"]);
   const { pathname } = router || {};
   let disabled = pathname?.includes("/physician/appointments");
 
+  i18next.changeLanguage(useLocale());
   const t = i18next.t;
-  console.log(t("title"));
+
   // const t = useTranslations("Questionnary");
 
   function prepareAndSetEditPayload(parsedData: any) {
@@ -194,6 +193,8 @@ initTranslation(["HealthQuestionary"]);
     if (values.radio_smoke) {
       HealthQuestionnaryData.q2["ans"] = 1;
       HealthQuestionnaryData.q2.q.ans = values.smoke;
+      HealthQuestionnaryData.q2.q1.ans = values.smoke1;
+      HealthQuestionnaryData.q2.q2.ans = values.smoke2;
     } else {
       HealthQuestionnaryData.q2["ans"] = 0;
       HealthQuestionnaryData.q2.q.ans = null;

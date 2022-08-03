@@ -31,7 +31,7 @@ function UpcomingAppointments() {
   const [searchString, setSearchString] = useState<string>();
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
-  const [appointmentId, setAppointmentId] = useState<number>();
+  const [appointmentId, setAppointmentId] = useState<string>("");
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Confirmed");
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
@@ -42,7 +42,7 @@ function UpcomingAppointments() {
         status: status,
         physicianName: dataListPhysician,
         doctorId: doctorIds,
-        appointmentId: appointmentId,
+        searchString: String(appointmentId),
         serviceId: serviceIds,
         dueDate: dueDate,
         searchString: searchString,

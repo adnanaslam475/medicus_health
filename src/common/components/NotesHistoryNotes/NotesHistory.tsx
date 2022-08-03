@@ -71,6 +71,10 @@ function NotesHistory(props: Props) {
 
   const finalPhysicianName = physicianFullName + " " + lastName;
 
+  let formatedDoctorFirstName = finalPhysicianName?.includes("Dr.")
+    ? finalPhysicianName
+    : `Dr. ${finalPhysicianName}`;
+
   const status = getHistoryNotesData?.appointment.status;
 
   return (
@@ -95,7 +99,7 @@ function NotesHistory(props: Props) {
                     className={`${_classes["site-collapse-custom-panel"]} w-full`}
                     header={`ID#-AP-${
                       data?.appointment?.id
-                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Dr.${finalPhysicianName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                       data?.createdAt
                     )} `}
                     key={index + 1}

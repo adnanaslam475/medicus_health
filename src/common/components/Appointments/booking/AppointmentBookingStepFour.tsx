@@ -36,11 +36,16 @@ function StepFour() {
   const systemFee = getAppointmentPriceForRequest?.systemFee;
   const tax = getAppointmentPriceForRequest?.tax;
   const total = getAppointmentPriceForRequest?.total;
-
+  let formatedPhysicianName = doctorName
+    ? `${doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`}`
+    : physician
+    ? `${physician?.includes("Dr.") ? physician : `Dr. ${physician}`}`
+    : "";
   return (
     <>
       <h2>Summary</h2>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
+<<<<<<< HEAD
         <div className="flex justify-between  font-semibold">
           <h5 className="block font-semibold text-black">Physician</h5>
         </div>
@@ -49,6 +54,14 @@ function StepFour() {
       <div className="flex">
         <div className="w-full ml-4 border-b border-gray-5 pb-2 mb-5">
           <div className="flex justify-between  font-semibold">
+=======
+        <label className="block font-semibold">Physician</label>
+        <span>{formatedPhysicianName}</span>
+      </div>
+      <div className="flex">
+        <div className="w-full ml-4 border-b border-gray-5 pb-2 mb-5">
+          <div className="flex justify-between font-semibold">
+>>>>>>> 35e9e14a23181d17cd6e5522c70b05b193d894ad
             <span>Appointment type</span>
             <span>{name || serviceName}</span>
           </div>
@@ -73,7 +86,7 @@ function StepFour() {
         </div>
       </div>
       <div className="w-full border-b border-gray-5 pb-2 mb-5">
-        <label className="block">Requested date & time</label>
+        <label className="block font-semibold">Requested date & time</label>
         <span>{date.formatDAYMMDDYY(requestedDate)}</span>
         <span className="text-sm"></span>
         {/* <span className="ml-3">{date.formathhmma(requestedDate)}</span> */}

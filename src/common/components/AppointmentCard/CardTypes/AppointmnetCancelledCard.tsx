@@ -19,7 +19,7 @@ type Props = {
   doctorProfile?: DoctorProfile | undefined | null;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   transaction?: Transaction | undefined;
-  appointmentDetail?:Appointment | undefined
+  appointmentDetail?: Appointment | undefined;
 };
 
 function AppointmnetCancelledCard({
@@ -31,7 +31,7 @@ function AppointmnetCancelledCard({
   doctorProfile,
   appointmentTimeSlots,
   transaction,
-  appointmentDetail
+  appointmentDetail,
 }: Props) {
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
@@ -64,12 +64,14 @@ function AppointmnetCancelledCard({
   const prev = () => {
     setCurrent(current - 1);
   };
-
+  let formatedDoctorName = `${
+    doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
+  }`;
   return (
     <>
       <Card className={`${_classes["appointment-card"]}`}>
         <span className="text-sm mb-0">ID#-{appointmentId || ""}</span>
-        <h3 className="mb-0 capitalize">Dr.{doctor}</h3>
+        <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
         <span className="text-gray text-base block">{serviceType}</span>
         <span className="text-sm">Date</span>
         <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>

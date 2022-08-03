@@ -59,6 +59,11 @@ export function translationJson(local: string) {
           please_pick_an_option: "Por favor elige una opción",
           please_fill_field: "Por favor complete el campo",
         },
+        Questionnary: {
+          ...spanishCommon,
+          skip_this_for_now_fill_this_later:
+            "Saltar esto por ahora y llenar esto más tarde",
+        },
 
         UpcomingAppointments: {
           ...spanishCommon,
@@ -163,6 +168,11 @@ export function translationJson(local: string) {
             "Skip this for now & fill this later",
           please_pick_an_option: "Please pick an option!",
           please_fill_field: "Please fill field",
+        },
+        Questionnary: {
+          ...englishCommon,
+          skip_this_for_now_fill_this_later:
+            "Skip this for now & fill this later",
         },
 
         UpcomingAppointments: {

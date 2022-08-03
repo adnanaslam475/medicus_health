@@ -29,7 +29,7 @@ function CancelledAppointment() {
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [searchString, setSearchString] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
-  const [appointmentId, setAppointmentId] = useState<number>();
+  const [appointmentId, setAppointmentId] = useState<string>("");
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Canceled");
@@ -39,7 +39,7 @@ function CancelledAppointment() {
         status: status,
         physicianName: dataListPhysician,
         doctorId: doctorIds,
-        appointmentId: appointmentId,
+        searchString: String(appointmentId),
         serviceId: serviceIds,
         dueDate: dueDate,
         searchString: searchString,

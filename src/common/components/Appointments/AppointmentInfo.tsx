@@ -37,6 +37,10 @@ function AppointmentInfo(props: Props) {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment]);
 
+  let formatedDoctorFirstName = `${
+    first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
+  }`;
+
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -51,7 +55,7 @@ function AppointmentInfo(props: Props) {
         />
         <LabelValueRow
           label="Physician"
-          value={`Dr. ${first_name} ${last_name}`}
+          value={`${formatedDoctorFirstName} ${last_name}`}
         />
         <LabelValueRow label="Appointment type" value={name || "--"} />
         <LabelValueRow

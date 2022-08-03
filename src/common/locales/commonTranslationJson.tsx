@@ -200,6 +200,9 @@ export const englishCommon: any = {
   more_than_three_to_five_years_3_5: "More than three to five years (3-5)",
   do_you_have_any_pets: "Do you have any pets?",
   set_password: "Set Password",
+  skip_this_for_now_fill_this_later: "Skip this for now & fill this later",
+  please_pick_an_option: "Please pick an option!",
+  please_fill_field: "Please fill field",
 };
 
 export const spanishCommon: any = {
@@ -405,4 +408,8 @@ export const spanishCommon: any = {
   more_than_three_to_five_years_3_5: "Más de tres a cinco años (3-5)",
   do_you_have_any_pets: "¿Tiene mascotas?",
   set_password: "Configurar la clave",
+  please_pick_an_option: "Por favor elige una opción",
+  please_fill_field: "Por favor complete el campo",
 };
+
+// asddsasd

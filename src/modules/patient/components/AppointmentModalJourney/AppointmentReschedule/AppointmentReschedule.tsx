@@ -55,13 +55,15 @@ function AppointmentReschedule(props: Props) {
   }, [charges, appointmentDetails, appointmentTimeSlots]);
 
   const {appointmentPrice,systemFee,tax,total} = appointmentCharges
+  let formatedDoctorName = `${doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`}`;
+
   return (
     <div>
       <h2>Appointment reschedule</h2>
       <div>
         <div className="border-b border-gray-4 ">
           <h5>Physician</h5>
-          <p>Dr. {doctorName}</p>
+          <p>{formatedDoctorName}</p>
         </div>
         <div className="flex">
         <div className="w-full border-b border-gray-5 pb-2 pt-2">
@@ -80,7 +82,7 @@ function AppointmentReschedule(props: Props) {
           </div>
 
           <div className="flex justify-between ">
-            <span>System fee</span>
+            <span>Processing fee</span>
             <span>${systemFee || "0"}</span>
           </div>
           <div className="flex justify-between font-semibold pt-2">
