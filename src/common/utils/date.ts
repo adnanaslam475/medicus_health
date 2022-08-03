@@ -108,6 +108,7 @@ export function isAppointmentTimeValid(
     dayjs().format("MMMM, D, YYYY")
     // dayjs(new Date().toLocaleDateString()).format("MMMM, D, YYYY")
   ) {
+    var now = dayjs();
     const startDate = selectedAppointment?.startTime?.split("T")[0];
     const startTime = selectedAppointment?.startTime
       ?.split("T")[1]
@@ -115,6 +116,7 @@ export function isAppointmentTimeValid(
     const endTime = selectedAppointment?.endTime
       ?.split("T")[1]
       ?.replace("Z", "");
+    console.log("startDate", startDate);
     let difference =
       new Date(`${startDate} ${startTime}`).getTime() - Date.now();
     setTimeout(() => {
