@@ -80,7 +80,7 @@ function AdminCalender(props: Props) {
           appointmentTimeSlots,
         }) => ({
           id: id,
-          title: patient?.first_name,
+          title: `${serviceType?.name}:${patient?.first_name} ${patient?.last_name}`,
           start:
             appointmentTimeSlots
               ?.find((item) => item.selected)

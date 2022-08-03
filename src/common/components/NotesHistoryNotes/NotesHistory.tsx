@@ -29,12 +29,24 @@ function NotesHistory(props: Props) {
   //   },
   // });
 
-  const [{ data: getHistoryNotesData }, executeGetDoctorNotesByAppIdQuery] =
-    useGetDoctorNotesByAppIdQuery({
+  // FRESH COMMENT
+  // const [{ data: getHistoryNotesData }, executeGetDoctorNotesByAppIdQuery] =
+  //   useGetDoctorNotesByAppIdQuery({
+  //     variables: {
+  //       id: Number(query?.id),
+  //     },
+  //   });
+
+  // FRESH NEXT COMMENT
+
+  const [{ data: getHistoryNotesData }, executeGetAppointmentNotesByIdQuery] =
+    useGetAppointmentNotesByIdQuery({
       variables: {
         id: Number(query?.id),
       },
     });
+
+  console.log(getHistoryNotesData, "anis");
 
   const { Panel } = Collapse;
 
@@ -59,23 +71,36 @@ function NotesHistory(props: Props) {
 
   console.log(historyNotes, "MajidhistoryNotes");
 
-  const appointmentId = getHistoryNotesData?.appointment?.id;
+  const doctorNameforHistoryNotes = (firstName: string, lastName: string) => {
+    const capitalFirstname = firstName?.charAt(0).toUpperCase();
 
-  const firstName = getHistoryNotesData?.appointment.doctor?.first_name;
+    const physicianFullName = capitalFirstname + "" + firstName?.slice(1);
 
-  const lastName = getHistoryNotesData?.appointment?.doctor?.last_name;
+    const finalPhysicianName = physicianFullName + " " + lastName;
 
-  const capitalFirstname = firstName?.charAt(0).toUpperCase();
+    let formatedDoctorFirstName = finalPhysicianName?.includes("Dr.")
+      ? finalPhysicianName
+      : `Dr. ${finalPhysicianName}`;
+    return formatedDoctorFirstName;
+  };
 
-  const physicianFullName = capitalFirstname + "" + firstName?.slice(1);
+  // const appointmentId = getHistoryNotesData?.appointment?.id;
 
-  const finalPhysicianName = physicianFullName + " " + lastName;
+  // const firstName = getHistoryNotesData?.appointment.doctor?.first_name;
 
-  let formatedDoctorFirstName = finalPhysicianName?.includes("Dr.")
-    ? finalPhysicianName
-    : `Dr. ${finalPhysicianName}`;
+  // const lastName = getHistoryNotesData?.appointment?.doctor?.last_name;
 
-  const status = getHistoryNotesData?.appointment.status;
+  // const capitalFirstname = firstName?.charAt(0).toUpperCase();
+
+  // const physicianFullName = capitalFirstname + "" + firstName?.slice(1);
+
+  // const finalPhysicianName = physicianFullName + " " + lastName;
+
+  // let formatedDoctorFirstName = finalPhysicianName?.includes("Dr.")
+  //   ? finalPhysicianName
+  //   : `Dr. ${finalPhysicianName}`;
+
+  // const status = getHistoryNotesData?.appointment.status;
 
   return (
     <>
@@ -97,9 +122,17 @@ function NotesHistory(props: Props) {
                 return (
                   <Panel
                     className={`${_classes["site-collapse-custom-panel"]} w-full`}
+                    // header={`ID#-AP-${
+                    //   data?.appointment?.id
+                    // }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                    //   data?.createdAt
+                    // )} `}
                     header={`ID#-AP-${
                       data?.appointment?.id
-                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${doctorNameforHistoryNotes(
+                      data?.appointment?.doctor?.first_name,
+                      data?.appointment?.doctor?.last_name
+                    )}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                       data?.createdAt
                     )} `}
                     key={index + 1}

@@ -36,7 +36,7 @@ function ResendLinkForm({ onFinish }: Props) {
           type="primary"
           htmlType="submit"
         >
-          Send Reset Password Link
+          Send reset password link
         </Button>
       </Form.Item>
     </Form>

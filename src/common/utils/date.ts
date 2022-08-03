@@ -106,7 +106,7 @@ export function isAppointmentTimeValid(
     dayjs().format("MMMM, D, YYYY")
     // dayjs(new Date().toLocaleDateString()).format("MMMM, D, YYYY")
   ) {
-    const now = dayjs();
+    var now = dayjs();
     const startDate = selectedAppointment?.startTime?.split("T")[0];
 
     const startTime = selectedAppointment?.startTime

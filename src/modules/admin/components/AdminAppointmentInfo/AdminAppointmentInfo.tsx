@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import { CloseOutlined, MessageOutlined } from "@ant-design/icons";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  CloseOutlined,
+  MessageOutlined,
+  VideoCameraFilled,
+} from "@ant-design/icons";
 import { Button, notification, Tag } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
 
@@ -7,6 +11,8 @@ import LabelWithText from "common/components/LabelWithText/LabelWithText";
 import _classes from "./AdminAppointmentInfo.module.scss";
 import Router, { useRouter } from "next/router";
 import {
+  Appointment,
+  AppointmentTimeSlots,
   useCancelAppointmentByDoctorMutation,
   useRemoveAppointmentByAdminMutation,
 } from "generated/graphql";
@@ -15,8 +21,11 @@ import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationM
 import { date } from "common/utils";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
+import RescheduleAppointmentModal from "common/components/RescheduleAppointment/RescheduleAppointment";
+import { isAppointmentTimeValid } from "common/utils/date";
 
 type Props = {
+  appointmentData?: Appointment;
   data?: {
     id: string;
     bookingDate: string;
@@ -43,7 +52,11 @@ type DoctorData = {
     patient_id: number;
   };
 };
-function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
+function AdminAppointmentInfo({
+  data,
+  adminApp_Details,
+  appointmentData,
+}: Props) {
   const { query } = useRouter();
   const {
     id,
@@ -148,8 +161,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
             </div>
           </li>
         </div>
-        {(appointmentStatus === "Confirmed" ||
-          appointmentStatus === "Canceled" ||
+        {(appointmentStatus === "Canceled" ||
           appointmentStatus === "Completed") && (
           <AdminAppointmentInfoFooter
             appointmentStatus={appointmentStatus}
@@ -165,8 +177,16 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
           />
         )}
 
+        {appointmentStatus === "Confirmed" && (
+          <AdminAppointmentConfirmedInfoFooter
+            adminApp_Details={adminApp_Details}
+            onCancelRequestedAppointment={onCancelRequestedAppointment}
+            appointmentData={appointmentData as any}
+          />
+        )}
+
         {/* DELETE THIS APPOINTMENT */}
-        <Button
+        {/* <Button
           type="link"
           className="ml-auto mt-10"
           danger
@@ -176,7 +196,7 @@ function AdminAppointmentInfo({ data, adminApp_Details }: Props) {
           onClick={deleteModalHandler}
         >
           Delete appointment
-        </Button>
+        </Button> */}
         <ConfirmationModal
           message="Are you sure You want to delete this appointment?"
           onCancel={deleteModalHandler}
@@ -308,6 +328,73 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
           }
         >
           Message physician
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function AdminAppointmentConfirmedInfoFooter(props: Props) {
+  const { onCancelRequestedAppointment, adminApp_Details, appointmentData } = props || {};
+  const [showRescheduleModal, setShowRescheduleModal] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
+    () => appointmentData?.appointmentTimeSlots?.find((item) => item.selected),
+    [appointmentData?.appointmentTimeSlots]
+  );
+  useEffect(() => {
+    isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
+  }, [selectedAppointment]);
+  return (
+    <div className="flex justify-between mt-6 flex-wrap wrap">
+      <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2">
+        {showRescheduleModal && (
+          <RescheduleAppointmentModal
+            showRescheduleModal={showRescheduleModal}
+            setShowRescheduleModal={setShowRescheduleModal}
+            data={appointmentData}
+          />
+        )}
+        <Button
+          type="primary"
+          icon={<VideoCameraFilled />}
+          className={`${_classes["appointments-btn"]} bg-current`}
+          onClick={() =>
+            Router.push(`/physician/appointments/${appointmentData?.id}/call`)
+          }
+          disabled={disabled}
+        >
+          Join now
+        </Button>
+        <Button
+          type="primary"
+          icon={<VideoCameraFilled />}
+          className={`${_classes["appointments-btn"]} bg-current`}
+          onClick={() => setShowRescheduleModal(true)}
+        >
+          Reschedule appointment
+        </Button>
+        <Button
+          icon={<MessageOutlined />}
+          className={`${_classes["appointments-btn"]}  flex-1`}
+          onClick={() => {
+            Router.push({
+              pathname: "/admin/messages",
+              query: {
+                chat: "admin",
+                patientId: adminApp_Details?.patient.patient_id,
+              },
+            });
+          }}
+        >
+          Message patient
+        </Button>
+        <Button
+          danger
+          className={`${_classes["appointments-btn"]}  flex-1`}
+          onClick={onCancelRequestedAppointment}
+        >
+          Cancel appointment
         </Button>
       </div>
     </div>

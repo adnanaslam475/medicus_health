@@ -2,6 +2,7 @@ import { Button, Card, Space } from "antd";
 import React from "react";
 import upcoming from "../../../../../pages/physician/appointments/upcoming";
 import {
+  AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   useGetAllRequestedAppointmentsQuery,
 } from "../../../../generated/graphql";
@@ -17,7 +18,7 @@ type Props = {
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal?: (id: boolean) => void;
   onViewSuggestedSlots: () => void;
-  specialization:string
+  specialization:string;
 };
 
 function AppointmnetSuggestedCard({
@@ -29,7 +30,7 @@ function AppointmnetSuggestedCard({
   appointmentTimeSlots,
   setShowModal,
   onViewSuggestedSlots,
-  specialization
+  specialization,
 }: Props) {
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
@@ -47,12 +48,12 @@ function AppointmnetSuggestedCard({
       <span className="text-sm ">Appointment date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm">Appointment time</span>
+      <span className="text-sm">Appointment proposed time</span>
       {appointmentTimeSlots?.length === 0 ? (
         <div className="text-cyan font-semibold">{" - "}</div>
       ) : (
         appointmentTimeSlots?.map((item) => (
-          <div className="text-cyan font-semibold">{`${date.formathhmma(
+          <div className="text-cyan font-semibold">{`${item?.startTime?.split("T")[0]} - ${date.formathhmma(
             item.startTime
           )} - ${date.formathhmma(item.endTime)}`}</div>
         ))
