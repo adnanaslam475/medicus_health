@@ -33,18 +33,19 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
 
 	function clear() {
 		onChange({});
+
 	}
 
 	const applyDateRange = (status: string) => {
 		switch (status) {
-			case "bookingDate":
-				setOpenDateRange("");
-				onChangeFields("bookingDate", bookingDate);
-				break;
+			// case "bookingDate":
+			// 	setOpenDateRange("");
+			// 	onChangeFields("bookingDate", bookingDate);
+			// 	break;
 			case "dueDate":
 				setOpenDateRange("");
 				onChangeFields("dueDate", dueDate);
-
+			break;
 			default:
 				break;
 		}
@@ -55,16 +56,16 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
 			...filterValues,
 			[key]: value,
 		};
-		if (key === "status") {
-			setDueDate({
-				startDate: "",
-				endDate: "",
-			});
-			delete filters.dueDate;
-		}
-		if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
-			delete filters.bookingDate;
-		}
+		// if (key === "status") {
+		// 	setDueDate({
+		// 		startDate: "",
+		// 		endDate: "",
+		// 	});
+		// 	delete filters.dueDate;
+		// }
+		// if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
+		// 	delete filters.bookingDate;
+		// }
 		if (!filters.dueDate?.startDate && !filters.dueDate?.endDate) {
 			delete filters.dueDate;
 		}
@@ -170,6 +171,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
 						placeholder="Payment status"
 						onChange={(value) => onChangeFields("paymentStatus", value)}
 						className="w-full sm:w-50 text-sm font-rubik text-grey"
+						value={filterValues?.paymentStatus}
 					>
 						<Select.Option value="paid">PAID</Select.Option>
 						<Select.Option value="unpaid">UNPAID</Select.Option>
