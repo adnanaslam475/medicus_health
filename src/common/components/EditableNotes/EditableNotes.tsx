@@ -208,6 +208,23 @@ function EditableNotes() {
             >
               Delete
             </Button> */}
+            {/* Commented as per Feedback */}
+            {/* <Button
+              type="primary"
+              className="mt-2"
+              htmlType="submit"
+              onClick={() => {
+                setIsPublish(true);
+              }}
+            >
+              Publish Notes
+            </Button> */}
+            <Button className="mt-2" htmlType="submit" loading={fetching}>
+              Save
+            </Button>
+          </div>
+        ) : (
+          <div className="flex justify-end gap-3">
             <Button
               type="primary"
               className="mt-2"
@@ -218,12 +235,6 @@ function EditableNotes() {
             >
               Publish Notes
             </Button>
-            <Button className="mt-2" htmlType="submit" loading={fetching}>
-              Save
-            </Button>
-          </div>
-        ) : (
-          <div className="flex justify-end gap-3">
             <Button
               className="mt-2"
               onClick={(e) => {

@@ -7,6 +7,7 @@ import Router from "next/router";
 import { AppointmentTimeSlots } from "../../../../generated/graphql";
 import { isAppointmentTimeValid } from "common/utils/date";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -64,7 +65,7 @@ function AppointmnetConfirmedCard({
       <div className="text-sm">Appointment Status</div>
       <span className="text-base text-primary font-bold ">{status}</span>
       <div className="flex mt-4">
-        <Button
+        {/* <Button
           type={"primary"}
           icon={<VideoCameraFilled />}
           className={`${_classes["card-btn"]} mr-3`}
@@ -74,7 +75,22 @@ function AppointmnetConfirmedCard({
           disabled={disabled}
         >
           Join now
-        </Button>
+        </Button> */}
+        <Link passHref href={`/patient/appointments/${appointmentId}/call`}>
+          <Button
+            className={` ${_classes["card-btn"]} mr-3`}
+            type={"primary"}
+            // icon={<VideoCameraFilled />}
+            target={"_blank"}
+            disabled={disabled}
+            // onClick={() => Router.push(`/patient/appointments/${id}/call`)}
+          >
+            <div className="flex items-center">
+              <VideoCameraFilled className="-mt-0 leading-4" />
+              <span className="ml-2">Join now</span>
+            </div>
+          </Button>
+        </Link>
         <Button
           className={`${_classes["card-btn"]} bg-transparent`}
           onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}

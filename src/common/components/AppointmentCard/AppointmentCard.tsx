@@ -31,7 +31,7 @@ type props = {
   patientId?: number | null | undefined;
   transaction?: Transaction | undefined;
   appointmentDetail?: Appointment | undefined;
-  specialization:string
+  specialization: string;
 };
 
 function AppointmentCard({
@@ -49,7 +49,7 @@ function AppointmentCard({
   patientId,
   transaction,
   appointmentDetail,
-  specialization
+  specialization,
 }: props) {
   function getStatus() {
     const { user } = getUserData();
@@ -121,7 +121,6 @@ function AppointmentCard({
           transaction={transaction}
           appointmentDetail={appointmentDetail}
           specialization={specialization}
-
         />
       );
     case "Proposed":
