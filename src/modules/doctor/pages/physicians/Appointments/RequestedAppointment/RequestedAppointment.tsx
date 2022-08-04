@@ -34,16 +34,26 @@ function RequestedAppointment() {
   const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =
     useGetAllRequestedAppointmentsQuery({
       variables: {
-        filter: {
-          status: "Requested",
-          physicianName: dataListPhysician,
-          doctorId: doctorIds,
-          appointmentId: appointmentId,
-          serviceId: serviceIds,
-          dueDate: dueDate,
-          bookingDate: bookingDate,
-          searchString: searchPatient,
-        },
+        filter: appointmentId
+          ? {
+              status: "Requested",
+              physicianName: dataListPhysician,
+              doctorId: doctorIds,
+              appointmentId: appointmentId,
+              serviceId: serviceIds,
+              dueDate: dueDate,
+              bookingDate: bookingDate,
+              searchString: searchPatient || "",
+            }
+          : {
+              status: "Requested",
+              physicianName: dataListPhysician,
+              doctorId: doctorIds,
+              serviceId: serviceIds,
+              dueDate: dueDate,
+              bookingDate: bookingDate,
+              searchString: searchPatient || "",
+            },
         pagination,
         sorting,
       },

@@ -12,6 +12,7 @@ import {
 import { Button, notification, Tooltip } from "antd";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import { getUserData } from "common/utils/userData";
+import { GraphQLError } from "graphql";
 import Router from "next/router";
 import React from "react";
 import {
@@ -89,9 +90,19 @@ function AppointmentModalFooter({
           message: "Appointment Canceled",
         });
         setShowConfirmationModal(false);
-      } else {
+      } else if (res?.error?.graphQLErrors) {
+        setShowConfirmationModal(false);
+        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = res?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
+
         notification.error({
-          message: "Something went wrong",
+          message: errorMessage,
         });
       }
       onReject?.(e);

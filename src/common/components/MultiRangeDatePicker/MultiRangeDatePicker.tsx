@@ -65,7 +65,7 @@ function MultiRangeDatePicker(props: Props) {
           <RangePicker
             value={addScheduleTime?.time}
             bordered={false}
-            minuteStep={30}
+            // minuteStep={30}
             use12Hours
             format="h:mm A"
             onChange={onChange}

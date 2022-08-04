@@ -132,28 +132,11 @@ function DoctorProfileCard(props: Props) {
 								key="1"
 								header={
 									<div className="flex-none sm:flex flex-grow justify-between">
-										{matchDay ? (
-											<>
 												<div className="text-gray-8 ant-collapse-available">
-													{t("available_today")}
-													{/* Available today */}
+													{t("see_my_availability")}
+													
 												</div>
-											</>
-										) : (
-											<span className="text-cyan-1">
-												{t("not_available_today")}
-												{/* Not available today */}
-											</span>
-										)}
 									</div>
-								}
-								extra={
-									matchDay && (
-										<span className="ant-collapse-time">
-											{`${date.time24HrConvert(matchDay?.startTime)} -
-                ${date.time24HrConvert(matchDay?.endTime)}`}
-										</span>
-									)
 								}
 							>
 								<div className="ant-collapse-time-body">

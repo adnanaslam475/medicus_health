@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, Radio, RadioChangeEvent, Space } from "antd";
+import { Button, Form, Radio, RadioChangeEvent, Space } from "antd";
 import _classes from "./AppointmentReschedule.module.scss";
 import {
   Appointment,
@@ -37,12 +37,13 @@ function AppointmentReschedule(props: Props) {
   const { data, saveStepOne } = useAppointmentModal();
 
   const onChange = (e: RadioChangeEvent) => {
-    setValue(e.target.value);
-    saveStepOne?.({
-      selectedSlotId: e.target.value,
-    });
+    if(e.target.value){
+      setValue(e.target.value);
+      saveStepOne?.({
+        selectedSlotId: e.target.value,
+      });
+    }
   };
-
   useEffect(() => {
     setValue(appointmentTimeSlots?.[0]?.id as number);
     saveStepOne?.({
@@ -62,13 +63,13 @@ function AppointmentReschedule(props: Props) {
       <h2>Appointment reschedule</h2>
       <div>
         <div className="border-b border-gray-4 ">
-          <h5>Physician</h5>
+          <h5>Physician name</h5>
           <p>{formatedDoctorName}</p>
         </div>
         <div className="flex">
         <div className="w-full border-b border-gray-5 pb-2 pt-2">
           <div className="flex justify-between  font-semibold">
-            <span>Service type</span>
+            <span>Appointment type</span>
             <span>{name || ""}</span>
           </div>
 
@@ -93,8 +94,8 @@ function AppointmentReschedule(props: Props) {
       </div>
       </div>
       <div className={`py-4 ${_classes["available-slots-container"]}`}>
-        <h5>Available Slots (select one)</h5>
-        <Radio.Group className="" onChange={onChange} defaultValue={value}>
+        <h5>Available slots (select one)</h5>
+        <Radio.Group className="" onChange={onChange} value={value} >
           <Space direction="vertical">
             {appointmentTimeSlots?.length === 0 ? (
               <div className="text-secondary">{" - "}</div>
