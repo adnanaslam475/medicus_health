@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "antd";
 import Image from "next/image";
 import { useGetAppointmentsReminderBannerQuery } from "generated/graphql";
@@ -6,8 +6,12 @@ import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import Router from "next/router";
 import Link from "next/link";
+import dayjs, { duration, localeData } from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import utc from "dayjs/plugin/utc";
 
 const InfoMessageBannerReminder = () => {
+  // BANNER API CALL
   const [{ data }] = useGetAppointmentsReminderBannerQuery();
   const { appointmentsReminderBanner } = data || {};
 
@@ -21,15 +25,36 @@ const InfoMessageBannerReminder = () => {
   const id = patient_id || doctor_id;
   const { appointmentTimeSlots } = appointmentsReminderBanner || {};
 
+  const [isBannerAppointmentTime, setIsBannerAppointmentTime] = useState<boolean>(false)
+
   let selectedTime = appointmentTimeSlots?.find((time) => time.selected);
+  dayjs.extend(utc);
+  dayjs.extend(weekday);
+  dayjs.extend(localeData);
+  dayjs.extend(duration);
+
 
   //checking is appointment time is same as current datetime
   let isAppoinmetnStartTime = date?.isAppoinentDateIsSame(
     date.formatDAYMMDDYY(selectedTime?.startTime)
   );
+
   let formatedDoctorFirstName = `${
     doctor_first_name?.includes("Dr.") ? doctor_first_name : `Dr. ${doctor_first_name}`
   }`;
+
+  const selectStartTime =  dayjs(selectedTime?.startTime).utc().unix()
+  const selectEndTime =  dayjs(selectedTime?.endTime).utc().unix()
+  let now = dayjs().utc();
+
+  useEffect(() => {
+    if (now?.unix() > selectStartTime && now?.unix() < selectEndTime) {
+      setIsBannerAppointmentTime(false)
+    } else {
+      setIsBannerAppointmentTime(true)
+    }
+  },[selectedTime])
+
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
       <Image
@@ -71,6 +96,7 @@ const InfoMessageBannerReminder = () => {
             type="default"
             size="small"
             target={"_blank"}
+            disabled={isBannerAppointmentTime}
             // onClick={() => Router.push(`/patient/appointments/${id}/call`)}
           >
             Join now
