@@ -255,7 +255,6 @@ function DoctorAppointmentInfo({ data }: Props) {
       )}
       {(status === "Requested" || status === "Proposed") && (
         <>
-          {/* something */}
           <DoctorRequestedAppointmentInfoFooter
             onCancelRequestedAppointment={onCancelRequestedAppointment}
             data={data}
