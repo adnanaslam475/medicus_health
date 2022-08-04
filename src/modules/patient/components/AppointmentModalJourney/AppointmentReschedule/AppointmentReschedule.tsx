@@ -62,13 +62,13 @@ function AppointmentReschedule(props: Props) {
       <h2>Appointment reschedule</h2>
       <div>
         <div className="border-b border-gray-4 ">
-          <h5>Physician</h5>
+          <h5>Physician name</h5>
           <p>{formatedDoctorName}</p>
         </div>
         <div className="flex">
         <div className="w-full border-b border-gray-5 pb-2 pt-2">
           <div className="flex justify-between  font-semibold">
-            <span>Service type</span>
+            <span>Appointment type</span>
             <span>{name || ""}</span>
           </div>
 
@@ -93,7 +93,7 @@ function AppointmentReschedule(props: Props) {
       </div>
       </div>
       <div className={`py-4 ${_classes["available-slots-container"]}`}>
-        <h5>Available Slots (select one)</h5>
+        <h5>Available slots (select one)</h5>
         <Radio.Group className="" onChange={onChange} defaultValue={value}>
           <Space direction="vertical">
             {appointmentTimeSlots?.length === 0 ? (

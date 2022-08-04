@@ -61,10 +61,10 @@ console.log("datadata far",data);
     setCalender({
       ...calender,
       calenderEvents: appointments?.items?.map(
-        ({ id, patient, requestedDate, doctor, serviceType,charges }) => ({
+        ({ id, patient, requestedDate, doctor, serviceType,charges,appointmentTimeSlots }) => ({
           id: id,
           title: "Appointmetn with " + doctor?.first_name?.includes("Dr.") ? doctor?.first_name : `Dr. ${doctor?.first_name}`  + " " +doctor?.last_name,
-          start: requestedDate,
+          start: appointmentTimeSlots?.filter((item)=>item?.selected)?.[0]?.startTime,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
           charges:charges
