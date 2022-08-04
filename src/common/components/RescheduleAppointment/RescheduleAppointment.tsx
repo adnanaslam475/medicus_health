@@ -292,7 +292,7 @@ function AvailabilityTimeSlots({
                 onChange={(_, date: string) => {
                   onChangeDatePicker?.(date, "startDate");
                 }}
-                minuteStep={30}
+                // minuteStep={30}
               />
             </Space>
           </Form.Item>
