@@ -47,7 +47,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     Number(id) ||
     Number(query?.id);
 
-  const [{ data: dataList }] = useDoctorQuestionnaireQuery({
+  const [{ data: dataList, fetching }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId: doctorQuestionnaireId,
     },
@@ -141,65 +141,73 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             </div>
           </Form.Item>
         )}
-        {questionnair?.map(
-          (
-            item: {
-              type: NamePath | undefined;
-              label: {} | null | undefined;
-              name: NamePath | undefined;
-              options: { value: any; label: any }[];
-            },
-            index: any
-          ) => {
-            if (item.type === "text") {
-              return (
-                <Form.Item
-                  label={item.label}
-                  className="text-secondary"
-                  name={item.name}
-                  rules={[{ required: true, message: "Required!" }]}
-                >
-                  <Input />
-                </Form.Item>
-              );
-            } else if (item.type === "radio") {
-              return (
-                <Form.Item
-                  label={item.label}
-                  className="text-secondary"
-                  name={item.name}
-                  rules={[{ required: true, message: "Required!" }]}
-                >
-                  <Radio.Group>
-                    {item?.options?.map(({ value, label }) => {
-                      return <Radio value={value}>{label}</Radio>;
-                    })}
-                  </Radio.Group>
-                </Form.Item>
-              );
-            } else if (item.type === "checkbox") {
-              return (
-                <Form.Item
-                  label={item.label}
-                  className="text-secondary"
-                  name={item.name}
-                  // rules={[{ required: true, message: "Required!" }]}
-                >
-                  <Checkbox.Group>
-                    {item?.options?.map(({ value, label }) => {
-                      return <Checkbox value={value}>{label}</Checkbox>;
-                    })}
-                  </Checkbox.Group>
-                  {/* <CheckboxGroup
-                    options={[3]}
-                    onChange={onChangeMedicalCondition}
-                    style={{ display: "flex", flexDirection: "column" }}
-                    disabled={disabled}
-                  /> */}
-                </Form.Item>
-              );
+        {questionnair ? (
+          questionnair?.map(
+            (
+              item: {
+                type: NamePath | undefined;
+                label: {} | null | undefined;
+                name: NamePath | undefined;
+                options: { value: any; label: any }[];
+              },
+              index: any
+            ) => {
+              if (item.type === "text") {
+                return (
+                  <Form.Item
+                    label={item.label}
+                    className="text-secondary"
+                    name={item.name}
+                    rules={[{ required: true, message: "Required!" }]}
+                  >
+                    <Input />
+                  </Form.Item>
+                );
+              } else if (item.type === "radio") {
+                return (
+                  <Form.Item
+                    label={item.label}
+                    className="text-secondary"
+                    name={item.name}
+                    rules={[{ required: true, message: "Required!" }]}
+                  >
+                    <Radio.Group>
+                      {item?.options?.map(({ value, label }) => {
+                        return <Radio value={value}>{label}</Radio>;
+                      })}
+                    </Radio.Group>
+                  </Form.Item>
+                );
+              } else if (item.type === "checkbox") {
+                return (
+                  <Form.Item
+                    label={item.label}
+                    className="text-secondary"
+                    name={item.name}
+                    // rules={[{ required: true, message: "Required!" }]}
+                  >
+                    <Checkbox.Group>
+                      {item?.options?.map(({ value, label }) => {
+                        return <Checkbox value={value}>{label}</Checkbox>;
+                      })}
+                    </Checkbox.Group>
+                    {/* <CheckboxGroup
+            options={[3]}
+            onChange={onChangeMedicalCondition}
+            style={{ display: "flex", flexDirection: "column" }}
+            disabled={disabled}
+          /> */}
+                  </Form.Item>
+                );
+              }
             }
-          }
+          )
+        ) : (
+          <>
+            <div className="text-center text-gray-2 py-3">
+              Physician questionnaire not available
+            </div>
+          </>
         )}
       </Form>
     </>

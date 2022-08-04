@@ -128,7 +128,7 @@ function RescheduleAppointmentModal(props: Props) {
         onCancel={() => setShowRescheduleModal(false)}
         footer={null}
       >
-        <h2>Reschedule Appointment</h2>
+        <h2>Reschedule appointment</h2>
         <Form
           layout="vertical"
           form={formInstance}
@@ -136,12 +136,12 @@ function RescheduleAppointmentModal(props: Props) {
         >
           <div className="flex">
             <div className="w-5/6">
-              <Form.Item label="Service" name="service">
+              <Form.Item label="Appointment Type" name="service">
                 <span
                   className={`${_classes["border-color"]} w-1/6 pointer-events-none`}
                 >
                   <Select
-                    placeholder={data?.serviceType?.name || "Service Type"}
+                    placeholder={data?.serviceType?.name || "Appointment Type"}
                     className="w-full "
                     disabled={true}
                   >
@@ -160,7 +160,7 @@ function RescheduleAppointmentModal(props: Props) {
               </Form.Item>
             </div>
           </div>
-          <Form.Item label="Requested Date" name="requestedDate">
+          <Form.Item label="Requested date" name="requestedDate">
             <DatePicker
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
@@ -169,7 +169,7 @@ function RescheduleAppointmentModal(props: Props) {
             />
           </Form.Item>
 
-          <Form.Item label="Booked Requested Slot" name="requestedDate">
+          <Form.Item label="Booked requested slot" name="requestedDate">
             <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
               <div className="flex gap-2  rounded leading-3 max-w-max">
                 <p className="text-sm mb-0">{`${date.formatMMMMDDYYYY(
@@ -282,7 +282,7 @@ function AvailabilityTimeSlots({
         className="flex mt-2 mb-3 border-gray-8 gap-3"
       >
         <div className="w-50">
-          <Form.Item label="Start Time" name="start_time">
+          <Form.Item label="Start time" name="start_time">
             <Space direction="vertical" size={12}>
               <DatePicker
                 className="w-full"
@@ -298,7 +298,7 @@ function AvailabilityTimeSlots({
           </Form.Item>
         </div>
         <div className="w-50">
-          <Form.Item label="End Time" name="end_time">
+          <Form.Item label="End time" name="end_time">
             <Space direction="vertical" size={12}>
               {endDateValue === "Invalid date" || !endDateValue ? (
                 <DatePicker disabled={true} className="w-full" showTime placeholder="--"/>

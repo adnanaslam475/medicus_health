@@ -40,7 +40,9 @@ const InfoMessageBannerReminder = () => {
   );
 
   let formatedDoctorFirstName = `${
-    doctor_first_name?.includes("Dr.") ? doctor_first_name : `Dr. ${doctor_first_name}`
+    doctor_first_name?.includes("Dr.")
+      ? doctor_first_name
+      : `Dr. ${doctor_first_name}`
   }`;
 
   const selectStartTime =  dayjs(selectedTime?.startTime).utc().unix()
@@ -54,6 +56,11 @@ const InfoMessageBannerReminder = () => {
       setIsBannerAppointmentTime(true)
     }
   },[selectedTime])
+  let formatedPatientFirstName = `${
+    patient_first_name?.includes("")
+      ? patient_first_name
+      : ` ${patient_first_name}`
+  }`;
 
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
@@ -70,7 +77,8 @@ const InfoMessageBannerReminder = () => {
         <span className="ml-0 min-h-max hidden md:block md:whitespace-nowrap">
           You have an appointment with
           {getRole() === "Doctor" && (
-            <span> {`${patient_first_name} ${patient_last_name}`} </span>
+            // <span> {`${patient_first_name} ${patient_last_name}`} </span>
+            <span> {`${formatedPatientFirstName} ${patient_last_name}`} </span>
           )}
           {getRole() === "User" && (
             <span> {`${formatedDoctorFirstName} ${doctor_last_name}`} </span>
@@ -92,14 +100,14 @@ const InfoMessageBannerReminder = () => {
       {isAppoinmetnStartTime && (
         <Link passHref href={`/patient/appointments/${id}/call`}>
           <Button
-            className="link_button bg-primary text-primary px-3 whitespace-nowrap ml-auto font-circular"
+            className="link_button bg-primary text-primary whitespace-nowrap ml-auto font-circular"
             type="default"
             size="small"
             target={"_blank"}
             disabled={isBannerAppointmentTime}
             // onClick={() => Router.push(`/patient/appointments/${id}/call`)}
           >
-            Join now
+            <span>Join now</span>
           </Button>
         </Link>
       )}

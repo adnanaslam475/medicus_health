@@ -253,12 +253,14 @@ function DoctorAppointmentInfo({ data }: Props) {
       {status === "Completed" && (
         <DoctorAppointmentInfoFooter appointmentId={Number(id)} data={data} />
       )}
-      {status === "Requested" && (
-        <DoctorRequestedAppointmentInfoFooter
-          onCancelRequestedAppointment={onCancelRequestedAppointment}
-          data={data}
-          cancelFetching={cancelFetching}
-        />
+      {(status === "Requested" || status === "Proposed") && (
+        <>
+          <DoctorRequestedAppointmentInfoFooter
+            onCancelRequestedAppointment={onCancelRequestedAppointment}
+            data={data}
+            cancelFetching={cancelFetching}
+          />
+        </>
       )}
     </div>
   );

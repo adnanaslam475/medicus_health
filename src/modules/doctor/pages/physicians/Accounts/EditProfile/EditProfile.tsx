@@ -170,7 +170,9 @@ function EditProfile({
   const [certificationList, setCertificationList] = useState([
     { certification: "", licensure: "" },
   ]);
-  const [honorsList, setHonorsList] = useState([{ awards: "", honors_and_recognition: "" }]);
+  const [honorsList, setHonorsList] = useState([
+    { awards: "", honors_and_recognition: "" },
+  ]);
 
   const [countryId, setCountryId] = useState<number | undefined>(
     Number(country_id)
@@ -251,7 +253,7 @@ function EditProfile({
         first_name: values?.firstName || "",
         last_name: values?.lastName || "",
         specialization: values?.specialization || "",
-        year_of_experience: Number(values?.year_of_experience || 0),
+        year_of_experience: Number?.parseFloat(values?.year_of_experience || 0),
         streetAddress: values?.streetAddress,
         contact_number: values?.contact,
         city_id: Number(values?.city_id || 0),
@@ -291,7 +293,10 @@ function EditProfile({
       let loggedInUserData = localStorage.getItem("loggedInUserData");
       let updatedLoggedInUserData: LoginUserInput | any =
         loggedInUserData && JSON.parse(loggedInUserData);
-      if (updatedLoggedInUserData?.user && updatedLoggedInUserData?.user?.role === "Doctor") {
+      if (
+        updatedLoggedInUserData?.user &&
+        updatedLoggedInUserData?.user?.role === "Doctor"
+      ) {
         updatedLoggedInUserData.user.first_name = values?.firstName;
         updatedLoggedInUserData.user.last_name = values?.lastName;
         if (updatedLoggedInUserData.user.doctorProfile) {
@@ -461,7 +466,10 @@ function EditProfile({
         ]);
         break;
       case "honors":
-        setHonorsList([...honorsList, { awards: "", honors_and_recognition: "" }]);
+        setHonorsList([
+          ...honorsList,
+          { awards: "", honors_and_recognition: "" },
+        ]);
         break;
       default:
         break;
@@ -626,7 +634,9 @@ function EditProfile({
                 <Form.Item
                   label="First name"
                   name="firstName"
-                  rules={[{ required: true, message: "First name is required" }]}
+                  rules={[
+                    { required: true, message: "First name is required" },
+                  ]}
                   className="flex-1"
                 >
                   <Input autoFocus={true} />
@@ -662,7 +672,7 @@ function EditProfile({
                   ]}
                   className="flex-1"
                 >
-                  <Input type="number" />
+                  <Input type="number" autoComplete="new-password"/>
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
@@ -672,7 +682,7 @@ function EditProfile({
                   className="flex-1"
                   dependencies={["password"]}
                 >
-                  <Input.Password />
+                  <Input.Password autoComplete="new-password"/>
                 </Form.Item>
 
                 <Form.Item
@@ -699,7 +709,7 @@ function EditProfile({
                     }),
                   ]}
                 >
-                  <Input.Password />
+                  <Input.Password autoComplete="new-password"/>
                 </Form.Item>
               </div>
 
@@ -834,7 +844,7 @@ function EditProfile({
                     },
                   ]}
                 >
-                  <Input />
+                  <Input autoComplete="new-password"/>
                 </Form.Item>
               </div>
 
@@ -916,7 +926,7 @@ function EditProfile({
                 setAddScheduleClick={setAddScheduleClick}
               />
 
-<div className={`my-6 ${_classes["educational"]}`}>
+              <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Certifications and licences</h6>
                 {certificationList?.map((certificate, index) => {
                   return (
