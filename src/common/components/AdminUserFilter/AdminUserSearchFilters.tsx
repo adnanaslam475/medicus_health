@@ -174,7 +174,7 @@ function AdminUserSearchFilters(props: Props) {
           <Button
             onClick={clear}
             type="text"
-            className={`${_classes["btn-clear"]}`}
+            // className={`${_classes["btn-clear"]}`}
           >
             <CloseOutlined className="text-sm" />
             <span className="text-gray-1 text-sm">Clear</span>

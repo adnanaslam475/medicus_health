@@ -5,7 +5,7 @@ import Router, { useRouter } from "next/router";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MessageIcon from "../../../../../public/assets/images/messageIcon.svg";
-import _classes from './EditUser.module.scss';
+import _classes from "./EditUser.module.scss";
 import {
   useEnableOrDisablePatientMutation,
   useGetAdminUserByIdQuery,
@@ -17,6 +17,7 @@ import {
 // import _classes from "../../staff/staff.module.scss";
 import EditAdminUserForm from "common/components/EditAdminUserFormItems/EditAdminUserFormItems";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
+import { GraphQLError } from "graphql";
 
 type Props = {};
 const { Option } = Select;
@@ -73,7 +74,17 @@ function EditAdminUserDetails({}: Props) {
         },
       });
       if (response?.error) {
-        throw new Error(response?.error?.graphQLErrors[0]?.message);
+        let graphQLError = response?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = response?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
       }
       if (response.data) {
         notification.success({
@@ -152,7 +163,9 @@ function EditAdminUserDetails({}: Props) {
             </h1>
             <p>{adminUser?.email}</p>
           </div>
-          <div className={`${_classes["btn-wrapper-user"]} my-2 sm:my-0 flex flex-col sm:flex-row justify-self-start items-start mr-auto sm:mr-0`}>
+          <div
+            className={`${_classes["btn-wrapper-user"]} my-2 sm:my-0 flex flex-col sm:flex-row justify-self-start items-start mr-auto sm:mr-0`}
+          >
             <div className="flex">
               <Button
                 loading={loading}

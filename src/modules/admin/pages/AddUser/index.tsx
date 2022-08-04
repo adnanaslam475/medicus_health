@@ -4,6 +4,7 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import { CreateAdminInput, useCreateAdminMutation } from "generated/graphql";
 import AddAdminUserFormItems from "common/components/AddAdminUserFormItems/AddAdminUserFormItems";
 import Router from "next/router";
+import { GraphQLError } from "graphql";
 
 type Props = {};
 
@@ -21,7 +22,17 @@ function AdminAddUser({}: Props) {
         },
       });
       if (response?.error) {
-        throw new Error(response?.error?.graphQLErrors[0]?.message);
+        let graphQLError = response?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = response?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
       }
       if (response.data) {
         form.resetFields();
