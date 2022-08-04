@@ -34,9 +34,9 @@ const InfoMessageBannerReminder = () => {
   }`;
 
   let formatedPatientFirstName = `${
-    patient_first_name?.includes("patient")
+    patient_first_name?.includes("")
       ? patient_first_name
-      : `patient ${patient_first_name}`
+      : ` ${patient_first_name}`
   }`;
 
   return data?.appointmentsReminderBanner ? (
