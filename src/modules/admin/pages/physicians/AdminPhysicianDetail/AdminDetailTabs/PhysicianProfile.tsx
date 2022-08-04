@@ -43,7 +43,7 @@ function PhysicianProfile() {
               <span className="block">usama@gmail.com</span>
               <Button size="large" className="px-0 mx-0">
                 <EditOutlined />
-                Edit Info
+                Edit info
               </Button>
             </div>
           </div>

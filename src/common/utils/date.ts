@@ -40,9 +40,6 @@ export function formatDAYMMDDYY(date: string) {
 
 export function formathhmma(date: string) {
   return dayjs.utc(date).format("h:mma");
-  // console.log({ date });
-  // return dayjs(date).tz().format("h:mma");
-  // return dayjs(date).tz("asia/karachi").format("h:mma");
 }
 
 export function formatDate_n_Time(date: string) {
@@ -111,25 +108,33 @@ export function isAppointmentTimeValid(
   ) {
     var now = dayjs();
     const startDate = selectedAppointment?.startTime?.split("T")[0];
+
     const startTime = selectedAppointment?.startTime
       ?.split("T")[1]
       ?.replace("Z", "");
+
     const endTime = selectedAppointment?.endTime
       ?.split("T")[1]
       ?.replace("Z", "");
-    console.log("startDate", startDate);
+
+      const dateDifferenceStartDate = dayjs(`${startDate} ${startTime}`).diff(now)
+      console.log('dateDifference', dateDifferenceStartDate)
+      const dateDifferenceEndDate = dayjs(`${startDate} ${endTime}`).diff(now)
+      const startEndDateTime = dayjs(`${startDate} ${endTime}`).unix();
+
     let difference =
       new Date(`${startDate} ${startTime}`).getTime() - Date.now();
+  
     setTimeout(() => {
-      if (new Date(`${startDate} ${endTime}`).getTime() > Date.now()) {
+      if (startEndDateTime > now.unix()) {
         callBack(false);
         setTimeout(() => {
           if (!state) {
             callBack(true);
           }
-        }, new Date(`${startDate} ${endTime}`).getTime() - Date.now());
+        }, dateDifferenceEndDate);
       }
-    }, difference);
+    }, dateDifferenceStartDate);
     console.log(difference, "diff");
   }
 }

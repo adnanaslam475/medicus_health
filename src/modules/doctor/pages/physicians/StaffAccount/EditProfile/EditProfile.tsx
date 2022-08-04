@@ -242,7 +242,7 @@ function EditProfile({
           specialization: values?.specialization || "",
           year_of_experience: Number(values?.year_of_experience || 0),
           streetAddress: values?.streetAddress,
-          contact_number:values?.contact,
+          contact_number: values?.contact,
           city_id: Number(values?.city_id),
           country_id: Number(values?.country_id),
           state_id: Number(values?.state_id),
@@ -539,9 +539,11 @@ function EditProfile({
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
-                  label="First Name"
+                  label="First name"
                   name="firstName"
-                  rules={[{ required: true, message: "First name is required" }]}
+                  rules={[
+                    { required: true, message: "First name is required" },
+                  ]}
                   className="flex-1"
                 >
                   <Input disabled={isStaff} />
@@ -837,7 +839,7 @@ function EditProfile({
                 </div>
               )}
               <div className={`my-6 ${_classes["professional"]}`}>
-                <h5>Professional Background</h5>
+                <h5>Professional background</h5>
                 {clinicList?.map((clinic: clinicType, index: number) => {
                   return (
                     <div
@@ -894,7 +896,7 @@ function EditProfile({
               </div>
 
               <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Educational Background</h6>
+                <h6>Educational background</h6>
                 {educationList?.map((education, index) => {
                   return (
                     <div
@@ -968,7 +970,7 @@ function EditProfile({
             </Form>
             <Form layout="vertical">
               <div className={`my-6 hidden ${_classes["educational"]}`}>
-                <h6>Login Information</h6>
+                <h6>Login information</h6>
                 <div className="border-b border-gray-3 my-3 py-3">
                   <Form.Item
                     label="Email address"

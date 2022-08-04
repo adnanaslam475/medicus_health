@@ -6,7 +6,7 @@ import { Tabs, Badge, Modal } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import Container from "../../../../common/components/Container/Container";
-import {Profile} from "../../components/Profile/Profile";
+import { Profile } from "../../components/Profile/Profile";
 import EmailNotification from "../EmailNotification/EmailNotification";
 import { ProfileIcon } from "../../../../common/components/CustomIcon";
 
@@ -33,7 +33,7 @@ function ProfileDetailOld() {
               tab={
                 <span>
                   <BellOutlined />
-                  Email Notifications
+                  Email notifications
                 </span>
               }
               key="2"

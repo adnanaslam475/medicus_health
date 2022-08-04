@@ -33,6 +33,7 @@ function AppointmnetRequestedCard({
   specialization
 }: Props) {
   const t = useTranslations("AppointmentCards");
+  let formatedDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
   let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
     appointmentDateTime?.startTime?.split(" ")[2]
   }`;
@@ -52,10 +53,10 @@ function AppointmnetRequestedCard({
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <span className="text-sm mt-6 block">Appointment date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
-      <span className="text-sm mt-4 block">Appointment time</span>
+      <span className="text-sm mt-4 block">Appointment proposed time</span>
       <div className="text-secondary">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
-          ? `${formatedStartTime}
+          ? `${formatedDate} - ${formatedStartTime}
              - ${formatedEndTime}`
           : "--"}
       </div>

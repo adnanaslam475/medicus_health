@@ -279,7 +279,6 @@ function AdminPatientProfileTab({}: Props) {
           <div className="gap-y-2 flex-col sm:flex-row flex gap-2 pt-2">
             <div
               className={
-                
                 userDisableInput
                   ? `${_classes["profile-select-enable"]}`
                   : `${_classes["profile-select-disable"]}`
@@ -299,7 +298,7 @@ function AdminPatientProfileTab({}: Props) {
             </div>
             <Button type="default" onClick={() => setIsEdit(!isEdit)}>
               <EditOutlined />
-              Edit Info
+              Edit info
             </Button>
           </div>
         </div>
