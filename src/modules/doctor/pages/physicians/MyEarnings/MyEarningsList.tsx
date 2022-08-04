@@ -223,12 +223,12 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const { getDoctorEarnings } = data || {};
   const {
-    total_earnings,
-    total_earnings_from_consultation,
-    total_earnings_from_second_opinions,
-    total_number_of_consultation,
-    total_number_of_patients,
-    total_number_of_second_opinions,
+    total_earnings = 0,
+    total_earnings_from_consultation = 0,
+    total_earnings_from_second_opinions = 0,
+    total_number_of_consultation = 0,
+    total_number_of_patients = 0,
+    total_number_of_second_opinions = 0,
   } = getDoctorEarnings || {};
 
   //GET ALL TRANSACTIONS WITH FILTERS
