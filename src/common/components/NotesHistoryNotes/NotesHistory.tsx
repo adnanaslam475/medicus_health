@@ -127,7 +127,7 @@ function NotesHistory(props: Props) {
                     // }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                     //   data?.createdAt
                     // )} `}
-                    header={`ID#-AP-${
+                    header={`ID# ${
                       data?.appointment?.id
                     }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${doctorNameforHistoryNotes(
                       data?.appointment?.doctor?.first_name,

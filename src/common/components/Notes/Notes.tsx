@@ -41,7 +41,7 @@ function Notes(props: Props) {
           src={smile}
         />
         {/* <p className="pt-2">No notes to show</p> */}
-        <p className="pt-2">Add Notes</p>
+        <p className="pt-2">Add notes</p>
         <Button
           icon={<PlusOutlined />}
           className={`${_classes["custom-button-green"]}`}
