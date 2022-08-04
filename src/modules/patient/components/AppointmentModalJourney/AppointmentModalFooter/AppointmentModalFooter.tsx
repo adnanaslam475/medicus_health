@@ -245,7 +245,7 @@ function AppointmentModalFooter({
             onOk={(e) => {
               onRejectAppointment(e, appointmentId);
             }}
-            message="Are you sure you want to cancel appointment?"
+            message="Are you sure you want to reject appointment?"
           />
         </div>
       )}
