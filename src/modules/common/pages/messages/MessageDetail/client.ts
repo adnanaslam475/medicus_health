@@ -51,12 +51,12 @@ export default class Client extends EventEmitter {
   }
 
   async joinChannel(name: string) {
-    const channel = this.client.createChannel(name);
+    const channel = await this.client.createChannel(name);
     this.channels[name] = {
       channel,
       joined: false, // channel state
     };
-    this.subscribeChannelEvents(name);
+    await this.subscribeChannelEvents(name);
     return channel.join();
   }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Form, Tabs } from "antd";
+import { Empty, Form, Tabs } from "antd";
 import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import {
@@ -68,7 +68,7 @@ const AppointmentTabs = (props: Props) => {
     history.pushState({}, "", "?activeTab=" + key);
   };
   const [deletedUrl, setDeletedUrl] = useState("");
-  const [{fetching}, executeUseUpdateAppointmentAttachmentsMutation] =
+  const [{ fetching }, executeUseUpdateAppointmentAttachmentsMutation] =
     useUpdateAppointmentAttachmentsMutation();
 
   useEffect(() => {
@@ -110,9 +110,20 @@ const AppointmentTabs = (props: Props) => {
           <AttachmentDragger urlArr={urlArr} />
           <div>
             <span className="font-semibold text-md">Your files</span>
-            {urlArr?.map((item: AttachmentObject) => (
-              <Attachment item={item} enable setDeletedUrl={setDeletedUrl} loading={fetching} />
-            ))}
+            {urlArr?.length ? (
+              urlArr?.map((item: AttachmentObject) => (
+                <Attachment
+                  item={item}
+                  enable
+                  setDeletedUrl={setDeletedUrl}
+                  loading={fetching}
+                />
+              ))
+            ) : (
+              <div className="flex items-center justify-center w-3/5 mt-5">
+                <Empty />
+              </div>
+            )}
           </div>
         </TabPane>
         {(status === "Confirmed" ||

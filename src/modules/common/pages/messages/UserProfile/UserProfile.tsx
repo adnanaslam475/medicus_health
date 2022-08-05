@@ -83,9 +83,10 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
       <div className="w-full pl-3">
         <div className="flex justify-between">
           <span className="text-black text-base">
-            {`${opposite?.first_name ? opposite?.first_name : ""} `}
+            {/* {`${opposite?.first_name ? opposite?.first_name : ""} `} */}
             <span className="hidden sm:inline">{`${
-              opposite?.last_name ? opposite?.last_name : ""
+              // opposite?.last_name ? opposite?.last_name : ""
+              opposite?.last_name?.includes("Dr.") ?opposite?.last_name : `Dr. ${opposite?.last_name}` 
             }`}</span>
           </span>
           <span className="text-base text-gray hidden sm:inline">

@@ -73,7 +73,7 @@ function PhysicianSearchFilters(props: Props) {
       <div className="w-full  md:w-full lg:w-96 ">
         <Input
           value={filterState.searchString || ""}
-          placeholder="ID# or Patient name"
+          placeholder="ID# or patient name"
           prefix={<SearchOutlined />}
           onChange={(e) => onFilterValuesChange("searchString", e.target.value)}
         />

@@ -93,7 +93,8 @@ function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
                 src={profileImage || ""}
                 fallbackImage={profile}
               />
-              <h4 className="pb-0 mb-0">{`${opposite?.first_name} ${opposite?.last_name}`}</h4>
+              <h4 className="pb-0 mb-0">{opposite?.last_name.includes("Dr.") ? opposite?.last_name :`Dr. ${opposite?.last_name}`}</h4>
+              {/* <h4 className="pb-0 mb-0">{`${opposite?.first_name} ${opposite?.last_name}`}</h4> */}
             </div>
             <Image
               priority={true}
