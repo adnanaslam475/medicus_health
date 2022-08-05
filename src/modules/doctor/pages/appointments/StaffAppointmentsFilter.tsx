@@ -79,11 +79,11 @@ function StaffAppointmentsFilter({ onChange }: Props) {
 								<div>
 									{filterState.CreationDate
 										? `${filterState.CreationDate.startDate} -> ${filterState.CreationDate.endDate}`
-										: "Creation date"}
+										: "Account creation date"}
 								</div>
 							)
 						}
-						heading="Creation date"
+						heading="Account creation date"
 					/>
 				</div>
 
