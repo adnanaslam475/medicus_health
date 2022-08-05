@@ -154,7 +154,7 @@ export function translationJson(local: string) {
           ...englishCommon,
           createAccount: "Create your account",
           createYourAccountToStart:
-            "Create your account to start using Medicus",
+            "Create your account to start using medicus",
           personalInfo: "Personal info",
           healthQuestionnaire: "Health questionnaire",
           login: "Login",

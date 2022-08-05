@@ -499,3 +499,21 @@ input[type="number"]::-webkit-outer-spin-button {
     }
   }
 }
+
+.ant-modal-wrap
+  .ant-modal
+  .ant-modal-content
+  .ant-modal-footer
+  button.ant-btn.ant-btn-primary
+  span {
+  text-transform: lowercase;
+}
+
+.ant-modal-wrap
+  .ant-modal
+  .ant-modal-content
+  .ant-modal-footer
+  button.ant-btn.ant-btn-primary
+  span:first-letter {
+  text-transform: uppercase;
+}
