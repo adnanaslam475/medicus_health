@@ -564,6 +564,10 @@ function EditProfile({
   const [{ data: countriesData }] = useCountriesQuery();
   const { countries } = countriesData || {};
 
+  const onFinishedFailed = () => {
+    window?.scrollTo(0, 0);
+  }
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -628,6 +632,7 @@ function EditProfile({
               form={formInstance}
               name="basic"
               onFinish={onFinish}
+              onFinishFailed={onFinishedFailed}
               layout="vertical"
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
@@ -672,7 +677,7 @@ function EditProfile({
                   ]}
                   className="flex-1"
                 >
-                  <Input type="number" autoComplete="new-password"/>
+                  <Input type="number" autoComplete="new-password" />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
@@ -682,7 +687,7 @@ function EditProfile({
                   className="flex-1"
                   dependencies={["password"]}
                 >
-                  <Input.Password autoComplete="new-password"/>
+                  <Input.Password autoComplete="new-password" />
                 </Form.Item>
 
                 <Form.Item
@@ -709,7 +714,7 @@ function EditProfile({
                     }),
                   ]}
                 >
-                  <Input.Password autoComplete="new-password"/>
+                  <Input.Password autoComplete="new-password" />
                 </Form.Item>
               </div>
 
@@ -844,7 +849,7 @@ function EditProfile({
                     },
                   ]}
                 >
-                  <Input autoComplete="new-password"/>
+                  <Input autoComplete="new-password" />
                 </Form.Item>
               </div>
 
@@ -1158,7 +1163,10 @@ function EditProfile({
 
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
-                  <Button type="default" onClick={() => setIsEdit(false)}>
+                  <Button
+                    type="default"
+                    onClick={() =>  setIsEdit(false)}
+                  >
                     Close
                   </Button>
                   <Button type="primary" htmlType="submit">
