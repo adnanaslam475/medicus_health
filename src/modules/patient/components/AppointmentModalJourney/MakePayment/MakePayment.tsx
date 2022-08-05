@@ -50,7 +50,7 @@ function MakePayment() {
                 cardId={card.id}
                 visa={CARD_TYPE[card?.card_type] || defaultCard}
                 title={`${card?.card_type} ending with ${card?.card_digits}`}
-                description={`Expires at: ${card?.exp_month}/${card?.exp_year}`}
+                description={`Expires on: ${card?.exp_month}/${card?.exp_year}`}
               />
             ))}
           </Radio.Group>
