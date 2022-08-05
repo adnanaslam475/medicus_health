@@ -145,7 +145,7 @@ function MyEarningsSearchFilters(props: Props) {
       <div className="flex flex-wrap gap-2">
         <div className=" w-full sm:w-full md:w-full xl:w-96">
           <Input
-            placeholder="ID# or Patient name"
+            placeholder="ID# or patient name"
             prefix={<SearchOutlined />}
             value={filterState?.searchString}
             onChange={(e) => onChangeFields("searchString", e?.target.value)}

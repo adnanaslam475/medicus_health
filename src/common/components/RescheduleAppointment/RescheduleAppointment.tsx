@@ -136,12 +136,12 @@ function RescheduleAppointmentModal(props: Props) {
         >
           <div className="flex">
             <div className="w-5/6">
-              <Form.Item label="Appointment Type" name="service">
+              <Form.Item label="Appointment type" name="service">
                 <span
                   className={`${_classes["border-color"]} w-1/6 pointer-events-none`}
                 >
                   <Select
-                    placeholder={data?.serviceType?.name || "Appointment Type"}
+                    placeholder={data?.serviceType?.name || "Appointment type"}
                     className="w-full "
                     disabled={true}
                   >

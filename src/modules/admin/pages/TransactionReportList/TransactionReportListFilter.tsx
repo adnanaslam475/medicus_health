@@ -68,7 +68,7 @@ function TransactionReportListFilter({ onChange }: Props) {
 				<div className=" w-full sm:w-80">
 					<Input
 						value={filterState.searchString}
-						placeholder="Search by ID#, appointment ID# or Patient name"
+						placeholder="Search by ID#, appointment ID# or patient name"
 						prefix={<SearchOutlined />}
 						onChange={(e) => {
 							onChangeFields("searchString", e.target.value);
