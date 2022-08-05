@@ -266,8 +266,8 @@ export const spanishCommon: any = {
   forgot_pass: "¿Has olvidado tu contraseña?",
   forgot_pass_message: "Has olvidado tu contraseña",
   login: "Acceso",
-  account: "¿No tienes una cuenta?",
-  register: "Registro",
+  account: "¿No tiene una cuenta?",
+  register: "Regístrese en",
   email: "Dirección de correo electrónico",
   email_address_message:
     "Por favor, introduzca su dirección de correo electrónico",

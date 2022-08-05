@@ -32,7 +32,8 @@ const CitySelectDropDown = (props: Props) => {
       // ]}
     >
       <Select
-        placeholder={t("city")}
+        // placeholder={t("city")}
+        placeholder="Ciudad"
         showSearch
         filterOption={(input, city: any) =>
           city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0

@@ -47,7 +47,7 @@ export function translationJson(local: string) {
             "Crea tu cuenta para empezar a usar Medicus",
           personalInfo: "Información personal",
           healthQuestionnaire: "Cuestionario de Salud",
-          Login: "Acceso",
+          Login: "Inicio de sesión",
           AlreadyHaveAnAccount: "Ya tienes una cuenta",
           signup_modal_skip_questionaire_message:
             "Estos son los campos obligatorios para reservar una cita, puede omitirlos por ahora y puede agregar/editar más tarde desde la sección Mi perfil",
@@ -102,7 +102,7 @@ export function translationJson(local: string) {
         },
         PersonalInfo: {
           ...spanishCommon,
-          Login: "Acceso",
+          Login: "Inicio de sesión",
           AlreadyHaveAnAccount: "Ya tienes una cuenta",
         },
       };

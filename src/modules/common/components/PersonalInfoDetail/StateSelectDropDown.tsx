@@ -42,7 +42,8 @@ const StateSelectDropDown = (props: Props) => {
           state.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
         }
         onChange={onChange}
-        placeholder={t("state")}
+        // placeholder={t("state")}
+        placeholder="Estado"
       >
         {React.Children.toArray(
           getStatesByCountry?.map((el, i) => {

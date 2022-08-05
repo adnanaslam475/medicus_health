@@ -107,17 +107,21 @@ function Login() {
                   onFinishFailed={onFinishFailed}
                 >
                   <Form.Item
-                    label={t("email")}
+                    // label={t("email")}
+                    label="Dirección de correo electrónico"
                     name="email"
                     className="mb-1"
                     rules={[
                       {
                         required: true,
-                        message: t("email_address_message"),
+                        // message: t("email_address_message"),
+                        message:
+                          "Por favor, introduzca su dirección de correo electrónico",
                       },
                       {
                         type: "email",
-                        message: t("email_invalid_message"),
+                        message: "el correo electrónico es invalido",
+                        // message: t("email_invalid_message"),
                         // message: "Email is invalid",
                       },
                     ]}
@@ -126,12 +130,14 @@ function Login() {
                   </Form.Item>
 
                   <Form.Item
-                    label={t("password")}
+                    label="Contraseña"
+                    // label={t("password")}
                     name="password"
                     rules={[
                       {
                         required: true,
-                        message: t("password_message"),
+                        message: "¡Por favor, introduzca su contraseña!",
+                        // message: t("password_message"),
                         // message: "Please enter your password",
                       },
                     ]}
@@ -146,13 +152,16 @@ function Login() {
                         className="text-gray primary-checkbox"
                       >
                         <span className="text-gray text-base">
-                          {t("remember")}
+                          Recordarme
+                          {/* {t("remember")} */}
                         </span>
                       </Checkbox>
                       <Link href="/forgotPassword">
                         <a>
                           <span className="text-primary cursor-pointer">
-                            {t("forgot")}
+                            Olvido su contrasena
+                            {/* ¿Has olvidado tu contraseña? */}
+                            {/* {t("forgot")} */}
                           </span>
                         </a>
                       </Link>
@@ -167,7 +176,8 @@ function Login() {
                       type="primary"
                       htmlType="submit"
                     >
-                      {t("login")}
+                      {/* {t("login")} */}
+                      Inicio de sesión
                     </Button>
                   </Form.Item>
 
@@ -190,9 +200,13 @@ function Login() {
               </div>
               <Form.Item>
                 <div className="flex justify-center mt-8">
-                  {t("account")}
+                  {/* {t("account")} */}
+                  ¿No tiene una cuenta?
                   <span className="ml-1">
-                    <Link href="/signup">{t("register")}</Link>
+                    <Link href="/signup">
+                      {/* {t("register")} */}
+                      Regístrese en
+                    </Link>
                   </span>
                 </div>
               </Form.Item>
