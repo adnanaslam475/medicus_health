@@ -108,47 +108,56 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
         </div>
         <div className="max-w-[800px]">
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="First name" value={first_name} />
-            <LabelWithTextDiv label="Last name" value={last_name} />
+            <LabelWithTextDiv label="Nombre" value={first_name} />
+            <LabelWithTextDiv label="Apellido" value={last_name} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Gender" value={gender} />
-            <LabelWithTextDiv label="Date of birth" value={date_of_birth} />
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Email address" value={email} />
-            <LabelWithTextDiv label="Cell number" value={contact_number} />
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Country" value={countryName} />
-            <LabelWithTextDiv label="City" value={cityName[0]?.city_name} />
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="State" value={state} />
-            <LabelWithTextDiv label="Postal code" value={zip_code} />
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Street address" value={streetAddress} />
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Marital status" value={maritalStatus} />
+            <LabelWithTextDiv label="Género" value={gender} />
             <LabelWithTextDiv
-              label="Do you have any children?"
-              value={children}
+              label="Fecha de nacimiento"
+              value={date_of_birth}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv
-              label="What is your occupation?"
+              label="Dirección de correo electrónico"
+              value={email}
+            />
+            <LabelWithTextDiv
+              label="Numero de celular"
+              value={contact_number}
+            />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="País de nacimiento" value={countryName} />
+            <LabelWithTextDiv label="Ciudad" value={cityName[0]?.city_name} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="Estado" value={state} />
+            <LabelWithTextDiv label="Código postal" value={zip_code} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv
+              label="Dirección (calle y numero)"
+              value={streetAddress}
+            />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="Estado civil" value={maritalStatus} />
+            <LabelWithTextDiv label="¿Tienes hijos?" value={children} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv
+              label="¿Cuál es tu ocupación?"
               value={occupation}
             />
             <LabelWithTextDiv
-              label="Do you have any occupational exposure?"
+              label="¿Tiene alguna exposición ocupacional?"
               value={occupationalExposure === "Yes" ? exposureDuration : "No"}
             />
           </div>
           <div className="md:flex gap-2">
-            <LabelWithTextDiv label="Do you have any pets?" value={pets} />
+            <LabelWithTextDiv label="¿Tiene mascotas?" value={pets} />
             <div className="w-full" />
           </div>
         </div>

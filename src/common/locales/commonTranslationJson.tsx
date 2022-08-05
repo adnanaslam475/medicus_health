@@ -149,7 +149,7 @@ export const englishCommon: any = {
   view_profile: "View profile",
   years_of_experience: "years of experience",
   experience_not_available: "experience not available",
-  see_my_availability:"See my availability",
+  see_my_availability: "See my availability",
   certification_and_licensure: "Certifications and licences",
   awards_honors_recognition: "Awards, honors and recognization",
   not_available_today: "Not available today",
@@ -204,6 +204,7 @@ export const englishCommon: any = {
   skip_this_for_now_fill_this_later: "Skip this for now & fill this later",
   please_pick_an_option: "Please pick an option!",
   please_fill_field: "Please fill field",
+  about_me: "About me",
 };
 
 export const spanishCommon: any = {
@@ -352,7 +353,7 @@ export const spanishCommon: any = {
   view_profile: "Ver perfil",
   years_of_experience: "años de experiencia",
   experience_not_available: "experiencia no disponible",
-  see_my_availability:"ver mi disponibilidad",
+  see_my_availability: "ver mi disponibilidad",
   not_available_today: "No disponible hoy",
   conditions_treated: "Condiciones tratadas",
   professional_background: "Antecedentes profesionales",
@@ -412,6 +413,7 @@ export const spanishCommon: any = {
   set_password: "Configurar la clave",
   please_pick_an_option: "Por favor elige una opción",
   please_fill_field: "Por favor complete el campo",
+  about_me: "Sobre mí",
 };
 
 // asddsasd

@@ -37,67 +37,70 @@ const ViewProfileFields = ({
   return (
     <div className="max-w-[800px]">
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="First name" value={first_name} />
-        <LabelWithTextDiv label="Last name" value={last_name} />
+        <LabelWithTextDiv label="Nombre" value={first_name} />
+        <LabelWithTextDiv label="Apellido" value={last_name} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
+        <LabelWithTextDiv label="Género" value={userGender} />
         <LabelWithTextDiv
-          label="Gender"
-          value={userGender}
-        />
-        <LabelWithTextDiv
-          label="Date of birth"
+          label="Fecha de nacimiento"
           value={
             date_of_birth ? date?.convertStringDateToUTC(date_of_birth) : "-"
           }
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Email address" value={email} />
-        <LabelWithTextDiv label="Cell number" value={contact_number} />
-      </div>
-      <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Country" value={country_name} />
-        <LabelWithTextDiv label="City" value={city_name} />
-      </div>
-      <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="State" value={state_name} />
+        <LabelWithTextDiv
+          label="Dirección de correo electrónico"
+          value={email}
+        />
+        <LabelWithTextDiv label="Numero de celular" value={contact_number} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv
-          label="Marital status"
+          label="CounPaís de nacimientotry"
+          value={country_name}
+        />
+        <LabelWithTextDiv label="Ciudad" value={city_name} />
+      </div>
+      <div className="flex flex-col md:flex-row gap-2">
+        <LabelWithTextDiv label="Estado" value={state_name} />
+      </div>
+      <div className="flex flex-col md:flex-row gap-2">
+        <LabelWithTextDiv
+          label="Estado civil"
           value={patientProfile?.maritalStatus}
         />
         <LabelWithTextDiv
-          label="Do you have any children?"
+          label="¿Tienes hijos?"
           value={patientProfile?.haveChildren}
         />
         {!!childrenCount && (
           <LabelWithTextDiv
-            label="Number of childrens"
+            label="Numero de niños"
             value={patientProfile?.children}
           />
         )}
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv
-          label="What is your occupation?"
+          label="¿Cuál es tu ocupación?"
           value={patientProfile?.occupation}
         />
         <LabelWithTextDiv
-          label="Do you have any occupational exposure?"
+          label="¿Tiene alguna exposición ocupacional?"
           value={patientProfile?.occupationalExposure}
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         {showExposureDuration && (
           <LabelWithTextDiv
-            label="Do you have any occupational duration?"
+            label="¿Tiene alguna duración ocupacional?"
             value={patientProfile?.exposureDuration}
           />
         )}
         <LabelWithTextDiv
-          label="Do you have any pets?"
+          label="¿Tiene mascotas?"
           value={patientProfile?.pets}
         />
         {!showExposureDuration && <div className="w-full" />}

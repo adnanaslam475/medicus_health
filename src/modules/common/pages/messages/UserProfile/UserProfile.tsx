@@ -51,6 +51,14 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     user?.role as string
   );
 
+  const firstName = opposite?.role !== "Doctor" ? opposite?.first_name : "";
+  
+  const lastName =
+    opposite?.role !== "Doctor"
+      ? opposite?.last_name
+      : opposite?.role === "Doctor" && opposite?.last_name?.includes("Dr.")
+      ? opposite?.last_name
+      : `Dr. ${opposite?.last_name}`;
   return (
     <div
       onClick={onJoinChat}
@@ -83,14 +91,17 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
       <div className="w-full pl-3">
         <div className="flex justify-between">
           <span className="text-black text-base">
+            {firstName}
             {/* {`${opposite?.first_name ? opposite?.first_name : ""} `} */}
-            <span className="hidden sm:inline">{`${
+            <span className="hidden sm:inline">{` ${
               // opposite?.last_name ? opposite?.last_name : ""
-              opposite?.last_name?.includes("Dr.") ?opposite?.last_name : `Dr. ${opposite?.last_name}` 
+              lastName
             }`}</span>
           </span>
           <span className="text-base text-gray hidden sm:inline">
-           {`${date?.convertStringDateToUTCChatFormat(createdAt)},${createdAt ? messageTimein12HoursFomrat : "--"}`}
+            {`${date?.convertStringDateToUTCChatFormat(createdAt)},${
+              createdAt ? messageTimein12HoursFomrat : "--"
+            }`}
           </span>
         </div>
         <div className="sm:flex justify-between hidden ">
