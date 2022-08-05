@@ -22,10 +22,10 @@ export default class Client extends EventEmitter {
       "MessageFromPeer",
     ];
     clientEvents.forEach((eventName: keyof RtmEvents.RtmClientEvents) => {
-      this.client.on(eventName, (...args) => {
+      this.client.on(eventName, async (...args) => {
         console.log("emit ", eventName, ...args);
         // log event message
-        this.emit(eventName, ...args);
+        await this.emit(eventName, ...args);
       });
     });
   }
