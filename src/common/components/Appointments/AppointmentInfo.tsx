@@ -10,6 +10,7 @@ import { date } from "../../utils";
 import Router from "next/router";
 import { isAppointmentTimeValid } from "common/utils/date";
 import { CustomTimeSlot } from "common/types/types";
+import Link from "next/link";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -129,15 +130,17 @@ function AppointmentInfo(props: Props) {
             Message physician
           </Button>
         </div>
-        <Button
-          type="primary"
-          icon={<VideoCameraFilled />}
-          className={`${_classes["appointments-btn"]} bg-current`}
-          onClick={() => Router.push(`/patient/appointments/${id}/call`)}
-          disabled={disabled}
-        >
-          Join now
-        </Button>
+        <Link passHref href={`/patient/appointments/${id}/call`}>
+          <Button
+            className={`${_classes["appointments-btn"]}`}
+            type="primary"
+            icon={<VideoCameraFilled />}
+            target={"_blank"}
+            disabled={disabled}
+          >
+            <span>Join now</span>
+          </Button>
+        </Link>
       </div>
     </>
   );
