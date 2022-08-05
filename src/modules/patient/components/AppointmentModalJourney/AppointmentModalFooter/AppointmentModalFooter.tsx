@@ -267,7 +267,7 @@ function AppointmentModalFooter({
             onClick={onNext}
           >
             <PlusOutlined className={`${_classes["icon-color"]}`} />
-            <span className="text-primary">Add payment method</span>
+            <span className="text-primary ml-1">Add payment method</span>
           </div>
           <Tooltip
             title={
