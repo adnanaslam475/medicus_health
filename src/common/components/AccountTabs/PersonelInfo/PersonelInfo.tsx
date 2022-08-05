@@ -153,7 +153,8 @@ const PersonalInfo = () => {
                     type="link"
                     className="text-primary underline text-xs"
                   >
-                    {t("update_photo")}
+                    Actualizar foto
+                    {/* {t("update_photo")} */}
                   </Button>
                 </div>
               </Upload>
@@ -169,7 +170,10 @@ const PersonalInfo = () => {
                   size="large"
                   onClick={() => setIsEdit(false)}
                 >
-                  <span className="text-xs">{t("cancel")}</span>
+                  <span className="text-xs">
+                    cancelar
+                    {/* {t("cancel")} */}
+                  </span>
                 </Button>
                 <Button
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
@@ -177,7 +181,10 @@ const PersonalInfo = () => {
                   size="large"
                   onClick={onSave}
                 >
-                  <span className="text-xs text-white">{t("save")}</span>
+                  <span className="text-xs text-white">
+                    Ahorrar
+                    {/* {t("save")} */}
+                  </span>
                 </Button>
               </div>
             ) : (
@@ -187,7 +194,10 @@ const PersonalInfo = () => {
                 size="large"
                 onClick={() => setIsEdit(true)}
               >
-                <span className="text-xs">{t("edit")}</span>
+                <span className="text-xs">
+                  editar
+                  {/* {t("edit")} */}
+                </span>
               </Button>
             )}
           </div>

@@ -26,7 +26,8 @@ const CountrySelectDropDown = (props: Props) => {
       rules={[
         {
           required: true,
-          message: t("country_message"),
+          // message: t("country_message"),
+          message: "Por favor ingrese su país",
         },
       ]}
     >
@@ -36,7 +37,8 @@ const CountrySelectDropDown = (props: Props) => {
           country.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
         }
         onChange={onChange}
-        placeholder={t("country")}
+        // placeholder={t("country")}
+        placeholder="País de nacimiento"
       >
         {React.Children.toArray(
           countries?.map((el, i) => {
