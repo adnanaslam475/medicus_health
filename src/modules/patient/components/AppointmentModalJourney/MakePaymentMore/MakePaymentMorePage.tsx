@@ -87,7 +87,8 @@ function MakePaymentMore() {
       // onFinish={handleSubmit}
       layout="vertical"
     >
-      <h1>Add card</h1>
+      {/* <h1>Add card</h1> */}
+      <h1>Add payment method</h1>
       <span className="text-base text-secondary my-2">Card number*</span>
       <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
         <CardNumberElement
