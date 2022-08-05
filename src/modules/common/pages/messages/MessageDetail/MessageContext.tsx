@@ -262,11 +262,15 @@ export function MessageContextProvider({
       notification.success({
         message: "joined successfully",
       });
-    } catch (error) {
-      console.log(error);
-      notification.error({
-        message: "joined failed",
-      });
+    } catch (error: any) {
+      // Error Code 202 - A channel of the same channel ID has already joined. Cannot rejoin.
+      if (error?.code === 202) {
+        return;
+      } else {
+        notification.error({
+          message: "joined failed",
+        });
+      }
     }
   }
 

@@ -83,7 +83,7 @@ export const DOCTOR_ROUTES: routes = [
     route: "/physician",
     submenu: [
       { name: "Earnings", route: "/physician/earnings" },
-      { name: "Payout", route: "/physician//payout" },
+      { name: "Payouts", route: "/physician/payouts" },
     ],
   },
   // { name: "My Earnings", route: "/physician/myEarnings" },
