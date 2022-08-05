@@ -672,7 +672,7 @@ function EditProfile({
                   ]}
                   className="flex-1"
                 >
-                  <Input type="number" autoComplete="new-password"/>
+                  <Input type="number" autoComplete="new-password" />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
@@ -682,7 +682,7 @@ function EditProfile({
                   className="flex-1"
                   dependencies={["password"]}
                 >
-                  <Input.Password autoComplete="new-password"/>
+                  <Input.Password autoComplete="new-password" />
                 </Form.Item>
 
                 <Form.Item
@@ -709,7 +709,7 @@ function EditProfile({
                     }),
                   ]}
                 >
-                  <Input.Password autoComplete="new-password"/>
+                  <Input.Password autoComplete="new-password" />
                 </Form.Item>
               </div>
 
@@ -737,7 +737,7 @@ function EditProfile({
                   {
                     required: true,
                     message: "street address required",
-                    max: 30,
+                    max: 300,
                   },
                 ]}
               >
@@ -844,7 +844,7 @@ function EditProfile({
                     },
                   ]}
                 >
-                  <Input autoComplete="new-password"/>
+                  <Input autoComplete="new-password" />
                 </Form.Item>
               </div>
 
