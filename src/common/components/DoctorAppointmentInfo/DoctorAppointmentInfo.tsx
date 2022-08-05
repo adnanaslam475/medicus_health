@@ -549,6 +549,10 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setIsModalVisible(true);
   };
 
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
   const handleOk = () => {
     setIsModalVisible(false);
   };
@@ -622,10 +626,14 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
       });
       if (error && error?.message) {
         throw new Error(error.message);
+      } else {
+        formInstance.resetFields();
+        setSlots([]);
+        notification.success({
+          message: "Successfully updated",
+        });
+        closeModal();
       }
-      notification.success({
-        message: "Successfully updated",
-      });
     } catch (error: any) {
       notification.error({
         message: error?.message,

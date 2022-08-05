@@ -742,7 +742,7 @@ function EditProfile({
                   {
                     required: true,
                     message: "street address required",
-                    max: 30,
+                    max: 300,
                   },
                 ]}
               >
