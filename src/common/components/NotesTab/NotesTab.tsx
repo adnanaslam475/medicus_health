@@ -119,7 +119,7 @@ function NotesTab({}: Props) {
 
         <>
           <div className="my-3">
-            {actualDoctorNotes &&
+            {actualDoctorNotes ? (
               (status === "Confirmed" ||
                 status === "Requested" ||
                 status === "Completed") && (
@@ -131,12 +131,15 @@ function NotesTab({}: Props) {
                     }
                   />
                 </>
-              )}
-            {!actualDoctorNotes ? (
-              status === "Confirmed" || status === "Requested"
+              )
             ) : (
               <>No current appointment notes available.</>
             )}
+            {/* {!actualDoctorNotes ? (
+              status === "Confirmed" || status === "Requested"
+            ) : (
+              <>No current appointment notes available.</>
+            )} */}
           </div>
         </>
         {/* FOR PATIENT ONLY */}
