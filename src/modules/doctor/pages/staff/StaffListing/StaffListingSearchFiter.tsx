@@ -54,7 +54,7 @@ function StaffListingSearchFilter({ onChange }: Props) {
         <div className="lg:ml-3 w-full sm:w-full md:w-full lg:w-70">
           <Input
             value={filterState.patientName}
-            placeholder="Search by ID# or Patient name"
+            placeholder="Search by ID# or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("patientName", e.target.value);

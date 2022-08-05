@@ -57,7 +57,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
         <div className="w-full sm:w-full md:w-full lg:w-96">
           <Input
             value={filterState.searchString}
-            placeholder="ID# or Patient name"
+            placeholder="ID# or patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);
