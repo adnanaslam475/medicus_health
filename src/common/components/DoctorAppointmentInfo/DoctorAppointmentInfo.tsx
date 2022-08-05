@@ -51,6 +51,7 @@ import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJou
 import RescheduleAppointmentModal from "../RescheduleAppointment/RescheduleAppointment";
 import moment from "moment";
 import StatusChip from "../StatusChip/StatusChip";
+import Link from "next/link";
 
 type Props = {
   data: Appointment | undefined;
@@ -465,17 +466,17 @@ function DoctorUpcomingAppointmentInfoFooter({
           >
             Reschedule appointment
           </Button>
-          <Button
-            type="primary"
-            icon={<VideoCameraFilled />}
-            className={`${_classes["appointments-btn"]} bg-current`}
-            onClick={() =>
-              Router.push(`/physician/appointments/${appointmentId}/call`)
-            }
-            disabled={disabled}
-          >
-            Join now
-          </Button>
+          <Link passHref href={`/patient/appointments/${appointmentId}/call`}>
+            <Button
+              type="primary"
+              icon={<VideoCameraFilled />}
+              className={`${_classes["appointments-btn"]} flex `}
+              disabled={disabled}
+              target={"_blank"}
+            >
+              <span>Join now</span>
+            </Button>
+          </Link>
         </>
       )}
       {getRole() === "User" && data?.status === "Completed" && (
