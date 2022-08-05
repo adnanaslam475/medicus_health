@@ -370,17 +370,28 @@ function DoctorAppointmentInfoFooter({
           ))}
       </div>
       {data?.status === "Confirmed" && (
-        <Button
-          type="primary"
-          icon={<VideoCameraFilled />}
-          className={`${_classes["appointments-btn"]} bg-current`}
-          onClick={() =>
-            Router.push(`/physician/appointments/${appointmentId}/call`)
-          }
-          disabled={disabled}
-        >
-          Join now
-        </Button>
+        // <Button
+        //   type="primary"
+        //   icon={<VideoCameraFilled />}
+        //   className={`${_classes["appointments-btn"]} bg-current`}
+        //   onClick={() =>
+        //     Router.push(`/physician/appointments/${appointmentId}/call`)
+        //   }
+        //   disabled={disabled}
+        // >
+        //   Join now
+        // </Button>
+        <Link passHref href={`/physician/appointments/${appointmentId}/call`}>
+          <Button
+            type="primary"
+            icon={<VideoCameraFilled />}
+            className={`${_classes["appointments-btn"]} flex `}
+            disabled={disabled}
+            target={"_blank"}
+          >
+            <span>Join now</span>
+          </Button>
+        </Link>
       )}
       {getRole() === "User" && data?.status === "Completed" && (
         <Button
