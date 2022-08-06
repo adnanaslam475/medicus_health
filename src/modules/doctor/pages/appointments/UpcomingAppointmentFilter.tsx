@@ -104,7 +104,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
           />
         </div>
 
-        <div className="flex w-full md:w-44 xl:w-60 mr-3">
+        {/* <div className="flex w-full md:w-44 xl:w-60 mr-3">
           <Select
             placeholder="Payment status"
             onChange={(e) => onChangeFields("paymentStatus", e)}
@@ -115,7 +115,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
             <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
           <FilterClearButton onClear={clear} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

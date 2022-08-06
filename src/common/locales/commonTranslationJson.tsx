@@ -179,7 +179,7 @@ export const englishCommon: any = {
   send_resend_link: "Send Resend Link",
   verifying: "Verifying...",
   id_or_patient_name: "ID# or patient name",
-  id_or_physician_name: "ID# or Physician name",
+  id_or_physician_name: "ID# or physician name",
   successfully_updated: "Successfully Updated",
   personal_information: "Personal information",
   health_questionnaire: "Health questionnaire",

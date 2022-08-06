@@ -327,7 +327,7 @@ function MyEarningsSearchFilters(props: Props) {
             </Space>
           </a>
         </Dropdown> */}
-        <Dropdown
+        {/* <Dropdown
           className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg p-3 border`}
           overlay={totalPaymentsRangeFilter}
           trigger={["click"]}
@@ -339,7 +339,7 @@ function MyEarningsSearchFilters(props: Props) {
               <DownOutlined />
             </Space>
           </a>
-        </Dropdown>
+        </Dropdown> */}
         <Button
           onClick={clear}
           type="text"
