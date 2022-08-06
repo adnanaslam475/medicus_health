@@ -115,7 +115,6 @@ const HealthQuestionnaryData: Questions = {
         "Diabetes",
         "Obesidad",
         "Hiperlipidemia",
-        "Otra (describa)",
         "Amigdalectomía",
         "Cirugía cerebral",
         "Cirugía del corazón",

@@ -5,6 +5,7 @@
     left: 0;
     right: 0;
     bottom: 20px;
+
     .ant-steps-item {
       padding-left: 8px;
       flex: inherit;
@@ -30,6 +31,9 @@
           display: none;
         }
       }
+    }
+    &.ant-steps-vertical {
+      flex-direction: row;
     }
   }
   :global .ant-radio-group {
