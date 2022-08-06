@@ -49,7 +49,6 @@ function RescheduleAppointmentModal(props: Props) {
   const [slots, setSlots] = useState<SuggestedTimeSlots[] | any[]>([]);
   const [endDateValue, setEndDateValue] = useState<string>("");
 
-
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
 
@@ -71,10 +70,10 @@ function RescheduleAppointmentModal(props: Props) {
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
-    let formatedDate = moment(dateString,"MM-DD-YYYY hh:mm A")
-    .add(30, "minutes")
-    .local()
-    .format("MM-DD-YYYY hh:mm A");
+    let formatedDate = moment(dateString, "MM-DD-YYYY hh:mm A")
+      .add(30, "minutes")
+      .local()
+      .format("MM-DD-YYYY hh:mm A");
     setEndDateValue(formatedDate);
     setSlot({ startTime: dateString, endTime: formatedDate });
   };
@@ -91,12 +90,12 @@ function RescheduleAppointmentModal(props: Props) {
       },
     });
     try {
-      if (response?.data?.suggestNewTime){
+      if (response?.data?.suggestNewTime) {
         setShowRescheduleModal(false);
-        Router.push("/physician/appointments/upcoming")
-          notification.success({
-            message: "Successfully Rescheduled Appointment",
-          });
+        Router.push("/physician/appointments/upcoming");
+        notification.success({
+          message: "Successfully rescheduled appointment",
+        });
       }
     } catch (error: any) {
       notification.error({
@@ -301,10 +300,15 @@ function AvailabilityTimeSlots({
           <Form.Item label="End time" name="end_time">
             <Space direction="vertical" size={12}>
               {endDateValue === "Invalid date" || !endDateValue ? (
-                <DatePicker disabled={true} className="w-full" showTime placeholder="--"/>
+                <DatePicker
+                  disabled={true}
+                  className="w-full"
+                  showTime
+                  placeholder="--"
+                />
               ) : (
                 <DatePicker
-                  value={moment(endDateValue,"MM-DD-YYYY hh:mm A")}
+                  value={moment(endDateValue, "MM-DD-YYYY hh:mm A")}
                   disabled={true}
                   className="w-full"
                   showTime

@@ -711,7 +711,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <div className="w-5/6">
               <Form.Item label="Appointment type*" name="service">
                 <Select
-                  placeholder="Service Type"
+                  placeholder="Appointment Type"
                   className="w-full"
                   onChange={handleServiceChange}
                 >

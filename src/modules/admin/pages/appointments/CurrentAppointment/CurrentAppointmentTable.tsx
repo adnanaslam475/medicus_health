@@ -39,7 +39,7 @@ function CurrentAppointmentTable({ dataSource, loading }: Props) {
       },
     },
     {
-      title: "Service type",
+      title: "Appointment type",
       dataIndex: "serviceType",
       render: (value: AppointmentServiceType) => {
         return <div>{value?.name}</div>;
