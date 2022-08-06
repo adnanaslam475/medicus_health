@@ -205,6 +205,7 @@ export const englishCommon: any = {
   please_pick_an_option: "Please pick an option!",
   please_fill_field: "Please fill field",
   about_me: "About me",
+  doctor_schedules_not_available: "Doctor schedules not available",
 };
 
 export const spanishCommon: any = {
@@ -414,6 +415,7 @@ export const spanishCommon: any = {
   please_pick_an_option: "Por favor elige una opción",
   please_fill_field: "Por favor complete el campo",
   about_me: "Sobre mí",
+  doctor_schedules_not_available: "Horarios del doctor no disponibles",
 };
 
 // asddsasd
