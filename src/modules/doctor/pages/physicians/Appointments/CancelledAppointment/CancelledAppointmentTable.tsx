@@ -126,19 +126,19 @@ function CancelledAppointmentTable({
       },
     },
 
-    {
-      title: "Appointment status",
-      dataIndex: "status",
-      key: "status",
-      className: "table-action-icon",
-      render: (value: any) => {
-        return (
-          <div className="text-primary">
-            <StatusChip type={value?.toUpperCase()} />
-          </div>
-        );
-      },
-    },
+    // {
+    //   title: "Appointment status",
+    //   dataIndex: "status",
+    //   key: "status",
+    //   className: "table-action-icon",
+    //   render: (value: any) => {
+    //     return (
+    //       <div className="text-primary">
+    //         <StatusChip type={value?.toUpperCase()} />
+    //       </div>
+    //     );
+    //   },
+    // },
 
     {
       dataIndex: "id",
