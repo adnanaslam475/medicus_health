@@ -134,7 +134,7 @@ function AdminAppointmentInfo({
           /> */}
           <LabelWithText label="Patient" text={patient} />
           <LabelWithText label="Physician" text={physician} />
-          <LabelWithText label="Service type" text={service} />
+          <LabelWithText label="Appointment type" text={service} />
           <LabelWithText label="Appointment date" text={dueDate} />
           <LabelWithText label="Time" text={time} />
           <LabelWithText label="Total amount" text={totalAmount} />
@@ -335,7 +335,8 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
 }
 
 function AdminAppointmentConfirmedInfoFooter(props: Props) {
-  const { onCancelRequestedAppointment, adminApp_Details, appointmentData } = props || {};
+  const { onCancelRequestedAppointment, adminApp_Details, appointmentData } =
+    props || {};
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(

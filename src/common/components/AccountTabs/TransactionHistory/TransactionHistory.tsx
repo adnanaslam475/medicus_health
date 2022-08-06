@@ -38,7 +38,7 @@ const transactionsColumns = [
     },
   },
   {
-    title: "Appointment type", //change name to appointment type from service type
+    title: "Appointment type", //change name to appointment type from appointment type
     dataIndex: "appointment",
     key: "appointment",
     sorter: {

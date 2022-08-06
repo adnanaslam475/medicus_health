@@ -119,7 +119,8 @@ function CurrentAppointment() {
                       // status={status}
                       status="Current"
                       serviceType={
-                        currentAppointment?.serviceType?.name || "Service type"
+                        currentAppointment?.serviceType?.name ||
+                        "Appointment type"
                       }
                       doctor={currentAppointment?.doctor?.first_name}
                       appointmentTimeSlots={
