@@ -307,15 +307,15 @@ const PhysicianMyEarningsList = (props: Props) => {
               text={String(total_number_of_patients)}
             />
             <MyEarningsStats
-              label={"Earnings through consultations"}
+              label={"Net earnings through consultations"}
               text={`$${total_earnings_from_consultation}`}
             />
             <MyEarningsStats
-              label={"Earnings through second opinions"}
+              label={"Net earnings through second opinions"}
               text={`$${total_earnings_from_second_opinions}`}
             />
             <MyEarningsStats
-              label={"Total earnings"}
+              label={"Total net earnings"}
               text={`$${total_earnings}`}
             />
           </div>

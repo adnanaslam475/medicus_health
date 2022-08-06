@@ -303,7 +303,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 ]}
               >
                 <Select
-                  placeholder="Service type"
+                  placeholder="Appointment type"
                   className="w-full"
                   onChange={handleServiceChange}
                 >
