@@ -184,7 +184,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
         <p className="text-gray-2">
           If you wish to update and make changes in your current health
           questionnaire,
-          <a onClick={() => setIsModalVisible(true)} className="px-2">
+          <a onClick={() => setIsModalVisible(true)} className="px-1">
             Click here.
           </a>
         </p>
