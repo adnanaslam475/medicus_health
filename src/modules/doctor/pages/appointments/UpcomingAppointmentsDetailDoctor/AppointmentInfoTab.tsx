@@ -20,6 +20,7 @@ function AppointmentInfoTab({}: Props) {
     },
     pause: !query.id,
   });
+
   const { appointment } = data || {};
   const { patient, serviceType } = appointment || {};
   const { patientProfile } = patient || {};
