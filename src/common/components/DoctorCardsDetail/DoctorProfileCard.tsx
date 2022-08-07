@@ -157,7 +157,7 @@ function DoctorProfileCard(props: Props) {
                             </div>
                           </div>
                         ))
-                    : "Doctor schedules not available"}
+                    : t("doctor_schedules_not_available")}
                 </div>
               </Collapse.Panel>
             </Collapse>

@@ -171,11 +171,11 @@ function DoctorAppointmentInfo({ data }: Props) {
           }
         />
         <LabelWithText
-          label="Appointment type requested"
+          label="Appointment type"
           text={serviceType?.name ? serviceType?.name : "--"}
         />
         <LabelWithText
-          label="AppoIntment date requested"
+          label="AppoIntment date"
           text={
             appointmentDateTime?.startTime
               ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
@@ -191,14 +191,18 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={date?.formatDAYMMDDYY(requestedDate)}
         /> */}
         <LabelWithText
-          label="Appointment time requested"
+          label="Appointment time"
           text={
             appointmentDateTime?.startTime
               ? `${formatedStartTime} - ${formatedEndTime}`
               : "--"
           }
         />
-        {(status === "Confirmed" || status === "Completed") && (
+        <LabelWithText
+          label="Total amount"
+          text={charges ? `$${charges}` : "--"}
+        />
+        {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
             label="Total amount"
             text={charges ? `$${charges}` : "--"}
@@ -216,7 +220,7 @@ function DoctorAppointmentInfo({ data }: Props) {
             label="Total amount"
             text={charges ? `$${charges}` : "--"}
           />
-        )}
+        )} */}
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">

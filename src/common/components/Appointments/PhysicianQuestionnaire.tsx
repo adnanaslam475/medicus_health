@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Radio, Layout, Divider, Checkbox, Empty } from "antd";
 import {
   GetAppointmentByIdQuery,
@@ -9,7 +9,7 @@ import { parseJson } from "common/utils/helper";
 import _classes from "./AppointmentButtons.module.scss";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { NamePath } from "antd/lib/form/interface";
-import { getUserData } from "common/utils/userData";
+import { getRole, getUserData } from "common/utils/userData";
 
 type Props = {
   appointmentHealthHistory: string;
@@ -23,6 +23,7 @@ function PhysicianQuestionnaire(props: Props) {
   let History = parseJson(appointmentHealthHistory);
   const router = useRouter();
   const { user } = getUserData();
+  const [isDisabled, setDisabled] = useState<boolean>(false);
 
   const { pathname } = router || {};
   let disabled =
@@ -35,6 +36,14 @@ function PhysicianQuestionnaire(props: Props) {
       prepareAndSetEditPayload();
     }
   }, [History]);
+
+  useEffect(() => {
+    if (getRole() === "Doctor" || getRole() === "Admin") {
+      setDisabled(true)
+    } else {
+      setDisabled(false)
+    }
+  }, []);
 
   function prepareAndSetEditPayload() {
     Object?.keys(History)?.map((value) => {
@@ -101,7 +110,7 @@ function PhysicianQuestionnaire(props: Props) {
                       name={item.name}
                       rules={[{ required: true, message: "Required!" }]}
                     >
-                      <Input disabled />
+                      <Input readOnly={getRole() === "User" ? false : true} disabled />
                     </Form.Item>
                   );
                 } else if (item.type === "radio") {
@@ -112,7 +121,7 @@ function PhysicianQuestionnaire(props: Props) {
                       name={item.name}
                       rules={[{ required: true, message: "Required!" }]}
                     >
-                      <Radio.Group>
+                      <Radio.Group disabled={isDisabled}>
                         {item?.options?.map(({ value, label }) => {
                           return (
                             <Radio value={value} disabled>
@@ -130,7 +139,9 @@ function PhysicianQuestionnaire(props: Props) {
                       className="text-secondary"
                       name={item.name}
                     >
-                      <Checkbox.Group>
+                      <Checkbox.Group
+                       disabled={isDisabled}
+                      >
                         {item?.options?.map(({ value, label }) => {
                           return (
                             <Checkbox value={value} disabled>
