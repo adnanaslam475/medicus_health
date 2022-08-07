@@ -31,7 +31,7 @@ function AppointmentInfoTab({}: Props) {
   ) : (
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
-      serviceName={serviceType?.name}
+      serviceName=""
       imageUrl={patientProfile?.profileImage}
     >
       <DoctorAppointmentInfo data={appointment as Appointment} />
