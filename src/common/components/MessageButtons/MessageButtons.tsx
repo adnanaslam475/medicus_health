@@ -74,12 +74,16 @@ const MessageButtons = (props: Props) => {
             onClick={() =>
               Router.push({
                 pathname: "/physician/messages",
-                query: {
-                  chat: "admin",
-                  // doctorId: adminApp_Details?.doctor.doctor_Id,
-                  // doctorId: doctorId,
-                  patientId: patientID,
-                },
+                query:
+                  getRole() === "Doctor"
+                    ? {
+                        chat: "admin",
+                        doctorId: doctorId,
+                      }
+                    : {
+                        chat: "admin",
+                        patientId: patientID,
+                      },
               })
             }
           >
