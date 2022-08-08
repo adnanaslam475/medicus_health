@@ -167,14 +167,20 @@ export type AppointmentTotalCharges = {
   initialCharges?: InputMaybe<Scalars['Int']>;
 };
 
+export type AppointmentsCountResponse = {
+  __typename?: 'AppointmentsCountResponse';
+  canceled: Scalars['Float'];
+  history: Scalars['Float'];
+  pending: Scalars['Float'];
+  upcoming: Scalars['Float'];
+};
+
 export type AwardsHonorsRecognition = {
-  awards: Scalars['String'];
-  honors_and_recognition: Scalars['String'];
+  awards_honors_and_recognition: Scalars['String'];
 };
 
 export type AwardsHonorsRecognitionUpdate = {
-  awards?: InputMaybe<Scalars['String']>;
-  honors_and_recognition?: InputMaybe<Scalars['String']>;
+  awards_honors_and_recognition?: InputMaybe<Scalars['String']>;
 };
 
 export type BookAppointmentInput = {
@@ -190,13 +196,11 @@ export type BookingDate = {
 };
 
 export type CertificationLicensure = {
-  certification: Scalars['String'];
-  licensure: Scalars['String'];
+  certification_and_licensure: Scalars['String'];
 };
 
 export type CertificationLicensureUpdate = {
-  certification?: InputMaybe<Scalars['String']>;
-  licensure?: InputMaybe<Scalars['String']>;
+  certification_and_licensure?: InputMaybe<Scalars['String']>;
 };
 
 export type ChatChannels = {
@@ -210,6 +214,7 @@ export type ChatChannels = {
   participants?: Maybe<Array<ChatParticipants>>;
   patientId?: Maybe<Scalars['Int']>;
   receiverDetail?: Maybe<User>;
+  unReadMessagesCount?: Maybe<UnReadMessagesCountResponse>;
 };
 
 export type ChatMessages = {
@@ -347,6 +352,7 @@ export type CreateDoctorProfileInput = {
 
 export type CreateDoctorQuestionnaireInput = {
   doctorId: Scalars['Int'];
+  languageId: Scalars['Int'];
   questionnaire?: InputMaybe<Scalars['JSON']>;
 };
 
@@ -360,6 +366,11 @@ export type CreateDoctorScheduleNewInput = {
   doctorId: Scalars['Int'];
   endTime: Scalars['String'];
   startTime: Scalars['String'];
+};
+
+export type CreateLanguageInput = {
+  code: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type CreatePatientHealthHistoryInput = {
@@ -485,6 +496,7 @@ export type DoctorQuestionnaire = {
   doctor: User;
   doctorId: Scalars['Int'];
   id: Scalars['Int'];
+  languageId: Scalars['Int'];
   questionnaire?: Maybe<Scalars['JSON']>;
   user?: Maybe<User>;
 };
@@ -646,6 +658,14 @@ export type GetUserFilter = {
   zipCode?: InputMaybe<Scalars['Int']>;
 };
 
+export type Language = {
+  __typename?: 'Language';
+  code: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['Int'];
+  name: Scalars['String'];
+};
+
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   access_token: Scalars['String'];
@@ -681,6 +701,7 @@ export type Mutation = {
   createDoctorBillingMethod: DoctorBillingMethod;
   createDoctorProfile: DoctorProfile;
   createDoctorSchedule: DoctorSchedule;
+  createLanguage: Language;
   createOrUpdateAppointmentNote: AppointmentNote;
   createOrUpdateDoctorQuestionnaire: DoctorQuestionnaire;
   createOrUpdateDoctorSchedule: Array<DoctorSchedule>;
@@ -806,6 +827,11 @@ export type MutationCreateDoctorProfileArgs = {
 
 export type MutationCreateDoctorScheduleArgs = {
   createDoctorScheduleNewInput: CreateDoctorScheduleNewInput;
+};
+
+
+export type MutationCreateLanguageArgs = {
+  createLanguageInput: CreateLanguageInput;
 };
 
 
@@ -1107,6 +1133,7 @@ export type Query = {
   adminUsers: UserPaginatedFilterResponse;
   appointment: Appointment;
   appointmentBanner: Array<Appointment>;
+  appointmentCountByStatus: AppointmentsCountResponse;
   appointmentNote: AppointmentNote;
   appointmentNotes: Array<AppointmentNote>;
   appointmentQuestionnaire: AppointmentHealthHistory;
@@ -1142,6 +1169,8 @@ export type Query = {
   getStatesByCountry: Array<State>;
   getTransactionFilter: TransactionPaginatedResponse;
   getUserFilter: UserPaginatedFilterResponse;
+  language: Language;
+  languages: Array<Language>;
   patientHealthHistory?: Maybe<PatientHealthHistory>;
   patientHealthHistorys: Array<PatientHealthHistory>;
   patientLastQuestionnaire: AppointmentHealthHistory;
@@ -1252,6 +1281,7 @@ export type QueryDoctorProfileArgs = {
 
 export type QueryDoctorQuestionnaireArgs = {
   doctorId: Scalars['Int'];
+  languageId?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1338,6 +1368,11 @@ export type QueryGetUserFilterArgs = {
   filter: GetUserFilter;
   pagination?: InputMaybe<PaginationParams>;
   sorting?: InputMaybe<SortingParams>;
+};
+
+
+export type QueryLanguageArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -1501,6 +1536,11 @@ export type TransactionPaginatedResponse = {
   items: Array<Transaction>;
   links?: Maybe<Scalars['String']>;
   meta: Meta;
+};
+
+export type UnReadMessagesCountResponse = {
+  __typename?: 'UnReadMessagesCountResponse';
+  channelMessagesCount: Scalars['Float'];
 };
 
 export type UpdateAdminUserInput = {
@@ -5854,6 +5894,57 @@ export default {
       },
       {
         "kind": "OBJECT",
+        "name": "AppointmentsCountResponse",
+        "fields": [
+          {
+            "name": "canceled",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "history",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "pending",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "upcoming",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
         "name": "ChatChannels",
         "fields": [
           {
@@ -5945,6 +6036,15 @@ export default {
             "type": {
               "kind": "OBJECT",
               "name": "User",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "unReadMessagesCount",
+            "type": {
+              "kind": "OBJECT",
+              "name": "UnReadMessagesCountResponse",
               "ofType": null
             },
             "args": []
@@ -6652,6 +6752,17 @@ export default {
             "args": []
           },
           {
+            "name": "languageId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "questionnaire",
             "type": {
               "kind": "SCALAR",
@@ -6790,6 +6901,57 @@ export default {
         "fields": [
           {
             "name": "isEmailAvailable",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Language",
+        "fields": [
+          {
+            "name": "code",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "name",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -7229,6 +7391,29 @@ export default {
             "args": [
               {
                 "name": "createDoctorScheduleNewInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createLanguage",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Language",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "createLanguageInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -8654,6 +8839,18 @@ export default {
             ]
           },
           {
+            "name": "appointmentCountByStatus",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AppointmentsCountResponse",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "appointmentNote",
             "type": {
               "kind": "NON_NULL",
@@ -9081,6 +9278,13 @@ export default {
                     "kind": "SCALAR",
                     "name": "Any"
                   }
+                }
+              },
+              {
+                "name": "languageId",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
                 }
               }
             ]
@@ -9572,6 +9776,47 @@ export default {
                 }
               }
             ]
+          },
+          {
+            "name": "language",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Language",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "languages",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Language",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
           },
           {
             "name": "patientHealthHistory",
@@ -10201,6 +10446,24 @@ export default {
                 "kind": "OBJECT",
                 "name": "Meta",
                 "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UnReadMessagesCountResponse",
+        "fields": [
+          {
+            "name": "channelMessagesCount",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
               }
             },
             "args": []
