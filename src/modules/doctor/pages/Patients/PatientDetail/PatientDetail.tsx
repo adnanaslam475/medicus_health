@@ -142,7 +142,9 @@ function PatientDetail() {
             }
             key="3"
           >
-            <AppointmentHistoryTab />
+            <AppointmentHistoryTab
+              userDetail={userData?.user as User}
+            />
           </TabPane>
           {/* <TabPane
             tab={
