@@ -18,6 +18,7 @@ import { PageLoader } from "../../../../../common/components/PageLoader/PageLoad
 import successSmall from "../../../../../../public/assets/icon/success-small.svg";
 import { GraphQLError } from "graphql";
 import { useTranslations } from "next-intl";
+
 const { TabPane } = Tabs;
 const { confirm } = Modal;
 
