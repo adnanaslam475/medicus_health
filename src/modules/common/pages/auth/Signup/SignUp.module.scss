@@ -1,3 +1,9 @@
 .signupNext {
   width: 115px !important;
 }
+
+.signupTabs {
+  :global .ant-tabs-top > .ant-tabs-nav::before {
+    border-bottom: 0px !important;
+  }
+}

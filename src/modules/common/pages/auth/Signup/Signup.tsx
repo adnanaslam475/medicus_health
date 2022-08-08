@@ -18,6 +18,7 @@ import { PageLoader } from "../../../../../common/components/PageLoader/PageLoad
 import successSmall from "../../../../../../public/assets/icon/success-small.svg";
 import { GraphQLError } from "graphql";
 import { useTranslations } from "next-intl";
+import _classes from "./SignUp.module.scss";
 
 const { TabPane } = Tabs;
 const { confirm } = Modal;
@@ -157,7 +158,7 @@ function Signup() {
               <div className="text-center text-gray font-rubik font-normal text-sm">
                 {t("createYourAccountToStart")}
               </div>
-              <div className="mt-5">
+              <div className={`${_classes["signupTabs"]} mt-5`}>
                 <Tabs
                   defaultActiveKey="1"
                   centered
