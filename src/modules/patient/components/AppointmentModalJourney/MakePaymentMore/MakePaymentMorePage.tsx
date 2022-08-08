@@ -116,7 +116,7 @@ function MakePaymentMore() {
           </div>
         </div>
         <div>
-          <span className="text-base text-secondary my-2">Expiry on*</span>
+          <span className="text-base text-secondary my-2">Expires on*</span>
           <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
             <CardExpiryElement />
           </div>

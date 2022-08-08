@@ -416,7 +416,7 @@ export const patientEmailPreferencesData = [
   },
   {
     key: "appointment_rescheduled_by_doctor",
-    value: "Appointment cancelled and/or rescheduled by physician",
+    value: "Appointment canceled and/or rescheduled by physician",
   },
   {
     key: "new_message_received",
