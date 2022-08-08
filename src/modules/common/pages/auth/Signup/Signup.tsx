@@ -18,6 +18,7 @@ import { PageLoader } from "../../../../../common/components/PageLoader/PageLoad
 import successSmall from "../../../../../../public/assets/icon/success-small.svg";
 import { GraphQLError } from "graphql";
 import { useTranslations } from "next-intl";
+import _classes from "./SignUp.module.scss";
 
 const { TabPane } = Tabs;
 const { confirm } = Modal;
@@ -59,19 +60,19 @@ function Signup() {
   };
 
   function showConfirm() {
-    confirm({
-      title: "",
-      icon: <ExclamationCircleOutlined />,
-      // content:
-      //   "These are the mandatory fields for Book an appointment you can skip it for now and can Add/Edit later from my profile section",
-      content: t("signup_modal_skip_questionaire_message"),
-      onOk() {
-        submitPersonalInfo();
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
+    <div className={`${_classes["confirmationsignup"]}`}>
+      {confirm({
+        title: t("signup_modal_skip_questionaire_message"),
+        icon: <ExclamationCircleOutlined />,
+        // content:
+        //   "These are the mandatory fields for Book an appointment you can skip it for now and can Add/Edit later from my profile section",
+        content: "",
+        onOk() {
+          submitPersonalInfo();
+        },
+        onCancel() {},
+      })}
+    </div>;
   }
   const onFinishHealthQuestionnaryFailed = (err: any) => {};
 
@@ -157,7 +158,7 @@ function Signup() {
               <div className="text-center text-gray font-rubik font-normal text-sm">
                 {t("createYourAccountToStart")}
               </div>
-              <div className="mt-5">
+              <div className={`${_classes["signupTabs"]} mt-5`}>
                 <Tabs
                   defaultActiveKey="1"
                   centered
