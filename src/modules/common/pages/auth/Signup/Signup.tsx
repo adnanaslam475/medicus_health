@@ -135,10 +135,10 @@ function Signup() {
     return <PageLoader />;
   } else {
     return (
-      <Container className="login-bg w-full mx-auto">
+      <Container className="login-bg w-full">
         <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
-          <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
-            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white py-12 px-6">
+          <div className="w-full sm:w-full md:w-1/2 lg:min-w-[700px] xl:min-w-[700px] px-0">
+            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-2xl bg-white py-12 px-6">
               <div className="flex justify-center mb-6">
                 <Image
                   priority={true}
