@@ -60,19 +60,19 @@ function Signup() {
   };
 
   function showConfirm() {
-    confirm({
-      title: "",
-      icon: <ExclamationCircleOutlined />,
-      // content:
-      //   "These are the mandatory fields for Book an appointment you can skip it for now and can Add/Edit later from my profile section",
-      content: t("signup_modal_skip_questionaire_message"),
-      onOk() {
-        submitPersonalInfo();
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
+    <div className={`${_classes["confirmationsignup"]}`}>
+      {confirm({
+        title: t("signup_modal_skip_questionaire_message"),
+        icon: <ExclamationCircleOutlined />,
+        // content:
+        //   "These are the mandatory fields for Book an appointment you can skip it for now and can Add/Edit later from my profile section",
+        content: "",
+        onOk() {
+          submitPersonalInfo();
+        },
+        onCancel() {},
+      })}
+    </div>;
   }
   const onFinishHealthQuestionnaryFailed = (err: any) => {};
 

@@ -289,7 +289,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       <Form.Item
         name={HealthQuestionnaryData.q1.name}
         label={HealthQuestionnaryData.q1.label}
-        className="text-secondary"
+        className="text-secondary "
         rules={[
           {
             required: true,
@@ -349,7 +349,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       {!!radioSmoke && (
         <>
           <Form.Item
-            className="flex-1 text-secondary"
+            className="flex-1 text-secondary "
             name={HealthQuestionnaryData.q2.q.name}
             label={HealthQuestionnaryData.q2.q.label}
             rules={[
