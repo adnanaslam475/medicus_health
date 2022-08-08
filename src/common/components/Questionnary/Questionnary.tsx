@@ -60,7 +60,11 @@ const HealthQuestionnary = ({
   return (
     <div>
       {!isUpdateMode && disable && (
-        <Button className="mb-4" block onClick={skipHealthQues}>
+        <Button
+          className={`${_classes["btn-border"]} mb-4`}
+          block
+          onClick={skipHealthQues}
+        >
           {/* Skip This For Now & Fill This Later */}
           {t("skip_this_for_now_fill_this_later")}
         </Button>
