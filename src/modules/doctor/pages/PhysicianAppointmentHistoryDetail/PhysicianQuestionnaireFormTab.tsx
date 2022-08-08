@@ -44,8 +44,8 @@ function PhysicianQuestionnaireFormTab() {
     <div className="">
       <CardWithProfileImageInfo
         name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
-        serviceName={appointment?.serviceType?.name}
-      >
+        // serviceName={appointment?.patient?.email}
+        imageUrl={appointment?.patient?.patientProfile?.profileImage}      >
         <PhysicianQuestionnaire
           appointmentHealthHistory={
             appointment?.appointmentHealthHistory?.history
