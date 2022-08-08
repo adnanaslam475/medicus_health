@@ -121,6 +121,7 @@ const transactionsColumns = [
       multiple: 3,
     },
     render: (value: string) => {
+      if (value === "succeeded") value = "Paid";
       return (
         <div className="someclass">
           <StatusChip type={value.toUpperCase() as StatusName} />
