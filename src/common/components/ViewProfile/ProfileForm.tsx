@@ -144,24 +144,17 @@ function ProfileForm({
 
         <MultiRangeDatePicker disable={true} schedules={schedules} />
 
-        <div className={`my-6 ${_classes["professional"]}`}>
+        <div className={`my-6 border-b border-gray-3 ${_classes["professional"]}`}>
           <h5 className={`${_classes["wordspacing-5"]}`}>
-            Certifications and licences
+            Certification & licensure
           </h5>
           {certificationBackground?.map((certificate: any, index: number) => {
             return (
-              <div className="border-b border-gray-3 my-3 py-3" key={index}>
-                <Form.Item label="Certificates" className="flex-1">
+              <div className=" my-3 py-3" key={index}>
+                <Form.Item  className="flex-1">
                   <Input
-                    name={`certification`}
-                    value={certificate?.certification}
-                    disabled
-                  />
-                </Form.Item>
-                <Form.Item label="licensure" className="flex-1">
-                  <Input
-                    name={`licensure`}
-                    value={certificate?.licensure}
+                    name={`certification_and_licensure`}
+                    value={certificate?.certification_and_licensure}
                     disabled
                   />
                 </Form.Item>
@@ -190,7 +183,7 @@ function ProfileForm({
             })}
         </div>
 
-        <div className={`my-6 ${_classes["professional"]}`}>
+        <div className={`my-6 border-b border-gray-3 ${_classes["professional"]}`}>
           <h5 className={`${_classes["wordspacing-5"]}`}>
             Professional background
           </h5>
@@ -245,7 +238,7 @@ function ProfileForm({
             })}
         </div>
 
-        <div className={`my-6 ${_classes["educational"]}`}>
+        <div className={`my-6 border-b border-gray-3 ${_classes["educational"]}`}>
           <h6 className={`${_classes["wordspacing-5"]}`}>
             Educational background
           </h6>
@@ -348,20 +341,17 @@ function ProfileForm({
           )}
         </div>
 
-        <div className={`my-6 ${_classes["professional"]}`}>
+        <div className={`my-6 border-b border-gray-3 ${_classes["professional"]}`}>
           <h5 className={`${_classes["wordspacing-5"]}`}>
-            Awards, honors and recognization
+            Awards, honors & recognition
           </h5>
           {honorsBackground?.map((honor: any, index: number) => {
             return (
-              <div className="border-b border-gray-3 my-3 py-3" key={index}>
-                <Form.Item label="Certificates" className="flex-1">
-                  <Input name={`awards`} value={honor?.awards} disabled />
-                </Form.Item>
-                <Form.Item label="honors" className="flex-1">
+              <div className="my-3 py-3" key={index}>
+                <Form.Item className="flex-1">
                   <Input
-                    name={`honors_and_recognition`}
-                    value={honor?.honors_and_recognition}
+                    name={`awards_honors_and_recognition`}
+                    value={honor?.awards_honors_and_recognition}
                     disabled
                   />
                 </Form.Item>

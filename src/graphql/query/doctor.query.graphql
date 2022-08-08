@@ -361,6 +361,9 @@ query physicianAppointmentsHistory(
       doctor {
         first_name
         last_name
+        doctorQuestionnaire{
+          questionnaire
+        }
         doctorProfile {
           id
           doctor_id
