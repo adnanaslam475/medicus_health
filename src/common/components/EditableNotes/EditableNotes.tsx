@@ -209,7 +209,7 @@ function EditableNotes() {
               Delete
             </Button> */}
             {/* Commented as per Feedback */}
-            <Button
+            {/* <Button
               type="primary"
               className="mt-2"
               htmlType="submit"
@@ -218,7 +218,7 @@ function EditableNotes() {
               }}
             >
               Publish Notes
-            </Button>
+            </Button> */}
             <Button className="mt-2" htmlType="submit" loading={fetching}>
               Save
             </Button>
