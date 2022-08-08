@@ -55,9 +55,9 @@ const ForgotPassword = () => {
   } else {
     return (
       <Container className="login-bg w-full">
-        <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
-          <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
-            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
+        <div className="flex items-center justify-center min-h-screen w-h-100 py-16 rounded-3xl">
+          <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:max-w-[500px] px-0">
+            <div className="card p-4 shadow-lg drop-shadow-2xl  bg-white pt-12 pb-6 px-6 rounded-2xl">
               <div className="flex justify-center mb-16">
                 <Image
                   priority={true}
@@ -70,7 +70,7 @@ const ForgotPassword = () => {
                   // loading="eager"
                 />
               </div>
-              <h1 className="text-center text-secondary mb-0">
+              <h1 className="text-center text-secondary mb-0 pt-6">
                 {t("forgot_pass")}
                 {/* Forgot password */}
               </h1>
@@ -113,7 +113,7 @@ const ForgotPassword = () => {
                     <Button
                       loading={fetching}
                       disabled={fetching}
-                      className="ant-btn ant-btn-secondary ant-btn-block nb-button"
+                      className="ant-btn ant-btn-secondary ant-btn-block nb-button "
                       type="primary"
                       htmlType="submit"
                     >
@@ -143,7 +143,7 @@ const ForgotPassword = () => {
                 </Form>
               </div>
               <Form.Item>
-                <div className="flex justify-center mt-8">
+                <div className="flex justify-center pt-16">
                   <span className="ml-2">
                     <Link href="/login">
                       <div className="inline-flex items-center">

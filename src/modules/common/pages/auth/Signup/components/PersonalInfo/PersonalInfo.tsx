@@ -9,6 +9,7 @@ import {
   useCountriesQuery,
   useCheckEmailAvailabilityQuery,
 } from "generated/graphql";
+import _classes from "../../SignUp.module.scss";
 import { useTranslations } from "next-intl";
 
 type props = {
@@ -377,10 +378,11 @@ export default function PersonalInfo({ onFinish }: props) {
         </div>
         <Form.Item>
           <Button
+            size="large"
             htmlType="submit"
-            className="ant-btn ant-btn-primary ant-btn-block nb-button"
             type="primary"
             disabled={!terms}
+            className={`${_classes["signupNext"]} ant-btn ant-btn-primary ant-btn-block nb-button`}
           >
             {t("next")}
             {/* Next */}

@@ -79,7 +79,7 @@ function DoctorProfileCard(props: Props) {
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
-            <div className="rounded-full flex items-center justify-center overflow-hidden sm:border border-gray-1">
+            <div className="rounded-full flex items-center justify-center overflow-hidden sm:border  border-gray-1">
               {loading ? (
                 <span className={`${_classes["emptyImgContainer"]}`}></span>
               ) : (
@@ -87,10 +87,10 @@ function DoctorProfileCard(props: Props) {
                   objectFit="cover"
                   src={doctorData?.profile_image || ""}
                   layout="fixed"
-                  width={86}
-                  height={86}
+                  width={206}
+                  height={206}
                   className=" rounded-full h-[86px] w-[86px] overflow-hidden"
-                  fallbackImage={"/assets/images/profile.jpg"}
+                  fallbackImage={"/assets/images/profile.svg"}
                 />
               )}
             </div>
