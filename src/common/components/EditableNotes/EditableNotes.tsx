@@ -58,11 +58,11 @@ function EditableNotes() {
       createAppointmentNoteInput: {
         appointmentId: Number(query.id),
         isPublished: isPublish,
-        subjective: value?.subjective,
-        objective: value?.objective,
-        assessment: value?.assessment,
-        plan: value?.plan,
-        note: value?.narrative,
+        subjective: value?.subjective || subjective,
+        objective: value?.objective || objective,
+        assessment: value?.assessment || assessment,
+        plan: value?.plan || plan,
+        note: value?.narrative || note,
         // noteType: "SOAP",
       },
     });
@@ -225,7 +225,7 @@ function EditableNotes() {
           </div>
         ) : (
           <div className="flex justify-end gap-3">
-            {/* <Button
+            <Button
               type="primary"
               className="mt-2"
               htmlType="submit"
@@ -234,7 +234,7 @@ function EditableNotes() {
               }}
             >
               Publish Notes
-            </Button> */}
+            </Button>
             <Button
               className="mt-2"
               onClick={(e) => {
