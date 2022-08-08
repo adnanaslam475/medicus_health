@@ -10,6 +10,7 @@ import {
 } from "../../../../../../generated/graphql";
 import MessageButtons from "common/components/MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
+import { formatYYYYMMMMDD } from "common/utils/date";
 // const props = {};
 type Props = {
   userDetail?: User;
@@ -82,19 +83,14 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
   if (selectedCity) {
     cityName = selectedCity?.filter((item) => item.id === city_id);
   }
-
-  const doctorFirstName = loggedinDoctorDetails?.first_name || "";
-  const doctorProfilePicture =
-    loggedinDoctorDetails?.doctorProfile?.profile_image || "";
-  const doctorSpecialization =
-    loggedinDoctorDetails?.doctorProfile?.specialization || "";
+  const profilePicture = userDetail?.patientProfile?.profileImage
 
   return (
     <div className="max-w-[800px]">
       <CardWithProfileImageInfo
-        name={doctorFirstName}
-        serviceName={String(doctorSpecialization)}
-        imageUrl={doctorProfilePicture}
+        name={first_name}
+        serviceName={email}
+        imageUrl={profilePicture}
       >
         <div className="messageButtons">
           <MessageButtons
@@ -115,7 +111,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             <LabelWithTextDiv label="Género" value={gender} />
             <LabelWithTextDiv
               label="Fecha de nacimiento"
-              value={date_of_birth}
+              value={formatYYYYMMMMDD(date_of_birth)}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
