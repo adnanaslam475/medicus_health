@@ -138,7 +138,7 @@ export const Profile = React.forwardRef(function Profile({
             >
               <div className="relative">
                 <Avatar
-                 icon={ <UserOutlined  />} 
+                  icon={<UserOutlined />}
                   size={130}
                   className="border-transparent border-2 leading-10 profile-avatar"
                   src={
@@ -179,7 +179,9 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="First name"
                   name="firstName"
-                  rules={[{ required: true, message: "First name is required" }]}
+                  rules={[
+                    { required: true, message: "First name is required" },
+                  ]}
                   className="flex-1"
                 >
                   <Input />
@@ -203,11 +205,7 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input disabled={true} />
                 </Form.Item>
-                <Form.Item
-                  label="Contact #"
-                  className="flex-1"
-                  name="contact"
-                >
+                <Form.Item label="Contact #" className="flex-1" name="contact">
                   <Input />
                 </Form.Item>
               </div>
@@ -225,6 +223,25 @@ export const Profile = React.forwardRef(function Profile({
                   label="Confirm password"
                   name="confirmPassword"
                   className="flex-1"
+                  dependencies={["password"]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please confirm your password!",
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            "The two passwords that you entered do not match!"
+                          )
+                        );
+                      },
+                    }),
+                  ]}
                 >
                   <Input.Password />
                 </Form.Item>
