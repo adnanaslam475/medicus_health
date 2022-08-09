@@ -36,7 +36,6 @@ type Props = {
 function DoctorProfileCard(props: Props) {
   i18next.changeLanguage(useLocale());
   const t = i18next.t;
-  console.log(t("PhysicianList"));
 
   // const t = useTranslations("PhysicianList");
   //Get logged in User
@@ -197,13 +196,35 @@ function DoctorProfileCard(props: Props) {
               <div className="flex-none sm:flex">
                 <Button
                   className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3"
-                  onClick={() => Router.push("/admin/messages")}
+                  onClick={() => {
+                    const query = {
+                      chat: "admin",
+                      patientId: loggedInUser,
+                    };
+                    localStorage.setItem("id", JSON.stringify(query));
+                    Router.push({
+                      pathname: "/patient/messages",
+                      query,
+                    });
+                  }}
                 >
                   <span className="hidden">{t("message_support")}</span>
                 </Button>
                 <Button
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
-                  onClick={() => Router.push("/physician/messages")}
+                  onClick={() => {
+                    const query: any = {
+                      chat: "patient",
+                      // patientId: adminApp_Details?.patient.patient_id,
+                      doctorId: doctorData?.doctor_id,
+                      patientId: loggedInUser,
+                    };
+                    localStorage.setItem("id", JSON.stringify(query));
+                    Router.push({
+                      pathname: "/patient/messages",
+                      query,
+                    });
+                  }}
                 >
                   <span className="hidden">{t("message_physician")}</span>
                 </Button>
