@@ -11,6 +11,7 @@ import { useMediaUploader } from "common/hooks/media";
 import { getUserData } from "common/utils/userData";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import { UserOutlined } from "@ant-design/icons";
+import { GraphQLError } from "graphql";
 
 type profileType = {
   doctorId?: string | string[] | undefined;
@@ -94,12 +95,18 @@ export const Profile = React.forwardRef(function Profile({
         setIsEdit(false);
       }
 
-      if (res?.error) {
-        res?.error?.graphQLErrors[0]?.message &&
-          notification.error({
-            message:
-              res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-          });
+      if (res?.error?.graphQLErrors) {
+        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = res?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
       }
     }
   };
@@ -138,7 +145,7 @@ export const Profile = React.forwardRef(function Profile({
             >
               <div className="relative">
                 <Avatar
-                 icon={ <UserOutlined  />} 
+                  icon={<UserOutlined />}
                   size={130}
                   className="border-transparent border-2 leading-10 profile-avatar"
                   src={
@@ -179,7 +186,9 @@ export const Profile = React.forwardRef(function Profile({
                 <Form.Item
                   label="First name"
                   name="firstName"
-                  rules={[{ required: true, message: "First name is required" }]}
+                  rules={[
+                    { required: true, message: "First name is required" },
+                  ]}
                   className="flex-1"
                 >
                   <Input />
@@ -203,11 +212,7 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input disabled={true} />
                 </Form.Item>
-                <Form.Item
-                  label="Contact #"
-                  className="flex-1"
-                  name="contact"
-                >
+                <Form.Item label="Contact #" className="flex-1" name="contact">
                   <Input />
                 </Form.Item>
               </div>
