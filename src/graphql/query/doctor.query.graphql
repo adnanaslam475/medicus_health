@@ -111,6 +111,15 @@ query doctorAppointmentDetailPatientInfo($id: Int!) {
       streetAddress
       country_id
       city_id
+      city {
+        city_name
+      }
+      state {
+        state_name
+      }
+      country {
+        country_name
+      }
       patientProfile {
         id
         maritalStatus
@@ -361,7 +370,7 @@ query physicianAppointmentsHistory(
       doctor {
         first_name
         last_name
-        doctorQuestionnaire{
+        doctorQuestionnaire {
           questionnaire
         }
         doctorProfile {
