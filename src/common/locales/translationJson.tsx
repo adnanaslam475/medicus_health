@@ -162,7 +162,7 @@ export function translationJson(local: string) {
           login: "Login",
           account: "Don't have an account?",
           signup_modal_skip_questionaire_message:
-            "These are the mandatory fields for book an appointment you can skip it for now and can Add/Edit later from my profile section",
+            "Note, these questions need to be answered before requesting an appointment with a physician. You can skip for now and complete later.",
         },
         HealthQuestionary: {
           ...englishCommon,
