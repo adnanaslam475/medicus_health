@@ -24,7 +24,7 @@ const transactionsColumns = [
   },
 
   {
-    title: "Physician Name",
+    title: "Physician name",
     dataIndex: "appointment",
     key: "appointment",
     sorter: {
@@ -50,7 +50,7 @@ const transactionsColumns = [
     },
   },
   {
-    title: "Appointment Time",
+    title: "Appointment time",
     dataIndex: "appointment",
     key: "appointment",
     sorter: {
