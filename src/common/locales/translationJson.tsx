@@ -146,10 +146,10 @@ export function translationJson(local: string) {
         SuccessScreen: {
           ...englishCommon,
           success_your_account_has_been_created:
-            "Success! Your account has been created.",
+            "Success! your account has been created.",
           we_have_sent_you_an_email_on: "We have sent you an email on",
           verify_your_account_by_click:
-            "Please click on the verification link and your account will be verified.",
+            "please click on the verification link and your account will be verified.",
         },
 
         Signup: {
@@ -162,7 +162,7 @@ export function translationJson(local: string) {
           login: "Login",
           account: "Don't have an account?",
           signup_modal_skip_questionaire_message:
-            "These are the mandatory fields for book an appointment you can skip it for now and can Add/Edit later from my profile section",
+            "These are the mandatory fields for book an appointment you can skip it for now and can add/edit later from my profile section",
         },
         HealthQuestionary: {
           ...englishCommon,
