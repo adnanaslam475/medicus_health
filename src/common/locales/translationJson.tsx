@@ -149,7 +149,7 @@ export function translationJson(local: string) {
             "Success! Your account has been created.",
           we_have_sent_you_an_email_on: "We have sent you an email on",
           verify_your_account_by_click:
-            "Please click on the verification link and your account will be verified.",
+            "please click on the verification link  to finalize registration of your account.",
         },
 
         Signup: {
