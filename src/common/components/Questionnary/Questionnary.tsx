@@ -61,7 +61,11 @@ const HealthQuestionnary = ({
   return (
     <div>
       {!isUpdateMode && disable && (
-        <Button className="mb-4" block onClick={skipHealthQues}>
+        <Button
+          className={`${_classes["btn-border"]} mb-4`}
+          block
+          onClick={skipHealthQues}
+        >
           {/* Skip This For Now & Fill This Later */}
           {t("skip_this_for_now_fill_this_later")}
         </Button>
@@ -295,7 +299,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       <Form.Item
         name={HealthQuestionnaryData.q1.name}
         label={HealthQuestionnaryData.q1.label}
-        className="text-secondary"
+        className="text-secondary "
         rules={[
           {
             required: true,
@@ -355,7 +359,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       {!!radioSmoke && (
         <>
           <Form.Item
-            className="flex-1 text-secondary"
+            className="flex-1 text-secondary "
             name={HealthQuestionnaryData.q2.q.name}
             label={HealthQuestionnaryData.q2.q.label}
             rules={[

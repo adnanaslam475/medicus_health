@@ -159,16 +159,19 @@ function RescheduleAppointmentModal(props: Props) {
               </Form.Item>
             </div>
           </div>
-          <Form.Item label="Requested date" name="requestedDate">
+          {/* <Form.Item label="Requested date" name="requestedDate">
             <DatePicker
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
               className={`${_classes["border-color"]} w-full pointer-events-none`}
               disabled={true}
             />
-          </Form.Item>
+          </Form.Item> */}
 
-          <Form.Item label="Booked requested slot" name="requestedDate">
+          <Form.Item
+            label="Original appointment date & time"
+            name="requestedDate"
+          >
             <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
               <div className="flex gap-2  rounded leading-3 max-w-max">
                 <p className="text-sm mb-0">{`${date.formatMMMMDDYYYY(
@@ -185,7 +188,7 @@ function RescheduleAppointmentModal(props: Props) {
             </div>
           </Form.Item>
 
-          <label>Availability</label>
+          <label>Propose new appointment date & time</label>
           <div className="date-time-picker block mb-3">
             <AvailabilityTimeSlots
               form={datePickerInstance}
@@ -281,7 +284,7 @@ function AvailabilityTimeSlots({
         className="flex mt-2 mb-3 border-gray-8 gap-3"
       >
         <div className="w-50">
-          <Form.Item label="Start time" name="start_time">
+          <Form.Item label="Start date & time" name="start_time">
             <Space direction="vertical" size={12}>
               <DatePicker
                 className="w-full"
@@ -297,7 +300,7 @@ function AvailabilityTimeSlots({
           </Form.Item>
         </div>
         <div className="w-50">
-          <Form.Item label="End time" name="end_time">
+          <Form.Item label="End date & time" name="end_time">
             <Space direction="vertical" size={12}>
               {endDateValue === "Invalid date" || !endDateValue ? (
                 <DatePicker

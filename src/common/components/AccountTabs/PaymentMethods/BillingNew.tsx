@@ -36,7 +36,9 @@ export const Payment = (props: Props) => {
           <div className="text-dark font-medium pb-0 mb-0">
             <h6 className="text-md mb-0 pb-0">{title}</h6>
           </div>
-          <div className="text-gray-2 text-sm">{description}</div>
+          <div className="text-dark font-normal pb-0 mb-0">
+            <p className="text-sm mb-0 pb-0 text-secondary ">{description}</p>
+          </div>
         </div>
         <div>{isDefault && <Tag>Default</Tag>}</div>
       </div>
@@ -247,7 +249,7 @@ function Billing({
               </div>
             </div>
             <div>
-              <span className="text-base text-secondary my-2">Expiry on*</span>
+              <span className="text-base text-secondary my-2">Expires on*</span>
               <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
                 <CardExpiryElement />
               </div>

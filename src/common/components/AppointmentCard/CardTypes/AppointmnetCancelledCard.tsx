@@ -69,25 +69,39 @@ function AppointmnetCancelledCard({
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
+
+  let formatedStartTime = `${
+    appointmentDetail?.appointmentDateTime?.startTime?.split(" ")[1]
+  } ${appointmentDetail?.appointmentDateTime?.startTime?.split(" ")[2]}`;
+  let formatedEndTime = `${
+    appointmentDetail?.appointmentDateTime?.endTime?.split(" ")[1]
+  } ${appointmentDetail?.appointmentDateTime?.endTime?.split(" ")[2]}`;
   return (
     <>
       <Card className={`${_classes["appointment-card"]}`}>
         <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
         <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-        <span className="text-primary text-base block mb-6">{specialization}</span>
+        <span className="text-primary text-base block mb-6">
+          {specialization}
+        </span>
         <span className="text-sm ">Appointment type</span>
         <div className="text-sm text-gray mb-3">{serviceType}</div>
         <span className="text-sm">Appointment date</span>
         <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
         <span className="text-sm">Appointment time</span>
-        {appointmentTimeSlots?.length === 0 ? (
-          <div className="text-cyan font-semibold">{" - "}</div>
-        ) : (
+
+        {appointmentTimeSlots?.length ? (
           appointmentTimeSlots?.map((item) => (
             <div className="text-cyan font-semibold">{`${date.formathhmma(
               item.startTime
             )} - ${date.formathhmma(item.endTime)}`}</div>
           ))
+        ) : appointmentDetail?.appointmentDateTime?.startTime ? (
+          <div className="text-cyan font-semibold">
+            {formatedStartTime} - {formatedEndTime}
+          </div>
+        ) : (
+          <div className="text-cyan font-semibold">{" - "}</div>
         )}
         <div className="inline-block mr-24">
           <span className="text-sm">Appointment status</span>

@@ -40,8 +40,8 @@ function HealthQuestionnaireFromTab() {
     <div className="md:max-w-1/2">
       <CardWithProfileImageInfo
         name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
-        serviceName={appointment?.serviceType?.name}
-      >
+        // serviceName={appointment?.patient?.email}
+        imageUrl={appointment?.patient?.patientProfile?.profileImage}      >
         <QuestionnaireForm
           data={appointment?.patient?.patientHealthHistory?.history}
         />

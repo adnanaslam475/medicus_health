@@ -53,7 +53,7 @@ function AppointmnetRequestedCard({
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <span className="text-sm mt-6 block">Appointment date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
-      <span className="text-sm mt-4 block">Appointment proposed time</span>
+      <span className="text-sm mt-4 block">Appointment requested time</span>
       <div className="text-secondary">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${formatedDate} - ${formatedStartTime}
