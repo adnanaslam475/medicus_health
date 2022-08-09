@@ -359,7 +359,9 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <div className="flex justify-between">
-        <div className="flex justify-between items-center">
+        <div
+          className={`${_classes["signupcheckbox"]} flex justify-between items-center`}
+        >
           <Checkbox
             value={terms}
             onChange={(e) => {
