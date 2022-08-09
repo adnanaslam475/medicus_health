@@ -67,7 +67,7 @@ const HealthQuestionnary = ({
           onClick={skipHealthQues}
         >
           {/* Skip This For Now & Fill This Later */}
-          {t("skip_this_for_now_fill_this_later")}
+          {t("skip_for_now_and_complete_later")}
         </Button>
       )}
 

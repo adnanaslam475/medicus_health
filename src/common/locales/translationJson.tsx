@@ -54,14 +54,14 @@ export function translationJson(local: string) {
         },
         HealthQuestionary: {
           ...spanishCommon,
-          skip_this_for_now_fill_this_later:
+          skip_for_now_and_complete_later:
             "Saltar esto por ahora y llenar esto más tarde",
           please_pick_an_option: "Por favor elige una opción",
           please_fill_field: "Por favor complete el campo",
         },
         Questionnary: {
           ...spanishCommon,
-          skip_this_for_now_fill_this_later:
+          skip_for_now_and_complete_later:
             "Saltar esto por ahora y llenar esto más tarde",
         },
 
@@ -166,15 +166,15 @@ export function translationJson(local: string) {
         },
         HealthQuestionary: {
           ...englishCommon,
-          skip_this_for_now_fill_this_later:
-            "Skip this for now & fill this later",
+          skip_for_now_and_complete_later:
+            "Skip for now and complete later",
           please_pick_an_option: "Please pick an option!",
           please_fill_field: "Please fill field",
         },
         Questionnary: {
           ...englishCommon,
-          skip_this_for_now_fill_this_later:
-            "Skip this for now & fill this later",
+          skip_for_now_and_complete_later:
+            "Skip for now and complete later",
         },
 
         UpcomingAppointments: {
