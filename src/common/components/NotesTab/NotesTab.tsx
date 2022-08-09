@@ -93,8 +93,7 @@ function NotesTab({}: Props) {
       <CardWithProfileImageInfo
         name={`${patient?.first_name} ${patient?.last_name}`}
         // serviceName={serviceType?.name}
-        imageUrl={patient?.patientProfile?.profileImage}
-      >
+        imageUrl={appointment?.patient?.patientProfile?.profileImage}      >
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}

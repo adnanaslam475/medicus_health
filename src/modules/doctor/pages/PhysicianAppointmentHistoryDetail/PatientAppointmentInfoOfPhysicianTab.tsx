@@ -45,7 +45,8 @@ function PatientAppointmentInfoOfPhysicianTab() {
       name={`${appointment?.patient?.first_name || ""} ${
         appointment?.patient?.last_name || ""
       }`}
-      serviceName={appointment?.serviceType?.name}
+      // serviceName={appointment?.patient?.email}
+      imageUrl={appointment?.patient?.patientProfile?.profileImage}
     >
       <DoctorAppointmentInfo data={appointment as Appointment} />
     </CardWithProfileImageInfo>

@@ -219,6 +219,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       filter: DoctorEarningsfilterValues,
       id: Number(user?.id),
     },
+    requestPolicy:"network-only"
   });
 
   const { getDoctorEarnings } = data || {};

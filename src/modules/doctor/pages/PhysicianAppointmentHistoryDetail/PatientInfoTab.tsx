@@ -81,8 +81,8 @@ function PatientInfoTab({}: Props) {
   ) : (
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
-      serviceName={serviceType?.name}
-    >
+      // serviceName={appointment?.patient?.email}
+      imageUrl={appointment?.patient?.patientProfile?.profileImage}    >
       <div className="max-w-[800px]">
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv label="first name" value={first_name} />

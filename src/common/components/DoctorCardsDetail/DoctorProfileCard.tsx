@@ -233,9 +233,9 @@ function DoctorProfileCard(props: Props) {
             JSON.parse(doctorData?.certification_and_licensure).map(
               (item: any) => (
                 <>
-                  <b>{item?.certification}</b>
+                  {/* <b>{item?.certification}</b> */}
                   <span className="text-secondary block">
-                    {item?.licensure}
+                    {item?.certification_and_licensure}
                   </span>
                 </>
               )
@@ -276,9 +276,8 @@ function DoctorProfileCard(props: Props) {
             JSON.parse(doctorData?.awards_honors_recognition).map(
               (item: any) => (
                 <>
-                  <b>{item?.awards}</b>
                   <span className="text-secondary block">
-                    {item?.honors_and_recognition}
+                    {item?.awards_honors_and_recognition}
                   </span>
                 </>
               )
