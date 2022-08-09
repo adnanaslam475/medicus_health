@@ -163,7 +163,7 @@ function ProfileDetail() {
               tab={
                 <span>
                   <DollarCircleOutlined />
-                  Consultation Rates
+                  Consultation tates
                 </span>
               }
               key="7"

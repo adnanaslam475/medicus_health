@@ -43,7 +43,7 @@ function Notes(props: Props) {
         {/* <p className="pt-2">No notes to show</p> */}
         <p className="pt-2">Add notes</p>
         <Button
-          icon={<PlusOutlined />}
+          icon={<PlusOutlined className="-mt-2"/>}
           className={`${_classes["custom-button-green"]}`}
           onClick={() => setModalVisible(true)}
           disabled={disabled}

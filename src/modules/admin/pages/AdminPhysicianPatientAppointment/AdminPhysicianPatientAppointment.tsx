@@ -101,7 +101,7 @@ function AdminPhysicianList() {
 			sorter: true,
 		},
 		{
-			title: "Time Slot",
+			title: "Time slot",
 			dataIndex: "appointmentDateTime",
 			key: "appointmentDateTime",
 			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
