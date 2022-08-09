@@ -45,7 +45,7 @@ function AppointmnetConfirmedCard({
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
       <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-      <span className="text-primary text-base block mb-4 normal-case mb-6">
+      <span className="text-primary text-base block mb-4 normal-case ">
         {specialization}
       </span>
       <span className="text-sm ">Appointment type</span>

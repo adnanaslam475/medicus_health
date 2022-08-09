@@ -78,7 +78,7 @@ function DoctorProfileCard(props: Props) {
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
         <div className="flex-none sm:flex">
           <div className="docAvatarCover pr-3">
-            <div className="rounded-full flex items-center justify-center overflow-hidden sm:border border-gray-1">
+            <div className="rounded-full flex items-center justify-center overflow-hidden sm:border  border-gray-1">
               {loading ? (
                 <span className={`${_classes["emptyImgContainer"]}`}></span>
               ) : (
@@ -86,10 +86,10 @@ function DoctorProfileCard(props: Props) {
                   objectFit="cover"
                   src={doctorData?.profile_image || ""}
                   layout="fixed"
-                  width={86}
-                  height={86}
+                  width={206}
+                  height={206}
                   className=" rounded-full h-[86px] w-[86px] overflow-hidden"
-                  fallbackImage={"/assets/images/profile.jpg"}
+                  fallbackImage={"/assets/images/profile.svg"}
                 />
               )}
             </div>
@@ -254,9 +254,9 @@ function DoctorProfileCard(props: Props) {
             JSON.parse(doctorData?.certification_and_licensure).map(
               (item: any) => (
                 <>
-                  <b>{item?.certification}</b>
+                  {/* <b>{item?.certification}</b> */}
                   <span className="text-secondary block">
-                    {item?.licensure}
+                    {item?.certification_and_licensure}
                   </span>
                 </>
               )
@@ -297,9 +297,8 @@ function DoctorProfileCard(props: Props) {
             JSON.parse(doctorData?.awards_honors_recognition).map(
               (item: any) => (
                 <>
-                  <b>{item?.awards}</b>
                   <span className="text-secondary block">
-                    {item?.honors_and_recognition}
+                    {item?.awards_honors_and_recognition}
                   </span>
                 </>
               )

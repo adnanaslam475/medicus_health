@@ -97,7 +97,7 @@ function DoctorCard({
                     width={86}
                     height={86}
                     className=" rounded-full h-[86px] w-[86px] overflow-hidden"
-                    fallbackImage="/assets/images/profile.jpg"
+                    fallbackImage="/assets/images/profile.svg"
                   />
                 )}
               </div>
