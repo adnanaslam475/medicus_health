@@ -18,6 +18,7 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 import { date } from "../../../utils";
 import { sorter } from "utils/helper";
 import PhysicianAvailabilityAccordion from "common/components/PhysicianAvailabilityAccordion";
+import _classes from "./styles.module.scss";
 
 const { Option } = Select;
 type AdminData = {
@@ -321,6 +322,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                   <Input
                     disabled
                     prefix={<p className="mb-0">$</p>}
+                    className={`flex ${_classes.chargesInputView} items-center justify-center`}
                     value={
                       serviceInfo
                         ? `${serviceInfo?.map((item) =>
