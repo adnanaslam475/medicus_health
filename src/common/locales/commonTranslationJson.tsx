@@ -116,7 +116,7 @@ export const englishCommon: any = {
   upload: "Upload",
   max_upload_limit: "Max 10mb upload limit.",
   general_Health_questionnaire: "General health questionnaire",
-  health_questionnaire_is_attached: "Health questionnaire is attached",
+  health_questionnaire_is_attached: "Use health questionnaire on file.",
   change_health_questionnaire_message:
     "If you wish to update and make changes in your current health questionnaire,",
   click_here: "Click here",
