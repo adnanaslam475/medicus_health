@@ -31,9 +31,10 @@ export function formatMMMMDDYYYY(date: string) {
   return dayjs.utc(date).format("MMMM, D, YYYY");
 }
 
-export function formatYYYYMMMMDD(date: string) {
-  return dayjs.utc(date).format("YYYY, MM, DD");
-}
+export const formatYYYYMMMMDD = (date: string) => {
+  const getDateUseingDayjs = dayjs(date);
+  return date && getDateUseingDayjs.isValid() ? getDateUseingDayjs.format("YYYY, MM, DD") : "-";
+};
 
 export function formatDAYMMDD(date: string) {
   return dayjs.utc(date).format("dddd, MMMM D ");
