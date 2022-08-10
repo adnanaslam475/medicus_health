@@ -38,10 +38,14 @@ function PhysicianQuestionnaire(props: Props) {
   }, [History]);
 
   useEffect(() => {
-    if (getRole() === "Doctor" || getRole() === "Admin") {
-      setDisabled(true)
+    if (
+      getRole() === "Doctor" ||
+      getRole() === "Admin" ||
+      getRole() === "User"
+    ) {
+      setDisabled(true);
     } else {
-      setDisabled(false)
+      setDisabled(false);
     }
   }, []);
 
@@ -110,7 +114,7 @@ function PhysicianQuestionnaire(props: Props) {
                       name={item.name}
                       rules={[{ required: true, message: "Required!" }]}
                     >
-                      <Input readOnly={getRole() === "User" ? false : true} disabled />
+                      <Input readOnly={isDisabled} disabled />
                     </Form.Item>
                   );
                 } else if (item.type === "radio") {
@@ -139,9 +143,7 @@ function PhysicianQuestionnaire(props: Props) {
                       className="text-secondary"
                       name={item.name}
                     >
-                      <Checkbox.Group
-                       disabled={isDisabled}
-                      >
+                      <Checkbox.Group disabled={isDisabled}>
                         {item?.options?.map(({ value, label }) => {
                           return (
                             <Checkbox value={value} disabled>
