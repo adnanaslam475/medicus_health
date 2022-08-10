@@ -331,7 +331,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             },
           ]}
         >
-          <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+          <Input readOnly={isDisabled} disabled={disabled} size="large" />
         </Form.Item>
       )}
       <Form.Item
@@ -370,7 +370,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
               },
             ]}
           >
-            <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+            <Input readOnly={isDisabled} disabled={disabled} size="large" />
           </Form.Item>
 
           <Form.Item
@@ -385,7 +385,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
               },
             ]}
           >
-            <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+            <Input readOnly={isDisabled} disabled={disabled} size="large" />
           </Form.Item>
 
           <Form.Item
@@ -400,7 +400,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
               },
             ]}
           >
-            <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+            <Input readOnly={isDisabled} disabled={disabled} size="large" />
           </Form.Item>
         </>
       )}
@@ -445,7 +445,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             className="flex-1"
             name={HealthQuestionnaryData.q3.q2.name}
           >
-            <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+            <Input readOnly={isDisabled} disabled={disabled} size="large" />
           </Form.Item>
         )}
       </>
@@ -463,7 +463,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       </Form.Item>
       {showSurgicalOthers && (
         <Form.Item className="flex-1" name={HealthQuestionnaryData.q4.q2.name}>
-          <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+          <Input readOnly={isDisabled} disabled={disabled} size="large" />
         </Form.Item>
       )}
       <Form.Item
@@ -478,7 +478,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+        <Input readOnly={isDisabled} disabled={disabled} size="large" />
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
@@ -492,7 +492,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+        <Input readOnly={isDisabled} disabled={disabled} size="large" />
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
@@ -506,7 +506,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+        <Input readOnly={isDisabled} disabled={disabled} size="large" />
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
@@ -520,7 +520,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           },
         ]}
       >
-        <Input readOnly={getRole() === "User" ? false : true} disabled={disabled} size="large" />
+        <Input readOnly={isDisabled} disabled={disabled} size="large" />
       </Form.Item>
     </Form>
   );
