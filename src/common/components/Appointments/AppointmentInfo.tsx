@@ -42,6 +42,13 @@ function AppointmentInfo(props: Props) {
     first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
   }`;
 
+  let formatedStartTime = `${
+    appointment?.appointmentDateTime?.startTime?.split(" ")[1]
+  } ${appointment?.appointmentDateTime?.startTime?.split(" ")[2]}`;
+  let formatedEndTime = `${
+    appointment?.appointmentDateTime?.endTime?.split(" ")[1]
+  } ${appointment?.appointmentDateTime?.endTime?.split(" ")[2]}`;
+
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -69,9 +76,9 @@ function AppointmentInfo(props: Props) {
         /> */}
         <LabelValueRow
           label="Appointment time"
-          value={`${date?.formathhmma(
+          value={selectedAppointment ? `${date?.formathhmma(
             selectedAppointment?.startTime
-          )} - ${date?.formathhmma(selectedAppointment?.endTime)}`}
+          )} - ${date?.formathhmma(selectedAppointment?.endTime)}` : `${formatedStartTime} - ${formatedEndTime}`}
         />
         <LabelValueRow
           label="Total amount"

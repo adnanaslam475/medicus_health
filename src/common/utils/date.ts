@@ -41,6 +41,10 @@ export function formatDAYMMDD(date: string) {
 }
 
 export function formatDAYMMDDYY(date: string) {
+  return dayjs(date).format("dddd, MMMM D, YYYY");
+}
+
+export function formatDAYMMDDYYUTC(date: string) {
   return dayjs.utc(date).format("dddd, MMMM D, YYYY");
 }
 
