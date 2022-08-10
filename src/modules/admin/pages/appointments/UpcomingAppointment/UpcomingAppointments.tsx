@@ -50,6 +50,7 @@ function UpcomingAppointments() {
       pagination: { limit: -1, page: 1 },
       sorting: { order: "", column: "" },
     },
+    requestPolicy:"network-only"
   });
   function onViewSuggestedSlots(id: number) {
     setCurrentAppointmentId(id);
