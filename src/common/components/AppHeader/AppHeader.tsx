@@ -98,7 +98,12 @@ const AppHeader = ({ isShowBanner }: Props) => {
       </Menu.Item>
     </Menu>
   );
-
+  const basePath =
+    user?.role === "User"
+      ? "/patient/appointments/upcoming"
+      : user?.role === "Doctor"
+      ? "/physician/appointments/upcoming"
+      : "/admin/dashboards";
   return (
     <>
       <Header
@@ -111,6 +116,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
             width={80}
             height={43}
             src="/assets/images/loaderLogo.png"
+            onClick={() => Router.push(basePath)}
           />
         </span>
         <div className="w-full flex px-0 justify-between items-center">

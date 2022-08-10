@@ -152,7 +152,7 @@ function BankInfo() {
                 className=""
                 loading={fetching}
               >
-                Save Changes
+                Save changes
               </Button>
             </div>
           </Form.Item>

@@ -149,7 +149,7 @@ const InputFields = ({
             type="primary"
             htmlType="submit"
           >
-            Save Changes
+            Save changes
           </Button>
         </div>
       </Form.Item>
