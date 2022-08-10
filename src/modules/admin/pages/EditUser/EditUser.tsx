@@ -182,7 +182,7 @@ function EditAdminUserDetails({}: Props) {
                 disabled={loading}
                 onClick={handleResetLink}
               >
-                <span className="sm:mx-3">Send Password Reset link</span>
+                <span className="sm:mx-3">Send password reset link</span>
               </Button>
             </div>
             <div className="flex px-0 mx-0">
@@ -222,7 +222,7 @@ function EditAdminUserDetails({}: Props) {
               icon={<EditOutlined />}
               onClick={() => setDisableInputs(!disableInputs)}
             >
-              Edit Info
+              Edit info
             </Button>
           </div>
           <div className="md:grid md:grid-cols-2 md:gap-x-4">
@@ -238,7 +238,7 @@ function EditAdminUserDetails({}: Props) {
                   type="primary"
                   htmlType="submit"
                 >
-                  Save Changes
+                  Save changes
                 </Button>
               </div>
             </Form.Item>

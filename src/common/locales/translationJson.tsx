@@ -146,7 +146,7 @@ export function translationJson(local: string) {
         SuccessScreen: {
           ...englishCommon,
           success_your_account_has_been_created:
-            "Success! Your account has been created.",
+            "Success! your account has been created.",
           we_have_sent_you_an_email_on: "We have sent you an email on",
           verify_your_account_by_click:
             "please click on the verification link  to finalize registration of your account.",
