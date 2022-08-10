@@ -38,7 +38,7 @@ export function translationJson(local: string) {
           we_have_sent_you_an_email_on:
             "Le hemos enviado un correo electrónico en",
           verify_your_account_by_click:
-            "Haga clic en el enlace de verificación y su cuenta será verificada.",
+            "Haga clic en el enlace de verificación para finalizar el registro de su cuenta.",
         },
         Signup: {
           ...spanishCommon,
@@ -147,9 +147,9 @@ export function translationJson(local: string) {
           ...englishCommon,
           success_your_account_has_been_created:
             "Success! your account has been created.",
-          we_have_sent_you_an_email_on: "We have sent you an email on",
+          we_have_sent_you_an_email_on: "We have sent you an email at",
           verify_your_account_by_click:
-            "please click on the verification link  to finalize registration of your account.",
+            "Please click on the verification link to finalize registration of your account.",
         },
 
         Signup: {
