@@ -8,6 +8,7 @@ import {
 } from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
+import Router from "next/router";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -62,13 +63,19 @@ function AppointmnetSuggestedCard({
       <span className="text-sm  block mt-4 ">Appointment status</span>
       <span className="text-base text-primary font-bold ">{status}</span>
       <Space direction="vertical" size="middle" />
-      <div className="flex">
+      <div className="flex justify-between items-center">
         <Button
           type={"primary"}
           className={`${_classes["card-btn"]} mt-4`}
           onClick={() => onViewSuggestedSlots()}
         >
           View proposed appointment times
+        </Button>
+      <Button
+          className={`${_classes["card-btn"]} bg-transparent mt-4 ml-2`}
+          onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
+        >
+          Details
         </Button>
       </div>
     </Card>

@@ -57,9 +57,22 @@ function AccountTabs({ setIsShowBanner }: Props) {
     useUpdatePatientHealthHistoryMutation();
 
   const { error, fetching } = result;
+
+  //Get logged in User
+  const { user: loggedInUser } = getUserData();
+  const { id: loggedInUserId } = loggedInUser || {};
+
+  // Get patient Health History
+  const [{ data: patientHealthHistory }, executeUsePatientHealthHistoryQuery] =
+    usePatientHealthHistoryQuery({
+      variables: { input: Number(loggedInUserId) },
+      requestPolicy: "network-only",
+    });
+
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));
   }, [query]);
+
   const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
     const healthQuesJson = JSON.stringify(quesPayload);
     try {
@@ -70,6 +83,9 @@ function AccountTabs({ setIsShowBanner }: Props) {
         },
       });
       if (res?.data?.updatePatientHealthHistory) {
+        executeUsePatientHealthHistoryQuery({
+          requestPolicy: "network-only",
+        });
         notification.success({
           // message: "Successfully Updated",
           message: t("successfully_updated"),
