@@ -176,7 +176,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
               disabled={true}
             >
               <span className="text-gray-2">
-                Health questionnaire is attached
+                Use health questionnaire on file.
               </span>
             </Checkbox>
           </div>
