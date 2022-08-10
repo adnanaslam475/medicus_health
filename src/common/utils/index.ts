@@ -11,7 +11,8 @@ import {
   formatDate_n_Time,
   addHoursToDate,
   formatDAYMMDD,
-  formatDAYMMDDYY
+  formatDAYMMDDYY,
+  formatDAYMMDDYYUTC
 } from "./date";
 
 import { isObjectEmpty } from "./object";
@@ -36,7 +37,8 @@ const date = {
   formatDate_n_Time,
   addHoursToDate,
   formatDAYMMDD,
-  formatDAYMMDDYY
+  formatDAYMMDDYY,
+  formatDAYMMDDYYUTC
 };
 
 const object = {
