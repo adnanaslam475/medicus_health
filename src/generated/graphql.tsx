@@ -2030,6 +2030,15 @@ export type UpdateAppointmentAttachmentsMutationVariables = Exact<{
 
 export type UpdateAppointmentAttachmentsMutation = { __typename?: 'Mutation', updateAppointmentAttachments: { __typename?: 'Appointment', id?: number | null, reportUrl?: any | null } };
 
+export type GetPatientCurrentAppointmentsQueryVariables = Exact<{
+  filter: GetAppointmentInput;
+  pagination?: InputMaybe<PaginationParams>;
+  sorting?: InputMaybe<SortingParams>;
+}>;
+
+
+export type GetPatientCurrentAppointmentsQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null }> } };
+
 export type GetAdminUsersQueryVariables = Exact<{
   filter: GetAdminUsersFilterInput;
   pagination?: InputMaybe<PaginationParams>;
@@ -3208,6 +3217,19 @@ export const UpdateAppointmentAttachmentsDocument = gql`
 
 export function useUpdateAppointmentAttachmentsMutation() {
   return Urql.useMutation<UpdateAppointmentAttachmentsMutation, UpdateAppointmentAttachmentsMutationVariables>(UpdateAppointmentAttachmentsDocument);
+};
+export const GetPatientCurrentAppointmentsDocument = gql`
+    query getPatientCurrentAppointments($filter: GetAppointmentInput!, $pagination: PaginationParams, $sorting: SortingParams) {
+  appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+    }
+  }
+}
+    `;
+
+export function useGetPatientCurrentAppointmentsQuery(options: Omit<Urql.UseQueryArgs<GetPatientCurrentAppointmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetPatientCurrentAppointmentsQuery>({ query: GetPatientCurrentAppointmentsDocument, ...options });
 };
 export const GetAdminUsersDocument = gql`
     query getAdminUsers($filter: GetAdminUsersFilterInput!, $pagination: PaginationParams, $sorting: SortingParams) {

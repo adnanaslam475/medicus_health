@@ -10,6 +10,7 @@ import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJou
 import _classes from "./DoctorProfileCard.module.scss";
 import {
   DoctorProfile,
+  useGetPatientCurrentAppointmentsQuery,
   usePatientHealthHistoryQuery,
 } from "../../../generated/graphql";
 import { date } from "../../utils";
@@ -34,6 +35,7 @@ type Props = {
 };
 
 function DoctorProfileCard(props: Props) {
+  const { doctorData, loading } = props || {};
   i18next.changeLanguage(useLocale());
   const t = i18next.t;
 
@@ -47,7 +49,24 @@ function DoctorProfileCard(props: Props) {
     variables: { input: Number(loggedInUser) },
     requestPolicy: "network-only",
   });
-  const { doctorData, loading } = props || {};
+
+  const [
+    { data: getPatientCurrentAppointments },
+    executeUseGetPatientCurrentAppointmentsQuery,
+  ] = useGetPatientCurrentAppointmentsQuery({
+    variables: {
+      filter: {
+        doctorId: Number(doctorData?.doctor_id),
+      },
+      pagination: {
+        page: 1,
+        limit: 10,
+      },
+    },
+    requestPolicy: "network-only",
+  });
+  const { items } = getPatientCurrentAppointments?.appointments || {};
+
   const { first_name, last_name } = doctorData?.user || {};
   const { language } = doctorData || "english";
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -61,6 +80,9 @@ function DoctorProfileCard(props: Props) {
   };
 
   const handleCancel = () => {
+    executeUseGetPatientCurrentAppointmentsQuery({
+      requestPolicy: "network-only",
+    });
     setIsModalVisible(false);
   };
 
@@ -211,6 +233,8 @@ function DoctorProfileCard(props: Props) {
                   <span className="hidden">{t("message_support")}</span>
                 </Button>
                 <Button
+                  title="Please Create an Appointment To Message Physician"
+                  disabled={items && items?.length > 0 ? false : true}
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
                   onClick={() => {
                     const query: any = {
