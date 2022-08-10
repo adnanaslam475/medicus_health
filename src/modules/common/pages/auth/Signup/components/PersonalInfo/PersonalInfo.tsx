@@ -161,7 +161,7 @@ export default function PersonalInfo({ onFinish }: props) {
           ]}
         >
           <DatePicker
-            placeholder="mm/dd/yy"
+            placeholder="mm-dd-yyyy"
             format={"MM-DD-YYYY"}
             className="w-full"
             disabledDate={disabledDate}
