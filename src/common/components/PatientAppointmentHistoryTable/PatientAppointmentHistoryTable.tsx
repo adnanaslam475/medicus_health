@@ -22,7 +22,7 @@ const historyColumns = [
     sorter: true,
   },
   {
-    title: "Doctor",
+    title: "Physician name",
     dataIndex: "doctor",
     key: "doctor",
     sorter: true,

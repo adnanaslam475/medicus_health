@@ -293,7 +293,7 @@ function AdminSettings() {
               <div className="flex gap-4">
                 <Button onClick={() => Router.back()}>Cancel</Button>
                 <Button type="primary" htmlType="submit">
-                  Save Changes
+                  Save changes
                 </Button>
               </div>
             </Form.Item>

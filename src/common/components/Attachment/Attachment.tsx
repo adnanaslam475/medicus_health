@@ -59,7 +59,7 @@ function Attachment(props: Props) {
                   onClick={handleFile}
                 >
                   <CloseOutlined />
-                  <span>{loading ? "Deleting" : "Delete"}</span>
+                  <span className="cursor-pointer">{loading ? "Deleting" : "Delete"}</span>
                 </p>
               </div>
             }

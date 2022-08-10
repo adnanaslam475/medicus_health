@@ -100,7 +100,7 @@ export const STAFF_ROUTES: routes = [
     toggleName: "Appointments",
     submenu: [
       { name: "Upcoming", route: "/physician/appointments/upcoming" },
-      { name: "Requested", route: "/physician/appointments/requested" },
+      { name: "Pending", route: "/physician/appointments/pending" },
       { name: "Canceled", route: "/physician/appointments/canceled" },
       { name: "History", route: "/physician/appointments/history" },
     ],

@@ -106,7 +106,7 @@ function MakePaymentMore() {
       </div>
       <div className="sm:grid grid-cols-2 gap-4">
         <div>
-          <span className="text-base text-secondary">CVV*</span>
+          <span className="text-base text-secondary">Cvv*</span>
           <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
             <CardCvcElement
               options={{

@@ -47,7 +47,7 @@ function AddStaffFormItems(props: Props) {
           rules={[
             {
               required: value.required,
-              message: `Please fill ${value.label}`,
+              message: `Please fill ${value?.label?.toLowerCase()}`,
             },
             value?.type === "email"
               ? {

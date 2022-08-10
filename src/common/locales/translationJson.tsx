@@ -54,14 +54,14 @@ export function translationJson(local: string) {
         },
         HealthQuestionary: {
           ...spanishCommon,
-          skip_this_for_now_fill_this_later:
+          skip_for_now_and_complete_later:
             "Saltar esto por ahora y llenar esto más tarde",
           please_pick_an_option: "Por favor elige una opción",
           please_fill_field: "Por favor complete el campo",
         },
         Questionnary: {
           ...spanishCommon,
-          skip_this_for_now_fill_this_later:
+          skip_for_now_and_complete_later:
             "Saltar esto por ahora y llenar esto más tarde",
         },
 
@@ -146,10 +146,10 @@ export function translationJson(local: string) {
         SuccessScreen: {
           ...englishCommon,
           success_your_account_has_been_created:
-            "Success! Your account has been created.",
+            "Success! your account has been created.",
           we_have_sent_you_an_email_on: "We have sent you an email on",
           verify_your_account_by_click:
-            "Please click on the verification link and your account will be verified.",
+            "please click on the verification link  to finalize registration of your account.",
         },
 
         Signup: {
@@ -162,19 +162,19 @@ export function translationJson(local: string) {
           login: "Login",
           account: "Don't have an account?",
           signup_modal_skip_questionaire_message:
-            "These are the mandatory fields for book an appointment you can skip it for now and can Add/Edit later from my profile section",
+            "Note, these questions need to be answered before requesting an appointment with a physician. You can skip for now and complete later.",
         },
         HealthQuestionary: {
           ...englishCommon,
-          skip_this_for_now_fill_this_later:
-            "Skip this for now & fill this later",
+          skip_for_now_and_complete_later:
+            "Skip for now and complete later",
           please_pick_an_option: "Please pick an option!",
           please_fill_field: "Please fill field",
         },
         Questionnary: {
           ...englishCommon,
-          skip_this_for_now_fill_this_later:
-            "Skip this for now & fill this later",
+          skip_for_now_and_complete_later:
+            "Skip for now and complete later",
         },
 
         UpcomingAppointments: {

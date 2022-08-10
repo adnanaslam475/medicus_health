@@ -54,7 +54,7 @@ const columns = [
     },
   },
   {
-    title: "Time Slot",
+    title: "Time slot",
     dataIndex: "appointmentDateTime",
     key: "appointment_time_slots",
     sorter: true,

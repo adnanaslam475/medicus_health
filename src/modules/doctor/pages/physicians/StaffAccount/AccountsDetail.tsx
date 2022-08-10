@@ -118,7 +118,7 @@ function Accounts() {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium flex">
-                Email Notification
+                Email notification
               </span>
             }
             key="5"

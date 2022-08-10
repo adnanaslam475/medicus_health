@@ -86,7 +86,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Zip Code",
+    title: "Zip code",
     dataIndex: "zip_code",
     key: "zip_code",
     render: (zip_code: string) => {

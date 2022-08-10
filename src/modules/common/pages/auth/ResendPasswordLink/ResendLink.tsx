@@ -56,8 +56,8 @@ const ResendLink = () => {
     return (
       <Container className="login-bg w-full">
         <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
-          <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
-            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
+          <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:max-w-[500px] px-0">
+            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-2xl bg-white pt-12 pb-6 px-6">
               <div className="flex justify-center mb-16">
                 <Image
                   priority={true}
