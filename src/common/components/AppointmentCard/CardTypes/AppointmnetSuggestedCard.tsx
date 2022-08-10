@@ -68,7 +68,7 @@ function AppointmnetSuggestedCard({
           className={`${_classes["card-btn"]} mt-4`}
           onClick={() => onViewSuggestedSlots()}
         >
-          View proposed slots
+          View proposed appointment times
         </Button>
       </div>
     </Card>
