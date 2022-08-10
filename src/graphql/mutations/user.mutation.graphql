@@ -28,3 +28,15 @@ mutation updateAppointmentAttachments(
     reportUrl
   }
 }
+
+query getPatientCurrentAppointments(
+  $filter: GetAppointmentInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+    }
+  }
+}
