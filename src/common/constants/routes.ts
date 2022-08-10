@@ -2,9 +2,11 @@ type routes = {
   name: string;
   toggleName?: string;
   route: string;
+  id?: string;
   submenu?: {
     name: string;
     route: string;
+    subId?: string;
   }[];
 }[];
 export const PATIENT_ROUTES: routes = [
@@ -12,18 +14,23 @@ export const PATIENT_ROUTES: routes = [
     name: "Appointments",
 
     route: "+",
+    id: "1",
     submenu: [
       // { name: "Current", route: "/patient/appointments/current" },
-      { name: "Upcoming", route: "/patient/appointments/upcoming" },
-      { name: "Pending", route: "/patient/appointments/pending" },
-      { name: "Canceled", route: "/patient/appointments/canceled" },
-      { name: "History", route: "/patient/appointments/history" },
+      {
+        name: "Upcoming",
+        route: "/patient/appointments/upcoming",
+        subId: "1",
+      },
+      { name: "Pending", route: "/patient/appointments/pending", subId: "2" },
+      { name: "Canceled", route: "/patient/appointments/canceled", subId: "3" },
+      { name: "History", route: "/patient/appointments/history", subId: "4" },
     ],
   },
 
-  { name: "Physicians", route: "/patient/physicians" },
-  { name: "Messages", route: "/patient/messages" },
-  { name: "Account", route: "/patient/account" },
+  { name: "Physicians", route: "/patient/physicians", id: "2" },
+  { name: "Messages", route: "/patient/messages", id: "3" },
+  { name: "Account", route: "/patient/account", id: "4" },
   // {
   //   name: "Equipo",
 

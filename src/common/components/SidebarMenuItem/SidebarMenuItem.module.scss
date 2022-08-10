@@ -11,6 +11,24 @@
       }
     }
   }
+
+  .side-bar-submenu-count {
+    position: relative;
+    width: 85%;
+    display: inline-block;
+
+    :global .ant-badge-count {
+      position: absolute;
+      right: 0;
+      top: 5px;
+    }
+
+    :global .ant-badge-dot {
+      position: absolute;
+      right: 0px;
+      top: 5px;
+    }
+  }
 }
 
 .side-menu-cover {

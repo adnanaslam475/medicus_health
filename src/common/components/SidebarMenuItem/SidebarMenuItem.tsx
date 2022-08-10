@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Menu } from "antd";
+import { Badge, Menu } from "antd";
 import {
   AppointmentIcon,
   ProfileIcon,
@@ -84,7 +84,21 @@ function SidebarMenuItem() {
                 {el.submenu?.map((el2, i2) => {
                   return (
                     <Menu.Item key={el2.route}>
-                      <Link href={el2.route}>{el2.name}</Link>
+                      {el.id == "1" ? (
+                        <Badge
+                          dot
+                          count={100}
+                          className={_classes["side-bar-submenu-count"]}
+                        >
+                          <Link href={el2.route}>
+                            <>{el2.name}</>
+                          </Link>
+                        </Badge>
+                      ) : (
+                        <Link href={el2.route}>
+                          <>{el2.name}</>
+                        </Link>
+                      )}
                     </Menu.Item>
                   );
                 })}
@@ -95,7 +109,16 @@ function SidebarMenuItem() {
                 icon={IconsListPatient[i]}
                 className={_classes["side-bar-submenu-item"]}
               >
-                <Link href={el.route}>{el.name}</Link>
+                {el.id == "3" ? (
+                  <Badge
+                    count={100}
+                    className={_classes["side-bar-submenu-count"]}
+                  >
+                    <Link href={el.route}>{el.name}</Link>
+                  </Badge>
+                ) : (
+                  <Link href={el.route}>{el.name}</Link>
+                )}
               </Menu.Item>
             );
           })}
