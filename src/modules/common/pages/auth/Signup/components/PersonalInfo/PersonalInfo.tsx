@@ -86,6 +86,17 @@ export default function PersonalInfo({ onFinish }: props) {
     }
     return Promise.resolve();
   };
+
+  const onContactNoValidation = (_rule: any, value: string | any[], callback: any) => {
+    if (value?.length > 15) {
+      callback(t("contact_no_is_too_long"));
+    } else if (value?.length < 9) {
+      callback(t("contact_number_message"));
+    } else {
+      callback();
+    }
+  };
+
   return (
     <Form
       layout="vertical"
@@ -240,7 +251,7 @@ export default function PersonalInfo({ onFinish }: props) {
           {
             required: true,
             message: t("street_address_message"),
-            max: 30,
+            max: 100,
           },
         ]}
       >
@@ -255,10 +266,8 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: t("contact_number_message"),
-              min: 9,
-              max: 15,
-            },
+              validator: onContactNoValidation,
+            }
           ]}
         >
           <Input />
