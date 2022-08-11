@@ -358,7 +358,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             rules={[{ required: true, message: "Requested date is required" }]}
           >
             <DatePicker
-              placeholder="mm/dd/yy"
+              placeholder="mm-dd-yyyy"
               format={"MM-DD-YYYY"}
               className="w-full"
               onChange={(momentDate) => {
