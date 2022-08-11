@@ -134,16 +134,16 @@ export const AppointmentBookingStepOne = React.forwardRef(
       }
     }, [appoinmentDetails]);
 
-    useEffect(() => {
-      if (clear) {
-        clearBookingContext?.({});
-        setSchedules([]);
-        formInstance.resetFields();
-      }
-      if (isShow && !clear) {
-        setSchedules((scheduleDetails?.doctorSchedulesByDay as any) || []);
-      }
-    }, [clear, isShow]);
+    // useEffect(() => {
+    //   if (clear) {
+    //     clearBookingContext?.({});
+    //     setSchedules([]);
+    //     formInstance.resetFields();
+    //   }
+    //   if (isShow && !clear) {
+    //     setSchedules((scheduleDetails?.doctorSchedulesByDay as any) || []);
+    //   }
+    // }, [clear, isShow]);
 
     function prepareAndSetEditPayload() {
       let consultationCharges =
@@ -178,7 +178,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       );
 
       setServiceInfo(charge as any);
-      formInstance?.resetFields(["requestedDate", "selectedDateDay"]);
+      formInstance?.resetFields(["requestedDate"]);
       setSelectedDay(9);
     }
 
@@ -358,7 +358,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             rules={[{ required: true, message: "Requested date is required" }]}
           >
             <DatePicker
-              placeholder="mm/dd/yy"
+              placeholder="mm-dd-yyyy"
               format={"MM-DD-YYYY"}
               className="w-full"
               onChange={(momentDate) => {

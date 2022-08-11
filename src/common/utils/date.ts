@@ -12,9 +12,8 @@ dayjs.extend(utc);
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(duration);
-// dayjs.extend(timezone);
-// dayjs.tz.setDefault("America/New_York");
-// dayjs.tz.setDefault("asia/karachi");
+dayjs.extend(timezone);
+dayjs.tz.setDefault("America/New_York");
 
 export function convertToUTC(date: string) {
   return dayjs.utc(date).format();
@@ -128,7 +127,6 @@ export function isAppointmentTimeValid(
       ?.replace("Z", "");
 
       const dateDifferenceStartDate = dayjs(`${startDate} ${startTime}`).diff(now)
-      console.log('dateDifference', dateDifferenceStartDate)
       const dateDifferenceEndDate = dayjs(`${startDate} ${endTime}`).diff(now)
       const startEndDateTime = dayjs(`${startDate} ${endTime}`).unix();
 
@@ -145,7 +143,6 @@ export function isAppointmentTimeValid(
         }, dateDifferenceEndDate);
       }
     }, dateDifferenceStartDate);
-    console.log(difference, "diff");
   }
 }
 
@@ -153,6 +150,10 @@ export function addHoursToDate(date: Date, hours: number): Date {
   return new Date(new Date(date).setHours(date.getHours() + hours));
 }
 
-// export function setTimeZone(timeZone: string) {
-//   dayjs.tz.setDefault(timeZone);
-// }
+export function getDateAndTimeWRTTZ(date: string, format: string = "MMMM D, YYYY hh:mm:ss") {
+  return dayjs.utc(date).tz().format(format)
+}
+
+export function setTimeZone(timeZone: string) {
+  dayjs.tz.setDefault(timeZone);
+}

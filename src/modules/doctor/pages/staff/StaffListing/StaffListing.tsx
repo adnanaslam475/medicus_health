@@ -140,8 +140,8 @@ function StaffListing() {
   };
   const [{ data: physicianProfileData, fetching: physicianLoading }] =
     useDoctorProfileQuery({
-      variables: { doctor_id: Number(query?.id) as number },
-      pause: !Number(query?.id),
+      variables: { doctor_id: doctorId },
+      pause: !doctorId,
     });
   const { doctorProfile } = physicianProfileData || {};
   const userName = `${doctorProfile?.user?.first_name} ${doctorProfile?.user?.last_name}`;
