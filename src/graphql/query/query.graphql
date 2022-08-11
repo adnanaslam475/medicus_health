@@ -105,6 +105,12 @@ query getUser($input: Int!) {
       about_me
       profile_image
     }
+    timeZone {
+      countryName
+      countryCode
+      timeZone
+      gmtOffset
+    }
   }
 }
 

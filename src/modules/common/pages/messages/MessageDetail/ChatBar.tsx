@@ -14,6 +14,8 @@ type Props = {
 
 function MessageItem(props: Props) {
   const { user } = getUserData();
+  const { timeZone } = user || {};
+  const { timeZone: userTimeZone } = timeZone || {};
   const { data } = props;
   const { message, senderId, messageType, sender, createdAt } = data || {};
   const { messageInfo } = useMessageContext();
@@ -33,8 +35,11 @@ function MessageItem(props: Props) {
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
 
   // Set User time zone
-  date?.setTimeZone("asia/karachi");
-  const messageDateTime = date?.getDateAndTimeWRTTZ(createdAt, "MM/DD/YY, h:mma");
+  date?.setTimeZone(String(userTimeZone));
+  const messageDateTime = date?.getDateAndTimeWRTTZ(
+    createdAt,
+    "MM/DD/YY, h:mma"
+  );
 
   // get file name from Media
   const fileName = message.split("com")[1]?.replace("/", "");

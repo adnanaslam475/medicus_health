@@ -1844,7 +1844,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string, role?: string | null, first_name: string, last_name: string, doctorId?: number | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null, specialization?: string | null } | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', access_token: string, user: { __typename?: 'User', id: number, email: string, role?: string | null, first_name: string, last_name: string, doctorId?: number | null, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', profile_image?: string | null, specialization?: string | null } | null, adminProfilePicture?: { __typename?: 'AdminProfilePicture', profile_picture?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, gmtOffset: string } | null } } };
 
 export type UserForgotPasswordMutationVariables = Exact<{
   input: Scalars['String'];
@@ -2323,7 +2323,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, gmtOffset: string } | null } };
 
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2751,6 +2751,12 @@ export const LoginDocument = gql`
       }
       adminProfilePicture {
         profile_picture
+      }
+      timeZone {
+        countryName
+        countryCode
+        timeZone
+        gmtOffset
       }
     }
   }
@@ -4320,6 +4326,12 @@ export const GetUserDocument = gql`
       language
       about_me
       profile_image
+    }
+    timeZone {
+      countryName
+      countryCode
+      timeZone
+      gmtOffset
     }
   }
 }
