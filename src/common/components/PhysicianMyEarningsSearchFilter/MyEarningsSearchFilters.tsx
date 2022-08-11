@@ -309,9 +309,9 @@ function MyEarningsSearchFilters(props: Props) {
             className="w-full sm:w-46"
             value={filterState?.paymentStatus || "Payment status"}
           >
-            <Select.Option value="paid">PAID</Select.Option>
-            <Select.Option value="unpaid">UNPAID</Select.Option>
-            <Select.Option value="refunded">REFUNDED</Select.Option>
+            <Select.Option value="paid">Paid</Select.Option>
+            <Select.Option value="unpaid">Unpaid</Select.Option>
+            <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
         </div>
         {/* <Dropdown

@@ -241,7 +241,7 @@ console.log("useruser",user);
                   >
                     <DatePicker
                       name="date_of_birth"
-                      placeholder="mm/dd/yy"
+                      placeholder="mm-dd-yyyy"
                       format={"MM-DD-YYYY"}
                       className="w-full"
                       disabledDate={disabledDate}

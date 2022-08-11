@@ -226,7 +226,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           <div className="w-full text-gray-1 max-w-[300px]">
             Appointment status
           </div>
-          <div className="w-full text-secondary">
+          <div className="w-full">
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
