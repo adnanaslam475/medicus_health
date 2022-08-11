@@ -28,6 +28,8 @@ function Physicians() {
     });
   };
 
+  // console.log("doctorProfiles-some", doctorProfiles);
+
   return (
     <AppLayout>
       <div className="w-full">
