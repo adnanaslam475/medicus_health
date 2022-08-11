@@ -64,7 +64,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     timeZone,
     timeZoneId
   } = user || {};
-console.log("useruser",user);
   const {
     haveChildren,
     children,
