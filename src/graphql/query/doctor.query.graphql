@@ -341,6 +341,15 @@ query physicianAppointmentsHistory(
         contact_number
         country_id
         city_id
+        city {
+          city_name
+        }
+        state {
+          state_name
+        }
+        country {
+          country_name
+        }
         patientProfile {
           maritalStatus
           children
