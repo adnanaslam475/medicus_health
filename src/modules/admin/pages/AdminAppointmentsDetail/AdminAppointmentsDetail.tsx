@@ -8,7 +8,11 @@ import AdminQuestionnaireFormTab from "./AdminQuestionnaireFormTab";
 import AdminHealthQuestionnaireFormTab from "./AdminHealthQuestionnaireFormTab";
 import AdminNotesWithTextTab from "./AdminNotesWithTextTab";
 import AdminAttachmentTab from "./PhysicianAttachmentTab";
-import { Appointment, useGetAppointmentByIdQuery } from "generated/graphql";
+import {
+  Appointment,
+  useDoctorQuestionnaireQuery,
+  useGetAppointmentByIdQuery,
+} from "generated/graphql";
 import { REQUESTED, PROPOSED, COMPLETED } from "common/constants/status";
 import NotesTab from "common/components/NotesTab/NotesTab";
 
