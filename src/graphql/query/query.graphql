@@ -127,6 +127,12 @@ query doctorProfiles {
       last_name
       email
       gender
+      doctorQuestionnaire {
+        id
+        doctorId
+        questionnaire
+        languageId
+      }
     }
   }
 }
@@ -390,11 +396,12 @@ query doctorSchedules($doctorId: Int!) {
 }
 
 #GET DOCTOR QUESTIONAIRES
-query doctorQuestionnaire($doctorId: Int!) {
-  doctorQuestionnaire(doctorId: $doctorId) {
+query doctorQuestionnaire($doctorId: Int!, $languageId: Int!) {
+  doctorQuestionnaire(doctorId: $doctorId, languageId: $languageId) {
     id
     doctorId
     questionnaire
+    languageId
   }
 }
 
