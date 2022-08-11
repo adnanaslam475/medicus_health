@@ -10,16 +10,18 @@ import _classes from "./AppointmentButtons.module.scss";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { NamePath } from "antd/lib/form/interface";
 import { getRole, getUserData } from "common/utils/userData";
+import { Spin } from "antd";
 
 type Props = {
   appointmentHealthHistory: string;
   disable?: boolean;
+  doctorId?: number;
 };
 
 function PhysicianQuestionnaire(props: Props) {
   const { query } = useRouter();
   const [formInstance] = Form.useForm();
-  const { appointmentHealthHistory, disable } = props || {};
+  const { appointmentHealthHistory, disable, doctorId } = props || {};
   let History = parseJson(appointmentHealthHistory);
   const router = useRouter();
   const { user } = getUserData();
@@ -57,11 +59,11 @@ function PhysicianQuestionnaire(props: Props) {
     });
   }
 
-  let doctorQuestionnaireId = user?.role === "Doctor" ? user?.id : 0;
+  let doctorQuestionnaireId = user?.role === "Doctor" ? user?.id : doctorId;
 
-  const [{ data: dataList }] = useDoctorQuestionnaireQuery({
+  const [{ data: dataList, fetching }] = useDoctorQuestionnaireQuery({
     variables: {
-      doctorId: doctorQuestionnaireId,
+      doctorId: Number(doctorQuestionnaireId),
     },
     pause: !doctorQuestionnaireId,
   });
@@ -91,7 +93,11 @@ function PhysicianQuestionnaire(props: Props) {
     <React.Fragment>
       <div className="md:w-3/6">
         <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
-          {!questionnair ? (
+          {fetching ? (
+            <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+              <Spin />
+            </div>
+          ) : !questionnair ? (
             <div className="flex items-center justify-center w-full">
               <Empty />
             </div>
