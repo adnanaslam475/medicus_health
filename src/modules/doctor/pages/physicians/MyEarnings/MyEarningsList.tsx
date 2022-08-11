@@ -84,7 +84,7 @@ const Columns = [
     sorter: true,
     render: (value: Appointment) => {
       return (
-        <div className="w-full text-secondary">
+        <div className="w-full text-primary">
           <StatusChip type={value?.status?.toUpperCase() as StatusName} />
         </div>
       );
@@ -219,6 +219,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       filter: DoctorEarningsfilterValues,
       id: Number(user?.id),
     },
+    requestPolicy:"network-only"
   });
 
   const { getDoctorEarnings } = data || {};

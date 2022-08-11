@@ -171,7 +171,7 @@ const PersonalInfo = () => {
                   onClick={() => setIsEdit(false)}
                 >
                   <span className="text-xs">
-                    cancelar
+                    Cancelar
                     {/* {t("cancel")} */}
                   </span>
                 </Button>

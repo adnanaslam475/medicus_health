@@ -98,7 +98,12 @@ const AppHeader = ({ isShowBanner }: Props) => {
       </Menu.Item>
     </Menu>
   );
-
+  const basePath =
+    user?.role === "User"
+      ? "/patient/appointments/upcoming"
+      : user?.role === "Doctor"
+      ? "/physician/appointments/upcoming"
+      : "/admin/dashboards";
   return (
     <>
       <Header
@@ -111,6 +116,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
             width={80}
             height={43}
             src="/assets/images/loaderLogo.png"
+            onClick={() => Router.push(basePath)}
           />
         </span>
         <div className="w-full flex px-0 justify-between items-center">
@@ -123,13 +129,11 @@ const AppHeader = ({ isShowBanner }: Props) => {
               {/* if patient health questionnaire completed than showing appointment banner 
               otherwise health questionnaire complete banner */}
 
-              {patientHealthHistory?.patientHealthHistory ||
-              !isShowBanner ||
-              isShowBanner === undefined ? (
+              {patientHealthHistory?.patientHealthHistory ? (
                 <div className="p-0">
                   {getRole() === "User" ? <InfoMessageBannerReminder /> : null}
                 </div>
-              ) : (!patientHealthHistory?.patientHealthHistory?.id && isShowBanner)? (
+              ) : !patientHealthHistory?.patientHealthHistory?.id ? (
                 <div className="p-0">
                   {getRole() === "User" && <InfoMessage />}
                 </div>

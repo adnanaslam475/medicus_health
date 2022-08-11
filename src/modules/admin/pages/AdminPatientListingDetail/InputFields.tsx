@@ -107,7 +107,7 @@ const InputFields = ({
             {value.type === "date" && (
               <Form.Item label={value.label} name={value.name}>
                 <DatePicker
-                  placeholder="mm/dd/yy"
+                  placeholder="mm-dd-yyyy"
                   format={"MM-DD-YYYY"}
                   className="w-full"
                   picker="date"
@@ -149,7 +149,7 @@ const InputFields = ({
             type="primary"
             htmlType="submit"
           >
-            Save Changes
+            Save changes
           </Button>
         </div>
       </Form.Item>

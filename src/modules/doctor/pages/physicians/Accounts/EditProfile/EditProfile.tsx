@@ -168,10 +168,10 @@ function EditProfile({
   ]);
 
   const [certificationList, setCertificationList] = useState([
-    { certification: "", licensure: "" },
+    { certification_and_licensure: "" },
   ]);
   const [honorsList, setHonorsList] = useState([
-    { awards: "", honors_and_recognition: "" },
+    { awards_honors_and_recognition: "" },
   ]);
 
   const [countryId, setCountryId] = useState<number | undefined>(
@@ -275,12 +275,10 @@ function EditProfile({
           role: item?.role,
         })),
         certification_and_licensure: certificationList?.map((item) => ({
-          certification: item?.certification,
-          licensure: item?.licensure,
+          certification_and_licensure: item?.certification_and_licensure,
         })),
         awards_honors_recognition: honorsList?.map((item) => ({
-          awards: item?.awards,
-          honors_and_recognition: item?.honors_and_recognition,
+          awards_honors_and_recognition: item?.awards_honors_and_recognition,
         })),
       },
     });
@@ -462,14 +460,11 @@ function EditProfile({
       case "certification":
         setCertificationList([
           ...certificationList,
-          { certification: "", licensure: "" },
+          { certification_and_licensure: "" },
         ]);
         break;
       case "honors":
-        setHonorsList([
-          ...honorsList,
-          { awards: "", honors_and_recognition: "" },
-        ]);
+        setHonorsList([...honorsList, { awards_honors_and_recognition: "" }]);
         break;
       default:
         break;
@@ -566,7 +561,7 @@ function EditProfile({
 
   const onFinishedFailed = () => {
     window?.scrollTo(0, 0);
-  }
+  };
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -932,7 +927,7 @@ function EditProfile({
               />
 
               <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Certifications and licences</h6>
+                <h6>Certification and licensure</h6>
                 {certificationList?.map((certificate, index) => {
                   return (
                     <div
@@ -940,7 +935,7 @@ function EditProfile({
                       key={index}
                     >
                       <Form.Item
-                        label="Certificates"
+                        // label="Certificates"
                         rules={[
                           {
                             required: false,
@@ -950,24 +945,8 @@ function EditProfile({
                         className="flex-1"
                       >
                         <Input
-                          name={`certification`}
-                          value={certificate?.certification}
-                          onChange={(e) => handleCertificationChange(e, index)}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        label="licensure"
-                        rules={[
-                          {
-                            required: false,
-                            message: "licensure",
-                          },
-                        ]}
-                        className="flex-1"
-                      >
-                        <Input
-                          name={`licensure`}
-                          value={certificate?.licensure}
+                          name={`certification_and_licensure`}
+                          value={certificate?.certification_and_licensure}
                           onChange={(e) => handleCertificationChange(e, index)}
                         />
                       </Form.Item>
@@ -1103,42 +1082,17 @@ function EditProfile({
               </div>
 
               <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Awards, honors and recognization</h6>
+                <h6>Awards, honors & recognition</h6>
                 {honorsList?.map((honor, index) => {
                   return (
                     <div
                       className="border-b border-gray-3 my-3 py-3"
                       key={index}
                     >
-                      <Form.Item
-                        label="Awards"
-                        rules={[
-                          {
-                            required: false,
-                            message: "Awards",
-                          },
-                        ]}
-                        className="flex-1"
-                      >
+                      <Form.Item className="flex-1">
                         <Input
-                          name={`awards`}
-                          value={honor?.awards}
-                          onChange={(e) => handleHonorsChange(e, index)}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        label="Honors & recognization"
-                        rules={[
-                          {
-                            required: false,
-                            message: "Honors & recognization",
-                          },
-                        ]}
-                        className="flex-1"
-                      >
-                        <Input
-                          name={`honors_and_recognition`}
-                          value={honor?.honors_and_recognition}
+                          name={`awards_honors_and_recognition`}
+                          value={honor?.awards_honors_and_recognition}
                           onChange={(e) => handleHonorsChange(e, index)}
                         />
                       </Form.Item>
@@ -1163,10 +1117,7 @@ function EditProfile({
 
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
-                  <Button
-                    type="default"
-                    onClick={() =>  setIsEdit(false)}
-                  >
+                  <Button type="default" onClick={() => setIsEdit(false)}>
                     Close
                   </Button>
                   <Button type="primary" htmlType="submit">

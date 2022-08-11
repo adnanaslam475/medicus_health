@@ -10,6 +10,7 @@ import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJou
 import _classes from "./DoctorProfileCard.module.scss";
 import {
   DoctorProfile,
+  useGetPatientCurrentAppointmentsQuery,
   usePatientHealthHistoryQuery,
 } from "../../../generated/graphql";
 import { date } from "../../utils";
@@ -34,9 +35,9 @@ type Props = {
 };
 
 function DoctorProfileCard(props: Props) {
+  const { doctorData, loading } = props || {};
   i18next.changeLanguage(useLocale());
   const t = i18next.t;
-  console.log(t("PhysicianList"));
 
   // const t = useTranslations("PhysicianList");
   //Get logged in User
@@ -48,7 +49,24 @@ function DoctorProfileCard(props: Props) {
     variables: { input: Number(loggedInUser) },
     requestPolicy: "network-only",
   });
-  const { doctorData, loading } = props || {};
+
+  const [
+    { data: getPatientCurrentAppointments },
+    executeUseGetPatientCurrentAppointmentsQuery,
+  ] = useGetPatientCurrentAppointmentsQuery({
+    variables: {
+      filter: {
+        doctorId: Number(doctorData?.doctor_id),
+      },
+      pagination: {
+        page: 1,
+        limit: 10,
+      },
+    },
+    requestPolicy: "network-only",
+  });
+  const { items } = getPatientCurrentAppointments?.appointments || {};
+
   const { first_name, last_name } = doctorData?.user || {};
   const { language } = doctorData || "english";
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -62,6 +80,9 @@ function DoctorProfileCard(props: Props) {
   };
 
   const handleCancel = () => {
+    executeUseGetPatientCurrentAppointmentsQuery({
+      requestPolicy: "network-only",
+    });
     setIsModalVisible(false);
   };
 
@@ -157,7 +178,7 @@ function DoctorProfileCard(props: Props) {
                             </div>
                           </div>
                         ))
-                    : "Doctor schedules not available"}
+                    : t("doctor_schedules_not_available")}
                 </div>
               </Collapse.Panel>
             </Collapse>
@@ -197,13 +218,37 @@ function DoctorProfileCard(props: Props) {
               <div className="flex-none sm:flex">
                 <Button
                   className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3"
-                  onClick={() => Router.push("/admin/messages")}
+                  onClick={() => {
+                    const query = {
+                      chat: "admin",
+                      patientId: loggedInUser,
+                    };
+                    localStorage.setItem("id", JSON.stringify(query));
+                    Router.push({
+                      pathname: "/patient/messages",
+                      query,
+                    });
+                  }}
                 >
                   <span className="hidden">{t("message_support")}</span>
                 </Button>
                 <Button
+                  title="Please Create an Appointment To Message Physician"
+                  disabled={items && items?.length > 0 ? false : true}
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
-                  onClick={() => Router.push("/physician/messages")}
+                  onClick={() => {
+                    const query: any = {
+                      chat: "patient",
+                      // patientId: adminApp_Details?.patient.patient_id,
+                      doctorId: doctorData?.doctor_id,
+                      patientId: loggedInUser,
+                    };
+                    localStorage.setItem("id", JSON.stringify(query));
+                    Router.push({
+                      pathname: "/patient/messages",
+                      query,
+                    });
+                  }}
                 >
                   <span className="hidden">{t("message_physician")}</span>
                 </Button>
@@ -233,9 +278,9 @@ function DoctorProfileCard(props: Props) {
             JSON.parse(doctorData?.certification_and_licensure).map(
               (item: any) => (
                 <>
-                  <b>{item?.certification}</b>
+                  {/* <b>{item?.certification}</b> */}
                   <span className="text-secondary block">
-                    {item?.licensure}
+                    {item?.certification_and_licensure}
                   </span>
                 </>
               )
@@ -276,9 +321,8 @@ function DoctorProfileCard(props: Props) {
             JSON.parse(doctorData?.awards_honors_recognition).map(
               (item: any) => (
                 <>
-                  <b>{item?.awards}</b>
                   <span className="text-secondary block">
-                    {item?.honors_and_recognition}
+                    {item?.awards_honors_and_recognition}
                   </span>
                 </>
               )

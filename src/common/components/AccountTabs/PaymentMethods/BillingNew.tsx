@@ -60,7 +60,7 @@ export const Payment = (props: Props) => {
                 });
               }}
             >
-              <p className="text-sm pb-0 mb-0"> Make Default</p>
+              <p className="text-sm pb-0 mb-0"> Make default</p>
             </Button>
           )}
           <Button

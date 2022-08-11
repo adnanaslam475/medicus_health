@@ -171,11 +171,11 @@ function DoctorAppointmentInfo({ data }: Props) {
           }
         />
         <LabelWithText
-          label="Appointment type requested"
+          label="Appointment type"
           text={serviceType?.name ? serviceType?.name : "--"}
         />
         <LabelWithText
-          label="AppoIntment date requested"
+          label="AppoIntment date"
           text={
             appointmentDateTime?.startTime
               ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
@@ -191,7 +191,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={date?.formatDAYMMDDYY(requestedDate)}
         /> */}
         <LabelWithText
-          label="Appointment time requested"
+          label="Appointment time"
           text={
             appointmentDateTime?.startTime
               ? `${formatedStartTime} - ${formatedEndTime}`
@@ -200,7 +200,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="Total amount"
-          text={charges ? `$${charges}` : "--"}
+          text={transaction ? `$${transaction?.amountReceived}` : "--"}
         />
         {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
@@ -226,7 +226,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           <div className="w-full text-gray-1 max-w-[300px]">
             Appointment status
           </div>
-          <div className="w-full text-secondary">
+          <div className="w-full">
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>

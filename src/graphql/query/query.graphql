@@ -105,6 +105,12 @@ query getUser($input: Int!) {
       about_me
       profile_image
     }
+    timeZone {
+      countryName
+      countryCode
+      timeZone
+      gmtOffset
+    }
   }
 }
 
@@ -127,6 +133,12 @@ query doctorProfiles {
       last_name
       email
       gender
+      doctorQuestionnaire {
+        id
+        doctorId
+        questionnaire
+        languageId
+      }
     }
   }
 }
@@ -390,11 +402,12 @@ query doctorSchedules($doctorId: Int!) {
 }
 
 #GET DOCTOR QUESTIONAIRES
-query doctorQuestionnaire($doctorId: Int!) {
-  doctorQuestionnaire(doctorId: $doctorId) {
+query doctorQuestionnaire($doctorId: Int!, $languageId: Int!) {
+  doctorQuestionnaire(doctorId: $doctorId, languageId: $languageId) {
     id
     doctorId
     questionnaire
+    languageId
   }
 }
 
@@ -408,10 +421,15 @@ query getAppointmentById($id: Int!) {
     patientId
     requestedDate
     reportUrl
+    questionnaire
     doctor {
       id
       first_name
       last_name
+      doctorQuestionnaire {
+        questionnaire
+        languageId
+      }
     }
     patient {
       id

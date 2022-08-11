@@ -104,17 +104,21 @@ export function MessageContextProvider({
     if (getChannelMessages) {
       const info = { ...messageInfoRef.current };
       const messages = { ...info.messagesWithChannel };
+      // messages[messageInfo.currentChannel?.channelName || ""] = [
+      //   ...getChannelMessages,
+      //   ...(messages[messageInfo.currentChannel?.channelName || ""]
+      //     ? messages[messageInfo.currentChannel?.channelName || ""]
+      //     : []),
+      // ];
+
       messages[messageInfo.currentChannel?.channelName || ""] = [
         ...getChannelMessages,
-        ...(messages[messageInfo.currentChannel?.channelName || ""]
-          ? messages[messageInfo.currentChannel?.channelName || ""]
-          : []),
       ];
 
       info.messagesWithChannel = messages;
       setMessageInfo(info);
     }
-  }, [getChannelMessages?.[0]?.channelId]);
+  }, [getChannelMessages, messageInfo.currentChannel?.channelName]);
 
   async function createOrJoinChannel() {
     try {

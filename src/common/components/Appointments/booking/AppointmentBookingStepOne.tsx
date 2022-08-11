@@ -18,6 +18,7 @@ import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointment
 import { date } from "../../../utils";
 import { sorter } from "utils/helper";
 import PhysicianAvailabilityAccordion from "common/components/PhysicianAvailabilityAccordion";
+import _classes from "./styles.module.scss";
 
 const { Option } = Select;
 type AdminData = {
@@ -133,16 +134,16 @@ export const AppointmentBookingStepOne = React.forwardRef(
       }
     }, [appoinmentDetails]);
 
-    useEffect(() => {
-      if (clear) {
-        clearBookingContext?.({});
-        setSchedules([]);
-        formInstance.resetFields();
-      }
-      if (isShow && !clear) {
-        setSchedules((scheduleDetails?.doctorSchedulesByDay as any) || []);
-      }
-    }, [clear, isShow]);
+    // useEffect(() => {
+    //   if (clear) {
+    //     clearBookingContext?.({});
+    //     setSchedules([]);
+    //     formInstance.resetFields();
+    //   }
+    //   if (isShow && !clear) {
+    //     setSchedules((scheduleDetails?.doctorSchedulesByDay as any) || []);
+    //   }
+    // }, [clear, isShow]);
 
     function prepareAndSetEditPayload() {
       let consultationCharges =
@@ -177,7 +178,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       );
 
       setServiceInfo(charge as any);
-      formInstance?.resetFields(["requestedDate", "selectedDateDay"]);
+      formInstance?.resetFields(["requestedDate"]);
       setSelectedDay(9);
     }
 
@@ -321,6 +322,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
                   <Input
                     disabled
                     prefix={<p className="mb-0">$</p>}
+                    className={`flex ${_classes.chargesInputView} items-center justify-center`}
                     value={
                       serviceInfo
                         ? `${serviceInfo?.map((item) =>
@@ -356,7 +358,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
             rules={[{ required: true, message: "Requested date is required" }]}
           >
             <DatePicker
-              placeholder="mm/dd/yy"
+              placeholder="mm-dd-yyyy"
               format={"MM-DD-YYYY"}
               className="w-full"
               onChange={(momentDate) => {

@@ -71,7 +71,7 @@ function AppointmentReschedule(props: Props) {
         <div className="flex">
           <div className="w-full border-b border-gray-3 pb-2 pt-2">
             <div className="flex justify-between  font-semibold">
-              <span>Appointment service</span>
+              <span>Appointment type</span>
               <span>{name || ""}</span>
             </div>
 

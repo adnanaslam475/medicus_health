@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Radio, Layout, Divider, Checkbox, Empty } from "antd";
 import {
   GetAppointmentByIdQuery,
@@ -9,20 +9,23 @@ import { parseJson } from "common/utils/helper";
 import _classes from "./AppointmentButtons.module.scss";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { NamePath } from "antd/lib/form/interface";
-import { getUserData } from "common/utils/userData";
+import { getRole, getUserData } from "common/utils/userData";
+import { Spin } from "antd";
 
 type Props = {
   appointmentHealthHistory: string;
   disable?: boolean;
+  doctorId?: number;
 };
 
 function PhysicianQuestionnaire(props: Props) {
   const { query } = useRouter();
   const [formInstance] = Form.useForm();
-  const { appointmentHealthHistory, disable } = props || {};
+  const { appointmentHealthHistory, disable, doctorId } = props || {};
   let History = parseJson(appointmentHealthHistory);
   const router = useRouter();
   const { user } = getUserData();
+  const [isDisabled, setDisabled] = useState<boolean>(false);
 
   const { pathname } = router || {};
   let disabled =
@@ -36,6 +39,18 @@ function PhysicianQuestionnaire(props: Props) {
     }
   }, [History]);
 
+  useEffect(() => {
+    if (
+      getRole() === "Doctor" ||
+      getRole() === "Admin" ||
+      getRole() === "User"
+    ) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, []);
+
   function prepareAndSetEditPayload() {
     Object?.keys(History)?.map((value) => {
       return formInstance.setFieldsValue({
@@ -44,11 +59,12 @@ function PhysicianQuestionnaire(props: Props) {
     });
   }
 
-  let doctorQuestionnaireId = user?.role === "Doctor" ? user?.id : 0;
+  let doctorQuestionnaireId = user?.role === "Doctor" ? user?.id : doctorId;
 
-  const [{ data: dataList }] = useDoctorQuestionnaireQuery({
+  const [{ data: dataList, fetching }] = useDoctorQuestionnaireQuery({
     variables: {
-      doctorId: doctorQuestionnaireId,
+      doctorId: Number(doctorQuestionnaireId),
+      languageId: 2,
     },
     pause: !doctorQuestionnaireId,
   });
@@ -78,7 +94,11 @@ function PhysicianQuestionnaire(props: Props) {
     <React.Fragment>
       <div className="md:w-3/6">
         <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
-          {!questionnair ? (
+          {fetching ? (
+            <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
+              <Spin />
+            </div>
+          ) : !questionnair ? (
             <div className="flex items-center justify-center w-full">
               <Empty />
             </div>
@@ -101,7 +121,7 @@ function PhysicianQuestionnaire(props: Props) {
                       name={item.name}
                       rules={[{ required: true, message: "Required!" }]}
                     >
-                      <Input disabled />
+                      <Input readOnly={isDisabled} disabled />
                     </Form.Item>
                   );
                 } else if (item.type === "radio") {
@@ -112,7 +132,7 @@ function PhysicianQuestionnaire(props: Props) {
                       name={item.name}
                       rules={[{ required: true, message: "Required!" }]}
                     >
-                      <Radio.Group>
+                      <Radio.Group disabled={isDisabled}>
                         {item?.options?.map(({ value, label }) => {
                           return (
                             <Radio value={value} disabled>
@@ -130,7 +150,7 @@ function PhysicianQuestionnaire(props: Props) {
                       className="text-secondary"
                       name={item.name}
                     >
-                      <Checkbox.Group>
+                      <Checkbox.Group disabled={isDisabled}>
                         {item?.options?.map(({ value, label }) => {
                           return (
                             <Checkbox value={value} disabled>

@@ -235,7 +235,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   >
                     <DatePicker
                       name="date_of_birth"
-                      placeholder="mm/dd/yy"
+                      placeholder="mm-dd-yyyy"
                       format={"MM-DD-YYYY"}
                       className="w-full"
                       disabledDate={disabledDate}
@@ -276,7 +276,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                       {
                         required: true,
                         // message: t("please_input_your_email"),
-                        message: "Por favor ingrese su correo electrónico!",
+                        message: "Por favor ingrese su correo electrónico",
                       },
                     ]}
                     className="bott-om-margin-0"

@@ -97,7 +97,7 @@ function NotesListingByAppointments(props: Props) {
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header={`AP-${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
+                header={`ID# ${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                   appDate
                 )} `}
                 key={index + 1}

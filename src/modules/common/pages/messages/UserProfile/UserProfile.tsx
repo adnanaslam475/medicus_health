@@ -18,6 +18,10 @@ type Props = {
 function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const { setCurrentChannel, loginToRtm, onJoinChannel, messageInfo } =
     useMessageContext();
+  const { user } = getUserData();
+  const { timeZone } = user || {};
+  const { timeZone: userTimeZone } = timeZone || {};
+
   const { query } = useRouter();
 
   //get channel dateTime
@@ -26,12 +30,15 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   //get last message
   const { message, messageType, createdAt } = lastMessage || {};
 
-  //adding 5 hours to datetime
-  const messageTime = date?.addHoursToDate(new Date(createdAt), 5);
-  const messageTimein12HoursFomrat = date?.formathhmma(messageTime?.toString());
+  // Set User time zone
+  date?.setTimeZone(String(userTimeZone));
+  const messageDateTime = date?.getDateAndTimeWRTTZ(
+    createdAt,
+    "MM/DD/YY,h:mma"
+  );
 
   async function onJoinChat() {
-    localStorage.setItem("id", JSON.stringify(query));
+    // localStorage.setItem("id", JSON.stringify(query));
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
@@ -41,7 +48,6 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     loginToRtm?.();
   }, []);
 
-  const { user } = getUserData();
   const opposite = messageUtils.getOppositeParticipant(
     thread,
     user?.role as string
@@ -52,7 +58,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   );
 
   const firstName = opposite?.role !== "Doctor" ? opposite?.first_name : "";
-  
+
   const lastName =
     opposite?.role !== "Doctor"
       ? opposite?.last_name
@@ -99,9 +105,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
             }`}</span>
           </span>
           <span className="text-base text-gray hidden sm:inline">
-            {`${date?.convertStringDateToUTCChatFormat(createdAt)},${
-              createdAt ? messageTimein12HoursFomrat : "--"
-            }`}
+            {messageDateTime}
           </span>
         </div>
         <div className="sm:flex justify-between hidden ">

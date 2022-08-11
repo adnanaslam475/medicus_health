@@ -46,13 +46,13 @@ function AppointmentCalendar() {
       startDate: data?.extendedProps?.extraData?.start,
       endDate: data?.extendedProps?.extraData?.end,
       status: data?.extendedProps?.status,
-      charges:data?.extendedProps?.charges,
+      charges: data?.extendedProps?.charges,
       type: "Assignment",
     });
 
     setModalVisible(true);
   };
-console.log("datadata far",data);
+  console.log("datadata far", data);
   const closeModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -61,13 +61,27 @@ console.log("datadata far",data);
     setCalender({
       ...calender,
       calenderEvents: appointments?.items?.map(
-        ({ id, patient, requestedDate, doctor, serviceType,charges,appointmentTimeSlots }) => ({
+        ({
+          id,
+          patient,
+          requestedDate,
+          doctor,
+          serviceType,
+          charges,
+          appointmentTimeSlots,
+        }) => ({
           id: id,
-          title: "Appointmetn with " + doctor?.first_name?.includes("Dr.") ? doctor?.first_name : `Dr. ${doctor?.first_name}`  + " " +doctor?.last_name,
-          start: appointmentTimeSlots?.filter((item)=>item?.selected)?.[0]?.startTime,
+          title:
+            "Appointmetn with " + doctor?.first_name?.includes("Dr.")
+              ? `${serviceType?.name}: ${doctor?.first_name}`
+              : `${serviceType?.name}: Dr. ${doctor?.first_name}` +
+                " " +
+                doctor?.last_name,
+          start: appointmentTimeSlots?.filter((item) => item?.selected)?.[0]
+            ?.startTime,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
-          charges:charges
+          charges: charges,
         })
       ),
     });

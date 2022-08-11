@@ -8,6 +8,7 @@ import {
 } from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
+import Router from "next/router";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -18,7 +19,7 @@ type Props = {
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal: any;
   appointmentDateTime?: AppointmentDateTimeResponse;
-  specialization:string
+  specialization: string;
 };
 
 function AppointmnetRequestedCard({
@@ -30,7 +31,7 @@ function AppointmnetRequestedCard({
   appointmentTimeSlots,
   setShowModal,
   appointmentDateTime,
-  specialization
+  specialization,
 }: Props) {
   const t = useTranslations("AppointmentCards");
   let formatedDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
@@ -48,12 +49,14 @@ function AppointmnetRequestedCard({
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0"> ID# {appointmentId || ""}</span>
       <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-      <span className="text-primary text-base block  mb-6">{specialization}</span>
+      <span className="text-primary text-base block  mb-6">
+        {specialization}
+      </span>
       <span className="text-sm ">Appointment type</span>
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <span className="text-sm mt-6 block">Appointment date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
-      <span className="text-sm mt-4 block">Appointment proposed time</span>
+      <span className="text-sm mt-4 block">Appointment requested time</span>
       <div className="text-secondary">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${formatedDate} - ${formatedStartTime}
@@ -61,7 +64,15 @@ function AppointmnetRequestedCard({
           : "--"}
       </div>
       <span className="text-sm mt-4 block font-normal">Appointment status</span>
-      <span className="text-base text-yellow font-bold ">{status}</span>
+      <div className="flex justify-between items-center">
+        <span className="text-base text-yellow font-bold ">{status}</span>
+        <Button
+          className={`${_classes["card-btn"]} bg-transparent`}
+          onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
+        >
+          Details
+        </Button>
+      </div>
     </Card>
   );
 }

@@ -68,7 +68,7 @@ function AdminPhysicianAdd() {
     if (response?.data) {
       response?.data?.createDoctor &&
         notification.success({
-          message: "Successfully Created",
+          message: "Successfully created",
         });
     }
 

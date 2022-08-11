@@ -11,7 +11,10 @@ import {
   formatDate_n_Time,
   addHoursToDate,
   formatDAYMMDD,
-  formatDAYMMDDYY
+  formatDAYMMDDYY,
+  formatDAYMMDDYYUTC,
+  getDateAndTimeWRTTZ,
+  setTimeZone
 } from "./date";
 
 import { isObjectEmpty } from "./object";
@@ -36,7 +39,10 @@ const date = {
   formatDate_n_Time,
   addHoursToDate,
   formatDAYMMDD,
-  formatDAYMMDDYY
+  formatDAYMMDDYY,
+  formatDAYMMDDYYUTC,
+  getDateAndTimeWRTTZ,
+  setTimeZone
 };
 
 const object = {
