@@ -64,12 +64,12 @@ function AppointmentReschedule(props: Props) {
     <div>
       <h2>Appointment schedule</h2>
       <div>
-        <div className="border-b border-gray-4 ">
+        <div className="border-b border-gray-3 ">
           <h5>Physician name</h5>
           <p>{formatedDoctorName}</p>
         </div>
         <div className="flex">
-          <div className="w-full border-b border-gray-5 pb-2 pt-2">
+          <div className="w-full border-b border-gray-3 pb-2 pt-2">
             <div className="flex justify-between  font-semibold">
               <span>Appointment service</span>
               <span>{name || ""}</span>
