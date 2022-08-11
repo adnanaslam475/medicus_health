@@ -35,6 +35,7 @@ type Props = {
   isFromPhysician?: boolean | null | any;
   setSearchPatient?: string | any;
   setSearchString?: string | any;
+  setStatusFilter?: string | any;
   setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
   setDueDate?: React.Dispatch<React.SetStateAction<DueDate>>;
   setClearFilter?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -55,11 +56,16 @@ function SearchFilters(props: Props) {
     setBookingDate,
     setDueDate,
     setClearFilter,
+    setStatusFilter,
   } = props;
+  console.log(isFromPhysician, "Dsas");
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
   >();
   const [selectedServiceItems, setSelectedServiceItems] = useState<
+    string | null
+  >();
+  const [selectedFilterItems, setSelectedFilterItems] = useState<
     string | null
   >();
   const [dueDateRangeValues, selectDueDateRangeValues] = useState(null);
@@ -106,6 +112,10 @@ function SearchFilters(props: Props) {
     setSelectedServiceItems(name.children);
     setServiceIds(selectedItem);
   };
+  const handleAppointmentStatus = (selectedItem: any, name: any) => {
+    setStatusFilter(selectedItem);
+    setSelectedFilterItems(name.children);
+  };
 
   function BookingDateChangeHandler(date: any, dateString: any) {
     selectBookingDateRangeValues(date);
@@ -128,6 +138,8 @@ function SearchFilters(props: Props) {
   const onClear = () => {
     setSelectedPhysicianItems(null);
     setSelectedServiceItems(null);
+    setStatusFilter(null);
+    setSelectedFilterItems(null);
     setDoctorId(undefined);
     setServiceIds(undefined);
     selectBookingDateRangeValues(null);
@@ -265,6 +277,7 @@ function SearchFilters(props: Props) {
           ))}
         </Select>
       </div>
+
       {/* </div> */}
       {/* <div className="flex w-full sm:w-60 ">
         <Space
@@ -337,8 +350,8 @@ function SearchFilters(props: Props) {
           </div>
         </Space>
       </div> */}
-      <div className="flex w-full sm:w-60 ">
-        <Space direction="vertical" size={0} className="w-full  sm:w-60 ">
+      <div className="flex w-full md:w-60 ">
+        <Space direction="vertical" size={0} className="w-full  md:w-60 ">
           <div className="relative">
             <RangePicker
               value={dueDateRangeValues}
@@ -406,6 +419,32 @@ function SearchFilters(props: Props) {
           {/* <DatePicker onChange={onChange} /> */}
         </Space>
       </div>
+      {isFromPhysician && (
+        <div className="w-full md:w-44 xl:w-60  sm:mt-0">
+          <Select
+            suffixIcon={
+              <div className="text-gray">
+                <CaretDownOutlined className="text-sm text-gray" />
+              </div>
+            }
+            placeholder={t("appointment_statustype")}
+            className={`${searchStyle.placeholderColor} w-full`}
+            onChange={handleAppointmentStatus}
+            value={selectedFilterItems}
+          >
+            <Select.Option key="Proposed" value="Proposed">
+              Proposed
+            </Select.Option>
+            <Select.Option key="Requested" value="Requested">
+              Requested
+            </Select.Option>
+
+            <Select.Option key="Rescheduled" value="Rescheduled">
+              Rescheduled
+            </Select.Option>
+          </Select>
+        </div>
+      )}
       <Button
         onClick={onClear}
         type="text"

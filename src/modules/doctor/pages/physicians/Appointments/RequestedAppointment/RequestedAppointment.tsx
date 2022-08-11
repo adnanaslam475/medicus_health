@@ -18,6 +18,7 @@ function RequestedAppointment() {
   const [dataListPhysician, setDataListPhysician] = useState<string>();
   const [doctorIds, setDoctorId] = useState<number>();
   const [appointmentId, setAppointmentId] = useState<number>();
+  const [statusFilter, setStatusFilter] = useState<string>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [searchPatient, setSearchPatient] = useState<string>();
   const [clearFilter, setClearFilter] = useState<boolean>(false);
@@ -36,7 +37,7 @@ function RequestedAppointment() {
       variables: {
         filter: appointmentId
           ? {
-              status: "Requested",
+              status: statusFilter || "Requested",
               physicianName: dataListPhysician,
               doctorId: doctorIds,
               appointmentId: appointmentId,
@@ -46,7 +47,7 @@ function RequestedAppointment() {
               searchString: searchPatient || "",
             }
           : {
-              status: "Requested",
+              status: statusFilter || "Requested",
               physicianName: dataListPhysician,
               doctorId: doctorIds,
               serviceId: serviceIds,
@@ -107,6 +108,7 @@ function RequestedAppointment() {
             setDueDate={setDueDate}
             isFromPhysician
             setClearFilter={setClearFilter}
+            setStatusFilter={setStatusFilter}
           />
         </div>
         <RequestedList

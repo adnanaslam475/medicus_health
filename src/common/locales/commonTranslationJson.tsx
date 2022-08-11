@@ -81,6 +81,7 @@ export const englishCommon: any = {
 
   physician: "Physician",
   appointment_type: "Appointment type",
+  appointment_statustype: "Appointment status",
   appointment_due_date: "Appointment due date",
   appointment_date: "Appointment date",
   booking_Date: "Booking date",
@@ -292,6 +293,8 @@ export const spanishCommon: any = {
 
   physician: "Médica",
   appointment_type: "Tipo de cita",
+  appointment_statustype: "Estado de la cita",
+
   appointment_due_date: "fecha de vencimiento de la cita",
   booking_Date: "Fecha para registrarse",
   appointment_date: "Día de la cita",
