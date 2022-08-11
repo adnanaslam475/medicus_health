@@ -13,9 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -262,6 +260,7 @@ export type CreateAdminInput = {
   first_name: Scalars['String'];
   last_name: Scalars['String'];
   profile_picture?: InputMaybe<Scalars['String']>;
+  timeZoneId?: InputMaybe<Scalars['Float']>;
 };
 
 export type CreateAdminSettingInput = {
@@ -333,6 +332,7 @@ export type CreateDoctorInput = {
   state_id: Scalars['Float'];
   streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
+  timeZoneId?: InputMaybe<Scalars['Float']>;
   zip_code: Scalars['String'];
 };
 
@@ -396,6 +396,7 @@ export type CreateStaffInput = {
   first_name: Scalars['String'];
   last_name: Scalars['String'];
   role?: InputMaybe<Scalars['String']>;
+  timeZoneId?: InputMaybe<Scalars['Float']>;
 };
 
 export type CreateUserByAdminInput = {
@@ -426,6 +427,7 @@ export type CreateUserInput = {
   state_id?: InputMaybe<Scalars['Float']>;
   streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
+  timeZoneId?: InputMaybe<Scalars['Float']>;
   zip_code: Scalars['String'];
 };
 
@@ -1167,6 +1169,7 @@ export type Query = {
   getPatients: UserPaginatedResponse;
   getPhysicians: UserPaginatedResponse;
   getStatesByCountry: Array<State>;
+  getTimeZones: Array<TimeZones>;
   getTransactionFilter: TransactionPaginatedResponse;
   getUserFilter: UserPaginatedFilterResponse;
   language: Language;
@@ -1502,6 +1505,18 @@ export type SuggestedTimeSlots = {
   startTime: Scalars['String'];
 };
 
+export type TimeZones = {
+  __typename?: 'TimeZones';
+  countryCode: Scalars['String'];
+  countryName: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  deletedAt: Scalars['DateTime'];
+  gmtOffset: Scalars['String'];
+  id: Scalars['Int'];
+  timeZone: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
 export type TogglePreference = {
   admin_appointment_create_update?: InputMaybe<Scalars['Boolean']>;
   appointment_accepted_by_doctor?: InputMaybe<Scalars['Boolean']>;
@@ -1550,6 +1565,7 @@ export type UpdateAdminUserInput = {
   last_name: Scalars['String'];
   password?: InputMaybe<Scalars['String']>;
   profile_picture?: InputMaybe<Scalars['String']>;
+  timeZoneId?: InputMaybe<Scalars['Float']>;
 };
 
 export type UpdateAppointmentAttachmentsInput = {
@@ -1601,6 +1617,7 @@ export type UpdateStaffInput = {
   email: Scalars['String'];
   first_name: Scalars['String'];
   last_name: Scalars['String'];
+  timeZoneId?: InputMaybe<Scalars['Float']>;
 };
 
 export type UpdateUserInput = {
@@ -1627,6 +1644,7 @@ export type UpdateUserInput = {
   state_id: Scalars['Float'];
   streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
+  timeZoneId?: InputMaybe<Scalars['Float']>;
   zip_code: Scalars['String'];
 };
 
@@ -1664,6 +1682,8 @@ export type User = {
   state_id?: Maybe<Scalars['Int']>;
   status: Scalars['Boolean'];
   streetAddress?: Maybe<Scalars['String']>;
+  timeZone?: Maybe<TimeZones>;
+  timeZoneId?: Maybe<Scalars['Int']>;
   zip_code?: Maybe<Scalars['String']>;
 };
 
@@ -2202,7 +2222,7 @@ export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
 }>;
 
 
-export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, charges: number, serviceId?: number | null, patientId?: number | null, createdAt: any, reportUrl?: any | null, requestedDate?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, profileImage?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string, doctorQuestionnaire?: { __typename?: 'DoctorQuestionnaire', questionnaire?: any | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
+export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, charges: number, serviceId?: number | null, patientId?: number | null, createdAt: any, reportUrl?: any | null, requestedDate?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, profileImage?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string, doctorQuestionnaire?: { __typename?: 'DoctorQuestionnaire', questionnaire?: any | null } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type GetTransactionFilterQueryVariables = Exact<{
   filter: GetTransectionInput;
@@ -3853,6 +3873,15 @@ export const PhysicianAppointmentsHistoryDocument = gql`
         contact_number
         country_id
         city_id
+        city {
+          city_name
+        }
+        state {
+          state_name
+        }
+        country {
+          country_name
+        }
         patientProfile {
           maritalStatus
           children
@@ -9743,6 +9772,24 @@ export default {
             ]
           },
           {
+            "name": "getTimeZones",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TimeZones",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
             "name": "getTransactionFilter",
             "type": {
               "kind": "NON_NULL",
@@ -10304,6 +10351,101 @@ export default {
       },
       {
         "kind": "OBJECT",
+        "name": "TimeZones",
+        "fields": [
+          {
+            "name": "countryCode",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "countryName",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "deletedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "gmtOffset",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "timeZone",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "updatedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
         "name": "Transaction",
         "fields": [
           {
@@ -10815,6 +10957,23 @@ export default {
           },
           {
             "name": "streetAddress",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "timeZone",
+            "type": {
+              "kind": "OBJECT",
+              "name": "TimeZones",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "timeZoneId",
             "type": {
               "kind": "SCALAR",
               "name": "Any"

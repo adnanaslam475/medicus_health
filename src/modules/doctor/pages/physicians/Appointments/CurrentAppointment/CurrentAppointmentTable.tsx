@@ -12,6 +12,9 @@ import { EyeFilled, MessageOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import { date } from "common/utils";
 import _classes from "./CurrentAppointment.module.scss";
+import chat from "../../../../../../../public/assets/icon/chat-bubble.svg";
+import support from "../../../../../../../public/assets/icon/support.svg";
+import Image from "next/image";
 
 const columns = [
   {
@@ -73,11 +76,20 @@ const columns = [
       return (
         <div className={`${_classes["button-wrap"]}`}>
           <Button
-            icon={<MessageOutlined />}
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={chat}
+                alt=""
+                className=""
+              />
+            }
             type="primary"
             className="bg-primary"
           >
-            Message physician
+            <span className="pl-2">Message physician</span>
           </Button>
         </div>
       );
@@ -91,11 +103,20 @@ const columns = [
       return (
         <div className={`${_classes["button-wrap"]}`}>
           <Button
-            icon={<MessageOutlined />}
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={support}
+                alt=""
+                className=""
+              />
+            }
             type="primary"
             className="bg-primary"
           >
-            Message support
+            <span className="pl-2">Message support</span>
           </Button>
         </div>
       );

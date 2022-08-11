@@ -12,7 +12,9 @@ import {
   addHoursToDate,
   formatDAYMMDD,
   formatDAYMMDDYY,
-  formatDAYMMDDYYUTC
+  formatDAYMMDDYYUTC,
+  getDateAndTimeWRTTZ,
+  setTimeZone
 } from "./date";
 
 import { isObjectEmpty } from "./object";
@@ -38,7 +40,9 @@ const date = {
   addHoursToDate,
   formatDAYMMDD,
   formatDAYMMDDYY,
-  formatDAYMMDDYYUTC
+  formatDAYMMDDYYUTC,
+  getDateAndTimeWRTTZ,
+  setTimeZone
 };
 
 const object = {
