@@ -105,6 +105,9 @@ query getUser($input: Int!) {
       about_me
       profile_image
     }
+    timeZone {
+      timeZone
+    }
   }
 }
 
@@ -218,6 +221,9 @@ query doctorProfile($doctor_id: Int!) {
         endTime
         createdAt
         updatedAt
+      }
+      timeZone{
+        timeZone
       }
     }
   }
