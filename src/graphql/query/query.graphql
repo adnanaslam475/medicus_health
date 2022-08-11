@@ -231,6 +231,9 @@ query doctorProfile($doctor_id: Int!) {
         createdAt
         updatedAt
       }
+      timeZone{
+        timeZone
+      }
     }
   }
 }

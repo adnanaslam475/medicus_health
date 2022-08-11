@@ -63,6 +63,7 @@ function RequestedAppointment() {
       pagination: { limit: -1, page: 1 },
       sorting: { order: "", column: "" },
     },
+    requestPolicy:"network-only"
   });
 
   const { appointments } = data || {};
