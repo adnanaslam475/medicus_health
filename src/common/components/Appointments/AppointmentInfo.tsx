@@ -85,9 +85,13 @@ function AppointmentInfo(props: Props) {
         /> */}
         <LabelValueRow
           label="Appointment time"
-          value={selectedAppointment ? `${date?.formathhmma(
-            selectedAppointment?.startTime
-          )} - ${date?.formathhmma(selectedAppointment?.endTime)}` : `${formatedStartTime} - ${formatedEndTime}`}
+          value={
+            selectedAppointment
+              ? `${date?.formathhmma(
+                  selectedAppointment?.startTime
+                )} - ${date?.formathhmma(selectedAppointment?.endTime)}`
+              : `${formatedStartTime} - ${formatedEndTime}`
+          }
         />
         <LabelValueRow label="Total amount" value={`$${appointmentCharges}`} />
 

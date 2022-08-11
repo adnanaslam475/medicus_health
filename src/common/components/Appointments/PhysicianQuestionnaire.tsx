@@ -64,6 +64,7 @@ function PhysicianQuestionnaire(props: Props) {
   const [{ data: dataList, fetching }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId: Number(doctorQuestionnaireId),
+      languageId: 2,
     },
     pause: !doctorQuestionnaireId,
   });

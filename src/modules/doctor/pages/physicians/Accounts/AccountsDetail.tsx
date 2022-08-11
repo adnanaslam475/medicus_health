@@ -40,6 +40,7 @@ function Accounts() {
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId: Number(id),
+      languageId: 2,
     },
   });
 
