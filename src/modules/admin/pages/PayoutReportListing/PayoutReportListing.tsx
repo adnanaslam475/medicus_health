@@ -75,6 +75,7 @@ function PayoutReportListing() {
                 columns={columns}
                 dataSource={Ddata}
                 scroll={{ x: true }}
+                pagination={false}
               />
             </Panel>
             <Panel header="james chadwick" key="2">
@@ -82,12 +83,18 @@ function PayoutReportListing() {
                 columns={columns}
                 dataSource={Ddata}
                 scroll={{ x: true }}
+                pagination={false}
               />
             </Panel>
           </Collapse>
         </Panel>
         <Panel header="May $231" key="3">
-          <Table columns={columns} dataSource={Ddata} scroll={{ x: true }} />
+          <Table
+            columns={columns}
+            dataSource={Ddata}
+            scroll={{ x: true }}
+            pagination={false}
+          />
         </Panel>
         <Panel header="April $324" key="4">
           <Table
@@ -95,6 +102,7 @@ function PayoutReportListing() {
             dataSource={Ddata}
             loading={false}
             scroll={{ x: true }}
+            pagination={false}
           />
         </Panel>
       </Collapse>
