@@ -10,7 +10,7 @@ import {
 } from "../../../../../../generated/graphql";
 import MessageButtons from "common/components/MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
-import { formatYYYYMMMMDD } from "common/utils/date";
+import { formatMMDDYYYY } from "common/utils/date";
 // const props = {};
 type Props = {
   userDetail?: User;
@@ -83,7 +83,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
   if (selectedCity) {
     cityName = selectedCity?.filter((item) => item.id === city_id);
   }
-  const profilePicture = userDetail?.patientProfile?.profileImage
+  const profilePicture = userDetail?.patientProfile?.profileImage;
 
   return (
     <div className="max-w-[800px]">
@@ -111,7 +111,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             <LabelWithTextDiv label="Género" value={gender} />
             <LabelWithTextDiv
               label="Fecha de nacimiento"
-              value={formatYYYYMMMMDD(date_of_birth)}
+              value={formatMMDDYYYY(date_of_birth)}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">

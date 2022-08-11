@@ -32,7 +32,16 @@ export function formatMMMMDDYYYY(date: string) {
 
 export const formatYYYYMMMMDD = (date: string) => {
   const getDateUseingDayjs = dayjs(date);
-  return date && getDateUseingDayjs.isValid() ? getDateUseingDayjs.format("YYYY, MM, DD") : "-";
+  return date && getDateUseingDayjs.isValid()
+    ? getDateUseingDayjs.format("YYYY, MM, DD")
+    : "-";
+};
+
+export const formatMMDDYYYY = (date: string) => {
+  const getDateUseingDayjs = dayjs(date);
+  return date && getDateUseingDayjs.isValid()
+    ? getDateUseingDayjs.format("MM-DD-YYYY")
+    : "-";
 };
 
 export function formatDAYMMDD(date: string) {
@@ -126,13 +135,15 @@ export function isAppointmentTimeValid(
       ?.split("T")[1]
       ?.replace("Z", "");
 
-      const dateDifferenceStartDate = dayjs(`${startDate} ${startTime}`).diff(now)
-      const dateDifferenceEndDate = dayjs(`${startDate} ${endTime}`).diff(now)
-      const startEndDateTime = dayjs(`${startDate} ${endTime}`).unix();
+    const dateDifferenceStartDate = dayjs(`${startDate} ${startTime}`).diff(
+      now
+    );
+    const dateDifferenceEndDate = dayjs(`${startDate} ${endTime}`).diff(now);
+    const startEndDateTime = dayjs(`${startDate} ${endTime}`).unix();
 
     let difference =
       new Date(`${startDate} ${startTime}`).getTime() - Date.now();
-  
+
     setTimeout(() => {
       if (startEndDateTime > now.unix()) {
         callBack(false);
@@ -150,8 +161,11 @@ export function addHoursToDate(date: Date, hours: number): Date {
   return new Date(new Date(date).setHours(date.getHours() + hours));
 }
 
-export function getDateAndTimeWRTTZ(date: string, format: string = "MMMM D, YYYY hh:mm:ss") {
-  return dayjs.utc(date).tz().format(format)
+export function getDateAndTimeWRTTZ(
+  date: string,
+  format: string = "MMMM D, YYYY hh:mm:ss"
+) {
+  return dayjs.utc(date).tz().format(format);
 }
 
 export function setTimeZone(timeZone: string) {
