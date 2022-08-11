@@ -46,6 +46,7 @@ function CancelledAppointment() {
       },
       pagination: { limit: -1, page: 1 },
     },
+    requestPolicy:"network-only"
   });
 
   //Get logged in User
