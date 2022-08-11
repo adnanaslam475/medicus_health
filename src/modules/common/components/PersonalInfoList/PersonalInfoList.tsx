@@ -29,6 +29,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
     zip_code,
     streetAddress,
     patientProfile,
+    timeZone
   } = userDetail || {};
 
   const [{ data }] = useCountriesQuery();
@@ -157,6 +158,13 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
           <div className="w-1/2 sm:w-1/3 text-gray-1">Código postal</div>
           <div className="sm:w-1/2 text-secondary">{zip_code}</div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-1/2 sm:w-1/3 text-gray-1">Zona horaria</div>
+          <div className="sm:w-1/2 text-secondary">{timeZone?.timeZone}</div>
         </div>
       </li>
 

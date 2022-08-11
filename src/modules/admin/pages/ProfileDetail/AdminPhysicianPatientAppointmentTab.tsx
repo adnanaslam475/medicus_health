@@ -14,7 +14,7 @@ function AdminPhysicianPatientAppointmentTab() {
   const { doctorProfile } = data || {};
   const userName = `${doctorProfile?.user?.first_name} ${doctorProfile?.user?.last_name}`;
   const profilePicture = doctorProfile?.profile_image;
-  const specialization = doctorProfile?.specialization;
+  const email = doctorProfile?.user?.email;
 
   return (
     <Skeleton
@@ -24,7 +24,7 @@ function AdminPhysicianPatientAppointmentTab() {
     >
       <CardWithProfileImageInfo
         name={userName}
-        serviceName={String(specialization)}
+        serviceName={String(email)}
         imageUrl={profilePicture}
       >
         <AdminPhysicianPatientAppointment />

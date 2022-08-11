@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal } from "antd";
+import { Tabs, Badge, Modal, notification } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
   useCreateUserMutation,
@@ -116,6 +116,19 @@ function Signup() {
       });
       let errorResponse = user?.error?.graphQLErrors[0]?.extensions
         ?.response as GraphQLError;
+      if (user?.error?.graphQLErrors) {
+        let graphQLError = user?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = user?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
+      }
       if (!user.error?.message) {
         Router.push({
           pathname: "/successScreen",

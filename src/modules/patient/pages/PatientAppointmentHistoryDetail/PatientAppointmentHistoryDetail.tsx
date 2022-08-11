@@ -85,7 +85,7 @@ function PatientAppointmentHistoryDetail() {
             <Tabs.TabPane tab="Physician questionnaire" key="4">
               <PhysicianQuestionnaireForm />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Attachment" key="5">
+            <Tabs.TabPane tab="Attachments" key="5">
               <AttachmentTab />
             </Tabs.TabPane>
             {/* <Tabs.TabPane tab="Notes" key="6">

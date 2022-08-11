@@ -58,7 +58,7 @@ function AdminPhysicianAppointmentDetail() {
                 loading={fetching}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Attachment" key="5">
+            <Tabs.TabPane tab="Attachments" key="5">
               <AdminPhysicianAttachmentTab
                 appointment={appointment as Appointment}
                 loading={fetching}

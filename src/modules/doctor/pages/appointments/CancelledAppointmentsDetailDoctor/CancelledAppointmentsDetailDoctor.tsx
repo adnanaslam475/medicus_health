@@ -88,7 +88,7 @@ function CancelledAppointmentsDetailDoctor() {
                 />
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Attachment" key="5">
+            <Tabs.TabPane tab="Attachments" key="5">
               <div>
                 {urlArr?.map((item: AttachmentObject) => {
                   return <Attachment item={item} enable />;

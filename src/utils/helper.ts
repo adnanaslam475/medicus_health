@@ -74,31 +74,37 @@ export const bioForm = [
       disabled: true,
       defaultValue: "",
     },
-  ],
-  [
     {
       label: "Country",
       name: "country",
       disabled: true,
       defaultValue: "",
     },
+  ],
+  [
     {
       label: "State",
       name: "state",
       disabled: true,
       defaultValue: "",
     },
-  ],
-  [
     {
       label: "City",
       name: "city",
       disabled: true,
       defaultValue: "",
     },
+  ],
+  [
     {
       label: "Postal code",
       name: "zip_code",
+      disabled: true,
+      defaultValue: "",
+    },
+    {
+      label: "Time zone",
+      name: "timeZoneId",
       disabled: true,
       defaultValue: "",
     },

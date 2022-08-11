@@ -186,6 +186,7 @@ mutation updateDoctorProfile(
       state_id
       city_id
       contact_number
+      timeZoneId
       city {
         city_name
       }

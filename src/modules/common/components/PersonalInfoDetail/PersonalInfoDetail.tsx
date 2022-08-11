@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DatePicker, Form, Input, Radio, Select } from "antd";
-import { User } from "../../../../generated/graphql";
+import { useGetTimeZonesQuery, User } from "../../../../generated/graphql";
 import dayjs from "dayjs";
 import moment from "moment";
 import CitySelectDropDown from "./CitySelectDropDown";
@@ -61,8 +61,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     city_id,
     zip_code,
     streetAddress,
+    timeZone,
+    timeZoneId
   } = user || {};
-
   const {
     haveChildren,
     children,
@@ -108,6 +109,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       occupationalExposure: occupationalExposure,
       exposureDuration: exposureDuration,
       pets: pets,
+      timeZoneId:timeZone?.timeZone
     });
   }
 
@@ -130,6 +132,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     setStateId(id);
   }
   const t = useTranslations("PersonalInfo");
+
+  const [getTimeZones] = useGetTimeZonesQuery();
+
   return (
     <div className="custom-list mt-4">
       <Form form={formInstance} onFinish={onFinish} layout="vertical">
@@ -390,6 +395,41 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                       placeholder="Código postal"
                       type="number"
                     />
+                  </Form.Item>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
+                <div className="w-1/2 sm:w-1/3 text-gray-1">Zona horaria</div>
+                <div
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                >
+                  <Form.Item
+                    className="flex-1"
+                    // label={t("timezone")}
+                    name="timeZoneId"
+                  >
+                    <Select
+                      // placeholder={timeZone?.timeZone}
+                      showSearch
+                      filterOption={(input, city: any) =>
+                        city.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      {React.Children.toArray(
+                        getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                          return (
+                            <Select.Option value={el.id}>
+                              {el?.timeZone}
+                            </Select.Option>
+                          );
+                        })
+                      )}
+                    </Select>
                   </Form.Item>
                 </div>
               </div>
