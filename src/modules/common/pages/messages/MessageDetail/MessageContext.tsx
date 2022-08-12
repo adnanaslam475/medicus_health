@@ -102,6 +102,9 @@ export function MessageContextProvider({
 
   useEffect(() => {
     if (getChannelMessages) {
+      executeGetChannelMessagesQuery({
+        requestPolicy: "network-only",
+      });
       const info = { ...messageInfoRef.current };
       const messages = { ...info.messagesWithChannel };
       // messages[messageInfo.currentChannel?.channelName || ""] = [
@@ -110,7 +113,6 @@ export function MessageContextProvider({
       //     ? messages[messageInfo.currentChannel?.channelName || ""]
       //     : []),
       // ];
-
       messages[messageInfo.currentChannel?.channelName || ""] = [
         ...getChannelMessages,
       ];
