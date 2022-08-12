@@ -27,6 +27,7 @@ import moment from "moment";
 import { getUserData } from "common/utils/userData";
 import dayjs from "dayjs";
 import Router from "next/router";
+import { GraphQLError } from "graphql";
 
 type Props = {
   showRescheduleModal?: boolean;
@@ -95,6 +96,18 @@ function RescheduleAppointmentModal(props: Props) {
         Router.push("/physician/appointments/upcoming");
         notification.success({
           message: "Successfully rescheduled appointment",
+        });
+      } else if (response?.error?.graphQLErrors) {
+        let graphQLError = response?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = response?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
         });
       }
     } catch (error: any) {

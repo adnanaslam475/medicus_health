@@ -1,7 +1,11 @@
 import React from "react";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import { Appointment, User } from "generated/graphql";
+import {
+  Appointment,
+  useDoctorQuestionnaireQuery,
+  User,
+} from "generated/graphql";
 import { Empty, Spin } from "antd";
 
 type Props = {
@@ -27,6 +31,9 @@ function AdminQuestionnaireFormTab({
     user?.doctorProfile?.profile_image ||
     user?.patientProfile?.profileImage ||
     appointment?.patient?.patientProfile?.profileImage;
+
+  const { id: doctorId } = appointment?.doctor || {};
+
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -43,11 +50,13 @@ function AdminQuestionnaireFormTab({
             appointmentHealthHistory={
               appointment?.appointmentHealthHistory?.history || questionnaire
             }
+            doctorId={doctorId}
             disable
           />
         ) : (
-          <div className="flex items-center justify-center w-full">
-            <Empty />
+          <div className="flex items-center justify-center w-full flex-col">
+            <Empty description={false} />
+            <p className="font-noraml">Physician questionnair not available</p>
           </div>
         )}
       </CardWithProfileImageInfo>

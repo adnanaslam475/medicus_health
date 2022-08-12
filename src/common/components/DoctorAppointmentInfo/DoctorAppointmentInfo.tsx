@@ -52,6 +52,9 @@ import RescheduleAppointmentModal from "../RescheduleAppointment/RescheduleAppoi
 import moment from "moment";
 import StatusChip from "../StatusChip/StatusChip";
 import Link from "next/link";
+import Image from "next/image";
+import VideoCamera from "../../../../public/assets/icon/video.svg";
+import { GraphQLError } from "graphql";
 
 type Props = {
   data: Appointment | undefined;
@@ -229,7 +232,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           <div className="w-full text-gray-1 max-w-[300px]">
             Appointment status
           </div>
-          <div className="w-full">
+          <div className="w-full text-primary">
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
@@ -478,11 +481,17 @@ function DoctorUpcomingAppointmentInfoFooter({
         <>
           <Button
             type="primary"
-            icon={<VideoCameraFilled />}
             className={`${_classes["appointments-btn"]} bg-current`}
             onClick={() => setShowRescheduleModal(true)}
           >
-            Reschedule appointment
+            <Image
+              priority={true}
+              src={VideoCamera}
+              alt="espanolFlag"
+              width={20}
+              height={11}
+            />
+            <span className="ml-2">Reschedule appointment</span>
           </Button>
           <Link passHref href={`/patient/appointments/${appointmentId}/call`}>
             <Button
@@ -632,7 +641,17 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         },
       });
       if (error && error?.message) {
-        throw new Error(error.message);
+        let graphQLError = error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
       } else {
         formInstance.resetFields();
         setSlots([]);
@@ -642,9 +661,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         closeModal();
       }
     } catch (error: any) {
-      notification.error({
-        message: error?.message,
-      });
+      // notification.error({
+      //   message: error?.message,
+      // });
     }
   }
 
