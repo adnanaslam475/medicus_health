@@ -54,6 +54,7 @@ import StatusChip from "../StatusChip/StatusChip";
 import Link from "next/link";
 import Image from "next/image";
 import VideoCamera from "../../../../public/assets/icon/video.svg";
+import { GraphQLError } from "graphql";
 
 type Props = {
   data: Appointment | undefined;
@@ -637,7 +638,17 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         },
       });
       if (error && error?.message) {
-        throw new Error(error.message);
+        let graphQLError = error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
       } else {
         formInstance.resetFields();
         setSlots([]);
@@ -647,9 +658,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         closeModal();
       }
     } catch (error: any) {
-      notification.error({
-        message: error?.message,
-      });
+      // notification.error({
+      //   message: error?.message,
+      // });
     }
   }
 
