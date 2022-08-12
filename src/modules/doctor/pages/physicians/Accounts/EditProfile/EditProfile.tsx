@@ -247,7 +247,7 @@ function EditProfile({
   };
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-
+console.log("values",values)
     const res = await updateDoctor({
       updateDoctorProfileInput: {
         doctor_id: pathname.includes("/admin/physicians")

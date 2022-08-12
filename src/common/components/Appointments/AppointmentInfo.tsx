@@ -33,7 +33,10 @@ function AppointmentInfo(props: Props) {
     appointmentTimeSlots,
     createdAt,
     transaction,
+    patient
   } = appoinmentDetails?.appointment || {};
+
+  console.log("appoinmentDetailsappoinmentDetailsappoinmentDetails",patient)
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
@@ -51,13 +54,14 @@ function AppointmentInfo(props: Props) {
     first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
   }`;
 
-  let formatedStartTime = `${
-    appointment?.appointmentDateTime?.startTime?.split(" ")[1]
-  } ${appointment?.appointmentDateTime?.startTime?.split(" ")[2]}`;
-  let formatedEndTime = `${
-    appointment?.appointmentDateTime?.endTime?.split(" ")[1]
-  } ${appointment?.appointmentDateTime?.endTime?.split(" ")[2]}`;
+  // let formatedStartTime = `${
+  //   appointment?.appointmentDateTime?.startTime?.split(" ")[1]
+  // } ${appointment?.appointmentDateTime?.startTime?.split(" ")[2]}`;
+  // let formatedEndTime = `${
+  //   appointment?.appointmentDateTime?.endTime?.split(" ")[1]
+  // } ${appointment?.appointmentDateTime?.endTime?.split(" ")[2]}`;
 
+  const timeZone = patient?.timeZone?.timeZone
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -68,7 +72,7 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow label="ID#" value={Number(id)} />
         <LabelValueRow
           label="Requested date"
-          value={date?.formatDAYMMDDYY(requestedDate)}
+          value={date?.formatDAYMMDDYY(requestedDate,timeZone)}
         />
         <LabelValueRow
           label="Physician"
@@ -90,7 +94,7 @@ function AppointmentInfo(props: Props) {
               ? `${date?.formathhmma(
                   selectedAppointment?.startTime
                 )} - ${date?.formathhmma(selectedAppointment?.endTime)}`
-              : `${formatedStartTime} - ${formatedEndTime}`
+              : `${date.formathhmma(String(appointment?.appointmentDateTime?.startTime),timeZone)} - ${date.formathhmma(String(appointment?.appointmentDateTime?.endTime),timeZone)}`
           }
         />
         <LabelValueRow label="Total amount" value={`$${appointmentCharges}`} />

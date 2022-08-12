@@ -109,6 +109,7 @@ query getUser($input: Int!) {
       countryName
       countryCode
       timeZone
+      id
       gmtOffset
     }
   }
@@ -233,6 +234,7 @@ query doctorProfile($doctor_id: Int!) {
       }
       timeZone {
         timeZone
+        id
       }
     }
   }
@@ -260,6 +262,7 @@ query getAllRequestedAppointments(
         last_name
         timeZone {
           timeZone
+          id
         }
       }
       serviceType {
@@ -271,6 +274,7 @@ query getAllRequestedAppointments(
         last_name
         timeZone {
           timeZone
+          id
         }
         doctorProfile {
           id
@@ -444,6 +448,9 @@ query getAppointmentById($id: Int!) {
       id
       first_name
       last_name
+      timeZone{
+        timeZone
+      }
       patientProfile {
         profileImage
       }

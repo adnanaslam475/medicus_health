@@ -96,6 +96,8 @@ function AppointmentCard({
           setShowModal={setShowModal}
           appointmentDateTime={appointmentDateTime}
           specialization={specialization}
+          patientTimeZone={patientObject?.timeZone?.timeZone}
+
         />
       );
     case "Rescheduled":

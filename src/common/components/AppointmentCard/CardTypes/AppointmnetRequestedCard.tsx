@@ -20,6 +20,7 @@ type Props = {
   setShowModal: any;
   appointmentDateTime?: AppointmentDateTimeResponse;
   specialization: string;
+  patientTimeZone?:string
 };
 
 function AppointmnetRequestedCard({
@@ -32,6 +33,7 @@ function AppointmnetRequestedCard({
   setShowModal,
   appointmentDateTime,
   specialization,
+  patientTimeZone
 }: Props) {
   const t = useTranslations("AppointmentCards");
   let formatedDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
@@ -55,12 +57,12 @@ function AppointmnetRequestedCard({
       <span className="text-sm ">Appointment type</span>
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <span className="text-sm mt-6 block">Appointment date</span>
-      <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
+      <h6>{date.formatDAYMMDDYY(requestedDate,patientTimeZone)}</h6>
       <span className="text-sm mt-4 block">Appointment requested time</span>
       <div className="text-secondary">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
-          ? `${formatedDate} - ${formatedStartTime}
-             - ${formatedEndTime}`
+          ? `${date.formatDAYMMDDYY(appointmentDateTime.startTime,patientTimeZone)} - ${date.formathhmma(appointmentDateTime.startTime,patientTimeZone)}
+             - ${date.formathhmma(appointmentDateTime.endTime,patientTimeZone)}`
           : "--"}
       </div>
       <span className="text-sm mt-4 block font-normal">Appointment status</span>

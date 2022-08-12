@@ -48,14 +48,14 @@ function AppointmnetSuggestedCard({
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Appointment date</span>
-      <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
+      <h6>{date.formatDAYMMDDYY(requestedDate,patientTimeZone)}</h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Appointment proposed time</span>
       {appointmentTimeSlots?.length === 0 ? (
         <div className="text-cyan font-semibold">{" - "}</div>
       ) : (
         appointmentTimeSlots?.map((item) => (
-          <div className="text-cyan font-semibold">{`${item?.startTime?.split("T")[0]} - ${date.formathhmma(
+          <div className="text-cyan font-semibold">{`${date.formatDAYMMDDYY(item?.startTime,patientTimeZone)} - ${date.formathhmma(
             item.startTime,patientTimeZone
           )} - ${date.formathhmma(item.endTime,patientTimeZone)}`}</div>
         ))
