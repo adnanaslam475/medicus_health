@@ -308,7 +308,7 @@ function DoctorAppointmentInfoFooter({
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
 
   return (
     <div className="flex justify-between mt-6">
@@ -457,7 +457,7 @@ function DoctorUpcomingAppointmentInfoFooter({
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
 
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   return (

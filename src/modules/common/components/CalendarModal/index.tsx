@@ -46,7 +46,7 @@ function CalendarModalComponent(props: Props) {
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
   return (
     <Modal
       title=""
@@ -92,9 +92,7 @@ function CalendarModalComponent(props: Props) {
 
       <div className="flex justify-between">
         <div className="items-center justify-start pt-4">
-          <Button onClick={() => Router.push(`upcoming/${id}`)}>
-            Details
-          </Button>
+          <Button onClick={() => Router.push(`upcoming/${id}`)}>Details</Button>
         </div>
         <div className="items-center justify-end border-0 pt-4">
           <Button
