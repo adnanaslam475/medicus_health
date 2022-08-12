@@ -48,6 +48,7 @@ function Login() {
         userPayload.remember = values.remember;
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
         localStorage.setItem("loginTime", String(new Date().getTime()));
+        localStorage.setItem("timeZone",JSON.stringify(userPayload?.user?.timeZone?.timeZone))
         if (
           userPayload.user.role === "Doctor" ||
           userPayload.user.role === "Staff"

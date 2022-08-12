@@ -68,11 +68,11 @@ const appointmentColumns = [
     key: "startTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+      let formatedDueDate = date?.formatDAYMMDDYY(String(appointmentDateTime?.startTime));
       return (
         <div>
           {appointmentDateTime?.startTime
-            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
+            ? `${formatedDueDate} `
             : "--"}
         </div>
       );

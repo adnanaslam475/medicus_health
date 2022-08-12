@@ -15,6 +15,8 @@ import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 
+const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+
 const columns = [
   {
     title: "ID#",
@@ -72,27 +74,17 @@ const columns = [
   },
   {
     title: "Appointment time",
-    // dataIndex: "appointmentTimeSlots",
-    // key: "appointmentTimeSlots",
+    dataIndex: "appointmentDateTime",
+    key: "appointmentDateTime",
     sorter: true,
-    render: (value: any) => {
-      // let formatedStartTime = `${
-      //   appointmentDateTime?.startTime?.split(" ")[1]
-      // } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
-      // let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-      //   appointmentDateTime?.endTime?.split(" ")[2]
-      // }`;
+    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
         <div>
-          {value?.appointmentDateTime?.startTime &&
-          value?.appointmentDateTime?.endTime
+          {appointmentDateTime?.startTime && appointmentDateTime?.endTime
             ? `${date.formathhmma(
-                value?.appointmentDateTime?.startTime,
-                value?.doctor?.timeZone?.timeZone
-              )} - ${date.formathhmma(
-                value?.appointmentDateTime?.endTime,
-                value?.doctor?.timeZone?.timeZone
-              )} `
+                appointmentDateTime?.startTime,
+                timeZone
+              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
             : "--"}
         </div>
       );

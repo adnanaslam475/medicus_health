@@ -39,6 +39,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
   const logout = () => {
     Router.push("/login");
     localStorage.removeItem("loggedInUserData");
+    localStorage.removeItem("timeZone");
     // localStorage.clear();
     setVisible(false);
   };

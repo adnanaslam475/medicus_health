@@ -37,8 +37,6 @@ const AppointmentTabs = (props: Props) => {
     variables: { id: Number(appointmentId) },
   });
 
-  console.log("data-appointments", data?.appointment.doctorId);
-
   const { appointmentHealthHistory, patient, status, questionnaire, doctorId } =
     data?.appointment || {};
 

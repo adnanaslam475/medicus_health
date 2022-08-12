@@ -20,7 +20,6 @@ type Props = {
   setShowModal?: (id: boolean) => void;
   onViewSuggestedSlots: () => void;
   specialization:string;
-  patientTimeZone?:string
 };
 
 function AppointmnetSuggestedCard({
@@ -33,11 +32,12 @@ function AppointmnetSuggestedCard({
   setShowModal,
   onViewSuggestedSlots,
   specialization,
-  patientTimeZone,
 }: Props) {
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
+
+  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
@@ -48,16 +48,16 @@ function AppointmnetSuggestedCard({
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Appointment date</span>
-      <h6>{date.formatDAYMMDDYY(requestedDate,patientTimeZone)}</h6>
+      <h6>{date.formatDAYMMDDYY(requestedDate,timeZone)}</h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Appointment proposed time</span>
       {appointmentTimeSlots?.length === 0 ? (
         <div className="text-cyan font-semibold">{" - "}</div>
       ) : (
         appointmentTimeSlots?.map((item) => (
-          <div className="text-cyan font-semibold">{`${date.formatDAYMMDDYY(item?.startTime,patientTimeZone)} - ${date.formathhmma(
-            item.startTime,patientTimeZone
-          )} - ${date.formathhmma(item.endTime,patientTimeZone)}`}</div>
+          <div className="text-cyan font-semibold">{`${date.formatDAYMMDDYY(item?.startTime,timeZone)} - ${date.formathhmma(
+            item.startTime,timeZone
+          )} - ${date.formathhmma(item.endTime,timeZone)}`}</div>
         ))
       )}
       <Space direction="vertical" size="middle" />

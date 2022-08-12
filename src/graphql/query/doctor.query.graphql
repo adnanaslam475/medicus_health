@@ -150,6 +150,12 @@ query physicianAppointments(
   ) {
     items {
       id
+      doctor{
+        timeZone{
+          timeZone
+          id
+        }
+      }
       patient {
         first_name
         last_name

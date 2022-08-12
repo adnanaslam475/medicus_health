@@ -17,7 +17,6 @@ type Props = {
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   specialization: string;
-  patientTimeZone?:string
 };
 
 function AppointmnetConfirmedCard({
@@ -27,16 +26,22 @@ function AppointmnetConfirmedCard({
   doctor,
   appointmentTimeSlots,
   specialization,
-  patientTimeZone
 }: Props) {
   const t = useTranslations("AppointmentCards");
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
+  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+  console.log("time zone is", timeZone);
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
-    isAppointmentTimeValid(selectedAppointment, disabled, setDisabled,patientTimeZone);
+    isAppointmentTimeValid(
+      selectedAppointment,
+      disabled,
+      setDisabled,
+      timeZone
+    );
   }, [selectedAppointment]);
 
   let formatedDoctorName = `${
@@ -54,15 +59,16 @@ function AppointmnetConfirmedCard({
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <span className="text-sm pt-5">Appointment date</span>
       <h6 className="mb-4">
-        {date.formatDAYMMDDYY(selectedAppointment?.startTime,patientTimeZone)}
+        {date.formatDAYMMDDYY(selectedAppointment?.startTime, timeZone)}
       </h6>
       <span className="text-sm">Appointment time</span>
       {!selectedAppointment ? (
         <div className="text-cyan font-semibold mb-4">{" - "}</div>
       ) : (
         <div className="text-cyan font-semibold mb-4">{`${date.formathhmma(
-          selectedAppointment?.startTime,patientTimeZone
-        )} - ${date.formathhmma(selectedAppointment?.endTime,patientTimeZone)}`}</div>
+          selectedAppointment?.startTime,
+          timeZone
+        )} - ${date.formathhmma(selectedAppointment?.endTime, timeZone)}`}</div>
       )}
       <div className="text-sm">Appointment Status</div>
       <span className="text-base text-primary font-bold ">{status}</span>

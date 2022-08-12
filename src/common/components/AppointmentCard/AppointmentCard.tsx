@@ -52,7 +52,7 @@ function AppointmentCard({
   transaction,
   appointmentDetail,
   specialization,
-  patientObject
+  // patientObject
 }: props) {
   function getStatus() {
     const { user } = getUserData();
@@ -81,7 +81,7 @@ function AppointmentCard({
           doctor={doctor}
           appointmentTimeSlots={appointmentTimeSlots}
           specialization={specialization}
-          patientTimeZone={patientObject?.timeZone?.timeZone}
+          // patientTimeZone={patientObject?.timeZone?.timeZone}
         />
       );
     case "Requested":
@@ -96,7 +96,7 @@ function AppointmentCard({
           setShowModal={setShowModal}
           appointmentDateTime={appointmentDateTime}
           specialization={specialization}
-          patientTimeZone={patientObject?.timeZone?.timeZone}
+          // patientTimeZone={patientObject?.timeZone?.timeZone}
 
         />
       );
@@ -112,7 +112,7 @@ function AppointmentCard({
           setShowModal={setShowModal}
           onViewSuggestedSlots={onViewSuggestedSlots}
           specialization={specialization}
-          patientTimeZone={patientObject?.timeZone?.timeZone}
+          // patientTimeZone={patientObject?.timeZone?.timeZone}
 
         />
       );
@@ -143,7 +143,7 @@ function AppointmentCard({
           setShowModal={setShowModal}
           onViewSuggestedSlots={onViewSuggestedSlots}
           specialization={specialization}
-          patientTimeZone={patientObject?.timeZone?.timeZone}
+          // patientTimeZone={patientObject?.timeZone?.timeZone}
 
         />
       );

@@ -11,6 +11,8 @@ import {
   User,
 } from "generated/graphql";
 
+const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+
 const historyColumns = [
   {
     title: "ID#",
@@ -36,7 +38,9 @@ const historyColumns = [
     sorter: true,
     render: (doctor: User) => {
       let formatedDoctorFirstName = `${
-        doctor?.first_name?.includes("Dr.") ? doctor?.first_name : `Dr. ${doctor?.first_name}`
+        doctor?.first_name?.includes("Dr.")
+          ? doctor?.first_name
+          : `Dr. ${doctor?.first_name}`
       }`;
       return (
         <div className="capitalize">{`${formatedDoctorFirstName} ${doctor.last_name}`}</div>
@@ -58,11 +62,14 @@ const historyColumns = [
     key: "startTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+      // let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
       return (
         <div>
           {appointmentDateTime?.startTime
-            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
+            ? `${date?.formatDAYMMDDYY(
+                appointmentDateTime?.startTime,
+                timeZone
+              )} `
             : "--"}
         </div>
       );
@@ -74,16 +81,10 @@ const historyColumns = [
     key: "startTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-      let formatedStartTime = `${
-        appointmentDateTime?.startTime?.split(" ")[1]
-      } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
-      let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-        appointmentDateTime?.endTime?.split(" ")[2]
-      }`;
       return (
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${formatedStartTime} - ${formatedEndTime} `
+            ? `${date.formathhmma(appointmentDateTime?.startTime,timeZone)} - ${date.formathhmma(appointmentDateTime?.endTime,timeZone)} `
             : "--"}
         </div>
       );
@@ -107,7 +108,7 @@ const historyColumns = [
       return (
         <div>{`${
           transaction?.createdAt
-            ? date?.formatDAYMMDDYY(transaction?.createdAt)
+            ? date?.formatDAYMMDDYY(transaction?.createdAt,timeZone)
             : "--"
         }`}</div>
       );

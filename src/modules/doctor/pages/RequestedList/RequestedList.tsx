@@ -11,6 +11,10 @@ import {
 } from "generated/graphql";
 import { date } from "common/utils";
 
+const timeZone =
+  typeof window !== "undefined" &&
+  JSON.parse(String(localStorage?.getItem("timeZone")));
+
 const Columns = [
   {
     title: "ID#",
@@ -51,18 +55,16 @@ const Columns = [
   },
   {
     title: "Appointment date ",
-    // dataIndex: "appointmentDateTime",
-    // key: "requestedDate",
+    dataIndex: "appointmentDateTime",
+    key: "appointmentDateTime",
     sorter: true,
-    render: (value: any) => {
-      let appointmentDateTime = value?.appointmentDateTime;
-      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
         <div>
           {appointmentDateTime?.startTime
             ? `${date?.formatMMMMDDYYYY(
                 appointmentDateTime?.startTime,
-                value?.doctor?.timeZone?.timeZone
+                timeZone
               )} `
             : "--"}
         </div>
@@ -71,27 +73,17 @@ const Columns = [
   },
   {
     title: "Appointment time",
-    // dataIndex: "appointmentDateTime",
-    // key: "appointmentDateTime",
+    dataIndex: "appointmentDateTime",
+    key: "appointmentDateTime",
     sorter: true,
-    render: (value: any) => {
-      // let formatedStartTime = `${
-      //   appointmentDateTime?.startTime?.split(" ")[1]
-      // } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
-      // let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-      //   appointmentDateTime?.endTime?.split(" ")[2]
-      // }`;
+    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
         <div>
-          {value?.appointmentDateTime?.startTime &&
-          value?.appointmentDateTime?.endTime
+          {appointmentDateTime?.startTime && appointmentDateTime?.endTime
             ? `${date.formathhmma(
-                value?.appointmentDateTime?.startTime,
-                value?.doctor?.timeZone?.timeZone
-              )} - ${date.formathhmma(
-                value?.appointmentDateTime?.endTime,
-                value?.doctor?.timeZone?.timeZone
-              )} `
+                appointmentDateTime?.startTime,
+                timeZone
+              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
             : "--"}
         </div>
       );
