@@ -54,8 +54,9 @@ function AdminQuestionnaireFormTab({
             disable
           />
         ) : (
-          <div className="flex items-center justify-center w-full">
-            <Empty />
+          <div className="flex items-center justify-center w-full flex-col">
+            <Empty description={false} />
+            <p className="font-noraml">Physician questionnair not available</p>
           </div>
         )}
       </CardWithProfileImageInfo>
