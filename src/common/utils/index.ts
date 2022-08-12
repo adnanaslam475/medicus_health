@@ -13,6 +13,7 @@ import {
   formatDAYMMDD,
   formatDAYMMDDYY,
   formatDAYMMDDYYUTC,
+  // formatDAYMMDDYYCustomTimeZone,
   getDateAndTimeWRTTZ,
   setTimeZone
 } from "./date";
@@ -41,6 +42,7 @@ const date = {
   formatDAYMMDD,
   formatDAYMMDDYY,
   formatDAYMMDDYYUTC,
+  // formatDAYMMDDYYCustomTimeZone,
   getDateAndTimeWRTTZ,
   setTimeZone
 };

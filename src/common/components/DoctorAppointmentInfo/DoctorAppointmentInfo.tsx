@@ -77,10 +77,11 @@ function DoctorAppointmentInfo({ data }: Props) {
     appointmentSchedule,
     appointmentDateTime,
     createdAt,
+    doctor,
   } = data || {};
-
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
+  const { timeZone } = doctor || {};
 
   // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
 
@@ -98,7 +99,6 @@ function DoctorAppointmentInfo({ data }: Props) {
       return selectedTimeSlots;
     }
   }
-
   let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
   let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
     appointmentDateTime?.startTime?.split(" ")[2]
@@ -178,7 +178,10 @@ function DoctorAppointmentInfo({ data }: Props) {
           label="AppoIntment date"
           text={
             appointmentDateTime?.startTime
-              ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
+              ? `${date?.formatMMMMDDYYYY(
+                  formatedDueDate,
+                  String(timeZone?.timeZone)
+                )} `
               : "--"
           }
         />
@@ -654,7 +657,13 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }
 
   function addTimeSlot() {
-    setSlots([...slots, slot]);
+    setSlots([
+      ...slots,
+      {
+        startDate: dayjs(slot.startDate).toISOString(),
+        endDate: dayjs(slot.endDate).toISOString(),
+      },
+    ]);
     setSlot({ startDate: "", endDate: "" });
     setEndDateValue("");
     datePickerInstance.resetFields(["start_time", "end_time"]);

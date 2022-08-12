@@ -60,6 +60,11 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
     requestedDate
     createdAt
     charges
+    doctor{
+      timeZone{
+        timeZone
+      }
+    }
     patient {
       id
       first_name
@@ -379,6 +384,9 @@ query physicianAppointmentsHistory(
       doctor {
         first_name
         last_name
+        timeZone{
+          timeZone
+        }
         doctorQuestionnaire {
           id
           doctorId

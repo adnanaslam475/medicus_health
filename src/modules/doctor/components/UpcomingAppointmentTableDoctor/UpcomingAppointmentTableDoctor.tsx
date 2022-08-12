@@ -67,20 +67,20 @@ const columns = [
   },
   {
     title: "Appointment time",
-    dataIndex: "appointmentDateTime",
-    key: "appointmentDateTime",
+    // dataIndex: "appointmentTimeSlots",
+    // key: "appointmentTimeSlots",
     sorter: true,
-    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-      let formatedStartTime = `${
-        appointmentDateTime?.startTime?.split(" ")[1]
-      } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
-      let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-        appointmentDateTime?.endTime?.split(" ")[2]
-      }`;
+    render: (value: any) => {
+      // let formatedStartTime = `${
+      //   appointmentDateTime?.startTime?.split(" ")[1]
+      // } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
+      // let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
+      //   appointmentDateTime?.endTime?.split(" ")[2]
+      // }`;
       return (
         <div>
-          {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${formatedStartTime} - ${formatedEndTime} `
+          {value?.appointmentTimeSlots[0]?.startTime && value?.appointmentTimeSlots[0]?.endTime
+            ? `${date.formathhmma(value?.appointmentTimeSlots[0]?.startTime,"Asia/karachi")} - ${date.formathhmma(value?.appointmentTimeSlots?.endTime,value?.doctor?.timeZone?.timeZone)} `
             : "--"}
         </div>
       );

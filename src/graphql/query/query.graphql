@@ -231,7 +231,7 @@ query doctorProfile($doctor_id: Int!) {
         createdAt
         updatedAt
       }
-      timeZone{
+      timeZone {
         timeZone
       }
     }
@@ -258,6 +258,9 @@ query getAllRequestedAppointments(
       patient {
         first_name
         last_name
+        timeZone {
+          timeZone
+        }
       }
       serviceType {
         name
@@ -266,6 +269,9 @@ query getAllRequestedAppointments(
       doctor {
         first_name
         last_name
+        timeZone {
+          timeZone
+        }
         doctorProfile {
           id
           doctor_id

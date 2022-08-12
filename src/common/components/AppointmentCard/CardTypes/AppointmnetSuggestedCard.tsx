@@ -20,6 +20,7 @@ type Props = {
   setShowModal?: (id: boolean) => void;
   onViewSuggestedSlots: () => void;
   specialization:string;
+  patientTimeZone?:string
 };
 
 function AppointmnetSuggestedCard({
@@ -32,11 +33,11 @@ function AppointmnetSuggestedCard({
   setShowModal,
   onViewSuggestedSlots,
   specialization,
+  patientTimeZone,
 }: Props) {
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
-
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
@@ -55,8 +56,8 @@ function AppointmnetSuggestedCard({
       ) : (
         appointmentTimeSlots?.map((item) => (
           <div className="text-cyan font-semibold">{`${item?.startTime?.split("T")[0]} - ${date.formathhmma(
-            item.startTime
-          )} - ${date.formathhmma(item.endTime)}`}</div>
+            item.startTime,patientTimeZone
+          )} - ${date.formathhmma(item.endTime,patientTimeZone)}`}</div>
         ))
       )}
       <Space direction="vertical" size="middle" />

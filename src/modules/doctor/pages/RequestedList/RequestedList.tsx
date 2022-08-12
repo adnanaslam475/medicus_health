@@ -51,15 +51,16 @@ const Columns = [
 	},
 	{
 		title: "Appointment date ",
-		dataIndex: "appointmentDateTime",
+		// dataIndex: "appointmentDateTime",
 		key: "requestedDate",
 		sorter: true,
-		render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+		render: (value: any) => {
+			let appointmentDateTime = value?.appointmentDateTime
 			let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
 			return (
 			  <div>
 				{appointmentDateTime?.startTime
-				  ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
+				  ? `${date?.formatMMMMDDYYYY(formatedDueDate,value?.doctor?.timeZone?.timeZone)} `
 				  : "--"}
 			  </div>
 			);
@@ -77,6 +78,7 @@ const Columns = [
 			let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
 			  appointmentDateTime?.endTime?.split(" ")[2]
 			}`;
+			// No need to convert appointment time as it is from pre-defined slots only date will be changed in change of timezone
 			return (
 			  <div>
 				{appointmentDateTime?.startTime && appointmentDateTime?.endTime

@@ -111,7 +111,13 @@ function RescheduleAppointmentModal(props: Props) {
   }
 
   function addTimeSlot() {
-    setSlots([...slots, slot]);
+    setSlots([
+      ...slots,
+      {
+        startTime: dayjs(slot.startTime).toISOString(),
+        endTime: dayjs(slot.endTime).toISOString(),
+      },
+    ]);
     setSlot({ startTime: "", endTime: "" });
     datePickerInstance.resetFields(["start_time", "end_time"]);
     setEndDateValue("");

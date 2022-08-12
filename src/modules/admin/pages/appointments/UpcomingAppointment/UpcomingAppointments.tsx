@@ -86,7 +86,6 @@ function UpcomingAppointments() {
     variables: { input: Number(loggedInUser) },
     requestPolicy: "network-only",
   });
-
   return (
     <AppLayout>
       <div className="w-full">
@@ -182,6 +181,7 @@ function UpcomingAppointments() {
                     status,
                     serviceType,
                     doctor,
+                    patient,
                     appointmentTimeSlots,
                   } = appointmentDetail || {};
                   var doctorFirstName = `${doctor?.first_name} ${doctor?.last_name}`;
@@ -190,6 +190,7 @@ function UpcomingAppointments() {
                       appointmentId={Number(id)}
                       requestedDate={requestedDate}
                       status={status}
+                      patientObject={patient as User}
                       serviceType={serviceType?.name}
                       doctor={doctorFirstName}
                       appointmentTimeSlots={

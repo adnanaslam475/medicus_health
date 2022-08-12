@@ -10,6 +10,7 @@ import {
   AppointmentTimeSlots,
   DoctorProfile,
   Transaction,
+  User,
 } from "../../../generated/graphql";
 
 // scss
@@ -32,6 +33,7 @@ type props = {
   transaction?: Transaction | undefined;
   appointmentDetail?: Appointment | undefined;
   specialization: string;
+  patientObject?:User
 };
 
 function AppointmentCard({
@@ -50,6 +52,7 @@ function AppointmentCard({
   transaction,
   appointmentDetail,
   specialization,
+  patientObject
 }: props) {
   function getStatus() {
     const { user } = getUserData();
@@ -78,6 +81,7 @@ function AppointmentCard({
           doctor={doctor}
           appointmentTimeSlots={appointmentTimeSlots}
           specialization={specialization}
+          patientTimeZone={patientObject?.timeZone?.timeZone}
         />
       );
     case "Requested":
@@ -106,6 +110,8 @@ function AppointmentCard({
           setShowModal={setShowModal}
           onViewSuggestedSlots={onViewSuggestedSlots}
           specialization={specialization}
+          patientTimeZone={patientObject?.timeZone?.timeZone}
+
         />
       );
     case "Canceled":
@@ -135,6 +141,8 @@ function AppointmentCard({
           setShowModal={setShowModal}
           onViewSuggestedSlots={onViewSuggestedSlots}
           specialization={specialization}
+          patientTimeZone={patientObject?.timeZone?.timeZone}
+
         />
       );
     case "Current":
