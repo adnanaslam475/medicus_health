@@ -51,19 +51,24 @@ const columns = [
   // },
   {
     title: "Appointment date",
-    dataIndex: "appointmentDateTime",
-    key: "requestedDate",
+    // dataIndex: "appointmentDateTime",
+    // key: "requestedDate",
     sorter: true,
-    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+    render: (value: any) => {
+      let formatedDueDate = `${
+        value?.appointmentDateTime?.startTime?.split(" ")[0]
+      }`;
       return (
         <div>
-          {appointmentDateTime?.startTime
-            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
+          {value?.appointmentDateTime?.startTime
+            ? `${date?.formatDAYMMDDYY(
+                value?.appointmentDateTime?.startTime,
+                value?.doctor?.timeZone?.timeZone
+              )} `
             : "--"}
         </div>
       );
-    }
+    },
   },
   {
     title: "Appointment time",
@@ -79,8 +84,15 @@ const columns = [
       // }`;
       return (
         <div>
-          {value?.appointmentTimeSlots[0]?.startTime && value?.appointmentTimeSlots[0]?.endTime
-            ? `${date.formathhmma(value?.appointmentTimeSlots[0]?.startTime,"Asia/karachi")} - ${date.formathhmma(value?.appointmentTimeSlots?.endTime,value?.doctor?.timeZone?.timeZone)} `
+          {value?.appointmentDateTime?.startTime &&
+          value?.appointmentDateTime?.endTime
+            ? `${date.formathhmma(
+                value?.appointmentDateTime?.startTime,
+                value?.doctor?.timeZone?.timeZone
+              )} - ${date.formathhmma(
+                value?.appointmentDateTime?.endTime,
+                value?.doctor?.timeZone?.timeZone
+              )} `
             : "--"}
         </div>
       );
