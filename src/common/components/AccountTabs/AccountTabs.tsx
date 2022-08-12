@@ -20,10 +20,8 @@ import { EyeFilled } from "@ant-design/icons";
 import EmailNotificationPage from "modules/common/components/EmailNotification/EmailNotificationPage";
 import { useTranslations } from "next-intl";
 
-type Props = {
-  setIsShowBanner: any;
-};
-function AccountTabs({ setIsShowBanner }: Props) {
+
+function AccountTabs() {
   const t = useTranslations("AccountDetail");
   const form: any = useRef();
   const [activeTab, setActiveTab] = React.useState<string>("");
@@ -90,7 +88,6 @@ function AccountTabs({ setIsShowBanner }: Props) {
           // message: "Successfully Updated",
           message: t("successfully_updated"),
         });
-        setIsShowBanner(false);
       }
     } catch (err) {
       console.log(err);

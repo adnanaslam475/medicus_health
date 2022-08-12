@@ -14,11 +14,9 @@ import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 
 const { Header } = Layout;
 
-type Props = {
-  isShowBanner: boolean | undefined;
-};
 
-const AppHeader = ({ isShowBanner }: Props) => {
+
+const AppHeader = () => {
   //Get logged in User
   const { user: loggedInUser } = getUserData();
   const { id: loggedInUserId } = loggedInUser || {};
@@ -178,7 +176,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
           </div>
         </div>
       </Header>
-      {!patientHealthHistory?.patientHealthHistory?.id &&
+      {/* {!patientHealthHistory?.patientHealthHistory?.id &&
       !fetching &&
       isShowBanner ? (
         <div className="bg-white md:hidden p-2 w-full">
@@ -186,7 +184,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
     </>
   );
 };
