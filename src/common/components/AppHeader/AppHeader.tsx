@@ -121,7 +121,7 @@ const AppHeader = () => {
           <Skeleton loading={fetching} paragraph={{ rows: 0 }} active>
             <div className="hidden md:block w-full ">
               <div className="p-0">
-                {getRole() === "Doctor" ? <InfoMessageBannerReminder /> : null}
+                {getRole() === "Doctor" || getRole() === "Staff"? <InfoMessageBannerReminder /> : null}
               </div>
 
               {/* if patient health questionnaire completed than showing appointment banner 
