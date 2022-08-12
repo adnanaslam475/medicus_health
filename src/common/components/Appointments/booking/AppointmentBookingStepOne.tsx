@@ -99,9 +99,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
       Number(doctorId) ||
       Number(stepOneDoctorId);
 
-    const queryDay =
-      selectedDay ||
-      selectedDateDay ||
+      const queryDay =
+      selectedDay ??
+      selectedDateDay ??
       (requestedDate && dayjs(requestedDate).get("day"));
 
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesByDayQuery] =
@@ -362,7 +362,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
               format={"MM-DD-YYYY"}
               className="w-full"
               onChange={(momentDate) => {
-                setSelectedDay(momentDate?.get("weekday"));
+                setSelectedDay(Number(momentDate?.get("weekday")));
               }}
               disabledDate={disabledDate}
             />

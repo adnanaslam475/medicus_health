@@ -151,7 +151,7 @@ function StaffListing() {
     <>
       <div className="w-full">
         <Skeleton
-          loading={loading || !doctorProfile?.user?.first_name}
+          loading={physicianLoading}
           paragraph={{ rows: 1 }}
           active
         >
