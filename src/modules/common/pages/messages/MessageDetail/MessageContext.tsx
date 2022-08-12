@@ -270,11 +270,12 @@ export function MessageContextProvider({
       // Error Code 202 - A channel of the same channel ID has already joined. Cannot rejoin.
       if (error?.code === 202) {
         return;
-      } else {
-        notification.error({
-          message: "joined failed",
-        });
       }
+      // else {
+      //   notification.error({
+      //     message: "joined failed",
+      //   });
+      // }
     }
   }
 
