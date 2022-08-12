@@ -46,7 +46,7 @@ function AppointmentInfo(props: Props) {
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
 
   let formatedDoctorFirstName = `${
     first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`

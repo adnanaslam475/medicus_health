@@ -33,7 +33,6 @@ function AppointmnetConfirmedCard({
     [appointmentTimeSlots]
   );
   const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
-  console.log("time zone is", timeZone);
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     isAppointmentTimeValid(
@@ -47,7 +46,6 @@ function AppointmnetConfirmedCard({
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
-
   return (
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>

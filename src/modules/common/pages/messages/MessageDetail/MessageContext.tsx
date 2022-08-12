@@ -265,9 +265,9 @@ export function MessageContextProvider({
       if (rtmRef.current) {
         rtmRef.current.channels[channelName].joined = true;
       }
-      notification.success({
-        message: "joined successfully",
-      });
+      // notification.success({
+      //   message: "joined successfully",
+      // });
     } catch (error: any) {
       // Error Code 202 - A channel of the same channel ID has already joined. Cannot rejoin.
       if (error?.code === 202) {
