@@ -67,6 +67,8 @@ function UpcomingAppointmentsDetailDoctor() {
     history.pushState({}, "", "?activeTab=" + key);
   };
 
+  const { id: doctorId } = appointment?.doctor || {};
+
   return (
     <AppLayout>
       <>
@@ -97,6 +99,7 @@ function UpcomingAppointmentsDetailDoctor() {
                   appointmentHealthHistory={
                     appointment?.appointmentHealthHistory?.history
                   }
+                  doctorId={doctorId}
                 />
               </div>
             </Tabs.TabPane>

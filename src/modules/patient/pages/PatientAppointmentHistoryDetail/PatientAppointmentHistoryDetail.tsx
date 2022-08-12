@@ -62,6 +62,11 @@ function PatientAppointmentHistoryDetail() {
     history.pushState({}, "", "?activeTab=" + key);
   };
 
+  console.log("appointments-sadads", appointments);
+  // const { id: doctorId } = appointment?.doctor || {};
+
+  // const doctorId = appointment?.
+
   return (
     <AppLayout>
       <>
@@ -83,7 +88,9 @@ function PatientAppointmentHistoryDetail() {
               <HealthQuestionnaireFrom />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician questionnaire" key="4">
-              <PhysicianQuestionnaireForm />
+              <PhysicianQuestionnaireForm
+              // doctorId={doctorId}
+              />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachments" key="5">
               <AttachmentTab />
