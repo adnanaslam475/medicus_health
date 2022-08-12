@@ -52,6 +52,8 @@ import RescheduleAppointmentModal from "../RescheduleAppointment/RescheduleAppoi
 import moment from "moment";
 import StatusChip from "../StatusChip/StatusChip";
 import Link from "next/link";
+import Image from "next/image";
+import VideoCamera from "../../../../public/assets/icon/video.svg";
 
 type Props = {
   data: Appointment | undefined;
@@ -475,11 +477,17 @@ function DoctorUpcomingAppointmentInfoFooter({
         <>
           <Button
             type="primary"
-            icon={<VideoCameraFilled />}
             className={`${_classes["appointments-btn"]} bg-current`}
             onClick={() => setShowRescheduleModal(true)}
           >
-            Reschedule appointment
+            <Image
+              priority={true}
+              src={VideoCamera}
+              alt="espanolFlag"
+              width={20}
+              height={11}
+            />
+            <span className="ml-2">Reschedule appointment</span>
           </Button>
           <Link passHref href={`/patient/appointments/${appointmentId}/call`}>
             <Button
