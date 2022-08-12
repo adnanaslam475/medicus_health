@@ -35,7 +35,6 @@ function AppointmentCalendar() {
 
   const handleDateClick = (arg: any) => {
     const data = arg?.event?.toJSON();
-
     setModalData({
       id: data?.id,
       patient: data?.extendedProps?.patient,
@@ -47,6 +46,7 @@ function AppointmentCalendar() {
       endDate: data?.extendedProps?.extraData?.end,
       status: data?.extendedProps?.status,
       charges: data?.extendedProps?.charges,
+      appointmentTimeSlots:data?.extendedProps?.appointmentTimeSlots,
       type: "Assignment",
     });
 
@@ -82,11 +82,11 @@ function AppointmentCalendar() {
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
           charges: charges,
+          appointmentTimeSlots:appointmentTimeSlots
         })
       ),
     });
   };
-
   useEffect(() => {
     setCalendarData();
   }, [appointments]);
