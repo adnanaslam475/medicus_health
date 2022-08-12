@@ -6,14 +6,13 @@ import { translationJson } from "common/locales/translationJson";
 
 function AccountDetail() {
   const t = useTranslations("AccountDetail");
-  const [isShowBanner, setIsShowBanner] = React.useState(true);
 
   return (
-    <AppLayout isShowBanner={isShowBanner}>
+    <AppLayout >
       <div className="w-full">
         <h2 className="mb-4">{t("title")}</h2>
         <div className="w-full">
-          <AccountTabs setIsShowBanner={setIsShowBanner} />
+          <AccountTabs  />
         </div>
       </div>
     </AppLayout>

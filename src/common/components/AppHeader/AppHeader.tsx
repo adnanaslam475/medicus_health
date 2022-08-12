@@ -14,11 +14,9 @@ import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 
 const { Header } = Layout;
 
-type Props = {
-  isShowBanner: boolean | undefined;
-};
 
-const AppHeader = ({ isShowBanner }: Props) => {
+
+const AppHeader = () => {
   //Get logged in User
   const { user: loggedInUser } = getUserData();
   const { id: loggedInUserId } = loggedInUser || {};
@@ -123,7 +121,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
           <Skeleton loading={fetching} paragraph={{ rows: 0 }} active>
             <div className="hidden md:block w-full ">
               <div className="p-0">
-                {getRole() === "Doctor" ? <InfoMessageBannerReminder /> : null}
+                {getRole() === "Doctor" || getRole() === "Staff"? <InfoMessageBannerReminder /> : null}
               </div>
 
               {/* if patient health questionnaire completed than showing appointment banner 
@@ -178,7 +176,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
           </div>
         </div>
       </Header>
-      {!patientHealthHistory?.patientHealthHistory?.id &&
+      {/* {!patientHealthHistory?.patientHealthHistory?.id &&
       !fetching &&
       isShowBanner ? (
         <div className="bg-white md:hidden p-2 w-full">
@@ -186,7 +184,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
     </>
   );
 };
