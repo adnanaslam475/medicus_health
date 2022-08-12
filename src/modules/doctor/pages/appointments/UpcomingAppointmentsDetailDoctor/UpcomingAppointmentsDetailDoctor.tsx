@@ -67,6 +67,8 @@ function UpcomingAppointmentsDetailDoctor() {
     history.pushState({}, "", "?activeTab=" + key);
   };
 
+  const { id: doctorId } = appointment?.doctor || {};
+
   return (
     <AppLayout>
       <>
@@ -97,10 +99,11 @@ function UpcomingAppointmentsDetailDoctor() {
                   appointmentHealthHistory={
                     appointment?.appointmentHealthHistory?.history
                   }
+                  doctorId={doctorId}
                 />
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Attachment" key="5">
+            <Tabs.TabPane tab="Attachments" key="5">
               <div className="">
                 {urlArr?.map((item: AttachmentObject) => (
                   <Attachment item={item} enable={false} />

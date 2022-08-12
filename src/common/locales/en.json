@@ -49,6 +49,7 @@
     "i_agree_to_the": "I agree to the ",
     "terms_n_conditions": " Terms & Conditions",
     "next": "Next",
-    "prefer_not_to_answer": "Prefer not to answer"
+    "prefer_not_to_answer": "Prefer not to answer",
+    "timezone":"Timezone"
   }
 }

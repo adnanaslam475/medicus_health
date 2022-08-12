@@ -163,6 +163,7 @@ export function translationJson(local: string) {
           account: "Don't have an account?",
           signup_modal_skip_questionaire_message:
             "Note, these questions need to be answered before requesting an appointment with a physician. You can skip for now and complete later.",
+          timezone:"Timezone"
         },
         HealthQuestionary: {
           ...englishCommon,
@@ -236,6 +237,7 @@ export function translationJson(local: string) {
           i_agree_to_the: "I agree to the ",
           terms_n_conditions: " Terms & conditions",
           next: "Next",
+          timezone:"Time zone"
         },
       };
 
