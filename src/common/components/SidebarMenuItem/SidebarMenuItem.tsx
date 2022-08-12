@@ -86,7 +86,7 @@ function SidebarMenuItem() {
                     <Menu.Item key={el2.route}>
                       {el.id == "1" ? (
                         <Badge
-                          dot
+                          // dot
                           count={100}
                           className={_classes["side-bar-submenu-count"]}
                         >
@@ -137,7 +137,22 @@ function SidebarMenuItem() {
                       key={el2.route}
                       className={_classes["side-bar-submenu-item"]}
                     >
-                      <Link href={el2.route}>{el2.name}</Link>
+                      {el.id == "2" || el.id == "6" ? (
+                        <Badge
+                          // dot
+                          count={100}
+                          className={_classes["side-bar-submenu-count"]}
+                        >
+                          <Link href={el2.route}>
+                            <>{el2.name}</>
+                          </Link>
+                        </Badge>
+                      ) : (
+                        <Link href={el2.route}>
+                          <>{el2.name}</>
+                        </Link>
+                      )}
+                      {/* <Link href={el2.route}>{el2.name}</Link> */}
                     </Menu.Item>
                   );
                 })}
@@ -148,7 +163,17 @@ function SidebarMenuItem() {
                 icon={IconsListAdmin[i]}
                 className={_classes["side-bar-submenu-item"]}
               >
-                <Link href={el.route}>{el.name}</Link>
+                {el.id == "5" ? (
+                  <Badge
+                    count={100}
+                    className={_classes["side-bar-submenu-count"]}
+                  >
+                    <Link href={el.route}>{el.name}</Link>
+                  </Badge>
+                ) : (
+                  <Link href={el.route}>{el.name}</Link>
+                )}
+                {/* <Link href={el.route}>{el.name}</Link> */}
               </Menu.Item>
             );
           })}
@@ -170,7 +195,22 @@ function SidebarMenuItem() {
                       key={el2.route}
                       className={_classes["side-bar-submenu-item"]}
                     >
-                      <Link href={el2.route}>{el2.name}</Link>
+                      {el.id == "1" || el.id == "2" ? (
+                        <Badge
+                          // dot
+                          count={100}
+                          className={_classes["side-bar-submenu-count"]}
+                        >
+                          <Link href={el2.route}>
+                            <>{el2.name}</>
+                          </Link>
+                        </Badge>
+                      ) : (
+                        <Link href={el2.route}>
+                          <>{el2.name}</>
+                        </Link>
+                      )}
+                      {/* <Link href={el2.route}>{el2.name}</Link> */}
                     </Menu.Item>
                   );
                 })}
@@ -181,7 +221,17 @@ function SidebarMenuItem() {
                 icon={IconsListPhysician[i]}
                 className={_classes["side-bar-submenu-item"]}
               >
-                <Link href={el.route}>{el.name}</Link>
+                {el.id == "5" ? (
+                  <Badge
+                    count={100}
+                    className={_classes["side-bar-submenu-count"]}
+                  >
+                    <Link href={el.route}>{el.name}</Link>
+                  </Badge>
+                ) : (
+                  <Link href={el.route}>{el.name}</Link>
+                )}
+                {/* <Link href={el.route}>{el.name}</Link> */}
               </Menu.Item>
             );
           })}
@@ -204,7 +254,22 @@ function SidebarMenuItem() {
                       key={el2.route}
                       className={_classes["side-bar-submenu-item"]}
                     >
-                      <Link href={el2.route}>{el2.name}</Link>
+                      {el.id == "1" ? (
+                        <Badge
+                          // dot
+                          count={100}
+                          className={_classes["side-bar-submenu-count"]}
+                        >
+                          <Link href={el2.route}>
+                            <>{el2.name}</>
+                          </Link>
+                        </Badge>
+                      ) : (
+                        <Link href={el2.route}>
+                          <>{el2.name}</>
+                        </Link>
+                      )}
+                      {/* <Link href={el2.route}>{el2.name}</Link> */}
                     </Menu.Item>
                   );
                 })}
@@ -215,7 +280,17 @@ function SidebarMenuItem() {
                 icon={IconsListPhysician[i]}
                 className={_classes["side-bar-submenu-item"]}
               >
-                <Link href={el.route}>{el.name}</Link>
+                {el.id == "3" ? (
+                  <Badge
+                    count={100}
+                    className={_classes["side-bar-submenu-count"]}
+                  >
+                    <Link href={el.route}>{el.name}</Link>
+                  </Badge>
+                ) : (
+                  <Link href={el.route}>{el.name}</Link>
+                )}
+                {/* <Link href={el.route}>{el.name}</Link> */}
               </Menu.Item>
             );
           })}
