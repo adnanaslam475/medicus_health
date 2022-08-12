@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Badge, Menu } from "antd";
@@ -23,6 +23,7 @@ import {
   STAFF_ROUTES,
 } from "../../constants/routes";
 import { SettingIcon } from "../CustomIcon/SettingIcon";
+import { useAppointmentCountByStatusQuery } from "generated/graphql";
 
 function SidebarMenuItem() {
   const IconsListPhysician = [
@@ -62,6 +63,46 @@ function SidebarMenuItem() {
   ];
 
   const router = useRouter();
+
+  // API FOR COUNT Notificaiton
+  const [{ data: countsData, fetching }] = useAppointmentCountByStatusQuery({
+    // variables: {},
+  });
+  const { appointmentCountByStatus } = countsData || {};
+
+  const { canceled, history, pending, upcoming } =
+    appointmentCountByStatus || {};
+
+  const [localAppointmentAlertData, setLocalAppointmentAlertData] =
+    useState<any>();
+
+  useEffect(() => {
+    try {
+      if (appointmentCountByStatus) {
+        let appointmentsAlertData = localStorage.getItem(
+          "appointmentsAlertData"
+        );
+        console.log({ canceled, history, pending, upcoming });
+        console.log(appointmentsAlertData);
+        if (appointmentsAlertData) {
+          appointmentsAlertData = JSON.parse(appointmentsAlertData);
+          setLocalAppointmentAlertData(appointmentsAlertData);
+          localStorage.setItem(
+            "appointmentsAlertData",
+            JSON.stringify(appointmentCountByStatus)
+          );
+        } else {
+          localStorage.setItem(
+            "appointmentsAlertData",
+            JSON.stringify(appointmentCountByStatus)
+          );
+        }
+      }
+    } catch (error) {
+      localStorage.removeItem("appointmentsAlertData");
+    }
+  }, [canceled, history, pending, upcoming, appointmentCountByStatus]);
+
   return (
     <div className={`${_classes["side-menu-cover"]} w-full`}>
       <Menu
@@ -79,21 +120,53 @@ function SidebarMenuItem() {
                   <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
                 }
                 // title="Equipo"
-                title="Appointments"
+                // title="Appointments"
+                title={
+                  <div className="relative">
+                    Appointments
+                    {(localAppointmentAlertData?.upcoming !== upcoming ||
+                      localAppointmentAlertData?.pending !== pending ||
+                      localAppointmentAlertData?.canceled !== canceled ||
+                      localAppointmentAlertData?.history !== history) && (
+                      <span className={_classes["red-dot"]}></span>
+                    )}
+                  </div>
+                }
               >
                 {el.submenu?.map((el2, i2) => {
+                  let dot = false;
+                  switch (el2.subId) {
+                    case "1":
+                      if (localAppointmentAlertData?.upcoming !== upcoming)
+                        dot = true;
+                      break;
+                    case "2":
+                      if (localAppointmentAlertData?.pending !== pending)
+                        dot = true;
+                      break;
+                    case "3":
+                      if (localAppointmentAlertData?.canceled !== canceled)
+                        dot = true;
+                      break;
+                    case "4":
+                      if (localAppointmentAlertData?.history !== history)
+                        dot = true;
+                      break;
+                    default:
+                      break;
+                  }
                   return (
                     <Menu.Item key={el2.route}>
                       {el.id == "1" ? (
-                        <Badge
-                          // dot
-                          count={100}
-                          className={_classes["side-bar-submenu-count"]}
-                        >
-                          <Link href={el2.route}>
+                        <Link passHref href={el2.route}>
+                          <Badge
+                            dot={dot}
+                            // count={100}
+                            className={_classes["side-bar-submenu-count"]}
+                          >
                             <>{el2.name}</>
-                          </Link>
-                        </Badge>
+                          </Badge>
+                        </Link>
                       ) : (
                         <Link href={el2.route}>
                           <>{el2.name}</>
@@ -110,12 +183,20 @@ function SidebarMenuItem() {
                 className={_classes["side-bar-submenu-item"]}
               >
                 {el.id == "3" ? (
-                  <Badge
-                    count={100}
-                    className={_classes["side-bar-submenu-count"]}
-                  >
-                    <Link href={el.route}>{el.name}</Link>
-                  </Badge>
+                  // <Badge
+                  //   count={100}
+                  //   className={_classes["side-bar-submenu-count"]}
+                  // >
+                  //   <Link href={el.route}>{el.name}</Link>
+                  // </Badge>
+                  <Link passHref href={el.route}>
+                    <Badge
+                      count={100}
+                      className={_classes["side-bar-submenu-count"]}
+                    >
+                      <>{el.name}</>
+                    </Badge>
+                  </Link>
                 ) : (
                   <Link href={el.route}>{el.name}</Link>
                 )}
@@ -132,21 +213,42 @@ function SidebarMenuItem() {
                 title="Reports"
               >
                 {el.submenu?.map((el2, i2) => {
+                  let dot = false;
+                  switch (el2.subId) {
+                    case "1":
+                      if (localAppointmentAlertData?.upcoming !== upcoming)
+                        dot = true;
+                      break;
+                    case "2":
+                      if (localAppointmentAlertData?.pending !== pending)
+                        dot = true;
+                      break;
+                    case "3":
+                      if (localAppointmentAlertData?.canceled !== canceled)
+                        dot = true;
+                      break;
+                    case "4":
+                      if (localAppointmentAlertData?.history !== history)
+                        dot = true;
+                      break;
+                    default:
+                      break;
+                  }
                   return (
                     <Menu.Item
                       key={el2.route}
                       className={_classes["side-bar-submenu-item"]}
                     >
                       {el.id == "2" || el.id == "6" ? (
-                        <Badge
-                          // dot
-                          count={100}
-                          className={_classes["side-bar-submenu-count"]}
-                        >
-                          <Link href={el2.route}>
+                        <Link passHref href={el2.route}>
+                          <Badge
+                            dot={dot}
+                            // count={100}
+                            className={_classes["side-bar-submenu-count"]}
+                          >
                             <>{el2.name}</>
-                          </Link>
-                        </Badge>
+                          </Badge>
+                        </Link>
                       ) : (
                         <Link href={el2.route}>
                           <>{el2.name}</>
@@ -164,12 +266,14 @@ function SidebarMenuItem() {
                 className={_classes["side-bar-submenu-item"]}
               >
                 {el.id == "5" ? (
-                  <Badge
-                    count={100}
-                    className={_classes["side-bar-submenu-count"]}
-                  >
-                    <Link href={el.route}>{el.name}</Link>
-                  </Badge>
+                  <Link passHref href={el.route}>
+                    <Badge
+                      count={100}
+                      className={_classes["side-bar-submenu-count"]}
+                    >
+                      <>{el.name}</>
+                    </Badge>
+                  </Link>
                 ) : (
                   <Link href={el.route}>{el.name}</Link>
                 )}
@@ -184,11 +288,38 @@ function SidebarMenuItem() {
                 className={_classes["side-bar-submenu-item"]}
                 key={i}
                 icon={IconsListPhysicianMainMenu[i]}
-                title={el.toggleName}
+                // title={el.toggleName}
+                title={
+                  <div className="relative">
+                    {el.toggleName}
+                    <span className={_classes["red-dot"]}></span>
+                  </div>
+                }
               >
                 {el.submenu?.map((el2, i2) => {
                   type: {
                     route: String;
+                  }
+                  let dot = false;
+                  switch (el2.subId) {
+                    case "1":
+                      if (localAppointmentAlertData?.upcoming !== upcoming)
+                        dot = true;
+                      break;
+                    case "2":
+                      if (localAppointmentAlertData?.pending !== pending)
+                        dot = true;
+                      break;
+                    case "3":
+                      if (localAppointmentAlertData?.canceled !== canceled)
+                        dot = true;
+                      break;
+                    case "4":
+                      if (localAppointmentAlertData?.history !== history)
+                        dot = true;
+                      break;
+                    default:
+                      break;
                   }
                   return (
                     <Menu.Item
@@ -196,19 +327,20 @@ function SidebarMenuItem() {
                       className={_classes["side-bar-submenu-item"]}
                     >
                       {el.id == "1" || el.id == "2" ? (
-                        <Badge
-                          // dot
-                          count={100}
-                          className={_classes["side-bar-submenu-count"]}
-                        >
-                          <Link href={el2.route}>
+                        <Link passHref href={el2.route}>
+                          <Badge
+                            dot={dot}
+                            // count={100}
+                            className={_classes["side-bar-submenu-count"]}
+                          >
                             <>{el2.name}</>
-                          </Link>
-                        </Badge>
-                      ) : (
-                        <Link href={el2.route}>
-                          <>{el2.name}</>
+                          </Badge>
                         </Link>
+                      ) : (
+                        // <Link href={el2.route}>
+                        //   <>{el2.name}</>
+                        // </Link>
+                        <Link href={el2.route}>{el2.name}</Link>
                       )}
                       {/* <Link href={el2.route}>{el2.name}</Link> */}
                     </Menu.Item>
@@ -222,12 +354,14 @@ function SidebarMenuItem() {
                 className={_classes["side-bar-submenu-item"]}
               >
                 {el.id == "5" ? (
-                  <Badge
-                    count={100}
-                    className={_classes["side-bar-submenu-count"]}
-                  >
-                    <Link href={el.route}>{el.name}</Link>
-                  </Badge>
+                  <Link passHref href={el.route}>
+                    <Badge
+                      count={100}
+                      className={_classes["side-bar-submenu-count"]}
+                    >
+                      <>{el.name}</>
+                    </Badge>
+                  </Link>
                 ) : (
                   <Link href={el.route}>{el.name}</Link>
                 )}
@@ -249,21 +383,51 @@ function SidebarMenuItem() {
                   type: {
                     route: String;
                   }
+                  let dot = false;
+                  switch (el2.subId) {
+                    case "1":
+                      if (localAppointmentAlertData?.upcoming !== upcoming)
+                        dot = true;
+                      break;
+                    case "2":
+                      if (localAppointmentAlertData?.pending !== pending)
+                        dot = true;
+                      break;
+                    case "3":
+                      if (localAppointmentAlertData?.canceled !== canceled)
+                        dot = true;
+                      break;
+                    case "4":
+                      if (localAppointmentAlertData?.history !== history)
+                        dot = true;
+                      break;
+                    default:
+                      break;
+                  }
                   return (
                     <Menu.Item
                       key={el2.route}
                       className={_classes["side-bar-submenu-item"]}
                     >
                       {el.id == "1" ? (
-                        <Badge
-                          // dot
-                          count={100}
-                          className={_classes["side-bar-submenu-count"]}
-                        >
-                          <Link href={el2.route}>
+                        // <Badge
+                        //   dot
+                        //   count={100}
+                        //   className={_classes["side-bar-submenu-count"]}
+                        // >
+                        //   <Link href={el2.route}>
+                        //     <>{el2.name}</>
+                        //   </Link>
+                        // </Badge>
+                        <Link passHref href={el2.route}>
+                          <Badge
+                            dot={dot}
+                            // count={100}
+                            className={_classes["side-bar-submenu-count"]}
+                          >
                             <>{el2.name}</>
-                          </Link>
-                        </Badge>
+                          </Badge>
+                        </Link>
                       ) : (
                         <Link href={el2.route}>
                           <>{el2.name}</>
@@ -281,12 +445,14 @@ function SidebarMenuItem() {
                 className={_classes["side-bar-submenu-item"]}
               >
                 {el.id == "3" ? (
-                  <Badge
-                    count={100}
-                    className={_classes["side-bar-submenu-count"]}
-                  >
-                    <Link href={el.route}>{el.name}</Link>
-                  </Badge>
+                  <Link passHref href={el.route}>
+                    <Badge
+                      count={100}
+                      className={_classes["side-bar-submenu-count"]}
+                    >
+                      <>{el.name}</>
+                    </Badge>
+                  </Link>
                 ) : (
                   <Link href={el.route}>{el.name}</Link>
                 )}

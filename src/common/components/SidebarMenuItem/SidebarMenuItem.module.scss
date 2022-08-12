@@ -29,6 +29,16 @@
       top: 5px;
     }
   }
+
+  .red-dot {
+    width: 6px;
+    height: 6px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 18px;
+  }
 }
 
 .side-menu-cover {
