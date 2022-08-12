@@ -43,6 +43,12 @@ mutation login($input: LoginUserInput!) {
       adminProfilePicture {
         profile_picture
       }
+      timeZone {
+        countryName
+        countryCode
+        timeZone
+        gmtOffset
+      }
     }
   }
 }
@@ -180,6 +186,7 @@ mutation updateDoctorProfile(
       state_id
       city_id
       contact_number
+      timeZoneId
       city {
         city_name
       }

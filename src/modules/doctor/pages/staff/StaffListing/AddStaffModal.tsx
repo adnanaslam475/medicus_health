@@ -27,7 +27,7 @@ const AddStaffModal = React.forwardRef(function AddStaffModal(
       footer={null}
       className={`${_classes["staff-Modal"]}`}
     >
-      <h1>Add Staff</h1>
+      <h1>Add staff</h1>
       <Form onFinish={onFinish} form={form as FormInstance} layout="vertical">
         <div className="md:grid md:grid-cols-2 md:gap-x-4">
           <AddStaffFormItems />
@@ -41,7 +41,7 @@ const AddStaffModal = React.forwardRef(function AddStaffModal(
               htmlType="submit"
               className="ml-4 py-2"
             >
-              Add Staff
+              Add staff
             </Button>
           </Form.Item>
         </div>

@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Button, Spin, Tag } from "antd";
 import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
+import support from "./../../../../public/assets/icon/support.svg";
+import chat from "./../../../../public/assets/icon/chat-bubble.svg";
 import {
   AppointmentTimeSlots,
   GetAppointmentByIdQuery,
@@ -11,6 +13,7 @@ import Router from "next/router";
 import { isAppointmentTimeValid } from "common/utils/date";
 import { CustomTimeSlot } from "common/types/types";
 import Link from "next/link";
+import Image from "next/image";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -23,16 +26,22 @@ function AppointmentInfo(props: Props) {
   const { first_name, last_name } =
     appoinmentDetails?.appointment?.doctor || {};
 
-  const { id, status, requestedDate, appointmentTimeSlots, createdAt,transaction } =
-    appoinmentDetails?.appointment || {};
-    
-    const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
-    const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
-      () => appointmentTimeSlots?.find((item) => item.selected),
-      [appointmentTimeSlots]
-      );
-      const [disabled, setDisabled] = useState(true);
-      const appointmentCharges = transaction?.amountReceived || "-"
+  const {
+    id,
+    status,
+    requestedDate,
+    appointmentTimeSlots,
+    createdAt,
+    transaction,
+  } = appoinmentDetails?.appointment || {};
+
+  const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
+    () => appointmentTimeSlots?.find((item) => item.selected),
+    [appointmentTimeSlots]
+  );
+  const [disabled, setDisabled] = useState(true);
+  const appointmentCharges = transaction?.amountReceived || "-";
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
@@ -76,14 +85,15 @@ function AppointmentInfo(props: Props) {
         /> */}
         <LabelValueRow
           label="Appointment time"
-          value={selectedAppointment ? `${date?.formathhmma(
-            selectedAppointment?.startTime
-          )} - ${date?.formathhmma(selectedAppointment?.endTime)}` : `${formatedStartTime} - ${formatedEndTime}`}
+          value={
+            selectedAppointment
+              ? `${date?.formathhmma(
+                  selectedAppointment?.startTime
+                )} - ${date?.formathhmma(selectedAppointment?.endTime)}`
+              : `${formatedStartTime} - ${formatedEndTime}`
+          }
         />
-        <LabelValueRow
-          label="Total amount"
-          value={`$${appointmentCharges}`}
-        />
+        <LabelValueRow label="Total amount" value={`$${appointmentCharges}`} />
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[200px]">Status</div>
@@ -101,8 +111,17 @@ function AppointmentInfo(props: Props) {
       <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
         <div className="flex flex-wrap mb-3 justify-center gap-y-2">
           <Button
-            icon={<MessageOutlined />}
-            className={`${_classes["appointments-btn"]} mr-3`}
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={support}
+                alt=""
+                className=""
+              />
+            }
+            className={`${_classes["appointments-btn"]}  mr-3`}
             onClick={() => {
               const query: any = {
                 chat: "admin",
@@ -116,10 +135,19 @@ function AppointmentInfo(props: Props) {
               });
             }}
           >
-            Message support
+            <span className="pl-2">Message support</span>
           </Button>
           <Button
-            icon={<MessageOutlined />}
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={chat}
+                alt=""
+                className=""
+              />
+            }
             className={`${_classes["appointments-btn"]} `}
             onClick={() => {
               const query: any = {
@@ -134,7 +162,7 @@ function AppointmentInfo(props: Props) {
               });
             }}
           >
-            Message physician
+            <span className="pl-2">Message physician</span>
           </Button>
         </div>
         <Link passHref href={`/patient/appointments/${id}/call`}>

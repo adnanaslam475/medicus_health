@@ -10,7 +10,7 @@ import {
 } from "../../../../../../generated/graphql";
 import MessageButtons from "common/components/MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
-import { formatYYYYMMMMDD } from "common/utils/date";
+import { formatMMDDYYYY } from "common/utils/date";
 // const props = {};
 type Props = {
   userDetail?: User;
@@ -27,13 +27,17 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
     doctorProfile,
     email,
     password,
-    country_id,
-    state_id,
-    city_id,
     zip_code,
+    country,
+    state,
+    city,
     streetAddress,
     patientProfile,
   } = userDetail || {};
+
+  const { country_name } = country || {};
+  const { state_name } = state || {};
+  const { city_name } = city || {};
 
   const {
     maritalStatus,
@@ -47,43 +51,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
 
-  const [getStatesByCountry] = useGetStatesByCountryQuery({
-    variables: {
-      input: country_id || 0,
-    },
-    pause: country_id === undefined,
-  });
-
-  const [getCityByState] = useGetCitiesByStateQuery({
-    variables: {
-      input: state_id || 0,
-    },
-    pause: state_id === undefined,
-  });
-
-  let selectedCountry = countries?.filter((item) => item.id === country_id);
-  let countryName = "";
-  if (selectedCountry) {
-    countryName = selectedCountry[0]?.country_name;
-  }
-
-  let selectedState = getStatesByCountry?.data?.getStatesByCountry.filter(
-    (item) => item.id === state_id
-  );
-
-  let state = "";
-  if (selectedState) {
-    state = selectedState[0]?.state_name;
-  }
-
-  let selectedCity = getCityByState?.data?.getCitiesByState.filter(
-    (city) => city.state_id === state_id
-  );
-  let cityName: any[] = [];
-  if (selectedCity) {
-    cityName = selectedCity?.filter((item) => item.id === city_id);
-  }
-  const profilePicture = userDetail?.patientProfile?.profileImage
+  const profilePicture = userDetail?.patientProfile?.profileImage;
 
   return (
     <div className="max-w-[800px]">
@@ -111,7 +79,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             <LabelWithTextDiv label="Género" value={gender} />
             <LabelWithTextDiv
               label="Fecha de nacimiento"
-              value={formatYYYYMMMMDD(date_of_birth)}
+              value={formatMMDDYYYY(date_of_birth)}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
@@ -125,11 +93,20 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="País de nacimiento" value={countryName} />
-            <LabelWithTextDiv label="Ciudad" value={cityName[0]?.city_name} />
+            <LabelWithTextDiv
+              label="País de nacimiento"
+              value={country_name ? country_name : "-"}
+            />
+            <LabelWithTextDiv
+              label="Estado"
+              value={state_name ? state_name : "-"}
+            />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Estado" value={state} />
+            <LabelWithTextDiv
+              label="Ciudad"
+              value={city_name ? city_name : "-"}
+            />
             <LabelWithTextDiv label="Código postal" value={zip_code} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
@@ -137,24 +114,21 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
               label="Dirección (calle y numero)"
               value={streetAddress}
             />
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv label="Estado civil" value={maritalStatus} />
-            <LabelWithTextDiv label="¿Tienes hijos?" value={children} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="¿Tienes hijos?" value={children} />
             <LabelWithTextDiv
               label="¿Cuál es tu ocupación?"
               value={occupation}
             />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv
               label="¿Tiene alguna exposición ocupacional?"
               value={occupationalExposure === "Yes" ? exposureDuration : "No"}
             />
-          </div>
-          <div className="md:flex gap-2">
             <LabelWithTextDiv label="¿Tiene mascotas?" value={pets} />
-            <div className="w-full" />
           </div>
         </div>
       </CardWithProfileImageInfo>

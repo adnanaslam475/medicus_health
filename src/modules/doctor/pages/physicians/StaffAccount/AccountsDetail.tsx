@@ -33,6 +33,7 @@ function Accounts() {
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId: Number(doctorId),
+      languageId: 2,
     },
   });
 
@@ -72,7 +73,9 @@ function Accounts() {
           <Tabs.TabPane
             className="w-full"
             tab={
-              <span className="font-Circular font-medium flex">Physician profile</span>
+              <span className="font-Circular font-medium flex">
+                Physician profile
+              </span>
             }
             key="2"
           >

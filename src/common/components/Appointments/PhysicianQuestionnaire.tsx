@@ -3,6 +3,7 @@ import { Form, Input, Radio, Layout, Divider, Checkbox, Empty } from "antd";
 import {
   GetAppointmentByIdQuery,
   useDoctorQuestionnaireQuery,
+  User,
 } from "../../../generated/graphql";
 import { useRouter } from "next/router";
 import { parseJson } from "common/utils/helper";
@@ -16,16 +17,24 @@ type Props = {
   appointmentHealthHistory: string;
   disable?: boolean;
   doctorId?: number;
+  user?: User;
 };
 
 function PhysicianQuestionnaire(props: Props) {
   const { query } = useRouter();
   const [formInstance] = Form.useForm();
-  const { appointmentHealthHistory, disable, doctorId } = props || {};
+  const {
+    appointmentHealthHistory,
+    disable,
+    doctorId,
+    user: userData,
+  } = props || {};
   let History = parseJson(appointmentHealthHistory);
   const router = useRouter();
   const { user } = getUserData();
   const [isDisabled, setDisabled] = useState<boolean>(false);
+
+  console.log("user-sadasdsd", userData);
 
   const { pathname } = router || {};
   let disabled =
@@ -59,11 +68,17 @@ function PhysicianQuestionnaire(props: Props) {
     });
   }
 
-  let doctorQuestionnaireId = user?.role === "Doctor" ? user?.id : doctorId;
+  console.log("doctorIddoctorId", doctorId);
+
+  // let doctorQuestionnaireId = user?.role === "Doctor" ? user?.id : doctorId;
+
+  let doctorQuestionnaireId =
+    user?.role === "Admin" || user?.role === "Doctor" ? doctorId : doctorId;
 
   const [{ data: dataList, fetching }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId: Number(doctorQuestionnaireId),
+      languageId: 2,
     },
     pause: !doctorQuestionnaireId,
   });
