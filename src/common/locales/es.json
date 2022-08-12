@@ -58,6 +58,7 @@
     "i_agree_to_the": "Estoy de acuerdo con la",
     "terms_n_conditions": "Términos y condiciones",
     "next": "Próximo",
-    "prefer_not_to_answer": "Prefiero no responder"
+    "prefer_not_to_answer": "Prefiero no responder",
+    "timezone":"Timezone"
   }
 }

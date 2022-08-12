@@ -8,6 +8,7 @@ import {
   useGetCitiesByStateQuery,
   useCountriesQuery,
   useCheckEmailAvailabilityQuery,
+  useGetTimeZonesQuery,
 } from "generated/graphql";
 import _classes from "../../SignUp.module.scss";
 import { useTranslations } from "next-intl";
@@ -52,6 +53,8 @@ export default function PersonalInfo({ onFinish }: props) {
     pause: stateId === undefined,
   });
 
+  const [getTimeZones] = useGetTimeZonesQuery();
+
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
 
@@ -87,7 +90,11 @@ export default function PersonalInfo({ onFinish }: props) {
     return Promise.resolve();
   };
 
-  const onContactNoValidation = (_rule: any, value: string | any[], callback: any) => {
+  const onContactNoValidation = (
+    _rule: any,
+    value: string | any[],
+    callback: any
+  ) => {
     if (value?.length > 15) {
       callback(t("contact_no_is_too_long"));
     } else if (value?.length < 9) {
@@ -267,7 +274,7 @@ export default function PersonalInfo({ onFinish }: props) {
             {
               required: true,
               validator: onContactNoValidation,
-            }
+            },
           ]}
         >
           <Input />
@@ -331,9 +338,6 @@ export default function PersonalInfo({ onFinish }: props) {
             )}
           </Select>
         </Form.Item>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-4">
         <Form.Item className="flex-1" label={t("city")} name="city_id">
           <Select
             placeholder={t("city")}
@@ -351,7 +355,26 @@ export default function PersonalInfo({ onFinish }: props) {
             )}
           </Select>
         </Form.Item>
+      </div>
 
+      <div className="flex flex-col md:flex-row gap-4">
+        <Form.Item className="flex-1" label={t("timezone")} name="timeZoneId">
+          <Select
+            placeholder={t("timezone")}
+            showSearch
+            filterOption={(input, city: any) =>
+              city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            {React.Children.toArray(
+              getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                return (
+                  <Select.Option value={el.id}>{el?.timeZone}</Select.Option>
+                );
+              })
+            )}
+          </Select>
+        </Form.Item>
         <Form.Item
           className="flex-1"
           label={t("postal_code")}

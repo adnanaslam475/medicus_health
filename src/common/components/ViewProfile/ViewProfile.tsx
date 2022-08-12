@@ -52,6 +52,7 @@ export const ViewProfile = React.forwardRef(function Profile({
     country,
     state,
     city,
+    timeZone
   } = userData?.user || {};
   const { country_name } = country || {};
   const { state_name } = state || {};
@@ -101,6 +102,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       // contact_number: contact_number || "",
       state: state_name || "",
       zip_code: zip_code || "",
+      timeZoneId:timeZone?.timeZone
     });
   }
 

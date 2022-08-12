@@ -33,6 +33,7 @@ function CurrentAppointment() {
         pagination,
         sorting,
       },
+      requestPolicy:"network-only"
     });
 
   const { currentAppointments } = data || {};

@@ -27,6 +27,7 @@ import {
   useEnableOrDisableDoctorMutation,
   useGetCitiesByStateQuery,
   useGetStatesByCountryQuery,
+  useGetTimeZonesQuery,
   useGetUserQuery,
   User,
   useUpdateDoctorProfileMutation,
@@ -130,6 +131,7 @@ function EditProfile({
     contact_number,
     status,
     doctorProfile,
+    timeZone = 86
   } = doctorData?.user || {};
 
   const {
@@ -225,6 +227,7 @@ function EditProfile({
       confirmPassword: "",
       about_me: about_me,
       language: language,
+      timeZoneId:timeZone?.timeZone
     });
   }
 
@@ -280,6 +283,7 @@ function EditProfile({
         awards_honors_recognition: honorsList?.map((item) => ({
           awards_honors_and_recognition: item?.awards_honors_and_recognition,
         })),
+        timeZoneId:values?.timeZoneId 
       },
     });
 
@@ -563,6 +567,8 @@ function EditProfile({
     window?.scrollTo(0, 0);
   };
 
+  const [getTimeZones] = useGetTimeZonesQuery();
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -729,22 +735,21 @@ function EditProfile({
                   <Input type="number" />
                 </Form.Item>
               </div>
-
-              <Form.Item
-                label={"Street address"}
-                name="streetAddress"
-                rules={[
-                  {
-                    required: true,
-                    message: "street address required",
-                    max: 300,
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
               <div className="flex flex-col sm:flex-row sm:gap-3">
+                <Form.Item
+                  className="flex-1"
+                  label={"Street address"}
+                  name="streetAddress"
+                  rules={[
+                    {
+                      required: true,
+                      message: "street address required",
+                      max: 300,
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
                 <Form.Item
                   className="flex-1"
                   label={"Country"}
@@ -779,6 +784,9 @@ function EditProfile({
                     )}
                   </Select>
                 </Form.Item>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item className="flex-1" label={"State"} name="state_id">
                   <Select
                     showSearch
@@ -808,9 +816,6 @@ function EditProfile({
                     )}
                   </Select>
                 </Form.Item>
-              </div>
-
-              <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item className="flex-1" label={"City"} name="city_id">
                   <Select
                     placeholder={"City"}
@@ -832,7 +837,9 @@ function EditProfile({
                     )}
                   </Select>
                 </Form.Item>
+              </div>
 
+              <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
                   className="flex-1"
                   label={"Postal code"}
@@ -845,6 +852,31 @@ function EditProfile({
                   ]}
                 >
                   <Input autoComplete="new-password" />
+                </Form.Item>
+                <Form.Item
+                  className="flex-1"
+                  label={"Time zone"}
+                  name="timeZoneId"
+                >
+                  <Select
+                    placeholder={timeZone?.timeZone}
+                    showSearch
+                    filterOption={(input, city: any) =>
+                      city.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                  >
+                    {React.Children.toArray(
+                      getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                        return (
+                          <Select.Option value={el.id}>
+                            {el?.timeZone}
+                          </Select.Option>
+                        );
+                      })
+                    )}
+                  </Select>
                 </Form.Item>
               </div>
 

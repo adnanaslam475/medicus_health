@@ -380,7 +380,10 @@ query physicianAppointmentsHistory(
         first_name
         last_name
         doctorQuestionnaire {
+          id
+          doctorId
           questionnaire
+          languageId
         }
         doctorProfile {
           id
