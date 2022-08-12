@@ -92,13 +92,16 @@ function CalendarModalComponent(props: Props) {
 
       <div className="flex justify-between">
         <div className="items-center justify-start pt-4">
-          <Button onClick={() => Router.push(`upcoming/${id}`)}>Details</Button>
+          <Button onClick={() => Router.push(`/patient/appointments/${id}`)}>
+            Details
+          </Button>
         </div>
         <div className="items-center justify-end border-0 pt-4">
           <Button
             type="primary"
             className={`${_classes["appointments-btn"]} bg-current mr-3`}
             disabled={disabled}
+            onClick={() => Router.push(`/patient/appointments/${id}/call`)}
           >
             <Image
               priority={true}

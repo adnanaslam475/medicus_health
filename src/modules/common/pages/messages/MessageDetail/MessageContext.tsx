@@ -102,6 +102,9 @@ export function MessageContextProvider({
 
   useEffect(() => {
     if (getChannelMessages) {
+      executeGetChannelMessagesQuery({
+        requestPolicy: "network-only",
+      });
       const info = { ...messageInfoRef.current };
       const messages = { ...info.messagesWithChannel };
       // messages[messageInfo.currentChannel?.channelName || ""] = [
@@ -110,7 +113,6 @@ export function MessageContextProvider({
       //     ? messages[messageInfo.currentChannel?.channelName || ""]
       //     : []),
       // ];
-
       messages[messageInfo.currentChannel?.channelName || ""] = [
         ...getChannelMessages,
       ];
@@ -270,11 +272,12 @@ export function MessageContextProvider({
       // Error Code 202 - A channel of the same channel ID has already joined. Cannot rejoin.
       if (error?.code === 202) {
         return;
-      } else {
-        notification.error({
-          message: "joined failed",
-        });
       }
+      // else {
+      //   notification.error({
+      //     message: "joined failed",
+      //   });
+      // }
     }
   }
 
