@@ -6,6 +6,9 @@ query getAllChatChannels($filter: GetAllChannelFilterInput!) {
     patientId
     isAdminChat
     createdAt
+    unReadMessagesCount {
+      channelMessagesCount
+    }
     lastMessage {
       channelId
       senderId
@@ -154,5 +157,14 @@ query getTimeZones {
     timeZone
     countryName
     gmtOffset
+  }
+}
+
+query appointmentCountByStatus {
+  appointmentCountByStatus {
+    upcoming
+    pending
+    canceled
+    history
   }
 }
