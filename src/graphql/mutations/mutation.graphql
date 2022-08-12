@@ -47,6 +47,7 @@ mutation login($input: LoginUserInput!) {
         countryName
         countryCode
         timeZone
+        id
         gmtOffset
       }
     }

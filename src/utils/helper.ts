@@ -104,7 +104,7 @@ export const bioForm = [
     },
     {
       label: "Time zone",
-      name: "timeZoneId",
+      name: "timeZone",
       disabled: true,
       defaultValue: "",
     },

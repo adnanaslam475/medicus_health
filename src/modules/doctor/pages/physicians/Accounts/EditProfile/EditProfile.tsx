@@ -227,7 +227,7 @@ function EditProfile({
       confirmPassword: "",
       about_me: about_me,
       language: language,
-      timeZoneId:timeZone?.timeZone
+      timeZone:timeZone?.id
     });
   }
 
@@ -283,7 +283,7 @@ function EditProfile({
         awards_honors_recognition: honorsList?.map((item) => ({
           awards_honors_and_recognition: item?.awards_honors_and_recognition,
         })),
-        timeZoneId:values?.timeZoneId 
+        timeZoneId:values?.timeZone 
       },
     });
 
@@ -856,7 +856,7 @@ function EditProfile({
                 <Form.Item
                   className="flex-1"
                   label={"Time zone"}
-                  name="timeZoneId"
+                  name="timeZone"
                 >
                   <Select
                     placeholder={timeZone?.timeZone}
