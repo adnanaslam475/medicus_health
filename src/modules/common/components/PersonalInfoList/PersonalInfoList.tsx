@@ -184,7 +184,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="w-1/2 sm:w-1/3 text-gray-1">
+          <div className="w-1/2 sm:w-1/3 text-gray-1  md:pl-4">
             Dirección (calle y numero)
           </div>
           <div className="sm:w-1/2 text-secondary md:pl-4">{streetAddress}</div>
