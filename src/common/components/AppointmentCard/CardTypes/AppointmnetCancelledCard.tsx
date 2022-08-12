@@ -70,13 +70,6 @@ function AppointmnetCancelledCard({
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
-  // let formatedStartTime = `${
-  //   appointmentDetail?.appointmentDateTime?.startTime?.split(" ")[1]
-  // } ${appointmentDetail?.appointmentDateTime?.startTime?.split(" ")[2]}`;
-  // let formatedEndTime = `${
-  //   appointmentDetail?.appointmentDateTime?.endTime?.split(" ")[1]
-  // } ${appointmentDetail?.appointmentDateTime?.endTime?.split(" ")[2]}`;
-
   const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
 
   let formatedStartTime = date.formathhmma(

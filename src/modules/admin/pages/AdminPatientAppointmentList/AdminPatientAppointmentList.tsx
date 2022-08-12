@@ -59,12 +59,12 @@ const columns = [
     key: "appointment_time_slots",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-      let formatedStartTime = `${
-        appointmentDateTime?.startTime?.split(" ")[1]
-      } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
-      let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-        appointmentDateTime?.endTime?.split(" ")[2]
-      }`;
+      let formatedStartTime = date.formathhmma(
+        String(appointmentDateTime?.startTime)
+      );
+      let formatedEndTime = date.formathhmma(
+        String(appointmentDateTime?.endTime)
+      );
       return (
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
@@ -80,7 +80,7 @@ const columns = [
     key: "appointmentDateTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+      let formatedDueDate = `${appointmentDateTime?.startTime}`;
       return (
         <div>
           {appointmentDateTime?.startTime

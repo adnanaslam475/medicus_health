@@ -84,6 +84,7 @@ function DoctorAppointmentInfo({ data }: Props) {
   } = data || {};
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
+  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
 
   // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
 
@@ -101,13 +102,8 @@ function DoctorAppointmentInfo({ data }: Props) {
       return selectedTimeSlots;
     }
   }
-  let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
-  let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
-    appointmentDateTime?.startTime?.split(" ")[2]
-  }`;
-  let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-    appointmentDateTime?.endTime?.split(" ")[2]
-  }`;
+  let formatedDueDate = date.formatMMMMDDYYYY(String(appointmentDateTime?.startTime),timeZone);
+
   async function onCancelRequestedAppointment() {
     try {
       const res = await executeCancelAppointment({
@@ -154,7 +150,6 @@ function DoctorAppointmentInfo({ data }: Props) {
     }
   }
 
-  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
   return (
     <div className="max-w-[700px]">
       <div className="message-button mb-3">
@@ -182,7 +177,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           label="AppoIntment date"
           text={
             appointmentDateTime?.startTime
-              ? `${date?.formatMMMMDDYYYY(formatedDueDate, timeZone)} `
+              ? `${formatedDueDate} `
               : "--"
           }
         />
