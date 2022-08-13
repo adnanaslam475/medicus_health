@@ -13,7 +13,7 @@ import { date } from "common/utils";
 
 const timeZone =
   typeof window !== "undefined" &&
-  JSON.parse(String(localStorage?.getItem("timeZone")));
+  JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
 const Columns = [
   {

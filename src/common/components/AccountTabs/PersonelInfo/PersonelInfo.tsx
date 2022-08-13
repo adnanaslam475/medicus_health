@@ -84,7 +84,7 @@ const PersonalInfo = () => {
           occupationalExposure: values?.occupationalExposure,
           exposureDuration: values?.exposureDuration,
           pets: values?.pets,
-          timeZoneId: values?.timeZoneId || 86, // 86 is default id for UTC
+          timeZoneId: values?.timeZone || 86, // 86 is default id for UTC
         },
       });
 
