@@ -59,7 +59,7 @@ function AppointmentReschedule(props: Props) {
   let formatedDoctorName = `${
     doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`
   }`;
-  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+  const timeZone =typeof window !== "undefined" &&  JSON.parse(String(localStorage?.getItem("timeZone")) || "");
   return (
     <div>
       <h2>Appointment schedule</h2>

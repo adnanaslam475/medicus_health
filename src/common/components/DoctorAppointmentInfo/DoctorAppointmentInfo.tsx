@@ -84,7 +84,7 @@ function DoctorAppointmentInfo({ data }: Props) {
   } = data || {};
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
-  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+  const timeZone =typeof window !== "undefined" &&  JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
   // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
 
@@ -682,7 +682,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setEndDateValue("");
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
-  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+  const timeZone = typeof window !== "undefined" &&  JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
   let formatedDueDate = date.formatMMMMDDYYYY(String(appointmentDateTime?.startTime),timeZone);
 
