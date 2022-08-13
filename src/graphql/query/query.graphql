@@ -260,6 +260,10 @@ query getAllRequestedAppointments(
       patient {
         first_name
         last_name
+        timeZone {
+          timeZone
+          id
+        }
       }
       serviceType {
         name
@@ -268,6 +272,10 @@ query getAllRequestedAppointments(
       doctor {
         first_name
         last_name
+        timeZone {
+          timeZone
+          id
+        }
         doctorProfile {
           id
           doctor_id
@@ -440,6 +448,9 @@ query getAppointmentById($id: Int!) {
       id
       first_name
       last_name
+      timeZone{
+        timeZone
+      }
       patientProfile {
         profileImage
       }

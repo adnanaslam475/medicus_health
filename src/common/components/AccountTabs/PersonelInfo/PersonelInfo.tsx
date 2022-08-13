@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Avatar, Button, notification } from "antd";
 // import ReactS3Client from "react-aws-s3-typescript";
 import PersonalInfoList from "../../../../modules/common/components/PersonalInfoList/PersonalInfoList";
 import { PersonalInfoDetail } from "../../../../modules/common/components/PersonalInfoDetail/PersonalInfoDetail";
 import {
+  useGetTimeZonesQuery,
   useGetUserQuery,
   User,
   useUpdateUserProfileMutation,
@@ -42,8 +43,22 @@ const PersonalInfo = () => {
   // UPDATE USER PROFILE
   const [result, updateUserProfile] = useUpdateUserProfileMutation();
   const { error } = result;
+  const [patientTimeZoneId, setPatientTimeZoneId] = useState();
+  const [getTimeZones] = useGetTimeZonesQuery();
+
+  useEffect(() => {
+    if (patientTimeZoneId) {
+      const timeZone = getTimeZones?.data?.getTimeZones.filter(
+        (item) => item.id === patientTimeZoneId
+      )[0]?.timeZone;
+      localStorage.setItem("timeZone", JSON.stringify(timeZone));
+    }
+  }, [patientTimeZoneId]);
 
   const updateUserDetail = async (values: any) => {
+    if (values?.timeZoneId) {
+      setPatientTimeZoneId(values?.timeZoneId);
+    }
     try {
       const res = await updateUserProfile({
         id: id as number,
@@ -69,7 +84,7 @@ const PersonalInfo = () => {
           occupationalExposure: values?.occupationalExposure,
           exposureDuration: values?.exposureDuration,
           pets: values?.pets,
-          timeZoneId:values?.timeZoneId || 86 // 86 is default id for UTC
+          timeZoneId: values?.timeZoneId || 86, // 86 is default id for UTC
         },
       });
 

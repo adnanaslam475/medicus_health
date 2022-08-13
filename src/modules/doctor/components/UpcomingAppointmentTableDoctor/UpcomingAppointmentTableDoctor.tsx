@@ -15,6 +15,8 @@ import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 
+const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+
 const columns = [
   {
     title: "ID#",
@@ -51,19 +53,24 @@ const columns = [
   // },
   {
     title: "Appointment date",
-    dataIndex: "appointmentDateTime",
-    key: "requestedDate",
+    // dataIndex: "appointmentDateTime",
+    // key: "requestedDate",
     sorter: true,
-    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-      let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+    render: (value: any) => {
+      let formatedDueDate = `${
+        value?.appointmentDateTime?.startTime?.split(" ")[0]
+      }`;
       return (
         <div>
-          {appointmentDateTime?.startTime
-            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
+          {value?.appointmentDateTime?.startTime
+            ? `${date?.formatDAYMMDDYY(
+                value?.appointmentDateTime?.startTime,
+                value?.doctor?.timeZone?.timeZone
+              )} `
             : "--"}
         </div>
       );
-    }
+    },
   },
   {
     title: "Appointment time",
@@ -71,16 +78,13 @@ const columns = [
     key: "appointmentDateTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-      let formatedStartTime = `${
-        appointmentDateTime?.startTime?.split(" ")[1]
-      } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
-      let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-        appointmentDateTime?.endTime?.split(" ")[2]
-      }`;
       return (
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${formatedStartTime} - ${formatedEndTime} `
+            ? `${date.formathhmma(
+                appointmentDateTime?.startTime,
+                timeZone
+              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
             : "--"}
         </div>
       );

@@ -34,17 +34,13 @@ function AppointmnetRequestedCard({
   specialization,
 }: Props) {
   const t = useTranslations("AppointmentCards");
-  let formatedDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
-  let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
-    appointmentDateTime?.startTime?.split(" ")[2]
-  }`;
-  let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-    appointmentDateTime?.endTime?.split(" ")[2]
-  }`;
 
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
+
+  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0"> ID# {appointmentId || ""}</span>
@@ -55,12 +51,21 @@ function AppointmnetRequestedCard({
       <span className="text-sm ">Appointment type</span>
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <span className="text-sm mt-6 block">Appointment date</span>
-      <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
+      <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
       <span className="text-sm mt-4 block">Appointment requested time</span>
       <div className="text-secondary">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
-          ? `${formatedDate} - ${formatedStartTime}
-             - ${formatedEndTime}`
+          ? `${date.formatDAYMMDDYY(
+              appointmentDateTime.startTime,
+              timeZone
+            )} - ${date.formathhmma(
+              appointmentDateTime.startTime,
+              timeZone
+            )}
+             - ${date.formathhmma(
+               appointmentDateTime.endTime,
+               timeZone
+             )}`
           : "--"}
       </div>
       <span className="text-sm mt-4 block font-normal">Appointment status</span>

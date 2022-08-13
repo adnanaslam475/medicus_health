@@ -176,6 +176,7 @@ function RequestedAppointment() {
                       doctor,
                       appointmentTimeSlots,
                       appointmentDateTime,
+                      patient
                     } = appointmentDetail || {};
                     var doctorFullName = `${doctor?.first_name} ${doctor?.last_name}`;
                     return (
@@ -196,6 +197,7 @@ function RequestedAppointment() {
                           onViewSuggestedSlots(Number(appointmentDetail?.id))
                         }
                         setShowModal={setShowModal}
+                        patientObject={patient as User}
                       />
                     );
                   })}

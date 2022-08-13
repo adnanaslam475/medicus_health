@@ -55,7 +55,6 @@ const AttachmentDragger = (props: Props) => {
     multiple: true,
     onChange(info: { file: { name?: string; size: number }; fileList: any }) {
       let in10MBLimit = info?.file?.size / 1024 / 1024 < 10;
-      console.log("my onchange", info);
       if (!in10MBLimit) {
         return notification.error({ message: "File must smaller than 10 MB!" });
       }

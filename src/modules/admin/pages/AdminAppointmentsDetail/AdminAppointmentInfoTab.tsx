@@ -37,12 +37,14 @@ function AdminAppointmentInfoTab({ appointment, loading }: Props) {
       patient_id: appointment?.patient?.id,
     },
   };
-  let formatedStartTime = `${
-    appointment?.appointmentDateTime?.startTime?.split(" ")[1]
-  } ${appointment?.appointmentDateTime?.startTime?.split(" ")[2]}`;
-  let formatedEndTime = `${
-    appointment?.appointmentDateTime?.endTime?.split(" ")[1]
-  } ${appointment?.appointmentDateTime?.endTime?.split(" ")[2]}`;
+  let formatedStartTime = date.formathhmma(
+    String(appointment?.appointmentDateTime?.startTime)
+  );
+
+  let formatedEndTime = date.formathhmma(
+    String(appointment?.appointmentDateTime?.endTime)
+  );
+
   const normalizedAppointmentData = {
     id: appointment?.id,
     bookingDate: appointment?.requestedDate,

@@ -245,9 +245,23 @@ function EditProfile({
     localStorage.removeItem("loginTime");
     Router.push("/login");
   };
+
+  const [physicianTimeZoneId, setPhysicianTimeZoneId] = useState();
+
+  useEffect(() => {
+    if (physicianTimeZoneId) {
+      const timeZone = getTimeZones?.data?.getTimeZones.filter(
+        (item) => item.id === physicianTimeZoneId
+      )[0]?.timeZone;
+      localStorage.setItem("timeZone", JSON.stringify(timeZone));
+    }
+  }, [physicianTimeZoneId]);
+
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-
+      if (values?.timeZoneId) {
+        setPhysicianTimeZoneId(values?.timeZoneId);
+      }
     const res = await updateDoctor({
       updateDoctorProfileInput: {
         doctor_id: pathname.includes("/admin/physicians")
