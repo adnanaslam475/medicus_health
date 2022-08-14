@@ -642,13 +642,14 @@ function EditProfile({
             </div>
           </div>
 
-          <div className="w-full pb-10">
+          <div className="w-full pb-10" onKeyDown={(e) => e.preventDefault()}>
             <Form
               form={formInstance}
               name="basic"
               onFinish={onFinish}
               onFinishFailed={onFinishedFailed}
               layout="vertical"
+              scrollToFirstError
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
