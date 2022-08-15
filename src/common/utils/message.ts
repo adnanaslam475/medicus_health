@@ -30,6 +30,10 @@ export function getOppositeParticipantProfileImage(
   const oppositeParticipantProfileImage =
     role === "Doctor" || role === "Staff"
       ? opposite?.patientProfile?.profileImage
-      : opposite?.doctorProfile?.profile_image;
+      : role === "User"
+      ? opposite?.doctorProfile?.profile_image
+      : value?.receiverDetail?.role === "Doctor"
+      ? value?.receiverDetail?.doctorProfile?.profile_image
+      : value?.receiverDetail?.patientProfile?.profileImage;
   return oppositeParticipantProfileImage;
 }
