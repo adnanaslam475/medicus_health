@@ -517,3 +517,12 @@ input[type="number"]::-webkit-outer-spin-button {
   span:first-letter {
   text-transform: uppercase;
 }
+
+.improved-word-spacing {
+  word-spacing: -5px;
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      word-spacing: 0px;
+    }
+  }
+}

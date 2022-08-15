@@ -425,7 +425,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
       <div className="flex justify-center mt-8">
         <p className="text-secondary-1">
-          {t("AlreadyHaveAnAccount")}
+          {t("already_have_an_account")}
           {/* Already have an account? */}
           <Link href="/login">
             <span className="text-primary cursor-pointer"> {t("Login")}</span>
