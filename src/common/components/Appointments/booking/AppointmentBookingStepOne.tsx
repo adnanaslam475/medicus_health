@@ -99,11 +99,10 @@ export const AppointmentBookingStepOne = React.forwardRef(
       Number(doctorId) ||
       Number(stepOneDoctorId);
 
-      const queryDay =
+    const queryDay =
       selectedDay ??
       selectedDateDay ??
       (requestedDate && dayjs(requestedDate).get("day"));
-
     const [{ data: scheduleDetails }, executeUseDoctorSchedulesByDayQuery] =
       useDoctorSchedulesByDayQuery({
         variables: {
@@ -145,6 +144,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
     //   }
     // }, [clear, isShow]);
 
+    useEffect(() => {
+      if (clear) {
+        clearBookingContext?.({});
+        formInstance.resetFields();
+      }
+    }, [clear, isShow]);
+
     function prepareAndSetEditPayload() {
       let consultationCharges =
         rebookData?.charges ||
@@ -178,7 +184,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       );
 
       setServiceInfo(charge as any);
-      formInstance?.resetFields(["requestedDate"]);
+      formInstance?.resetFields(["requestedDate", "selectedDay"]);
       setSelectedDay(9);
     }
 
