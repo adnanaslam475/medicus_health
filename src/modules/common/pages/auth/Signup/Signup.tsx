@@ -72,7 +72,8 @@ function Signup() {
         onOk() {
           submitPersonalInfo();
         },
-
+        okText: "Ok",
+        cancelText: "Cancelar",
         onCancel() {},
       })}
     </div>;
