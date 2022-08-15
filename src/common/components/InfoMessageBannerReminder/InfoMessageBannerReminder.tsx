@@ -61,6 +61,7 @@ const InfoMessageBannerReminder = () => {
       ? patient_first_name
       : ` ${patient_first_name}`
   }`;
+  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
@@ -90,10 +91,10 @@ const InfoMessageBannerReminder = () => {
           {/* {`${date?.formathhmma(selectedTime?.startTime)} -  ${date?.formathhmma(
           selectedTime?.endTime
         )}`} */}
-          {`${date?.formathhmma(selectedTime?.startTime)}`}
+          {`${date?.formathhmma(selectedTime?.startTime,timeZone)}`}
         </span>
         <span className="md:whitespace-nowrap">
-          on {date?.formatDAYMMDD(selectedTime?.startTime)}
+          on {date?.formatDAYMMDD(selectedTime?.startTime,timeZone)}
         </span>
       </div>
 
