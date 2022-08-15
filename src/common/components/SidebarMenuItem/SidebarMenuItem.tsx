@@ -146,11 +146,11 @@ function SidebarMenuItem() {
   });
   const { getAllChatChannels } = msgCountsData || {};
 
-  // const msgCount = getAllChatChannels?.reduce((total, currentValue) => {
-
-  // });;
-
-  // console.log("msgCountsData", msgCount);
+  const msgCount = getAllChatChannels
+    ?.map((channel) => channel.unReadMessagesCount?.channelMessagesCount)
+    .reduce((total, currentValue) => {
+      return (total || 0) + (currentValue || 0);
+    });
 
   return (
     <div className={`${_classes["side-menu-cover"]} w-full`}>
@@ -240,7 +240,7 @@ function SidebarMenuItem() {
                   // </Badge>
                   <Link passHref href={el.route}>
                     <Badge
-                      count={100}
+                      count={msgCount}
                       className={_classes["side-bar-submenu-count"]}
                     >
                       <>{el.name}</>
@@ -317,7 +317,7 @@ function SidebarMenuItem() {
                 {el.id == "5" ? (
                   <Link passHref href={el.route}>
                     <Badge
-                      count={100}
+                      count={msgCount}
                       className={_classes["side-bar-submenu-count"]}
                     >
                       <>{el.name}</>
@@ -380,7 +380,7 @@ function SidebarMenuItem() {
                       key={el2.route}
                       className={_classes["side-bar-submenu-item"]}
                     >
-                      {el.id == "1" || el.id == "2" ? (
+                      {el.id === "1" ? (
                         <Link passHref href={el2.route}>
                           <Badge
                             dot={dot}
@@ -410,7 +410,7 @@ function SidebarMenuItem() {
                 {el.id == "5" ? (
                   <Link passHref href={el.route}>
                     <Badge
-                      count={100}
+                      count={msgCount}
                       className={_classes["side-bar-submenu-count"]}
                     >
                       <>{el.name}</>
@@ -501,7 +501,7 @@ function SidebarMenuItem() {
                 {el.id == "3" ? (
                   <Link passHref href={el.route}>
                     <Badge
-                      count={100}
+                      count={msgCount}
                       className={_classes["side-bar-submenu-count"]}
                     >
                       <>{el.name}</>

@@ -28,6 +28,13 @@
       right: 0px;
       top: 5px;
     }
+
+    :global
+      sup.ant-scroll-number.ant-badge-count
+      span.ant-scroll-number-only
+      .ant-scroll-number-only-unit {
+      color: #fff !important;
+    }
   }
 
   .red-dot {
@@ -161,6 +168,23 @@
       }
       &:after {
         display: none !important;
+      }
+    }
+  }
+}
+
+.side-menu-cover {
+  :global
+    ul.ant-menu.ant-menu-root
+    > li
+    + li.ant-menu-submenu.ant-menu-submenu-inline.side-bar-submenu-item {
+    :global .ant-menu-submenu-title {
+      :global .ant-menu-title-content {
+        .relative {
+          .red-dot {
+            display: none;
+          }
+        }
       }
     }
   }
