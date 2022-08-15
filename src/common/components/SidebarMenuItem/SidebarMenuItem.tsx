@@ -154,7 +154,6 @@ function SidebarMenuItem() {
         .reduce((total, currentValue, index, arr) => {
           return (total || 0) + (currentValue || 0);
         });
-      console.log("msgCountfinal-sabih", msgCountfinal);
       setMsgCount(msgCountfinal);
     } else {
       setMsgCount(0);
