@@ -163,19 +163,17 @@ export function translationJson(local: string) {
           account: "Don't have an account?",
           signup_modal_skip_questionaire_message:
             "Note, these questions need to be answered before requesting an appointment with a physician. You can skip for now and complete later.",
-          timezone:"Timezone"
+          timezone: "Timezone",
         },
         HealthQuestionary: {
           ...englishCommon,
-          skip_for_now_and_complete_later:
-            "Skip for now and complete later",
+          skip_for_now_and_complete_later: "Skip for now and complete later",
           please_pick_an_option: "Please pick an option!",
           please_fill_field: "Please fill field",
         },
         Questionnary: {
           ...englishCommon,
-          skip_for_now_and_complete_later:
-            "Skip for now and complete later",
+          skip_for_now_and_complete_later: "Skip for now and complete later",
         },
 
         UpcomingAppointments: {
@@ -237,7 +235,8 @@ export function translationJson(local: string) {
           i_agree_to_the: "I agree to the ",
           terms_n_conditions: " Terms & conditions",
           next: "Next",
-          timezone:"Time zone"
+          timezone: "Time zone",
+          time_zone_is_required: "Time zone is required",
         },
       };
 

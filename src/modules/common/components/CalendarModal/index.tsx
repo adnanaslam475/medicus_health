@@ -75,15 +75,15 @@ function CalendarModalComponent(props: Props) {
           {date.formatDAYMMDDYY(selectedAppointment?.startTime || dateValue)}
         </h4>
       </div>
-
-      <div className="border-b pb-0 pt-2">
+      {/* removed ref ticket # 2405*/}
+      {/* <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">Appointment time</p>
         <h4 className="text-xl">{`${date.formathhmma(
           selectedAppointment?.startTime || dateValue
         )}  -  ${date.formathhmma(
           selectedAppointment?.endTime || dateValue
         )}`}</h4>
-      </div>
+      </div> */}
 
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">Total amount</p>

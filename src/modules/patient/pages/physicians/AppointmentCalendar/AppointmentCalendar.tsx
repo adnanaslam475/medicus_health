@@ -52,7 +52,6 @@ function AppointmentCalendar() {
 
     setModalVisible(true);
   };
-  console.log("datadata far", data);
   const closeModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -69,6 +68,7 @@ function AppointmentCalendar() {
           serviceType,
           charges,
           appointmentTimeSlots,
+          transaction
         }) => ({
           id: id,
           title:
@@ -81,7 +81,7 @@ function AppointmentCalendar() {
             ?.startTime,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
-          charges: charges,
+          charges: transaction?.amountReceived || charges,
           appointmentTimeSlots:appointmentTimeSlots
         })
       ),
