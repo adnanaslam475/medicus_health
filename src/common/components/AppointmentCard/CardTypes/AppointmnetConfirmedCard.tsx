@@ -50,16 +50,20 @@ function AppointmnetConfirmedCard({
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
       <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-      <span className="text-primary text-base block mb-4 normal-case ">
+      <span className="text-primary text-base block mb-4 normal-case improved-word-spacing">
         {specialization}
       </span>
-      <span className="text-sm ">Appointment type</span>
-      <div className="text-sm text-gray mb-3">{serviceType}</div>
-      <span className="text-sm pt-5">Appointment date</span>
+      <span className="text-sm improved-word-spacing">Appointment type</span>
+      <div className="text-sm text-gray mb-3 improved-word-spacing">
+        {serviceType}
+      </div>
+      <span className="text-sm pt-5 improved-word-spacing">
+        Appointment date
+      </span>
       <h6 className="mb-4">
         {date.formatDAYMMDDYY(selectedAppointment?.startTime, timeZone)}
       </h6>
-      <span className="text-sm">Appointment time</span>
+      <span className="text-sm improved-word-spacing">Appointment time</span>
       {!selectedAppointment ? (
         <div className="text-cyan font-semibold mb-4">{" - "}</div>
       ) : (
@@ -69,7 +73,7 @@ function AppointmnetConfirmedCard({
         )} - ${date.formathhmma(selectedAppointment?.endTime, timeZone)}`}</div>
       )}
       <div className="text-sm">Appointment Status</div>
-      <span className="text-base text-primary font-bold ">{status}</span>
+      <span className="text-base text-primary font-bold">{status}</span>
 
       <div className="flex mt-4">
         <Link passHref href={`/patient/appointments/${appointmentId}/call`}>

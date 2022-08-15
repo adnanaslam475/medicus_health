@@ -58,7 +58,6 @@ function SearchFilters(props: Props) {
     setClearFilter,
     setStatusFilter,
   } = props;
-  console.log(isFromPhysician, "Dsas");
   const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
     string | null
   >();

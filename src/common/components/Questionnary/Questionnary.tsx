@@ -66,8 +66,8 @@ const HealthQuestionnary = ({
           block
           onClick={skipHealthQues}
         >
-          {/* Skip This For Now & Fill This Later */}
           {t("skip_for_now_and_complete_later")}
+          {/* Skip for now and complete later */}
         </Button>
       )}
 
@@ -146,10 +146,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   }, [data]);
 
   useEffect(() => {
-    if (
-      getRole() === "Doctor" ||
-      getRole() === "Admin" 
-    ) {
+    if (getRole() === "Doctor" || getRole() === "Admin") {
       setDisabled(true);
     } else {
       setDisabled(false);
