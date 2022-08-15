@@ -139,18 +139,31 @@ function SidebarMenuItem() {
   ]);
 
   // API FOR MESSAGES COUNT
-  // const [searchString, setChatSearch] = React.useState<string>("");
 
   const [{ data: msgCountsData }] = useGetUnreadMessageCountQuery({
     variables: { filter: { searchString: "" } },
+    requestPolicy: "network-only",
   });
+  console.log("msgCountsData", msgCountsData);
   const { getAllChatChannels } = msgCountsData || {};
+  const [msgCount, setMsgCount] = React.useState<number | undefined>(0);
+  useEffect(() => {
+    if (getAllChatChannels?.length !== 0) {
+      const msgCountfinal = getAllChatChannels
+        ?.map((channel) => channel.unReadMessagesCount?.channelMessagesCount)
+        .reduce((total, currentValue, index, arr) => {
+          return (total || 0) + (currentValue || 0);
+        });
+      console.log("msgCountfinal-sabih", msgCountfinal);
+      setMsgCount(msgCountfinal);
+    } else {
+      setMsgCount(0);
+    }
 
-  const msgCount = getAllChatChannels
-    ?.map((channel) => channel.unReadMessagesCount?.channelMessagesCount)
-    .reduce((total, currentValue) => {
-      return (total || 0) + (currentValue || 0);
-    });
+    // return () => {
+    //   setMsgCount;
+    // };
+  }, [msgCount, setMsgCount, getAllChatChannels]);
 
   return (
     <div className={`${_classes["side-menu-cover"]} w-full`}>
