@@ -31,7 +31,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const { message, messageType, createdAt } = lastMessage || {};
 
   // Set User time zone
-  date?.setTimeZone(String(userTimeZone));
+  date?.setTimeZone(userTimeZone ? String(userTimeZone) : "America/New_York");
   const messageDateTime = date?.getDateAndTimeWRTTZ(
     createdAt,
     "MM/DD/YY,h:mma"
@@ -56,6 +56,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     thread,
     user?.role as string
   );
+
 
   const firstName = opposite?.role !== "Doctor" ? opposite?.first_name : "";
 
