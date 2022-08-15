@@ -11,6 +11,41 @@
       }
     }
   }
+
+  .side-bar-submenu-count {
+    position: relative;
+    width: 85%;
+    display: inline-block;
+
+    :global .ant-badge-count {
+      position: absolute;
+      right: 0;
+      top: 5px;
+    }
+
+    :global .ant-badge-dot {
+      position: absolute;
+      right: 0px;
+      top: 5px;
+    }
+
+    :global
+      sup.ant-scroll-number.ant-badge-count
+      span.ant-scroll-number-only
+      .ant-scroll-number-only-unit {
+      color: #fff !important;
+    }
+  }
+
+  .red-dot {
+    width: 6px;
+    height: 6px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 18px;
+  }
 }
 
 .side-menu-cover {
@@ -133,6 +168,23 @@
       }
       &:after {
         display: none !important;
+      }
+    }
+  }
+}
+
+.side-menu-cover {
+  :global
+    ul.ant-menu.ant-menu-root
+    > li
+    + li.ant-menu-submenu.ant-menu-submenu-inline.side-bar-submenu-item {
+    :global .ant-menu-submenu-title {
+      :global .ant-menu-title-content {
+        .relative {
+          .red-dot {
+            display: none;
+          }
+        }
       }
     }
   }

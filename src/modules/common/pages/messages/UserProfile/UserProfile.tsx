@@ -9,6 +9,7 @@ import loaderLogo from "./../../../../../../public/assets/images/loaderLogo.png"
 import { getUserData } from "common/utils/userData";
 import { date, messageUtils } from "common/utils";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
+import { Badge } from "antd";
 
 type Props = {
   thread: ChatChannels;
@@ -31,7 +32,8 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const { message, messageType, createdAt } = lastMessage || {};
 
   // Set User time zone
-  date?.setTimeZone(String(userTimeZone));
+
+  date?.setTimeZone(userTimeZone ? String(userTimeZone) : "America/New_York");
   const messageDateTime = date?.getDateAndTimeWRTTZ(
     createdAt,
     "MM/DD/YY,h:mma"
@@ -118,6 +120,8 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
               ? message
               : "no message available"}
           </span>
+          <Badge count={100} className="new-msg-count relative"></Badge>
+
           {/* <span className="rounded-lg bg-red px-2 py-0 text-white">3</span> */}
         </div>
       </div>

@@ -47,6 +47,7 @@
     "postal_code_message": "Please enter your postal code",
     "next": "Next",
     "prefer_not_to_answer": "Prefer not to answer",
-    "timezone": "Timezone"
+    "timezone": "Timezone",
+    "time_zone_is_required": "Time zone is required"
   }
 }

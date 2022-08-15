@@ -165,12 +165,14 @@ export function translationJson(local: string) {
         },
         HealthQuestionary: {
           ...englishCommon,
+
           skip_for_now_and_complete_later: "Completa más tarde",
           please_pick_an_option: "Please pick an option!",
           please_fill_field: "Please fill field",
         },
         Questionnary: {
           ...englishCommon,
+
           skip_for_now_and_complete_later: "Completa más tarde",
         },
 
@@ -234,6 +236,7 @@ export function translationJson(local: string) {
           // terms_n_conditions: " Terms & conditions",
           next: "Next",
           timezone: "Time zone",
+          time_zone_is_required: "Time zone is required",
         },
       };
 

@@ -56,8 +56,8 @@ const PersonalInfo = () => {
   }, [patientTimeZoneId]);
 
   const updateUserDetail = async (values: any) => {
-    if (values?.timeZoneId) {
-      setPatientTimeZoneId(values?.timeZoneId);
+    if (values?.timeZone) {
+      setPatientTimeZoneId(values?.timeZone);
     }
     try {
       const res = await updateUserProfile({
@@ -84,7 +84,7 @@ const PersonalInfo = () => {
           occupationalExposure: values?.occupationalExposure,
           exposureDuration: values?.exposureDuration,
           pets: values?.pets,
-          timeZoneId: values?.timeZoneId || 86, // 86 is default id for UTC
+          timeZoneId: values?.timeZone || 86, // 86 is default id for UTC
         },
       });
 

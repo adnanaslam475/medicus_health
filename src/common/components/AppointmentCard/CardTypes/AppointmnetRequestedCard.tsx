@@ -39,7 +39,7 @@ function AppointmnetRequestedCard({
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
-  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
   return (
     <Card className={`${_classes["appointment-card"]}`}>

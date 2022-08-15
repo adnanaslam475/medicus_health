@@ -126,7 +126,6 @@ function StaffListing() {
     setSorting({ column: "", order: "" });
     setFilterValues({
       ...values,
-      status: values?.status === "true" ? true : false,
       doctorId: doctorId,
     });
     executeUseStaffQuery({

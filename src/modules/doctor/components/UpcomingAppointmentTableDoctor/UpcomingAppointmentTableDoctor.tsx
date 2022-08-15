@@ -15,7 +15,7 @@ import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 
-const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+const timeZone =typeof window !== "undefined" &&  JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
 const columns = [
   {

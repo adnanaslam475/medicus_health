@@ -40,9 +40,6 @@ function StaffAppointmentsFilter({ onChange }: Props) {
 		if (!filters.searchString) {
 			delete filters.searchString;
 		}
-		if (!filters.status) {
-			delete filters.status;
-		}
 		onChange(filters);
 	}
 
@@ -91,10 +88,11 @@ function StaffAppointmentsFilter({ onChange }: Props) {
 					<Select
 						placeholder="Status"
 						className="w-full sm:w-60"
-						onChange={(value) => onChangeFields("status", value as string)}
+						onChange={(value) => onChangeFields("status", value as Object)}
+						value={filterState.status}
 					>
-						<Option value="true">Enable</Option>
-						<Option value="false">Disabled</Option>
+						<Option value={true}>Enable</Option>
+						<Option value={false}>Disabled</Option>
 					</Select>
 				</div>
 				<FilterClearButton onClear={clear} />
