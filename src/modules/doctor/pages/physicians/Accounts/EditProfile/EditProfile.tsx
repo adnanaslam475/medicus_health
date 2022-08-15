@@ -215,7 +215,7 @@ function EditProfile({
       firstName: doctor_first_name,
       lastName: doctor_last_name,
       specialization: specialization || "",
-      year_of_experience: Number.parseFloat(year_of_experience || ""),
+      year_of_experience: Number?.parseFloat(year_of_experience || ""),
       streetAddress: street_address,
       city_id: city_id || "",
       country_id: country_id || "",
@@ -765,7 +765,6 @@ function EditProfile({
                 >
                   <Input
                     type="number"
-                    onPressEnter={(e) => e.preventDefault()}
                   />
                 </Form.Item>
               </div>
