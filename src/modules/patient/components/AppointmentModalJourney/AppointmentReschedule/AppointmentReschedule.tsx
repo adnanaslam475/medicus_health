@@ -59,7 +59,7 @@ function AppointmentReschedule(props: Props) {
   let formatedDoctorName = `${
     doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`
   }`;
-  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+  const timeZone =typeof window !== "undefined" &&  JSON.parse(String(localStorage?.getItem("timeZone")) || "");
   return (
     <div>
       <h2>Appointment schedule</h2>
@@ -114,7 +114,7 @@ function AppointmentReschedule(props: Props) {
                       {date.formatDAYMMDDYY(item.startTime,timeZone)}
                     </span>
                     <span className="block">{`${date.formathhmma(
-                      item.startTime
+                      item.startTime,timeZone
                     )} - ${date.formathhmma(item.endTime,timeZone)}`}</span>
                   </div>
                 </Radio>

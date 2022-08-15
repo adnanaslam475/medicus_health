@@ -46,20 +46,20 @@ export const englishCommon: any = {
   postal_code: "Postal code",
   postal_code_message: "Please enter your postal code",
   postal_code_is_required: "Postal code is required.",
-  i_agree_to_the: "I agree to the ",
-  terms_n_conditions: " Terms & conditions",
-  next: "Next",
+  i_agree_to_the: "Acepto los",
+  terms_n_conditions: " términos y condiciones",
+  next: "Siguiente",
   // update: "Update",
   update: "Actualizar",
-  complete: "Complete",
-  back: "Back",
+  complete: "Completado",
+  back: "Atrás",
   please_fill: "Please fill",
 
   remember: "Remember me",
 
   forgot_pass: "Forgot password",
   forgot_pass_message: "Have you forgotten your password",
-  login: "Login",
+  login: "Inicio de sesión",
   account: "You do not have an account?",
   register: "Register",
 
@@ -263,16 +263,16 @@ export const spanishCommon: any = {
   postal_code_is_required: "Se requiere código postal.",
   i_agree_to_the: "Estoy de acuerdo con la ",
   terms_n_conditions: " Términos y condiciones",
-  next: "Próximo",
+  next: "Siguiente",
   update: "Actualizar",
-  complete: "Completo",
-  back: "atrás",
+  complete: "Completado",
+  back: "Atrás",
   please_fill: "Porfavor llene",
 
   remember: "Acuérdate de mí",
   forgot_pass: "¿Has olvidado tu contraseña?",
   forgot_pass_message: "Has olvidado tu contraseña",
-  login: "Acceso",
+  login: "Inicio de sesión",
   account: "¿No tiene una cuenta?",
   register: "Regístrese en",
   email: "Dirección de correo electrónico",
@@ -428,4 +428,3 @@ export const spanishCommon: any = {
 };
 
 // asddsasd
-//

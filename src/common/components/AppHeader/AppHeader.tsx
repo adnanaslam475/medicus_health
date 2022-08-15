@@ -14,8 +14,6 @@ import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 
 const { Header } = Layout;
 
-
-
 const AppHeader = () => {
   //Get logged in User
   const { user: loggedInUser } = getUserData();
@@ -38,6 +36,7 @@ const AppHeader = () => {
     Router.push("/login");
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("timeZone");
+    localStorage.removeItem("appointmentsAlertData");
     // localStorage.clear();
     setVisible(false);
   };
@@ -122,7 +121,9 @@ const AppHeader = () => {
           <Skeleton loading={fetching} paragraph={{ rows: 0 }} active>
             <div className="hidden md:block w-full ">
               <div className="p-0">
-                {getRole() === "Doctor" || getRole() === "Staff"? <InfoMessageBannerReminder /> : null}
+                {getRole() === "Doctor" || getRole() === "Staff" ? (
+                  <InfoMessageBannerReminder />
+                ) : null}
               </div>
 
               {/* if patient health questionnaire completed than showing appointment banner 

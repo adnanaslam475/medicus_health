@@ -215,7 +215,7 @@ function EditProfile({
       firstName: doctor_first_name,
       lastName: doctor_last_name,
       specialization: specialization || "",
-      year_of_experience: year_of_experience || "",
+      year_of_experience: Number?.parseFloat(year_of_experience || ""),
       streetAddress: street_address,
       city_id: city_id || "",
       country_id: country_id || "",
@@ -227,6 +227,7 @@ function EditProfile({
       confirmPassword: "",
       about_me: about_me,
       language: language,
+      // timeZoneId: timeZone?.timeZone,
       timeZone: timeZone?.id,
     });
   }
@@ -243,6 +244,7 @@ function EditProfile({
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("loginTime");
+    localStorage.removeItem("appointmentsAlertData");
     Router.push("/login");
   };
 
@@ -259,9 +261,9 @@ function EditProfile({
 
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-    if (values?.timeZoneId) {
-      setPhysicianTimeZoneId(values?.timeZoneId);
-    }
+      if (values?.timeZone) {
+        setPhysicianTimeZoneId(values?.timeZone);
+      }
     const res = await updateDoctor({
       updateDoctorProfileInput: {
         doctor_id: pathname.includes("/admin/physicians")
@@ -297,6 +299,7 @@ function EditProfile({
         awards_honors_recognition: honorsList?.map((item) => ({
           awards_honors_and_recognition: item?.awards_honors_and_recognition,
         })),
+        // timeZoneId: values?.timeZoneId,
         timeZoneId: values?.timeZone,
       },
     });
@@ -649,6 +652,7 @@ function EditProfile({
               onFinish={onFinish}
               onFinishFailed={onFinishedFailed}
               layout="vertical"
+              scrollToFirstError
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
@@ -761,7 +765,6 @@ function EditProfile({
                 >
                   <Input
                     type="number"
-                    onPressEnter={(e) => e.preventDefault()}
                   />
                 </Form.Item>
               </div>

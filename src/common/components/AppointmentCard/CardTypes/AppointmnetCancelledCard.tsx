@@ -70,7 +70,7 @@ function AppointmnetCancelledCard({
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
-  const timeZone = JSON.parse(String(localStorage?.getItem("timeZone")));
+  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
   let formatedStartTime = date.formathhmma(
     String(appointmentDetail?.appointmentDateTime?.startTime),

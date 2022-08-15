@@ -170,10 +170,11 @@ function Signup() {
                 />
               </div>
               <h1 className="text-center text-secondary mb-3">
-                {t("createAccount")}
+                {/* {t("createAccount")} */}
+                Crea tu perfil
               </h1>
               <div className="text-center text-gray font-rubik font-normal text-sm">
-                {t("createYourAccountToStart")}
+                {/* {t("createYourAccountToStart")} */}
               </div>
               <div className={`${_classes["signupTabs"]} mt-5`}>
                 <Tabs

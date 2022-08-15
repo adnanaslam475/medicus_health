@@ -38,7 +38,7 @@ function StaffDetailsFrom({
       layout="vertical"
     >
       <h1>
-        {staffDetail?.first_name} {staffDetail?.last_name}
+        {staffDetail?.first_name} {staffDetail?.last_name?.toLocaleLowerCase()}
       </h1>
       <p>{staffDetail?.email}</p>
       <div

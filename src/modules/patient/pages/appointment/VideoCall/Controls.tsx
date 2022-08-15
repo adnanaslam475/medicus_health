@@ -42,7 +42,8 @@ function Controls(props: Props) {
     client.removeAllListeners();
     tracks[0].close();
     tracks[1].close();
-    Router.back();
+    // Router.back();
+    Router.push("/patient/appointments/upcoming");
   };
 
   useEffect(() => {

@@ -8,6 +8,7 @@ import {
 import CalendarModalComponent from "../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
 import Router from "next/router";
+import { date } from "common/utils";
 
 type events = {
   calenderEvents: Appointment | undefined | Array<object>;
@@ -16,7 +17,7 @@ function DoctorCalendar() {
   const redirectToUpcoming = function () {
     Router.push("/physician/appointments/upcoming");
   };
-
+  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
   const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
     calenderEvents: [],
@@ -45,7 +46,8 @@ function DoctorCalendar() {
       dateValue: selectedTimeSlot?.startTime || data.start,
       className: data?.extendedProps?.extraData?.class_name,
       startDate:
-        selectedTimeSlot?.startTime || data?.extendedProps?.extraData?.start,
+        date.formatDAYMMDDYY(selectedTimeSlot?.startTime,timeZone) ||
+        date.formatDAYMMDDYY(data?.extendedProps?.extraData?.start,timeZone),
       endDate: selectedTimeSlot?.endTime || data?.extendedProps?.extraData?.end,
       status: data?.extendedProps?.status,
       charges: data?.extendedProps?.charges,
@@ -123,6 +125,7 @@ function DoctorCalendar() {
             handleDateClick={handleDateClick}
             redirectToListing={redirectToUpcoming}
             enableButton={false}
+            isPhysicianCalendar={true}
           />
         </div>
         <CalendarModalComponent
