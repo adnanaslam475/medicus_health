@@ -106,6 +106,8 @@ export const ViewProfile = React.forwardRef(function Profile({
     });
   }
 
+  let lastNameFormated = last_name?.toLocaleLowerCase();
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -127,7 +129,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 active
               >
                 <h2 className="mb-0">
-                  {`${first_name || " "} ${last_name || " "}`}
+                  {`${first_name || " "} ${lastNameFormated || " "}`}
                 </h2>
               </Skeleton>
               <span className="block">{email}</span>

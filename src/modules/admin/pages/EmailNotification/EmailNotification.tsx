@@ -35,7 +35,7 @@ function EmailNotificationPage() {
         />
         <div>
           <span>PY-123</span>
-          <h2 className="mb-0  sm:text-base text-lg">Maxime Bauwents</h2>
+          <h2 className="mb-0  sm:text-base text-lg">Maxime bauwents</h2>
           <span className="block">usama@gmail.com</span>
         </div>
       </div>
