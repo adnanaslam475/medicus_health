@@ -59,6 +59,7 @@
     "terms_n_conditions": "Términos y condiciones",
     "next": "Próximo",
     "prefer_not_to_answer": "Prefiero no responder",
-    "timezone":"Timezone"
+    "timezone": "Timezone",
+    "time_zone_is_required": "Se requiere zona horaria"
   }
 }

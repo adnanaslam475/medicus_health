@@ -114,7 +114,7 @@ function AppointmentReschedule(props: Props) {
                       {date.formatDAYMMDDYY(item.startTime,timeZone)}
                     </span>
                     <span className="block">{`${date.formathhmma(
-                      item.startTime
+                      item.startTime,timeZone
                     )} - ${date.formathhmma(item.endTime,timeZone)}`}</span>
                   </div>
                 </Radio>

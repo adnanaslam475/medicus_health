@@ -261,9 +261,9 @@ function EditProfile({
 
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-    if (values?.timeZoneId) {
-      setPhysicianTimeZoneId(values?.timeZoneId);
-    }
+      if (values?.timeZone) {
+        setPhysicianTimeZoneId(values?.timeZone);
+      }
     const res = await updateDoctor({
       updateDoctorProfileInput: {
         doctor_id: pathname.includes("/admin/physicians")
