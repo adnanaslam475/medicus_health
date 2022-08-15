@@ -142,6 +142,7 @@ function SidebarMenuItem() {
 
   const [{ data: msgCountsData }] = useGetUnreadMessageCountQuery({
     variables: { filter: { searchString: "" } },
+    requestPolicy: "network-only",
   });
   console.log("msgCountsData", msgCountsData);
   const { getAllChatChannels } = msgCountsData || {};
