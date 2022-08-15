@@ -131,7 +131,7 @@ function EditProfile({
     contact_number,
     status,
     doctorProfile,
-    timeZone = 86
+    timeZone = 86,
   } = doctorData?.user || {};
 
   const {
@@ -227,7 +227,7 @@ function EditProfile({
       confirmPassword: "",
       about_me: about_me,
       language: language,
-      timeZone:timeZone?.id
+      timeZone: timeZone?.id,
     });
   }
 
@@ -259,9 +259,9 @@ function EditProfile({
 
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-      if (values?.timeZoneId) {
-        setPhysicianTimeZoneId(values?.timeZoneId);
-      }
+    if (values?.timeZoneId) {
+      setPhysicianTimeZoneId(values?.timeZoneId);
+    }
     const res = await updateDoctor({
       updateDoctorProfileInput: {
         doctor_id: pathname.includes("/admin/physicians")
@@ -297,7 +297,7 @@ function EditProfile({
         awards_honors_recognition: honorsList?.map((item) => ({
           awards_honors_and_recognition: item?.awards_honors_and_recognition,
         })),
-        timeZoneId:values?.timeZone 
+        timeZoneId: values?.timeZone,
       },
     });
 
@@ -660,7 +660,10 @@ function EditProfile({
                   ]}
                   className="flex-1"
                 >
-                  <Input autoFocus={true} />
+                  <Input
+                    autoFocus={true}
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
                 <Form.Item
                   label="Last name"
@@ -668,7 +671,7 @@ function EditProfile({
                   rules={[{ required: true, message: "Last name is required" }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input onPressEnter={(e) => e.preventDefault()} />
                 </Form.Item>
               </div>
 
@@ -679,7 +682,7 @@ function EditProfile({
                   rules={[{ type: "email" }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input onPressEnter={(e) => e.preventDefault()} />
                 </Form.Item>
                 <Form.Item
                   name="contact"
@@ -693,7 +696,11 @@ function EditProfile({
                   ]}
                   className="flex-1"
                 >
-                  <Input type="number" autoComplete="new-password" />
+                  <Input
+                    type="number"
+                    autoComplete="new-password"
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
@@ -703,7 +710,10 @@ function EditProfile({
                   className="flex-1"
                   dependencies={["password"]}
                 >
-                  <Input.Password autoComplete="new-password" />
+                  <Input.Password
+                    autoComplete="new-password"
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
 
                 <Form.Item
@@ -730,7 +740,10 @@ function EditProfile({
                     }),
                   ]}
                 >
-                  <Input.Password autoComplete="new-password" />
+                  <Input.Password
+                    autoComplete="new-password"
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
               </div>
 
@@ -740,14 +753,17 @@ function EditProfile({
                   name="specialization"
                   className="flex-1"
                 >
-                  <Input />
+                  <Input onPressEnter={(e) => e.preventDefault()} />
                 </Form.Item>
                 <Form.Item
                   label="Years of experience"
                   name="year_of_experience"
                   className="flex-1"
                 >
-                  <Input type="number" />
+                  <Input
+                    type="number"
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row sm:gap-3">
@@ -763,7 +779,7 @@ function EditProfile({
                     },
                   ]}
                 >
-                  <Input />
+                  <Input onPressEnter={(e) => e.preventDefault()} />
                 </Form.Item>
                 <Form.Item
                   className="flex-1"
@@ -866,7 +882,10 @@ function EditProfile({
                     },
                   ]}
                 >
-                  <Input autoComplete="new-password" />
+                  <Input
+                    autoComplete="new-password"
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
                 <Form.Item
                   className="flex-1"
@@ -995,6 +1014,7 @@ function EditProfile({
                           name={`certification_and_licensure`}
                           value={certificate?.certification_and_licensure}
                           onChange={(e) => handleCertificationChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       {certificationList?.length - 1 === index && (
@@ -1037,6 +1057,7 @@ function EditProfile({
                           name={`institution`}
                           value={clinic?.institution}
                           onChange={(e) => handleClinicChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       <Form.Item
@@ -1048,6 +1069,7 @@ function EditProfile({
                           value={clinic?.role}
                           name={`role`}
                           onChange={(e) => handleClinicChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
@@ -1091,6 +1113,7 @@ function EditProfile({
                           name={`institution`}
                           value={education?.institution}
                           onChange={(e) => handleEducationChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       <Form.Item
@@ -1107,6 +1130,7 @@ function EditProfile({
                           name={`degree`}
                           value={education?.degree}
                           onChange={(e) => handleEducationChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       {educationList?.length - 1 === index && (
@@ -1141,6 +1165,7 @@ function EditProfile({
                           name={`awards_honors_and_recognition`}
                           value={honor?.awards_honors_and_recognition}
                           onChange={(e) => handleHonorsChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       {honorsList?.length - 1 === index && (
@@ -1188,7 +1213,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of oklahoma college of medicine" />
+                    <Input
+                      value="University of oklahoma college of medicine"
+                      onPressEnter={(e) => e.preventDefault()}
+                    />
                   </Form.Item>
                   <div className="flex flex-col sm:flex-row  sm:gap-3">
                     <Form.Item
@@ -1197,7 +1225,9 @@ function EditProfile({
                       // rules={[{ required: true, message: "Password" }]}
                       className="flex-1"
                     >
-                      <Input.Password />
+                      <Input.Password
+                        onPressEnter={(e) => e.preventDefault()}
+                      />
                     </Form.Item>
 
                     <Form.Item
@@ -1206,7 +1236,9 @@ function EditProfile({
                       // rules={[{ required: true, message: "Confirm password!" }]}
                       className="flex-1"
                     >
-                      <Input.Password />
+                      <Input.Password
+                        onPressEnter={(e) => e.preventDefault()}
+                      />
                     </Form.Item>
                   </div>
                 </div>
