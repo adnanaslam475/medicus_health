@@ -66,6 +66,7 @@ function AuthProvider({ children }: any) {
       "/signup",
       "/forgotPassword",
       "/user/confirm",
+      "/user/setPassword",
       "/user/resetPassword",
       "/admin/physicians/setPassword",
       "/successScreen",

@@ -80,11 +80,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     }
     if (user) {
       prepareAndSetEditPayload();
-      setradioChildren(
-        children === 0 || children === undefined || children === null
-          ? false
-          : true
-      );
+      // setradioChildren(
+      //   children === 0 || children === undefined || children === null
+      //     ? false
+      //     : true
+      // );
     }
   }, [user]);
   function prepareAndSetEditPayload() {
@@ -203,12 +203,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 >
                   <Form.Item className="bottom-margin-0" name="gender">
                     <Select placeholder="Género" size="large">
-                      <Select.Option value="male">Masculino</Select.Option>
-                      <Select.Option value="female">
+                      <Select.Option value="Masculino">Masculino</Select.Option>
+                      <Select.Option value="Femenina">
                         {/* {t("female")} */}
                         Femenina
                       </Select.Option>
-                      <Select.Option value="prefer not to answer">
+                      <Select.Option value="Prefiero no responder">
                         {/* {t("prefer_not_to_answer")} */}
                         Prefiero no responder
                       </Select.Option>
@@ -469,18 +469,18 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   <Form.Item className="mb-0">
                     <Form.Item className="mb-0" name="maritalStatus">
                       <Select placeholder="{Estado civil" size="large">
-                        <Select.Option value="Single">
+                        <Select.Option value="Único/Única">
                           Único/Única
                         </Select.Option>
-                        <Select.Option value="Married">
+                        <Select.Option value="Casado">
                           Casado
                           {/* {t("married")} */}
                         </Select.Option>
-                        <Select.Option value="Widower">
+                        <Select.Option value="Viudo/a">
                           {/* {t("widow")} */}
                           Viudo/a
                         </Select.Option>
-                        <Select.Option value="Divorced">
+                        <Select.Option value="Divorciado/a">
                           {/* {t("divorce")} */}
                           Divorciado/a
                         </Select.Option>
@@ -582,15 +582,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         placeholder="¿Duración de la exposición ocupacional?"
                         size="large"
                       >
-                        <Select.Option value="Less than a year (<1)">
+                        <Select.Option value=" Menos de un año (<1)">
                           {/* {t("less_than_a_year")} */}
                           Menos de un año
                         </Select.Option>
-                        <Select.Option value="More than a year (1+)">
+                        <Select.Option value="Más de un año (1+)">
                           {/* {t("more_than_a_year_1")} */}
                           Más de un año (1+)
                         </Select.Option>
-                        <Select.Option value="More than three to five years (3-5)">
+                        <Select.Option value="Más de tres a cinco años (3-5)">
                           {/* {t("more_than_three_to_five_years_3_5")} */}
                           Más de tres a cinco años (3-5)
                         </Select.Option>

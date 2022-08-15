@@ -62,7 +62,9 @@ function Signup() {
   function showConfirm() {
     <div className={`${_classes["confirmationsignup"]}`}>
       {confirm({
-        title: t("signup_modal_skip_questionaire_message"),
+        // title: t("signup_modal_skip_questionaire_message"),
+        title:
+          "Tenga en cuenta que estas preguntas deben responderse antes de solicitar una cita con un médico. Puede omitir por ahora y completar más tarde",
         icon: <ExclamationCircleOutlined />,
         // content:
         //   "These are the mandatory fields for Book an appointment you can skip it for now and can Add/Edit later from my profile section",
@@ -70,6 +72,8 @@ function Signup() {
         onOk() {
           submitPersonalInfo();
         },
+        okText: "Ok",
+        cancelText: "Cancelar",
         onCancel() {},
       })}
     </div>;
@@ -166,10 +170,11 @@ function Signup() {
                 />
               </div>
               <h1 className="text-center text-secondary mb-3">
-                {t("createAccount")}
+                {/* {t("createAccount")} */}
+                Crea tu perfil
               </h1>
               <div className="text-center text-gray font-rubik font-normal text-sm">
-                {t("createYourAccountToStart")}
+                {/* {t("createYourAccountToStart")} */}
               </div>
               <div className={`${_classes["signupTabs"]} mt-5`}>
                 <Tabs

@@ -46,8 +46,10 @@ export const formatMMDDYYYY = (date: string) => {
     : "-";
 };
 
-export function formatDAYMMDD(date: string) {
-  return dayjs.utc(date).format("dddd, MMMM D ");
+export function formatDAYMMDD(date: string, timezone?: string) {
+  return timezone
+    ? dayjs(date).utc().tz(timezone).format("dddd, MMMM D ")
+    : dayjs(date).format("dddd, MMMM D ");
 }
 
 export function formatDAYMMDDYY(date: string, timezone?: string) {
@@ -144,14 +146,14 @@ export function isAppointmentTimeValid(
 
     // const endTime = date.formathhmma(selectedAppointment?.endTime, timezone);
 
-    const dateDifferenceStartDate = dayjs(selectedAppointment?.startTime).tz(timezone).diff(
-      now, "milliseconds"
-    );
-    const dateDifferenceEndDate = dayjs(selectedAppointment?.endTime).tz(timezone).diff(now);
+    const dateDifferenceStartDate = dayjs(selectedAppointment?.startTime)
+      .tz(timezone)
+      .diff(now, "milliseconds");
+    const dateDifferenceEndDate = dayjs(selectedAppointment?.endTime)
+      .tz(timezone)
+      .diff(now);
     const startEndDateTime = dayjs(selectedAppointment?.endTime).tz(timezone);
 
-
-    
     // let difference =
     //   new Date(`${startDate} ${startTime}`).getTime() - Date.now();
     setTimeout(() => {
@@ -175,7 +177,7 @@ export function getDateAndTimeWRTTZ(
   date: string,
   format: string = "MMMM D, YYYY hh:mm:ss"
 ) {
-  return dayjs.utc(date).tz().format(format);
+  return date ? dayjs.utc(date).tz().format(format) : "";
 }
 
 export function setTimeZone(timeZone: string) {

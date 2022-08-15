@@ -48,7 +48,10 @@ function Login() {
         userPayload.remember = values.remember;
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
         localStorage.setItem("loginTime", String(new Date().getTime()));
-        localStorage.setItem("timeZone",JSON.stringify(userPayload?.user?.timeZone?.timeZone))
+        localStorage.setItem(
+          "timeZone",
+          JSON.stringify(userPayload?.user?.timeZone?.timeZone)
+        );
         if (
           userPayload.user.role === "Doctor" ||
           userPayload.user.role === "Staff"
@@ -81,7 +84,11 @@ function Login() {
   } else {
     return (
       <Container className="login-bg">
-        <div className="flex items-center justify-center min-h-screen w-h-100 py-16  rounded-3xl">
+        <div className="flagDiv w-56 h-12">
+          <div className="enFlag"></div>
+          <div className="spFlag"></div>
+        </div>
+        <div className="flex items-center justify-center min-h-screen w-h-100 py-16 rounded-3xl">
           <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:max-w-[500px] px-0">
             <div className="card p-4 shadow-lg drop-shadow-2xl rounded-2xl bg-white pt-12 pb-6 px-6">
               <div className="flex justify-center mb-6">
