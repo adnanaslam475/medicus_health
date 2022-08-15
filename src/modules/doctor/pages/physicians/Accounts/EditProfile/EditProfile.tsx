@@ -642,7 +642,7 @@ function EditProfile({
             </div>
           </div>
 
-          <div className="w-full pb-10" onKeyDown={(e) => e.preventDefault()}>
+          <div className="w-full pb-10">
             <Form
               form={formInstance}
               name="basic"
