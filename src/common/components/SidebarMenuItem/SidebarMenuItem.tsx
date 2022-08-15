@@ -143,18 +143,22 @@ function SidebarMenuItem() {
   const [{ data: msgCountsData }] = useGetUnreadMessageCountQuery({
     variables: { filter: { searchString: "" } },
   });
+
+  console.log("msgCountsData", msgCountsData);
   const { getAllChatChannels } = msgCountsData || {};
   const [msgCount, setMsgCount] = React.useState<number>();
   useEffect(() => {
-    // if (msgCount) {
-    const msgCountfinal = getAllChatChannels
-      ?.map((channel) => channel.unReadMessagesCount?.channelMessagesCount)
-      .reduce((total, currentValue) => {
-        return (total || 0) + (currentValue || 0);
-      });
-    console.log("msgCountfinal", msgCountfinal);
-    setMsgCount(msgCountfinal);
-    // }
+    if (getAllChatChannels?.length !== 0) {
+      const msgCountfinal = getAllChatChannels
+        ?.map((channel) => channel.unReadMessagesCount?.channelMessagesCount)
+        .reduce((total, currentValue, index, arr) => {
+          return (total || 0) + (currentValue || 0);
+        });
+      console.log("msgCountfinal", msgCountfinal);
+      setMsgCount(msgCountfinal);
+    } else {
+      setMsgCount(0);
+    }
 
     // return () => {
     //   setMsgCount;
