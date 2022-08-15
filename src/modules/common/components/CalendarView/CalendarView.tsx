@@ -135,7 +135,6 @@ function AdminCalender(props: Props) {
   };
 
   const onChangeFilters = (values: GetAppointmentInput) => {
-    console.log("fironChangeFiltersst")
     setFilterValues(values);
     executeUsePhysicianAppointmentsQuery({
       filter: filterValues,
