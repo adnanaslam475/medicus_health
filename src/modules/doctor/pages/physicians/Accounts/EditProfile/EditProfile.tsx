@@ -227,6 +227,7 @@ function EditProfile({
       confirmPassword: "",
       about_me: about_me,
       language: language,
+      // timeZoneId: timeZone?.timeZone,
       timeZone: timeZone?.id,
     });
   }
@@ -243,6 +244,7 @@ function EditProfile({
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("loginTime");
+    localStorage.removeItem("appointmentsAlertData");
     Router.push("/login");
   };
 
@@ -297,6 +299,7 @@ function EditProfile({
         awards_honors_recognition: honorsList?.map((item) => ({
           awards_honors_and_recognition: item?.awards_honors_and_recognition,
         })),
+        // timeZoneId: values?.timeZoneId,
         timeZoneId: values?.timeZone,
       },
     });
