@@ -131,7 +131,7 @@ function EditProfile({
     contact_number,
     status,
     doctorProfile,
-    timeZone = 86
+    timeZone = 86,
   } = doctorData?.user || {};
 
   const {
@@ -227,7 +227,7 @@ function EditProfile({
       confirmPassword: "",
       about_me: about_me,
       language: language,
-      timeZone:timeZone?.id
+      timeZoneId: timeZone?.timeZone,
     });
   }
 
@@ -243,6 +243,7 @@ function EditProfile({
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("loginTime");
+    localStorage.removeItem("appointmentsAlertData");
     Router.push("/login");
   };
 
@@ -259,9 +260,9 @@ function EditProfile({
 
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-      if (values?.timeZoneId) {
-        setPhysicianTimeZoneId(values?.timeZoneId);
-      }
+    if (values?.timeZoneId) {
+      setPhysicianTimeZoneId(values?.timeZoneId);
+    }
     const res = await updateDoctor({
       updateDoctorProfileInput: {
         doctor_id: pathname.includes("/admin/physicians")
@@ -297,7 +298,7 @@ function EditProfile({
         awards_honors_recognition: honorsList?.map((item) => ({
           awards_honors_and_recognition: item?.awards_honors_and_recognition,
         })),
-        timeZoneId:values?.timeZone 
+        timeZoneId: values?.timeZoneId,
       },
     });
 

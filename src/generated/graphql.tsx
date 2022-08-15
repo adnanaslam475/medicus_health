@@ -2192,6 +2192,13 @@ export type AppointmentCountByStatusQueryVariables = Exact<{ [key: string]: neve
 
 export type AppointmentCountByStatusQuery = { __typename?: 'Query', appointmentCountByStatus: { __typename?: 'AppointmentsCountResponse', upcoming: number, pending: number, canceled: number, history: number } };
 
+export type GetUnreadMessageCountQueryVariables = Exact<{
+  filter: GetAllChannelFilterInput;
+}>;
+
+
+export type GetUnreadMessageCountQuery = { __typename?: 'Query', getAllChatChannels: Array<{ __typename?: 'ChatChannels', unReadMessagesCount?: { __typename?: 'UnReadMessagesCountResponse', channelMessagesCount: number } | null }> };
+
 export type DoctorBillingMethodsQueryVariables = Exact<{
   doctorId: Scalars['Int'];
 }>;
@@ -2757,9 +2764,6 @@ export const LoginDocument = gql`
       first_name
       last_name
       doctorId
-      timeZone{
-        timeZone
-      }
       patientProfile {
         profileImage
       }
@@ -3704,6 +3708,19 @@ export const AppointmentCountByStatusDocument = gql`
 
 export function useAppointmentCountByStatusQuery(options?: Omit<Urql.UseQueryArgs<AppointmentCountByStatusQueryVariables>, 'query'>) {
   return Urql.useQuery<AppointmentCountByStatusQuery>({ query: AppointmentCountByStatusDocument, ...options });
+};
+export const GetUnreadMessageCountDocument = gql`
+    query getUnreadMessageCount($filter: GetAllChannelFilterInput!) {
+  getAllChatChannels(filter: $filter) {
+    unReadMessagesCount {
+      channelMessagesCount
+    }
+  }
+}
+    `;
+
+export function useGetUnreadMessageCountQuery(options: Omit<Urql.UseQueryArgs<GetUnreadMessageCountQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetUnreadMessageCountQuery>({ query: GetUnreadMessageCountDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {

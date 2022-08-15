@@ -23,7 +23,10 @@ import {
   STAFF_ROUTES,
 } from "../../constants/routes";
 import { SettingIcon } from "../CustomIcon/SettingIcon";
-import { useAppointmentCountByStatusQuery } from "generated/graphql";
+import {
+  useAppointmentCountByStatusQuery,
+  useGetUnreadMessageCountQuery,
+} from "generated/graphql";
 
 function SidebarMenuItem() {
   const IconsListPhysician = [
@@ -64,7 +67,7 @@ function SidebarMenuItem() {
 
   const router = useRouter();
 
-  // API FOR COUNT Notificaiton
+  // API FOR Appointment COUNT Notificaiton
   const [{ data: countsData, fetching }] = useAppointmentCountByStatusQuery({
     // variables: {},
   });
@@ -82,26 +85,72 @@ function SidebarMenuItem() {
         let appointmentsAlertData = localStorage.getItem(
           "appointmentsAlertData"
         );
-        console.log({ canceled, history, pending, upcoming });
-        console.log(appointmentsAlertData);
         if (appointmentsAlertData) {
           appointmentsAlertData = JSON.parse(appointmentsAlertData);
-          setLocalAppointmentAlertData(appointmentsAlertData);
+          let updatedAlertData = {
+            ...(appointmentsAlertData as unknown as object),
+          };
+          if (router.asPath.includes("/upcoming")) {
+            updatedAlertData = {
+              ...updatedAlertData,
+              upcoming,
+            };
+          } else if (router.asPath.includes("/canceled")) {
+            updatedAlertData = {
+              ...updatedAlertData,
+              canceled,
+            };
+          } else if (router.asPath.includes("/pending")) {
+            updatedAlertData = {
+              ...updatedAlertData,
+              pending,
+            };
+          } else if (router.asPath.includes("/history")) {
+            updatedAlertData = {
+              ...updatedAlertData,
+              history,
+            };
+          }
           localStorage.setItem(
             "appointmentsAlertData",
-            JSON.stringify(appointmentCountByStatus)
+            JSON.stringify(updatedAlertData)
           );
+          setLocalAppointmentAlertData({
+            ...(appointmentsAlertData as unknown as object),
+            ...updatedAlertData,
+          });
         } else {
           localStorage.setItem(
             "appointmentsAlertData",
-            JSON.stringify(appointmentCountByStatus)
+            JSON.stringify({ upcoming })
           );
         }
       }
     } catch (error) {
       localStorage.removeItem("appointmentsAlertData");
     }
-  }, [canceled, history, pending, upcoming, appointmentCountByStatus]);
+  }, [
+    canceled,
+    history,
+    pending,
+    upcoming,
+    appointmentCountByStatus,
+    router.asPath,
+  ]);
+
+  // API FOR MESSAGES COUNT
+  // const [searchString, setChatSearch] = React.useState<string>("");
+
+  const [{ data: msgCountsData }] = useGetUnreadMessageCountQuery({
+    variables: { filter: { searchString: "" } },
+  });
+  const { getAllChatChannels } = msgCountsData || {};
+
+  // const msgCount = getAllChatChannels?.reduce((total, currentValue) => {
+
+  // });;
+
+  // console.log("msgCountsData", msgCount);
 
   return (
     <div className={`${_classes["side-menu-cover"]} w-full`}>
@@ -292,7 +341,12 @@ function SidebarMenuItem() {
                 title={
                   <div className="relative">
                     {el.toggleName}
-                    <span className={_classes["red-dot"]}></span>
+                    {(localAppointmentAlertData?.upcoming !== upcoming ||
+                      localAppointmentAlertData?.pending !== pending ||
+                      localAppointmentAlertData?.canceled !== canceled ||
+                      localAppointmentAlertData?.history !== history) && (
+                      <span className={_classes["red-dot"]}></span>
+                    )}
                   </div>
                 }
               >

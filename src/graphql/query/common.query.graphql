@@ -168,3 +168,11 @@ query appointmentCountByStatus {
     history
   }
 }
+
+query getUnreadMessageCount($filter: GetAllChannelFilterInput!) {
+  getAllChatChannels(filter: $filter) {
+    unReadMessagesCount {
+      channelMessagesCount
+    }
+  }
+}
