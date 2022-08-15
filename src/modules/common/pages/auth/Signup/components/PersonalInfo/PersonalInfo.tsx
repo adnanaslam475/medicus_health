@@ -358,7 +358,17 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item className="flex-1" label={t("timezone")} name="timeZoneId">
+        <Form.Item
+          className="flex-1"
+          label={t("timezone")}
+          name="timeZoneId"
+          rules={[
+            {
+              required: true,
+              message: t("time_zone_is_required"),
+            },
+          ]}
+        >
           <Select
             placeholder={t("timezone")}
             showSearch
