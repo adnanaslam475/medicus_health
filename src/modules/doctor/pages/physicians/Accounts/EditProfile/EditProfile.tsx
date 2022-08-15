@@ -227,7 +227,7 @@ function EditProfile({
       confirmPassword: "",
       about_me: about_me,
       language: language,
-      timeZoneId:timeZone?.timeZone
+      timeZone:timeZone?.id
     });
   }
 
@@ -245,9 +245,23 @@ function EditProfile({
     localStorage.removeItem("loginTime");
     Router.push("/login");
   };
+
+  const [physicianTimeZoneId, setPhysicianTimeZoneId] = useState();
+
+  useEffect(() => {
+    if (physicianTimeZoneId) {
+      const timeZone = getTimeZones?.data?.getTimeZones.filter(
+        (item) => item.id === physicianTimeZoneId
+      )[0]?.timeZone;
+      localStorage.setItem("timeZone", JSON.stringify(timeZone));
+    }
+  }, [physicianTimeZoneId]);
+
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-
+      if (values?.timeZoneId) {
+        setPhysicianTimeZoneId(values?.timeZoneId);
+      }
     const res = await updateDoctor({
       updateDoctorProfileInput: {
         doctor_id: pathname.includes("/admin/physicians")
@@ -283,7 +297,7 @@ function EditProfile({
         awards_honors_recognition: honorsList?.map((item) => ({
           awards_honors_and_recognition: item?.awards_honors_and_recognition,
         })),
-        timeZoneId:values?.timeZoneId 
+        timeZoneId:values?.timeZone 
       },
     });
 
@@ -628,13 +642,14 @@ function EditProfile({
             </div>
           </div>
 
-          <div className="w-full pb-10">
+          <div className="w-full pb-10" onKeyDown={(e) => e.preventDefault()}>
             <Form
               form={formInstance}
               name="basic"
               onFinish={onFinish}
               onFinishFailed={onFinishedFailed}
               layout="vertical"
+              scrollToFirstError
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
@@ -856,7 +871,7 @@ function EditProfile({
                 <Form.Item
                   className="flex-1"
                   label={"Time zone"}
-                  name="timeZoneId"
+                  name="timeZone"
                 >
                   <Select
                     placeholder={timeZone?.timeZone}

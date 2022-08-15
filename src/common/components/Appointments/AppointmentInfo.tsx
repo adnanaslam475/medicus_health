@@ -33,6 +33,7 @@ function AppointmentInfo(props: Props) {
     appointmentTimeSlots,
     createdAt,
     transaction,
+    patient,
   } = appoinmentDetails?.appointment || {};
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
@@ -45,19 +46,13 @@ function AppointmentInfo(props: Props) {
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
 
   let formatedDoctorFirstName = `${
     first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
   }`;
 
-  let formatedStartTime = `${
-    appointment?.appointmentDateTime?.startTime?.split(" ")[1]
-  } ${appointment?.appointmentDateTime?.startTime?.split(" ")[2]}`;
-  let formatedEndTime = `${
-    appointment?.appointmentDateTime?.endTime?.split(" ")[1]
-  } ${appointment?.appointmentDateTime?.endTime?.split(" ")[2]}`;
-
+  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -68,7 +63,7 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow label="ID#" value={Number(id)} />
         <LabelValueRow
           label="Requested date"
-          value={date?.formatDAYMMDDYY(requestedDate)}
+          value={date?.formatDAYMMDDYY(requestedDate, timeZone)}
         />
         <LabelValueRow
           label="Physician"
@@ -77,20 +72,27 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow label="Appointment type" value={name || "--"} />
         <LabelValueRow
           label="Appointment date"
-          value={date.formatDAYMMDDYY(selectedAppointment?.startTime)}
+          value={date.formatDAYMMDDYY(String(appointment?.appointmentDateTime?.startTime), timeZone)}
         />
         {/* <LabelValueRow
           label="Booking date"
           value={date.formatDAYMMDDYY(createdAt)}
         /> */}
+
         <LabelValueRow
           label="Appointment time"
           value={
-            selectedAppointment
+            selectedAppointment?.startTime 
               ? `${date?.formathhmma(
-                  selectedAppointment?.startTime
-                )} - ${date?.formathhmma(selectedAppointment?.endTime)}`
-              : `${formatedStartTime} - ${formatedEndTime}`
+                  selectedAppointment?.startTime,timeZone
+                )} - ${date?.formathhmma(selectedAppointment?.endTime,timeZone)}`
+              : `${date.formathhmma(
+                  String(appointment?.appointmentDateTime?.startTime),
+                  timeZone
+                )} - ${date.formathhmma(
+                  String(appointment?.appointmentDateTime?.endTime),
+                  timeZone
+                )}`
           }
         />
         <LabelValueRow label="Total amount" value={`$${appointmentCharges}`} />

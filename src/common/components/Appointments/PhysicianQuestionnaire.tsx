@@ -98,11 +98,9 @@ function PhysicianQuestionnaire(props: Props) {
   };
   function onFinishLocal(values: any) {
     // saveStepThree?.({ ...values, isLastFilled: data?.stepThree?.isLastFilled });
-    console.log();
   }
 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
-  console.log(questionnair, "my question");
 
   return (
     <React.Fragment>

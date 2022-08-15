@@ -46,7 +46,7 @@ function CalendarModalComponent(props: Props) {
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
   return (
     <Modal
       title=""
@@ -101,7 +101,7 @@ function CalendarModalComponent(props: Props) {
             type="primary"
             className={`${_classes["appointments-btn"]} bg-current mr-3`}
             disabled={disabled}
-            onClick={()=>Router.push(`/patient/appointments/${id}/call`)}
+            onClick={() => Router.push(`/patient/appointments/${id}/call`)}
           >
             <Image
               priority={true}

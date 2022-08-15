@@ -47,7 +47,7 @@ function AppointmnetCurrentCard({
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
 
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`

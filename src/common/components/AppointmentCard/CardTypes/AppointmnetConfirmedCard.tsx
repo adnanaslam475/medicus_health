@@ -32,10 +32,15 @@ function AppointmnetConfirmedCard({
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
+  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
   const [disabled, setDisabled] = useState(true);
-
   useEffect(() => {
-    isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
+    isAppointmentTimeValid(
+      selectedAppointment,
+      disabled,
+      setDisabled,
+      timeZone
+    );
   }, [selectedAppointment]);
 
   let formatedDoctorName = `${
@@ -52,15 +57,16 @@ function AppointmnetConfirmedCard({
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <span className="text-sm pt-5">Appointment date</span>
       <h6 className="mb-4">
-        {date.formatDAYMMDDYY(selectedAppointment?.startTime)}
+        {date.formatDAYMMDDYY(selectedAppointment?.startTime, timeZone)}
       </h6>
       <span className="text-sm">Appointment time</span>
       {!selectedAppointment ? (
         <div className="text-cyan font-semibold mb-4">{" - "}</div>
       ) : (
         <div className="text-cyan font-semibold mb-4">{`${date.formathhmma(
-          selectedAppointment?.startTime
-        )} - ${date.formathhmma(selectedAppointment?.endTime)}`}</div>
+          selectedAppointment?.startTime,
+          timeZone
+        )} - ${date.formathhmma(selectedAppointment?.endTime, timeZone)}`}</div>
       )}
       <div className="text-sm">Appointment Status</div>
       <span className="text-base text-primary font-bold ">{status}</span>

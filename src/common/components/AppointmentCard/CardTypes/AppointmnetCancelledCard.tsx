@@ -70,12 +70,17 @@ function AppointmnetCancelledCard({
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
-  let formatedStartTime = `${
-    appointmentDetail?.appointmentDateTime?.startTime?.split(" ")[1]
-  } ${appointmentDetail?.appointmentDateTime?.startTime?.split(" ")[2]}`;
-  let formatedEndTime = `${
-    appointmentDetail?.appointmentDateTime?.endTime?.split(" ")[1]
-  } ${appointmentDetail?.appointmentDateTime?.endTime?.split(" ")[2]}`;
+  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+
+  let formatedStartTime = date.formathhmma(
+    String(appointmentDetail?.appointmentDateTime?.startTime),
+    timeZone
+  );
+  let formatedEndTime = date.formathhmma(
+    String(appointmentDetail?.appointmentDateTime?.endTime),
+    timeZone
+  );
+
   return (
     <>
       <Card className={`${_classes["appointment-card"]}`}>
@@ -87,14 +92,15 @@ function AppointmnetCancelledCard({
         <span className="text-sm ">Appointment type</span>
         <div className="text-sm text-gray mb-3">{serviceType}</div>
         <span className="text-sm">Appointment date</span>
-        <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
+        <h6>{date.formatDAYMMDDYY(requestedDate,timeZone)}</h6>
         <span className="text-sm">Appointment time</span>
 
         {appointmentTimeSlots?.length ? (
           appointmentTimeSlots?.map((item) => (
             <div className="text-cyan font-semibold">{`${date.formathhmma(
-              item.startTime
-            )} - ${date.formathhmma(item.endTime)}`}</div>
+              item.startTime,
+              timeZone
+            )} - ${date.formathhmma(item.endTime, timeZone)}`}</div>
           ))
         ) : appointmentDetail?.appointmentDateTime?.startTime ? (
           <div className="text-cyan font-semibold">

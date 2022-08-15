@@ -7,16 +7,15 @@ import Container from "../Container/Container";
 
 type props = {
   children: React.ReactChild | React.ReactChild[] | (() => React.ReactChild);
-  isShowBanner?: boolean | undefined;
 };
 
-function AppLayout({ children, isShowBanner }: props) {
+function AppLayout({ children }: props) {
   return (
     <Layout className="h-full">
       <AdminSideMenu />
       <Layout className="ml-0 md:ml-0 lg:ml-72 xl:ml-62 2xl:ml-58">
         <Affix>
-          <AppHeader isShowBanner={isShowBanner} />
+          <AppHeader />
         </Affix>
         <Layout.Content className="flex w-full" style={{ overflow: "auto" }}>
           <Container fluid className="md:px-2 lg:px-3 w-full bg-white">

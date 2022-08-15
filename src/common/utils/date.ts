@@ -26,8 +26,10 @@ export function convertStringDateToUTCChatFormat(date: string) {
   return dayjs.utc(date).format("MM/DD/YY");
 }
 
-export function formatMMMMDDYYYY(date: string) {
-  return dayjs.utc(date).format("MMMM, D, YYYY");
+export function formatMMMMDDYYYY(date: string, timezone?: string) {
+  return timezone
+    ? dayjs(date).utc().tz(timezone).format("MMMM, D, YYYY")
+    : dayjs(date).utc().format("MMMM, D, YYYY");
 }
 
 export const formatYYYYMMMMDD = (date: string) => {
@@ -48,16 +50,20 @@ export function formatDAYMMDD(date: string) {
   return dayjs.utc(date).format("dddd, MMMM D ");
 }
 
-export function formatDAYMMDDYY(date: string) {
-  return dayjs(date).format("dddd, MMMM D, YYYY");
+export function formatDAYMMDDYY(date: string, timezone?: string) {
+  return timezone
+    ? dayjs(date).utc().tz(timezone).format("MMMM, D, YYYY")
+    : dayjs(date).format("dddd, MMMM D, YYYY");
 }
 
 export function formatDAYMMDDYYUTC(date: string) {
   return dayjs.utc(date).format("dddd, MMMM D, YYYY");
 }
 
-export function formathhmma(date: string) {
-  return dayjs.utc(date).format("h:mma");
+export function formathhmma(date: string, timezone?: string) {
+  return timezone
+    ? dayjs(date).utc().tz(timezone).format("hh:mma")
+    : dayjs(date).utc().format("hh:mma");
 }
 
 export function formatDate_n_Time(date: string) {
@@ -117,35 +123,39 @@ export function getDayJsObject(date: string, format: string = "MMMM D, YYYY") {
 export function isAppointmentTimeValid(
   selectedAppointment: AppointmentTimeSlots | CustomTimeSlot | undefined,
   state: boolean,
-  callBack: (state: boolean) => void
+  callBack: (state: boolean) => void,
+  timezone?: string
 ) {
   if (
-    date.formatMMMMDDYYYY(selectedAppointment?.startTime) ===
-    dayjs().format("MMMM, D, YYYY")
+    date.formatMMMMDDYYYY(selectedAppointment?.startTime, timezone) ===
+    dayjs().tz(timezone).format("MMMM, D, YYYY")
     // dayjs(new Date().toLocaleDateString()).format("MMMM, D, YYYY")
   ) {
-    var now = dayjs();
-    const startDate = selectedAppointment?.startTime?.split("T")[0];
+    var now = dayjs().tz(timezone);
+    // const startDate = date.formatMMMMDDYYYY(
+    //   selectedAppointment?.startTime,
+    //   timezone
+    // );
 
-    const startTime = selectedAppointment?.startTime
-      ?.split("T")[1]
-      ?.replace("Z", "");
+    // const startTime = date.formathhmma(
+    //   selectedAppointment?.startTime,
+    //   timezone
+    // );
 
-    const endTime = selectedAppointment?.endTime
-      ?.split("T")[1]
-      ?.replace("Z", "");
+    // const endTime = date.formathhmma(selectedAppointment?.endTime, timezone);
 
-    const dateDifferenceStartDate = dayjs(`${startDate} ${startTime}`).diff(
-      now
+    const dateDifferenceStartDate = dayjs(selectedAppointment?.startTime).tz(timezone).diff(
+      now, "milliseconds"
     );
-    const dateDifferenceEndDate = dayjs(`${startDate} ${endTime}`).diff(now);
-    const startEndDateTime = dayjs(`${startDate} ${endTime}`).unix();
+    const dateDifferenceEndDate = dayjs(selectedAppointment?.endTime).tz(timezone).diff(now);
+    const startEndDateTime = dayjs(selectedAppointment?.endTime).tz(timezone);
 
-    let difference =
-      new Date(`${startDate} ${startTime}`).getTime() - Date.now();
 
+    
+    // let difference =
+    //   new Date(`${startDate} ${startTime}`).getTime() - Date.now();
     setTimeout(() => {
-      if (startEndDateTime > now.unix()) {
+      if (startEndDateTime.unix() > now.unix()) {
         callBack(false);
         setTimeout(() => {
           if (!state) {

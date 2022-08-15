@@ -109,7 +109,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       occupationalExposure: occupationalExposure,
       exposureDuration: exposureDuration,
       pets: pets,
-      timeZoneId: timeZone?.timeZone,
+      timeZone: timeZone?.id,
     });
   }
 
@@ -411,10 +411,10 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   <Form.Item
                     className="flex-1"
                     // label={t("timezone")}
-                    name="timeZoneId"
+                    name="timeZone"
                   >
                     <Select
-                      // placeholder={timeZone?.timeZone}
+                      placeholder={timeZone?.timeZone}
                       showSearch
                       filterOption={(input, city: any) =>
                         city.children

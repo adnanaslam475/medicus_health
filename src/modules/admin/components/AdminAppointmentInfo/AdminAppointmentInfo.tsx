@@ -364,7 +364,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
   );
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
   return (
     <div className="flex justify-between mt-6 flex-wrap wrap">
       <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2">
