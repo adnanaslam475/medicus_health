@@ -59,7 +59,7 @@ export const englishCommon: any = {
 
   forgot_pass: "Forgot password",
   forgot_pass_message: "Have you forgotten your password",
-  login: "Login",
+  login: "Inicio de sesión",
   account: "You do not have an account?",
   register: "Register",
 
@@ -272,7 +272,7 @@ export const spanishCommon: any = {
   remember: "Acuérdate de mí",
   forgot_pass: "¿Has olvidado tu contraseña?",
   forgot_pass_message: "Has olvidado tu contraseña",
-  login: "Acceso",
+  login: "Inicio de sesión",
   account: "¿No tiene una cuenta?",
   register: "Regístrese en",
   email: "Dirección de correo electrónico",
