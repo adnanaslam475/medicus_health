@@ -175,7 +175,7 @@ export function getDateAndTimeWRTTZ(
   date: string,
   format: string = "MMMM D, YYYY hh:mm:ss"
 ) {
-  return dayjs.utc(date).tz().format(format);
+  return date ? dayjs.utc(date).tz().format(format) : "";
 }
 
 export function setTimeZone(timeZone: string) {

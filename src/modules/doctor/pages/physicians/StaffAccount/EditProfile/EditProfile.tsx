@@ -222,6 +222,7 @@ function EditProfile({
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("loginTime");
+    localStorage.removeItem("appointmentsAlertData");
     Router.push("/login");
   };
 
