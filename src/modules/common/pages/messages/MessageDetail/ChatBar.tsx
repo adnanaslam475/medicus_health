@@ -35,7 +35,7 @@ function MessageItem(props: Props) {
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
 
   // Set User time zone
-  date?.setTimeZone(String(userTimeZone));
+  date?.setTimeZone(userTimeZone ? String(userTimeZone) : "America/New_York");
   const messageDateTime = date?.getDateAndTimeWRTTZ(
     createdAt,
     "MM/DD/YY, h:mma"
