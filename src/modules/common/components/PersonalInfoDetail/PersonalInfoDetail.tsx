@@ -80,11 +80,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     }
     if (user) {
       prepareAndSetEditPayload();
-      setradioChildren(
-        children === 0 || children === undefined || children === null
-          ? false
-          : true
-      );
+      // setradioChildren(
+      //   children === 0 || children === undefined || children === null
+      //     ? false
+      //     : true
+      // );
     }
   }, [user]);
   function prepareAndSetEditPayload() {
