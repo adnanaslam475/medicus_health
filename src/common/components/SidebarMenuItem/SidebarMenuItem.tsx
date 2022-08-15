@@ -143,10 +143,9 @@ function SidebarMenuItem() {
   const [{ data: msgCountsData }] = useGetUnreadMessageCountQuery({
     variables: { filter: { searchString: "" } },
   });
-
   console.log("msgCountsData", msgCountsData);
   const { getAllChatChannels } = msgCountsData || {};
-  const [msgCount, setMsgCount] = React.useState<number>();
+  const [msgCount, setMsgCount] = React.useState<number | undefined>(0);
   useEffect(() => {
     if (getAllChatChannels?.length !== 0) {
       const msgCountfinal = getAllChatChannels
@@ -154,7 +153,7 @@ function SidebarMenuItem() {
         .reduce((total, currentValue, index, arr) => {
           return (total || 0) + (currentValue || 0);
         });
-      console.log("msgCountfinal", msgCountfinal);
+      console.log("msgCountfinal-sabih", msgCountfinal);
       setMsgCount(msgCountfinal);
     } else {
       setMsgCount(0);
@@ -163,7 +162,7 @@ function SidebarMenuItem() {
     // return () => {
     //   setMsgCount;
     // };
-  }, [msgCount, setMsgCount]);
+  }, [msgCount, setMsgCount, getAllChatChannels]);
 
   return (
     <div className={`${_classes["side-menu-cover"]} w-full`}>
