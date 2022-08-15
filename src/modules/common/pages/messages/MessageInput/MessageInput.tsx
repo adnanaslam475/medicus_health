@@ -1,5 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Badge, Input, message, notification, Spin, Upload } from "antd";
+import {
+  Badge,
+  Input,
+  message,
+  notification,
+  Progress,
+  Spin,
+  Upload,
+} from "antd";
 import Image from "next/image";
 import _classes from "./MessageInput.module.scss";
 import attachIcon from "./../../../../../../public/assets/images/attach.svg";
@@ -8,13 +16,14 @@ import send from "./../../../../../../public/assets/images/send.svg";
 import { useMessageContext } from "../MessageDetail/MessageContext";
 import { useMediaUploader } from "common/hooks/media";
 import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
-import { CloseCircleOutlined } from "@ant-design/icons";
+import { CloseCircleOutlined, FastForwardOutlined } from "@ant-design/icons";
 import Dragger from "antd/lib/upload/Dragger";
 import { hasValidMessage } from "common/utils/helper";
 
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
   const [enabled, setEnabled] = useState(true);
+  const [loader, setLoader] = React.useState<boolean>(false);
   const {
     messageInfo,
     onMessage,
@@ -51,6 +60,7 @@ function MessageInput() {
   };
 
   async function onSendMessage() {
+    setLoader(true);
     setEnabled(false);
     const urls = await fileUpload(
       fileList?.map(
@@ -75,6 +85,7 @@ function MessageInput() {
     }
     setEnabled(true);
     setMessageText("");
+    setLoader(false);
   }
 
   const isShowInput = !!messageInfo.currentChannel?.channelName;
@@ -114,68 +125,83 @@ function MessageInput() {
 
   return (
     <div className={`${_classes["message-input"]} relative`}>
-      {isShowInput && (
-        <>
-          <Input
-            placeholder="Type a new message"
-            ref={inputRef}
-            onChange={({ target }) => onMessageTextChange(target.value)}
-            onPressEnter={onSendMessage}
-            value={messageText}
+      {createChatFetching && messageType === "Media" ? (
+        <div className="">
+          <Progress
+            percent={100}
+            showInfo={true}
+            strokeColor={{
+              "0%": "#1a82fe",
+              "100%": "#1a82fe",
+            }}
           />
-          <div className="absolute left-0 top-2 bg-gray-5">
-            {fileList.map((file, index) => (
-              <>
-                <span
-                  className="box-border p-1 pt-3 mr-4 bg-gray-9 font-semibold text-white border rounded-md text-left left-0 mx-1"
-                  onClick={() => deleteFile(index)}
-                >
-                  <Badge
-                    count={<CloseCircleOutlined style={{ color: "#F5222D" }} />}
+        </div>
+      ) : (
+        isShowInput && (
+          <>
+            <Input
+              placeholder="Type a new message"
+              ref={inputRef}
+              onChange={({ target }) => onMessageTextChange(target.value)}
+              onPressEnter={onSendMessage}
+              value={messageText}
+            />
+            <div className="absolute left-0 top-2 bg-gray-5">
+              {fileList.map((file, index) => (
+                <>
+                  <span
+                    className="box-border p-1 pt-3 mr-4 bg-gray-9 font-semibold text-white border rounded-md text-left left-0 mx-1"
+                    onClick={() => deleteFile(index)}
                   >
-                    <Image
-                      priority={true}
-                      alt=""
-                      width={25}
-                      height={25}
-                      src={fileIcon}
-                    />
-                  </Badge>
-                </span>
-              </>
-            ))}
-          </div>
+                    <Badge
+                      count={
+                        <CloseCircleOutlined style={{ color: "#F5222D" }} />
+                      }
+                    >
+                      <Image
+                        priority={true}
+                        alt=""
+                        width={25}
+                        height={25}
+                        src={fileIcon}
+                      />
+                    </Badge>
+                  </span>
+                </>
+              ))}
+            </div>
 
-          <span className="absolute right-14">
-            <span className="h-10">
-              <Dragger
-                onChange={fileChange}
-                // maxCount={1}
-                multiple
-                beforeUpload={onBeforeUpload}
-                itemRender={() => <div />}
-                fileList={fileList}
-                customRequest={() => null}
-                accept=".doc,.docx,.pdf,.zip,.tiff,.tga,image/jpg,image/jpeg,image/jpg,image/bmp,image/x-tga,image/png,image/tga,application/msword,"
-                className={`${_classes["attachment-upload-btn"]} py-0`}
-              >
-                <Image
-                  priority={true}
-                  alt=""
-                  width={25}
-                  height={25}
-                  src={attachIcon}
-                />
-              </Dragger>
+            <span className="absolute right-14">
+              <span className="h-10">
+                <Dragger
+                  onChange={fileChange}
+                  // maxCount={1}
+                  multiple
+                  beforeUpload={onBeforeUpload}
+                  itemRender={() => <div />}
+                  fileList={fileList}
+                  customRequest={() => null}
+                  accept=".doc,.docx,.pdf,.zip,.tiff,.tga,image/jpg,image/jpeg,image/jpg,image/bmp,image/x-tga,image/png,image/tga,application/msword,"
+                  className={`${_classes["attachment-upload-btn"]} py-0`}
+                >
+                  <Image
+                    priority={true}
+                    alt=""
+                    width={25}
+                    height={25}
+                    src={attachIcon}
+                  />
+                </Dragger>
+              </span>
             </span>
-          </span>
-          <span
-            className="absolute top-3 right-4 cursor-pointer"
-            onClick={enabled ? onSendMessage : () => null}
-          >
-            {createChatFetching && messageType === "Media" ? (
-              <Spin />
-            ) : (
+            <span
+              className="absolute top-3 right-4 cursor-pointer"
+              onClick={enabled ? onSendMessage : () => null}
+            >
+              {/* {loader && messageType === "Media" ? (
+              // <Spin />
+              <Progress percent={50} status="active" />
+            ) : ( */}
               <Image
                 priority
                 unoptimized
@@ -184,9 +210,10 @@ function MessageInput() {
                 height={25}
                 src={send}
               />
-            )}
-          </span>
-        </>
+              {/* )} */}
+            </span>
+          </>
+        )
       )}
     </div>
   );
