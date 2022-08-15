@@ -127,8 +127,8 @@ function RescheduleAppointmentModal(props: Props) {
     setSlots([
       ...slots,
       {
-        startTime: dayjs(slot.startTime).toISOString(),
-        endTime: dayjs(slot.endTime).toISOString(),
+        startTime: moment(slot.startTime, "MM-DD-YYYY hh:mm A").toISOString(),
+        endTime: moment(slot.endTime, "MM-DD-YYYY hh:mm A").toISOString(),
       },
     ]);
     setSlot({ startTime: "", endTime: "" });

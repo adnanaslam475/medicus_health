@@ -6,6 +6,7 @@ import {
   Appointment,
   AppointmentDateTimeResponse,
   AppointmentServiceType,
+  Transaction,
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
@@ -94,11 +95,11 @@ function CancelledAppointmentTable({
     },
     {
       title: "Total amount",
-      dataIndex: "charges",
-      key: "charges",
+      dataIndex: "transaction",
+      key: "transaction",
       sorter: true,
-      render: (value: number) => {
-        return <div>{value ? `$${value}` : ""}</div>;
+      render: (transaction:Transaction) => {
+        return <div>{transaction?.amountReceived ? `$${transaction?.amountReceived}` : "--"}</div>;
       },
     },
     {

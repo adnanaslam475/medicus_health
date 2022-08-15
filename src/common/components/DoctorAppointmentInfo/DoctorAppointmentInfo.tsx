@@ -63,8 +63,8 @@ type Props = {
 };
 
 type dateArray = {
-  endDate: string;
-  startDate: string;
+  endDate: Date | string | moment.Moment;
+  startDate: Date | string | moment.Moment;
 };
 
 function DoctorAppointmentInfo({ data }: Props) {
@@ -84,7 +84,9 @@ function DoctorAppointmentInfo({ data }: Props) {
   } = data || {};
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
-  const timeZone =typeof window !== "undefined" &&  JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  const timeZone =
+    typeof window !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
   // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
 
@@ -102,7 +104,10 @@ function DoctorAppointmentInfo({ data }: Props) {
       return selectedTimeSlots;
     }
   }
-  let formatedDueDate = date.formatMMMMDDYYYY(String(appointmentDateTime?.startTime),timeZone);
+  let formatedDueDate = date.formatMMMMDDYYYY(
+    String(appointmentDateTime?.startTime),
+    timeZone
+  );
 
   async function onCancelRequestedAppointment() {
     try {
@@ -175,11 +180,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="AppoIntment date"
-          text={
-            appointmentDateTime?.startTime
-              ? `${formatedDueDate} `
-              : "--"
-          }
+          text={appointmentDateTime?.startTime ? `${formatedDueDate} ` : "--"}
         />
         {/* <LabelWithText
           label="Booking date"
@@ -194,8 +195,12 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={
             appointmentDateTime?.startTime && appointmentDateTime?.endTime
               ? `${date.formathhmma(
-                  appointmentDateTime?.startTime,timeZone
-                )} - ${date.formathhmma(appointmentDateTime?.endTime,timeZone)}`
+                  appointmentDateTime?.startTime,
+                  timeZone
+                )} - ${date.formathhmma(
+                  appointmentDateTime?.endTime,
+                  timeZone
+                )}`
               : "--"
           }
         />
@@ -674,20 +679,31 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setSlots([
       ...slots,
       {
-        startDate: dayjs(slot.startDate).toISOString(),
-        endDate: dayjs(slot.endDate).toISOString(),
+        startDate: moment(slot.startDate, "MM-DD-YYYY hh:mm A").toISOString(),
+        endDate: moment(slot.endDate, "MM-DD-YYYY hh:mm A").toISOString(),
       },
     ]);
     setSlot({ startDate: "", endDate: "" });
     setEndDateValue("");
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
-  const timeZone = typeof window !== "undefined" &&  JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  const timeZone =
+    typeof window !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
-  let formatedDueDate = date.formatMMMMDDYYYY(String(appointmentDateTime?.startTime),timeZone);
+  let formatedDueDate = date.formatMMMMDDYYYY(
+    String(appointmentDateTime?.startTime),
+    timeZone
+  );
 
-  let formatedStartTime = date.formathhmma(String(appointmentDateTime?.startTime),timeZone);
-  let formatedEndTime = date.formathhmma(String(appointmentDateTime?.endTime),timeZone);
+  let formatedStartTime = date.formathhmma(
+    String(appointmentDateTime?.startTime),
+    timeZone
+  );
+  let formatedEndTime = date.formathhmma(
+    String(appointmentDateTime?.endTime),
+    timeZone
+  );
 
   return (
     <>
@@ -794,8 +810,15 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             {slots?.map((v, index) => (
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="flex gap-2  rounded leading-3 max-w-max">
-                  <p className="text-sm mb-0">{date.formatMMMMDDYYYY(v?.startDate,timeZone)} - {date.formathhmma(v?.startDate,timeZone)}</p> -
-                  <p className="text-sm mb-0">{date.formatMMMMDDYYYY(v?.endDate,timeZone)} - {date.formathhmma(v?.endDate,timeZone)}</p>
+                  <p className="text-sm mb-0">
+                    {date.formatMMMMDDYYYY(v?.startDate as string, timeZone)} -{" "}
+                    {date.formathhmma(v?.startDate as string, timeZone)}
+                  </p>{" "}
+                  -
+                  <p className="text-sm mb-0">
+                    {date.formatMMMMDDYYYY(v?.endDate as string, timeZone)} -{" "}
+                    {date.formathhmma(v?.endDate as string, timeZone)}
+                  </p>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl">
                   <DeleteOutlined onClick={() => deleteTimeSlot(index)} />
