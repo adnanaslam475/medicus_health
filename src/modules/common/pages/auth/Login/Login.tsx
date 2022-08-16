@@ -92,8 +92,8 @@ function Login() {
               priority={true}
               alt=""
               className="success-icon mx-auto mt-10"
-              height={48}
-              width={48}
+              height={30}
+              width={30}
               src={engFlag}
             />
           </div>
@@ -102,8 +102,8 @@ function Login() {
               priority={true}
               alt=""
               className="success-icon mx-auto mt-10"
-              height={48}
-              width={48}
+              height={30}
+              width={30}
               src={espanolFlag}
             />
           </div>

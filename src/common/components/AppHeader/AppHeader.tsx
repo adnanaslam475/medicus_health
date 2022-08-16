@@ -52,7 +52,7 @@ const AppHeader = () => {
     patientProfile?.profileImage ||
     doctorProfile?.profile_image ||
     adminProfilePicture?.profile_picture;
-  const userName = `${user?.first_name} ${user?.last_name}`;
+  const userName = `${user?.first_name} ${user?.last_name.toLocaleLowerCase()}`;
   const userRole = user?.role;
   const accountPath =
     userRole === "Doctor"
