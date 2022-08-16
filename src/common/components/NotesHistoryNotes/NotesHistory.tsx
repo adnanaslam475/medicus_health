@@ -104,7 +104,7 @@ function NotesHistory(props: Props) {
                     // )} `}
                     header={`ID# ${
                       data?.appointment?.id
-                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${doctorNameforHistoryNotes(
+                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${doctorNameforHistoryNotes(
                       data?.appointment?.doctor?.first_name,
                       data?.appointment?.doctor?.last_name
                     )}   `}
