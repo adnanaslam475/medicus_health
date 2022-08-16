@@ -38,6 +38,15 @@ function SidebarMenuItem() {
     <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
     <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
   ];
+  const IconsListStaff = [
+    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <PatientIcon className={_classes["sidebar-icon-hover"]} />,
+
+    <MessageIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+    <StaffIcon className={_classes["sidebar-icon-hover"]} />,
+    <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
+  ];
 
   const IconsListPatient = [
     <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
@@ -449,7 +458,7 @@ function SidebarMenuItem() {
               <Menu.SubMenu
                 className={_classes["side-bar-submenu-item"]}
                 key={i}
-                icon={IconsListPhysicianMainMenu[i]}
+                icon={IconsListStaff[i]}
                 title={el.toggleName}
               >
                 {el.submenu?.map((el2, i2) => {
@@ -514,7 +523,7 @@ function SidebarMenuItem() {
             ) : (
               <Menu.Item
                 key={el.route}
-                icon={IconsListPhysician[i]}
+                icon={IconsListStaff[i]}
                 className={_classes["side-bar-submenu-item"]}
               >
                 {el.id == "3" ? (
