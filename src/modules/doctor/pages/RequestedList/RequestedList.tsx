@@ -55,36 +55,48 @@ const Columns = [
   },
   {
     title: "Appointment date ",
-    dataIndex: "appointmentDateTime",
-    key: "appointmentDateTime",
+    // dataIndex: "appointmentDateTime",
+    // key: "appointmentDateTime",
     sorter: true,
-    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+    render: (value: Appointment) => {
+      let appointmentDateTime = value?.appointmentDateTime;
+      let status = value?.status;
       return (
         <div>
-          {appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(
+          {status === "Proposed" ||
+          status === "Rescheduled" ||
+          !appointmentDateTime?.startTime
+            ? "--"
+            : `${date?.formatMMMMDDYYYY(
                 appointmentDateTime?.startTime,
                 timeZone
-              )} `
-            : "--"}
+              )} `}
         </div>
       );
     },
   },
   {
     title: "Appointment time",
-    dataIndex: "appointmentDateTime",
-    key: "appointmentDateTime",
+    // dataIndex: "appointmentDateTime",
+    // key: "appointmentDateTime",
     sorter: true,
-    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+    render: (value: Appointment) => {
+      let appointmentDateTime = value?.appointmentDateTime;
+      let status = value?.status;
       return (
         <div>
-          {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${date.formathhmma(
+          {status === "Proposed" ||
+          status === "Rescheduled" ||
+          !appointmentDateTime?.startTime ||
+          !appointmentDateTime?.endTime
+            ? "--"
+            : `${date.formathhmma(
                 appointmentDateTime?.startTime,
                 timeZone
-              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
-            : "--"}
+              )} - ${date.formathhmma(
+                appointmentDateTime?.endTime,
+                timeZone
+              )} `}
         </div>
       );
     },
