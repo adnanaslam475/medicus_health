@@ -165,7 +165,7 @@ export function isAppointmentTimeValid(
           }
         }, dateDifferenceEndDate);
       }
-    }, dateDifferenceStartDate);
+    }, Number(dateDifferenceStartDate-300000));
   }
 }
 
