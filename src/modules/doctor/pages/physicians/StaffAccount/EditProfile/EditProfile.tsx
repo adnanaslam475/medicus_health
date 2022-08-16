@@ -483,6 +483,7 @@ function EditProfile({
               onChange={fileChange}
               itemRender={() => <div />}
               customRequest={() => null}
+              disabled={isStaff}
             >
               <div className="relative">
                 <Avatar
