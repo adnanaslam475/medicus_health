@@ -70,6 +70,7 @@ function SidebarMenuItem() {
   // API FOR Appointment COUNT Notificaiton
   const [{ data: countsData, fetching }] = useAppointmentCountByStatusQuery({
     // variables: {},
+    requestPolicy: "network-only",
   });
   const { appointmentCountByStatus } = countsData || {};
 
@@ -87,6 +88,11 @@ function SidebarMenuItem() {
         );
         if (appointmentsAlertData) {
           appointmentsAlertData = JSON.parse(appointmentsAlertData);
+          if (!Object.values(appointmentsAlertData || {}).every((val) => val)) {
+            setLocalAppointmentAlertData({
+              ...(appointmentsAlertData as unknown as object),
+            });
+          }
           let updatedAlertData = {
             ...(appointmentsAlertData as unknown as object),
           };
@@ -144,7 +150,6 @@ function SidebarMenuItem() {
     variables: { filter: { searchString: "" } },
     requestPolicy: "network-only",
   });
-  console.log("msgCountsData", msgCountsData);
   const { getAllChatChannels } = msgCountsData || {};
   const [msgCount, setMsgCount] = React.useState<number | undefined>(0);
   useEffect(() => {
@@ -353,12 +358,13 @@ function SidebarMenuItem() {
                 title={
                   <div className="relative">
                     {el.toggleName}
-                    {(localAppointmentAlertData?.upcoming !== upcoming ||
-                      localAppointmentAlertData?.pending !== pending ||
-                      localAppointmentAlertData?.canceled !== canceled ||
-                      localAppointmentAlertData?.history !== history) && (
-                      <span className={_classes["red-dot"]}></span>
-                    )}
+                    {el.id === "1" &&
+                      (localAppointmentAlertData?.upcoming !== upcoming ||
+                        localAppointmentAlertData?.pending !== pending ||
+                        localAppointmentAlertData?.canceled !== canceled ||
+                        localAppointmentAlertData?.history !== history) && (
+                        <span className={_classes["red-dot"]}></span>
+                      )}
                   </div>
                 }
               >
