@@ -25,14 +25,14 @@ const InfoMessageBannerReminder = () => {
   const id = patient_id || doctor_id;
   const { appointmentTimeSlots } = appointmentsReminderBanner || {};
 
-  const [isBannerAppointmentTime, setIsBannerAppointmentTime] = useState<boolean>(false)
+  const [isBannerAppointmentTime, setIsBannerAppointmentTime] =
+    useState<boolean>(false);
 
   let selectedTime = appointmentTimeSlots?.find((time) => time.selected);
   dayjs.extend(utc);
   dayjs.extend(weekday);
   dayjs.extend(localeData);
   dayjs.extend(duration);
-
 
   //checking is appointment time is same as current datetime
   let isAppoinmetnStartTime = date?.isAppoinentDateIsSame(
@@ -51,17 +51,19 @@ const InfoMessageBannerReminder = () => {
 
   useEffect(() => {
     if (now?.unix() > selectStartTime && now?.unix() < selectEndTime) {
-      setIsBannerAppointmentTime(false)
+      setIsBannerAppointmentTime(false);
     } else {
-      setIsBannerAppointmentTime(true)
+      setIsBannerAppointmentTime(true);
     }
-  },[selectedTime])
+  }, [selectedTime]);
   let formatedPatientFirstName = `${
     patient_first_name?.includes("")
       ? patient_first_name
       : ` ${patient_first_name}`
   }`;
-  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  const timeZone =
+    typeof window !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
@@ -77,10 +79,10 @@ const InfoMessageBannerReminder = () => {
       <div className="flex items-start gap-1">
         <span className="ml-0 min-h-max hidden md:block md:whitespace-nowrap">
           You have an appointment with
-          {getRole() === "Doctor" && (
+          {getRole() === "Doctor" || getRole() === "Staff" ? (
             // <span> {`${patient_first_name} ${patient_last_name}`} </span>
             <span> {`${formatedPatientFirstName} ${patient_last_name}`} </span>
-          )}
+          ) : null}
           {getRole() === "User" && (
             <span> {`${formatedDoctorFirstName} ${doctor_last_name}`} </span>
           )}
@@ -91,10 +93,10 @@ const InfoMessageBannerReminder = () => {
           {/* {`${date?.formathhmma(selectedTime?.startTime)} -  ${date?.formathhmma(
           selectedTime?.endTime
         )}`} */}
-          {`${date?.formathhmma(selectedTime?.startTime,timeZone)}`}
+          {`${date?.formathhmma(selectedTime?.startTime, timeZone)}`}
         </span>
         <span className="md:whitespace-nowrap">
-          on {date?.formatDAYMMDD(selectedTime?.startTime,timeZone)}
+          on {date?.formatDAYMMDD(selectedTime?.startTime, timeZone)}
         </span>
       </div>
 
