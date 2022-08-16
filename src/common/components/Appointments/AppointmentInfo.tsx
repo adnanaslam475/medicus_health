@@ -107,7 +107,9 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow label="Total amount" value={`$${appointmentCharges}`} />
 
         <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1 max-w-[200px]">Status</div>
+          <div className="w-full text-gray-1 max-w-[200px]">
+            Appointment status
+          </div>
           <div className="w-full text-secondary">
             <Tag
               color="#e2f8f7"
