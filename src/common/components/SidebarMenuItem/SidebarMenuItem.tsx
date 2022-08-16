@@ -300,15 +300,16 @@ function SidebarMenuItem() {
                       key={el2.route}
                       className={_classes["side-bar-submenu-item"]}
                     >
-                      {el.id == "2" || el.id == "6" ? (
+                      {el.id == "2" ? (
                         <Link passHref href={el2.route}>
-                          <Badge
+                          {/* <Badge
                             dot={dot}
                             // count={100}
                             className={_classes["side-bar-submenu-count"]}
                           >
                             <>{el2.name}</>
-                          </Badge>
+                          </Badge> */}
+                          <>{el2.name}</>
                         </Link>
                       ) : (
                         <Link href={el2.route}>
