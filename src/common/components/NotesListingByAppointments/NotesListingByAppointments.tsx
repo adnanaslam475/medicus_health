@@ -97,10 +97,9 @@ function NotesListingByAppointments(props: Props) {
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header={`ID# ${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
-                  appDate
-                )} `}
+                header={`ID# ${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}`}
                 key={index + 1}
+                extra={convertStringDateToUTC(appDate)}
               >
                 {(getRole() === "Admin" || getRole() === "Doctor") &&
                   actualDoctorNotes !== null && (
