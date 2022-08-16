@@ -14,15 +14,17 @@ function MultiRangeListing(props: Props) {
   return (
     <div className="flex  items-center" key={index}>
       <div className="bg-gray-4 rounded-lg flex my-2 flex-1">
-        <div className="flex flex-1 flex-col pl-1 md:pl-5 md:pr-48 py-2 border-r border-gray-3 pr-0">
+        <div className="flex flex-1 flex-col pl-1 md:pl-5 md:pr-32 lg:pr-28 py-2 border-r border-gray-3 pr-0">
           <span className="text-gray text-xs">Day</span>
-          <span className="text-xs md:text-base">{dayName(item?.day || 0)}</span>
+          <span className="text-xs md:text-base">
+            {dayName(item?.day || 0)}
+          </span>
         </div>
-        <div className="flex flex-1 flex-col pl-1 md:pl-5 py-2 border-r border-gray-3">
+        <div className="flex flex-1 flex-col pl-1 md:px-1 py-2 border-r border-gray-3">
           <span className="text-gray text-xs">From</span>
           <span className="text-xs md:text-base">{item.startTime}</span>
         </div>
-        <div className="flex flex-1 flex-col pl-1 md:pl-5  py-2">
+        <div className="flex flex-1 flex-col pl-1 md:px-1  py-2">
           <span className="text-gray text-xs">To</span>
           <span className="text-xs md:text-base">{item.endTime}</span>
         </div>

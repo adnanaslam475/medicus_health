@@ -261,9 +261,9 @@ function EditProfile({
 
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-      if (values?.timeZone) {
-        setPhysicianTimeZoneId(values?.timeZone);
-      }
+    if (values?.timeZone) {
+      setPhysicianTimeZoneId(values?.timeZone);
+    }
     const res = await updateDoctor({
       updateDoctorProfileInput: {
         doctor_id: pathname.includes("/admin/physicians")
@@ -763,9 +763,7 @@ function EditProfile({
                   name="year_of_experience"
                   className="flex-1"
                 >
-                  <Input
-                    type="number"
-                  />
+                  <Input type="number" />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row sm:gap-3">
