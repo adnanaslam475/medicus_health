@@ -144,7 +144,6 @@ function NotesTab({}: Props) {
             {/* {!actualDoctorNotes ? (
               status === "Confirmed" || status === "Requested"
             ) : (
-              <>No current appointment notes available.</>
             )} */}
           </div>
         </>

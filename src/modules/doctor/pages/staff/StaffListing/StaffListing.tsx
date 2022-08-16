@@ -113,7 +113,7 @@ function StaffListing() {
         form.resetFields();
         executeUseStaffQuery({ requestPolicy: "network-only" });
         notification.success({
-          message: "staff added successfully",
+          message: "Staff added successfully",
         });
       }
     } catch (error) {

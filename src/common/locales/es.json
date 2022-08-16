@@ -49,7 +49,7 @@
     "street_address": "Dirección",
     "contact_number": "número de contacto",
     "country": "País",
-    "state": "Estado",
+    "state": "Estado/Provinicia",
     "city": "Ciudad",
     "postal_code": "Código postal",
     "postal_code_message": "Por favor ingrese su código postal",

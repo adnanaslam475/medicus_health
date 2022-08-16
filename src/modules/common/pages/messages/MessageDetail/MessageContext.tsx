@@ -120,7 +120,7 @@ export function MessageContextProvider({
       info.messagesWithChannel = messages;
       setMessageInfo(info);
     }
-  }, [getChannelMessages, messageInfo.currentChannel?.channelName]);
+  }, [getChannelMessages?.[0]?.channelId, messageInfo.currentChannel?.channelName]);
 
   async function createOrJoinChannel() {
     try {
@@ -265,6 +265,7 @@ export function MessageContextProvider({
       if (rtmRef.current) {
         rtmRef.current.channels[channelName].joined = true;
       }
+      
       // notification.success({
       //   message: "joined successfully",
       // });
