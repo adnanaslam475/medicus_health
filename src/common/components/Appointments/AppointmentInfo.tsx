@@ -52,7 +52,9 @@ function AppointmentInfo(props: Props) {
     first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
   }`;
 
-  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  const timeZone =
+    typeof window !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -72,7 +74,10 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow label="Appointment type" value={name || "--"} />
         <LabelValueRow
           label="Appointment date"
-          value={date.formatDAYMMDDYY(String(appointment?.appointmentDateTime?.startTime), timeZone)}
+          value={date.formatDAYMMDDYY(
+            String(appointment?.appointmentDateTime?.startTime),
+            timeZone
+          )}
         />
         {/* <LabelValueRow
           label="Booking date"
@@ -82,10 +87,14 @@ function AppointmentInfo(props: Props) {
         <LabelValueRow
           label="Appointment time"
           value={
-            selectedAppointment?.startTime 
+            selectedAppointment?.startTime
               ? `${date?.formathhmma(
-                  selectedAppointment?.startTime,timeZone
-                )} - ${date?.formathhmma(selectedAppointment?.endTime,timeZone)}`
+                  selectedAppointment?.startTime,
+                  timeZone
+                )} - ${date?.formathhmma(
+                  selectedAppointment?.endTime,
+                  timeZone
+                )}`
               : `${date.formathhmma(
                   String(appointment?.appointmentDateTime?.startTime),
                   timeZone
@@ -167,7 +176,7 @@ function AppointmentInfo(props: Props) {
             <span className="pl-2">Message physician</span>
           </Button>
         </div>
-        <Link passHref href={`/patient/appointments/${id}/call`}>
+        {/* <Link passHref href={`/patient/appointments/${id}/call`}>
           <Button
             className={`${_classes["appointments-btn"]}`}
             type="primary"
@@ -177,7 +186,7 @@ function AppointmentInfo(props: Props) {
           >
             <span>Join now</span>
           </Button>
-        </Link>
+        </Link> */}
       </div>
     </>
   );

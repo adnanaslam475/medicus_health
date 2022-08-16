@@ -84,7 +84,9 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
         <Form.Item
           name="email"
           label="Email"
-          rules={[{ type: "email", required: true,message:"Email is required" }]}
+          rules={[
+            { type: "email", required: true, message: "Email is required" },
+          ]}
           className="flex-1"
         >
           <Input />
