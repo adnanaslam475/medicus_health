@@ -32,15 +32,19 @@ function AppointmnetConfirmedCard({
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
-  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  const timeZone =
+    typeof window !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
-    isAppointmentTimeValid(
-      selectedAppointment,
-      disabled,
-      setDisabled,
-      timeZone
-    );
+    if (selectedAppointment) {
+      isAppointmentTimeValid(
+        selectedAppointment,
+        disabled,
+        setDisabled,
+        timeZone
+      );
+    }
   }, [selectedAppointment]);
 
   let formatedDoctorName = `${

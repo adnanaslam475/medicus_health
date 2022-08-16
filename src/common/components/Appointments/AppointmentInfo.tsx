@@ -192,6 +192,8 @@ function AppointmentInfo(props: Props) {
               <span className="pl-2">Message physician</span>
             </Button>
           </div>
+        {status !== "Requested" && (
+
           <Link passHref href={`/patient/appointments/${id}/call`}>
             <Button
               className={`${_classes["appointments-btn"]}`}
@@ -203,6 +205,8 @@ function AppointmentInfo(props: Props) {
               <span>Join now</span>
             </Button>
           </Link>
+        )}
+
         </div>
       </CardWithProfileImageInfo>
     </>

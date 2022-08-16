@@ -127,7 +127,7 @@ const AttachmentDragger = (props: Props) => {
           </Dragger>
         </Form.Item>
         <span className=" ant-upload-hint block text-xs text-gray-1 text-center -mt-4">
-          Please upload files that are relevant to your appointment.
+        Please upload files that are relevant to your appointment.
         </span>
       </Form>
     </div>
