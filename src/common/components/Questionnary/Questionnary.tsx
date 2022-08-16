@@ -482,20 +482,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       </Form.Item>
       <Form.Item
         className="flex-1 text-secondary"
-        name={HealthQuestionnaryData.q6.name}
-        label={HealthQuestionnaryData.q6.label}
-        rules={[
-          {
-            required: true,
-            message: t("please_fill_field"),
-            // message: "Please fill",
-          },
-        ]}
-      >
-        <Input readOnly={isDisabled} disabled={disabled} size="large" />
-      </Form.Item>
-      <Form.Item
-        className="flex-1 text-secondary"
         name={HealthQuestionnaryData.q7.name}
         label={HealthQuestionnaryData.q7.label}
         rules={[
@@ -508,6 +494,21 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       >
         <Input readOnly={isDisabled} disabled={disabled} size="large" />
       </Form.Item>
+      <Form.Item
+        className="flex-1 text-secondary"
+        name={HealthQuestionnaryData.q6.name}
+        label={HealthQuestionnaryData.q6.label}
+        rules={[
+          {
+            required: true,
+            message: t("please_fill_field"),
+            // message: "Please fill",
+          },
+        ]}
+      >
+        <Input readOnly={isDisabled} disabled={disabled} size="large" />
+      </Form.Item>
+
       <Form.Item
         className="flex-1 text-secondary"
         name={HealthQuestionnaryData.q8.name}

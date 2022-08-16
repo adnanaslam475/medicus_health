@@ -31,14 +31,14 @@ const HealthQuestionnaryData: Questions = {
     option: ["sí", "no"],
     q: {
       name: "drinks",
-      label: "Qué tan frecuentemente bebe alcohol?*",
+      label: "Qué tan frecuentemente bebe alcohol?",
       type: "text",
       ans: "",
     },
   },
   q2: {
     name: "radio_smoke",
-    label: "Usted fuma",
+    label: "¿Usted fuma?",
     type: "radio",
     ans: "",
     option: ["sí", "no"],
@@ -50,19 +50,19 @@ const HealthQuestionnaryData: Questions = {
     // },
     q: {
       name: "smoke",
-      label: "¿Cuánto tiempo has fumado?*",
+      label: "¿Cuánto tiempo has fumado?",
       type: "text",
       ans: "",
     },
     q1: {
       name: "smoke1",
-      label: "¿Con qué frecuencia fuma?*",
+      label: "¿Con qué frecuencia fuma?",
       type: "text",
       ans: "",
     },
     q2: {
       name: "smoke2",
-      label: "¿Cuántos cigarrillos fuma al día?*",
+      label: "¿Cuántos cigarrillos fuma al día?",
       type: "text",
       ans: "",
     },
@@ -120,7 +120,7 @@ const HealthQuestionnaryData: Questions = {
         "Cirugía del corazón",
         "Cirugía pulmonar",
         "Apendicectomía",
-        "Otra (describa)",
+        "Otra",
       ],
       selectedOption: [],
     },
@@ -134,7 +134,7 @@ const HealthQuestionnaryData: Questions = {
   q4: {
     name: "surgical_history",
     label:
-      "Por favor seleccione procedimientos que describan su historial quirúrgico?*",
+      "Por favor seleccione procedimientos que describan su historial quirúrgico?",
     type: "checkbox",
     ans: "",
     option: [
@@ -159,28 +159,28 @@ const HealthQuestionnaryData: Questions = {
   },
   q5: {
     name: "allergies",
-    label: "Por favor enliste cualquier alergia conocida.*",
+    label: "Por favor enliste cualquier alergia conocida.",
     type: "text",
     ans: "",
   },
   q6: {
     name: "adverse",
     label:
-      "Por favor describa cualquier efecto secundario que haya experimentado con medicamentos.*",
+      "Por favor describa cualquier efecto secundario que haya experimentado con medicamentos.",
     type: "text",
     ans: "",
   },
   q7: {
     name: "medication",
     label:
-      "Por favor enliste cualquier medicamento(s) actual que este tomando (especifique nombre del medicamento, dosis y frecuencia de toma).*",
+      "Por favor enliste cualquier medicamento(s) actual que este tomando (especifique nombre del medicamento, dosis y frecuencia de toma).",
     type: "text",
     ans: "",
   },
   q8: {
     name: "inherited",
     label:
-      "Por favor enliste cualquier problema medico que es común en su familia.*",
+      "Por favor enliste cualquier problema medico que es común en su familia.",
     type: "text",
     ans: "",
   },
