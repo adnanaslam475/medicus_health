@@ -41,7 +41,7 @@
     "street_address": "as",
     "contact_number": "Contact Number",
     "country": "Country",
-    "state": "State",
+    "state": "State/Province",
     "city": "City",
     "postal_code": "Postal code",
     "postal_code_message": "Please enter your postal code",

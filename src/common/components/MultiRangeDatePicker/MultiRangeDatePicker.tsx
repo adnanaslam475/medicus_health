@@ -29,6 +29,7 @@ type Props = {
     timeString: string[];
     time: RangeValue<moment.Moment> | null;
   };
+  deleteScheduleFetching?: boolean;
 };
 
 function MultiRangeDatePicker(props: Props) {
@@ -42,6 +43,7 @@ function MultiRangeDatePicker(props: Props) {
     setAddScheduleTime,
     setDeleteScheduleId,
     onAddClick,
+    deleteScheduleFetching,
   } = props;
 
   function onChange(
@@ -97,6 +99,7 @@ function MultiRangeDatePicker(props: Props) {
                 item={item}
                 index={index}
                 setDeleteScheduleId={setDeleteScheduleId}
+                deleteScheduleFetching={deleteScheduleFetching}
               />
             );
           })}
