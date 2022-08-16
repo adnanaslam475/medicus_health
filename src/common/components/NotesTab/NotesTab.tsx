@@ -133,7 +133,10 @@ function NotesTab({}: Props) {
                 </>
               )
             ) : (
-              <>No current appointment notes available.</>
+              <>
+                Notes for this appointment have not been published by physician
+                yet.
+              </>
             )}
             {/* {!actualDoctorNotes ? (
               status === "Confirmed" || status === "Requested"
