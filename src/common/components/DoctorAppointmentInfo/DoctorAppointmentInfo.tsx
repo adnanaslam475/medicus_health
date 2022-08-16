@@ -180,7 +180,13 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="AppoIntment date"
-          text={appointmentDateTime?.startTime ? `${formatedDueDate} ` : "--"}
+          text={
+            status === "Proposed" ||
+            status === "Rescheduled" ||
+            !appointmentDateTime?.startTime
+              ? "--"
+              : `${formatedDueDate} `
+          }
         />
         {/* <LabelWithText
           label="Booking date"
@@ -193,15 +199,18 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText
           label="Appointment time"
           text={
-            appointmentDateTime?.startTime && appointmentDateTime?.endTime
-              ? `${date.formathhmma(
+            status === "Proposed" ||
+            status === "Rescheduled" ||
+            !appointmentDateTime?.startTime ||
+            !appointmentDateTime?.endTime
+              ? "--"
+              : `${date.formathhmma(
                   appointmentDateTime?.startTime,
                   timeZone
                 )} - ${date.formathhmma(
                   appointmentDateTime?.endTime,
                   timeZone
                 )}`
-              : "--"
           }
         />
         <LabelWithText
