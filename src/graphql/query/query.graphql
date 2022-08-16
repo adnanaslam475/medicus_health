@@ -439,6 +439,10 @@ query getAppointmentById($id: Int!) {
       id
       first_name
       last_name
+      doctorProfile {
+        specialization
+        profile_image
+      }
       doctorQuestionnaire {
         questionnaire
         languageId
@@ -448,7 +452,7 @@ query getAppointmentById($id: Int!) {
       id
       first_name
       last_name
-      timeZone{
+      timeZone {
         timeZone
       }
       patientProfile {

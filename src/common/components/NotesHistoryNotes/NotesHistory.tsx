@@ -58,13 +58,6 @@ function NotesHistory(props: Props) {
 
   const appointmentChild = getHistoryNotesData;
 
-  // const actualDoctorNotes =
-  //   appointmentChild?.appointment?.currentAppointmentNote;
-
-  // const { note, subjective, objective, assessment, plan } =
-  //   actualDoctorNotes || {};
-  // console.log(appointmentChild, "getactualDoctorNotes");
-
   const doctor = getHistoryNotesData?.appointment;
 
   const historyNotes = appointmentChild?.appointment?.notesHistory;
@@ -83,24 +76,6 @@ function NotesHistory(props: Props) {
       : `Dr. ${finalPhysicianName}`;
     return formatedDoctorFirstName;
   };
-
-  // const appointmentId = getHistoryNotesData?.appointment?.id;
-
-  // const firstName = getHistoryNotesData?.appointment.doctor?.first_name;
-
-  // const lastName = getHistoryNotesData?.appointment?.doctor?.last_name;
-
-  // const capitalFirstname = firstName?.charAt(0).toUpperCase();
-
-  // const physicianFullName = capitalFirstname + "" + firstName?.slice(1);
-
-  // const finalPhysicianName = physicianFullName + " " + lastName;
-
-  // let formatedDoctorFirstName = finalPhysicianName?.includes("Dr.")
-  //   ? finalPhysicianName
-  //   : `Dr. ${finalPhysicianName}`;
-
-  // const status = getHistoryNotesData?.appointment.status;
 
   return (
     <>
@@ -129,13 +104,12 @@ function NotesHistory(props: Props) {
                     // )} `}
                     header={`ID# ${
                       data?.appointment?.id
-                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${doctorNameforHistoryNotes(
+                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${doctorNameforHistoryNotes(
                       data?.appointment?.doctor?.first_name,
                       data?.appointment?.doctor?.last_name
-                    )}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
-                      data?.createdAt
-                    )} `}
+                    )}   `}
                     key={index + 1}
+                    extra={convertStringDateToUTC(data?.createdAt)}
                   >
                     <>
                       {(getRole() === "Admin" || getRole() === "Doctor") && (
