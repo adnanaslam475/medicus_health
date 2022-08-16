@@ -54,6 +54,15 @@ function Login() {
           "timeZone",
           JSON.stringify(userPayload?.user?.timeZone?.timeZone)
         );
+        localStorage.setItem(
+          "appointmentsAlertData",
+          JSON.stringify({
+            canceled: 0,
+            history: 0,
+            pending: 0,
+            upcoming: 0,
+          })
+        );
         if (
           userPayload.user.role === "Doctor" ||
           userPayload.user.role === "Staff"
