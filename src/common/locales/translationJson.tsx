@@ -117,7 +117,7 @@ export function translationJson(local: string) {
           description: "Introduzca sus credenciales para acceder a su cuenta.",
           remember: "Remember me",
           forgot: "Forgot password?",
-          login: "Login",
+          login: "Inicio de sesión",
           account: "Don't have an account?",
           register: "Register",
           email: "Email address",
@@ -157,7 +157,7 @@ export function translationJson(local: string) {
             "Create your account to start using medicus",
           personalInfo: "Personal info",
           healthQuestionnaire: "Health questionnaire",
-          login: "Login",
+          login: "Inicio de sesión",
           account: "Don't have an account?",
           signup_modal_skip_questionaire_message:
             "Note, these questions need to be answered before requesting an appointment with a physician. You can skip for now and complete later.",
@@ -213,7 +213,7 @@ export function translationJson(local: string) {
 
         PersonalInfo: {
           ...englishCommon,
-          Login: "Login",
+          Login: "Inicio de sesión",
           already_have_an_account: "¿Ya tienes una cuenta?",
           gender: "Gender",
           first_name: "First name",
@@ -234,7 +234,7 @@ export function translationJson(local: string) {
           postal_code_message: "Please enter your postal code",
           // i_agree_to_the: "I agree to the",
           // terms_n_conditions: " Terms & conditions",
-          next: "Next",
+          // next: "Next",
           timezone: "Time zone",
           time_zone_is_required: "Time zone is required",
         },
