@@ -109,12 +109,14 @@ function Billing({
   onMakeDefault,
   onSubmit,
 }: propsBilling) {
+  const [formInstance] = Form.useForm();
   const stripe = useStripe();
   const elements = useElements();
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const closeModal = () => {
+    formInstance.resetFields();
     setModalVisible(false);
   };
 
@@ -221,39 +223,53 @@ function Billing({
         onCancel={closeModal}
         footer={null}
       >
-        <Form className="" onFinish={handleSubmit} layout="vertical">
-          <span className="text-base text-secondary my-2">Card number*</span>
-          <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-            <CardNumberElement
-              options={{
-                placeholder: "",
-                style: {
-                  base: {
-                    "::placeholder": {
-                      color: "gray",
+        <Form
+          form={formInstance}
+          className=""
+          onFinish={handleSubmit}
+          layout="vertical"
+        >
+          <Form.Item name="cardnumber">
+            <span className="text-base text-secondary my-2">Card number*</span>
+            <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+              <CardNumberElement
+                options={{
+                  placeholder: "",
+                  style: {
+                    base: {
+                      "::placeholder": {
+                        color: "gray",
+                      },
                     },
                   },
-                },
-              }}
-            />
-          </div>
+                }}
+              />
+            </div>
+          </Form.Item>
+
           <div className="sm:grid grid-cols-2 gap-4">
-            <div>
-              <span className="text-base text-secondary">CVV*</span>
-              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-                <CardCvcElement
-                  options={{
-                    placeholder: "",
-                  }}
-                />
+            <Form.Item name="cvv">
+              <div>
+                <span className="text-base text-secondary">CVV*</span>
+                <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+                  <CardCvcElement
+                    options={{
+                      placeholder: "",
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-            <div>
-              <span className="text-base text-secondary my-2">Expires on*</span>
-              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-                <CardExpiryElement />
+            </Form.Item>
+            <Form.Item name="expires">
+              <div>
+                <span className="text-base text-secondary my-2">
+                  Expires on*
+                </span>
+                <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+                  <CardExpiryElement />
+                </div>
               </div>
-            </div>
+            </Form.Item>
           </div>
           <div className="flex justify-end">
             <Form.Item>
