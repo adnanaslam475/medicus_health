@@ -61,6 +61,12 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
     createdAt
     charges
     doctor{
+      first_name
+      last_name
+      doctorProfile{
+        specialization
+        profile_image
+      }
       timeZone{
         timeZone
       }
