@@ -61,7 +61,7 @@ function Notes(props: Props) {
         className={`${_classes["modal-custom"]}`}
       >
         <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
-          <h4 className="font-bold pt-4">Add Note</h4>
+          <h4 className="font-bold pt-4">Add note</h4>
           <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE</h4>
           <Form.Item name="note">
             <TextArea />
