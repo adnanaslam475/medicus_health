@@ -45,7 +45,7 @@ function AppointmentInfo(props: Props) {
   );
   const [disabled, setDisabled] = useState(true);
   const [isRoleGuard, setRoleGuard] = useState<boolean>(false);
-  const appointmentCharges = transaction?.amountReceived || "-";
+  const appointmentCharges = transaction?.amountReceived;
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
@@ -127,7 +127,7 @@ function AppointmentInfo(props: Props) {
           />
           <LabelValueRow
             label="Total amount"
-            value={`$${appointmentCharges}`}
+            value={appointmentCharges ? `$${appointmentCharges}` : "-"}
           />
 
           <li className="flex border-b border-gray-5 py-3">
