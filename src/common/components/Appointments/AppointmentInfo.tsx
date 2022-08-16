@@ -15,6 +15,7 @@ import { CustomTimeSlot } from "common/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import CardWithProfileImageInfo from "../CardWithProfileImageInfo/CardWithProfileImageInfo";
+import { getRole } from "common/utils/userData";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -43,6 +44,7 @@ function AppointmentInfo(props: Props) {
     [appointmentTimeSlots]
   );
   const [disabled, setDisabled] = useState(true);
+  const [isRoleGuard, setRoleGuard] = useState<boolean>(false);
   const appointmentCharges = transaction?.amountReceived || "-";
 
   useEffect(() => {
@@ -58,6 +60,14 @@ function AppointmentInfo(props: Props) {
   const doctorSpecialization =
     appoinmentDetails?.appointment?.doctor?.doctorProfile?.specialization;
 
+  useEffect(() => {
+    if (getRole() === "User") {
+      setRoleGuard(true);
+    } else {
+      setRoleGuard(false);
+    }
+  }, []);
+
   const timeZone =
     typeof window !== "undefined" &&
     JSON.parse(String(localStorage?.getItem("timeZone")) || "");
@@ -68,20 +78,20 @@ function AppointmentInfo(props: Props) {
   ) : (
     <>
       <CardWithProfileImageInfo
-        name={`${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`}
-        serviceName={`${doctorSpecialization}`}
-        imageUrl={doctorProfilePic}
+        name={isRoleGuard ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}` : ""}
+        serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
+        imageUrl={isRoleGuard ? doctorProfilePic : null}
       >
         <div className="max-w-[700px]">
           <LabelValueRow label="ID#" value={Number(id)} />
-          {/* <LabelValueRow
+          <LabelValueRow
             label="Requested date"
             value={date?.formatDAYMMDDYY(requestedDate, timeZone)}
           />
           <LabelValueRow
             label="Physician"
             value={`${formatedDoctorFirstName} ${last_name}`}
-          /> */}
+          />
           <LabelValueRow label="Appointment type" value={name || "--"} />
           <LabelValueRow
             label="Appointment date"
@@ -192,6 +202,8 @@ function AppointmentInfo(props: Props) {
               <span className="pl-2">Message physician</span>
             </Button>
           </div>
+        {status !== "Requested" && (
+
           <Link passHref href={`/patient/appointments/${id}/call`}>
             <Button
               className={`${_classes["appointments-btn"]}`}
@@ -203,6 +215,8 @@ function AppointmentInfo(props: Props) {
               <span>Join now</span>
             </Button>
           </Link>
+        )}
+
         </div>
       </CardWithProfileImageInfo>
     </>

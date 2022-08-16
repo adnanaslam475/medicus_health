@@ -13,7 +13,7 @@ import {
   useGetDoctorNotesByAppIdQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NotesHistory from "../NotesHistoryNotes/NotesHistory";
 
 type Props = {
@@ -31,6 +31,7 @@ function NotesTab({}: Props) {
     },
     pause: !query.id,
   });
+  const [isRoleGuard, setRoleGuard] = useState<boolean>(false);
 
   const [{ data: note }, createOrUpdateAppointmentNote] =
     useCreateOrUpdateAppointmentNoteMutation();
@@ -91,6 +92,14 @@ function NotesTab({}: Props) {
     first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
   }`;
 
+  useEffect(() => {
+    if (getRole() === "User") {
+      setRoleGuard(true);
+    } else {
+      setRoleGuard(false);
+    }
+  }, []);
+
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -98,9 +107,9 @@ function NotesTab({}: Props) {
   ) : (
     <div className="md:max-w-1/2">
       <CardWithProfileImageInfo
-        name={`${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`}
-        serviceName={`${doctorSpecialization}`}
-        imageUrl={doctorProfilePic}      >
+        name={isRoleGuard ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}` : `${patient?.first_name} ${patient?.last_name}`}
+        serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
+        imageUrl={isRoleGuard ? doctorProfilePic : appointment?.patient?.patientProfile?.profileImage}      >
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}
