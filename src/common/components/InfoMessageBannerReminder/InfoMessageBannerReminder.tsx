@@ -45,7 +45,7 @@ const InfoMessageBannerReminder = () => {
       : `Dr. ${doctor_first_name}`
   }`;
 
-  const selectStartTime =  dayjs(selectedTime?.startTime).utc().unix()
+  const selectStartTime =  Number(dayjs(selectedTime?.startTime).utc().unix()-300)
   const selectEndTime =  dayjs(selectedTime?.endTime).utc().unix()
   let now = dayjs().utc();
 
