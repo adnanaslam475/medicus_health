@@ -841,7 +841,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               disabled={Object.values(slot).some((value) => value === "")}
               type="link"
             >
-              + Add slot
+              + Add slots
             </Button>
           </div>
 
