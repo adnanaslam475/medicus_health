@@ -60,6 +60,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
     } = useBookAppointment();
     const {
       physician,
+      patient,
       price,
       service,
       requestedDate,
@@ -171,6 +172,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
           : physician;
       formInstance.setFieldsValue({
         physician: physicianName,
+        patient: patient,
         service: rebookData?.serviceId || service,
         charges: consultationCharges,
         requestedDate: requestedDate,
@@ -374,7 +376,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
             />
           </Form.Item>
           <Form.Item
-            label="Availability* - Select (One)"
+            // label="Availability* - Select (One)"
+            label="Select desired availability. Physician will propose 30 minute appointment within availabiity period selected."
             name="availability"
             rules={[{ required: true, message: "Availability is required" }]}
           >

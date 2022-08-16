@@ -14,6 +14,7 @@ import { isAppointmentTimeValid } from "common/utils/date";
 import { CustomTimeSlot } from "common/types/types";
 import Link from "next/link";
 import Image from "next/image";
+import CardWithProfileImageInfo from "../CardWithProfileImageInfo/CardWithProfileImageInfo";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -52,6 +53,11 @@ function AppointmentInfo(props: Props) {
     first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
   }`;
 
+  const doctorProfilePic =
+    appoinmentDetails?.appointment?.doctor?.doctorProfile?.profile_image;
+  const doctorSpecialization =
+    appoinmentDetails?.appointment?.doctor?.doctorProfile?.specialization;
+
   const timeZone =
     typeof window !== "undefined" &&
     JSON.parse(String(localStorage?.getItem("timeZone")) || "");
@@ -61,135 +67,144 @@ function AppointmentInfo(props: Props) {
     </div>
   ) : (
     <>
-      <div className="max-w-[700px]">
-        <LabelValueRow label="ID#" value={Number(id)} />
-        <LabelValueRow
-          label="Requested date"
-          value={date?.formatDAYMMDDYY(requestedDate, timeZone)}
-        />
-        <LabelValueRow
-          label="Physician"
-          value={`${formatedDoctorFirstName} ${last_name}`}
-        />
-        <LabelValueRow label="Appointment type" value={name || "--"} />
-        <LabelValueRow
-          label="Appointment date"
-          value={date.formatDAYMMDDYY(
-            String(appointment?.appointmentDateTime?.startTime),
-            timeZone
-          )}
-        />
-        {/* <LabelValueRow
+      <CardWithProfileImageInfo
+        name={`${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`}
+        serviceName={`${doctorSpecialization}`}
+        imageUrl={doctorProfilePic}
+      >
+        <div className="max-w-[700px]">
+          <LabelValueRow label="ID#" value={Number(id)} />
+          {/* <LabelValueRow
+            label="Requested date"
+            value={date?.formatDAYMMDDYY(requestedDate, timeZone)}
+          />
+          <LabelValueRow
+            label="Physician"
+            value={`${formatedDoctorFirstName} ${last_name}`}
+          /> */}
+          <LabelValueRow label="Appointment type" value={name || "--"} />
+          <LabelValueRow
+            label="Appointment date"
+            value={date.formatDAYMMDDYY(
+              String(appointment?.appointmentDateTime?.startTime),
+              timeZone
+            )}
+          />
+          {/* <LabelValueRow
           label="Booking date"
           value={date.formatDAYMMDDYY(createdAt)}
         /> */}
 
-        <LabelValueRow
-          label="Appointment time"
-          value={
-            selectedAppointment?.startTime
-              ? `${date?.formathhmma(
-                  selectedAppointment?.startTime,
-                  timeZone
-                )} - ${date?.formathhmma(
-                  selectedAppointment?.endTime,
-                  timeZone
-                )}`
-              : `${date.formathhmma(
-                  String(appointment?.appointmentDateTime?.startTime),
-                  timeZone
-                )} - ${date.formathhmma(
-                  String(appointment?.appointmentDateTime?.endTime),
-                  timeZone
-                )}`
-          }
-        />
-        <LabelValueRow label="Total amount" value={`$${appointmentCharges}`} />
-
-        <li className="flex border-b border-gray-5 py-3">
-          <div className="w-full text-gray-1 max-w-[200px]">
-            Appointment status
-          </div>
-          <div className="w-full text-secondary">
-            <Tag
-              color="#e2f8f7"
-              className="ant-typography ant-typography-secondary"
-            >
-              {status}
-            </Tag>
-          </div>
-        </li>
-      </div>
-
-      <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
-        <div className="flex flex-wrap mb-3 justify-center gap-y-2">
-          <Button
-            icon={
-              <Image
-                priority={true}
-                width={15}
-                height={15}
-                src={support}
-                alt=""
-                className=""
-              />
+          <LabelValueRow
+            label="Appointment time"
+            value={
+              selectedAppointment?.startTime
+                ? `${date?.formathhmma(
+                    selectedAppointment?.startTime,
+                    timeZone
+                  )} - ${date?.formathhmma(
+                    selectedAppointment?.endTime,
+                    timeZone
+                  )}`
+                : `${date.formathhmma(
+                    String(appointment?.appointmentDateTime?.startTime),
+                    timeZone
+                  )} - ${date.formathhmma(
+                    String(appointment?.appointmentDateTime?.endTime),
+                    timeZone
+                  )}`
             }
-            className={`${_classes["appointments-btn"]}  mr-3`}
-            onClick={() => {
-              const query: any = {
-                chat: "admin",
-                // doctorId: appointment?.doctorId,
-                patientId: appointment?.patientId,
-              };
-              localStorage.setItem("id", JSON.stringify(query));
-              Router.push({
-                pathname: "/patient/messages",
-                query,
-              });
-            }}
-          >
-            <span className="pl-2">Message support</span>
-          </Button>
-          <Button
-            icon={
-              <Image
-                priority={true}
-                width={15}
-                height={15}
-                src={chat}
-                alt=""
-                className=""
-              />
-            }
-            className={`${_classes["appointments-btn"]} `}
-            onClick={() => {
-              const query: any = {
-                chat: "doctor",
-                doctorId: appointment?.doctorId,
-                patientId: appointment?.patientId,
-              };
-              localStorage.setItem("id", JSON.stringify(query));
-              Router.push({
-                pathname: "/patient/messages",
-                query,
-              });
-            }}
-          >
-            <span className="pl-2">Message physician</span>
-          </Button>
+          />
+          <LabelValueRow
+            label="Total amount"
+            value={`$${appointmentCharges}`}
+          />
+
+          <li className="flex border-b border-gray-5 py-3">
+            <div className="w-full text-gray-1 max-w-[200px]">
+              Appointment Status
+            </div>
+            <div className="w-full text-primary">
+              <Tag
+                color="#e2f8f7"
+                className="ant-typography ant-typography-secondary"
+              >
+                {status}
+              </Tag>
+            </div>
+          </li>
         </div>
-        {/* <Link passHref href={`/patient/appointments/${id}/call`}>
-          <Button
-            className={`${_classes["appointments-btn"]}`}
-            type="primary"
-            icon={<VideoCameraFilled />}
-            target={"_blank"}
-            disabled={disabled}
-          >
-            <span>Join now</span>
-          </Button>
-        </Link> */}
-      </div>
+
+        <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
+          <div className="flex flex-wrap mb-3 justify-center gap-y-2">
+            <Button
+              icon={
+                <Image
+                  priority={true}
+                  width={15}
+                  height={15}
+                  src={support}
+                  alt=""
+                  className=""
+                />
+              }
+              className={`${_classes["appointments-btn"]}  mr-3`}
+              onClick={() => {
+                const query: any = {
+                  chat: "admin",
+                  // doctorId: appointment?.doctorId,
+                  patientId: appointment?.patientId,
+                };
+                localStorage.setItem("id", JSON.stringify(query));
+                Router.push({
+                  pathname: "/patient/messages",
+                  query,
+                });
+              }}
+            >
+              <span className="pl-2">Message support</span>
+            </Button>
+            <Button
+              icon={
+                <Image
+                  priority={true}
+                  width={15}
+                  height={15}
+                  src={chat}
+                  alt=""
+                  className=""
+                />
+              }
+              className={`${_classes["appointments-btn"]} `}
+              onClick={() => {
+                const query: any = {
+                  chat: "doctor",
+                  doctorId: appointment?.doctorId,
+                  patientId: appointment?.patientId,
+                };
+                localStorage.setItem("id", JSON.stringify(query));
+                Router.push({
+                  pathname: "/patient/messages",
+                  query,
+                });
+              }}
+            >
+              <span className="pl-2">Message physician</span>
+            </Button>
+          </div>
+          <Link passHref href={`/patient/appointments/${id}/call`}>
+            <Button
+              className={`${_classes["appointments-btn"]}`}
+              type="primary"
+              icon={<VideoCameraFilled />}
+              target={"_blank"}
+              disabled={disabled}
+            >
+              <span>Join now</span>
+            </Button>
+          </Link>
+        </div>
+      </CardWithProfileImageInfo>
     </>
   );
 }

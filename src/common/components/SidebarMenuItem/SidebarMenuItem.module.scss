@@ -174,18 +174,34 @@
 }
 
 .side-menu-cover {
-  :global
-    ul.ant-menu.ant-menu-root
-    > li
-    + li.ant-menu-submenu.ant-menu-submenu-inline.side-bar-submenu-item {
-    :global .ant-menu-submenu-title {
-      :global .ant-menu-title-content {
-        .relative {
-          .red-dot {
-            display: none;
+  ul.ant-menu.ant-menu-root {
+    li.ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-open {
+      ul.ant-menu.ant-menu-sub.ant-menu-inline {
+        li.ant-menu-item {
+          .ant-menu-title-content {
+            .ant-scroll-number.ant-badge-dot {
+              visibility: hidden;
+            }
           }
         }
       }
     }
   }
 }
+
+// .side-menu-cover {
+//   :global
+//     ul.ant-menu.ant-menu-root
+//     > li
+//     + li.ant-menu-submenu.ant-menu-submenu-inline.side-bar-submenu-item {
+//     :global .ant-menu-submenu-title {
+//       :global .ant-menu-title-content {
+//         .relative {
+//           .red-dot {
+//             display: none;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

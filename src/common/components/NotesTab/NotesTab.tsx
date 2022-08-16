@@ -84,6 +84,13 @@ function NotesTab({}: Props) {
       });
     }
   };
+  const { first_name, last_name } = appointment?.doctor || {};
+  const doctorProfilePic = appointment?.doctor?.doctorProfile?.profile_image;
+  const doctorSpecialization = appointment?.doctor?.doctorProfile?.specialization;
+  let formatedDoctorFirstName = `${
+    first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
+  }`;
+
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -91,9 +98,9 @@ function NotesTab({}: Props) {
   ) : (
     <div className="md:max-w-1/2">
       <CardWithProfileImageInfo
-        name={`${patient?.first_name} ${patient?.last_name}`}
-        // serviceName={serviceType?.name}
-        imageUrl={appointment?.patient?.patientProfile?.profileImage}      >
+        name={`${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`}
+        serviceName={`${doctorSpecialization}`}
+        imageUrl={doctorProfilePic}      >
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}
@@ -132,12 +139,11 @@ function NotesTab({}: Props) {
                 </>
               )
             ) : (
-              <>No current appointment notes available.</>
+              <>Notes for this appointment have not been published by physician yet.</>
             )}
             {/* {!actualDoctorNotes ? (
               status === "Confirmed" || status === "Requested"
             ) : (
-              <>No current appointment notes available.</>
             )} */}
           </div>
         </>

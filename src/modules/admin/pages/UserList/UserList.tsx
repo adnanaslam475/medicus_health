@@ -159,7 +159,7 @@ const UserList = ({}: Props) => {
               onClick={() => Router.push("/admin/adduser")}
               icon={<PlusOutlined />}
             >
-              Add User
+              Add user
             </Button>
           </div>
         </div>
