@@ -92,10 +92,10 @@ const columns = [
   },
   {
     title: "Total amount",
-    dataIndex: "charges",
-    key: "charges",
-    render: (charges: string) => {
-      return <div>${charges || "0"}</div>;
+    dataIndex: "transaction",
+    key: "transaction",
+    render: (transaction: Transaction) => {
+      return <div>${transaction?.amountReceived || "0"}</div>;
     },
     sorter: true,
   },

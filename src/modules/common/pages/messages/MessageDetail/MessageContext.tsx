@@ -174,9 +174,9 @@ export function MessageContextProvider({
   const [{ fetching }, executeCreateChatMessageMutation] =
     useCreateChatMessageMutation();
 
-  useEffect(() => {
-    setCreateChatFetching(fetching);
-  }, [fetching]);
+  // useEffect(() => {
+  //   setCreateChatFetching(fetching);
+  // }, [fetching]);
 
   const { user } = getUserData();
 
@@ -356,6 +356,7 @@ export function MessageContextProvider({
     }
   }
   async function onMessage(text: string, messageType: string = "Text") {
+    setCreateChatFetching(true);
     executeCreateChatMessageMutation({
       createChatMessageInput: {
         channelId: messageInfo.currentChannel?.id as number,
@@ -387,6 +388,7 @@ export function MessageContextProvider({
     info.messagesWithChannel = messages;
 
     setMessageInfo(info);
+    setCreateChatFetching(false);
   }
 
   async function setCurrentChannel(channel: ChatChannels) {

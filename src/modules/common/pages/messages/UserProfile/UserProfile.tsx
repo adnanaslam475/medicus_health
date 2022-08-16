@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ChatChannels } from "generated/graphql";
+import { ChatChannels, useGetUnreadMessageCountQuery } from "generated/graphql";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useMessageContext } from "../MessageDetail/MessageContext";
@@ -26,10 +26,11 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const { query } = useRouter();
 
   //get channel dateTime
-  const { lastMessage } = thread || {};
+  const { lastMessage, unReadMessagesCount } = thread || {};
 
   //get last message
   const { message, messageType, createdAt } = lastMessage || {};
+  const { channelMessagesCount } = unReadMessagesCount || {};
 
   // Set User time zone
 
@@ -67,6 +68,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
       : opposite?.role === "Doctor" && opposite?.last_name?.includes("Dr.")
       ? opposite?.last_name
       : `Dr. ${opposite?.last_name}`;
+
   return (
     <div
       onClick={onJoinChat}
@@ -120,9 +122,10 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
               ? message
               : "no message available"}
           </span>
-          <Badge count={100} className="new-msg-count relative"></Badge>
-
-          {/* <span className="rounded-lg bg-red px-2 py-0 text-white">3</span> */}
+          <Badge
+            count={channelMessagesCount}
+            className="new-msg-count relative"
+          />
         </div>
       </div>
     </div>
