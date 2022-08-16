@@ -34,17 +34,17 @@ function PatientAppointmentInfoTab() {
 
   const { appointments } = data || {};
   const appointment = appointments?.items && appointments.items[0];
-  const { patient, serviceType } = appointment || {};
-
+  const { doctor, serviceType } = appointment || {};
+console.log("appointmentappointment",appointment)
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
     </div>
   ) : (
     <CardWithProfileImageInfo
-      name={`${patient?.first_name} ${patient?.last_name}`}
+      name={`${doctor?.first_name} ${doctor?.last_name}`}
       serviceName={serviceType?.name}
-      imageUrl={patient?.patientProfile?.profileImage}
+      imageUrl={doctor?.doctorProfile?.profile_image}
     >
       <DoctorAppointmentInfo data={appointment as Appointment} />
     </CardWithProfileImageInfo>

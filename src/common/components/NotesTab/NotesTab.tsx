@@ -97,10 +97,10 @@ function NotesTab({}: Props) {
     </div>
   ) : (
     <div className="md:max-w-1/2">
-      <CardWithProfileImageInfo
+      {/* <CardWithProfileImageInfo
         name={`${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`}
         serviceName={`${doctorSpecialization}`}
-        imageUrl={doctorProfilePic}      >
+        imageUrl={doctorProfilePic}      > */}
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}
@@ -161,7 +161,7 @@ function NotesTab({}: Props) {
           <h3>Notes history</h3>
           <NotesHistory />
         </div>
-      </CardWithProfileImageInfo>
+      {/* </CardWithProfileImageInfo> */}
     </div>
   );
 }
