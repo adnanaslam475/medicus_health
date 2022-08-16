@@ -39,7 +39,9 @@ function AppointmnetRequestedCard({
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
-  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  const timeZone =
+    typeof window !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
   return (
     <Card className={`${_classes["appointment-card"]}`}>
@@ -53,19 +55,13 @@ function AppointmnetRequestedCard({
       <span className="text-sm mt-6 block">Appointment date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
       <span className="text-sm mt-4 block">Appointment requested time</span>
-      <div className="text-secondary">
+      <div className="text-cyan">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${date.formatDAYMMDDYY(
               appointmentDateTime.startTime,
               timeZone
-            )} - ${date.formathhmma(
-              appointmentDateTime.startTime,
-              timeZone
-            )}
-             - ${date.formathhmma(
-               appointmentDateTime.endTime,
-               timeZone
-             )}`
+            )} - ${date.formathhmma(appointmentDateTime.startTime, timeZone)}
+             - ${date.formathhmma(appointmentDateTime.endTime, timeZone)}`
           : "--"}
       </div>
       <span className="text-sm mt-4 block font-normal">Appointment status</span>
