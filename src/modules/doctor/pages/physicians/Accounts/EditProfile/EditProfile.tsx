@@ -73,6 +73,7 @@ type Props = {
   addScheduleDay: string;
   loading?: boolean;
   setProfileUpdated?: any;
+  deleteScheduleFetching?:boolean;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -92,6 +93,7 @@ function EditProfile({
   onAddClick,
   addScheduleTime,
   setProfileUpdated,
+  deleteScheduleFetching,
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -984,6 +986,7 @@ function EditProfile({
                 disable={false}
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}
+                deleteScheduleFetching={deleteScheduleFetching}
                 setAddScheduleTime={setAddScheduleTime}
                 addScheduleTime={addScheduleTime}
                 addScheduleDay={addScheduleDay}
