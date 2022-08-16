@@ -233,7 +233,11 @@ function DoctorProfileCard(props: Props) {
                   <span className="hidden">{t("message_support")}</span>
                 </Button>
                 <Button
-                  title="Please Create an Appointment To Message Physician"
+                  title={
+                    items && items?.length > 0
+                      ? ""
+                      : "Please Create an Appointment To Message Physician"
+                  }
                   disabled={items && items?.length > 0 ? false : true}
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
                   onClick={() => {

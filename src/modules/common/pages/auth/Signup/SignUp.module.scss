@@ -24,3 +24,11 @@
     border-color: #1a82fe !important;
   }
 }
+
+.confirmationsignup {
+  :global .ant-modal-confirm-body {
+    :global .ant-modal-confirm-title {
+      font-weight: 400 !important;
+    }
+  }
+}
