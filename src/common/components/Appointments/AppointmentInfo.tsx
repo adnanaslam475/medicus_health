@@ -78,20 +78,24 @@ function AppointmentInfo(props: Props) {
   ) : (
     <>
       <CardWithProfileImageInfo
-        name={isRoleGuard ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}` : ""}
+        name={
+          isRoleGuard
+            ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`
+            : ""
+        }
         serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
         imageUrl={isRoleGuard ? doctorProfilePic : null}
       >
         <div className="max-w-[700px]">
           <LabelValueRow label="ID#" value={Number(id)} />
-          <LabelValueRow
+          {/* <LabelValueRow
             label="Requested date"
             value={date?.formatDAYMMDDYY(requestedDate, timeZone)}
-          />
-          <LabelValueRow
+          /> */}
+          {/* <LabelValueRow
             label="Physician"
             value={`${formatedDoctorFirstName} ${last_name}`}
-          />
+          /> */}
           <LabelValueRow label="Appointment type" value={name || "--"} />
           <LabelValueRow
             label="Appointment date"
@@ -132,7 +136,7 @@ function AppointmentInfo(props: Props) {
 
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[200px]">
-              Appointment Status
+              Appointment status
             </div>
             <div className="w-full text-primary">
               <Tag
@@ -202,21 +206,19 @@ function AppointmentInfo(props: Props) {
               <span className="pl-2">Message physician</span>
             </Button>
           </div>
-        {status !== "Requested" && (
-
-          <Link passHref href={`/patient/appointments/${id}/call`}>
-            <Button
-              className={`${_classes["appointments-btn"]}`}
-              type="primary"
-              icon={<VideoCameraFilled />}
-              target={"_blank"}
-              disabled={disabled}
-            >
-              <span>Join now</span>
-            </Button>
-          </Link>
-        )}
-
+          {status !== "Requested" && (
+            <Link passHref href={`/patient/appointments/${id}/call`}>
+              <Button
+                className={`${_classes["appointments-btn"]}`}
+                type="primary"
+                icon={<VideoCameraFilled />}
+                target={"_blank"}
+                disabled={disabled}
+              >
+                <span>Join now</span>
+              </Button>
+            </Link>
+          )}
         </div>
       </CardWithProfileImageInfo>
     </>
