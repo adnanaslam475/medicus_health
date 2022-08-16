@@ -53,8 +53,10 @@ function AppointmentInfo(props: Props) {
     first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
   }`;
 
-  const doctorProfilePic = appoinmentDetails?.appointment?.doctor?.doctorProfile?.profile_image;
-  const doctorSpecialization = appoinmentDetails?.appointment?.doctor?.doctorProfile?.specialization;
+  const doctorProfilePic =
+    appoinmentDetails?.appointment?.doctor?.doctorProfile?.profile_image;
+  const doctorSpecialization =
+    appoinmentDetails?.appointment?.doctor?.doctorProfile?.specialization;
 
   const timeZone =
     typeof window !== "undefined" &&
@@ -119,7 +121,9 @@ function AppointmentInfo(props: Props) {
           />
 
           <li className="flex border-b border-gray-5 py-3">
-            <div className="w-full text-gray-1 max-w-[200px]">Appointment Status</div>
+            <div className="w-full text-gray-1 max-w-[200px]">
+              Appointment Status
+            </div>
             <div className="w-full text-primary">
               <Tag
                 color="#e2f8f7"
