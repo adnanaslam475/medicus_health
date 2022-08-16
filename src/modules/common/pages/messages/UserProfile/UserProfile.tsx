@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { ChatChannels, useGetUnreadMessageCountQuery } from "generated/graphql";
+import React, { useEffect, useState } from "react";
+import { ChatChannels, useGetUnreadMessageCountQuery, useMarkMessagesAsReadMutationMutation } from "generated/graphql";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useMessageContext } from "../MessageDetail/MessageContext";
@@ -32,6 +32,10 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const { message, messageType, createdAt } = lastMessage || {};
   const { channelMessagesCount } = unReadMessagesCount || {};
 
+  const [{}, markAsReadMutation] = useMarkMessagesAsReadMutationMutation();
+
+
+
   // Set User time zone
 
   date?.setTimeZone(userTimeZone ? String(userTimeZone) : "America/New_York");
@@ -45,6 +49,14 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
+    const id = thread?.id;
+    try {
+      await markAsReadMutation({
+        id,
+      });
+    } catch (error) {
+      console.log("Something went wrong");
+    }
   }
 
   useEffect(() => {
