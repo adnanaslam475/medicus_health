@@ -17,6 +17,7 @@ import { useMediaUploader } from "common/hooks/media";
 import userDefaultPicture from "../../../../../public/assets/images/profile.jpg";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import MDNextImage from "common/components/MDNextImage/MDNextImage";
 
 const PersonalInfo = () => {
   const t = useTranslations("AccountDetail");
@@ -146,7 +147,17 @@ const PersonalInfo = () => {
       <div className="w-full md:w-4/6">
         <div className="flex justify-between items-center">
           <div>
-            <Image
+            <MDNextImage
+              objectFit="cover"
+              src={userProfileImage || ""}
+              layout="fixed"
+              width={74}
+              height={74}
+              className="bg-gray border rounded-full border-gray"
+              fallbackImage="/assets/images/profile.svg"
+            />
+
+            {/* <Image
               priority={true}
               alt="Profile Image"
               height="74"
@@ -154,7 +165,7 @@ const PersonalInfo = () => {
               onError={(e) => console.log(e)}
               src={image || userProfileImage || userDefaultPicture}
               className="bg-gray border rounded-full border-gray"
-            />
+            /> */}
             {isEdit && (
               <Upload
                 onChange={fileChange}

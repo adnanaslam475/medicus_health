@@ -111,7 +111,7 @@ function DoctorCard({
         <div className="flex-none lg:flex">
           <div className="w-full lg:w-4/6 flex-none sm:flex">
             <div className="docAvatarCover pr-3">
-              <div className="rounded-full flex items-center justify-center overflow-hidden sm:border border-gray-1">
+              <div className="rounded-full flex items-center justify-center overflow-hidden sm:border">
                 {loading ? (
                   <span className={`${_classes["emptyImgContainer"]}`}></span>
                 ) : (
@@ -211,7 +211,7 @@ function DoctorCard({
             ) : (
               <div className="w-full flex justify-center my-3">
                 <Tooltip
-                  title={"Please Create an Appointment To Message Physician"}
+                  title={"Please create an appointment to message physician"}
                 >
                   <Button
                     className={`${_classes["btn-tooltip"]} w-full`}
