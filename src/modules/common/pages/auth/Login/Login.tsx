@@ -13,6 +13,7 @@ import { PageLoader } from "../../../../../common/components/PageLoader/PageLoad
 import { useTranslations } from "next-intl";
 import engFlag from "../../../../../../public/assets/images/engFlag.png";
 import espanolFlag from "../../../../../../public/assets/images/espanolFlag.png";
+import { useUserData } from "common/components/Context/UserContext";
 
 function Login() {
   const t = useTranslations("Login");
@@ -38,6 +39,7 @@ function Login() {
 
   const [result, login] = useLoginMutation();
   const { error, fetching } = result;
+  const { data: userContextData, saveUserData } = useUserData();
   const onFinish = async (values: any) => {
     let payload = { ...values };
     delete payload.remember;
@@ -48,6 +50,13 @@ function Login() {
       if (res.data && !res.error) {
         let userPayload: any = res?.data?.login;
         userPayload.remember = values.remember;
+        saveUserData?.({
+          firstName: userPayload?.user?.first_name,
+          lastName: userPayload?.user?.last_name,
+          profilePicture:
+            userPayload?.user?.doctorProfile?.profile_image ||
+            userPayload?.user?.patientProfile?.profileImage || userPayload?.user?.adminProfilePicture?.profile_picture,
+        });
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
         localStorage.setItem("loginTime", String(new Date().getTime()));
         localStorage.setItem(

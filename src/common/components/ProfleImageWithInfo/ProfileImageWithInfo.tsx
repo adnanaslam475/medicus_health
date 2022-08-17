@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import yourImage from "../../../../public/assets/images/profile.jpg";
+import MDNextImage from "../MDNextImage/MDNextImage";
 
 type props = {
   name: string | undefined;
@@ -12,7 +13,18 @@ function ProfileImageWithInfo({ name, serviceName, imageUrl }: props) {
   return (
     <div className="w-full  my-3 flex gap-6 items-center">
       <div className="relative">
-        <Image
+        <MDNextImage
+          priority={true}
+          alt="Profile Image"
+          objectFit="cover"
+          src={imageUrl || yourImage}
+          layout="fixed"
+          width={74}
+          height={74}
+          className="bg-gray border rounded-full border-gray"
+          fallbackImage="/assets/images/profile.svg"
+        />
+        {/* <Image
           priority={true}
           alt="Profile Image"
           height="74"
@@ -21,7 +33,7 @@ function ProfileImageWithInfo({ name, serviceName, imageUrl }: props) {
           src={imageUrl || yourImage}
           className="bg-gray border rounded-full border-gray"
           objectFit="cover"
-        />
+        /> */}
       </div>
 
       <div className="flex flex-col">

@@ -6,6 +6,7 @@ import {
   DeleteOutlined,
   VideoCameraFilled,
 } from "@ant-design/icons";
+import support from "./../../../../public/assets/icon/support.svg";
 import {
   Button,
   DatePicker,
@@ -85,8 +86,11 @@ function DoctorAppointmentInfo({ data }: Props) {
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
   const timeZone =
-    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
 
   // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
 
@@ -331,7 +335,16 @@ function DoctorAppointmentInfoFooter({
         {getRole() === "User" ||
           (getRole() === "Doctor" && (
             <Button
-              icon={<MessageOutlined />}
+              icon={
+                <Image
+                  priority={true}
+                  width={15}
+                  height={15}
+                  src={support}
+                  alt=""
+                  className=""
+                />
+              }
               className={`${_classes["appointments-btn"]} mr-3`}
               onClick={() =>
                 Router.push({
@@ -344,7 +357,7 @@ function DoctorAppointmentInfoFooter({
                 })
               }
             >
-              Message support
+              <span className="pl-2"> Message support</span>
             </Button>
           ))}
 
@@ -697,8 +710,11 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
   const timeZone =
-    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
 
   let formatedDueDate = date.formatMMMMDDYYYY(
     String(appointmentDateTime?.startTime),

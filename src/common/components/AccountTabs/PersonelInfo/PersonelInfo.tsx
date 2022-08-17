@@ -4,6 +4,7 @@ import { Avatar, Button, notification } from "antd";
 import PersonalInfoList from "../../../../modules/common/components/PersonalInfoList/PersonalInfoList";
 import { PersonalInfoDetail } from "../../../../modules/common/components/PersonalInfoDetail/PersonalInfoDetail";
 import {
+  LoginUserInput,
   useGetTimeZonesQuery,
   useGetUserQuery,
   User,
@@ -19,6 +20,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import { GraphQLError } from "graphql";
+import { useUserData } from "common/components/Context/UserContext";
 
 const PersonalInfo = () => {
   const t = useTranslations("AccountDetail");
@@ -47,6 +49,7 @@ const PersonalInfo = () => {
   const { error } = result;
   const [patientTimeZoneId, setPatientTimeZoneId] = useState();
   const [getTimeZones] = useGetTimeZonesQuery();
+  const { data: userContextData, saveUserData } = useUserData();
 
   useEffect(() => {
     if (patientTimeZoneId) {
@@ -89,11 +92,33 @@ const PersonalInfo = () => {
           timeZoneId: values?.timeZone || 86, // 86 is default id for UTC
         },
       });
-
+      let loggedInUserData = localStorage.getItem("loggedInUserData");
+      let updatedLoggedInUserData: LoginUserInput | any =
+        loggedInUserData && JSON.parse(loggedInUserData);
       if (res) {
         res?.data?.updateUser &&
           notification.success({
             message: "Successfully Updated",
+          });
+          if (
+            updatedLoggedInUserData?.user &&
+            updatedLoggedInUserData?.user?.role === "User"
+          ) {
+            updatedLoggedInUserData.user.first_name = values?.firstName;
+            updatedLoggedInUserData.user.last_name = values?.lastName;
+            if (updatedLoggedInUserData.user.patientProfile) {
+              updatedLoggedInUserData.user.patientProfile.profileImage =
+                image || userProfileImage;
+            }
+            localStorage.setItem(
+              "loggedInUserData",
+              JSON.stringify(updatedLoggedInUserData)
+            );
+          }
+          saveUserData?.({
+            firstName: values?.firstName,
+            lastName: values?.lastName,
+            profilePicture: image ?image: userProfileImage,
           });
         executeUseGetUserQuery({ requestPolicy: "network-only" });
       }

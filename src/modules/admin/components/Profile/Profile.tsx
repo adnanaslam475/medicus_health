@@ -5,13 +5,14 @@ import editicon from "../../../../../public/assets/icon/edit.svg";
 import { Avatar, Upload, Form, Input, Button, notification } from "antd";
 import _classes from "./PhysicianProfile.module.scss";
 
-import { useUpdateAdminUserMutation } from "generated/graphql";
+import { LoginUserInput, useUpdateAdminUserMutation } from "generated/graphql";
 import { UploadChangeParam } from "antd/lib/upload";
 import { useMediaUploader } from "common/hooks/media";
 import { getUserData } from "common/utils/userData";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import { UserOutlined } from "@ant-design/icons";
 import { GraphQLError } from "graphql";
+import { useUserData } from "common/components/Context/UserContext";
 
 type profileType = {
   doctorId?: string | string[] | undefined;
@@ -73,6 +74,8 @@ export const Profile = React.forwardRef(function Profile({
       setIsEdit(true);
     }
   };
+  const { data: userContextData, saveUserData } = useUserData();
+
   const updateAdminProfile = async (values: any) => {
     if (doctorData) {
       const res = await executeUseUpdateAdminUserMutation({
@@ -92,6 +95,29 @@ export const Profile = React.forwardRef(function Profile({
           notification.success({
             message: "Updated Successfully",
           });
+        let loggedInUserData = localStorage.getItem("loggedInUserData");
+        let updatedLoggedInUserData: LoginUserInput | any =
+          loggedInUserData && JSON.parse(loggedInUserData);
+        if (
+          updatedLoggedInUserData?.user &&
+          updatedLoggedInUserData?.user?.role === "Admin"
+        ) {
+          updatedLoggedInUserData.user.first_name = values?.firstName;
+          updatedLoggedInUserData.user.last_name = values?.lastName;
+          if (updatedLoggedInUserData.user.adminProfilePicture) {
+            updatedLoggedInUserData.user.adminProfilePicture.profile_picture =
+              image || userProfileImage || profilePicture;
+          }
+          localStorage.setItem(
+            "loggedInUserData",
+            JSON.stringify(updatedLoggedInUserData)
+          );
+        }
+        saveUserData?.({
+          firstName: values?.firstName,
+          lastName: values?.lastName,
+          profilePicture: image || userProfileImage || profilePicture,
+        });
         setIsEdit(false);
       }
 

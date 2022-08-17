@@ -49,7 +49,7 @@ function StepFour() {
         <span>{formatedPhysicianName}</span>
       </div>
       <div className="flex">
-        <div className="w-full ml-4 border-b border-gray-5 pb-2 mb-5">
+        <div className="w-full ml-0 border-b border-gray-5 pb-2 mb-5">
           <div className="flex justify-between font-semibold">
             <span>Appointment type</span>
             <span>{name || serviceName}</span>
@@ -79,7 +79,7 @@ function StepFour() {
         <span>{date.formatDAYMMDDYY(requestedDate)}</span>
         <span className="text-sm"></span>
         {/* <span className="ml-3">{date.formathhmma(requestedDate)}</span> */}
-        <span className="ml-3">{`${availabilityTime?.startTime} - ${availabilityTime?.endTime}`}</span>
+        <span className="ml-3">{`${date.formathhmma(availabilityTime?.startTime)} - ${date.formathhmma(availabilityTime?.endTime)}`}</span>
       </div>
       <p className="font-rubik text-gray">
         Please note, this is only an appointment request. Your physician will

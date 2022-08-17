@@ -389,10 +389,10 @@ export const AppointmentBookingStepOne = React.forwardRef(
                     <Radio.Button
                       key={item?.id}
                       value={item?.id}
-                    >{`${date?.dayName(item?.day)} - ${date.time24HrConvert(
+                    >{`${date?.dayName(item?.day)} - ${date.formathhmma(
                       item?.startTime
                     )} -
-              ${date.time24HrConvert(item?.endTime)}`}</Radio.Button>
+              ${date.formathhmma(item?.endTime)}`}</Radio.Button>
                   ))}
                 </Radio.Group>
               ) : (

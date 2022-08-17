@@ -68,7 +68,7 @@ function EditableNotes() {
     });
     if (res?.data?.createOrUpdateAppointmentNote.id) {
       notification.success({
-        message: "Successfully Added",
+        message: "Successfully added",
       });
       setEdit(false);
       executeGetDoctorNotesByAppIdQuery({ requestPolicy: "network-only" });
