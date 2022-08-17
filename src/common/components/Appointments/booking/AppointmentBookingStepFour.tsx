@@ -49,7 +49,7 @@ function StepFour() {
         <span>{formatedPhysicianName}</span>
       </div>
       <div className="flex">
-        <div className="w-full ml-4 border-b border-gray-5 pb-2 mb-5">
+        <div className="w-full ml-0 border-b border-gray-5 pb-2 mb-5">
           <div className="flex justify-between font-semibold">
             <span>Appointment type</span>
             <span>{name || serviceName}</span>
