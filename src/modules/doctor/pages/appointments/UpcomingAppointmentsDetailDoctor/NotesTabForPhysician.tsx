@@ -68,7 +68,7 @@ function NotesTabForPhysician({}: Props) {
     if (res?.data?.createOrUpdateAppointmentNote.id) {
       closeModal();
       notification.success({
-        message: "Successfully Added",
+        message: "Successfully added",
       });
       executeGetAppointmentNoteByIdQuery({ requestPolicy: "network-only" });
     } else {

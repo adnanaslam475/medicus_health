@@ -42,7 +42,7 @@ function NotesTabNotInUse({}: Props) {
     if (note?.createOrUpdateAppointmentNote.id) {
       closeModal();
       notification.success({
-        message: "Successfully Added",
+        message: "Successfully added",
       });
     } else {
       notification.error({
