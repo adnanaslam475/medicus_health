@@ -55,7 +55,7 @@ function Login() {
           lastName: userPayload?.user?.last_name,
           profilePicture:
             userPayload?.user?.doctorProfile?.profile_image ||
-            userPayload?.user?.patientProfile?.profileImage,
+            userPayload?.user?.patientProfile?.profileImage || userPayload?.user?.adminProfilePicture?.profile_picture,
         });
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
         localStorage.setItem("loginTime", String(new Date().getTime()));
