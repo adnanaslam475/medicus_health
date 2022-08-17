@@ -17,7 +17,8 @@ function DayPicker({ setAddScheduleDay, addScheduleDay }: props) {
       bordered={false}
       value={Number(addScheduleDay) || "Select Day"}
       defaultValue={"Select Day"}
-      style={{ width: 120 }}
+      // style={{ width: 120 }}
+      className="sm:min-w-[120px]"
       onChange={handleChange}
     >
       {days.map((item) => {
