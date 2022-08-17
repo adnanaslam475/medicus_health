@@ -85,7 +85,8 @@ export default function PersonalInfo({ onFinish }: props) {
       !fetching &&
       !emailData?.checkEmailAvailability?.isEmailAvailable
     ) {
-      return Promise.reject(t("email_already_exist"));
+      // return Promise.reject(t("email_already_exist"));
+      return Promise.reject("Ya existe el correo electrónico");
     }
     return Promise.resolve();
   };
@@ -114,12 +115,14 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label={t("first_name")}
+          // label={t("first_name")}
+          label="Nombre"
           name="first_name"
           rules={[
             {
               required: true,
-              message: t("first_name_message"),
+              message: "El nombre no debe ser mayor de 30",
+              // message: t("first_name_message"),
               // message: "Please enter your first name",
               max: 30,
             },
@@ -130,13 +133,15 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label={t("last_name")}
+          label="Apellido"
+          // label={t("last_name")}
           name="last_name"
           rules={[
             {
               required: true,
               // message: "Please enter your last name",
-              message: t("last_name_message"),
+              // message: t("last_name_message"),
+              message: "El apellido no debe ser mayor de 30",
               max: 30,
             },
           ]}
@@ -148,20 +153,31 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label={t("gender")}
+          label="Género"
+          // label={t("gender")}
           name="gender"
           rules={[
             {
               required: true,
-              message: t("gender_message"),
+              // message: t("gender_message"),
+              message: "Por favor ingrese su género",
             },
           ]}
         >
-          <Select placeholder={t("gender")} className="nb-select-input">
-            <Select.Option value="male">{t("male")}</Select.Option>
+          <Select
+            // placeholder={t("gender")}
+            placeholder="Género"
+            className="nb-select-input"
+          >
+            {/* <Select.Option value="male">{t("male")}</Select.Option>
             <Select.Option value="female">{t("female")}</Select.Option>
             <Select.Option value="prefer not to answer">
               {t("i_prefer_not_to_say")}
+              {/* I prefer not to answer */}
+            <Select.Option value="male">Masculino</Select.Option>
+            <Select.Option value="female">Femenina</Select.Option>
+            <Select.Option value="prefer not to answer">
+              Prefiero no contestar
               {/* I prefer not to answer */}
             </Select.Option>
           </Select>
@@ -169,12 +185,14 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label={t("date_of_birth")}
+          // label={t("date_of_birth")}
+          label="Fecha de nacimiento"
           name="date_of_birth"
           rules={[
             {
               required: true,
-              message: t("date_of_birth_message"),
+              // message: t("date_of_birth_message"),
+              message: "Por favor, seleccione la fecha de nacimiento",
             },
           ]}
         >
@@ -188,16 +206,19 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <Form.Item
-        label={t("email_address")}
+        // label={t("email_address")}
+        label="Dirección de correo electrónico"
         name="email"
         rules={[
           {
             required: true,
-            message: t("email_address_message"),
+            // message: t("email_address_message"),
+            message: "Por favor, introduzca su dirección de correo electrónico",
           },
           {
             type: "email",
-            message: t("email_invalid_message"),
+            // message: t("email_invalid_message"),
+            message: "el correo electrónico es invalido",
           },
           { validator: emailValidator },
         ]}
@@ -208,17 +229,20 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label={t("password")}
+          // label={t("password")}
+          label="Contraseña"
           name="password"
           rules={[
             {
               required: true,
-              message: t("password_message"),
+              // message: t("password_message"),
+              message: "¡Por favor, introduzca su contraseña!",
               // message: "Please enter your password!",
             },
             {
               min: 8,
-              message: t("password_message_8_character"),
+              // message: t("password_message_8_character"),
+              message: "La contraseña debe tener un mínimo de 8 caracteres.",
               // message: "Password must be minimum 8 characters.",
             },
           ]}
@@ -228,12 +252,14 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label={t("confirm_password")}
+          // label={t("confirm_password")}
+          label="Confirmar contraseña"
           name="confirmPassword"
           rules={[
             {
               required: true,
-              message: t("confirm_your_password"),
+              // message: t("confirm_your_password"),
+              message: "¡Por favor, confirme su contraseña!",
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
@@ -241,7 +267,8 @@ export default function PersonalInfo({ onFinish }: props) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
-                  new Error(t("two_passwords_mismatch_message"))
+                  // new Error(t("two_passwords_mismatch_message"))
+                  new Error("Las dos contraseñas que ingresaste no coinciden")
                 );
               },
             }),
@@ -252,12 +279,14 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <Form.Item
-        label={t("street_address")}
+        // label={t("street_address")}
+        label="Dirección (calle y numero)"
         name="streetAddress"
         rules={[
           {
             required: true,
-            message: t("street_address_message"),
+            // message: t("street_address_message"),
+            message: "La dirección de la calle no debe ser superior a 30",
             max: 100,
           },
         ]}
@@ -268,7 +297,8 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label={t("contact_number")}
+          // label={t("contact_number")}
+          label="Teléfono de contacto"
           name="contact_number"
           rules={[
             {
@@ -282,12 +312,14 @@ export default function PersonalInfo({ onFinish }: props) {
 
         <Form.Item
           className="flex-1"
-          label={t("country")}
+          // label={t("country")}
+          label="País de nacimiento"
           name="country_id"
           rules={[
             {
               required: true,
-              message: t("country_message"),
+              // message: t("country_message"),
+              message: "Por favor ingrese su país",
             },
           ]}
         >
@@ -299,7 +331,8 @@ export default function PersonalInfo({ onFinish }: props) {
             onChange={(e) => {
               selectCountryId(e);
             }}
-            placeholder={t("country")}
+            // placeholder={t("country")}
+            placeholder="País de nacimiento"
           >
             {React.Children.toArray(
               countries?.map((el, i) => {
@@ -315,7 +348,12 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item className="flex-1" label={t("state")} name="state_id">
+        <Form.Item
+          className="flex-1"
+          // label={t("state")}
+          label="Estado/Provinicia"
+          name="state_id"
+        >
           <Select
             showSearch
             filterOption={(input, state: any) =>
@@ -327,7 +365,8 @@ export default function PersonalInfo({ onFinish }: props) {
                 city_id: null,
               });
             }}
-            placeholder={t("state")}
+            // placeholder={t("state")}
+            placeholder="Estado/Provinicia"
           >
             {React.Children.toArray(
               getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
@@ -338,9 +377,15 @@ export default function PersonalInfo({ onFinish }: props) {
             )}
           </Select>
         </Form.Item>
-        <Form.Item className="flex-1" label={t("city")} name="city_id">
+        <Form.Item
+          className="flex-1"
+          // label={t("city")}
+          label="Ciudad"
+          name="city_id"
+        >
           <Select
-            placeholder={t("city")}
+            // placeholder={t("city")}
+            placeholder="Ciudad"
             showSearch
             filterOption={(input, city: any) =>
               city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -360,17 +405,20 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-4">
         <Form.Item
           className="flex-1"
-          label={t("timezone")}
+          // label={t("timezone")}
+          label="Zona horaria"
           name="timeZoneId"
           rules={[
             {
               required: true,
-              message: t("time_zone_is_required"),
+              // message: t("time_zone_is_required"),
+              message: "Se requiere zona horaria",
             },
           ]}
         >
           <Select
-            placeholder={t("timezone")}
+            // placeholder={t("timezone")}
+            placeholder="Zona horaria"
             showSearch
             filterOption={(input, city: any) =>
               city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -387,12 +435,14 @@ export default function PersonalInfo({ onFinish }: props) {
         </Form.Item>
         <Form.Item
           className="flex-1"
-          label={t("postal_code")}
+          // label={t("postal_code")}
+          label="Código postal"
           name="zip_code"
           rules={[
             {
               required: true,
-              message: t("postal_address_message"),
+              // message: t("postal_address_message"),
+              message: "Por favor ingrese su código postal",
             },
           ]}
         >
@@ -411,9 +461,11 @@ export default function PersonalInfo({ onFinish }: props) {
             }}
           >
             <span className="mb-10 text-gray text-xs">
+              {/* Acepto los */}
               {t("i_agree_to_the")}
               {/* I agree to the  */}
               <Link href={"#"}>
+                {/* términos y condiciones */}
                 {t("terms_n_conditions")}
                 {/* Terms & Conditions */}
               </Link>
