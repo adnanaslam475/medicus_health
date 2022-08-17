@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tooltip, Card, Divider, Avatar, Button, Steps, Modal } from "antd";
 import Router from "next/router";
 import Link from "next/link";
@@ -11,7 +11,11 @@ import { date } from "../../utils";
 import { LeftOutlined } from "@ant-design/icons";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import MDNextImage from "../MDNextImage/MDNextImage";
-import { DoctorProfile, usePatientHealthHistoryQuery } from "generated/graphql";
+import {
+  DoctorProfile,
+  useGetPatientCurrentAppointmentsQuery,
+  usePatientHealthHistoryQuery,
+} from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 import { useTranslations } from "next-intl";
 
@@ -57,6 +61,23 @@ function DoctorCard({
     requestPolicy: "network-only",
   });
 
+  const [
+    { data: getPatientCurrentAppointments },
+    executeUseGetPatientCurrentAppointmentsQuery,
+  ] = useGetPatientCurrentAppointmentsQuery({
+    variables: {
+      filter: {
+        doctorId: Number(id),
+      },
+      pagination: {
+        page: 1,
+        limit: 10,
+      },
+    },
+    requestPolicy: "network-only",
+  });
+  const { items } = getPatientCurrentAppointments?.appointments || {};
+
   // FOR REQUEST AN APPOINTMENT
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -69,10 +90,14 @@ function DoctorCard({
   };
 
   const handleCancel = () => {
+    executeUseGetPatientCurrentAppointmentsQuery({
+      requestPolicy: "network-only",
+    });
     setIsModalVisible(false);
   };
 
   const [current, setCurrent] = React.useState(0);
+  const [isAppointmentCreated, setIsAppointmentCreated] = React.useState(true);
   const next = () => {
     setCurrent(current + 1);
   };
@@ -97,7 +122,7 @@ function DoctorCard({
                     width={86}
                     height={86}
                     className=" rounded-full h-[86px] w-[86px] overflow-hidden"
-                    fallbackImage="/assets/images/profile.jpg"
+                    fallbackImage="/assets/images/profile.svg"
                   />
                 )}
               </div>
@@ -161,27 +186,42 @@ function DoctorCard({
             </div>
           </div>
           <div className="card-actionBtns lg:w-2/5">
-            <Link passHref href={`/physician/messages`}>
-              <a
-                onClick={() => {
-                  const query: any = {
-                    chat: "patient",
-                    // patientId: adminApp_Details?.patient.patient_id,
-                    doctorId: id,
-                    patientId: loggedInUser,
-                  };
-                  localStorage.setItem("id", JSON.stringify(query));
-                  Router.push({
-                    pathname: "/physician/messages",
-                    query,
-                  });
-                }}
-                className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12"
-              >
-                {t("message_physician")}
-                {/* Message physician */}
-              </a>
-            </Link>
+            {items && items?.length > 0 ? (
+              <Link passHref href={`/physician/messages`}>
+                <a
+                  onClick={() => {
+                    const query: any = {
+                      chat: "patient",
+                      // patientId: adminApp_Details?.patient.patient_id,
+                      doctorId: id,
+                      patientId: loggedInUser,
+                    };
+                    localStorage.setItem("id", JSON.stringify(query));
+                    Router.push({
+                      pathname: "/physician/messages",
+                      query,
+                    });
+                  }}
+                  className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12"
+                >
+                  {t("message_physician")}
+                  {/* Message physician */}
+                </a>
+              </Link>
+            ) : (
+              <div className="w-full flex justify-center my-3">
+                <Tooltip
+                  title={"Please Create an Appointment To Message Physician"}
+                >
+                  <Button
+                    className={`${_classes["btn-tooltip"]} w-full`}
+                    disabled={true}
+                  >
+                    Message Physician
+                  </Button>
+                </Tooltip>
+              </div>
+            )}
 
             <Link passHref href={`/patient/physicians/profile/${id}`}>
               <a className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12">

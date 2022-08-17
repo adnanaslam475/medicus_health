@@ -8,7 +8,9 @@ import {
   useGetCitiesByStateQuery,
   useCountriesQuery,
   useCheckEmailAvailabilityQuery,
+  useGetTimeZonesQuery,
 } from "generated/graphql";
+import _classes from "../../SignUp.module.scss";
 import { useTranslations } from "next-intl";
 
 type props = {
@@ -51,6 +53,8 @@ export default function PersonalInfo({ onFinish }: props) {
     pause: stateId === undefined,
   });
 
+  const [getTimeZones] = useGetTimeZonesQuery();
+
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
 
@@ -85,6 +89,21 @@ export default function PersonalInfo({ onFinish }: props) {
     }
     return Promise.resolve();
   };
+
+  const onContactNoValidation = (
+    _rule: any,
+    value: string | any[],
+    callback: any
+  ) => {
+    if (value?.length > 15) {
+      callback(t("contact_no_is_too_long"));
+    } else if (value?.length < 9) {
+      callback(t("contact_number_message"));
+    } else {
+      callback();
+    }
+  };
+
   return (
     <Form
       layout="vertical"
@@ -160,7 +179,7 @@ export default function PersonalInfo({ onFinish }: props) {
           ]}
         >
           <DatePicker
-            placeholder="mm/dd/yy"
+            placeholder="mm-dd-yyyy"
             format={"MM-DD-YYYY"}
             className="w-full"
             disabledDate={disabledDate}
@@ -239,7 +258,7 @@ export default function PersonalInfo({ onFinish }: props) {
           {
             required: true,
             message: t("street_address_message"),
-            max: 30,
+            max: 100,
           },
         ]}
       >
@@ -254,9 +273,7 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: t("contact_number_message"),
-              min: 9,
-              max: 15,
+              validator: onContactNoValidation,
             },
           ]}
         >
@@ -321,9 +338,6 @@ export default function PersonalInfo({ onFinish }: props) {
             )}
           </Select>
         </Form.Item>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-4">
         <Form.Item className="flex-1" label={t("city")} name="city_id">
           <Select
             placeholder={t("city")}
@@ -341,7 +355,36 @@ export default function PersonalInfo({ onFinish }: props) {
             )}
           </Select>
         </Form.Item>
+      </div>
 
+      <div className="flex flex-col md:flex-row gap-4">
+        <Form.Item
+          className="flex-1"
+          label={t("timezone")}
+          name="timeZoneId"
+          rules={[
+            {
+              required: true,
+              message: t("time_zone_is_required"),
+            },
+          ]}
+        >
+          <Select
+            placeholder={t("timezone")}
+            showSearch
+            filterOption={(input, city: any) =>
+              city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            {React.Children.toArray(
+              getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                return (
+                  <Select.Option value={el.id}>{el?.timeZone}</Select.Option>
+                );
+              })
+            )}
+          </Select>
+        </Form.Item>
         <Form.Item
           className="flex-1"
           label={t("postal_code")}
@@ -358,7 +401,9 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <div className="flex justify-between">
-        <div className="flex justify-between items-center">
+        <div
+          className={`${_classes["signupcheckbox"]} flex justify-between items-center`}
+        >
           <Checkbox
             value={terms}
             onChange={(e) => {
@@ -377,10 +422,11 @@ export default function PersonalInfo({ onFinish }: props) {
         </div>
         <Form.Item>
           <Button
+            size="large"
             htmlType="submit"
-            className="ant-btn ant-btn-primary ant-btn-block nb-button"
             type="primary"
             disabled={!terms}
+            className={`${_classes["signupNext"]} ant-btn ant-btn-primary ant-btn-block nb-button`}
           >
             {t("next")}
             {/* Next */}
@@ -389,7 +435,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
       <div className="flex justify-center mt-8">
         <p className="text-secondary-1">
-          {t("AlreadyHaveAnAccount")}
+          {t("already_have_an_account")}
           {/* Already have an account? */}
           <Link href="/login">
             <span className="text-primary cursor-pointer"> {t("Login")}</span>

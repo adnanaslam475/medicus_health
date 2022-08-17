@@ -6,6 +6,7 @@ import {
   Appointment,
   AppointmentDateTimeResponse,
   AppointmentServiceType,
+  Transaction,
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
@@ -80,12 +81,9 @@ function CancelledAppointmentTable({
       key: "appointment_time_slots",
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedStartTime = `${
-          appointmentDateTime?.startTime?.split(" ")[1]
-        } ${appointmentDateTime?.startTime?.split(" ")[2]}`;
-        let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-          appointmentDateTime?.endTime?.split(" ")[2]
-        }`;
+        let formatedStartTime = 
+          date.formathhmma(String(appointmentDateTime?.startTime));
+        let formatedEndTime = date.formathhmma(String(appointmentDateTime?.endTime));
         return (
           <div>
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime
@@ -97,11 +95,11 @@ function CancelledAppointmentTable({
     },
     {
       title: "Total amount",
-      dataIndex: "charges",
-      key: "charges",
+      dataIndex: "transaction",
+      key: "transaction",
       sorter: true,
-      render: (value: number) => {
-        return <div>{value ? `$${value}` : ""}</div>;
+      render: (transaction:Transaction) => {
+        return <div>{transaction?.amountReceived ? `$${transaction?.amountReceived}` : "--"}</div>;
       },
     },
     {
@@ -126,19 +124,19 @@ function CancelledAppointmentTable({
       },
     },
 
-    {
-      title: "Appointment status",
-      dataIndex: "status",
-      key: "status",
-      className: "table-action-icon",
-      render: (value: any) => {
-        return (
-          <div className="text-primary">
-            <StatusChip type={value?.toUpperCase()} />
-          </div>
-        );
-      },
-    },
+    // {
+    //   title: "Appointment status",
+    //   dataIndex: "status",
+    //   key: "status",
+    //   className: "table-action-icon",
+    //   render: (value: any) => {
+    //     return (
+    //       <div className="text-primary">
+    //         <StatusChip type={value?.toUpperCase()} />
+    //       </div>
+    //     );
+    //   },
+    // },
 
     {
       dataIndex: "id",

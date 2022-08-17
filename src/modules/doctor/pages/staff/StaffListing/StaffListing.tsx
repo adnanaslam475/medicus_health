@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Empty, Form, notification } from "antd";
+import { Button, Empty, Form, notification, Skeleton } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import AddStaffModal from "./AddStaffModal";
 import StaffAppointmentsFilter from "../../appointments/StaffAppointmentsFilter";
@@ -8,12 +8,14 @@ import {
   CreateStaffInput,
   GetStaffFilter,
   useCreateStaffMutation,
+  useDoctorProfileQuery,
   useGetAllStaffByDoctorQuery,
   User,
 } from "generated/graphql";
 import { getRole, getUserData } from "common/utils/userData";
 import { useRouter } from "next/router";
 import { GraphQLError } from "graphql";
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 
 function StaffListing() {
   const { user } = getUserData();
@@ -111,7 +113,7 @@ function StaffListing() {
         form.resetFields();
         executeUseStaffQuery({ requestPolicy: "network-only" });
         notification.success({
-          message: "staff added successfully",
+          message: "Staff added successfully",
         });
       }
     } catch (error) {
@@ -124,7 +126,6 @@ function StaffListing() {
     setSorting({ column: "", order: "" });
     setFilterValues({
       ...values,
-      status: values?.status === "true" ? true : false,
       doctorId: doctorId,
     });
     executeUseStaffQuery({
@@ -136,11 +137,30 @@ function StaffListing() {
   const closeModal = () => {
     setVisibleModal(false);
   };
-
-  console.log("stf", staff?.items);
+  const [{ data: physicianProfileData, fetching: physicianLoading }] =
+    useDoctorProfileQuery({
+      variables: { doctor_id: doctorId },
+      pause: !doctorId,
+    });
+  const { doctorProfile } = physicianProfileData || {};
+  const userName = `${doctorProfile?.user?.first_name} ${doctorProfile?.user?.last_name}`;
+  const profilePicture = doctorProfile?.profile_image;
+  const email = doctorProfile?.user?.email;
   return (
     <>
       <div className="w-full">
+        <Skeleton
+          loading={physicianLoading}
+          paragraph={{ rows: 1 }}
+          active
+        >
+          <CardWithProfileImageInfo
+            name={userName}
+            serviceName={String(email)}
+            imageUrl={profilePicture}
+          >
+          </CardWithProfileImageInfo>
+        </Skeleton>
         <div className="my-2 sm:my-0 flex items-center justify-between">
           <div className="sm:mb-0">
             <h2 className="mb-0">Staff</h2>

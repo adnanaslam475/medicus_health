@@ -14,6 +14,8 @@ type Props = {
 
 function MessageItem(props: Props) {
   const { user } = getUserData();
+  const { timeZone } = user || {};
+  const { timeZone: userTimeZone } = timeZone || {};
   const { data } = props;
   const { message, senderId, messageType, sender, createdAt } = data || {};
   const { messageInfo } = useMessageContext();
@@ -32,9 +34,12 @@ function MessageItem(props: Props) {
   const backgroundColor = isMyMessage ? "#E0EEFD" : "#F6F8FA";
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
 
-  //adding 5 hours to datetime
-  const messageTime = date?.addHoursToDate(new Date(createdAt), 5);
-  const messageTimein12HoursFomrat = date?.formathhmma(messageTime?.toString());
+  // Set User time zone
+  date?.setTimeZone(userTimeZone ? String(userTimeZone) : "America/New_York");
+  const messageDateTime = date?.getDateAndTimeWRTTZ(
+    createdAt,
+    "MM/DD/YY, h:mma"
+  );
 
   // get file name from Media
   const fileName = message.split("com")[1]?.replace("/", "");
@@ -69,11 +74,7 @@ function MessageItem(props: Props) {
             <div className="gap-3 w-11/12">
               <div>
                 <span className="text-base text-black pr-3">{`${userDetails?.first_name} ${userDetails?.last_name}`}</span>
-                <span className="text-base text-gray">
-                  {` ${date?.convertStringDateToUTCChatFormat(
-                    createdAt
-                  )}, ${messageTimein12HoursFomrat}`}
-                </span>
+                <span className="text-base text-gray">{messageDateTime}</span>
               </div>
               <div
                 className={`flex items-center gap-2`}

@@ -54,7 +54,7 @@ const PhysicianAvailabilityAccordion = (props: Props) => {
                     </div>
                   </div>
                 ))
-            : "Doctor schedules not available"}
+            : "Physician schedules not available"}
         </div>
       </Collapse.Panel>
     </Collapse>

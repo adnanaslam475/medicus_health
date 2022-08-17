@@ -11,6 +11,8 @@ import {
 import { getRole, getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import { useTranslations } from "next-intl";
+import engFlag from "../../../../../../public/assets/images/engFlag.png";
+import espanolFlag from "../../../../../../public/assets/images/espanolFlag.png";
 
 function Login() {
   const t = useTranslations("Login");
@@ -48,6 +50,19 @@ function Login() {
         userPayload.remember = values.remember;
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
         localStorage.setItem("loginTime", String(new Date().getTime()));
+        localStorage.setItem(
+          "timeZone",
+          JSON.stringify(userPayload?.user?.timeZone?.timeZone)
+        );
+        localStorage.setItem(
+          "appointmentsAlertData",
+          JSON.stringify({
+            canceled: 0,
+            history: 0,
+            pending: 0,
+            upcoming: 0,
+          })
+        );
         if (
           userPayload.user.role === "Doctor" ||
           userPayload.user.role === "Staff"
@@ -80,7 +95,29 @@ function Login() {
   } else {
     return (
       <Container className="login-bg">
-        <div className="flex items-center justify-center min-h-screen w-h-100 py-16  rounded-3xl">
+        {/* <div className="flagDiv w-56 h-12 flex items-center">
+          <div className="flagAvatar enFlag">
+            <Image
+              priority={true}
+              alt=""
+              className="success-icon mx-auto mt-10"
+              height={30}
+              width={30}
+              src={engFlag}
+            />
+          </div>
+          <div className="flagAvatar spFlag">
+            <Image
+              priority={true}
+              alt=""
+              className="success-icon mx-auto mt-10"
+              height={30}
+              width={30}
+              src={espanolFlag}
+            />
+          </div>
+        </div> */}
+        <div className="flex items-center justify-center min-h-screen w-h-100 py-16 rounded-3xl">
           <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:max-w-[500px] px-0">
             <div className="card p-4 shadow-lg drop-shadow-2xl rounded-2xl bg-white pt-12 pb-6 px-6">
               <div className="flex justify-center mb-6">
@@ -95,7 +132,9 @@ function Login() {
                   // loading="eager"
                 />
               </div>
-              <h1 className="text-center text-secondary mb-3">{t("title")}</h1>
+              <h1 className="text-center text-secondary mb-3 font-bold">
+                {t("title")}
+              </h1>
               <h6 className="text-center text-gray font-rubik font-normal">
                 {t("description")}
               </h6>

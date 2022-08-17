@@ -12,9 +12,8 @@ dayjs.extend(utc);
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(duration);
-// dayjs.extend(timezone);
-// dayjs.tz.setDefault("America/New_York");
-// dayjs.tz.setDefault("asia/karachi");
+dayjs.extend(timezone);
+dayjs.tz.setDefault("America/New_York");
 
 export function convertToUTC(date: string) {
   return dayjs.utc(date).format();
@@ -27,24 +26,46 @@ export function convertStringDateToUTCChatFormat(date: string) {
   return dayjs.utc(date).format("MM/DD/YY");
 }
 
-export function formatMMMMDDYYYY(date: string) {
-  return dayjs.utc(date).format("MMMM, D, YYYY");
+export function formatMMMMDDYYYY(date: string, timezone?: string) {
+  return timezone
+    ? dayjs(date).utc().tz(timezone).format("MMMM, D, YYYY")
+    : dayjs(date).utc().format("MMMM, D, YYYY");
 }
 
-export function formatYYYYMMMMDD(date: string) {
-  return dayjs.utc(date).format("YYYY, MM, DD");
+export const formatYYYYMMMMDD = (date: string) => {
+  const getDateUseingDayjs = dayjs(date);
+  return date && getDateUseingDayjs.isValid()
+    ? getDateUseingDayjs.format("YYYY, MM, DD")
+    : "-";
+};
+
+export const formatMMDDYYYY = (date: string) => {
+  const getDateUseingDayjs = dayjs(date);
+  return date && getDateUseingDayjs.isValid()
+    ? getDateUseingDayjs.format("MM-DD-YYYY")
+    : "-";
+};
+
+export function formatDAYMMDD(date: string, timezone?: string) {
+  return timezone
+    ? dayjs(date).utc().tz(timezone).format("dddd, MMMM D ")
+    : dayjs(date).format("dddd, MMMM D ");
 }
 
-export function formatDAYMMDD(date: string) {
-  return dayjs.utc(date).format("dddd, MMMM D ");
+export function formatDAYMMDDYY(date: string, timezone?: string) {
+  return timezone
+    ? dayjs(date).utc().tz(timezone).format("MMMM, D, YYYY")
+    : dayjs(date).format("dddd, MMMM D, YYYY");
 }
 
-export function formatDAYMMDDYY(date: string) {
+export function formatDAYMMDDYYUTC(date: string) {
   return dayjs.utc(date).format("dddd, MMMM D, YYYY");
 }
 
-export function formathhmma(date: string) {
-  return dayjs.utc(date).format("h:mma");
+export function formathhmma(date: string, timezone?: string) {
+  return timezone
+    ? dayjs(date).utc().tz(timezone).format("hh:mma")
+    : dayjs(date).utc().format("hh:mma");
 }
 
 export function formatDate_n_Time(date: string) {
@@ -104,34 +125,39 @@ export function getDayJsObject(date: string, format: string = "MMMM D, YYYY") {
 export function isAppointmentTimeValid(
   selectedAppointment: AppointmentTimeSlots | CustomTimeSlot | undefined,
   state: boolean,
-  callBack: (state: boolean) => void
+  callBack: (state: boolean) => void,
+  timezone?: string
 ) {
   if (
-    date.formatMMMMDDYYYY(selectedAppointment?.startTime) ===
-    dayjs().format("MMMM, D, YYYY")
+    date.formatMMMMDDYYYY(selectedAppointment?.startTime, timezone) ===
+    dayjs().tz(timezone).format("MMMM, D, YYYY")
     // dayjs(new Date().toLocaleDateString()).format("MMMM, D, YYYY")
   ) {
-    var now = dayjs();
-    const startDate = selectedAppointment?.startTime?.split("T")[0];
+    var now = dayjs().tz(timezone);
+    // const startDate = date.formatMMMMDDYYYY(
+    //   selectedAppointment?.startTime,
+    //   timezone
+    // );
 
-    const startTime = selectedAppointment?.startTime
-      ?.split("T")[1]
-      ?.replace("Z", "");
+    // const startTime = date.formathhmma(
+    //   selectedAppointment?.startTime,
+    //   timezone
+    // );
 
-    const endTime = selectedAppointment?.endTime
-      ?.split("T")[1]
-      ?.replace("Z", "");
+    // const endTime = date.formathhmma(selectedAppointment?.endTime, timezone);
 
-      const dateDifferenceStartDate = dayjs(`${startDate} ${startTime}`).diff(now)
-      console.log('dateDifference', dateDifferenceStartDate)
-      const dateDifferenceEndDate = dayjs(`${startDate} ${endTime}`).diff(now)
-      const startEndDateTime = dayjs(`${startDate} ${endTime}`).unix();
+    const dateDifferenceStartDate = dayjs(selectedAppointment?.startTime)
+      .tz(timezone)
+      .diff(now, "milliseconds");
+    const dateDifferenceEndDate = dayjs(selectedAppointment?.endTime)
+      .tz(timezone)
+      .diff(now);
+    const startEndDateTime = dayjs(selectedAppointment?.endTime).tz(timezone);
 
-    let difference =
-      new Date(`${startDate} ${startTime}`).getTime() - Date.now();
-  
+    // let difference =
+    //   new Date(`${startDate} ${startTime}`).getTime() - Date.now();
     setTimeout(() => {
-      if (startEndDateTime > now.unix()) {
+      if (startEndDateTime.unix() > now.unix()) {
         callBack(false);
         setTimeout(() => {
           if (!state) {
@@ -139,8 +165,7 @@ export function isAppointmentTimeValid(
           }
         }, dateDifferenceEndDate);
       }
-    }, dateDifferenceStartDate);
-    console.log(difference, "diff");
+    }, Number(dateDifferenceStartDate-300000));
   }
 }
 
@@ -148,6 +173,13 @@ export function addHoursToDate(date: Date, hours: number): Date {
   return new Date(new Date(date).setHours(date.getHours() + hours));
 }
 
-// export function setTimeZone(timeZone: string) {
-//   dayjs.tz.setDefault(timeZone);
-// }
+export function getDateAndTimeWRTTZ(
+  date: string,
+  format: string = "MMMM D, YYYY hh:mm:ss"
+) {
+  return date ? dayjs.utc(date).tz().format(format) : "";
+}
+
+export function setTimeZone(timeZone: string) {
+  dayjs.tz.setDefault(timeZone);
+}

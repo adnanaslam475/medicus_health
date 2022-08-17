@@ -2,7 +2,7 @@
   "commmon": {
     "remember": "Acuérdate de mí",
     "forgot": "¿Has olvidado tu contraseña?",
-    "login": "Acceso",
+    "login": "Inicio de sesión",
     "account": "¿No tienes una cuenta?",
     "register": "Registro",
     "email": "Dirección de correo electrónico",
@@ -13,7 +13,7 @@
     "description": "Ingrese sus credenciales para acceder a su cuenta.",
     "remember": "Acuérdate de mí",
     "forgot": "¿Has olvidado tu contraseña?",
-    "login": "Acceso",
+    "login": "Inicio de sesión",
     "account": "¿No tienes una cuenta?",
     "register": "Registro",
     "email": "Dirección de correo electrónico",
@@ -25,19 +25,17 @@
   },
   "Signup": {
     "createAccount": "Crea tu cuenta",
-    "createYourAccountToStart": "Crea tu cuenta para empezar a usar Medicus",
+    "createYourAccountToStart": "Crea tu cuenta para empezar a usar medicus",
     "personalInfo": "Información personal",
     "healthQuestionnaire": "Cuestionario de Salud",
-    "Login": "Acceso",
-    "AlreadyHaveAnAccount": "Ya tienes una cuenta"
+    "Login": "Inicio de sesión"
   },
 
   "UpcomingAppointments": {
     "upcomingAppointmentsHead": "próximas citas"
   },
   "PersonalInfo": {
-    "Login": "Acceso",
-    "AlreadyHaveAnAccount": "Ya tienes una cuenta",
+    "Login": "Inicio de sesión",
     "Gender": "Género",
     "first_name": "Primer nombre",
     "last_name": "Apellido",
@@ -51,13 +49,13 @@
     "street_address": "Dirección",
     "contact_number": "número de contacto",
     "country": "País",
-    "state": "Estado",
+    "state": "Estado/Provinicia",
     "city": "Ciudad",
     "postal_code": "Código postal",
     "postal_code_message": "Por favor ingrese su código postal",
-    "i_agree_to_the": "Estoy de acuerdo con la",
-    "terms_n_conditions": "Términos y condiciones",
     "next": "Próximo",
-    "prefer_not_to_answer": "Prefiero no responder"
+    "prefer_not_to_answer": "Prefiero no responder",
+    "timezone": "Timezone",
+    "time_zone_is_required": "Se requiere zona horaria"
   }
 }

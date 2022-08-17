@@ -222,6 +222,7 @@ function EditProfile({
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("loginTime");
+    localStorage.removeItem("appointmentsAlertData");
     Router.push("/login");
   };
 
@@ -482,6 +483,7 @@ function EditProfile({
               onChange={fileChange}
               itemRender={() => <div />}
               customRequest={() => null}
+              disabled={isStaff}
             >
               <div className="relative">
                 <Avatar
@@ -963,7 +965,7 @@ function EditProfile({
                     Close
                   </Button>
                   <Button type="primary" htmlType="submit">
-                    Save Changes
+                    Save changes
                   </Button>
                 </div>
               </Form.Item> */}

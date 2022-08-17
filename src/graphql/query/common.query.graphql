@@ -6,6 +6,9 @@ query getAllChatChannels($filter: GetAllChannelFilterInput!) {
     patientId
     isAdminChat
     createdAt
+    unReadMessagesCount {
+      channelMessagesCount
+    }
     lastMessage {
       channelId
       senderId
@@ -145,5 +148,31 @@ mutation deleteChatChannel($id: Int!) {
 mutation markMessagesAsReadMutation($id: Int!) {
   markMessagesAsRead(channelId: $id) {
     id
+  }
+}
+
+query getTimeZones {
+  getTimeZones {
+    id
+    timeZone
+    countryName
+    gmtOffset
+  }
+}
+
+query appointmentCountByStatus {
+  appointmentCountByStatus {
+    upcoming
+    pending
+    canceled
+    history
+  }
+}
+
+query getUnreadMessageCount($filter: GetAllChannelFilterInput!) {
+  getAllChatChannels(filter: $filter) {
+    unReadMessagesCount {
+      channelMessagesCount
+    }
   }
 }

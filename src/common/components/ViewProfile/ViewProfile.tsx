@@ -52,6 +52,7 @@ export const ViewProfile = React.forwardRef(function Profile({
     country,
     state,
     city,
+    timeZone
   } = userData?.user || {};
   const { country_name } = country || {};
   const { state_name } = state || {};
@@ -101,8 +102,11 @@ export const ViewProfile = React.forwardRef(function Profile({
       // contact_number: contact_number || "",
       state: state_name || "",
       zip_code: zip_code || "",
+      timeZone:timeZone?.timeZone
     });
   }
+
+  let lastNameFormated = last_name?.toLocaleLowerCase();
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -125,7 +129,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 active
               >
                 <h2 className="mb-0">
-                  {`${first_name || " "} ${last_name || " "}`}
+                  {`${first_name || " "} ${lastNameFormated || " "}`}
                 </h2>
               </Skeleton>
               <span className="block">{email}</span>

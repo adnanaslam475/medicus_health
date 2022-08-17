@@ -60,6 +60,17 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
     requestedDate
     createdAt
     charges
+    doctor {
+      first_name
+      last_name
+      doctorProfile {
+        specialization
+        profile_image
+      }
+      timeZone {
+        timeZone
+      }
+    }
     patient {
       id
       first_name
@@ -111,6 +122,15 @@ query doctorAppointmentDetailPatientInfo($id: Int!) {
       streetAddress
       country_id
       city_id
+      city {
+        city_name
+      }
+      state {
+        state_name
+      }
+      country {
+        country_name
+      }
       patientProfile {
         id
         maritalStatus
@@ -136,6 +156,12 @@ query physicianAppointments(
   ) {
     items {
       id
+      doctor {
+        timeZone {
+          timeZone
+          id
+        }
+      }
       patient {
         first_name
         last_name
@@ -332,6 +358,15 @@ query physicianAppointmentsHistory(
         contact_number
         country_id
         city_id
+        city {
+          city_name
+        }
+        state {
+          state_name
+        }
+        country {
+          country_name
+        }
         patientProfile {
           maritalStatus
           children
@@ -361,6 +396,19 @@ query physicianAppointmentsHistory(
       doctor {
         first_name
         last_name
+        doctorProfile {
+          specialization
+          profile_image
+        }
+        timeZone {
+          timeZone
+        }
+        doctorQuestionnaire {
+          id
+          doctorId
+          questionnaire
+          languageId
+        }
         doctorProfile {
           id
           doctor_id

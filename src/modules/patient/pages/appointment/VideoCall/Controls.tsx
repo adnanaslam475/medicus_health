@@ -6,9 +6,11 @@ import {
 } from "@ant-design/icons";
 import { ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
 import { Button } from "antd";
+import { route } from "next/dist/server/router";
 import { Router } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useClient } from "./settings";
+import { useRouter } from "next/router";
 
 type Props = {
   tracks: [IMicrophoneAudioTrack, ICameraVideoTrack];
@@ -16,6 +18,7 @@ type Props = {
 };
 
 function Controls(props: Props) {
+  const Router = useRouter();
   const client = useClient();
   const { tracks } = props;
   const [trackState, setTrackState] = useState({ video: true, audio: true });
@@ -39,6 +42,8 @@ function Controls(props: Props) {
     client.removeAllListeners();
     tracks[0].close();
     tracks[1].close();
+    // Router.back();
+    Router.push("/patient/appointments/upcoming");
   };
 
   useEffect(() => {

@@ -81,7 +81,7 @@ function PendingAppointmentDetailDoctor() {
             <Tabs.TabPane tab="Appointment info" key="1" className="">
               <AppointmentInfoTab />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Patient info" key="2">
+            <Tabs.TabPane tab="Personal info" key="2">
               <PatientInfoTab />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health questionnaire" key="3">
@@ -100,7 +100,7 @@ function PendingAppointmentDetailDoctor() {
                 />
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Attachment" key="5">
+            <Tabs.TabPane tab="Attachments" key="5">
               <div className="">
                 {urlArr?.map((item: AttachmentObject) => (
                   <Attachment item={item} enable={false} />

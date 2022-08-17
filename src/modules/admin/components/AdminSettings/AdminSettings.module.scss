@@ -1,10 +1,9 @@
 .label-design {
-  font-weight:bold ;
-  color: black;
+  font-weight: 600 !important;
 }
-.mb-custom{
-   :global .ant-form-item{
+.mb-custom {
+  :global .ant-form-item {
     margin-bottom: 0px !important;
-    padding-bottom: 0px !important
-  
-}}
+    padding-bottom: 0px !important;
+  }
+}

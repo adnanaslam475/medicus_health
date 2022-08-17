@@ -102,19 +102,25 @@ export function MessageContextProvider({
 
   useEffect(() => {
     if (getChannelMessages) {
+      executeGetChannelMessagesQuery({
+        requestPolicy: "network-only",
+      });
       const info = { ...messageInfoRef.current };
       const messages = { ...info.messagesWithChannel };
+      // messages[messageInfo.currentChannel?.channelName || ""] = [
+      //   ...getChannelMessages,
+      //   ...(messages[messageInfo.currentChannel?.channelName || ""]
+      //     ? messages[messageInfo.currentChannel?.channelName || ""]
+      //     : []),
+      // ];
       messages[messageInfo.currentChannel?.channelName || ""] = [
         ...getChannelMessages,
-        ...(messages[messageInfo.currentChannel?.channelName || ""]
-          ? messages[messageInfo.currentChannel?.channelName || ""]
-          : []),
       ];
 
       info.messagesWithChannel = messages;
       setMessageInfo(info);
     }
-  }, [getChannelMessages?.[0]?.channelId]);
+  }, [getChannelMessages?.[0]?.channelId, messageInfo.currentChannel?.channelName]);
 
   async function createOrJoinChannel() {
     try {
@@ -168,9 +174,9 @@ export function MessageContextProvider({
   const [{ fetching }, executeCreateChatMessageMutation] =
     useCreateChatMessageMutation();
 
-  useEffect(() => {
-    setCreateChatFetching(fetching);
-  }, [fetching]);
+  // useEffect(() => {
+  //   setCreateChatFetching(fetching);
+  // }, [fetching]);
 
   const { user } = getUserData();
 
@@ -259,18 +265,20 @@ export function MessageContextProvider({
       if (rtmRef.current) {
         rtmRef.current.channels[channelName].joined = true;
       }
-      notification.success({
-        message: "joined successfully",
-      });
+      
+      // notification.success({
+      //   message: "joined successfully",
+      // });
     } catch (error: any) {
       // Error Code 202 - A channel of the same channel ID has already joined. Cannot rejoin.
       if (error?.code === 202) {
         return;
-      } else {
-        notification.error({
-          message: "joined failed",
-        });
       }
+      // else {
+      //   notification.error({
+      //     message: "joined failed",
+      //   });
+      // }
     }
   }
 
@@ -349,6 +357,7 @@ export function MessageContextProvider({
     }
   }
   async function onMessage(text: string, messageType: string = "Text") {
+    setCreateChatFetching(true);
     executeCreateChatMessageMutation({
       createChatMessageInput: {
         channelId: messageInfo.currentChannel?.id as number,
@@ -380,6 +389,7 @@ export function MessageContextProvider({
     info.messagesWithChannel = messages;
 
     setMessageInfo(info);
+    setCreateChatFetching(false);
   }
 
   async function setCurrentChannel(channel: ChatChannels) {

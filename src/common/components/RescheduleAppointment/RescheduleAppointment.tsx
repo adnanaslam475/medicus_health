@@ -27,6 +27,7 @@ import moment from "moment";
 import { getUserData } from "common/utils/userData";
 import dayjs from "dayjs";
 import Router from "next/router";
+import { GraphQLError } from "graphql";
 
 type Props = {
   showRescheduleModal?: boolean;
@@ -49,7 +50,6 @@ function RescheduleAppointmentModal(props: Props) {
   const [slots, setSlots] = useState<SuggestedTimeSlots[] | any[]>([]);
   const [endDateValue, setEndDateValue] = useState<string>("");
 
-
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
 
@@ -71,10 +71,10 @@ function RescheduleAppointmentModal(props: Props) {
   }
 
   const onChangeDatePicker = (dateString: string, name: string): void => {
-    let formatedDate = moment(dateString,"MM-DD-YYYY hh:mm A")
-    .add(30, "minutes")
-    .local()
-    .format("MM-DD-YYYY hh:mm A");
+    let formatedDate = moment(dateString, "MM-DD-YYYY hh:mm A")
+      .add(30, "minutes")
+      .local()
+      .format("MM-DD-YYYY hh:mm A");
     setEndDateValue(formatedDate);
     setSlot({ startTime: dateString, endTime: formatedDate });
   };
@@ -91,12 +91,24 @@ function RescheduleAppointmentModal(props: Props) {
       },
     });
     try {
-      if (response?.data?.suggestNewTime){
+      if (response?.data?.suggestNewTime) {
         setShowRescheduleModal(false);
-        Router.push("/physician/appointments/upcoming")
-          notification.success({
-            message: "Successfully Rescheduled Appointment",
-          });
+        Router.push("/physician/appointments/upcoming");
+        notification.success({
+          message: "Successfully rescheduled appointment",
+        });
+      } else if (response?.error?.graphQLErrors) {
+        let graphQLError = response?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = response?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
       }
     } catch (error: any) {
       notification.error({
@@ -112,7 +124,13 @@ function RescheduleAppointmentModal(props: Props) {
   }
 
   function addTimeSlot() {
-    setSlots([...slots, slot]);
+    setSlots([
+      ...slots,
+      {
+        startTime: moment(slot.startTime, "MM-DD-YYYY hh:mm A").toISOString(),
+        endTime: moment(slot.endTime, "MM-DD-YYYY hh:mm A").toISOString(),
+      },
+    ]);
     setSlot({ startTime: "", endTime: "" });
     datePickerInstance.resetFields(["start_time", "end_time"]);
     setEndDateValue("");
@@ -120,6 +138,9 @@ function RescheduleAppointmentModal(props: Props) {
   const selectedAppointment = appointmentTimeSlots?.find(
     (appointment) => appointment.selected
   );
+
+  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+
   return (
     <>
       <Modal
@@ -160,33 +181,36 @@ function RescheduleAppointmentModal(props: Props) {
               </Form.Item>
             </div>
           </div>
-          <Form.Item label="Requested date" name="requestedDate">
+          {/* <Form.Item label="Requested date" name="requestedDate">
             <DatePicker
               placeholder="mm/dd/yy"
               format={"MM-DD-YYYY"}
               className={`${_classes["border-color"]} w-full pointer-events-none`}
               disabled={true}
             />
-          </Form.Item>
+          </Form.Item> */}
 
-          <Form.Item label="Booked requested slot" name="requestedDate">
+          <Form.Item
+            label="Original appointment date & time"
+            name="requestedDate"
+          >
             <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
               <div className="flex gap-2  rounded leading-3 max-w-max">
                 <p className="text-sm mb-0">{`${date.formatMMMMDDYYYY(
-                  selectedAppointment?.startTime
+                  selectedAppointment?.startTime,timeZone
                 )}  ${date.formathhmma(
-                  selectedAppointment?.startTime
+                  selectedAppointment?.startTime,timeZone
                 )}`}</p>{" "}
                 -
                 <p className="text-sm mb-0">{`${date.formatMMMMDDYYYY(
-                  selectedAppointment?.endTime
-                )}  ${date.formathhmma(selectedAppointment?.endTime)}`}</p>
+                  selectedAppointment?.endTime,timeZone
+                )}  ${date.formathhmma(selectedAppointment?.endTime,timeZone)}`}</p>
               </div>
               <span className="hover:bg-white p-2 rounded-xl"></span>
             </div>
           </Form.Item>
 
-          <label>Availability</label>
+          <label>Propose new appointment date & time</label>
           <div className="date-time-picker block mb-3">
             <AvailabilityTimeSlots
               form={datePickerInstance}
@@ -196,8 +220,9 @@ function RescheduleAppointmentModal(props: Props) {
             {slots?.map((v, index) => (
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="flex gap-2  rounded leading-3 max-w-max">
-                  <p className="text-sm mb-0">{v?.startTime}</p> -
-                  <p className="text-sm mb-0">{v?.endTime}</p>
+                <p className="text-sm mb-0">{date.formatMMMMDDYYYY(v?.startTime,timeZone)} - {date.formathhmma(v?.startTime,timeZone)}</p> -
+                  <p className="text-sm mb-0">{date.formatMMMMDDYYYY(v?.endTime,timeZone)} - {date.formathhmma(v?.endTime,timeZone)}</p>
+
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl">
                   <DeleteOutlined onClick={() => deleteTimeSlot(index)} />
@@ -211,7 +236,7 @@ function RescheduleAppointmentModal(props: Props) {
               disabled={Object.values(slot).some((value) => value === "")}
               type="link"
             >
-              + Add Slot
+              + Add slots
             </Button>
           </div>
 
@@ -282,7 +307,7 @@ function AvailabilityTimeSlots({
         className="flex mt-2 mb-3 border-gray-8 gap-3"
       >
         <div className="w-50">
-          <Form.Item label="Start time" name="start_time">
+          <Form.Item label="Start date & time" name="start_time">
             <Space direction="vertical" size={12}>
               <DatePicker
                 className="w-full"
@@ -298,13 +323,18 @@ function AvailabilityTimeSlots({
           </Form.Item>
         </div>
         <div className="w-50">
-          <Form.Item label="End time" name="end_time">
+          <Form.Item label="End date & time" name="end_time">
             <Space direction="vertical" size={12}>
               {endDateValue === "Invalid date" || !endDateValue ? (
-                <DatePicker disabled={true} className="w-full" showTime placeholder="--"/>
+                <DatePicker
+                  disabled={true}
+                  className="w-full"
+                  showTime
+                  placeholder="--"
+                />
               ) : (
                 <DatePicker
-                  value={moment(endDateValue,"MM-DD-YYYY hh:mm A")}
+                  value={moment(endDateValue, "MM-DD-YYYY hh:mm A")}
                   disabled={true}
                   className="w-full"
                   showTime

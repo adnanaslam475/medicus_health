@@ -71,7 +71,7 @@ function StaffDetailsFrom({
         </Button>
       </div>
       <div className="md:grid md:grid-cols-2 md:gap-x-4">
-        <AddStaffFormItems accountCreatedAt={staffDetail?.createdAt}/>
+        <AddStaffFormItems accountCreatedAt={staffDetail?.createdAt} />
       </div>
       <div className="flex justify-end mt-2">
         <Form.Item>
@@ -85,7 +85,7 @@ function StaffDetailsFrom({
               type="primary"
               htmlType="submit"
             >
-              Save Changes
+              Save changes
             </Button>
           </div>
         </Form.Item>

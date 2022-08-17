@@ -38,7 +38,7 @@ const SpanishHealthQuestionnaryData: Questions = {
   },
   q2: {
     name: "radio_smoke",
-    label: "Usted fuma",
+    label: "¿Usted fuma?",
     type: "radio",
     ans: "",
     option: ["sí", "no"],

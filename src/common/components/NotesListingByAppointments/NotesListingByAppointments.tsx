@@ -30,13 +30,6 @@ function NotesListingByAppointments(props: Props) {
   const appointmentId = Number(query.id);
   const { doctorNotes, appointment } = props;
 
-  // const [{ data: currentAppointmentNotes }] = useGetAppointmentNoteByIdQuery({
-  //   variables: {
-  //     appointmentId,
-  //   },
-  //   requestPolicy: "network-only",
-  // });
-
   // getAppointmentNoteById;
   const [{ data: currentAppointmentNotes }] = useGetAppointmentNotesByIdQuery({
     variables: {
@@ -67,10 +60,6 @@ function NotesListingByAppointments(props: Props) {
     ? finalPhysicianName
     : `Dr. ${finalPhysicianName}`;
 
-  // const physicianFullName = capitalFirstname + "" + docName?.slice(1);
-
-  // const finalPhysicianName = physicianFullName + " " + lastName;
-
   const appId = actualDoctorNotes?.currentAppointmentNote?.appointment?.id;
 
   const appDate = actualDoctorNotes?.currentAppointmentNote?.createdAt;
@@ -97,10 +86,9 @@ function NotesListingByAppointments(props: Props) {
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header={`AP-${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
-                  appDate
-                )} `}
+                header={`ID# ${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}`}
                 key={index + 1}
+                extra={convertStringDateToUTC(appDate)}
               >
                 {(getRole() === "Admin" || getRole() === "Doctor") &&
                   actualDoctorNotes !== null && (

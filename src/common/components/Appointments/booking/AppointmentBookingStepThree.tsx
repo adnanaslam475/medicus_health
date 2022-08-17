@@ -50,6 +50,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const [{ data: dataList, fetching }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId: doctorQuestionnaireId,
+      languageId: 2,
     },
     pause: !doctorQuestionnaireId,
   });
@@ -135,7 +136,8 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                 checked={data?.stepThree?.isLastFilled || false}
               >
                 <span className="text-gray-2">
-                  I want to use my last filled form
+                  {/* I want to use my last filled form */}
+                  Quiero usar mi último formulario completado
                 </span>
               </Checkbox>
             </div>
@@ -158,7 +160,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                     label={item.label}
                     className="text-secondary"
                     name={item.name}
-                    rules={[{ required: true, message: "Required!" }]}
+                    rules={[{ required: true, message: "¡Requerido!" }]}
                   >
                     <Input />
                   </Form.Item>
@@ -169,7 +171,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                     label={item.label}
                     className="text-secondary"
                     name={item.name}
-                    rules={[{ required: true, message: "Required!" }]}
+                    rules={[{ required: true, message: "¡Requerido!" }]}
                   >
                     <Radio.Group>
                       {item?.options?.map(({ value, label }) => {
@@ -184,7 +186,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                     label={item.label}
                     className="text-secondary"
                     name={item.name}
-                    // rules={[{ required: true, message: "Required!" }]}
+                    // rules={[{ required: true, message: "¡Requerido!" }]}
                   >
                     <Checkbox.Group>
                       {item?.options?.map(({ value, label }) => {

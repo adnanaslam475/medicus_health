@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { ChatChannels } from "generated/graphql";
+import React, { useEffect, useState } from "react";
+import { ChatChannels, useGetUnreadMessageCountQuery, useMarkMessagesAsReadMutationMutation } from "generated/graphql";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useMessageContext } from "../MessageDetail/MessageContext";
@@ -9,6 +9,7 @@ import loaderLogo from "./../../../../../../public/assets/images/loaderLogo.png"
 import { getUserData } from "common/utils/userData";
 import { date, messageUtils } from "common/utils";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
+import { Badge } from "antd";
 
 type Props = {
   thread: ChatChannels;
@@ -18,30 +19,50 @@ type Props = {
 function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const { setCurrentChannel, loginToRtm, onJoinChannel, messageInfo } =
     useMessageContext();
+  const { user } = getUserData();
+  const { timeZone } = user || {};
+  const { timeZone: userTimeZone } = timeZone || {};
+
   const { query } = useRouter();
 
   //get channel dateTime
-  const { lastMessage } = thread || {};
+  const { lastMessage, unReadMessagesCount } = thread || {};
 
   //get last message
   const { message, messageType, createdAt } = lastMessage || {};
+  const { channelMessagesCount } = unReadMessagesCount || {};
 
-  //adding 5 hours to datetime
-  const messageTime = date?.addHoursToDate(new Date(createdAt), 5);
-  const messageTimein12HoursFomrat = date?.formathhmma(messageTime?.toString());
+  const [{}, markAsReadMutation] = useMarkMessagesAsReadMutationMutation();
+
+
+
+  // Set User time zone
+
+  date?.setTimeZone(userTimeZone ? String(userTimeZone) : "America/New_York");
+  const messageDateTime = date?.getDateAndTimeWRTTZ(
+    createdAt,
+    "MM/DD/YY,h:mma"
+  );
 
   async function onJoinChat() {
-    localStorage.setItem("id", JSON.stringify(query));
+    // localStorage.setItem("id", JSON.stringify(query));
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
+    const id = thread?.id;
+    try {
+      await markAsReadMutation({
+        id,
+      });
+    } catch (error) {
+      console.log("Something went wrong");
+    }
   }
 
   useEffect(() => {
     loginToRtm?.();
   }, []);
 
-  const { user } = getUserData();
   const opposite = messageUtils.getOppositeParticipant(
     thread,
     user?.role as string
@@ -52,13 +73,14 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   );
 
   const firstName = opposite?.role !== "Doctor" ? opposite?.first_name : "";
-  
+
   const lastName =
     opposite?.role !== "Doctor"
       ? opposite?.last_name
       : opposite?.role === "Doctor" && opposite?.last_name?.includes("Dr.")
       ? opposite?.last_name
       : `Dr. ${opposite?.last_name}`;
+
   return (
     <div
       onClick={onJoinChat}
@@ -99,9 +121,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
             }`}</span>
           </span>
           <span className="text-base text-gray hidden sm:inline">
-            {`${date?.convertStringDateToUTCChatFormat(createdAt)},${
-              createdAt ? messageTimein12HoursFomrat : "--"
-            }`}
+            {messageDateTime}
           </span>
         </div>
         <div className="sm:flex justify-between hidden ">
@@ -114,7 +134,10 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
               ? message
               : "no message available"}
           </span>
-          {/* <span className="rounded-lg bg-red px-2 py-0 text-white">3</span> */}
+          <Badge
+            count={channelMessagesCount}
+            className="new-msg-count relative"
+          />
         </div>
       </div>
     </div>

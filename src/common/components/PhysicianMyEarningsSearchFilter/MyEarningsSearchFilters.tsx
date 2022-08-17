@@ -309,9 +309,9 @@ function MyEarningsSearchFilters(props: Props) {
             className="w-full sm:w-46"
             value={filterState?.paymentStatus || "Payment status"}
           >
-            <Select.Option value="paid">PAID</Select.Option>
-            <Select.Option value="unpaid">UNPAID</Select.Option>
-            <Select.Option value="refunded">REFUNDED</Select.Option>
+            <Select.Option value="paid">Paid</Select.Option>
+            <Select.Option value="unpaid">Unpaid</Select.Option>
+            <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
         </div>
         {/* <Dropdown
@@ -327,7 +327,7 @@ function MyEarningsSearchFilters(props: Props) {
             </Space>
           </a>
         </Dropdown> */}
-        <Dropdown
+        {/* <Dropdown
           className={`${_classes["range-filter-dropDown"]} flex items-center rounded-lg p-3 border`}
           overlay={totalPaymentsRangeFilter}
           trigger={["click"]}
@@ -339,7 +339,7 @@ function MyEarningsSearchFilters(props: Props) {
               <DownOutlined />
             </Space>
           </a>
-        </Dropdown>
+        </Dropdown> */}
         <Button
           onClick={clear}
           type="text"

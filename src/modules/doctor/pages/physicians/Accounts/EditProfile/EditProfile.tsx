@@ -27,6 +27,7 @@ import {
   useEnableOrDisableDoctorMutation,
   useGetCitiesByStateQuery,
   useGetStatesByCountryQuery,
+  useGetTimeZonesQuery,
   useGetUserQuery,
   User,
   useUpdateDoctorProfileMutation,
@@ -72,6 +73,7 @@ type Props = {
   addScheduleDay: string;
   loading?: boolean;
   setProfileUpdated?: any;
+  deleteScheduleFetching?:boolean;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -91,6 +93,7 @@ function EditProfile({
   onAddClick,
   addScheduleTime,
   setProfileUpdated,
+  deleteScheduleFetching,
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -130,6 +133,7 @@ function EditProfile({
     contact_number,
     status,
     doctorProfile,
+    timeZone = 86,
   } = doctorData?.user || {};
 
   const {
@@ -168,10 +172,10 @@ function EditProfile({
   ]);
 
   const [certificationList, setCertificationList] = useState([
-    { certification: "", licensure: "" },
+    { certification_and_licensure: "" },
   ]);
   const [honorsList, setHonorsList] = useState([
-    { awards: "", honors_and_recognition: "" },
+    { awards_honors_and_recognition: "" },
   ]);
 
   const [countryId, setCountryId] = useState<number | undefined>(
@@ -213,7 +217,7 @@ function EditProfile({
       firstName: doctor_first_name,
       lastName: doctor_last_name,
       specialization: specialization || "",
-      year_of_experience: year_of_experience || "",
+      year_of_experience: Number?.parseFloat(year_of_experience || ""),
       streetAddress: street_address,
       city_id: city_id || "",
       country_id: country_id || "",
@@ -225,6 +229,8 @@ function EditProfile({
       confirmPassword: "",
       about_me: about_me,
       language: language,
+      // timeZoneId: timeZone?.timeZone,
+      timeZone: timeZone?.id,
     });
   }
 
@@ -240,11 +246,26 @@ function EditProfile({
   const logout = () => {
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("loginTime");
+    localStorage.removeItem("appointmentsAlertData");
     Router.push("/login");
   };
+
+  const [physicianTimeZoneId, setPhysicianTimeZoneId] = useState();
+
+  useEffect(() => {
+    if (physicianTimeZoneId) {
+      const timeZone = getTimeZones?.data?.getTimeZones.filter(
+        (item) => item.id === physicianTimeZoneId
+      )[0]?.timeZone;
+      localStorage.setItem("timeZone", JSON.stringify(timeZone));
+    }
+  }, [physicianTimeZoneId]);
+
   const updateDoctorProfile = async (values: any) => {
     // if (doctorData) {
-
+    if (values?.timeZone) {
+      setPhysicianTimeZoneId(values?.timeZone);
+    }
     const res = await updateDoctor({
       updateDoctorProfileInput: {
         doctor_id: pathname.includes("/admin/physicians")
@@ -275,13 +296,13 @@ function EditProfile({
           role: item?.role,
         })),
         certification_and_licensure: certificationList?.map((item) => ({
-          certification: item?.certification,
-          licensure: item?.licensure,
+          certification_and_licensure: item?.certification_and_licensure,
         })),
         awards_honors_recognition: honorsList?.map((item) => ({
-          awards: item?.awards,
-          honors_and_recognition: item?.honors_and_recognition,
+          awards_honors_and_recognition: item?.awards_honors_and_recognition,
         })),
+        // timeZoneId: values?.timeZoneId,
+        timeZoneId: values?.timeZone,
       },
     });
 
@@ -462,14 +483,11 @@ function EditProfile({
       case "certification":
         setCertificationList([
           ...certificationList,
-          { certification: "", licensure: "" },
+          { certification_and_licensure: "" },
         ]);
         break;
       case "honors":
-        setHonorsList([
-          ...honorsList,
-          { awards: "", honors_and_recognition: "" },
-        ]);
+        setHonorsList([...honorsList, { awards_honors_and_recognition: "" }]);
         break;
       default:
         break;
@@ -566,7 +584,9 @@ function EditProfile({
 
   const onFinishedFailed = () => {
     window?.scrollTo(0, 0);
-  }
+  };
+
+  const [getTimeZones] = useGetTimeZonesQuery();
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -634,6 +654,7 @@ function EditProfile({
               onFinish={onFinish}
               onFinishFailed={onFinishedFailed}
               layout="vertical"
+              scrollToFirstError
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
@@ -644,7 +665,10 @@ function EditProfile({
                   ]}
                   className="flex-1"
                 >
-                  <Input autoFocus={true} />
+                  <Input
+                    autoFocus={true}
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
                 <Form.Item
                   label="Last name"
@@ -652,7 +676,7 @@ function EditProfile({
                   rules={[{ required: true, message: "Last name is required" }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input onPressEnter={(e) => e.preventDefault()} />
                 </Form.Item>
               </div>
 
@@ -663,7 +687,7 @@ function EditProfile({
                   rules={[{ type: "email" }]}
                   className="flex-1"
                 >
-                  <Input />
+                  <Input onPressEnter={(e) => e.preventDefault()} />
                 </Form.Item>
                 <Form.Item
                   name="contact"
@@ -677,7 +701,11 @@ function EditProfile({
                   ]}
                   className="flex-1"
                 >
-                  <Input type="number" autoComplete="new-password" />
+                  <Input
+                    type="number"
+                    autoComplete="new-password"
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
@@ -687,7 +715,10 @@ function EditProfile({
                   className="flex-1"
                   dependencies={["password"]}
                 >
-                  <Input.Password autoComplete="new-password" />
+                  <Input.Password
+                    autoComplete="new-password"
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
 
                 <Form.Item
@@ -714,7 +745,10 @@ function EditProfile({
                     }),
                   ]}
                 >
-                  <Input.Password autoComplete="new-password" />
+                  <Input.Password
+                    autoComplete="new-password"
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
                 </Form.Item>
               </div>
 
@@ -724,7 +758,7 @@ function EditProfile({
                   name="specialization"
                   className="flex-1"
                 >
-                  <Input />
+                  <Input onPressEnter={(e) => e.preventDefault()} />
                 </Form.Item>
                 <Form.Item
                   label="Years of experience"
@@ -734,22 +768,21 @@ function EditProfile({
                   <Input type="number" />
                 </Form.Item>
               </div>
-
-              <Form.Item
-                label={"Street address"}
-                name="streetAddress"
-                rules={[
-                  {
-                    required: true,
-                    message: "street address required",
-                    max: 300,
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
               <div className="flex flex-col sm:flex-row sm:gap-3">
+                <Form.Item
+                  className="flex-1"
+                  label={"Street address"}
+                  name="streetAddress"
+                  rules={[
+                    {
+                      required: true,
+                      message: "street address required",
+                      max: 300,
+                    },
+                  ]}
+                >
+                  <Input onPressEnter={(e) => e.preventDefault()} />
+                </Form.Item>
                 <Form.Item
                   className="flex-1"
                   label={"Country"}
@@ -784,6 +817,9 @@ function EditProfile({
                     )}
                   </Select>
                 </Form.Item>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item className="flex-1" label={"State"} name="state_id">
                   <Select
                     showSearch
@@ -813,9 +849,6 @@ function EditProfile({
                     )}
                   </Select>
                 </Form.Item>
-              </div>
-
-              <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item className="flex-1" label={"City"} name="city_id">
                   <Select
                     placeholder={"City"}
@@ -837,7 +870,9 @@ function EditProfile({
                     )}
                   </Select>
                 </Form.Item>
+              </div>
 
+              <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
                   className="flex-1"
                   label={"Postal code"}
@@ -849,7 +884,35 @@ function EditProfile({
                     },
                   ]}
                 >
-                  <Input autoComplete="new-password" />
+                  <Input
+                    autoComplete="new-password"
+                    onPressEnter={(e) => e.preventDefault()}
+                  />
+                </Form.Item>
+                <Form.Item
+                  className="flex-1"
+                  label={"Time zone"}
+                  name="timeZone"
+                >
+                  <Select
+                    placeholder={timeZone?.timeZone}
+                    showSearch
+                    filterOption={(input, city: any) =>
+                      city.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                  >
+                    {React.Children.toArray(
+                      getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                        return (
+                          <Select.Option value={el.id}>
+                            {el?.timeZone}
+                          </Select.Option>
+                        );
+                      })
+                    )}
+                  </Select>
                 </Form.Item>
               </div>
 
@@ -923,6 +986,7 @@ function EditProfile({
                 disable={false}
                 schedules={schedules}
                 setDeleteScheduleId={setDeleteScheduleId}
+                deleteScheduleFetching={deleteScheduleFetching}
                 setAddScheduleTime={setAddScheduleTime}
                 addScheduleTime={addScheduleTime}
                 addScheduleDay={addScheduleDay}
@@ -932,7 +996,7 @@ function EditProfile({
               />
 
               <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Certifications and licences</h6>
+                <h6>Certification and licensure</h6>
                 {certificationList?.map((certificate, index) => {
                   return (
                     <div
@@ -940,7 +1004,7 @@ function EditProfile({
                       key={index}
                     >
                       <Form.Item
-                        label="Certificates"
+                        // label="Certificates"
                         rules={[
                           {
                             required: false,
@@ -950,25 +1014,10 @@ function EditProfile({
                         className="flex-1"
                       >
                         <Input
-                          name={`certification`}
-                          value={certificate?.certification}
+                          name={`certification_and_licensure`}
+                          value={certificate?.certification_and_licensure}
                           onChange={(e) => handleCertificationChange(e, index)}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        label="licensure"
-                        rules={[
-                          {
-                            required: false,
-                            message: "licensure",
-                          },
-                        ]}
-                        className="flex-1"
-                      >
-                        <Input
-                          name={`licensure`}
-                          value={certificate?.licensure}
-                          onChange={(e) => handleCertificationChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       {certificationList?.length - 1 === index && (
@@ -1011,6 +1060,7 @@ function EditProfile({
                           name={`institution`}
                           value={clinic?.institution}
                           onChange={(e) => handleClinicChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       <Form.Item
@@ -1022,6 +1072,7 @@ function EditProfile({
                           value={clinic?.role}
                           name={`role`}
                           onChange={(e) => handleClinicChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
@@ -1065,6 +1116,7 @@ function EditProfile({
                           name={`institution`}
                           value={education?.institution}
                           onChange={(e) => handleEducationChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       <Form.Item
@@ -1081,6 +1133,7 @@ function EditProfile({
                           name={`degree`}
                           value={education?.degree}
                           onChange={(e) => handleEducationChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       {educationList?.length - 1 === index && (
@@ -1103,43 +1156,19 @@ function EditProfile({
               </div>
 
               <div className={`my-6 ${_classes["educational"]}`}>
-                <h6>Awards, honors and recognization</h6>
+                <h6>Awards, honors & recognition</h6>
                 {honorsList?.map((honor, index) => {
                   return (
                     <div
                       className="border-b border-gray-3 my-3 py-3"
                       key={index}
                     >
-                      <Form.Item
-                        label="Awards"
-                        rules={[
-                          {
-                            required: false,
-                            message: "Awards",
-                          },
-                        ]}
-                        className="flex-1"
-                      >
+                      <Form.Item className="flex-1">
                         <Input
-                          name={`awards`}
-                          value={honor?.awards}
+                          name={`awards_honors_and_recognition`}
+                          value={honor?.awards_honors_and_recognition}
                           onChange={(e) => handleHonorsChange(e, index)}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        label="Honors & recognization"
-                        rules={[
-                          {
-                            required: false,
-                            message: "Honors & recognization",
-                          },
-                        ]}
-                        className="flex-1"
-                      >
-                        <Input
-                          name={`honors_and_recognition`}
-                          value={honor?.honors_and_recognition}
-                          onChange={(e) => handleHonorsChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
                         />
                       </Form.Item>
                       {honorsList?.length - 1 === index && (
@@ -1163,10 +1192,7 @@ function EditProfile({
 
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
-                  <Button
-                    type="default"
-                    onClick={() =>  setIsEdit(false)}
-                  >
+                  <Button type="default" onClick={() => setIsEdit(false)}>
                     Close
                   </Button>
                   <Button type="primary" htmlType="submit">
@@ -1190,7 +1216,10 @@ function EditProfile({
                     ]}
                     className="flex-1"
                   >
-                    <Input value="University of oklahoma college of medicine" />
+                    <Input
+                      value="University of oklahoma college of medicine"
+                      onPressEnter={(e) => e.preventDefault()}
+                    />
                   </Form.Item>
                   <div className="flex flex-col sm:flex-row  sm:gap-3">
                     <Form.Item
@@ -1199,7 +1228,9 @@ function EditProfile({
                       // rules={[{ required: true, message: "Password" }]}
                       className="flex-1"
                     >
-                      <Input.Password />
+                      <Input.Password
+                        onPressEnter={(e) => e.preventDefault()}
+                      />
                     </Form.Item>
 
                     <Form.Item
@@ -1208,7 +1239,9 @@ function EditProfile({
                       // rules={[{ required: true, message: "Confirm password!" }]}
                       className="flex-1"
                     >
-                      <Input.Password />
+                      <Input.Password
+                        onPressEnter={(e) => e.preventDefault()}
+                      />
                     </Form.Item>
                   </div>
                 </div>

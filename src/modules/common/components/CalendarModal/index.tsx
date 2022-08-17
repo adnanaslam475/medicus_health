@@ -46,7 +46,7 @@ function CalendarModalComponent(props: Props) {
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
   return (
     <Modal
       title=""
@@ -75,15 +75,15 @@ function CalendarModalComponent(props: Props) {
           {date.formatDAYMMDDYY(selectedAppointment?.startTime || dateValue)}
         </h4>
       </div>
-
-      <div className="border-b pb-0 pt-2">
+      {/* removed ref ticket # 2405*/}
+      {/* <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">Appointment time</p>
         <h4 className="text-xl">{`${date.formathhmma(
           selectedAppointment?.startTime || dateValue
         )}  -  ${date.formathhmma(
           selectedAppointment?.endTime || dateValue
         )}`}</h4>
-      </div>
+      </div> */}
 
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">Total amount</p>
@@ -92,7 +92,7 @@ function CalendarModalComponent(props: Props) {
 
       <div className="flex justify-between">
         <div className="items-center justify-start pt-4">
-          <Button onClick={() => Router.push(`/admin/appointments/${id}`)}>
+          <Button onClick={() => Router.push(`/patient/appointments/${id}`)}>
             Details
           </Button>
         </div>
@@ -101,6 +101,7 @@ function CalendarModalComponent(props: Props) {
             type="primary"
             className={`${_classes["appointments-btn"]} bg-current mr-3`}
             disabled={disabled}
+            onClick={() => Router.push(`/patient/appointments/${id}/call`)}
           >
             <Image
               priority={true}

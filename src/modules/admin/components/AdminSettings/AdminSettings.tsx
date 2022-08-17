@@ -155,7 +155,7 @@ function AdminSettings() {
               <Form.Item
                 label="Total charges"
                 name="total_consultation_charges"
-                className="font-bold text-black"
+                className="font-bold text-secondary"
               >
                 <InputNumber addonBefore="$" type="number" min={0} />
               </Form.Item>
@@ -167,7 +167,7 @@ function AdminSettings() {
               <Form.Item
                 label="Medicus cut"
                 name="consultation_charges_medicus_cut"
-                className={`${_classes["label-design "]}`}
+                className="text-secondary font-bold"
               >
                 <InputNumber addonAfter="%" type="number" min={0} />
               </Form.Item>
@@ -187,7 +187,7 @@ function AdminSettings() {
               <Form.Item
                 label="Physician cut"
                 name="consultation_charges_physician_cut"
-                className="font-bold text-black"
+                className="font-bold text-secondary"
               >
                 <InputNumber addonAfter="%" type="number" min={0} />
               </Form.Item>
@@ -209,7 +209,7 @@ function AdminSettings() {
                 <Form.Item
                   label="Total charges"
                   name="total_second_opinion_charges"
-                  className="font-bold text-black"
+                  className="font-bold text-secondary"
                 >
                   <InputNumber addonBefore="$" type="number" min={0} />
                 </Form.Item>
@@ -221,7 +221,7 @@ function AdminSettings() {
                 <Form.Item
                   label="Medicus cut"
                   name="second_opinion_charges_medicus_cut"
-                  className="font-bold text-black"
+                  className="font-bold text-secondary"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
@@ -241,7 +241,7 @@ function AdminSettings() {
                 <Form.Item
                   label="Physician cut"
                   name="second_opinion_charges_physician_cut"
-                  className="font-bold text-black"
+                  className="font-bold text-secondary"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
@@ -262,7 +262,7 @@ function AdminSettings() {
                 <Form.Item
                   label="California"
                   name="california_state_tax"
-                  className="font-bold text-black"
+                  className="font-semibold text-secondary"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
@@ -272,7 +272,7 @@ function AdminSettings() {
                 <Form.Item
                   label="Washington"
                   name="washington_state_tax"
-                  className="font-bold text-black"
+                  className="font-bold text-secondary"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
@@ -281,7 +281,7 @@ function AdminSettings() {
                 <Form.Item
                   label="Texas"
                   name="taxes_state_tax"
-                  className="font-bold text-black"
+                  className="font-bold text-secondary"
                 >
                   <InputNumber addonAfter="%" type="number" min={0} />
                 </Form.Item>
@@ -293,7 +293,7 @@ function AdminSettings() {
               <div className="flex gap-4">
                 <Button onClick={() => Router.back()}>Cancel</Button>
                 <Button type="primary" htmlType="submit">
-                  Save Changes
+                  Save changes
                 </Button>
               </div>
             </Form.Item>

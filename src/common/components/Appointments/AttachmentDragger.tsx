@@ -55,7 +55,6 @@ const AttachmentDragger = (props: Props) => {
     multiple: true,
     onChange(info: { file: { name?: string; size: number }; fileList: any }) {
       let in10MBLimit = info?.file?.size / 1024 / 1024 < 10;
-      console.log("my onchange", info);
       if (!in10MBLimit) {
         return notification.error({ message: "File must smaller than 10 MB!" });
       }
@@ -128,9 +127,7 @@ const AttachmentDragger = (props: Props) => {
           </Dragger>
         </Form.Item>
         <span className=" ant-upload-hint block text-xs text-gray-1 text-center -mt-4">
-          Please upload any/all files you believe will be relevant for the
-          appointment. You may upload files while before or during your
-          appointment
+        Please upload files that are relevant to your appointment.
         </span>
       </Form>
     </div>

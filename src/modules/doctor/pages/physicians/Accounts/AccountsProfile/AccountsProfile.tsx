@@ -45,7 +45,7 @@ function AccountsProfile() {
   const [createDoctorScheduleResponse, executeCreateDoctorScheduleMutation] =
     useCreateDoctorScheduleMutation();
   const { fetching } = createDoctorScheduleResponse;
-  const [, executeRemoveDoctorScheduleMutation] =
+  const [{fetching:deleteScheduleFetching}, executeRemoveDoctorScheduleMutation] =
     useRemoveDoctorScheduleMutation();
 
   async function onAddClick() {
@@ -85,6 +85,7 @@ function AccountsProfile() {
           setIsEdit={setIsEdit}
           schedules={schedules}
           setDeleteScheduleId={setDeleteScheduleId}
+          deleteScheduleFetching={deleteScheduleFetching}
           setAddScheduleDay={setAddScheduleDay}
           addScheduleDay={String(addScheduleDay)}
           setAddScheduleTime={setAddScheduleTime}

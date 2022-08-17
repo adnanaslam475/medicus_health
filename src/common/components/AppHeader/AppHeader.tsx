@@ -14,11 +14,7 @@ import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 
 const { Header } = Layout;
 
-type Props = {
-  isShowBanner: boolean | undefined;
-};
-
-const AppHeader = ({ isShowBanner }: Props) => {
+const AppHeader = () => {
   //Get logged in User
   const { user: loggedInUser } = getUserData();
   const { id: loggedInUserId } = loggedInUser || {};
@@ -39,6 +35,8 @@ const AppHeader = ({ isShowBanner }: Props) => {
   const logout = () => {
     Router.push("/login");
     localStorage.removeItem("loggedInUserData");
+    localStorage.removeItem("timeZone");
+    localStorage.removeItem("appointmentsAlertData");
     // localStorage.clear();
     setVisible(false);
   };
@@ -54,7 +52,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
     patientProfile?.profileImage ||
     doctorProfile?.profile_image ||
     adminProfilePicture?.profile_picture;
-  const userName = `${user?.first_name} ${user?.last_name}`;
+  const userName = `${user?.first_name} ${user?.last_name.toLocaleLowerCase()}`;
   const userRole = user?.role;
   const accountPath =
     userRole === "Doctor"
@@ -98,7 +96,12 @@ const AppHeader = ({ isShowBanner }: Props) => {
       </Menu.Item>
     </Menu>
   );
-
+  const basePath =
+    user?.role === "User"
+      ? "/patient/appointments/upcoming"
+      : user?.role === "Doctor"
+      ? "/physician/appointments/upcoming"
+      : "/admin/dashboards";
   return (
     <>
       <Header
@@ -111,25 +114,26 @@ const AppHeader = ({ isShowBanner }: Props) => {
             width={80}
             height={43}
             src="/assets/images/loaderLogo.png"
+            onClick={() => Router.push(basePath)}
           />
         </span>
         <div className="w-full flex px-0 justify-between items-center">
           <Skeleton loading={fetching} paragraph={{ rows: 0 }} active>
             <div className="hidden md:block w-full ">
               <div className="p-0">
-                {getRole() === "Doctor" ? <InfoMessageBannerReminder /> : null}
+                {getRole() === "Doctor" || getRole() === "Staff" ? (
+                  <InfoMessageBannerReminder />
+                ) : null}
               </div>
 
               {/* if patient health questionnaire completed than showing appointment banner 
               otherwise health questionnaire complete banner */}
 
-              {patientHealthHistory?.patientHealthHistory ||
-              !isShowBanner ||
-              isShowBanner === undefined ? (
+              {patientHealthHistory?.patientHealthHistory ? (
                 <div className="p-0">
                   {getRole() === "User" ? <InfoMessageBannerReminder /> : null}
                 </div>
-              ) : (!patientHealthHistory?.patientHealthHistory?.id && isShowBanner)? (
+              ) : !patientHealthHistory?.patientHealthHistory?.id ? (
                 <div className="p-0">
                   {getRole() === "User" && <InfoMessage />}
                 </div>
@@ -174,7 +178,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
           </div>
         </div>
       </Header>
-      {!patientHealthHistory?.patientHealthHistory?.id &&
+      {/* {!patientHealthHistory?.patientHealthHistory?.id &&
       !fetching &&
       isShowBanner ? (
         <div className="bg-white md:hidden p-2 w-full">
@@ -182,7 +186,7 @@ const AppHeader = ({ isShowBanner }: Props) => {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
     </>
   );
 };

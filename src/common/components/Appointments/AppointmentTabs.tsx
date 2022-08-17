@@ -37,7 +37,10 @@ const AppointmentTabs = (props: Props) => {
     variables: { id: Number(appointmentId) },
   });
 
-  const { appointmentHealthHistory, patient, status } = data?.appointment || {};
+  console.log("data-soimne", data);
+
+  const { appointmentHealthHistory, patient, status, questionnaire, doctorId } =
+    data?.appointment || {};
 
   const { id } = patient || {};
 
@@ -103,7 +106,8 @@ const AppointmentTabs = (props: Props) => {
         </Tabs.TabPane>
         <TabPane tab="Physician questionnaire" key="3">
           <PhysicianQuestionnaire
-            appointmentHealthHistory={appointmentHealthHistory?.history}
+            appointmentHealthHistory={questionnaire}
+            doctorId={Number(doctorId)}
           />
         </TabPane>
         <TabPane tab="Attachments" key="4">

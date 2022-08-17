@@ -13,7 +13,7 @@ import {
   useGetDoctorNotesByAppIdQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NotesHistory from "../NotesHistoryNotes/NotesHistory";
 
 type Props = {
@@ -31,6 +31,7 @@ function NotesTab({}: Props) {
     },
     pause: !query.id,
   });
+  const [isRoleGuard, setRoleGuard] = useState<boolean>(false);
 
   const [{ data: note }, createOrUpdateAppointmentNote] =
     useCreateOrUpdateAppointmentNoteMutation();
@@ -84,6 +85,22 @@ function NotesTab({}: Props) {
       });
     }
   };
+  const { first_name, last_name } = appointment?.doctor || {};
+  const doctorProfilePic = appointment?.doctor?.doctorProfile?.profile_image;
+  const doctorSpecialization =
+    appointment?.doctor?.doctorProfile?.specialization;
+  let formatedDoctorFirstName = `${
+    first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
+  }`;
+
+  useEffect(() => {
+    if (getRole() === "User") {
+      setRoleGuard(true);
+    } else {
+      setRoleGuard(false);
+    }
+  }, []);
+
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -91,9 +108,17 @@ function NotesTab({}: Props) {
   ) : (
     <div className="md:max-w-1/2">
       <CardWithProfileImageInfo
-        name={`${patient?.first_name} ${patient?.last_name}`}
-        // serviceName={serviceType?.name}
-        imageUrl={patient?.patientProfile?.profileImage}
+        name={
+          isRoleGuard
+            ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`
+            : `${patient?.first_name} ${patient?.last_name}`
+        }
+        serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
+        imageUrl={
+          isRoleGuard
+            ? doctorProfilePic
+            : appointment?.patient?.patientProfile?.profileImage
+        }
       >
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
@@ -133,12 +158,14 @@ function NotesTab({}: Props) {
                 </>
               )
             ) : (
-              <>No current appointment notes available.</>
+              <>
+                Notes for this appointment have not been published by physician
+                yet.
+              </>
             )}
             {/* {!actualDoctorNotes ? (
               status === "Confirmed" || status === "Requested"
             ) : (
-              <>No current appointment notes available.</>
             )} */}
           </div>
         </>

@@ -25,6 +25,7 @@ type Props = {
   calender: object | any;
   redirectToListing: () => void;
   enableButton: boolean;
+  isPhysicianCalendar?: boolean;
 };
 
 type events = {
@@ -44,6 +45,7 @@ function AdminCalender(props: Props) {
     handleDateClick,
     redirectToListing,
     enableButton,
+    isPhysicianCalendar,
   } = props;
 
   const [isSearch, setIsSearch] = useState<boolean>(false);
@@ -60,7 +62,10 @@ function AdminCalender(props: Props) {
   const [{ data: physicianData }, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
       variables: {
-        filter: { ...filterValues, status: "Confirmed" },
+        filter: {
+          ...filterValues,
+          status: isPhysicianCalendar ? "Confirmed" : "", // we need to show all appointments for admin and only confirmed for physician
+        },
         pagination: { page: 1, limit: -1 },
       },
     });

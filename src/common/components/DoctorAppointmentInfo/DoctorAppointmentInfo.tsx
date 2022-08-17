@@ -52,6 +52,9 @@ import RescheduleAppointmentModal from "../RescheduleAppointment/RescheduleAppoi
 import moment from "moment";
 import StatusChip from "../StatusChip/StatusChip";
 import Link from "next/link";
+import Image from "next/image";
+import VideoCamera from "../../../../public/assets/icon/video.svg";
+import { GraphQLError } from "graphql";
 
 type Props = {
   data: Appointment | undefined;
@@ -60,8 +63,8 @@ type Props = {
 };
 
 type dateArray = {
-  endDate: string;
-  startDate: string;
+  endDate: Date | string | moment.Moment;
+  startDate: Date | string | moment.Moment;
 };
 
 function DoctorAppointmentInfo({ data }: Props) {
@@ -77,10 +80,13 @@ function DoctorAppointmentInfo({ data }: Props) {
     appointmentSchedule,
     appointmentDateTime,
     createdAt,
+    doctor,
   } = data || {};
-
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
+  const timeZone =
+    typeof window !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
   // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
 
@@ -98,14 +104,11 @@ function DoctorAppointmentInfo({ data }: Props) {
       return selectedTimeSlots;
     }
   }
+  let formatedDueDate = date.formatMMMMDDYYYY(
+    String(appointmentDateTime?.startTime),
+    timeZone
+  );
 
-  let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
-  let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
-    appointmentDateTime?.startTime?.split(" ")[2]
-  }`;
-  let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-    appointmentDateTime?.endTime?.split(" ")[2]
-  }`;
   async function onCancelRequestedAppointment() {
     try {
       const res = await executeCancelAppointment({
@@ -151,6 +154,7 @@ function DoctorAppointmentInfo({ data }: Props) {
       console.log(error);
     }
   }
+
   return (
     <div className="max-w-[700px]">
       <div className="message-button mb-3">
@@ -171,15 +175,17 @@ function DoctorAppointmentInfo({ data }: Props) {
           }
         />
         <LabelWithText
-          label="Appointment type requested"
+          label="Appointment type"
           text={serviceType?.name ? serviceType?.name : "--"}
         />
         <LabelWithText
-          label="AppoIntment date requested"
+          label="AppoIntment date"
           text={
-            appointmentDateTime?.startTime
-              ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
-              : "--"
+            status === "Proposed" ||
+            status === "Rescheduled" ||
+            !appointmentDateTime?.startTime
+              ? "--"
+              : `${formatedDueDate} `
           }
         />
         {/* <LabelWithText
@@ -191,14 +197,27 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={date?.formatDAYMMDDYY(requestedDate)}
         /> */}
         <LabelWithText
-          label="Appointment time requested"
+          label="Appointment time"
           text={
-            appointmentDateTime?.startTime
-              ? `${formatedStartTime} - ${formatedEndTime}`
-              : "--"
+            status === "Proposed" ||
+            status === "Rescheduled" ||
+            !appointmentDateTime?.startTime ||
+            !appointmentDateTime?.endTime
+              ? "--"
+              : `${date.formathhmma(
+                  appointmentDateTime?.startTime,
+                  timeZone
+                )} - ${date.formathhmma(
+                  appointmentDateTime?.endTime,
+                  timeZone
+                )}`
           }
         />
-        {(status === "Confirmed" || status === "Completed") && (
+        <LabelWithText
+          label="Total amount"
+          text={transaction ? `$${transaction?.amountReceived}` : "--"}
+        />
+        {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
             label="Total amount"
             text={charges ? `$${charges}` : "--"}
@@ -216,13 +235,13 @@ function DoctorAppointmentInfo({ data }: Props) {
             label="Total amount"
             text={charges ? `$${charges}` : "--"}
           />
-        )}
+        )} */}
 
         <li className="flex border-b border-gray-5 py-3">
           <div className="w-full text-gray-1 max-w-[300px]">
             Appointment status
           </div>
-          <div className="w-full text-secondary">
+          <div className="w-full text-primary">
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
@@ -304,7 +323,7 @@ function DoctorAppointmentInfoFooter({
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
 
   return (
     <div className="flex justify-between mt-6">
@@ -453,7 +472,7 @@ function DoctorUpcomingAppointmentInfoFooter({
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
 
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   return (
@@ -471,11 +490,17 @@ function DoctorUpcomingAppointmentInfoFooter({
         <>
           <Button
             type="primary"
-            icon={<VideoCameraFilled />}
             className={`${_classes["appointments-btn"]} bg-current`}
             onClick={() => setShowRescheduleModal(true)}
           >
-            Reschedule appointment
+            <Image
+              priority={true}
+              src={VideoCamera}
+              alt="espanolFlag"
+              width={20}
+              height={11}
+            />
+            <span className="ml-2">Reschedule appointment</span>
           </Button>
           <Link passHref href={`/patient/appointments/${appointmentId}/call`}>
             <Button
@@ -625,7 +650,17 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         },
       });
       if (error && error?.message) {
-        throw new Error(error.message);
+        let graphQLError = error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
       } else {
         formInstance.resetFields();
         setSlots([]);
@@ -635,9 +670,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         closeModal();
       }
     } catch (error: any) {
-      notification.error({
-        message: error?.message,
-      });
+      // notification.error({
+      //   message: error?.message,
+      // });
     }
   }
 
@@ -650,20 +685,34 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }
 
   function addTimeSlot() {
-    setSlots([...slots, slot]);
+    setSlots([
+      ...slots,
+      {
+        startDate: moment(slot.startDate, "MM-DD-YYYY hh:mm A").toISOString(),
+        endDate: moment(slot.endDate, "MM-DD-YYYY hh:mm A").toISOString(),
+      },
+    ]);
     setSlot({ startDate: "", endDate: "" });
     setEndDateValue("");
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
+  const timeZone =
+    typeof window !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
 
-  let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
+  let formatedDueDate = date.formatMMMMDDYYYY(
+    String(appointmentDateTime?.startTime),
+    timeZone
+  );
 
-  let formatedStartTime = `${appointmentDateTime?.startTime?.split(" ")[1]} ${
-    appointmentDateTime?.startTime?.split(" ")[2]
-  }`;
-  let formatedEndTime = `${appointmentDateTime?.endTime?.split(" ")[1]} ${
-    appointmentDateTime?.endTime?.split(" ")[2]
-  }`;
+  let formatedStartTime = date.formathhmma(
+    String(appointmentDateTime?.startTime),
+    timeZone
+  );
+  let formatedEndTime = date.formathhmma(
+    String(appointmentDateTime?.endTime),
+    timeZone
+  );
 
   return (
     <>
@@ -711,7 +760,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <div className="w-5/6">
               <Form.Item label="Appointment type*" name="service">
                 <Select
-                  placeholder="Service Type"
+                  placeholder="Appointment Type"
                   className="w-full"
                   onChange={handleServiceChange}
                 >
@@ -748,7 +797,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="font-normal">
                   <div className="text-sm mb-0 w-full">
-                    Date : {`${date.formatDAYMMDDYY(formatedDueDate)}`}
+                    Date : {`${formatedDueDate}`}
                   </div>
                   <br />
                   <div className="text-sm mb-0 w-full">
@@ -770,8 +819,15 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             {slots?.map((v, index) => (
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="flex gap-2  rounded leading-3 max-w-max">
-                  <p className="text-sm mb-0">{v?.startDate}</p> -
-                  <p className="text-sm mb-0">{v?.endDate}</p>
+                  <p className="text-sm mb-0">
+                    {date.formatMMMMDDYYYY(v?.startDate as string, timeZone)} -{" "}
+                    {date.formathhmma(v?.startDate as string, timeZone)}
+                  </p>{" "}
+                  -
+                  <p className="text-sm mb-0">
+                    {date.formatMMMMDDYYYY(v?.endDate as string, timeZone)} -{" "}
+                    {date.formathhmma(v?.endDate as string, timeZone)}
+                  </p>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl">
                   <DeleteOutlined onClick={() => deleteTimeSlot(index)} />
@@ -785,7 +841,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               disabled={Object.values(slot).some((value) => value === "")}
               type="link"
             >
-              + Add slot
+              + Add slots
             </Button>
           </div>
 

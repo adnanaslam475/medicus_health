@@ -8,6 +8,7 @@ import {
 } from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
+import Router from "next/router";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -36,6 +37,7 @@ function AppointmnetSuggestedCard({
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
+  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
@@ -46,29 +48,35 @@ function AppointmnetSuggestedCard({
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Appointment date</span>
-      <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
+      <h6>{date.formatDAYMMDDYY(requestedDate,timeZone)}</h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Appointment proposed time</span>
       {appointmentTimeSlots?.length === 0 ? (
         <div className="text-cyan font-semibold">{" - "}</div>
       ) : (
         appointmentTimeSlots?.map((item) => (
-          <div className="text-cyan font-semibold">{`${item?.startTime?.split("T")[0]} - ${date.formathhmma(
-            item.startTime
-          )} - ${date.formathhmma(item.endTime)}`}</div>
+          <div className="text-cyan font-semibold">{`${date.formatDAYMMDDYY(item?.startTime,timeZone)} - ${date.formathhmma(
+            item.startTime,timeZone
+          )} - ${date.formathhmma(item.endTime,timeZone)}`}</div>
         ))
       )}
       <Space direction="vertical" size="middle" />
       <span className="text-sm  block mt-4 ">Appointment status</span>
       <span className="text-base text-primary font-bold ">{status}</span>
       <Space direction="vertical" size="middle" />
-      <div className="flex">
+      <div className="flex justify-between items-center">
         <Button
           type={"primary"}
           className={`${_classes["card-btn"]} mt-4`}
           onClick={() => onViewSuggestedSlots()}
         >
-          View proposed slots
+          View proposed appointment times
+        </Button>
+      <Button
+          className={`${_classes["card-btn"]} bg-transparent mt-4 ml-2`}
+          onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
+        >
+          Details
         </Button>
       </div>
     </Card>

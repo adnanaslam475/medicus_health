@@ -34,7 +34,7 @@ function AdminPatientAppointmentDetail() {
   return (
     <AppLayout>
       <>
-        <h2 className="mb-4">Appointment Detail</h2>
+        <h2 className="mb-4">Appointment detail</h2>
         <div className="profile-tabs">
           <Tabs
             type="card"
@@ -60,7 +60,7 @@ function AdminPatientAppointmentDetail() {
                 loading={fetching}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Attachment" key="5">
+            <Tabs.TabPane tab="Attachments" key="5">
               <AdminPatientAttachmentTab
                 appointment={appointment as Appointment}
                 loading={fetching}

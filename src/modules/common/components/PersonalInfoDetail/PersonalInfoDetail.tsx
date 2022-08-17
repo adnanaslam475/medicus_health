@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DatePicker, Form, Input, Radio, Select } from "antd";
-import { User } from "../../../../generated/graphql";
+import { useGetTimeZonesQuery, User } from "../../../../generated/graphql";
 import dayjs from "dayjs";
 import moment from "moment";
 import CitySelectDropDown from "./CitySelectDropDown";
@@ -61,8 +61,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     city_id,
     zip_code,
     streetAddress,
+    timeZone,
+    timeZoneId,
   } = user || {};
-
   const {
     haveChildren,
     children,
@@ -79,11 +80,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     }
     if (user) {
       prepareAndSetEditPayload();
-      setradioChildren(
-        children === 0 || children === undefined || children === null
-          ? false
-          : true
-      );
+      // setradioChildren(
+      //   children === 0 || children === undefined || children === null
+      //     ? false
+      //     : true
+      // );
     }
   }, [user]);
   function prepareAndSetEditPayload() {
@@ -108,6 +109,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       occupationalExposure: occupationalExposure,
       exposureDuration: exposureDuration,
       pets: pets,
+      timeZone: timeZone?.id,
     });
   }
 
@@ -130,6 +132,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
     setStateId(id);
   }
   const t = useTranslations("PersonalInfo");
+
+  const [getTimeZones] = useGetTimeZonesQuery();
+
   return (
     <div className="custom-list mt-4">
       <Form form={formInstance} onFinish={onFinish} layout="vertical">
@@ -137,12 +142,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
           <div className="border border-gray-3 px-0 rounded custom-list-items">
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("first_name")} */}
                   Nombre
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4`}
                 >
                   <Form.Item
                     name="firstName"
@@ -163,12 +168,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   Apellido
                   {/* {t("last_name")} */}
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
                   <Form.Item
                     name="lastName"
@@ -189,21 +194,21 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   Género
                   {/* {t("gender")} */}
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
                   <Form.Item className="bottom-margin-0" name="gender">
                     <Select placeholder="Género" size="large">
-                      <Select.Option value="male">Masculino</Select.Option>
-                      <Select.Option value="female">
+                      <Select.Option value="Masculino">Masculino</Select.Option>
+                      <Select.Option value="Femenina">
                         {/* {t("female")} */}
                         Femenina
                       </Select.Option>
-                      <Select.Option value="prefer not to answer">
+                      <Select.Option value="Prefiero no responder">
                         {/* {t("prefer_not_to_answer")} */}
                         Prefiero no responder
                       </Select.Option>
@@ -215,12 +220,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   Fecha de nacimiento
                   {/* {t("date_of_birth")} */}
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
                   <Form.Item
                     className="flex-1 bottom-margin-0"
@@ -235,7 +240,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   >
                     <DatePicker
                       name="date_of_birth"
-                      placeholder="mm/dd/yy"
+                      placeholder="mm-dd-yyyy"
                       format={"MM-DD-YYYY"}
                       className="w-full"
                       disabledDate={disabledDate}
@@ -247,12 +252,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("contact_number")} */}
                   Teléfono de contacto
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
                   <Form.Item noStyle name="conntactNumber">
                     <Input size="large" placeholder="Teléfono de contacto" />
@@ -263,12 +268,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("email_address")} */}
                   Dirección de correo electrónico
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
                   <Form.Item
                     name="email"
@@ -276,7 +281,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                       {
                         required: true,
                         // message: t("please_input_your_email"),
-                        message: "Por favor ingrese su correo electrónico!",
+                        message: "Por favor ingrese su correo electrónico",
                       },
                     ]}
                     className="bott-om-margin-0"
@@ -292,12 +297,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("password")} */}
                   Contraseña
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4`}
                 >
                   <Form.Item name="password" className="bottom-margin-0">
                     <Input.Password size="large" placeholder="Contraseña" />
@@ -308,12 +313,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("country")} */}
                   País de nacimiento
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4`}
                 >
                   <CountrySelectDropDown
                     onChange={(e) => {
@@ -330,12 +335,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   Estado
                   {/* {t("state")}  */}
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
                   <StateSelectDropDown
                     countryId={countryId}
@@ -352,12 +357,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   Ciudad
                   {/* {t("city")}  */}
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4`}
                 >
                   <CitySelectDropDown stateId={stateId} />
                 </div>
@@ -366,12 +371,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("postal_code")} */}
                   Código postal
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4`}
                 >
                   <Form.Item
                     name="postalCode"
@@ -397,12 +402,49 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
+                  Zona horaria
+                </div>
+                <div
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
+                >
+                  <Form.Item
+                    className="flex-1"
+                    // label={t("timezone")}
+                    name="timeZone"
+                  >
+                    <Select
+                      placeholder={timeZone?.timeZone}
+                      showSearch
+                      filterOption={(input, city: any) =>
+                        city.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      {React.Children.toArray(
+                        getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                          return (
+                            <Select.Option value={el.id}>
+                              {el?.timeZone}
+                            </Select.Option>
+                          );
+                        })
+                      )}
+                    </Select>
+                  </Form.Item>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   Dirección (calle y numero)
                   {/* {t("street_address")} */}
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary `}
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
                   <Form.Item noStyle name="streetAddress">
                     <Input
@@ -417,28 +459,28 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("marital_status")} */}
                   Estado civil
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 md:pl-4`}
                 >
                   <Form.Item className="mb-0">
                     <Form.Item className="mb-0" name="maritalStatus">
                       <Select placeholder="{Estado civil" size="large">
-                        <Select.Option value="Single">
+                        <Select.Option value="Único/Única">
                           Único/Única
                         </Select.Option>
-                        <Select.Option value="Married">
+                        <Select.Option value="Casado">
                           Casado
                           {/* {t("married")} */}
                         </Select.Option>
-                        <Select.Option value="Widower">
+                        <Select.Option value="Viudo/a">
                           {/* {t("widow")} */}
                           Viudo/a
                         </Select.Option>
-                        <Select.Option value="Divorced">
+                        <Select.Option value="Divorciado/a">
                           {/* {t("divorce")} */}
                           Divorciado/a
                         </Select.Option>
@@ -451,12 +493,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("do_you_have_any_children")} */}
                   ¿Tienes hijos?
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 md:pl-4`}
                 >
                   <Form.Item className="mb-0" name="haveChildren">
                     <Radio.Group
@@ -487,12 +529,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   ¿Cuál es tu ocupación?
                   {/* {t("What_is_your_occupation")} */}
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 md:pl-4`}
                 >
                   <Form.Item noStyle name="occupation">
                     <Input
@@ -507,14 +549,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2 sm:w-1/3 text-gray-1">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("do_you_have_any_occupational_exposure")} */}
                   ¿Tiene alguna exposición ocupacional?
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 md:pl-4`}
                 >
-                  <Form.Item className="mb-0" name="occupationalExposure">
+                  <Form.Item className="mb-0" name="occupationalExposure ">
                     <Radio.Group
                       onChange={(e) => {
                         setradioOccupationalExposure(e.target.value);
@@ -540,15 +582,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         placeholder="¿Duración de la exposición ocupacional?"
                         size="large"
                       >
-                        <Select.Option value="Less than a year (<1)">
+                        <Select.Option value=" Menos de un año (<1)">
                           {/* {t("less_than_a_year")} */}
                           Menos de un año
                         </Select.Option>
-                        <Select.Option value="More than a year (1+)">
+                        <Select.Option value="Más de un año (1+)">
                           {/* {t("more_than_a_year_1")} */}
                           Más de un año (1+)
                         </Select.Option>
-                        <Select.Option value="More than three to five years (3-5)">
+                        <Select.Option value="Más de tres a cinco años (3-5)">
                           {/* {t("more_than_three_to_five_years_3_5")} */}
                           Más de tres a cinco años (3-5)
                         </Select.Option>
@@ -561,12 +603,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
-                <div className="w-1/2  sm:w-1/3 text-gray-1">
+                <div className="w-1/2  sm:w-1/3 text-gray-1 md:pl-4">
                   {/* {t("do_you_have_any_pets")} */}
                   ¿Tiene mascotas?
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 `}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 md:pl-4 `}
                 >
                   <Form.Item className="mb-0" name="pets">
                     <Radio.Group>

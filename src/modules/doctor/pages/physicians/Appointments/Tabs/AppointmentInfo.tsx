@@ -97,7 +97,7 @@ function AppointmentInfo() {
           </div>
           <Form.Item label="Requested Date*" name="requestedDate">
             <DatePicker
-              placeholder="mm/dd/yy"
+              placeholder="mm-dd-yyyy"
               format={"MM-DD-YYYY"}
               className="w-full"
             />

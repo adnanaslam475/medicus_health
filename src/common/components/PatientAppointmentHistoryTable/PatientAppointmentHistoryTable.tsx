@@ -16,22 +16,22 @@ type Props = {
 
 const historyColumns = [
   {
-    title: "ID",
+    title: "ID #",
     dataIndex: "id",
     key: "id",
     sorter: true,
   },
   {
-    title: "Doctor",
+    title: "Physician name",
     dataIndex: "doctor",
     key: "doctor",
     sorter: true,
     render: (value: any) => {
-      return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
+      return <div>{`Dr. ${value?.first_name} ${value?.last_name}`}</div>;
     },
   },
   {
-    title: "Service type",
+    title: "Appointment type",
     dataIndex: "serviceType",
     sorter: true,
     key: "type",
@@ -40,7 +40,7 @@ const historyColumns = [
     },
   },
   {
-    title: "Date",
+    title: "Appointment date",
     dataIndex: "requestedDate",
     key: "requestedDate",
     sorter: true,
@@ -49,7 +49,7 @@ const historyColumns = [
     },
   },
   {
-    title: "Time",
+    title: "Appointment time",
     dataIndex: "requestedDate",
     key: "requestedDate",
     sorter: true,

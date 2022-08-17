@@ -84,7 +84,7 @@ const Columns = [
     sorter: true,
     render: (value: Appointment) => {
       return (
-        <div className="w-full text-secondary">
+        <div className="w-full text-primary">
           <StatusChip type={value?.status?.toUpperCase() as StatusName} />
         </div>
       );
@@ -219,6 +219,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       filter: DoctorEarningsfilterValues,
       id: Number(user?.id),
     },
+    requestPolicy:"network-only"
   });
 
   const { getDoctorEarnings } = data || {};
@@ -307,15 +308,15 @@ const PhysicianMyEarningsList = (props: Props) => {
               text={String(total_number_of_patients)}
             />
             <MyEarningsStats
-              label={"Earnings through consultations"}
+              label={"Net earnings through consultations"}
               text={`$${total_earnings_from_consultation}`}
             />
             <MyEarningsStats
-              label={"Earnings through second opinions"}
+              label={"Net earnings through second opinions"}
               text={`$${total_earnings_from_second_opinions}`}
             />
             <MyEarningsStats
-              label={"Total earnings"}
+              label={"Total net earnings"}
               text={`$${total_earnings}`}
             />
           </div>

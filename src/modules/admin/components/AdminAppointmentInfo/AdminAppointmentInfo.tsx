@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Button, notification, Tag } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
-
+import chat from "../../../../../public/assets/icon/chat-bubble.svg";
 // scss
 import _classes from "./AdminAppointmentInfo.module.scss";
 import Router, { useRouter } from "next/router";
@@ -23,6 +23,7 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import RescheduleAppointmentModal from "common/components/RescheduleAppointment/RescheduleAppointment";
 import { isAppointmentTimeValid } from "common/utils/date";
+import Image from "next/image";
 
 type Props = {
   appointmentData?: Appointment;
@@ -134,7 +135,7 @@ function AdminAppointmentInfo({
           /> */}
           <LabelWithText label="Patient" text={patient} />
           <LabelWithText label="Physician" text={physician} />
-          <LabelWithText label="Service type" text={service} />
+          <LabelWithText label="Appointment type" text={service} />
           <LabelWithText label="Appointment date" text={dueDate} />
           <LabelWithText label="Time" text={time} />
           <LabelWithText label="Total amount" text={totalAmount} />
@@ -251,7 +252,16 @@ function AdminAppointmentInfoFooter({
             Message patient
           </Button>
           <Button
-            icon={<MessageOutlined />}
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={chat}
+                alt=""
+                className=""
+              />
+            }
             className={`${_classes["appointments-btn"]}`}
             onClick={() =>
               Router.push({
@@ -263,7 +273,7 @@ function AdminAppointmentInfoFooter({
               })
             }
           >
-            Message physician
+            <span className="pl-2">Message physician</span>
           </Button>
           {(appointmentStatus === "Canceled" ||
             appointmentStatus === "Completed") && (
@@ -315,7 +325,16 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
           Message patient
         </Button>
         <Button
-          icon={<MessageOutlined />}
+          icon={
+            <Image
+              priority={true}
+              width={15}
+              height={15}
+              src={chat}
+              alt=""
+              className=""
+            />
+          }
           className={`${_classes["appointments-btn"]} flex-1`}
           onClick={() =>
             Router.push({
@@ -327,7 +346,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
             })
           }
         >
-          Message physician
+          <span className="pl-2">Message physician</span>
         </Button>
       </div>
     </div>
@@ -335,7 +354,8 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
 }
 
 function AdminAppointmentConfirmedInfoFooter(props: Props) {
-  const { onCancelRequestedAppointment, adminApp_Details, appointmentData } = props || {};
+  const { onCancelRequestedAppointment, adminApp_Details, appointmentData } =
+    props || {};
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
@@ -344,7 +364,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
   );
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
-  }, [selectedAppointment]);
+  }, [selectedAppointment, disabled]);
   return (
     <div className="flex justify-between mt-6 flex-wrap wrap">
       <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2">

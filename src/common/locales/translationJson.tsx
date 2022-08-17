@@ -36,33 +36,32 @@ export function translationJson(local: string) {
           success_your_account_has_been_created:
             "¡Su cuenta ha sido creada exitosamente!",
           we_have_sent_you_an_email_on:
-            "Le hemos enviado un correo electrónico en",
+            "Le hemos enviado un correo electrónico a [EMAIL ADDRESS]",
           verify_your_account_by_click:
-            "Haga clic en el enlace de verificación y su cuenta será verificada.",
+            // "Haga clic en el enlace de verificación para finalizar el registro de su cuenta.",
+            "Haga clic en el enlace de verificación para finalizar el registro de su cuenta.",
         },
         Signup: {
           ...spanishCommon,
           createAccount: "Crea tu cuenta",
           createYourAccountToStart:
-            "Crea tu cuenta para empezar a usar Medicus",
+            "Crea tu cuenta para empezar a usar medicus",
           personalInfo: "Información personal",
           healthQuestionnaire: "Cuestionario de Salud",
           Login: "Inicio de sesión",
-          AlreadyHaveAnAccount: "Ya tienes una cuenta",
+          already_have_an_account: "¿Ya tienes una cuenta?",
           signup_modal_skip_questionaire_message:
             "Se requiere contestar estas preguntas antes de hacer su cita con el médico",
         },
         HealthQuestionary: {
           ...spanishCommon,
-          skip_this_for_now_fill_this_later:
-            "Saltar esto por ahora y llenar esto más tarde",
+          skip_for_now_and_complete_later: "Completa más tarde",
           please_pick_an_option: "Por favor elige una opción",
           please_fill_field: "Por favor complete el campo",
         },
         Questionnary: {
           ...spanishCommon,
-          skip_this_for_now_fill_this_later:
-            "Saltar esto por ahora y llenar esto más tarde",
+          skip_for_now_and_complete_later: "Completa más tarde",
         },
 
         UpcomingAppointments: {
@@ -103,7 +102,7 @@ export function translationJson(local: string) {
         PersonalInfo: {
           ...spanishCommon,
           Login: "Inicio de sesión",
-          AlreadyHaveAnAccount: "Ya tienes una cuenta",
+          already_have_an_account: "¿Ya tienes una cuenta?",
         },
       };
       break;
@@ -119,7 +118,7 @@ export function translationJson(local: string) {
           description: "Introduzca sus credenciales para acceder a su cuenta.",
           remember: "Remember me",
           forgot: "Forgot password?",
-          login: "Login",
+          login: "Inicio de sesión",
           account: "Don't have an account?",
           register: "Register",
           email: "Email address",
@@ -149,7 +148,8 @@ export function translationJson(local: string) {
             "Your account has been successfully created!",
           we_have_sent_you_an_email_on: "We have sent you an email on",
           verify_your_account_by_click:
-            "Please click on the verification link and your account will be verified.",
+            // "Please click on the verification link to finalize registration of your account.",
+            "Please verify your account by clicking on the link sent in the email.",
         },
 
         Signup: {
@@ -159,22 +159,23 @@ export function translationJson(local: string) {
             "Create your account to start using medicus",
           personalInfo: "Personal info",
           healthQuestionnaire: "Health questionnaire",
-          login: "Login",
+          login: "Inicio de sesión",
           account: "Don't have an account?",
           signup_modal_skip_questionaire_message:
-            "These are the mandatory fields for book an appointment you can skip it for now and can Add/Edit later from my profile section",
+            "Note, these questions need to be answered before requesting an appointment with a physician. You can skip for now and complete later.",
+          timezone: "Timezone",
         },
         HealthQuestionary: {
           ...englishCommon,
-          skip_this_for_now_fill_this_later:
-            "Skip this for now & fill this later",
+
+          skip_for_now_and_complete_later: "Completa más tarde",
           please_pick_an_option: "Please pick an option!",
           please_fill_field: "Please fill field",
         },
         Questionnary: {
           ...englishCommon,
-          skip_this_for_now_fill_this_later:
-            "Skip this for now & fill this later",
+
+          skip_for_now_and_complete_later: "Completa más tarde",
         },
 
         UpcomingAppointments: {
@@ -214,8 +215,8 @@ export function translationJson(local: string) {
 
         PersonalInfo: {
           ...englishCommon,
-          Login: "Login",
-          AlreadyHaveAnAccount: "Already have an account?",
+          Login: "Inicio de sesión",
+          already_have_an_account: "¿Ya tienes una cuenta?",
           gender: "Gender",
           first_name: "First name",
           last_name: "Last name",
@@ -229,13 +230,15 @@ export function translationJson(local: string) {
           street_address: "Street address",
           contact_number: "Contact number",
           country: "Country",
-          state: "State",
+          // state: "State",
           city: "City",
           postal_code: "Postal code",
           postal_code_message: "Please enter your postal code",
-          i_agree_to_the: "I agree to the ",
-          terms_n_conditions: " Terms & conditions",
-          next: "Next",
+          // i_agree_to_the: "I agree to the",
+          // terms_n_conditions: " Terms & conditions",
+          // next: "Next",
+          timezone: "Time zone",
+          time_zone_is_required: "Time zone is required",
         },
       };
 

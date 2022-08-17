@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal } from "antd";
+import { Tabs, Badge, Modal, notification } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
   useCreateUserMutation,
@@ -18,6 +18,8 @@ import { PageLoader } from "../../../../../common/components/PageLoader/PageLoad
 import successSmall from "../../../../../../public/assets/icon/success-small.svg";
 import { GraphQLError } from "graphql";
 import { useTranslations } from "next-intl";
+import _classes from "./SignUp.module.scss";
+
 const { TabPane } = Tabs;
 const { confirm } = Modal;
 
@@ -58,19 +60,23 @@ function Signup() {
   };
 
   function showConfirm() {
-    confirm({
-      title: "",
-      icon: <ExclamationCircleOutlined />,
-      // content:
-      //   "These are the mandatory fields for Book an appointment you can skip it for now and can Add/Edit later from my profile section",
-      content: t("signup_modal_skip_questionaire_message"),
-      onOk() {
-        submitPersonalInfo();
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
+    <div className={`${_classes["confirmationsignup"]}`}>
+      {confirm({
+        // title: t("signup_modal_skip_questionaire_message"),
+        title:
+          "Tenga en cuenta que estas preguntas deben responderse antes de solicitar una cita con un médico. Puede omitir por ahora y completar más tarde",
+        icon: <ExclamationCircleOutlined />,
+        // content:
+        //   "These are the mandatory fields for Book an appointment you can skip it for now and can Add/Edit later from my profile section",
+        content: "",
+        onOk() {
+          submitPersonalInfo();
+        },
+        okText: "Ok",
+        cancelText: "Cancelar",
+        onCancel() {},
+      })}
+    </div>;
   }
   const onFinishHealthQuestionnaryFailed = (err: any) => {};
 
@@ -114,6 +120,19 @@ function Signup() {
       });
       let errorResponse = user?.error?.graphQLErrors[0]?.extensions
         ?.response as GraphQLError;
+      if (user?.error?.graphQLErrors) {
+        let graphQLError = user?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = user?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
+      }
       if (!user.error?.message) {
         Router.push({
           pathname: "/successScreen",
@@ -135,10 +154,10 @@ function Signup() {
     return <PageLoader />;
   } else {
     return (
-      <Container className="login-bg w-full mx-auto">
+      <Container className="login-bg w-full">
         <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
-          <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
-            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white py-12 px-6">
+          <div className="w-full sm:w-full md:w-1/2 lg:min-w-[700px] xl:min-w-[700px] px-0">
+            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-2xl bg-white py-12 px-6">
               <div className="flex justify-center mb-6">
                 <Image
                   priority={true}
@@ -151,12 +170,13 @@ function Signup() {
                 />
               </div>
               <h1 className="text-center text-secondary mb-3">
-                {t("createAccount")}
+                {/* {t("createAccount")} */}
+                Crea tu perfil
               </h1>
               <div className="text-center text-gray font-rubik font-normal text-sm">
-                {t("createYourAccountToStart")}
+                {/* {t("createYourAccountToStart")} */}
               </div>
-              <div className="mt-5">
+              <div className={`${_classes["signupTabs"]} mt-5`}>
                 <Tabs
                   defaultActiveKey="1"
                   centered

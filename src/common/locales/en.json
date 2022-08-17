@@ -28,7 +28,6 @@
   },
   "PersonalInfo": {
     "Login": "Login",
-    "AlreadyHaveAnAccount": "Already have an account?",
     "Gender": "Gender",
     "first_name": "First Name",
     "last_name": "Last Name",
@@ -42,13 +41,13 @@
     "street_address": "as",
     "contact_number": "Contact Number",
     "country": "Country",
-    "state": "State",
+    "state": "State/Province",
     "city": "City",
     "postal_code": "Postal code",
     "postal_code_message": "Please enter your postal code",
-    "i_agree_to_the": "I agree to the ",
-    "terms_n_conditions": " Terms & Conditions",
     "next": "Next",
-    "prefer_not_to_answer": "Prefer not to answer"
+    "prefer_not_to_answer": "Prefer not to answer",
+    "timezone": "Timezone",
+    "time_zone_is_required": "Time zone is required"
   }
 }

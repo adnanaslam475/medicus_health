@@ -36,7 +36,9 @@ export const Payment = (props: Props) => {
           <div className="text-dark font-medium pb-0 mb-0">
             <h6 className="text-md mb-0 pb-0">{title}</h6>
           </div>
-          <div className="text-gray-2 text-sm">{description}</div>
+          <div className="text-dark font-normal pb-0 mb-0">
+            <p className="text-sm mb-0 pb-0 text-secondary ">{description}</p>
+          </div>
         </div>
         <div>{isDefault && <Tag>Default</Tag>}</div>
       </div>
@@ -58,7 +60,7 @@ export const Payment = (props: Props) => {
                 });
               }}
             >
-              <p className="text-sm pb-0 mb-0"> Make Default</p>
+              <p className="text-sm pb-0 mb-0"> Make default</p>
             </Button>
           )}
           <Button
@@ -107,12 +109,14 @@ function Billing({
   onMakeDefault,
   onSubmit,
 }: propsBilling) {
+  const [formInstance] = Form.useForm();
   const stripe = useStripe();
   const elements = useElements();
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const closeModal = () => {
+    formInstance.resetFields();
     setModalVisible(false);
   };
 
@@ -190,7 +194,7 @@ function Billing({
                   <Payment
                     isDefault={card?.is_default}
                     title={`${card?.card_type} ending with ${card?.card_digits}`}
-                    description={`Expires at: ${card?.exp_month}/${card?.exp_year}`}
+                    description={`Expires on: ${card?.exp_month}/${card?.exp_year}`}
                     onRemove={() => {
                       onRemove(card?.id);
                     }}
@@ -219,39 +223,53 @@ function Billing({
         onCancel={closeModal}
         footer={null}
       >
-        <Form className="" onFinish={handleSubmit} layout="vertical">
-          <span className="text-base text-secondary my-2">Card number*</span>
-          <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-            <CardNumberElement
-              options={{
-                placeholder: "",
-                style: {
-                  base: {
-                    "::placeholder": {
-                      color: "gray",
+        <Form
+          form={formInstance}
+          className=""
+          onFinish={handleSubmit}
+          layout="vertical"
+        >
+          <Form.Item name="cardnumber">
+            <span className="text-base text-secondary my-2">Card number*</span>
+            <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+              <CardNumberElement
+                options={{
+                  placeholder: "",
+                  style: {
+                    base: {
+                      "::placeholder": {
+                        color: "gray",
+                      },
                     },
                   },
-                },
-              }}
-            />
-          </div>
+                }}
+              />
+            </div>
+          </Form.Item>
+
           <div className="sm:grid grid-cols-2 gap-4">
-            <div>
-              <span className="text-base text-secondary">CVV*</span>
-              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-                <CardCvcElement
-                  options={{
-                    placeholder: "",
-                  }}
-                />
+            <Form.Item name="cvv">
+              <div>
+                <span className="text-base text-secondary">CVV*</span>
+                <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+                  <CardCvcElement
+                    options={{
+                      placeholder: "",
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-            <div>
-              <span className="text-base text-secondary my-2">Expiry on*</span>
-              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-                <CardExpiryElement />
+            </Form.Item>
+            <Form.Item name="expires">
+              <div>
+                <span className="text-base text-secondary my-2">
+                  Expires on*
+                </span>
+                <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+                  <CardExpiryElement />
+                </div>
               </div>
-            </div>
+            </Form.Item>
           </div>
           <div className="flex justify-end">
             <Form.Item>

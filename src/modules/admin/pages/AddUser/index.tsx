@@ -52,7 +52,7 @@ function AdminAddUser({}: Props) {
     <AppLayout>
       <div className="w-full max-w-[600px]">
         <div className="flex flex-col">
-          <h2 className="mb-4">Add User</h2>
+          <h2 className="mb-4">Add user</h2>
           <Form
             onFinish={onFinish}
             layout="vertical"
@@ -70,7 +70,7 @@ function AdminAddUser({}: Props) {
                   htmlType="submit"
                   className="ml-4 py-2"
                 >
-                  Add User
+                  Add user
                 </Button>
               </Form.Item>
             </div>
