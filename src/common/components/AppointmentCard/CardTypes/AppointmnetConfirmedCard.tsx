@@ -33,8 +33,8 @@ function AppointmnetConfirmedCard({
     [appointmentTimeSlots]
   );
   const timeZone =
-    typeof window !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     if (selectedAppointment) {

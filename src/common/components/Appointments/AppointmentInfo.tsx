@@ -69,8 +69,8 @@ function AppointmentInfo(props: Props) {
   }, []);
 
   const timeZone =
-    typeof window !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
