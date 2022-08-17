@@ -51,7 +51,7 @@ function SearchFilters(props: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
-    onChangeFields("bookingDate", creationDate);
+    onChangeFields("dueDate", creationDate);
   };
 
   function onChangeFields(key: string, value: string | number | object) {
@@ -65,8 +65,8 @@ function SearchFilters(props: Props) {
       delete filters?.searchString;
     }
 
-    if (!filters?.bookingDate) {
-      delete filters?.bookingDate;
+    if (!filters?.dueDate) {
+      delete filters?.dueDate;
     }
 
     onChange(filters);
@@ -80,14 +80,13 @@ function SearchFilters(props: Props) {
       {/* <div className="flex-none sm:flex"> */}
         <div className="   w-full sm:w-full md:w-full lg:w-60 ">
           <Input
-            placeholder={"ID#"}
+            placeholder={"ID# or physician name"}
             prefix={<SearchOutlined />}
             onChange={(e) => onChangeFields("searchString", e.target.value)}
             value={filterState.searchString || ""}
-            type="number"
           />
         </div>
-        {isFromPhysician ? (
+        {isFromPhysician && (
           <div className="  w-full sm:w-full md:w-full lg:w-70 ">
             <Input
               placeholder={"ID# or patient name"}
@@ -96,22 +95,7 @@ function SearchFilters(props: Props) {
               value={patientName}
             />
           </div>
-        ) : (
-          <div className=" w-full md:w-44 xl:w-60  ">
-            <Select
-              placeholder="Physician"
-              className={`${searchStyle.placeholderColor} w-full`}
-              onChange={(e) => onChangeFields("doctorId", e)}
-              value={filterState.doctorId}
-            >
-              {doctorProfiles?.map((item) => (
-                <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
-                  {item?.user?.first_name}
-                </Select.Option>
-              ))}
-            </Select>
-          </div>
-        )}
+        ) }
 
         <div className="w-full md:w-44 xl:w-60 ">
           <Select
@@ -177,15 +161,15 @@ function SearchFilters(props: Props) {
               type="default"
               onClick={() => setOpenDateRange?.(!openDateRange)}
             >
-              {filterState?.bookingDate?.endDate ? (
+              {filterState?.dueDate?.endDate ? (
                 <div>
-                  {filterState?.bookingDate?.endDate
+                  {filterState?.dueDate?.endDate
                     ? `${getDateInFormat(
-                        filterState?.bookingDate?.startDate
+                        filterState?.dueDate?.startDate
                       )} -> ${getDateInFormat(
-                        filterState?.bookingDate?.endDate
+                        filterState?.dueDate?.endDate
                       )}`
-                    : "Date"}
+                    : "Appointment date"}
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
@@ -199,7 +183,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Date
+                    Appointment date
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
