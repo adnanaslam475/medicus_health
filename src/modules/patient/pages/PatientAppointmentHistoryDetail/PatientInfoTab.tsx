@@ -82,12 +82,12 @@ function PatientInfoTab({}: Props) {
       <Spin />
     </div>
   ) : (
-    <CardWithProfileImageInfo
-      name={`${patient?.first_name} ${patient?.last_name}`}
-      serviceName={serviceType?.name}
-      imageUrl={patient?.patientProfile?.profileImage}
+    // <CardWithProfileImageInfo
+    //   name={`${patient?.first_name} ${patient?.last_name}`}
+    //   serviceName={serviceType?.name}
+    //   imageUrl={patient?.patientProfile?.profileImage}
 
-    >
+    // >
       <div className="max-w-[800px]">
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv label="First name" value={first_name} />
@@ -130,7 +130,7 @@ function PatientInfoTab({}: Props) {
           <div className="w-full" />
         </div>
       </div>
-    </CardWithProfileImageInfo>
+    // </CardWithProfileImageInfo>
   );
 }
 

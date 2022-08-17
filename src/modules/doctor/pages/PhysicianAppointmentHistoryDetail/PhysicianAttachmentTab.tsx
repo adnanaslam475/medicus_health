@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { AttachmentObject } from "common/types/types";
+import { Empty } from "antd";
 
 function PhysicianAttachmentTab() {
   const { query } = useRouter();
@@ -51,11 +52,18 @@ function PhysicianAttachmentTab() {
     <CardWithProfileImageInfo
       name={`${patient?.first_name} ${patient?.last_name}`}
       // serviceName={appointment?.patient?.email}
-      imageUrl={appointment?.patient?.patientProfile?.profileImage}    >
+      imageUrl={appointment?.patient?.patientProfile?.profileImage}
+    >
       <div className="flex gap-2">
-        {urlArr?.map((item: AttachmentObject) => (
-          <Attachment item={item} enable={false} />
-        ))}
+        {urlArr?.length ? (
+          urlArr?.map((item: AttachmentObject) => (
+            <Attachment item={item} enable={false} />
+          ))
+        ) : (
+          <div className="flex items-center justify-center w-3/5 mt-5">
+            <Empty />
+          </div>
+        )}
       </div>
     </CardWithProfileImageInfo>
   );

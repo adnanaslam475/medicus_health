@@ -32,10 +32,9 @@ function PatientAppointmentInfoTab() {
     },
   });
   const { appointments } = data || {};
-  console.log("appointments", appointments);
   const appointment = appointments?.items && appointments.items[0];
-  const { patient, serviceType, doctor } = appointment || {};
-
+  const { doctor, serviceType } = appointment || {};
+  
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
