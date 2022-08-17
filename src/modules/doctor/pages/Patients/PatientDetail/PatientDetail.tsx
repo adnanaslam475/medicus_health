@@ -77,7 +77,7 @@ function PatientDetail() {
       {
         result?.data?.updatePatientHealthHistory &&
           notification.success({
-            message: "Successfully Updated",
+            message: "Successfully updated",
           });
       }
     } catch (err) {

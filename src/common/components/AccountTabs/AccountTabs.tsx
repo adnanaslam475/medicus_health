@@ -85,7 +85,7 @@ function AccountTabs() {
           requestPolicy: "network-only",
         });
         notification.success({
-          // message: "Successfully Updated",
+          // message: "Successfully updated",
           message: t("successfully_updated"),
         });
       }

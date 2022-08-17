@@ -54,7 +54,7 @@ function AdminHealthQuestionnaireFrom() {
       {
         res?.data?.updatePatientHealthHistory &&
           notification.success({
-            message: "Successfully Updated",
+            message: "Successfully updated",
           });
       }
     } catch (err) {
