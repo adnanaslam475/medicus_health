@@ -8,6 +8,7 @@ import { AppointmentTimeSlots } from "generated/graphql";
 import Image from "next/image";
 import camera from "../../../../../public/assets/images/camera.svg";
 import Router from "next/router";
+import Link from "next/link";
 type Props =
   | {
       modalVisible: boolean;
@@ -97,7 +98,7 @@ function CalendarModalComponent(props: Props) {
           </Button>
         </div>
         <div className="items-center justify-end border-0 pt-4">
-          <Button
+          {/* <Button
             type="primary"
             className={`${_classes["appointments-btn"]} bg-current mr-3`}
             disabled={disabled}
@@ -112,7 +113,25 @@ function CalendarModalComponent(props: Props) {
               alt="camera"
             />
             <span className="ml-2 mt-1">Join now</span>
-          </Button>
+          </Button> */}
+          <Link passHref href={`/patient/appointments/${id}/call`}>
+            <Button
+              type="primary"
+              className={`${_classes["appointments-btn"]} mr-3`}
+              disabled={disabled}
+              target={"_blank"}
+            >
+              <Image
+                priority={true}
+                src={camera}
+                width={15}
+                height={15}
+                className="mb-0"
+                alt="camera"
+              />
+              <span className="ml-2">Join now</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </Modal>
