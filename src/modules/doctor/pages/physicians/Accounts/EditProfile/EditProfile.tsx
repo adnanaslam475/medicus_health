@@ -42,6 +42,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import { UserOutlined } from "@ant-design/icons";
+import { useUserData } from "common/components/Context/UserContext";
 
 const { TextArea } = Input;
 
@@ -73,7 +74,7 @@ type Props = {
   addScheduleDay: string;
   loading?: boolean;
   setProfileUpdated?: any;
-  deleteScheduleFetching?:boolean;
+  deleteScheduleFetching?: boolean;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -159,6 +160,7 @@ function EditProfile({
       Spanish: formatedLanguage?.Spanish || false,
     });
   }, [language]);
+  const { data: userContextData, saveUserData } = useUserData();
 
   const educationalBackground = parseJson(educational_background) || [];
 
@@ -329,6 +331,11 @@ function EditProfile({
           JSON.stringify(updatedLoggedInUserData)
         );
       }
+      saveUserData?.({
+        firstName: values?.firstName,
+        lastName: values?.lastName,
+        profilePicture: image || userProfileImage,
+      });
 
       setProfileUpdated?.(Math.random());
       if (getRole() === "Doctor") {

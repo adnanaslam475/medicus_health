@@ -1,4 +1,5 @@
 import { CloseOutlined } from "@ant-design/icons";
+import { date } from "common/utils";
 import React from "react";
 import { singleSchedule } from "../../types/types";
 import { dayName } from "../../utils/date";
@@ -27,11 +28,11 @@ function MultiRangeListing(props: Props) {
         </div>
         <div className="flex flex-1 flex-col pl-1 md:px-1 py-2 border-r border-gray-3">
           <span className="text-gray text-xs">From</span>
-          <span className="text-xs md:text-base">{item.startTime}</span>
+          <span className="text-xs md:text-base">{date.formathhmma(item.startTime)}</span>
         </div>
         <div className="flex flex-1 flex-col pl-1 md:px-1  py-2">
           <span className="text-gray text-xs">To</span>
-          <span className="text-xs md:text-base">{item.endTime}</span>
+          <span className="text-xs md:text-base">{date.formathhmma(item.endTime)}</span>
         </div>
       </div>
       {disable == false && (

@@ -12,6 +12,10 @@ import "./../styles/cutomized-antd.css";
 import { useEffect } from "react";
 import Router from "next/router";
 import Head from "next/head";
+import {
+  UserDataProvider,
+  useUserData,
+} from "common/components/Context/UserContext";
 // import favicon from "../public/favicon.ico";
 
 const client = createClient({
@@ -39,18 +43,21 @@ function MyApp({ Component, pageProps }: AppProps) {
       }, expireTime - Date.now());
     }
   }, [loginTime]);
+
   return (
     <>
       <Head>
         <title>Medicus</title>
       </Head>
-      <NextIntlProvider messages={pageProps.messages}>
-        <AuthProvider>
-          <Provider value={client}>
-            <Component {...pageProps} />
-          </Provider>
-        </AuthProvider>
-      </NextIntlProvider>
+      <UserDataProvider>
+        <NextIntlProvider messages={pageProps.messages}>
+          <AuthProvider>
+            <Provider value={client}>
+              <Component {...pageProps} />
+            </Provider>
+          </AuthProvider>
+        </NextIntlProvider>
+      </UserDataProvider>
     </>
   );
 }

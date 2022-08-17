@@ -32,6 +32,8 @@ export const englishCommon: any = {
     "The two passwords that you entered do not match!",
   your_password_has_been_set: "Your password has been set!",
   your_password_has_been_reset: "Your password has been reset!",
+  timezone: "Time zone",
+  time_zone_is_required: "Time zone is required",
 
   enter_your_email_below_to_reset_password:
     "Enter your email below to reset password.",
@@ -247,6 +249,8 @@ export const spanishCommon: any = {
     "Las dos contraseñas que ingresaste no coinciden",
   your_password_has_been_set: "¡Su contraseña ha sido establecida!",
   your_password_has_been_reset: "¡Tu contraseña ha sido restablecida!",
+  timezone: "Zona horaria",
+  time_zone_is_required: "Se requiere zona horaria",
 
   enter_your_email_below_to_reset_password:
     "Ingrese su correo electrónico a continuación para restablecer la contraseña.",
@@ -426,3 +430,5 @@ export const spanishCommon: any = {
   about_me: "Sobre mí",
   doctor_schedules_not_available: "Horarios del doctor no disponibles",
 };
+
+// sadasd;

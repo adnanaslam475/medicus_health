@@ -52,7 +52,7 @@ function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
   const modalHandler = (id: string) => setOpen(id);
   const isShowHeaderInfo = !!messageInfo.currentChannel?.channelName;
   const firstName = opposite?.role !== "Doctor" ? opposite?.first_name : "";
-  
+
   const lastName =
     opposite?.role !== "Doctor"
       ? opposite?.last_name
@@ -68,9 +68,9 @@ function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
         onOk={deleteChatChannelHandler}
         message="Are you sure you want to delete this channel?"
       />
-      <h2>Messages</h2>
+      <h2 className="mb-0 pl-4 pt-3">Messages</h2>
       <div className="flex gap-2 items-center border-b border-gray-4">
-        <div className="flex gap-2 py-4 px-4 max-w-[340px] w-full border-r border-gray-4">
+        <div className="flex gap-2 py-2 px-4 max-w-[340px] w-full border-r border-gray-4">
           <Input
             size="large"
             placeholder="Search"

@@ -5,6 +5,7 @@ import { PageLoader } from "../components/PageLoader/PageLoader";
 import { getRole, getUserData } from "../utils/userData";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css"; //styles of nprogress
+import { useUserData } from "common/components/Context/UserContext";
 
 NProgress.configure({ showSpinner: false });
 
@@ -13,6 +14,21 @@ function AuthProvider({ children }: any) {
   const [user, setUser] = useState<UserDataInLocalStorage>();
   const [authorized, setAuthorized] = useState(false);
 
+  const { data, saveUserData } = useUserData();
+  let userData = getUserData();
+
+  useEffect(() => {
+    if (userData?.user?.id) {
+      return saveUserData?.({
+        firstName: userData?.user?.first_name,
+        lastName: userData?.user?.last_name,
+        profilePicture:
+          userData?.user?.doctorProfile?.profile_image ||
+          userData?.user?.patientProfile?.profileImage ||
+          userData?.user?.adminProfilePicture?.profile_picture,
+      });
+    }
+  }, [userData?.user?.id]);
   function firstRouteChange() {
     setAuthorized(false);
   }

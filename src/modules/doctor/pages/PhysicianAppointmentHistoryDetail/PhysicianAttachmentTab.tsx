@@ -54,7 +54,7 @@ function PhysicianAttachmentTab() {
       // serviceName={appointment?.patient?.email}
       imageUrl={appointment?.patient?.patientProfile?.profileImage}
     >
-      <div className="flex gap-2">
+      <div className="flex-col flex gap-2">
         {urlArr?.length ? (
           urlArr?.map((item: AttachmentObject) => (
             <Attachment item={item} enable={false} />

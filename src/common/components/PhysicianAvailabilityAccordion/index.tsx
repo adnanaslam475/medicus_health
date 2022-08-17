@@ -48,8 +48,10 @@ const PhysicianAvailabilityAccordion = (props: Props) => {
                     <span>{date?.dayName(item.day)}</span>
                     <div>
                       <span>
-                        {`${date.time24HrConvert(item?.startTime)} -
-                          ${date.time24HrConvert(item?.endTime)}`}
+                      {`${date.formathhmma(item?.startTime)} -
+                          ${date.formathhmma(item?.endTime)}`}
+                        {/* {`${date.time24HrConvert(item?.startTime)} -
+                          ${date.time24HrConvert(item?.endTime)}`} */}
                       </span>
                     </div>
                   </div>
