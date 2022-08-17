@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
-import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
+import SearchFilter from "../../../../../common/components/SearchFilters/SearchFilter";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { Button, Empty, Select, Spin, Tooltip } from "antd";
 import {
@@ -35,23 +35,17 @@ function UpcomingAppointments() {
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Confirmed");
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
+  const [filterValues, setFilterValues] = useState({ status: "Confirmed" });
 
-  const [{ data, fetching }] = useGetAllRequestedAppointmentsQuery({
-    variables: {
-      filter: {
-        status: status,
-        physicianName: dataListPhysician,
-        doctorId: doctorIds,
-        // searchString: String(appointmentId),
-        serviceId: serviceIds,
-        dueDate: dueDate,
-        searchString: searchString,
+  const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =
+    useGetAllRequestedAppointmentsQuery({
+      variables: {
+        filter: {...filterValues,status:"Confirmed"},
+        pagination: { limit: -1, page: 1 },
+        sorting: { order: "", column: "" },
       },
-      pagination: { limit: -1, page: 1 },
-      sorting: { order: "", column: "" },
-    },
-    requestPolicy:"network-only"
-  });
+      requestPolicy: "network-only",
+    });
   function onViewSuggestedSlots(id: number) {
     setCurrentAppointmentId(id);
     setShowModal(true);
@@ -86,6 +80,13 @@ function UpcomingAppointments() {
     variables: { input: Number(loggedInUser) },
     requestPolicy: "network-only",
   });
+  function onChangeFilters(values: any) {
+    setFilterValues(values);
+    executeUseGetAllRequestedAppointmentsQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
   return (
     <AppLayout>
       <div className="w-full">
@@ -157,17 +158,7 @@ function UpcomingAppointments() {
           </div>
         </div>
         <div className="">
-          <SearchFilters
-            setDataListPhysician={setDataListPhysician}
-            setDoctorId={setDoctorId}
-            setAppointmentId={setAppointmentId}
-            setServiceIds={setServiceIds}
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            setBookingDate={setBookingDate}
-            setDueDate={setDueDate}
-            setSearchString={setSearchString}
-          />
+          <SearchFilter onChange={onChangeFilters} />
         </div>
         {fetching == false ? (
           <div className="w-full">
@@ -200,7 +191,10 @@ function UpcomingAppointments() {
                       onViewSuggestedSlots={() =>
                         onViewSuggestedSlots(Number(appointmentDetail?.id))
                       }
-                      specialization={String(appointmentDetail?.doctor?.doctorProfile?.specialization || "")}
+                      specialization={String(
+                        appointmentDetail?.doctor?.doctorProfile
+                          ?.specialization || ""
+                      )}
                     />
                   );
                 })}
