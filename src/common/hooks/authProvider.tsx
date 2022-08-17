@@ -22,7 +22,7 @@ function AuthProvider({ children }: any) {
       return saveUserData?.({
         firstName: userData?.user?.first_name,
         lastName: userData?.user?.last_name,
-        profilePicture: userData?.user?.doctorProfile?.profile_image,
+        profilePicture: userData?.user?.doctorProfile?.profile_image || userData?.user?.patientProfile?.profileImage,
       });
     }
   }, [userData?.user?.id]);

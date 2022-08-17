@@ -316,21 +316,21 @@ function EditProfile({
       let loggedInUserData = localStorage.getItem("loggedInUserData");
       let updatedLoggedInUserData: LoginUserInput | any =
         loggedInUserData && JSON.parse(loggedInUserData);
-      // if (
-      //   updatedLoggedInUserData?.user &&
-      //   updatedLoggedInUserData?.user?.role === "Doctor"
-      // ) {
-      //   updatedLoggedInUserData.user.first_name = values?.firstName;
-      //   updatedLoggedInUserData.user.last_name = values?.lastName;
-      //   if (updatedLoggedInUserData.user.doctorProfile) {
-      //     updatedLoggedInUserData.user.doctorProfile.profile_image =
-      //       image || userProfileImage;
-      //   }
-      //   localStorage.setItem(
-      //     "loggedInUserData",
-      //     JSON.stringify(updatedLoggedInUserData)
-      //   );
-      // }
+      if (
+        updatedLoggedInUserData?.user &&
+        updatedLoggedInUserData?.user?.role === "Doctor"
+      ) {
+        updatedLoggedInUserData.user.first_name = values?.firstName;
+        updatedLoggedInUserData.user.last_name = values?.lastName;
+        if (updatedLoggedInUserData.user.doctorProfile) {
+          updatedLoggedInUserData.user.doctorProfile.profile_image =
+            image || userProfileImage;
+        }
+        localStorage.setItem(
+          "loggedInUserData",
+          JSON.stringify(updatedLoggedInUserData)
+        );
+      }
       saveUserData?.({
         firstName: values?.firstName,
         lastName: values?.lastName,
