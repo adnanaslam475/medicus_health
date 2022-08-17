@@ -6,6 +6,7 @@ import {
   DeleteOutlined,
   VideoCameraFilled,
 } from "@ant-design/icons";
+import support from "./../../../../public/assets/icon/support.svg";
 import {
   Button,
   DatePicker,
@@ -331,7 +332,16 @@ function DoctorAppointmentInfoFooter({
         {getRole() === "User" ||
           (getRole() === "Doctor" && (
             <Button
-              icon={<MessageOutlined />}
+              icon={
+                <Image
+                  priority={true}
+                  width={15}
+                  height={15}
+                  src={support}
+                  alt=""
+                  className=""
+                />
+              }
               className={`${_classes["appointments-btn"]} mr-3`}
               onClick={() =>
                 Router.push({
@@ -344,7 +354,7 @@ function DoctorAppointmentInfoFooter({
                 })
               }
             >
-              Message support
+              <span className="pl-2"> Message support</span>
             </Button>
           ))}
 
