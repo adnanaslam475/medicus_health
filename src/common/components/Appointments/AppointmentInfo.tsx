@@ -206,19 +206,21 @@ function AppointmentInfo(props: Props) {
               <span className="pl-2">Message physician</span>
             </Button>
           </div>
-          {status !== "Requested" && (
-            <Link passHref href={`/patient/appointments/${id}/call`}>
-              <Button
-                className={`${_classes["appointments-btn"]}`}
-                type="primary"
-                icon={<VideoCameraFilled />}
-                target={"_blank"}
-                disabled={disabled}
-              >
-                <span>Join now</span>
-              </Button>
-            </Link>
-          )}
+          {status !== "Requested" &&
+            status !== "Rescheduled" &&
+            status !== "Proposed" && (
+              <Link passHref href={`/patient/appointments/${id}/call`}>
+                <Button
+                  className={`${_classes["appointments-btn"]}`}
+                  type="primary"
+                  icon={<VideoCameraFilled />}
+                  target={"_blank"}
+                  disabled={disabled}
+                >
+                  <span>Join now</span>
+                </Button>
+              </Link>
+            )}
         </div>
       </CardWithProfileImageInfo>
     </>
