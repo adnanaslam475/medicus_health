@@ -17,7 +17,7 @@ function ProfileImageWithInfo({ name, serviceName, imageUrl }: props) {
           priority={true}
           alt="Profile Image"
           objectFit="cover"
-          src={imageUrl || yourImage}
+          src={imageUrl || ""}
           layout="fixed"
           width={74}
           height={74}
