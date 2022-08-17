@@ -76,7 +76,7 @@ function AppointmnetConfirmedCard({
           timeZone
         )} - ${date.formathhmma(selectedAppointment?.endTime, timeZone)}`}</div>
       )}
-      <div className="text-sm">Appointment Status</div>
+      <div className="text-sm">Appointment status</div>
       <span className="text-base text-primary font-bold">{status}</span>
 
       <div className="flex mt-4">

@@ -15,6 +15,7 @@ import { CustomTimeSlot } from "common/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import CardWithProfileImageInfo from "../CardWithProfileImageInfo/CardWithProfileImageInfo";
+import { getRole } from "common/utils/userData";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -43,7 +44,8 @@ function AppointmentInfo(props: Props) {
     [appointmentTimeSlots]
   );
   const [disabled, setDisabled] = useState(true);
-  const appointmentCharges = transaction?.amountReceived || "-";
+  const [isRoleGuard, setRoleGuard] = useState<boolean>(false);
+  const appointmentCharges = transaction?.amountReceived;
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
@@ -58,6 +60,14 @@ function AppointmentInfo(props: Props) {
   const doctorSpecialization =
     appoinmentDetails?.appointment?.doctor?.doctorProfile?.specialization;
 
+  useEffect(() => {
+    if (getRole() === "User") {
+      setRoleGuard(true);
+    } else {
+      setRoleGuard(false);
+    }
+  }, []);
+
   const timeZone =
     typeof window !== "undefined" &&
     JSON.parse(String(localStorage?.getItem("timeZone")) || "");
@@ -68,17 +78,21 @@ function AppointmentInfo(props: Props) {
   ) : (
     <>
       <CardWithProfileImageInfo
-        name={`${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`}
-        serviceName={`${doctorSpecialization}`}
-        imageUrl={doctorProfilePic}
+        name={
+          isRoleGuard
+            ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`
+            : ""
+        }
+        serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
+        imageUrl={isRoleGuard ? doctorProfilePic : null}
       >
         <div className="max-w-[700px]">
           <LabelValueRow label="ID#" value={Number(id)} />
           {/* <LabelValueRow
             label="Requested date"
             value={date?.formatDAYMMDDYY(requestedDate, timeZone)}
-          />
-          <LabelValueRow
+          /> */}
+          {/* <LabelValueRow
             label="Physician"
             value={`${formatedDoctorFirstName} ${last_name}`}
           /> */}
@@ -117,12 +131,12 @@ function AppointmentInfo(props: Props) {
           />
           <LabelValueRow
             label="Total amount"
-            value={`$${appointmentCharges}`}
+            value={appointmentCharges ? `$${appointmentCharges}` : "-"}
           />
 
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[200px]">
-              Appointment Status
+              Appointment status
             </div>
             <div className="w-full text-primary">
               <Tag
@@ -192,21 +206,19 @@ function AppointmentInfo(props: Props) {
               <span className="pl-2">Message physician</span>
             </Button>
           </div>
-        {status !== "Requested" && (
-
-          <Link passHref href={`/patient/appointments/${id}/call`}>
-            <Button
-              className={`${_classes["appointments-btn"]}`}
-              type="primary"
-              icon={<VideoCameraFilled />}
-              target={"_blank"}
-              disabled={disabled}
-            >
-              <span>Join now</span>
-            </Button>
-          </Link>
-        )}
-
+          {status !== "Requested" && (
+            <Link passHref href={`/patient/appointments/${id}/call`}>
+              <Button
+                className={`${_classes["appointments-btn"]}`}
+                type="primary"
+                icon={<VideoCameraFilled />}
+                target={"_blank"}
+                disabled={disabled}
+              >
+                <span>Join now</span>
+              </Button>
+            </Link>
+          )}
         </div>
       </CardWithProfileImageInfo>
     </>
