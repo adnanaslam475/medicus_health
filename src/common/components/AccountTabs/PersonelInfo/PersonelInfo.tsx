@@ -19,6 +19,7 @@ import userDefaultPicture from "../../../../../public/assets/images/profile.jpg"
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
+import { GraphQLError } from "graphql";
 import { useUserData } from "common/components/Context/UserContext";
 
 const PersonalInfo = () => {
@@ -122,12 +123,20 @@ const PersonalInfo = () => {
         executeUseGetUserQuery({ requestPolicy: "network-only" });
       }
 
-      if (res?.error) {
+      if (res?.error && res?.error?.message) {
+        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = res?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          "Something went wrong";
         notification.error({
-          message:
-            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
+          message: errorMessage,
         });
       }
+
     } catch (error) {
       console.log(error);
     }
