@@ -1,20 +1,24 @@
-import React, { useRef } from 'react'
-import { notification, Skeleton } from 'antd';
-import CardWithProfileImageInfo from 'common/components/CardWithProfileImageInfo/CardWithProfileImageInfo'
-import { QuestionnaireForm } from 'common/components/Questionnary/Questionnary';
-import { getUserData } from 'common/utils/userData';
-import { useGetAllTransactionsQuery, usePatientHealthHistoryQuery, User, useUpdatePatientHealthHistoryMutation } from 'generated/graphql';
-import { useRouter } from 'next/router';
-
+import React, { useRef } from "react";
+import { notification, Skeleton } from "antd";
+import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
+import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
+import { getUserData } from "common/utils/userData";
+import {
+  useGetAllTransactionsQuery,
+  usePatientHealthHistoryQuery,
+  User,
+  useUpdatePatientHealthHistoryMutation,
+} from "generated/graphql";
+import { useRouter } from "next/router";
 
 type Props = {
-  userDetail:User
-  fetching:boolean
-}
-function QuestionnaireFormTab(props:Props) {
-const {userDetail,fetching:userDataFetching} = props 
+  userDetail: User;
+  fetching: boolean;
+};
+function QuestionnaireFormTab(props: Props) {
+  const { userDetail, fetching: userDataFetching } = props;
   const form: any = useRef();
-      // GET USER ID
+  // GET USER ID
   const { user } = getUserData();
   const { query } = useRouter();
 
@@ -46,7 +50,7 @@ const {userDetail,fetching:userDataFetching} = props
       {
         result?.data?.updatePatientHealthHistory &&
           notification.success({
-            message: "Successfully Updated",
+            message: "Successfully updated",
           });
       }
     } catch (err) {
@@ -54,24 +58,28 @@ const {userDetail,fetching:userDataFetching} = props
     }
   };
   const firstName = userDetail?.first_name;
-  const email = userDetail?.email
-  const profilePicture = userDetail?.patientProfile?.profileImage
+  const email = userDetail?.email;
+  const profilePicture = userDetail?.patientProfile?.profileImage;
 
   return (
     <div className="max-w-[800px]">
       <Skeleton loading={userDataFetching} paragraph={{ rows: 0 }} active>
-    <CardWithProfileImageInfo name={firstName} serviceName={email} imageUrl={profilePicture}>
-      {
-        <QuestionnaireForm
-          ref={form}
-          data={data?.patientHealthHistory?.history}
-          onFinishSuccess={onFinishHealthQuestionnarySuccess}
-        />
-      }
-    </CardWithProfileImageInfo>
-    </Skeleton>
-  </div>
-  )
+        <CardWithProfileImageInfo
+          name={firstName}
+          serviceName={email}
+          imageUrl={profilePicture}
+        >
+          {
+            <QuestionnaireForm
+              ref={form}
+              data={data?.patientHealthHistory?.history}
+              onFinishSuccess={onFinishHealthQuestionnarySuccess}
+            />
+          }
+        </CardWithProfileImageInfo>
+      </Skeleton>
+    </div>
+  );
 }
 
-export default QuestionnaireFormTab
+export default QuestionnaireFormTab;

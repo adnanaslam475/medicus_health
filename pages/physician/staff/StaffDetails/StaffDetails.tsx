@@ -101,7 +101,7 @@ function DoctorStaffDetails() {
       if (response.data) {
         formInstance.resetFields();
         notification.success({
-          message: "Successfully Updated",
+          message: "Successfully updated",
         });
         // Router.push(`/physician/staff`);
         // Router.push({

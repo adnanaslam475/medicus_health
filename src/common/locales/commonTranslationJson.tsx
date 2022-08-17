@@ -187,7 +187,7 @@ export const englishCommon: any = {
   verifying: "Verifying...",
   id_or_patient_name: "ID# or patient name",
   id_or_physician_name: "ID# or physician name",
-  successfully_updated: "Successfully Updated",
+  successfully_updated: "Successfully updated",
   personal_information: "Personal info",
   health_questionnaire: "Health questionnaire",
   transaction_history: "Transaction history",
@@ -430,5 +430,3 @@ export const spanishCommon: any = {
   about_me: "Sobre mí",
   doctor_schedules_not_available: "Horarios del doctor no disponibles",
 };
-
-// sadasd;

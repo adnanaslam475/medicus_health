@@ -98,28 +98,28 @@ const PersonalInfo = () => {
       if (res) {
         res?.data?.updateUser &&
           notification.success({
-            message: "Successfully Updated",
+            message: "Successfully updated",
           });
-          if (
-            updatedLoggedInUserData?.user &&
-            updatedLoggedInUserData?.user?.role === "User"
-          ) {
-            updatedLoggedInUserData.user.first_name = values?.firstName;
-            updatedLoggedInUserData.user.last_name = values?.lastName;
-            if (updatedLoggedInUserData.user.patientProfile) {
-              updatedLoggedInUserData.user.patientProfile.profileImage =
-                image || userProfileImage;
-            }
-            localStorage.setItem(
-              "loggedInUserData",
-              JSON.stringify(updatedLoggedInUserData)
-            );
+        if (
+          updatedLoggedInUserData?.user &&
+          updatedLoggedInUserData?.user?.role === "User"
+        ) {
+          updatedLoggedInUserData.user.first_name = values?.firstName;
+          updatedLoggedInUserData.user.last_name = values?.lastName;
+          if (updatedLoggedInUserData.user.patientProfile) {
+            updatedLoggedInUserData.user.patientProfile.profileImage =
+              image || userProfileImage;
           }
-          saveUserData?.({
-            firstName: values?.firstName,
-            lastName: values?.lastName,
-            profilePicture: image ?image: userProfileImage,
-          });
+          localStorage.setItem(
+            "loggedInUserData",
+            JSON.stringify(updatedLoggedInUserData)
+          );
+        }
+        saveUserData?.({
+          firstName: values?.firstName,
+          lastName: values?.lastName,
+          profilePicture: image ? image : userProfileImage,
+        });
         executeUseGetUserQuery({ requestPolicy: "network-only" });
       }
 
@@ -136,7 +136,6 @@ const PersonalInfo = () => {
           message: errorMessage,
         });
       }
-
     } catch (error) {
       console.log(error);
     }
