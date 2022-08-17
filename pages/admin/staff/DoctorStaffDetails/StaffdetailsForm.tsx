@@ -53,7 +53,7 @@ function StaffDetailsFrom({
           placeholder="Send password reset link"
           onChange={handleChange}
           value={disableAccountInput}
-          style={{ width: 200 }}
+          style={{ width: 220 }}
         >
           <Option value={true}>Enable</Option>
           <Option value={false}>Disable</Option>
