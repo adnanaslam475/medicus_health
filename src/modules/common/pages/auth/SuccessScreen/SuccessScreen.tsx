@@ -47,12 +47,16 @@ const SuccessScreen = () => {
               </div>
             </div>
             <h2 className="text-center text-secondary mb-3 px-10 leading-8">
-              {t("success_your_account_has_been_created")}
+              {/* {t("success_your_account_has_been_created")} */}
+              ¡Su cuenta ha sido creada exitosamente!
             </h2>
             <p className="text-base text-gray text-center px-7">
-              {t("we_have_sent_you_an_email_on")}
+              {/* {t("we_have_sent_you_an_email_on")} */}
+              Le hemos enviado un correo electrónico a
               <span className="text-secondary">{` ${query?.email} `}</span>
-              {t("verify_your_account_by_click")}
+              {/* {t("verify_your_account_by_click")} */}
+              Haga clic en el enlace de verificación para finalizar el registro
+              de su cuenta.
             </p>
             <div className="mt-5">
               <Form

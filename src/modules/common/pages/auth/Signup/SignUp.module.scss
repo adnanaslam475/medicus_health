@@ -25,10 +25,10 @@
   }
 }
 
-.confirmationsignup {
-  :global .ant-modal-confirm-body {
-    :global .ant-modal-confirm-title {
-      font-weight: 400 !important;
-    }
+.confirmation-signup {
+  // :global .ant-modal-confirm-body {
+  :global .ant-modal-confirm-title {
+    font-weight: 400 !important;
   }
+  // }
 }
