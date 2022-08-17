@@ -79,7 +79,7 @@ function StepFour() {
         <span>{date.formatDAYMMDDYY(requestedDate)}</span>
         <span className="text-sm"></span>
         {/* <span className="ml-3">{date.formathhmma(requestedDate)}</span> */}
-        <span className="ml-3">{`${availabilityTime?.startTime} - ${availabilityTime?.endTime}`}</span>
+        <span className="ml-3">{`${date.formathhmma(availabilityTime?.startTime)} - ${date.formathhmma(availabilityTime?.endTime)}`}</span>
       </div>
       <p className="font-rubik text-gray">
         Please note, this is only an appointment request. Your physician will
