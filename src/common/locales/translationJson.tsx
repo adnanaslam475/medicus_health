@@ -34,7 +34,7 @@ export function translationJson(local: string) {
         SuccessScreen: {
           ...spanishCommon,
           success_your_account_has_been_created:
-            "¡Éxito! Tu cuenta ha sido creada.",
+            "¡Su cuenta ha sido creada exitosamente!",
           we_have_sent_you_an_email_on:
             "Le hemos enviado un correo electrónico en",
           verify_your_account_by_click:
@@ -50,7 +50,7 @@ export function translationJson(local: string) {
           Login: "Inicio de sesión",
           AlreadyHaveAnAccount: "Ya tienes una cuenta",
           signup_modal_skip_questionaire_message:
-            "Estos son los campos obligatorios para reservar una cita, puede omitirlos por ahora y puede agregar/editar más tarde desde la sección Mi perfil",
+            "Se requiere contestar estas preguntas antes de hacer su cita con el médico",
         },
         HealthQuestionary: {
           ...spanishCommon,
@@ -146,7 +146,7 @@ export function translationJson(local: string) {
         SuccessScreen: {
           ...englishCommon,
           success_your_account_has_been_created:
-            "Success! Your account has been created.",
+            "Your account has been successfully created!",
           we_have_sent_you_an_email_on: "We have sent you an email on",
           verify_your_account_by_click:
             "Please click on the verification link and your account will be verified.",
