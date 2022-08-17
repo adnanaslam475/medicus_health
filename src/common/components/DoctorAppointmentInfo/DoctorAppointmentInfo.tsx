@@ -86,8 +86,8 @@ function DoctorAppointmentInfo({ data }: Props) {
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
   const timeZone =
-    typeof window !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
 
   // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
 
@@ -707,8 +707,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
   const timeZone =
-    typeof window !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
 
   let formatedDueDate = date.formatMMMMDDYYYY(
     String(appointmentDateTime?.startTime),

@@ -9,7 +9,7 @@ import {
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { AttachmentObject } from "common/types/types";
-import { Spin } from "antd";
+import { Empty, Spin } from "antd";
 
 type Props = {
   appointment: Appointment | undefined;
@@ -37,9 +37,15 @@ function AdminPhysicianAttachmentTab({ appointment, loading }: Props) {
         serviceName={serviceType?.name}
       >
         <div className="flex gap-2">
-          {urlArr?.map((item: AttachmentObject) => (
-            <Attachment item={item} enable={false} />
-          ))}
+          {urlArr?.length ? (
+            urlArr?.map((item: AttachmentObject) => (
+              <Attachment item={item} enable={false} />
+            ))
+          ) : (
+            <div className="flex items-center justify-center w-3/5 mt-5">
+              <Empty />
+            </div>
+          )}
         </div>
       </CardWithProfileImageInfo>
     </>

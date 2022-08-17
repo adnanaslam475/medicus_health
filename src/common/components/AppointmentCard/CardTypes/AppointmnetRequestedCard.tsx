@@ -40,8 +40,8 @@ function AppointmnetRequestedCard({
   }`;
 
   const timeZone =
-    typeof window !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
 
   return (
     <Card className={`${_classes["appointment-card"]}`}>

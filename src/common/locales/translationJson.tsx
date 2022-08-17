@@ -36,10 +36,11 @@ export function translationJson(local: string) {
           success_your_account_has_been_created:
             "¡Su cuenta ha sido creada exitosamente!",
           we_have_sent_you_an_email_on:
-            "Le hemos enviado un correo electrónico a [EMAIL ADDRESS]",
+            "Le hemos enviado un correo electrónico a",
           verify_your_account_by_click:
             // "Haga clic en el enlace de verificación para finalizar el registro de su cuenta.",
             "Haga clic en el enlace de verificación para finalizar el registro de su cuenta.",
+          // "Verifique su cuenta haciendo clic en el enlace enviado en el correo electrónico.",
         },
         Signup: {
           ...spanishCommon,

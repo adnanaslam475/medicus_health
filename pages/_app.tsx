@@ -12,7 +12,7 @@ import "./../styles/cutomized-antd.css";
 import { useEffect } from "react";
 import Router from "next/router";
 import Head from "next/head";
-import favicon from "../public/favicon.ico";
+// import favicon from "../public/favicon.ico";
 
 const client = createClient({
   url: config.baseURL || "",

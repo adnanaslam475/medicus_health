@@ -107,7 +107,7 @@ function NotesTab({}: Props) {
     </div>
   ) : (
     <div className="md:max-w-1/2">
-      <CardWithProfileImageInfo
+      {/* <CardWithProfileImageInfo
         name={
           isRoleGuard
             ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`
@@ -119,7 +119,7 @@ function NotesTab({}: Props) {
             ? doctorProfilePic
             : appointment?.patient?.patientProfile?.profileImage
         }
-      >
+      > */}
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}
@@ -183,7 +183,7 @@ function NotesTab({}: Props) {
           <h3>Notes history</h3>
           <NotesHistory />
         </div>
-      </CardWithProfileImageInfo>
+      {/* </CardWithProfileImageInfo> */}
     </div>
   );
 }

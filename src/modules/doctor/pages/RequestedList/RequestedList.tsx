@@ -12,8 +12,8 @@ import {
 import { date } from "common/utils";
 
 const timeZone =
-  typeof window !== "undefined" &&
-  JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  typeof window !== "undefined" &&localStorage?.getItem("timeZone") !== "undefined" &&
+  JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
 
 const Columns = [
   {

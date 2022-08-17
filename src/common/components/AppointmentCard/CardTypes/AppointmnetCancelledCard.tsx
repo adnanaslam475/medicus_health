@@ -70,7 +70,12 @@ function AppointmnetCancelledCard({
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
-  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
 
   let formatedStartTime = date.formathhmma(
     String(appointmentDetail?.appointmentDateTime?.startTime),
@@ -92,7 +97,7 @@ function AppointmnetCancelledCard({
         <span className="text-sm ">Appointment type</span>
         <div className="text-sm text-gray mb-3">{serviceType}</div>
         <span className="text-sm">Appointment date</span>
-        <h6>{date.formatDAYMMDDYY(requestedDate,timeZone)}</h6>
+        <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
         <span className="text-sm">Appointment time</span>
 
         {appointmentTimeSlots?.length ? (
