@@ -23,20 +23,26 @@ module.exports = withTM(
     },
     images: {
       // domains: ["medicus-dev2.s3-us-east-2.amazonaws.com", "www.google.com"],
+      format: ["image/webp", "image/png", "image/jpeg"],
       domains: [
         "medicus-dev2.s3-us-east-2.amazonaws.com",
         "medicus-dev.agencypartner.com",
         "medicus-uat.agencypartner.com",
         "medicus-test.agencypartner.com",
-        "staging.joinmedicus.com"
-
+        "staging.joinmedicus.com",
       ],
       // minimumCacheTTL: 60,
+
       // added for images and 502 Error Fix R&D
       // disableStaticImages: true, // added for images and 502 Error Fix R&D
       // dangerouslyAllowSVG: true, // added for images and 502 Error Fix R&D
-      // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", 
+      // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
       // added for images and 502 Error Fix R&D
+    },
+    experimental: {
+      images: {
+        unoptimized: true,
+      },
     },
     // headers: async () => [
     //   // {

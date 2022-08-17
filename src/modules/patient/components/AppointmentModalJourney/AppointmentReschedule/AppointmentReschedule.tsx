@@ -60,8 +60,8 @@ function AppointmentReschedule(props: Props) {
     doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`
   }`;
   const timeZone =
-    typeof window !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+    typeof window !== "undefined" &&localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
   return (
     <div>
       <h2>Appointment scheduling</h2>

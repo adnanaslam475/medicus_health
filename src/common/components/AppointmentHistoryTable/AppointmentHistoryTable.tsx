@@ -11,7 +11,7 @@ import {
   User,
 } from "generated/graphql";
 
-const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+const timeZone = typeof window !== "undefined" &&localStorage?.getItem("timeZone") !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
 
 const historyColumns = [
   {

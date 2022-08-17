@@ -139,7 +139,7 @@ function RescheduleAppointmentModal(props: Props) {
     (appointment) => appointment.selected
   );
 
-  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  const timeZone = typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
 
   return (
     <>

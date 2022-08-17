@@ -87,7 +87,8 @@ function NotesTab({}: Props) {
   };
   const { first_name, last_name } = appointment?.doctor || {};
   const doctorProfilePic = appointment?.doctor?.doctorProfile?.profile_image;
-  const doctorSpecialization = appointment?.doctor?.doctorProfile?.specialization;
+  const doctorSpecialization =
+    appointment?.doctor?.doctorProfile?.specialization;
   let formatedDoctorFirstName = `${
     first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
   }`;
@@ -106,10 +107,19 @@ function NotesTab({}: Props) {
     </div>
   ) : (
     <div className="md:max-w-1/2">
-      <CardWithProfileImageInfo
-        name={isRoleGuard ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}` : `${patient?.first_name} ${patient?.last_name}`}
+      {/* <CardWithProfileImageInfo
+        name={
+          isRoleGuard
+            ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`
+            : `${patient?.first_name} ${patient?.last_name}`
+        }
         serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
-        imageUrl={isRoleGuard ? doctorProfilePic : appointment?.patient?.patientProfile?.profileImage}      >
+        imageUrl={
+          isRoleGuard
+            ? doctorProfilePic
+            : appointment?.patient?.patientProfile?.profileImage
+        }
+      > */}
         {(getRole() === "Doctor" || getRole() === "Admin") && (
           <>
             {/* {!notesByAppointmentId && ( */}
@@ -148,7 +158,10 @@ function NotesTab({}: Props) {
                 </>
               )
             ) : (
-              <>Notes for this appointment have not been published by physician yet.</>
+              <>
+                Notes for this appointment have not been published by physician
+                yet.
+              </>
             )}
             {/* {!actualDoctorNotes ? (
               status === "Confirmed" || status === "Requested"
@@ -170,7 +183,7 @@ function NotesTab({}: Props) {
           <h3>Notes history</h3>
           <NotesHistory />
         </div>
-      </CardWithProfileImageInfo>
+      {/* </CardWithProfileImageInfo> */}
     </div>
   );
 }

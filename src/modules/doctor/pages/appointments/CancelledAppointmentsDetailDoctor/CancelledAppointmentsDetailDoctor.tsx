@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { Tabs } from "antd";
+import { Empty, Tabs } from "antd";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import PatientInfoTab from "../UpcomingAppointmentsDetailDoctor/PatientInfoTab";
@@ -90,9 +90,15 @@ function CancelledAppointmentsDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachments" key="5">
               <div>
-                {urlArr?.map((item: AttachmentObject) => {
-                  return <Attachment item={item} enable />;
-                })}
+                {urlArr?.length ? (
+                  urlArr?.map((item: AttachmentObject) => {
+                    return <Attachment item={item} enable />;
+                  })
+                ) : (
+                  <div className="flex items-center justify-center w-3/5 mt-5">
+                    <Empty />
+                  </div>
+                )}
               </div>
             </Tabs.TabPane>
 

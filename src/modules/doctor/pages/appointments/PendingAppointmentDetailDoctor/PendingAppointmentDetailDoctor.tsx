@@ -8,7 +8,7 @@ import {
   useGetAppointmentReportUrlByIdQuery,
   usePatientHealthHistoryQuery,
 } from "generated/graphql";
-import { Tabs } from "antd";
+import { Empty, Tabs } from "antd";
 import AppointmentInfoTab from "../UpcomingAppointmentsDetailDoctor/AppointmentInfoTab";
 import PatientInfoTab from "../UpcomingAppointmentsDetailDoctor/PatientInfoTab";
 // import NotesTab from "./NotesTabForPhysician";
@@ -102,9 +102,15 @@ function PendingAppointmentDetailDoctor() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachments" key="5">
               <div className="">
-                {urlArr?.map((item: AttachmentObject) => (
-                  <Attachment item={item} enable={false} />
-                ))}
+                {urlArr?.length ? (
+                  urlArr?.map((item: AttachmentObject) => (
+                    <Attachment item={item} enable={false} />
+                  ))
+                ) : (
+                  <div className="flex items-center justify-center w-3/5 mt-5">
+                    <Empty />
+                  </div>
+                )}
               </div>
             </Tabs.TabPane>
             {(pathname.includes("appointments/upcoming") ||

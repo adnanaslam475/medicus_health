@@ -17,7 +17,7 @@ function DoctorCalendar() {
   const redirectToUpcoming = function () {
     Router.push("/physician/appointments/upcoming");
   };
-  const timeZone = typeof window !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "");
+  const timeZone = typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
   const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
     calenderEvents: [],
