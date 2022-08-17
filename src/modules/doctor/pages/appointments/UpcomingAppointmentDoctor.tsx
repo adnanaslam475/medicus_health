@@ -70,7 +70,9 @@ function UpcomingAppointmentDoctor() {
           <h2 className="mb-4">Upcoming appointments</h2>
           <Link passHref href={`/physician/appointments/calendar`}>
             <a>
-              <Button>Calendar view</Button>
+              <Button className="bg-primary" type="primary">
+                Calendar view
+              </Button>
             </a>
           </Link>
         </div>
