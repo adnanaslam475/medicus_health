@@ -11,6 +11,7 @@ import { getRole, getUserData } from "../../utils/userData";
 import InfoMessageBannerReminder from "../InfoMessageBannerReminder/InfoMessageBannerReminder";
 import { usePatientHealthHistoryQuery } from "generated/graphql";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
+import { useUserData } from "../Context/UserContext";
 
 const { Header } = Layout;
 
@@ -31,6 +32,9 @@ const AppHeader = () => {
   const { locales, locale: activeLocale } = router;
   const otherLocales = locales?.filter((locale) => locale !== activeLocale);
   const { pathname, query, asPath } = router;
+  const { data: userContextData, clearUserData } = useUserData();
+  const { values } = userContextData;
+  const { firstName, lastName, profilePicture } = values || {};
 
   const logout = () => {
     Router.push("/login");
@@ -38,6 +42,7 @@ const AppHeader = () => {
     localStorage.removeItem("timeZone");
     localStorage.removeItem("appointmentsAlertData");
     // localStorage.clear();
+    clearUserData?.({});
     setVisible(false);
   };
 
@@ -48,11 +53,11 @@ const AppHeader = () => {
   const { user } = getUserData();
   const { patientProfile, adminProfilePicture, doctorProfile } = user || {};
 
-  const profilePicture =
-    patientProfile?.profileImage ||
-    doctorProfile?.profile_image ||
-    adminProfilePicture?.profile_picture;
-  const userName = `${user?.first_name} ${user?.last_name.toLocaleLowerCase()}`;
+  // const profilePicture =
+  //   patientProfile?.profileImage ||
+  //   doctorProfile?.profile_image ||
+  //   adminProfilePicture?.profile_picture;
+  const userName = `${firstName} ${lastName?.toLocaleLowerCase()}`;
   const userRole = user?.role;
   const accountPath =
     userRole === "Doctor"

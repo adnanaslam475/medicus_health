@@ -42,6 +42,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import { UserOutlined } from "@ant-design/icons";
+import { useUserData } from "common/components/Context/UserContext";
 
 const { TextArea } = Input;
 
@@ -73,7 +74,7 @@ type Props = {
   addScheduleDay: string;
   loading?: boolean;
   setProfileUpdated?: any;
-  deleteScheduleFetching?:boolean;
+  deleteScheduleFetching?: boolean;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -159,6 +160,7 @@ function EditProfile({
       Spanish: formatedLanguage?.Spanish || false,
     });
   }, [language]);
+  const { data: userContextData, saveUserData } = useUserData();
 
   const educationalBackground = parseJson(educational_background) || [];
 
@@ -314,21 +316,26 @@ function EditProfile({
       let loggedInUserData = localStorage.getItem("loggedInUserData");
       let updatedLoggedInUserData: LoginUserInput | any =
         loggedInUserData && JSON.parse(loggedInUserData);
-      if (
-        updatedLoggedInUserData?.user &&
-        updatedLoggedInUserData?.user?.role === "Doctor"
-      ) {
-        updatedLoggedInUserData.user.first_name = values?.firstName;
-        updatedLoggedInUserData.user.last_name = values?.lastName;
-        if (updatedLoggedInUserData.user.doctorProfile) {
-          updatedLoggedInUserData.user.doctorProfile.profile_image =
-            image || userProfileImage;
-        }
-        localStorage.setItem(
-          "loggedInUserData",
-          JSON.stringify(updatedLoggedInUserData)
-        );
-      }
+      // if (
+      //   updatedLoggedInUserData?.user &&
+      //   updatedLoggedInUserData?.user?.role === "Doctor"
+      // ) {
+      //   updatedLoggedInUserData.user.first_name = values?.firstName;
+      //   updatedLoggedInUserData.user.last_name = values?.lastName;
+      //   if (updatedLoggedInUserData.user.doctorProfile) {
+      //     updatedLoggedInUserData.user.doctorProfile.profile_image =
+      //       image || userProfileImage;
+      //   }
+      //   localStorage.setItem(
+      //     "loggedInUserData",
+      //     JSON.stringify(updatedLoggedInUserData)
+      //   );
+      // }
+      saveUserData?.({
+        firstName: values?.firstName,
+        lastName: values?.lastName,
+        profilePicture: image || userProfileImage,
+      });
 
       setProfileUpdated?.(Math.random());
       if (getRole() === "Doctor") {
