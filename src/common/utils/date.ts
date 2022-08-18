@@ -66,12 +66,12 @@ export function formatDAYMMDDYYUTC(date: string) {
 
 export function formathhmma(date: string, timezone?: string) {
   return timezone
-    ? dayjs(date).utc().tz(timezone).format("hh:mma")
-    : dayjs(date).utc().format("hh:mma");
+    ? dayjs(date).utc().tz(timezone).format("h:mm A")
+    : dayjs(date).utc().format("h:mm A");
 }
 
 export function formatDate_n_Time(date: string) {
-  return dayjs.utc(date).format("MMMM-YYYY-DD hh:mm:ss");
+  return dayjs.utc(date).format("MMMM-YYYY-DD h:mm:ss");
 }
 
 export const getDateInFormat = (
@@ -103,7 +103,7 @@ export function time24HrConvert(time: any) {
 
 export function time12HrConvert(time: any) {
   console.log(time, "time")
-  return dayjs(`${dayjs().format("MM/DD/YYYY")} ${time}`).format("HH:mm");
+  return dayjs(`${dayjs().format("MM/DD/YYYY")} ${time}`).format("H:mm");
 }
 
 export function UTCPrettierTime(hour: any) {

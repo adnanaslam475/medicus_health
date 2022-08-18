@@ -24,12 +24,7 @@ function MultiRangeListing(props: Props) {
     JSON.parse(
       String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
     );
-  console.log(
-    "item",
-    dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.startTime}:00.000Z`)
-      .tz(timeZone)
-      .format("HH:mm")
-  );
+
   return (
     <div className="flex  items-center" key={index}>
       <div className="bg-gray-4 rounded-lg flex my-2 flex-1">
@@ -44,7 +39,7 @@ function MultiRangeListing(props: Props) {
           <span className="text-xs md:text-base">
             {dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.startTime}:00.000Z`)
               .tz(timeZone)
-              .format("hh:mm A")}
+              .format("h:mm A")}
           </span>
         </div>
         <div className="flex flex-1 flex-col pl-1 md:px-1  py-2">
@@ -52,7 +47,7 @@ function MultiRangeListing(props: Props) {
           <span className="text-xs md:text-base">
             {dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.endTime}:00.000Z`)
               .tz(timeZone)
-              .format("hh:mm A")}
+              .format("h:mm A")}
           </span>
         </div>
       </div>
