@@ -111,7 +111,7 @@ function DoctorCard({
         <div className="flex-none lg:flex">
           <div className="w-full lg:w-4/6 flex-none sm:flex">
             <div className="docAvatarCover pr-3">
-              <div className="rounded-full flex items-center justify-center overflow-hidden sm:border">
+              <div className="rounded-full flex items-center justify-center overflow-hidden shadow-lg">
                 {loading ? (
                   <span className={`${_classes["emptyImgContainer"]}`}></span>
                 ) : (
