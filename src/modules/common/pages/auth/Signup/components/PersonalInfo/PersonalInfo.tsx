@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Select, DatePicker, Checkbox } from "antd";
+import { Form, Input, Button, Select, DatePicker, Checkbox, Modal } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
 import {
@@ -12,6 +12,7 @@ import {
 } from "generated/graphql";
 import _classes from "../../SignUp.module.scss";
 import { useTranslations } from "next-intl";
+import TermsAndConditions from "common/components/TermsAndConditionns/TermsAndConditionns";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -103,6 +104,21 @@ export default function PersonalInfo({ onFinish }: props) {
     } else {
       callback();
     }
+  };
+
+  // TERMS & CONDITIONS MODAL
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -460,15 +476,31 @@ export default function PersonalInfo({ onFinish }: props) {
               setTerms(e.target.checked);
             }}
           >
-            <span className="mb-10 text-gray text-xs">
+            <span className="mb-10 text-gray ">
               {/* Acepto los */}
               {t("i_agree_to_the")}
               {/* I agree to the  */}
-              <Link href={"#"}>
-                {/* términos y condiciones */}
+              <Button
+                type="link"
+                onClick={showModal}
+                className="px-0 terms-n-conditions"
+              >
                 {t("terms_n_conditions")}
-                {/* Terms & Conditions */}
-              </Link>
+              </Button>
+              <Modal
+                // title="Terms & conditions"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                maskClosable={false}
+                bodyStyle={{ overflowY: "scroll" }}
+                // style={{ height: "calc(100vh - 200px)" }}
+                className={`${_classes["custom-modal-height"]}`}
+              >
+                <div>
+                  <TermsAndConditions />
+                </div>
+              </Modal>
             </span>
           </Checkbox>
         </div>
