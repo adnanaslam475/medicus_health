@@ -19,7 +19,7 @@ type Props = {
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   setShowModal?: (id: boolean) => void;
   onViewSuggestedSlots: () => void;
-  specialization:string;
+  specialization: string;
 };
 
 function AppointmnetSuggestedCard({
@@ -37,27 +37,38 @@ function AppointmnetSuggestedCard({
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
-  const timeZone = typeof window !== "undefined" &&localStorage?.getItem("timeZone") !== "undefined" &&JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
       <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-      <span className="text-primary text-base block mb-6">{specialization}</span>
+      <span className="text-primary text-base block mb-6">
+        {specialization}
+      </span>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Appointment type</span>
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Appointment date</span>
-      <h6>{date.formatDAYMMDDYY(requestedDate,timeZone)}</h6>
+      <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Appointment proposed time</span>
       {appointmentTimeSlots?.length === 0 ? (
         <div className="text-cyan font-semibold">{" - "}</div>
       ) : (
         appointmentTimeSlots?.map((item) => (
-          <div className="text-cyan font-semibold">{`${date.formatDAYMMDDYY(item?.startTime,timeZone)} - ${date.formathhmma(
-            item.startTime,timeZone
-          )} - ${date.formathhmma(item.endTime,timeZone)}`}</div>
+          <div className="text-cyan font-semibold text-sm">{`${date.formatDAYMMDDYY(
+            item?.startTime,
+            timeZone
+          )} - ${date.formathhmma(
+            item.startTime,
+            timeZone
+          )} - ${date.formathhmma(item.endTime, timeZone)}`}</div>
         ))
       )}
       <Space direction="vertical" size="middle" />
@@ -72,7 +83,7 @@ function AppointmnetSuggestedCard({
         >
           View proposed appointment times
         </Button>
-      <Button
+        <Button
           className={`${_classes["card-btn"]} bg-transparent mt-4 ml-2`}
           onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
         >
