@@ -181,11 +181,11 @@ function DoctorAppointmentInfo({ data }: Props) {
           }
         />
         <LabelWithText
-          label="Appointment type"
+          label="Appointment type requested"
           text={serviceType?.name ? serviceType?.name : "--"}
         />
         <LabelWithText
-          label="AppoIntment date"
+          label="AppoIntment date requested"
           text={
             status === "Proposed" ||
             status === "Rescheduled" ||
@@ -203,7 +203,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           text={date?.formatDAYMMDDYY(requestedDate)}
         /> */}
         <LabelWithText
-          label="Appointment time"
+          label="Appointment time requested"
           text={
             status === "Proposed" ||
             status === "Rescheduled" ||
