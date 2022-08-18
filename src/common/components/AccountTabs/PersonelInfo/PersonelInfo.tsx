@@ -104,27 +104,28 @@ const PersonalInfo = () => {
           notification.success({
             message: "Successfully updated",
           });
-        if (
-          updatedLoggedInUserData?.user &&
-          updatedLoggedInUserData?.user?.role === "User"
-        ) {
-          updatedLoggedInUserData.user.first_name = values?.firstName;
-          updatedLoggedInUserData.user.last_name = values?.lastName;
-          if (updatedLoggedInUserData.user.patientProfile) {
-            updatedLoggedInUserData.user.patientProfile.profileImage =
-              image || userProfileImage;
-          }
-          localStorage.setItem(
-            "loggedInUserData",
-            JSON.stringify(updatedLoggedInUserData)
-          );
+        executeUseGetUserQuery({ requestPolicy: "network-only" });
+      }
+      if (
+        updatedLoggedInUserData?.user &&
+        updatedLoggedInUserData?.user?.role === "User" &&
+        !res?.error
+      ) {
+        updatedLoggedInUserData.user.first_name = values?.firstName;
+        updatedLoggedInUserData.user.last_name = values?.lastName;
+        if (updatedLoggedInUserData.user.patientProfile) {
+          updatedLoggedInUserData.user.patientProfile.profileImage =
+            image || userProfileImage;
         }
+        localStorage.setItem(
+          "loggedInUserData",
+          JSON.stringify(updatedLoggedInUserData)
+        );
         saveUserData?.({
           firstName: values?.firstName,
           lastName: values?.lastName,
           profilePicture: image ? image : userProfileImage,
         });
-        executeUseGetUserQuery({ requestPolicy: "network-only" });
       }
 
       if (res?.error && res?.error?.message) {
