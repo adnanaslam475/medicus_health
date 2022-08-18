@@ -324,6 +324,10 @@ query getAllRequestedAppointments(
         status
         amountReceived
       }
+      appointmentCharges {
+        total
+        appointmentPrice
+      }
       appointmentSchedule {
         startTime
         endTime
