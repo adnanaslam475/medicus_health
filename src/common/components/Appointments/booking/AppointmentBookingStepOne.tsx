@@ -404,14 +404,14 @@ export const AppointmentBookingStepOne = React.forwardRef(
                         }:00.000Z`
                       )
                         .tz(timeZone)
-                        .format("HH:mm")} - 
+                        .format("hh:mm A")} - 
                       ${dayjs(
                         `${dayjs().format("YYYY-MM-DD")}T${
                           item?.endTime
                         }:00.000Z`
                       )
                         .tz(timeZone)
-                        .format("HH:mm")} - 
+                        .format("hh:mm A")} 
                       `}
                       </Radio.Button>
                     );

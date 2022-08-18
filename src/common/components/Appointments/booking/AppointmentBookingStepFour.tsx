@@ -94,15 +94,15 @@ function StepFour() {
             }:00.000Z`
           )
             .tz(timeZone)
-            .format("HH:mm")}{" "}
-          -
+            .format("hh:mm A")}{" "}
+          -{" "}
           {dayjs(
             `${dayjs().format("YYYY-MM-DD")}T${
               availabilityTime?.endTime
             }:00.000Z`
           )
             .tz(timeZone)
-            .format("HH:mm")}
+            .format("hh:mm A")}
           {/* {`${date.formathhmma(
           availabilityTime?.startTime
         )} - ${date.formathhmma(availabilityTime?.endTime)}`} */}
