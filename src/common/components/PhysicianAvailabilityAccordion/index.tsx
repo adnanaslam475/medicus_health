@@ -65,7 +65,7 @@ const PhysicianAvailabilityAccordion = (props: Props) => {
                             }:00.000Z`
                           )
                             .tz(timeZone)
-                            .format("HH:mm")}{" "}
+                            .format("hh:mm A")}{" "}
                           -{" "}
                           {dayjs(
                             `${dayjs().format("YYYY-MM-DD")}T${
@@ -73,7 +73,7 @@ const PhysicianAvailabilityAccordion = (props: Props) => {
                             }:00.000Z`
                           )
                             .tz(timeZone)
-                            .format("HH:mm")}
+                            .format("hh:mm A")}
                           {/* {`${date.formathhmma(item?.startTime)} -
                           ${date.formathhmma(item?.endTime)}`} */}
                           {/* {`${date.time24HrConvert(item?.startTime)} -
