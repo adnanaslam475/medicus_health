@@ -169,7 +169,7 @@ function AppointmentInfo(props: Props) {
                   // doctorId: appointment?.doctorId,
                   patientId: appointment?.patientId,
                 };
-                localStorage.setItem("id", JSON.stringify(query));
+                // localStorage.setItem("id", JSON.stringify(query));
                 Router.push({
                   pathname: "/patient/messages",
                   query,
@@ -196,7 +196,7 @@ function AppointmentInfo(props: Props) {
                   doctorId: appointment?.doctorId,
                   patientId: appointment?.patientId,
                 };
-                localStorage.setItem("id", JSON.stringify(query));
+                // localStorage.setItem("id", JSON.stringify(query));
                 Router.push({
                   pathname: "/patient/messages",
                   query,

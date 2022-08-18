@@ -196,7 +196,7 @@ function DoctorCard({
                       doctorId: id,
                       patientId: loggedInUser,
                     };
-                    localStorage.setItem("id", JSON.stringify(query));
+                    // localStorage.setItem("id", JSON.stringify(query));
                     Router.push({
                       pathname: "/physician/messages",
                       query,

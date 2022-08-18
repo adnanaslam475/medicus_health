@@ -34,7 +34,7 @@ const MessageButtons = (props: Props) => {
                 doctorId,
                 patientId: patientID,
               };
-              localStorage.setItem("id", JSON.stringify(query));
+              // localStorage.setItem("id", JSON.stringify(query));
               Router.push({
                 pathname: "/physician/messages",
                 query,
@@ -65,7 +65,7 @@ const MessageButtons = (props: Props) => {
                   doctorId,
                   patientId: patientID,
                 };
-                localStorage.setItem("id", JSON.stringify(query));
+                // localStorage.setItem("id", JSON.stringify(query));
                 Router.push({
                   pathname: "/physician/messages",
                   query,
