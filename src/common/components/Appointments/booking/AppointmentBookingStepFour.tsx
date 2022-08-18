@@ -3,6 +3,7 @@ import { getUserData } from "common/utils/userData";
 import { useGetAppointmentPriceForRequestQuery } from "generated/graphql";
 import { date } from "../../../utils";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
+import dayjs from "dayjs";
 
 function StepFour() {
   const { data } = useBookAppointment();
@@ -41,6 +42,13 @@ function StepFour() {
     : physician
     ? `${physician?.includes("Dr.") ? physician : `Dr. ${physician}`}`
     : "";
+
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
   return (
     <>
       <h2>Summary</h2>
@@ -79,7 +87,26 @@ function StepFour() {
         <span>{date.formatDAYMMDDYY(requestedDate)}</span>
         <span className="text-sm"></span>
         {/* <span className="ml-3">{date.formathhmma(requestedDate)}</span> */}
-        <span className="ml-3">{`${date.formathhmma(availabilityTime?.startTime)} - ${date.formathhmma(availabilityTime?.endTime)}`}</span>
+        <span className="ml-3">
+          {dayjs(
+            `${dayjs().format("YYYY-MM-DD")}T${
+              availabilityTime?.startTime
+            }:00.000Z`
+          )
+            .tz(timeZone)
+            .format("HH:mm")}{" "}
+          -
+          {dayjs(
+            `${dayjs().format("YYYY-MM-DD")}T${
+              availabilityTime?.endTime
+            }:00.000Z`
+          )
+            .tz(timeZone)
+            .format("HH:mm")}
+          {/* {`${date.formathhmma(
+          availabilityTime?.startTime
+        )} - ${date.formathhmma(availabilityTime?.endTime)}`} */}
+        </span>
       </div>
       <p className="font-rubik text-gray">
         Please note, this is only an appointment request. Your physician will
