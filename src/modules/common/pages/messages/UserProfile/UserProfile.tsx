@@ -54,9 +54,9 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   async function onMarkAsReadMutation() {
     const id = thread?.id;
     try {
-      await markAsReadMutation({
-        id,
-      });
+      // await markAsReadMutation({
+      //   id,
+      // });
     } catch (error) {
       console.log("Something went wrong");
     }

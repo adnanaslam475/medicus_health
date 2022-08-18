@@ -223,7 +223,7 @@ function DoctorProfileCard(props: Props) {
                       chat: "admin",
                       patientId: loggedInUser,
                     };
-                    localStorage.setItem("id", JSON.stringify(query));
+                    // localStorage.setItem("id", JSON.stringify(query));
                     Router.push({
                       pathname: "/patient/messages",
                       query,
@@ -247,7 +247,7 @@ function DoctorProfileCard(props: Props) {
                       doctorId: doctorData?.doctor_id,
                       patientId: loggedInUser,
                     };
-                    localStorage.setItem("id", JSON.stringify(query));
+                    // localStorage.setItem("id", JSON.stringify(query));
                     Router.push({
                       pathname: "/patient/messages",
                       query,

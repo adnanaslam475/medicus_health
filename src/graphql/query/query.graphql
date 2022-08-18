@@ -488,6 +488,10 @@ query getAppointmentById($id: Int!) {
       status
       amountReceived
     }
+    appointmentCharges {
+      total
+      appointmentPrice
+    }
     createdAt
     charges
     appointmentHealthHistory {

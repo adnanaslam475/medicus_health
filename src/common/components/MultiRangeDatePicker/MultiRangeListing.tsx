@@ -1,5 +1,6 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { date } from "common/utils";
+import dayjs from "dayjs";
 import React from "react";
 import { singleSchedule } from "../../types/types";
 import { dayName } from "../../utils/date";
@@ -17,6 +18,18 @@ function MultiRangeListing(props: Props) {
     props;
   const [open, setOpen] = React.useState<boolean>(false);
 
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
+  console.log(
+    "item",
+    dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.startTime}:00.000Z`)
+      .tz(timeZone)
+      .format("HH:mm")
+  );
   return (
     <div className="flex  items-center" key={index}>
       <div className="bg-gray-4 rounded-lg flex my-2 flex-1">
@@ -28,11 +41,19 @@ function MultiRangeListing(props: Props) {
         </div>
         <div className="flex flex-1 flex-col pl-1 md:px-1 py-2 border-r border-gray-3">
           <span className="text-gray text-xs">From</span>
-          <span className="text-xs md:text-base">{date.formathhmma(item.startTime)}</span>
+          <span className="text-xs md:text-base">
+            {dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.startTime}:00.000Z`)
+              .tz(timeZone)
+              .format("hh:mm A")}
+          </span>
         </div>
         <div className="flex flex-1 flex-col pl-1 md:px-1  py-2">
           <span className="text-gray text-xs">To</span>
-          <span className="text-xs md:text-base">{date.formathhmma(item.endTime)}</span>
+          <span className="text-xs md:text-base">
+            {dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.endTime}:00.000Z`)
+              .tz(timeZone)
+              .format("hh:mm A")}
+          </span>
         </div>
       </div>
       {disable == false && (
