@@ -49,6 +49,9 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
+  }
+
+  async function onMarkAsReadMutation() {
     const id = thread?.id;
     try {
       await markAsReadMutation({
@@ -83,7 +86,10 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
 
   return (
     <div
-      onClick={onJoinChat}
+      onClick={() => {
+        onJoinChat();
+        onMarkAsReadMutation();
+      }}
       className={`flex px-1 sm:px-5 py-4 items-center border border-gray-4 cursor-pointer hover:bg-gray-4`}
     >
       <div className="relative">
