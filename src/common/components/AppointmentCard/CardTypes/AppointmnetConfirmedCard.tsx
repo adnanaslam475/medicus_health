@@ -33,8 +33,11 @@ function AppointmnetConfirmedCard({
     [appointmentTimeSlots]
   );
   const timeZone =
-    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     if (selectedAppointment) {
@@ -71,7 +74,7 @@ function AppointmnetConfirmedCard({
       {!selectedAppointment ? (
         <div className="text-cyan font-semibold mb-4">{" - "}</div>
       ) : (
-        <div className="text-cyan font-semibold mb-4">{`${date.formathhmma(
+        <div className="text-cyan font-semibold text-sm mb-4">{`${date.formathhmma(
           selectedAppointment?.startTime,
           timeZone
         )} - ${date.formathhmma(selectedAppointment?.endTime, timeZone)}`}</div>

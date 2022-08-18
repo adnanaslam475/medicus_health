@@ -62,7 +62,7 @@ function AppointmnetSuggestedCard({
         <div className="text-cyan font-semibold">{" - "}</div>
       ) : (
         appointmentTimeSlots?.map((item) => (
-          <div className="text-cyan font-semibold">{`${date.formatDAYMMDDYY(
+          <div className="text-cyan font-semibold text-sm">{`${date.formatDAYMMDDYY(
             item?.startTime,
             timeZone
           )} - ${date.formathhmma(
