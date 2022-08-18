@@ -174,10 +174,6 @@ export function MessageContextProvider({
   const [{ fetching }, executeCreateChatMessageMutation] =
     useCreateChatMessageMutation();
 
-  // useEffect(() => {
-  //   setCreateChatFetching(fetching);
-  // }, [fetching]);
-
   const { user } = getUserData();
 
   async function getRtmToken(

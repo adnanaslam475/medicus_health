@@ -51,9 +51,9 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     onJoinChannel?.(thread.channelName);
     const id = thread?.id;
     try {
-      await markAsReadMutation({
-        id,
-      });
+      // await markAsReadMutation({
+      //   id,
+      // });
     } catch (error) {
       console.log("Something went wrong");
     }
