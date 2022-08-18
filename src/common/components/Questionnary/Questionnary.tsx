@@ -274,11 +274,13 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   function onChangeMedicalCondition(e: CheckboxValueType[]): void {
     HealthQuestionnaryData.q3.q.selectedOption = e;
     setShowDrugOthers(e.includes("Others"));
+    setShowDrugOthers(e.includes("Otra"));
   }
 
   function onChangeSurgicalHistory(checkedValue: CheckboxValueType[]): void {
     HealthQuestionnaryData.q4.selectedOption = checkedValue;
     setShowSurgicalOthers(checkedValue.includes("Others"));
+    setShowSurgicalOthers(checkedValue.includes("Otros"));
   }
   // const t = useTranslations("HealthQuestionary");
   return (
