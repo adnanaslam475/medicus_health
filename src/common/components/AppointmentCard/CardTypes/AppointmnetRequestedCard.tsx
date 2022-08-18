@@ -40,8 +40,11 @@ function AppointmnetRequestedCard({
   }`;
 
   const timeZone =
-    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
 
   return (
     <Card className={`${_classes["appointment-card"]}`}>
@@ -56,7 +59,7 @@ function AppointmnetRequestedCard({
       <h6 className="text-cyan">
         {date.formatDAYMMDDYY(requestedDate, timeZone)}
       </h6>
-      <span className="text-sm mt-4 block">Appointment requested time</span>
+      <span className="text-sm mt-4 block">Appointment time</span>
       <div className="text-cyan">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${date.formatDAYMMDDYY(

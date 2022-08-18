@@ -102,6 +102,10 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       status
       amountReceived
     }
+    appointmentCharges {
+      total
+      appointmentPrice
+    }
   }
 }
 
