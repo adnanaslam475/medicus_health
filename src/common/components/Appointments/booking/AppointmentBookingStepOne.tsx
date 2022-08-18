@@ -223,6 +223,15 @@ export const AppointmentBookingStepOne = React.forwardRef(
       setDoctorId(Number(doctorId));
     };
 
+    // const patientTime = dayjs(`${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`).tz("Asia/Karachi").format("HH:mm")
+    // console.log("my patient Time",patientTime, `${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`)
+    const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
+    
     return (
       <>
         <h2>Request an appointment</h2>
@@ -386,13 +395,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
                   defaultValue={appoinmentDetails?.stepOne?.availability}
                 >
                   {scheduleDetails?.doctorSchedulesByDay?.map((item: any) => (
-                    <Radio.Button
-                      key={item?.id}
-                      value={item?.id}
-                    >{`${date?.dayName(item?.day)} - ${date.formathhmma(
-                      item?.startTime
-                    )} -
-              ${date.formathhmma(item?.endTime)}`}</Radio.Button>
+                    <Radio.Button key={item?.id} value={item?.id}>
+                      {`${date?.dayName(item?.day)} - 
+                      ${dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.startTime}:00.000Z`).tz(timeZone).format("HH:mm")} - 
+                      ${dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.endTime}:00.000Z`).tz(timeZone).format("HH:mm")} - 
+                      `
+                      }
+                    </Radio.Button>
                   ))}
                 </Radio.Group>
               ) : (

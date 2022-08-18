@@ -7,12 +7,14 @@ import timezone from "dayjs/plugin/timezone";
 import { date } from "./index";
 import { AppointmentTimeSlots } from "generated/graphql";
 import { CustomTimeSlot } from "common/types/types";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
 dayjs.extend(utc);
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(duration);
 dayjs.extend(timezone);
+dayjs.extend(customParseFormat);
 dayjs.tz.setDefault("America/New_York");
 
 export function convertToUTC(date: string) {
@@ -99,6 +101,34 @@ export function time24HrConvert(time: any) {
   return time; // return adjusted time or original string
 }
 
+export function time12HrConvert(time: any) {
+  console.log(time, "time")
+  return dayjs(`${dayjs().format("MM/DD/YYYY")} ${time}`).format("HH:mm");
+}
+
+export function UTCPrettierTime(hour: any) {
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
+
+  const convertedTime = date.time12HrConvert(hour);
+  const [hours, minute] = convertedTime.split(":")
+  // const minutes = Number(date.time12HrConvert(minute));
+  console.log("my hours",minute,hours,hour)
+  const formatedTime = dayjs
+    .tz(dayjs(), timeZone)
+    .set("hours", +hours)
+    .set("minute", +minute)
+    .toISOString()
+    ?.split("T")[1]
+    ?.slice(0, 5);
+
+  return formatedTime;
+}
+
 // to get day name from date day
 export function dayName(date: number) {
   return dayjs().day(date).format("dddd");
@@ -165,7 +195,7 @@ export function isAppointmentTimeValid(
           }
         }, dateDifferenceEndDate);
       }
-    }, Number(dateDifferenceStartDate-300000));
+    }, Number(dateDifferenceStartDate - 300000));
   }
 }
 
