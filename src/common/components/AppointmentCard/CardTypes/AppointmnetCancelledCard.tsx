@@ -102,13 +102,13 @@ function AppointmnetCancelledCard({
 
         {appointmentTimeSlots?.length ? (
           appointmentTimeSlots?.map((item) => (
-            <div className="text-cyan font-semibold">{`${date.formathhmma(
+            <div className="text-cyan font-semibold text-sm">{`${date.formathhmma(
               item.startTime,
               timeZone
             )} - ${date.formathhmma(item.endTime, timeZone)}`}</div>
           ))
         ) : appointmentDetail?.appointmentDateTime?.startTime ? (
-          <div className="text-cyan font-semibold">
+          <div className="text-cyan font-semibold text-sm">
             {formatedStartTime} - {formatedEndTime}
           </div>
         ) : (

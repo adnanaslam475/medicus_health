@@ -88,7 +88,7 @@ function EditAdminUserDetails({}: Props) {
       }
       if (response.data) {
         notification.success({
-          message: "User Updated Successfully",
+          message: "User Updated successfully",
         });
         Router.push(`/admin/user`);
         executeUseGetAdminUserByIdQuery({ requestPolicy: "network-only" });

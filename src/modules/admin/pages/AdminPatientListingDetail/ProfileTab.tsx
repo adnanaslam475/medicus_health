@@ -176,7 +176,7 @@ function AdminPatientProfileTab({}: Props) {
       }
       if (response.data) {
         notification.success({
-          message: "User Updated Successfully",
+          message: "User updated successfully",
         });
       }
     } catch (error: any) {

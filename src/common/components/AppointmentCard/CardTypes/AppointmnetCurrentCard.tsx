@@ -62,7 +62,7 @@ function AppointmnetCurrentCard({
       <h6>{date.formatDAYMMDDYY(requestedDate)}</h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Appointment time</span>
-      <div className="text-cyan font-semibold">
+      <div className="text-cyan font-semibold text-sm">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${date.formathhmma(appointmentDateTime?.startTime)}
              - ${date.formathhmma(appointmentDateTime?.endTime)}`
