@@ -94,13 +94,13 @@ function EditableNotes() {
       }
       if (response.data) {
         notification.success({
-          message: "Note Delete Successfully",
+          message: "Note delete Successfully",
         });
         Router.push(`/physician/appointments/upcoming`);
       }
     } catch (error: any) {
       notification.error({
-        message: error?.message || "Something Went Wrong",
+        message: error?.message || "Something went wrong",
       });
     }
   };
@@ -233,7 +233,7 @@ function EditableNotes() {
                 setIsPublish(true);
               }}
             >
-              Publish Notes
+              Publish notes
             </Button>
             <Button
               className="mt-2"

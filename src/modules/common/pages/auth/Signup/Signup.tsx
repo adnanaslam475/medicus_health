@@ -60,7 +60,7 @@ function Signup() {
   };
 
   function showConfirm() {
-    <div className={`${_classes["confirmation-signup"]}`}>
+    <div className="confirmation-signup">
       {confirm({
         // title: t("signup_modal_skip_questionaire_message"),
         title:

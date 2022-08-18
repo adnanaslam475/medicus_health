@@ -139,7 +139,12 @@ function RescheduleAppointmentModal(props: Props) {
     (appointment) => appointment.selected
   );
 
-  const timeZone = typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
 
   return (
     <>
@@ -197,14 +202,20 @@ function RescheduleAppointmentModal(props: Props) {
             <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
               <div className="flex gap-2  rounded leading-3 max-w-max">
                 <p className="text-sm mb-0">{`${date.formatMMMMDDYYYY(
-                  selectedAppointment?.startTime,timeZone
+                  selectedAppointment?.startTime,
+                  timeZone
                 )}  ${date.formathhmma(
-                  selectedAppointment?.startTime,timeZone
+                  selectedAppointment?.startTime,
+                  timeZone
                 )}`}</p>{" "}
                 -
                 <p className="text-sm mb-0">{`${date.formatMMMMDDYYYY(
-                  selectedAppointment?.endTime,timeZone
-                )}  ${date.formathhmma(selectedAppointment?.endTime,timeZone)}`}</p>
+                  selectedAppointment?.endTime,
+                  timeZone
+                )}  ${date.formathhmma(
+                  selectedAppointment?.endTime,
+                  timeZone
+                )}`}</p>
               </div>
               <span className="hover:bg-white p-2 rounded-xl"></span>
             </div>
@@ -220,9 +231,15 @@ function RescheduleAppointmentModal(props: Props) {
             {slots?.map((v, index) => (
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="flex gap-2  rounded leading-3 max-w-max">
-                <p className="text-sm mb-0">{date.formatMMMMDDYYYY(v?.startTime,timeZone)} - {date.formathhmma(v?.startTime,timeZone)}</p> -
-                  <p className="text-sm mb-0">{date.formatMMMMDDYYYY(v?.endTime,timeZone)} - {date.formathhmma(v?.endTime,timeZone)}</p>
-
+                  <p className="text-sm mb-0">
+                    {date.formatMMMMDDYYYY(v?.startTime, timeZone)} -{" "}
+                    {date.formathhmma(v?.startTime, timeZone)}
+                  </p>{" "}
+                  -
+                  <p className="text-sm mb-0">
+                    {date.formatMMMMDDYYYY(v?.endTime, timeZone)} -{" "}
+                    {date.formathhmma(v?.endTime, timeZone)}
+                  </p>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl">
                   <DeleteOutlined onClick={() => deleteTimeSlot(index)} />
