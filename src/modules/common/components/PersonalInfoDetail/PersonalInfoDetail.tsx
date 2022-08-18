@@ -157,6 +157,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         // message: t("first_name_is_required"),
                         message: "Se requiere el nombre",
                       },
+                      {
+                        max: 30,
+                        // message: t("first_name_message"),
+                        message: "El nombre no debe tener más de 30 caracteres",
+                      },
                     ]}
                     className="bottom-margin-0"
                   >
@@ -182,6 +187,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         required: true,
                         // message: t("last_name_is_required"),
                         message: "Se requiere apellido",
+                      },
+                      {
+                        max: 30,
+                        // message: t("first_name_message"),
+                        message: "El nombre no debe tener más de 30 caracteres",
                       },
                     ]}
                     className="bottom-margin-0"
@@ -259,8 +269,18 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
-                  <Form.Item noStyle name="conntactNumber">
-                    <Input size="large" placeholder="Teléfono de contacto" />
+                  <Form.Item
+                    // noStyle
+                    name="conntactNumber"
+                    rules={[
+                      {
+                        required: true,
+                        message:
+                          "Se requiere contacto telefónico",
+                      },
+                    ]}
+                  >
+                    <Input size="large" placeholder="Teléfono de contacto" type="number" />
                   </Form.Item>
                 </div>
               </div>
@@ -446,7 +466,19 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
-                  <Form.Item noStyle name="streetAddress">
+                  <Form.Item
+                    // noStyle
+                    name="streetAddress"
+                    rules={[
+                      {
+                        required: true,
+                        // message: t("street_address_message"),
+                        message:
+                          "La dirección de la calle no debe ser superior a 30",
+                        max: 100,
+                      },
+                    ]}
+                  >
                     <Input
                       size="large"
                       // placeholder={t("street_address")}
