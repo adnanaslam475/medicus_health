@@ -56,7 +56,11 @@ const PersonalInfo = () => {
       const timeZone = getTimeZones?.data?.getTimeZones.filter(
         (item) => item.id === patientTimeZoneId
       )[0]?.timeZone;
+      const offset = getTimeZones?.data?.getTimeZones.filter(
+        (item) => item.id === patientTimeZoneId
+      )[0]?.gmtOffset;
       localStorage.setItem("timeZone", JSON.stringify(timeZone));
+      localStorage.setItem("offset", JSON.stringify(offset));
     }
   }, [patientTimeZoneId]);
 

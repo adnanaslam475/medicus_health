@@ -12,6 +12,9 @@ import {
 } from "../../../../../../generated/graphql";
 import { RangeValue } from "rc-picker/lib/interface";
 import EditProfile from "../EditProfile/EditProfile";
+import dayjs from "dayjs";
+import { date } from "common/utils";
+import { UTCPrettierTime } from "common/utils/date";
 
 function AccountsProfile() {
   const editData = () => {
@@ -45,16 +48,30 @@ function AccountsProfile() {
   const [createDoctorScheduleResponse, executeCreateDoctorScheduleMutation] =
     useCreateDoctorScheduleMutation();
   const { fetching } = createDoctorScheduleResponse;
-  const [{fetching:deleteScheduleFetching}, executeRemoveDoctorScheduleMutation] =
-    useRemoveDoctorScheduleMutation();
+  const [
+    { fetching: deleteScheduleFetching },
+    executeRemoveDoctorScheduleMutation,
+  ] = useRemoveDoctorScheduleMutation();
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
 
   async function onAddClick() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
+      const startTime = UTCPrettierTime(
+        addScheduleTime?.timeString[0]
+      );
+      const endTime = UTCPrettierTime(
+        addScheduleTime?.timeString[1]
+      );
       const variable = {
         doctorId: Number(id),
         day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
-        startTime: addScheduleTime?.timeString[0],
-        endTime: addScheduleTime?.timeString[1],
+        startTime: startTime,
+        endTime: endTime,
       };
 
       await executeCreateDoctorScheduleMutation(variable);

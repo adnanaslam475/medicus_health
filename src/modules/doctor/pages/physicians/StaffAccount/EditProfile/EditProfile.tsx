@@ -268,7 +268,7 @@ function EditProfile({
       if (res?.data) {
         res?.data?.updateDoctorProfile &&
           notification.success({
-            message: "Updated Successfully",
+            message: "Updated successfully",
           });
         setProfileUpdated?.(Math.random());
         if (getRole() === "Doctor") {
@@ -279,7 +279,7 @@ function EditProfile({
           // if user changed the email logged out the user
           if (!emailMatched) {
             notification.success({
-              message: "Credentials Updated User Logged out",
+              message: "Credentials updated User logged out",
             });
             logout();
           }

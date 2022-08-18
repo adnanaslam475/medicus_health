@@ -19,19 +19,20 @@ interface Question {
   q?: any;
   q1?: any;
   q2?: any;
+  other?: any;
   selectedOption?: CheckboxValueType[];
 }
 
 const HealthQuestionnaryData: Questions = {
   q1: {
     name: "radio_drink",
-    label: "Usted bebe alcohol?",
+    label: "¿Usted bebe alcohol?",
     type: "radio",
     ans: null,
     option: ["sí", "no"],
     q: {
       name: "drinks",
-      label: "Qué tan frecuentemente bebe alcohol?",
+      label: "¿Qué tan frecuentemente bebe alcohol?",
       type: "text",
       ans: "",
     },
@@ -69,7 +70,7 @@ const HealthQuestionnaryData: Questions = {
   },
   q3: {
     name: "radio_drug",
-    label: "Usa alguna droga recreativa?",
+    label: "¿Usa alguna droga recreativa?",
     type: "radio",
     ans: "",
     option: ["sí", "no"],
@@ -130,11 +131,17 @@ const HealthQuestionnaryData: Questions = {
       type: "text",
       ans: "",
     },
+    other: {
+      name: "other",
+      label: "",
+      type: "text",
+      ans: "",
+    },
   },
   q4: {
     name: "surgical_history",
     label:
-      "Por favor seleccione procedimientos que describan su historial quirúrgico?",
+      "¿Por favor seleccione procedimientos que describan su historial quirúrgico?",
     type: "checkbox",
     ans: "",
     option: [
@@ -152,6 +159,12 @@ const HealthQuestionnaryData: Questions = {
     selectedOption: [],
     q2: {
       name: "surgical_text",
+      label: "",
+      type: "text",
+      ans: "",
+    },
+    other: {
+      name: "other",
       label: "",
       type: "text",
       ans: "",

@@ -311,7 +311,7 @@ function EditProfile({
     if (res?.data) {
       res?.data?.updateDoctorProfile &&
         notification.success({
-          message: "Updated Successfully",
+          message: "Updated successfully",
         });
       let loggedInUserData = localStorage.getItem("loggedInUserData");
       let updatedLoggedInUserData: LoginUserInput | any =
