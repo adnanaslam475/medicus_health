@@ -36,6 +36,7 @@ function AppointmentInfo(props: Props) {
     createdAt,
     transaction,
     patient,
+    appointmentCharges,
   } = appoinmentDetails?.appointment || {};
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
@@ -45,7 +46,7 @@ function AppointmentInfo(props: Props) {
   );
   const [disabled, setDisabled] = useState(true);
   const [isRoleGuard, setRoleGuard] = useState<boolean>(false);
-  const appointmentCharges = transaction?.amountReceived;
+  // const appointmentCharges = transaction?.total;
 
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
@@ -69,8 +70,11 @@ function AppointmentInfo(props: Props) {
   }, []);
 
   const timeZone =
-    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -131,7 +135,7 @@ function AppointmentInfo(props: Props) {
           />
           <LabelValueRow
             label="Total amount"
-            value={appointmentCharges ? `$${appointmentCharges}` : "-"}
+            value={appointmentCharges ? `$${appointmentCharges?.total}` : "-"}
           />
 
           <li className="flex border-b border-gray-5 py-3">
