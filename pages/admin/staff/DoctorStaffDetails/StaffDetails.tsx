@@ -67,7 +67,7 @@ function DoctorStaffDetails() {
       }
       if (response.data) {
         notification.success({
-          message: "Staff Delete Successfully",
+          message: "Staff delete successfully",
         });
         Router.push(`/admin/physicians/${query.adminId}`);
       }
@@ -123,13 +123,13 @@ function DoctorStaffDetails() {
       }
       if (response.data) {
         notification.success({
-          message: "Staff Updated Successfully",
+          message: "Staff updated successfully",
         });
         Router.push(`/admin/physicians/${query.adminId}`);
       }
     } catch (error: any) {
       notification.error({
-        message: error?.message || "Something Went Wrong",
+        message: error?.message || "Something went wrong",
       });
     }
   };
