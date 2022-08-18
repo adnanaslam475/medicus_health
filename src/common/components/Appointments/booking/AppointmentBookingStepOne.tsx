@@ -226,12 +226,12 @@ export const AppointmentBookingStepOne = React.forwardRef(
     // const patientTime = dayjs(`${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`).tz("Asia/Karachi").format("HH:mm")
     // console.log("my patient Time",patientTime, `${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`)
     const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(
-      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
-    );
-    
+      typeof window !== "undefined" &&
+      localStorage?.getItem("timeZone") !== "undefined" &&
+      JSON.parse(
+        String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+      );
+
     return (
       <>
         <h2>Request an appointment</h2>
@@ -394,15 +394,28 @@ export const AppointmentBookingStepOne = React.forwardRef(
                 <Radio.Group
                   defaultValue={appoinmentDetails?.stepOne?.availability}
                 >
-                  {scheduleDetails?.doctorSchedulesByDay?.map((item: any) => (
-                    <Radio.Button key={item?.id} value={item?.id}>
-                      {`${date?.dayName(item?.day)} - 
-                      ${dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.startTime}:00.000Z`).tz(timeZone).format("HH:mm")} - 
-                      ${dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.endTime}:00.000Z`).tz(timeZone).format("HH:mm")} - 
-                      `
-                      }
-                    </Radio.Button>
-                  ))}
+                  {scheduleDetails?.doctorSchedulesByDay?.map((item: any) => {
+                    return (
+                      <Radio.Button key={item?.id} value={item?.id}>
+                        {`${date?.dayName(item?.day)} - 
+                      ${dayjs(
+                        `${dayjs().format("YYYY-MM-DD")}T${
+                          item?.startTime
+                        }:00.000Z`
+                      )
+                        .tz(timeZone)
+                        .format("HH:mm")} - 
+                      ${dayjs(
+                        `${dayjs().format("YYYY-MM-DD")}T${
+                          item?.endTime
+                        }:00.000Z`
+                      )
+                        .tz(timeZone)
+                        .format("HH:mm")} - 
+                      `}
+                      </Radio.Button>
+                    );
+                  })}
                 </Radio.Group>
               ) : (
                 "No time slots available on this date"

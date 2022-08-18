@@ -61,52 +61,23 @@ function AccountsProfile() {
 
   async function onAddClick() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
-      const AMPM = addScheduleTime?.timeString[0]?.split(":")?.[1]?.split(" ")[1]
       const startTime = UTCPrettierTime(
         addScheduleTime?.timeString[0]
       );
       const endTime = UTCPrettierTime(
         addScheduleTime?.timeString[1]
       );
-      console.log(addScheduleTime?.timeString, "timestring")
-      // const hour = Number(
-      //   date.time12HrConvert(addScheduleTime?.timeString[0])?.split(":")?.[0]
-      // );
-      // const minute = Number(
-      //   date.time12HrConvert(addScheduleTime?.timeString[0])?.split(":")?.[1]
-      // );
-      // const formatedTime = dayjs
-      //   .tz(dayjs(), timeZone)
-      //   .set("hours", hour)
-      //   .set("minute", minute)
-      //   .toISOString()?.split("T")[1]?.slice(0,5)
-      // const removedSeconds = formatWithT?.split()
-      console.log(
-        "first",
-        startTime,endTime
-      );
+      const variable = {
+        doctorId: Number(id),
+        day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
+        startTime: startTime,
+        endTime: endTime,
+      };
 
-      // const patientTime = dayjs(`${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`).tz("Asia/Karachi").format("HH:mm")
-      // console.log("my patient Time",patientTime, `${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`)
-      // console.log(
-      //   "hello world",dayjs().format("MM/DD/YYYY hh:mmA"),
-      //   dayjs(
-      //     `${dayjs().format("MM/DD/YYYY")} ${addScheduleTime?.timeString[0]}`
-      //   )
-      //     .tz(timeZone)
-      //     .format("hh:mm A")
-      // );
-      // const variable = {
-      //   doctorId: Number(id),
-      //   day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
-      //   startTime: addScheduleTime?.timeString[0],
-      //   endTime: addScheduleTime?.timeString[1],
-      // };
-
-      // await executeCreateDoctorScheduleMutation(variable);
-      // await executeDoctorSchedules({ requestPolicy: "network-only" });
-      // setAddScheduleDay("Select Day");
-      // setAddScheduleTime({ timeString: [], time: null });
+      await executeCreateDoctorScheduleMutation(variable);
+      await executeDoctorSchedules({ requestPolicy: "network-only" });
+      setAddScheduleDay("Select Day");
+      setAddScheduleTime({ timeString: [], time: null });
     }
   }
   useEffect(() => {

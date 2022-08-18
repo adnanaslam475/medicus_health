@@ -116,8 +116,6 @@ export function UTCPrettierTime(hour: any) {
 
   const convertedTime = date.time12HrConvert(hour);
   const [hours, minute] = convertedTime.split(":")
-  // const minutes = Number(date.time12HrConvert(minute));
-  console.log("my hours",minute,hours,hour)
   const formatedTime = dayjs
     .tz(dayjs(), timeZone)
     .set("hours", +hours)
