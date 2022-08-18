@@ -57,7 +57,7 @@ function AppointmnetSuggestedCard({
       <span className="text-sm ">Appointment date</span>
       <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm">Appointment proposed time</span>
+      <span className="text-sm">Appointment time</span>
       {appointmentTimeSlots?.length === 0 ? (
         <div className="text-cyan font-semibold">{" - "}</div>
       ) : (

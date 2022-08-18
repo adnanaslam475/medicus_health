@@ -80,9 +80,11 @@ function DoctorAppointmentInfo({ data }: Props) {
     appointmentTimeSlots,
     appointmentSchedule,
     appointmentDateTime,
+    appointmentCharges,
     createdAt,
     doctor,
   } = data || {};
+  console.log(data, transaction, "DSdsdss");
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
   const timeZone =
@@ -219,7 +221,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="Total amount"
-          text={transaction ? `$${transaction?.amountReceived}` : "--"}
+          text={appointmentCharges ? `$${appointmentCharges?.total}` : "--"}
         />
         {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText

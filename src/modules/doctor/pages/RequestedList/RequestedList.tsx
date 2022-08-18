@@ -12,8 +12,11 @@ import {
 import { date } from "common/utils";
 
 const timeZone =
-  typeof window !== "undefined" &&localStorage?.getItem("timeZone") !== "undefined" &&
-  JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+  typeof window !== "undefined" &&
+  localStorage?.getItem("timeZone") !== "undefined" &&
+  JSON.parse(
+    String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+  );
 
 const Columns = [
   {
@@ -103,11 +106,11 @@ const Columns = [
   },
   {
     title: "Total amount",
-    dataIndex: "charges",
+    dataIndex: "appointmentCharges",
     key: "charges",
     sorter: true,
-    render: (value: number) => {
-      return <div className="someclass">{value ? `$${value}` : ""}</div>;
+    render: (value: any) => {
+      return <div className="someclass">{value ? `$${value?.total}` : ""}</div>;
     },
   },
   {
