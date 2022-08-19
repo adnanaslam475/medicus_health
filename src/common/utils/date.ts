@@ -102,11 +102,10 @@ export function time24HrConvert(time: any) {
 }
 
 export function time12HrConvert(time: any) {
-  console.log(time, "time")
   return dayjs(`${dayjs().format("MM/DD/YYYY")} ${time}`).format("H:mm");
 }
 
-export function UTCPrettierTime(hour: any) {
+export function UTCPrettierTime(time: any, date?: any) {
   const timeZone =
     typeof window !== "undefined" &&
     localStorage?.getItem("timeZone") !== "undefined" &&
@@ -114,17 +113,15 @@ export function UTCPrettierTime(hour: any) {
       String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
     );
 
-  const convertedTime = date.time12HrConvert(hour);
-  const [hours, minute] = convertedTime.split(":")
+  const convertedTime = time12HrConvert(time);
+  const [hours, minute] = convertedTime.split(":");
   const formatedTime = dayjs
-    .tz(dayjs(), timeZone)
+    .tz(date ? dayjs(date) : dayjs(), timeZone)
     .set("hours", +hours)
     .set("minute", +minute)
-    .toISOString()
-    ?.split("T")[1]
-    ?.slice(0, 5);
+    .toISOString();
 
-  return formatedTime;
+  return date ? formatedTime : formatedTime?.split("T")[1]?.slice(0, 5);
 }
 
 // to get day name from date day
