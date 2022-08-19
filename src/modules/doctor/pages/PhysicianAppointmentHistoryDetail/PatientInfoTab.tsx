@@ -75,51 +75,54 @@ function PatientInfoTab({}: Props) {
     >
       <div className="max-w-[800px]">
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="first name" value={first_name} />
-          <LabelWithTextDiv label="Last name" value={last_name} />
+          <LabelWithTextDiv label="Nombre" value={first_name} />
+          <LabelWithTextDiv label="Apellido" value={last_name} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Gender" value={gender} />
+          <LabelWithTextDiv label="Género" value={gender} />
           <LabelWithTextDiv
-            label="Date of birth"
+            label="Fecha de nacimiento"
             value={date?.formatDAYMMDDYY(date_of_birth)}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Email address" value={email} />
-          <LabelWithTextDiv label="Cell Number" value={contact_number} />
+          <LabelWithTextDiv
+            label="Dirección de correo electrónico"
+            value={email}
+          />
+          <LabelWithTextDiv
+            label="Teléfono de contacto"
+            value={contact_number}
+          />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv
-            label="Country"
+            label="País de nacimiento"
             value={country_name ? country_name : "-"}
           />
           <LabelWithTextDiv
-            label="State"
+            label="Estado/Provinicia"
             value={state_name ? state_name : "-"}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="City" value={city_name ? city_name : "-"} />
+          <LabelWithTextDiv
+            label="Ciudad"
+            value={city_name ? city_name : "-"}
+          />
 
-          <LabelWithTextDiv label="Marital status" value={maritalStatus} />
+          <LabelWithTextDiv label="Estado civil" value={maritalStatus} />
+        </div>
+        <div className="flex flex-col md:flex-row gap-2">
+          <LabelWithTextDiv label="¿Tienes hijos?" value={children} />
+          <LabelWithTextDiv label="¿Cuál es tu ocupación?" value={occupation} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv
-            label="Do you have any Children?"
-            value={children}
-          />
-          <LabelWithTextDiv
-            label="What is your Occupation?"
-            value={occupation}
-          />
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv
-            label="Do you have any occupational exposure?"
+            label="¿Tiene alguna exposición ocupacional?"
             value={occupationalExposure}
           />
-          <LabelWithTextDiv label="Do you have any pets?" value={pets} />
+          <LabelWithTextDiv label="¿Tiene mascotas?" value={pets} />
         </div>
       </div>
     </CardWithProfileImageInfo>
