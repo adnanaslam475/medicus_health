@@ -222,11 +222,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="Total amount"
-<<<<<<< HEAD
-          text={transaction ? `$${transaction?.amountReceived}` : "--"}
-=======
           text={appointmentCharges ? `$${appointmentCharges?.total}` : "-"}
->>>>>>> 5b0178f752d3e943f98a69faf3ce1aefec912cb1
         />
         {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
@@ -694,7 +690,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         closeModal();
       }
     } catch (error: any) {
-      console.log("eeeeeeee",error)
+      console.log("eeeeeeee", error);
       // notification.error({
       //   message: error?.message,
       // });
