@@ -23,7 +23,7 @@ module.exports = withTM(
     },
     images: {
       // domains: ["medicus-dev2.s3-us-east-2.amazonaws.com", "www.google.com"],
-      format: ["image/webp", "image/png", "image/jpeg"],
+      // formats: [""],
       domains: [
         "medicus-dev2.s3-us-east-2.amazonaws.com",
         "medicus-dev.agencypartner.com",
@@ -39,11 +39,11 @@ module.exports = withTM(
       // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
       // added for images and 502 Error Fix R&D
     },
-    experimental: {
-      images: {
-        unoptimized: true,
-      },
-    },
+    // experimental: {
+    //   images: {
+    //     unoptimized: true,
+    //   },
+    // },
     // headers: async () => [
     //   // {
     //   //   // list more extensions here if needed; these are all the resources in the `public` folder including the subfolders
