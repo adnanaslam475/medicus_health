@@ -19,7 +19,7 @@ import {
   useDoctorSchedulesQuery,
   useSuggestNewTimeMutation,
 } from "generated/graphql";
-import { getDayJsObject } from "common/utils/date";
+import { getDayJsObject, UTCPrettierTime } from "common/utils/date";
 import { date } from "common/utils";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
@@ -87,7 +87,14 @@ function RescheduleAppointmentModal(props: Props) {
     const response = await executeUseSuggestNewTimeMutation({
       suggestNewTime: {
         id: Number(data?.id),
-        proposedTimeSlots: slots,
+        proposedTimeSlots: slots.map((timeSlot) => {
+          const [startDate, ...startTime] = timeSlot.startTime.split(" ");
+          const [endDate, ...endTime] = timeSlot.endTime.split(" ");
+          return {
+            startTime: UTCPrettierTime(startTime.join(" "), startDate),
+            endTime: UTCPrettierTime(endTime.join(" "), endDate),
+          };
+        }) as any,
       },
     });
     try {
@@ -127,8 +134,8 @@ function RescheduleAppointmentModal(props: Props) {
     setSlots([
       ...slots,
       {
-        startTime: moment(slot.startTime, "MM-DD-YYYY hh:mm A").toISOString(),
-        endTime: moment(slot.endTime, "MM-DD-YYYY hh:mm A").toISOString(),
+        startTime: slot.startTime,
+        endTime: slot.endTime,
       },
     ]);
     setSlot({ startTime: "", endTime: "" });
@@ -232,13 +239,13 @@ function RescheduleAppointmentModal(props: Props) {
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="flex gap-2  rounded leading-3 max-w-max">
                   <p className="text-sm mb-0">
-                    {date.formatMMMMDDYYYY(v?.startTime, timeZone)} -{" "}
-                    {date.formathhmma(v?.startTime, timeZone)}
+                    {dayjs(v?.startTime as string).format("MMMM, D, YYYY")} -{" "}
+                    {dayjs(v?.startTime as string).format("h:mm A")}
                   </p>{" "}
                   -
                   <p className="text-sm mb-0">
-                    {date.formatMMMMDDYYYY(v?.endTime, timeZone)} -{" "}
-                    {date.formathhmma(v?.endTime, timeZone)}
+                    {dayjs(v?.endTime as string).format("MMMM, D, YYYY")} -{" "}
+                    {dayjs(v?.endTime as string).format("h:mm A")}
                   </p>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl">

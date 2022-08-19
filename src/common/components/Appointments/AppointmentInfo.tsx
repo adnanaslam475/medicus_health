@@ -25,8 +25,11 @@ type Props = {
 function AppointmentInfo(props: Props) {
   const { appoinmentDetails, loading } = props;
   const { appointment } = appoinmentDetails || {};
-  const { first_name, last_name } =
+  const { first_name: doctorFirstName, last_name: doctorLastName } =
     appoinmentDetails?.appointment?.doctor || {};
+
+  const { first_name: patientFirstName, last_name: patientLastName } =
+    appoinmentDetails?.appointment?.patient || {};
 
   const {
     id,
@@ -53,11 +56,15 @@ function AppointmentInfo(props: Props) {
   }, [selectedAppointment, disabled]);
 
   let formatedDoctorFirstName = `${
-    first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`
+    doctorFirstName?.includes("Dr.")
+      ? doctorFirstName
+      : `Dr. ${doctorFirstName}`
   }`;
 
   const doctorProfilePic =
     appoinmentDetails?.appointment?.doctor?.doctorProfile?.profile_image;
+  const patientProfilePic =
+    appoinmentDetails?.appointment?.patient?.patientProfile?.profileImage;
   const doctorSpecialization =
     appoinmentDetails?.appointment?.doctor?.doctorProfile?.specialization;
 
@@ -75,6 +82,25 @@ function AppointmentInfo(props: Props) {
     JSON.parse(
       String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
     );
+  const firstName =
+    getRole() === "User"
+      ? formatedDoctorFirstName
+      : getRole() === "Doctor"
+      ? patientFirstName
+      : "";
+  const lastName =
+    getRole() === "User"
+      ? doctorLastName?.toLocaleLowerCase()
+      : getRole() === "Doctor"
+      ? patientLastName?.toLocaleLowerCase()
+      : "";
+  const serviceName = getRole() === "User" ? doctorSpecialization : "";
+  const profilePic =
+    getRole() === "User"
+      ? doctorProfilePic
+      : getRole() === "Doctor"
+      ? patientProfilePic
+      : "";
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -82,13 +108,16 @@ function AppointmentInfo(props: Props) {
   ) : (
     <>
       <CardWithProfileImageInfo
-        name={
-          isRoleGuard
-            ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`
-            : ""
-        }
-        serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
-        imageUrl={isRoleGuard ? doctorProfilePic : null}
+        name={`${firstName} ${lastName}`}
+        serviceName={`${serviceName}`}
+        imageUrl={profilePic}
+        // name={
+        //   isRoleGuard
+        //     ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`
+        //     : ""
+        // }
+        // serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
+        // imageUrl={isRoleGuard ? doctorProfilePic : null}
       >
         <div className="max-w-[700px]">
           <LabelValueRow label="ID#" value={Number(id)} />
@@ -103,10 +132,10 @@ function AppointmentInfo(props: Props) {
           <LabelValueRow label="Appointment type" value={name || "--"} />
           <LabelValueRow
             label="Appointment date"
-            value={date.formatDAYMMDDYY(
+            value={appointment?.appointmentDateTime?.startTime ? date.formatDAYMMDDYY(
               String(appointment?.appointmentDateTime?.startTime),
               timeZone
-            )}
+            ) : "--"}
           />
           {/* <LabelValueRow
           label="Booking date"
@@ -124,13 +153,13 @@ function AppointmentInfo(props: Props) {
                     selectedAppointment?.endTime,
                     timeZone
                   )}`
-                : `${date.formathhmma(
+                : appointment?.appointmentDateTime?.startTime ? `${date.formathhmma(
                     String(appointment?.appointmentDateTime?.startTime),
                     timeZone
                   )} - ${date.formathhmma(
                     String(appointment?.appointmentDateTime?.endTime),
                     timeZone
-                  )}`
+                  )}` : "--"
             }
           />
           <LabelValueRow
