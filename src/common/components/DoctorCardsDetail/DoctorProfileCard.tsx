@@ -168,7 +168,7 @@ function DoctorProfileCard(props: Props) {
                           return sorter(a, b);
                         })
                         .map((item, index) => (
-                          <div className="flex-none sm:flex flex-grow justify-between mb-2">
+                          <div className="flex sm:flex flex-grow justify-between mb-2">
                             <span>{date?.dayName(item.day)}</span>
                             <div>
                               <span>

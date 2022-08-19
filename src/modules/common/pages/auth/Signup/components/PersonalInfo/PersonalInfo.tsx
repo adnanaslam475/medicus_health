@@ -493,11 +493,11 @@ export default function PersonalInfo({ onFinish }: props) {
                 onOk={handleOk}
                 onCancel={handleCancel}
                 maskClosable={false}
-                bodyStyle={{ overflowY: "scroll" }}
+                // bodyStyle={{ overflowY: "scroll" }}
                 // style={{ height: "calc(100vh - 200px)" }}
-                className={`${_classes["custom-modal-height"]}`}
+                footer={null}
               >
-                <div>
+                <div className={`${_classes["custom-modal-height"]}`}>
                   <TermsAndConditions />
                 </div>
               </Modal>
