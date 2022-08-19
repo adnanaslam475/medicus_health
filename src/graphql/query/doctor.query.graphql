@@ -397,6 +397,12 @@ query physicianAppointmentsHistory(
         startTime
         endTime
       }
+      appointmentCharges {
+        appointmentPrice
+        tax
+        systemFee
+        total
+      }
       doctor {
         first_name
         last_name
@@ -453,6 +459,7 @@ query physicianAppointmentsHistory(
       transaction {
         status
         amountReceived
+        appointmentCharges
       }
       charges
     }
