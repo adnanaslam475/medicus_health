@@ -45,6 +45,8 @@ function AdminSettings() {
     }
   }, [getAdminSettingsData]);
 
+  function preCalculateValues() {}
+
   const {
     total_consultation_charges,
     consultation_charges_medicus_cut,
@@ -108,36 +110,44 @@ function AdminSettings() {
     }
   };
 
-  // calculating Medicus and Physician Cut
-  const changesValue = (changedValues: any, allValues: any) => {
+  useEffect(() => {
+    prepopulated(getAdminSettingsData?.adminSettings);
+  }, [getAdminSettingsData?.adminSettings]);
+
+  const prepopulated = (dataValues: any) => {
     const total_consultation_charges =
-      allValues?.total_consultation_charges / 100;
+      dataValues?.total_consultation_charges / 100;
 
     //Consultation Medicus Cut
     const consultation_charges_medicus_cut =
-      allValues?.consultation_charges_medicus_cut * total_consultation_charges;
+      dataValues?.consultation_charges_medicus_cut * total_consultation_charges;
     setConsultationMedicusCut(consultation_charges_medicus_cut);
-
+    
     //Consultation Physician Cut
     const consultation_charges_physician_cut =
-      allValues?.consultation_charges_physician_cut *
+      dataValues?.consultation_charges_physician_cut *
       total_consultation_charges;
     setTotalChargesConsultationPhysicianCut(consultation_charges_physician_cut);
 
     const total_second_opinion_charges =
-      allValues?.total_second_opinion_charges / 100;
+      dataValues?.total_second_opinion_charges / 100;
 
     //Second Opnion Medicus Cut
     const second_opinion_charges_medicus_cut =
-      allValues?.second_opinion_charges_medicus_cut *
+      dataValues?.second_opinion_charges_medicus_cut *
       total_second_opinion_charges;
     setSecondOpinionMedicusCut(second_opinion_charges_medicus_cut);
 
     //Second Opnion Physician Cut
     const second_opinion_charges_physician_cut =
-      allValues?.second_opinion_charges_physician_cut *
+      dataValues?.second_opinion_charges_physician_cut *
       total_second_opinion_charges;
     setSecondOpinionPhysicianCut(second_opinion_charges_physician_cut);
+  };
+
+  // calculating Medicus and Physician Cut
+  const changesValue = (changedValues: any, allValues: any) => {
+    prepopulated(allValues);
   };
   return (
     <AppLayout>
