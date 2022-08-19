@@ -94,8 +94,7 @@ function MessageInput() {
     inputRef.current && inputRef?.current.focus();
     if (
       inputRef.current &&
-      messageInfo.currentChannel &&
-      localStorage.getItem("id")
+      messageInfo.currentChannel
     ) {
       markMessageAsReadHandler?.(messageInfo.currentChannel?.id);
     }

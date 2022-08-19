@@ -55,7 +55,7 @@ const PhysicianAvailabilityAccordion = (props: Props) => {
                 })
                 .map((item, index) => {
                   return (
-                    <div className="flex-none sm:flex flex-grow justify-between mb-2">
+                    <div className="flex sm:flex flex-grow justify-between mb-2">
                       <span>{date?.dayName(item.day)}</span>
                       <div>
                         <span>

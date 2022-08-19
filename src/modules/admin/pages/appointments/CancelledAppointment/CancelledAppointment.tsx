@@ -2,7 +2,7 @@ import { Button, Empty, Spin, Tooltip } from "antd";
 import React, { useState } from "react";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
+import SearchFilter from "../../../../../common/components/SearchFilters/SearchFilter";
 import {
   Appointment,
   AppointmentTimeSlots,
@@ -33,17 +33,11 @@ function CancelledAppointment() {
   const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   const [serviceIds, setServiceIds] = useState<number>();
   const [status, setStatus] = useState<string>("Canceled");
-  const [{ data, fetching }] = useGetAllRequestedAppointmentsQuery({
+  const [filterValues, setFilterValues] = useState({ status: "Canceled" });
+
+  const [{ data, fetching },executeUseGetAllRequestedAppointmentsQuery] = useGetAllRequestedAppointmentsQuery({
     variables: {
-      filter: {
-        status: status,
-        physicianName: dataListPhysician,
-        doctorId: doctorIds,
-        // searchString: String(appointmentId),
-        serviceId: serviceIds,
-        dueDate: dueDate,
-        searchString: searchString,
-      },
+      filter: {...filterValues,status:"Canceled"},
       pagination: { limit: -1, page: 1 },
     },
     requestPolicy:"network-only"
@@ -88,6 +82,14 @@ function CancelledAppointment() {
     requestPolicy: "network-only",
   });
 
+  function onChangeFilters(values: any) {
+    setFilterValues(values);
+    executeUseGetAllRequestedAppointmentsQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -127,17 +129,8 @@ function CancelledAppointment() {
         </div>
 
         <div className="md:w-5/6">
-          <SearchFilters
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            setDataListPhysician={setDataListPhysician}
-            setDoctorId={setDoctorId}
-            setAppointmentId={setAppointmentId}
-            setServiceIds={setServiceIds}
-            setBookingDate={setBookingDate}
-            setDueDate={setDueDate}
-            setSearchString={setSearchString}
-          />
+        <SearchFilter onChange={onChangeFilters} />
+
         </div>
         {fetching == false ? (
           <div className="w-full">

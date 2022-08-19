@@ -88,7 +88,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
               value={email}
             />
             <LabelWithTextDiv
-              label="Numero de celular"
+              label="Teléfono de contacto"
               value={contact_number}
             />
           </div>
@@ -98,7 +98,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
               value={country_name ? country_name : "-"}
             />
             <LabelWithTextDiv
-              label="Estado"
+              label="Estado/Provinicia"
               value={state_name ? state_name : "-"}
             />
           </div>

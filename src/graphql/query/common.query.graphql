@@ -18,6 +18,7 @@ query getAllChatChannels($filter: GetAllChannelFilterInput!) {
       createdAt
     }
     receiverDetail {
+      id
       first_name
       last_name
       role
