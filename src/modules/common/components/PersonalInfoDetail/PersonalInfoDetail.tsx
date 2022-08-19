@@ -213,12 +213,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 >
                   <Form.Item className="bottom-margin-0" name="gender">
                     <Select placeholder="Género" size="large">
-                      <Select.Option value="Masculino">Masculino</Select.Option>
-                      <Select.Option value="Femenina">
+                      <Select.Option value="masculino">Masculino</Select.Option>
+                      <Select.Option value="femenina">
                         {/* {t("female")} */}
                         Femenina
                       </Select.Option>
-                      <Select.Option value="Prefiero no responder">
+                      <Select.Option value="prefiero no contestar">
                         {/* {t("prefer_not_to_answer")} */}
                         Prefiero no responder
                       </Select.Option>
@@ -275,12 +275,15 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     rules={[
                       {
                         required: true,
-                        message:
-                          "Se requiere contacto telefónico",
+                        message: "Se requiere contacto telefónico",
                       },
                     ]}
                   >
-                    <Input size="large" placeholder="Teléfono de contacto" type="number" />
+                    <Input
+                      size="large"
+                      placeholder="Teléfono de contacto"
+                      type="number"
+                    />
                   </Form.Item>
                 </div>
               </div>
@@ -501,18 +504,16 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   <Form.Item className="mb-0">
                     <Form.Item className="mb-0" name="maritalStatus">
                       <Select placeholder="{Estado civil" size="large">
-                        <Select.Option value="Único/Única">
-                          Único/Única
-                        </Select.Option>
+                        <Select.Option value="Único">Único/Única</Select.Option>
                         <Select.Option value="Casado">
                           Casado
                           {/* {t("married")} */}
                         </Select.Option>
-                        <Select.Option value="Viudo/a">
+                        <Select.Option value="Viudo">
                           {/* {t("widow")} */}
                           Viudo/a
                         </Select.Option>
-                        <Select.Option value="Divorciado/a">
+                        <Select.Option value="Divorciado">
                           {/* {t("divorce")} */}
                           Divorciado/a
                         </Select.Option>
@@ -594,7 +595,10 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         setradioOccupationalExposure(e.target.value);
                       }}
                     >
-                      <Radio value="Yes">
+                      <Radio
+                        // value="Yes"
+                        value="Sí"
+                      >
                         {/* {t("yes")} */}
                         Si
                       </Radio>
@@ -602,7 +606,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     </Radio.Group>
                   </Form.Item>
 
-                  {radioOccupationalExposure === "Yes" ? (
+                  {radioOccupationalExposure === "Yes" ||
+                  radioOccupationalExposure === "Sí" ? (
                     <Form.Item
                       className="mb-0"
                       name="exposureDuration"
@@ -614,7 +619,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         placeholder="¿Duración de la exposición ocupacional?"
                         size="large"
                       >
-                        <Select.Option value=" Menos de un año (<1)">
+                        <Select.Option value="Menos de un año (<1)">
                           {/* {t("less_than_a_year")} */}
                           Menos de un año
                         </Select.Option>
@@ -644,7 +649,10 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 >
                   <Form.Item className="mb-0" name="pets">
                     <Radio.Group>
-                      <Radio value="Yes">
+                      <Radio
+                        // value="Yes"
+                        value="Sí"
+                      >
                         {/* {t("yes")} */}
                         Si
                       </Radio>
