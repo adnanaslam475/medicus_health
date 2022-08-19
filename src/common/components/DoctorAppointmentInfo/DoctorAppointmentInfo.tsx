@@ -37,6 +37,7 @@ import {
   formatMMMM_Dcoma_YYYY,
   getDayJsObject,
   isAppointmentTimeValid,
+  UTCPrettierTime,
 } from "common/utils/date";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
@@ -221,7 +222,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="Total amount"
-          text={appointmentCharges ? `$${appointmentCharges?.total}` : "--"}
+          text={appointmentCharges ? `$${appointmentCharges?.total}` : "-"}
         />
         {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
@@ -580,7 +581,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     startDate: "",
     endDate: "",
   });
-  const [slots, setSlots] = useState<Array<dateArray>>([]);
+  const [slots, setSlots] = useState<Array<dateArray | any>>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] =
     React.useState<boolean>(false);
@@ -658,10 +659,14 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           id: id as number,
           serviceId: serviceType?.id as number,
           charges: serviceInfo?.price as number,
-          proposedTimeSlots: slots.map((slot) => ({
-            startTime: slot.startDate,
-            endTime: slot.endDate,
-          })) as any,
+          proposedTimeSlots: slots.map((timeSlot) => {
+            const [startDate, ...startTime] = timeSlot.startDate.split(" ");
+            const [endDate, ...endTime] = timeSlot.endDate.split(" ");
+            return {
+              startTime: UTCPrettierTime(startTime.join(" "), startDate),
+              endTime: UTCPrettierTime(endTime.join(" "), endDate),
+            };
+          }) as any,
         },
       });
       if (error && error?.message) {
@@ -685,6 +690,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         closeModal();
       }
     } catch (error: any) {
+      console.log("eeeeeeee", error);
       // notification.error({
       //   message: error?.message,
       // });
@@ -703,8 +709,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setSlots([
       ...slots,
       {
-        startDate: moment(slot.startDate, "MM-DD-YYYY hh:mm A").toISOString(),
-        endDate: moment(slot.endDate, "MM-DD-YYYY hh:mm A").toISOString(),
+        startDate: slot.startDate,
+        endDate: slot.endDate,
       },
     ]);
     setSlot({ startDate: "", endDate: "" });
@@ -838,13 +844,13 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="flex gap-2  rounded leading-3 max-w-max">
                   <p className="text-sm mb-0">
-                    {date.formatMMMMDDYYYY(v?.startDate as string, timeZone)} -{" "}
-                    {date.formathhmma(v?.startDate as string, timeZone)}
+                    {dayjs(v?.startDate as string).format("MMMM, D, YYYY")} -{" "}
+                    {dayjs(v?.startDate as string).format("h:mm A")}
                   </p>{" "}
                   -
                   <p className="text-sm mb-0">
-                    {date.formatMMMMDDYYYY(v?.endDate as string, timeZone)} -{" "}
-                    {date.formathhmma(v?.endDate as string, timeZone)}
+                    {dayjs(v?.endDate as string).format("MMMM, D, YYYY")} -{" "}
+                    {dayjs(v?.endDate as string).format("h:mm A")}
                   </p>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl">
