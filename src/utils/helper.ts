@@ -565,3 +565,7 @@ export const compareAllArraysAreEqual = (...arrays: string[]) => {
   }
   return true;
 };
+
+export const capitalizeFirstLetter = (value: any) => {
+  return String(value)?.charAt(0).toUpperCase() + String(value).slice(1);
+};

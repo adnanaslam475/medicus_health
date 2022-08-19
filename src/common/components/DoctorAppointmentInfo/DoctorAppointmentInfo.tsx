@@ -690,7 +690,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         closeModal();
       }
     } catch (error: any) {
-      console.log("eeeeeeee",error)
+      console.log("eeeeeeee", error);
       // notification.error({
       //   message: error?.message,
       // });
