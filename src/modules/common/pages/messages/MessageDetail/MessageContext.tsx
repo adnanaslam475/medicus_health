@@ -358,7 +358,7 @@ export function MessageContextProvider({
       createChatMessageInput: {
         channelId: messageInfo.currentChannel?.id as number,
         senderId: user?.id as number,
-        receiverId: messageInfo.currentChannel?.id as number,
+        receiverId: messageInfo.currentChannel?.receiverDetail?.id as number,
         message: text,
         messageType,
         isRead: false,
