@@ -45,7 +45,6 @@ function AdminSettings() {
     }
   }, [getAdminSettingsData]);
 
-  function preCalculateValues() {}
 
   const {
     total_consultation_charges,
@@ -122,7 +121,7 @@ function AdminSettings() {
     const consultation_charges_medicus_cut =
       dataValues?.consultation_charges_medicus_cut * total_consultation_charges;
     setConsultationMedicusCut(consultation_charges_medicus_cut);
-    
+
     //Consultation Physician Cut
     const consultation_charges_physician_cut =
       dataValues?.consultation_charges_physician_cut *
