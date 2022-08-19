@@ -221,7 +221,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="Total amount"
-          text={appointmentCharges ? `$${appointmentCharges?.total}` : "--"}
+          text={appointmentCharges ? `$${appointmentCharges?.total}` : "-"}
         />
         {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
