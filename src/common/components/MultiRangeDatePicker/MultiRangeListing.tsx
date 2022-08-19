@@ -46,7 +46,7 @@ function MultiRangeListing(props: Props) {
           <span className="text-gray text-xs">To</span>
           <span className="text-xs md:text-base">
             {dayjs(`${dayjs().format("YYYY-MM-DD")}T${item?.endTime}:00.000Z`)
-              .tz(timeZone)
+              .tz(timeZone ? timeZone : "America/Cambridge_Bay")
               .format("h:mm A")}
           </span>
         </div>
