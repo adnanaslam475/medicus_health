@@ -249,6 +249,7 @@ function RescheduleAppointmentModal(props: Props) {
           </div>
           <div className="text-primary flex">
             <Button
+              className={`${_classes["btn_font"]}`}
               onClick={addTimeSlot}
               disabled={Object.values(slot).some((value) => value === "")}
               type="link"
