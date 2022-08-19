@@ -32,3 +32,11 @@
   }
   // }
 }
+
+.custom-modal-height {
+  max-height: 450px;
+  overflow-y: auto;
+  @media screen and (min-width: 360px) and (max-width: 767px) {
+    max-height: 350px;
+  }
+}

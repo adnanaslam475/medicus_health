@@ -22,6 +22,7 @@ import Link from "next/link";
 import { useLocale } from "next-intl";
 import initTranslation from "common/utils/initTranslation";
 import i18next from "i18next";
+import dayjs from "dayjs";
 initTranslation(["PhysicianList"]);
 
 const FLAG_BY_LANGUAGE = {
@@ -95,6 +96,13 @@ function DoctorProfileCard(props: Props) {
   let formatedPhysicianName =
     doctorData &&
     `${first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`}`;
+
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    JSON.parse(
+      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
+    );
   return (
     <>
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
@@ -168,12 +176,25 @@ function DoctorProfileCard(props: Props) {
                           return sorter(a, b);
                         })
                         .map((item, index) => (
-                          <div className="flex-none sm:flex flex-grow justify-between mb-2">
+                          <div className="flex sm:flex flex-grow justify-between mb-2">
                             <span>{date?.dayName(item.day)}</span>
                             <div>
                               <span>
-                                {`${date.time24HrConvert(item?.startTime)} -
-                          ${date.time24HrConvert(item?.endTime)}`}
+                                {dayjs(
+                                  `${dayjs().format("YYYY-MM-DD")}T${
+                                    item?.startTime
+                                  }:00.000Z`
+                                )
+                                  .tz(timeZone)
+                                  .format("h:mm A")}{" "}
+                                -{" "}
+                                {dayjs(
+                                  `${dayjs().format("YYYY-MM-DD")}T${
+                                    item?.endTime
+                                  }:00.000Z`
+                                )
+                                  .tz(timeZone)
+                                  .format("h:mm A")}
                               </span>
                             </div>
                           </div>

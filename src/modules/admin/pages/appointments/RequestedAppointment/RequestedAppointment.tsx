@@ -12,7 +12,7 @@ import {
   User,
 } from "../../../../../generated/graphql";
 import { Button, Empty, Spin, Tooltip } from "antd";
-import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
+import SearchFilter from "../../../../../common/components/SearchFilters/SearchFilter";
 import Link from "next/link";
 import AppointmentModalJourney from "../../../../patient/components/AppointmentModalJourney/AppointmentModalJourney";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
@@ -37,6 +37,8 @@ function RequestedAppointment() {
   const { user } = getUserData();
   const { id: loggedInUser } = user || {};
 
+  const [filterValues, setFilterValues] = useState({ status: "Requested" });
+
   const showAppointmentBookingModal = () => {
     setIsModalVisible(true);
   };
@@ -49,22 +51,15 @@ function RequestedAppointment() {
     setIsModalVisible(false);
   };
 
-  const [{ data, fetching }] = useGetAllRequestedAppointmentsQuery({
-    variables: {
-      filter: {
-        status: status,
-        physicianName: dataListPhysician,
-        doctorId: doctorIds,
-        // searchString: String(appointmentId),
-        serviceId: serviceIds,
-        dueDate: dueDate,
-        searchString: searchString,
+  const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =
+    useGetAllRequestedAppointmentsQuery({
+      variables: {
+        filter: { ...filterValues, status: "Requested" },
+        pagination: { limit: -1, page: 1 },
+        sorting: { order: "", column: "" },
       },
-      pagination: { limit: -1, page: 1 },
-      sorting: { order: "", column: "" },
-    },
-    requestPolicy:"network-only"
-  });
+      requestPolicy: "network-only",
+    });
 
   const { appointments } = data || {};
 
@@ -95,6 +90,13 @@ function RequestedAppointment() {
     requestPolicy: "network-only",
   });
 
+  function onChangeFilters(values: any) {
+    setFilterValues(values);
+    executeUseGetAllRequestedAppointmentsQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
   return (
     <AppLayout>
       <>
@@ -149,17 +151,7 @@ function RequestedAppointment() {
           </div>
 
           <div className="md:w-5/6">
-            <SearchFilters
-              setStartDate={setStartDate}
-              setEndDate={setEndDate}
-              setDataListPhysician={setDataListPhysician}
-              setDoctorId={setDoctorId}
-              setAppointmentId={setAppointmentId}
-              setServiceIds={setServiceIds}
-              setBookingDate={setBookingDate}
-              setDueDate={setDueDate}
-              setSearchString={setSearchString}
-            />
+            <SearchFilter onChange={onChangeFilters} />
           </div>
 
           {fetching == false ? (
@@ -176,7 +168,7 @@ function RequestedAppointment() {
                       doctor,
                       appointmentTimeSlots,
                       appointmentDateTime,
-                      patient
+                      patient,
                     } = appointmentDetail || {};
                     var doctorFullName = `${doctor?.first_name} ${doctor?.last_name}`;
                     return (
@@ -186,7 +178,10 @@ function RequestedAppointment() {
                         status={status}
                         serviceType={serviceType?.name}
                         doctor={doctorFullName}
-                        specialization={String(appointmentDetail?.doctor?.doctorProfile?.specialization || "")}
+                        specialization={String(
+                          appointmentDetail?.doctor?.doctorProfile
+                            ?.specialization || ""
+                        )}
                         appointmentTimeSlots={
                           appointmentTimeSlots as AppointmentTimeSlots[]
                         }
