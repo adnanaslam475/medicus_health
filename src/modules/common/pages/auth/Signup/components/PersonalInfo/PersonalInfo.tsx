@@ -92,15 +92,13 @@ export default function PersonalInfo({ onFinish }: props) {
     return Promise.resolve();
   };
 
-  const onContactNoValidation = (
-    _rule: any,
-    value: string | any[],
-    callback: any
-  ) => {
-    if (value?.length > 15) {
-      callback(t("contact_no_is_too_long"));
-    } else if (value?.length < 9) {
-      callback(t("contact_number_message"));
+  const onContactNoValidation = (_rule: any, value: string, callback: any) => {
+    if (value?.trim().length > 15) {
+      // callback(t("contact_no_is_too_long"));
+      callback("El número de contacto no debe ser superior a 15");
+    } else if (value?.trim().length < 9) {
+      // callback(t("contact_number_message"));
+      callback("Por favor ingrese el número de contacto correcto");
     } else {
       callback();
     }
