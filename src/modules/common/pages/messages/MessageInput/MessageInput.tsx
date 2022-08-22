@@ -86,16 +86,16 @@ function MessageInput() {
     setEnabled(true);
     setMessageText("");
     setLoader(false);
+    if (inputRef.current && messageInfo.currentChannel) {
+      markMessageAsReadHandler?.(messageInfo.currentChannel?.id);
+    }
   }
 
   const isShowInput = !!messageInfo.currentChannel?.channelName;
 
   useEffect(() => {
     inputRef.current && inputRef?.current.focus();
-    if (
-      inputRef.current &&
-      messageInfo.currentChannel
-    ) {
+    if (inputRef.current && messageInfo.currentChannel) {
       markMessageAsReadHandler?.(messageInfo.currentChannel?.id);
     }
   }, [messageInfo.currentChannel?.id]);
