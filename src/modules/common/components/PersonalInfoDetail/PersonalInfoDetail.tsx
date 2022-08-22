@@ -345,6 +345,47 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 </div>
               </div>
             </li>
+            <li>
+              <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
+                  {/* {t("password")} */}
+                  Confirmar contraseña
+                </div>
+                <div
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4`}
+                >
+                  <Form.Item
+                    name="confirmPassword"
+                    className="bottom-margin-0"
+                    rules={[
+                      {
+                        required: true,
+                        // message: t("confirm_your_password"),
+                        message: "¡Por favor, confirme su contraseña!",
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue("password") === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(
+                            // new Error(t("two_passwords_mismatch_message"))
+                            new Error(
+                              "Las dos contraseñas que ingresaste no coinciden"
+                            )
+                          );
+                        },
+                      }),
+                    ]}
+                  >
+                    <Input.Password
+                      size="large"
+                      placeholder="Confirmar contraseña"
+                    />
+                  </Form.Item>
+                </div>
+              </div>
+            </li>
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
@@ -543,30 +584,36 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   ¿Tienes hijos?
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 md:pl-4`}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 md:pl-4`}
                 >
                   <Form.Item className="mb-0" name="haveChildren">
-                    <Radio.Group
-                      defaultValue={radioChildren}
-                      onChange={(e) => {
-                        setradioChildren(e.target.value);
-                      }}
-                    >
-                      <Radio value={true}>
-                        {/* {t("yes")} */}
-                        Si
-                      </Radio>
-                      <Radio value={false}>no{/* {t("no")} */}</Radio>
-                    </Radio.Group>
-                    {radioChildren && (
-                      <Form.Item className="mb-0" name="children">
-                        <Input
-                          size="large"
-                          // placeholder={t("number_of_children")}
-                          placeholder="Numero de niñas"
-                        />
-                      </Form.Item>
-                    )}
+                    <div className="flex flex-row items-center">
+                      <Radio.Group
+                        defaultValue={radioChildren}
+                        onChange={(e) => {
+                          setradioChildren(e.target.value);
+                        }}
+                      >
+                        <Radio value={true}>
+                          {/* {t("yes")} */}
+                          Si
+                        </Radio>
+                        <Radio value={false}>No{/* {t("no")} */}</Radio>
+                      </Radio.Group>
+                      {radioChildren && (
+                        <Form.Item
+                          label="¿Cuanto?"
+                          className="mb-0"
+                          name="children"
+                        >
+                          <Input
+                            size="large"
+                            // placeholder={t("number_of_children")}
+                            placeholder="Numero de niñas"
+                          />
+                        </Form.Item>
+                      )}
+                    </div>
                   </Form.Item>
                 </div>
               </div>
@@ -599,53 +646,55 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   ¿Tiene alguna exposición ocupacional?
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 md:pl-4`}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 md:pl-4`}
                 >
-                  <Form.Item className="mb-0" name="occupationalExposure ">
-                    <Radio.Group
-                      onChange={(e) => {
-                        setradioOccupationalExposure(e.target.value);
-                      }}
-                    >
-                      <Radio
-                        // value="Yes"
-                        value="Sí"
+                  <div className="flex flex-row items-center">
+                    <Form.Item className="mb-0" name="occupationalExposure ">
+                      <Radio.Group
+                        onChange={(e) => {
+                          setradioOccupationalExposure(e.target.value);
+                        }}
                       >
-                        {/* {t("yes")} */}
-                        Si
-                      </Radio>
-                      <Radio value="No">{t("no")}</Radio>
-                    </Radio.Group>
-                  </Form.Item>
-
-                  {radioOccupationalExposure === "Yes" ||
-                  radioOccupationalExposure === "Sí" ? (
-                    <Form.Item
-                      className="mb-0"
-                      name="exposureDuration"
-                      // label={t("occupational_exposure_duration")}
-                      label="¿Duración de la exposición ocupacional?"
-                    >
-                      <Select
-                        // placeholder={t("occupational_exposure_duration")}
-                        placeholder="¿Duración de la exposición ocupacional?"
-                        size="large"
-                      >
-                        <Select.Option value="Menos de un año (<1)">
-                          {/* {t("less_than_a_year")} */}
-                          Menos de un año
-                        </Select.Option>
-                        <Select.Option value="Más de un año (1+)">
-                          {/* {t("more_than_a_year_1")} */}
-                          Más de un año (1+)
-                        </Select.Option>
-                        <Select.Option value="Más de tres a cinco años (3-5)">
-                          {/* {t("more_than_three_to_five_years_3_5")} */}
-                          Más de tres a cinco años (3-5)
-                        </Select.Option>
-                      </Select>
+                        <Radio
+                          // value="Yes"
+                          value="Sí"
+                        >
+                          {/* {t("yes")} */}
+                          Si
+                        </Radio>
+                        <Radio value="No">{t("no")}</Radio>
+                      </Radio.Group>
                     </Form.Item>
-                  ) : null}
+
+                    {radioOccupationalExposure === "Yes" ||
+                    radioOccupationalExposure === "Sí" ? (
+                      <Form.Item
+                        className="mb-0"
+                        name="exposureDuration"
+                        // label={t("occupational_exposure_duration")}
+                        label="¿Duración de la exposición ocupacional?"
+                      >
+                        <Select
+                          // placeholder={t("occupational_exposure_duration")}
+                          placeholder="¿Duración de la exposición ocupacional?"
+                          size="large"
+                        >
+                          <Select.Option value="Menos de un año (<1)">
+                            {/* {t("less_than_a_year")} */}
+                            Menos de un año
+                          </Select.Option>
+                          <Select.Option value="Más de un año (1+)">
+                            {/* {t("more_than_a_year_1")} */}
+                            Más de un año (1+)
+                          </Select.Option>
+                          <Select.Option value="Más de tres a cinco años (3-5)">
+                            {/* {t("more_than_three_to_five_years_3_5")} */}
+                            Más de tres a cinco años (3-5)
+                          </Select.Option>
+                        </Select>
+                      </Form.Item>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </li>

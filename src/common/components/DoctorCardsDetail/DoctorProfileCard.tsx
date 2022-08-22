@@ -14,7 +14,7 @@ import {
   usePatientHealthHistoryQuery,
 } from "../../../generated/graphql";
 import { date } from "../../utils";
-import { sorter } from "utils/helper";
+import { capitalizeFirstLetter, sorter } from "utils/helper";
 import MDNextImage from "../MDNextImage/MDNextImage";
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
@@ -257,7 +257,9 @@ function DoctorProfileCard(props: Props) {
                   title={
                     items && items?.length > 0
                       ? ""
-                      : "Please request an appointment to message physician."
+                      : capitalizeFirstLetter(
+                          "Please request an appointment to message physician."
+                        )
                   }
                   disabled={items && items?.length > 0 ? false : true}
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"

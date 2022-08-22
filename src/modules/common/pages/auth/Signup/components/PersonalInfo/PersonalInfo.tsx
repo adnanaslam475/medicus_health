@@ -28,6 +28,7 @@ export default function PersonalInfo({ onFinish }: props) {
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
   const [terms, setTerms] = useState(false);
+  const [countryCode, setCountryCode] = useState(null);
 
   function selectCountryId(id: number): void {
     setCountryId(id);
@@ -95,9 +96,9 @@ export default function PersonalInfo({ onFinish }: props) {
   };
 
   const onContactNoValidation = (_rule: any, value: string, callback: any) => {
-    if (value?.trim().length < 9) {
+    if (value?.trim().length === 0) {
       // callback(t("contact_number_message"));
-      callback("Por favor ingrese el número de contacto correcto");
+      callback("Por favor ingrese su número de contacto");
     } else {
       callback();
     }
@@ -187,9 +188,9 @@ export default function PersonalInfo({ onFinish }: props) {
             <Select.Option value="prefer not to answer">
               {t("i_prefer_not_to_say")}
               {/* I prefer not to answer */}
-            <Select.Option value="male">Masculino</Select.Option>
-            <Select.Option value="female">Femenina</Select.Option>
-            <Select.Option value="prefer not to answer">
+            <Select.Option value="masculino">Masculino</Select.Option>
+            <Select.Option value="femenina">Femenina</Select.Option>
+            <Select.Option value="prefiero no contestar">
               Prefiero no contestar
               {/* I prefer not to answer */}
             </Select.Option>
@@ -326,6 +327,14 @@ export default function PersonalInfo({ onFinish }: props) {
               country={"us"}
               placeholder={"Ingrese su número de contacto"}
               enableAreaCodes
+              onChange={(_value, country: any) => {
+                const code = country?.dialCode;
+                setCountryCode(code);
+                form.setFieldsValue({
+                  contact_number: code
+                });
+              }}
+              value={countryCode}
             />
           </Form.Item>
         </div>

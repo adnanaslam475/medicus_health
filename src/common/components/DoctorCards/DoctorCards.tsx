@@ -18,6 +18,7 @@ import {
 } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 import { useTranslations } from "next-intl";
+import { capitalizeFirstLetter } from "utils/helper";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -111,7 +112,7 @@ function DoctorCard({
         <div className="flex-none lg:flex">
           <div className="w-full lg:w-4/6 flex-none sm:flex">
             <div className="docAvatarCover pr-3">
-              <div className="rounded-full flex items-center justify-center overflow-hidden shadow-lg">
+              <div className="rounded-full flex items-center justify-center overflow-hidden ">
                 {loading ? (
                   <span className={`${_classes["emptyImgContainer"]}`}></span>
                 ) : (
@@ -211,7 +212,10 @@ function DoctorCard({
             ) : (
               <div className="w-full flex justify-center my-3">
                 <Tooltip
-                  title={"Please request an appointment to message physician."}
+                  title={capitalizeFirstLetter(
+                    "Please request an appointment to message physician."
+                  )}
+                  // {capitalizeFirstLetter(value)}
                 >
                   <Button
                     className={`${_classes["btn-tooltip"]} w-full`}
