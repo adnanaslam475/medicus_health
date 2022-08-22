@@ -70,10 +70,10 @@ function PhysicianQuestionnaire(props: Props) {
 
   console.log("doctorIddoctorId", doctorId);
 
-  // let doctorQuestionnaireId = user?.role === "Doctor" ? user?.id : doctorId;
+  let doctorQuestionnaireId = user?.role === "Doctor" ? user?.id : doctorId;
 
-  let doctorQuestionnaireId =
-    user?.role === "Admin" || user?.role === "Doctor" ? doctorId : doctorId;
+  // let doctorQuestionnaireId =
+  //   user?.role === "Admin" || user?.role === "Doctor" ? doctorId : doctorId;
 
   const [{ data: dataList, fetching }] = useDoctorQuestionnaireQuery({
     variables: {

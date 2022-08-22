@@ -354,6 +354,7 @@ query physicianAppointmentsHistory(
         name
       }
       patient {
+        id
         first_name
         last_name
         gender
@@ -404,6 +405,7 @@ query physicianAppointmentsHistory(
         total
       }
       doctor {
+        id
         first_name
         last_name
         doctorProfile {

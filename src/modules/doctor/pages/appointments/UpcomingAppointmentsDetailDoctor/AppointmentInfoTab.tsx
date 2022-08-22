@@ -19,6 +19,8 @@ function AppointmentInfoTab({}: Props) {
       id: Number(query.id),
     },
     pause: !query.id,
+    requestPolicy:"network-only"
+
   });
 
   const { appointment } = data || {};

@@ -62,10 +62,7 @@ function AppointmnetRequestedCard({
       <span className="text-sm mt-4 block">Appointment time</span>
       <div className="text-cyan">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
-          ? `${date.formatDAYMMDDYY(
-              appointmentDateTime.startTime,
-              timeZone
-            )} - ${date.formathhmma(appointmentDateTime.startTime, timeZone)}
+          ? `${date.formathhmma(appointmentDateTime.startTime, timeZone)}
              - ${date.formathhmma(appointmentDateTime.endTime, timeZone)}`
           : "--"}
       </div>
