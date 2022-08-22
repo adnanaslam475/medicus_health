@@ -112,6 +112,7 @@ function AppointmentCard({
           setShowModal={setShowModal}
           onViewSuggestedSlots={onViewSuggestedSlots}
           specialization={specialization}
+          appointmentDateTime={appointmentDateTime}
           // patientTimeZone={patientObject?.timeZone?.timeZone}
 
         />
@@ -143,6 +144,7 @@ function AppointmentCard({
           setShowModal={setShowModal}
           onViewSuggestedSlots={onViewSuggestedSlots}
           specialization={specialization}
+          appointmentDateTime={appointmentDateTime}
           // patientTimeZone={patientObject?.timeZone?.timeZone}
 
         />

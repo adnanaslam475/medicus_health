@@ -9,6 +9,7 @@ import Image from "next/image";
 import camera from "../../../../../public/assets/images/camera.svg";
 import Router from "next/router";
 import Link from "next/link";
+import { getUserData } from "common/utils/userData";
 type Props =
   | {
       modalVisible: boolean;
@@ -48,6 +49,13 @@ function CalendarModalComponent(props: Props) {
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment, disabled]);
+  const { user } = getUserData();
+  const detailsPageLink =
+    user?.role === "Doctor"
+      ? `upcoming/${id}`
+      : user?.role === "User"
+      ? `/patient/appointments/${id}`
+      : `/admin/appointments/${id}`;
   return (
     <Modal
       title=""
@@ -93,9 +101,7 @@ function CalendarModalComponent(props: Props) {
 
       <div className="flex justify-between">
         <div className="items-center justify-start pt-4">
-          <Button onClick={() => Router.push(`/patient/appointments/${id}`)}>
-            Details
-          </Button>
+          <Button onClick={() => Router.push(detailsPageLink)}>Details</Button>
         </div>
         <div className="items-center justify-end border-0 pt-4">
           {/* <Button

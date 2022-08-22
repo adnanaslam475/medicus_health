@@ -20,6 +20,7 @@ type Props = {
   setShowModal?: (id: boolean) => void;
   onViewSuggestedSlots: () => void;
   specialization: string;
+  appointmentDateTime?: AppointmentDateTimeResponse;
 };
 
 function AppointmnetSuggestedCard({
@@ -32,6 +33,7 @@ function AppointmnetSuggestedCard({
   setShowModal,
   onViewSuggestedSlots,
   specialization,
+  appointmentDateTime,
 }: Props) {
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
@@ -43,6 +45,8 @@ function AppointmnetSuggestedCard({
     JSON.parse(
       String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
     );
+
+    console.log("appointment date time",appointmentDateTime)
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
@@ -55,22 +59,18 @@ function AppointmnetSuggestedCard({
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Appointment date</span>
-      <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
+      <h6 className="text-cyan">
+        {date.formatDAYMMDDYY(requestedDate, timeZone)}
+      </h6>
       <Space direction="vertical" size="middle" />
       <span className="text-sm">Appointment time</span>
-      {appointmentTimeSlots?.length === 0 ? (
-        <div className="text-cyan font-semibold">{" - "}</div>
-      ) : (
-        appointmentTimeSlots?.map((item) => (
-          <div className="text-cyan font-semibold text-sm">{`${date.formatDAYMMDDYY(
-            item?.startTime,
-            timeZone
-          )} - ${date.formathhmma(
-            item.startTime,
-            timeZone
-          )} - ${date.formathhmma(item.endTime, timeZone)}`}</div>
-        ))
-      )}
+      <div className="text-cyan">
+        {appointmentDateTime?.endTime && appointmentDateTime?.startTime
+          ? `${date.formathhmma(appointmentDateTime.startTime, timeZone)}
+             - ${date.formathhmma(appointmentDateTime.endTime, timeZone)}`
+          : "--"}
+      </div>
+
       <Space direction="vertical" size="middle" />
       <span className="text-sm  block mt-4 ">Appointment status</span>
       <span className="text-base text-primary font-bold ">{status}</span>
