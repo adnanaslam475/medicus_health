@@ -28,6 +28,14 @@ import {
   useGetUnreadMessageCountQuery,
 } from "generated/graphql";
 
+type AppointmentStatusCount = {
+  upcoming: number | undefined;
+  canceled: number | undefined;
+  history: number | undefined;
+  pending: number | undefined;
+  firstLogin: boolean;
+};
+
 function SidebarMenuItem() {
   const IconsListPhysician = [
     <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
@@ -99,17 +107,28 @@ function SidebarMenuItem() {
           appointmentsAlertData = JSON.parse(appointmentsAlertData);
           if (!Object.values(appointmentsAlertData || {}).every((val) => val)) {
             setLocalAppointmentAlertData({
-              ...(appointmentsAlertData as unknown as object),
+              ...(appointmentsAlertData as unknown as AppointmentStatusCount),
             });
           }
           let updatedAlertData = {
-            ...(appointmentsAlertData as unknown as object),
+            ...(appointmentsAlertData as unknown as AppointmentStatusCount),
           };
           if (router.asPath.includes("/upcoming")) {
-            updatedAlertData = {
-              ...updatedAlertData,
-              upcoming,
-            };
+            if (updatedAlertData?.firstLogin) {
+              updatedAlertData = {
+                ...updatedAlertData,
+                upcoming,
+                canceled,
+                history,
+                pending,
+                firstLogin: false,
+              };
+            } else {
+              updatedAlertData = {
+                ...updatedAlertData,
+                upcoming,
+              };
+            }
           } else if (router.asPath.includes("/canceled")) {
             updatedAlertData = {
               ...updatedAlertData,
@@ -131,14 +150,9 @@ function SidebarMenuItem() {
             JSON.stringify(updatedAlertData)
           );
           setLocalAppointmentAlertData({
-            ...(appointmentsAlertData as unknown as object),
+            ...(appointmentsAlertData as unknown as AppointmentStatusCount),
             ...updatedAlertData,
           });
-        } else {
-          localStorage.setItem(
-            "appointmentsAlertData",
-            JSON.stringify({ upcoming })
-          );
         }
       }
     } catch (error) {
@@ -178,6 +192,7 @@ function SidebarMenuItem() {
     // };
   }, [msgCount, setMsgCount, getAllChatChannels]);
 
+  console.log(localAppointmentAlertData?.upcoming, Number(upcoming));
   return (
     <div className={`${_classes["side-menu-cover"]} w-full`}>
       <Menu
@@ -199,10 +214,11 @@ function SidebarMenuItem() {
                 title={
                   <div className="relative">
                     Appointments
-                    {(localAppointmentAlertData?.upcoming !== upcoming ||
-                      localAppointmentAlertData?.pending !== pending ||
-                      localAppointmentAlertData?.canceled !== canceled ||
-                      localAppointmentAlertData?.history !== history) && (
+                    {(localAppointmentAlertData?.upcoming < Number(upcoming) ||
+                      localAppointmentAlertData?.pending < Number(pending) ||
+                      localAppointmentAlertData?.canceled <
+                        Number(canceled)) && (
+                      // localAppointmentAlertData?.history !== history
                       <span className={_classes["red-dot"]}></span>
                     )}
                   </div>
@@ -212,21 +228,25 @@ function SidebarMenuItem() {
                   let dot = false;
                   switch (el2.subId) {
                     case "1":
-                      if (localAppointmentAlertData?.upcoming !== upcoming)
+                      if (
+                        localAppointmentAlertData?.upcoming < Number(upcoming)
+                      )
                         dot = true;
                       break;
                     case "2":
-                      if (localAppointmentAlertData?.pending !== pending)
+                      if (localAppointmentAlertData?.pending < Number(pending))
                         dot = true;
                       break;
                     case "3":
-                      if (localAppointmentAlertData?.canceled !== canceled)
+                      if (
+                        localAppointmentAlertData?.canceled < Number(canceled)
+                      )
                         dot = true;
                       break;
-                    case "4":
-                      if (localAppointmentAlertData?.history !== history)
-                        dot = true;
-                      break;
+                    // case "4":
+                    //   if (localAppointmentAlertData?.history !== history)
+                    //     dot = true;
+                    //   break;
                     default:
                       break;
                   }
@@ -302,10 +322,10 @@ function SidebarMenuItem() {
                       if (localAppointmentAlertData?.canceled !== canceled)
                         dot = true;
                       break;
-                    case "4":
-                      if (localAppointmentAlertData?.history !== history)
-                        dot = true;
-                      break;
+                    // case "4":
+                    //   if (localAppointmentAlertData?.history !== history)
+                    //     dot = true;
+                    //   break;
                     default:
                       break;
                   }
@@ -369,10 +389,11 @@ function SidebarMenuItem() {
                   <div className="relative">
                     {el.toggleName}
                     {el.id === "1" &&
-                      (localAppointmentAlertData?.upcoming !== upcoming ||
-                        localAppointmentAlertData?.pending !== pending ||
-                        localAppointmentAlertData?.canceled !== canceled ||
-                        localAppointmentAlertData?.history !== history) && (
+                      (localAppointmentAlertData?.upcoming < Number(upcoming) ||
+                        localAppointmentAlertData?.pending <
+                          Number(pending)) && (
+                        // localAppointmentAlertData?.canceled !== canceled ||
+                        // localAppointmentAlertData?.history !== history
                         <span className={_classes["red-dot"]}></span>
                       )}
                   </div>
@@ -385,21 +406,23 @@ function SidebarMenuItem() {
                   let dot = false;
                   switch (el2.subId) {
                     case "1":
-                      if (localAppointmentAlertData?.upcoming !== upcoming)
+                      if (
+                        localAppointmentAlertData?.upcoming < Number(upcoming)
+                      )
                         dot = true;
                       break;
                     case "2":
-                      if (localAppointmentAlertData?.pending !== pending)
+                      if (localAppointmentAlertData?.pending < Number(pending))
                         dot = true;
                       break;
-                    case "3":
-                      if (localAppointmentAlertData?.canceled !== canceled)
-                        dot = true;
-                      break;
-                    case "4":
-                      if (localAppointmentAlertData?.history !== history)
-                        dot = true;
-                      break;
+                    // case "3":
+                    //   if (localAppointmentAlertData?.canceled !== canceled)
+                    //     dot = true;
+                    // break;
+                    // case "4":
+                    //   if (localAppointmentAlertData?.history !== history)
+                    //     dot = true;
+                    //   break;
                     default:
                       break;
                   }
@@ -479,10 +502,10 @@ function SidebarMenuItem() {
                       if (localAppointmentAlertData?.canceled !== canceled)
                         dot = true;
                       break;
-                    case "4":
-                      if (localAppointmentAlertData?.history !== history)
-                        dot = true;
-                      break;
+                    // case "4":
+                    //   if (localAppointmentAlertData?.history !== history)
+                    //     dot = true;
+                    //   break;
                     default:
                       break;
                   }
