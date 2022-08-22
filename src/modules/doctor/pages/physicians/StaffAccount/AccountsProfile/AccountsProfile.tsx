@@ -12,6 +12,8 @@ import {
 } from "../../../../../../generated/graphql";
 import EditProfile from "../EditProfile/EditProfile";
 import { RangeValue } from "rc-picker/lib/interface";
+import { GraphQLError } from "graphql";
+import { notification } from "antd";
 
 type Props = {
   isStaff?: boolean;
@@ -48,10 +50,9 @@ function AccountsProfile(props: Props) {
 
   const [createDoctorScheduleResponse, executeCreateDoctorScheduleMutation] =
     useCreateDoctorScheduleMutation();
-  const { fetching } = createDoctorScheduleResponse;
+  const { error, fetching } = createDoctorScheduleResponse;
   const [, executeRemoveDoctorScheduleMutation] =
     useRemoveDoctorScheduleMutation();
-
   async function onAddClick() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
       const variable = {
@@ -61,7 +62,23 @@ function AccountsProfile(props: Props) {
         endTime: addScheduleTime?.timeString[1],
       };
 
-      await executeCreateDoctorScheduleMutation(variable);
+      await executeCreateDoctorScheduleMutation(variable)
+        .then((res) => {
+          if (res?.error && res?.error?.message) {
+            let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+              ?.response as GraphQLError;
+            let customError = res?.error?.graphQLErrors[0]?.extensions
+              ?.exception as GraphQLError;
+            let errorMessage =
+              graphQLError?.message ||
+              customError?.message ||
+              "Something went wrong";
+            notification.error({
+              message: errorMessage,
+            });
+          }
+        })
+        .catch((err) => {});
       await executeDoctorSchedules({ requestPolicy: "network-only" });
       setAddScheduleDay("Select Day");
       setAddScheduleTime({ timeString: [], time: null });

@@ -95,10 +95,7 @@ export default function PersonalInfo({ onFinish }: props) {
   };
 
   const onContactNoValidation = (_rule: any, value: string, callback: any) => {
-    if (value?.trim().length === 0) {
-      // callback(t("contact_no_is_too_long"));
-      callback("Por favor ingrese el número de contacto");
-    } else if (value?.trim().length < 9) {
+    if (value?.trim().length < 9) {
       // callback(t("contact_number_message"));
       callback("Por favor ingrese el número de contacto correcto");
     } else {
@@ -311,29 +308,27 @@ export default function PersonalInfo({ onFinish }: props) {
       </Form.Item>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item
-          className="flex-1"
-          // label={t("contact_number")}
-          label="Teléfono de contacto"
-          name="contact_number"
-          rules={[
-            {
-              required: true,
-              validator: onContactNoValidation,
-            },
-          ]}
-        >
-          {/* <Input /> */}
-          <div 
-            className={`${_classes.contactNo} inline-block`}
+        <div className={`${_classes.contactNo} inline-block`}>
+          <Form.Item
+            className="flex-1"
+            // label={t("contact_number")}
+            label="Teléfono de contacto"
+            name="contact_number"
+            rules={[
+              {
+                required: true,
+                validator: onContactNoValidation,
+              },
+            ]}
           >
+            {/* <Input /> */}
             <ReactPhoneInput
               country={"us"}
-              disableDropdown
-              placeholder={"Enter you contact no"}
+              placeholder={"Ingrese su número de contacto"}
+              enableAreaCodes
             />
-          </div>
-        </Form.Item>
+          </Form.Item>
+        </div>
 
         <Form.Item
           className="flex-1"
@@ -475,9 +470,9 @@ export default function PersonalInfo({ onFinish }: props) {
         </Form.Item>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-row">
         <div
-          className={`${_classes["signupcheckbox"]} flex justify-between items-center`}
+          className={`${_classes["signupcheckbox"]} inline-flex justify-between items-center`}
         >
           <Checkbox
             value={terms}

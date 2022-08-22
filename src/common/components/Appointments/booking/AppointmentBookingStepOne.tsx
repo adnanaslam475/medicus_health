@@ -314,14 +314,17 @@ export const AppointmentBookingStepOne = React.forwardRef(
           <div className="flex">
             <div className="w-5/6">
               <Form.Item
-                label="Appointment type*"
+                label="Select appointment type*"
+                // label={<>Select appointment type*</>}
+                // tooltip="my tooltip"
                 name="service"
                 rules={[
                   { required: true, message: "Appointment type is required" },
                 ]}
               >
                 <Select
-                  placeholder="Appointment type"
+                  // placeholder="Appointment type"
+                  placeholder="Select appointment type"
                   className="w-full"
                   onChange={handleServiceChange}
                 >

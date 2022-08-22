@@ -120,6 +120,7 @@ function EditProfile({
     country_id,
     state_id,
     zip_code,
+    timeZone,
   } = userData?.user || {};
 
   const {
@@ -300,10 +301,8 @@ function EditProfile({
 
   const onFinish = async (values: any) => {
     try {
-      if (!!schedules?.length) {
-        updateDoctorProfile(values);
-        setIsEdit(false);
-      }
+      updateDoctorProfile(values);
+      setIsEdit(false);
     } catch (error) {
       setIsEdit(true);
     }
@@ -632,22 +631,21 @@ function EditProfile({
                   <Input type="number" disabled={isStaff} />
                 </Form.Item>
               </div>
-
-              <Form.Item
-                label={"Street address"}
-                name="streetAddress"
-                rules={[
-                  {
-                    required: true,
-                    message: "Street address required",
-                    max: 300,
-                  },
-                ]}
-              >
-                <Input disabled={isStaff} />
-              </Form.Item>
-
               <div className="flex flex-col sm:flex-row sm:gap-3">
+                <Form.Item
+                  className="flex-1"
+                  label={"Street address"}
+                  name="streetAddress"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Street address required",
+                      max: 300,
+                    },
+                  ]}
+                >
+                  <Input disabled={isStaff} />
+                </Form.Item>
                 <Form.Item
                   className="flex-1"
                   label={"Country"}
@@ -683,6 +681,8 @@ function EditProfile({
                     )}
                   </Select>
                 </Form.Item>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item className="flex-1" label={"State"} name="state_id">
                   <Select
                     showSearch
@@ -713,9 +713,7 @@ function EditProfile({
                     )}
                   </Select>
                 </Form.Item>
-              </div>
 
-              <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item className="flex-1" label={"City"} name="city_id">
                   <Select
                     placeholder={"City"}
@@ -738,7 +736,8 @@ function EditProfile({
                     )}
                   </Select>
                 </Form.Item>
-
+              </div>
+              <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
                   className="flex-1"
                   label={"Postal code"}
@@ -751,6 +750,16 @@ function EditProfile({
                   ]}
                 >
                   <Input disabled={isStaff} />
+                </Form.Item>
+                <Form.Item
+                  className="flex-1"
+                  label={"Time zone"}
+                  name="timeZone"
+                >
+                  <Select
+                    placeholder={timeZone?.timeZone}
+                    disabled={isStaff}
+                  ></Select>
                 </Form.Item>
               </div>
 
@@ -835,11 +844,6 @@ function EditProfile({
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
               />
-              {!!!schedules?.length && (
-                <div className="text-red mt-2 text-center">
-                  Please input at least one schedule
-                </div>
-              )}
               <div className={`my-6 ${_classes["professional"]}`}>
                 <h5>Professional background</h5>
                 {clinicList?.map((clinic: clinicType, index: number) => {
