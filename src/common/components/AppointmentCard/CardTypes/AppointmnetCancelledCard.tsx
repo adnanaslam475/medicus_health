@@ -73,9 +73,9 @@ function AppointmnetCancelledCard({
   const timeZone =
     typeof window !== "undefined" &&
     localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(
-      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
-    );
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
 
   let formatedStartTime = date.formathhmma(
     String(appointmentDetail?.appointmentDateTime?.startTime),

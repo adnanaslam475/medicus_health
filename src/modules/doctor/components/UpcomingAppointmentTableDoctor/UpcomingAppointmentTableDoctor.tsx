@@ -15,8 +15,13 @@ import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 
-const timeZone =typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
-
+const timeZone =
+  typeof window !== "undefined" &&
+  localStorage?.getItem("timeZone") !== "undefined" &&
+  localStorage?.getItem("timeZone")
+    ? JSON.parse(String(localStorage?.getItem("timeZone")))
+    : "America/Cambridge_Bay";
+    
 const columns = [
   {
     title: "ID#",

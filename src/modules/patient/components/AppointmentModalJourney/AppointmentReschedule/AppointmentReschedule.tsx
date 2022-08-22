@@ -60,8 +60,12 @@ function AppointmentReschedule(props: Props) {
     doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`
   }`;
   const timeZone =
-    typeof window !== "undefined" &&localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
+
   return (
     <div>
       <h2>Appointment scheduling</h2>
@@ -118,7 +122,7 @@ function AppointmentReschedule(props: Props) {
                     <span className="block">{`${date.formathhmma(
                       item.startTime,
                       timeZone
-                    )} - ${ date.formathhmma(item.endTime, timeZone)}`}</span>
+                    )} - ${date.formathhmma(item.endTime, timeZone)}`}</span>
                   </div>
                 </Radio>
               ))

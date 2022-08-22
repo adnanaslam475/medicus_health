@@ -149,9 +149,9 @@ function RescheduleAppointmentModal(props: Props) {
   const timeZone =
     typeof window !== "undefined" &&
     localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(
-      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
-    );
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
 
   return (
     <>

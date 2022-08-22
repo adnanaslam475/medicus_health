@@ -45,8 +45,10 @@ const InfoMessageBannerReminder = () => {
       : `Dr. ${doctor_first_name}`
   }`;
 
-  const selectStartTime =  Number(dayjs(selectedTime?.startTime).utc().unix()-600)
-  const selectEndTime =  dayjs(selectedTime?.endTime).utc().unix()
+  const selectStartTime = Number(
+    dayjs(selectedTime?.startTime).utc().unix() - 600
+  );
+  const selectEndTime = dayjs(selectedTime?.endTime).utc().unix();
   let now = dayjs().utc();
 
   useEffect(() => {
@@ -62,8 +64,11 @@ const InfoMessageBannerReminder = () => {
       : ` ${patient_first_name}`
   }`;
   const timeZone =
-    typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
 
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
