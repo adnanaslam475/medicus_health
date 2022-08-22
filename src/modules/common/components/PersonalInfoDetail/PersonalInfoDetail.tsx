@@ -135,6 +135,18 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
   const [getTimeZones] = useGetTimeZonesQuery();
 
+  const onContactNoValidation = (_rule: any, value: string, callback: any) => {
+    if (value?.trim().length > 15) {
+      // callback(t("contact_no_is_too_long"));
+      callback("El número de contacto no debe ser superior a 15");
+    } else if (value?.trim().length < 9) {
+      // callback(t("contact_number_message"));
+      callback("Por favor ingrese el número de contacto correcto");
+    } else {
+      callback();
+    }
+  };
+
   return (
     <div className="custom-list mt-4">
       <Form form={formInstance} onFinish={onFinish} layout="vertical">
@@ -269,21 +281,21 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4 `}
                 >
+                  {" "}
                   <Form.Item
                     // noStyle
+                    className="flex-1"
+                    // label={t("contact_number")}
+                    // label="Teléfono de contacto"
                     name="conntactNumber"
                     rules={[
                       {
                         required: true,
-                        message: "Se requiere contacto telefónico",
+                        validator: onContactNoValidation,
                       },
                     ]}
                   >
-                    <Input
-                      size="large"
-                      placeholder="Teléfono de contacto"
-                      type="number"
-                    />
+                    <Input />
                   </Form.Item>
                 </div>
               </div>
