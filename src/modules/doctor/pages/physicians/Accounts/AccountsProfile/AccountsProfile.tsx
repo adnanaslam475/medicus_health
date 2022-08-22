@@ -15,6 +15,8 @@ import EditProfile from "../EditProfile/EditProfile";
 import dayjs from "dayjs";
 import { date } from "common/utils";
 import { UTCPrettierTime } from "common/utils/date";
+import { GraphQLError } from "graphql";
+import { notification } from "antd";
 
 function AccountsProfile() {
   const editData = () => {
@@ -52,21 +54,12 @@ function AccountsProfile() {
     { fetching: deleteScheduleFetching },
     executeRemoveDoctorScheduleMutation,
   ] = useRemoveDoctorScheduleMutation();
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(
-      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
-    );
+
 
   async function onAddClick() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
-      const startTime = UTCPrettierTime(
-        addScheduleTime?.timeString[0]
-      );
-      const endTime = UTCPrettierTime(
-        addScheduleTime?.timeString[1]
-      );
+      const startTime = UTCPrettierTime(addScheduleTime?.timeString[0]);
+      const endTime = UTCPrettierTime(addScheduleTime?.timeString[1]);
       const variable = {
         doctorId: Number(id),
         day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
@@ -74,7 +67,23 @@ function AccountsProfile() {
         endTime: endTime,
       };
 
-      await executeCreateDoctorScheduleMutation(variable);
+      await executeCreateDoctorScheduleMutation(variable)
+        .then((res) => {
+          if (res?.error && res?.error?.message) {
+            let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+              ?.response as GraphQLError;
+            let customError = res?.error?.graphQLErrors[0]?.extensions
+              ?.exception as GraphQLError;
+            let errorMessage =
+              graphQLError?.message ||
+              customError?.message ||
+              "Something went wrong";
+            notification.error({
+              message: errorMessage,
+            });
+          }
+        })
+        .catch((err) => {});
       await executeDoctorSchedules({ requestPolicy: "network-only" });
       setAddScheduleDay("Select Day");
       setAddScheduleTime({ timeString: [], time: null });
