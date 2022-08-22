@@ -344,10 +344,10 @@ export function MessageContextProvider({
   }
   async function markMessageAsReadHandler(id: number) {
     try {
-      await markAsReadMutation({
+     await markAsReadMutation({
         id,
       });
-      localStorage.removeItem("id");
+      // localStorage.removeItem("id");
     } catch (error) {
       console.log("something went wrong");
     }

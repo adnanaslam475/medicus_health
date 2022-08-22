@@ -4,7 +4,7 @@ import {
   useGetUnreadMessageCountQuery,
   useMarkMessagesAsReadMutationMutation,
 } from "generated/graphql";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import Image from "next/image";
 import { useMessageContext } from "../MessageDetail/MessageContext";
 import profile from "./../../../../../../public/assets/images/doc-pic.png";
@@ -51,6 +51,9 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
+    Router.push({
+      query: "",
+    });
   }
 
   useEffect(() => {
