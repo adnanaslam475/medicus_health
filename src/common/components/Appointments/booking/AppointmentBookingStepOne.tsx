@@ -197,7 +197,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       variables: {
         doctorId: doctorScheduleId,
       },
-      pause: !doctorId,
+      pause: !doctorScheduleId,
     });
 
     const doctorAvailableDaysList =
