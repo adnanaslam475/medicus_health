@@ -257,7 +257,7 @@ function DoctorProfileCard(props: Props) {
                   title={
                     items && items?.length > 0
                       ? ""
-                      : "Please Create an Appointment To Message Physician"
+                      : "Please Create an appointment to message physician"
                   }
                   disabled={items && items?.length > 0 ? false : true}
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
