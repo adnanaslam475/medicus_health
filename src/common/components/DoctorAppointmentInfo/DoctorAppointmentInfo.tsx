@@ -85,6 +85,8 @@ function DoctorAppointmentInfo({ data }: Props) {
     createdAt,
     doctor,
   } = data || {};
+
+  const {id:doctorIdForChat} = doctor || {};
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
   const timeZone =
@@ -170,7 +172,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           status === "Proposed" ||
           status === "Rescheduled" ||
           status === "Completed") && (
-          <MessageButtons patientID={patientID} doctorId={doctorId} />
+          <MessageButtons patientID={patientID} doctorId={doctorIdForChat} />
         )}
       </div>
       <div>
@@ -705,7 +707,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         closeModal();
       }
     } catch (error: any) {
-      console.log("eeeeeeee", error);
+      console.log("error", error);
       // notification.error({
       //   message: error?.message,
       // });

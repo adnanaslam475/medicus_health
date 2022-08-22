@@ -45,36 +45,35 @@ const MessageButtons = (props: Props) => {
           </Button>
         )}
 
-        {getRole() === "User" ||
-          (getRole() === "Admin" && (
-            <Button
-              icon={
-                <Image
-                  priority={true}
-                  width={15}
-                  height={15}
-                  src={chat}
-                  alt=""
-                  className=""
-                />
-              }
-              className={`${_classes["appointments-btn"]} mr-3`}
-              onClick={() => {
-                const query: any = {
-                  chat: "doctor",
-                  doctorId,
-                  patientId: patientID,
-                };
-                // localStorage.setItem("id", JSON.stringify(query));
-                Router.push({
-                  pathname: "/physician/messages",
-                  query,
-                });
-              }}
-            >
-              <span className="pl-2">Message physician</span>
-            </Button>
-          ))}
+        {(getRole() === "User" || getRole() === "Admin") && (
+          <Button
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={chat}
+                alt=""
+                className=""
+              />
+            }
+            className={`${_classes["appointments-btn"]} mr-3`}
+            onClick={() => {
+              const query: any = {
+                chat: "doctor",
+                doctorId,
+                patientId: patientID,
+              };
+              // localStorage.setItem("id", JSON.stringify(query));
+              Router.push({
+                pathname: "/physician/messages",
+                query,
+              });
+            }}
+          >
+            <span className="pl-2">Message physician</span>
+          </Button>
+        )}
 
         {(getRole() === "User" ||
           getRole() === "Doctor" ||
