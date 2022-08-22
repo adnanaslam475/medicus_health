@@ -38,7 +38,7 @@ const CountrySelectDropDown = (props: Props) => {
         }
         onChange={onChange}
         // placeholder={t("country")}
-        placeholder="País de nacimiento"
+        placeholder="Pais"
       >
         {React.Children.toArray(
           countries?.map((el, i) => {
