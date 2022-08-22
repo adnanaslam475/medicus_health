@@ -96,9 +96,13 @@ export default function PersonalInfo({ onFinish }: props) {
   };
 
   const onContactNoValidation = (_rule: any, value: string, callback: any) => {
-    if (value?.trim().length === 0) {
+    console.log('value', value)
+    if (value?.trim().length === 0 || !value) {
       // callback(t("contact_number_message"));
       callback("Por favor ingrese su número de contacto");
+    } else if (value?.trim().length < 9) {
+      // callback(t("contact_number_message"));
+      callback("Por favor ingrese el número de contacto correcto");
     } else {
       callback();
     }
@@ -118,7 +122,7 @@ export default function PersonalInfo({ onFinish }: props) {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-console.log('countryCode', countryCode)
+
   return (
     <Form
       layout="vertical"
@@ -315,6 +319,7 @@ console.log('countryCode', countryCode)
             // label={t("contact_number")}
             label="Teléfono de contacto"
             name="contact_number"
+            validateFirst
             rules={[
               {
                 required: true,
