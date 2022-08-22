@@ -17,7 +17,13 @@ function DoctorCalendar() {
   const redirectToUpcoming = function () {
     Router.push("/physician/appointments/upcoming");
   };
-  const timeZone = typeof window !== "undefined" && localStorage?.getItem("timeZone") !== "undefined" &&JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
+      
   const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
     calenderEvents: [],
@@ -46,8 +52,8 @@ function DoctorCalendar() {
       dateValue: selectedTimeSlot?.startTime || data.start,
       className: data?.extendedProps?.extraData?.class_name,
       startDate:
-        date.formatDAYMMDDYY(selectedTimeSlot?.startTime,timeZone) ||
-        date.formatDAYMMDDYY(data?.extendedProps?.extraData?.start,timeZone),
+        date.formatDAYMMDDYY(selectedTimeSlot?.startTime, timeZone) ||
+        date.formatDAYMMDDYY(data?.extendedProps?.extraData?.start, timeZone),
       endDate: selectedTimeSlot?.endTime || data?.extendedProps?.extraData?.end,
       status: data?.extendedProps?.status,
       charges: data?.extendedProps?.charges,

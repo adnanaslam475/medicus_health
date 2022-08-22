@@ -79,9 +79,10 @@ function AppointmentInfo(props: Props) {
   const timeZone =
     typeof window !== "undefined" &&
     localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(
-      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
-    );
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
+
   const firstName =
     getRole() === "User"
       ? formatedDoctorFirstName
@@ -132,10 +133,14 @@ function AppointmentInfo(props: Props) {
           <LabelValueRow label="Appointment type" value={name || "--"} />
           <LabelValueRow
             label="Appointment date"
-            value={appointment?.appointmentDateTime?.startTime ? date.formatDAYMMDDYY(
-              String(appointment?.appointmentDateTime?.startTime),
-              timeZone
-            ) : "--"}
+            value={
+              appointment?.appointmentDateTime?.startTime
+                ? date.formatDAYMMDDYY(
+                    String(appointment?.appointmentDateTime?.startTime),
+                    timeZone
+                  )
+                : "--"
+            }
           />
           {/* <LabelValueRow
           label="Booking date"
@@ -153,13 +158,15 @@ function AppointmentInfo(props: Props) {
                     selectedAppointment?.endTime,
                     timeZone
                   )}`
-                : appointment?.appointmentDateTime?.startTime ? `${date.formathhmma(
+                : appointment?.appointmentDateTime?.startTime
+                ? `${date.formathhmma(
                     String(appointment?.appointmentDateTime?.startTime),
                     timeZone
                   )} - ${date.formathhmma(
                     String(appointment?.appointmentDateTime?.endTime),
                     timeZone
-                  )}` : "--"
+                  )}`
+                : "--"
             }
           />
           <LabelValueRow

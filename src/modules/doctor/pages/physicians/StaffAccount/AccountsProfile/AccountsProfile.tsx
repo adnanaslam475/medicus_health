@@ -14,6 +14,7 @@ import EditProfile from "../EditProfile/EditProfile";
 import { RangeValue } from "rc-picker/lib/interface";
 import { GraphQLError } from "graphql";
 import { notification } from "antd";
+import { UTCPrettierTime } from "common/utils/date";
 
 type Props = {
   isStaff?: boolean;
@@ -55,11 +56,13 @@ function AccountsProfile(props: Props) {
     useRemoveDoctorScheduleMutation();
   async function onAddClick() {
     if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
+      const startTime = UTCPrettierTime(addScheduleTime?.timeString[0]);
+      const endTime = UTCPrettierTime(addScheduleTime?.timeString[1]);
       const variable = {
         doctorId: Number(id),
-        day: Number(addScheduleDay),
-        startTime: addScheduleTime?.timeString[0],
-        endTime: addScheduleTime?.timeString[1],
+        day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
+        startTime: startTime,
+        endTime: endTime,
       };
 
       await executeCreateDoctorScheduleMutation(variable)

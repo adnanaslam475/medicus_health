@@ -71,6 +71,7 @@ function Login() {
             history: 0,
             pending: 0,
             upcoming: 0,
+            firstLogin: true,
           })
         );
         if (

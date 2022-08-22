@@ -71,12 +71,13 @@ function AppointmentCalendar() {
           transaction
         }) => ({
           id: id,
-          title:
-            "Appointmetn with " + doctor?.first_name?.includes("Dr.")
-              ? `${serviceType?.name}: ${doctor?.first_name}`
-              : `${serviceType?.name}: Dr. ${doctor?.first_name}` +
-                " " +
-                doctor?.last_name,
+          // title:
+          //   "Appointment with " + doctor?.first_name?.includes("Dr.")
+          //     ? `${serviceType?.name}: ${doctor?.first_name}`
+          //     : `${serviceType?.name}: Dr. ${doctor?.first_name}` +
+          //       " " +
+          //       doctor?.last_name,
+          title: "Appointment with " + "Dr. " + doctor?.first_name + " " + doctor?.last_name ,
           start: appointmentTimeSlots?.filter((item) => item?.selected)?.[0]
             ?.startTime,
           patient: patient?.first_name + " " + patient?.last_name,
