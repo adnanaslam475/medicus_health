@@ -249,8 +249,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
       setDoctorId(Number(doctorId));
     };
 
-    // const patientTime = dayjs(`${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`).tz("Asia/Karachi").format("HH:mm")
-    // console.log("my patient Time",patientTime, `${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`)
     const timeZone =
       typeof window !== "undefined" &&
       localStorage?.getItem("timeZone") !== "undefined" &&

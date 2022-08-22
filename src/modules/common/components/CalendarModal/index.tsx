@@ -55,7 +55,7 @@ function CalendarModalComponent(props: Props) {
       ? `upcoming/${id}`
       : user?.role === "User"
       ? `/patient/appointments/${id}`
-      : `/admin/appointments//${id}`;
+      : `/admin/appointments/${id}`;
   return (
     <Modal
       title=""
