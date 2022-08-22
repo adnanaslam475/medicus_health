@@ -1,6 +1,6 @@
 import { Radio } from "antd";
 import Image from "next/image";
-import  StaticImageData  from "next/image";
+import  {StaticImageData}  from "next/image";
 import React from "react";
 import _classes from "./Payment.module.scss";
 

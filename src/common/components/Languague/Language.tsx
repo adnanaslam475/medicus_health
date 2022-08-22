@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import StaticImageData  from "next/image";
+import {StaticImageData}  from "next/image";
 import { Checkbox } from "antd";
 
 type Prop = {
