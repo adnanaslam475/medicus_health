@@ -345,6 +345,47 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 </div>
               </div>
             </li>
+            <li>
+              <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
+                <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
+                  {/* {t("password")} */}
+                  Confirmar contraseña
+                </div>
+                <div
+                  className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4`}
+                >
+                  <Form.Item
+                    name="confirmPassword"
+                    className="bottom-margin-0"
+                    rules={[
+                      {
+                        required: true,
+                        // message: t("confirm_your_password"),
+                        message: "¡Por favor, confirme su contraseña!",
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue("password") === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(
+                            // new Error(t("two_passwords_mismatch_message"))
+                            new Error(
+                              "Las dos contraseñas que ingresaste no coinciden"
+                            )
+                          );
+                        },
+                      }),
+                    ]}
+                  >
+                    <Input.Password
+                      size="large"
+                      placeholder="Confirmar contraseña"
+                    />
+                  </Form.Item>
+                </div>
+              </div>
+            </li>
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">

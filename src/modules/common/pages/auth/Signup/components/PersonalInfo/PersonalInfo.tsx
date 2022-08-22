@@ -187,9 +187,9 @@ export default function PersonalInfo({ onFinish }: props) {
             <Select.Option value="prefer not to answer">
               {t("i_prefer_not_to_say")}
               {/* I prefer not to answer */}
-            <Select.Option value="male">Masculino</Select.Option>
-            <Select.Option value="female">Femenina</Select.Option>
-            <Select.Option value="prefer not to answer">
+            <Select.Option value="masculino">Masculino</Select.Option>
+            <Select.Option value="femenina">Femenina</Select.Option>
+            <Select.Option value="prefiero no contestar">
               Prefiero no contestar
               {/* I prefer not to answer */}
             </Select.Option>
