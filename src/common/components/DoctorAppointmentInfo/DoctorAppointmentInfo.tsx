@@ -174,13 +174,17 @@ function DoctorAppointmentInfo({ data }: Props) {
       <div>
         <LabelWithText label="ID#" text={Number(id)} />
         <LabelWithText
+          label="Booking date"
+          text={date?.formatDAYMMDDYY(createdAt)}
+        />
+        {/* <LabelWithText
           label="Patient name"
           text={
             patient?.first_name
               ? `${patient?.first_name} ${patient?.last_name}`
               : "--"
           }
-        />
+        /> */}
         <LabelWithText
           label="Appointment type requested"
           text={serviceType?.name ? serviceType?.name : "--"}
@@ -195,10 +199,7 @@ function DoctorAppointmentInfo({ data }: Props) {
               : `${formatedDueDate} `
           }
         />
-        {/* <LabelWithText
-          label="Booking date"
-          text={date?.formatDAYMMDDYY(createdAt)}
-        /> */}
+
         {/* <LabelWithText
           label="Requested date"
           text={date?.formatDAYMMDDYY(requestedDate)}
