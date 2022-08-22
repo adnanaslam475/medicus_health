@@ -36,10 +36,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
   const { message, messageType, createdAt } = lastMessage || {};
   const { channelMessagesCount } = unReadMessagesCount || {};
 
-  const [{}, markAsReadMutation] = useMarkMessagesAsReadMutationMutation();
-
   // Set User time zone
-
   date?.setTimeZone(userTimeZone ? String(userTimeZone) : "America/New_York");
   const messageDateTime = date?.getDateAndTimeWRTTZ(
     createdAt,
