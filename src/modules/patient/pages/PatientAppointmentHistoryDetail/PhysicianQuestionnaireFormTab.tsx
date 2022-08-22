@@ -9,9 +9,12 @@ import {
 import { useRouter } from "next/router";
 import React from "react";
 
-function PhysicianQuestionnaireFormTab() {
+type Props = {
+  doctorId?: any;
+};
+function PhysicianQuestionnaireFormTab(props: Props) {
   const { query } = useRouter();
-
+  const { doctorId } = props;
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
   );
@@ -29,7 +32,11 @@ function PhysicianQuestionnaireFormTab() {
   const [{ data, fetching }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
       // filter: { searchString: String(query?.id), status: "Completed" },
-      filter: { ...filterValues, status: "Completed" },
+      filter: {
+        ...filterValues,
+        appointmentId: Number(query?.id),
+        status: "Completed",
+      },
       pagination: { limit: -1, page: 1 },
       sorting,
     },
@@ -49,11 +56,12 @@ function PhysicianQuestionnaireFormTab() {
         imageUrl={appointment?.patient?.patientProfile?.profileImage}
 
       > */}
-        <PhysicianQuestionnaire
-          appointmentHealthHistory={
-            appointment?.appointmentHealthHistory?.history
-          }
-        />
+      <PhysicianQuestionnaire
+        appointmentHealthHistory={
+          appointment?.appointmentHealthHistory?.history
+        }
+        doctorId={doctorId}
+      />
       {/* </CardWithProfileImageInfo> */}
     </div>
   );
