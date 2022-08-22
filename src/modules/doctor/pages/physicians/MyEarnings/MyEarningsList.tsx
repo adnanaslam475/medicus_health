@@ -125,7 +125,7 @@ const Columns = [
     },
   },
   {
-    title: "Refund($)",
+    title: "Refunds($)",
     dataIndex: ["doctor_percentage", "status"],
     key: "doctor_percentage",
     sorter: true,
@@ -156,7 +156,8 @@ const Columns = [
   //   },
   // },
   {
-    title: "Net physician fee($)",
+    // title: "Net physician fee($)",
+    title: "Net earnings($)",
     dataIndex: ["doctor_percentage", "status"],
     key: "doctor_percentage",
     sorter: true,
@@ -219,7 +220,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       filter: DoctorEarningsfilterValues,
       id: Number(user?.id),
     },
-    requestPolicy:"network-only"
+    requestPolicy: "network-only",
   });
 
   const { getDoctorEarnings } = data || {};
