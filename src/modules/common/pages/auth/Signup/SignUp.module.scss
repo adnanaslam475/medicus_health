@@ -40,3 +40,14 @@
     max-height: 350px;
   }
 }
+
+.contactNo{
+  border: 1px solid #9296af;
+  border-radius: 6px !important;
+  :global .react-tel-input{
+    :global .form-control{
+      width: 318px !important;
+      height: 46px !important;
+    }
+  }
+}
