@@ -167,7 +167,9 @@ function DoctorAppointmentInfo({ data }: Props) {
       <div className="message-button mb-3">
         {(status === "Requested" ||
           status === "Confirmed" ||
-          status === "Canceled") && (
+          status === "Canceled" ||
+          status === "Proposed" ||
+          status === "Rescheduled") && (
           <MessageButtons patientID={patientID} doctorId={doctorId} />
         )}
       </div>
