@@ -190,14 +190,40 @@ export const AppointmentBookingStepOne = React.forwardRef(
       setSelectedDay(9);
     }
 
+    const [
+      { data: scheduleDetailsForDisableDate },
+      executeUseDoctorSchedulesQuery,
+    ] = useDoctorSchedulesQuery({
+      variables: {
+        doctorId: doctorScheduleId,
+      },
+      pause: !doctorScheduleId,
+    });
+
+    const doctorAvailableDaysList =
+      scheduleDetailsForDisableDate?.doctorSchedules?.map((item) => item.day);
     function disabledDate(current: any) {
-      if (
-        serviceInfo &&
-        serviceInfo[0]?.name?.toLowerCase().includes("consultation")
-      ) {
-        return dayjs(current).isBefore(dayjs().add(1, "day"));
-      }
-      return dayjs(current).isBefore(dayjs().add(4, "day"));
+      const weekDays = [0, 1, 2, 3, 4, 5, 6];
+      // Remove duplicates from array
+      let doctorAvailableDays = [
+        ...(new Set(doctorAvailableDaysList) as unknown as number[]),
+      ];
+
+      // Returns list of days in which doctor is not available
+      const filteredDays = weekDays.filter(
+        (currentEl) => !doctorAvailableDays.includes(currentEl)
+      );
+      const isSunday = filteredDays.includes(0) ? 0 : NaN;
+
+      const disabledDates =
+        current < dayjs().startOf("day") ||
+        new Date(current).getDay() === isSunday ||
+        (filteredDays?.find((day) => day === new Date(current).getDay()) ||
+          (serviceInfo &&
+          serviceInfo[0]?.name?.toLowerCase().includes("consultation")
+            ? dayjs(current).isBefore(dayjs().add(1, "day"))
+            : dayjs(current).isBefore(dayjs().add(4, "day"))));
+      return disabledDates;
     }
 
     function onFinishLocal(values: any) {
@@ -223,8 +249,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
       setDoctorId(Number(doctorId));
     };
 
-    // const patientTime = dayjs(`${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`).tz("Asia/Karachi").format("HH:mm")
-    // console.log("my patient Time",patientTime, `${dayjs().format("YYYY-MM-DD")}T${startTime}:00.000Z`)
     const timeZone =
       typeof window !== "undefined" &&
       localStorage?.getItem("timeZone") !== "undefined" &&
@@ -384,7 +408,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
               onChange={(momentDate) => {
                 setSelectedDay(Number(momentDate?.get("weekday")));
               }}
-              disabledDate={disabledDate}
+              disabledDate={disabledDate as any}
             />
           </Form.Item>
           <Form.Item

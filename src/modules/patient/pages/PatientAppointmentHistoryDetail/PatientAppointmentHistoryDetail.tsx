@@ -37,7 +37,7 @@ function PatientAppointmentHistoryDetail() {
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { ...filterValues, status: "Completed" },
+      filter: { ...filterValues, appointmentId: Number(query?.id),status: "Completed" },
       pagination: { limit: -1, page: 1 },
       sorting,
     },
@@ -63,7 +63,7 @@ function PatientAppointmentHistoryDetail() {
   };
 
   console.log("appointments-sadads", appointments);
-  // const { id: doctorId } = appointment?.doctor || {};
+  const { doctorId } = appointment || {};
 
   // const doctorId = appointment?.
 
@@ -89,7 +89,7 @@ function PatientAppointmentHistoryDetail() {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician questionnaire" key="4">
               <PhysicianQuestionnaireForm
-              // doctorId={doctorId}
+              doctorId={doctorId}
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachments" key="5">
