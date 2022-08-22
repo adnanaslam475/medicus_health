@@ -95,10 +95,7 @@ export default function PersonalInfo({ onFinish }: props) {
   };
 
   const onContactNoValidation = (_rule: any, value: string, callback: any) => {
-    if (value?.trim().length > 16) {
-      // callback(t("contact_no_is_too_long"));
-      callback("El número de contacto no debe ser superior a 15");
-    } else if (value?.trim().length < 9) {
+    if (value?.trim().length < 9) {
       // callback(t("contact_number_message"));
       callback("Por favor ingrese el número de contacto correcto");
     } else {
@@ -327,10 +324,8 @@ export default function PersonalInfo({ onFinish }: props) {
             {/* <Input /> */}
             <ReactPhoneInput
               country={"us"}
-              disableDropdown
-              placeholder={"Enter you contact no"}
-              enableLongNumbers
-              autoFormat={false}
+              placeholder={"Ingrese su número de contacto"}
+              enableAreaCodes
             />
           </Form.Item>
         </div>
