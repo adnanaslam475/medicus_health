@@ -13,6 +13,8 @@ import {
 import _classes from "../../SignUp.module.scss";
 import { useTranslations } from "next-intl";
 import TermsAndConditions from "common/components/TermsAndConditionns/TermsAndConditionns";
+import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -93,9 +95,9 @@ export default function PersonalInfo({ onFinish }: props) {
   };
 
   const onContactNoValidation = (_rule: any, value: string, callback: any) => {
-    if (value?.trim().length > 15) {
+    if (value?.trim().length === 0) {
       // callback(t("contact_no_is_too_long"));
-      callback("El número de contacto no debe ser superior a 15");
+      callback("Por favor ingrese el número de contacto");
     } else if (value?.trim().length < 9) {
       // callback(t("contact_number_message"));
       callback("Por favor ingrese el número de contacto correcto");
@@ -321,7 +323,16 @@ export default function PersonalInfo({ onFinish }: props) {
             },
           ]}
         >
-          <Input />
+          {/* <Input /> */}
+          <div 
+            className={`${_classes.contactNo} inline-block`}
+          >
+            <ReactPhoneInput
+              country={"us"}
+              disableDropdown
+              placeholder={"Enter you contact no"}
+            />
+          </div>
         </Form.Item>
 
         <Form.Item
