@@ -11,7 +11,7 @@ export function translationJson(local: string) {
           title: "Iniciar sesión para continuar",
           description: "Ingrese sus credenciales para acceder a su cuenta.",
           remember: "Acuérdate de mí",
-          forgot: "¿Has olvidado tu contraseña?",
+          forgot: "¿Olvidó su contraseña?",
         },
         ForgotPass: {
           ...spanishCommon,
@@ -49,7 +49,7 @@ export function translationJson(local: string) {
             "Crea tu cuenta para empezar a usar medicus",
           personalInfo: "Información personal",
           healthQuestionnaire: "Cuestionario de Salud",
-          Login: "Inicio de sesión",
+          Login: "Iniciar sesión",
           already_have_an_account: "¿Ya tienes una cuenta?",
           signup_modal_skip_questionaire_message:
             "Se requiere contestar estas preguntas antes de hacer su cita con el médico",
@@ -102,7 +102,7 @@ export function translationJson(local: string) {
         },
         PersonalInfo: {
           ...spanishCommon,
-          Login: "Inicio de sesión",
+          Login: "Iniciar sesión",
           already_have_an_account: "¿Ya tienes una cuenta?",
         },
       };
@@ -119,7 +119,7 @@ export function translationJson(local: string) {
           description: "Introduzca sus credenciales para acceder a su cuenta.",
           remember: "Remember me",
           forgot: "Forgot password?",
-          login: "Inicio de sesión",
+          login: "Iniciar sesión",
           account: "Don't have an account?",
           register: "Register",
           email: "Email address",
@@ -160,7 +160,7 @@ export function translationJson(local: string) {
             "Create your account to start using medicus",
           personalInfo: "Personal info",
           healthQuestionnaire: "Health questionnaire",
-          login: "Inicio de sesión",
+          login: "Iniciar sesión",
           account: "Don't have an account?",
           signup_modal_skip_questionaire_message:
             "Note, these questions need to be answered before requesting an appointment with a physician. You can skip for now and complete later.",
@@ -216,7 +216,7 @@ export function translationJson(local: string) {
 
         PersonalInfo: {
           ...englishCommon,
-          Login: "Inicio de sesión",
+          Login: "Iniciar sesión",
           already_have_an_account: "¿Ya tienes una cuenta?",
           gender: "Gender",
           first_name: "First name",

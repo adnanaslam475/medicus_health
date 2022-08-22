@@ -75,7 +75,9 @@ const ResendLink = () => {
               </h1>
               <h5 className="text-center text-gray font-rubik font-normal">
                 {/* Enter your email below to reset password. */}
-                {t("enter_your_email_below_to_reset_password")}
+                {/* {t("enter_your_email_below_to_reset_password")} */}
+                Por favor confirma tu correo debajo para recibir las
+                instrucciones de reinicio de contraseña.
               </h5>
               <div className="mt-5">
                 <Form
@@ -104,7 +106,7 @@ const ResendLink = () => {
                       },
                     ]}
                   >
-                    <Input />
+                    <Input placeholder="Escriba tú coreo electrónico" />
                   </Form.Item>
 
                   <Form.Item>

@@ -36,7 +36,9 @@ function ForgotPasswordForm({ onFinish }: Props) {
           type="primary"
           htmlType="submit"
         >
-          Reset password
+          {/* Reset password */}
+          {/* {t("reset_password")} */}
+          Enviar instrucciones
         </Button>
       </Form.Item>
     </Form>

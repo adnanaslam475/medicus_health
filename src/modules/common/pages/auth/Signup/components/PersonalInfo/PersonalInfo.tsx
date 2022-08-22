@@ -221,13 +221,13 @@ export default function PersonalInfo({ onFinish }: props) {
 
       <Form.Item
         // label={t("email_address")}
-        label="Dirección de correo electrónico"
+        label="Coreo electrónico"
         name="email"
         rules={[
           {
             required: true,
             // message: t("email_address_message"),
-            message: "Por favor, introduzca su dirección de correo electrónico",
+            message: "Por favor, introduzca su Coreo electrónico",
           },
           {
             type: "email",
@@ -331,7 +331,7 @@ export default function PersonalInfo({ onFinish }: props) {
                 const code = country?.dialCode;
                 setCountryCode(code);
                 form.setFieldsValue({
-                  contact_number: code
+                  contact_number: code,
                 });
               }}
               value={countryCode}
@@ -342,7 +342,7 @@ export default function PersonalInfo({ onFinish }: props) {
         <Form.Item
           className="flex-1"
           // label={t("country")}
-          label="País de nacimiento"
+          label="Pais"
           name="country_id"
           rules={[
             {
@@ -361,7 +361,7 @@ export default function PersonalInfo({ onFinish }: props) {
               selectCountryId(e);
             }}
             // placeholder={t("country")}
-            placeholder="País de nacimiento"
+            placeholder="Pais"
           >
             {React.Children.toArray(
               countries?.map((el, i) => {

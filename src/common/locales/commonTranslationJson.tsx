@@ -61,7 +61,7 @@ export const englishCommon: any = {
 
   forgot_pass: "Forgot password",
   forgot_pass_message: "Have you forgotten your password",
-  login: "Inicio de sesión",
+  login: "Iniciar sesión",
   account: "You do not have an account?",
   register: "Register",
 
@@ -230,7 +230,7 @@ export const spanishCommon: any = {
   i_prefer_not_to_say: "Prefiero no contestar",
   date_of_birth: "Fecha de nacimiento",
   date_of_birth_message: "Por favor, seleccione la fecha de nacimiento",
-  email_address: "Dirección de correo electrónico",
+  email_address: "Coreo electrónico",
   please_complete_health_questionnaire:
     "Por favor complete el cuestionario de salud",
   search_by: "Búsqueda por",
@@ -253,13 +253,13 @@ export const spanishCommon: any = {
   time_zone_is_required: "Se requiere zona horaria",
 
   enter_your_email_below_to_reset_password:
-    "Ingrese su correo electrónico a continuación para restablecer la contraseña.",
+    "Por favor confirma tu correo debajo para recibir las instrucciones de reinicio de contraseña.",
 
-  back_to_log_in: "Atrás para iniciar sesión",
+  back_to_log_in: "Atrás",
 
   street_address: "Dirección (calle y numero)",
   contact_number: "Teléfono de contacto",
-  country: "País de nacimiento",
+  country: "Pais",
   state: "Estado/Provinicia",
   city: "Ciudad",
   postal_code: "Código postal",
@@ -274,14 +274,13 @@ export const spanishCommon: any = {
   please_fill: "Porfavor llene",
 
   remember: "Acuérdate de mí",
-  forgot_pass: "¿Has olvidado tu contraseña?",
+  forgot_pass: "¿Olvidó su contraseña?",
   forgot_pass_message: "Has olvidado tu contraseña",
-  login: "Inicio de sesión",
+  login: "Iniciar sesión",
   account: "¿No tiene una cuenta?",
   register: "Regístrese en",
-  email: "Dirección de correo electrónico",
-  email_address_message:
-    "Por favor, introduzca su dirección de correo electrónico",
+  email: "Coreo electrónico",
+  email_address_message: "Por favor, introduzca su Coreo electrónico",
   email_invalid_message: "el correo electrónico es invalido",
   email_is_invalid: "el correo electrónico es invalido",
   email_already_exist: "Ya existe el correo electrónico",

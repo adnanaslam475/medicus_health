@@ -86,10 +86,7 @@ function PatientInfoTab({}: Props) {
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv
-            label="Dirección de correo electrónico"
-            value={email}
-          />
+          <LabelWithTextDiv label="Coreo electrónico" value={email} />
           <LabelWithTextDiv
             label="Teléfono de contacto"
             value={contact_number}
@@ -97,7 +94,7 @@ function PatientInfoTab({}: Props) {
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv
-            label="País de nacimiento"
+            label="Pais"
             value={country_name ? country_name : "-"}
           />
           <LabelWithTextDiv
