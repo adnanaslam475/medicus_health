@@ -260,7 +260,7 @@ const PersonalInfo = () => {
                 onClick={() => setIsEdit(true)}
               >
                 <span className="text-xs">
-                  editar
+                  Editar
                   {/* {t("edit")} */}
                 </span>
               </Button>
