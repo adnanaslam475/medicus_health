@@ -8,7 +8,7 @@ export function translationJson(local: string) {
         Common: { ...spanishCommon },
         Login: {
           ...spanishCommon,
-          title: "Iniciar sesión para continuar",
+          title: "Inicie sesión para continuar",
           description: "Ingrese sus credenciales para acceder a su cuenta.",
           remember: "Acuérdate de mí",
           forgot: "¿Olvidó su contraseña?",
@@ -114,7 +114,7 @@ export function translationJson(local: string) {
         Login: {
           ...englishCommon,
           // title: "Login to continue",
-          title: "Iniciar sesión para continuar",
+          title: "Inicie sesión para continuar",
           // description: "Enter your credentials to access your account.",
           description: "Introduzca sus credenciales para acceder a su cuenta.",
           remember: "Remember me",
