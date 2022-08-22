@@ -42,12 +42,23 @@
 }
 
 .contactNo{
-  border: 1px solid #9296af;
-  border-radius: 6px !important;
   :global .react-tel-input{
     :global .form-control{
       width: 318px !important;
-      height: 46px !important;
+      height: 48px !important;
+      position: relative;
+      font-size: 14px;
+      letter-spacing: .01rem;
+      padding-left: 48px;
+      background: #FFFFFF;
+      border: 1px solid #9296af;
+      border-radius: 6px;
+      line-height: 25px;
+    }
+    :global .flag-dropdown{
+      border: 1px solid #9296af !important;
+      border-start-start-radius: 6px !important;
+      border-end-start-radius: 6px !important;
     }
   }
 }
