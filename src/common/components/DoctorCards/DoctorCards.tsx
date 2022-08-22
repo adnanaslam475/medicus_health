@@ -211,7 +211,7 @@ function DoctorCard({
             ) : (
               <div className="w-full flex justify-center my-3">
                 <Tooltip
-                  title={"Please create an appointment to message physician"}
+                  title={"Please request an appointment to message physician."}
                 >
                   <Button
                     className={`${_classes["btn-tooltip"]} w-full`}
