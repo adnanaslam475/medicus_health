@@ -18,6 +18,7 @@ import {
 } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 import { useTranslations } from "next-intl";
+import { capitalizeFirstLetter } from "utils/helper";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -211,7 +212,10 @@ function DoctorCard({
             ) : (
               <div className="w-full flex justify-center my-3">
                 <Tooltip
-                  title={"Please request an appointment to message physician."}
+                  title={capitalizeFirstLetter(
+                    "Please request an appointment to message physician."
+                  )}
+                  // {capitalizeFirstLetter(value)}
                 >
                   <Button
                     className={`${_classes["btn-tooltip"]} w-full`}
