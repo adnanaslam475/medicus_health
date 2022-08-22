@@ -218,11 +218,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
       const disabledDates =
         current < dayjs().startOf("day") ||
         new Date(current).getDay() === isSunday ||
-        (filteredDays?.find((day) => day === new Date(current).getDay()) ||
-          (serviceInfo &&
-          serviceInfo[0]?.name?.toLowerCase().includes("consultation")
-            ? dayjs(current).isBefore(dayjs().add(1, "day"))
-            : dayjs(current).isBefore(dayjs().add(4, "day"))));
+        filteredDays?.find((day) => day === new Date(current).getDay()) ||
+        (serviceInfo &&
+        serviceInfo[0]?.name?.toLowerCase().includes("consultation")
+          ? dayjs(current).isBefore(dayjs().add(1, "day"))
+          : dayjs(current).isBefore(dayjs().add(4, "day")));
       return disabledDates;
     }
 
@@ -252,9 +252,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
     const timeZone =
       typeof window !== "undefined" &&
       localStorage?.getItem("timeZone") !== "undefined" &&
-      JSON.parse(
-        String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
-      );
+      localStorage?.getItem("timeZone")
+        ? JSON.parse(String(localStorage?.getItem("timeZone")))
+        : "America/Cambridge_Bay";
 
     return (
       <>

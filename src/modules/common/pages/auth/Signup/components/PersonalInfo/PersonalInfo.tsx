@@ -96,7 +96,7 @@ export default function PersonalInfo({ onFinish }: props) {
   };
 
   const onContactNoValidation = (_rule: any, value: string, callback: any) => {
-    console.log('value', value)
+    console.log("value", value);
     if (value?.trim().length === 0 || !value) {
       // callback(t("contact_number_message"));
       callback("Por favor ingrese su número de contacto");
@@ -225,13 +225,13 @@ export default function PersonalInfo({ onFinish }: props) {
 
       <Form.Item
         // label={t("email_address")}
-        label="Dirección de correo electrónico"
+        label="Coreo electrónico"
         name="email"
         rules={[
           {
             required: true,
             // message: t("email_address_message"),
-            message: "Por favor, introduzca su dirección de correo electrónico",
+            message: "Por favor, introduzca su Coreo electrónico",
           },
           {
             type: "email",
@@ -349,7 +349,7 @@ export default function PersonalInfo({ onFinish }: props) {
         <Form.Item
           className="flex-1"
           // label={t("country")}
-          label="País de nacimiento"
+          label="Pais"
           name="country_id"
           rules={[
             {
@@ -368,7 +368,7 @@ export default function PersonalInfo({ onFinish }: props) {
               selectCountryId(e);
             }}
             // placeholder={t("country")}
-            placeholder="País de nacimiento"
+            placeholder="Pais"
           >
             {React.Children.toArray(
               countries?.map((el, i) => {

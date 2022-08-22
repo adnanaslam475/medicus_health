@@ -85,15 +85,16 @@ function DoctorAppointmentInfo({ data }: Props) {
     createdAt,
     doctor,
   } = data || {};
-  console.log(data, transaction, "DSdsdss");
+
+  const {id:doctorIdForChat} = doctor || {};
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
   const timeZone =
     typeof window !== "undefined" &&
     localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(
-      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
-    );
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
 
   // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
 
@@ -169,8 +170,9 @@ function DoctorAppointmentInfo({ data }: Props) {
           status === "Confirmed" ||
           status === "Canceled" ||
           status === "Proposed" ||
-          status === "Rescheduled") && (
-          <MessageButtons patientID={patientID} doctorId={doctorId} />
+          status === "Rescheduled" ||
+          status === "Completed") && (
+          <MessageButtons patientID={patientID} doctorId={doctorIdForChat} />
         )}
       </div>
       <div>
@@ -350,7 +352,7 @@ function DoctorAppointmentInfoFooter({
   return (
     <div className="flex justify-between mt-6">
       <div className="flex">
-        {getRole() === "User" ||
+        {/* {getRole() === "User" ||
           (getRole() === "Doctor" && (
             <Button
               icon={
@@ -369,15 +371,15 @@ function DoctorAppointmentInfoFooter({
                   pathname: "/physician/messages",
                   query: {
                     chat: "admin",
-                    // doctorId: doctorId,
-                    patientId: patientId,
+                    doctorId: doctorId,
+                    // patientId: patientId,
                   },
                 })
               }
             >
               <span className="pl-2"> Message support</span>
             </Button>
-          ))}
+          ))} */}
 
         {/* {getRole() === "Admin" ||
           (getRole() === "Patient" && (
@@ -399,7 +401,7 @@ function DoctorAppointmentInfoFooter({
             </Button>
           ))} */}
 
-        {getRole() === "Admin" ||
+        {/* {getRole() === "Admin" ||
           (getRole() === "Doctor" && (
             <Button
               icon={<MessageOutlined />}
@@ -417,7 +419,7 @@ function DoctorAppointmentInfoFooter({
             >
               Message patient
             </Button>
-          ))}
+          ))} */}
       </div>
       {data?.status === "Confirmed" && (
         // <Button
@@ -705,7 +707,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         closeModal();
       }
     } catch (error: any) {
-      console.log("eeeeeeee", error);
+      console.log("error", error);
       // notification.error({
       //   message: error?.message,
       // });
@@ -735,9 +737,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   const timeZone =
     typeof window !== "undefined" &&
     localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(
-      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
-    );
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
 
   let formatedDueDate = date.formatMMMMDDYYYY(
     String(appointmentDateTime?.startTime),
