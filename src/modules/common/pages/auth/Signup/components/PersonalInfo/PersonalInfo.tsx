@@ -118,7 +118,7 @@ export default function PersonalInfo({ onFinish }: props) {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
+console.log('countryCode', countryCode)
   return (
     <Form
       layout="vertical"
@@ -329,10 +329,12 @@ export default function PersonalInfo({ onFinish }: props) {
               enableAreaCodes
               onChange={(_value, country: any) => {
                 const code = country?.dialCode;
-                setCountryCode(code);
-                form.setFieldsValue({
-                  contact_number: code
-                });
+                if (code) {
+                  // setCountryCode(code);
+                  // form.setFieldsValue({
+                  //   contact_number: code
+                  // });
+                }
               }}
               value={countryCode}
             />
