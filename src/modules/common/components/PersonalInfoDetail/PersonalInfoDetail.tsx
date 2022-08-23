@@ -587,37 +587,42 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   ¿Tienes hijos?
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 md:pl-4`}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-2/5 text-gray-1 md:pl-4`}
                 >
                   <Form.Item className="mb-0" name="haveChildren">
-                    <div className="flex flex-row items-center">
-                      <Radio.Group
-                        defaultValue={radioChildren}
-                        onChange={(e) => {
-                          setradioChildren(e.target.value);
-                        }}
-                      >
-                        <Radio value={true}>
-                          {/* {t("yes")} */}
-                          Si
-                        </Radio>
-                        <Radio value={false}>No{/* {t("no")} */}</Radio>
-                      </Radio.Group>
-                      {radioChildren && (
-                        <Form.Item
-                          label="¿Cuanto?"
-                          className="mb-0"
-                          name="children"
-                        >
-                          <Input
-                            size="large"
-                            // placeholder={t("number_of_children")}
-                            placeholder="Numero de niñas"
-                          />
-                        </Form.Item>
-                      )}
-                    </div>
+                    {/* <div className="flex flex-row items-center"> */}
+                    <Radio.Group
+                      defaultValue={radioChildren}
+                      onChange={(e) => {
+                        setradioChildren(e.target.value);
+                      }}
+                    >
+                      <Radio value={true}>
+                        {/* {t("yes")} */}
+                        Si
+                      </Radio>
+                      <Radio value={false}>No{/* {t("no")} */}</Radio>
+                    </Radio.Group>
+
+                    {/* </div> */}
                   </Form.Item>
+                  <div
+                    className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 `}
+                  >
+                    {radioChildren && (
+                      <Form.Item
+                        label="¿Cuanto?"
+                        className="mb-0"
+                        name="children"
+                      >
+                        <Input
+                          size="large"
+                          // placeholder={t("number_of_children")}
+                          placeholder="Numero de niñas"
+                        />
+                      </Form.Item>
+                    )}
+                  </div>
                 </div>
               </div>
             </li>
@@ -629,7 +634,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   {/* {t("What_is_your_occupation")} */}
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 md:pl-4`}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5  text-gray-1 md:pl-4`}
                 >
                   <Form.Item noStyle name="occupation">
                     <Input
@@ -649,7 +654,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   ¿Tiene alguna exposición ocupacional?
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 md:pl-4`}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-1/2 md:w-full text-gray-1 md:pl-4`}
                 >
                   <div className="flex flex-row items-center">
                     <Form.Item className="mb-0" name="occupationalExposure ">
@@ -660,7 +665,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                       >
                         <Radio
                           // value="Yes"
-                          value={"Sí" || "Yes"}
+                          value="Yes"
                         >
                           {/* {t("yes")} */}
                           Si
@@ -668,7 +673,10 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         <Radio value="No">{t("no")}</Radio>
                       </Radio.Group>
                     </Form.Item>
-
+                  </div>
+                  <div
+                    className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 `}
+                  >
                     {radioOccupationalExposure === "Yes" ||
                     radioOccupationalExposure === "Sí" ? (
                       <Form.Item
