@@ -103,6 +103,7 @@ function Accounts() {
               questionnaire={questionnair as Appointment}
               user={user as User}
               disable={true}
+              doctorId={Number(doctorId)}
             />
           </Tabs.TabPane>
           <Tabs.TabPane

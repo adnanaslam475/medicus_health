@@ -900,6 +900,12 @@ function EditProfile({
                   className="flex-1"
                   label={"Time zone"}
                   name="timeZone"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Timezone is required",
+                    },
+                  ]}
                 >
                   <Select
                     placeholder={timeZone?.timeZone}
