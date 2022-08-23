@@ -170,7 +170,7 @@ function Login() {
                       },
                       {
                         type: "email",
-                        message: "el correo electrónico es invalido",
+                        message: "El correo electrónico es invalido",
                         // message: t("email_invalid_message"),
                         // message: "Email is invalid",
                       },

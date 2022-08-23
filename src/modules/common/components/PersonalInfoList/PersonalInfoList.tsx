@@ -273,7 +273,8 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
               !patientProfile?.exposureDuration && "text-gray-1"
             }`}
           >
-            {patientProfile?.occupationalExposure === "Yes"
+            {patientProfile?.occupationalExposure === "Si" ||
+            patientProfile?.occupationalExposure === "Yes"
               ? patientProfile?.exposureDuration
               : "No"}
           </div>

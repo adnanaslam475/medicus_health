@@ -559,7 +559,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 >
                   <Form.Item className="mb-0">
                     <Form.Item className="mb-0" name="maritalStatus">
-                      <Select placeholder="{Estado civil" size="large">
+                      <Select placeholder="Estado civil" size="large">
                         <Select.Option value="Único">Único/Única</Select.Option>
                         <Select.Option value="Casado">
                           Casado
@@ -660,7 +660,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                       >
                         <Radio
                           // value="Yes"
-                          value="Sí"
+                          value={"Sí" || "Yes"}
                         >
                           {/* {t("yes")} */}
                           Si
