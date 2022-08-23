@@ -42,11 +42,11 @@ function AdminQuestionnaireFormTab({
     </div>
   ) : (
     <div>
-      <CardWithProfileImageInfo
+      {/* <CardWithProfileImageInfo
         name={`${firstName} ${lastName}`}
         serviceName={serviceName}
         imageUrl={profilePicture}
-      >
+      > */}
         {appointment?.appointmentHealthHistory?.history || questionnaire ? (
           <PhysicianQuestionnaire
             appointmentHealthHistory={
@@ -61,7 +61,7 @@ function AdminQuestionnaireFormTab({
             <p className="font-noraml">Physician questionnair not available</p>
           </div>
         )}
-      </CardWithProfileImageInfo>
+      {/* </CardWithProfileImageInfo> */}
     </div>
   );
 }
