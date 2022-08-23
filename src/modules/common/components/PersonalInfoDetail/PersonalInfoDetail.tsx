@@ -8,6 +8,8 @@ import StateSelectDropDown from "./StateSelectDropDown";
 import CountrySelectDropDown from "./CountrySelectDropDown";
 import _classes from "./PersonalInfoDetail.module.scss";
 import { useTranslations } from "next-intl";
+import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 type Props = {
   onFinish?: (values: {
@@ -295,7 +297,21 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                       },
                     ]}
                   >
-                    <Input />
+                    {/* <Input /> */}
+                    <ReactPhoneInput
+                      containerStyle={{
+                        border: "1px solid #9296af",
+                        borderRadius: "6px",
+                      }}
+                      inputStyle={{
+                        width: "100%",
+                        height: "40px",
+                        fontWeight: "600"
+                      }}
+                      country={"us"}
+                      placeholder={"Ingrese su número de contacto"}
+                      enableAreaCodes
+                    />
                   </Form.Item>
                 </div>
               </div>

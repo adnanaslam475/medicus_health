@@ -112,7 +112,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             Teléfono de contacto #
           </div>
           <div className="sm:w-1/2 text-secondary md:pl-4">
-            {contact_number}
+            {`+${contact_number}`}
           </div>
         </div>
       </li>
