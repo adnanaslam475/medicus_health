@@ -51,7 +51,7 @@ function CalendarModalComponent(props: Props) {
   }, [selectedAppointment, disabled]);
   const { user } = getUserData();
   const detailsPageLink =
-    user?.role === "Doctor"
+    user?.role === "Doctor" || user?.role === "Staff"
       ? `upcoming/${id}`
       : user?.role === "User"
       ? `/patient/appointments/${id}`
