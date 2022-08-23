@@ -12,6 +12,7 @@ import { NamePath } from "antd/lib/form/interface";
 import { parseJson } from "common/utils/helper";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { getUserData } from "common/utils/userData";
+import styles from './styles.module.scss'
 
 type Props = {
   physicianData?: DoctorProfile | undefined | null;
@@ -188,7 +189,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                     name={item.name}
                     // rules={[{ required: true, message: "¡Requerido!" }]}
                   >
-                    <Checkbox.Group>
+                    <Checkbox.Group className={`${styles["ant-checkbox-wrapper-cover"]}`}>
                       {item?.options?.map(({ value, label }) => {
                         return <Checkbox value={value}>{label}</Checkbox>;
                       })}
