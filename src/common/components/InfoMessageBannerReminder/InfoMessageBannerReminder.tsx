@@ -94,7 +94,7 @@ const InfoMessageBannerReminder = () => {
           at
         </span>
         {/* <span>{date?.formatDAYMMDDYY(selectedTime?.startTime)}</span> */}
-        <span className="ml-0">
+        <span className="ml-0 min-w-[50px]">
           {/* {`${date?.formathhmma(selectedTime?.startTime)} -  ${date?.formathhmma(
           selectedTime?.endTime
         )}`} */}
