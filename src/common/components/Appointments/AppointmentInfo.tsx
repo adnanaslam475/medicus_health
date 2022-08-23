@@ -119,6 +119,62 @@ function AppointmentInfo(props: Props) {
         // serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
         // imageUrl={isRoleGuard ? doctorProfilePic : null}
       >
+        <div className="flex flex-wrap mb-3 mt-6 gap-y-2">
+          <Button
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={support}
+                alt=""
+                className=""
+              />
+            }
+            className={`${_classes["appointments-btn"]}  mr-3`}
+            onClick={() => {
+              const query: any = {
+                chat: "admin",
+                // doctorId: appointment?.doctorId,
+                patientId: appointment?.patientId,
+              };
+              // localStorage.setItem("id", JSON.stringify(query));
+              Router.push({
+                pathname: "/patient/messages",
+                query,
+              });
+            }}
+          >
+            <span className="pl-2">Message support</span>
+          </Button>
+          <Button
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={chat}
+                alt=""
+                className=""
+              />
+            }
+            className={`${_classes["appointments-btn"]} `}
+            onClick={() => {
+              const query: any = {
+                chat: "doctor",
+                doctorId: appointment?.doctorId,
+                patientId: appointment?.patientId,
+              };
+              // localStorage.setItem("id", JSON.stringify(query));
+              Router.push({
+                pathname: "/patient/messages",
+                query,
+              });
+            }}
+          >
+            <span className="pl-2">Message physician</span>
+          </Button>
+        </div>
         <div className="max-w-[700px]">
           <LabelValueRow label="ID#" value={Number(id)} />
           {/* <LabelValueRow
@@ -132,10 +188,14 @@ function AppointmentInfo(props: Props) {
           <LabelValueRow label="Appointment type" value={name || "--"} />
           <LabelValueRow
             label="Appointment date"
-            value={appointment?.appointmentDateTime?.startTime ? date.formatDAYMMDDYY(
-              String(appointment?.appointmentDateTime?.startTime),
-              timeZone
-            ) : "--"}
+            value={
+              appointment?.appointmentDateTime?.startTime
+                ? date.formatDAYMMDDYY(
+                    String(appointment?.appointmentDateTime?.startTime),
+                    timeZone
+                  )
+                : "--"
+            }
           />
           {/* <LabelValueRow
           label="Booking date"
@@ -153,13 +213,15 @@ function AppointmentInfo(props: Props) {
                     selectedAppointment?.endTime,
                     timeZone
                   )}`
-                : appointment?.appointmentDateTime?.startTime ? `${date.formathhmma(
+                : appointment?.appointmentDateTime?.startTime
+                ? `${date.formathhmma(
                     String(appointment?.appointmentDateTime?.startTime),
                     timeZone
                   )} - ${date.formathhmma(
                     String(appointment?.appointmentDateTime?.endTime),
                     timeZone
-                  )}` : "--"
+                  )}`
+                : "--"
             }
           />
           <LabelValueRow
@@ -183,7 +245,7 @@ function AppointmentInfo(props: Props) {
         </div>
 
         <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
-          <div className="flex flex-wrap mb-3 justify-center gap-y-2">
+          {/* <div className="flex flex-wrap mb-3 justify-center gap-y-2">
             <Button
               icon={
                 <Image
@@ -238,7 +300,7 @@ function AppointmentInfo(props: Props) {
             >
               <span className="pl-2">Message physician</span>
             </Button>
-          </div>
+          </div> */}
           {status !== "Requested" &&
             status !== "Rescheduled" &&
             status !== "Proposed" && (

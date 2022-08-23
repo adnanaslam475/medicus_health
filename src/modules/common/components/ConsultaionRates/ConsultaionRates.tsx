@@ -33,7 +33,7 @@ function ConsultationRates() {
 						<div className="my-5" key={id}>
 							<h5 className="text-sm">{name}</h5>
 							<div className="bg-gray-4 rounded p-4 max-w-[200px]">
-								<p className="pb-0 mb-0 text-md">{price}</p>
+								<p className="pb-0 mb-0 text-md">{`$ ${price}`}</p>
 							</div>
 						</div>
 					);
