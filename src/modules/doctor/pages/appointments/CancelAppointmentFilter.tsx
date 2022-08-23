@@ -49,7 +49,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
   }
 
   return (
-    <div className="page-filters  items-center mb-4 flex-wrap">
+    <div className="page-filters flex items-center my-5 flex-wrap">
       <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">
         Search by
       </span>
