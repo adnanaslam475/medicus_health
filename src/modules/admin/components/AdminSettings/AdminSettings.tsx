@@ -185,7 +185,7 @@ function AdminSettings() {
                   label={""}
                   value={`${
                     consultationMedicusCut ? consultationMedicusCut : 0
-                  } $`}
+                  }$`}
                 />
               </div>
             </div>
@@ -207,7 +207,7 @@ function AdminSettings() {
                     totalChargesConsultationPhysicianCut
                       ? totalChargesConsultationPhysicianCut
                       : 0
-                  } $`}
+                  }$`}
                 />
               </div>
             </div>
@@ -239,7 +239,7 @@ function AdminSettings() {
                     label={""}
                     value={`${
                       secondOpinionMedicusCut ? secondOpinionMedicusCut : 0
-                    } $`}
+                    }$`}
                   />
                 </div>
               </div>
@@ -259,7 +259,7 @@ function AdminSettings() {
                     label={""}
                     value={`${
                       secondOpinionPhysicianCut ? secondOpinionPhysicianCut : 0
-                    } $`}
+                    }$`}
                   />
                 </div>
               </div>
