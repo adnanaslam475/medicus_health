@@ -356,7 +356,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     className="bottom-margin-0"
                     rules={[
                       {
-                        required: true,
+                        // required: true,
                         // message: t("confirm_your_password"),
                         message: "¡Por favor, confirme su contraseña!",
                       },
