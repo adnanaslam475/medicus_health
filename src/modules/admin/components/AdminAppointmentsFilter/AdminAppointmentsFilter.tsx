@@ -165,7 +165,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
             />
           </div>
         )}
-        <div className=" sm:mt-0 flex-1 flex flex-col sm:flex-row lg:min-w-[120px]">
+        <div className=" sm:mt-0 flex-1 flex flex-col sm:flex-row lg:max-w-[180px]">
           <Select
             placeholder="Payment status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
