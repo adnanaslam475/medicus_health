@@ -31,6 +31,13 @@ function CancelledAppointmentTable({
   pagination,
   onPaginationChange,
 }: Props) {
+  const timeZone =
+  typeof window !== "undefined" &&
+  localStorage?.getItem("timeZone") !== "undefined" &&
+  localStorage?.getItem("timeZone")
+    ? JSON.parse(String(localStorage?.getItem("timeZone")))
+    : "America/Cambridge_Bay";
+
   const columns = [
     {
       title: "ID#",
@@ -82,8 +89,8 @@ function CancelledAppointmentTable({
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         let formatedStartTime = 
-          date.formathhmma(String(appointmentDateTime?.startTime));
-        let formatedEndTime = date.formathhmma(String(appointmentDateTime?.endTime));
+          date.formathhmma(String(appointmentDateTime?.startTime),timeZone);
+        let formatedEndTime = date.formathhmma(String(appointmentDateTime?.endTime),timeZone);
         return (
           <div>
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime

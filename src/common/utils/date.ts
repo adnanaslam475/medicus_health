@@ -190,7 +190,7 @@ export function isAppointmentTimeValid(
           }
         }, dateDifferenceEndDate);
       }
-    }, Number(dateDifferenceStartDate - 600000));
+    }, Number(dateDifferenceStartDate - 300000));
   }
 }
 
