@@ -54,7 +54,7 @@ function PendingAppointmentDetailDoctor() {
     }));
   }
   //Get Patient ID
-  const { patientId } = appointment || {};
+  const { patientId ,doctorId} = appointment || {};
 
   // Get patient Health History
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
@@ -97,6 +97,7 @@ function PendingAppointmentDetailDoctor() {
                   appointmentHealthHistory={
                     appointment?.appointmentHealthHistory?.history
                   }
+                  doctorId={Number(doctorId)}
                 />
               </div>
             </Tabs.TabPane>

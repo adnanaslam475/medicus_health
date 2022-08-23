@@ -64,6 +64,8 @@ const AppHeader = () => {
       ? "/physician/account"
       : userRole === "Admin"
       ? "/admin/account"
+      : userRole === "Staff"
+      ? "/physician/staffaccount?activeTab=1"
       : "/patient/account?activeTab=1";
 
   const menu = (

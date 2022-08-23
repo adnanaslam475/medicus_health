@@ -39,17 +39,19 @@ function PhysicianQuestionnaireFormTab() {
 
   const { appointments } = data || {};
   const appointment = appointments?.items && appointments.items[0];
-
+  const { doctorId } = appointment || {};
   return (
     <div className="">
       <CardWithProfileImageInfo
         name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
         // serviceName={appointment?.patient?.email}
-        imageUrl={appointment?.patient?.patientProfile?.profileImage}      >
+        imageUrl={appointment?.patient?.patientProfile?.profileImage}
+      >
         <PhysicianQuestionnaire
           appointmentHealthHistory={
             appointment?.appointmentHealthHistory?.history
           }
+          doctorId={Number(doctorId)}
         />
       </CardWithProfileImageInfo>
     </div>

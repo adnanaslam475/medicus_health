@@ -485,6 +485,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     className="flex-1"
                     // label={t("timezone")}
                     name="timeZone"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Timezone is required",
+                      },
+                    ]}
                   >
                     <Select
                       placeholder={timeZone?.timeZone}
