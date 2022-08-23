@@ -278,7 +278,7 @@ export const spanishCommon: any = {
   forgot_pass_message: "Has olvidado tu contraseña",
   login: "Iniciar sesión",
   account: "¿No tiene una cuenta?",
-  register: "Regístrese en",
+  register: "Registrarme",
   email: "Coreo electrónico",
   email_address_message: "Por favor, introduzca su Coreo electrónico",
   email_invalid_message: "el correo electrónico es invalido",
@@ -429,5 +429,3 @@ export const spanishCommon: any = {
   about_me: "Sobre mí",
   doctor_schedules_not_available: "Horarios del doctor no disponibles",
 };
-
-// asdsasdds

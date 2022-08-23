@@ -255,7 +255,7 @@ function Login() {
                   <span className="ml-1">
                     <Link href="/signup">
                       {/* {t("register")} */}
-                      Regístrese en
+                      Registrarme
                     </Link>
                   </span>
                 </div>

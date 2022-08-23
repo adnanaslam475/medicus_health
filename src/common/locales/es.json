@@ -9,7 +9,7 @@
     "password": "contraseña"
   },
   "Login": {
-    "title": "Iniciar sesión para continuar",
+    "title": "Inicie sesión para continuar",
     "description": "Ingrese sus credenciales para acceder a su cuenta.",
     "remember": "Acuérdate de mí",
     "forgot": "¿Olvidó su contraseña? ",
