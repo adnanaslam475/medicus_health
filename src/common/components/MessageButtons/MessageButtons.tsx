@@ -24,7 +24,16 @@ const MessageButtons = (props: Props) => {
           getRole() === "Doctor" ||
           getRole() === "Staff") && (
           <Button
-            icon={<MessageOutlined />}
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={chat}
+                alt=""
+                className=""
+              />
+            }
             className={`${_classes["appointments-btn"]} mr-1 sm:mr-3`}
             // onClick={() => Router.push("/physician/messages")}
             onClick={() => {
@@ -41,7 +50,7 @@ const MessageButtons = (props: Props) => {
               });
             }}
           >
-            Message patient
+            <span className="pl-2">Message patient</span>
           </Button>
         )}
 
