@@ -71,12 +71,15 @@ const ForgotPassword = () => {
                 />
               </div>
               <h1 className="text-center text-secondary mb-0 pt-6">
-                {t("forgot_pass")}
                 {/* Forgot password */}
+                {/* {t("forgot_pass")} */}
+                ¿Olvidó su contraseña?
               </h1>
               <h5 className="text-center text-gray font-rubik font-normal">
-                {t("enter_your_email_below_to_reset_password")}
                 {/* Enter your email below to reset password. */}
+                {/* {t("enter_your_email_below_to_reset_password")} */}
+                Por favor confirma tu correo debajo para recibir las
+                instrucciones de reinicio de contraseña.
               </h5>
               <div className="mt-5">
                 <Form
@@ -89,8 +92,8 @@ const ForgotPassword = () => {
                   autoComplete="off"
                 >
                   <Form.Item
-                    // label="Email address"
-                    label={t("email_address")}
+                    label="Coreo electrónico"
+                    // label={t("email_address")}
                     name="email"
                     className="mb-1"
                     rules={[
@@ -106,7 +109,10 @@ const ForgotPassword = () => {
                       },
                     ]}
                   >
-                    <Input />
+                    <Input
+                      // title="Escriba tú coreo electrónico"
+                      placeholder="Escriba tú coreo electrónico"
+                    />
                   </Form.Item>
 
                   <Form.Item>
@@ -117,7 +123,8 @@ const ForgotPassword = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      {t("reset_password")}
+                      {/* {t("reset_password")} */}
+                      Enviar instrucciones
                     </Button>
                   </Form.Item>
 
@@ -158,7 +165,8 @@ const ForgotPassword = () => {
                             // loading="eager"
                           />
                           <span className="cursor-pointer text-primary ml-3">
-                            {t("back_to_log_in")}
+                            {/* {t("back_to_log_in")} */}
+                            Atrás
                           </span>
                         </div>
                       </div>

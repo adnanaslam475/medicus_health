@@ -1,22 +1,22 @@
 {
   "commmon": {
     "remember": "Acuérdate de mí",
-    "forgot": "¿Has olvidado tu contraseña?",
-    "login": "Inicio de sesión",
+    "forgot": "¿Olvidó su contraseña? ",
+    "login": "Iniciar sesión",
     "account": "¿No tienes una cuenta?",
     "register": "Registro",
-    "email": "Dirección de correo electrónico",
+    "email": "Coreo electrónico",
     "password": "contraseña"
   },
   "Login": {
-    "title": "Iniciar sesión para continuar",
+    "title": "Inicie sesión para continuar",
     "description": "Ingrese sus credenciales para acceder a su cuenta.",
     "remember": "Acuérdate de mí",
-    "forgot": "¿Has olvidado tu contraseña?",
-    "login": "Inicio de sesión",
+    "forgot": "¿Olvidó su contraseña? ",
+    "login": "Iniciar sesión",
     "account": "¿No tienes una cuenta?",
     "register": "Registro",
-    "email": "Dirección de correo electrónico",
+    "email": "Coreo electrónico",
     "password": "contraseña"
   },
 
@@ -28,14 +28,14 @@
     "createYourAccountToStart": "Crea tu cuenta para empezar a usar medicus",
     "personalInfo": "Información personal",
     "healthQuestionnaire": "Cuestionario de Salud",
-    "Login": "Inicio de sesión"
+    "Login": "Iniciar sesión"
   },
 
   "UpcomingAppointments": {
     "upcomingAppointmentsHead": "próximas citas"
   },
   "PersonalInfo": {
-    "Login": "Inicio de sesión",
+    "Login": "Iniciar sesión",
     "Gender": "Género",
     "first_name": "Primer nombre",
     "last_name": "Apellido",
@@ -43,7 +43,7 @@
     "female": "Femenina",
     "i_prefer_not_to_say": "Prefiero no contestar",
     "date_of_Birth": "Fecha de nacimiento",
-    "email_address": "Dirección de correo electrónico",
+    "email_address": "Coreo electrónico",
     "password": "Contraseña",
     "confirm_password": "Confirmar contraseña",
     "street_address": "Dirección",

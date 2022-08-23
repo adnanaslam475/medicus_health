@@ -56,7 +56,7 @@ export function formatDAYMMDD(date: string, timezone?: string) {
 
 export function formatDAYMMDDYY(date: string, timezone?: string) {
   return timezone
-    ? dayjs(date).utc().tz(timezone).format("MMMM, D, YYYY")
+    ? dayjs(date).utc().tz(timezone).format("MMMM D, YYYY")
     : dayjs(date).format("dddd, MMMM D, YYYY");
 }
 
@@ -109,9 +109,9 @@ export function UTCPrettierTime(time: any, date?: any) {
   const timeZone =
     typeof window !== "undefined" &&
     localStorage?.getItem("timeZone") !== "undefined" &&
-    JSON.parse(
-      String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'"
-    );
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
 
   const convertedTime = time12HrConvert(time);
   const [hours, minute] = convertedTime.split(":");

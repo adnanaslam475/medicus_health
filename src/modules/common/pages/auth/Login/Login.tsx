@@ -55,7 +55,8 @@ function Login() {
           lastName: userPayload?.user?.last_name,
           profilePicture:
             userPayload?.user?.doctorProfile?.profile_image ||
-            userPayload?.user?.patientProfile?.profileImage || userPayload?.user?.adminProfilePicture?.profile_picture,
+            userPayload?.user?.patientProfile?.profileImage ||
+            userPayload?.user?.adminProfilePicture?.profile_picture,
         });
         localStorage.setItem("loggedInUserData", JSON.stringify(userPayload));
         localStorage.setItem("loginTime", String(new Date().getTime()));
@@ -70,6 +71,7 @@ function Login() {
             history: 0,
             pending: 0,
             upcoming: 0,
+            firstLogin: true,
           })
         );
         if (
@@ -156,7 +158,7 @@ function Login() {
                 >
                   <Form.Item
                     // label={t("email")}
-                    label="Dirección de correo electrónico"
+                    label="Coreo electrónico"
                     name="email"
                     className="mb-1"
                     rules={[
@@ -164,7 +166,7 @@ function Login() {
                         required: true,
                         // message: t("email_address_message"),
                         message:
-                          "Por favor, introduzca su dirección de correo electrónico",
+                          "Por favor, introduzca su dirección de correo electrónico.",
                       },
                       {
                         type: "email",
@@ -207,8 +209,8 @@ function Login() {
                       <Link href="/forgotPassword">
                         <a>
                           <span className="text-primary cursor-pointer">
-                            Olvido su contrasena
-                            {/* ¿Has olvidado tu contraseña? */}
+                            ¿Olvidó su contraseña?
+                            {/* ¿Olvidó su contraseña?  */}
                             {/* {t("forgot")} */}
                           </span>
                         </a>
@@ -225,7 +227,7 @@ function Login() {
                       htmlType="submit"
                     >
                       {/* {t("login")} */}
-                      Inicio de sesión
+                      Iniciar sesión
                     </Button>
                   </Form.Item>
 
@@ -253,7 +255,7 @@ function Login() {
                   <span className="ml-1">
                     <Link href="/signup">
                       {/* {t("register")} */}
-                      Regístrese en
+                      Registrarme
                     </Link>
                   </span>
                 </div>

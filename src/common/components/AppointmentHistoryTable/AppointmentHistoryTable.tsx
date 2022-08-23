@@ -11,8 +11,13 @@ import {
   User,
 } from "generated/graphql";
 
-const timeZone = typeof window !== "undefined" &&localStorage?.getItem("timeZone") !== "undefined" && JSON.parse(String(localStorage?.getItem("timeZone")) || "'America/Cambridge_Bay'");
-
+const timeZone =
+  typeof window !== "undefined" &&
+  localStorage?.getItem("timeZone") !== "undefined" &&
+  localStorage?.getItem("timeZone")
+    ? JSON.parse(String(localStorage?.getItem("timeZone")))
+    : "America/Cambridge_Bay";
+    
 const historyColumns = [
   {
     title: "ID#",
@@ -84,7 +89,10 @@ const historyColumns = [
       return (
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
-            ? `${date.formathhmma(appointmentDateTime?.startTime,timeZone)} - ${date.formathhmma(appointmentDateTime?.endTime,timeZone)} `
+            ? `${date.formathhmma(
+                appointmentDateTime?.startTime,
+                timeZone
+              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
             : "--"}
         </div>
       );
@@ -108,7 +116,7 @@ const historyColumns = [
       return (
         <div>{`${
           transaction?.createdAt
-            ? date?.formatDAYMMDDYY(transaction?.createdAt,timeZone)
+            ? date?.formatDAYMMDDYY(transaction?.createdAt, timeZone)
             : "--"
         }`}</div>
       );
