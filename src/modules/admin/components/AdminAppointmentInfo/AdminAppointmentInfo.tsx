@@ -6,6 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Button, notification, Tag } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
+
 import chat from "../../../../../public/assets/icon/chat-bubble.svg";
 // scss
 import _classes from "./AdminAppointmentInfo.module.scss";
@@ -237,7 +238,16 @@ function AdminAppointmentInfoFooter({
       <div className="flex justify-between mt-6">
         <div className="flex">
           <Button
-            icon={<MessageOutlined />}
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={chat}
+                alt=""
+                className=""
+              />
+            }
             className={`${_classes["appointments-btn"]} mr-3`}
             onClick={() =>
               Router.push({
@@ -249,7 +259,7 @@ function AdminAppointmentInfoFooter({
               })
             }
           >
-            Message patient
+            <span className="pl-2">Message patient</span>
           </Button>
           <Button
             icon={
@@ -310,7 +320,16 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
           Cancel appointment
         </Button>
         <Button
-          icon={<MessageOutlined />}
+          icon={
+            <Image
+              priority={true}
+              width={15}
+              height={15}
+              src={chat}
+              alt=""
+              className=""
+            />
+          }
           className={`${_classes["appointments-btn"]}  flex-1`}
           onClick={() => {
             Router.push({
@@ -322,7 +341,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
             });
           }}
         >
-          Message patient
+          <span className="pl-2">Message patient</span>
         </Button>
         <Button
           icon={
@@ -395,7 +414,16 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
           Reschedule appointment
         </Button>
         <Button
-          icon={<MessageOutlined />}
+          icon={
+            <Image
+              priority={true}
+              width={15}
+              height={15}
+              src={chat}
+              alt=""
+              className=""
+            />
+          }
           className={`${_classes["appointments-btn"]}  flex-1`}
           onClick={() => {
             Router.push({
@@ -407,7 +435,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
             });
           }}
         >
-          Message patient
+          <span className="pl-2">Message patient</span>
         </Button>
         <Button
           danger

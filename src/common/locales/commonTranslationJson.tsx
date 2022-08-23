@@ -404,7 +404,7 @@ export const spanishCommon: any = {
   email_notification: "Notificación de correo electrónico",
   update_photo: "Actualizar foto",
   save: "Ahorrar",
-  edit: "editar",
+  edit: "Editar",
   prefer_not_to_answer: "Prefiero no responder",
   please_input_your_email: "Por favor ingrese su correo electrónico!",
   marital_status: "Estado civil",
