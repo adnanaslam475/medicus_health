@@ -88,7 +88,7 @@ function DoctorStaffDetails() {
           first_name: values?.first_name,
           last_name: values?.last_name,
           email: values?.email,
-          contact_number: values?.contact_number,
+          contact_number: `+${values?.contact_number}`,
           doctorId: id as number,
           // deleted: false,
         },
