@@ -372,7 +372,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     className="bottom-margin-0"
                     rules={[
                       {
-                        required: true,
+                        // required: true,
                         // message: t("confirm_your_password"),
                         message: "¡Por favor, confirme su contraseña!",
                       },
@@ -501,6 +501,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     className="flex-1"
                     // label={t("timezone")}
                     name="timeZone"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Timezone is required",
+                      },
+                    ]}
                   >
                     <Select
                       placeholder={timeZone?.timeZone}

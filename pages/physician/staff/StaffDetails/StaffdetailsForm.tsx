@@ -5,6 +5,7 @@ import { UpdateStaffInput, User } from "generated/graphql";
 import AddStaffFormItems from "common/components/AddStaffFormItems/AddStaffFormItems";
 
 import _classes from "../../staff/staff.module.scss";
+import { getUserData } from "common/utils/userData";
 
 type Props = {
   form: FormInstance<any> | undefined;
@@ -30,6 +31,7 @@ function StaffDetailsFrom({
   adminId,
   disableAccountInput,
 }: Props) {
+  const { user } = getUserData();
   return (
     <Form
       initialValues={{ ...staffDetail }}
@@ -70,14 +72,16 @@ function StaffDetailsFrom({
         </Button>
       </div> */}
       <div className="md:grid md:grid-cols-2 md:gap-x-4">
-        <AddStaffFormItems accountCreatedAt={staffDetail?.createdAt}/>
+        <AddStaffFormItems accountCreatedAt={staffDetail?.createdAt} />
       </div>
       <div className="flex justify-end mt-2">
         <Form.Item>
           <div className="flex gap-4">
-            <Button onClick={() => Router.push("/physician/staff")}>
-              Cancel
-            </Button>
+            {user?.role !== "Staff" && (
+              <Button onClick={() => Router.push("/physician/staff")}>
+                Cancel
+              </Button>
+            )}{" "}
             <Button
               loading={fetching}
               disabled={fetching}

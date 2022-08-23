@@ -52,7 +52,7 @@ export function translationJson(local: string) {
           Login: "Iniciar sesión",
           already_have_an_account: "¿Ya tienes una cuenta?",
           signup_modal_skip_questionaire_message:
-            "Se requiere contestar estas preguntas antes de hacer su cita con el médico",
+            "Se requiere contestar estas preguntas antes de hacer su cita con el médico.",
         },
         HealthQuestionary: {
           ...spanishCommon,

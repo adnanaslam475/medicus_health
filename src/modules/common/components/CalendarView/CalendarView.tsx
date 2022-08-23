@@ -83,6 +83,7 @@ function AdminCalender(props: Props) {
           charges,
           status,
           appointmentTimeSlots,
+          transaction
         }) => ({
           id: id,
           title: `${serviceType?.name}:${patient?.first_name} ${patient?.last_name}`,
@@ -92,7 +93,7 @@ function AdminCalender(props: Props) {
               ?.startTime.split(".")[0] || requestedDate,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
-          charges: charges,
+          charges: transaction?.amountReceived||charges,
           status: status,
           appointmentTimeSlots: appointmentTimeSlots,
         })
