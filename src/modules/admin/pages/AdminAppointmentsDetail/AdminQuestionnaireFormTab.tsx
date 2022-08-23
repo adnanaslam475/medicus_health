@@ -14,9 +14,8 @@ type Props = {
   questionnaire?: Appointment | undefined;
   disable?: boolean;
   loading?: boolean;
-  doctorId?:number
+  doctorId?: number;
 };
-
 
 function AdminQuestionnaireFormTab({
   questionnaire,
@@ -24,7 +23,7 @@ function AdminQuestionnaireFormTab({
   user,
   disable,
   loading,
-  doctorId
+  doctorId,
 }: Props) {
   const firstName = appointment?.patient?.first_name || user?.first_name;
   const lastName = appointment?.patient?.last_name || user?.last_name;
@@ -47,20 +46,20 @@ function AdminQuestionnaireFormTab({
         serviceName={serviceName}
         imageUrl={profilePicture}
       > */}
-        {appointment?.appointmentHealthHistory?.history || questionnaire ? (
-          <PhysicianQuestionnaire
-            appointmentHealthHistory={
-              appointment?.appointmentHealthHistory?.history || questionnaire
-            }
-            doctorId={id || doctorId}
-            disable
-          />
-        ) : (
-          <div className="flex items-center justify-center w-full flex-col">
-            <Empty description={false} />
-            <p className="font-noraml">Physician questionnair not available</p>
-          </div>
-        )}
+      {appointment?.appointmentHealthHistory?.history || questionnaire ? (
+        <PhysicianQuestionnaire
+          appointmentHealthHistory={
+            appointment?.appointmentHealthHistory?.history || questionnaire
+          }
+          doctorId={id || doctorId}
+          disable
+        />
+      ) : (
+        <div className="flex items-center justify-center w-full flex-col">
+          <Empty description={false} />
+          <p className="font-noraml">Physician questionnair not available</p>
+        </div>
+      )}
       {/* </CardWithProfileImageInfo> */}
     </div>
   );
