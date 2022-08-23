@@ -55,9 +55,14 @@ function AccountsProfile() {
     executeRemoveDoctorScheduleMutation,
   ] = useRemoveDoctorScheduleMutation();
 
-
   async function onAddClick() {
-    if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
+    if (
+      isEdit &&
+      addScheduleDay &&
+      !isNaN(addScheduleDay as number) &&
+      addScheduleTime?.timeString?.length &&
+      id
+    ) {
       const startTime = UTCPrettierTime(addScheduleTime?.timeString[0]);
       const endTime = UTCPrettierTime(addScheduleTime?.timeString[1]);
       const variable = {

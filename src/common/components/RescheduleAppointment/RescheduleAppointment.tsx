@@ -91,8 +91,14 @@ function RescheduleAppointmentModal(props: Props) {
           const [startDate, ...startTime] = timeSlot.startTime.split(" ");
           const [endDate, ...endTime] = timeSlot.endTime.split(" ");
           return {
-            startTime: UTCPrettierTime(startTime.join(" "), startDate),
-            endTime: UTCPrettierTime(endTime.join(" "), endDate),
+            startTime: UTCPrettierTime(
+              startTime.join(" "),
+              dayjs(startDate, "MM-DD-YYYY")
+            ),
+            endTime: UTCPrettierTime(
+              endTime.join(" "),
+              dayjs(endDate, "MM-DD-YYYY")
+            ),
           };
         }) as any,
       },
@@ -239,13 +245,18 @@ function RescheduleAppointmentModal(props: Props) {
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="flex gap-2  rounded leading-3 max-w-max">
                   <p className="text-sm mb-0">
-                    {dayjs(v?.startTime as string).format("MMMM, D, YYYY")} -{" "}
-                    {dayjs(v?.startTime as string).format("h:mm A")}
+                    {dayjs(v?.startTime, "MM-DD-YYYY hh:mm A").format(
+                      "MMMM, D, YYYY"
+                    )}{" "}
+                    -{" "}
+                    {dayjs(v?.startTime, "MM-DD-YYYY hh:mm A").format("h:mm A")}
                   </p>{" "}
                   -
                   <p className="text-sm mb-0">
-                    {dayjs(v?.endTime as string).format("MMMM, D, YYYY")} -{" "}
-                    {dayjs(v?.endTime as string).format("h:mm A")}
+                    {dayjs(v?.endTime, "MM-DD-YYYY hh:mm A").format(
+                      "MMMM, D, YYYY"
+                    )}{" "}
+                    - {dayjs(v?.endTime, "MM-DD-YYYY hh:mm A").format("h:mm A")}
                   </p>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl">
