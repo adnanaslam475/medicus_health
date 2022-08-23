@@ -8,11 +8,11 @@ function AccountDetail() {
   const t = useTranslations("AccountDetail");
 
   return (
-    <AppLayout >
+    <AppLayout>
       <div className="w-full">
         <h2 className="mb-4">{t("title")}</h2>
         <div className="w-full">
-          <AccountTabs  />
+          <AccountTabs />
         </div>
       </div>
     </AppLayout>
@@ -27,10 +27,3 @@ export function getStaticProps({ locale }: { locale: string }) {
     },
   };
 }
-// export function getStaticProps({ locale }: { locale: string }) {
-//   return {
-//     props: {
-//       messages: require(`../../../../../../src/common/locales/${locale}.json`),
-//     },
-//   };
-// }
