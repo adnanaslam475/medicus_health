@@ -90,7 +90,9 @@ function NotesListingByAppointments(props: Props) {
                 key={index + 1}
                 extra={convertStringDateToUTC(appDate)}
               >
-                {(getRole() === "Admin" || getRole() === "Doctor") &&
+                {(getRole() === "Admin" ||
+                  getRole() === "Doctor" ||
+                  getRole() === "Staff") &&
                   actualDoctorNotes !== null && (
                     <>
                       <EditableNotes
