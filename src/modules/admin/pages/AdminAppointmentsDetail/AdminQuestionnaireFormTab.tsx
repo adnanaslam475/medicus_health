@@ -14,7 +14,9 @@ type Props = {
   questionnaire?: Appointment | undefined;
   disable?: boolean;
   loading?: boolean;
+  doctorId?:number
 };
+
 
 function AdminQuestionnaireFormTab({
   questionnaire,
@@ -22,6 +24,7 @@ function AdminQuestionnaireFormTab({
   user,
   disable,
   loading,
+  doctorId
 }: Props) {
   const firstName = appointment?.patient?.first_name || user?.first_name;
   const lastName = appointment?.patient?.last_name || user?.last_name;
@@ -32,8 +35,7 @@ function AdminQuestionnaireFormTab({
     user?.patientProfile?.profileImage ||
     appointment?.patient?.patientProfile?.profileImage;
 
-  const { id: doctorId } = appointment?.doctor || {};
-
+  const { id } = appointment?.doctor || {};
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -50,7 +52,7 @@ function AdminQuestionnaireFormTab({
             appointmentHealthHistory={
               appointment?.appointmentHealthHistory?.history || questionnaire
             }
-            doctorId={doctorId}
+            doctorId={id || doctorId}
             disable
           />
         ) : (

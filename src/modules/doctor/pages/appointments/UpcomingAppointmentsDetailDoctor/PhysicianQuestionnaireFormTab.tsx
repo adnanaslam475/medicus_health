@@ -14,7 +14,7 @@ function PhysicianQuestionnaireFormTab() {
 		pause: !query.appointmentId,
 	});
 	const { appointment } = data || {};
-    const { patient, serviceType } = appointment || {}
+    const { patient, serviceType,doctorId } = appointment || {}
 	return (
         <CardWithProfileImageInfo
         name={`${patient?.first_name} ${patient?.last_name}`}
@@ -25,6 +25,7 @@ function PhysicianQuestionnaireFormTab() {
 				appointmentHealthHistory={
 					appointment?.appointmentHealthHistory?.history
 				}
+				doctorId={Number(doctorId)}
 			/>
 		</div>
         </CardWithProfileImageInfo>
