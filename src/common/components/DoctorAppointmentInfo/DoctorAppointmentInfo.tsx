@@ -200,8 +200,8 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText
           label={
             status === "Completed"
-              ? "AppoIntment date "
-              : "AppoIntment date requested"
+              ? "Appointment date "
+              : "Appointment date requested"
           }
           text={!appointmentDateTime?.startTime ? "--" : `${formatedDueDate} `}
         />
@@ -256,7 +256,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           <div className="w-full text-gray-1 max-w-[300px]">
             Appointment status
           </div>
-          {console.log("status",status)}
+          {console.log("status", status)}
           <div className="w-full text-primary">
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
