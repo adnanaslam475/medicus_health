@@ -69,6 +69,7 @@ const PersonalInfo = () => {
       setPatientTimeZoneId(values?.timeZone);
     }
     try {
+      console.log({ values });
       const res = await updateUserProfile({
         id: id as number,
         updateUserInput: {
@@ -87,7 +88,8 @@ const PersonalInfo = () => {
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
           profileImage: image ? image : userProfileImage,
-          haveChildren: values?.haveChildren ? "No" : "Yes",
+          // haveChildren: values?.haveChildren ? "No" : "Yes",
+          haveChildren: values?.haveChildren,
           children: Number(values?.children) | 0,
           occupation: values?.occupation,
           occupationalExposure: values?.occupationalExposure,
