@@ -123,6 +123,14 @@ export default function PersonalInfo({ onFinish }: props) {
     setIsModalVisible(false);
   };
 
+  const onPostalCodeError = (_rule: any, value: { trim: () => { (): any; new(): any; length: number; }; }, callback: any) => {
+    if (value?.trim().length >= 20) {
+      callback("El valor es demasiado largo, ingrese el código postal correcto");
+    } else {
+      callback();
+    }
+  };
+
   return (
     <Form
       layout="vertical"
@@ -480,6 +488,10 @@ export default function PersonalInfo({ onFinish }: props) {
               // message: t("postal_address_message"),
               message: "Por favor ingrese su código postal",
             },
+            {
+              required: true,
+              validator: onPostalCodeError
+            }
           ]}
         >
           <Input />

@@ -125,9 +125,11 @@ function Signup() {
           ?.response as GraphQLError;
         let customError = user?.error?.graphQLErrors[0]?.extensions
           ?.exception as GraphQLError;
+        let errorGraphQLMessage = user?.error?.graphQLErrors[0]?.message
         let errorMessage =
           graphQLError?.message[0] ||
           customError?.message ||
+          errorGraphQLMessage ||
           "Something went wrong";
         notification.error({
           message: errorMessage,
