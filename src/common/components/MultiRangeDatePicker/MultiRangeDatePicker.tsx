@@ -30,6 +30,8 @@ type Props = {
     time: RangeValue<moment.Moment> | null;
   };
   deleteScheduleFetching?: boolean;
+  showCancelScheduleModal?:boolean,
+  setShowCancelScheduleModal?:React.Dispatch<React.SetStateAction<boolean>>
 };
 
 function MultiRangeDatePicker(props: Props) {
@@ -44,6 +46,8 @@ function MultiRangeDatePicker(props: Props) {
     setDeleteScheduleId,
     onAddClick,
     deleteScheduleFetching,
+    showCancelScheduleModal, 
+    setShowCancelScheduleModal
   } = props;
 
   function onChange(
@@ -100,6 +104,8 @@ function MultiRangeDatePicker(props: Props) {
                 index={index}
                 setDeleteScheduleId={setDeleteScheduleId}
                 deleteScheduleFetching={deleteScheduleFetching}
+                showCancelScheduleModal={showCancelScheduleModal} 
+                setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
             );
           })}

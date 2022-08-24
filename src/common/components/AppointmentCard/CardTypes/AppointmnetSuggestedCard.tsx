@@ -46,7 +46,6 @@ function AppointmnetSuggestedCard({
       ? JSON.parse(String(localStorage?.getItem("timeZone")))
       : "America/Cambridge_Bay";
 
-    console.log("appointment date time",appointmentDateTime)
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
