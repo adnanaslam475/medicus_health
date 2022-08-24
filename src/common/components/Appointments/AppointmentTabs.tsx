@@ -115,7 +115,7 @@ const AppointmentTabs = (props: Props) => {
           />
         </TabPane>
         <TabPane tab="Attachments" key="4">
-          <AttachmentDragger urlArr={urlArr} />
+          <AttachmentDragger urlArr={urlArr} appointmentsLoading={appointmentsLoading}/>
           <div>
             <span className="font-semibold text-md">Your files</span>
             {urlArr?.length ? (
