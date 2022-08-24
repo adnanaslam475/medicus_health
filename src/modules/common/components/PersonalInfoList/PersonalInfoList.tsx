@@ -212,7 +212,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
               !patientProfile?.haveChildren && "text-gray-1"
             }`}
           >
-            {patientProfile?.haveChildren || "N/A"}
+            {t(patientProfile?.haveChildren) || "N/A"}
           </div>
         </div>
       </li>
@@ -257,7 +257,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
               !patientProfile?.occupationalExposure && "text-gray-1 md:pl-4"
             }`}
           >
-            {patientProfile?.occupationalExposure || "N/A"}
+            {t(patientProfile?.occupationalExposure) || "N/A"}
           </div>
         </div>
       </li>
