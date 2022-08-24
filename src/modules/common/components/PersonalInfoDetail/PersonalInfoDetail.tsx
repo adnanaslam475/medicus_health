@@ -87,6 +87,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       // );
     }
   }, [user]);
+
+  console.log({ occupationalExposure });
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       firstName: first_name,
@@ -103,7 +105,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       streetAddress: streetAddress,
       maritalStatusExist: false,
       maritalStatus: maritalStatus,
-      haveChildren: false,
+      haveChildren,
+      // haveChildren === "Yes" || haveChildren === "Si" ? true : false,
       children: children,
       occupation: occupation,
       occupationalExposure: occupationalExposure,
@@ -111,6 +114,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       pets: pets,
       timeZone: timeZone?.id,
     });
+    setradioChildren(haveChildren === "Yes");
+    setradioOccupationalExposure(occupationalExposure);
   }
 
   function disabledDate(current: any) {
@@ -594,22 +599,23 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     <Radio.Group
                       defaultValue={radioChildren}
                       onChange={(e) => {
-                        setradioChildren(e.target.value);
+                        setradioChildren(e.target.value === "Yes");
                       }}
                     >
-                      <Radio value={true}>
+                      <Radio value={"Yes"}>
                         {/* {t("yes")} */}
                         Si
                       </Radio>
-                      <Radio value={false}>No{/* {t("no")} */}</Radio>
+                      <Radio value={"No"}>No{/* {t("no")} */}</Radio>
                     </Radio.Group>
 
                     {/* </div> */}
                   </Form.Item>
-                  <div
-                    className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 `}
-                  >
-                    {radioChildren && (
+
+                  {radioChildren && (
+                    <div
+                      className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 `}
+                    >
                       <Form.Item
                         label="¿Cuanto?"
                         className="mb-0"
@@ -621,8 +627,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                           placeholder="Numero de niñas"
                         />
                       </Form.Item>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </li>
@@ -657,15 +663,16 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-1/2 md:w-full text-gray-1 md:pl-4`}
                 >
                   <div className="flex flex-row items-center">
-                    <Form.Item className="mb-0" name="occupationalExposure ">
+                    <Form.Item className="mb-0" name="occupationalExposure">
                       <Radio.Group
+                        defaultValue={radioOccupationalExposure}
                         onChange={(e) => {
                           setradioOccupationalExposure(e.target.value);
                         }}
                       >
                         <Radio
-                          // value="Yes"
                           value="Yes"
+                          // value="Si"
                         >
                           {/* {t("yes")} */}
                           Si
@@ -674,11 +681,11 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                       </Radio.Group>
                     </Form.Item>
                   </div>
-                  <div
-                    className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 `}
-                  >
-                    {radioOccupationalExposure === "Yes" ||
-                    radioOccupationalExposure === "Sí" ? (
+
+                  {radioOccupationalExposure === "Yes" ? (
+                    <div
+                      className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 `}
+                    >
                       <Form.Item
                         className="mb-0"
                         name="exposureDuration"
@@ -704,8 +711,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                           </Select.Option>
                         </Select>
                       </Form.Item>
-                    ) : null}
-                  </div>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </li>
