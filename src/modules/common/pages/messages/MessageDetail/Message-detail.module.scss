@@ -21,33 +21,36 @@
   }
 }
 
-
-.search-color{
-  color:#F6F8FA !important;
+.search-color {
+  color: #f6f8fa !important;
   background-color: #f6f8fa !important;
- 
-  
-
 }
 
-
-  .search-color-wrapper{
-    color:#F6F8FA !important;
-    // background-color: red !important;
-    :global .ant-input {
-      padding: 0;
-      border: none;
-      background-color: #f6f8fa !important;
-      outline: none;
-      border: none !important;
+.search-color-wrapper {
+  color: #f6f8fa !important;
+  // background-color: red !important;
+  :global .ant-input {
+    padding: 0;
+    border: none;
+    background-color: #f6f8fa !important;
+    outline: none;
+    border: none !important;
   }
-   :global .ant-input-affix-wrapper {
+  :global .ant-input-affix-wrapper {
     background-color: #f6f8fa !important;
     border: none !important;
-  
   }
   svg {
     color: #969bac !important;
-  } 
-    }
- 
+  }
+}
+
+.startingNewChat {
+  @media screen and (min-height: 1021px) {
+    height: 95%;
+  }
+  @media screen and (max-height: 667px) {
+    height: 90%;
+  }
+  height: 93%;
+}
