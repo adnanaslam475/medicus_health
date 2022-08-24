@@ -86,7 +86,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     doctor,
   } = data || {};
 
-  const {id:doctorIdForChat} = doctor || {};
+  const { id: doctorIdForChat } = doctor || {};
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
   const timeZone =
@@ -200,8 +200,8 @@ function DoctorAppointmentInfo({ data }: Props) {
         <LabelWithText
           label={
             status === "Completed"
-              ? "AppoIntment date "
-              : "AppoIntment date requested"
+              ? "Appointment date "
+              : "Appointment date requested"
           }
           text={
             status === "Proposed" ||
