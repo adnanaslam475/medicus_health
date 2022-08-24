@@ -119,7 +119,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
           </div>
           <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv label="Estado civil" value={maritalStatus} />
-            <LabelWithTextDiv label="¿Tienes hijos?" value={children} />
+            <LabelWithTextDiv label="¿Tienes hijos?" value={children || "No"} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv

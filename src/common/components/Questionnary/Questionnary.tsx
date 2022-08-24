@@ -167,8 +167,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     setRadioDrink(parsedData?.q1.ans);
     setRadioSmoke(parsedData?.q2.ans);
     setRadioDrug(parsedData?.q3.ans);
-    setShowDrugOthers(parsedData?.q3.q.selectedOption.includes("Others"));
-    setShowSurgicalOthers(parsedData?.q4.selectedOption.includes("Others"));
+    setShowDrugOthers(parsedData?.q3.q.selectedOption.includes("Otra"));
+    setShowSurgicalOthers(parsedData?.q4.selectedOption.includes("Otros"));
 
     formInstance.setFieldsValue({
       // q1
