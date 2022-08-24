@@ -207,22 +207,31 @@ function AppointmentModalFooter({
         },
       });
 
-      const { data: bookData } = await executeBookAppointmentMutation({
-        bookAppointmentInput: {
-          appointmentId: appointmentId as number,
-          cardId: data?.createCard.id as number,
-          // requestedDate: contextData.stepOne?.requestedDate,
-          selectedSlotId: contextData.stepOne?.selectedSlotId,
-          scheduleId: contextData.stepOne?.scheduleId,
-        },
-      });
+      const { data: bookData, error: appointmentBookingError } =
+        await executeBookAppointmentMutation({
+          bookAppointmentInput: {
+            appointmentId: appointmentId as number,
+            cardId: data?.createCard.id as number,
+            // requestedDate: contextData.stepOne?.requestedDate,
+            selectedSlotId: contextData.stepOne?.selectedSlotId,
+            scheduleId: contextData.stepOne?.scheduleId,
+          },
+        });
 
       if (bookData?.bookAppointment.status === "Confirmed") {
         setCurrentStepName("stepFour");
         executeUsePatientHealthHistoryQuery({ requestPolicy: "network-only" });
-      } else {
+      } else if (appointmentBookingError) {
+        let graphQLError = appointmentBookingError?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = appointmentBookingError?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
         notification.error({
-          message: "Something went wrong",
+          message: errorMessage,
         });
       }
       // executeGetAllCardsQuery({ requestPolicy: "network-only" });

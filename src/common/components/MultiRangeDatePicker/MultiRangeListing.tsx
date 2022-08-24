@@ -12,10 +12,19 @@ type Props = {
   index: number;
   setDeleteScheduleId?: (e: string) => void | undefined;
   deleteScheduleFetching?: boolean;
+  showCancelScheduleModal?: boolean;
+  setShowCancelScheduleModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 function MultiRangeListing(props: Props) {
-  const { disable, item, index, setDeleteScheduleId, deleteScheduleFetching } =
-    props;
+  const {
+    disable,
+    item,
+    index,
+    setDeleteScheduleId,
+    deleteScheduleFetching,
+    showCancelScheduleModal,
+    setShowCancelScheduleModal,
+  } = props;
   const [open, setOpen] = React.useState<boolean>(false);
 
   const timeZone =
@@ -55,13 +64,13 @@ function MultiRangeListing(props: Props) {
           className="pl-1 xs:mr-6 sm:mr-4"
           style={{ color: "#D53E4F" }}
           // onClick={() => setDeleteScheduleId?.(item.id || "")}
-          onClick={() => setOpen(true)}
+          onClick={() => setShowCancelScheduleModal?.(true)}
         />
       )}
       <ConfirmationModal
-        visible={open}
+        visible={showCancelScheduleModal || false}
         confirmLoading={deleteScheduleFetching}
-        onCancel={() => setOpen(false)}
+        onCancel={() => setShowCancelScheduleModal?.(false)}
         onOk={() => setDeleteScheduleId?.(item.id || "")}
         message="Are you sure you want to delete this schedule ?"
       />
