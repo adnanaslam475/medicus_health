@@ -167,6 +167,9 @@ function Billing({
         setModalVisible(false);
         cardElement?.clear();
         setLoadingSubmit(false);
+        notification?.success({
+          message: "Card is successfully added"
+        });
       }
     } catch (error) {
       setModalVisible(true);

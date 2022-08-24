@@ -10,6 +10,8 @@ import {
   Transaction,
   User,
 } from "generated/graphql";
+import StatusChip from "../StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
 
 const timeZone =
   typeof window !== "undefined" &&
@@ -17,7 +19,7 @@ const timeZone =
   localStorage?.getItem("timeZone")
     ? JSON.parse(String(localStorage?.getItem("timeZone")))
     : "America/Cambridge_Bay";
-    
+
 const historyColumns = [
   {
     title: "ID#",
@@ -129,8 +131,8 @@ const historyColumns = [
     sorter: true,
     render: (status: string) => {
       return (
-        <div>
-          <Tag color="cyan">{status}</Tag>
+        <div className="text-primary">
+          <StatusChip type={status.toUpperCase() as StatusName} />
         </div>
       );
     },
