@@ -101,7 +101,7 @@ function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
                 fallbackImage={profile}
               />
               {/* <h4 className="pb-0 mb-0">{opposite?.last_name.includes("Dr.") ? opposite?.last_name :`Dr. ${opposite?.last_name}`}</h4> */}
-              <h4 className="pb-0 mb-0">{`${firstName} ${lastName}`}</h4>
+              <p className="pb-0 mb-0 text-xs sm:text-base font-medium">{`${firstName} ${lastName}`}</p>
             </div>
             <Image
               priority={true}
