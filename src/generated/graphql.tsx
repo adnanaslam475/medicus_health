@@ -13,7 +13,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -70,6 +72,7 @@ export type Appointment = {
   appointmentHealthHistory?: Maybe<AppointmentHealthHistory>;
   appointmentSchedule?: Maybe<DoctorSchedule>;
   appointmentTimeSlots?: Maybe<Array<AppointmentTimeSlots>>;
+  appointmentTypeProposed?: Maybe<AppointmentTypeProposedResponse>;
   charges: Scalars['Int'];
   createdAt: Scalars['DateTime'];
   currentAppointmentNote?: Maybe<AppointmentNote>;
@@ -164,6 +167,12 @@ export type AppointmentTimeSlots = {
 export type AppointmentTotalCharges = {
   finalCharges?: InputMaybe<Scalars['Int']>;
   initialCharges?: InputMaybe<Scalars['Int']>;
+};
+
+export type AppointmentTypeProposedResponse = {
+  __typename?: 'AppointmentTypeProposedResponse';
+  dateTime: Array<DateTimeSlots>;
+  type?: Maybe<Scalars['String']>;
 };
 
 export type AppointmentsCountResponse = {
@@ -443,6 +452,13 @@ export type DateRange = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type DateTimeSlots = {
+  __typename?: 'DateTimeSlots';
+  date?: Maybe<Scalars['String']>;
+  endTime?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
+};
+
 export type DoctorBillingMethod = {
   __typename?: 'DoctorBillingMethod';
   accountTitle: Scalars['String'];
@@ -572,6 +588,7 @@ export type GetAppointmentInput = {
   searchString?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
+  status2?: InputMaybe<Scalars['String']>;
 };
 
 export type GetCurrentAppointmentInput = {
@@ -609,6 +626,7 @@ export type GetPhysicianAppointmentInput = {
   searchString?: InputMaybe<Scalars['String']>;
   serviceId?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
+  status2?: InputMaybe<Scalars['String']>;
 };
 
 export type GetPhysiciansInput = {
@@ -5534,6 +5552,15 @@ export default {
             "args": []
           },
           {
+            "name": "appointmentTypeProposed",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AppointmentTypeProposedResponse",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "charges",
             "type": {
               "kind": "NON_NULL",
@@ -6132,6 +6159,39 @@ export default {
       },
       {
         "kind": "OBJECT",
+        "name": "AppointmentTypeProposedResponse",
+        "fields": [
+          {
+            "name": "dateTime",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "DateTimeSlots",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "type",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
         "name": "AppointmentsCountResponse",
         "fields": [
           {
@@ -6560,6 +6620,37 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DateTimeSlots",
+        "fields": [
+          {
+            "name": "date",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "endTime",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "startTime",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           }
