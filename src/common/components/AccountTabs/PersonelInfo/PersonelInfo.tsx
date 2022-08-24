@@ -187,7 +187,7 @@ const PersonalInfo = () => {
           <div>
             <MDNextImage
               objectFit="cover"
-              src={userProfileImage || ""}
+              src={image || userProfileImage || ""}
               layout="fixed"
               width={74}
               height={74}

@@ -233,7 +233,7 @@ function EditProfile({
       about_me: about_me,
       language: language,
       // timeZoneId: timeZone?.timeZone,
-      timeZone: timeZone?.id,
+      timeZone: timeZone?.id || 86,
     });
   }
 

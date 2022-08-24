@@ -111,7 +111,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       occupationalExposure: occupationalExposure,
       exposureDuration: exposureDuration,
       pets: pets,
-      timeZone: timeZone?.id,
+      timeZone: timeZone?.id || 86,
     });
   }
 
