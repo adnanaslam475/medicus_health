@@ -1,5 +1,5 @@
 import { UserDataInLocalStorage } from "common/types/auth";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { PageLoader } from "../components/PageLoader/PageLoader";
 import { getRole, getUserData } from "../utils/userData";
@@ -118,6 +118,11 @@ function AuthProvider({ children }: any) {
     authorized
   ) {
     return children;
+  } else if (
+    role === "Staff" &&
+    router.pathname.startsWith("/physician/earnings")
+  ) {
+    Router.push("/physician/unauthorized");
   }
 
   if (
