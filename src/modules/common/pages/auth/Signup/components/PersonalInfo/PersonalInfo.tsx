@@ -244,7 +244,7 @@ export default function PersonalInfo({ onFinish }: props) {
           {
             type: "email",
             // message: t("email_invalid_message"),
-            message: "el correo electrónico es invalido",
+            message: "El correo electrónico es invalido",
           },
           { validator: emailValidator },
         ]}

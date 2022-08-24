@@ -203,13 +203,7 @@ function DoctorAppointmentInfo({ data }: Props) {
               ? "AppoIntment date "
               : "AppoIntment date requested"
           }
-          text={
-            status === "Proposed" ||
-            status === "Rescheduled" ||
-            !appointmentDateTime?.startTime
-              ? "--"
-              : `${formatedDueDate} `
-          }
+          text={!appointmentDateTime?.startTime ? "--" : `${formatedDueDate} `}
         />
 
         {/* <LabelWithText
@@ -223,10 +217,7 @@ function DoctorAppointmentInfo({ data }: Props) {
               : "Appointment time requested"
           }
           text={
-            status === "Proposed" ||
-            status === "Rescheduled" ||
-            !appointmentDateTime?.startTime ||
-            !appointmentDateTime?.endTime
+            !appointmentDateTime?.startTime || !appointmentDateTime?.endTime
               ? "--"
               : `${date.formathhmma(
                   appointmentDateTime?.startTime,
@@ -864,31 +855,28 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               endDateValue={endDateValue}
             />
             {slots?.map((v, index) => (
-                <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
-                  <div className="flex gap-2  rounded leading-3 max-w-max">
-                    <p className="text-sm mb-0">
-                      {dayjs(v?.startDate, "MM-DD-YYYY hh:mm A").format(
-                        "MMMM, D, YYYY"
-                      )}{" "}
-                      -{" "}
-                      {dayjs(v?.startDate, "MM-DD-YYYY hh:mm A").format(
-                        "h:mm A"
-                      )}
-                    </p>{" "}
-                    -
-                    <p className="text-sm mb-0">
-                      {dayjs(v?.endDate, "MM-DD-YYYY hh:mm A").format(
-                        "MMMM, D, YYYY"
-                      )}{" "}
-                      -{" "}
-                      {dayjs(v?.endDate, "MM-DD-YYYY hh:mm A").format("h:mm A")}
-                    </p>
-                  </div>
-                  <span className="hover:bg-white p-2 rounded-xl">
-                    <DeleteOutlined onClick={() => deleteTimeSlot(index)} />
-                  </span>
+              <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
+                <div className="flex gap-2  rounded leading-3 max-w-max">
+                  <p className="text-sm mb-0">
+                    {dayjs(v?.startDate, "MM-DD-YYYY hh:mm A").format(
+                      "MMMM, D, YYYY"
+                    )}{" "}
+                    -{" "}
+                    {dayjs(v?.startDate, "MM-DD-YYYY hh:mm A").format("h:mm A")}
+                  </p>{" "}
+                  -
+                  <p className="text-sm mb-0">
+                    {dayjs(v?.endDate, "MM-DD-YYYY hh:mm A").format(
+                      "MMMM, D, YYYY"
+                    )}{" "}
+                    - {dayjs(v?.endDate, "MM-DD-YYYY hh:mm A").format("h:mm A")}
+                  </p>
                 </div>
-              ))}
+                <span className="hover:bg-white p-2 rounded-xl">
+                  <DeleteOutlined onClick={() => deleteTimeSlot(index)} />
+                </span>
+              </div>
+            ))}
           </div>
           <div className="text-primary flex">
             <Button

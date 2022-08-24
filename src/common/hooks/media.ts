@@ -1,3 +1,4 @@
+import { notification } from "antd";
 import { UploadChangeParam } from "antd/lib/upload";
 import ReactS3Client from "react-aws-s3-typescript";
 import config from "../../../config";
@@ -26,7 +27,16 @@ export const useMediaUploader = () => {
       return await Promise.all(
         file.map((file: File) => s3.uploadFile(file as File, file.name))
       );
-    } catch (error) {
+    } catch (error: any) {
+      if (error && error?.status === 503) {
+        return notification.error({
+          message: "Please reduce your request rate.",
+        });
+      } else
+        notification.error({
+          message:
+            "Something went wrong while uploading your file, please try again a few minutes later",
+        });
       console.log(error);
     }
   };
