@@ -161,11 +161,11 @@ function Billing({
           ?.response as GraphQLError;
         let customError = res?.error?.graphQLErrors[0]?.extensions
           ?.exception as GraphQLError;
-        let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message
+        let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message;
           let errorMessage =
+          errorGraphQLMessage ||
           graphQLError?.message ||
           customError?.message ||
-          errorGraphQLMessage ||
           "Something went wrong";
         notification.error({
           message: errorMessage,
