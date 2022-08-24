@@ -9,11 +9,13 @@ import { AttachmentObject } from "common/types/types";
 
 type Props = {
   urlArr?: AttachmentObject[];
+  appointmentsLoading?: boolean;
 };
 const AttachmentDragger = (props: Props) => {
-  const { urlArr } = props || {};
+  const { urlArr, appointmentsLoading } = props || {};
   const [fileList, setFileList] = useState([]);
   const mediaUploader = useMediaUploader();
+  const [loading, setLoading] = useState(false);
 
   const [_, executeUseUpdateAppointmentAttachmentsMutation] =
     useUpdateAppointmentAttachmentsMutation();
@@ -59,8 +61,10 @@ const AttachmentDragger = (props: Props) => {
         return notification.error({ message: "File must smaller than 10 MB!" });
       }
       if (in10MBLimit) {
+        setLoading(true);
         return fileUploadFunc(info?.fileList).then((res) => {
           setFileList(res);
+          setLoading(false);
         });
       }
     },
@@ -118,8 +122,12 @@ const AttachmentDragger = (props: Props) => {
             <span className="ant-upload-text text-sm block">
               Drag your files here or
             </span>
-            <span className="font-circular text-xs ant-upload-text text-white p-1 px-3 mt-1 mb-3 rounded inline-block bg-primary">
-              Upload
+            <span
+              className={`font-circular text-xs ant-upload-text text-white p-1 px-3 mt-1 mb-3 rounded inline-block ${
+                loading ? "bg-gray" : "bg-primary"
+              }`}
+            >
+              {loading ? "Uploading" : "Upload"}
             </span>
             <span className=" ant-upload-hint block text-xs text-gray-1">
               Max 10mb upload limit.
@@ -127,7 +135,7 @@ const AttachmentDragger = (props: Props) => {
           </Dragger>
         </Form.Item>
         <span className=" ant-upload-hint block text-xs text-gray-1 text-center -mt-4">
-        Please upload files that are relevant to your appointment.
+          Please upload files that are relevant to your appointment.
         </span>
       </Form>
     </div>
