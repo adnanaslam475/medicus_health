@@ -32,7 +32,7 @@ function MessageContent({ removeCurrentChat }: Props) {
           <div ref={messagesEndRef} />
         </div>
       ) : (
-        <div className="flex justify-center items-center mt-80">
+        <div className={`flex justify-center items-center ${_classes.startingNewChat}`}>
           <div className="text-gray">
             Click on the chat thread to continue chat.
           </div>

@@ -20,7 +20,6 @@ import _classes from "./EditProfile.module.scss";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
 import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import ReactS3Client from "react-aws-s3-typescript";
-
 import {
   LoginUserInput,
   useCountriesQuery,
@@ -43,6 +42,8 @@ import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import { UserOutlined } from "@ant-design/icons";
 import { useUserData } from "common/components/Context/UserContext";
+import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const { TextArea } = Input;
 
@@ -75,6 +76,8 @@ type Props = {
   loading?: boolean;
   setProfileUpdated?: any;
   deleteScheduleFetching?: boolean;
+  showCancelScheduleModal?:boolean,
+  setShowCancelScheduleModal?:React.Dispatch<React.SetStateAction<boolean>>
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -95,6 +98,8 @@ function EditProfile({
   addScheduleTime,
   setProfileUpdated,
   deleteScheduleFetching,
+  showCancelScheduleModal, 
+  setShowCancelScheduleModal
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -232,7 +237,7 @@ function EditProfile({
       about_me: about_me,
       language: language,
       // timeZoneId: timeZone?.timeZone,
-      timeZone: timeZone?.id,
+      timeZone: timeZone?.id || 86,
     });
   }
 
@@ -278,7 +283,7 @@ function EditProfile({
         specialization: values?.specialization || "",
         year_of_experience: Number?.parseFloat(values?.year_of_experience || 0),
         streetAddress: values?.streetAddress,
-        contact_number: values?.contact,
+        contact_number: `+${values?.contact}`,
         city_id: Number(values?.city_id || 0),
         country_id: Number(values?.country_id),
         state_id: Number(values?.state_id || 0),
@@ -708,10 +713,24 @@ function EditProfile({
                   ]}
                   className="flex-1"
                 >
-                  <Input
+                  {/* <Input
                     type="number"
                     autoComplete="new-password"
                     onPressEnter={(e) => e.preventDefault()}
+                  /> */}
+                  <ReactPhoneInput
+                    containerStyle={{
+                      border: "1px solid #9296af",
+                      borderRadius: "6px",
+                    }}
+                    inputStyle={{
+                      width: "100%",
+                      height: "46px",
+                      border: "1px #9296af",
+                    }}
+                    country={"us"}
+                    placeholder={"Ingrese su número de contacto"}
+                    enableAreaCodes
                   />
                 </Form.Item>
               </div>
@@ -900,6 +919,12 @@ function EditProfile({
                   className="flex-1"
                   label={"Time zone"}
                   name="timeZone"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Timezone is required",
+                    },
+                  ]}
                 >
                   <Select
                     placeholder={timeZone?.timeZone}
@@ -1000,6 +1025,8 @@ function EditProfile({
                 setAddScheduleDay={setAddScheduleDay}
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
+                showCancelScheduleModal={showCancelScheduleModal} 
+                setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
 
               <div className={`my-6 ${_classes["educational"]}`}>

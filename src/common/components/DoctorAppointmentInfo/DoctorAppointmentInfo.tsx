@@ -203,13 +203,7 @@ function DoctorAppointmentInfo({ data }: Props) {
               ? "Appointment date "
               : "Appointment date requested"
           }
-          text={
-            status === "Proposed" ||
-            status === "Rescheduled" ||
-            !appointmentDateTime?.startTime
-              ? "--"
-              : `${formatedDueDate} `
-          }
+          text={!appointmentDateTime?.startTime ? "--" : `${formatedDueDate} `}
         />
 
         {/* <LabelWithText
@@ -223,10 +217,7 @@ function DoctorAppointmentInfo({ data }: Props) {
               : "Appointment time requested"
           }
           text={
-            status === "Proposed" ||
-            status === "Rescheduled" ||
-            !appointmentDateTime?.startTime ||
-            !appointmentDateTime?.endTime
+            !appointmentDateTime?.startTime || !appointmentDateTime?.endTime
               ? "--"
               : `${date.formathhmma(
                   appointmentDateTime?.startTime,
@@ -265,6 +256,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           <div className="w-full text-gray-1 max-w-[300px]">
             Appointment status
           </div>
+          {console.log("status", status)}
           <div className="w-full text-primary">
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
@@ -680,8 +672,14 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             const [startDate, ...startTime] = timeSlot.startDate.split(" ");
             const [endDate, ...endTime] = timeSlot.endDate.split(" ");
             return {
-              startTime: UTCPrettierTime(startTime.join(" "), startDate),
-              endTime: UTCPrettierTime(endTime.join(" "), endDate),
+              startTime: UTCPrettierTime(
+                startTime.join(" "),
+                dayjs(startDate, "MM-DD-YYYY")
+              ),
+              endTime: UTCPrettierTime(
+                endTime.join(" "),
+                dayjs(endDate, "MM-DD-YYYY")
+              ),
             };
           }) as any,
         },
@@ -861,13 +859,18 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               <div className="flex justify-between items-center bg-gray-6 p-3 mb-3 rounded-lg">
                 <div className="flex gap-2  rounded leading-3 max-w-max">
                   <p className="text-sm mb-0">
-                    {dayjs(v?.startDate as string).format("MMMM, D, YYYY")} -{" "}
-                    {dayjs(v?.startDate as string).format("h:mm A")}
+                    {dayjs(v?.startDate, "MM-DD-YYYY hh:mm A").format(
+                      "MMMM, D, YYYY"
+                    )}{" "}
+                    -{" "}
+                    {dayjs(v?.startDate, "MM-DD-YYYY hh:mm A").format("h:mm A")}
                   </p>{" "}
                   -
                   <p className="text-sm mb-0">
-                    {dayjs(v?.endDate as string).format("MMMM, D, YYYY")} -{" "}
-                    {dayjs(v?.endDate as string).format("h:mm A")}
+                    {dayjs(v?.endDate, "MM-DD-YYYY hh:mm A").format(
+                      "MMMM, D, YYYY"
+                    )}{" "}
+                    - {dayjs(v?.endDate, "MM-DD-YYYY hh:mm A").format("h:mm A")}
                   </p>
                 </div>
                 <span className="hover:bg-white p-2 rounded-xl">

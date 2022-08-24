@@ -123,6 +123,20 @@ export default function PersonalInfo({ onFinish }: props) {
     setIsModalVisible(false);
   };
 
+  const onPostalCodeError = (
+    _rule: any,
+    value: { trim: () => { (): any; new (): any; length: number } },
+    callback: any
+  ) => {
+    if (value?.trim().length >= 20) {
+      callback(
+        "El valor es demasiado largo, ingrese el código postal correcto"
+      );
+    } else {
+      callback();
+    }
+  };
+
   return (
     <Form
       layout="vertical"
@@ -236,7 +250,7 @@ export default function PersonalInfo({ onFinish }: props) {
           {
             type: "email",
             // message: t("email_invalid_message"),
-            message: "el correo electrónico es invalido",
+            message: "El correo electrónico es invalido",
           },
           { validator: emailValidator },
         ]}
@@ -462,9 +476,14 @@ export default function PersonalInfo({ onFinish }: props) {
           >
             {React.Children.toArray(
               getTimeZones?.data?.getTimeZones?.map((el, i) => {
-                return (
-                  <Select.Option value={el.id}>{el?.timeZone}</Select.Option>
-                );
+                const timeZoneCurrent = el?.timeZone;
+                const label = timeZoneCurrent
+                  ?.split("/")
+                  [Number(timeZoneCurrent?.split("/").length) - 1]?.replace(
+                    /_/g,
+                    " "
+                  );
+                return <Select.Option value={el.id}>{label}</Select.Option>;
               })
             )}
           </Select>
@@ -479,6 +498,10 @@ export default function PersonalInfo({ onFinish }: props) {
               required: true,
               // message: t("postal_address_message"),
               message: "Por favor ingrese su código postal",
+            },
+            {
+              required: true,
+              validator: onPostalCodeError,
             },
           ]}
         >

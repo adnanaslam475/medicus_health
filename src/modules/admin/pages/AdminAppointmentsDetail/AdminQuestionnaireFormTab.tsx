@@ -14,6 +14,7 @@ type Props = {
   questionnaire?: Appointment | undefined;
   disable?: boolean;
   loading?: boolean;
+  doctorId?: number;
 };
 
 function AdminQuestionnaireFormTab({
@@ -22,6 +23,7 @@ function AdminQuestionnaireFormTab({
   user,
   disable,
   loading,
+  doctorId,
 }: Props) {
   const firstName = appointment?.patient?.first_name || user?.first_name;
   const lastName = appointment?.patient?.last_name || user?.last_name;
@@ -32,34 +34,33 @@ function AdminQuestionnaireFormTab({
     user?.patientProfile?.profileImage ||
     appointment?.patient?.patientProfile?.profileImage;
 
-  const { id: doctorId } = appointment?.doctor || {};
-
+  const { id } = appointment?.doctor || {};
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
     </div>
   ) : (
     <div>
-      <CardWithProfileImageInfo
+      {/* <CardWithProfileImageInfo
         name={`${firstName} ${lastName}`}
         serviceName={serviceName}
         imageUrl={profilePicture}
-      >
-        {appointment?.appointmentHealthHistory?.history || questionnaire ? (
-          <PhysicianQuestionnaire
-            appointmentHealthHistory={
-              appointment?.appointmentHealthHistory?.history || questionnaire
-            }
-            doctorId={doctorId}
-            disable
-          />
-        ) : (
-          <div className="flex items-center justify-center w-full flex-col">
-            <Empty description={false} />
-            <p className="font-noraml">Physician questionnair not available</p>
-          </div>
-        )}
-      </CardWithProfileImageInfo>
+      > */}
+      {appointment?.appointmentHealthHistory?.history || questionnaire ? (
+        <PhysicianQuestionnaire
+          appointmentHealthHistory={
+            appointment?.appointmentHealthHistory?.history || questionnaire
+          }
+          doctorId={id || doctorId}
+          disable
+        />
+      ) : (
+        <div className="flex items-center justify-center w-full flex-col">
+          <Empty description={false} />
+          <p className="font-noraml">Physician questionnair not available</p>
+        </div>
+      )}
+      {/* </CardWithProfileImageInfo> */}
     </div>
   );
 }

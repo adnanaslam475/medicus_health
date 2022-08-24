@@ -30,6 +30,7 @@ function AccountsProfile() {
   const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
     "Select Day"
   );
+  const [showCancelScheduleModal, setShowCancelScheduleModal] = useState(false);
   const [addScheduleTime, setAddScheduleTime] = useState<{
     time: RangeValue<moment.Moment> | null;
     timeString: string[];
@@ -55,9 +56,14 @@ function AccountsProfile() {
     executeRemoveDoctorScheduleMutation,
   ] = useRemoveDoctorScheduleMutation();
 
-
   async function onAddClick() {
-    if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length && id) {
+    if (
+      isEdit &&
+      addScheduleDay &&
+      !isNaN(addScheduleDay as number) &&
+      addScheduleTime?.timeString?.length &&
+      id
+    ) {
       const startTime = UTCPrettierTime(addScheduleTime?.timeString[0]);
       const endTime = UTCPrettierTime(addScheduleTime?.timeString[1]);
       const variable = {
@@ -91,7 +97,12 @@ function AccountsProfile() {
   }
   useEffect(() => {
     if (deleteScheduleId) {
-      executeRemoveDoctorScheduleMutation({ id: Number(deleteScheduleId) });
+      setShowCancelScheduleModal(true);
+      executeRemoveDoctorScheduleMutation({
+        id: Number(deleteScheduleId),
+      }).then(() => {
+        setShowCancelScheduleModal(false);
+      });
     }
   }, [deleteScheduleId]);
 
@@ -122,6 +133,8 @@ function AccountsProfile() {
           onAddClick={onAddClick}
           loading={fetching}
           setProfileUpdated={setProfileUpdated}
+          showCancelScheduleModal={showCancelScheduleModal} 
+          setShowCancelScheduleModal={setShowCancelScheduleModal}
         />
       ) : (
         <ViewProfile

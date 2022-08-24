@@ -16,6 +16,7 @@ import Link from "next/link";
 import Image from "next/image";
 import CardWithProfileImageInfo from "../CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { getRole } from "common/utils/userData";
+import ViewProposeAppointmentTime from "../ViewProposeAppointmentTime";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -102,6 +103,13 @@ function AppointmentInfo(props: Props) {
       : getRole() === "Doctor"
       ? patientProfilePic
       : "";
+
+  const isPendingAppointment = [
+    "Requested",
+    "Rescheduled",
+    "Proposed",
+  ].includes(status as string);
+
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -120,6 +128,67 @@ function AppointmentInfo(props: Props) {
         // serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
         // imageUrl={isRoleGuard ? doctorProfilePic : null}
       >
+        <div className="flex flex-wrap mb-3 mt-6 gap-y-2">
+          <Button
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={support}
+                alt=""
+                className=""
+              />
+            }
+            className={`${_classes["appointments-btn"]}  mr-3`}
+            onClick={() => {
+              const query: any = {
+                chat: "admin",
+                // doctorId: appointment?.doctorId,
+                patientId: appointment?.patientId,
+              };
+              // localStorage.setItem("id", JSON.stringify(query));
+              Router.push({
+                pathname: "/patient/messages",
+                query,
+              });
+            }}
+          >
+            <span className="pl-2">Message support</span>
+          </Button>
+          <Button
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={chat}
+                alt=""
+                className=""
+              />
+            }
+            className={`${_classes["appointments-btn"]} mr-2 `}
+            onClick={() => {
+              const query: any = {
+                chat: "doctor",
+                doctorId: appointment?.doctorId,
+                patientId: appointment?.patientId,
+              };
+              // localStorage.setItem("id", JSON.stringify(query));
+              Router.push({
+                pathname: "/patient/messages",
+                query,
+              });
+            }}
+          >
+            <span className="pl-2">Message physician</span>
+          </Button>
+          {status === "Proposed" && (
+            <ViewProposeAppointmentTime
+              appointmentId={Number(appointment?.id)}
+            />
+          )}
+        </div>
         <div className="max-w-[700px]">
           <LabelValueRow label="ID#" value={Number(id)} />
           {/* <LabelValueRow
@@ -132,7 +201,11 @@ function AppointmentInfo(props: Props) {
           /> */}
           <LabelValueRow label="Appointment type" value={name || "--"} />
           <LabelValueRow
-            label="Appointment date"
+            label={
+              isPendingAppointment
+                ? "Requested date by the patient"
+                : "Appointment date"
+            }
             value={
               appointment?.appointmentDateTime?.startTime
                 ? date.formatDAYMMDDYY(
@@ -148,7 +221,11 @@ function AppointmentInfo(props: Props) {
         /> */}
 
           <LabelValueRow
-            label="Appointment time"
+            label={
+              isPendingAppointment
+                ? "Requested time by the patient"
+                : "Appointment time"
+            }
             value={
               selectedAppointment?.startTime
                 ? `${date?.formathhmma(
@@ -190,7 +267,7 @@ function AppointmentInfo(props: Props) {
         </div>
 
         <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
-          <div className="flex flex-wrap mb-3 justify-center gap-y-2">
+          {/* <div className="flex flex-wrap mb-3 justify-center gap-y-2">
             <Button
               icon={
                 <Image
@@ -245,7 +322,7 @@ function AppointmentInfo(props: Props) {
             >
               <span className="pl-2">Message physician</span>
             </Button>
-          </div>
+          </div> */}
           {status !== "Requested" &&
             status !== "Rescheduled" &&
             status !== "Proposed" && (

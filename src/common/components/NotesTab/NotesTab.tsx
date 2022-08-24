@@ -120,57 +120,59 @@ function NotesTab({}: Props) {
             : appointment?.patient?.patientProfile?.profileImage
         }
       > */}
-        {(getRole() === "Doctor" || getRole() === "Admin") && (
-          <>
-            {/* {!notesByAppointmentId && ( */}
-            {!actualDoctorNotes && (
-              <>
-                {(status === "!Requested" ||
-                  status === "Completed" ||
-                  status === "!Cancel" ||
-                  status === "Confirmed") && (
-                  <>
-                    <Notes
-                      onFinish={addNote}
-                      // disabled={actualDoctorNotes !== null}
-                    />
-                    <div className="mb-3"></div>
-                  </>
-                )}
-              </>
-            )}
-          </>
-        )}
-
+      {(getRole() === "Doctor" ||
+        getRole() === "Staff" ||
+        getRole() === "Admin") && (
         <>
-          <div className="my-3">
-            {actualDoctorNotes ? (
-              (status === "Confirmed" ||
-                status === "Requested" ||
-                status === "Completed") && (
+          {/* {!notesByAppointmentId && ( */}
+          {!actualDoctorNotes && (
+            <>
+              {(status === "!Requested" ||
+                status === "Completed" ||
+                status === "!Cancel" ||
+                status === "Confirmed") && (
                 <>
-                  <h3>Current appointment notes</h3>
-                  <NotesListingByAppointments
-                    doctorNotes={
-                      notesByAppointmentId as GetDoctorNotesByAppIdQuery
-                    }
+                  <Notes
+                    onFinish={addNote}
+                    // disabled={actualDoctorNotes !== null}
                   />
+                  <div className="mb-3"></div>
                 </>
-              )
-            ) : (
+              )}
+            </>
+          )}
+        </>
+      )}
+
+      <>
+        <div className="my-3">
+          {actualDoctorNotes ? (
+            (status === "Confirmed" ||
+              status === "Requested" ||
+              status === "Completed") && (
               <>
-                Notes for this appointment have not been published by physician
-                yet.
+                <h3>Current appointment notes</h3>
+                <NotesListingByAppointments
+                  doctorNotes={
+                    notesByAppointmentId as GetDoctorNotesByAppIdQuery
+                  }
+                />
               </>
-            )}
-            {/* {!actualDoctorNotes ? (
+            )
+          ) : (
+            <>
+              Notes for this appointment have not been published by physician
+              yet.
+            </>
+          )}
+          {/* {!actualDoctorNotes ? (
               status === "Confirmed" || status === "Requested"
             ) : (
             )} */}
-          </div>
-        </>
-        {/* FOR PATIENT ONLY */}
-        {/* {getRole() === "User" &&
+        </div>
+      </>
+      {/* FOR PATIENT ONLY */}
+      {/* {getRole() === "User" &&
           (actualDoctorNotes ? (
             <NotesListingByAppointments
               doctorNotes={notesByAppointmentId as GetDoctorNotesByAppIdQuery}
@@ -178,11 +180,11 @@ function NotesTab({}: Props) {
           ) : (
             <div className="div">No Published Notes Available</div>
           ))} */}
-        {/* HISTORY NOTES */}
-        <div className="history-notes-cover">
-          <h3>Notes history</h3>
-          <NotesHistory />
-        </div>
+      {/* HISTORY NOTES */}
+      <div className="history-notes-cover">
+        <h3>Notes history</h3>
+        <NotesHistory />
+      </div>
       {/* </CardWithProfileImageInfo> */}
     </div>
   );

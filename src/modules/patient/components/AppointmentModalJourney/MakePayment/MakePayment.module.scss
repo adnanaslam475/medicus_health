@@ -21,6 +21,11 @@
 }
 .payment-form {
   h6 {
-    word-spacing: -5px !important;
+    word-spacing: -5px;
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) {
+        word-spacing: 0px !important;
+      }
+    }
   }
 }

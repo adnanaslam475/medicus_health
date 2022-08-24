@@ -16,6 +16,7 @@ import {
 import { getUserData } from "../../../utils/userData";
 import { CreateSourceData, StripeElement } from "@stripe/stripe-js";
 import _classes from "./StripeCard.module.scss";
+import { GraphQLError } from "graphql";
 
 type Props = {
   title: string;
@@ -142,7 +143,7 @@ function Billing({
         )) || {};
 
       const { user } = getUserData();
-      await executeCardMutation({
+      const res = await executeCardMutation({
         input: {
           card_digits: Number(source?.card?.last4) || 0,
           card_type: source?.card?.brand || "",
@@ -154,6 +155,22 @@ function Billing({
           card_holder_name: "",
         },
       });
+
+      if (res?.error) {
+        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = res?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message;
+          let errorMessage =
+          errorGraphQLMessage ||
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
+      }
 
       executeGetAllCardsQuery({ requestPolicy: "network-only" });
 

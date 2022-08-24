@@ -24,14 +24,14 @@ function CancelledAppointmentsDetailDoctor() {
 
   const [{ data }] = useDoctorAppointmentDetailQuery({
     variables: {
-      id: Number(query.appointmentId),
+      id: Number(query.appointmentId || query.id),
     },
-    pause: !query.appointmentId,
+    // pause: !query.appointmentId,
   });
   const { appointment } = data || {};
 
   //get appointment URL
-  const { reportUrl, patientId } = appointment || {};
+  const { reportUrl, patientId,doctorId } = appointment || {};
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: patientId as number },
   });
@@ -85,6 +85,7 @@ function CancelledAppointmentsDetailDoctor() {
                   appointmentHealthHistory={
                     appointment?.appointmentHealthHistory?.history
                   }
+                  doctorId={Number(doctorId)}
                 />
               </div>
             </Tabs.TabPane>

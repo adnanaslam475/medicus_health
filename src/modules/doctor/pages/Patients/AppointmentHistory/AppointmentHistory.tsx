@@ -1,6 +1,7 @@
 import React from "react";
 import PatientAppointmentHistoryTable from "common/components/PatientAppointmentHistoryTable/PatientAppointmentHistoryTable";
 import { useGetAllRequestedAppointmentsQuery } from "../../../../../generated/graphql";
+import { useRouter } from "next/router";
 
 function AppointmentHistory() {
   // GET ALL APPOINMENTS
@@ -13,6 +14,8 @@ function AppointmentHistory() {
     column: "",
     order: "",
   });
+
+  const { query } = useRouter();
 
   const [{ data, fetching: loading }] = useGetAllRequestedAppointmentsQuery(
     //   {
@@ -28,6 +31,7 @@ function AppointmentHistory() {
       variables: {
         filter: {
           status: "Completed",
+          patientId: Number(query.id),
         },
         pagination: { limit: -1, page: 1 },
         sorting,
