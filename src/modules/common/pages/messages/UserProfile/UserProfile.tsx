@@ -104,9 +104,9 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
           </span>
         )}
       </div>
-      <div className="w-full pl-3">
+      <div className="w-full pl-2 sm:pl-3">
         <div className="flex justify-between">
-          <span className="text-black text-base">
+          <span className="text-black text-xs sm:text-base max-w-[50px] sm:max-w-[200px] break-all font-semibold sm:font-normal">
             {firstName}
             {/* {`${opposite?.first_name ? opposite?.first_name : ""} `} */}
             <span className="hidden sm:inline">{` ${
@@ -114,7 +114,7 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
               lastName
             }`}</span>
           </span>
-          <span className="text-base text-gray hidden sm:inline">
+          <span className=" text-gray hidden sm:inline text-xs text-bold font-medium pt-1">
             {messageDateTime}
           </span>
         </div>

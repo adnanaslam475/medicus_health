@@ -46,7 +46,7 @@ const InfoMessageBannerReminder = () => {
   }`;
 
   const selectStartTime = Number(
-    dayjs(selectedTime?.startTime).utc().unix() - 600
+    dayjs(selectedTime?.startTime).utc().unix() - 300
   );
   const selectEndTime = dayjs(selectedTime?.endTime).utc().unix();
   let now = dayjs().utc();

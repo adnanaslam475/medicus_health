@@ -26,7 +26,7 @@ function CurrentAppointmentsDetailDoctor() {
   const { appointment } = data || {};
 
   //get appointment URL
-  const { reportUrl, patientId } = appointment || {};
+  const { reportUrl, patientId,doctorId } = appointment || {};
   const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
     variables: { input: patientId as number },
   });
@@ -64,6 +64,7 @@ function CurrentAppointmentsDetailDoctor() {
                   appointmentHealthHistory={
                     appointment?.appointmentHealthHistory?.history
                   }
+                  doctorId={Number(doctorId)}
                 />
               </div>
             </Tabs.TabPane>

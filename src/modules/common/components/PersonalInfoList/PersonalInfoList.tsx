@@ -112,7 +112,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             Teléfono de contacto #
           </div>
           <div className="sm:w-1/2 text-secondary md:pl-4">
-            {contact_number}
+            {`+${contact_number}`}
           </div>
         </div>
       </li>
@@ -262,23 +262,23 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
         </div>
       </li>
 
-      <li>
-        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
-            {/* Do you have any occupational duration? */}
-            ¿Tiene alguna duración ocupacional?
+      {patientProfile?.occupationalExposure === "Yes" && (
+        <li>
+          <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+            <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
+              {/* Do you have any occupational duration? */}
+              ¿Tiene alguna duración ocupacional?
+            </div>
+            <div
+              className={`sm:w-1/2 md:pl-4 ${
+                !patientProfile?.exposureDuration && "text-gray-1"
+              }`}
+            >
+              {patientProfile?.exposureDuration}
+            </div>
           </div>
-          <div
-            className={`sm:w-1/2 md:pl-4 ${
-              !patientProfile?.exposureDuration && "text-gray-1"
-            }`}
-          >
-            {patientProfile?.occupationalExposure === "Yes"
-              ? patientProfile?.exposureDuration
-              : "No"}
-          </div>
-        </div>
-      </li>
+        </li>
+      )}
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">

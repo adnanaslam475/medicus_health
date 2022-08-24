@@ -33,6 +33,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
     city,
     streetAddress,
     patientProfile,
+    timeZone,
   } = userDetail || {};
 
   const { country_name } = country || {};
@@ -104,27 +105,33 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
               label="Ciudad"
               value={city_name ? city_name : "-"}
             />
-            <LabelWithTextDiv label="Código postal" value={zip_code} />
+            <LabelWithTextDiv
+              label="Zona horaria"
+              value={timeZone?.timeZone || ""}
+            />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="Código postal" value={zip_code} />
             <LabelWithTextDiv
               label="Dirección (calle y numero)"
               value={streetAddress}
             />
-            <LabelWithTextDiv label="Estado civil" value={maritalStatus} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
+            <LabelWithTextDiv label="Estado civil" value={maritalStatus} />
             <LabelWithTextDiv label="¿Tienes hijos?" value={children} />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv
               label="¿Cuál es tu ocupación?"
               value={occupation}
             />
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv
               label="¿Tiene alguna exposición ocupacional?"
               value={occupationalExposure === "Yes" ? exposureDuration : "No"}
             />
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv label="¿Tiene mascotas?" value={pets} />
           </div>
         </div>
