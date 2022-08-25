@@ -230,7 +230,7 @@ const PersonalInfo = () => {
 
           <div className="edit-btn">
             {isEdit ? (
-              <div className="flex gap-4 flex-wrap">
+              <div className="flex gap-2 flex-wrap">
                 <Button
                   danger
                   className="text-xs p-5 text-red"
@@ -248,7 +248,7 @@ const PersonalInfo = () => {
                   size="large"
                   onClick={onSave}
                 >
-                  <span className="text-xs text-white">
+                  <span className="text-xs text-white px-1">
                     Ahorrar
                     {/* {t("save")} */}
                   </span>
