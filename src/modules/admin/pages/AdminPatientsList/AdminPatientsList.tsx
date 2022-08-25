@@ -154,6 +154,16 @@ function AdminPatientsList() {
     });
   };
 
+  const footer = (currentPageData: any) => {
+    return getPatients?.items?.length ? (
+      <span>
+        Showing {currentPageData?.length} out of {getPatients?.items?.length} entries
+      </span>
+    ) : (
+      ""
+    );
+  };
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -175,6 +185,7 @@ function AdminPatientsList() {
             <Table
               columns={columns}
               dataSource={getPatients?.items as User[]}
+              footer={footer}
               loading={fetching}
               onChange={onChange}
               pagination={{
