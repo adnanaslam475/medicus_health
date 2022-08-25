@@ -69,7 +69,7 @@ function AttachmentTab() {
           <Attachment item={item} enable={false} />
         ))
       ) : (
-        <div className="flex items-center justify-center w-3/5 mt-5">
+        <div className="flex items-center justify-center w-full xl:w-3/5 mt-5">
           <Empty />
         </div>
       )}
