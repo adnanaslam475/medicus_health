@@ -7,6 +7,7 @@ import {
   Appointment,
   AppointmentDateTimeResponse,
   AppointmentServiceType,
+  DateTimeSlots,
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
@@ -49,11 +50,15 @@ const Columns = [
   // },
   {
     title: "Appointment type",
-    dataIndex: "serviceType",
+    // dataIndex: "serviceType",
     key: "name",
     sorter: true,
-    render: (value: AppointmentServiceType) => {
-      return <div>{`${value?.name}`}</div>;
+    render: (value: Appointment) => {
+      const appointmentType =
+        value?.status === "Proposed" && value?.appointmentTypeProposed?.type
+          ? value?.appointmentTypeProposed?.type
+          : value?.serviceType?.name;
+      return <div>{`${appointmentType}`}</div>;
     },
   },
   {
@@ -66,10 +71,17 @@ const Columns = [
       let status = value?.status;
       return (
         <div>
-          {status === "Proposed" ||
-          status === "Rescheduled" ||
-          !appointmentDateTime?.startTime
+          {status === "Rescheduled" || !appointmentDateTime?.startTime
             ? "--"
+            : status === "Proposed"
+            ? (value?.appointmentTypeProposed?.dateTime.map(
+                (item: DateTimeSlots) => {
+                  console.log("item is");
+                  return (
+                    <li>{`${date.formatDAYMMDDYY(String(item?.date))}`}</li>
+                  );
+                }
+              ) as any)
             : `${date?.formatMMMMDDYYYY(
                 appointmentDateTime?.startTime,
                 timeZone
@@ -88,11 +100,21 @@ const Columns = [
       let status = value?.status;
       return (
         <div>
-          {status === "Proposed" ||
-          status === "Rescheduled" ||
+          {status === "Rescheduled" ||
           !appointmentDateTime?.startTime ||
           !appointmentDateTime?.endTime
             ? "--"
+            : status === "Proposed"
+            ? (value?.appointmentTypeProposed?.dateTime.map(
+                (item: DateTimeSlots) => {
+                  console.log("item is");
+                  return (
+                    <li>{`${date.formathhmma(
+                      String(item?.startTime)
+                    )} - ${date.formathhmma(String(item?.endTime))}`}</li>
+                  );
+                }
+              ) as any)
             : `${date.formathhmma(
                 appointmentDateTime?.startTime,
                 timeZone

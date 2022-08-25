@@ -28,6 +28,7 @@ import {
   Appointment,
   AppointmentServiceType,
   AppointmentTimeSlots,
+  DateTimeSlots,
   useCancelAppointmentByDoctorMutation,
   useDoctorSchedulesQuery,
   useGetAllAppointmentServiceTypesQuery,
@@ -84,6 +85,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     appointmentCharges,
     createdAt,
     doctor,
+    appointmentTypeProposed,
   } = data || {};
 
   const { id: doctorIdForChat } = doctor || {};
@@ -261,6 +263,29 @@ function DoctorAppointmentInfo({ data }: Props) {
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
+        {status === "Proposed" && (
+          <LabelWithText
+            label={"Appointment type proposed"}
+            text={appointmentTypeProposed?.type || ""}
+          />
+        )}
+        {status === "Proposed" && appointmentTypeProposed?.dateTime?.length && (
+          <LabelWithText
+            label={"Appointment(s) proposed"}
+            text={
+              appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
+                console.log("item is");
+                return (
+                  <li>{`${date.formatDAYMMDDYY(
+                    String(item?.date)
+                  )} - ${date.formathhmma(
+                    String(item?.startTime)
+                  )} - ${date.formathhmma(String(item?.endTime))}`}</li>
+                );
+              }) as any
+            }
+          />
+        )}
         {status === "Canceled" && (
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[300px]">
@@ -662,11 +687,13 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     useProposeNewTimeMutation();
 
   async function onProposeNewTimeSlot() {
+    const serviceTypeSelected =
+      formInstance.getFieldValue("service") || serviceType?.id;
     try {
       const { error } = await executeProposeTimeSlotMutation({
         proposeNewTimeInput: {
           id: id as number,
-          serviceId: serviceType?.id as number,
+          serviceId: serviceTypeSelected,
           charges: serviceInfo?.price as number,
           proposedTimeSlots: slots.map((timeSlot) => {
             const [startDate, ...startTime] = timeSlot.startDate.split(" ");
