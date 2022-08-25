@@ -87,10 +87,10 @@ function AdminPhysicianSearchFilters(props: Props) {
   return (
     <div className="page-filters flex lg:flex items-center mb-5 flex-wrap gap-2">
       <div className="flex lg:mb-0 ">
-        <div className="flex-1 flex w-80">
+        <div className="flex-1 flex w-96">
           <Input
             value={filterState.searchField || ""}
-            placeholder="Search by ID, name, email address or zip code"
+            placeholder="Search by ID, name,email address or zip code"
             prefix={<SearchOutlined />}
             onChange={(e) => onChangeFields("searchField", e.target.value)}
           />
