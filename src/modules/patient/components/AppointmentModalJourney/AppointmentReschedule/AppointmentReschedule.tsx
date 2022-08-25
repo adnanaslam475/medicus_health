@@ -115,11 +115,11 @@ function AppointmentReschedule(props: Props) {
                   className={`bg-gray-4 ${_classes["radio-div"]} block w-full`}
                   value={item.id}
                 >
-                  <div className="text-secondary">
-                    <span className="mr-3 block">
+                  <div className="text-secondary flex">
+                    <span className="mr-3 block text-sm">
                       {date.formatDAYMMDDYY(item.startTime, timeZone)}
                     </span>
-                    <span className="block">{`${date.formathhmma(
+                    <span className="inline-block text-sm">{`${date.formathhmma(
                       item.startTime,
                       timeZone
                     )} - ${date.formathhmma(item.endTime, timeZone)}`}</span>
