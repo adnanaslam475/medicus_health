@@ -156,22 +156,6 @@ function Billing({
         },
       });
 
-      if (res?.error) {
-        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
-          ?.response as GraphQLError;
-        let customError = res?.error?.graphQLErrors[0]?.extensions
-          ?.exception as GraphQLError;
-        let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message;
-          let errorMessage =
-          errorGraphQLMessage ||
-          graphQLError?.message ||
-          customError?.message ||
-          "Something went wrong";
-        notification.error({
-          message: errorMessage,
-        });
-      }
-
       executeGetAllCardsQuery({ requestPolicy: "network-only" });
 
       if (error) {
@@ -184,6 +168,21 @@ function Billing({
         setModalVisible(false);
         cardElement?.clear();
         setLoadingSubmit(false);
+        if (res?.error) {
+          let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+            ?.response as GraphQLError;
+          let customError = res?.error?.graphQLErrors[0]?.extensions
+            ?.exception as GraphQLError;
+          let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message;
+            let errorMessage =
+            errorGraphQLMessage ||
+            graphQLError?.message ||
+            customError?.message ||
+            "Something went wrong";
+          notification.error({
+            message: errorMessage,
+          });
+        }
       }
     } catch (error) {
       setModalVisible(true);

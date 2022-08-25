@@ -56,6 +56,13 @@ function CalendarModalComponent(props: Props) {
       : user?.role === "User"
       ? `/patient/appointments/${id}`
       : `/admin/appointments/${id}`;
+
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
   return (
     <Modal
       title=""
@@ -81,7 +88,10 @@ function CalendarModalComponent(props: Props) {
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">Appointment date</p>
         <h4 className="text-xl">
-          {date.formatDAYMMDDYY(selectedAppointment?.startTime || dateValue)}
+          {date.formatDAYMMDDYY(
+            selectedAppointment?.startTime || dateValue,
+            timeZone
+          )}
         </h4>
       </div>
       {/* removed ref ticket # 2405*/}
