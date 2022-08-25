@@ -569,3 +569,9 @@ export const compareAllArraysAreEqual = (...arrays: string[]) => {
 export const capitalizeFirstLetter = (value: any) => {
   return String(value)?.charAt(0).toUpperCase() + String(value).slice(1);
 };
+
+export const timezoneLabel = (value: any = "") => {
+  return value
+    ?.split("/")
+    [Number(value?.split("/").length) - 1]?.replace(/_/g, " ");
+};
