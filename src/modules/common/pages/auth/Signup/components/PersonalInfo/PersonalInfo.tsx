@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import TermsAndConditions from "common/components/TermsAndConditionns/TermsAndConditionns";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { timezoneLabel } from "utils/helper";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -476,14 +477,18 @@ export default function PersonalInfo({ onFinish }: props) {
           >
             {React.Children.toArray(
               getTimeZones?.data?.getTimeZones?.map((el, i) => {
-                const timeZoneCurrent = el?.timeZone;
-                const label = timeZoneCurrent
-                  ?.split("/")
-                  [Number(timeZoneCurrent?.split("/").length) - 1]?.replace(
-                    /_/g,
-                    " "
-                  );
-                return <Select.Option value={el.id}>{label}</Select.Option>;
+                // const timeZoneCurrent = el?.timeZone;
+                // const label = timeZoneCurrent
+                //   ?.split("/")
+                //   [Number(timeZoneCurrent?.split("/").length) - 1]?.replace(
+                //     /_/g,
+                //     " "
+                //   );
+                return (
+                  <Select.Option value={el.id}>
+                    {timezoneLabel(el?.timeZone)}
+                  </Select.Option>
+                );
               })
             )}
           </Select>
