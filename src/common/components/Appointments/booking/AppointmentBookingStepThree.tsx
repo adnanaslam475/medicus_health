@@ -12,7 +12,7 @@ import { NamePath } from "antd/lib/form/interface";
 import { parseJson } from "common/utils/helper";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { getUserData } from "common/utils/userData";
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 
 type Props = {
   physicianData?: DoctorProfile | undefined | null;
@@ -124,6 +124,8 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     }
   };
 
+  console.log("step3", questionnair);
+
   return (
     <>
       <h2>Request an appointment</h2>
@@ -144,6 +146,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             </div>
           </Form.Item>
         )}
+
         {questionnair ? (
           questionnair?.map(
             (
@@ -189,7 +192,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                     name={item.name}
                     // rules={[{ required: true, message: "¡Requerido!" }]}
                   >
-                    <Checkbox.Group className={`${styles["ant-checkbox-wrapper-cover"]}`}>
+                    <Checkbox.Group
+                      className={`${styles["ant-checkbox-wrapper-cover"]}`}
+                    >
                       {item?.options?.map(({ value, label }) => {
                         return <Checkbox value={value}>{label}</Checkbox>;
                       })}

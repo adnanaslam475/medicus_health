@@ -128,7 +128,7 @@ const AppointmentTabs = (props: Props) => {
                 />
               ))
             ) : (
-              <div className="flex items-center justify-center w-3/5 mt-5">
+              <div className="flex items-center justify-center xl:w-3/5 mt-5">
                 <Empty />
               </div>
             )}

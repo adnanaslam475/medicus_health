@@ -46,7 +46,7 @@ function AppointmentCalendar() {
       endDate: data?.extendedProps?.extraData?.end,
       status: data?.extendedProps?.status,
       charges: data?.extendedProps?.charges,
-      appointmentTimeSlots:data?.extendedProps?.appointmentTimeSlots,
+      appointmentTimeSlots: data?.extendedProps?.appointmentTimeSlots,
       type: "Assignment",
     });
 
@@ -68,7 +68,7 @@ function AppointmentCalendar() {
           serviceType,
           charges,
           appointmentTimeSlots,
-          transaction
+          transaction,
         }) => ({
           id: id,
           // title:
@@ -77,13 +77,13 @@ function AppointmentCalendar() {
           //     : `${serviceType?.name}: Dr. ${doctor?.first_name}` +
           //       " " +
           //       doctor?.last_name,
-          title: "Appointment with " + "Dr. " + doctor?.first_name + " " + doctor?.last_name ,
+          title: "Dr. " + doctor?.first_name + " " + doctor?.last_name,
           start: appointmentTimeSlots?.filter((item) => item?.selected)?.[0]
             ?.startTime,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
           charges: transaction?.amountReceived || charges,
-          appointmentTimeSlots:appointmentTimeSlots
+          appointmentTimeSlots: appointmentTimeSlots,
         })
       ),
     });
