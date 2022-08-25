@@ -106,7 +106,7 @@ function DoctorProfileCard(props: Props) {
   return (
     <>
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
-        <div className="flex-none sm:flex">
+        <div className="flex-col md:flex-row flex">
           <div className="docAvatarCover pr-3">
             <div className="rounded-full flex items-center justify-center overflow-hidden">
               {loading ? (
@@ -203,7 +203,7 @@ function DoctorProfileCard(props: Props) {
                 </div>
               </Collapse.Panel>
             </Collapse>
-            <div className="flex-none md:flex mt-3">
+            <div className="flex-col md:flex-row flex mt-3">
               <Tooltip
                 title={
                   patientHealthHistory?.patientHealthHistory ? (
