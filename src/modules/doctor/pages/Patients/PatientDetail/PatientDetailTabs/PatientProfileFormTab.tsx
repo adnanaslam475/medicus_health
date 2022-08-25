@@ -43,6 +43,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
   const {
     maritalStatus,
     children,
+    haveChildren,
     occupation,
     occupationalExposure,
     exposureDuration,
@@ -124,7 +125,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             />
             <LabelWithTextDiv
               label="¿Tienes hijos?"
-              value={children ? children : "-"}
+              value={children ? children : haveChildren}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">

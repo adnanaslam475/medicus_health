@@ -30,6 +30,7 @@ module.exports = withTM(
         "medicus-uat.agencypartner.com",
         "medicus-test.agencypartner.com",
         "staging.joinmedicus.com",
+        "www.google.com"
       ],
       // minimumCacheTTL: 60,
 
