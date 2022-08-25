@@ -327,8 +327,8 @@ export default function PersonalInfo({ onFinish }: props) {
         <Input />
       </Form.Item>
 
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className={`${_classes.contactNo} inline-block`}>
+      <div className="flex flex-col md:flex-row gap-1 sm:gap-4 ">
+        <div className={`${_classes.contactNo} block w-full`}>
           <Form.Item
             className="flex-1"
             // label={t("contact_number")}
@@ -514,7 +514,7 @@ export default function PersonalInfo({ onFinish }: props) {
         </Form.Item>
       </div>
 
-      <div className="flex justify-between flex-row">
+      <div className="flex justify-between flex-col sm:flex-row">
         <div
           className={`${_classes["signupcheckbox"]} inline-flex justify-between items-center`}
         >
@@ -552,7 +552,7 @@ export default function PersonalInfo({ onFinish }: props) {
             </span>
           </Checkbox>
         </div>
-        <Form.Item>
+        <Form.Item className="text-center sm:text-left">
           <Button
             size="large"
             htmlType="submit"
