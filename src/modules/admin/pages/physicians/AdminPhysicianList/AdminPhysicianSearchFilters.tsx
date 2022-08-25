@@ -90,13 +90,13 @@ function AdminPhysicianSearchFilters(props: Props) {
         <div className="flex-1 flex w-96">
           <Input
             value={filterState.searchField || ""}
-            placeholder="Search by ID, name, email address or zip code"
+            placeholder="Search by ID, name,email address or zip code"
             prefix={<SearchOutlined />}
             onChange={(e) => onChangeFields("searchField", e.target.value)}
           />
         </div>
       </div>
-      <div className="  sm:mt-0">
+      <div className="sm:mt-0">
         <Select
           placeholder="Specialization"
           className="w-full sm:w-40"
@@ -108,13 +108,13 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="Neurologist">Neurologist</Option>
         </Select>
       </div>
-      <div className=" sm:mt-0  md:w-44 xl:w-44">
+      <div className="w-1/5 sm:mt-0  md:w-44 xl:w-44">
         <SelectCountryTypeFilter
           onChange={(value) => onChangeFields("countryId", Number(value))}
           value={filterState?.countryId}
         />
       </div>
-      <div className="sm:mt-0">
+      <div className="w-1/12 sm:mt-0">
         <SelectStateTypeFilter
           onChange={(value) => onChangeFields("stateId", Number(value))}
           value={filterState?.stateId}
@@ -122,7 +122,7 @@ function AdminPhysicianSearchFilters(props: Props) {
         />
       </div>
 
-      <div className="sm:mt-0">
+      <div className="w-1/12 sm:mt-0">
         <SelectCityFilter
           onChange={(value) => onChangeFields("cityId", Number(value))}
           value={filterState?.cityId}
