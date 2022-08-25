@@ -198,6 +198,14 @@ query physicianAppointments(
         startTime
         endTime
       }
+      appointmentTypeProposed{
+        type
+        dateTime{
+          date
+          startTime
+          endTime
+        }
+      }
       createdAt
       requestedDate
       charges

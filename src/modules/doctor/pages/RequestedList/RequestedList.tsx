@@ -71,9 +71,9 @@ const Columns = [
       let status = value?.status;
       return (
         <div>
-          {status === "Rescheduled" || !appointmentDateTime?.startTime
+          {!appointmentDateTime?.startTime
             ? "--"
-            : status === "Proposed"
+            : status === "Proposed" || status === "Rescheduled"
             ? (value?.appointmentTypeProposed?.dateTime.map(
                 (item: DateTimeSlots) => {
                   console.log("item is");
@@ -100,11 +100,9 @@ const Columns = [
       let status = value?.status;
       return (
         <div>
-          {status === "Rescheduled" ||
-          !appointmentDateTime?.startTime ||
-          !appointmentDateTime?.endTime
+          {!appointmentDateTime?.startTime || !appointmentDateTime?.endTime
             ? "--"
-            : status === "Proposed"
+            : status === "Proposed" || status === "Rescheduled"
             ? (value?.appointmentTypeProposed?.dateTime.map(
                 (item: DateTimeSlots) => {
                   console.log("item is");

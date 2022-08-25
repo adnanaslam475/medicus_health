@@ -2257,7 +2257,7 @@ export type PhysicianAppointmentsQueryVariables = Exact<{
 }>;
 
 
-export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, createdAt: any, requestedDate?: any | null, charges: number, status?: string | null, doctor?: { __typename?: 'User', timeZone?: { __typename?: 'TimeZones', timeZone: string, id: number } | null } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, transaction?: { __typename?: 'Transaction', payment_status?: string | null, status: string, amountReceived: number } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
+export type PhysicianAppointmentsQuery = { __typename?: 'Query', physicianAppointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, createdAt: any, requestedDate?: any | null, charges: number, status?: string | null, doctor?: { __typename?: 'User', timeZone?: { __typename?: 'TimeZones', timeZone: string, id: number } | null } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null, dateTime: Array<{ __typename?: 'DateTimeSlots', date?: string | null, startTime?: string | null, endTime?: string | null }> } | null, transaction?: { __typename?: 'Transaction', payment_status?: string | null, status: string, amountReceived: number } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -3962,6 +3962,14 @@ export const PhysicianAppointmentsDocument = gql`
       appointmentDateTime {
         startTime
         endTime
+      }
+      appointmentTypeProposed {
+        type
+        dateTime {
+          date
+          startTime
+          endTime
+        }
       }
       createdAt
       requestedDate

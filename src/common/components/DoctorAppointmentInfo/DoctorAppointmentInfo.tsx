@@ -263,13 +263,21 @@ function DoctorAppointmentInfo({ data }: Props) {
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
-        {status === "Proposed" && (
+        {status === "Proposed" ? (
           <LabelWithText
             label={"Appointment type proposed"}
             text={appointmentTypeProposed?.type || ""}
           />
+        ) : status !== "Proposed" &&
+          appointmentTypeProposed?.type !== serviceType?.name ? (
+          <LabelWithText
+            label={"Appointment type proposed"}
+            text={appointmentTypeProposed?.type || ""}
+          />
+        ) : (
+          <></>
         )}
-        {status === "Proposed" && appointmentTypeProposed?.dateTime?.length && (
+        {appointmentTypeProposed?.dateTime?.length && (
           <LabelWithText
             label={"Appointment(s) proposed"}
             text={
