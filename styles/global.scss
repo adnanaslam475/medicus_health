@@ -546,3 +546,8 @@ input[type="number"]::-webkit-outer-spin-button {
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+@media screen and (max-width: 586px) {
+  .ant-picker-panel-container .ant-picker-panels {
+    flex-direction: column !important;
+  }
+}
