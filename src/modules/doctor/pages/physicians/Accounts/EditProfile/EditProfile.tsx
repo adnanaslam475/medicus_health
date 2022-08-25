@@ -76,6 +76,8 @@ type Props = {
   loading?: boolean;
   setProfileUpdated?: any;
   deleteScheduleFetching?: boolean;
+  showCancelScheduleModal?:boolean,
+  setShowCancelScheduleModal?:React.Dispatch<React.SetStateAction<boolean>>
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -96,6 +98,8 @@ function EditProfile({
   addScheduleTime,
   setProfileUpdated,
   deleteScheduleFetching,
+  showCancelScheduleModal, 
+  setShowCancelScheduleModal
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -1021,6 +1025,8 @@ function EditProfile({
                 setAddScheduleDay={setAddScheduleDay}
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
+                showCancelScheduleModal={showCancelScheduleModal} 
+                setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
 
               <div className={`my-6 ${_classes["educational"]}`}>
