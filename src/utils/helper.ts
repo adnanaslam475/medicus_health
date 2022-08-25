@@ -35,7 +35,7 @@ export const bioForm = [
     {
       label: "Contact #",
       name: "contact",
-      defaultValue: "090078601",
+      defaultValue: "0000000000",
       disabled: true,
     },
   ],
@@ -568,4 +568,10 @@ export const compareAllArraysAreEqual = (...arrays: string[]) => {
 
 export const capitalizeFirstLetter = (value: any) => {
   return String(value)?.charAt(0).toUpperCase() + String(value).slice(1);
+};
+
+export const timezoneLabel = (value: any = "") => {
+  return value
+    ?.split("/")
+    [Number(value?.split("/").length) - 1]?.replace(/_/g, " ");
 };

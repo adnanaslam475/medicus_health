@@ -10,6 +10,7 @@ import _classes from "./PersonalInfoDetail.module.scss";
 import { useTranslations } from "next-intl";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { timezoneLabel } from "utils/helper";
 
 type Props = {
   onFinish?: (values: {
@@ -311,7 +312,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                       inputStyle={{
                         width: "100%",
                         height: "40px",
-                        fontWeight: "600"
+                        fontWeight: "600",
                       }}
                       country={"us"}
                       placeholder={"Ingrese su número de contacto"}
@@ -514,7 +515,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     ]}
                   >
                     <Select
-                      placeholder={timeZone?.timeZone}
+                      placeholder={timezoneLabel(timeZone?.timeZone)}
                       showSearch
                       filterOption={(input, city: any) =>
                         city.children
@@ -522,11 +523,20 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                           .indexOf(input.toLowerCase()) >= 0
                       }
                     >
-                      {React.Children.toArray(
+                      {/* {React.Children.toArray(
                         getTimeZones?.data?.getTimeZones?.map((el, i) => {
                           return (
                             <Select.Option value={el.id}>
                               {el?.timeZone}
+                            </Select.Option>
+                          );
+                        })
+                      )} */}
+                      {React.Children.toArray(
+                        getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                          return (
+                            <Select.Option value={el.id}>
+                              {timezoneLabel(el?.timeZone)}
                             </Select.Option>
                           );
                         })

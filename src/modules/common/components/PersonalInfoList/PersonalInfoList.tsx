@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import { useTranslations } from "next-intl";
 import React from "react";
+import { timezoneLabel } from "utils/helper";
 import { date } from "../../../../common/utils";
 import {
   useCountriesQuery,
@@ -175,7 +176,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             Zona horaria
           </div>
           <div className="sm:w-1/2 text-secondary  md:pl-4">
-            {timeZone?.timeZone}
+            {timezoneLabel(timeZone?.timeZone)}
           </div>
         </div>
       </li>

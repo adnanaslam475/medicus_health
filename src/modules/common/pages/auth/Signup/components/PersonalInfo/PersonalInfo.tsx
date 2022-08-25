@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import TermsAndConditions from "common/components/TermsAndConditionns/TermsAndConditionns";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { timezoneLabel } from "utils/helper";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -123,9 +124,15 @@ export default function PersonalInfo({ onFinish }: props) {
     setIsModalVisible(false);
   };
 
-  const onPostalCodeError = (_rule: any, value: { trim: () => { (): any; new(): any; length: number; }; }, callback: any) => {
+  const onPostalCodeError = (
+    _rule: any,
+    value: { trim: () => { (): any; new (): any; length: number } },
+    callback: any
+  ) => {
     if (value?.trim().length >= 20) {
-      callback("El valor es demasiado largo, ingrese el código postal correcto");
+      callback(
+        "El valor es demasiado largo, ingrese el código postal correcto"
+      );
     } else {
       callback();
     }
@@ -320,8 +327,8 @@ export default function PersonalInfo({ onFinish }: props) {
         <Input />
       </Form.Item>
 
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className={`${_classes.contactNo} inline-block`}>
+      <div className="flex flex-col md:flex-row gap-1 sm:gap-4 ">
+        <div className={`${_classes.contactNo} block w-full`}>
           <Form.Item
             className="flex-1"
             // label={t("contact_number")}
@@ -470,8 +477,17 @@ export default function PersonalInfo({ onFinish }: props) {
           >
             {React.Children.toArray(
               getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                // const timeZoneCurrent = el?.timeZone;
+                // const label = timeZoneCurrent
+                //   ?.split("/")
+                //   [Number(timeZoneCurrent?.split("/").length) - 1]?.replace(
+                //     /_/g,
+                //     " "
+                //   );
                 return (
-                  <Select.Option value={el.id}>{el?.timeZone}</Select.Option>
+                  <Select.Option value={el.id}>
+                    {timezoneLabel(el?.timeZone)}
+                  </Select.Option>
                 );
               })
             )}
@@ -490,15 +506,15 @@ export default function PersonalInfo({ onFinish }: props) {
             },
             {
               required: true,
-              validator: onPostalCodeError
-            }
+              validator: onPostalCodeError,
+            },
           ]}
         >
           <Input />
         </Form.Item>
       </div>
 
-      <div className="flex justify-between flex-row">
+      <div className="flex justify-between flex-col sm:flex-row">
         <div
           className={`${_classes["signupcheckbox"]} inline-flex justify-between items-center`}
         >
@@ -536,7 +552,7 @@ export default function PersonalInfo({ onFinish }: props) {
             </span>
           </Checkbox>
         </div>
-        <Form.Item>
+        <Form.Item className="text-center sm:text-left">
           <Button
             size="large"
             htmlType="submit"

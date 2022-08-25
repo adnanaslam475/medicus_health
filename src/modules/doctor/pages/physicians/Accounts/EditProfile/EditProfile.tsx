@@ -44,6 +44,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { useUserData } from "common/components/Context/UserContext";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { timezoneLabel } from "utils/helper";
 
 const { TextArea } = Input;
 
@@ -76,8 +77,8 @@ type Props = {
   loading?: boolean;
   setProfileUpdated?: any;
   deleteScheduleFetching?: boolean;
-  showCancelScheduleModal?:boolean,
-  setShowCancelScheduleModal?:React.Dispatch<React.SetStateAction<boolean>>
+  showCancelScheduleModal?: boolean;
+  setShowCancelScheduleModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -98,8 +99,8 @@ function EditProfile({
   addScheduleTime,
   setProfileUpdated,
   deleteScheduleFetching,
-  showCancelScheduleModal, 
-  setShowCancelScheduleModal
+  showCancelScheduleModal,
+  setShowCancelScheduleModal,
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -283,7 +284,8 @@ function EditProfile({
         specialization: values?.specialization || "",
         year_of_experience: Number?.parseFloat(values?.year_of_experience || 0),
         streetAddress: values?.streetAddress,
-        contact_number: `+${values?.contact}`,
+        // contact_number: `+${values?.contact}`,
+        contact_number: values?.contact,
         city_id: Number(values?.city_id || 0),
         country_id: Number(values?.country_id),
         state_id: Number(values?.state_id || 0),
@@ -927,7 +929,7 @@ function EditProfile({
                   ]}
                 >
                   <Select
-                    placeholder={timeZone?.timeZone}
+                    placeholder={timezoneLabel(timeZone?.timeZone)}
                     showSearch
                     filterOption={(input, city: any) =>
                       city.children
@@ -935,11 +937,20 @@ function EditProfile({
                         .indexOf(input.toLowerCase()) >= 0
                     }
                   >
-                    {React.Children.toArray(
+                    {/* {React.Children.toArray(
                       getTimeZones?.data?.getTimeZones?.map((el, i) => {
                         return (
                           <Select.Option value={el.id}>
                             {el?.timeZone}
+                          </Select.Option>
+                        );
+                      })
+                    )} */}
+                    {React.Children.toArray(
+                      getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                        return (
+                          <Select.Option value={el.id}>
+                            {timezoneLabel(el?.timeZone)}
                           </Select.Option>
                         );
                       })
@@ -1025,7 +1036,7 @@ function EditProfile({
                 setAddScheduleDay={setAddScheduleDay}
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
-                showCancelScheduleModal={showCancelScheduleModal} 
+                showCancelScheduleModal={showCancelScheduleModal}
                 setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
 

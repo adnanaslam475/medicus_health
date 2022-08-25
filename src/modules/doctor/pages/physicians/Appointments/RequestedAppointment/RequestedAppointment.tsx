@@ -37,7 +37,9 @@ function RequestedAppointment() {
       variables: {
         filter: appointmentId
           ? {
-              status: statusFilter || "Requested",
+              // status: statusFilter || "Requested",
+              status: "Requested",
+              status2: statusFilter,
               physicianName: dataListPhysician,
               doctorId: doctorIds,
               appointmentId: appointmentId,
@@ -47,7 +49,9 @@ function RequestedAppointment() {
               searchString: searchPatient || "",
             }
           : {
-              status: statusFilter || "Requested",
+              // status: statusFilter || "Requested",
+              status: "Requested",
+              status2: statusFilter,
               physicianName: dataListPhysician,
               doctorId: doctorIds,
               serviceId: serviceIds,

@@ -522,7 +522,7 @@ input[type="number"]::-webkit-outer-spin-button {
   word-spacing: -5px;
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
-      word-spacing: 0px;
+      word-spacing: 0px !important;
     }
   }
 }
@@ -545,4 +545,9 @@ input[type="number"]::-webkit-outer-spin-button {
   font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+@media screen and (max-width: 586px) {
+  .ant-picker-panel-container .ant-picker-panels {
+    flex-direction: column !important;
+  }
 }
