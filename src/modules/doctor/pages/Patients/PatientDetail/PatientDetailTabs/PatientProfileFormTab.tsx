@@ -118,13 +118,19 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Estado civil" value={maritalStatus} />
-            <LabelWithTextDiv label="¿Tienes hijos?" value={children} />
+            <LabelWithTextDiv
+              label="Estado civil"
+              value={maritalStatus ? maritalStatus : "-"}
+            />
+            <LabelWithTextDiv
+              label="¿Tienes hijos?"
+              value={children ? children : "-"}
+            />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv
               label="¿Cuál es tu ocupación?"
-              value={occupation}
+              value={occupation ? occupation : "-"}
             />
             <LabelWithTextDiv
               label="¿Tiene alguna exposición ocupacional?"
@@ -132,7 +138,10 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="¿Tiene mascotas?" value={pets} />
+            <LabelWithTextDiv
+              label="¿Tiene mascotas?"
+              value={pets ? pets : "-"}
+            />
           </div>
         </div>
       </CardWithProfileImageInfo>
