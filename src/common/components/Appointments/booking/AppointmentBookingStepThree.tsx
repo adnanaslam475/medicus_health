@@ -133,9 +133,32 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         ...formatedQuestioner,
         isLastFilled: e?.target?.checked,
       });
+      let updatedDepedencies = { ...dependent };
+      Object.keys(dependent).forEach((dep) => {
+        updatedDepedencies[dep] = true;
+      });
+      console.log({ updatedDepedencies });
+      setDependent(updatedDepedencies);
     } else {
       saveStepThree?.(undefined);
       formInstance.resetFields();
+    }
+  };
+
+  const setDepedentState = (
+    item: Item | undefined,
+    value: boolean,
+    depedency: any
+  ): any => {
+    let updatedDepedencies = { ...depedency };
+    updatedDepedencies = {
+      ...updatedDepedencies,
+      [item?.name as string]: value,
+    };
+    if (item?.dependent) {
+      return setDepedentState(item?.dependent, value, updatedDepedencies);
+    } else {
+      return updatedDepedencies;
     }
   };
 
@@ -143,10 +166,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     let updatedDepedencies = {};
     questionnair?.forEach((item: Item) => {
       if (item.dependent) {
-        updatedDepedencies = {
-          ...updatedDepedencies,
-          [item.name as string]: false,
-        };
+        updatedDepedencies = setDepedentState(item, false, updatedDepedencies);
       }
     });
     setDependent(updatedDepedencies);
@@ -160,7 +180,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     setDependent(updatedDepedencies);
   };
 
-  const renderItems = (item: Item, showDependent?: any): any => {
+  const renderItems = (item: Item): any => {
     if (item.type === "text") {
       return (
         <>

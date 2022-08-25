@@ -11,6 +11,7 @@ import {
 import MessageButtons from "common/components/MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
 import { formatMMDDYYYY } from "common/utils/date";
+import { timezoneLabel } from "utils/helper";
 // const props = {};
 type Props = {
   userDetail?: User;
@@ -107,7 +108,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             />
             <LabelWithTextDiv
               label="Zona horaria"
-              value={timeZone?.timeZone || ""}
+              value={timezoneLabel(timeZone?.timeZone) || ""}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
