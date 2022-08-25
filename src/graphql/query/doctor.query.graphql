@@ -39,6 +39,14 @@ query doctorAppointmentDetail($id: Int!) {
       startTime
       endTime
     }
+    appointmentTypeProposed {
+      type
+      dateTime {
+        date
+        startTime
+        endTime
+      }
+    }
     serviceType {
       id
       name
@@ -98,6 +106,14 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       startTime
       endTime
     }
+    appointmentTypeProposed{
+        type
+        dateTime{
+          date
+          startTime
+          endTime
+        }
+      }
     transaction {
       status
       amountReceived
@@ -181,6 +197,14 @@ query physicianAppointments(
       appointmentDateTime {
         startTime
         endTime
+      }
+      appointmentTypeProposed{
+        type
+        dateTime{
+          date
+          startTime
+          endTime
+        }
       }
       createdAt
       requestedDate

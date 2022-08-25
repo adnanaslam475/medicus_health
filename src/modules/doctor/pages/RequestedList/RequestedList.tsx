@@ -7,6 +7,7 @@ import {
   Appointment,
   AppointmentDateTimeResponse,
   AppointmentServiceType,
+  DateTimeSlots,
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
@@ -49,11 +50,15 @@ const Columns = [
   // },
   {
     title: "Appointment type",
-    dataIndex: "serviceType",
+    // dataIndex: "serviceType",
     key: "name",
     sorter: true,
-    render: (value: AppointmentServiceType) => {
-      return <div>{`${value?.name}`}</div>;
+    render: (value: Appointment) => {
+      const appointmentType =
+        value?.status === "Proposed" && value?.appointmentTypeProposed?.type
+          ? value?.appointmentTypeProposed?.type
+          : value?.serviceType?.name;
+      return <div>{`${appointmentType}`}</div>;
     },
   },
   {
@@ -66,14 +71,20 @@ const Columns = [
       let status = value?.status;
       return (
         <div>
-          {status === "Proposed" ||
-          status === "Rescheduled" ||
-          !appointmentDateTime?.startTime
-            ? "--"
-            : `${date?.formatMMMMDDYYYY(
+          {status === "Proposed" || status === "Rescheduled"
+            ? (value?.appointmentTypeProposed?.dateTime.map(
+                (item: DateTimeSlots) => {
+                  return (
+                    <li>{`${date.formatDAYMMDDYY(String(item?.date),timeZone)}`}</li>
+                  );
+                }
+              ) as any)
+            : status === "Requested" && appointmentDateTime?.startTime
+            ? `${date?.formatMMMMDDYYYY(
                 appointmentDateTime?.startTime,
                 timeZone
-              )} `}
+              )} `
+            : `-- `}
         </div>
       );
     },
@@ -88,18 +99,30 @@ const Columns = [
       let status = value?.status;
       return (
         <div>
-          {status === "Proposed" ||
-          status === "Rescheduled" ||
-          !appointmentDateTime?.startTime ||
-          !appointmentDateTime?.endTime
-            ? "--"
-            : `${date.formathhmma(
+          {(status === "Proposed" || status === "Rescheduled") &&
+          value?.appointmentTypeProposed?.dateTime
+            ? (value?.appointmentTypeProposed?.dateTime.map(
+                (item: DateTimeSlots) => {
+                  console.log("item is");
+                  return (
+                    <li>{`${date.formathhmma(
+                      String(item?.startTime),
+                      timeZone
+                    )} - ${date.formathhmma(
+                      String(item?.endTime),
+                      timeZone
+                    )}`}</li>
+                  );
+                }
+              ) as any)
+            : status === "Requested" &&
+              appointmentDateTime?.endTime &&
+              appointmentDateTime?.startTime
+            ? `${date.formathhmma(
                 appointmentDateTime?.startTime,
                 timeZone
-              )} - ${date.formathhmma(
-                appointmentDateTime?.endTime,
-                timeZone
-              )} `}
+              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
+            : ""}
         </div>
       );
     },

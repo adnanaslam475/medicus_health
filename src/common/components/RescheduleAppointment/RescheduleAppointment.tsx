@@ -44,7 +44,12 @@ type dateArray = {
 
 function RescheduleAppointmentModal(props: Props) {
   const { data, showRescheduleModal, setShowRescheduleModal } = props || {};
-  const { serviceType, requestedDate, appointmentTimeSlots } = data || {};
+  const {
+    serviceType,
+    requestedDate,
+    appointmentTimeSlots,
+    appointmentTypeProposed,
+  } = data || {};
 
   const [slot, setSlot] = useState<dateArray>({ startTime: "", endTime: "" });
   const [slots, setSlots] = useState<SuggestedTimeSlots[] | any[]>([]);
@@ -180,7 +185,11 @@ function RescheduleAppointmentModal(props: Props) {
                   className={`${_classes["border-color"]} w-1/6 pointer-events-none`}
                 >
                   <Select
-                    placeholder={data?.serviceType?.name || "Appointment type"}
+                    placeholder={
+                      appointmentTypeProposed?.type ||
+                      data?.serviceType?.name ||
+                      "Appointment type"
+                    }
                     className="w-full "
                     disabled={true}
                   >
