@@ -22,6 +22,7 @@ import {
   useCancelAppointmentByPatientMutation,
   useCreateCardMutation,
   useGetAllCardsQuery,
+  useGetAppointmentsReminderBannerQuery,
   usePatientHealthHistoryQuery,
   useReBookAppointmentMutation,
 } from "../../../../../generated/graphql";
@@ -72,10 +73,8 @@ function AppointmentModalFooter({
   const stripe = useStripe();
   const elements = useElements();
 
-  const [{}, executeUsePatientHealthHistoryQuery] =
-    usePatientHealthHistoryQuery({
-      requestPolicy: "network-only",
-    });
+  const [{}, executeGetAppointmentsReminderBannerQuery] =
+    useGetAppointmentsReminderBannerQuery();
 
   // GET ALL CARDS API CALL
   const [{ data: getAllCardsData }, executeGetAllCardsQuery] =
@@ -163,7 +162,9 @@ function AppointmentModalFooter({
     if (bookData?.bookAppointment.status === "Confirmed") {
       setCurrentStepName("stepFour");
 
-      executeUsePatientHealthHistoryQuery({ requestPolicy: "network-only" });
+      executeGetAppointmentsReminderBannerQuery({
+        requestPolicy: "network-only",
+      });
     } else {
       notification.error({
         message:
@@ -220,7 +221,9 @@ function AppointmentModalFooter({
 
       if (bookData?.bookAppointment.status === "Confirmed") {
         setCurrentStepName("stepFour");
-        executeUsePatientHealthHistoryQuery({ requestPolicy: "network-only" });
+        executeGetAppointmentsReminderBannerQuery({
+          requestPolicy: "network-only",
+        });
       } else if (appointmentBookingError) {
         let graphQLError = appointmentBookingError?.graphQLErrors[0]?.extensions
           ?.response as GraphQLError;
