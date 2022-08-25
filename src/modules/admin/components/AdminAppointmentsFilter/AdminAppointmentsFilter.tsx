@@ -87,7 +87,7 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
   return (
     <div className="page-filters flex-none lg:flex items-center mb-5 flex-wrap">
       <div className="flex items-center sm:flex sm:mb-3 lg:mb-0 flex-wrap gap-2">
-        <div className=" w-full sm:w-full md:w-full lg:max-w-[400px] mb-2 sm:mb-0">
+        <div className=" w-full sm:w-full md:w-full lg:max-w-[400px] mb-0 sm:mb-0">
           <Input
             value={filterValues.searchString as string}
             placeholder="Search by ID, Physician name or Patient name"
