@@ -71,21 +71,20 @@ const Columns = [
       let status = value?.status;
       return (
         <div>
-          {!appointmentDateTime?.startTime
-            ? "--"
-            : status === "Proposed" || status === "Rescheduled"
+          {status === "Proposed" || status === "Rescheduled"
             ? (value?.appointmentTypeProposed?.dateTime.map(
                 (item: DateTimeSlots) => {
-                  console.log("item is");
                   return (
-                    <li>{`${date.formatDAYMMDDYY(String(item?.date))}`}</li>
+                    <li>{`${date.formatDAYMMDDYY(String(item?.date),timeZone)}`}</li>
                   );
                 }
               ) as any)
-            : `${date?.formatMMMMDDYYYY(
+            : status === "Requested" && appointmentDateTime?.startTime
+            ? `${date?.formatMMMMDDYYYY(
                 appointmentDateTime?.startTime,
                 timeZone
-              )} `}
+              )} `
+            : `-- `}
         </div>
       );
     },
@@ -100,26 +99,30 @@ const Columns = [
       let status = value?.status;
       return (
         <div>
-          {!appointmentDateTime?.startTime || !appointmentDateTime?.endTime
-            ? "--"
-            : status === "Proposed" || status === "Rescheduled"
+          {(status === "Proposed" || status === "Rescheduled") &&
+          value?.appointmentTypeProposed?.dateTime
             ? (value?.appointmentTypeProposed?.dateTime.map(
                 (item: DateTimeSlots) => {
                   console.log("item is");
                   return (
                     <li>{`${date.formathhmma(
-                      String(item?.startTime)
-                    )} - ${date.formathhmma(String(item?.endTime))}`}</li>
+                      String(item?.startTime),
+                      timeZone
+                    )} - ${date.formathhmma(
+                      String(item?.endTime),
+                      timeZone
+                    )}`}</li>
                   );
                 }
               ) as any)
-            : `${date.formathhmma(
+            : status === "Requested" &&
+              appointmentDateTime?.endTime &&
+              appointmentDateTime?.startTime
+            ? `${date.formathhmma(
                 appointmentDateTime?.startTime,
                 timeZone
-              )} - ${date.formathhmma(
-                appointmentDateTime?.endTime,
-                timeZone
-              )} `}
+              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
+            : ""}
         </div>
       );
     },

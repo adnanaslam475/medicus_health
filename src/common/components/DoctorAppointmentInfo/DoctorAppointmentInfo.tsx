@@ -263,20 +263,12 @@ function DoctorAppointmentInfo({ data }: Props) {
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
-        {status === "Proposed" ? (
-          <LabelWithText
-            label={"Appointment type proposed"}
-            text={appointmentTypeProposed?.type || ""}
-          />
-        ) : status !== "Proposed" &&
-          appointmentTypeProposed?.type !== serviceType?.name ? (
-          <LabelWithText
-            label={"Appointment type proposed"}
-            text={appointmentTypeProposed?.type || ""}
-          />
-        ) : (
-          <></>
-        )}
+        {appointmentTypeProposed?.type && (
+            <LabelWithText
+              label={"Appointment type proposed"}
+              text={appointmentTypeProposed?.type || ""}
+            />
+          )}
         {appointmentTypeProposed?.dateTime?.length && (
           <LabelWithText
             label={"Appointment(s) proposed"}
@@ -285,10 +277,15 @@ function DoctorAppointmentInfo({ data }: Props) {
                 console.log("item is");
                 return (
                   <li>{`${date.formatDAYMMDDYY(
-                    String(item?.date)
+                    String(item?.date),
+                    timeZone
                   )} - ${date.formathhmma(
-                    String(item?.startTime)
-                  )} - ${date.formathhmma(String(item?.endTime))}`}</li>
+                    String(item?.startTime),
+                    timeZone
+                  )} - ${date.formathhmma(
+                    String(item?.endTime),
+                    timeZone
+                  )}`}</li>
                 );
               }) as any
             }
@@ -617,8 +614,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     requestedDate,
     appointmentTimeSlots,
     appointmentDateTime,
+    appointmentTypeProposed,
   } = data || {};
-
   const [slot, setSlot] = useState<dateArray>({
     startDate: "",
     endDate: "",
@@ -663,8 +660,16 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }, [data]);
 
   function prepareAndSetEditPayload() {
+    const proposedAppoitmentServiceTypeObj =
+      appointmentServiceTypes?.appointmentServiceTypes?.filter(
+        (item) => item?.name === appointmentTypeProposed?.type
+      );
+    console.log("data is", proposedAppoitmentServiceTypeObj);
     formInstance.setFieldsValue({
-      service: serviceType?.id,
+      service:
+        (proposedAppoitmentServiceTypeObj &&
+          proposedAppoitmentServiceTypeObj[0]?.id) ||
+        serviceType?.id,
       requestedDate: getDayJsObject(requestedDate),
     });
 
