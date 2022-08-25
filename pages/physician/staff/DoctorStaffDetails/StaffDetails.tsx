@@ -143,6 +143,11 @@ function DoctorStaffDetails() {
       const response = await setForgotPass({
         input: email as string,
       });
+      if (response) {
+        notification?.success({
+          message: "Link sent successfully",
+        });
+      }
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }

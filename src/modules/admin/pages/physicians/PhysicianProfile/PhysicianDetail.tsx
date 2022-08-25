@@ -29,7 +29,7 @@ function PhysiciansDetail() {
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="lg:w-4/5 mx-auto">
+        <div className="xl:w-4/5 mx-auto">
           <div className="w-full py-5">
             <DoctorProfileCard
               doctorData={doctorProfile as DoctorProfile}
