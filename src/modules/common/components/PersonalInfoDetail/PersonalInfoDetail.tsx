@@ -515,7 +515,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     ]}
                   >
                     <Select
-                      placeholder={timeZone?.timeZone}
+                      placeholder={timezoneLabel(timeZone?.timeZone)}
                       showSearch
                       filterOption={(input, city: any) =>
                         city.children

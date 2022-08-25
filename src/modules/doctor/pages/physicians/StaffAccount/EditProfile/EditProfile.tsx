@@ -40,6 +40,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import { UserOutlined } from "@ant-design/icons";
+import { timezoneLabel } from "utils/helper";
 
 const { TextArea } = Input;
 
@@ -757,7 +758,7 @@ function EditProfile({
                   name="timeZone"
                 >
                   <Select
-                    placeholder={timeZone?.timeZone}
+                    placeholder={timezoneLabel(timeZone?.timeZone)}
                     disabled={isStaff}
                   ></Select>
                 </Form.Item>

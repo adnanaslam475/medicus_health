@@ -284,7 +284,8 @@ function EditProfile({
         specialization: values?.specialization || "",
         year_of_experience: Number?.parseFloat(values?.year_of_experience || 0),
         streetAddress: values?.streetAddress,
-        contact_number: `+${values?.contact}`,
+        // contact_number: `+${values?.contact}`,
+        contact_number: values?.contact,
         city_id: Number(values?.city_id || 0),
         country_id: Number(values?.country_id),
         state_id: Number(values?.state_id || 0),
@@ -928,7 +929,7 @@ function EditProfile({
                   ]}
                 >
                   <Select
-                    placeholder={timeZone?.timeZone}
+                    placeholder={timezoneLabel(timeZone?.timeZone)}
                     showSearch
                     filterOption={(input, city: any) =>
                       city.children
