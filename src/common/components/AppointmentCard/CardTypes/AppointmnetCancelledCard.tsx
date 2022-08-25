@@ -90,7 +90,7 @@ function AppointmnetCancelledCard({
     <>
       <Card className={`${_classes["appointment-card"]}`}>
         <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
-        <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
+        <h3 className="mb-0 capitalize ">{formatedDoctorName}</h3>
         <span className="text-primary text-base block mb-6">
           {specialization}
         </span>
