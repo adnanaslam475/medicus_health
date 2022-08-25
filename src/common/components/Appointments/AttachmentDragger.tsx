@@ -100,7 +100,7 @@ const AttachmentDragger = (props: Props) => {
     return false;
   };
   return (
-    <div className="w-3/5 mb-3">
+    <div className="xl:w-3/5 mb-3">
       <Form layout="vertical">
         <Form.Item>
           <Dragger
