@@ -929,7 +929,7 @@ function EditProfile({
                   ]}
                 >
                   <Select
-                    placeholder={timeZone?.timeZone}
+                    placeholder={timezoneLabel(timeZone?.timeZone)}
                     showSearch
                     filterOption={(input, city: any) =>
                       city.children
