@@ -514,7 +514,7 @@ export default function PersonalInfo({ onFinish }: props) {
         </Form.Item>
       </div>
 
-      <div className="flex justify-between flex-row">
+      <div className="flex justify-between flex-col sm:flex-row">
         <div
           className={`${_classes["signupcheckbox"]} inline-flex justify-between items-center`}
         >
@@ -552,7 +552,7 @@ export default function PersonalInfo({ onFinish }: props) {
             </span>
           </Checkbox>
         </div>
-        <Form.Item>
+        <Form.Item className="text-center sm:text-left">
           <Button
             size="large"
             htmlType="submit"
