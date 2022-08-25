@@ -365,15 +365,15 @@ function EditProfile({
           message:
             res?.error?.graphQLErrors[0]?.message || "Something went wrong",
         });
-    }
+    } else setIsEdit(false)
 
     // }
   };
 
   const onFinish = async (values: any) => {
     try {
-      await updateDoctorProfile(values);
-      setIsEdit(false);
+      await updateDoctorProfile(values)
+      // setIsEdit(false);
     } catch (error) {
       console.log("my error is",error)
       // setIsEdit(true);
