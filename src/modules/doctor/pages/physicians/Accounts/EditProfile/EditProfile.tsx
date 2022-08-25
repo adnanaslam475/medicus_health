@@ -76,8 +76,8 @@ type Props = {
   loading?: boolean;
   setProfileUpdated?: any;
   deleteScheduleFetching?: boolean;
-  showCancelScheduleModal?:boolean,
-  setShowCancelScheduleModal?:React.Dispatch<React.SetStateAction<boolean>>
+  showCancelScheduleModal?: boolean;
+  setShowCancelScheduleModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type LanguageType = {
   Spanish?: boolean;
@@ -98,8 +98,8 @@ function EditProfile({
   addScheduleTime,
   setProfileUpdated,
   deleteScheduleFetching,
-  showCancelScheduleModal, 
-  setShowCancelScheduleModal
+  showCancelScheduleModal,
+  setShowCancelScheduleModal,
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
@@ -192,7 +192,7 @@ function EditProfile({
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage } = doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
-  const { error } = result || {};
+  const { error, fetching } = result || {};
 
   const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
 
@@ -236,6 +236,7 @@ function EditProfile({
       confirmPassword: "",
       about_me: about_me,
       language: language,
+      condition_treated: conditionTreatedList || "",
       // timeZoneId: timeZone?.timeZone,
       timeZone: timeZone?.id || 86,
     });
@@ -371,10 +372,11 @@ function EditProfile({
 
   const onFinish = async (values: any) => {
     try {
-      updateDoctorProfile(values);
+      await updateDoctorProfile(values);
       setIsEdit(false);
     } catch (error) {
-      setIsEdit(true);
+      console.log("my error is",error)
+      // setIsEdit(true);
     }
   };
 
@@ -1008,9 +1010,7 @@ function EditProfile({
                   // handleConditionTreated(list);
                   setConditionTreatedList(list.toString());
                 }}
-                initialValue={(
-                  condition_treated || conditionTreatedList
-                )?.split(",")}
+                initialValue={conditionTreatedList?.split(",")}
               />
 
               <MultiRangeDatePicker
@@ -1025,7 +1025,7 @@ function EditProfile({
                 setAddScheduleDay={setAddScheduleDay}
                 onAddClick={onAddClick}
                 setAddScheduleClick={setAddScheduleClick}
-                showCancelScheduleModal={showCancelScheduleModal} 
+                showCancelScheduleModal={showCancelScheduleModal}
                 setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
 
@@ -1229,7 +1229,12 @@ function EditProfile({
                   <Button type="default" onClick={() => setIsEdit(false)}>
                     Close
                   </Button>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={fetching}
+                    disabled={fetching}
+                  >
                     Save changes
                   </Button>
                 </div>
