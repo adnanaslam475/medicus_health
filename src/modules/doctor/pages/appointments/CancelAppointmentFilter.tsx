@@ -50,7 +50,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
 
   return (
     <div className="page-filters flex items-center my-5 flex-wrap">
-      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">
+      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 sm:mb-0 2xl:mr-3">
         Search by
       </span>
       <div className="flex items-center sm:mb-0 lg:mb-0 gap-2 flex-col sm:flex-row flex-wrap">
@@ -100,7 +100,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             />
           </Space>
         </div>
-        <div className="flex w-full md:w-44 xl:w-60 mr-3">
+        <div className="flex w-full md:w-44 xl:w-60 mr-3 pl-1 sm:pl-0">
           <Select
             placeholder="Payment status"
             onChange={(e) => onChangeFields("paymentStatus", e)}
