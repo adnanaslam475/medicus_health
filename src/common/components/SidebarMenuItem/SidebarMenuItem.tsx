@@ -78,7 +78,7 @@ function SidebarMenuItem() {
     <SettingIcon className={_classes["sidebar-icon-hover"]} />,
   ];
   const IconsListPhysicianMainMenu = [
-    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <AppointmentIcon className={_classes["sidebar-icon-hover1"]} />,
     <DollarIcon className={_classes["sidebar-icon-hover"]} />,
   ];
 
