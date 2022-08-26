@@ -412,10 +412,10 @@ export const patientEmailPreferencesData = [
     key: "admin_appointment_create_update",
     value: "Support team creates and/or updates appointment",
   },
-  {
-    key: "appointment_accepted_by_doctor",
-    value: "Appointment accepted by physician",
-  },
+  // {
+  //   key: "appointment_accepted_by_doctor",
+  //   value: "Appointment accepted by physician",
+  // },
   {
     key: "appointment_reminder",
     value: "Appointment reminder (4 hours before the appointment)",
