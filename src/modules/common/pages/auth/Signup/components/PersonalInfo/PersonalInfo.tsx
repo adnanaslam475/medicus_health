@@ -328,7 +328,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </Form.Item>
 
       <div className="flex flex-col md:flex-row gap-1 sm:gap-4 ">
-        <div className={`${_classes.contactNo} block w-full`}>
+        <div className={`${_classes.contactNo}`}>
           <Form.Item
             className="flex-1"
             // label={t("contact_number")}
