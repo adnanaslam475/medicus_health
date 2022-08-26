@@ -2086,7 +2086,7 @@ export type GetPatientCurrentAppointmentsQueryVariables = Exact<{
 }>;
 
 
-export type GetPatientCurrentAppointmentsQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null }> } };
+export type GetPatientCurrentAppointmentsQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, doctor?: { __typename?: 'User', id: number } | null }> } };
 
 export type GetAdminUsersQueryVariables = Exact<{
   filter: GetAdminUsersFilterInput;
@@ -3298,6 +3298,9 @@ export const GetPatientCurrentAppointmentsDocument = gql`
   appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
     items {
       id
+      doctor {
+        id
+      }
     }
   }
 }
