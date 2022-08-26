@@ -286,7 +286,8 @@ export const spanishCommon: any = {
   email_invalid_message: "El correo electrónico es invalido",
   email_is_invalid: "El correo electrónico es invalido",
   email_already_exist: "Ya existe el correo electrónico",
-  street_address_message: "La dirección de la calle no debe ser superior a 30",
+  street_address_message:
+    "La dirección de la calle no debe tener más de 30 caracteres.",
   contact_number_message: "Por favor ingrese el número de contacto correcto",
   contact_no_is_too_long: "El número de contacto no debe ser superior a 15",
   country_message: "Por favor ingrese su país",
