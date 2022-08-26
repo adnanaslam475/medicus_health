@@ -234,7 +234,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
               className={`${styles["ant-checkbox-wrapper-cover"]}`}
             >
               {item?.options?.map(({ value, label }) => {
-                return <Checkbox value={value}>{label}</Checkbox>;
+                return <Checkbox className={`${styles.checkbox}`} value={value}>{label}</Checkbox>;
               })}
             </Checkbox.Group>
             {/* <CheckboxGroup
