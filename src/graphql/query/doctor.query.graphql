@@ -69,6 +69,7 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
     createdAt
     charges
     doctor {
+      id
       first_name
       last_name
       doctorProfile {
@@ -106,14 +107,14 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       startTime
       endTime
     }
-    appointmentTypeProposed{
-        type
-        dateTime{
-          date
-          startTime
-          endTime
-        }
+    appointmentTypeProposed {
+      type
+      dateTime {
+        date
+        startTime
+        endTime
       }
+    }
     transaction {
       status
       amountReceived
@@ -198,9 +199,9 @@ query physicianAppointments(
         startTime
         endTime
       }
-      appointmentTypeProposed{
+      appointmentTypeProposed {
         type
-        dateTime{
+        dateTime {
           date
           startTime
           endTime
