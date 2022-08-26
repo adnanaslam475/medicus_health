@@ -319,7 +319,8 @@ export default function PersonalInfo({ onFinish }: props) {
           {
             required: true,
             // message: t("street_address_message"),
-            message: "La dirección de la calle no debe ser superior a 30",
+            message:
+              "La dirección de la calle no debe tener más de 30 caracteres.",
             max: 100,
           },
         ]}
