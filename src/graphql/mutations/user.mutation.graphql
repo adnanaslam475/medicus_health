@@ -37,6 +37,9 @@ query getPatientCurrentAppointments(
   appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
     items {
       id
+      doctor {
+        id
+      }
     }
   }
 }
