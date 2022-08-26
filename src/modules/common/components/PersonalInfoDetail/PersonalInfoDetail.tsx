@@ -564,7 +564,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         required: true,
                         // message: t("street_address_message"),
                         message:
-                          "La dirección de la calle no debe ser superior a 30",
+                          "La dirección de la calle no debe tener más de 30 caracteres.",
                         max: 100,
                       },
                     ]}
