@@ -136,9 +136,17 @@ function AppointmentModalFooter({
         //   message: "Appointment Rescheduled Successfully",
         // });
         onNext();
-      } else {
+      } else if (res?.error?.graphQLErrors) {
+        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = res?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message ||
+          customError?.message ||
+          "Something went wrong";
         notification.error({
-          message: "Something went wrong",
+          message: errorMessage,
         });
       }
     } catch (error) {
