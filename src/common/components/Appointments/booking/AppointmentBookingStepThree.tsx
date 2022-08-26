@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Radio, Checkbox, Form, Input } from "antd";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import {
@@ -13,6 +13,7 @@ import { parseJson } from "common/utils/helper";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { getUserData } from "common/utils/userData";
 import styles from "./styles.module.scss";
+import { FieldData } from "rc-field-form/es/interface";
 
 type Props = {
   physicianData?: DoctorProfile | undefined | null;
@@ -32,6 +33,14 @@ type DoctorData = {
   };
 };
 
+type Item = {
+  type: NamePath | undefined;
+  label: {} | null | undefined;
+  name: NamePath | undefined;
+  options: { value: any; label: any }[];
+  dependent?: Item;
+};
+
 const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const { query } = useRouter();
   const { physicianData, adminApp_Details, rebookData, clear } = props || {};
@@ -40,6 +49,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const [formInstance] = Form.useForm();
   const physicianId = data?.stepOne?.physician?.split(":")[0];
   const patientIdFromStepOne = data?.stepOne?.patient?.split(":")[0];
+  const [dependent, setDependent] = useState<any>({});
 
   let doctorQuestionnaireId =
     Number(rebookData?.doctorId) ||
@@ -98,6 +108,11 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     prepareAndSetEditPayload();
     if (clear) {
       formInstance.resetFields();
+      let updatedDepedencies = { ...dependent };
+      Object.keys(dependent).forEach((dep) => {
+        updatedDepedencies[dep] = false;
+      });
+      setDependent(updatedDepedencies);
     }
   }, [data.stepThree, clear]);
 
@@ -118,18 +133,134 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         ...formatedQuestioner,
         isLastFilled: e?.target?.checked,
       });
+      let updatedDepedencies = { ...dependent };
+      Object.keys(dependent).forEach((dep) => {
+        updatedDepedencies[dep] = true;
+      });
+      console.log({ updatedDepedencies });
+      setDependent(updatedDepedencies);
     } else {
       saveStepThree?.(undefined);
       formInstance.resetFields();
     }
   };
 
-  console.log("step3", questionnair);
+  const setDepedentState = (
+    item: Item | undefined,
+    value: boolean,
+    depedency: any
+  ): any => {
+    let updatedDepedencies = { ...depedency };
+    updatedDepedencies = {
+      ...updatedDepedencies,
+      [item?.name as string]: value,
+    };
+    if (item?.dependent) {
+      return setDepedentState(item?.dependent, value, updatedDepedencies);
+    } else {
+      return updatedDepedencies;
+    }
+  };
+
+  useEffect(() => {
+    let updatedDepedencies = {};
+    questionnair?.forEach((item: Item) => {
+      if (item.dependent) {
+        updatedDepedencies = setDepedentState(item, false, updatedDepedencies);
+      }
+    });
+    setDependent(updatedDepedencies);
+  }, [questionnair?.length]);
+
+  const onFieldsChange = (fieldChange: FieldData[]) => {
+    let updatedDepedencies = { ...dependent };
+    fieldChange.forEach((field) => {
+      updatedDepedencies[field.name as string] = !field.value;
+    });
+    setDependent(updatedDepedencies);
+  };
+
+  const renderItems = (item: Item): any => {
+    if (item.type === "text") {
+      return (
+        <>
+          <Form.Item
+            label={item.label}
+            className="text-secondary"
+            name={item.name}
+            rules={[
+              { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          {item.dependent &&
+            dependent[item.name as string] &&
+            renderItems(item.dependent)}
+        </>
+      );
+    } else if (item.type === "radio") {
+      return (
+        <>
+          <Form.Item
+            label={item.label}
+            className="text-secondary"
+            name={item.name}
+            rules={[
+              { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            ]}
+          >
+            <Radio.Group>
+              {item?.options?.map(({ value, label }) => {
+                return <Radio value={value}>{label}</Radio>;
+              })}
+            </Radio.Group>
+          </Form.Item>
+          {item.dependent &&
+            dependent[item.name as string] &&
+            renderItems(item.dependent)}
+        </>
+      );
+    } else if (item.type === "checkbox") {
+      return (
+        <>
+          <Form.Item
+            label={item.label}
+            className="text-secondary"
+            name={item.name}
+            // rules={[{ required: true, message: "¡Requerido!" }]}
+          >
+            <Checkbox.Group
+              className={`${styles["ant-checkbox-wrapper-cover"]}`}
+            >
+              {item?.options?.map(({ value, label }) => {
+                return <Checkbox value={value}>{label}</Checkbox>;
+              })}
+            </Checkbox.Group>
+            {/* <CheckboxGroup
+    options={[3]}
+    onChange={onChangeMedicalCondition}
+    style={{ display: "flex", flexDirection: "column" }}
+    disabled={disabled}
+  /> */}
+          </Form.Item>
+          {item.dependent &&
+            dependent[item.name as string] &&
+            renderItems(item.dependent)}
+        </>
+      );
+    }
+  };
 
   return (
     <>
       <h2>Request an appointment</h2>
-      <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
+      <Form
+        layout="vertical"
+        form={formInstance}
+        onFinish={onFinishLocal}
+        onFieldsChange={onFieldsChange}
+      >
         {doctorQuestionnaire && (
           <Form.Item valuePropName="checked">
             <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
@@ -148,68 +279,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         )}
 
         {questionnair ? (
-          questionnair?.map(
-            (
-              item: {
-                type: NamePath | undefined;
-                label: {} | null | undefined;
-                name: NamePath | undefined;
-                options: { value: any; label: any }[];
-              },
-              index: any
-            ) => {
-              if (item.type === "text") {
-                return (
-                  <Form.Item
-                    label={item.label}
-                    className="text-secondary"
-                    name={item.name}
-                    rules={[{ required: true, message: "¡Requerido!" }]}
-                  >
-                    <Input />
-                  </Form.Item>
-                );
-              } else if (item.type === "radio") {
-                return (
-                  <Form.Item
-                    label={item.label}
-                    className="text-secondary"
-                    name={item.name}
-                    rules={[{ required: true, message: "¡Requerido!" }]}
-                  >
-                    <Radio.Group>
-                      {item?.options?.map(({ value, label }) => {
-                        return <Radio value={value}>{label}</Radio>;
-                      })}
-                    </Radio.Group>
-                  </Form.Item>
-                );
-              } else if (item.type === "checkbox") {
-                return (
-                  <Form.Item
-                    label={item.label}
-                    className="text-secondary"
-                    name={item.name}
-                    // rules={[{ required: true, message: "¡Requerido!" }]}
-                  >
-                    <Checkbox.Group
-                      className={`${styles["ant-checkbox-wrapper-cover"]}`}
-                    >
-                      {item?.options?.map(({ value, label }) => {
-                        return <Checkbox value={value}>{label}</Checkbox>;
-                      })}
-                    </Checkbox.Group>
-                    {/* <CheckboxGroup
-            options={[3]}
-            onChange={onChangeMedicalCondition}
-            style={{ display: "flex", flexDirection: "column" }}
-            disabled={disabled}
-          /> */}
-                  </Form.Item>
-                );
-              }
-            }
-          )
+          questionnair?.map((item: Item, index: any) => {
+            return renderItems(item);
+          })
         ) : (
           <>
             <div className="text-center text-gray-2 py-3">

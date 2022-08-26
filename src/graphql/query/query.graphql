@@ -336,6 +336,14 @@ query getAllRequestedAppointments(
         startTime
         endTime
       }
+      appointmentTypeProposed {
+        type
+        dateTime {
+          date
+          startTime
+          endTime
+        }
+      }
     }
     meta {
       totalPages

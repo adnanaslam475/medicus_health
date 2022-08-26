@@ -28,6 +28,7 @@ import {
   Appointment,
   AppointmentServiceType,
   AppointmentTimeSlots,
+  DateTimeSlots,
   useCancelAppointmentByDoctorMutation,
   useDoctorSchedulesQuery,
   useGetAllAppointmentServiceTypesQuery,
@@ -84,6 +85,7 @@ function DoctorAppointmentInfo({ data }: Props) {
     appointmentCharges,
     createdAt,
     doctor,
+    appointmentTypeProposed,
   } = data || {};
 
   const { id: doctorIdForChat } = doctor || {};
@@ -261,6 +263,34 @@ function DoctorAppointmentInfo({ data }: Props) {
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
+        {appointmentTypeProposed?.type && (
+            <LabelWithText
+              label={"Appointment type proposed"}
+              text={appointmentTypeProposed?.type || ""}
+            />
+          )}
+        {appointmentTypeProposed?.dateTime?.length && (
+          <LabelWithText
+            label={"Appointment(s) proposed"}
+            text={
+              appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
+                console.log("item is");
+                return (
+                  <li>{`${date.formatDAYMMDDYY(
+                    String(item?.date),
+                    timeZone
+                  )} - ${date.formathhmma(
+                    String(item?.startTime),
+                    timeZone
+                  )} - ${date.formathhmma(
+                    String(item?.endTime),
+                    timeZone
+                  )}`}</li>
+                );
+              }) as any
+            }
+          />
+        )}
         {status === "Canceled" && (
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[300px]">
@@ -584,8 +614,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     requestedDate,
     appointmentTimeSlots,
     appointmentDateTime,
+    appointmentTypeProposed,
   } = data || {};
-
   const [slot, setSlot] = useState<dateArray>({
     startDate: "",
     endDate: "",
@@ -630,8 +660,16 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }, [data]);
 
   function prepareAndSetEditPayload() {
+    const proposedAppoitmentServiceTypeObj =
+      appointmentServiceTypes?.appointmentServiceTypes?.filter(
+        (item) => item?.name === appointmentTypeProposed?.type
+      );
+    console.log("data is", proposedAppoitmentServiceTypeObj);
     formInstance.setFieldsValue({
-      service: serviceType?.id,
+      service:
+        (proposedAppoitmentServiceTypeObj &&
+          proposedAppoitmentServiceTypeObj[0]?.id) ||
+        serviceType?.id,
       requestedDate: getDayJsObject(requestedDate),
     });
 
@@ -662,11 +700,13 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     useProposeNewTimeMutation();
 
   async function onProposeNewTimeSlot() {
+    const serviceTypeSelected =
+      formInstance.getFieldValue("service") || serviceType?.id;
     try {
       const { error } = await executeProposeTimeSlotMutation({
         proposeNewTimeInput: {
           id: id as number,
-          serviceId: serviceType?.id as number,
+          serviceId: serviceTypeSelected,
           charges: serviceInfo?.price as number,
           proposedTimeSlots: slots.map((timeSlot) => {
             const [startDate, ...startTime] = timeSlot.startDate.split(" ");
