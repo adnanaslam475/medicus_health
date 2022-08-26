@@ -18,6 +18,7 @@ import _classes from "./PhysicianProfile.module.scss";
 import { getRole } from "common/utils/userData";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 import user from "../../../../pages/admin/user";
+import { timezoneLabel } from "utils/helper";
 
 type props = {
   doctorId?: string;
@@ -103,7 +104,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       // contact_number: contact_number || "",
       state: state_name || "",
       zip_code: zip_code || "",
-      timeZone: timeZone?.timeZone,
+      timeZone: timezoneLabel(timeZone?.timeZone),
     });
   }
 
