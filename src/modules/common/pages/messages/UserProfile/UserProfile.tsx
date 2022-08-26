@@ -18,9 +18,10 @@ import { Badge } from "antd";
 type Props = {
   thread: ChatChannels;
   setRemoveCurrentChat?: any;
+  updateLayout?: () => void;
 };
 
-function UserProfile({ thread, setRemoveCurrentChat }: Props) {
+function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
   const { setCurrentChannel, loginToRtm, onJoinChannel, messageInfo } =
     useMessageContext();
   const { user } = getUserData();
@@ -48,9 +49,8 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
-    Router.push({
-      query: "",
-    });
+    window.history.replaceState(null, "", Router.pathname);
+    updateLayout?.();
   }
 
   useEffect(() => {
@@ -105,20 +105,24 @@ function UserProfile({ thread, setRemoveCurrentChat }: Props) {
         )}
       </div>
       <div className="w-full pl-2 sm:pl-3">
-        <div className="flex justify-between">
-          <span className="text-black text-xs sm:text-base max-w-[50px] sm:max-w-[200px] break-all font-semibold sm:font-normal">
+        <div className="flex flex-col md:flex-row justify-between">
+          {/* <span className="text-black text-xs sm:text-base max-w-[50px] sm:max-w-[200px] break-all font-semibold sm:font-normal"> */}
+          <span className="text-black text-sm sm:text-base sm:max-w-[200px] break-all font-semibold sm:font-normal">
             {firstName}
             {/* {`${opposite?.first_name ? opposite?.first_name : ""} `} */}
-            <span className="hidden sm:inline">{` ${
+            {/* <span className="hidden sm:inline">{` ${ */}
+            <span className="sm:inline">{` ${
               // opposite?.last_name ? opposite?.last_name : ""
               lastName
             }`}</span>
           </span>
-          <span className=" text-gray hidden sm:inline text-xs text-bold font-medium pt-1">
+          {/* <span className=" text-gray hidden sm:inline text-xs text-bold font-medium pt-1"> */}
+          <span className=" text-gray sm:inline text-xs text-bold font-medium pt-1">
             {messageDateTime}
           </span>
         </div>
-        <div className="sm:flex justify-between hidden ">
+        {/* <div className="sm:flex justify-between hidden "> */}
+        <div className="sm:flex justify-between">
           <span className="text-gray text-base block">
             {messageType === "Media"
               ? "Sent a File"
