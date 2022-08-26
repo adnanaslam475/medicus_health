@@ -20,6 +20,14 @@ type Props = {
   user?: User;
 };
 
+type Item = {
+  type: NamePath | undefined;
+  label: {} | null | undefined;
+  name: NamePath | undefined;
+  options: { value: any; label: any }[];
+  dependent?: Item;
+};
+
 function PhysicianQuestionnaire(props: Props) {
   const { query } = useRouter();
   const [formInstance] = Form.useForm();
@@ -34,7 +42,7 @@ function PhysicianQuestionnaire(props: Props) {
   const { user } = getUserData();
   const [isDisabled, setDisabled] = useState<boolean>(false);
 
-  console.log("user-sadasdsd", userData);
+  // console.log("user-sadasdsd", userData);
 
   const { pathname } = router || {};
   let disabled =
@@ -102,6 +110,67 @@ function PhysicianQuestionnaire(props: Props) {
 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
 
+  const renderItems = (item: Item): any => {
+    if (item.type === "text") {
+      return (
+        <>
+          <Form.Item
+            label={item.label}
+            className="text-secondary"
+            name={item.name}
+            rules={[{ required: true, message: "Required!" }]}
+          >
+            <Input readOnly={isDisabled} disabled />
+          </Form.Item>
+          {item.dependent && renderItems(item.dependent)}
+        </>
+      );
+    } else if (item.type === "radio") {
+      return (
+        <>
+          <Form.Item
+            label={item.label}
+            className="text-secondary"
+            name={item.name}
+            rules={[{ required: true, message: "Required!" }]}
+          >
+            <Radio.Group disabled={isDisabled}>
+              {item?.options?.map(({ value, label }) => {
+                return (
+                  <Radio value={value} disabled>
+                    {label}
+                  </Radio>
+                );
+              })}
+            </Radio.Group>
+          </Form.Item>
+          {item.dependent && renderItems(item.dependent)}
+        </>
+      );
+    } else if (item.type === "checkbox") {
+      return (
+        <>
+          <Form.Item
+            label={item.label}
+            className="text-secondary"
+            name={item.name}
+          >
+            <Checkbox.Group disabled={isDisabled}>
+              {item?.options?.map(({ value, label }) => {
+                return (
+                  <Checkbox value={value} disabled>
+                    {label}
+                  </Checkbox>
+                );
+              })}
+            </Checkbox.Group>
+          </Form.Item>
+          {item.dependent && renderItems(item.dependent)}
+        </>
+      );
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="md:w-3/6">
@@ -118,67 +187,9 @@ function PhysicianQuestionnaire(props: Props) {
               </p>
             </div>
           ) : (
-            questionnair?.map(
-              (
-                item: {
-                  type: NamePath | undefined;
-                  label: {} | null | undefined;
-                  name: NamePath | undefined;
-                  options: { value: any; label: any }[];
-                },
-                index: any
-              ) => {
-                if (item.type === "text") {
-                  return (
-                    <Form.Item
-                      label={item.label}
-                      className="text-secondary"
-                      name={item.name}
-                      rules={[{ required: true, message: "Required!" }]}
-                    >
-                      <Input readOnly={isDisabled} disabled />
-                    </Form.Item>
-                  );
-                } else if (item.type === "radio") {
-                  return (
-                    <Form.Item
-                      label={item.label}
-                      className="text-secondary"
-                      name={item.name}
-                      rules={[{ required: true, message: "Required!" }]}
-                    >
-                      <Radio.Group disabled={isDisabled}>
-                        {item?.options?.map(({ value, label }) => {
-                          return (
-                            <Radio value={value} disabled>
-                              {label}
-                            </Radio>
-                          );
-                        })}
-                      </Radio.Group>
-                    </Form.Item>
-                  );
-                } else if (item.type === "checkbox") {
-                  return (
-                    <Form.Item
-                      label={item.label}
-                      className="text-secondary"
-                      name={item.name}
-                    >
-                      <Checkbox.Group disabled={isDisabled}>
-                        {item?.options?.map(({ value, label }) => {
-                          return (
-                            <Checkbox value={value} disabled>
-                              {label}
-                            </Checkbox>
-                          );
-                        })}
-                      </Checkbox.Group>
-                    </Form.Item>
-                  );
-                }
-              }
-            )
+            questionnair?.map((item: Item, index: any) => {
+              return renderItems(item);
+            })
           )}
         </Form>
       </div>

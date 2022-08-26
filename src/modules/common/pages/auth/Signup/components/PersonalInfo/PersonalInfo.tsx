@@ -319,7 +319,8 @@ export default function PersonalInfo({ onFinish }: props) {
           {
             required: true,
             // message: t("street_address_message"),
-            message: "La dirección de la calle no debe ser superior a 30",
+            message:
+              "La dirección de la calle no debe tener más de 30 caracteres.",
             max: 100,
           },
         ]}
@@ -328,7 +329,7 @@ export default function PersonalInfo({ onFinish }: props) {
       </Form.Item>
 
       <div className="flex flex-col md:flex-row gap-1 sm:gap-4 ">
-        <div className={`${_classes.contactNo} block w-full`}>
+        <div className={`${_classes.contactNo}`}>
           <Form.Item
             // className="flex-1"
             // label={t("contact_number")}

@@ -21,7 +21,7 @@ const timeZone =
   localStorage?.getItem("timeZone")
     ? JSON.parse(String(localStorage?.getItem("timeZone")))
     : "America/Cambridge_Bay";
-    
+
 const columns = [
   {
     title: "ID#",
@@ -176,7 +176,7 @@ function UpcomingAppointmentTableDoctor({
     <Table
       columns={columns}
       dataSource={dataSource}
-      footer={footer}
+      // footer={footer}
       loading={loading}
       scroll={{ x: true }}
       onChange={onChange}

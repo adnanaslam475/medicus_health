@@ -4,6 +4,7 @@ import Payment from "../Payment/Payment";
 import visa from "./../../../../../../public/assets/images/visa.svg";
 import mastercard from "./../../../../../../public/assets/images/mastercard.svg";
 import defaultCard from "./../../../../../../public/assets/images/defaultCardImg.png";
+import americanexpress from "./../../../../../../public/assets/images/americanexpress.svg";
 import _Classes from "./MakePayment.module.scss";
 import { useGetAllCardsQuery } from "../../../../../generated/graphql";
 import { getUserData } from "../../../../../common/utils/userData";
@@ -11,7 +12,8 @@ import { useAppointmentModal } from "../AppointmentModalProvider";
 
 const CARD_TYPE = {
   ["visa" as string]: visa,
-  ["MasterCard" as string]: mastercard,
+  ["mastercard" as string]: mastercard,
+  ["american express" as string]: americanexpress,
 };
 
 function MakePayment() {
@@ -48,7 +50,7 @@ function MakePayment() {
             {allCardsData?.getAllCards.map((card) => (
               <Payment
                 cardId={card.id}
-                visa={CARD_TYPE[card?.card_type] || defaultCard}
+                visa={CARD_TYPE[card?.card_type.toLowerCase()] || defaultCard}
                 title={`${card?.card_type} ending with ${card?.card_digits}`}
                 description={`Expires on: ${card?.exp_month}/${card?.exp_year}`}
               />
