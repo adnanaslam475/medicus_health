@@ -710,7 +710,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
                   {radioOccupationalExposure === "Yes" ? (
                     <div
-                      className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-full text-gray-1 `}
+                      className={`${_classes["custom_text_field"]} w-full sm:w-2/5 md:w-full text-gray-1 `}
                     >
                       <Form.Item
                         className="mb-0"
