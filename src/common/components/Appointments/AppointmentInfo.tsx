@@ -6,6 +6,7 @@ import support from "./../../../../public/assets/icon/support.svg";
 import chat from "./../../../../public/assets/icon/chat-bubble.svg";
 import {
   AppointmentTimeSlots,
+  DateTimeSlots,
   GetAppointmentByIdQuery,
 } from "../../../generated/graphql";
 import { date } from "../../utils";
@@ -41,6 +42,7 @@ function AppointmentInfo(props: Props) {
     transaction,
     patient,
     appointmentCharges,
+    appointmentTypeProposed,
   } = appoinmentDetails?.appointment || {};
 
   const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
@@ -265,6 +267,35 @@ function AppointmentInfo(props: Props) {
             </div>
           </li>
         </div>
+
+        {appointmentTypeProposed?.type && (
+          <LabelValueRow
+            label={"Appointment type proposed"}
+            value={appointmentTypeProposed?.type || ""}
+          />
+        )}
+        {appointmentTypeProposed?.dateTime?.length && (
+          <LabelValueRow
+            label={"Appointment(s) proposed"}
+            value={
+              appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
+                console.log("item is");
+                return (
+                  <li>{`${date.formatDAYMMDDYY(
+                    String(item?.date),
+                    timeZone
+                  )} - ${date.formathhmma(
+                    String(item?.startTime),
+                    timeZone
+                  )} - ${date.formathhmma(
+                    String(item?.endTime),
+                    timeZone
+                  )}`}</li>
+                );
+              }) as any
+            }
+          />
+        )}
 
         <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
           {/* <div className="flex flex-wrap mb-3 justify-center gap-y-2">
