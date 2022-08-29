@@ -158,7 +158,6 @@ function StaffListing() {
   const userName = `${doctorProfile?.user?.first_name || first_name} ${doctorProfile?.user?.last_name || last_name}`;
   const profilePicture = doctorProfile?.profile_image;
   const email = doctorProfile?.user?.email || userEmail;
-  console.log("helo data is",profilePicture)
   return (
     <>
       <div className="w-full">

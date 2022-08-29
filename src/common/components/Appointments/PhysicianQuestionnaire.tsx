@@ -183,7 +183,7 @@ function PhysicianQuestionnaire(props: Props) {
             <div className="flex items-center justify-center w-full flex-col">
               <Empty description={false} />
               <p className="font-noraml">
-                Physician questionnair not available
+                Physician questionnaire not available
               </p>
             </div>
           ) : (

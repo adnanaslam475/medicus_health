@@ -694,6 +694,7 @@ query getAppointmentsReminderBanner {
     appointmentTimeSlots {
       startTime
       endTime
+      id
       selected
     }
   }
