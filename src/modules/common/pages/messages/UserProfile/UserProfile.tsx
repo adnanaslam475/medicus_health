@@ -78,7 +78,7 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
   return (
     <div
       onClick={onJoinChat}
-      className={`flex px-1 sm:px-5 py-4 items-center border border-gray-4 cursor-pointer hover:bg-gray-4 relative`}
+      className={`flex px-1 sm:px-5 py-4 items-center border border-gray-4 cursor-pointer hover:bg-gray-4 `}
     >
       <div className="relative">
         <MDNextImage
