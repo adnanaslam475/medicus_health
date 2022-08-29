@@ -13,7 +13,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -170,6 +172,7 @@ export type AppointmentTotalCharges = {
 export type AppointmentTypeProposedResponse = {
   __typename?: 'AppointmentTypeProposedResponse';
   dateTime: Array<DateTimeSlots>;
+  serviceId?: Maybe<Scalars['Int']>;
   type?: Maybe<Scalars['String']>;
 };
 
@@ -2442,12 +2445,12 @@ export type ViewSuggestedTimeSlotsQueryVariables = Exact<{
 }>;
 
 
-export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null, charges: number, serviceId?: number | null, scheduleId?: number | null, requestedDate?: any | null, reportUrl?: any | null, status?: string | null, createdAt: any, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null, dateTime: Array<{ __typename?: 'DateTimeSlots', date?: string | null, startTime?: string | null, endTime?: string | null }> } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null } };
+export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', id?: number | null, patientId?: number | null, doctorId?: number | null, charges: number, serviceId?: number | null, scheduleId?: number | null, requestedDate?: any | null, reportUrl?: any | null, status?: string | null, createdAt: any, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', id: number, startTime: any, endTime: any, selected: boolean }> | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null, serviceId?: number | null, dateTime: Array<{ __typename?: 'DateTimeSlots', date?: string | null, startTime?: string | null, endTime?: string | null }> } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number } | null } };
 
 export type GetAppointmentsReminderBannerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
+export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, id: number, selected: boolean }> | null } };
 
 export type GetCountryByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -4979,6 +4982,7 @@ export const ViewSuggestedTimeSlotsDocument = gql`
     }
     appointmentTypeProposed {
       type
+      serviceId
       dateTime {
         date
         startTime
@@ -5020,6 +5024,7 @@ export const GetAppointmentsReminderBannerDocument = gql`
     appointmentTimeSlots {
       startTime
       endTime
+      id
       selected
     }
   }
@@ -6227,6 +6232,14 @@ export default {
                   }
                 }
               }
+            },
+            "args": []
+          },
+          {
+            "name": "serviceId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },

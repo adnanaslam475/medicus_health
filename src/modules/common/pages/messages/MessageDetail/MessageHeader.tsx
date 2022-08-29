@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { SearchOutlined } from "@ant-design/icons";
-import { Input, notification } from "antd";
+import { SearchOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import { Button, Input, notification } from "antd";
 import Image from "next/image";
 import profile from "./../../../../../../public/assets/images/nullicon.png";
 import ThreeDot from "./../../../../../../public/assets/images/threedot.svg";
@@ -17,9 +17,17 @@ import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationM
 type Props = {
   removeCurrentChat?: boolean | undefined;
   setRemoveCurrentChat?: any;
+  onBackThread?: (
+    showConversationList: boolean,
+    showChatContent: boolean
+  ) => void;
 };
 
-function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
+function MessageHeader({
+  removeCurrentChat,
+  setRemoveCurrentChat,
+  onBackThread,
+}: Props) {
   const { messageInfo, setChatSearch } = useMessageContext();
   const { user } = getUserData();
   const [{ fetching }, deleteChatChannelMutation] =
@@ -68,8 +76,20 @@ function MessageHeader({ removeCurrentChat, setRemoveCurrentChat }: Props) {
         onOk={deleteChatChannelHandler}
         message="Are you sure you want to delete this channel?"
       />
-      <h2 className="mb-0 pl-4 pt-3">Messages</h2>
-      <div className="flex gap-2 items-center border-b border-gray-4">
+      <div className="flex justify-between">
+        <h2 className="mb-0 pl-4 pt-3">Messages</h2>
+        <div className="md:hidden">
+          <Button
+            icon={<UnorderedListOutlined />}
+            className="default"
+            type="link"
+            onClick={() => {
+              onBackThread?.(true, false);
+            }}
+          />
+        </div>
+      </div>
+      <div className="flex flex-col py-2 md:flex-row md:py-0 gap-2 items-center border-b border-gray-4">
         <div className="flex gap-2 py-2 px-4 max-w-[340px] w-full border-r border-gray-4">
           <Input
             size="large"

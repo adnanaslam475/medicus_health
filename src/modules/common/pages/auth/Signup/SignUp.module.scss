@@ -44,7 +44,7 @@
 .contactNo {
   :global .react-tel-input {
     :global .form-control {
-      width: 100%;
+      width: 326px;
       height: 48px !important;
       position: relative;
       font-size: 14px;
@@ -54,6 +54,21 @@
       border: 1px solid #9296af;
       border-radius: 6px;
       line-height: 25px;
+    }
+    @media screen and (min-width: 360px) and (max-width: 390px) {
+      :global .form-control {
+        width: 326px;
+      }
+    }
+    @media screen and (min-width: 391px) and (max-width: 767px) {
+      :global .form-control {
+        width: 350px;
+      }
+    }
+    @media screen and (min-width: 768px) {
+      :global .form-control {
+        width: 318px;
+      }
     }
     :global .flag-dropdown {
       border: 1px solid #9296af !important;

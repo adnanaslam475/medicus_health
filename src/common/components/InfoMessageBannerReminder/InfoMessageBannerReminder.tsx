@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "antd";
 import Image from "next/image";
-import { useGetAppointmentsReminderBannerQuery } from "generated/graphql";
+import {
+  AppointmentTimeSlots,
+  useGetAppointmentsReminderBannerQuery,
+} from "generated/graphql";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import Router from "next/router";
@@ -9,6 +12,10 @@ import Link from "next/link";
 import dayjs, { duration, localeData } from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import utc from "dayjs/plugin/utc";
+import {
+  getCurrentUserTimeZone,
+  isAppointmentTimeValid,
+} from "common/utils/date";
 
 const InfoMessageBannerReminder = () => {
   // BANNER API CALL
@@ -24,9 +31,6 @@ const InfoMessageBannerReminder = () => {
     doctor || {};
   const id = patient_id || doctor_id;
   const { appointmentTimeSlots } = appointmentsReminderBanner || {};
-
-  const [isBannerAppointmentTime, setIsBannerAppointmentTime] =
-    useState<boolean>(false);
 
   let selectedTime = appointmentTimeSlots?.find((time) => time.selected);
   dayjs.extend(utc);
@@ -45,30 +49,29 @@ const InfoMessageBannerReminder = () => {
       : `Dr. ${doctor_first_name}`
   }`;
 
-  const selectStartTime = Number(
-    dayjs(selectedTime?.startTime).utc().unix() - 300
+  const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
+    () => appointmentTimeSlots?.find((item) => item.selected),
+    [appointmentTimeSlots]
   );
-  const selectEndTime = dayjs(selectedTime?.endTime).utc().unix();
-  let now = dayjs().utc();
 
+  const timeZone = getCurrentUserTimeZone();
+
+  const [disabled, setDisabled] = useState(true);
   useEffect(() => {
-    if (now?.unix() > selectStartTime && now?.unix() < selectEndTime) {
-      setIsBannerAppointmentTime(false);
-    } else {
-      setIsBannerAppointmentTime(true);
+    if (selectedAppointment) {
+      isAppointmentTimeValid(
+        selectedAppointment,
+        disabled,
+        setDisabled,
+        timeZone
+      );
     }
-  }, [selectedTime]);
+  }, [selectedAppointment]);
   let formatedPatientFirstName = `${
     patient_first_name?.includes("")
       ? patient_first_name
       : ` ${patient_first_name}`
   }`;
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
 
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
@@ -101,7 +104,7 @@ const InfoMessageBannerReminder = () => {
           {`${date?.formathhmma(selectedTime?.startTime, timeZone)}`}
         </span>
         <span className="">
-        on {date?.formatDAYMMDD(selectedTime?.startTime, timeZone)}
+          on {date?.formatDAYMMDD(selectedTime?.startTime, timeZone)}
         </span>
       </div>
 
@@ -112,7 +115,7 @@ const InfoMessageBannerReminder = () => {
             type="default"
             size="small"
             target={"_blank"}
-            disabled={isBannerAppointmentTime}
+            disabled={disabled}
             // onClick={() => Router.push(`/patient/appointments/${id}/call`)}
           >
             <span>Join now</span>

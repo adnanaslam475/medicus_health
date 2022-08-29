@@ -17,6 +17,9 @@ import {
 } from "generated/graphql";
 import { getRole } from "../../../../common/utils/userData";
 import { translationJson } from "common/locales/translationJson";
+import { date } from "common/utils";
+import dayjs from "dayjs";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type Props = {
   handleDateChange: (arg: any | undefined) => void;
@@ -59,6 +62,8 @@ function AdminCalender(props: Props) {
     setIsSearch(!isSearch);
   }
 
+  const timeZone = getCurrentUserTimeZone();
+
   const [{ data: physicianData }, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
       variables: {
@@ -83,20 +88,25 @@ function AdminCalender(props: Props) {
           charges,
           status,
           appointmentTimeSlots,
-          transaction
-        }) => ({
-          id: id,
-          title: `${serviceType?.name}:${patient?.first_name} ${patient?.last_name}`,
-          start:
-            appointmentTimeSlots
-              ?.find((item) => item.selected)
-              ?.startTime.split(".")[0] || requestedDate,
-          patient: patient?.first_name + " " + patient?.last_name,
-          serviceType: serviceType?.name,
-          charges: transaction?.amountReceived||charges,
-          status: status,
-          appointmentTimeSlots: appointmentTimeSlots,
-        })
+          transaction,
+        }) => {
+          const timeSlot = appointmentTimeSlots?.find(
+            (item) => item.selected
+          )?.startTime;
+          const [startDate, ...startTime] = timeSlot.split("T");
+          return {
+            id: id,
+            title: `${serviceType?.name}:${patient?.first_name} ${patient?.last_name}`,
+            start: `${startDate}T${dayjs(timeSlot)
+              .tz(timeZone)
+              .format("HH:mm")}:00.000Z`,
+            patient: patient?.first_name + " " + patient?.last_name,
+            serviceType: serviceType?.name,
+            charges: transaction?.amountReceived || charges,
+            status: status,
+            appointmentTimeSlots: appointmentTimeSlots,
+          };
+        }
       ),
     });
   };
@@ -177,6 +187,7 @@ function AdminCalender(props: Props) {
                   );
                 }}
                 initialView="timeGridWeek"
+                timeZone="UTC"
                 headerToolbar={{
                   left: "customText today customPrev customNext title",
                   center: "",
@@ -259,6 +270,7 @@ function AdminCalender(props: Props) {
                   );
                 }}
                 initialView="timeGridWeek"
+                timeZone="UTC"
                 headerToolbar={{
                   left: "customText today customPrev customNext title",
                   center: "",
@@ -342,6 +354,7 @@ function AdminCalender(props: Props) {
                 );
               }}
               initialView="timeGridWeek"
+              timeZone="UTC"
               headerToolbar={{
                 left: "customText today customPrev customNext title",
                 center: "",

@@ -8,6 +8,8 @@ import {
 } from "../../../../../generated/graphql";
 import CalendarModalComponent from "../../../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
+import dayjs from "dayjs";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type events = {
   calenderEvents: Appointment | undefined | any;
@@ -30,6 +32,7 @@ function AppointmentCalendar() {
   const redirectToRequested = function () {
     Router.push("/patient/appointments/upcoming");
   };
+  const timeZone = getCurrentUserTimeZone();
 
   const { appointments } = data || {};
 
@@ -69,22 +72,29 @@ function AppointmentCalendar() {
           charges,
           appointmentTimeSlots,
           transaction,
-        }) => ({
-          id: id,
-          // title:
-          //   "Appointment with " + doctor?.first_name?.includes("Dr.")
-          //     ? `${serviceType?.name}: ${doctor?.first_name}`
-          //     : `${serviceType?.name}: Dr. ${doctor?.first_name}` +
-          //       " " +
-          //       doctor?.last_name,
-          title: "Dr. " + doctor?.first_name + " " + doctor?.last_name,
-          start: appointmentTimeSlots?.filter((item) => item?.selected)?.[0]
-            ?.startTime,
-          patient: patient?.first_name + " " + patient?.last_name,
-          serviceType: serviceType?.name,
-          charges: transaction?.amountReceived || charges,
-          appointmentTimeSlots: appointmentTimeSlots,
-        })
+        }) => {
+          const timeSlot = appointmentTimeSlots?.find(
+            (item) => item.selected
+          )?.startTime;
+          const [startDate] = timeSlot.split("T");
+          return {
+            id: id,
+            // title:
+            //   "Appointment with " + doctor?.first_name?.includes("Dr.")
+            //     ? `${serviceType?.name}: ${doctor?.first_name}`
+            //     : `${serviceType?.name}: Dr. ${doctor?.first_name}` +
+            //       " " +
+            //       doctor?.last_name,
+            title: "Dr. " + doctor?.first_name + " " + doctor?.last_name,
+            start: `${startDate}T${dayjs(timeSlot)
+              .tz(timeZone)
+              .format("HH:mm")}:00.000Z`,
+            patient: patient?.first_name + " " + patient?.last_name,
+            serviceType: serviceType?.name,
+            charges: transaction?.amountReceived || charges,
+            appointmentTimeSlots: appointmentTimeSlots,
+          };
+        }
       ),
     });
   };

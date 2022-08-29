@@ -23,6 +23,7 @@ import { useLocale } from "next-intl";
 import initTranslation from "common/utils/initTranslation";
 import i18next from "i18next";
 import dayjs from "dayjs";
+import { getCurrentUserTimeZone } from "common/utils/date";
 initTranslation(["PhysicianList"]);
 
 const FLAG_BY_LANGUAGE = {
@@ -97,12 +98,8 @@ function DoctorProfileCard(props: Props) {
     doctorData &&
     `${first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`}`;
 
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
+
   return (
     <>
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>

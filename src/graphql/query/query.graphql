@@ -657,6 +657,7 @@ query ViewSuggestedTimeSlots($id: Int!) {
     }
     appointmentTypeProposed {
       type
+      serviceId
       dateTime {
         date
         startTime
@@ -694,6 +695,7 @@ query getAppointmentsReminderBanner {
     appointmentTimeSlots {
       startTime
       endTime
+      id
       selected
     }
   }

@@ -36,6 +36,7 @@ import {
 } from "generated/graphql";
 import {
   formatMMMM_Dcoma_YYYY,
+  getCurrentUserTimeZone,
   getDayJsObject,
   isAppointmentTimeValid,
   UTCPrettierTime,
@@ -91,12 +92,7 @@ function DoctorAppointmentInfo({ data }: Props) {
   const { id: doctorIdForChat } = doctor || {};
   // FOR CHAT MESSAGE BUTTON PATIENT ID
   const { id: patientID } = patient || {};
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
 
   // FOR CHAT MESSAGE BUTTON PHYSICIAN ID
 
@@ -264,11 +260,11 @@ function DoctorAppointmentInfo({ data }: Props) {
           </div>
         </li>
         {appointmentTypeProposed?.type && (
-            <LabelWithText
-              label={"Appointment type proposed"}
-              text={appointmentTypeProposed?.type || ""}
-            />
-          )}
+          <LabelWithText
+            label={"Appointment type proposed"}
+            text={appointmentTypeProposed?.type || ""}
+          />
+        )}
         {appointmentTypeProposed?.dateTime?.length && (
           <LabelWithText
             label={"Appointment(s) proposed"}
@@ -664,7 +660,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
       appointmentServiceTypes?.appointmentServiceTypes?.filter(
         (item) => item?.name === appointmentTypeProposed?.type
       );
-    console.log("data is", proposedAppoitmentServiceTypeObj);
     formInstance.setFieldsValue({
       service:
         (proposedAppoitmentServiceTypeObj &&
@@ -772,12 +767,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setEndDateValue("");
     datePickerInstance.resetFields(["start_time", "end_time"]);
   }
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
 
   let formatedDueDate = date.formatMMMMDDYYYY(
     String(appointmentDateTime?.startTime),

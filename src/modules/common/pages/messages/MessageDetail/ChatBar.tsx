@@ -51,7 +51,7 @@ function MessageItem(props: Props) {
           justifyContent,
         }}
       >
-        <div className="md:w-1/2">
+        <div className="w-full xl:w-1/2">
           <div className="flex items-start gap-2">
             <div className="w-1/12">
               <MDNextImage

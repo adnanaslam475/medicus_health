@@ -21,6 +21,8 @@ type Props = {
   transaction?: Transaction | undefined;
   appointmentDetail?: Appointment | undefined;
   specialization: string;
+  timeZone: string;
+
 };
 
 function AppointmnetCancelledCard({
@@ -34,6 +36,8 @@ function AppointmnetCancelledCard({
   transaction,
   appointmentDetail,
   specialization,
+  timeZone,
+
 }: Props) {
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
@@ -69,13 +73,6 @@ function AppointmnetCancelledCard({
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
-
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
 
   let formatedStartTime = date.formathhmma(
     String(appointmentDetail?.appointmentDateTime?.startTime),

@@ -7,6 +7,7 @@ import {
 import { date } from "../../../utils";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import dayjs from "dayjs";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type Props = {
   rebookData?: Appointment;
@@ -49,16 +50,10 @@ function StepFour(props: Props) {
     ? `${physician?.includes("Dr.") ? physician : `Dr. ${physician}`}`
     : "";
 
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
 
   const rebookServiceType = rebookData?.serviceType?.name;
 
-  console.log("data issssssssss", rebookData);
   return (
     <>
       <h2>Summary</h2>

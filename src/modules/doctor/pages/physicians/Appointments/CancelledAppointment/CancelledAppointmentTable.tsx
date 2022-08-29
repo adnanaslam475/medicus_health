@@ -13,6 +13,7 @@ import { date } from "common/utils";
 // import { getUserData } from "common/utils/userData";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type Props = {
   dataSource: Appointment[] | undefined;
@@ -31,12 +32,7 @@ function CancelledAppointmentTable({
   pagination,
   onPaginationChange,
 }: Props) {
-  const timeZone =
-  typeof window !== "undefined" &&
-  localStorage?.getItem("timeZone") !== "undefined" &&
-  localStorage?.getItem("timeZone")
-    ? JSON.parse(String(localStorage?.getItem("timeZone")))
-    : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
 
   const columns = [
     {
@@ -88,9 +84,14 @@ function CancelledAppointmentTable({
       key: "appointment_time_slots",
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedStartTime = 
-          date.formathhmma(String(appointmentDateTime?.startTime),timeZone);
-        let formatedEndTime = date.formathhmma(String(appointmentDateTime?.endTime),timeZone);
+        let formatedStartTime = date.formathhmma(
+          String(appointmentDateTime?.startTime),
+          timeZone
+        );
+        let formatedEndTime = date.formathhmma(
+          String(appointmentDateTime?.endTime),
+          timeZone
+        );
         return (
           <div>
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime
@@ -105,8 +106,14 @@ function CancelledAppointmentTable({
       dataIndex: "transaction",
       key: "charges",
       sorter: true,
-      render: (transaction:Transaction) => {
-        return <div>{transaction?.amountReceived ? `$${transaction?.amountReceived}` : "--"}</div>;
+      render: (transaction: Transaction) => {
+        return (
+          <div>
+            {transaction?.amountReceived
+              ? `$${transaction?.amountReceived}`
+              : "--"}
+          </div>
+        );
       },
     },
     {
