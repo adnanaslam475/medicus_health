@@ -486,6 +486,14 @@ query getAppointmentById($id: Int!) {
       startTime
       endTime
     }
+    appointmentTypeProposed {
+      type
+      dateTime {
+        date
+        startTime
+        endTime
+      }
+    }
     serviceType {
       id
       name
@@ -647,7 +655,16 @@ query ViewSuggestedTimeSlots($id: Int!) {
       endTime
       selected
     }
+    appointmentTypeProposed {
+      type
+      dateTime {
+        date
+        startTime
+        endTime
+      }
+    }
     serviceType {
+      id
       name
       price
     }

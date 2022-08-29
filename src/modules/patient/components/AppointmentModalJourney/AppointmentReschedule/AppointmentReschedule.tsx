@@ -27,6 +27,7 @@ function AppointmentReschedule(props: Props) {
     requestedDate,
     scheduleId,
     charges,
+    appointmentTypeProposed,
   } = appointmentDetails || {};
 
   const { first_name, last_name } = doctor || {};
@@ -78,7 +79,7 @@ function AppointmentReschedule(props: Props) {
           <div className="w-full border-b border-gray-3 pb-2 pt-2">
             <div className="flex justify-between  font-semibold">
               <span>Appointment type</span>
-              <span>{name || ""}</span>
+              <span>{appointmentTypeProposed?.type || name || ""}</span>
             </div>
 
             <div className="flex justify-between ">
