@@ -116,6 +116,9 @@ function Billing({
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
+  const [cardNumber, setCardNumber] = useState<boolean | undefined>();
+  const [cvv, setCvv] = useState<boolean | undefined>();
+  const [cardExpiry, setCardExpiry] = useState<boolean | undefined>();
   const closeModal = () => {
     formInstance.resetFields();
     setModalVisible(false);
@@ -249,6 +252,7 @@ function Billing({
             <span className="text-base text-secondary my-2">Card number*</span>
             <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
               <CardNumberElement
+                onChange={(e) => setCardNumber(e?.complete)}
                 options={{
                   placeholder: "",
                   style: {
@@ -269,6 +273,7 @@ function Billing({
                 <span className="text-base text-secondary">CVV*</span>
                 <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
                   <CardCvcElement
+                    onChange={(e) => setCvv(e?.complete)}
                     options={{
                       placeholder: "",
                     }}
@@ -282,7 +287,9 @@ function Billing({
                   Expires on*
                 </span>
                 <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-                  <CardExpiryElement />
+                  <CardExpiryElement
+                    onChange={(e) => setCardExpiry(e?.complete)}
+                  />
                 </div>
               </div>
             </Form.Item>
@@ -297,10 +304,10 @@ function Billing({
               </Button>
               <Button
                 loading={loadingSubmit}
-                disabled={loadingSubmit}
+                disabled={!cardNumber || !cvv || !cardExpiry || loadingSubmit}
                 type="primary"
                 htmlType="submit"
-                className={`${_classes["btn-stripe-primary"]} ml-4`}
+                className={`ml-4`}
               >
                 Submit
               </Button>
