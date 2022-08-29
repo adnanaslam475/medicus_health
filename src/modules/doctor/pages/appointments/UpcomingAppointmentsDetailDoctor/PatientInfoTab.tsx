@@ -108,7 +108,7 @@ function PatientInfoTab({}: Props) {
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv label="¿Tienes hijos?" value={children || "No"} />
-          <LabelWithTextDiv label="¿Cuál es tu ocupación?" value={occupation} />
+          <LabelWithTextDiv label="¿Cuál es tu ocupación?" value={occupation || "-"} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv
