@@ -75,7 +75,10 @@ const Columns = [
             ? (value?.appointmentTypeProposed?.dateTime.map(
                 (item: DateTimeSlots) => {
                   return (
-                    <li>{`${date.formatDAYMMDDYY(String(item?.date),timeZone)}`}</li>
+                    <li>{`${date.formatDAYMMDDYY(
+                      String(item?.date),
+                      timeZone
+                    )}`}</li>
                   );
                 }
               ) as any)
@@ -187,11 +190,22 @@ const RequestedList = (props: Props) => {
     meta,
     onChange,
   } = props || {};
+  const footer = (currentPageData: any) => {
+    return appointmentsData?.length ? (
+      <span>
+        Showing {currentPageData?.length} out of {appointmentsData?.length}{" "}
+        entries
+      </span>
+    ) : (
+      ""
+    );
+  };
 
   return (
     <Table
       columns={Columns}
       dataSource={appointmentsData}
+      footer={footer}
       onChange={onChange}
       loading={loading}
       scroll={{ x: true }}

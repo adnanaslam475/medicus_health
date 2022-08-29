@@ -13,9 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
@@ -2449,7 +2447,7 @@ export type ViewSuggestedTimeSlotsQuery = { __typename?: 'Query', appointment: {
 export type GetAppointmentsReminderBannerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null } };
+export type GetAppointmentsReminderBannerQuery = { __typename?: 'Query', appointmentsReminderBanner: { __typename?: 'Appointment', id?: number | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, id: number, selected: boolean }> | null } };
 
 export type GetCountryByIdQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -5022,6 +5020,7 @@ export const GetAppointmentsReminderBannerDocument = gql`
     appointmentTimeSlots {
       startTime
       endTime
+      id
       selected
     }
   }
