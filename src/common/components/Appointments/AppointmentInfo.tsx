@@ -11,7 +11,10 @@ import {
 } from "../../../generated/graphql";
 import { date } from "../../utils";
 import Router from "next/router";
-import { isAppointmentTimeValid } from "common/utils/date";
+import {
+  getCurrentUserTimeZone,
+  isAppointmentTimeValid,
+} from "common/utils/date";
 import { CustomTimeSlot } from "common/types/types";
 import Link from "next/link";
 import Image from "next/image";
@@ -79,12 +82,7 @@ function AppointmentInfo(props: Props) {
     }
   }, []);
 
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
 
   const firstName =
     getRole() === "User"
@@ -185,11 +183,12 @@ function AppointmentInfo(props: Props) {
           >
             <span className="pl-2">Message physician</span>
           </Button>
-          {status === "Proposed" || status === "Rescheduled" && (
-            <ViewProposeAppointmentTime
-              appointmentId={Number(appointment?.id)}
-            />
-          )}
+          {status === "Proposed" ||
+            (status === "Rescheduled" && (
+              <ViewProposeAppointmentTime
+                appointmentId={Number(appointment?.id)}
+              />
+            ))}
         </div>
         <div className="max-w-[700px]">
           <LabelValueRow label="ID#" value={Number(id)} />
@@ -203,11 +202,7 @@ function AppointmentInfo(props: Props) {
           /> */}
           <LabelValueRow label="Appointment type" value={name || "--"} />
           <LabelValueRow
-            label={
-              isPendingAppointment
-                ? "Requested date"
-                : "Appointment date"
-            }
+            label={isPendingAppointment ? "Requested date" : "Appointment date"}
             value={
               appointment?.appointmentDateTime?.startTime
                 ? date.formatDAYMMDDYY(
@@ -223,11 +218,7 @@ function AppointmentInfo(props: Props) {
         /> */}
 
           <LabelValueRow
-            label={
-              isPendingAppointment
-                ? "Requested time"
-                : "Appointment time"
-            }
+            label={isPendingAppointment ? "Requested time" : "Appointment time"}
             value={
               selectedAppointment?.startTime
                 ? `${date?.formathhmma(

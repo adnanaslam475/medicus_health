@@ -1,5 +1,6 @@
 import { Collapse } from "antd";
 import { date } from "common/utils";
+import { getCurrentUserTimeZone } from "common/utils/date";
 import dayjs from "dayjs";
 import { DoctorSchedule, useDoctorSchedulesQuery } from "generated/graphql";
 import React from "react";
@@ -25,12 +26,8 @@ const PhysicianAvailabilityAccordion = (props: Props) => {
     (item) => item.day == today
   );
 
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
+
   return (
     <Collapse className={`${_classes["doctorProfileCard"]} mt-3`}>
       <Collapse.Panel

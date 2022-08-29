@@ -9,6 +9,7 @@ import {
 import CalendarModalComponent from "../../../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
 import dayjs from "dayjs";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type events = {
   calenderEvents: Appointment | undefined | any;
@@ -31,12 +32,8 @@ function AppointmentCalendar() {
   const redirectToRequested = function () {
     Router.push("/patient/appointments/upcoming");
   };
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
+
   const { appointments } = data || {};
 
   const handleDateClick = (arg: any) => {

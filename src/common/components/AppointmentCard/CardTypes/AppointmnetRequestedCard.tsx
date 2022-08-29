@@ -9,6 +9,7 @@ import {
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 import Router from "next/router";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -20,6 +21,7 @@ type Props = {
   setShowModal: any;
   appointmentDateTime?: AppointmentDateTimeResponse;
   specialization: string;
+  timeZone: string;
 };
 
 function AppointmnetRequestedCard({
@@ -32,19 +34,13 @@ function AppointmnetRequestedCard({
   setShowModal,
   appointmentDateTime,
   specialization,
+  timeZone,
 }: Props) {
   const t = useTranslations("AppointmentCards");
 
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
-
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
 
   return (
     <Card className={`${_classes["appointment-card"]}`}>

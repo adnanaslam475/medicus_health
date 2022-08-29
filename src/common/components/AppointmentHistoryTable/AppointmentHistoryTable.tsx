@@ -12,13 +12,9 @@ import {
 } from "generated/graphql";
 import StatusChip from "../StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
-const timeZone =
-  typeof window !== "undefined" &&
-  localStorage?.getItem("timeZone") !== "undefined" &&
-  localStorage?.getItem("timeZone")
-    ? JSON.parse(String(localStorage?.getItem("timeZone")))
-    : "America/Cambridge_Bay";
+const timeZone = getCurrentUserTimeZone();
 
 const historyColumns = [
   {

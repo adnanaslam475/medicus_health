@@ -19,6 +19,7 @@ import { date } from "../../../utils";
 import { sorter } from "utils/helper";
 import PhysicianAvailabilityAccordion from "common/components/PhysicianAvailabilityAccordion";
 import _classes from "./styles.module.scss";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 const { Option } = Select;
 type AdminData = {
@@ -249,12 +250,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       setDoctorId(Number(doctorId));
     };
 
-    const timeZone =
-      typeof window !== "undefined" &&
-      localStorage?.getItem("timeZone") !== "undefined" &&
-      localStorage?.getItem("timeZone")
-        ? JSON.parse(String(localStorage?.getItem("timeZone")))
-        : "America/Cambridge_Bay";
+    const timeZone = getCurrentUserTimeZone();
 
     return (
       <>

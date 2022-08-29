@@ -19,6 +19,7 @@ import { getRole } from "../../../../common/utils/userData";
 import { translationJson } from "common/locales/translationJson";
 import { date } from "common/utils";
 import dayjs from "dayjs";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type Props = {
   handleDateChange: (arg: any | undefined) => void;
@@ -61,12 +62,7 @@ function AdminCalender(props: Props) {
     setIsSearch(!isSearch);
   }
 
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
 
   const [{ data: physicianData }, executeUsePhysicianAppointmentsQuery] =
     usePhysicianAppointmentsQuery({
@@ -191,7 +187,7 @@ function AdminCalender(props: Props) {
                   );
                 }}
                 initialView="timeGridWeek"
-                timeZone='UTC'
+                timeZone="UTC"
                 headerToolbar={{
                   left: "customText today customPrev customNext title",
                   center: "",
@@ -274,12 +270,11 @@ function AdminCalender(props: Props) {
                   );
                 }}
                 initialView="timeGridWeek"
-                timeZone='UTC'
+                timeZone="UTC"
                 headerToolbar={{
                   left: "customText today customPrev customNext title",
                   center: "",
-                  right: 
-                  "listview search custom1",
+                  right: "listview search custom1",
                 }}
                 customButtons={{
                   customNext: {
@@ -359,7 +354,7 @@ function AdminCalender(props: Props) {
                 );
               }}
               initialView="timeGridWeek"
-              timeZone='UTC'
+              timeZone="UTC"
               headerToolbar={{
                 left: "customText today customPrev customNext title",
                 center: "",

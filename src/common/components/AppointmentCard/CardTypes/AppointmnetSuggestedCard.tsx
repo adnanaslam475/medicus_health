@@ -21,6 +21,8 @@ type Props = {
   onViewSuggestedSlots: () => void;
   specialization: string;
   appointmentDateTime?: AppointmentDateTimeResponse;
+  timeZone: string;
+
 };
 
 function AppointmnetSuggestedCard({
@@ -34,17 +36,13 @@ function AppointmnetSuggestedCard({
   onViewSuggestedSlots,
   specialization,
   appointmentDateTime,
+  timeZone,
+
 }: Props) {
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
 
   return (
     <Card className={`${_classes["appointment-card"]}`}>
