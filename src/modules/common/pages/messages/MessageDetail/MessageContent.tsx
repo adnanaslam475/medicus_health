@@ -4,7 +4,9 @@ import MessageInput from "../MessageInput/MessageInput";
 import _classes from "./Message-detail.module.scss";
 import { useMessageContext } from "./MessageContext";
 
-type Props = { removeCurrentChat?: boolean | undefined };
+type Props = {
+  removeCurrentChat?: boolean | undefined;
+};
 
 function MessageContent({ removeCurrentChat }: Props) {
   const messagesEndRef: any = useRef<null | HTMLElement>(null);
@@ -32,7 +34,9 @@ function MessageContent({ removeCurrentChat }: Props) {
           <div ref={messagesEndRef} />
         </div>
       ) : (
-        <div className={`flex justify-center items-center ${_classes.startingNewChat}`}>
+        <div
+          className={`flex justify-center items-center ${_classes.startingNewChat} ${_classes["custom-height"]}`}
+        >
           <div className="text-gray">
             Click on the chat thread to continue chat.
           </div>

@@ -13,8 +13,11 @@ import { useRouter } from "next/router";
 type Props = {};
 
 function Messages({}: Props) {
+  const isMobile = screen.width < 767;
   const [removeCurrentChat, setRemoveCurrentChat] =
     React.useState<boolean>(false);
+  const [showConversation, setShowConversation] = React.useState<boolean>(true);
+  const [showContent, setShowContent] = React.useState<boolean>(!isMobile);
   const { query } = useRouter();
 
   useEffect(() => {
@@ -32,6 +35,16 @@ function Messages({}: Props) {
     }
   }, [query]);
 
+  const showLayout = (
+    showConversationList: boolean,
+    showChatContent: boolean
+  ) => {
+    if (isMobile) {
+      setShowConversation(showConversationList);
+      setShowContent(showChatContent);
+    }
+  };
+
   return (
     <AppLayout>
       <MessageContextProvider>
@@ -39,11 +52,32 @@ function Messages({}: Props) {
           <MessageHeader
             removeCurrentChat={removeCurrentChat}
             setRemoveCurrentChat={setRemoveCurrentChat}
+            onBackThread={(
+              showConversationList: boolean,
+              showChatContent: boolean
+            ) => {
+              showLayout(showConversationList, showChatContent);
+              setRemoveCurrentChat(true);
+            }}
           />
-          <MessageConversationSider
-            setRemoveCurrentChat={setRemoveCurrentChat}
-          />
-          <MessageContent removeCurrentChat={removeCurrentChat} />
+          {showConversation ? (
+            <MessageConversationSider
+              setRemoveCurrentChat={setRemoveCurrentChat}
+              updateLayout={(
+                showConversationList: boolean,
+                showChatContent: boolean
+              ) => {
+                showLayout(showConversationList, showChatContent);
+              }}
+            />
+          ) : (
+            <div />
+          )}
+          {showContent ? (
+            <MessageContent removeCurrentChat={removeCurrentChat} />
+          ) : (
+            <div />
+          )}
         </MessageLayout>
       </MessageContextProvider>
     </AppLayout>

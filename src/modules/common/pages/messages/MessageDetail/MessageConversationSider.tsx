@@ -5,9 +5,18 @@ import { useMessageContext } from "./MessageContext";
 import { useRouter } from "next/router";
 import { Spin } from "antd";
 
-type Props = { setRemoveCurrentChat?: any };
+type Props = {
+  setRemoveCurrentChat?: any;
+  updateLayout?: (
+    showConversationList: boolean,
+    showChatContent: boolean
+  ) => void;
+};
 
-function MessageConversationSider({ setRemoveCurrentChat }: Props) {
+function MessageConversationSider({
+  setRemoveCurrentChat,
+  updateLayout,
+}: Props) {
   const { setCurrentChannel, onJoinChannel, messageInfo } = useMessageContext();
   const { query } = useRouter();
   const { allChannels } = messageInfo || {};
@@ -17,6 +26,7 @@ function MessageConversationSider({ setRemoveCurrentChat }: Props) {
     setRemoveCurrentChat(false);
     setCurrentChannel(params);
     onJoinChannel?.(params?.channelName);
+    updateLayout?.(false, true);
   }
 
   useEffect(() => {
@@ -65,6 +75,9 @@ function MessageConversationSider({ setRemoveCurrentChat }: Props) {
           <UserProfile
             thread={thread}
             setRemoveCurrentChat={setRemoveCurrentChat}
+            updateLayout={() => {
+              updateLayout?.(false, true);
+            }}
           />
         );
       })}
