@@ -146,10 +146,22 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
   const onContactNoValidation = (_rule: any, value: string, callback: any) => {
     if (value?.trim().length > 15) {
       // callback(t("contact_no_is_too_long"));
-      callback("El número de contacto no debe ser superior a 15");
+      callback("El número de contacto no debe ser superior a 15 caracteres");
     } else if (value?.trim().length < 9) {
       // callback(t("contact_number_message"));
       callback("Por favor ingrese el número de contacto correcto");
+    } else {
+      callback();
+    }
+  };
+
+  const onPostalCodeValidation = (_rule: any, value: string, callback: any) => {
+    if (value?.trim().length > 10) {
+      // callback(t("contact_no_is_too_long"));
+      callback("El código postal tiene más de 10 caracteres");
+    } else if (value?.trim().length < 3) {
+      // callback(t("contact_number_message"));
+      callback("Se requiere código postal.");
     } else {
       callback();
     }
@@ -475,11 +487,12 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 >
                   <Form.Item
                     name="postalCode"
+                    validateFirst
                     rules={[
                       {
                         required: true,
                         // message: t("postal_code_is_required"),
-                        message: "Se requiere código postal.",
+                        validator: onPostalCodeValidation,
                       },
                     ]}
                     className="bottom-margin-0"
@@ -564,8 +577,8 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         required: true,
                         // message: t("street_address_message"),
                         message:
-                          "La dirección de la calle no debe tener más de 30 caracteres.",
-                        max: 100,
+                          "La dirección de la calle no debe tener más de 50 caracteres.",
+                        max: 51,
                       },
                     ]}
                   >
