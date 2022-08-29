@@ -225,7 +225,7 @@ function EditProfile({
       firstName: doctor_first_name,
       lastName: doctor_last_name,
       specialization: specialization || "",
-      year_of_experience: Number?.parseFloat(year_of_experience || ""),
+      year_of_experience: year_of_experience || "",
       streetAddress: street_address,
       city_id: city_id || "",
       country_id: country_id || "",
@@ -367,14 +367,14 @@ function EditProfile({
           message:
             res?.error?.graphQLErrors[0]?.message || "Something went wrong",
         });
-    } else setIsEdit(false)
+    } else setIsEdit(false);
 
     // }
   };
 
   const onFinish = async (values: any) => {
     try {
-      await updateDoctorProfile(values)
+      await updateDoctorProfile(values);
       // setIsEdit(false);
     } catch (error) {
       console.log("my error is",error)
@@ -795,7 +795,7 @@ function EditProfile({
                   name="year_of_experience"
                   className="flex-1"
                 >
-                  <Input type="number" />
+                  <Input type="number" step={"any"} />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row sm:gap-3">

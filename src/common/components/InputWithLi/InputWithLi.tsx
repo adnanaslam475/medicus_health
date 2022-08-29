@@ -20,7 +20,9 @@ function InputWithLi(props: IMyProps) {
 
   const ShowData = () => {
     if (treated.trim()) {
-      onChange?.([...(initialValue as any), treated]);
+      onChange?.(
+        initialValue ? [...(initialValue as any), treated] : [treated]
+      );
       setTreated("");
     }
   };
