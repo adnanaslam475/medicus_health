@@ -3,7 +3,10 @@ import { Modal, Button } from "antd";
 import { date } from "../../../../../src/common/utils";
 import { VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./CalendarModal.module.scss";
-import { isAppointmentTimeValid } from "common/utils/date";
+import {
+  getCurrentUserTimeZone,
+  isAppointmentTimeValid,
+} from "common/utils/date";
 import { AppointmentTimeSlots } from "generated/graphql";
 import Image from "next/image";
 import camera from "../../../../../public/assets/images/camera.svg";
@@ -57,12 +60,8 @@ function CalendarModalComponent(props: Props) {
       ? `/patient/appointments/${id}`
       : `/admin/appointments/${id}`;
 
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
+
   return (
     <Modal
       title=""

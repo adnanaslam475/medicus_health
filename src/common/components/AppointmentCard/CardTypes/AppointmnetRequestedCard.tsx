@@ -9,6 +9,7 @@ import {
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 import Router from "next/router";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -20,6 +21,7 @@ type Props = {
   setShowModal: any;
   appointmentDateTime?: AppointmentDateTimeResponse;
   specialization: string;
+  timeZone: string;
 };
 
 function AppointmnetRequestedCard({
@@ -32,19 +34,13 @@ function AppointmnetRequestedCard({
   setShowModal,
   appointmentDateTime,
   specialization,
+  timeZone,
 }: Props) {
   const t = useTranslations("AppointmentCards");
 
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
-
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
 
   return (
     <Card className={`${_classes["appointment-card"]}`}>
@@ -53,13 +49,13 @@ function AppointmnetRequestedCard({
       <span className="text-primary text-base block  mb-6">
         {specialization}
       </span>
-      <span className="text-sm ">Appointment type</span>
+      <span className="text-sm ">Requested appointment type</span>
       <div className="text-sm text-gray mb-3">{serviceType}</div>
-      <span className="text-sm mt-6 block">Requested date by the patient</span>
+      <span className="text-sm mt-6 block">Requested date</span>
       <h6 className="text-cyan">
         {date.formatDAYMMDDYY(requestedDate, timeZone)}
       </h6>
-      <span className="text-sm mt-4 block">Requested time by the patient</span>
+      <span className="text-sm mt-4 block">Requested time</span>
       <div className="text-cyan">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${date.formathhmma(appointmentDateTime.startTime, timeZone)}
