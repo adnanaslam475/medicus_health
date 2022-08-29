@@ -1,11 +1,18 @@
 import React from "react";
 import { getUserData } from "common/utils/userData";
-import { useGetAppointmentPriceForRequestQuery } from "generated/graphql";
+import {
+  Appointment,
+  useGetAppointmentPriceForRequestQuery,
+} from "generated/graphql";
 import { date } from "../../../utils";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import dayjs from "dayjs";
 
-function StepFour() {
+type Props = {
+  rebookData?: Appointment;
+};
+function StepFour(props: Props) {
+  const { rebookData } = props;
   const { data } = useBookAppointment();
   const {
     physicianName,
@@ -19,7 +26,6 @@ function StepFour() {
   } = data?.stepOne || {};
   const [{ price, name }] = serviceInfo || [{}];
   let doctorName = physician?.split(":")[1];
-
   const availabilityTime = doctorSchedule?.doctorSchedulesByDay?.find(
     (time: any) => time.id === availability
   );
@@ -49,7 +55,9 @@ function StepFour() {
     localStorage?.getItem("timeZone")
       ? JSON.parse(String(localStorage?.getItem("timeZone")))
       : "America/Cambridge_Bay";
-      
+
+  const rebookServiceType = rebookData?.serviceType?.name;
+
   return (
     <>
       <h2>Summary</h2>
@@ -61,7 +69,7 @@ function StepFour() {
         <div className="w-full ml-0 border-b border-gray-5 pb-2 mb-5">
           <div className="flex justify-between font-semibold">
             <span>Appointment type</span>
-            <span>{name || serviceName}</span>
+            <span>{name || serviceName || rebookServiceType}</span>
           </div>
 
           <div className="flex justify-between ">

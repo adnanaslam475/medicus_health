@@ -192,7 +192,6 @@ function SidebarMenuItem() {
     // };
   }, [msgCount, setMsgCount, getAllChatChannels]);
 
-  console.log(localAppointmentAlertData?.upcoming, Number(upcoming));
   return (
     <div className={`${_classes["side-menu-cover"]} w-full`}>
       <Menu

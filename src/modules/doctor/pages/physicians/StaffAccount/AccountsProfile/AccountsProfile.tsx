@@ -38,6 +38,8 @@ function AccountsProfile(props: Props) {
     timeString: string[];
   }>({ timeString: [], time: null });
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
+  const [showCancelScheduleModal, setShowCancelScheduleModal] = useState(false);
+
 
   // GET USER ID
   const { user } = getUserData();
@@ -95,7 +97,12 @@ function AccountsProfile(props: Props) {
   }
   useEffect(() => {
     if (deleteScheduleId) {
-      executeRemoveDoctorScheduleMutation({ id: Number(deleteScheduleId) });
+      setShowCancelScheduleModal(true);
+      executeRemoveDoctorScheduleMutation({
+        id: Number(deleteScheduleId),
+      }).then(() => {
+        setShowCancelScheduleModal(false);
+      });
     }
   }, [deleteScheduleId]);
 
@@ -121,6 +128,8 @@ function AccountsProfile(props: Props) {
           onAddClick={onAddClick}
           loading={fetching}
           isStaff={isStaff}
+          showCancelScheduleModal={showCancelScheduleModal} 
+          setShowCancelScheduleModal={setShowCancelScheduleModal}
         />
       ) : (
         <ViewProfile

@@ -10,6 +10,7 @@ import {
   useCreateStaffMutation,
   useDoctorProfileQuery,
   useGetAllStaffByDoctorQuery,
+  useGetUserQuery,
   User,
 } from "generated/graphql";
 import { getRole, getUserData } from "common/utils/userData";
@@ -142,10 +143,21 @@ function StaffListing() {
       variables: { doctor_id: doctorId },
       pause: !doctorId,
     });
+
+    const [{ data: userData }] = useGetUserQuery({
+      variables: { input: Number(doctorId) },
+      pause: !doctorId,
+    });
+    const {
+      first_name,
+      last_name,
+      email:userEmail
+    } = userData?.user || {};
+
   const { doctorProfile } = physicianProfileData || {};
-  const userName = `${doctorProfile?.user?.first_name} ${doctorProfile?.user?.last_name}`;
+  const userName = `${doctorProfile?.user?.first_name || first_name} ${doctorProfile?.user?.last_name || last_name}`;
   const profilePicture = doctorProfile?.profile_image;
-  const email = doctorProfile?.user?.email;
+  const email = doctorProfile?.user?.email || userEmail;
   return (
     <>
       <div className="w-full">

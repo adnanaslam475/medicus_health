@@ -331,7 +331,7 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-1 sm:gap-4 ">
         <div className={`${_classes.contactNo}`}>
           <Form.Item
-            className="flex-1"
+            // className="flex-1"
             // label={t("contact_number")}
             label="Teléfono de contacto"
             name="contact_number"
@@ -362,96 +362,104 @@ export default function PersonalInfo({ onFinish }: props) {
           </Form.Item>
         </div>
 
-        <Form.Item
-          className="flex-1"
-          // label={t("country")}
-          label="Pais"
-          name="country_id"
-          rules={[
-            {
-              required: true,
-              // message: t("country_message"),
-              message: "Por favor ingrese su país",
-            },
-          ]}
-        >
-          <Select
-            showSearch
-            filterOption={(input, country: any) =>
-              country.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            onChange={(e) => {
-              selectCountryId(e);
-            }}
-            // placeholder={t("country")}
-            placeholder="Pais"
+        <div className="block w-full">
+          <Form.Item
+            className="flex-1"
+            // label={t("country")}
+            label="Pais"
+            name="country_id"
+            rules={[
+              {
+                required: true,
+                // message: t("country_message"),
+                message: "Por favor ingrese su país",
+              },
+            ]}
           >
-            {React.Children.toArray(
-              countries?.map((el, i) => {
-                return (
-                  <Select.Option value={el?.id}>
-                    {el?.country_name}
-                  </Select.Option>
-                );
-              })
-            )}
-          </Select>
-        </Form.Item>
+            <Select
+              showSearch
+              filterOption={(input, country: any) =>
+                country.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              onChange={(e) => {
+                selectCountryId(e);
+              }}
+              // placeholder={t("country")}
+              placeholder="Pais"
+            >
+              {React.Children.toArray(
+                countries?.map((el, i) => {
+                  return (
+                    <Select.Option value={el?.id}>
+                      {el?.country_name}
+                    </Select.Option>
+                  );
+                })
+              )}
+            </Select>
+          </Form.Item>
+        </div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item
-          className="flex-1"
-          // label={t("state")}
-          label="Estado/Provinicia"
-          name="state_id"
-        >
-          <Select
-            showSearch
-            filterOption={(input, state: any) =>
-              state.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            onChange={(e) => {
-              selectStateId(e);
-              form.setFieldsValue({
-                city_id: null,
-              });
-            }}
-            // placeholder={t("state")}
-            placeholder="Estado/Provinicia"
+        {!!getStatesByCountry?.data?.getStatesByCountry?.length && (
+          <Form.Item
+            className="flex-1"
+            // label={t("state")}
+            label="Estado/Provinicia"
+            name="state_id"
           >
-            {React.Children.toArray(
-              getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
-                return (
-                  <Select.Option value={el.id}>{el?.state_name}</Select.Option>
-                );
-              })
-            )}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          className="flex-1"
-          // label={t("city")}
-          label="Ciudad"
-          name="city_id"
-        >
-          <Select
-            // placeholder={t("city")}
-            placeholder="Ciudad"
-            showSearch
-            filterOption={(input, city: any) =>
-              city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
+            <Select
+              showSearch
+              filterOption={(input, state: any) =>
+                state.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              onChange={(e) => {
+                selectStateId(e);
+                form.setFieldsValue({
+                  city_id: null,
+                });
+              }}
+              // placeholder={t("state")}
+              placeholder="Estado/Provinicia"
+            >
+              {React.Children.toArray(
+                getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
+                  return (
+                    <Select.Option value={el.id}>
+                      {el?.state_name}
+                    </Select.Option>
+                  );
+                })
+              )}
+            </Select>
+          </Form.Item>
+        )}
+        {!!getCityByState?.data?.getCitiesByState?.length && (
+          <Form.Item
+            className="flex-1"
+            // label={t("city")}
+            label="Ciudad"
+            name="city_id"
           >
-            {React.Children.toArray(
-              getCityByState?.data?.getCitiesByState?.map((el, i) => {
-                return (
-                  <Select.Option value={el.id}>{el?.city_name}</Select.Option>
-                );
-              })
-            )}
-          </Select>
-        </Form.Item>
+            <Select
+              // placeholder={t("city")}
+              placeholder="Ciudad"
+              showSearch
+              filterOption={(input, city: any) =>
+                city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {React.Children.toArray(
+                getCityByState?.data?.getCitiesByState?.map((el, i) => {
+                  return (
+                    <Select.Option value={el.id}>{el?.city_name}</Select.Option>
+                  );
+                })
+              )}
+            </Select>
+          </Form.Item>
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
