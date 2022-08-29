@@ -208,3 +208,13 @@ export function getDateAndTimeWRTTZ(
 export function setTimeZone(timeZone: string) {
   dayjs.tz.setDefault(timeZone);
 }
+
+export function getCurrentUserTimeZone() {
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/Cambridge_Bay";
+  return timeZone;
+}

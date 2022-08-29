@@ -11,13 +11,9 @@ import {
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
-const timeZone =
-  typeof window !== "undefined" &&
-  localStorage?.getItem("timeZone") !== "undefined" &&
-  localStorage?.getItem("timeZone")
-    ? JSON.parse(String(localStorage?.getItem("timeZone")))
-    : "America/Cambridge_Bay";
+const timeZone = getCurrentUserTimeZone();
 
 const Columns = [
   {

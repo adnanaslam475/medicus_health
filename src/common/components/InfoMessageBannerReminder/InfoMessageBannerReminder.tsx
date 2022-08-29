@@ -12,7 +12,10 @@ import Link from "next/link";
 import dayjs, { duration, localeData } from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import utc from "dayjs/plugin/utc";
-import { isAppointmentTimeValid } from "common/utils/date";
+import {
+  getCurrentUserTimeZone,
+  isAppointmentTimeValid,
+} from "common/utils/date";
 
 const InfoMessageBannerReminder = () => {
   // BANNER API CALL
@@ -50,13 +53,9 @@ const InfoMessageBannerReminder = () => {
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
-  
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+
+  const timeZone = getCurrentUserTimeZone();
+
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     if (selectedAppointment) {
@@ -105,7 +104,7 @@ const InfoMessageBannerReminder = () => {
           {`${date?.formathhmma(selectedTime?.startTime, timeZone)}`}
         </span>
         <span className="">
-        on {date?.formatDAYMMDD(selectedTime?.startTime, timeZone)}
+          on {date?.formatDAYMMDD(selectedTime?.startTime, timeZone)}
         </span>
       </div>
 
