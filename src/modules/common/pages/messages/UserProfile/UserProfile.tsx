@@ -78,7 +78,7 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
   return (
     <div
       onClick={onJoinChat}
-      className={`flex px-1 sm:px-5 py-4 items-center border border-gray-4 cursor-pointer hover:bg-gray-4`}
+      className={`flex px-1 sm:px-5 py-4 items-center border border-gray-4 cursor-pointer hover:bg-gray-4 relative`}
     >
       <div className="relative">
         <MDNextImage
@@ -105,17 +105,25 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
         )}
       </div>
       <div className="w-full pl-2 sm:pl-3">
-        <div className="flex flex-col md:flex-row justify-between">
-          {/* <span className="text-black text-xs sm:text-base max-w-[50px] sm:max-w-[200px] break-all font-semibold sm:font-normal"> */}
-          <span className="text-black text-sm sm:text-base sm:max-w-[200px] break-all font-semibold sm:font-normal">
-            {firstName}
-            {/* {`${opposite?.first_name ? opposite?.first_name : ""} `} */}
-            {/* <span className="hidden sm:inline">{` ${ */}
-            <span className="sm:inline">{` ${
-              // opposite?.last_name ? opposite?.last_name : ""
-              lastName
-            }`}</span>
-          </span>
+        <div className="flex flex-col md:flex-row justify-between md:items-center">
+          <div>
+            {/* <span className="text-black text-xs sm:text-base max-w-[50px] sm:max-w-[200px] break-all font-semibold sm:font-normal"> */}
+            <span className="text-black text-sm sm:text-base sm:max-w-[200px] break-all font-semibold sm:font-normal">
+              {firstName}
+              {/* {`${opposite?.first_name ? opposite?.first_name : ""} `} */}
+              {/* <span className="hidden sm:inline">{` ${ */}
+              <span className="sm:inline">
+                {` ${
+                  // opposite?.last_name ? opposite?.last_name : ""
+                  lastName
+                }`}{" "}
+              </span>
+            </span>
+            <Badge
+              count={channelMessagesCount}
+              className="new-msg-count ml-2 mb-3 w-4"
+            />
+          </div>
           {/* <span className=" text-gray hidden sm:inline text-xs text-bold font-medium pt-1"> */}
           <span className=" text-gray sm:inline text-xs text-bold font-medium pt-1">
             {messageDateTime}
@@ -132,10 +140,7 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
               ? message
               : "no message available"}
           </span>
-          <Badge
-            count={channelMessagesCount}
-            className="new-msg-count relative"
-          />
+          {/* <Badge count={channelMessagesCount} className="new-msg-count" /> */}
         </div>
       </div>
     </div>
