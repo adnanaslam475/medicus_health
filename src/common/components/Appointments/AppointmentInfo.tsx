@@ -183,12 +183,11 @@ function AppointmentInfo(props: Props) {
           >
             <span className="pl-2">Message physician</span>
           </Button>
-          {status === "Proposed" ||
-            (status === "Rescheduled" && (
-              <ViewProposeAppointmentTime
-                appointmentId={Number(appointment?.id)}
-              />
-            ))}
+          {(status === "Proposed" || status === "Rescheduled") && (
+            <ViewProposeAppointmentTime
+              appointmentId={Number(appointment?.id)}
+            />
+          )}
         </div>
         <div className="max-w-[700px]">
           <LabelValueRow label="ID#" value={Number(id)} />
