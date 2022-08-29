@@ -657,6 +657,7 @@ query ViewSuggestedTimeSlots($id: Int!) {
     }
     appointmentTypeProposed {
       type
+      serviceId
       dateTime {
         date
         startTime

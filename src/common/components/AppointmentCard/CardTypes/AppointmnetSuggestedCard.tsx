@@ -54,15 +54,15 @@ function AppointmnetSuggestedCard({
         {specialization}
       </span>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm ">Appointment type</span>
+      <span className="text-sm ">Requested appointment type</span>
       <div className="text-sm text-gray mb-3">{serviceType}</div>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm ">Requested date by the patient</span>
+      <span className="text-sm ">Requested date</span>
       <h6 className="text-cyan">
         {date.formatDAYMMDDYY(requestedDate, timeZone)}
       </h6>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm">Requested time by the patient</span>
+      <span className="text-sm">Requested time</span>
       <div className="text-cyan">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${date.formathhmma(appointmentDateTime.startTime, timeZone)}

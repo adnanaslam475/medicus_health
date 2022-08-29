@@ -185,7 +185,7 @@ function AppointmentInfo(props: Props) {
           >
             <span className="pl-2">Message physician</span>
           </Button>
-          {status === "Proposed" && (
+          {status === "Proposed" || status === "Rescheduled" && (
             <ViewProposeAppointmentTime
               appointmentId={Number(appointment?.id)}
             />
@@ -205,7 +205,7 @@ function AppointmentInfo(props: Props) {
           <LabelValueRow
             label={
               isPendingAppointment
-                ? "Requested date by the patient"
+                ? "Requested date"
                 : "Appointment date"
             }
             value={
@@ -225,7 +225,7 @@ function AppointmentInfo(props: Props) {
           <LabelValueRow
             label={
               isPendingAppointment
-                ? "Requested time by the patient"
+                ? "Requested time"
                 : "Appointment time"
             }
             value={

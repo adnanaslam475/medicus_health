@@ -53,13 +53,13 @@ function AppointmnetRequestedCard({
       <span className="text-primary text-base block  mb-6">
         {specialization}
       </span>
-      <span className="text-sm ">Appointment type</span>
+      <span className="text-sm ">Requested appointment type</span>
       <div className="text-sm text-gray mb-3">{serviceType}</div>
-      <span className="text-sm mt-6 block">Requested date by the patient</span>
+      <span className="text-sm mt-6 block">Requested date</span>
       <h6 className="text-cyan">
         {date.formatDAYMMDDYY(requestedDate, timeZone)}
       </h6>
-      <span className="text-sm mt-4 block">Requested time by the patient</span>
+      <span className="text-sm mt-4 block">Requested time</span>
       <div className="text-cyan">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${date.formathhmma(appointmentDateTime.startTime, timeZone)}
