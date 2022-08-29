@@ -91,7 +91,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       lastName: last_name,
       year_of_experience: year_of_experience,
       // contact: contact_number,
-      contact: `+${contact_number}`,
+      contact: contact_number ? `+${contact_number}` : "",
       email: email,
       password: password,
       confirmPassword: password,

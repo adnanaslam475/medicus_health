@@ -93,7 +93,7 @@ function CancelledAppointmentsDetailDoctor() {
               <div>
                 {urlArr?.length ? (
                   urlArr?.map((item: AttachmentObject) => {
-                    return <Attachment item={item} enable />;
+                    return <Attachment item={item} enable={false} />;
                   })
                 ) : (
                   <div className="flex items-center justify-center xl:w-3/5 mt-5">

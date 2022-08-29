@@ -79,7 +79,7 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
         />
       );
     case "stepFour":
-      return <AppointmentBookingStepFour />;
+      return <AppointmentBookingStepFour rebookData={rebookData} />;
 
     default:
       return null;
