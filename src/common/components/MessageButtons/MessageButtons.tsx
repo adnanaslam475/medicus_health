@@ -104,7 +104,7 @@ const MessageButtons = (props: Props) => {
               Router.push({
                 pathname: "/physician/messages",
                 query:
-                  getRole() === "Doctor"
+                  getRole() === "Doctor" || getRole() === "Staff"
                     ? {
                         chat: "admin",
                         doctorId: doctorId,

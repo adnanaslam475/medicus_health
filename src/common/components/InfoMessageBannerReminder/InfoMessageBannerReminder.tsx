@@ -89,19 +89,19 @@ const InfoMessageBannerReminder = () => {
             <span> {`${formatedPatientFirstName} ${patient_last_name}`} </span>
           ) : null}
           {getRole() === "User" && (
-            <span> {`${formatedDoctorFirstName} ${doctor_last_name}`} </span>
+            <span> {`${formatedDoctorFirstName} ${doctor_last_name}`}</span>
           )}
           at
         </span>
         {/* <span>{date?.formatDAYMMDDYY(selectedTime?.startTime)}</span> */}
-        <span className="ml-0 min-w-[54px]">
+        <span className="ml-0 min-w-[48px]">
           {/* {`${date?.formathhmma(selectedTime?.startTime)} -  ${date?.formathhmma(
           selectedTime?.endTime
         )}`} */}
           {`${date?.formathhmma(selectedTime?.startTime, timeZone)}`}
         </span>
-        <span className="md:whitespace-nowrap">
-          on {date?.formatDAYMMDD(selectedTime?.startTime, timeZone)}
+        <span className="">
+        on {date?.formatDAYMMDD(selectedTime?.startTime, timeZone)}
         </span>
       </div>
 

@@ -331,7 +331,7 @@ export default function PersonalInfo({ onFinish }: props) {
       <div className="flex flex-col md:flex-row gap-1 sm:gap-4 ">
         <div className={`${_classes.contactNo}`}>
           <Form.Item
-            className="flex-1"
+            // className="flex-1"
             // label={t("contact_number")}
             label="Teléfono de contacto"
             name="contact_number"
@@ -362,41 +362,43 @@ export default function PersonalInfo({ onFinish }: props) {
           </Form.Item>
         </div>
 
-        <Form.Item
-          className="flex-1"
-          // label={t("country")}
-          label="Pais"
-          name="country_id"
-          rules={[
-            {
-              required: true,
-              // message: t("country_message"),
-              message: "Por favor ingrese su país",
-            },
-          ]}
-        >
-          <Select
-            showSearch
-            filterOption={(input, country: any) =>
-              country.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            onChange={(e) => {
-              selectCountryId(e);
-            }}
-            // placeholder={t("country")}
-            placeholder="Pais"
+        <div className="block w-full">
+          <Form.Item
+            className="flex-1"
+            // label={t("country")}
+            label="Pais"
+            name="country_id"
+            rules={[
+              {
+                required: true,
+                // message: t("country_message"),
+                message: "Por favor ingrese su país",
+              },
+            ]}
           >
-            {React.Children.toArray(
-              countries?.map((el, i) => {
-                return (
-                  <Select.Option value={el?.id}>
-                    {el?.country_name}
-                  </Select.Option>
-                );
-              })
-            )}
-          </Select>
-        </Form.Item>
+            <Select
+              showSearch
+              filterOption={(input, country: any) =>
+                country.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              onChange={(e) => {
+                selectCountryId(e);
+              }}
+              // placeholder={t("country")}
+              placeholder="Pais"
+            >
+              {React.Children.toArray(
+                countries?.map((el, i) => {
+                  return (
+                    <Select.Option value={el?.id}>
+                      {el?.country_name}
+                    </Select.Option>
+                  );
+                })
+              )}
+            </Select>
+          </Form.Item>
+        </div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
