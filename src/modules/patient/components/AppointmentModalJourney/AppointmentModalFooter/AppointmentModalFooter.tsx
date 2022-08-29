@@ -240,6 +240,7 @@ function AppointmentModalFooter({
         let errorMessage =
           graphQLError?.message ||
           customError?.message ||
+          error?.message ||
           "Something went wrong";
         notification.error({
           message: errorMessage,
@@ -247,11 +248,6 @@ function AppointmentModalFooter({
       }
       // executeGetAllCardsQuery({ requestPolicy: "network-only" });
       setLocalStripeLoading(false);
-      if (error) {
-        notification.error({
-          message: error?.message || "Something went wrong",
-        });
-      }
     } catch (error) {
       onReject?.(e);
     }
