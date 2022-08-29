@@ -311,94 +311,95 @@ export default function PersonalInfo({ onFinish }: props) {
         </Form.Item>
       </div>
 
-      <Form.Item
-        // label={t("street_address")}
-        label="Dirección (calle y numero)"
-        name="streetAddress"
-        rules={[
-          {
-            required: true,
-            // message: t("street_address_message"),
-            message:
-              "La dirección de la calle no debe tener más de 30 caracteres.",
-            max: 100,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <div className="flex flex-col md:flex-row gap-1 sm:gap-4 ">
-        <div className={`${_classes.contactNo}`}>
-          <Form.Item
-            // className="flex-1"
-            // label={t("contact_number")}
-            label="Teléfono de contacto"
-            name="contact_number"
-            validateFirst
-            rules={[
-              {
-                required: true,
-                validator: onContactNoValidation,
-              },
-            ]}
-          >
-            {/* <Input /> */}
-            <ReactPhoneInput
-              country={"us"}
-              placeholder={"Ingrese su número de contacto"}
-              enableAreaCodes
-              onChange={(_value, country: any) => {
-                const code = country?.dialCode;
-                if (code) {
-                  // setCountryCode(code);
-                  // form.setFieldsValue({
-                  //   contact_number: code
-                  // });
-                }
-              }}
-              value={countryCode}
-            />
-          </Form.Item>
-        </div>
-
-        <div className="block w-full">
-          <Form.Item
-            className="flex-1"
-            // label={t("country")}
-            label="Pais"
-            name="country_id"
-            rules={[
-              {
-                required: true,
-                // message: t("country_message"),
-                message: "Por favor ingrese su país",
-              },
-            ]}
-          >
-            <Select
-              showSearch
-              filterOption={(input, country: any) =>
-                country.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+      <div className={`${_classes.contactNo}`}>
+        <Form.Item
+          // className="flex-1"
+          // label={t("contact_number")}
+          label="Teléfono de contacto"
+          name="contact_number"
+          validateFirst
+          rules={[
+            {
+              required: true,
+              validator: onContactNoValidation,
+            },
+          ]}
+        >
+          {/* <Input /> */}
+          <ReactPhoneInput
+            country={"us"}
+            placeholder={"Ingrese su número de contacto"}
+            enableAreaCodes
+            onChange={(_value, country: any) => {
+              const code = country?.dialCode;
+              if (code) {
+                // setCountryCode(code);
+                // form.setFieldsValue({
+                //   contact_number: code
+                // });
               }
-              onChange={(e) => {
-                selectCountryId(e);
-              }}
-              // placeholder={t("country")}
-              placeholder="Pais"
-            >
-              {React.Children.toArray(
-                countries?.map((el, i) => {
-                  return (
-                    <Select.Option value={el?.id}>
-                      {el?.country_name}
-                    </Select.Option>
-                  );
-                })
-              )}
-            </Select>
-          </Form.Item>
-        </div>
+            }}
+            value={countryCode}
+          />
+        </Form.Item>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-4 ">
+        <Form.Item
+          className="flex-1"
+          // label={t("street_address")}
+          label="Dirección (calle y numero)"
+          name="streetAddress"
+          rules={[
+            {
+              required: true,
+              // message: t("street_address_message"),
+              message:
+                "La dirección de la calle no debe tener más de 30 caracteres.",
+              max: 100,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        {/* <div className="block w-full"> */}
+        <Form.Item
+          className="flex-1"
+          // label={t("country")}
+          label="Pais"
+          name="country_id"
+          rules={[
+            {
+              required: true,
+              // message: t("country_message"),
+              message: "Por favor ingrese su país",
+            },
+          ]}
+        >
+          <Select
+            showSearch
+            filterOption={(input, country: any) =>
+              country.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+            onChange={(e) => {
+              selectCountryId(e);
+            }}
+            // placeholder={t("country")}
+            placeholder="Pais"
+          >
+            {React.Children.toArray(
+              countries?.map((el, i) => {
+                return (
+                  <Select.Option value={el?.id}>
+                    {el?.country_name}
+                  </Select.Option>
+                );
+              })
+            )}
+          </Select>
+        </Form.Item>
+        {/* </div> */}
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
