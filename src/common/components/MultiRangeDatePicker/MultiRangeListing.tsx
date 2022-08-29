@@ -33,6 +33,7 @@ function MultiRangeListing(props: Props) {
     localStorage?.getItem("timeZone")
       ? JSON.parse(String(localStorage?.getItem("timeZone")))
       : "America/Cambridge_Bay";
+  const [deleteId, setDeleteId] = React.useState(0);
   return (
     <div className="flex  items-center" key={index}>
       <div className="bg-gray-4 rounded-lg flex my-2 flex-1">
@@ -64,16 +65,24 @@ function MultiRangeListing(props: Props) {
           className="pl-1 xs:mr-6 sm:mr-4"
           style={{ color: "#D53E4F" }}
           // onClick={() => setDeleteScheduleId?.(item.id || "")}
-          onClick={() => setShowCancelScheduleModal?.(true)}
+          onClick={() => {
+            setDeleteId(Number(item?.id));
+            setShowCancelScheduleModal?.(true);
+          }}
         />
       )}
-      <ConfirmationModal
-        visible={showCancelScheduleModal || false}
-        confirmLoading={deleteScheduleFetching}
-        onCancel={() => setShowCancelScheduleModal?.(false)}
-        onOk={() => setDeleteScheduleId?.(item.id || "")}
-        message="Are you sure you want to delete this schedule ?"
-      />
+      {!!deleteId && (
+        <ConfirmationModal
+          visible={showCancelScheduleModal || false}
+          confirmLoading={deleteScheduleFetching}
+          onCancel={() => setShowCancelScheduleModal?.(false)}
+          onOk={() => {
+            setDeleteScheduleId?.(String(deleteId))
+            setDeleteId(0);
+          }}
+          message="Are you sure you want to delete this schedule ?"
+        />
+      )}
     </div>
   );
 }
