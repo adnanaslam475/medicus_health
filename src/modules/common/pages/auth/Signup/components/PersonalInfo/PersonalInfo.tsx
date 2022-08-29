@@ -402,58 +402,64 @@ export default function PersonalInfo({ onFinish }: props) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item
-          className="flex-1"
-          // label={t("state")}
-          label="Estado/Provinicia"
-          name="state_id"
-        >
-          <Select
-            showSearch
-            filterOption={(input, state: any) =>
-              state.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            onChange={(e) => {
-              selectStateId(e);
-              form.setFieldsValue({
-                city_id: null,
-              });
-            }}
-            // placeholder={t("state")}
-            placeholder="Estado/Provinicia"
+        {!!getStatesByCountry?.data?.getStatesByCountry?.length && (
+          <Form.Item
+            className="flex-1"
+            // label={t("state")}
+            label="Estado/Provinicia"
+            name="state_id"
           >
-            {React.Children.toArray(
-              getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
-                return (
-                  <Select.Option value={el.id}>{el?.state_name}</Select.Option>
-                );
-              })
-            )}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          className="flex-1"
-          // label={t("city")}
-          label="Ciudad"
-          name="city_id"
-        >
-          <Select
-            // placeholder={t("city")}
-            placeholder="Ciudad"
-            showSearch
-            filterOption={(input, city: any) =>
-              city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
+            <Select
+              showSearch
+              filterOption={(input, state: any) =>
+                state.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              onChange={(e) => {
+                selectStateId(e);
+                form.setFieldsValue({
+                  city_id: null,
+                });
+              }}
+              // placeholder={t("state")}
+              placeholder="Estado/Provinicia"
+            >
+              {React.Children.toArray(
+                getStatesByCountry?.data?.getStatesByCountry?.map((el, i) => {
+                  return (
+                    <Select.Option value={el.id}>
+                      {el?.state_name}
+                    </Select.Option>
+                  );
+                })
+              )}
+            </Select>
+          </Form.Item>
+        )}
+        {!!getCityByState?.data?.getCitiesByState?.length && (
+          <Form.Item
+            className="flex-1"
+            // label={t("city")}
+            label="Ciudad"
+            name="city_id"
           >
-            {React.Children.toArray(
-              getCityByState?.data?.getCitiesByState?.map((el, i) => {
-                return (
-                  <Select.Option value={el.id}>{el?.city_name}</Select.Option>
-                );
-              })
-            )}
-          </Select>
-        </Form.Item>
+            <Select
+              // placeholder={t("city")}
+              placeholder="Ciudad"
+              showSearch
+              filterOption={(input, city: any) =>
+                city.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {React.Children.toArray(
+                getCityByState?.data?.getCitiesByState?.map((el, i) => {
+                  return (
+                    <Select.Option value={el.id}>{el?.city_name}</Select.Option>
+                  );
+                })
+              )}
+            </Select>
+          </Form.Item>
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">

@@ -664,7 +664,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
       appointmentServiceTypes?.appointmentServiceTypes?.filter(
         (item) => item?.name === appointmentTypeProposed?.type
       );
-    console.log("data is", proposedAppoitmentServiceTypeObj);
     formInstance.setFieldsValue({
       service:
         (proposedAppoitmentServiceTypeObj &&

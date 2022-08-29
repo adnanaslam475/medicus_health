@@ -58,7 +58,6 @@ function StepFour(props: Props) {
 
   const rebookServiceType = rebookData?.serviceType?.name;
 
-  console.log("data issssssssss", rebookData);
   return (
     <>
       <h2>Summary</h2>
