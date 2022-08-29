@@ -16,6 +16,7 @@ import {
 // scss
 import _classes from "./AppointmentCard.module.scss";
 import AppointmnetCurrentCard from "./CardTypes/AppointmnetCurrentCard";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type props = {
   appointmentId?: number | null | undefined;
@@ -33,7 +34,7 @@ type props = {
   transaction?: Transaction | undefined;
   appointmentDetail?: Appointment | undefined;
   specialization: string;
-  patientObject?:User
+  patientObject?: User;
 };
 
 function AppointmentCard({
@@ -52,8 +53,10 @@ function AppointmentCard({
   transaction,
   appointmentDetail,
   specialization,
-  // patientObject
-}: props) {
+}: // patientObject
+props) {
+  const timeZone = getCurrentUserTimeZone();
+
   function getStatus() {
     const { user } = getUserData();
     const { role } = user || {};
@@ -81,7 +84,7 @@ function AppointmentCard({
           doctor={doctor}
           appointmentTimeSlots={appointmentTimeSlots}
           specialization={specialization}
-          // patientTimeZone={patientObject?.timeZone?.timeZone}
+          timeZone={timeZone}
         />
       );
     case "Requested":
@@ -96,8 +99,7 @@ function AppointmentCard({
           setShowModal={setShowModal}
           appointmentDateTime={appointmentDateTime}
           specialization={specialization}
-          // patientTimeZone={patientObject?.timeZone?.timeZone}
-
+          timeZone={timeZone}
         />
       );
     case "Rescheduled":
@@ -113,8 +115,7 @@ function AppointmentCard({
           onViewSuggestedSlots={onViewSuggestedSlots}
           specialization={specialization}
           appointmentDateTime={appointmentDateTime}
-          // patientTimeZone={patientObject?.timeZone?.timeZone}
-
+          timeZone={timeZone}
         />
       );
     case "Canceled":
@@ -130,6 +131,7 @@ function AppointmentCard({
           transaction={transaction}
           appointmentDetail={appointmentDetail}
           specialization={specialization}
+          timeZone={timeZone}
         />
       );
     case "Proposed":
@@ -145,8 +147,7 @@ function AppointmentCard({
           onViewSuggestedSlots={onViewSuggestedSlots}
           specialization={specialization}
           appointmentDateTime={appointmentDateTime}
-          // patientTimeZone={patientObject?.timeZone?.timeZone}
-
+          timeZone={timeZone}
         />
       );
     case "Current":

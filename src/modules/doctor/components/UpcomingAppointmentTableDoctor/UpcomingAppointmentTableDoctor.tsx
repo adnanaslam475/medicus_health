@@ -14,13 +14,9 @@ import { date } from "common/utils";
 import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
-const timeZone =
-  typeof window !== "undefined" &&
-  localStorage?.getItem("timeZone") !== "undefined" &&
-  localStorage?.getItem("timeZone")
-    ? JSON.parse(String(localStorage?.getItem("timeZone")))
-    : "America/Cambridge_Bay";
+const timeZone = getCurrentUserTimeZone();
 
 const columns = [
   {
@@ -44,7 +40,8 @@ const columns = [
     key: "name",
     sorter: true,
     render: (value: Appointment) => {
-      const appointmentType = value?.appointmentTypeProposed?.type || value?.serviceType?.name
+      const appointmentType =
+        value?.appointmentTypeProposed?.type || value?.serviceType?.name;
       return <div>{appointmentType}</div>;
     },
   },

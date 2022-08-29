@@ -19,7 +19,11 @@ import {
   useDoctorSchedulesQuery,
   useSuggestNewTimeMutation,
 } from "generated/graphql";
-import { getDayJsObject, UTCPrettierTime } from "common/utils/date";
+import {
+  getCurrentUserTimeZone,
+  getDayJsObject,
+  UTCPrettierTime,
+} from "common/utils/date";
 import { date } from "common/utils";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
@@ -157,12 +161,7 @@ function RescheduleAppointmentModal(props: Props) {
     (appointment) => appointment.selected
   );
 
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
 
   return (
     <>

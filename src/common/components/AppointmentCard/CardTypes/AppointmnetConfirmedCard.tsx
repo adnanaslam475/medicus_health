@@ -17,6 +17,7 @@ type Props = {
   doctor: string | undefined;
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   specialization: string;
+  timeZone: string;
 };
 
 function AppointmnetConfirmedCard({
@@ -26,18 +27,13 @@ function AppointmnetConfirmedCard({
   doctor,
   appointmentTimeSlots,
   specialization,
+  timeZone,
 }: Props) {
   const t = useTranslations("AppointmentCards");
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
 
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {

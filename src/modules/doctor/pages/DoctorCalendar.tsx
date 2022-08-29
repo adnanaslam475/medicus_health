@@ -9,6 +9,7 @@ import CalendarModalComponent from "../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
 import Router from "next/router";
 import { date } from "common/utils";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type events = {
   calenderEvents: Appointment | undefined | Array<object>;
@@ -17,13 +18,8 @@ function DoctorCalendar() {
   const redirectToUpcoming = function () {
     Router.push("/physician/appointments/upcoming");
   };
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
-      
+  const timeZone = getCurrentUserTimeZone();
+
   const calendarComponentRef = useRef<FullCalendar>();
   const [calender, setCalender] = useState<events>({
     calenderEvents: [],

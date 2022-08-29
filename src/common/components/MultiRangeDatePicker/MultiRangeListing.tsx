@@ -3,7 +3,7 @@ import { date } from "common/utils";
 import dayjs from "dayjs";
 import React from "react";
 import { singleSchedule } from "../../types/types";
-import { dayName } from "../../utils/date";
+import { dayName, getCurrentUserTimeZone } from "../../utils/date";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 
 type Props = {
@@ -27,12 +27,8 @@ function MultiRangeListing(props: Props) {
   } = props;
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
+
   const [deleteId, setDeleteId] = React.useState(0);
   return (
     <div className="flex  items-center" key={index}>
@@ -77,7 +73,7 @@ function MultiRangeListing(props: Props) {
           confirmLoading={deleteScheduleFetching}
           onCancel={() => setShowCancelScheduleModal?.(false)}
           onOk={() => {
-            setDeleteScheduleId?.(String(deleteId))
+            setDeleteScheduleId?.(String(deleteId));
             setDeleteId(0);
           }}
           message="Are you sure you want to delete this schedule ?"

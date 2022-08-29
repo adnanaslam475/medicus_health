@@ -11,6 +11,7 @@ import {
 import { getUserData } from "../../../../../common/utils/userData";
 import { date } from "../../../../../common/utils";
 import { useAppointmentModal } from "../AppointmentModalProvider";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
 type Props = {
   appointmentId: number;
@@ -60,12 +61,7 @@ function AppointmentReschedule(props: Props) {
   let formatedDoctorName = `${
     doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`
   }`;
-  const timeZone =
-    typeof window !== "undefined" &&
-    localStorage?.getItem("timeZone") !== "undefined" &&
-    localStorage?.getItem("timeZone")
-      ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+  const timeZone = getCurrentUserTimeZone();
 
   return (
     <div>
