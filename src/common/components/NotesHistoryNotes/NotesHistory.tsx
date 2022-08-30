@@ -102,14 +102,26 @@ function NotesHistory(props: Props) {
                     // }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}   \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0${convertStringDateToUTC(
                     //   data?.createdAt
                     // )} `}
-                    header={`ID# ${
-                      data?.appointment?.id
-                    }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${doctorNameforHistoryNotes(
-                      data?.appointment?.doctor?.first_name,
-                      data?.appointment?.doctor?.last_name
-                    )}   `}
+                    // header={`ID# ${
+                    //   data?.appointment?.id
+                    // }  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${doctorNameforHistoryNotes(
+                    //   data?.appointment?.doctor?.first_name,
+                    //   data?.appointment?.doctor?.last_name
+                    // )}   `}
+                    header={
+                      <div className=" justify-between flex flex-col sm:flex-row">
+                        <div>{`ID# ${data?.appointment?.id}`}</div>
+                        <div>
+                          {doctorNameforHistoryNotes(
+                            data?.appointment?.doctor?.first_name,
+                            data?.appointment?.doctor?.last_name
+                          )}
+                        </div>
+                        <div>{convertStringDateToUTC(data?.createdAt)}</div>
+                      </div>
+                    }
                     key={index + 1}
-                    extra={convertStringDateToUTC(data?.createdAt)}
+                    // extra={convertStringDateToUTC(data?.createdAt)}
                   >
                     <>
                       {(getRole() === "Admin" || getRole() === "Doctor") && (
