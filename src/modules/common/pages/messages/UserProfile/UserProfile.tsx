@@ -49,7 +49,11 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
     onJoinChannel?.(thread.channelName);
-    window.history.replaceState(null, "", Router.pathname);
+    if (Object.keys(query).length > 0) {
+      Router.push({
+        query: "",
+      });
+    }
     updateLayout?.();
   }
 

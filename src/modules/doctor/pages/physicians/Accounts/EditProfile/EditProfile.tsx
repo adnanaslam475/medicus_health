@@ -795,7 +795,7 @@ function EditProfile({
                   name="year_of_experience"
                   className="flex-1"
                 >
-                  <Input type="number" step={"any"} />
+                  <Input type="number" step={"any"} onWheel={(e)=>e.currentTarget.blur()}/>
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row sm:gap-3">
