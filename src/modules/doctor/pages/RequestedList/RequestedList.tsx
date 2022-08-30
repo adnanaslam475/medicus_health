@@ -78,11 +78,8 @@ const Columns = [
                   );
                 }
               ) as any)
-            : status === "Requested" && appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(
-                appointmentDateTime?.startTime,
-                timeZone
-              )} `
+            : status === "Requested" && value?.requestedDate
+            ? `${date?.formatMMMMDDYYYY(value?.requestedDate, timeZone)} `
             : `-- `}
         </div>
       );
