@@ -66,7 +66,7 @@ function PhysicianSearchFilters(props: Props) {
 
   return (
     <div
-      className={`${_classes["page-filters"]} flex flex-col md:flex-row items-center  flex-wrap gap-2 mb-3`}
+      className={`${_classes["page-filters"]} flex flex-col md:flex-row items-center  flex-wrap space-2 gap-2 mb-3`}
     >
       <span className="text-gray-1  w-full 2xl:w-fit ">Search by</span>
       {/* <div className="flex flex-col w-full lg:w-96 md:flex-row gap-2"> */}
@@ -173,7 +173,7 @@ function PhysicianSearchFilters(props: Props) {
           </div>
         </Space>
       </div> */}
-      <div className="w-full md:w-fit flex-col sm:flex-row flex gap-2">
+      <div className="w-full md:w-fit flex-col sm:flex-row flex space-2 gap-2">
         <Space
           direction="vertical"
           size={0}
@@ -191,7 +191,7 @@ function PhysicianSearchFilters(props: Props) {
               }
               className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
               renderExtraFooter={() => (
-                <div className="flex gap-3 justify-end p-3">
+                <div className="flex space-3 gap-3 justify-end p-3">
                   <Button
                     className="bg-gray-300"
                     onClick={() => {
