@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export function parseJson(jsonString: string) {
   let obj = null;
   try {
@@ -15,4 +17,15 @@ export function hasValidMessage(text: string) {
   } else {
     return false;
   }
+}
+
+export function useDebounce(value: string, wait = 200) {
+  const [debounceValue, setDebounceValue] = useState(value);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebounceValue(value);
+    }, wait);
+    return () => clearTimeout(timer);
+  }, [value, wait]);
+  return debounceValue;
 }
