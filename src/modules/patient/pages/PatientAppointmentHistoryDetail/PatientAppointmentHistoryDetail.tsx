@@ -62,7 +62,6 @@ function PatientAppointmentHistoryDetail() {
     history.pushState({}, "", "?activeTab=" + key);
   };
 
-  console.log("appointments-sadads", appointments);
   const { doctorId } = appointment || {};
 
   // const doctorId = appointment?.
