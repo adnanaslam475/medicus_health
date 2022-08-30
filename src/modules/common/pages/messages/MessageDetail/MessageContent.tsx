@@ -35,7 +35,7 @@ function MessageContent({ removeCurrentChat }: Props) {
         </div>
       ) : (
         <div
-          className={`flex justify-center items-center ${_classes.startingNewChat} ${_classes["custom-height"]}`}
+          className={`flex justify-center items-center ${_classes["custom-height"]}`}
         >
           <div className="text-gray">
             Click on the chat thread to continue chat.

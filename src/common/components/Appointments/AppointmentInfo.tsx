@@ -244,7 +244,7 @@ function AppointmentInfo(props: Props) {
           />
 
           <li className="flex border-b border-gray-5 py-3">
-            <div className="w-full text-gray-1 max-w-[200px]">
+            <div className="w-full text-gray-1 max-w-[260px]">
               Appointment status
             </div>
             <div className="w-full text-primary">
@@ -256,36 +256,35 @@ function AppointmentInfo(props: Props) {
               </Tag>
             </div>
           </li>
-        </div>
 
-        {appointmentTypeProposed?.type && (
-          <LabelValueRow
-            label={"Appointment type proposed"}
-            value={appointmentTypeProposed?.type || ""}
-          />
-        )}
-        {appointmentTypeProposed?.dateTime?.length && (
-          <LabelValueRow
-            label={"Appointment(s) proposed"}
-            value={
-              appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
-                console.log("item is");
-                return (
-                  <li>{`${date.formatDAYMMDDYY(
-                    String(item?.date),
-                    timeZone
-                  )} - ${date.formathhmma(
-                    String(item?.startTime),
-                    timeZone
-                  )} - ${date.formathhmma(
-                    String(item?.endTime),
-                    timeZone
-                  )}`}</li>
-                );
-              }) as any
-            }
-          />
-        )}
+          {appointmentTypeProposed?.type && (
+            <LabelValueRow
+              label={"Appointment type proposed"}
+              value={appointmentTypeProposed?.type || ""}
+            />
+          )}
+          {appointmentTypeProposed?.dateTime?.length && (
+            <LabelValueRow
+              label={"Appointment(s) proposed"}
+              value={
+                appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
+                  return (
+                    <div>{`${date.formatDAYMMDDYY(
+                      String(item?.date),
+                      timeZone
+                    )} - ${date.formathhmma(
+                      String(item?.startTime),
+                      timeZone
+                    )} - ${date.formathhmma(
+                      String(item?.endTime),
+                      timeZone
+                    )}`}</div>
+                  );
+                }) as any
+              }
+            />
+          )}
+        </div>
 
         <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
           {/* <div className="flex flex-wrap mb-3 justify-center gap-y-2">
@@ -375,7 +374,7 @@ function LabelValueRow({
 }) {
   return (
     <div className="flex border-b border-gray-5 py-3 ">
-      <div className="w-full text-gray-1 max-w-[200px]">{label}</div>
+      <div className="w-full text-gray-1 max-w-[260px]">{label}</div>
       <div className="w-full text-secondary">{value}</div>
     </div>
   );
