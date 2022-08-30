@@ -52,11 +52,13 @@ const historyColumns = [
   },
   {
     title: "Appointment type",
-    dataIndex: "serviceType",
+    // dataIndex: "serviceType",
     key: "name",
     sorter: true,
-    render: (serviceType: AppointmentServiceType) => {
-      return <div>{`${serviceType?.name || "-"}`}</div>;
+    render: (value: Appointment) => {
+      const appointmentType =
+        value?.appointmentTypeProposed?.type || value?.serviceType?.name || "-";
+      return <div>{appointmentType}</div>;
     },
   },
   {

@@ -22,7 +22,6 @@ type Props = {
   appointmentDetail?: Appointment | undefined;
   specialization: string;
   timeZone: string;
-
 };
 
 function AppointmnetCancelledCard({
@@ -37,7 +36,6 @@ function AppointmnetCancelledCard({
   appointmentDetail,
   specialization,
   timeZone,
-
 }: Props) {
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
@@ -83,6 +81,8 @@ function AppointmnetCancelledCard({
     timeZone
   );
 
+  const serviceTypeName =
+    appointmentDetail?.appointmentTypeProposed?.type || serviceType || "-";
   return (
     <>
       <Card className={`${_classes["appointment-card"]}`}>
@@ -92,7 +92,7 @@ function AppointmnetCancelledCard({
           {specialization}
         </span>
         <span className="text-sm ">Appointment type</span>
-        <div className="text-sm text-gray mb-3">{serviceType}</div>
+        <div className="text-sm text-gray mb-3">{serviceTypeName}</div>
         <span className="text-sm">Appointment date</span>
         <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
         <span className="text-sm">Appointment time</span>
