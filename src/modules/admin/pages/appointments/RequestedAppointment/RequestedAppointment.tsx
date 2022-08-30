@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import {
+  Appointment,
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   BookingDate,
@@ -193,6 +194,7 @@ function RequestedAppointment() {
                         }
                         setShowModal={setShowModal}
                         patientObject={patient as User}
+                        appointmentDetail={appointmentDetail as Appointment}
                       />
                     );
                   })}

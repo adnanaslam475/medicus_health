@@ -6,6 +6,7 @@ import SearchFilter from "../../../../../common/components/SearchFilters/SearchF
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { Button, Empty, Select, Spin, Tooltip } from "antd";
 import {
+  Appointment,
   AppointmentTimeSlots,
   BookingDate,
   DueDate,
@@ -195,6 +196,7 @@ function UpcomingAppointments() {
                         appointmentDetail?.doctor?.doctorProfile
                           ?.specialization || ""
                       )}
+                      appointmentDetail={appointmentDetail as Appointment}
                     />
                   );
                 })}
