@@ -53,6 +53,42 @@ const MessageButtons = (props: Props) => {
             <span className="pl-2">Message patient</span>
           </Button>
         )}
+        
+        {(getRole() === "User" ||
+          getRole() === "Doctor" ||
+          getRole() === "Staff") && (
+          <Button
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={support}
+                alt=""
+                className=""
+              />
+            }
+            className={`${_classes["appointments-btn"]} mr-3`}
+            // onClick={() => Router.push("/physician/messages")}
+            onClick={() =>
+              Router.push({
+                pathname: "/physician/messages",
+                query:
+                  getRole() === "Doctor" || getRole() === "Staff"
+                    ? {
+                        chat: "admin",
+                        doctorId: doctorId,
+                      }
+                    : {
+                        chat: "admin",
+                        patientId: patientID,
+                      },
+              })
+            }
+          >
+            <span className="pl-2">Message support</span>
+          </Button>
+        )}
 
         {(getRole() === "User" || getRole() === "Admin") && (
           <Button
@@ -81,42 +117,6 @@ const MessageButtons = (props: Props) => {
             }}
           >
             <span className="pl-2">Message physician</span>
-          </Button>
-        )}
-
-        {(getRole() === "User" ||
-          getRole() === "Doctor" ||
-          getRole() === "Staff") && (
-          <Button
-            icon={
-              <Image
-                priority={true}
-                width={15}
-                height={15}
-                src={support}
-                alt=""
-                className=""
-              />
-            }
-            className={`${_classes["appointments-btn"]}`}
-            // onClick={() => Router.push("/physician/messages")}
-            onClick={() =>
-              Router.push({
-                pathname: "/physician/messages",
-                query:
-                  getRole() === "Doctor" || getRole() === "Staff"
-                    ? {
-                        chat: "admin",
-                        doctorId: doctorId,
-                      }
-                    : {
-                        chat: "admin",
-                        patientId: patientID,
-                      },
-              })
-            }
-          >
-            <span className="pl-2">Message support</span>
           </Button>
         )}
       </div>

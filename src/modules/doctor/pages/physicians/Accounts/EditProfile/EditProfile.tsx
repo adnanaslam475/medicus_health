@@ -108,7 +108,6 @@ function EditProfile({
     Spanish: false,
     English: false,
   });
-
   const user = getUserData();
   const { email: loggedInUserEmail, id: loggedInUserId } = user?.user || {};
 
@@ -242,6 +241,7 @@ function EditProfile({
       timeZone: timeZone?.id || 86,
     });
   }
+  console.log("my time zone is", timeZone);
 
   const [conditionTreatedList, setConditionTreatedList] =
     useState<any>(condition_treated);
@@ -377,7 +377,7 @@ function EditProfile({
       await updateDoctorProfile(values);
       // setIsEdit(false);
     } catch (error) {
-      console.log("my error is",error)
+      console.log("my error is", error);
       // setIsEdit(true);
     }
   };
@@ -795,7 +795,7 @@ function EditProfile({
                   name="year_of_experience"
                   className="flex-1"
                 >
-                  <Input type="number" step={"any"} />
+                  <Input type="number" step={"any"} onWheel={(e)=>e.currentTarget.blur()}/>
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row sm:gap-3">
@@ -931,7 +931,7 @@ function EditProfile({
                   ]}
                 >
                   <Select
-                    placeholder={timezoneLabel(timeZone?.timeZone)}
+                    placeholder={timeZone?.timeZoneName}
                     showSearch
                     filterOption={(input, city: any) =>
                       city.children
@@ -952,7 +952,7 @@ function EditProfile({
                       getTimeZones?.data?.getTimeZones?.map((el, i) => {
                         return (
                           <Select.Option value={el.id}>
-                            {timezoneLabel(el?.timeZone)}
+                            {el?.timeZoneName}
                           </Select.Option>
                         );
                       })

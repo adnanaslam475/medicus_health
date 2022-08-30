@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 import Router from "next/router";
-import { AppointmentTimeSlots } from "../../../../generated/graphql";
+import { Appointment, AppointmentTimeSlots } from "generated/graphql";
 import { isAppointmentTimeValid } from "common/utils/date";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -18,6 +18,7 @@ type Props = {
   appointmentTimeSlots: AppointmentTimeSlots[] | undefined | null;
   specialization: string;
   timeZone: string;
+  appointmentDetail?: Appointment | undefined;
 };
 
 function AppointmnetConfirmedCard({
@@ -28,6 +29,7 @@ function AppointmnetConfirmedCard({
   appointmentTimeSlots,
   specialization,
   timeZone,
+  appointmentDetail,
 }: Props) {
   const t = useTranslations("AppointmentCards");
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
@@ -50,6 +52,9 @@ function AppointmnetConfirmedCard({
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
+
+  const serviceTypeName =
+    appointmentDetail?.appointmentTypeProposed?.type || serviceType || "-";
   return (
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
@@ -59,7 +64,7 @@ function AppointmnetConfirmedCard({
       </span>
       <span className="text-sm improved-word-spacing">Appointment type</span>
       <div className="text-sm text-gray mb-3 improved-word-spacing">
-        {serviceType}
+        {serviceTypeName}
       </div>
       <span className="text-sm pt-5 improved-word-spacing">
         Appointment date

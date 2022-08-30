@@ -176,7 +176,8 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             Zona horaria
           </div>
           <div className="sm:w-1/2 text-secondary  md:pl-4">
-            {timezoneLabel(timeZone?.timeZone)}
+            {/* {timezoneLabel(timeZone?.timeZone)} */}
+            {timeZone?.timeZoneName}
           </div>
         </div>
       </li>
@@ -192,7 +193,9 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">Estado civil</div>
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            Estado civil
+          </div>
           <div
             className={`sm:w-1/2 md:pl-4 ${
               !patientProfile?.maritalStatus && "text-gray-1 md:pl-4"

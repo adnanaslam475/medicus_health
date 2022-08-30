@@ -178,7 +178,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                         alt=""
                       />
                     </span>
-                    {t("appointment_date")}
+                    <span className="font-normal">{t("appointment_date")}</span>
                     {/* Appointment date */}
                   </div>
                   <div>

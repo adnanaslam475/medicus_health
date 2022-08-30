@@ -52,11 +52,15 @@ function CancelledAppointmentTable({
     },
     {
       title: "Appointment type",
-      dataIndex: "serviceType",
+      // dataIndex: "serviceType",
       key: "name",
       sorter: true,
-      render: (value: AppointmentServiceType) => {
-        return <div>{value?.name}</div>;
+      render: (value: Appointment) => {
+        const appointmentType =
+          value?.appointmentTypeProposed?.type ||
+          value?.serviceType?.name ||
+          "-";
+        return <div>{appointmentType}</div>;
       },
     },
     {

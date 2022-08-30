@@ -528,7 +528,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     ]}
                   >
                     <Select
-                      placeholder={timezoneLabel(timeZone?.timeZone)}
+                      placeholder={timeZone?.timeZoneName}
                       showSearch
                       filterOption={(input, city: any) =>
                         city.children
@@ -549,7 +549,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         getTimeZones?.data?.getTimeZones?.map((el, i) => {
                           return (
                             <Select.Option value={el.id}>
-                              {timezoneLabel(el?.timeZone)}
+                              {el?.timeZoneName}
                             </Select.Option>
                           );
                         })
@@ -599,7 +599,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   Estado civil
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 text-gray-1 md:pl-4`}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 md:w-1/2 lg:w-2/5 text-gray-1 md:pl-4`}
                 >
                   <Form.Item className="mb-0">
                     <Form.Item className="mb-0" name="maritalStatus">
@@ -679,7 +679,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   {/* {t("What_is_your_occupation")} */}
                 </div>
                 <div
-                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5  text-gray-1 md:pl-4`}
+                  className={`${_classes["custom_text_field"]} w-1/2 sm:w-2/5 xl:w-2/5 lg:w-2/5 md:w-1/2  text-gray-1 md:pl-4`}
                 >
                   <Form.Item noStyle name="occupation">
                     <Input
@@ -723,7 +723,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
                   {radioOccupationalExposure === "Yes" ? (
                     <div
-                      className={`${_classes["custom_text_field"]} w-full sm:w-2/5 md:w-full text-gray-1 `}
+                      className={`${_classes["custom_text_field"]} w-full sm:w-2/5 md:w-full lg:w-4/5 text-gray-1 `}
                     >
                       <Form.Item
                         className="mb-0"

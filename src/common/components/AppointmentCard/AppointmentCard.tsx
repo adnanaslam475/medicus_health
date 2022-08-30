@@ -85,6 +85,7 @@ props) {
           appointmentTimeSlots={appointmentTimeSlots}
           specialization={specialization}
           timeZone={timeZone}
+          appointmentDetail={appointmentDetail}
         />
       );
     case "Requested":

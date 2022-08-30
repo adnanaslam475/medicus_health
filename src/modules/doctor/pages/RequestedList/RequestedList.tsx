@@ -51,9 +51,7 @@ const Columns = [
     sorter: true,
     render: (value: Appointment) => {
       const appointmentType =
-        value?.status === "Proposed" && value?.appointmentTypeProposed?.type
-          ? value?.appointmentTypeProposed?.type
-          : value?.serviceType?.name;
+        value?.appointmentTypeProposed?.type || value?.serviceType?.name || "-";
       return <div>{`${appointmentType}`}</div>;
     },
   },
@@ -78,11 +76,8 @@ const Columns = [
                   );
                 }
               ) as any)
-            : status === "Requested" && appointmentDateTime?.startTime
-            ? `${date?.formatMMMMDDYYYY(
-                appointmentDateTime?.startTime,
-                timeZone
-              )} `
+            : status === "Requested" && value?.requestedDate
+            ? `${date?.formatMMMMDDYYYY(value?.requestedDate, timeZone)} `
             : `-- `}
         </div>
       );
