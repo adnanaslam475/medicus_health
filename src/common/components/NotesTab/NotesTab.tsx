@@ -106,7 +106,7 @@ function NotesTab({}: Props) {
       <Spin />
     </div>
   ) : (
-    <div className="md:max-w-1/2">
+    <div className="lg:max-w-1/2 md:max-w-full w-full sm:w-full">
       {/* <CardWithProfileImageInfo
         name={
           isRoleGuard

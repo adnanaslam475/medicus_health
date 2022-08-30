@@ -234,7 +234,11 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
               className={`${styles["ant-checkbox-wrapper-cover"]}`}
             >
               {item?.options?.map(({ value, label }) => {
-                return <Checkbox className={`${styles.checkbox}`} value={value}>{label}</Checkbox>;
+                return (
+                  <Checkbox className={`${styles.checkbox}`} value={value}>
+                    {label}
+                  </Checkbox>
+                );
               })}
             </Checkbox.Group>
             {/* <CheckboxGroup
@@ -271,7 +275,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
               >
                 <span className="text-gray-2">
                   {/* I want to use my last filled form */}
-                  Quiero usar mi último formulario completado
+                  Quiero usar mi último formulario completado.
                 </span>
               </Checkbox>
             </div>
