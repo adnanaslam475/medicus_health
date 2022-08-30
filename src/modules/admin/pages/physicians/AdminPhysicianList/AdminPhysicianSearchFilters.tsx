@@ -114,7 +114,7 @@ function AdminPhysicianSearchFilters(props: Props) {
           value={filterState?.countryId}
         />
       </div>
-      <div className="w-1/12 sm:mt-0">
+      <div className="w-44 sm:mt-0">
         <SelectStateTypeFilter
           onChange={(value) => onChangeFields("stateId", Number(value))}
           value={filterState?.stateId}
@@ -122,7 +122,7 @@ function AdminPhysicianSearchFilters(props: Props) {
         />
       </div>
 
-      <div className="w-1/12 sm:mt-0">
+      <div className="w-44 sm:mt-0">
         <SelectCityFilter
           onChange={(value) => onChangeFields("cityId", Number(value))}
           value={filterState?.cityId}

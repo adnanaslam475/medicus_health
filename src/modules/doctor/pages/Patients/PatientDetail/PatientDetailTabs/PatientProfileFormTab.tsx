@@ -89,7 +89,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             <LabelWithTextDiv label="Coreo electrónico" value={email} />
             <LabelWithTextDiv
               label="Teléfono de contacto"
-              value={contact_number}
+              value={contact_number || "-"}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
@@ -116,7 +116,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             <LabelWithTextDiv label="Código postal" value={zip_code} />
             <LabelWithTextDiv
               label="Dirección (calle y numero)"
-              value={streetAddress}
+              value={streetAddress || "-"}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
@@ -126,7 +126,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             />
             <LabelWithTextDiv
               label="¿Tienes hijos?"
-              value={children ? children : haveChildren}
+              value={children ? children : haveChildren || "-"}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
