@@ -30,7 +30,9 @@ function SearchFilters(props: Props) {
   const [openDateRange, setOpenDateRange] = useState(false);
   const [patientName, setPatientName] = useState<string>();
 
-  const [filterState, setFilterState] = useState<GetCurrentAppointmentInput>({});
+  const [filterState, setFilterState] = useState<GetCurrentAppointmentInput>(
+    {}
+  );
   const [creationDate, setCreationDate] = useState<BookingDate>({});
 
   const [{ data: dataList }] = useDoctorProfilesQuery();
@@ -76,46 +78,48 @@ function SearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 flex-wrap gap-2`}
     >
-      <span className="text-gray-1 sm:mr-3 sm:block mr-auto w-full xl:w-fit">Search by</span>
+      <span className="text-gray-1 sm:mr-3 sm:block mr-auto w-full xl:w-fit">
+        Search by
+      </span>
       {/* <div className="flex-none sm:flex"> */}
-        <div className="   w-full sm:w-full md:w-full lg:w-60 ">
+      <div className="   w-full sm:w-full md:w-full lg:w-60 ">
+        <Input
+          placeholder={"ID# or physician name"}
+          prefix={<SearchOutlined />}
+          onChange={(e) => onChangeFields("searchString", e.target.value)}
+          value={filterState.searchString || ""}
+        />
+      </div>
+      {isFromPhysician && (
+        <div className="  w-full sm:w-full md:w-full lg:w-70 ">
           <Input
-            placeholder={"ID# or physician name"}
+            placeholder={"ID# or patient name"}
             prefix={<SearchOutlined />}
-            onChange={(e) => onChangeFields("searchString", e.target.value)}
-            value={filterState.searchString || ""}
+            onChange={(event) => handlePaitentName_ID(event)}
+            value={patientName}
           />
         </div>
-        {isFromPhysician && (
-          <div className="  w-full sm:w-full md:w-full lg:w-70 ">
-            <Input
-              placeholder={"ID# or patient name"}
-              prefix={<SearchOutlined />}
-              onChange={(event) => handlePaitentName_ID(event)}
-              value={patientName}
-            />
-          </div>
-        ) }
+      )}
 
-        <div className="w-full md:w-44 xl:w-60 ">
-          <Select
-            suffixIcon={
-              <div className="text-gray">
-                <CaretDownOutlined className="text-sm text-gray" />
-              </div>
-            }
-            placeholder="Appointment type"
-            className={`${searchStyle.placeholderColor} w-full`}
-            onChange={(e) => onChangeFields("serviceId", e)}
-            value={filterState.serviceId || "Appointment type"}
-          >
-            {appointmentServiceTypes?.map((item) => (
-              <Select.Option key={item?.id} value={item?.id}>
-                {item?.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </div>
+      <div className="w-full md:w-44 xl:w-60 ">
+        <Select
+          suffixIcon={
+            <div className="text-gray">
+              <CaretDownOutlined className="text-sm text-gray" />
+            </div>
+          }
+          placeholder="Appointment type"
+          className={`${searchStyle.placeholderColor} w-full`}
+          onChange={(e) => onChangeFields("serviceId", e)}
+          value={filterState.serviceId || "Appointment type"}
+        >
+          {appointmentServiceTypes?.map((item) => (
+            <Select.Option key={item?.id} value={item?.id}>
+              {item?.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </div>
       {/* </div> */}
       <div className="flex-none sm:flex w-full md:w-44 xl:w-60">
         <Space
@@ -166,9 +170,7 @@ function SearchFilters(props: Props) {
                   {filterState?.dueDate?.endDate
                     ? `${getDateInFormat(
                         filterState?.dueDate?.startDate
-                      )} -> ${getDateInFormat(
-                        filterState?.dueDate?.endDate
-                      )}`
+                      )} -> ${getDateInFormat(filterState?.dueDate?.endDate)}`
                     : "Appointment date"}
                 </div>
               ) : (
@@ -183,7 +185,7 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    Appointment date
+                    <span className="font-normal">Appointment date</span>
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />
@@ -193,16 +195,15 @@ function SearchFilters(props: Props) {
             </Button>
           </div>
         </Space>
-  
       </div>
       <Button
-          onClick={onClear}
-          type="text"
-          className={`${_classes["btn-clear"]} ml-3 mr-auto sm:ml-0 sm:mr-0`}
-        >
-          <CloseOutlined className="text-sm" />
-          <span className="text-gray-1 text-sm">Clear</span>
-        </Button>
+        onClick={onClear}
+        type="text"
+        className={`${_classes["btn-clear"]} ml-3 mr-auto sm:ml-0 sm:mr-0`}
+      >
+        <CloseOutlined className="text-sm" />
+        <span className="text-gray-1 text-sm">Clear</span>
+      </Button>
     </div>
   );
 }

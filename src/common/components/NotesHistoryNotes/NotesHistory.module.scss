@@ -44,3 +44,10 @@
 .only-patient > div:first-child > div > span {
   visibility: visible !important;
 }
+.site-collapse-custom-panel {
+  :global {
+    .ant-collapse-header-text {
+      flex: 1;
+    }
+  }
+}

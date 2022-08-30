@@ -2,6 +2,7 @@ import { Button, Card, Space } from "antd";
 import React from "react";
 import upcoming from "../../../../../pages/physician/appointments/upcoming";
 import {
+  Appointment,
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   useGetAllRequestedAppointmentsQuery,
@@ -22,6 +23,7 @@ type Props = {
   specialization: string;
   appointmentDateTime?: AppointmentDateTimeResponse;
   timeZone: string;
+  appointmentDetail?: Appointment | undefined;
 
 };
 
@@ -37,13 +39,14 @@ function AppointmnetSuggestedCard({
   specialization,
   appointmentDateTime,
   timeZone,
-
+  appointmentDetail
 }: Props) {
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
 
-
+  const serviceTypeName =
+    appointmentDetail?.appointmentTypeProposed?.type || serviceType || "-";
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
@@ -53,7 +56,7 @@ function AppointmnetSuggestedCard({
       </span>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Requested appointment type</span>
-      <div className="text-sm text-gray mb-3">{serviceType}</div>
+      <div className="text-sm text-gray mb-3">{serviceTypeName}</div>
       <Space direction="vertical" size="middle" />
       <span className="text-sm ">Requested date</span>
       <h6 className="text-cyan">
