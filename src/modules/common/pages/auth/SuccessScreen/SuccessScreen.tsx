@@ -53,7 +53,7 @@ const SuccessScreen = () => {
             <p className="text-base text-gray text-center px-7">
               {/* {t("we_have_sent_you_an_email_on")} */}
               Le hemos enviado un correo electrónico a
-              <span className="text-secondary">{` ${query?.email} `}.</span>
+              <span className="text-secondary">{` ${query?.email}`}. </span>
               {/* {t("verify_your_account_by_click")} */}
               Haga clic en el enlace de verificación para finalizar el registro
               de su cuenta.
