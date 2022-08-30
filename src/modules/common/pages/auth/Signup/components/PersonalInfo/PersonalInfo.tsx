@@ -496,7 +496,7 @@ export default function PersonalInfo({ onFinish }: props) {
                 //   );
                 return (
                   <Select.Option value={el.id}>
-                    {timezoneLabel(el?.timeZone)}
+                    {el?.timeZoneName}
                   </Select.Option>
                 );
               })

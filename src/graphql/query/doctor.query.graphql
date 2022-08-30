@@ -78,6 +78,7 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       }
       timeZone {
         timeZone
+        timeZoneName
       }
     }
     patient {
@@ -180,6 +181,7 @@ query physicianAppointments(
       doctor {
         timeZone {
           timeZone
+          timeZoneName
           id
         }
       }
@@ -439,6 +441,7 @@ query physicianAppointmentsHistory(
         }
         timeZone {
           timeZone
+          timeZoneName
         }
         doctorQuestionnaire {
           id
