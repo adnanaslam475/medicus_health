@@ -188,7 +188,8 @@ function DoctorCard({
           </div>
           <div className="card-actionBtns lg:w-2/5">
             {items && items?.length > 0 ? (
-              <Link passHref href={`/physician/messages`}>
+              <Button
+               className="w-full mb-3">
                 <a
                   onClick={() => {
                     const query: any = {
@@ -199,16 +200,16 @@ function DoctorCard({
                     };
                     // localStorage.setItem("id", JSON.stringify(query));
                     Router.push({
-                      pathname: "/physician/messages",
+                      pathname: "/patient/messages",
                       query,
                     });
                   }}
-                  className="mb-3 w-full bg-transparent border border-primary rounded-md flex items-center justify-center h-12"
+                  
                 >
                   {t("message_physician")}
                   {/* Message physician */}
                 </a>
-              </Link>
+                </Button>
             ) : (
               <div className="w-full flex justify-center my-3">
                 <Tooltip
