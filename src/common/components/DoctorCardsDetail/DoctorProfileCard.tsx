@@ -293,7 +293,7 @@ function DoctorProfileCard(props: Props) {
           {t("conditions_treated")}
           {/* Conditions treated */}
         </h4>
-        <h6 className="text-secondary">{doctorData?.condition_treated}</h6>
+        <h6 className="text-secondary">{doctorData?.condition_treated?.replaceAll(",", " // ")}</h6>
         <Divider />
 
         <h4 className="font-bold mb-1">{t("certification_and_licensure")}</h4>

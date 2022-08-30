@@ -201,7 +201,11 @@ function DoctorAppointmentInfo({ data }: Props) {
               ? "Appointment date "
               : "Appointment date requested"
           }
-          text={!appointmentDateTime?.startTime ? "--" : `${formatedDueDate} `}
+          text={
+            appointmentDateTime?.startTime && status === "Completed"
+              ? `${formatedDueDate}`
+              : date.formatMMMMDDYYYY(requestedDate, timeZone)
+          }
         />
 
         {/* <LabelWithText
@@ -769,10 +773,12 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }
   const timeZone = getCurrentUserTimeZone();
 
-  let formatedDueDate = date.formatMMMMDDYYYY(
-    String(appointmentDateTime?.startTime),
-    timeZone
-  );
+  // let formatedDueDate = date.formatMMMMDDYYYY(
+  //   String(appointmentDateTime?.startTime),
+  //   timeZone
+  // );
+
+  let formatedDueDate = date.formatMMMMDDYYYY(String(requestedDate), timeZone);
 
   let formatedStartTime = date.formathhmma(
     String(appointmentDateTime?.startTime),

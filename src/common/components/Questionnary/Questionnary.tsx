@@ -4,7 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import HealthQuestionnaryData from "../../constants/healthQuestionnary";
 
-import { Form, Input, Button, Radio, Checkbox, FormInstance } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Radio,
+  Checkbox,
+  FormInstance,
+  Tooltip,
+} from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import _classes from "./Questionnary.module.scss";
 import { parseJson } from "common/utils/helper";
@@ -283,6 +291,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     setShowSurgicalOthers(checkedValue.includes("Otros"));
   }
   // const t = useTranslations("HealthQuestionary");
+
   return (
     <Form
       initialValues={{
@@ -321,20 +330,26 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         </Radio.Group>
       </Form.Item>
       {!!radioDrink && (
-        <Form.Item
-          className="flex-1"
-          name={HealthQuestionnaryData.q1.q.name}
-          label={HealthQuestionnaryData.q1.q.label}
-          rules={[
-            {
-              required: true,
-              message: t("please_fill_field"),
-              // message: "Please fill field",
-            },
-          ]}
+        <Tooltip
+          title={formInstance.getFieldValue(HealthQuestionnaryData.q1.q.name)}
+          placement="bottomRight"
+          overlayStyle={{ maxWidth: "80%" }}
         >
-          <Input readOnly={isDisabled} disabled={disabled} size="large" />
-        </Form.Item>
+          <Form.Item
+            className="flex-1"
+            name={HealthQuestionnaryData.q1.q.name}
+            label={HealthQuestionnaryData.q1.q.label}
+            rules={[
+              {
+                required: true,
+                message: t("please_fill_field"),
+                // message: "Please fill field",
+              },
+            ]}
+          >
+            <Input readOnly={isDisabled} disabled={disabled} size="large" />
+          </Form.Item>
+        </Tooltip>
       )}
       <Form.Item
         name={HealthQuestionnaryData.q2.name}
@@ -360,50 +375,70 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       </Form.Item>
       {!!radioSmoke && (
         <>
-          <Form.Item
-            className="flex-1 text-secondary "
-            name={HealthQuestionnaryData.q2.q.name}
-            label={HealthQuestionnaryData.q2.q.label}
-            rules={[
-              {
-                required: true,
-                message: t("please_fill_field"),
-                // message: "Please fill filed",
-              },
-            ]}
+          <Tooltip
+            title={formInstance.getFieldValue(HealthQuestionnaryData.q2.q.name)}
+            placement="bottomRight"
+            overlayStyle={{ maxWidth: "80%" }}
           >
-            <Input readOnly={isDisabled} disabled={disabled} size="large" />
-          </Form.Item>
-
-          <Form.Item
-            className="flex-1 text-secondary"
-            name={HealthQuestionnaryData.q2.q1.name}
-            label={HealthQuestionnaryData.q2.q1.label}
-            rules={[
-              {
-                required: true,
-                message: t("please_fill_field"),
-                // message: "Please fill filed",
-              },
-            ]}
+            <Form.Item
+              className="flex-1 text-secondary "
+              name={HealthQuestionnaryData.q2.q.name}
+              label={HealthQuestionnaryData.q2.q.label}
+              rules={[
+                {
+                  required: true,
+                  message: t("please_fill_field"),
+                  // message: "Please fill filed",
+                },
+              ]}
+            >
+              <Input readOnly={isDisabled} disabled={disabled} size="large" />
+            </Form.Item>
+          </Tooltip>
+          <Tooltip
+            title={formInstance.getFieldValue(
+              HealthQuestionnaryData.q2.q1.name
+            )}
+            placement="bottomRight"
+            overlayStyle={{ maxWidth: "80%" }}
           >
-            <Input readOnly={isDisabled} disabled={disabled} size="large" />
-          </Form.Item>
-
-          <Form.Item
-            className="flex-1 text-secondary"
-            name={HealthQuestionnaryData.q2.q2.name}
-            label={HealthQuestionnaryData.q2.q2.label}
-            rules={[
-              {
-                required: true,
-                message: t("please_fill_field"),
-                // message: "Please fill filed",
-              },
-            ]}
+            <Form.Item
+              className="flex-1 text-secondary"
+              name={HealthQuestionnaryData.q2.q1.name}
+              label={HealthQuestionnaryData.q2.q1.label}
+              rules={[
+                {
+                  required: true,
+                  message: t("please_fill_field"),
+                  // message: "Please fill filed",
+                },
+              ]}
+            >
+              <Input readOnly={isDisabled} disabled={disabled} size="large" />
+            </Form.Item>
+          </Tooltip>
+          <Tooltip
+            title={formInstance.getFieldValue(
+              HealthQuestionnaryData.q2.q2.name
+            )}
+            placement="bottomRight"
+            overlayStyle={{ maxWidth: "80%" }}
           >
-            <Input readOnly={isDisabled} disabled={disabled} size="large" />
-          </Form.Item>
+            <Form.Item
+              className="flex-1 text-secondary"
+              name={HealthQuestionnaryData.q2.q2.name}
+              label={HealthQuestionnaryData.q2.q2.label}
+              rules={[
+                {
+                  required: true,
+                  message: t("please_fill_field"),
+                  // message: "Please fill filed",
+                },
+              ]}
+            >
+              <Input readOnly={isDisabled} disabled={disabled} size="large" />
+            </Form.Item>
+          </Tooltip>
         </>
       )}
       <Form.Item
@@ -443,12 +478,20 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           />
         </Form.Item>
         {showDrugOthers && (
-          <Form.Item
-            className="flex-1"
-            name={HealthQuestionnaryData.q3.q2.name}
+          <Tooltip
+            title={formInstance.getFieldValue(
+              HealthQuestionnaryData.q3.q2.name
+            )}
+            placement="bottomRight"
+            overlayStyle={{ maxWidth: "80%" }}
           >
-            <Input readOnly={isDisabled} disabled={disabled} size="large" />
-          </Form.Item>
+            <Form.Item
+              className="flex-1"
+              name={HealthQuestionnaryData.q3.q2.name}
+            >
+              <Input readOnly={isDisabled} disabled={disabled} size="large" />
+            </Form.Item>
+          </Tooltip>
         )}
       </>
       <Form.Item
@@ -464,67 +507,99 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         />
       </Form.Item>
       {showSurgicalOthers && (
-        <Form.Item className="flex-1" name={HealthQuestionnaryData.q4.q2.name}>
+        <Tooltip
+          title={formInstance.getFieldValue(HealthQuestionnaryData.q4.q2.name)}
+          placement="bottomRight"
+          overlayStyle={{ maxWidth: "80%" }}
+        >
+          <Form.Item
+            className="flex-1"
+            name={HealthQuestionnaryData.q4.q2.name}
+          >
+            <Input readOnly={isDisabled} disabled={disabled} size="large" />
+          </Form.Item>
+        </Tooltip>
+      )}
+      <Tooltip
+        title={formInstance.getFieldValue(HealthQuestionnaryData.q5.name)}
+        placement="bottomRight"
+        overlayStyle={{ maxWidth: "80%" }}
+      >
+        <Form.Item
+          className="flex-1 text-secondary"
+          name={HealthQuestionnaryData.q5.name}
+          label={HealthQuestionnaryData.q5.label}
+          rules={[
+            {
+              required: true,
+              message: t("please_fill_field"),
+              // message: "Please fill",
+            },
+          ]}
+        >
           <Input readOnly={isDisabled} disabled={disabled} size="large" />
         </Form.Item>
-      )}
-      <Form.Item
-        className="flex-1 text-secondary"
-        name={HealthQuestionnaryData.q5.name}
-        label={HealthQuestionnaryData.q5.label}
-        rules={[
-          {
-            required: true,
-            message: t("please_fill_field"),
-            // message: "Please fill",
-          },
-        ]}
+      </Tooltip>
+      <Tooltip
+        title={formInstance.getFieldValue(HealthQuestionnaryData.q7.name)}
+        placement="bottomRight"
+        overlayStyle={{ maxWidth: "80%" }}
       >
-        <Input readOnly={isDisabled} disabled={disabled} size="large" />
-      </Form.Item>
-      <Form.Item
-        className="flex-1 text-secondary"
-        name={HealthQuestionnaryData.q7.name}
-        label={HealthQuestionnaryData.q7.label}
-        rules={[
-          {
-            required: true,
-            message: t("please_fill_field"),
-            // message: "Please fill",
-          },
-        ]}
+        <Form.Item
+          className="flex-1 text-secondary"
+          name={HealthQuestionnaryData.q7.name}
+          label={HealthQuestionnaryData.q7.label}
+          rules={[
+            {
+              required: true,
+              message: t("please_fill_field"),
+              // message: "Please fill",
+            },
+          ]}
+        >
+          <Input readOnly={isDisabled} disabled={disabled} size="large" />
+        </Form.Item>
+      </Tooltip>
+      <Tooltip
+        title={formInstance.getFieldValue(HealthQuestionnaryData.q6.name)}
+        placement="bottomRight"
+        overlayStyle={{ maxWidth: "80%" }}
       >
-        <Input readOnly={isDisabled} disabled={disabled} size="large" />
-      </Form.Item>
-      <Form.Item
-        className="flex-1 text-secondary"
-        name={HealthQuestionnaryData.q6.name}
-        label={HealthQuestionnaryData.q6.label}
-        rules={[
-          {
-            required: true,
-            message: t("please_fill_field"),
-            // message: "Please fill",
-          },
-        ]}
+        <Form.Item
+          className="flex-1 text-secondary"
+          name={HealthQuestionnaryData.q6.name}
+          label={HealthQuestionnaryData.q6.label}
+          rules={[
+            {
+              required: true,
+              message: t("please_fill_field"),
+              // message: "Please fill",
+            },
+          ]}
+        >
+          <Input readOnly={isDisabled} disabled={disabled} size="large" />
+        </Form.Item>
+      </Tooltip>
+      <Tooltip
+        title={formInstance.getFieldValue(HealthQuestionnaryData.q8.name)}
+        placement="bottomRight"
+        overlayStyle={{ maxWidth: "80%" }}
       >
-        <Input readOnly={isDisabled} disabled={disabled} size="large" />
-      </Form.Item>
-
-      <Form.Item
-        className="flex-1 text-secondary"
-        name={HealthQuestionnaryData.q8.name}
-        label={HealthQuestionnaryData.q8.label}
-        rules={[
-          {
-            required: true,
-            message: t("please_fill_field"),
-            // message: "Please fill",
-          },
-        ]}
-      >
-        <Input readOnly={isDisabled} disabled={disabled} size="large" />
-      </Form.Item>
+        <Form.Item
+          className="flex-1 text-secondary"
+          name={HealthQuestionnaryData.q8.name}
+          label={HealthQuestionnaryData.q8.label}
+          rules={[
+            {
+              required: true,
+              message: t("please_fill_field"),
+              // message: "Please fill",
+            },
+          ]}
+        >
+          <Input readOnly={isDisabled} disabled={disabled} size="large" />
+        </Form.Item>
+      </Tooltip>
     </Form>
   );
 });

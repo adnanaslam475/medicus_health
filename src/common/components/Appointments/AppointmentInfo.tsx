@@ -203,11 +203,8 @@ function AppointmentInfo(props: Props) {
           <LabelValueRow
             label={isPendingAppointment ? "Requested date" : "Appointment date"}
             value={
-              appointment?.appointmentDateTime?.startTime
-                ? date.formatDAYMMDDYY(
-                    String(appointment?.appointmentDateTime?.startTime),
-                    timeZone
-                  )
+              requestedDate
+                ? date.formatDAYMMDDYY(String(requestedDate), timeZone)
                 : "--"
             }
           />
