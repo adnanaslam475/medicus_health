@@ -86,9 +86,16 @@ function NotesListingByAppointments(props: Props) {
             return (
               <Panel
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
-                header={`ID# ${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}`}
+                // header={`ID# ${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}`}
+                header={
+                  <div className=" justify-between flex flex-col sm:flex-row">
+                    <div>ID# {appId}</div>
+                    <div>{formatedDoctorFirstName}</div>
+                    <div>{convertStringDateToUTC(appDate)}</div>
+                  </div>
+                }
                 key={index + 1}
-                extra={convertStringDateToUTC(appDate)}
+                // extra={convertStringDateToUTC(appDate)}
               >
                 {(getRole() === "Admin" ||
                   getRole() === "Doctor" ||
