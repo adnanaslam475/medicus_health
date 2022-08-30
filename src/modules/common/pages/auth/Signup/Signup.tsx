@@ -125,7 +125,7 @@ function Signup() {
           ?.response as GraphQLError;
         let customError = user?.error?.graphQLErrors[0]?.extensions
           ?.exception as GraphQLError;
-        let errorGraphQLMessage = user?.error?.graphQLErrors[0]?.message
+        let errorGraphQLMessage = user?.error?.graphQLErrors[0]?.message;
         let errorMessage =
           graphQLError?.message[0] ||
           customError?.message ||
@@ -158,7 +158,7 @@ function Signup() {
     return (
       <Container className="login-bg w-full">
         <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
-          <div className="w-full sm:w-full md:w-1/2 lg:min-w-[700px] xl:min-w-[700px] px-0">
+          <div className="w-full sm:w-full md:min-w-[700px] lg:w-1/2 xl:min-w-[700px] px-0">
             <div className="card p-4 shadow-lg drop-shadow-2xl rounded-2xl bg-white py-12 px-6">
               <div className="flex justify-center mb-6">
                 <Image
