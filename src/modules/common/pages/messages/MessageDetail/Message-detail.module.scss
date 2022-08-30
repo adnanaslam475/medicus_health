@@ -44,13 +44,3 @@
     color: #969bac !important;
   }
 }
-
-.startingNewChat {
-  @media screen and (min-height: 1021px) {
-    height: 95%;
-  }
-  @media screen and (max-height: 667px) {
-    height: 90%;
-  }
-  height: 93%;
-}
