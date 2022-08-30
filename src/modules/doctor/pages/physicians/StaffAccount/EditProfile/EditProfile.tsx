@@ -762,7 +762,7 @@ function EditProfile({
                   name="timeZone"
                 >
                   <Select
-                    placeholder={timezoneLabel(timeZone?.timeZone)}
+                    placeholder={timeZone?.timeZoneName}
                     disabled={isStaff}
                   ></Select>
                 </Form.Item>

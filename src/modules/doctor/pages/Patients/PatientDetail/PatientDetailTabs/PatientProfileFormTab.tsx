@@ -109,7 +109,7 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             />
             <LabelWithTextDiv
               label="Zona horaria"
-              value={timezoneLabel(timeZone?.timeZone) || ""}
+              value={timeZone?.timeZoneName || ""}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">

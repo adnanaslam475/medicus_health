@@ -104,9 +104,11 @@ export const ViewProfile = React.forwardRef(function Profile({
       // contact_number: contact_number || "",
       state: state_name || "",
       zip_code: zip_code || "",
-      timeZone: timezoneLabel(timeZone?.timeZone),
+      // timeZone: timezoneLabel(timeZone?.timeZone),
+      timeZone: timeZone?.timeZoneName,
     });
   }
+  console.log("timeZone", timeZone);
 
   let lastNameFormated = last_name?.toLocaleLowerCase();
 

@@ -528,7 +528,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     ]}
                   >
                     <Select
-                      placeholder={timezoneLabel(timeZone?.timeZone)}
+                      placeholder={timeZone?.timeZoneName}
                       showSearch
                       filterOption={(input, city: any) =>
                         city.children
@@ -549,7 +549,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         getTimeZones?.data?.getTimeZones?.map((el, i) => {
                           return (
                             <Select.Option value={el.id}>
-                              {timezoneLabel(el?.timeZone)}
+                              {el?.timeZoneName}
                             </Select.Option>
                           );
                         })

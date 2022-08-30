@@ -237,7 +237,7 @@ function PhysicianSearchFilters(props: Props) {
                           alt=""
                         />
                       </span>
-                      Appointment date
+                      <span className="font-normal">Appointment date</span>
                     </div>
                     <div>
                       <CaretDownOutlined />

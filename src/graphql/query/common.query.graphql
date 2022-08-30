@@ -154,10 +154,16 @@ mutation markMessagesAsReadMutation($id: Int!) {
 
 query getTimeZones {
   getTimeZones {
+    # id
+    # timeZone
+    # countryName
+    # gmtOffset
     id
-    timeZone
     countryName
+    countryCode
+    timeZone
     gmtOffset
+    timeZoneName
   }
 }
 

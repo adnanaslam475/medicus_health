@@ -90,7 +90,8 @@ const ResendLink = () => {
                   autoComplete="off"
                 >
                   <Form.Item
-                    label={t("email_address")}
+                    // label={t("email_address")}
+                    label="Coreo electrónico"
                     name="email"
                     className="mb-1"
                     rules={[
@@ -117,7 +118,8 @@ const ResendLink = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      {t("send_resend_link")}
+                      Enviar enlace de reenvío
+                      {/* {t("send_resend_link")} */}
                       {/* Send Resend Link */}
                     </Button>
                   </Form.Item>
@@ -156,7 +158,8 @@ const ResendLink = () => {
                             // loading="eager"
                           />
                           <span className="cursor-pointer text-primary ml-3">
-                            {t("back_to_log_in")}
+                            Atrás
+                            {/* {t("back_to_log_in")} */}
                           </span>
                         </div>
                       </div>
