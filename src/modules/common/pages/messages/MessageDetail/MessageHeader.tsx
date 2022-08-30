@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SearchOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import { Button, Input, notification } from "antd";
 import Image from "next/image";
@@ -13,6 +13,8 @@ import { messageUtils } from "common/utils";
 import { ChatChannels, useDeleteChatChannelMutation } from "generated/graphql";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
+import _debounce from "lodash/debounce";
+import { useDebounce } from "common/utils/helper";
 
 type Props = {
   removeCurrentChat?: boolean | undefined;
@@ -42,6 +44,12 @@ function MessageHeader({
     user?.role as string
   );
   const [open, setOpen] = React.useState<string>("");
+
+  const [searchValue, setSearchValue] = useState("");
+  const debounceInput = useDebounce(searchValue, 500);
+  useEffect(() => {
+    setChatSearch(debounceInput);
+  }, [debounceInput]);
 
   const deleteChatChannelHandler = async () => {
     try {
@@ -97,7 +105,7 @@ function MessageHeader({
             prefix={
               <SearchOutlined className={`{${_classes["search-color"]}`} />
             }
-            onChange={(e) => setChatSearch(e.target.value)}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
 
           {/* <Image
