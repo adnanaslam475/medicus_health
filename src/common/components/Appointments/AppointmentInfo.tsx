@@ -244,7 +244,7 @@ function AppointmentInfo(props: Props) {
           />
 
           <li className="flex border-b border-gray-5 py-3">
-            <div className="w-full text-gray-1 max-w-[200px]">
+            <div className="w-full text-gray-1 max-w-[260px]">
               Appointment status
             </div>
             <div className="w-full text-primary">
@@ -256,6 +256,7 @@ function AppointmentInfo(props: Props) {
               </Tag>
             </div>
           </li>
+
           {appointmentTypeProposed?.type && (
             <LabelValueRow
               label={"Appointment type proposed"}
@@ -267,9 +268,8 @@ function AppointmentInfo(props: Props) {
               label={"Appointment(s) proposed"}
               value={
                 appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
-                  console.log("item is");
                   return (
-                    <li>{`${date.formatDAYMMDDYY(
+                    <div>{`${date.formatDAYMMDDYY(
                       String(item?.date),
                       timeZone
                     )} - ${date.formathhmma(
@@ -278,14 +278,13 @@ function AppointmentInfo(props: Props) {
                     )} - ${date.formathhmma(
                       String(item?.endTime),
                       timeZone
-                    )}`}</li>
+                    )}`}</div>
                   );
                 }) as any
               }
             />
           )}
         </div>
-
 
         <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
           {/* <div className="flex flex-wrap mb-3 justify-center gap-y-2">
@@ -375,7 +374,7 @@ function LabelValueRow({
 }) {
   return (
     <div className="flex border-b border-gray-5 py-3 ">
-      <div className="w-full text-gray-1 max-w-[200px]">{label}</div>
+      <div className="w-full text-gray-1 max-w-[260px]">{label}</div>
       <div className="w-full text-secondary">{value}</div>
     </div>
   );
