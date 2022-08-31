@@ -84,7 +84,7 @@ const InfoMessageBannerReminder = () => {
         width={34}
         src="/assets/icon/warning-small.svg"
       />
-      <div className="flex items-start gap-1">
+      <div className="flex items-start gap-1 flex-wrap">
         <span className="ml-0 min-h-max hidden md:block md:whitespace-nowrap">
           You have an appointment with
           {getRole() === "Doctor" || getRole() === "Staff" ? (

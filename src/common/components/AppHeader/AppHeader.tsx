@@ -124,7 +124,7 @@ const AppHeader = () => {
             onClick={() => Router.push(basePath)}
           />
         </span>
-        <div className="w-full flex px-0 justify-between items-center">
+        <div className="w-full flex px-0 justify-between items-center xs:justify-end">
           <Skeleton loading={fetching} paragraph={{ rows: 0 }} active>
             <div className="hidden md:block w-full ">
               <div className="p-0">
@@ -150,7 +150,9 @@ const AppHeader = () => {
             </div>
           </Skeleton>
 
-          <div className="flex items-center text-right justify-end w-full md:w-1/2">
+          <div
+            className={`${_classes["topBar-avatar"]} flex items-center text-right justify-end w-full md:w-1/2`}
+          >
             <Dropdown
               className="flex items-center"
               overlay={menu}
@@ -194,6 +196,28 @@ const AppHeader = () => {
       ) : (
         <></>
       )} */}
+      <Skeleton loading={fetching} paragraph={{ rows: 0 }} active>
+        <div className="md:hidden sm:block w-full ">
+          <div className="p-0">
+            {getRole() === "Doctor" || getRole() === "Staff" ? (
+              <InfoMessageBannerReminder />
+            ) : null}
+          </div>
+
+          {/* if patient health questionnaire completed than showing appointment banner 
+              otherwise health questionnaire complete banner */}
+
+          {patientHealthHistory?.patientHealthHistory ? (
+            <div className={`${_classes["mobile-banner"]} bg-white p-2 w-full`}>
+              {getRole() === "User" ? <InfoMessageBannerReminder /> : null}
+            </div>
+          ) : !patientHealthHistory?.patientHealthHistory?.id ? (
+            <div className="bg-white xs:flex hidden p-2 w-ful">{getRole() === "User" && <InfoMessage />}</div>
+          ) : (
+            <></>
+          )}
+        </div>
+      </Skeleton>
     </>
   );
 };
