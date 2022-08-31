@@ -203,6 +203,17 @@ function AdminPhysicianList() {
     });
   };
 
+  const footer = (currentPageData: any) => {
+    return getPhysicians?.items?.length ? (
+      <span>
+        Showing {currentPageData?.length} out of {getPhysicians?.items?.length}{" "}
+        entries
+      </span>
+    ) : (
+      ""
+    );
+  };
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -224,6 +235,7 @@ function AdminPhysicianList() {
               columns={columns}
               dataSource={getPhysicians?.items}
               onChange={onChange}
+              footer={footer}
               loading={fetching}
               pagination={{
                 total:

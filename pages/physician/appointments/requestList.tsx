@@ -229,11 +229,15 @@ const PhysicianList = (props: Props) => {
 	const onPaginationChange = (page: number, limit: number) =>
 		setPagination({ page, limit });
 
+		const footer = () => {
+			return <div></div>;
+		  };
 	return (
 		<Table
 			columns={Columns}
 			dataSource={Ddata}
 			onChange={onChange}
+			footer={footer}
 			pagination={{
 				// total: pagination.limit * meta?.totalPages,
 				// current: meta?.currentPage,

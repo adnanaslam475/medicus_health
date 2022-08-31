@@ -151,7 +151,10 @@ function PatientList() {
 			requestPolicy: "network-only",
 		});
 	}
-
+	const footer = () => {
+		return <div></div>;
+	  };
+	
 	return (
 		<AppLayout>
 			<div className="w-full">
@@ -167,6 +170,7 @@ function PatientList() {
 							loading={fetching}
 							onChange={onChange}
 							scroll={{ x: true }}
+							footer={footer}
 							pagination={{
 								total:
 									Number(physiciansPatients?.meta?.totalPages) *

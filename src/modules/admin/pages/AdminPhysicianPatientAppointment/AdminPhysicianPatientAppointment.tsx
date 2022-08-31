@@ -207,6 +207,10 @@ function AdminPhysicianList() {
 		});
 	}
 
+	const footer = () => {
+		return <div></div>;
+	  };
+
 	return (
 		<div className="w-full">
 			<div className="flex justify-between">
@@ -223,6 +227,7 @@ function AdminPhysicianList() {
 						dataSource={appointments?.items}
 						loading={fetching}
 						onChange={onChange}
+						footer={footer}
 						pagination={{
 							total: Number(appointments?.meta?.totalPages) * pagination.limit,
 							current: appointments?.meta?.currentPage,
