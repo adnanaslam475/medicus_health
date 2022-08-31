@@ -111,6 +111,10 @@ function StaffTable({
 		}
 	}
 
+	const footer = () => {
+		return <div></div>;
+	  };
+
 	return (
 		<Table
 			columns={columns}
@@ -118,6 +122,7 @@ function StaffTable({
 			loading={loading}
 			scroll={{ x: true }}
 			onChange={onChange}
+			footer={footer}
 			pagination={{
 				total: meta?.totalPages * pagination.limit,
 				current: meta?.currentPage,

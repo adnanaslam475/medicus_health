@@ -23,6 +23,18 @@ const createAdminUserForm = [
     type: "email",
     required: false,
   },
+  {
+    label: "Password",
+    name: "password",
+    type: "password",
+    required: false,
+  },
+  {
+    label: "Confirm password",
+    name: "confirmPassword",
+    type: "confirmPassword",
+    required: false,
+  },
 ];
 
 
@@ -50,7 +62,14 @@ function CreateAdminUserForm() {
           className={`font-bold`}
           name={value.name}
         >
-          <Input placeholder="" className="" />
+          {value?.name === "password" || value?.name === "confirmPassword" ? (
+            <Input.Password
+              autoComplete="new-password"
+              onPressEnter={(e) => e.preventDefault()}
+            />
+          ) : (
+            <Input/>
+          )}
         </Form.Item>
       ))}
     </>

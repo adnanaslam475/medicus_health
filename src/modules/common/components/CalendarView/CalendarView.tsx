@@ -20,6 +20,7 @@ import { translationJson } from "common/locales/translationJson";
 import { date } from "common/utils";
 import dayjs from "dayjs";
 import { getCurrentUserTimeZone } from "common/utils/date";
+import { Spin } from "antd";
 
 type Props = {
   handleDateChange: (arg: any | undefined) => void;
@@ -64,16 +65,18 @@ function AdminCalender(props: Props) {
 
   const timeZone = getCurrentUserTimeZone();
 
-  const [{ data: physicianData }, executeUsePhysicianAppointmentsQuery] =
-    usePhysicianAppointmentsQuery({
-      variables: {
-        filter: {
-          ...filterValues,
-          status: isPhysicianCalendar ? "Confirmed" : "", // we need to show all appointments for admin and only confirmed for physician
-        },
-        pagination: { page: 1, limit: -1 },
+  const [
+    { data: physicianData, fetching },
+    executeUsePhysicianAppointmentsQuery,
+  ] = usePhysicianAppointmentsQuery({
+    variables: {
+      filter: {
+        ...filterValues,
+        status: isPhysicianCalendar ? "Confirmed" : "", // we need to show all appointments for admin and only confirmed for physician
       },
-    });
+      pagination: { page: 1, limit: -1 },
+    },
+  });
   const { physicianAppointments } = physicianData || {};
 
   const setCalendarData = () => {
@@ -160,98 +163,187 @@ function AdminCalender(props: Props) {
 
   return (
     <div>
-      <div className={`${_Classes["calendarview"]}`}>
-        {isSearch ? (
-          <AdminAppointmentsFilter
-            filterValues={filterValues}
-            onChange={onChangeFilters}
-          />
-        ) : null}
-        <div className={`${_Classes["calendarviewStyle"]}`}>
-          {enableButton ? (
-            getRole() == "Admin" ? (
-              <FullCalendar
-                dayHeaderContent={(args) => {
-                  const weekShortName = new Date(args.date).toLocaleString(
-                    "en-us",
-                    {
-                      weekday: "short",
+      {fetching ? (
+        <div className="lg:w-2/3 sm:w-full flex justify-center py-20 mr-5">
+          <Spin />
+        </div>
+      ) : (
+        <div className={`${_Classes["calendarview"]}`}>
+          {isSearch ? (
+            <AdminAppointmentsFilter
+              filterValues={filterValues}
+              onChange={onChangeFilters}
+            />
+          ) : null}
+          <div className={`${_Classes["calendarviewStyle"]}`}>
+            {enableButton ? (
+              getRole() == "Admin" ? (
+                <FullCalendar
+                  dayHeaderContent={(args) => {
+                    const weekShortName = new Date(args.date).toLocaleString(
+                      "en-us",
+                      {
+                        weekday: "short",
+                      }
+                    );
+                    const currentDate = new Date(args.date).getDate();
+                    return (
+                      <div className="flex-col">
+                        <div className="text-black">{currentDate}</div>
+                        <div className="text-black">{weekShortName}</div>
+                      </div>
+                    );
+                  }}
+                  initialView="timeGridWeek"
+                  timeZone="UTC"
+                  headerToolbar={{
+                    left: "customText today customPrev customNext title",
+                    center: "",
+                    right: "listview search custom1",
+                  }}
+                  customButtons={{
+                    customNext: {
+                      icon: "chevron-right",
+                      click: () => {
+                        handleDateChange("next");
+                      },
+                    },
+                    customPrev: {
+                      icon: "chevron-left",
+                      click: () => {
+                        handleDateChange("prev");
+                      },
+                    },
+                    customText: {
+                      text: "Appointments",
+                    },
+                    custom1: {
+                      text: "Request an appointment",
+                      click: showModal,
+                    },
+                    listview: {
+                      text: "List view",
+                      click: redirectToListing,
+                    },
+                    search: {
+                      text: "Search",
+                      click: () => {
+                        handleSearch();
+                      },
+                    },
+                  }}
+                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                  ref={calendarComponentRef}
+                  events={
+                    filterCalender?.calenderEvents || calender?.calenderEvents
+                  }
+                  eventClick={handleDateClick}
+                  eventTextColor="black"
+                  displayEventTime={false}
+                  eventClassNames={(arg) => {
+                    if (arg.event.extendedProps?.status === "Requested") {
+                      return [`${_Classes["clsRequested"]}`];
                     }
-                  );
-                  const currentDate = new Date(args.date).getDate();
-                  return (
-                    <div className="flex-col">
-                      <div className="text-black">{currentDate}</div>
-                      <div className="text-black">{weekShortName}</div>
-                    </div>
-                  );
-                }}
-                initialView="timeGridWeek"
-                timeZone="UTC"
-                headerToolbar={{
-                  left: "customText today customPrev customNext title",
-                  center: "",
-                  right: "listview search custom1",
-                }}
-                customButtons={{
-                  customNext: {
-                    icon: "chevron-right",
-                    click: () => {
-                      handleDateChange("next");
+                    if (arg.event.extendedProps?.status === "Confirmed") {
+                      return [`${_Classes["clsConfirmed"]}`];
+                    }
+                    if (arg.event.extendedProps?.status === "Completed") {
+                      return [`${_Classes["clsCompleted"]}`];
+                    }
+                    if (arg.event.extendedProps?.status === "Canceled") {
+                      return [`${_Classes["clsCanceled"]}`];
+                    }
+                    if (arg.event.extendedProps?.status === "Proposed") {
+                      return [`${_Classes["clsUpcoming"]}`];
+                    } else {
+                      return [`${_Classes["clsUpcoming"]}`];
+                    }
+                  }}
+                />
+              ) : (
+                <FullCalendar
+                  dayHeaderContent={(args) => {
+                    const weekShortName = new Date(args.date).toLocaleString(
+                      "en-us",
+                      {
+                        weekday: "short",
+                      }
+                    );
+                    const currentDate = new Date(args.date).getDate();
+                    return (
+                      <div className="flex-col">
+                        <div className="text-black">{currentDate}</div>
+                        <div className="text-black">{weekShortName}</div>
+                      </div>
+                    );
+                  }}
+                  initialView="timeGridWeek"
+                  timeZone="UTC"
+                  headerToolbar={{
+                    left: "customText today customPrev customNext title",
+                    center: "",
+                    right: "listview search custom1",
+                  }}
+                  customButtons={{
+                    customNext: {
+                      icon: "chevron-right",
+                      click: () => {
+                        handleDateChange("next");
+                      },
                     },
-                  },
-                  customPrev: {
-                    icon: "chevron-left",
-                    click: () => {
-                      handleDateChange("prev");
+                    customPrev: {
+                      icon: "chevron-left",
+                      click: () => {
+                        handleDateChange("prev");
+                      },
                     },
-                  },
-                  customText: {
-                    text: "Appointments",
-                  },
-                  custom1: {
-                    text: "Request an appointment",
-                    click: showModal,
-                  },
-                  listview: {
-                    text: "List view",
-                    click: redirectToListing,
-                  },
-                  search: {
-                    text: "Search",
-                    click: () => {
-                      handleSearch();
+                    customText: {
+                      text: "Upcomming appointments",
                     },
-                  },
-                }}
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                ref={calendarComponentRef}
-                events={
-                  filterCalender?.calenderEvents || calender?.calenderEvents
-                }
-                eventClick={handleDateClick}
-                eventTextColor="black"
-                displayEventTime={false}
-                eventClassNames={(arg) => {
-                  if (arg.event.extendedProps?.status === "Requested") {
-                    return [`${_Classes["clsRequested"]}`];
+                    custom1: {
+                      text: "Request an appointment",
+                      click: showModal,
+                    },
+                    listview: {
+                      text: "List view",
+                      click: redirectToListing,
+                    },
+                    search: {
+                      text: "Search",
+                      click: () => {
+                        handleSearch();
+                      },
+                    },
+                  }}
+                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                  ref={calendarComponentRef}
+                  events={
+                    filterCalender?.calenderEvents || calender?.calenderEvents
                   }
-                  if (arg.event.extendedProps?.status === "Confirmed") {
-                    return [`${_Classes["clsConfirmed"]}`];
-                  }
-                  if (arg.event.extendedProps?.status === "Completed") {
-                    return [`${_Classes["clsCompleted"]}`];
-                  }
-                  if (arg.event.extendedProps?.status === "Canceled") {
-                    return [`${_Classes["clsCanceled"]}`];
-                  }
-                  if (arg.event.extendedProps?.status === "Proposed") {
-                    return [`${_Classes["clsUpcoming"]}`];
-                  } else {
-                    return [`${_Classes["clsUpcoming"]}`];
-                  }
-                }}
-              />
+                  eventClick={handleDateClick}
+                  eventTextColor="black"
+                  displayEventTime={false}
+                  eventClassNames={(arg) => {
+                    if (arg.event.extendedProps?.status === "Requested") {
+                      return [`${_Classes["clsRequested"]}`];
+                    }
+                    if (arg.event.extendedProps?.status === "Confirmed") {
+                      return [`${_Classes["clsConfirmed"]}`];
+                    }
+                    if (arg.event.extendedProps?.status === "Completed") {
+                      return [`${_Classes["clsCompleted"]}`];
+                    }
+                    if (arg.event.extendedProps?.status === "Canceled") {
+                      return [`${_Classes["clsCanceled"]}`];
+                    }
+                    if (arg.event.extendedProps?.status === "Proposed") {
+                      return [`${_Classes["clsUpcoming"]}`];
+                    } else {
+                      return [`${_Classes["clsUpcoming"]}`];
+                    }
+                  }}
+                />
+              )
             ) : (
               <FullCalendar
                 dayHeaderContent={(args) => {
@@ -274,7 +366,7 @@ function AdminCalender(props: Props) {
                 headerToolbar={{
                   left: "customText today customPrev customNext title",
                   center: "",
-                  right: "listview search custom1",
+                  right: "listview search",
                 }}
                 customButtons={{
                   customNext: {
@@ -290,7 +382,7 @@ function AdminCalender(props: Props) {
                     },
                   },
                   customText: {
-                    text: "Upcomming appointments",
+                    text: "Upcoming appointments",
                   },
                   custom1: {
                     text: "Request an appointment",
@@ -326,7 +418,7 @@ function AdminCalender(props: Props) {
                     return [`${_Classes["clsCompleted"]}`];
                   }
                   if (arg.event.extendedProps?.status === "Canceled") {
-                    return [`${_Classes["clsCanceled"]}`];
+                    return [`${_Classes["clsCancelled"]}`];
                   }
                   if (arg.event.extendedProps?.status === "Proposed") {
                     return [`${_Classes["clsUpcoming"]}`];
@@ -335,93 +427,10 @@ function AdminCalender(props: Props) {
                   }
                 }}
               />
-            )
-          ) : (
-            <FullCalendar
-              dayHeaderContent={(args) => {
-                const weekShortName = new Date(args.date).toLocaleString(
-                  "en-us",
-                  {
-                    weekday: "short",
-                  }
-                );
-                const currentDate = new Date(args.date).getDate();
-                return (
-                  <div className="flex-col">
-                    <div className="text-black">{currentDate}</div>
-                    <div className="text-black">{weekShortName}</div>
-                  </div>
-                );
-              }}
-              initialView="timeGridWeek"
-              timeZone="UTC"
-              headerToolbar={{
-                left: "customText today customPrev customNext title",
-                center: "",
-                right: "listview search",
-              }}
-              customButtons={{
-                customNext: {
-                  icon: "chevron-right",
-                  click: () => {
-                    handleDateChange("next");
-                  },
-                },
-                customPrev: {
-                  icon: "chevron-left",
-                  click: () => {
-                    handleDateChange("prev");
-                  },
-                },
-                customText: {
-                  text: "Upcoming appointments",
-                },
-                custom1: {
-                  text: "Request an appointment",
-                  click: showModal,
-                },
-                listview: {
-                  text: "List view",
-                  click: redirectToListing,
-                },
-                search: {
-                  text: "Search",
-                  click: () => {
-                    handleSearch();
-                  },
-                },
-              }}
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              ref={calendarComponentRef}
-              events={
-                filterCalender?.calenderEvents || calender?.calenderEvents
-              }
-              eventClick={handleDateClick}
-              eventTextColor="black"
-              displayEventTime={false}
-              eventClassNames={(arg) => {
-                if (arg.event.extendedProps?.status === "Requested") {
-                  return [`${_Classes["clsRequested"]}`];
-                }
-                if (arg.event.extendedProps?.status === "Confirmed") {
-                  return [`${_Classes["clsConfirmed"]}`];
-                }
-                if (arg.event.extendedProps?.status === "Completed") {
-                  return [`${_Classes["clsCompleted"]}`];
-                }
-                if (arg.event.extendedProps?.status === "Canceled") {
-                  return [`${_Classes["clsCancelled"]}`];
-                }
-                if (arg.event.extendedProps?.status === "Proposed") {
-                  return [`${_Classes["clsUpcoming"]}`];
-                } else {
-                  return [`${_Classes["clsUpcoming"]}`];
-                }
-              }}
-            />
-          )}
+            )}
+          </div>
         </div>
-      </div>
+      )}
       <BookAppointmentJourney
         visible={isModalVisible}
         onOk={handleOk}

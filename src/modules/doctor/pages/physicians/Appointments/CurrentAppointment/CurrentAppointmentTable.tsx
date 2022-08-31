@@ -158,6 +158,9 @@ function CurrentAppointmentTable({
   onPaginationChange,
   onChange,
 }: Props) {
+  const footer = () => {
+    return <div></div>;
+  };
   return (
     <Table
       columns={columns}
@@ -165,6 +168,7 @@ function CurrentAppointmentTable({
       loading={loading}
       onChange={onChange}
       scroll={{ x: true }}
+      footer={footer}
       pagination={{
         total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,

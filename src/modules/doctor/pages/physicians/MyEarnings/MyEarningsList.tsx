@@ -286,7 +286,9 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
-
+    const footer = () => {
+      return <div></div>;
+    };
   return (
     <AppLayout>
       <div className="w-full">
@@ -335,6 +337,7 @@ const PhysicianMyEarningsList = (props: Props) => {
           scroll={{ x: true }}
           onChange={onChange}
           loading={fetching}
+          footer={footer}
           pagination={{
             total:
               Number(getTransactionFilter?.meta?.totalPages) * pagination.limit,

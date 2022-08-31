@@ -197,7 +197,9 @@ function AdminPatientAppointmentList() {
     //   requestPolicy: "network-only",
     // });
   }
-
+  const footer = () => {
+    return <div></div>;
+  };
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -219,6 +221,7 @@ function AdminPatientAppointmentList() {
             columns={columns}
             dataSource={appointments?.items}
             onChange={onChange}
+            footer={footer}
             pagination={{
               total: Number(appointments?.meta?.totalPages) * pagination.limit,
               current: appointments?.meta?.currentPage,

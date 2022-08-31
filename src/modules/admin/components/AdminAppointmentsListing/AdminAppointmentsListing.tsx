@@ -260,6 +260,10 @@ function AdminAppointmentsListing({}: Props) {
     });
   };
 
+  const footer = () => {
+    return <div></div>;
+  };
+
   return (
     <>
       <AppLayout>
@@ -307,6 +311,7 @@ function AdminAppointmentsListing({}: Props) {
                 onChange={onChange}
                 scroll={{ x: true }}
                 loading={fetching}
+                footer={footer}
                 pagination={{
                   total: pagination.limit * Number(meta?.totalPages),
                   current: meta?.currentPage,

@@ -100,11 +100,16 @@ function PatientAppointmentHistoryTable(props: Props) {
   // };
   // const { data } = props || {};
 
+  const footer = () => {
+    return <div></div>;
+  };
+  
   return (
     <Table
       columns={historyColumns}
       dataSource={data}
       onChange={onChange}
+      footer={footer}
       scroll={{ x: true }}
       pagination={{
         total: meta?.totalPages * pagination.limit,

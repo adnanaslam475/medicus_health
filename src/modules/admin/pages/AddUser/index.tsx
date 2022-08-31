@@ -50,32 +50,30 @@ function AdminAddUser({}: Props) {
 
   return (
     <AppLayout>
-      <div className="w-full max-w-[600px]">
-        <div className="flex flex-col">
-          <h2 className="mb-4">Add user</h2>
-          <Form
-            onFinish={onFinish}
-            layout="vertical"
-            className="flex flex-col "
-          >
-            <div className="md:grid md:grid-cols-2 md:gap-x-4">
-              <AddAdminUserFormItems />
+      <div className="relative h-[85vh]">
+        <Form onFinish={onFinish} layout="vertical" className="flex flex-col ">
+          <div className="w-full max-w-[600px]">
+            <div className="flex flex-col">
+              <h2 className="mb-4">Add user</h2>
+              <div className="md:grid md:grid-cols-2 md:gap-x-4">
+                <AddAdminUserFormItems />
+              </div>
             </div>
-            <div className="flex justify-end pb-0">
-              <Form.Item noStyle>
-                <Button
-                  loading={fetching}
-                  disabled={fetching}
-                  type="primary"
-                  htmlType="submit"
-                  className="ml-4 py-2"
-                >
-                  Add user
-                </Button>
-              </Form.Item>
-            </div>
-          </Form>
-        </div>
+          </div>
+          <div className="flex justify-end pb-0 absolute bottom-0 right-0">
+            <Form.Item noStyle>
+              <Button
+                loading={fetching}
+                disabled={fetching}
+                type="primary"
+                htmlType="submit"
+                className="ml-4 py-2"
+              >
+                Add user
+              </Button>
+            </Form.Item>
+          </div>
+        </Form>
       </div>
     </AppLayout>
   );
