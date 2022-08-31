@@ -16,10 +16,16 @@ import { timezoneLabel } from "utils/helper";
 type Props = {
   userDetail?: User;
   loggedinDoctorDetails?: User;
+  doctorId?: number | undefined;
 };
 
-function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
+function PatientProfileFormTab({
+  userDetail,
+  loggedinDoctorDetails,
+  doctorId,
+}: Props) {
   const {
+    id,
     first_name,
     last_name,
     gender,
@@ -68,9 +74,9 @@ function PatientProfileFormTab({ userDetail, loggedinDoctorDetails }: Props) {
             doctorId={
               getUserData().user?.role === "Doctor"
                 ? getUserData().user?.id
-                : ""
+                : doctorId
             }
-            patientID={patientProfile?.userId}
+            patientID={id}
           />
         </div>
         <div className="max-w-[800px]">

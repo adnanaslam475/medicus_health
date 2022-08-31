@@ -115,6 +115,7 @@ function PatientDetail() {
             <PatientProfileFormTab
               userDetail={userData?.user as User}
               loggedinDoctorDetails={user}
+              doctorId={user?.doctorId as number}
             />
           </TabPane>
 
