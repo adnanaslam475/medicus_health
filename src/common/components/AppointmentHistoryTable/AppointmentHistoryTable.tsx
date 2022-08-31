@@ -165,12 +165,16 @@ const AppointmentHistoryTable = (props: Props) => {
   const { data, loading, meta, onPaginationChange, pagination, onChange } =
     props || {};
 
+  const footer = () => {
+    return <div></div>;
+  };
   return (
     <Table
       columns={historyColumns}
       dataSource={data}
       loading={loading}
       onChange={onChange}
+      footer={footer}
       scroll={{ x: true }}
       pagination={{
         total: pagination.limit * meta?.totalPages,

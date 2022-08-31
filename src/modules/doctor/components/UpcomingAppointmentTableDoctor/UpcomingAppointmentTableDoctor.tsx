@@ -158,14 +158,8 @@ function UpcomingAppointmentTableDoctor({
   pagination,
   onChange,
 }: Props) {
-  const footer = (currentPageData: any) => {
-    return dataSource?.length ? (
-      <span>
-        Showing {currentPageData?.length} out of {dataSource?.length} entries
-      </span>
-    ) : (
-      ""
-    );
+  const footer = () => {
+    return <div></div>;
   };
 
   return (
@@ -177,6 +171,7 @@ function UpcomingAppointmentTableDoctor({
       loading={loading}
       scroll={{ x: true }}
       onChange={onChange}
+      footer={footer}
       pagination={{
         total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,

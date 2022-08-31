@@ -555,3 +555,32 @@ input[type="number"]::-webkit-outer-spin-button {
 .ant-select-item-option-content {
   white-space: inherit !important;
 }
+
+
+.ant-pagination,
+.ant-table-pagination,
+.ant-table-pagination-right {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding-right: 8px !important;
+}
+
+.ant-table-footer {
+  align-items: center !important;
+  display: flex !important;
+  height: 80px;
+}
+@media screen and (max-width: 1065px) {
+  .ant-table-footer {
+    justify-content: center !important;
+  }
+  .ant-pagination,
+  .ant-table-pagination,
+  .ant-table-pagination-right {
+    position: relative !important;
+  }
+}
