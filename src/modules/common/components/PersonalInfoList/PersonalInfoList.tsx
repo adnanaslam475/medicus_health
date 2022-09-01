@@ -123,7 +123,9 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
             Dirección de correo electrónico
           </div>
-          <div className="sm:w-1/2 text-secondary md:pl-4">{email}</div>
+          <div className="sm:w-1/2 text-secondary md:pl-4 break-normal break-all">
+            {email}
+          </div>
         </div>
       </li>
 
