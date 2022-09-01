@@ -182,14 +182,15 @@ const RequestedList = (props: Props) => {
     onChange,
   } = props || {};
   const footer = (currentPageData: any) => {
-    return appointmentsData?.length ? (
-      <span>
-        Showing {currentPageData?.length} out of {appointmentsData?.length}{" "}
-        entries
-      </span>
-    ) : (
-      ""
-    );
+    return<div></div>
+    // return appointmentsData?.length ? (
+    //   <span>
+    //     Showing {currentPageData?.length} out of {appointmentsData?.length}{" "}
+    //     entries
+    //   </span>
+    // ) : (
+    //   ""
+    // );
   };
 
   return (
