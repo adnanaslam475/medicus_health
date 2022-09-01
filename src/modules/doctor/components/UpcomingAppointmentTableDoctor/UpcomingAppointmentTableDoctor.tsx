@@ -57,7 +57,7 @@ const columns = [
   {
     title: "Appointment date",
     // dataIndex: "appointmentDateTime",
-    // key: "requestedDate",
+    key: "requestedDate",
     sorter: true,
     render: (value: any) => {
       let formatedDueDate = `${
