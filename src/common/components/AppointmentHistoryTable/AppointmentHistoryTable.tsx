@@ -101,7 +101,7 @@ const historyColumns = [
   {
     title: "Total amount",
     dataIndex: "transaction",
-    key: "transaction",
+    key: "amountReceived",
     sorter: true,
     render: (transaction: Transaction) => {
       return <div>{`$${transaction?.amountReceived || "-"}`}</div>;

@@ -174,7 +174,11 @@ function AccountTabs() {
                 <Spin />
               </div>
             ) : (
-              <TransactionHistory data={transactions?.items as Transaction[]} />
+              <TransactionHistory
+                data={transactions?.items as Transaction[]}
+                setSorting={setSorting}
+                meta={transactions?.meta}
+              />
             )}
           </Tabs.TabPane>
           <Tabs.TabPane
