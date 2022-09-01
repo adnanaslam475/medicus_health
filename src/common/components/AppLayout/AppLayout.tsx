@@ -13,7 +13,7 @@ function AppLayout({ children }: props) {
   return (
     <Layout className="h-full">
       <AdminSideMenu />
-      <Layout className="ml-0 md:ml-0 lg:ml-72 xl:ml-62 2xl:ml-58">
+      <Layout className="ml-0 md:ml-0 lg:ml-72 xl:ml-62 2xl:ml-58 sidebar-margin">
         <Affix>
           <AppHeader />
         </Affix>

@@ -5,6 +5,16 @@
   position: fixed;
   left: 0;
   background-color: #f6f8fa;
+
+  @media screen and (min-width: 1440px) and (max-width: 1596px) {
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) {
+        max-width: 22rem;
+        min-width: 22rem;
+        width: 22rem;
+      }
+    }
+  }
   .admin-side-menu-header {
     background-color: #f6f8fa !important;
     padding: 3rem 0;
