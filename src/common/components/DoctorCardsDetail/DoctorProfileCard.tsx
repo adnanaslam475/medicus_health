@@ -200,7 +200,7 @@ function DoctorProfileCard(props: Props) {
                 </div>
               </Collapse.Panel>
             </Collapse>
-            <div className="flex-col md:flex-row flex mt-3">
+            <div className="flex-col md:flex-col lg:flex-row flex mt-3">
               <Tooltip
                 title={
                   patientHealthHistory?.patientHealthHistory ? (
@@ -219,6 +219,7 @@ function DoctorProfileCard(props: Props) {
                   disabled={
                     patientHealthHistory?.patientHealthHistory ? false : true
                   }
+                  className="md:mb-3 sm:mb-0"
                 >
                   <Image
                     priority={true}
@@ -233,9 +234,9 @@ function DoctorProfileCard(props: Props) {
                   </span>
                 </Button>
               </Tooltip>
-              <div className="flex-none sm:flex">
+              <div className="flex-none sm:flex md:flex">
                 <Button
-                  className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-3"
+                  className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-0 lg:ml-3"
                   onClick={() => {
                     const query = {
                       chat: "admin",
@@ -293,7 +294,9 @@ function DoctorProfileCard(props: Props) {
           {t("conditions_treated")}
           {/* Conditions treated */}
         </h4>
-        <h6 className="text-secondary">{doctorData?.condition_treated?.replaceAll(",", " // ")}</h6>
+        <h6 className="text-secondary">
+          {doctorData?.condition_treated?.replaceAll(",", " // ")}
+        </h6>
         <Divider />
 
         <h4 className="font-bold mb-1">{t("certification_and_licensure")}</h4>
