@@ -6,9 +6,9 @@ type Props = {
 function MyEarningsStats(props: Props) {
   const { label, text } = props || {};
   return (
-    <div >
+    <div className="min-w-[50px] w-[125px]">
       <p className="text-lg font-medium pb-0 mb-0">{text}</p>
-      <p className="text-sm">{label}</p>
+      <p className="text-sm whitespace-normal">{label}</p>
     </div>
   );
 }
