@@ -113,11 +113,10 @@ type Props = {
   data: Transaction[] | undefined;
   setSorting?: Dispatch<SetStateAction<any>> | undefined;
   meta: any;
-
 };
 
 const TransactionHistory = (props: Props) => {
-  const { data, setSorting,meta } = props || {};
+  const { data, setSorting, meta } = props || {};
 
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
@@ -156,7 +155,7 @@ const TransactionHistory = (props: Props) => {
           : "",
       });
   };
-   const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
 
   return (
@@ -165,6 +164,7 @@ const TransactionHistory = (props: Props) => {
       dataSource={data}
       onChange={onChange}
       scroll={{ x: true }}
+      footer={() => <div></div>}
       // pagination={{
       //   total: pagination.limit * meta?.totalPages,
       //   current: meta?.currentPage,
