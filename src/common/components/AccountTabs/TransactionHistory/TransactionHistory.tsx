@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { EyeFilled } from "@ant-design/icons";
 import { Table, Input, Button, Space, Tag } from "antd";
 import { date } from "../../../utils";
@@ -9,28 +9,20 @@ import {
 } from "../../../../generated/graphql";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
-// import { setTimeZone } from "common/utils/date";
-// setTimeZone("asia/karachi");
 
 const transactionsColumns = [
   {
     title: "ID#",
     dataIndex: "id",
     key: "id",
-    sorter: {
-      compare: (a: any, b: any) => a.id - b.id,
-      multiple: 3,
-    },
+    sorter: true,
   },
 
   {
     title: "Physician name",
     dataIndex: "appointment",
-    key: "appointment",
-    sorter: {
-      compare: (a: any, b: any) => a.appointment - b.appointment,
-      multiple: 3,
-    },
+    key: "first_name",
+    sorter: true,
     render: (value: Appointment) => {
       return (
         <div className="someclass">{`${value?.doctor?.first_name} ${value?.doctor?.last_name}`}</div>
@@ -40,11 +32,8 @@ const transactionsColumns = [
   {
     title: "Appointment type", //change name to appointment type from appointment type
     dataIndex: "appointment",
-    key: "appointment",
-    sorter: {
-      compare: (a: any, b: any) => a.service - b.service,
-      multiple: 3,
-    },
+    key: "name",
+    sorter: true,
     render: (value: Appointment) => {
       return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
     },
@@ -52,11 +41,12 @@ const transactionsColumns = [
   {
     title: "Appointment time",
     dataIndex: "appointment",
-    key: "appointment",
-    sorter: {
-      compare: (a: any, b: any) => a.timeslot - b.timeslot,
-      multiple: 3,
-    },
+    key: "startTime",
+    sorter: true,
+    // sorter: {
+    //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
+    //   multiple: 3,
+    // },
     render: (value: Appointment) => {
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
       return (
@@ -69,11 +59,8 @@ const transactionsColumns = [
   {
     title: "Appointment date",
     dataIndex: "appointment",
-    key: "appointment",
-    sorter: {
-      compare: (a: any, b: any) => a.requestedDate - b.requestedDate,
-      multiple: 3,
-    },
+    key: "startTime",
+    sorter: true,
     render: (value: Appointment) => {
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
       return (
@@ -88,10 +75,7 @@ const transactionsColumns = [
     title: "Total amount",
     dataIndex: "amountReceived",
     key: "amountReceived",
-    sorter: {
-      compare: (a: any, b: any) => a.totalamount - b.totalamount,
-      multiple: 3,
-    },
+    sorter: true,
     render: (value: number) => {
       return <div className="someclass">{`$${value}`}</div>;
     },
@@ -100,10 +84,7 @@ const transactionsColumns = [
     title: "Transaction date",
     dataIndex: "createdAt",
     key: "createdAt",
-    sorter: {
-      compare: (a: any, b: any) => a.createdAt - b.createdAt,
-      multiple: 3,
-    },
+    sorter: true,
     render: (value: string) => {
       return (
         <div className="someclass">{`${
@@ -116,10 +97,7 @@ const transactionsColumns = [
     title: "Payment status",
     dataIndex: "status",
     key: "status",
-    sorter: {
-      compare: (a: any, b: any) => a.status - b.status,
-      multiple: 3,
-    },
+    sorter: true,
     render: (value: string) => {
       if (value === "succeeded") value = "Paid";
       return (
@@ -133,10 +111,13 @@ const transactionsColumns = [
 
 type Props = {
   data: Transaction[] | undefined;
+  setSorting?: Dispatch<SetStateAction<any>> | undefined;
+  meta: any;
+
 };
 
 const TransactionHistory = (props: Props) => {
-  const { data } = props || {};
+  const { data, setSorting,meta } = props || {};
 
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
@@ -147,22 +128,36 @@ const TransactionHistory = (props: Props) => {
     limit: 10,
   });
 
-  const [sorting, setSorting] = React.useState({
-    column: "",
-    order: "",
-  });
+  // const onChange = (...params: any) => {
+  //   const [, , sorter] = params;
+  //   setSorting({
+  //     order: sorter.order?.replace("end", "") || "",
+  //     column: `user.${sorter.field}` || "",
+  //   });
+  // };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    setSorting({
-      order: sorter.order?.replace("end", "") || "",
-      column: `user.${sorter.field}` || "",
-    });
+    setSorting &&
+      setSorting({
+        order: sorter.order?.replace("end", "") || "",
+        column: sorter.order
+          ? `${
+              (sorter.field === "transaction" && "transaction") ||
+              (/(status|charges|requestedDate|createdAt|id)/.test(
+                sorter.columnKey
+              ) &&
+                "appointment") ||
+              (sorter.columnKey === "name" && "appointment_service_type") ||
+              (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+              (sorter.columnKey === "amountReceived" && "transaction") ||
+              "user"
+            }.${sorter.columnKey || sorter.field}`
+          : "",
+      });
   };
-
-  // function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-  //   console.log("params", pagination, filters, sorter, extra);
-  // }
+   const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
 
   return (
     <Table
@@ -170,6 +165,14 @@ const TransactionHistory = (props: Props) => {
       dataSource={data}
       onChange={onChange}
       scroll={{ x: true }}
+      // pagination={{
+      //   total: pagination.limit * meta?.totalPages,
+      //   current: meta?.currentPage,
+      //   defaultPageSize: 10,
+      //   onChange: onPaginationChange,
+      //   pageSizeOptions: ["10", "20", "30", "40"],
+      //   showSizeChanger: true,
+      // }}
     />
   );
 };
