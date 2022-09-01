@@ -84,8 +84,8 @@ const InfoMessageBannerReminder = () => {
         width={34}
         src="/assets/icon/warning-small.svg"
       />
-      <div className="flex items-start gap-1">
-        <span className="ml-0 min-h-max hidden md:block md:whitespace-nowrap">
+      <div className="flex items-start gap-1 flex-wrap text-xs">
+        <span className="ml-0 min-h-max md:block md:whitespace-nowrap text-xs">
           You have an appointment with
           {getRole() === "Doctor" || getRole() === "Staff" ? (
             // <span> {`${patient_first_name} ${patient_last_name}`} </span>
@@ -94,18 +94,23 @@ const InfoMessageBannerReminder = () => {
           {getRole() === "User" && (
             <span> {`${formatedDoctorFirstName} ${doctor_last_name}`}</span>
           )}
-          at
+          <span className="mx-1">
+            at{" "}
+            <span className="ml-0 min-w-[48px]">
+              {`${date?.formathhmma(selectedTime?.startTime, timeZone)}`}
+            </span>
+            <span className="mx-1">
+              on {date?.formatDAYMMDD(selectedTime?.startTime, timeZone)}
+            </span>
+          </span>
         </span>
         {/* <span>{date?.formatDAYMMDDYY(selectedTime?.startTime)}</span> */}
-        <span className="ml-0 min-w-[48px]">
-          {/* {`${date?.formathhmma(selectedTime?.startTime)} -  ${date?.formathhmma(
-          selectedTime?.endTime
-        )}`} */}
+        {/* <span className="ml-0 min-w-[48px]">          
           {`${date?.formathhmma(selectedTime?.startTime, timeZone)}`}
         </span>
         <span className="">
           on {date?.formatDAYMMDD(selectedTime?.startTime, timeZone)}
-        </span>
+        </span> */}
       </div>
 
       {isAppoinmetnStartTime && (
