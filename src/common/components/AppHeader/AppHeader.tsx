@@ -212,7 +212,9 @@ const AppHeader = () => {
               {getRole() === "User" ? <InfoMessageBannerReminder /> : null}
             </div>
           ) : !patientHealthHistory?.patientHealthHistory?.id ? (
-            <div className="bg-white xs:flex hidden p-2 w-ful">{getRole() === "User" && <InfoMessage />}</div>
+            <div className="bg-white xs:flex hidden p-2 w-full">
+              {getRole() === "User" && <InfoMessage />}
+            </div>
           ) : (
             <></>
           )}

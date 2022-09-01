@@ -119,7 +119,7 @@ export const DOCTOR_ROUTES: routes = [
   },
   // { name: "My Earnings", route: "/physician/myEarnings" },
   { name: "Patients", route: "/physician/patients", id: "3" },
-  { name: "Staff", route: "/physician/staff", id: "4" },
+  { name: "Staffs", route: "/physician/staff", id: "4" },
   { name: "Messages", route: "/physician/messages", id: "5" },
   { name: "Account", route: "/physician/account", id: "6" },
 ];
