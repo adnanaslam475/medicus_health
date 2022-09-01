@@ -155,13 +155,14 @@ function AdminPatientsList() {
   };
 
   const footer = (currentPageData: any) => {
-    return getPatients?.items?.length ? (
-      <span>
-        Showing {currentPageData?.length} out of {getPatients?.items?.length} entries
-      </span>
-    ) : (
-      ""
-    );
+    return <div></div>
+    // return getPatients?.items?.length ? (
+    //   <span>
+    //     Showing {currentPageData?.length} out of {getPatients?.items?.length} entries
+    //   </span>
+    // ) : (
+    //   ""
+    // );
   };
 
   return (

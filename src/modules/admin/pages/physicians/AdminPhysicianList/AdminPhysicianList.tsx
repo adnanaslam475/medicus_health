@@ -204,14 +204,15 @@ function AdminPhysicianList() {
   };
 
   const footer = (currentPageData: any) => {
-    return getPhysicians?.items?.length ? (
-      <span>
-        Showing {currentPageData?.length} out of {getPhysicians?.items?.length}{" "}
-        entries
-      </span>
-    ) : (
-      ""
-    );
+    return <div></div>;
+    // return getPhysicians?.items?.length ? (
+    //   <span>
+    //     Showing {currentPageData?.length} out of {getPhysicians?.items?.length}{" "}
+    //     entries
+    //   </span>
+    // ) : (
+    //   ""
+    // );
   };
 
   return (
