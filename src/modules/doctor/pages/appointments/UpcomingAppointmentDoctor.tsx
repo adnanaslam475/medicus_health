@@ -57,6 +57,9 @@ function UpcomingAppointmentDoctor() {
             (sorter.columnKey === "name" && "appointment_service_type") ||
             (["charges", "requestedDate"].includes(sorter.columnKey) &&
               "appointment") ||
+            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+            (sorter.columnKey === "amountReceived" && "transaction") ||
+            (sorter.columnKey === "status" && "transaction") ||
             "user"
           }.${sorter.columnKey || sorter.field}`
         : "",
