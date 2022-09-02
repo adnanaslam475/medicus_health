@@ -5,6 +5,7 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import SearchFilter from "../../../../../common/components/SearchFilters/SearchFilter";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   BookingDate,
   DoctorProfile,
@@ -35,13 +36,14 @@ function CancelledAppointment() {
   const [status, setStatus] = useState<string>("Canceled");
   const [filterValues, setFilterValues] = useState({ status: "Canceled" });
 
-  const [{ data, fetching },executeUseGetAllRequestedAppointmentsQuery] = useGetAllRequestedAppointmentsQuery({
-    variables: {
-      filter: {...filterValues,status:"Canceled"},
-      pagination: { limit: -1, page: 1 },
-    },
-    requestPolicy:"network-only"
-  });
+  const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =
+    useGetAllRequestedAppointmentsQuery({
+      variables: {
+        filter: { ...filterValues, status: "Canceled" },
+        pagination: { limit: -1, page: 1 },
+      },
+      requestPolicy: "network-only",
+    });
 
   //Get logged in User
   const { user } = getUserData();
@@ -129,8 +131,7 @@ function CancelledAppointment() {
         </div>
 
         <div className="md:w-5/6">
-        <SearchFilter onChange={onChangeFilters} />
-
+          <SearchFilter onChange={onChangeFilters} />
         </div>
         {fetching == false ? (
           <div className="w-full">
@@ -146,6 +147,7 @@ function CancelledAppointment() {
                     doctor,
                     appointmentTimeSlots,
                     transaction,
+                    appointmentDateTime,
                   } = appointmentDetail || {};
                   var doctorFullName = `${doctor?.first_name} ${doctor?.last_name}`;
                   return (
@@ -164,7 +166,13 @@ function CancelledAppointment() {
                       doctorProfile={doctor?.doctorProfile as DoctorProfile}
                       transaction={transaction as Transaction}
                       appointmentDetail={appointmentDetail as Appointment}
-                      specialization={String(appointmentDetail?.doctor?.doctorProfile?.specialization || "")}
+                      specialization={String(
+                        appointmentDetail?.doctor?.doctorProfile
+                          ?.specialization || ""
+                      )}
+                      appointmentDateTime={
+                        appointmentDateTime as AppointmentDateTimeResponse
+                      }
                     />
                   );
                 })}

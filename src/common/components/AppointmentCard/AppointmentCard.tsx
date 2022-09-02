@@ -133,6 +133,7 @@ props) {
           appointmentDetail={appointmentDetail}
           specialization={specialization}
           timeZone={timeZone}
+          appointmentDateTime={appointmentDateTime}
         />
       );
     case "Proposed":
