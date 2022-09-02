@@ -64,7 +64,7 @@ const historyColumns = [
   {
     title: "Appointment date",
     dataIndex: "appointmentDateTime",
-    key: "appointmentDateTime",
+    key: "startTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       // let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
