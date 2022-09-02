@@ -187,7 +187,15 @@ label.ant-radio-wrapper {
               color: #000;
               border-bottom-left-radius: 5px;
               border-bottom-right-radius: 5px;
+              svg.tabs-icon-hover {
+                g {
+                  path {
+                    fill: #000 !important;
+                  }
+                }
+              }
             }
+
             .ant-tabs-tab-btn {
               font-size: 14px !important;
             }
