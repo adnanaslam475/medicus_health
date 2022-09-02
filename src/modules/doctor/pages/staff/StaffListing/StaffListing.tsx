@@ -180,7 +180,7 @@ function StaffListing() {
           <Button
             onClick={() => setVisibleModal(true)}
             type="primary"
-            icon={<PlusOutlined />}
+            icon={<div className="text-2xl mb-[3px]">+&nbsp;</div>} 
           >
             Add staff
           </Button>
