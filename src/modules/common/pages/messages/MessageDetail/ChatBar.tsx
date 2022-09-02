@@ -27,6 +27,7 @@ function MessageItem(props: Props) {
   const { userDetails } = messageOwner || {};
   const { role, doctorProfile, patientProfile, adminProfilePicture } =
     userDetails || {};
+  console.log("userDetails", userDetails);
   const { profile_image: doctorImage } = doctorProfile || {};
   const { profileImage: patientImage } = patientProfile || {};
   const { profile_picture } = adminProfilePicture || {};
@@ -73,7 +74,11 @@ function MessageItem(props: Props) {
             </div>
             <div className="gap-3 w-11/12">
               <div>
-                <span className="text-base text-black pr-3">{`${userDetails?.first_name} ${userDetails?.last_name}`}</span>
+                <span className="text-base text-black pr-3">
+                  {userDetails?.role === "Doctor"
+                    ? `Dr. ${userDetails?.last_name}`
+                    : `${userDetails?.first_name} ${userDetails?.last_name}`}
+                </span>
                 <span className="text-base text-gray">{messageDateTime}</span>
               </div>
               <div
