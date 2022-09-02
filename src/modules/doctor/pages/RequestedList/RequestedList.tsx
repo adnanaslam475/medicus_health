@@ -58,7 +58,7 @@ const Columns = [
   {
     title: "Appointment date ",
     // dataIndex: "appointmentDateTime",
-    // key: "appointmentDateTime",
+    key: "startTime",
     sorter: true,
     render: (value: Appointment) => {
       let appointmentDateTime = value?.appointmentDateTime;
@@ -86,7 +86,7 @@ const Columns = [
   {
     title: "Appointment time",
     // dataIndex: "appointmentDateTime",
-    // key: "appointmentDateTime",
+    key: "startTime",
     sorter: true,
     render: (value: Appointment) => {
       let appointmentDateTime = value?.appointmentDateTime;
@@ -134,6 +134,7 @@ const Columns = [
     title: "Appointment status",
     dataIndex: "status",
     key: "status",
+    sorter:true,
     className: "table-action-icon",
     render: (value: any) => {
       return (
