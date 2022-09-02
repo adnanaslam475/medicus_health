@@ -178,7 +178,9 @@ function PatientAppointmentHistoryFilter(props: Props) {
                         alt=""
                       />
                     </span>
-                    <span className="font-normal">{t("appointment_date")}</span>
+                    <span className={`${_classes["date-button"]} font-normal`}>
+                      {t("appointment_date")}
+                    </span>
                     {/* Appointment date */}
                   </div>
                   <div>
