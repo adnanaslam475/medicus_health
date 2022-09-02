@@ -284,6 +284,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
 
         {questionnair ? (
           questionnair?.map((item: Item, index: any) => {
+            console.log({ item });
             return renderItems(item);
           })
         ) : (
