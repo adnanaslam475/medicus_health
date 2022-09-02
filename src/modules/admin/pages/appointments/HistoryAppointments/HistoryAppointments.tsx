@@ -95,6 +95,7 @@ function CancelledAppointment() {
               "appointment") ||
             (sorter.columnKey === "name" && "appointment_service_type") ||
             (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+            (sorter.columnKey === "requestedDate" && "appointment") ||
             "user"
           }.${sorter.columnKey || sorter.field}`
         : "",
