@@ -59,6 +59,7 @@ function MessageItem(props: Props) {
                 alt=""
                 width={39}
                 height={39}
+                objectFit="cover"
                 className="rounded-full"
                 src={
                   role === "Doctor" || role === "Staff"

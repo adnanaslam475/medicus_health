@@ -228,7 +228,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
           <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
-            Numero de niñas
+            Numero de niños
           </div>
           <div
             className={`sm:w-1/2 md:pl-4  ${

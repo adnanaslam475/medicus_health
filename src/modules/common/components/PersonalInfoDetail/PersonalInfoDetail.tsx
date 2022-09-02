@@ -663,7 +663,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                         <Input
                           size="large"
                           // placeholder={t("number_of_children")}
-                          placeholder="Numero de niñas"
+                          placeholder="Numero de niños"
                         />
                       </Form.Item>
                     </div>

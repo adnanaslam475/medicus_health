@@ -14,6 +14,13 @@
       border: 1px solid #9295af !important;
     }
   }
+  :global .ant-select-selection-item {
+    color: #9295af !important;
+  }
+  .date-button {
+    font-family: "Rubik" !important;
+    word-spacing: 1px;
+  }
 }
 .btn-clear {
   border: none !important;

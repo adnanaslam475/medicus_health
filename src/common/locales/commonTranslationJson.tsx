@@ -418,7 +418,7 @@ export const spanishCommon: any = {
   widow: "Viudo/a",
   divorce: "Divorciado/a",
   do_you_have_any_children: "¿Tienes hijos?",
-  number_of_children: "Numero de niñas",
+  number_of_children: "Numero de niños",
   occupation: "Ocupación",
   What_is_your_occupation: "¿Cuál es tu ocupación?",
   do_you_have_any_occupational_exposure:

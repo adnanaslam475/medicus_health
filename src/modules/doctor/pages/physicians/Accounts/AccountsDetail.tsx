@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import { Tabs } from "antd";
 import AccountsProfile from "./AccountsProfile/AccountsProfile";
 import BankInfo from "./BankInfo/BankInfo";
-
-// scss
 import _classes from "./Account.module.scss";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import config from "../../../../../../config";
 import { getUserData } from "common/utils/userData";
+import {
+  Consultationrateicon,
+  Dollariconbluewhite,
+} from "../../../../../common/components/CustomIcon";
 import {
   Appointment,
   useDoctorQuestionnaireQuery,
@@ -82,19 +84,10 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex items-center">
-                <Image
-                  priority={true}
-                  unoptimized
-                  alt="DollarSvg"
-                  height="18"
-                  width="18"
-                  onError={(e) => console.log(e)}
-                  src={DollarSvg}
-
-                  // style={{ fontSize: "20px", color: "#08c" }}
-                  // className="bg-gray border rounded-full border-gray"
-                />
+              <span
+                className={`${_classes["mobile-tabs-dollar"]} font-Circular font-medium flex items-center`}
+              >
+                <Dollariconbluewhite className={_classes["tabs-icon-hover"]} />
                 <span className="ml-2">Bank info</span>
               </span>
             }
@@ -124,22 +117,7 @@ function Accounts() {
           <Tabs.TabPane
             tab={
               <span className="font-Circular font-medium flex items-center">
-                {/* <EuroCircleOutlined
-                  // style={{ fontSize: "20px", color: "#08c" }}
-                  style={{ fontSize: "20px" }}
-                /> */}
-                <Image
-                  priority={true}
-                  unoptimized
-                  alt="DollarSvg"
-                  height="20"
-                  width="25"
-                  onError={(e) => console.log(e)}
-                  src={ConsultationRatesSvgGray}
-
-                  // style={{ fontSize: "20px", color: "#08c" }}
-                  // className="bg-gray border rounded-full border-gray"
-                />
+                <Consultationrateicon className={_classes["tabs-icon-hover"]} />
                 <span className="ml-2">Consultation rates</span>
               </span>
             }

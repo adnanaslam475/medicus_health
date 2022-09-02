@@ -116,7 +116,7 @@ function AppointmentReschedule(props: Props) {
                     <span className="mr-3 block text-sm">
                       {date.formatDAYMMDDYY(item.startTime, timeZone)}
                     </span>
-                    <span className="inline-block text-sm">{`${date.formathhmma(
+                    <span className="inline-block text-sm text-right">{`${date.formathhmma(
                       item.startTime,
                       timeZone
                     )} - ${date.formathhmma(item.endTime, timeZone)}`}</span>

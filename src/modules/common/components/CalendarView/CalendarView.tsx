@@ -104,7 +104,7 @@ function AdminCalender(props: Props) {
           const [startDate] = timeSlot.split("T");
           return {
             id: id,
-            title: `${serviceType?.name}:${patient?.first_name} ${patient?.last_name}`,
+            title: `${serviceType?.name}: ${patient?.first_name} ${patient?.last_name}`,
             start: `${startDate}T${dayjs(timeSlot)
               .tz(timeZone)
               .format("HH:mm")}:00.000Z`,
@@ -166,9 +166,15 @@ function AdminCalender(props: Props) {
     });
   };
 
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  useEffect(() => {
+    if (!fetching) {
+      setIsInitialLoad(false);
+    }
+  }, [fetching]);
   return (
     <div>
-      {fetching ? (
+      {isInitialLoad ? (
         <div className="lg:w-2/3 sm:w-full flex justify-center py-20 mr-5">
           <Spin />
         </div>

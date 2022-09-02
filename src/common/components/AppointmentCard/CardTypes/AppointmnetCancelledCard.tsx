@@ -3,6 +3,7 @@ import BookAppointmentJourney from "common/components/BookAppointmentJourney/Boo
 import React, { useState } from "react";
 import {
   Appointment,
+  AppointmentDateTimeResponse,
   AppointmentTimeSlots,
   DoctorProfile,
   Transaction,
@@ -22,6 +23,7 @@ type Props = {
   appointmentDetail?: Appointment | undefined;
   specialization: string;
   timeZone: string;
+  appointmentDateTime?: AppointmentDateTimeResponse;
 };
 
 function AppointmnetCancelledCard({
@@ -36,6 +38,7 @@ function AppointmnetCancelledCard({
   appointmentDetail,
   specialization,
   timeZone,
+  appointmentDateTime,
 }: Props) {
   // function onRebookAppointment(id: number) {
   //   setCurrentAppointmentId(id);
@@ -97,7 +100,7 @@ function AppointmnetCancelledCard({
         <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
         <span className="text-sm">Appointment time</span>
 
-        {appointmentTimeSlots?.length ? (
+        {/* {appointmentTimeSlots?.length ? (
           appointmentTimeSlots?.map((item) => (
             <div className="text-cyan font-semibold text-sm">{`${date.formathhmma(
               item.startTime,
@@ -110,7 +113,13 @@ function AppointmnetCancelledCard({
           </div>
         ) : (
           <div className="text-cyan font-semibold">{" - "}</div>
-        )}
+        )} */}
+        <div className="text-cyan">
+          {appointmentDateTime?.endTime && appointmentDateTime?.startTime
+            ? `${date.formathhmma(appointmentDateTime.startTime, timeZone)}
+             - ${date.formathhmma(appointmentDateTime.endTime, timeZone)}`
+            : "--"}
+        </div>
         <div className="inline-block mr-24">
           <span className="text-sm">Appointment status</span>
           <span className="flex text-base text-red font-bold ">{status}</span>
