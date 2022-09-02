@@ -21,7 +21,8 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
     >
       <Form.Item
         // label="Password"
-        label={t("password")}
+        // label={t("password")}
+        label="Ingrese contraseña"
         name="password"
         rules={[
           {
@@ -37,7 +38,8 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
 
       <Form.Item
         // label="Confirm password"
-        label={t("confirm_password")}
+        // label={t("confirm_password")}
+        label="Confirme contraseña"
         name="confirmpassword"
         rules={[
           {
