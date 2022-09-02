@@ -51,7 +51,7 @@ export type cancelledAppointmentFilterType = {
     startDate?: string;
     endDate?: string;
   };
-  paymentStatus?:string
+  paymentStatus?: string;
 };
 
 export type DateType = {
