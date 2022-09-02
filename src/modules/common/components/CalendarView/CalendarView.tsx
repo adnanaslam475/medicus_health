@@ -166,9 +166,15 @@ function AdminCalender(props: Props) {
     });
   };
 
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  useEffect(() => {
+    if (!fetching) {
+      setIsInitialLoad(false);
+    }
+  }, [fetching]);
   return (
     <div>
-      {fetching ? (
+      {isInitialLoad ? (
         <div className="lg:w-2/3 sm:w-full flex justify-center py-20 mr-5">
           <Spin />
         </div>
