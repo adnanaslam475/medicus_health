@@ -67,7 +67,7 @@ const classesAccordingToType: StatusType<StatusName> = {
   },
   CONFIRMED: {
     color: "text-green-1",
-    text: CONFIRMED,
+    text: UPCOMING,
     background: "bg-green",
     border: "border border-green",
   },
