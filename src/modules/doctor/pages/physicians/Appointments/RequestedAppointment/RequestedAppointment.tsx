@@ -84,7 +84,7 @@ function RequestedAppointment() {
             (sorter.columnKey === "name" && "appointment_service_type") ||
             (sorter.columnKey === "first_name" && "patient") ||
             (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
-              "appointment") ||
+              "appointment") ||(sorter.columnKey === "startTime" && "appointment_time_slots") ||
             "user"
           }.${sorter.columnKey || sorter.field}`
         : "",
