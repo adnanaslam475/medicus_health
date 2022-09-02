@@ -78,7 +78,7 @@ const columns = [
   {
     title: "Appointment time",
     dataIndex: "appointmentDateTime",
-    key: "appointmentDateTime",
+    key: "startTime",
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
@@ -96,7 +96,7 @@ const columns = [
   {
     title: "Total amount",
     dataIndex: "transaction",
-    key: "transaction",
+    key: "amountReceived",
     render: (transaction: Transaction) => {
       return <div>${transaction?.amountReceived || "0"}</div>;
     },
@@ -105,8 +105,9 @@ const columns = [
   {
     title: "Payment status",
     dataIndex: "transaction",
-    key: "transaction",
+    key: "status",
     className: "table-action-icon",
+    sorter:true,
     render: (transaction: Transaction) => {
       let _status = null;
       if (transaction?.status === "succeeded") {
