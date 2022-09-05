@@ -82,6 +82,9 @@ function DoctorCalendar() {
             (appointmentTimeSlots &&
               appointmentTimeSlots.find((item) => item.selected)?.startTime) ||
             requestedDate,
+          end:
+            appointmentTimeSlots &&
+            appointmentTimeSlots.find((item) => item.selected)?.endTime,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
           charges: charges,
