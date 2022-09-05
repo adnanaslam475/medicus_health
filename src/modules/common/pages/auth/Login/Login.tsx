@@ -33,6 +33,10 @@ function Login() {
             Router.push({
               pathname: `/patient/physicians/profile/${router.query.doctor_id}`,
             });
+          } else if (router.query.physicians) {
+            Router.push({
+              pathname: `/patient/physicians`,
+            });
           } else {
             router.push("/patient/appointments/upcoming");
           }
@@ -94,6 +98,10 @@ function Login() {
           if (router.query.doctor_id) {
             Router.push({
               pathname: `/patient/physicians/profile/${router.query.doctor_id}`,
+            });
+          } else if (router.query.physicians) {
+            Router.push({
+              pathname: `/patient/physicians`,
             });
           } else {
             Router.push("/patient/appointments/upcoming");

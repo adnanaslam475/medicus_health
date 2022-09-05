@@ -117,6 +117,11 @@ function AuthProvider({ children }: any) {
         pathname: `/patient/physicians/profile/${router.query.doctor_id}`,
       });
     }
+    if (router.query.physicians) {
+      Router.push({
+        pathname: `/patient/physicians`,
+      });
+    }
     return children;
   } else if (
     router.pathname.startsWith("/admin") &&
