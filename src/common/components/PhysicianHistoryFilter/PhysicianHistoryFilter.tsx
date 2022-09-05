@@ -257,7 +257,7 @@ function PhysicianSearchFilters(props: Props) {
           value={filterState.paymentStatus}
         >
           <Select.Option value="paid">Paid</Select.Option>
-          <Select.Option value="unpaid">UnPaid</Select.Option>
+          <Select.Option value="unpaid">Unpaid</Select.Option>
         </Select>
       </div>
       <Button
