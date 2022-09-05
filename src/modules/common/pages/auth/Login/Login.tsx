@@ -28,7 +28,14 @@ function Login() {
       if (role === "Doctor") {
         router.push("/physician/dashboard");
       } else if (role === "User") {
-        router.push("/patient/appointments/upcoming");
+        if (router.query.doctor_id) {
+          router.push({
+            pathname: "/patient/physicians/profile",
+            query: { id: router.query.doctor_id },
+          });
+        } else {
+          router.push("/patient/appointments/upcoming");
+        }
       } else if (role === "Admin") {
         router.push("/admin/dashboards");
       }
