@@ -105,6 +105,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             placeholder="Payment status"
             onChange={(e) => onChangeFields("paymentStatus", e)}
             value={filterState.paymentStatus}
+            className="w-96"
           >
             <Select.Option value="paid">Paid</Select.Option>
             <Select.Option value="unpaid">Unpaid</Select.Option>
