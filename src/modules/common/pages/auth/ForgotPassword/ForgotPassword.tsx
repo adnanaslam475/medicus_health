@@ -92,7 +92,7 @@ const ForgotPassword = () => {
                   autoComplete="off"
                 >
                   <Form.Item
-                    label="Coreo electrónico"
+                    label="Correo electrónico"
                     // label={t("email_address")}
                     name="email"
                     className="mb-1"
