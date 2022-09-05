@@ -37,11 +37,11 @@ const ViewProfileFields = ({
   return (
     <div className="max-w-[800px]">
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Nombre" value={first_name} />
-        <LabelWithTextDiv label="Apellido" value={last_name} />
+        <LabelWithTextDiv label="Nombre" value={first_name || "-"} />
+        <LabelWithTextDiv label="Apellido" value={last_name || "-"} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Género" value={userGender} />
+        <LabelWithTextDiv label="Género" value={userGender || "-"} />
         <LabelWithTextDiv
           label="Fecha de nacimiento"
           value={
@@ -50,52 +50,55 @@ const ViewProfileFields = ({
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Coreo electrónico" value={email} />
-        <LabelWithTextDiv label="Numero de celular" value={contact_number} />
+        <LabelWithTextDiv label="Correo electrónico" value={email || "-"} />
+        <LabelWithTextDiv
+          label="Numero de celular"
+          value={contact_number || "-"}
+        />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Pais" value={country_name} />
-        <LabelWithTextDiv label="Ciudad" value={city_name} />
+        <LabelWithTextDiv label="Pais" value={country_name || "-"} />
+        <LabelWithTextDiv label="Ciudad" value={city_name || "-"} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Estado" value={state_name} />
+        <LabelWithTextDiv label="Estado" value={state_name || "-"} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv
           label="Estado civil"
-          value={patientProfile?.maritalStatus}
+          value={patientProfile?.maritalStatus || "-"}
         />
         <LabelWithTextDiv
           label="¿Tienes hijos?"
-          value={patientProfile?.haveChildren}
+          value={patientProfile?.haveChildren || "-"}
         />
         {!!childrenCount && (
           <LabelWithTextDiv
             label="Numero de niños"
-            value={patientProfile?.children}
+            value={patientProfile?.children || "-"}
           />
         )}
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         <LabelWithTextDiv
           label="¿Cuál es tu ocupación?"
-          value={patientProfile?.occupation}
+          value={patientProfile?.occupation || "-"}
         />
         <LabelWithTextDiv
           label="¿Tiene alguna exposición ocupacional?"
-          value={patientProfile?.occupationalExposure}
+          value={patientProfile?.occupationalExposure || "-"}
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
         {showExposureDuration && (
           <LabelWithTextDiv
             label="¿Tiene alguna duración ocupacional?"
-            value={patientProfile?.exposureDuration}
+            value={patientProfile?.exposureDuration || "-"}
           />
         )}
         <LabelWithTextDiv
           label="¿Tiene mascotas?"
-          value={patientProfile?.pets}
+          value={patientProfile?.pets || "-"}
         />
         {!showExposureDuration && <div className="w-full" />}
       </div>

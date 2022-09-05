@@ -169,7 +169,7 @@ function Login() {
                 >
                   <Form.Item
                     // label={t("email")}
-                    label="Coreo electrónico"
+                    label="Correo electrónico"
                     name="email"
                     className="mb-1"
                     rules={[

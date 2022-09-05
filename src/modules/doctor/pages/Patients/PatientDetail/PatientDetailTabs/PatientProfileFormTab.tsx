@@ -81,18 +81,18 @@ function PatientProfileFormTab({
         </div>
         <div className="max-w-[800px]">
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Nombre" value={first_name} />
-            <LabelWithTextDiv label="Apellido" value={last_name} />
+            <LabelWithTextDiv label="Nombre" value={first_name || "-"} />
+            <LabelWithTextDiv label="Apellido" value={last_name || "-"} />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Género" value={gender} />
+            <LabelWithTextDiv label="Género" value={gender || "-"} />
             <LabelWithTextDiv
               label="Fecha de nacimiento"
               value={formatMMDDYYYY(date_of_birth)}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Coreo electrónico" value={email} />
+            <LabelWithTextDiv label="Correo electrónico" value={email || "-"} />
             <LabelWithTextDiv
               label="Teléfono de contacto"
               value={contact_number || "-"}
@@ -119,7 +119,7 @@ function PatientProfileFormTab({
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Código postal" value={zip_code} />
+            <LabelWithTextDiv label="Código postal" value={zip_code || "-"} />
             <LabelWithTextDiv
               label="Dirección (calle y numero)"
               value={streetAddress || "-"}

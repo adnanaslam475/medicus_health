@@ -355,7 +355,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     ]}
                     className="bott-om-margin-0"
                   >
-                    <Input size="large" placeholder="Coreo electrónico" />
+                    <Input size="large" placeholder="Correo electrónico" />
                   </Form.Item>
                 </div>
               </div>

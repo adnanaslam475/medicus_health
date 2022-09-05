@@ -158,13 +158,17 @@ const TransactionHistory = (props: Props) => {
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
 
+    const footer = () => {
+			return <div></div>;
+		  };
+
   return (
     <Table
       columns={transactionsColumns}
       dataSource={data}
       onChange={onChange}
       scroll={{ x: true }}
-      footer={() => <div></div>}
+      footer={footer}
       // pagination={{
       //   total: pagination.limit * meta?.totalPages,
       //   current: meta?.currentPage,
