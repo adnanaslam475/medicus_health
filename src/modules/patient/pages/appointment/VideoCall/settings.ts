@@ -3,8 +3,10 @@ import {
   createClient,
   createMicrophoneAndCameraTracks,
 } from "agora-rtc-react";
+import commonConfig from "./../../../../../../config";
 
-const appId = "df3bc65dd6df4f75b0b448b9cbba2bac";
+// const appId = "df3bc65dd6df4f75b0b448b9cbba2bac";
+const appId = commonConfig.agoraAppId;
 const token =
   "006df3bc65dd6df4f75b0b448b9cbba2bacIAC6T7WoMYOyKnd8qUvBQV7zN3CN+ROFlFv0kkVuLCeoNbmKh/zSY0iIEABmFdRiTWJ/YgEAAQDdHn5i";
 
