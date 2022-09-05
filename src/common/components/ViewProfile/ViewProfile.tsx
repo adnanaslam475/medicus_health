@@ -108,7 +108,6 @@ export const ViewProfile = React.forwardRef(function Profile({
       timeZone: timeZone?.timeZoneName,
     });
   }
-  console.log("timeZone", timeZone);
 
   let lastNameFormated = last_name?.toLocaleLowerCase();
 
