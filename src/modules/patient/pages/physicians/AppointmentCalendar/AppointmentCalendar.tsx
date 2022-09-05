@@ -73,10 +73,14 @@ function AppointmentCalendar() {
           appointmentTimeSlots,
           transaction,
         }) => {
-          const timeSlot = appointmentTimeSlots?.find(
+          const startTime = appointmentTimeSlots?.find(
             (item) => item.selected
           )?.startTime;
-          const [startDate] = timeSlot.split("T");
+          const endTime = appointmentTimeSlots?.find(
+            (item) => item.selected
+          )?.endTime;
+
+          const [startDate] = startTime.split("T");
           return {
             id: id,
             // title:
@@ -86,7 +90,10 @@ function AppointmentCalendar() {
             //       " " +
             //       doctor?.last_name,
             title: "Dr. " + doctor?.first_name + " " + doctor?.last_name,
-            start: `${startDate}T${dayjs(timeSlot)
+            start: `${startDate}T${dayjs(startTime)
+              .tz(timeZone)
+              .format("HH:mm")}:00.000Z`,
+            end: `${startDate}T${dayjs(endTime)
               .tz(timeZone)
               .format("HH:mm")}:00.000Z`,
             patient: patient?.first_name + " " + patient?.last_name,
