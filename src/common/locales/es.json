@@ -5,7 +5,7 @@
     "login": "Iniciar sesión",
     "account": "¿No tienes una cuenta?",
     "register": "Registro",
-    "email": "Coreo electrónico",
+    "email": "Correo electrónico",
     "password": "contraseña"
   },
   "Login": {
@@ -16,7 +16,7 @@
     "login": "Iniciar sesión",
     "account": "¿No tienes una cuenta?",
     "register": "Registro",
-    "email": "Coreo electrónico",
+    "email": "Correo electrónico",
     "password": "contraseña"
   },
 
@@ -43,7 +43,7 @@
     "female": "Femenina",
     "i_prefer_not_to_say": "Prefiero no contestar",
     "date_of_Birth": "Fecha de nacimiento",
-    "email_address": "Coreo electrónico",
+    "email_address": "Correo electrónico",
     "password": "Contraseña",
     "confirm_password": "Confirmar contraseña",
     "street_address": "Dirección",

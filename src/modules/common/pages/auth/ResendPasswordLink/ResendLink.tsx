@@ -91,7 +91,7 @@ const ResendLink = () => {
                 >
                   <Form.Item
                     // label={t("email_address")}
-                    label="Coreo electrónico"
+                    label="Correo electrónico"
                     name="email"
                     className="mb-1"
                     rules={[

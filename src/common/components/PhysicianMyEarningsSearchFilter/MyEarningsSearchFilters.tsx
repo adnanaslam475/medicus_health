@@ -310,7 +310,7 @@ function MyEarningsSearchFilters(props: Props) {
             value={filterState?.paymentStatus || "Payment status"}
           >
             <Select.Option value="paid">Paid</Select.Option>
-            <Select.Option value="unpaid">Unpaid</Select.Option>
+            {/* <Select.Option value="unpaid">Unpaid</Select.Option> */}
             <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
         </div>
