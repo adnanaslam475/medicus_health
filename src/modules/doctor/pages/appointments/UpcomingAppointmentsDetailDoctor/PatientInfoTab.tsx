@@ -71,21 +71,21 @@ function PatientInfoTab({}: Props) {
     >
       <div className="max-w-[800px]">
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Nombre" value={first_name} />
-          <LabelWithTextDiv label="Apellido" value={last_name} />
+          <LabelWithTextDiv label="Nombre" value={first_name || "-"} />
+          <LabelWithTextDiv label="Apellido" value={last_name || "-"} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Género" value={gender} />
+          <LabelWithTextDiv label="Género" value={gender || "-"} />
           <LabelWithTextDiv
             label="Fecha de nacimiento"
             value={date?.formatDAYMMDDYY(date_of_birth)}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <LabelWithTextDiv label="Correo electrónico" value={email} />
+          <LabelWithTextDiv label="Correo electrónico" value={email || "-"} />
           <LabelWithTextDiv
             label="Teléfono de contacto"
-            value={contact_number}
+            value={contact_number || "-"}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
@@ -104,7 +104,7 @@ function PatientInfoTab({}: Props) {
             value={city_name ? city_name : "-"}
           />
 
-          <LabelWithTextDiv label="Estado civil" value={maritalStatus} />
+          <LabelWithTextDiv label="Estado civil" value={maritalStatus || "-"} />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv label="¿Tienes hijos?" value={children || "No"} />
@@ -113,9 +113,9 @@ function PatientInfoTab({}: Props) {
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv
             label="¿Tiene alguna exposición ocupacional?"
-            value={occupationalExposure}
+            value={occupationalExposure || "-"}
           />
-          <LabelWithTextDiv label="¿Tiene mascotas?" value={pets} />
+          <LabelWithTextDiv label="¿Tiene mascotas?" value={pets || "-"} />
           {/* <div className="w-full" /> */}
         </div>
       </div>
