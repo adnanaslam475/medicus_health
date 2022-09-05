@@ -145,7 +145,7 @@ export const patientEditForm = [
     type: "date",
   },
   {
-    label: "Coreo electrónico",
+    label: "Correo electrónico",
     name: "email",
     required: true,
     type: "text",

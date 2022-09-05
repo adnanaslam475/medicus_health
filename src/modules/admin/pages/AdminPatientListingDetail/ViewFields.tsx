@@ -50,7 +50,7 @@ const ViewProfileFields = ({
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-        <LabelWithTextDiv label="Coreo electrónico" value={email} />
+        <LabelWithTextDiv label="Correo electrónico" value={email} />
         <LabelWithTextDiv label="Numero de celular" value={contact_number} />
       </div>
       <div className="flex flex-col md:flex-row gap-2">

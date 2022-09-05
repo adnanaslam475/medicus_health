@@ -240,13 +240,13 @@ export default function PersonalInfo({ onFinish }: props) {
 
       <Form.Item
         // label={t("email_address")}
-        label="Coreo electrónico"
+        label="Correo electrónico"
         name="email"
         rules={[
           {
             required: true,
             // message: t("email_address_message"),
-            message: "Por favor, introduzca su Coreo electrónico",
+            message: "Por favor, introduzca su Correo electrónico",
           },
           {
             type: "email",

@@ -92,7 +92,7 @@ function PatientProfileFormTab({
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
-            <LabelWithTextDiv label="Coreo electrónico" value={email} />
+            <LabelWithTextDiv label="Correo electrónico" value={email} />
             <LabelWithTextDiv
               label="Teléfono de contacto"
               value={contact_number || "-"}
