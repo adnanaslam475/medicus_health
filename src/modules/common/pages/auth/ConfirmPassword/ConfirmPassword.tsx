@@ -60,11 +60,12 @@ function ConfirmPassword() {
               />
             </div>
             <h1 className="text-center text-secondary mb-3">
-              {t("confirm_password")}
+              Restablecer la contraseña
+              {/* {t("confirm_password")} */}
               {/* Confirm password */}
             </h1>
             <h5 className="text-center text-gray font-rubik font-normal">
-              {t("enter_your_new_password")}
+              {/* {t("enter_your_new_password")} */}
               {/* Enter your new password */}
             </h5>
             <div className="mt-5">
@@ -103,7 +104,8 @@ function ConfirmPassword() {
                         src="/assets/icon/arrow-left.svg"
                       />
                       <span className="cursor-pointer text-primary ml-3">
-                        {t("back_to_log_in")}
+                        {/* {t("back_to_log_in")} */}
+                        Volver a log in
                       </span>
                     </div>
                   </div>
