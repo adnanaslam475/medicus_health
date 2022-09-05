@@ -44,8 +44,8 @@ function RequestedAppointment() {
               doctorId: doctorIds,
               appointmentId: appointmentId,
               serviceId: serviceIds,
-              dueDate: dueDate,
-              bookingDate: bookingDate,
+              bookingDate: dueDate,
+              // bookingDate: bookingDate,
               searchString: searchPatient || "",
             }
           : {
@@ -55,8 +55,8 @@ function RequestedAppointment() {
               physicianName: dataListPhysician,
               doctorId: doctorIds,
               serviceId: serviceIds,
-              dueDate: dueDate,
-              bookingDate: bookingDate,
+              bookingDate: dueDate,
+              // bookingDate: bookingDate,
               searchString: searchPatient || "",
             },
         pagination,
