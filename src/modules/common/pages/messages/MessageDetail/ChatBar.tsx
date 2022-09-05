@@ -27,7 +27,6 @@ function MessageItem(props: Props) {
   const { userDetails } = messageOwner || {};
   const { role, doctorProfile, patientProfile, adminProfilePicture } =
     userDetails || {};
-  console.log("userDetails", userDetails);
   const { profile_image: doctorImage } = doctorProfile || {};
   const { profileImage: patientImage } = patientProfile || {};
   const { profile_picture } = adminProfilePicture || {};
