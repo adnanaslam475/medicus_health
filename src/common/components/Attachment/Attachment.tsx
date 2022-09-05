@@ -36,7 +36,7 @@ function Attachment(props: Props) {
       <div className="inline-flex items-center  bg-gray-4  pl-4 py-4 my-3 border-gray-9 border rounded">
         <a
           href={url}
-          download
+          // download
           target="_blank"
           rel="noreferrer"
           className={`${_classes["attachment"]} `}
