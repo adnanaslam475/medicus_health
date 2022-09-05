@@ -14,6 +14,7 @@ import {
 import { date, userData } from "common/utils";
 import { physicianMyEarningsFilterType, StatusName } from "common/types/types";
 import StatusChip from "common/components/StatusChip/StatusChip";
+import { numberFormater } from "common/utils/date";
 
 type Props = {};
 const Columns = [
@@ -286,9 +287,9 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
-    const footer = () => {
-      return <div></div>;
-    };
+  const footer = () => {
+    return <div></div>;
+  };
   return (
     <AppLayout>
       <div className="w-full">
@@ -300,27 +301,47 @@ const PhysicianMyEarningsList = (props: Props) => {
           <div className="flex mb-0 flex-wrap gap-x-16">
             <MyEarningsStats
               label={"Total consultations"}
-              text={String(total_number_of_consultation)}
+              text={
+                total_number_of_consultation
+                  ? String(numberFormater(total_number_of_consultation))
+                  : "-"
+              }
             />
             <MyEarningsStats
               label={"Total second opinions"}
-              text={String(total_number_of_second_opinions)}
+              text={
+                total_number_of_second_opinions
+                  ? String(numberFormater(total_number_of_second_opinions))
+                  : "-"
+              }
             />
             <MyEarningsStats
               label={"Total patients"}
-              text={String(total_number_of_patients)}
+              text={
+                total_number_of_patients
+                  ? numberFormater(total_number_of_patients)
+                  : "-"
+              }
             />
             <MyEarningsStats
               label={"Net earnings through consultations"}
-              text={`$${total_earnings_from_consultation}`}
+              text={
+                total_earnings_from_consultation
+                  ? numberFormater(total_earnings_from_consultation)
+                  : "-"
+              }
             />
             <MyEarningsStats
               label={"Net earnings through second opinions"}
-              text={`$${total_earnings_from_second_opinions}`}
+              text={
+                total_earnings_from_second_opinions
+                  ? numberFormater(total_earnings_from_second_opinions)
+                  : "-"
+              }
             />
             <MyEarningsStats
               label={"Total net earnings"}
-              text={`$${total_earnings}`}
+              text={total_earnings ? numberFormater(total_earnings) : "-"}
             />
           </div>
         </Skeleton>
