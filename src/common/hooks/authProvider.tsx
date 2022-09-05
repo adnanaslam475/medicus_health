@@ -93,6 +93,7 @@ function AuthProvider({ children }: any) {
       setAuthorized(false);
       router.push({
         pathname: "/login",
+        query: { ...router.query },
       });
       return true;
     } else {
@@ -112,9 +113,8 @@ function AuthProvider({ children }: any) {
     authorized
   ) {
     if (router.query.doctor_id) {
-      router.push({
-        pathname: "/patient/physicians/profile",
-        query: { id: router.query.doctor_id },
+      Router.push({
+        pathname: `/patient/physicians/profile/${router.query.doctor_id}`,
       });
     }
     return children;
