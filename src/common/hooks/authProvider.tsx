@@ -111,6 +111,12 @@ function AuthProvider({ children }: any) {
     role === "User" &&
     authorized
   ) {
+    if (router.query.doctor_id) {
+      router.push({
+        pathname: "/patient/physicians/profile",
+        query: { id: router.query.doctor_id },
+      });
+    }
     return children;
   } else if (
     router.pathname.startsWith("/admin") &&
