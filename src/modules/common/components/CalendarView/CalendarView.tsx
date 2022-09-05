@@ -94,18 +94,29 @@ function AdminCalender(props: Props) {
           transaction,
           appointmentDateTime,
         }) => {
-          const timeSlot =
+          const startTime =
             !!appointmentTimeSlots?.length &&
             appointmentTimeSlots?.find((item) => item.selected)?.startTime
               ? appointmentTimeSlots?.find((item) => item.selected)?.startTime
               : appointmentDateTime?.startTime
               ? appointmentDateTime?.startTime
               : new Date().toISOString();
-          const [startDate] = timeSlot.split("T");
+          const endTime =
+            !!appointmentTimeSlots?.length &&
+            appointmentTimeSlots?.find((item) => item.selected)?.endTime
+              ? appointmentTimeSlots?.find((item) => item.selected)?.endTime
+              : appointmentDateTime?.endTime
+              ? appointmentDateTime?.endTime
+              : new Date().toISOString();
+
+          const [startDate] = startTime.split("T");
           return {
             id: id,
             title: `${serviceType?.name}: ${patient?.first_name} ${patient?.last_name}`,
-            start: `${startDate}T${dayjs(timeSlot)
+            start: `${startDate}T${dayjs(startTime)
+              .tz(timeZone)
+              .format("HH:mm")}:00.000Z`,
+            end: `${startDate}T${dayjs(endTime)
               .tz(timeZone)
               .format("HH:mm")}:00.000Z`,
             patient: patient?.first_name + " " + patient?.last_name,
