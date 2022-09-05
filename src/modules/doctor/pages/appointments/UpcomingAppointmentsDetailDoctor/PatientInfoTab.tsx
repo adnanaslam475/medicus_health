@@ -38,7 +38,7 @@ function PatientInfoTab({}: Props) {
     city,
   } = patient || {};
 
-  const { maritalStatus, children, occupation, occupationalExposure, pets } =
+  const { maritalStatus, children, occupation, occupationalExposure, pets,exposureDuration } =
     patientProfile || {};
 
   const { country_name } = country || {};
@@ -113,8 +113,8 @@ function PatientInfoTab({}: Props) {
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv
             label="¿Tiene alguna exposición ocupacional?"
-            value={occupationalExposure || "-"}
-          />
+            value={occupationalExposure === "Yes" ? exposureDuration : "No"}
+            />
           <LabelWithTextDiv label="¿Tiene mascotas?" value={pets || "-"} />
           {/* <div className="w-full" /> */}
         </div>

@@ -159,6 +159,7 @@ query doctorAppointmentDetailPatientInfo($id: Int!) {
         children
         occupation
         occupationalExposure
+        exposureDuration
         pets
         profileImage
       }
@@ -406,6 +407,7 @@ query physicianAppointmentsHistory(
           occupationalExposure
           pets
           profileImage
+          exposureDuration
         }
         patientHealthHistory {
           history

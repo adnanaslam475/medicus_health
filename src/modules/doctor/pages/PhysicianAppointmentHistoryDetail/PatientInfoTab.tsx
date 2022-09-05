@@ -60,7 +60,7 @@ function PatientInfoTab({}: Props) {
   const { state_name } = state || {};
   const { city_name } = city || {};
 
-  const { maritalStatus, children, occupation, occupationalExposure, pets } =
+  const { maritalStatus, children, occupation, occupationalExposure, pets ,exposureDuration} =
     patientProfile || {};
 
   return fetching ? (
@@ -117,8 +117,8 @@ function PatientInfoTab({}: Props) {
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv
             label="¿Tiene alguna exposición ocupacional?"
-            value={occupationalExposure}
-          />
+            value={occupationalExposure === "Yes" ? exposureDuration : "No"}
+            />
           <LabelWithTextDiv label="¿Tiene mascotas?" value={pets || "-"} />
         </div>
       </div>

@@ -2248,7 +2248,7 @@ export type DoctorAppointmentDetailPatientInfoQueryVariables = Exact<{
 }>;
 
 
-export type DoctorAppointmentDetailPatientInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, city_id?: number | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', id: number, maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, profileImage?: string | null } | null } | null } };
+export type DoctorAppointmentDetailPatientInfoQuery = { __typename?: 'Query', appointment: { __typename?: 'Appointment', serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, streetAddress?: string | null, country_id?: number | null, city_id?: number | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', id: number, maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, exposureDuration?: string | null, pets?: string | null, profileImage?: string | null } | null } | null } };
 
 export type PhysicianAppointmentsQueryVariables = Exact<{
   filter: GetPhysicianAppointmentInput;
@@ -2266,7 +2266,7 @@ export type PhysicianAppointmentsHistoryQueryVariables = Exact<{
 }>;
 
 
-export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, charges: number, serviceId?: number | null, patientId?: number | null, createdAt: any, reportUrl?: any | null, requestedDate?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, profileImage?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', specialization?: string | null, profile_image?: string | null, id: number, doctor_id: number, year_of_experience?: number | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null, timeZone?: { __typename?: 'TimeZones', timeZone: string, timeZoneName: string } | null, doctorQuestionnaire?: { __typename?: 'DoctorQuestionnaire', id: number, doctorId: number, questionnaire?: any | null, languageId: number } | null } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number, appointmentCharges: number } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
+export type PhysicianAppointmentsHistoryQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, doctorId?: number | null, charges: number, serviceId?: number | null, patientId?: number | null, createdAt: any, reportUrl?: any | null, requestedDate?: any | null, status?: string | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, patient?: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, email: string, date_of_birth?: any | null, contact_number?: string | null, country_id?: number | null, city_id?: number | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, children?: number | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, profileImage?: string | null, exposureDuration?: string | null } | null, patientHealthHistory?: { __typename?: 'PatientHealthHistory', history?: any | null } | null } | null, appointmentHealthHistory?: { __typename?: 'AppointmentHealthHistory', history: any } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null, doctor?: { __typename?: 'User', id: number, first_name: string, last_name: string, doctorProfile?: { __typename?: 'DoctorProfile', specialization?: string | null, profile_image?: string | null, id: number, doctor_id: number, year_of_experience?: number | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, doctorSchedules?: Array<{ __typename?: 'DoctorSchedule', id: string, doctorId: number, day: number, startTime: string, endTime: string, createdAt: any, updatedAt: any }> | null } | null } | null, timeZone?: { __typename?: 'TimeZones', timeZone: string, timeZoneName: string } | null, doctorQuestionnaire?: { __typename?: 'DoctorQuestionnaire', id: number, doctorId: number, questionnaire?: any | null, languageId: number } | null } | null, transaction?: { __typename?: 'Transaction', status: string, amountReceived: number, appointmentCharges: number } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number } } };
 
 export type GetTransactionFilterQueryVariables = Exact<{
   filter: GetTransectionInput;
@@ -3307,7 +3307,7 @@ export const GetPatientCurrentAppointmentsDocument = gql`
     `;
 
 export function useGetPatientCurrentAppointmentsQuery(options: Omit<Urql.UseQueryArgs<GetPatientCurrentAppointmentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetPatientCurrentAppointmentsQuery>({ query: GetPatientCurrentAppointmentsDocument, ...options });
+  return Urql.useQuery<GetPatientCurrentAppointmentsQuery, GetPatientCurrentAppointmentsQueryVariables>({ query: GetPatientCurrentAppointmentsDocument, ...options });
 };
 export const GetAdminUsersDocument = gql`
     query getAdminUsers($filter: GetAdminUsersFilterInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -3329,7 +3329,7 @@ export const GetAdminUsersDocument = gql`
     `;
 
 export function useGetAdminUsersQuery(options: Omit<Urql.UseQueryArgs<GetAdminUsersQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAdminUsersQuery>({ query: GetAdminUsersDocument, ...options });
+  return Urql.useQuery<GetAdminUsersQuery, GetAdminUsersQueryVariables>({ query: GetAdminUsersDocument, ...options });
 };
 export const AdminDashboardDocument = gql`
     query adminDashboard($filter: GetTransectionInput!) {
@@ -3348,7 +3348,7 @@ export const AdminDashboardDocument = gql`
     `;
 
 export function useAdminDashboardQuery(options: Omit<Urql.UseQueryArgs<AdminDashboardQueryVariables>, 'query'>) {
-  return Urql.useQuery<AdminDashboardQuery>({ query: AdminDashboardDocument, ...options });
+  return Urql.useQuery<AdminDashboardQuery, AdminDashboardQueryVariables>({ query: AdminDashboardDocument, ...options });
 };
 export const AdminPhysicianAppointmentDocument = gql`
     query AdminPhysicianAppointment($filter: GetAppointmentInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -3395,7 +3395,7 @@ export const AdminPhysicianAppointmentDocument = gql`
     `;
 
 export function useAdminPhysicianAppointmentQuery(options: Omit<Urql.UseQueryArgs<AdminPhysicianAppointmentQueryVariables>, 'query'>) {
-  return Urql.useQuery<AdminPhysicianAppointmentQuery>({ query: AdminPhysicianAppointmentDocument, ...options });
+  return Urql.useQuery<AdminPhysicianAppointmentQuery, AdminPhysicianAppointmentQueryVariables>({ query: AdminPhysicianAppointmentDocument, ...options });
 };
 export const GetPatientsDocument = gql`
     query getPatients($filter: GetPatientsInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -3428,7 +3428,7 @@ export const GetPatientsDocument = gql`
     `;
 
 export function useGetPatientsQuery(options: Omit<Urql.UseQueryArgs<GetPatientsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetPatientsQuery>({ query: GetPatientsDocument, ...options });
+  return Urql.useQuery<GetPatientsQuery, GetPatientsQueryVariables>({ query: GetPatientsDocument, ...options });
 };
 export const PhysicianPaymentByAdminDocument = gql`
     mutation physicianPaymentByAdmin($paymentInput: PaymentInput!) {
@@ -3489,7 +3489,7 @@ export const GetAdminSettingsDocument = gql`
     `;
 
 export function useGetAdminSettingsQuery(options?: Omit<Urql.UseQueryArgs<GetAdminSettingsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAdminSettingsQuery>({ query: GetAdminSettingsDocument, ...options });
+  return Urql.useQuery<GetAdminSettingsQuery, GetAdminSettingsQueryVariables>({ query: GetAdminSettingsDocument, ...options });
 };
 export const AdminUserDocument = gql`
     query adminUser($id: Int!) {
@@ -3507,7 +3507,7 @@ export const AdminUserDocument = gql`
     `;
 
 export function useAdminUserQuery(options: Omit<Urql.UseQueryArgs<AdminUserQueryVariables>, 'query'>) {
-  return Urql.useQuery<AdminUserQuery>({ query: AdminUserDocument, ...options });
+  return Urql.useQuery<AdminUserQuery, AdminUserQueryVariables>({ query: AdminUserDocument, ...options });
 };
 export const RemoveAdminUserDocument = gql`
     mutation removeAdminUser($id: Int!) {
@@ -3608,7 +3608,7 @@ export const GetAllChatChannelsDocument = gql`
     `;
 
 export function useGetAllChatChannelsQuery(options: Omit<Urql.UseQueryArgs<GetAllChatChannelsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllChatChannelsQuery>({ query: GetAllChatChannelsDocument, ...options });
+  return Urql.useQuery<GetAllChatChannelsQuery, GetAllChatChannelsQueryVariables>({ query: GetAllChatChannelsDocument, ...options });
 };
 export const GetChannelMessagesDocument = gql`
     query getChannelMessages($channelId: Int!) {
@@ -3645,7 +3645,7 @@ export const GetChannelMessagesDocument = gql`
     `;
 
 export function useGetChannelMessagesQuery(options: Omit<Urql.UseQueryArgs<GetChannelMessagesQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetChannelMessagesQuery>({ query: GetChannelMessagesDocument, ...options });
+  return Urql.useQuery<GetChannelMessagesQuery, GetChannelMessagesQueryVariables>({ query: GetChannelMessagesDocument, ...options });
 };
 export const CheckEmailAvailabilityDocument = gql`
     query checkEmailAvailability($emailAvailableInput: EmailAvailableInput!) {
@@ -3656,7 +3656,7 @@ export const CheckEmailAvailabilityDocument = gql`
     `;
 
 export function useCheckEmailAvailabilityQuery(options: Omit<Urql.UseQueryArgs<CheckEmailAvailabilityQueryVariables>, 'query'>) {
-  return Urql.useQuery<CheckEmailAvailabilityQuery>({ query: CheckEmailAvailabilityDocument, ...options });
+  return Urql.useQuery<CheckEmailAvailabilityQuery, CheckEmailAvailabilityQueryVariables>({ query: CheckEmailAvailabilityDocument, ...options });
 };
 export const GetAppointmentPriceForRequestDocument = gql`
     query getAppointmentPriceForRequest($serviceId: Int!, $patientId: Int!) {
@@ -3670,7 +3670,7 @@ export const GetAppointmentPriceForRequestDocument = gql`
     `;
 
 export function useGetAppointmentPriceForRequestQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentPriceForRequestQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAppointmentPriceForRequestQuery>({ query: GetAppointmentPriceForRequestDocument, ...options });
+  return Urql.useQuery<GetAppointmentPriceForRequestQuery, GetAppointmentPriceForRequestQueryVariables>({ query: GetAppointmentPriceForRequestDocument, ...options });
 };
 export const GetAppointmentPriceDocument = gql`
     query getAppointmentPrice($id: Int!) {
@@ -3684,7 +3684,7 @@ export const GetAppointmentPriceDocument = gql`
     `;
 
 export function useGetAppointmentPriceQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentPriceQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAppointmentPriceQuery>({ query: GetAppointmentPriceDocument, ...options });
+  return Urql.useQuery<GetAppointmentPriceQuery, GetAppointmentPriceQueryVariables>({ query: GetAppointmentPriceDocument, ...options });
 };
 export const DeleteChatChannelDocument = gql`
     mutation deleteChatChannel($id: Int!) {
@@ -3722,7 +3722,7 @@ export const GetTimeZonesDocument = gql`
     `;
 
 export function useGetTimeZonesQuery(options?: Omit<Urql.UseQueryArgs<GetTimeZonesQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetTimeZonesQuery>({ query: GetTimeZonesDocument, ...options });
+  return Urql.useQuery<GetTimeZonesQuery, GetTimeZonesQueryVariables>({ query: GetTimeZonesDocument, ...options });
 };
 export const AppointmentCountByStatusDocument = gql`
     query appointmentCountByStatus {
@@ -3736,7 +3736,7 @@ export const AppointmentCountByStatusDocument = gql`
     `;
 
 export function useAppointmentCountByStatusQuery(options?: Omit<Urql.UseQueryArgs<AppointmentCountByStatusQueryVariables>, 'query'>) {
-  return Urql.useQuery<AppointmentCountByStatusQuery>({ query: AppointmentCountByStatusDocument, ...options });
+  return Urql.useQuery<AppointmentCountByStatusQuery, AppointmentCountByStatusQueryVariables>({ query: AppointmentCountByStatusDocument, ...options });
 };
 export const GetUnreadMessageCountDocument = gql`
     query getUnreadMessageCount($filter: GetAllChannelFilterInput!) {
@@ -3749,7 +3749,7 @@ export const GetUnreadMessageCountDocument = gql`
     `;
 
 export function useGetUnreadMessageCountQuery(options: Omit<Urql.UseQueryArgs<GetUnreadMessageCountQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetUnreadMessageCountQuery>({ query: GetUnreadMessageCountDocument, ...options });
+  return Urql.useQuery<GetUnreadMessageCountQuery, GetUnreadMessageCountQueryVariables>({ query: GetUnreadMessageCountDocument, ...options });
 };
 export const DoctorBillingMethodsDocument = gql`
     query doctorBillingMethods($doctorId: Int!) {
@@ -3765,7 +3765,7 @@ export const DoctorBillingMethodsDocument = gql`
     `;
 
 export function useDoctorBillingMethodsQuery(options: Omit<Urql.UseQueryArgs<DoctorBillingMethodsQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorBillingMethodsQuery>({ query: DoctorBillingMethodsDocument, ...options });
+  return Urql.useQuery<DoctorBillingMethodsQuery, DoctorBillingMethodsQueryVariables>({ query: DoctorBillingMethodsDocument, ...options });
 };
 export const DoctorAppointmentDetailDocument = gql`
     query doctorAppointmentDetail($id: Int!) {
@@ -3822,7 +3822,7 @@ export const DoctorAppointmentDetailDocument = gql`
     `;
 
 export function useDoctorAppointmentDetailQuery(options: Omit<Urql.UseQueryArgs<DoctorAppointmentDetailQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorAppointmentDetailQuery>({ query: DoctorAppointmentDetailDocument, ...options });
+  return Urql.useQuery<DoctorAppointmentDetailQuery, DoctorAppointmentDetailQueryVariables>({ query: DoctorAppointmentDetailDocument, ...options });
 };
 export const DoctorAppointmentDetailAppointmentInfoDocument = gql`
     query doctorAppointmentDetailAppointmentInfo($id: Int!) {
@@ -3893,7 +3893,7 @@ export const DoctorAppointmentDetailAppointmentInfoDocument = gql`
     `;
 
 export function useDoctorAppointmentDetailAppointmentInfoQuery(options: Omit<Urql.UseQueryArgs<DoctorAppointmentDetailAppointmentInfoQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorAppointmentDetailAppointmentInfoQuery>({ query: DoctorAppointmentDetailAppointmentInfoDocument, ...options });
+  return Urql.useQuery<DoctorAppointmentDetailAppointmentInfoQuery, DoctorAppointmentDetailAppointmentInfoQueryVariables>({ query: DoctorAppointmentDetailAppointmentInfoDocument, ...options });
 };
 export const DoctorAppointmentDetailPatientInfoDocument = gql`
     query doctorAppointmentDetailPatientInfo($id: Int!) {
@@ -3928,6 +3928,7 @@ export const DoctorAppointmentDetailPatientInfoDocument = gql`
         children
         occupation
         occupationalExposure
+        exposureDuration
         pets
         profileImage
       }
@@ -3937,7 +3938,7 @@ export const DoctorAppointmentDetailPatientInfoDocument = gql`
     `;
 
 export function useDoctorAppointmentDetailPatientInfoQuery(options: Omit<Urql.UseQueryArgs<DoctorAppointmentDetailPatientInfoQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorAppointmentDetailPatientInfoQuery>({ query: DoctorAppointmentDetailPatientInfoDocument, ...options });
+  return Urql.useQuery<DoctorAppointmentDetailPatientInfoQuery, DoctorAppointmentDetailPatientInfoQueryVariables>({ query: DoctorAppointmentDetailPatientInfoDocument, ...options });
 };
 export const PhysicianAppointmentsDocument = gql`
     query physicianAppointments($filter: GetPhysicianAppointmentInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -3998,7 +3999,7 @@ export const PhysicianAppointmentsDocument = gql`
     `;
 
 export function usePhysicianAppointmentsQuery(options: Omit<Urql.UseQueryArgs<PhysicianAppointmentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<PhysicianAppointmentsQuery>({ query: PhysicianAppointmentsDocument, ...options });
+  return Urql.useQuery<PhysicianAppointmentsQuery, PhysicianAppointmentsQueryVariables>({ query: PhysicianAppointmentsDocument, ...options });
 };
 export const PhysicianAppointmentsHistoryDocument = gql`
     query physicianAppointmentsHistory($filter: GetAppointmentInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -4041,6 +4042,7 @@ export const PhysicianAppointmentsHistoryDocument = gql`
           occupationalExposure
           pets
           profileImage
+          exposureDuration
         }
         patientHealthHistory {
           history
@@ -4137,7 +4139,7 @@ export const PhysicianAppointmentsHistoryDocument = gql`
     `;
 
 export function usePhysicianAppointmentsHistoryQuery(options: Omit<Urql.UseQueryArgs<PhysicianAppointmentsHistoryQueryVariables>, 'query'>) {
-  return Urql.useQuery<PhysicianAppointmentsHistoryQuery>({ query: PhysicianAppointmentsHistoryDocument, ...options });
+  return Urql.useQuery<PhysicianAppointmentsHistoryQuery, PhysicianAppointmentsHistoryQueryVariables>({ query: PhysicianAppointmentsHistoryDocument, ...options });
 };
 export const GetTransactionFilterDocument = gql`
     query getTransactionFilter($filter: GetTransectionInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -4187,7 +4189,7 @@ export const GetTransactionFilterDocument = gql`
     `;
 
 export function useGetTransactionFilterQuery(options: Omit<Urql.UseQueryArgs<GetTransactionFilterQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetTransactionFilterQuery>({ query: GetTransactionFilterDocument, ...options });
+  return Urql.useQuery<GetTransactionFilterQuery, GetTransactionFilterQueryVariables>({ query: GetTransactionFilterDocument, ...options });
 };
 export const PhysiciansPatientsDocument = gql`
     query physiciansPatients($searchField: String, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -4219,7 +4221,7 @@ export const PhysiciansPatientsDocument = gql`
     `;
 
 export function usePhysiciansPatientsQuery(options?: Omit<Urql.UseQueryArgs<PhysiciansPatientsQueryVariables>, 'query'>) {
-  return Urql.useQuery<PhysiciansPatientsQuery>({ query: PhysiciansPatientsDocument, ...options });
+  return Urql.useQuery<PhysiciansPatientsQuery, PhysiciansPatientsQueryVariables>({ query: PhysiciansPatientsDocument, ...options });
 };
 export const GetPhysiciansDocument = gql`
     query getPhysicians($filter: GetPhysiciansInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -4255,7 +4257,7 @@ export const GetPhysiciansDocument = gql`
     `;
 
 export function useGetPhysiciansQuery(options: Omit<Urql.UseQueryArgs<GetPhysiciansQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetPhysiciansQuery>({ query: GetPhysiciansDocument, ...options });
+  return Urql.useQuery<GetPhysiciansQuery, GetPhysiciansQueryVariables>({ query: GetPhysiciansDocument, ...options });
 };
 export const GetAppointmentNoteByIdDocument = gql`
     query getAppointmentNoteById($appointmentId: Int!) {
@@ -4285,7 +4287,7 @@ export const GetAppointmentNoteByIdDocument = gql`
     `;
 
 export function useGetAppointmentNoteByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentNoteByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAppointmentNoteByIdQuery>({ query: GetAppointmentNoteByIdDocument, ...options });
+  return Urql.useQuery<GetAppointmentNoteByIdQuery, GetAppointmentNoteByIdQueryVariables>({ query: GetAppointmentNoteByIdDocument, ...options });
 };
 export const GetAllAppointmentNotesDocument = gql`
     query getAllAppointmentNotes {
@@ -4310,7 +4312,7 @@ export const GetAllAppointmentNotesDocument = gql`
     `;
 
 export function useGetAllAppointmentNotesQuery(options?: Omit<Urql.UseQueryArgs<GetAllAppointmentNotesQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllAppointmentNotesQuery>({ query: GetAllAppointmentNotesDocument, ...options });
+  return Urql.useQuery<GetAllAppointmentNotesQuery, GetAllAppointmentNotesQueryVariables>({ query: GetAllAppointmentNotesDocument, ...options });
 };
 export const DoctorPayoutsDocument = gql`
     query doctorPayouts($doctorId: Int!) {
@@ -4343,7 +4345,7 @@ export const DoctorPayoutsDocument = gql`
     `;
 
 export function useDoctorPayoutsQuery(options: Omit<Urql.UseQueryArgs<DoctorPayoutsQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorPayoutsQuery>({ query: DoctorPayoutsDocument, ...options });
+  return Urql.useQuery<DoctorPayoutsQuery, DoctorPayoutsQueryVariables>({ query: DoctorPayoutsDocument, ...options });
 };
 export const DoctorSchedulesByDayDocument = gql`
     query doctorSchedulesByDay($doctorId: Int!, $filter: GetDoctorScheduleFilterInput!) {
@@ -4357,7 +4359,7 @@ export const DoctorSchedulesByDayDocument = gql`
     `;
 
 export function useDoctorSchedulesByDayQuery(options: Omit<Urql.UseQueryArgs<DoctorSchedulesByDayQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorSchedulesByDayQuery>({ query: DoctorSchedulesByDayDocument, ...options });
+  return Urql.useQuery<DoctorSchedulesByDayQuery, DoctorSchedulesByDayQueryVariables>({ query: DoctorSchedulesByDayDocument, ...options });
 };
 export const CountriesDocument = gql`
     query countries {
@@ -4369,7 +4371,7 @@ export const CountriesDocument = gql`
     `;
 
 export function useCountriesQuery(options?: Omit<Urql.UseQueryArgs<CountriesQueryVariables>, 'query'>) {
-  return Urql.useQuery<CountriesQuery>({ query: CountriesDocument, ...options });
+  return Urql.useQuery<CountriesQuery, CountriesQueryVariables>({ query: CountriesDocument, ...options });
 };
 export const GetStatesByCountryDocument = gql`
     query getStatesByCountry($input: Int!) {
@@ -4382,7 +4384,7 @@ export const GetStatesByCountryDocument = gql`
     `;
 
 export function useGetStatesByCountryQuery(options: Omit<Urql.UseQueryArgs<GetStatesByCountryQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetStatesByCountryQuery>({ query: GetStatesByCountryDocument, ...options });
+  return Urql.useQuery<GetStatesByCountryQuery, GetStatesByCountryQueryVariables>({ query: GetStatesByCountryDocument, ...options });
 };
 export const GetCitiesByStateDocument = gql`
     query getCitiesByState($input: Int!) {
@@ -4395,7 +4397,7 @@ export const GetCitiesByStateDocument = gql`
     `;
 
 export function useGetCitiesByStateQuery(options: Omit<Urql.UseQueryArgs<GetCitiesByStateQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetCitiesByStateQuery>({ query: GetCitiesByStateDocument, ...options });
+  return Urql.useQuery<GetCitiesByStateQuery, GetCitiesByStateQueryVariables>({ query: GetCitiesByStateDocument, ...options });
 };
 export const PatientHealthHistoryDocument = gql`
     query patientHealthHistory($input: Int!) {
@@ -4407,7 +4409,7 @@ export const PatientHealthHistoryDocument = gql`
     `;
 
 export function usePatientHealthHistoryQuery(options: Omit<Urql.UseQueryArgs<PatientHealthHistoryQueryVariables>, 'query'>) {
-  return Urql.useQuery<PatientHealthHistoryQuery>({ query: PatientHealthHistoryDocument, ...options });
+  return Urql.useQuery<PatientHealthHistoryQuery, PatientHealthHistoryQueryVariables>({ query: PatientHealthHistoryDocument, ...options });
 };
 export const GetAllCardsDocument = gql`
     query getAllCards($userId: Int!) {
@@ -4425,7 +4427,7 @@ export const GetAllCardsDocument = gql`
     `;
 
 export function useGetAllCardsQuery(options: Omit<Urql.UseQueryArgs<GetAllCardsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllCardsQuery>({ query: GetAllCardsDocument, ...options });
+  return Urql.useQuery<GetAllCardsQuery, GetAllCardsQueryVariables>({ query: GetAllCardsDocument, ...options });
 };
 export const GetCardDocument = gql`
     query getCard($id: Int!) {
@@ -4441,7 +4443,7 @@ export const GetCardDocument = gql`
     `;
 
 export function useGetCardQuery(options: Omit<Urql.UseQueryArgs<GetCardQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetCardQuery>({ query: GetCardDocument, ...options });
+  return Urql.useQuery<GetCardQuery, GetCardQueryVariables>({ query: GetCardDocument, ...options });
 };
 export const GetUserDocument = gql`
     query getUser($input: Int!) {
@@ -4505,7 +4507,7 @@ export const GetUserDocument = gql`
     `;
 
 export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetUserQuery>({ query: GetUserDocument, ...options });
+  return Urql.useQuery<GetUserQuery, GetUserQueryVariables>({ query: GetUserDocument, ...options });
 };
 export const DoctorProfilesDocument = gql`
     query doctorProfiles {
@@ -4538,7 +4540,7 @@ export const DoctorProfilesDocument = gql`
     `;
 
 export function useDoctorProfilesQuery(options?: Omit<Urql.UseQueryArgs<DoctorProfilesQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorProfilesQuery>({ query: DoctorProfilesDocument, ...options });
+  return Urql.useQuery<DoctorProfilesQuery, DoctorProfilesQueryVariables>({ query: DoctorProfilesDocument, ...options });
 };
 export const DoctorProfileDocument = gql`
     query doctorProfile($doctor_id: Int!) {
@@ -4599,7 +4601,7 @@ export const DoctorProfileDocument = gql`
     `;
 
 export function useDoctorProfileQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorProfileQuery>({ query: DoctorProfileDocument, ...options });
+  return Urql.useQuery<DoctorProfileQuery, DoctorProfileQueryVariables>({ query: DoctorProfileDocument, ...options });
 };
 export const GetAllRequestedAppointmentsDocument = gql`
     query getAllRequestedAppointments($filter: GetAppointmentInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -4713,7 +4715,7 @@ export const GetAllRequestedAppointmentsDocument = gql`
     `;
 
 export function useGetAllRequestedAppointmentsQuery(options: Omit<Urql.UseQueryArgs<GetAllRequestedAppointmentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllRequestedAppointmentsQuery>({ query: GetAllRequestedAppointmentsDocument, ...options });
+  return Urql.useQuery<GetAllRequestedAppointmentsQuery, GetAllRequestedAppointmentsQueryVariables>({ query: GetAllRequestedAppointmentsDocument, ...options });
 };
 export const DoctorProfileDetailsDocument = gql`
     query doctorProfileDetails($input: Int!) {
@@ -4748,7 +4750,7 @@ export const DoctorProfileDetailsDocument = gql`
     `;
 
 export function useDoctorProfileDetailsQuery(options: Omit<Urql.UseQueryArgs<DoctorProfileDetailsQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorProfileDetailsQuery>({ query: DoctorProfileDetailsDocument, ...options });
+  return Urql.useQuery<DoctorProfileDetailsQuery, DoctorProfileDetailsQueryVariables>({ query: DoctorProfileDetailsDocument, ...options });
 };
 export const GetAllAppointmentServiceTypesDocument = gql`
     query getAllAppointmentServiceTypes {
@@ -4761,7 +4763,7 @@ export const GetAllAppointmentServiceTypesDocument = gql`
     `;
 
 export function useGetAllAppointmentServiceTypesQuery(options?: Omit<Urql.UseQueryArgs<GetAllAppointmentServiceTypesQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllAppointmentServiceTypesQuery>({ query: GetAllAppointmentServiceTypesDocument, ...options });
+  return Urql.useQuery<GetAllAppointmentServiceTypesQuery, GetAllAppointmentServiceTypesQueryVariables>({ query: GetAllAppointmentServiceTypesDocument, ...options });
 };
 export const DoctorSchedulesDocument = gql`
     query doctorSchedules($doctorId: Int!) {
@@ -4778,7 +4780,7 @@ export const DoctorSchedulesDocument = gql`
     `;
 
 export function useDoctorSchedulesQuery(options: Omit<Urql.UseQueryArgs<DoctorSchedulesQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorSchedulesQuery>({ query: DoctorSchedulesDocument, ...options });
+  return Urql.useQuery<DoctorSchedulesQuery, DoctorSchedulesQueryVariables>({ query: DoctorSchedulesDocument, ...options });
 };
 export const DoctorQuestionnaireDocument = gql`
     query doctorQuestionnaire($doctorId: Int!, $languageId: Int!) {
@@ -4792,7 +4794,7 @@ export const DoctorQuestionnaireDocument = gql`
     `;
 
 export function useDoctorQuestionnaireQuery(options: Omit<Urql.UseQueryArgs<DoctorQuestionnaireQueryVariables>, 'query'>) {
-  return Urql.useQuery<DoctorQuestionnaireQuery>({ query: DoctorQuestionnaireDocument, ...options });
+  return Urql.useQuery<DoctorQuestionnaireQuery, DoctorQuestionnaireQueryVariables>({ query: DoctorQuestionnaireDocument, ...options });
 };
 export const GetAppointmentByIdDocument = gql`
     query getAppointmentById($id: Int!) {
@@ -4911,7 +4913,7 @@ export const GetAppointmentByIdDocument = gql`
     `;
 
 export function useGetAppointmentByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAppointmentByIdQuery>({ query: GetAppointmentByIdDocument, ...options });
+  return Urql.useQuery<GetAppointmentByIdQuery, GetAppointmentByIdQueryVariables>({ query: GetAppointmentByIdDocument, ...options });
 };
 export const GetAllTransactionsDocument = gql`
     query getAllTransactions($pagination: PaginationParams, $sorting: SortingParams) {
@@ -4954,7 +4956,7 @@ export const GetAllTransactionsDocument = gql`
     `;
 
 export function useGetAllTransactionsQuery(options?: Omit<Urql.UseQueryArgs<GetAllTransactionsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllTransactionsQuery>({ query: GetAllTransactionsDocument, ...options });
+  return Urql.useQuery<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>({ query: GetAllTransactionsDocument, ...options });
 };
 export const ScheduleDocument = gql`
     query schedule($doctorId: Int!) {
@@ -4968,7 +4970,7 @@ export const ScheduleDocument = gql`
     `;
 
 export function useScheduleQuery(options: Omit<Urql.UseQueryArgs<ScheduleQueryVariables>, 'query'>) {
-  return Urql.useQuery<ScheduleQuery>({ query: ScheduleDocument, ...options });
+  return Urql.useQuery<ScheduleQuery, ScheduleQueryVariables>({ query: ScheduleDocument, ...options });
 };
 export const ViewSuggestedTimeSlotsDocument = gql`
     query ViewSuggestedTimeSlots($id: Int!) {
@@ -5016,7 +5018,7 @@ export const ViewSuggestedTimeSlotsDocument = gql`
     `;
 
 export function useViewSuggestedTimeSlotsQuery(options: Omit<Urql.UseQueryArgs<ViewSuggestedTimeSlotsQueryVariables>, 'query'>) {
-  return Urql.useQuery<ViewSuggestedTimeSlotsQuery>({ query: ViewSuggestedTimeSlotsDocument, ...options });
+  return Urql.useQuery<ViewSuggestedTimeSlotsQuery, ViewSuggestedTimeSlotsQueryVariables>({ query: ViewSuggestedTimeSlotsDocument, ...options });
 };
 export const GetAppointmentsReminderBannerDocument = gql`
     query getAppointmentsReminderBanner {
@@ -5041,7 +5043,7 @@ export const GetAppointmentsReminderBannerDocument = gql`
     `;
 
 export function useGetAppointmentsReminderBannerQuery(options?: Omit<Urql.UseQueryArgs<GetAppointmentsReminderBannerQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAppointmentsReminderBannerQuery>({ query: GetAppointmentsReminderBannerDocument, ...options });
+  return Urql.useQuery<GetAppointmentsReminderBannerQuery, GetAppointmentsReminderBannerQueryVariables>({ query: GetAppointmentsReminderBannerDocument, ...options });
 };
 export const GetCountryByIdDocument = gql`
     query getCountryById($id: Int!) {
@@ -5055,7 +5057,7 @@ export const GetCountryByIdDocument = gql`
     `;
 
 export function useGetCountryByIdQuery(options: Omit<Urql.UseQueryArgs<GetCountryByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetCountryByIdQuery>({ query: GetCountryByIdDocument, ...options });
+  return Urql.useQuery<GetCountryByIdQuery, GetCountryByIdQueryVariables>({ query: GetCountryByIdDocument, ...options });
 };
 export const GetCityByIdDocument = gql`
     query getCityById($id: Int!) {
@@ -5068,7 +5070,7 @@ export const GetCityByIdDocument = gql`
     `;
 
 export function useGetCityByIdQuery(options: Omit<Urql.UseQueryArgs<GetCityByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetCityByIdQuery>({ query: GetCityByIdDocument, ...options });
+  return Urql.useQuery<GetCityByIdQuery, GetCityByIdQueryVariables>({ query: GetCityByIdDocument, ...options });
 };
 export const GetAppointmentReportUrlByIdDocument = gql`
     query getAppointmentReportUrlById($id: Int!) {
@@ -5082,7 +5084,7 @@ export const GetAppointmentReportUrlByIdDocument = gql`
     `;
 
 export function useGetAppointmentReportUrlByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentReportUrlByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAppointmentReportUrlByIdQuery>({ query: GetAppointmentReportUrlByIdDocument, ...options });
+  return Urql.useQuery<GetAppointmentReportUrlByIdQuery, GetAppointmentReportUrlByIdQueryVariables>({ query: GetAppointmentReportUrlByIdDocument, ...options });
 };
 export const GetDoctorEarningsDocument = gql`
     query getDoctorEarnings($filter: GetTransectionInput!, $id: Int!) {
@@ -5098,7 +5100,7 @@ export const GetDoctorEarningsDocument = gql`
     `;
 
 export function useGetDoctorEarningsQuery(options: Omit<Urql.UseQueryArgs<GetDoctorEarningsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetDoctorEarningsQuery>({ query: GetDoctorEarningsDocument, ...options });
+  return Urql.useQuery<GetDoctorEarningsQuery, GetDoctorEarningsQueryVariables>({ query: GetDoctorEarningsDocument, ...options });
 };
 export const GetAllStaffByDoctorDocument = gql`
     query getAllStaffByDoctor($filter: GetStaffFilter!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -5123,7 +5125,7 @@ export const GetAllStaffByDoctorDocument = gql`
     `;
 
 export function useGetAllStaffByDoctorQuery(options: Omit<Urql.UseQueryArgs<GetAllStaffByDoctorQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllStaffByDoctorQuery>({ query: GetAllStaffByDoctorDocument, ...options });
+  return Urql.useQuery<GetAllStaffByDoctorQuery, GetAllStaffByDoctorQueryVariables>({ query: GetAllStaffByDoctorDocument, ...options });
 };
 export const GetStaffDetailsUrlByIdDocument = gql`
     query getStaffDetailsUrlById($id: Int!) {
@@ -5140,7 +5142,7 @@ export const GetStaffDetailsUrlByIdDocument = gql`
     `;
 
 export function useGetStaffDetailsUrlByIdQuery(options: Omit<Urql.UseQueryArgs<GetStaffDetailsUrlByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetStaffDetailsUrlByIdQuery>({ query: GetStaffDetailsUrlByIdDocument, ...options });
+  return Urql.useQuery<GetStaffDetailsUrlByIdQuery, GetStaffDetailsUrlByIdQueryVariables>({ query: GetStaffDetailsUrlByIdDocument, ...options });
 };
 export const GetAdminUserByIdDocument = gql`
     query getAdminUserById($id: Int!) {
@@ -5156,7 +5158,7 @@ export const GetAdminUserByIdDocument = gql`
     `;
 
 export function useGetAdminUserByIdQuery(options: Omit<Urql.UseQueryArgs<GetAdminUserByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAdminUserByIdQuery>({ query: GetAdminUserByIdDocument, ...options });
+  return Urql.useQuery<GetAdminUserByIdQuery, GetAdminUserByIdQueryVariables>({ query: GetAdminUserByIdDocument, ...options });
 };
 export const GetAppointmentNotesByIdDocument = gql`
     query getAppointmentNotesById($id: Int!) {
@@ -5207,7 +5209,7 @@ export const GetAppointmentNotesByIdDocument = gql`
     `;
 
 export function useGetAppointmentNotesByIdQuery(options: Omit<Urql.UseQueryArgs<GetAppointmentNotesByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAppointmentNotesByIdQuery>({ query: GetAppointmentNotesByIdDocument, ...options });
+  return Urql.useQuery<GetAppointmentNotesByIdQuery, GetAppointmentNotesByIdQueryVariables>({ query: GetAppointmentNotesByIdDocument, ...options });
 };
 export const UserEmailPreferencesDocument = gql`
     query userEmailPreferences {
@@ -5228,7 +5230,7 @@ export const UserEmailPreferencesDocument = gql`
     `;
 
 export function useUserEmailPreferencesQuery(options?: Omit<Urql.UseQueryArgs<UserEmailPreferencesQueryVariables>, 'query'>) {
-  return Urql.useQuery<UserEmailPreferencesQuery>({ query: UserEmailPreferencesDocument, ...options });
+  return Urql.useQuery<UserEmailPreferencesQuery, UserEmailPreferencesQueryVariables>({ query: UserEmailPreferencesDocument, ...options });
 };
 export const PatientLastQuestionnaireDocument = gql`
     query patientLastQuestionnaire($doctorId: Int!, $patientId: Int!) {
@@ -5239,7 +5241,7 @@ export const PatientLastQuestionnaireDocument = gql`
     `;
 
 export function usePatientLastQuestionnaireQuery(options: Omit<Urql.UseQueryArgs<PatientLastQuestionnaireQueryVariables>, 'query'>) {
-  return Urql.useQuery<PatientLastQuestionnaireQuery>({ query: PatientLastQuestionnaireDocument, ...options });
+  return Urql.useQuery<PatientLastQuestionnaireQuery, PatientLastQuestionnaireQueryVariables>({ query: PatientLastQuestionnaireDocument, ...options });
 };
 export const GetDoctorNotesByAppIdDocument = gql`
     query getDoctorNotesByAppId($id: Int!) {
@@ -5292,7 +5294,7 @@ export const GetDoctorNotesByAppIdDocument = gql`
     `;
 
 export function useGetDoctorNotesByAppIdQuery(options: Omit<Urql.UseQueryArgs<GetDoctorNotesByAppIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetDoctorNotesByAppIdQuery>({ query: GetDoctorNotesByAppIdDocument, ...options });
+  return Urql.useQuery<GetDoctorNotesByAppIdQuery, GetDoctorNotesByAppIdQueryVariables>({ query: GetDoctorNotesByAppIdDocument, ...options });
 };
 export const CurrentAppointmentsDocument = gql`
     query currentAppointments($filter: GetCurrentAppointmentInput!, $pagination: PaginationParams, $sorting: SortingParams) {
@@ -5328,7 +5330,7 @@ export const CurrentAppointmentsDocument = gql`
     `;
 
 export function useCurrentAppointmentsQuery(options: Omit<Urql.UseQueryArgs<CurrentAppointmentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<CurrentAppointmentsQuery>({ query: CurrentAppointmentsDocument, ...options });
+  return Urql.useQuery<CurrentAppointmentsQuery, CurrentAppointmentsQueryVariables>({ query: CurrentAppointmentsDocument, ...options });
 };
 import { IntrospectionQuery } from 'graphql';
 export default {
