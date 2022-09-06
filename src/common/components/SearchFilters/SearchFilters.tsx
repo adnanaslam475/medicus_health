@@ -405,7 +405,9 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    {t("appointment_date")}
+                    <span className="font-rubik font-normal">
+                      {t("appointment_date")}
+                    </span>
                     {/* Appointment date */}
                   </div>
                   <div>
