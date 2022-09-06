@@ -70,7 +70,8 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
           type="primary"
           htmlType="submit"
         >
-          {t("confirm_password")}
+          Confirme contraseña
+          {/* {t("confirm_password")} */}
         </Button>
       </Form.Item>
     </Form>
