@@ -168,17 +168,12 @@ function AccountTabs() {
             }
             key="4"
           >
-            {allTransactionLoading ? (
-              <div className="lg:w-2/3 sm:w-full flex justify-center py-20 mr-5">
-                <Spin />
-              </div>
-            ) : (
-              <TransactionHistory
-                data={transactions?.items as Transaction[]}
-                setSorting={setSorting}
-                meta={transactions?.meta}
-              />
-            )}
+            <TransactionHistory
+              data={transactions?.items as Transaction[]}
+              setSorting={setSorting}
+              meta={transactions?.meta}
+              loading={allTransactionLoading}
+            />
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
