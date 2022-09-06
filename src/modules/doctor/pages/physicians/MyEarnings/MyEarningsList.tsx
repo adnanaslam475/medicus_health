@@ -301,27 +301,15 @@ const PhysicianMyEarningsList = (props: Props) => {
           <div className="flex mb-0 flex-wrap gap-x-16">
             <MyEarningsStats
               label={"Total consultations"}
-              text={
-                total_number_of_consultation
-                  ? String(numberFormater(total_number_of_consultation))
-                  : "-"
-              }
+              text={String(total_number_of_consultation) || "-"}
             />
             <MyEarningsStats
               label={"Total second opinions"}
-              text={
-                total_number_of_second_opinions
-                  ? String(numberFormater(total_number_of_second_opinions))
-                  : "-"
-              }
+              text={String(total_number_of_second_opinions) || "-"}
             />
             <MyEarningsStats
               label={"Total patients"}
-              text={
-                total_number_of_patients
-                  ? numberFormater(total_number_of_patients)
-                  : "-"
-              }
+              text={String(total_number_of_patients) || "-"}
             />
             <MyEarningsStats
               label={"Net earnings through consultations"}
