@@ -107,7 +107,6 @@ const columns = [
     dataIndex: "transaction",
     key: "status",
     className: "table-action-icon",
-    sorter:true,
     render: (transaction: Transaction) => {
       let _status = null;
       if (transaction?.status === "succeeded") {
