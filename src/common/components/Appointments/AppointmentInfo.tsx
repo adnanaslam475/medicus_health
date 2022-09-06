@@ -92,9 +92,9 @@ function AppointmentInfo(props: Props) {
       : "";
   const lastName =
     getRole() === "User"
-      ? doctorLastName?.toLocaleLowerCase()
+      ? doctorLastName
       : getRole() === "Doctor"
-      ? patientLastName?.toLocaleLowerCase()
+      ? patientLastName
       : "";
   const serviceName = getRole() === "User" ? doctorSpecialization : "";
   const profilePic =
