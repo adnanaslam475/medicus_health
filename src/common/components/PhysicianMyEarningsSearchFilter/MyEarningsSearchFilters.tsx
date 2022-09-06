@@ -157,7 +157,7 @@ function MyEarningsSearchFilters(props: Props) {
         <div className="w-full md:w-90 xl:w-56 ">
           <Select
             placeholder="Appointment type"
-            className={`${searchStyle.placeholderColor} w-full`}
+            className={`${searchStyle.placeholderColor} w-full font-rubik font-normal`}
             onChange={(value) => onChangeFields("serviceId", value as string)}
             value={filterState?.serviceId || "Appointment type"}
           >
@@ -267,7 +267,7 @@ function MyEarningsSearchFilters(props: Props) {
               onClick={() => setOpenDateRangeTwo?.(!openDateRangeTwo)}
             >
               {filterState.dueDate?.startDate ? (
-                <div>
+                <div className="font-rubik font-normal">
                   {filterState.dueDate
                     ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
                     : "Appointment date"}
@@ -285,7 +285,9 @@ function MyEarningsSearchFilters(props: Props) {
                           alt=""
                         />
                       </span>
-                      <span className="font-normal">Appointment date</span>
+                      <span className="font-rubik font-normal">
+                        Appointment date
+                      </span>
                     </div>
                     <div>
                       <CaretDownOutlined />
