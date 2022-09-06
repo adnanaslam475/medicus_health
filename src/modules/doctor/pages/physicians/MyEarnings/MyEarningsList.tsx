@@ -14,7 +14,7 @@ import {
 import { date, userData } from "common/utils";
 import { physicianMyEarningsFilterType, StatusName } from "common/types/types";
 import StatusChip from "common/components/StatusChip/StatusChip";
-import { numberFormater } from "common/utils/date";
+import { currencyFormatter, numberFormatter } from "common/utils/date";
 
 type Props = {};
 const Columns = [
@@ -303,7 +303,7 @@ const PhysicianMyEarningsList = (props: Props) => {
               label={"Total consultations"}
               text={
                 total_number_of_consultation
-                  ? String(numberFormater(total_number_of_consultation))
+                  ? numberFormatter(total_number_of_consultation)
                   : "-"
               }
             />
@@ -311,7 +311,7 @@ const PhysicianMyEarningsList = (props: Props) => {
               label={"Total second opinions"}
               text={
                 total_number_of_second_opinions
-                  ? String(numberFormater(total_number_of_second_opinions))
+                  ? numberFormatter(total_number_of_second_opinions)
                   : "-"
               }
             />
@@ -319,7 +319,7 @@ const PhysicianMyEarningsList = (props: Props) => {
               label={"Total patients"}
               text={
                 total_number_of_patients
-                  ? numberFormater(total_number_of_patients)
+                  ? numberFormatter(total_number_of_patients)
                   : "-"
               }
             />
@@ -327,7 +327,7 @@ const PhysicianMyEarningsList = (props: Props) => {
               label={"Net earnings through consultations"}
               text={
                 total_earnings_from_consultation
-                  ? numberFormater(total_earnings_from_consultation)
+                  ? currencyFormatter(total_earnings_from_consultation)
                   : "-"
               }
             />
@@ -335,13 +335,13 @@ const PhysicianMyEarningsList = (props: Props) => {
               label={"Net earnings through second opinions"}
               text={
                 total_earnings_from_second_opinions
-                  ? numberFormater(total_earnings_from_second_opinions)
+                  ? currencyFormatter(total_earnings_from_second_opinions)
                   : "-"
               }
             />
             <MyEarningsStats
               label={"Total net earnings"}
-              text={total_earnings ? numberFormater(total_earnings) : "-"}
+              text={total_earnings ? currencyFormatter(total_earnings) : "-"}
             />
           </div>
         </Skeleton>

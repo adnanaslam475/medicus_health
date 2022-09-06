@@ -26,6 +26,9 @@ import AmountDropdown from "../AmountDropdown/AmountDropdown";
 import { SelectStatusTypeFilter } from "../SelectStatusTypeFilter/SelectStatusTypeFilter";
 import RefundsDropdown from "../RefundsDropdown/RefundsDropdown";
 import TotalPaymentsDropdown from "../TotalPaymentsDropdown /TotalPaymentsDropdown";
+import Image from "next/image";
+import { calendarFilterIcon } from "utils/images";
+
 const { RangePicker } = DatePicker;
 type Props = {
   onChange: (value: physicianMyEarningsFilterType) => void;
@@ -270,12 +273,31 @@ function MyEarningsSearchFilters(props: Props) {
                     : "Appointment date"}
                 </div>
               ) : (
-                <div className="flex justify-between items-center w-full px-3">
-                  <div>Appointment date</div>
-                  <div>
-                    <CaretDownOutlined />
+                <div className="flex justify-between items-center w-full ">
+                  <div className="flex justify-between items-center w-full px-3">
+                    <div className="flex items-center font-thin">
+                      <span className="mr-2 mt-1">
+                        <Image
+                          priority={true}
+                          width={18}
+                          height={18}
+                          src={calendarFilterIcon}
+                          alt=""
+                        />
+                      </span>
+                      <span className="font-normal">Appointment date</span>
+                    </div>
+                    <div>
+                      <CaretDownOutlined />
+                    </div>
                   </div>
                 </div>
+                // <div className="flex justify-between items-center w-full px-3">
+                //   <div>Appointment date</div>
+                //   <div>
+                //     <CaretDownOutlined />
+                //   </div>
+                // </div>
               )}
             </Button>
           </div>
