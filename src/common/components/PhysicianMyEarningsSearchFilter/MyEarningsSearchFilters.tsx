@@ -320,6 +320,7 @@ function MyEarningsSearchFilters(props: Props) {
           </Dropdown> */}
         <div className="w-full md:w-56 mt-0">
           <SelectStatusTypeFilter
+          hideRequested={true}
             placeholder="Appointment status"
             onChange={(value) => onChangeFields("status", value as string)}
             // value={filterValues.status}
