@@ -216,13 +216,19 @@ const PersonalInfo = () => {
                 accept="image/jpg, image/jpeg,"
               >
                 <div className="relative">
-                  <Button
-                    type="link"
-                    className="text-primary underline text-xs"
-                  >
-                    Actualizar foto
-                    {/* {t("update_photo")} */}
-                  </Button>
+                  <div className="flex flex-col justify-start">
+                    <Button
+                      type="link"
+                      // title="Upload 600px*600px image"
+                      className="text-primary underline text-xs"
+                    >
+                      Actualizar foto
+                      {/* {t("update_photo")} */}
+                    </Button>
+                    <span className="hint font-rubik font-normal text-gray-1 font-xs">
+                      Upload 600px*600px image
+                    </span>
+                  </div>
                 </div>
               </Upload>
             )}
