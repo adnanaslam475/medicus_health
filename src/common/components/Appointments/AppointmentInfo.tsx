@@ -140,7 +140,7 @@ function AppointmentInfo(props: Props) {
                 className=""
               />
             }
-            className={`${_classes["appointments-btn"]}  mr-3`}
+            className={`${_classes["appointments-btn"]} mr-1 md:mr-2`}
             onClick={() => {
               const query: any = {
                 chat: "admin",
@@ -167,7 +167,7 @@ function AppointmentInfo(props: Props) {
                 className=""
               />
             }
-            className={`${_classes["appointments-btn"]} mr-2 `}
+            className={`${_classes["appointments-btn"]} mr-1 md:mr-2`}
             onClick={() => {
               const query: any = {
                 chat: "doctor",
