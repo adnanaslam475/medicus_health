@@ -41,7 +41,7 @@ function PatientAppointmentInfoTab() {
     </div>
   ) : (
     <CardWithProfileImageInfo
-      name={`${doctor?.first_name} ${doctor?.last_name.toLocaleLowerCase()}`}
+      name={`${doctor?.first_name} ${doctor?.last_name}`}
       serviceName={doctor?.doctorProfile?.specialization}
       imageUrl={doctor?.doctorProfile?.profile_image}
     >
