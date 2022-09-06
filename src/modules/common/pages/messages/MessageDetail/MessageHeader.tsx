@@ -118,7 +118,7 @@ function MessageHeader({
         /> */}
         </div>
         {isShowHeaderInfo && !removeCurrentChat && (
-          <div className="flex gap-2 w-full sm:px-4 chatremove">
+          <div className="flex gap-2 w-full px-4 chatremove">
             <div className="flex items-center gap-2 flex-1">
               <MDNextImage
                 alt=""
@@ -142,6 +142,7 @@ function MessageHeader({
               height={30}
               src={ThreeDot}
             />
+
           </div>
         )}
       </div>
