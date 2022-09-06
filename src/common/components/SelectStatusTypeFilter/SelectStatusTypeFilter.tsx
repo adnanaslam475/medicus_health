@@ -5,11 +5,13 @@ export function SelectStatusTypeFilter({
   value,
   placeholder,
   isAdminFilter,
+  hideRequested,
 }: {
   onChange: (value: string | undefined) => void;
   value: string | undefined | null;
   placeholder?: string;
   isAdminFilter?: boolean;
+  hideRequested?: boolean;
 }) {
   return (
     <Select
@@ -23,7 +25,9 @@ export function SelectStatusTypeFilter({
       value={value || "Appointment status"}
     >
       {/* ---> reuquested will give both Suggested and Requested */}
-      <Select.Option value="Requested">Requested</Select.Option>
+      {!hideRequested && (
+        <Select.Option value="Requested">Requested</Select.Option>
+      )}
       <Select.Option value="Canceled">Canceled</Select.Option>
       <Select.Option value="Confirmed">Upcoming</Select.Option>
       <Select.Option value="Completed">Completed</Select.Option>
