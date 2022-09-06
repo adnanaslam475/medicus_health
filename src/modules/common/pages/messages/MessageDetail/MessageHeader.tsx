@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ArrowLeftOutlined, SearchOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { Button, Input, notification } from "antd";
 import Image from "next/image";
 import profile from "./../../../../../../public/assets/images/nullicon.png";
@@ -142,7 +145,6 @@ function MessageHeader({
               height={30}
               src={ThreeDot}
             />
-
           </div>
         )}
       </div>
