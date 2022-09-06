@@ -58,11 +58,13 @@ function MessageConversationSider({
     }
   }, [query, allChannels]);
 
+  console.log("allChannels", allChannels);
+
   return !allChannels ? (
     <div className="m-40">
       <Spin />
     </div>
-  ) : (
+  ) : allChannels.length > 0 ? (
     <div
       style={{
         height: "calc(100vh - 225px)",
@@ -81,6 +83,16 @@ function MessageConversationSider({
           />
         );
       })}
+    </div>
+  ) : (
+    <div
+      style={{
+        height: "calc(100vh - 225px)",
+        overflowY: "auto",
+      }}
+      className={`${_classes["custom-height"]} flex`}
+    >
+      <h5 className="text-gray m-auto"> No result found</h5>
     </div>
   );
 }
