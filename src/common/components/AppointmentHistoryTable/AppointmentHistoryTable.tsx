@@ -126,7 +126,6 @@ const historyColumns = [
     title: "Appointment status",
     dataIndex: "status",
     key: "status",
-    sorter: true,
     render: (status: string) => {
       return (
         <div className="text-primary">

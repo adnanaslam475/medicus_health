@@ -109,7 +109,6 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       title: "Payment status",
       dataIndex: "status",
       key: "status",
-      sorter: true,
       render: (value: string) => {
         if (value == "Completed") {
           value = "Paid";

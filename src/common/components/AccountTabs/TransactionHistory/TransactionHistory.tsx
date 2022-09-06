@@ -59,7 +59,7 @@ const transactionsColumns = [
   {
     title: "Appointment date",
     dataIndex: "appointment",
-    key: "startTime",
+    key: "requestedDate",
     sorter: true,
     render: (value: Appointment) => {
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
@@ -113,10 +113,11 @@ type Props = {
   data: Transaction[] | undefined;
   setSorting?: Dispatch<SetStateAction<any>> | undefined;
   meta: any;
+  loading?: boolean | undefined;
 };
 
 const TransactionHistory = (props: Props) => {
-  const { data, setSorting, meta } = props || {};
+  const { data, setSorting, meta, loading } = props || {};
 
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
@@ -150,6 +151,7 @@ const TransactionHistory = (props: Props) => {
               (sorter.columnKey === "name" && "appointment_service_type") ||
               (sorter.columnKey === "startTime" && "appointment_time_slots") ||
               (sorter.columnKey === "amountReceived" && "transaction") ||
+              (sorter.columnKey === "requestedDate" && "appointment") ||
               "user"
             }.${sorter.columnKey || sorter.field}`
           : "",
@@ -158,9 +160,9 @@ const TransactionHistory = (props: Props) => {
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
 
-    const footer = () => {
-			return <div></div>;
-		  };
+  const footer = () => {
+    return <div></div>;
+  };
 
   return (
     <Table
@@ -169,6 +171,7 @@ const TransactionHistory = (props: Props) => {
       onChange={onChange}
       scroll={{ x: true }}
       footer={footer}
+      loading={loading}
       // pagination={{
       //   total: pagination.limit * meta?.totalPages,
       //   current: meta?.currentPage,
