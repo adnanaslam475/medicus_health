@@ -185,7 +185,9 @@ function SearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    <span className="font-normal">Appointment date</span>
+                    <span className="font-normal font-rubik">
+                      Appointment date
+                    </span>
                   </div>
                   <div>
                     <CaretDownOutlined style={{ color: `primary` }} />

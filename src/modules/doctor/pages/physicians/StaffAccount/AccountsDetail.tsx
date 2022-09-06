@@ -127,7 +127,7 @@ function Accounts() {
             }
             key="5"
           >
-            <div className="w-full md:w-1/2 lg:w-1/2 xl:w-2/5">
+            <div className="w-full md:w-full lg:max-w-[60%] xl:max-w-[60%]">
               <EmailNotificationPage />
             </div>
           </Tabs.TabPane>

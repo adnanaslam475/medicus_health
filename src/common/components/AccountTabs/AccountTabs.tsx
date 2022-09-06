@@ -20,7 +20,6 @@ import { EyeFilled } from "@ant-design/icons";
 import EmailNotificationPage from "modules/common/components/EmailNotification/EmailNotificationPage";
 import { useTranslations } from "next-intl";
 
-
 function AccountTabs() {
   const t = useTranslations("AccountDetail");
   const form: any = useRef();
@@ -190,7 +189,7 @@ function AccountTabs() {
             }
             key="5"
           >
-            <div className="lg:max-w-[60%]">
+            <div className="w-full md:w-full lg:max-w-[60%] xl:max-w-[60%]">
               <EmailNotificationPage />
             </div>
           </Tabs.TabPane>

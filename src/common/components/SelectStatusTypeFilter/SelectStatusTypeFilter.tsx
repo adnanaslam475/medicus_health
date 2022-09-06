@@ -4,17 +4,21 @@ export function SelectStatusTypeFilter({
   onChange,
   value,
   placeholder,
-  isAdminFilter
+  isAdminFilter,
 }: {
   onChange: (value: string | undefined) => void;
   value: string | undefined | null;
   placeholder?: string;
-  isAdminFilter?:boolean
+  isAdminFilter?: boolean;
 }) {
   return (
     <Select
       placeholder={placeholder}
-      className={isAdminFilter ? "admin-filter w-full md:w-50 text-grey-4 font-rubik" : "w-full md:w-50 text-gray-1"}
+      className={
+        isAdminFilter
+          ? "admin-filter w-full md:w-50 text-gray font-rubik"
+          : "w-full md:w-50 text-gray-1 font-rubik"
+      }
       onChange={onChange}
       value={value || "Appointment status"}
     >
