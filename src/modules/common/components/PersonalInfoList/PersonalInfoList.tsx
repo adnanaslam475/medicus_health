@@ -232,9 +232,10 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           </div>
           <div
             className={`sm:w-1/2 md:pl-4  ${
-              !!patientProfile?.children && "text-black"
+              !patientProfile?.children && "text-gray-1"
             }`}
           >
+            {/* {patientProfile?.children ? patientProfile?.children : "N/A"} */}
             {patientProfile?.children || "N/A"}
           </div>
         </div>
