@@ -40,11 +40,12 @@ import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
-import { UserOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined, UserOutlined } from "@ant-design/icons";
 import { useUserData } from "common/components/Context/UserContext";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { timezoneLabel } from "utils/helper";
+import { GraphQLError } from "graphql";
 
 const { TextArea } = Input;
 
@@ -241,8 +242,6 @@ function EditProfile({
       timeZone: timeZone?.id || 86,
     });
   }
-  console.log("my time zone is", timeZone);
-
   const [conditionTreatedList, setConditionTreatedList] =
     useState<any>(condition_treated);
 
@@ -362,11 +361,19 @@ function EditProfile({
     }
 
     if (res?.error) {
-      res?.error?.graphQLErrors[0]?.message &&
-        notification.error({
-          message:
-            res?.error?.graphQLErrors[0]?.message || "Something went wrong",
-        });
+      let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+        ?.response as GraphQLError;
+      let customError = res?.error?.graphQLErrors[0]?.extensions
+        ?.exception as GraphQLError;
+      let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message;
+      let errorMessage =
+        graphQLError?.message[0] ||
+        customError?.message ||
+        errorGraphQLMessage ||
+        "Something went wrong";
+      notification.error({
+        message: errorMessage,
+      });
     } else setIsEdit(false);
 
     // }
@@ -700,7 +707,15 @@ function EditProfile({
                 <Form.Item
                   name="email"
                   label="Email"
-                  rules={[{ type: "email" }]}
+                  rules={[
+                    {
+                      type: "email",
+                    },
+                    {
+                      required: true,
+                      message: "Email is required",
+                    },
+                  ]}
                   className="flex-1"
                 >
                   <Input onPressEnter={(e) => e.preventDefault()} />
@@ -795,7 +810,11 @@ function EditProfile({
                   name="year_of_experience"
                   className="flex-1"
                 >
-                  <Input type="number" step={"any"} onWheel={(e)=>e.currentTarget.blur()}/>
+                  <Input
+                    type="number"
+                    step={"any"}
+                    onWheel={(e) => e.currentTarget.blur()}
+                  />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row sm:gap-3">
@@ -958,6 +977,13 @@ function EditProfile({
                       })
                     )}
                   </Select>
+                  <div className="text-center text-red items-baseline flex">
+                    <InfoCircleOutlined className="text-red " /> &nbsp;
+                    <p className="">
+                      Make sure your timezone is selected and saved before you
+                      add schedules.
+                    </p>
+                  </div>
                 </Form.Item>
               </div>
 

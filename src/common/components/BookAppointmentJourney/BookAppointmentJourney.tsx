@@ -285,7 +285,7 @@ function BookAppointmentModal({
       {
         name: "charges",
         errors: [],
-        value:null
+        value: null,
       },
       {
         name: "physician",
@@ -304,8 +304,12 @@ function BookAppointmentModal({
         errors: [],
       },
     ]);
+    setClear(true);
     clearBookingContext?.({});
     onCancel?.(e);
+    setTimeout(() => {
+      setClear(false);
+    }, 2000);
   };
 
   return (
