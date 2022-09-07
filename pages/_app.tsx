@@ -16,6 +16,7 @@ import {
   UserDataProvider,
   useUserData,
 } from "common/components/Context/UserContext";
+import Script from "next/script";
 // import favicon from "../public/favicon.ico";
 
 const client = createClient({
@@ -53,6 +54,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <NextIntlProvider messages={pageProps.messages}>
           <AuthProvider>
             <Provider value={client}>
+            <Script src="https://polyfill.io/v3/polyfill.min.js?features=Intl%2CIntl.Locale" strategy="beforeInteractive" />
               <Component {...pageProps} />
             </Provider>
           </AuthProvider>
