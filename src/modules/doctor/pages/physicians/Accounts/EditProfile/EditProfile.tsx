@@ -40,7 +40,7 @@ import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
-import { UserOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined, UserOutlined } from "@ant-design/icons";
 import { useUserData } from "common/components/Context/UserContext";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -969,6 +969,13 @@ function EditProfile({
                       })
                     )}
                   </Select>
+                  <div className="text-center text-red items-baseline flex">
+                    <InfoCircleOutlined className="text-red " /> &nbsp;
+                    <p className="">
+                      Make sure your timezone is selected and saved before you
+                      add schedules.
+                    </p>
+                  </div>
                 </Form.Item>
               </div>
 

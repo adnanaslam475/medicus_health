@@ -244,6 +244,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       pagination,
       sorting,
     },
+    requestPolicy:"network-only"
   });
 
   const { getTransactionFilter } = transactionData || {};
