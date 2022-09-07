@@ -707,7 +707,15 @@ function EditProfile({
                 <Form.Item
                   name="email"
                   label="Email"
-                  rules={[{ required: true, message: "Email is required" }]}
+                  rules={[
+                    {
+                      type: "email",
+                    },
+                    {
+                      required: true,
+                      message: "Email is required",
+                    },
+                  ]}
                   className="flex-1"
                 >
                   <Input onPressEnter={(e) => e.preventDefault()} />
