@@ -128,7 +128,7 @@ const Columns = [
   {
     title: "Refunds($)",
     dataIndex: ["doctor_percentage", "status"],
-    key: "doctor_percentage",
+    key: "appointmentCharges",
     sorter: true,
     render: (text: any, row: any) => {
       return (
@@ -268,7 +268,8 @@ const PhysicianMyEarningsList = (props: Props) => {
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
         ? `${
-            (/(appointment|status)/.test(sorter.columnKey) && "appointment") ||
+            (/(status)/.test(sorter.columnKey) && "appointment") ||
+            (sorter.columnKey === "appointment" && "appointment") ||
             (sorter.columnKey === "first_name" && "patient") ||
             (sorter.columnKey === "name" && "appointment_service_type") ||
             (sorter.columnKey === "appointment_time_slots" &&

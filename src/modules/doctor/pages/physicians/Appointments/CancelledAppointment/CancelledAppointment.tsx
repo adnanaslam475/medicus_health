@@ -63,11 +63,10 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
             (/(status|charges)/.test(sorter.columnKey) && "appointment") ||
             (sorter.columnKey === "appointment_time_slots" &&
               "appointment_time_slots") ||
+            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+            (sorter.columnKey === "requestedDate" && "appointment") ||
             "patient"
-          }.${
-            (sorter.columnKey === "appointment_time_slots" && "startTime") ||
-            sorter.columnKey
-          }`
+          }.${sorter.columnKey}`
         : "",
     });
   };

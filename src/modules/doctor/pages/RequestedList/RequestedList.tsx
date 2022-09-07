@@ -58,7 +58,7 @@ const Columns = [
   {
     title: "Appointment date ",
     // dataIndex: "appointmentDateTime",
-    key: "startTime",
+    key: "requestedDate",
     sorter: true,
     render: (value: Appointment) => {
       let appointmentDateTime = value?.appointmentDateTime;
@@ -97,7 +97,6 @@ const Columns = [
           value?.appointmentTypeProposed?.dateTime
             ? (value?.appointmentTypeProposed?.dateTime.map(
                 (item: DateTimeSlots) => {
-                  console.log("item is");
                   return (
                     <li>{`${date.formathhmma(
                       String(item?.startTime),
