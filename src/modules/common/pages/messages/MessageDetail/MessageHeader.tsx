@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { SearchOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { Button, Input, notification } from "antd";
 import Image from "next/image";
 import profile from "./../../../../../../public/assets/images/nullicon.png";
@@ -88,7 +91,7 @@ function MessageHeader({
         <h2 className="mb-0 pl-4 pt-3">Messages</h2>
         <div className="md:hidden">
           <Button
-            icon={<UnorderedListOutlined />}
+            icon={<ArrowLeftOutlined />}
             className="default"
             type="link"
             onClick={() => {
@@ -142,7 +145,6 @@ function MessageHeader({
               height={30}
               src={ThreeDot}
             />
-
           </div>
         )}
       </div>

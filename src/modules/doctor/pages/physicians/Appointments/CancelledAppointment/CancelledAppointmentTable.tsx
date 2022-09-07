@@ -66,7 +66,7 @@ function CancelledAppointmentTable({
     {
       title: "Appointment date",
       dataIndex: "appointmentDateTime",
-      key: "appointment_time_slots",
+      key: "requestedDate",
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         let formatedDueDate = `${
@@ -85,7 +85,7 @@ function CancelledAppointmentTable({
     {
       title: "Appointment time",
       dataIndex: "appointmentDateTime",
-      key: "appointment_time_slots",
+      key: "startTime",
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         let formatedStartTime = date.formathhmma(

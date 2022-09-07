@@ -58,11 +58,10 @@ function PatientAppointmentHistory() {
               "appointment_time_slots") ||
             (sorter.columnKey === "first_name" && "patient") ||
             (sorter.columnKey === "amountReceived" && "transaction") ||
+            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+            (sorter.columnKey === "requestedDate" && "appointment") ||
             "user"
-          }.${
-            (sorter.columnKey === "appointment_time_slots" && "startTime") ||
-            sorter.columnKey
-          }`
+          }.${sorter.columnKey}`
         : "",
     });
   };

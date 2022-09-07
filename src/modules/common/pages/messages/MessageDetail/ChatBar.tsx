@@ -94,7 +94,7 @@ function MessageItem(props: Props) {
                       height={25}
                       src={fileIcon}
                     />
-                    <a href={message} target="_blank" rel="noreferrer">
+                    <a href={message} target="_blank" rel="noreferrer" className="break-all">
                       {fileName}
                     </a>
                   </p>

@@ -71,7 +71,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     {
       title: "Appointment date",
       dataIndex: "appointmentTimeSlots",
-      key: "appointment_time_slots",
+      key: "requestedDate",
       sorter: true,
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time.selected);
@@ -81,7 +81,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     {
       title: "Appointment time",
       dataIndex: "appointmentTimeSlots",
-      key: "appointment_time_slots",
+      key: "startTime",
       sorter: true,
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time.selected);
