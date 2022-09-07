@@ -84,7 +84,7 @@ function AppointmnetConfirmedCard({
       <div className="text-sm">Appointment status</div>
       <span className="text-base text-primary font-bold">{status}</span>
 
-      <div className="flex mt-4">
+      <div className="flex mt-4 justify-between">
         <Link passHref href={`/patient/appointments/${appointmentId}/call`}>
           <Button
             className={` ${_classes["card-btn"]} mr-3`}
