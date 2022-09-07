@@ -630,15 +630,18 @@ function EditProfile({
                   src={image || userProfileImage}
                   icon={!image && !userProfileImage && <UserOutlined />}
                 />
-                <span className="rounded-full absolute p-1 right-0 bottom-0">
-                  <Image
-                    priority={true}
-                    alt=""
-                    src={editicon}
-                    width={30}
-                    height={30}
-                    className="border rounded border-gray-2"
-                  />
+                <span className="rounded-full absolute p-1 right-0 bottom-0 imtiaz01">
+                  <Tooltip title={"Upload 600px*600px image"} color="#FFF">
+                    <Image
+                      priority={true}
+                      alt=""
+                      // title="Upload 600px*600px image"
+                      src={editicon}
+                      width={30}
+                      height={30}
+                      className="border rounded border-gray-2"
+                    />
+                  </Tooltip>
                 </span>
               </div>
             </Upload>
