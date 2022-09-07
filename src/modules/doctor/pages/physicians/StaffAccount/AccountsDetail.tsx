@@ -63,7 +63,11 @@ function Accounts() {
         >
           <Tabs.TabPane
             className="w-full"
-            tab={<span className="font-Circular font-medium">Account</span>}
+            tab={
+              <span className="font-Circular font-medium improved-word-spacing">
+                Account
+              </span>
+            }
             key="1"
           >
             <div className="doctorStaffDetails-Cover">
@@ -73,7 +77,7 @@ function Accounts() {
           <Tabs.TabPane
             className="w-full"
             tab={
-              <span className="font-Circular font-medium flex">
+              <span className="font-Circular font-medium improved-word-spacing flex">
                 Physician profile
               </span>
             }
@@ -83,7 +87,7 @@ function Accounts() {
           </Tabs.TabPane>
           {/* <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex">Bank Info</span>
+              <span className="font-Circular font-medium improved-word-spacing flex">Bank Info</span>
             }
             key="2"
           >
@@ -95,7 +99,9 @@ function Accounts() {
           </Tabs.TabPane>  */}
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium">Questionnaire</span>
+              <span className="font-Circular font-medium improved-word-spacing">
+                Questionnaire
+              </span>
             }
             key="3"
           >
@@ -108,7 +114,7 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex">
+              <span className="font-Circular font-medium improved-word-spacing flex">
                 Consultation rates
               </span>
             }
@@ -121,7 +127,7 @@ function Accounts() {
 
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex">
+              <span className="font-Circular font-medium improved-word-spacing flex">
                 Email notification
               </span>
             }
