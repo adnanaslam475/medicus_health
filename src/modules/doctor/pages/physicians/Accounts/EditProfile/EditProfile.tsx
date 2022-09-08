@@ -941,8 +941,8 @@ function EditProfile({
                     onPressEnter={(e) => e.preventDefault()}
                   />
                 </Form.Item>
+                <div className="flex-1">
                 <Form.Item
-                  className="flex-1"
                   label={"Time zone"}
                   name="timeZone"
                   rules={[
@@ -980,14 +980,15 @@ function EditProfile({
                       })
                     )}
                   </Select>
-                  <div className="text-center text-red items-baseline flex">
+                </Form.Item>
+                <div className="text-center text-red items-baseline flex -mt-4">
                     <InfoCircleOutlined className="text-red " /> &nbsp;
                     <p className="">
                       Make sure your timezone is selected and saved before you
                       add schedules.
                     </p>
                   </div>
-                </Form.Item>
+                  </div>
               </div>
 
               <div className="flex items-center ">
