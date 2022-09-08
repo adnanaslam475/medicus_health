@@ -16,7 +16,8 @@ function MessageContent({ removeCurrentChat }: Props) {
   };
 
   const { messageInfo } = useMessageContext();
-  const { messagesWithChannel, currentChannel } = messageInfo || {};
+  const { messagesWithChannel, currentChannel, allChannels } =
+    messageInfo || {};
   const currentChannelMessages =
     messagesWithChannel?.[currentChannel?.channelName || ""];
 
@@ -37,11 +38,13 @@ function MessageContent({ removeCurrentChat }: Props) {
         <div
           className={`flex justify-center items-center ${_classes["custom-height"]}`}
         >
-          {currentChannel?.lastMessage !== null ? (
-            <div className="text-gray">
-              Click on the chat thread to continue chat.
-            </div>
-          ) : null}
+          {/* {currentChannel?.lastMessage !== null ? (
+            allChannels && allChannels?.length > 0 ? (
+              <div className="text-gray">
+                Click on the chat thread to continue chat.
+              </div>
+            ) : null
+          ) : null} */}
         </div>
       )}
       {!removeCurrentChat && <MessageInput />}
