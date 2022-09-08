@@ -84,6 +84,9 @@ const columns = [
     dataIndex: "contact_number",
     key: "contact_number",
     sorter: true,
+    render: (contactNumber: string) => {
+      return <div>{`+${contactNumber}`}</div>;
+    },
   },
   {
     title: "Country",
