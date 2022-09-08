@@ -31,7 +31,13 @@ const appointmentColumns = [
     dataIndex: "patient",
     key: "first_name",
     render: (value: User) => {
-      return <div>{value?.first_name && value?.last_name ? `${value?.first_name} ${value?.last_name}` : "-"}</div>;
+      return (
+        <div>
+          {value?.first_name && value?.last_name
+            ? `${value?.first_name} ${value?.last_name}`
+            : "-"}
+        </div>
+      );
     },
     sorter: true,
   },
@@ -40,7 +46,13 @@ const appointmentColumns = [
     dataIndex: "doctor",
     key: "",
     render: (value: User) => {
-      return <div>{value?.first_name && value?.last_name ? `${value?.first_name} ${value?.last_name}` : "-"}</div>;
+      return (
+        <div>
+          {value?.first_name && value?.last_name
+            ? `${value?.first_name} ${value?.last_name}`
+            : "-"}
+        </div>
+      );
     },
     sorter: true,
   },

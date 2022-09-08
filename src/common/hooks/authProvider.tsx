@@ -93,6 +93,7 @@ function AuthProvider({ children }: any) {
       setAuthorized(false);
       router.push({
         pathname: "/login",
+        query: { ...router.query },
       });
       return true;
     } else {
@@ -111,6 +112,16 @@ function AuthProvider({ children }: any) {
     role === "User" &&
     authorized
   ) {
+    if (router.query.doctor_id) {
+      Router.push({
+        pathname: `/patient/physicians/profile/${router.query.doctor_id}`,
+      });
+    }
+    if (router.query.physicians) {
+      Router.push({
+        pathname: `/patient/physicians`,
+      });
+    }
     return children;
   } else if (
     router.pathname.startsWith("/admin") &&

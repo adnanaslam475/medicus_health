@@ -3,19 +3,42 @@
   background-color: #f6f8fa;
   border: none !important;
   max-width: 352px !important;
+  @media screen and (min-width: 769px) and (max-width: 1199px) {
+    max-width: 332px !important;
+  }
   .card-btn {
     font-size: 14px !important;
     padding: 0px 10px !important;
     height: 35px !important;
     line-height: 35px !important;
+    @media screen and (min-width: 769px) and (max-width: 1199px) {
+      // margin-right: 10px;
+    }
   }
   // .btn-transparent{
   //     background-color: transparent !important;
   // }
   :global .ant-card-body {
     min-width: 352px !important;
-    @media screen and (min-width: 768px) and (max-width: 991px) {
+    @media screen and (min-width: 768px) and (max-width: 1199px) {
       min-width: 350px !important;
+    }
+    & div:last-child {
+      @media screen and (min-width: 768px) and (max-width: 1199px) {
+        flex-wrap: wrap;
+      }
+
+      & button {
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+          display: block;
+          width: 95%;
+        }
+      }
+      & button:last-child {
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+          margin-left: 0;
+        }
+      }
     }
   }
 

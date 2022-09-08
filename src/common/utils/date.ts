@@ -218,3 +218,12 @@ export function getCurrentUserTimeZone() {
       : "America/Cambridge_Bay";
   return timeZone;
 }
+
+export const currencyFormatter = (value: number) =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(value);
+
+export const numberFormatter = (value: number) =>
+  new Intl.NumberFormat("en-PK", { maximumSignificantDigits: 3 }).format(value);

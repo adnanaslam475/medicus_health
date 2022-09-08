@@ -21,21 +21,33 @@ function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = getToken();
-    const role = getRole();
-    if (token) {
-      setAuthToken(token);
-      if (role === "Doctor") {
-        router.push("/physician/dashboard");
-      } else if (role === "User") {
-        router.push("/patient/appointments/upcoming");
-      } else if (role === "Admin") {
-        router.push("/admin/dashboards");
+    if (router.isReady) {
+      const token = getToken();
+      const role = getRole();
+      if (token) {
+        setAuthToken(token);
+        if (role === "Doctor") {
+          router.push("/physician/dashboard");
+        } else if (role === "User") {
+          if (router.query.doctor_id) {
+            Router.push({
+              pathname: `/patient/physicians/profile/${router.query.doctor_id}`,
+            });
+          } else if (router.query.physicians) {
+            Router.push({
+              pathname: `/patient/physicians`,
+            });
+          } else {
+            router.push("/patient/appointments/upcoming");
+          }
+        } else if (role === "Admin") {
+          router.push("/admin/dashboards");
+        }
+      } else {
+        setAuthToken("");
       }
-    } else {
-      setAuthToken("");
     }
-  }, []);
+  }, [router.isReady]);
 
   const [result, login] = useLoginMutation();
   const { error, fetching } = result;
@@ -83,10 +95,17 @@ function Login() {
             // pathname: "/physician/dashboard",
           });
         } else if (userPayload.user.role === "User") {
-          Router.replace({
-            // pathname: "/es/patient/appointments/upcoming",
-            pathname: "/patient/appointments/upcoming",
-          });
+          if (router.query.doctor_id) {
+            Router.push({
+              pathname: `/patient/physicians/profile/${router.query.doctor_id}`,
+            });
+          } else if (router.query.physicians) {
+            Router.push({
+              pathname: `/patient/physicians`,
+            });
+          } else {
+            Router.push("/patient/appointments/upcoming");
+          }
         } else if (userPayload.user.role === "Admin") {
           Router.replace({
             pathname: "/admin/dashboards",

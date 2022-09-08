@@ -26,6 +26,9 @@ import AmountDropdown from "../AmountDropdown/AmountDropdown";
 import { SelectStatusTypeFilter } from "../SelectStatusTypeFilter/SelectStatusTypeFilter";
 import RefundsDropdown from "../RefundsDropdown/RefundsDropdown";
 import TotalPaymentsDropdown from "../TotalPaymentsDropdown /TotalPaymentsDropdown";
+import Image from "next/image";
+import { calendarFilterIcon } from "utils/images";
+
 const { RangePicker } = DatePicker;
 type Props = {
   onChange: (value: physicianMyEarningsFilterType) => void;
@@ -154,7 +157,7 @@ function MyEarningsSearchFilters(props: Props) {
         <div className="w-full md:w-90 xl:w-56 ">
           <Select
             placeholder="Appointment type"
-            className={`${searchStyle.placeholderColor} w-full`}
+            className={`${searchStyle.placeholderColor} w-full font-rubik font-normal`}
             onChange={(value) => onChangeFields("serviceId", value as string)}
             value={filterState?.serviceId || "Appointment type"}
           >
@@ -264,18 +267,39 @@ function MyEarningsSearchFilters(props: Props) {
               onClick={() => setOpenDateRangeTwo?.(!openDateRangeTwo)}
             >
               {filterState.dueDate?.startDate ? (
-                <div>
+                <div className="font-rubik font-normal">
                   {filterState.dueDate
                     ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
                     : "Appointment date"}
                 </div>
               ) : (
-                <div className="flex justify-between items-center w-full px-3">
-                  <div>Appointment date</div>
-                  <div>
-                    <CaretDownOutlined />
+                <div className="flex justify-between items-center w-full ">
+                  <div className="flex justify-between items-center w-full px-3">
+                    <div className="flex items-center font-thin">
+                      <span className="mr-2 mt-1">
+                        <Image
+                          priority={true}
+                          width={18}
+                          height={18}
+                          src={calendarFilterIcon}
+                          alt=""
+                        />
+                      </span>
+                      <span className="font-rubik font-normal">
+                        Appointment date
+                      </span>
+                    </div>
+                    <div>
+                      <CaretDownOutlined />
+                    </div>
                   </div>
                 </div>
+                // <div className="flex justify-between items-center w-full px-3">
+                //   <div>Appointment date</div>
+                //   <div>
+                //     <CaretDownOutlined />
+                //   </div>
+                // </div>
               )}
             </Button>
           </div>
@@ -296,6 +320,7 @@ function MyEarningsSearchFilters(props: Props) {
           </Dropdown> */}
         <div className="w-full md:w-56 mt-0">
           <SelectStatusTypeFilter
+          hideRequested={true}
             placeholder="Appointment status"
             onChange={(value) => onChangeFields("status", value as string)}
             // value={filterValues.status}

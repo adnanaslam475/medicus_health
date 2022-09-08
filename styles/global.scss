@@ -592,4 +592,16 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-// sidebar-margin
+.ant-modal {
+  .ant-modal-content {
+    .ant-modal-body {
+      p {
+        max-width: 97% !important;
+      }
+    }
+  }
+}
+
+.font-xs {
+  font-size: 8px !important;
+}

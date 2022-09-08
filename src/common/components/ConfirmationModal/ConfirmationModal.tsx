@@ -23,6 +23,7 @@ const ConfirmationModal = ({
       confirmLoading={confirmLoading}
       onOk={onOk}
       visible={visible}
+      className="imtiasz"
     >
       <p>{message}</p>
     </Modal>

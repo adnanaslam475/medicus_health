@@ -90,12 +90,16 @@ function AppointmnetCancelledCard({
     <>
       <Card className={`${_classes["appointment-card"]}`}>
         <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
-        <h3 className="mb-0 capitalize ">{formatedDoctorName}</h3>
-        <span className="text-primary text-base block mb-6">
+        <h3 className="mb-0 capitalize improved-word-spacing">
+          {formatedDoctorName}
+        </h3>
+        <span className="text-primary text-base block mb-6 improved-word-spacing">
           {specialization}
         </span>
         <span className="text-sm ">Appointment type</span>
-        <div className="text-sm text-gray mb-3">{serviceTypeName}</div>
+        <div className="text-sm text-gray mb-3 improved-word-spacing">
+          {serviceTypeName}
+        </div>
         <span className="text-sm">Appointment date</span>
         <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
         <span className="text-sm">Appointment time</span>

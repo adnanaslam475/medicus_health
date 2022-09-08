@@ -186,7 +186,6 @@ function AdminPatientProfileTab({}: Props) {
     }
   };
   const onFinish = async (values: AdminPatientUpdateInput) => {
-    console.log("aaaaaaavalues are", values);
     const { password, confirm_password } = values;
     if (password && password !== confirm_password) {
       return notification.error({

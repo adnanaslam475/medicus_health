@@ -53,7 +53,8 @@ type Props = {
 export const AppointmentBookingStepOne = React.forwardRef(
   function AppointmentBookingStepOne(props: Props, ref: any) {
     const [formInstance] = Form.useForm();
-    const [data] = useGetAllAppointmentServiceTypesQuery();
+    const [data, executeUseGetAllAppointmentServiceTypesQuery] =
+      useGetAllAppointmentServiceTypesQuery({ requestPolicy: "network-only" });
     const {
       saveStepOne,
       data: appoinmentDetails,
@@ -132,6 +133,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
     useEffect(() => {
       if (appoinmentDetails) {
         prepareAndSetEditPayload();
+        executeUseGetAllAppointmentServiceTypesQuery({
+          requestPolicy: "network-only",
+        });
       }
     }, [appoinmentDetails]);
 
@@ -148,8 +152,12 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     useEffect(() => {
       if (clear) {
+        setServiceInfo([{ null: null }] as any);
         clearBookingContext?.({});
         formInstance.resetFields();
+        executeUseGetAllAppointmentServiceTypesQuery({
+          requestPolicy: "network-only",
+        });
       }
     }, [clear, isShow]);
 
@@ -182,6 +190,9 @@ export const AppointmentBookingStepOne = React.forwardRef(
     }
 
     function handleServiceChange(value: any) {
+      executeUseGetAllAppointmentServiceTypesQuery({
+        requestPolicy: "network-only",
+      });
       let charge = allAppoinments?.filter(
         (serviceType) => serviceType.id === value
       );

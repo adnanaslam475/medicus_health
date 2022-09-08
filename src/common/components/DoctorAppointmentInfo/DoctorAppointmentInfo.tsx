@@ -532,10 +532,10 @@ function DoctorUpcomingAppointmentInfoFooter({
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   return (
     <div className="flex justify-center sm:justify-between mt-6 flex-wrap gap-y-2 gap-x-2 ">
-      <div className="flex">
+      <div className="flex min-w-[230px] sm:min-w-auto md:min-w-auto">
         <Button
           danger
-          className={`${_classes["appointments-btn"]}`}
+          className={`${_classes["appointments-btn"]} w-full sm:w-auto md:w-auto`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Cancel appointment
@@ -561,7 +561,7 @@ function DoctorUpcomingAppointmentInfoFooter({
             <Button
               type="primary"
               icon={<VideoCameraFilled />}
-              className={`${_classes["appointments-btn"]} flex `}
+              className={`${_classes["appointments-btn"]} ${_classes["join-now-mobile"]} flex `}
               disabled={disabled}
               target={"_blank"}
             >

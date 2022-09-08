@@ -241,7 +241,7 @@ export const spanishCommon: any = {
   reset_password: "Restablecer la contraseña",
   password_message: "¡Por favor, introduzca su contraseña!",
   enter_your_new_password: "Introduzca su nueva contraseña",
-  confirm_password: "Restablecer la contraseña",
+  confirm_password: "Confirme contraseña",
   confirm_your_password: "¡Por favor, confirme su contraseña!",
   password_message_8_character:
     "La contraseña debe tener un mínimo de 8 caracteres.",

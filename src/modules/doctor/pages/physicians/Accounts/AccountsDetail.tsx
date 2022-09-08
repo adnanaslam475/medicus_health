@@ -73,7 +73,7 @@ function Accounts() {
           <Tabs.TabPane
             className="w-full"
             tab={
-              <span className="font-Circular font-medium flex items-center">
+              <span className="font-Circular font-medium improved-word-spacing flex items-center">
                 <UserOutlined style={{ fontSize: "20px" }} />
                 Profile
               </span>
@@ -85,7 +85,7 @@ function Accounts() {
           <Tabs.TabPane
             tab={
               <span
-                className={`${_classes["mobile-tabs-dollar"]} font-Circular font-medium flex items-center`}
+                className={`${_classes["mobile-tabs-dollar"]} font-Circular font-medium improved-word-spacing flex items-center`}
               >
                 <Dollariconbluewhite className={_classes["tabs-icon-hover"]} />
                 <span className="ml-2">Bank info</span>
@@ -101,7 +101,7 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex items-center">
+              <span className="font-Circular font-medium improved-word-spacing flex items-center">
                 <UnorderedListOutlined style={{ fontSize: "20px" }} />
                 Questionnaire
               </span>
@@ -116,7 +116,7 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex items-center">
+              <span className="font-Circular font-medium improved-word-spacing flex items-center">
                 <Consultationrateicon className={_classes["tabs-icon-hover"]} />
                 <span className="ml-2">Consultation rates</span>
               </span>
@@ -130,14 +130,14 @@ function Accounts() {
 
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium flex">
+              <span className="font-Circular font-medium improved-word-spacing flex">
                 <BellOutlined style={{ fontSize: "20px" }} />
                 Email notifications
               </span>
             }
             key="5"
           >
-            <div className="w-full md:w-1/2 lg:w-1/2 xl:w-2/5">
+            <div className="w-full md:w-full lg:max-w-[60%] xl:max-w-[60%]">
               <EmailNotificationPage />
             </div>
           </Tabs.TabPane>

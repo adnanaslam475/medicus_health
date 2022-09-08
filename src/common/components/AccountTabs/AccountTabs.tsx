@@ -109,7 +109,7 @@ function AccountTabs() {
           <Tabs.TabPane
             className="w-full"
             tab={
-              <span className="font-Circular font-medium">
+              <span className="font-Circular font-medium improved-word-spacing">
                 {t("personal_information")}
                 {/* Personal information */}
               </span>
@@ -120,7 +120,7 @@ function AccountTabs() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium">
+              <span className="font-Circular font-medium improved-word-spacing">
                 {t("health_questionnaire")}
                 {/* Health questionnaire */}
               </span>
@@ -150,7 +150,7 @@ function AccountTabs() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium">
+              <span className="font-Circular font-medium improved-word-spacing">
                 {t("payment_settings")}
                 {/* Payment settings */}
               </span>
@@ -162,7 +162,7 @@ function AccountTabs() {
           <Tabs.TabPane
             className={`${_classes["font-normal"]}`}
             tab={
-              <span className="font-Circular font-medium">
+              <span className="font-Circular font-medium improved-word-spacing">
                 {t("transaction_history")}
                 {/* Transaction history */}
               </span>
@@ -181,14 +181,14 @@ function AccountTabs() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium">
+              <span className="font-Circular font-medium improved-word-spacing">
                 {t("email_notification")}
                 {/* Email notification */}
               </span>
             }
             key="5"
           >
-            <div className="lg:max-w-[60%]">
+            <div className="w-full md:w-full lg:max-w-[60%] xl:max-w-[60%]">
               <EmailNotificationPage />
             </div>
           </Tabs.TabPane>
