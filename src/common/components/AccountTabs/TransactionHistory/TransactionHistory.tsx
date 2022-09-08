@@ -144,7 +144,7 @@ const TransactionHistory = (props: Props) => {
         column: sorter.order
           ? `${
               (sorter.field === "transaction" && "transaction") ||
-              (/(status|charges|requestedDate|createdAt|id)/.test(
+              (/(charges|requestedDate|createdAt|id)/.test(
                 sorter.columnKey
               ) &&
                 "appointment") ||
@@ -152,6 +152,7 @@ const TransactionHistory = (props: Props) => {
               (sorter.columnKey === "startTime" && "appointment_time_slots") ||
               (sorter.columnKey === "amountReceived" && "transaction") ||
               (sorter.columnKey === "requestedDate" && "appointment") ||
+              (sorter.columnKey === "status" && "transaction") ||
               "user"
             }.${sorter.columnKey || sorter.field}`
           : "",

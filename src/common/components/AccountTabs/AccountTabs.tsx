@@ -160,6 +160,7 @@ function AccountTabs() {
             <PaymentMethods />
           </Tabs.TabPane>
           <Tabs.TabPane
+            className={`${_classes["font-normal"]}`}
             tab={
               <span className="font-Circular font-medium">
                 {t("transaction_history")}
@@ -168,12 +169,15 @@ function AccountTabs() {
             }
             key="4"
           >
+            <div className="font-normal">
             <TransactionHistory
               data={transactions?.items as Transaction[]}
               setSorting={setSorting}
               meta={transactions?.meta}
               loading={allTransactionLoading}
             />
+            </div>
+            
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={

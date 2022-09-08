@@ -58,8 +58,6 @@ function MessageConversationSider({
     }
   }, [query, allChannels]);
 
-  console.log("allChannels", allChannels);
-
   return !allChannels ? (
     <div className="m-40">
       <Spin />
