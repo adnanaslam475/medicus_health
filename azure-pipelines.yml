@@ -70,6 +70,8 @@ stages:
             inputs:
               pollingTimeoutSec: "300"
 
+          - script: yarn build
+            displayName: "Build Package"
 
 
       - job: package
