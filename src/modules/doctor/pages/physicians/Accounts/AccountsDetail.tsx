@@ -85,7 +85,7 @@ function Accounts() {
           <Tabs.TabPane
             tab={
               <span
-                className={`${_classes["mobile-tabs-dollar"]} font-Circular font-medium improved-word-spacing flex items-center`}
+                className={`${_classes["mobile-tabs-dollar"]} font-Circular font-medium flex items-center`}
               >
                 <Dollariconbluewhite className={_classes["tabs-icon-hover"]} />
                 <span className="ml-2">Bank info</span>
