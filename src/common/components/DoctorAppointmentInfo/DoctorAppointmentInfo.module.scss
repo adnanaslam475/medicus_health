@@ -13,3 +13,18 @@
     }
   }
 }
+
+@media screen and (max-width: 360px) {
+  .propose-edit-btn {
+    margin-right: 20px !important;
+    font-size: 20px !important;
+  }
+}
+@media screen and (max-width: 485px) {
+  .time-space {
+    width: 100% !important;
+  }
+  .doctor-info-form {
+    display: block !important;
+  }
+}
