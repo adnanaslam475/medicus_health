@@ -116,7 +116,7 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium improved-word-spacing flex items-center">
+              <span className="font-Circular font-medium flex items-center">
                 <Consultationrateicon className={_classes["tabs-icon-hover"]} />
                 <span className="ml-2">Consultation rates</span>
               </span>
@@ -130,7 +130,7 @@ function Accounts() {
 
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium improved-word-spacing flex">
+              <span className="font-Circular font-medium flex">
                 <BellOutlined style={{ fontSize: "20px" }} />
                 Email notifications
               </span>
