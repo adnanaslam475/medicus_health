@@ -38,13 +38,13 @@ function MessageContent({ removeCurrentChat }: Props) {
         <div
           className={`flex justify-center items-center ${_classes["custom-height"]}`}
         >
-          {/* {currentChannel?.lastMessage !== null ? (
+          {currentChannel?.lastMessage !== null ? (
             allChannels && allChannels?.length > 0 ? (
               <div className="text-gray">
                 Click on the chat thread to continue chat.
               </div>
             ) : null
-          ) : null} */}
+          ) : null}
         </div>
       )}
       {!removeCurrentChat && <MessageInput />}
