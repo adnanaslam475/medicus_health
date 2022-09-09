@@ -44,6 +44,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       }, expireTime - Date.now());
     }
   }, [loginTime]);
+  
+  // added line break to check build issue resolution
 
   return (
     <>
