@@ -981,8 +981,8 @@ function EditProfile({
                     )}
                   </Select>
                   <div className="text-center text-red items-baseline flex">
-                    <InfoCircleOutlined className="text-red " /> &nbsp;
-                    <p className="">
+                    <InfoCircleOutlined className="text-red" /> &nbsp;
+                    <p className="text-left">
                       Make sure your timezone is selected and saved before you
                       add schedules.
                     </p>
