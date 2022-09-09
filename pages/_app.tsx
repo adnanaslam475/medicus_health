@@ -45,8 +45,6 @@ function MyApp({ Component, pageProps }: AppProps | any) {
     }
   }, [loginTime]);
 
-  // added line break to check build issue resolution
-
   return (
     <>
       <Head>
