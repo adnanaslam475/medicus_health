@@ -26,8 +26,8 @@ function InputWithLi(props: IMyProps) {
       setTreated("");
     }
   };
-  const removeFunction = (i: string) => {
-    const updatedList = initialValue && initialValue.filter((a) => a != i);
+  const removeFunction = (i: number) => {
+    const updatedList = initialValue && initialValue.filter((_,index) => index !== i);
     if (updatedList) {
       onChange?.(updatedList);
     }
@@ -73,7 +73,7 @@ function InputWithLi(props: IMyProps) {
                         <CloseOutlined
                           className="pl-2 pr-0 py-3"
                           style={{ color: "#D53E4F" }}
-                          onClick={() => removeFunction(a)}
+                          onClick={() => removeFunction(i)}
                         />
                       ) : (
                         <CheckOutlined
