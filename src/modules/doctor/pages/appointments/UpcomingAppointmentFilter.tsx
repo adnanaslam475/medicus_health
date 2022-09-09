@@ -21,7 +21,7 @@ type Props = {
 +initTranslation(["SearchFilters"]);
 function UpcomingAppointmentFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
-  const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<BookingDate>({});
   function clear() {
     setFilterState({});
     onChange({});
@@ -34,7 +34,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
-    onChangeFields("bookingDate", bookingDate);
+    onChangeFields("dueDate", dueDate);
   };
 
   function onChangeFields(key: string, value: string | number | object) {
@@ -44,8 +44,8 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
     };
     setFilterState(filters);
 
-    if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
-      delete filters.bookingDate;
+    if (!filters.dueDate?.startDate && !filters.dueDate?.endDate) {
+      delete filters.dueDate;
     }
     if (!filters.searchString) {
       delete filters.searchString;
@@ -82,7 +82,7 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
         <div className="-mt-6 w-full sm:w-60">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
-              setBookingDate({
+              setDueDate({
                 startDate: dateString[0],
                 endDate: dateString[1],
               })
@@ -92,10 +92,10 @@ function UpcomingAppointmentFilter({ onChange }: Props) {
             onCancel={() => setOpenDateRange(false)}
             onApply={applyDateRange}
             title={
-              filterState.bookingDate?.startDate && (
+              filterState.dueDate?.startDate && (
                 <div>
-                  {filterState.bookingDate
-                    ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
+                  {filterState.dueDate
+                    ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
                     : "Date"}
                 </div>
               )
