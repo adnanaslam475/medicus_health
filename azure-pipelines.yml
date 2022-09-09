@@ -38,7 +38,6 @@ stages:
 
           - script: yarn lint
             displayName: "Code Analysis"
-          
 
 
           - task: SonarQubePrepare@5
@@ -71,8 +70,7 @@ stages:
             inputs:
               pollingTimeoutSec: "300"
 
-          - script: yarn build
-            displayName: "Build Package"
+
 
       - job: package
         displayName: "Package Artifact"
