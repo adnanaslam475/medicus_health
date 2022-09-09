@@ -28,7 +28,7 @@ const client = createClient({
     };
   },
 });
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps | any) {
   const { user } = getUserData();
   const loginTime =
     typeof window !== "undefined" && localStorage?.getItem("loginTime");
@@ -44,6 +44,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       }, expireTime - Date.now());
     }
   }, [loginTime]);
+
+  // added line break to check build issue resolution
 
   return (
     <>
