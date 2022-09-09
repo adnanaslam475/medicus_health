@@ -8,7 +8,7 @@ import {
   Spin,
   Upload,
 } from "antd";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import _classes from "./MessageInput.module.scss";
 import attachIcon from "./../../../../../../public/assets/images/attach.svg";
 import smile from "./../../../../../../public/assets/images/smile.svg";
@@ -19,6 +19,16 @@ import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
 import { CloseCircleOutlined, FastForwardOutlined } from "@ant-design/icons";
 import Dragger from "antd/lib/upload/Dragger";
 import { hasValidMessage } from "common/utils/helper";
+
+import pdf from "../../../../../../public/assets/images/word-file.svg";
+import jpg from "../../../../../../public/assets/images/jpg.svg";
+import png from "../../../../../../public/assets/images/png.png";
+import zip from "../../../../../../public/assets/images/zip.png";
+import docx from "../../../../../../public/assets/images/docx.png";
+import doc from "../../../../../../public/assets/images/doc.jpg";
+import tiff from "../../../../../../public/assets/images/tiff.png";
+import bmp from "../../../../../../public/assets/images/bmp.png";
+import tga from "../../../../../../public/assets/images/tga.png";
 
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
@@ -122,6 +132,33 @@ function MessageInput() {
     setFileList(filteredFiles);
   };
 
+  const getFileImage = (fileName: any) => {
+    const fileExtension = /(?:\.([^.]+))?$/;
+    const fileExt = fileExtension?.exec(fileName)?.[0];
+    switch (fileExt) {
+      case ".png":
+        return png;
+      case ".doc":
+        return doc;
+      case ".docx":
+        return docx;
+      case ".pdf":
+        return pdf;
+      case ".zip":
+        return zip;
+      case ".tiff":
+        return tiff;
+      case ".tga":
+        return tga;
+      case ".jpg":
+        return jpg;
+      case ".jpeg":
+        return jpg;
+      case ".bmp":
+        return bmp;
+    }
+  };
+
   return (
     <div className={`${_classes["message-input"]} relative`}>
       {createChatFetching && messageType === "Media" ? (
@@ -146,7 +183,7 @@ function MessageInput() {
               value={messageText}
             />
             <div className="absolute left-0 top-2 bg-gray-5">
-              {fileList.map((file, index) => (
+              {fileList.map((file: any, index) => (
                 <>
                   <span
                     className="box-border p-1 pt-3 mr-4 bg-gray-9 font-semibold text-white border rounded-md text-left left-0 mx-1"
@@ -162,7 +199,10 @@ function MessageInput() {
                         alt=""
                         width={25}
                         height={25}
-                        src={fileIcon}
+                        // src={fileIcon}
+                        src={
+                          getFileImage(file?.name) as string | StaticImageData
+                        }
                       />
                     </Badge>
                   </span>
