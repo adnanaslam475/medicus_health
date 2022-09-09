@@ -82,6 +82,7 @@ export function MessageContextProvider({
   const messageInfoRef = useRef<MessageInfo>(messageInfo);
   messageInfoRef.current = messageInfo;
   const rtmRef = useRef<Client>();
+
   const [{}, markAsReadMutation] = useMarkMessagesAsReadMutationMutation();
 
   const [, executeCreateChatChannelMutation] = useCreateChatChannelMutation();
@@ -120,10 +121,7 @@ export function MessageContextProvider({
       info.messagesWithChannel = messages;
       setMessageInfo(info);
     }
-  }, [
-    getChannelMessages?.[0]?.channelId,
-    messageInfo.currentChannel?.channelName,
-  ]);
+  }, [getChannelMessages?.[0]?.channelId]);
 
   async function createOrJoinChannel() {
     try {
@@ -232,19 +230,23 @@ export function MessageContextProvider({
           const [message, memberId] = args;
           console.log(`%c${memberId}---> ${message.text}`, "color:orange");
           const info = { ...messageInfoRef.current };
+          console.log(" ...messageInfoRef.current ",  {...messageInfoRef.current });
+
           const messages = { ...info.messagesWithChannel };
+          const { text, messageType } = JSON.parse(message.text);
           messages[channelName || ""] = [
             ...(messages[channelName || ""] ? messages[channelName || ""] : []),
             {
               senderId: memberId,
-              message: message.text,
-              messageType: "text",
+              message: text,
+              messageType,
               createdAt: new Date().getTime(),
             },
           ];
           info.messagesWithChannel = messages;
           setMessageInfo(info);
         });
+        
       } catch (error) {
         notification.error({
           message: "login failed",
@@ -281,70 +283,72 @@ export function MessageContextProvider({
     }
   }
 
-  async function onLoginJoinChannel({ channelName }: { channelName: string }) {
-    const { data } = await executeGenerateRtcTokenMutation({
-      generateRTCTokenInput: {
-        channelName,
-        uId: String(user?.id),
-        role: "audience",
-        tokenType: "uid",
-      },
-    });
-    const { rtmAccessToken } = data?.generateRTCToken || {};
+  // async function onLoginJoinChannel({ channelName }: { channelName: string }) {
+  //   const { data } = await executeGenerateRtcTokenMutation({
+  //     generateRTCTokenInput: {
+  //       channelName,
+  //       uId: String(user?.id),
+  //       role: "audience",
+  //       tokenType: "uid",
+  //     },
+  //   });
+  //   const { rtmAccessToken } = data?.generateRTCToken || {};
 
-    let rtmLocal = rtmRef.current;
-    if (!rtmLocal) {
-      rtmLocal = new Client();
-      rtmRef.current = rtmLocal;
-      try {
-        await rtmLocal.login(String(user?.id), rtmAccessToken || "");
-        notification.success({
-          message: "user logged in successfully",
-        });
+  //   let rtmLocal = rtmRef.current;
+  //   if (!rtmLocal) {
+  //     rtmLocal = new Client();
+  //     rtmRef.current = rtmLocal;
+  //     try {
+  //       await rtmLocal.login(String(user?.id), rtmAccessToken || "");
+  //       notification.success({
+  //         message: "user logged in successfully",
+  //       });
 
-        await rtmLocal?.joinChannel(channelName);
-        if (rtmLocal) {
-          rtmLocal.channels[channelName].joined = true;
-        }
-        notification.success({
-          message: "joined successfully",
-        });
-        rtmLocal?.on("MemberLeft", ({ channelName, args }) => {
-          const memberId = args[0];
-          console.log(`%c${memberId} left the ${channelName}`, "color:red");
-        });
+  //       await rtmLocal?.joinChannel(channelName);
+  //       if (rtmLocal) {
+  //         rtmLocal.channels[channelName].joined = true;
+  //       }
+  //       notification.success({
+  //         message: "joined successfully",
+  //       });
+  //       rtmLocal?.on("MemberLeft", ({ channelName, args }) => {
+  //         const memberId = args[0];
+  //         console.log(`%c${memberId} left the ${channelName}`, "color:red");
+  //       });
 
-        rtmLocal?.on("MemberJoined", ({ channelName, args }) => {
-          const memberId = args[0];
-          console.log(`%c${memberId} joined the ${channelName}`, "color:green");
-        });
-        rtmLocal?.on("ChannelMessage", async ({ channelName, args }) => {
-          const [message, memberId] = args;
-          console.log(`%c${memberId}---> ${message.text}`, "color:orange");
-          const info = { ...messageInfoRef.current };
-          const messages = { ...info.messagesWithChannel };
-          messages[info?.currentChannel?.channelName || ""] = [
-            ...(messages[info?.currentChannel?.channelName || ""]
-              ? messages[info?.currentChannel?.channelName || ""]
-              : []),
-            {
-              senderId: memberId,
-              message: message.text,
-              messageType: "text",
-              createdAt: new Date().getTime(),
-            },
-          ];
-          info.messagesWithChannel = messages;
-          setMessageInfo(info);
-        });
-      } catch (error) {
-        console.log(error);
-        notification.error({
-          message: "login failed",
-        });
-      }
-    }
-  }
+  //       rtmLocal?.on("MemberJoined", ({ channelName, args }) => {
+  //         const memberId = args[0];
+  //         console.log(`%c${memberId} joined the ${channelName}`, "color:green");
+  //       });
+  //       rtmLocal?.on("ChannelMessage", async ({ channelName, args }) => {
+  //         console.log("args2", { args });
+
+  //         const [message, memberId, messageType] = args;
+  //         console.log(`%c${memberId}---> ${message.text}`, "color:orange");
+  //         const info = { ...messageInfoRef.current };
+  //         const messages = { ...info.messagesWithChannel };
+  //         messages[info?.currentChannel?.channelName || ""] = [
+  //           ...(messages[info?.currentChannel?.channelName || ""]
+  //             ? messages[info?.currentChannel?.channelName || ""]
+  //             : []),
+  //           {
+  //             senderId: memberId,
+  //             message: message.text,
+  //             messageType: message?.messageType,
+  //             createdAt: new Date().getTime(),
+  //           },
+  //         ];
+  //         info.messagesWithChannel = messages;
+  //         setMessageInfo(info);
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //       notification.error({
+  //         message: "login failed",
+  //       });
+  //     }
+  //   }
+  // }
   async function markMessageAsReadHandler(id: number) {
     try {
       await markAsReadMutation({
@@ -368,7 +372,7 @@ export function MessageContextProvider({
       },
     });
     await rtmRef.current?.sendChannelMessage(
-      text,
+      JSON.stringify({ text, messageType }),
       messageInfo.currentChannel?.channelName || ""
     );
     const info = { ...messageInfoRef.current };
@@ -406,7 +410,7 @@ export function MessageContextProvider({
           allChannels: getAllChatChannels as ChatChannels[],
         },
         createChatFetching,
-        onLoginJoinChannel,
+        // onLoginJoinChannel,
         onJoinChannel,
         setChatSearch,
         loginToRtm,

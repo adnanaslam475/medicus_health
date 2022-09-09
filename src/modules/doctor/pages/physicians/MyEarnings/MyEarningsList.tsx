@@ -113,8 +113,8 @@ const Columns = [
     },
   },
   {
-    title: "Total appointment fee($)",
-    dataIndex: "appointmentCharges",
+    title: "Physician earning($)",
+    dataIndex: "doctor_percentage",
     key: "appointment",
     sorter: true,
 

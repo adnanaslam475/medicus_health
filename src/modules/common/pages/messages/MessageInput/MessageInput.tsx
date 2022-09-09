@@ -72,8 +72,8 @@ function MessageInput() {
       if (urls.length > 0) {
         urls.map((url) => {
           onMessage?.(url?.url, "Media");
-          setMessageType("Media");
         });
+        setMessageType("Media");
         setFileList([]);
       } else {
         //checking if message contains Aplhanumeric and special characters and not contain only white spaces
