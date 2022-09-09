@@ -56,7 +56,10 @@ function MyApp({ Component, pageProps }: AppProps | any) {
         <NextIntlProvider messages={pageProps.messages}>
           <AuthProvider>
             <Provider value={client}>
-            <Script src="https://polyfill.io/v3/polyfill.min.js?features=Intl%2CIntl.Locale" strategy="beforeInteractive" />
+              <Script
+                src="https://polyfill.io/v3/polyfill.min.js?features=Intl%2CIntl.Locale"
+                strategy="beforeInteractive"
+              />
               <Component {...pageProps} />
             </Provider>
           </AuthProvider>
