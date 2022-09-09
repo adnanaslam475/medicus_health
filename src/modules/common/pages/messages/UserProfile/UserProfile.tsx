@@ -22,7 +22,7 @@ type Props = {
 };
 
 function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
-  const { setCurrentChannel, loginToRtm, onJoinChannel, messageInfo } =
+  const { setCurrentChannel, loginToRtm, onJoinChannel, messageInfo ,setBackButton} =
     useMessageContext();
   const { user } = getUserData();
   const { timeZone } = user || {};
@@ -45,6 +45,7 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
   );
 
   async function onJoinChat() {
+    setBackButton && setBackButton(true)
     // localStorage.setItem("id", JSON.stringify(query));
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
