@@ -1,8 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  ArrowLeftOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { ArrowLeftOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Input, notification } from "antd";
 import Image from "next/image";
 import profile from "./../../../../../../public/assets/images/nullicon.png";
@@ -33,7 +30,7 @@ function MessageHeader({
   setRemoveCurrentChat,
   onBackThread,
 }: Props) {
-  const { messageInfo, setChatSearch } = useMessageContext();
+  const { messageInfo, setChatSearch, backButton } = useMessageContext();
   const { user } = getUserData();
   const [{ fetching }, deleteChatChannelMutation] =
     useDeleteChatChannelMutation();
@@ -89,16 +86,18 @@ function MessageHeader({
       />
       <div className="flex justify-between">
         <h2 className="mb-0 pl-4 pt-3">Messages</h2>
-        <div className="md:hidden">
-          <Button
-            icon={<ArrowLeftOutlined />}
-            className="default"
-            type="link"
-            onClick={() => {
-              onBackThread?.(true, false);
-            }}
-          />
-        </div>
+        {backButton && (
+          <div className="md:hidden">
+            <Button
+              icon={<ArrowLeftOutlined />}
+              className="default"
+              type="link"
+              onClick={() => {
+                onBackThread?.(true, false);
+              }}
+            />
+          </div>
+        )}
       </div>
       <div className="flex flex-col py-2 md:flex-row md:py-0 gap-2 items-center border-b border-gray-4">
         <div className="flex gap-2 py-2 px-4 md:max-w-[340px] w-full border-r border-gray-4">
