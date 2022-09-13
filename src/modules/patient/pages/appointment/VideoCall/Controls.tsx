@@ -37,6 +37,8 @@ function Controls(props: Props) {
     }
   };
 
+  const shareScreen = async () => {}
+
   const leaveChannel = async () => {
     await client.leave();
     client.removeAllListeners();
@@ -58,6 +60,15 @@ function Controls(props: Props) {
       <div>
         <Button onClick={() => mute("audio")} size="small">
           {trackState.audio ? <AudioMutedOutlined /> : <AudioOutlined />}
+        </Button>
+      </div>
+      <div>
+        <Button
+          size="small"
+          color={trackState.video ? "primary" : "secondary"}
+          onClick={() => mute("video")}
+        >
+          {trackState.video ? <VideoCameraOutlined /> : <VideoCameraFilled />}
         </Button>
       </div>
       <div>
