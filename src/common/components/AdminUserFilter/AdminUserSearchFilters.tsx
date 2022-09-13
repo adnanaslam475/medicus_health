@@ -15,7 +15,10 @@ import {
   DownOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { BookingDate, useGetAllAppointmentServiceTypesQuery } from "../../../generated/graphql";
+import {
+  BookingDate,
+  useGetAllAppointmentServiceTypesQuery,
+} from "../../../generated/graphql";
 import searchStyle from "./style.module.scss";
 import _classes from "./AdminUserSearchFilters.module.scss";
 import { adminUserFilterType } from "common/types/types";
@@ -33,8 +36,7 @@ function AdminUserSearchFilters(props: Props) {
   const { onChange } = props;
 
   const [openDateRange, setOpenDateRange] = useState(false);
-  const [creationDate,setCreationDate]=useState<BookingDate>({})
-
+  const [creationDate, setCreationDate] = useState<BookingDate>({});
 
   const [visible, setVisible] = useState(false);
 
@@ -48,7 +50,7 @@ function AdminUserSearchFilters(props: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
-    onChangeFields("creationDate",creationDate)
+    onChangeFields("creationDate", creationDate);
   };
 
   function onChangeFields(key: string, value: string | object) {
@@ -108,11 +110,7 @@ function AdminUserSearchFilters(props: Props) {
         </div>
 
         <div className="w-full  sm:w-60">
-          <Space
-            direction="vertical"
-            size={0}
-            className="sm:w-60 flex w-full"
-          >
+          <Space direction="vertical" size={0} className="sm:w-60 flex w-full">
             <div className="relative">
               <RangePicker
                 value={null}
@@ -169,8 +167,8 @@ function AdminUserSearchFilters(props: Props) {
               </Button>
             </div>
           </Space>
-          </div>
-          <div>
+        </div>
+        <div>
           <Button
             onClick={clear}
             type="text"
@@ -179,7 +177,7 @@ function AdminUserSearchFilters(props: Props) {
             <CloseOutlined className="text-sm" />
             <span className="text-gray-1 text-sm">Clear</span>
           </Button>
-          </div>
+        </div>
       </div>
     </div>
   );

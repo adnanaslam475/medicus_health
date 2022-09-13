@@ -942,26 +942,26 @@ function EditProfile({
                   />
                 </Form.Item>
                 <div className="flex-1">
-                <Form.Item
-                  label={"Time zone"}
-                  name="timeZone"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Timezone is required",
-                    },
-                  ]}
-                >
-                  <Select
-                    placeholder={timeZone?.timeZoneName}
-                    showSearch
-                    filterOption={(input, city: any) =>
-                      city.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
+                  <Form.Item
+                    label={"Time zone"}
+                    name="timeZone"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Timezone is required",
+                      },
+                    ]}
                   >
-                    {/* {React.Children.toArray(
+                    <Select
+                      placeholder={timeZone?.timeZoneName}
+                      showSearch
+                      filterOption={(input, city: any) =>
+                        city.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      {/* {React.Children.toArray(
                       getTimeZones?.data?.getTimeZones?.map((el, i) => {
                         return (
                           <Select.Option value={el.id}>
@@ -970,25 +970,25 @@ function EditProfile({
                         );
                       })
                     )} */}
-                    {React.Children.toArray(
-                      getTimeZones?.data?.getTimeZones?.map((el, i) => {
-                        return (
-                          <Select.Option value={el.id}>
-                            {el?.timeZoneName}
-                          </Select.Option>
-                        );
-                      })
-                    )}
-                  </Select>
-                </Form.Item>
-                <div className="text-center text-red items-baseline flex -mt-4">
+                      {React.Children.toArray(
+                        getTimeZones?.data?.getTimeZones?.map((el, i) => {
+                          return (
+                            <Select.Option value={el.id}>
+                              {el?.timeZoneName}
+                            </Select.Option>
+                          );
+                        })
+                      )}
+                    </Select>
+                  </Form.Item>
+                  <div className="text-center text-red items-baseline flex -mt-4">
                     <InfoCircleOutlined className="text-red " /> &nbsp;
                     <p className="">
                       Make sure your timezone is selected and saved before you
                       add schedules.
                     </p>
                   </div>
-                  </div>
+                </div>
               </div>
 
               <div className="flex items-center ">

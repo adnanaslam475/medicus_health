@@ -29,7 +29,7 @@ export function FilterRangePicker({
     <div
       className={` ${
         isAdminFilter && "admin-filter-date-picker"
-      } relative my-0  " ${_classes["filter-date-wrapper"]} `}
+      } relative my-0 ${_classes["filter-date-wrapper"]} `}
     >
       <DatePicker.RangePicker
         value={null}
@@ -55,7 +55,7 @@ export function FilterRangePicker({
             className={`${_classes["filter-date-wrapper"]} flex justify-between items-center w-full px-2`}
           >
             <div className="flex items-center">
-              <span className="mr-1 mt-1">
+              <span className="mr-2 mt-1">
                 <Image
                   priority={true}
                   width={18}

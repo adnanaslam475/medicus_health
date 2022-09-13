@@ -105,7 +105,7 @@ function PatientDetail() {
         >
           <TabPane
             tab={
-              <span>
+              <span className="inline-flex items-center">
                 <UserOutlined className="" />
                 Profile
               </span>
@@ -121,7 +121,7 @@ function PatientDetail() {
 
           <TabPane
             tab={
-              <span>
+              <span className="inline-flex items-center">
                 <UnorderedListOutlined />
                 Health questionnaire
               </span>
@@ -136,7 +136,7 @@ function PatientDetail() {
 
           <TabPane
             tab={
-              <span>
+              <span className="inline-flex items-center">
                 <CalendarOutlined />
                 Appointments history
               </span>
