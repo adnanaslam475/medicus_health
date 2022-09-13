@@ -105,7 +105,7 @@ function NotesHistory(props: Props) {
                     //   data?.appointment?.doctor?.last_name
                     // )}   `}
                     header={
-                      <div className=" justify-between flex flex-col sm:flex-row">
+                      <div className=" justify-between flex flex-col sm:flex-row flex-1">
                         <div>{`ID# ${data?.appointment?.id}`}</div>
                         <div>
                           {doctorNameforHistoryNotes(
