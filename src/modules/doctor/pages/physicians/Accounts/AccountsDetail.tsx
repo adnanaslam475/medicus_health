@@ -93,7 +93,7 @@ function Accounts() {
             }
             key="2"
           >
-            <div className="lg:w-2/6">
+            <div className="lg:w-3/6 xl:w-3/6">
               <Elements stripe={loadStripe(config.stripeKey || "")}>
                 <BankInfo />
               </Elements>
