@@ -54,7 +54,10 @@ function MyApp({ Component, pageProps }: AppProps | any) {
         <NextIntlProvider messages={pageProps.messages}>
           <AuthProvider>
             <Provider value={client}>
-            <Script src="https://polyfill.io/v3/polyfill.min.js?features=Intl%2CIntl.Locale" strategy="beforeInteractive" />
+              <Script
+                src="https://polyfill.io/v3/polyfill.min.js?features=Intl%2CIntl.DateTimeFormat%2CIntl.RelativeTimeFormat%2CIntl.DateTimeFormat.%7EtimeZone.all%2CIntl.PluralRules%2CIntl.Locale%2CIntl.NumberFormat"
+                strategy="beforeInteractive"
+              />
               <Component {...pageProps} />
             </Provider>
           </AuthProvider>
