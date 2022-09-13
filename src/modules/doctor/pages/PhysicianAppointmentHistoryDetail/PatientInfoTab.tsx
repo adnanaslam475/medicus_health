@@ -89,7 +89,7 @@ function PatientInfoTab({}: Props) {
           <LabelWithTextDiv label="Correo electrónico" value={email || "-"} />
           <LabelWithTextDiv
             label="Teléfono de contacto"
-            value={contact_number || "-"}
+            value={contact_number?`+${contact_number}` : "-"}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">

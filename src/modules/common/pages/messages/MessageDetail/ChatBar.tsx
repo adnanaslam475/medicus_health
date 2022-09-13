@@ -42,7 +42,9 @@ function MessageItem(props: Props) {
   );
 
   // get file name from Media
-  const fileName = message.split("com")[1]?.replace("/", "");
+  let fileName = message.split("com")[1]?.replace("/", "");
+  fileName = fileName?.substr(0, fileName?.lastIndexOf("."));
+
   return (
     <div className="p-4">
       <div
@@ -94,7 +96,12 @@ function MessageItem(props: Props) {
                       height={25}
                       src={fileIcon}
                     />
-                    <a href={message} target="_blank" rel="noreferrer" className="break-all">
+                    <a
+                      href={message}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="break-all"
+                    >
                       {fileName}
                     </a>
                   </p>

@@ -1,5 +1,7 @@
 import React, {
   createContext,
+  Dispatch,
+  SetStateAction,
   useContext,
   useEffect,
   useRef,
@@ -36,6 +38,8 @@ type state = {
   setCurrentChannel: (channel: ChatChannels) => void;
   setChatSearch: (value: string) => void;
   createChatFetching?: boolean | undefined | null;
+  backButton?: boolean | undefined | null;
+  setBackButton?: Dispatch<SetStateAction<boolean>>;
 };
 
 type MessageInfo = {
@@ -54,6 +58,8 @@ const initialState: state = {
     currentChannel: undefined,
   },
   createChatFetching: null,
+  backButton: null,
+  setBackButton: () => null,
 };
 
 const MessageContext = createContext(initialState);
@@ -77,6 +83,7 @@ export function MessageContextProvider({
   const [againFetchAllChannel, setAgainFetchAllChannel] =
     useState<boolean>(false);
   const [createChatFetching, setCreateChatFetching] = useState<boolean>(false);
+  const [backButton, setBackButton] = React.useState<boolean>(false);
   const [searchString, setChatSearch] = React.useState<string>("");
   const { query } = useRouter();
   const messageInfoRef = useRef<MessageInfo>(messageInfo);
@@ -205,6 +212,7 @@ export function MessageContextProvider({
   }
 
   async function loginToRtm() {
+    setBackButton(false)
     const res = await getRtmToken("channelName", String(user?.id));
     const { rtmAccessToken } = res || {};
     let rtmLocal = rtmRef.current;
@@ -230,7 +238,9 @@ export function MessageContextProvider({
           const [message, memberId] = args;
           console.log(`%c${memberId}---> ${message.text}`, "color:orange");
           const info = { ...messageInfoRef.current };
-          console.log(" ...messageInfoRef.current ",  {...messageInfoRef.current });
+          console.log(" ...messageInfoRef.current ", {
+            ...messageInfoRef.current,
+          });
 
           const messages = { ...info.messagesWithChannel };
           const { text, messageType } = JSON.parse(message.text);
@@ -246,7 +256,6 @@ export function MessageContextProvider({
           info.messagesWithChannel = messages;
           setMessageInfo(info);
         });
-        
       } catch (error) {
         notification.error({
           message: "login failed",
@@ -410,6 +419,8 @@ export function MessageContextProvider({
           allChannels: getAllChatChannels as ChatChannels[],
         },
         createChatFetching,
+        backButton,
+        setBackButton,
         // onLoginJoinChannel,
         onJoinChannel,
         setChatSearch,

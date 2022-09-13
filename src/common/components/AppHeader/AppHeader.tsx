@@ -154,7 +154,7 @@ const AppHeader = () => {
             className={`${_classes["topBar-avatar"]} flex items-center text-right justify-end w-full md:w-1/2`}
           >
             <Dropdown
-              className="flex items-center"
+              className="flex items-center min-w-[60px]"
               overlay={menu}
               placement="bottomRight"
               trigger={["click"]}
@@ -169,7 +169,7 @@ const AppHeader = () => {
                       width="40"
                       onError={(e) => console.log(e)}
                       src={profilePicture || userDefaultPicture}
-                      className="bg-gray border rounded-full border-gray"
+                      className="bg-gray border rounded-full border-gray min-w-[40]"
                     />
                     <span className="justify-center px-2 hidden xl:block">
                       {userName}

@@ -45,8 +45,6 @@ function MyApp({ Component, pageProps }: AppProps | any) {
     }
   }, [loginTime]);
 
-  // added line break to check build issue resolution
-
   return (
     <>
       <Head>
@@ -57,7 +55,7 @@ function MyApp({ Component, pageProps }: AppProps | any) {
           <AuthProvider>
             <Provider value={client}>
               <Script
-                src="https://polyfill.io/v3/polyfill.min.js?features=Intl%2CIntl.Locale"
+                src="https://polyfill.io/v3/polyfill.min.js?features=Intl%2CIntl.DateTimeFormat%2CIntl.RelativeTimeFormat%2CIntl.DateTimeFormat.%7EtimeZone.all%2CIntl.PluralRules%2CIntl.Locale%2CIntl.NumberFormat"
                 strategy="beforeInteractive"
               />
               <Component {...pageProps} />
