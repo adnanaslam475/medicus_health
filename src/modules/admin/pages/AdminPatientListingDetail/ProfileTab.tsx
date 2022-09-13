@@ -23,10 +23,12 @@ import _classes from "./ProfileTab.module.scss";
 import { AdminPatientUpdateInput } from "common/types/types";
 import { GraphQLError } from "graphql";
 import userDefaultPicture from "../../../../../public/assets/images/profile.jpg";
+import chat from "./../../../../../public/assets/icon/chat-bubble.svg";
 
 type Props = {};
 type CountryOrStateObject = { id: number | string | undefined | null };
 function AdminPatientProfileTab({}: Props) {
+  
   const { query } = useRouter();
   const [countryId, setCountryId] = React.useState<CountryOrStateObject>({
     id: 0,
@@ -52,6 +54,7 @@ function AdminPatientProfileTab({}: Props) {
 
   const { user } = data || {};
   const {
+    id,
     first_name,
     last_name,
     country_id,
@@ -298,6 +301,31 @@ function AdminPatientProfileTab({}: Props) {
             <Button type="default" onClick={() => setIsEdit(!isEdit)}>
               <EditOutlined />
               Edit info
+            </Button>
+            <Button
+              icon={
+                <Image
+                  priority={true}
+                  width={15}
+                  height={15}
+                  src={chat}
+                  alt=""
+                  className=""
+                />
+              }
+              className={`${_classes["appointments-btn"]} mr-1 sm:mr-3`}
+              onClick={() => {
+                const query: any = {
+                  chat: "admin",
+                  patientId: id,
+                };
+                Router.push({
+                  pathname: "/admin/messages",
+                  query,
+                });
+              }}
+            >
+              <span className="pl-2">Message patient</span>
             </Button>
           </div>
         </div>
