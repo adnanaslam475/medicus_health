@@ -46,8 +46,6 @@ function NotesHistory(props: Props) {
       },
     });
 
-  console.log(getHistoryNotesData, "anis");
-
   const { Panel } = Collapse;
 
   const onChangeCollapse = (key: string | string[]) => {
@@ -61,8 +59,6 @@ function NotesHistory(props: Props) {
   const doctor = getHistoryNotesData?.appointment;
 
   const historyNotes = appointmentChild?.appointment?.notesHistory;
-
-  console.log(historyNotes, "MajidhistoryNotes");
 
   const doctorNameforHistoryNotes = (firstName: string, lastName: string) => {
     const capitalFirstname = firstName?.charAt(0).toUpperCase();
@@ -109,7 +105,7 @@ function NotesHistory(props: Props) {
                     //   data?.appointment?.doctor?.last_name
                     // )}   `}
                     header={
-                      <div className=" justify-between flex flex-col sm:flex-row">
+                      <div className=" justify-between flex flex-col sm:flex-row flex-1">
                         <div>{`ID# ${data?.appointment?.id}`}</div>
                         <div>
                           {doctorNameforHistoryNotes(
