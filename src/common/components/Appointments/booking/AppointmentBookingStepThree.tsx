@@ -183,7 +183,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     let updatedDepedencies = { ...dependent };
     fieldChange.forEach((field) => {
       if (isCheckbox) {
-        console.log("field.value");
         updatedDepedencies[field.name as string] = field.value?.includes(
           filteredItemLength - 1
         )
