@@ -60,11 +60,8 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
 
   useEffect(() => {
     loginToRtm?.();
-    console.log("rtm", "log in");
     return ()=>{
       logOutFromRtm?.();
-    console.log("rtm", "log out");
-
     }
   }, []);
 
