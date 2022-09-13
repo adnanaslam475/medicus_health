@@ -46,8 +46,6 @@ function NotesHistory(props: Props) {
       },
     });
 
-  console.log(getHistoryNotesData, "anis");
-
   const { Panel } = Collapse;
 
   const onChangeCollapse = (key: string | string[]) => {
@@ -61,8 +59,6 @@ function NotesHistory(props: Props) {
   const doctor = getHistoryNotesData?.appointment;
 
   const historyNotes = appointmentChild?.appointment?.notesHistory;
-
-  console.log(historyNotes, "MajidhistoryNotes");
 
   const doctorNameforHistoryNotes = (firstName: string, lastName: string) => {
     const capitalFirstname = firstName?.charAt(0).toUpperCase();

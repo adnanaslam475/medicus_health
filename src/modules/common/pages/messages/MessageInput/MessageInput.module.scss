@@ -5,6 +5,9 @@
     border: none !important;
     background-color: #e7e9ed;
     width: calc(100% - 78px);
+    &:focus {
+      box-shadow: none !important;
+    }
   }
   ::-webkit-input-placeholder {
     color: #9295af !important;

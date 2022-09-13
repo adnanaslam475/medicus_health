@@ -273,7 +273,6 @@ function DoctorAppointmentInfo({ data }: Props) {
             label={"Appointment(s) proposed"}
             text={
               appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
-                console.log("item is");
                 return (
                   <li>{`${date.formatDAYMMDDYY(
                     String(item?.date),
@@ -824,7 +823,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         onCancel={handleCancel}
         footer={null}
       >
-        <h2 className={`${_classes['propose-edit-btn']}`}>Propose/edit appointment</h2>
+        <h2 className={`${_classes["propose-edit-btn"]}`}>
+          Propose/edit appointment
+        </h2>
         <Form
           layout="vertical"
           form={formInstance}
@@ -989,8 +990,12 @@ function AvailabilityTimeSlots({
         className={`${_classes["doctor-info-form"]} flex mt-2 mb-3 border-gray-8 gap-3`}
       >
         <div className="w-50">
-          <Form.Item label="Start date & time"  name="start_time">
-            <Space direction="vertical" size={12} className={`${_classes["time-space"]}`}>
+          <Form.Item label="Start date & time" name="start_time">
+            <Space
+              direction="vertical"
+              size={12}
+              className={`${_classes["time-space"]}`}
+            >
               <DatePicker
                 // disabledDate={disabledDate as any}
                 className="w-full"
@@ -1006,7 +1011,11 @@ function AvailabilityTimeSlots({
         </div>
         <div className="w-50">
           <Form.Item label="End date & time" name="end_time">
-            <Space direction="vertical" size={12} className={`${_classes["time-space"]}`}>
+            <Space
+              direction="vertical"
+              size={12}
+              className={`${_classes["time-space"]}`}
+            >
               {endDateValue === "Invalid date" || !endDateValue ? (
                 <DatePicker
                   disabled={true}

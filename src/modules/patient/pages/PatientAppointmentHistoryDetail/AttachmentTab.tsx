@@ -51,7 +51,6 @@ function AttachmentTab() {
   }
   const { patient, serviceType } = appointment || {};
 
-  // urlArr ? console.log(urlArr, "anis----") : console.log("anis");
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
