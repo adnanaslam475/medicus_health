@@ -22,8 +22,13 @@ type Props = {
 };
 
 function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
-  const { setCurrentChannel, loginToRtm, logOutFromRtm, onJoinChannel, messageInfo ,setBackButton} =
-    useMessageContext();
+  const {
+    setCurrentChannel,
+    loginToRtm,
+    onJoinChannel,
+    messageInfo,
+    setBackButton,
+  } = useMessageContext();
   const { user } = getUserData();
   const { timeZone } = user || {};
   const { timeZone: userTimeZone } = timeZone || {};
@@ -45,7 +50,7 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
   );
 
   async function onJoinChat() {
-    setBackButton && setBackButton(true)
+    setBackButton && setBackButton(true);
     // localStorage.setItem("id", JSON.stringify(query));
     setRemoveCurrentChat(false);
     setCurrentChannel(thread);
@@ -60,9 +65,6 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
 
   useEffect(() => {
     loginToRtm?.();
-    return ()=>{
-      logOutFromRtm?.();
-    }
   }, []);
 
   const opposite = messageUtils.getOppositeParticipant(
