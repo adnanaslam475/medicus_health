@@ -84,8 +84,8 @@ function ConfirmPassword() {
               {data && (
                 <Alert
                   className=""
-                  // message="Your password has been reset!"
-                  message={t("your_password_has_been_reset")}
+                  message="¡Tu contraseña ha sido restablecida!"
+                  // message={t("your_password_has_been_reset")}
                   type="success"
                 />
               )}
