@@ -137,7 +137,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       Object.keys(dependent).forEach((dep) => {
         updatedDepedencies[dep] = true;
       });
-      console.log({ updatedDepedencies });
       setDependent(updatedDepedencies);
     } else {
       saveStepThree?.(undefined);
@@ -284,7 +283,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
 
         {questionnair ? (
           questionnair?.map((item: Item, index: any) => {
-            console.log({ item });
             return renderItems(item);
           })
         ) : (
