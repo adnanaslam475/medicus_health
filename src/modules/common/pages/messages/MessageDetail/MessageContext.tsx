@@ -33,7 +33,6 @@ type state = {
   onJoinChannel?: (channelName: string) => Promise<void>;
   createOrJoinChannel?: (channelName: string) => Promise<void>;
   loginToRtm?: () => Promise<void>;
-  logOutFromRtm?: () => void;
   markMessageAsReadHandler?: (id: number) => Promise<void>;
   onMessage: (text: string, messageType?: string) => void;
   setCurrentChannel: (channel: ChatChannels) => void;
@@ -266,9 +265,6 @@ export function MessageContextProvider({
     }
   }
 
-  function logOutFromRtm() {
-    rtmRef.current?.logout();
-  }
 
   async function onJoinChannel(channelName: string) {
     const channelToBeJoined = rtmRef.current?.channels[channelName];
@@ -431,7 +427,6 @@ export function MessageContextProvider({
         onJoinChannel,
         setChatSearch,
         loginToRtm,
-        logOutFromRtm,
         markMessageAsReadHandler,
         setCurrentChannel,
         createOrJoinChannel,
