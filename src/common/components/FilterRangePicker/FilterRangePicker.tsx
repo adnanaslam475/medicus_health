@@ -55,7 +55,7 @@ export function FilterRangePicker({
             className={`${_classes["filter-date-wrapper"]} flex justify-between items-center w-full px-2`}
           >
             <div className="flex items-center">
-              <span className="mr-1 mt-1">
+              <span className="mr-2 mt-1">
                 <Image
                   priority={true}
                   width={18}
