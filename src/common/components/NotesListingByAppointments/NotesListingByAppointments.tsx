@@ -88,7 +88,7 @@ function NotesListingByAppointments(props: Props) {
                 className={`${_classes["site-collapse-custom-panel"]} w-full`}
                 // header={`ID# ${appId}  \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ${formatedDoctorFirstName}`}
                 header={
-                  <div className=" justify-between flex flex-col sm:flex-row">
+                  <div className=" justify-between flex flex-col sm:flex-row flex-1">
                     <div>ID# {appId}</div>
                     <div>{formatedDoctorFirstName}</div>
                     <div>{convertStringDateToUTC(appDate)}</div>
