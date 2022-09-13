@@ -22,7 +22,7 @@ type Props = {
 };
 
 function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
-  const { setCurrentChannel, loginToRtm, onJoinChannel, messageInfo ,setBackButton} =
+  const { setCurrentChannel, loginToRtm, logOutFromRtm, onJoinChannel, messageInfo ,setBackButton} =
     useMessageContext();
   const { user } = getUserData();
   const { timeZone } = user || {};
@@ -60,6 +60,12 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
 
   useEffect(() => {
     loginToRtm?.();
+    console.log("rtm", "log in");
+    return ()=>{
+      logOutFromRtm?.();
+    console.log("rtm", "log out");
+
+    }
   }, []);
 
   const opposite = messageUtils.getOppositeParticipant(

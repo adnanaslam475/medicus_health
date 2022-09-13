@@ -140,6 +140,8 @@ function MessageInput() {
         return png;
       case ".doc":
         return doc;
+      case ".csv":
+        return doc;
       case ".docx":
         return docx;
       case ".pdf":
@@ -220,7 +222,7 @@ function MessageInput() {
                   itemRender={() => <div />}
                   fileList={fileList}
                   customRequest={() => null}
-                  accept=".doc,.docx,.pdf,.zip,.tiff,.tga,image/jpg,image/jpeg,image/jpg,image/bmp,image/x-tga,image/png,image/tga,application/msword,"
+                  accept=".doc,.csv,.docx,.pdf,.zip,.tiff,.tga,image/jpg,image/jpeg,image/jpg,image/bmp,image/x-tga,image/png,image/tga,application/msword,"
                   className={`${_classes["attachment-upload-btn"]} py-0`}
                 >
                   <Image
