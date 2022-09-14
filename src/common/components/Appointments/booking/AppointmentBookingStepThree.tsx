@@ -137,7 +137,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       Object.keys(dependent).forEach((dep) => {
         updatedDepedencies[dep] = true;
       });
-      console.log({ updatedDepedencies });
       setDependent(updatedDepedencies);
     } else {
       saveStepThree?.(undefined);
@@ -173,9 +172,23 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   }, [questionnair?.length]);
 
   const onFieldsChange = (fieldChange: FieldData[]) => {
+    const formatedQuestionnier = JSON.parse(doctorQuestionnaire?.questionnaire);
+    const fieldChangedName = String(fieldChange[0]?.name).toLocaleLowerCase();
+    const filteredItem = formatedQuestionnier.filter(
+      (item: any) => String(item?.name).toLocaleLowerCase() === fieldChangedName
+    );
+    const filteredItemLength = filteredItem[0]?.options?.length;
+    const isCheckbox = Array.isArray(fieldChange[0]?.value) ? true : false;
+
     let updatedDepedencies = { ...dependent };
     fieldChange.forEach((field) => {
-      updatedDepedencies[field.name as string] = !field.value;
+      if (isCheckbox) {
+        updatedDepedencies[field.name as string] = field.value?.includes(
+          filteredItemLength - 1
+        )
+          ? 1
+          : 0;
+      } else updatedDepedencies[field.name as string] = !field.value;
     });
     setDependent(updatedDepedencies);
   };
@@ -248,8 +261,8 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     disabled={disabled}
   /> */}
           </Form.Item>
-          {item.dependent &&
-            dependent[item.name as string] &&
+          {!!item.dependent &&
+            !!dependent[item.name as string] &&
             renderItems(item.dependent)}
         </>
       );
@@ -284,7 +297,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
 
         {questionnair ? (
           questionnair?.map((item: Item, index: any) => {
-            console.log({ item });
             return renderItems(item);
           })
         ) : (
