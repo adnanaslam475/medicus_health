@@ -59,7 +59,7 @@ function CreateAdminUserForm() {
             }
           ]}
          
-          className={`font-bold`}
+          // className={`font-bold`}
           name={value.name}
         >
           {value?.name === "password" || value?.name === "confirmPassword" ? (

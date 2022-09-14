@@ -174,7 +174,7 @@ function AdminPatientsList() {
             <a>
               <Button type="primary">
                 <PlusOutlined />
-                Add Patient
+                Add patient
               </Button>
             </a>
           </Link>
