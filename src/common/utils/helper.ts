@@ -8,6 +8,7 @@ import doc from "../../../public/assets/images/doc.jpg";
 import tiff from "../../../public/assets/images/tiff.png";
 import bmp from "../../../public/assets/images/bmp.png";
 import tga from "../../../public/assets/images/tga.png";
+import csv from "../../../public/assets/images/csv.png";
 
 export function parseJson(jsonString: string) {
   let obj = null;
@@ -48,7 +49,7 @@ export const getFileImageIcon = (fileName: any) => {
     case ".doc":
       return doc;
     case ".csv":
-      return doc;
+      return csv;
     case ".docx":
       return docx;
     case ".pdf":
