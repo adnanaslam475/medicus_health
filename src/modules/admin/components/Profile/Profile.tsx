@@ -263,24 +263,24 @@ export const Profile = React.forwardRef(function Profile({
                   name="confirmPassword"
                   className="flex-1"
                   dependencies={["password"]}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please confirm your password!",
-                    },
-                    ({ getFieldValue }) => ({
-                      validator(_, value) {
-                        if (!value || getFieldValue("password") === value) {
-                          return Promise.resolve();
-                        }
-                        return Promise.reject(
-                          new Error(
-                            "The two passwords that you entered do not match!"
-                          )
-                        );
-                      },
-                    }),
-                  ]}
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //     message: "Please confirm your password!",
+                  //   },
+                  //   ({ getFieldValue }) => ({
+                  //     validator(_, value) {
+                  //       if (!value || getFieldValue("password") === value) {
+                  //         return Promise.resolve();
+                  //       }
+                  //       return Promise.reject(
+                  //         new Error(
+                  //           "The two passwords that you entered do not match!"
+                  //         )
+                  //       );
+                  //     },
+                  //   }),
+                  // ]}
                 >
                   <Input.Password />
                 </Form.Item>

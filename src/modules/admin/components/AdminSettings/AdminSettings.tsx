@@ -45,7 +45,6 @@ function AdminSettings() {
     }
   }, [getAdminSettingsData]);
 
-
   const {
     total_consultation_charges,
     consultation_charges_medicus_cut,
@@ -59,7 +58,7 @@ function AdminSettings() {
   } = getAdminSettingsData?.adminSettings || {};
 
   // mutation admin settings
-  const [{ data }, executeCreateAdminSettingsMutation] =
+  const [{ data, fetching }, executeCreateAdminSettingsMutation] =
     useCreateAdminSettingsMutation();
 
   //for prepopulated admin settings data
@@ -166,7 +165,12 @@ function AdminSettings() {
                 name="total_consultation_charges"
                 className="font-bold text-secondary"
               >
-                <InputNumber addonBefore="$" type="number" min={0} />
+                <InputNumber
+                  addonAfter="$"
+                  type="number"
+                  min={0}
+                  controls={false}
+                />
               </Form.Item>
             </div>
 
@@ -178,7 +182,12 @@ function AdminSettings() {
                 name="consultation_charges_medicus_cut"
                 className="text-secondary font-bold"
               >
-                <InputNumber addonAfter="%" type="number" min={0} />
+                <InputNumber
+                  addonAfter="%"
+                  type="number"
+                  min={0}
+                  controls={false}
+                />
               </Form.Item>
               <div className="">
                 <SmallLabelWithTextDiv
@@ -198,7 +207,12 @@ function AdminSettings() {
                 name="consultation_charges_physician_cut"
                 className="font-bold text-secondary"
               >
-                <InputNumber addonAfter="%" type="number" min={0} />
+                <InputNumber
+                  addonAfter="%"
+                  type="number"
+                  min={0}
+                  controls={false}
+                />
               </Form.Item>
               <div className="">
                 <SmallLabelWithTextDiv
@@ -220,7 +234,12 @@ function AdminSettings() {
                   name="total_second_opinion_charges"
                   className="font-bold text-secondary"
                 >
-                  <InputNumber addonBefore="$" type="number" min={0} />
+                  <InputNumber
+                    addonAfter="$"
+                    type="number"
+                    min={0}
+                    controls={false}
+                  />
                 </Form.Item>
               </div>
 
@@ -232,7 +251,12 @@ function AdminSettings() {
                   name="second_opinion_charges_medicus_cut"
                   className="font-bold text-secondary"
                 >
-                  <InputNumber addonAfter="%" type="number" min={0} />
+                  <InputNumber
+                    addonAfter="%"
+                    type="number"
+                    min={0}
+                    controls={false}
+                  />
                 </Form.Item>
                 <div className="">
                   <SmallLabelWithTextDiv
@@ -252,7 +276,12 @@ function AdminSettings() {
                   name="second_opinion_charges_physician_cut"
                   className="font-bold text-secondary"
                 >
-                  <InputNumber addonAfter="%" type="number" min={0} />
+                  <InputNumber
+                    addonAfter="%"
+                    type="number"
+                    min={0}
+                    controls={false}
+                  />
                 </Form.Item>
                 <div className="">
                   <SmallLabelWithTextDiv
@@ -273,7 +302,12 @@ function AdminSettings() {
                   name="california_state_tax"
                   className="font-semibold text-secondary"
                 >
-                  <InputNumber addonAfter="%" type="number" min={0} />
+                  <InputNumber
+                    addonAfter="%"
+                    type="number"
+                    min={0}
+                    controls={false}
+                  />
                 </Form.Item>
               </div>
 
@@ -283,7 +317,12 @@ function AdminSettings() {
                   name="washington_state_tax"
                   className="font-bold text-secondary"
                 >
-                  <InputNumber addonAfter="%" type="number" min={0} />
+                  <InputNumber
+                    addonAfter="%"
+                    type="number"
+                    min={0}
+                    controls={false}
+                  />
                 </Form.Item>
               </div>
               <div className="flex">
@@ -292,7 +331,12 @@ function AdminSettings() {
                   name="taxes_state_tax"
                   className="font-bold text-secondary"
                 >
-                  <InputNumber addonAfter="%" type="number" min={0} />
+                  <InputNumber
+                    addonAfter="%"
+                    type="number"
+                    min={0}
+                    controls={false}
+                  />
                 </Form.Item>
               </div>
             </div>
@@ -301,7 +345,7 @@ function AdminSettings() {
             <Form.Item>
               <div className="flex gap-4">
                 <Button onClick={() => Router.back()}>Cancel</Button>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={fetching}>
                   Save changes
                 </Button>
               </div>
