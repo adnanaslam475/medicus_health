@@ -220,7 +220,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           >
             {patientProfile?.haveChildren
               ? t(patientProfile?.haveChildren)
-              : "N/A"}
+              : "No"}
           </div>
         </div>
       </li>
@@ -236,7 +236,7 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             }`}
           >
             {/* {patientProfile?.children ? patientProfile?.children : "N/A"} */}
-            {patientProfile?.children || "N/A"}
+            {patientProfile?.children ? patientProfile?.children : "N/A"}
           </div>
         </div>
       </li>

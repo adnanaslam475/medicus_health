@@ -336,7 +336,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
           overlayStyle={{ maxWidth: "80%" }}
         >
           <Form.Item
-            className="flex-1"
+            className="flex-1 text-secondary"
             name={HealthQuestionnaryData.q1.q.name}
             label={HealthQuestionnaryData.q1.q.label}
             rules={[

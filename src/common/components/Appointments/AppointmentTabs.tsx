@@ -64,7 +64,6 @@ const AppointmentTabs = (props: Props) => {
   }
 
   const t = i18next.t;
-  console.log(t("title"));
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));
