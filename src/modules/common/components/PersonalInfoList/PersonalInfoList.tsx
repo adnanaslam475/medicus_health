@@ -231,12 +231,10 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
             Numero de niños
           </div>
           <div
-            className={`sm:w-1/2 md:pl-4  ${
-              !patientProfile?.children && "text-gray-1"
-            }`}
+            className={`sm:w-1/2 md:pl-4 `}
           >
             {/* {patientProfile?.children ? patientProfile?.children : "N/A"} */}
-            {patientProfile?.children ? patientProfile?.children : "N/A"}
+            {patientProfile?.children ? patientProfile?.children : "No"}
           </div>
         </div>
       </li>
