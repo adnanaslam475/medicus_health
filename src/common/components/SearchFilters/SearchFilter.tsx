@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input, Button, Select, Space, DatePicker } from "antd";
 import {
   CaretDownOutlined,
+  CarryOutOutlined,
   CloseOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
@@ -101,7 +102,7 @@ function SearchFilters(props: Props) {
         </div>
       )}
 
-      <div className="w-full md:w-44 xl:w-60 ">
+      <div className="w-full md:w-56 xl:w-60 ">
         <Select
           suffixIcon={
             <div className="text-gray">
@@ -121,12 +122,8 @@ function SearchFilters(props: Props) {
         </Select>
       </div>
       {/* </div> */}
-      <div className="flex-none sm:flex w-full md:w-44 xl:w-60">
-        <Space
-          direction="vertical"
-          size={0}
-          className="w-full md:w-44 xl:w-60 "
-        >
+      <div className="flex-none sm:flex w-full md:w-60 xl:w-60">
+        <Space direction="vertical" size={0} className="w-full md:w-60 xl:w-60">
           <div className="relative">
             <RangePicker
               onChange={(_, dateString: string[]) =>
@@ -176,7 +173,7 @@ function SearchFilters(props: Props) {
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
                   <div className="flex items-center font-thin">
-                    <span className="mr-2 mt-1">
+                    <span className="mr-2 mt-1 min-w-[18px]">
                       <Image
                         priority={true}
                         width={18}

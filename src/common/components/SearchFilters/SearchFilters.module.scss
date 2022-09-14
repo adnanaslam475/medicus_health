@@ -24,3 +24,7 @@
         background-color: transparent;
     }
 }
+
+.placeholderColor{
+    :global .ant-select-selection-search{}
+}
