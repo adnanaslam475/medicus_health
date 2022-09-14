@@ -37,7 +37,7 @@ function Controls(props: Props) {
     }
   };
 
-  const shareScreen = async () => {}
+  const shareScreen = async () => {};
 
   const leaveChannel = async () => {
     await client.leave();
@@ -71,7 +71,7 @@ function Controls(props: Props) {
           {trackState.video ? <VideoCameraOutlined /> : <VideoCameraFilled />}
         </Button>
       </div>
-      <div>
+      {/* <div>
         <Button
           size="small"
           color={trackState.video ? "primary" : "secondary"}
@@ -79,7 +79,7 @@ function Controls(props: Props) {
         >
           {trackState.video ? <VideoCameraOutlined /> : <VideoCameraFilled />}
         </Button>
-      </div>
+      </div> */}
       <div>
         <Button size="small" color="default" onClick={() => leaveChannel()}>
           Leave
