@@ -131,7 +131,7 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
             </span>
             <Badge
               count={channelMessagesCount}
-              className="new-msg-count ml-2 mb-3 w-4"
+              className="new-msg-count ml-2 mb-3"
             />
           </div>
           {/* <span className=" text-gray hidden sm:inline text-xs text-bold font-medium pt-1"> */}
