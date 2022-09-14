@@ -18,17 +18,7 @@ import { useMediaUploader } from "common/hooks/media";
 import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
 import { CloseCircleOutlined, FastForwardOutlined } from "@ant-design/icons";
 import Dragger from "antd/lib/upload/Dragger";
-import { hasValidMessage } from "common/utils/helper";
-
-import pdf from "../../../../../../public/assets/images/word-file.svg";
-import jpg from "../../../../../../public/assets/images/jpg.svg";
-import png from "../../../../../../public/assets/images/png.png";
-import zip from "../../../../../../public/assets/images/zip.png";
-import docx from "../../../../../../public/assets/images/docx.png";
-import doc from "../../../../../../public/assets/images/doc.jpg";
-import tiff from "../../../../../../public/assets/images/tiff.png";
-import bmp from "../../../../../../public/assets/images/bmp.png";
-import tga from "../../../../../../public/assets/images/tga.png";
+import { getFileImageIcon, hasValidMessage } from "common/utils/helper";
 
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
@@ -132,35 +122,6 @@ function MessageInput() {
     setFileList(filteredFiles);
   };
 
-  const getFileImage = (fileName: any) => {
-    const fileExtension = /(?:\.([^.]+))?$/;
-    const fileExt = fileExtension?.exec(fileName)?.[0];
-    switch (fileExt) {
-      case ".png":
-        return png;
-      case ".doc":
-        return doc;
-      case ".csv":
-        return doc;
-      case ".docx":
-        return docx;
-      case ".pdf":
-        return pdf;
-      case ".zip":
-        return zip;
-      case ".tiff":
-        return tiff;
-      case ".tga":
-        return tga;
-      case ".jpg":
-        return jpg;
-      case ".jpeg":
-        return jpg;
-      case ".bmp":
-        return bmp;
-    }
-  };
-
   return (
     <div className={`${_classes["message-input"]} relative`}>
       {createChatFetching && messageType === "Media" ? (
@@ -203,7 +164,7 @@ function MessageInput() {
                         height={25}
                         // src={fileIcon}
                         src={
-                          getFileImage(file?.name) as string | StaticImageData
+                          getFileImageIcon(file?.name) as string | StaticImageData
                         }
                       />
                     </Badge>

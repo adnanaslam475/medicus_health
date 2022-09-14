@@ -1,4 +1,13 @@
 import { useEffect, useState } from "react";
+import pdf from "../../../public/assets/images/word-file.svg";
+import jpg from "../../../public/assets/images/jpg.svg";
+import png from "../../../public/assets/images/png.png";
+import zip from "../../../public/assets/images/zip.png";
+import docx from "../../../public/assets/images/docx.png";
+import doc from "../../../public/assets/images/doc.jpg";
+import tiff from "../../../public/assets/images/tiff.png";
+import bmp from "../../../public/assets/images/bmp.png";
+import tga from "../../../public/assets/images/tga.png";
 
 export function parseJson(jsonString: string) {
   let obj = null;
@@ -29,3 +38,32 @@ export function useDebounce(value: string, wait = 200) {
   }, [value, wait]);
   return debounceValue;
 }
+
+export const getFileImageIcon = (fileName: any) => {
+  const fileExtension = /(?:\.([^.]+))?$/;
+  const fileExt = fileExtension?.exec(fileName)?.[0];
+  switch (fileExt) {
+    case ".png":
+      return png;
+    case ".doc":
+      return doc;
+    case ".csv":
+      return doc;
+    case ".docx":
+      return docx;
+    case ".pdf":
+      return pdf;
+    case ".zip":
+      return zip;
+    case ".tiff":
+      return tiff;
+    case ".tga":
+      return tga;
+    case ".jpg":
+      return jpg;
+    case ".jpeg":
+      return jpg;
+    case ".bmp":
+      return bmp;
+  }
+};
