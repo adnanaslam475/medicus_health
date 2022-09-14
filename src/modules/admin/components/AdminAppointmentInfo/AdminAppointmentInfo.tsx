@@ -139,7 +139,10 @@ function AdminAppointmentInfo({
           <LabelWithText label="Appointment type" text={service} />
           <LabelWithText label="Appointment date" text={dueDate} />
           <LabelWithText label="Time" text={time} />
-          <LabelWithText label="Total amount" text={totalAmount} />
+          <LabelWithText
+            label="Total amount"
+            text={totalAmount ? `$${totalAmount}` : "-"}
+          />
 
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[300px]">
@@ -159,7 +162,13 @@ function AdminAppointmentInfo({
               Payment status
             </div>
             <div className="w-full">
-              <StatusChip type={paymentStatus?.toUpperCase() as StatusName} />
+              <StatusChip
+                type={
+                  paymentStatus?.toUpperCase() === "SUCCEEDED"
+                    ? "PAID"
+                    : (paymentStatus?.toUpperCase() as StatusName)
+                }
+              />
             </div>
           </li>
         </div>

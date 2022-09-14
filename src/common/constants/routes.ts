@@ -72,7 +72,7 @@ export const ADMIN_ROUTES: routes = [
       },
     ],
   },
-  { name: "User", route: "/admin/user", id: "7" },
+  { name: "Users", route: "/admin/users", id: "7" },
   { name: "Account", route: "/admin/account", id: "8" },
   { name: "Settings", route: "/admin/settings", id: "9" },
 ];

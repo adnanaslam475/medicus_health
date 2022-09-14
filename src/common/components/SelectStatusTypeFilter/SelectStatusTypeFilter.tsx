@@ -18,7 +18,7 @@ export function SelectStatusTypeFilter({
       placeholder={placeholder}
       className={
         isAdminFilter
-          ? "admin-filter w-full md:w-50 text-gray font-rubik"
+          ? "admin-filter w-full md:w-50 text-gray-1 font-rubik"
           : "w-full md:w-50 text-gray-1 font-rubik"
       }
       onChange={onChange}
