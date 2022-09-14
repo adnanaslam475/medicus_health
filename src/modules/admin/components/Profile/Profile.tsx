@@ -13,6 +13,10 @@ import yourImage from "../../../../../public/assets/images/your_photo.png";
 import { UserOutlined } from "@ant-design/icons";
 import { GraphQLError } from "graphql";
 import { useUserData } from "common/components/Context/UserContext";
+import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
+
 
 type profileType = {
   doctorId?: string | string[] | undefined;
@@ -41,6 +45,8 @@ export const Profile = React.forwardRef(function Profile({
     status,
     adminProfilePicture,
   } = doctorData || {};
+
+  console.log("doctorData", doctorData);
   const { profile_image: userProfileImage } = doctorData || {};
   const { profile_picture: profilePicture } = adminProfilePicture || {};
 
@@ -245,7 +251,20 @@ export const Profile = React.forwardRef(function Profile({
                   <Input disabled={true} />
                 </Form.Item>
                 <Form.Item label="Contact #" className="flex-1" name="contact">
-                  <Input />
+                  {/* <Input /> */}
+                  <ReactPhoneInput
+                    containerStyle={{
+                      border: "1px solid #9296af",
+                      borderRadius: "6px",
+                    }}
+                    inputStyle={{
+                      width: "100%",
+                      height: "46px",
+                      fontWeight: "600",
+                    }}
+                    country={"us"}
+                    enableAreaCodes
+                  />
                 </Form.Item>
               </div>
               <div className="flex flex-col sm:flex-row  sm:gap-3">
