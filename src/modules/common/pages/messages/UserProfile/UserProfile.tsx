@@ -101,7 +101,7 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
           src={profileImage || ""}
         />
         {profileImage && (
-          <span className="rounded-full absolute p-1 -right-2 bottom-0">
+          <span className="rounded-full absolute p-1 -right-2 bottom-0 w-46">
             <Image
               priority={true}
               alt=""
@@ -115,29 +115,30 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
         )}
       </div>
       <div className="w-full pl-2 sm:pl-3">
-        <div className="flex flex-col md:flex-row justify-between md:items-center">
-          <div>
-            {/* <span className="text-black text-xs sm:text-base max-w-[50px] sm:max-w-[200px] break-all font-semibold sm:font-normal"> */}
-            <span className="text-black text-sm sm:text-base sm:max-w-[200px] break-all font-semibold sm:font-normal">
-              {firstName}
-              {/* {`${opposite?.first_name ? opposite?.first_name : ""} `} */}
-              {/* <span className="hidden sm:inline">{` ${ */}
-              <span className="sm:inline">
-                {` ${
-                  // opposite?.last_name ? opposite?.last_name : ""
-                  lastName
-                }`}{" "}
-              </span>
-            </span>
-            <Badge
-              count={channelMessagesCount}
-              className="new-msg-count ml-2 mb-3"
-            />
-          </div>
-          {/* <span className=" text-gray hidden sm:inline text-xs text-bold font-medium pt-1"> */}
-          <span className=" text-gray sm:inline text-xs text-bold font-medium pt-1">
+        <div className="text-right">
+          <span className=" text-gray sm:inline text-xs text-bold font-medium pt-1 white">
             {messageDateTime}
           </span>
+        </div>
+        <div className="flex flex-col md:flex-row justify-between md:items-center ">
+          {/* <div> */}
+          {/* <span className="text-black text-xs sm:text-base max-w-[50px] sm:max-w-[200px] break-all font-semibold sm:font-normal"> */}
+          <span className="text-black text-sm sm:text-base sm:max-w-[200px] break-all font-semibold sm:font-normal overflow-hidden">
+            {firstName}
+            {/* {`${opposite?.first_name ? opposite?.first_name : ""} `} */}
+            {/* <span className="hidden sm:inline">{` ${ */}
+            <span className="sm:inline whitespace-nowrap">
+              {` ${
+                // opposite?.last_name ? opposite?.last_name : ""
+                lastName
+              }`}{" "}
+            </span>
+          </span>
+          <Badge
+            count={channelMessagesCount}
+            className="new-msg-count ml-2 mb-3"
+          />
+          {/* </div> */}
         </div>
         {/* <div className="sm:flex justify-between hidden "> */}
         <div className="sm:flex justify-between">
