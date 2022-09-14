@@ -46,7 +46,6 @@ export const Profile = React.forwardRef(function Profile({
     adminProfilePicture,
   } = doctorData || {};
 
-  console.log("doctorData", doctorData);
   const { profile_image: userProfileImage } = doctorData || {};
   const { profile_picture: profilePicture } = adminProfilePicture || {};
 
