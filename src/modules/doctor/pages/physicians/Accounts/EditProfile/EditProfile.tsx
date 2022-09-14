@@ -727,7 +727,7 @@ function EditProfile({
                   name="contact"
                   label="Contact #"
                   rules={[
-                    { required: true },
+                    { required: true, message: "Contact is required" },
                     {
                       min: 10,
                       message: "Contact number must be minimum 10 characters.",
