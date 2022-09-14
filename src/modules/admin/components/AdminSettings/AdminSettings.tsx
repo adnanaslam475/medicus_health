@@ -45,7 +45,6 @@ function AdminSettings() {
     }
   }, [getAdminSettingsData]);
 
-
   const {
     total_consultation_charges,
     consultation_charges_medicus_cut,
@@ -59,7 +58,7 @@ function AdminSettings() {
   } = getAdminSettingsData?.adminSettings || {};
 
   // mutation admin settings
-  const [{ data }, executeCreateAdminSettingsMutation] =
+  const [{ data, fetching }, executeCreateAdminSettingsMutation] =
     useCreateAdminSettingsMutation();
 
   //for prepopulated admin settings data
@@ -301,7 +300,7 @@ function AdminSettings() {
             <Form.Item>
               <div className="flex gap-4">
                 <Button onClick={() => Router.back()}>Cancel</Button>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={fetching}>
                   Save changes
                 </Button>
               </div>
