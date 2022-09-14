@@ -151,7 +151,7 @@ function RequestedAppointment() {
             </div>
           </div>
 
-          <div className="md:w-5/6">
+          <div className="md:w-6/6">
             <SearchFilter onChange={onChangeFilters} />
           </div>
 

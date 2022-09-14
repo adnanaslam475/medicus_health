@@ -12,7 +12,8 @@
     height: 35px !important;
     line-height: 35px !important;
     @media screen and (min-width: 769px) and (max-width: 1199px) {
-      // margin-right: 10px;
+      margin: 0px auto 10px 0;
+      width: 95%;
     }
   }
   // .btn-transparent{
@@ -23,9 +24,11 @@
     @media screen and (min-width: 768px) and (max-width: 1199px) {
       min-width: 350px !important;
     }
+
     & div:last-child {
       @media screen and (min-width: 768px) and (max-width: 1199px) {
         flex-wrap: wrap;
+        justify-content: center;
       }
 
       & button {
@@ -34,12 +37,21 @@
           width: 95%;
         }
       }
+
       & button:last-child {
         @media screen and (min-width: 768px) and (max-width: 1199px) {
           margin-left: 0;
+          // margin-top: 10px;
         }
       }
     }
+
+    // & button:nth-last-child(2) {
+    //   @media screen and (min-width: 768px) and (max-width: 1199px) {
+    //     margin: 10px 0;
+    //     margin-left: 0;
+    //   }
+    // }
   }
 
   .appointments-btn-message {
