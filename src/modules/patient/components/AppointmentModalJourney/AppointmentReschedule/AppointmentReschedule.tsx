@@ -29,8 +29,10 @@ function AppointmentReschedule(props: Props) {
     scheduleId,
     charges,
     appointmentTypeProposed,
+    status,
   } = appointmentDetails || {};
 
+  const isRescheduledAppointment = status == "Rescheduled" ? true : false;
   const { first_name, last_name } = doctor || {};
   const { name } = serviceType || {};
   const doctorName = `${first_name || ""}  ${last_name || ""}`;
@@ -65,7 +67,9 @@ function AppointmentReschedule(props: Props) {
 
   return (
     <div>
-      <h2>Appointment scheduling</h2>
+      <h2>
+        Appointment {isRescheduledAppointment ? "rescheduling" : "scheduling"}
+      </h2>
       <div>
         <div className="border-b border-gray-3 ">
           <h5>Physician name</h5>
@@ -128,8 +132,9 @@ function AppointmentReschedule(props: Props) {
         </Radio.Group>
       </div>
       <p className="text-red text-center">
-        Processing fee is not refundable in the event you cancel your
-        appointment.
+        {isRescheduledAppointment
+          ? "Payment has already been submitted and processed."
+          : " Processing fee is not refundable in the event you cancel your appointment."}
       </p>
     </div>
   );

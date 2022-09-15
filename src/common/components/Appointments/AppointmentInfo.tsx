@@ -199,7 +199,17 @@ function AppointmentInfo(props: Props) {
             label="Physician"
             value={`${formatedDoctorFirstName} ${last_name}`}
           /> */}
-          <LabelValueRow label="Appointment type" value={name || "--"} />
+          {status === "Completed" || status === "Confirmed" ? (
+            <LabelValueRow
+              label={"Appointment type"}
+              value={appointmentTypeProposed?.type || "--"}
+            />
+          ) : (
+            <LabelValueRow
+              label={"Appointment type requested"}
+              value={name || "--"}
+            />
+          )}
           <LabelValueRow
             label={isPendingAppointment ? "Requested date" : "Appointment date"}
             value={
@@ -254,13 +264,13 @@ function AppointmentInfo(props: Props) {
             </div>
           </li>
 
-          {appointmentTypeProposed?.type && (
+          {appointmentTypeProposed?.type && status !== "Confirmed" && (
             <LabelValueRow
               label={"Appointment type proposed"}
               value={appointmentTypeProposed?.type || ""}
             />
           )}
-          {appointmentTypeProposed?.dateTime?.length && (
+          {appointmentTypeProposed?.dateTime?.length && status !== "Confirmed" && (
             <LabelValueRow
               label={"Appointment(s) proposed"}
               value={

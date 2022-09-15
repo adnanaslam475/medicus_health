@@ -53,9 +53,9 @@ function AdminAccount() {
             <TabPane
               className="w-full"
               tab={
-                <span className="font-Circular font-medium improved-word-spacing">
+                <span className="font-Circular font-medium improved-word-spacing flex items-center ">
                   <UserOutlined className="" />
-                  Profile
+                  <span className="-ml-1">Profile</span>
                 </span>
               }
               key="1"
@@ -73,9 +73,9 @@ function AdminAccount() {
 
             <TabPane
               tab={
-                <span>
+                <span className="flex items-center">
                   <BellOutlined />
-                  Email notifications
+                  <span className="-ml-1"> Email notifications</span>
                 </span>
               }
               key="2"
