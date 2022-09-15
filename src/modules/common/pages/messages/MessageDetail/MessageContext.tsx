@@ -107,7 +107,6 @@ export function MessageContextProvider({
       pause: !messageInfo.currentChannel,
     });
   const { getChannelMessages } = channelMessageData || {};
-  console.log("getChannelMessages", getChannelMessages);
 
   useEffect(() => {
     if (getChannelMessages) {
