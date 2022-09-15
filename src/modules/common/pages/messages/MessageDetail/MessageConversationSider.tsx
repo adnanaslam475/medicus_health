@@ -72,13 +72,15 @@ function MessageConversationSider({
     >
       {allChannels?.map((thread) => {
         return (
-          <UserProfile
-            thread={thread}
-            setRemoveCurrentChat={setRemoveCurrentChat}
-            updateLayout={() => {
-              updateLayout?.(false, true);
-            }}
-          />
+          thread?.receiverDetail && (
+            <UserProfile
+              thread={thread}
+              setRemoveCurrentChat={setRemoveCurrentChat}
+              updateLayout={() => {
+                updateLayout?.(false, true);
+              }}
+            />
+          )
         );
       })}
     </div>
