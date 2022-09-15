@@ -143,4 +143,14 @@
     background-color: #ebf3ff !important;
     color: #2784fe !important;
   }
+
+  .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
+    .fc-view-harness.fc-view-harness-active {
+      .fc-timegrid.fc-timeGridWeek-view.fc-view {
+        table.fc-scrollgrid.fc-scrollgrid-liquid {
+          // width: 700px;
+        }
+      }
+    }
+  }
 }
