@@ -4,7 +4,7 @@ import Image from "next/image";
 type Props = {
   src: string;
   title: string;
-  value: number;
+  value: number|string;
 };
 
 function StatisticsCard({ src, title, value }: Props) {
