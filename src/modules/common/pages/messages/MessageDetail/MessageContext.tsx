@@ -105,7 +105,6 @@ export function MessageContextProvider({
         channelId: messageInfo.currentChannel?.id as number,
       },
       pause: !messageInfo.currentChannel,
-      requestPolicy: "network-only",
     });
   const { getChannelMessages } = channelMessageData || {};
 
@@ -129,7 +128,10 @@ export function MessageContextProvider({
       info.messagesWithChannel = messages;
       setMessageInfo(info);
     }
-  }, [getChannelMessages, messageInfo.currentChannel?.channelName]);
+  }, [
+    getChannelMessages?.[0]?.channelId,
+    messageInfo.currentChannel?.channelName,
+  ]);
 
   async function createOrJoinChannel() {
     try {
@@ -264,7 +266,6 @@ export function MessageContextProvider({
       }
     }
   }
-
 
   async function onJoinChannel(channelName: string) {
     const channelToBeJoined = rtmRef.current?.channels[channelName];
