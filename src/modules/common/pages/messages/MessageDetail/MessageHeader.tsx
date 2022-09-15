@@ -1,5 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ArrowLeftOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  LockOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { Button, Input, notification } from "antd";
 import Image from "next/image";
 import profile from "./../../../../../../public/assets/images/nullicon.png";
@@ -99,7 +103,7 @@ function MessageHeader({
           </div>
         )}
       </div>
-      <div className="flex flex-col py-2 md:flex-row md:py-0 gap-2 items-center border-b border-gray-3">
+      <div className="flex flex-col py-2 md:flex-row md:py-0 gap-2 items-center border-b-8 border-gray-4">
         <div className="flex gap-2 py-2 px-4 md:max-w-[340px] w-full border-r border-gray-4">
           <Input
             size="large"
@@ -120,31 +124,41 @@ function MessageHeader({
         /> */}
         </div>
         {isShowHeaderInfo && !removeCurrentChat && (
-          <div className="flex gap-2 w-full px-4 chatremove">
-            <div className="flex items-center gap-2 flex-1">
-              <MDNextImage
-                alt=""
-                width={39}
-                height={39}
-                className="rounded-full"
-                src={profileImage || ""}
-                fallbackImage={profile}
-              />
-              {/* <h4 className="pb-0 mb-0">{opposite?.last_name.includes("Dr.") ? opposite?.last_name :`Dr. ${opposite?.last_name}`}</h4> */}
-              <p className="pb-0 mb-0 text-xs sm:text-base font-medium">{`${firstName} ${lastName}`}</p>
+          <>
+            <div className="flex flex-col flex-1">
+              <div className="w-full px-4 hippa client message flex justify-center bg-gray-4 py-2 text-xs text-gray-2 mb-2">
+                <div className="flex items-center justify-center">
+                  <LockOutlined className="mr-1" />
+                  Messages are HIPPA compliance
+                </div>
+              </div>
+              <div className="flex gap-2 w-full px-4 chatremove mb-2">
+                <div className="flex items-center gap-2 flex-1">
+                  <MDNextImage
+                    alt=""
+                    width={39}
+                    height={39}
+                    className="rounded-full"
+                    src={profileImage || ""}
+                    fallbackImage={profile}
+                  />
+                  {/* <h4 className="pb-0 mb-0">{opposite?.last_name.includes("Dr.") ? opposite?.last_name :`Dr. ${opposite?.last_name}`}</h4> */}
+                  <p className="pb-0 mb-0 text-xs sm:text-base font-medium">{`${firstName} ${lastName}`}</p>
+                </div>
+                <Image
+                  priority={true}
+                  alt=""
+                  className="cursor-pointer"
+                  onClick={() =>
+                    modalHandler(String(messageInfo.currentChannel?.id))
+                  }
+                  width={20}
+                  height={30}
+                  src={ThreeDot}
+                />
+              </div>
             </div>
-            <Image
-              priority={true}
-              alt=""
-              className="cursor-pointer"
-              onClick={() =>
-                modalHandler(String(messageInfo.currentChannel?.id))
-              }
-              width={20}
-              height={30}
-              src={ThreeDot}
-            />
-          </div>
+          </>
         )}
       </div>
     </>
