@@ -230,11 +230,11 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
             Numero de niños
           </div>
-          <div
-            className={`sm:w-1/2 md:pl-4 `}
-          >
+          <div className={`sm:w-1/2 md:pl-4 `}>
             {/* {patientProfile?.children ? patientProfile?.children : "N/A"} */}
-            {patientProfile?.children ? patientProfile?.children : "No"}
+            <span className="text-gray-1">
+              {patientProfile?.children ? patientProfile?.children : "No"}
+            </span>
           </div>
         </div>
       </li>
