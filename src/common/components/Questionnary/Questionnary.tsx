@@ -150,6 +150,10 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     }
     if (data) {
       prepareAndSetEditPayload(parseJson(data));
+    } else {
+      formInstance.setFieldValue("radio_drink", null);
+      formInstance.setFieldValue("radio_drug", null);
+      formInstance.setFieldValue("radio_smoke", null);
     }
   }, [data]);
 

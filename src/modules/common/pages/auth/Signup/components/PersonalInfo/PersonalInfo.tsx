@@ -82,9 +82,9 @@ export default function PersonalInfo({ onFinish }: props) {
   }, [emailData]);
   const emailValidator = async (rule: any, value: string) => {
     if (!value?.length) return Promise.resolve();
-    setUserEmail(value);
+    setUserEmail(value?.trim());
     if (
-      value.length &&
+      value?.trim().length &&
       value.includes("@") &&
       value.includes(".") &&
       !fetching &&
