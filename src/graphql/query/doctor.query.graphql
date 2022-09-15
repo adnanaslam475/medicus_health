@@ -180,6 +180,8 @@ query physicianAppointments(
     items {
       id
       doctor {
+        first_name
+        last_name
         timeZone {
           timeZone
           timeZoneName

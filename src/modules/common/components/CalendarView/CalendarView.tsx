@@ -93,6 +93,7 @@ function AdminCalender(props: Props) {
           appointmentTimeSlots,
           transaction,
           appointmentDateTime,
+          doctor,
         }) => {
           const startTime =
             !!appointmentTimeSlots?.length &&
@@ -119,6 +120,7 @@ function AdminCalender(props: Props) {
             end: `${startDate}T${dayjs(endTime)
               .tz(timeZone)
               .format("HH:mm")}:00.000Z`,
+            doctor: doctor?.first_name + " " + doctor?.last_name,
             patient: patient?.first_name + " " + patient?.last_name,
             serviceType: serviceType?.name,
             charges: transaction?.amountReceived || charges,

@@ -257,17 +257,17 @@ function AppointmentModalFooter({
   return (
     <div>
       {stepName === "stepOne" && (
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-center gap-2">
           <Button
             danger
-            className="border border-red outline"
+            className="border border-red outline w-full"
             onClick={() => setShowConfirmationModal(true)}
           >
             Reject
           </Button>
           <Button
             type="primary"
-            className={`${_classes["button-background-color"]}`}
+            className={`${_classes["button-background-color"]}  w-full`}
             onClick={
               paymentStatus === "succeeded" ? onFinalizeTransaction : onNext
             }

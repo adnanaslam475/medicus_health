@@ -74,6 +74,12 @@ function CalendarModalComponent(props: Props) {
         <p className="text-grey-4 ">ID#</p>
         <h4 className="text-base">ID# {id}</h4>
       </div>
+      {user?.role === "Admin" && (
+        <div className="border-b pb-0 pt-2">
+          <p className="text-grey-4 "> Physician name</p>
+          <h4 className="text-xl">{doctor}</h4>
+        </div>
+      )}
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 "> Patient name</p>
         <h4 className="text-xl">{patient}</h4>
