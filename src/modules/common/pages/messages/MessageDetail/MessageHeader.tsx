@@ -99,7 +99,7 @@ function MessageHeader({
           </div>
         )}
       </div>
-      <div className="flex flex-col py-2 md:flex-row md:py-0 gap-2 items-center border-b border-gray-4">
+      <div className="flex flex-col py-2 md:flex-row md:py-0 gap-2 items-center border-b border-gray-3">
         <div className="flex gap-2 py-2 px-4 md:max-w-[340px] w-full border-r border-gray-4">
           <Input
             size="large"
