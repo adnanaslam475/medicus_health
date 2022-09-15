@@ -7,6 +7,7 @@ import physician from "../../../../../public/assets/images/admin/menu/physicians
 import revenue from "../../../../../public/assets/icon/dollars.svg";
 import _classes from "./AdminDashboard.module.scss";
 import { useAdminDashboardQuery } from "generated/graphql";
+import { valueSeparator } from "common/utils/helper";
 function AdminDashboard() {
   const [{ data }] = useAdminDashboardQuery({
     variables: {
@@ -28,28 +29,28 @@ function AdminDashboard() {
           <StatisticsCard
             src={users}
             title="Total number of users "
-            value={total_number_of_users || 0}
+            value={valueSeparator(String(total_number_of_users)) || 0}
           />
         </div>
         <div className="basis-1/2">
           <StatisticsCard
             src={appointments}
             title="Number of appointments "
-            value={total_number_of_appointments || 0}
+            value={valueSeparator(String(total_number_of_appointments))}
           />
         </div>
         <div className="basis-1/2">
           <StatisticsCard
             src={physician}
             title="Number of physicians "
-            value={total_number_of_physicians || 0}
+            value={valueSeparator(String(total_number_of_physicians)) || 0}
           />
         </div>
         <div className="basis-1/2">
           <StatisticsCard
             src={revenue}
             title="The total revenue to date ($)"
-            value={Math.round(total_revenue || 0)}
+            value={valueSeparator(String(total_revenue)) || 0}
           />
         </div>
       </div>
