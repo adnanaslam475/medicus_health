@@ -57,13 +57,17 @@ const Columns = [
     sorter: true,
     render: (value: string) => {
       return (
-        <div className="someclass">
-          {value ? (
-            <Tag color="cyan">{"Active"}</Tag>
-          ) : (
-            <Tag color="red">{"Disabled"}</Tag>
-          )}
-        </div>
+        <Tag color={value ? "cyan" : "red"}>
+          {value ? "Enabled" : "Disabled"}
+        </Tag>
+
+        // <div className="someclass">
+        //   {value ? (
+        //     <Tag color="cyan">{"Active"}</Tag>
+        //   ) : (
+        //     <Tag color="red">{"Disabled"}</Tag>
+        //   )}
+        // </div>
       );
     },
   },

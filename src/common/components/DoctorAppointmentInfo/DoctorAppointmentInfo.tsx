@@ -187,17 +187,20 @@ function DoctorAppointmentInfo({ data }: Props) {
               : "--"
           }
         /> */}
+        {status === "Completed" || status === "Confirmed" ? (
+          <LabelWithText
+            label={"Appointment type"}
+            text={appointmentTypeProposed?.type || "--"}
+          />
+        ) : (
+          <LabelWithText
+            label={"Appointment type requested"}
+            text={serviceType?.name || "--"}
+          />
+        )}
         <LabelWithText
           label={
-            status === "Completed"
-              ? "Appointment type"
-              : "Appointment type requested"
-          }
-          text={serviceType?.name ? serviceType?.name : "--"}
-        />
-        <LabelWithText
-          label={
-            status === "Completed"
+            status === "Completed" || status === "Confirmed"
               ? "Appointment date "
               : "Appointment date requested"
           }
@@ -214,7 +217,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         /> */}
         <LabelWithText
           label={
-            status === "Completed"
+            status === "Completed" || status === "Confirmed"
               ? "Appointment time"
               : "Appointment time requested"
           }
@@ -262,13 +265,13 @@ function DoctorAppointmentInfo({ data }: Props) {
             <StatusChip type={status?.toUpperCase() as StatusName} />
           </div>
         </li>
-        {appointmentTypeProposed?.type && (
+        {appointmentTypeProposed?.type && status !== "Confirmed" && (
           <LabelWithText
             label={"Appointment type proposed"}
             text={appointmentTypeProposed?.type || ""}
           />
         )}
-        {appointmentTypeProposed?.dateTime?.length && (
+        {appointmentTypeProposed?.dateTime?.length && status !== "Confirmed" && (
           <LabelWithText
             label={"Appointment(s) proposed"}
             text={

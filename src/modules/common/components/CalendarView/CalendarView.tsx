@@ -201,6 +201,7 @@ function AdminCalender(props: Props) {
             {enableButton ? (
               getRole() == "Admin" ? (
                 <FullCalendar
+                  // hiddenDays={[0, 6]}
                   dayHeaderContent={(args) => {
                     const weekShortName = new Date(args.date).toLocaleString(
                       "en-us",
@@ -284,6 +285,7 @@ function AdminCalender(props: Props) {
                 />
               ) : (
                 <FullCalendar
+                  // hiddenDays={[0, 6]}
                   dayHeaderContent={(args) => {
                     const weekShortName = new Date(args.date).toLocaleString(
                       "en-us",
@@ -368,6 +370,7 @@ function AdminCalender(props: Props) {
               )
             ) : (
               <FullCalendar
+                // hiddenDays={[0, 6]}
                 dayHeaderContent={(args) => {
                   const weekShortName = new Date(args.date).toLocaleString(
                     "en-us",

@@ -11,6 +11,7 @@ import { Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { useClient } from "./settings";
 import { useRouter } from "next/router";
+import { userData } from "common/utils";
 
 type Props = {
   tracks: [IMicrophoneAudioTrack, ICameraVideoTrack];
@@ -38,14 +39,15 @@ function Controls(props: Props) {
   };
 
   const shareScreen = async () => {};
-
+  const {user} = userData?.getUserData()
   const leaveChannel = async () => {
     await client.leave();
     client.removeAllListeners();
     tracks[0].close();
     tracks[1].close();
     // Router.back();
-    Router.push("/patient/appointments/upcoming");
+    const path = user?.role === "User" ? "/patient/appointments/upcoming" : "/physician/appointments/upcoming";
+    Router.push(path);
   };
 
   useEffect(() => {

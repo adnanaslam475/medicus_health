@@ -17,7 +17,7 @@ import ProfileForm from "./ProfileForm";
 import _classes from "./PhysicianProfile.module.scss";
 import { getRole } from "common/utils/userData";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
-import user from "../../../../pages/admin/user";
+import user from "../../../../pages/admin/users";
 import { timezoneLabel } from "utils/helper";
 
 type props = {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input, Button, Select, Space, DatePicker } from "antd";
 import {
   CaretDownOutlined,
+  CarryOutOutlined,
   CloseOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
@@ -76,7 +77,7 @@ function SearchFilters(props: Props) {
 
   return (
     <div
-      className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 flex-wrap gap-2`}
+      className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 flex-wrap gap-2 `}
     >
       <span className="text-gray-1 sm:mr-3 sm:block mr-auto w-full xl:w-fit">
         Search by
@@ -101,7 +102,7 @@ function SearchFilters(props: Props) {
         </div>
       )}
 
-      <div className="w-full md:w-44 xl:w-60 ">
+      <div className="w-full md:w-56 lg:w-56 xl:w-60 ">
         <Select
           suffixIcon={
             <div className="text-gray">
@@ -109,6 +110,12 @@ function SearchFilters(props: Props) {
             </div>
           }
           placeholder="Appointment type"
+          // placeholder={
+          //   <React.Fragment>
+          //     <Icon type="CarryOutOutlined" />
+          //     &nbsp; Appointment type
+          //   </React.Fragment>
+          // }
           className={`${searchStyle.placeholderColor} w-full`}
           onChange={(e) => onChangeFields("serviceId", e)}
           value={filterState.serviceId || "Appointment type"}
@@ -121,12 +128,8 @@ function SearchFilters(props: Props) {
         </Select>
       </div>
       {/* </div> */}
-      <div className="flex-none sm:flex w-full md:w-44 xl:w-60">
-        <Space
-          direction="vertical"
-          size={0}
-          className="w-full md:w-44 xl:w-60 "
-        >
+      <div className="flex-none sm:flex w-full md:w-60 xl:w-60">
+        <Space direction="vertical" size={0} className="w-full md:w-60 xl:w-60">
           <div className="relative">
             <RangePicker
               onChange={(_, dateString: string[]) =>
@@ -176,7 +179,7 @@ function SearchFilters(props: Props) {
               ) : (
                 <div className="flex justify-between items-center w-full px-3">
                   <div className="flex items-center font-thin">
-                    <span className="mr-2 mt-1">
+                    <span className="mr-2 mt-1 min-w-[18px]">
                       <Image
                         priority={true}
                         width={18}

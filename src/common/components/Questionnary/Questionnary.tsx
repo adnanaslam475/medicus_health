@@ -170,7 +170,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const t = i18next.t;
 
   // const t = useTranslations("Questionnary");
-
+  const [selectedMedicalOption, setSelectedMedicalOption] = useState();
   function prepareAndSetEditPayload(parsedData: any) {
     setRadioDrink(parsedData?.q1.ans);
     setRadioSmoke(parsedData?.q2.ans);
@@ -189,11 +189,14 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       [HealthQuestionnaryData.q2.q2.name]: parsedData?.q2.q2?.ans,
       // q3
       [HealthQuestionnaryData.q3.name]: parsedData?.q3.ans,
-      [HealthQuestionnaryData.q3.q.name]: parsedData?.q3.q.selectedOption,
+      [HealthQuestionnaryData.q3.q.name]: [
+        ...parsedData?.q3.q.selectedOption,
+        ...parsedData?.q3.q.ans,
+      ],
       [HealthQuestionnaryData.q3.q2.name]: parsedData?.q3?.q2?.ans,
 
       //q4
-      [HealthQuestionnaryData.q4.name]: parsedData?.q4.selectedOption,
+      [HealthQuestionnaryData.q4.name]: [...parsedData?.q4.selectedOption],
       [HealthQuestionnaryData.q4.q2.name]: parsedData?.q4?.q2?.ans,
       // surgical_text: parsedData?.q4.ans,
       [HealthQuestionnaryData.q5.name]: parsedData?.q5.ans,
@@ -224,11 +227,16 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 
     if (values.radio_drug) {
       HealthQuestionnaryData.q3["ans"] = 1;
-      HealthQuestionnaryData.q3.q.ans = values.medical;
-    } else {
-      HealthQuestionnaryData.q3["ans"] = 0;
-      HealthQuestionnaryData.q3.q.ans = null;
+      HealthQuestionnaryData.q3.q.ans =
+        values.check_drug ??
+        selectedMedicalOption ??
+        parseJson(data)?.q3?.q?.selectedOption ??
+        parseJson(data)?.q3?.q?.ans;
     }
+    // else {
+    //   HealthQuestionnaryData.q3["ans"] = 0;
+    //   HealthQuestionnaryData.q3.q.ans = null;
+    // }
 
     if (values.drug_text) {
       HealthQuestionnaryData.q3.q2.ans = values.drug_text;
@@ -240,6 +248,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       HealthQuestionnaryData.q4.q2.ans = values.surgical_text;
     } else {
       HealthQuestionnaryData.q4.q2.ans = null;
+    }
+    if (values.surgical_history) {
+      HealthQuestionnaryData.q4.selectedOption = [...values.surgical_history];
     }
 
     if (values.surgical_text !== "") {
@@ -281,6 +292,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
 
   function onChangeMedicalCondition(e: CheckboxValueType[]): void {
     HealthQuestionnaryData.q3.q.selectedOption = e;
+    setSelectedMedicalOption(e as any);
     setShowDrugOthers(e.includes("Others"));
     setShowDrugOthers(e.includes("Otra"));
   }

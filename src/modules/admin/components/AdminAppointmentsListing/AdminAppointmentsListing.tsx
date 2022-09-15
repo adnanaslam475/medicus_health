@@ -285,25 +285,13 @@ function AdminAppointmentsListing({}: Props) {
               <h2 className="mb-0 pb-0">Appointments</h2>
             </div>
             <div className="flex gap-3">
-              <div className="lg:ml-3 mt-0 sm:mt-0">
-                <Select
-                  defaultValue="List view"
-                  className="w-full sm:w-40"
-                  onChange={(value) =>
-                    value === "Calendar view" &&
-                    Router.push("/admin/appointments/calendar")
-                  }
-                >
-                  <Select.Option value="Calendar view">
-                    <Link href="/admin/appointments/calendar">
-                      <a>Calendar view</a>
-                    </Link>
-                  </Select.Option>
-                  <Select.Option selected value="List view">
-                    List view
-                  </Select.Option>
-                </Select>
-              </div>
+              <Link passHref href={`/admin/appointments/calendar`}>
+                <a>
+                  <Button className="bg-primary" type="primary">
+                    Calendar view
+                  </Button>
+                </a>
+              </Link>
               <Button type="primary" className="text-sm" onClick={showModal}>
                 <span className="text-xs sm:text-base">
                   Request an appointment
