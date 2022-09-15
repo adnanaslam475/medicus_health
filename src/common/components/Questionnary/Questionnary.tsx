@@ -193,10 +193,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       [HealthQuestionnaryData.q2.q2.name]: parsedData?.q2.q2?.ans,
       // q3
       [HealthQuestionnaryData.q3.name]: parsedData?.q3.ans,
-      [HealthQuestionnaryData.q3.q.name]: [
-        ...parsedData?.q3.q.selectedOption,
-        ...parsedData?.q3.q.ans,
-      ],
+      [HealthQuestionnaryData.q3.q.name]: parsedData?.q3?.q?.ans
+        ? [...parsedData?.q3.q.selectedOption, ...parsedData?.q3?.q?.ans]
+        : [...parsedData?.q3.q.selectedOption],
       [HealthQuestionnaryData.q3.q2.name]: parsedData?.q3?.q2?.ans,
 
       //q4
