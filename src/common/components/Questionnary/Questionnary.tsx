@@ -151,12 +151,18 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     if (data) {
       prepareAndSetEditPayload(parseJson(data));
     } else {
-      formInstance.setFieldValue("radio_drink", null);
-      formInstance.setFieldValue("radio_drug", null);
-      formInstance.setFieldValue("radio_smoke", null);
+      formInstance.setFieldsValue({
+        radio_drink: null,
+        radio_drug: null,
+        radio_smoke: null,
+      });
+      // formInstance.resetFields(["radio_drink", "radio_drug", "radio_smoke"]);
+      // formInstance.setFieldValue("radio_drink", null);
+      // formInstance.setFieldValue("radio_drug", null);
+      // formInstance.setFieldValue("radio_smoke", null);
     }
   }, [data]);
-
+  console.log("formInstanceformInstance", formInstance);
   useEffect(() => {
     if (getRole() === "Doctor" || getRole() === "Admin") {
       setDisabled(true);
