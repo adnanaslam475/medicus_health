@@ -110,6 +110,10 @@ function AppointmentInfo(props: Props) {
     "Proposed",
   ].includes(status as string);
 
+  let formatedDueDate = date.formatMMMMDDYYYY(
+    String(appointment?.appointmentDateTime?.startTime),
+    timeZone
+  );
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -211,11 +215,15 @@ function AppointmentInfo(props: Props) {
             />
           )}
           <LabelValueRow
-            label={isPendingAppointment ? "Requested date" : "Appointment date"}
+            label={
+              status === "Completed" || status === "Confirmed"
+                ? "Appointment date"
+                : "Requested date"
+            }
             value={
-              requestedDate
-                ? date.formatDAYMMDDYY(String(requestedDate), timeZone)
-                : "--"
+              appointment?.appointmentDateTime?.startTime && status === "Completed"||status === "Confirmed"
+              ? `${formatedDueDate}`
+              : date.formatMMMMDDYYYY(requestedDate, timeZone)
             }
           />
           {/* <LabelValueRow
