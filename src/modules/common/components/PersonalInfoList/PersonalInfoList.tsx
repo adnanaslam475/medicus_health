@@ -220,24 +220,27 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
           >
             {patientProfile?.haveChildren
               ? t(patientProfile?.haveChildren)
-              : "No"}
+              : "N/A"}
           </div>
         </div>
       </li>
 
-      <li>
+      {(patientProfile?.haveChildren === "Si" || patientProfile?.haveChildren === "Yes") && 
+        <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
           <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
-            Numero de niños
+          Numero de niños
           </div>
-          <div className={`sm:w-1/2 md:pl-4 `}>
-            {/* {patientProfile?.children ? patientProfile?.children : "N/A"} */}
-            <span className="text-gray-1">
-              {patientProfile?.children ? patientProfile?.children : "No"}
-            </span>
+          <div
+            className={`sm:w-1/2 md:pl-4 ${
+              !patientProfile?.children && "text-gray-1 md:pl-4"
+            }`}
+          >
+            {patientProfile?.children ? patientProfile?.children : "No"}
           </div>
         </div>
       </li>
+      }
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">

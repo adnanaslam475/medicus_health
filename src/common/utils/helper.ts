@@ -69,7 +69,7 @@ export const getFileImageIcon = (fileName: any) => {
   }
 };
 
-export function valueSeparator(value: string) {
+export function valueSeparator(value: string|number) {
   let separatorValue = parseFloat(String(value)).toLocaleString("en");
   return separatorValue;
 }
