@@ -85,6 +85,7 @@ export function MessageContextProvider({
   const [createChatFetching, setCreateChatFetching] = useState<boolean>(false);
   const [backButton, setBackButton] = React.useState<boolean>(false);
   const [searchString, setChatSearch] = React.useState<string>("");
+  const [isFetched, setIsFetched] = React.useState<boolean>(false);
   const { query } = useRouter();
   const messageInfoRef = useRef<MessageInfo>(messageInfo);
   messageInfoRef.current = messageInfo;
@@ -99,20 +100,22 @@ export function MessageContextProvider({
     });
   const { getAllChatChannels } = data || {};
 
+  function apiCall() {}
   const [{ data: channelMessageData }, executeGetChannelMessagesQuery] =
     useGetChannelMessagesQuery({
       variables: {
         channelId: messageInfo.currentChannel?.id as number,
       },
+      requestPolicy: "network-only",
       pause: !messageInfo.currentChannel,
     });
   const { getChannelMessages } = channelMessageData || {};
 
   useEffect(() => {
     if (getChannelMessages) {
-      executeGetChannelMessagesQuery({
-        requestPolicy: "network-only",
-      });
+      // executeGetChannelMessagesQuery({
+      //   requestPolicy: "network-only",
+      // });
       const info = { ...messageInfoRef.current };
       const messages = { ...info.messagesWithChannel };
       // messages[messageInfo.currentChannel?.channelName || ""] = [
@@ -124,14 +127,19 @@ export function MessageContextProvider({
       messages[messageInfo.currentChannel?.channelName || ""] = [
         ...getChannelMessages,
       ];
-
+      setIsFetched(true);
       info.messagesWithChannel = messages;
       setMessageInfo(info);
     }
-  }, [
-    getChannelMessages?.[0]?.channelId,
-    messageInfo.currentChannel?.channelName,
-  ]);
+  }, [getChannelMessages,isFetched]);
+
+  useEffect(() => {
+    if (isFetched) {
+      executeGetChannelMessagesQuery({
+        requestPolicy: "network-only",
+      });
+    }
+  }, [isFetched]);
 
   async function createOrJoinChannel() {
     try {
