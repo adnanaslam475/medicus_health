@@ -58,6 +58,13 @@ const SuccessScreen = () => {
               Haga clic en el enlace de verificación para finalizar el registro
               de su cuenta.
             </p>
+            <p className="text-red-2 text-base text-center px-7">
+              Si no ve el correo electrónico en unos minutos, revise su carpeta
+              de &quot;junk mail&quot; o carpeta de &quot;spam&quot;. Si no
+              recibe una confirmación, envíenos un correo electrónico a
+              support@medicusdigitalclinic.com.
+            </p>
+
             <div className="mt-5">
               <Form
                 layout="vertical"
