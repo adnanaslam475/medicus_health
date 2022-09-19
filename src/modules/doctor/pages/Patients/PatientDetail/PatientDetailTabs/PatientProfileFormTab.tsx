@@ -95,7 +95,7 @@ function PatientProfileFormTab({
             <LabelWithTextDiv label="Correo electrónico" value={email || "-"} />
             <LabelWithTextDiv
               label="Teléfono de contacto"
-              value={contact_number? `+${contact_number}` : "-"}
+              value={contact_number ? `+${contact_number}` : "-"}
             />
           </div>
           <div className="flex flex-col md:flex-row gap-2">
@@ -118,13 +118,13 @@ function PatientProfileFormTab({
               value={timeZone?.timeZoneName || ""}
             />
           </div>
-          <div className="flex flex-col md:flex-row gap-2">
+          {/* <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv label="Código postal" value={zip_code || "-"} />
             <LabelWithTextDiv
               label="Dirección (calle y numero)"
               value={streetAddress || "-"}
             />
-          </div>
+          </div> */}
           <div className="flex flex-col md:flex-row gap-2">
             <LabelWithTextDiv
               label="Estado civil"
