@@ -133,11 +133,11 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         ...formatedQuestioner,
         isLastFilled: e?.target?.checked,
       });
-      let updatedDepedencies = { ...dependent };
-      Object.keys(dependent).forEach((dep) => {
-        updatedDepedencies[dep] = true;
-      });
-      setDependent(updatedDepedencies);
+      // let updatedDepedencies = { ...dependent };
+      // Object.keys(dependent).forEach((dep) => {
+      //   updatedDepedencies[dep] = true;
+      // });
+      // setDependent(updatedDepedencies);
     } else {
       saveStepThree?.(undefined);
       formInstance.resetFields();
@@ -241,7 +241,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-            // rules={[{ required: true, message: "¡Requerido!" }]}
+            rules={[
+              { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            ]}
           >
             <Checkbox.Group
               className={`${styles["ant-checkbox-wrapper-cover"]}`}
@@ -277,6 +279,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         form={formInstance}
         onFinish={onFinishLocal}
         onFieldsChange={onFieldsChange}
+        scrollToFirstError
       >
         {doctorQuestionnaire && (
           <Form.Item valuePropName="checked">

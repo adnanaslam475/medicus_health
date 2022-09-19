@@ -162,7 +162,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       // formInstance.setFieldValue("radio_smoke", null);
     }
   }, [data]);
-  console.log("formInstanceformInstance", formInstance);
   useEffect(() => {
     if (getRole() === "Doctor" || getRole() === "Admin") {
       setDisabled(true);
