@@ -417,6 +417,13 @@ label.ant-radio-wrapper {
       box-shadow: 0 3px 4px -4px rgb(0 0 0 / 8%), 0 6px 10px 0 rgb(0 0 0 / 6%),
         0 9px 15px 6px rgb(0 0 0 / 4%) !important;
       background-color: #fff !important;
+
+      & a {
+        text-transform: inherit;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
@@ -606,6 +613,6 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 8px !important;
 }
 
-.admin-filter{
+.admin-filter {
   color: #9295af !important;
 }
