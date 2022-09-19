@@ -7,15 +7,14 @@ const createAdminUserForm = [
     name: "first_name",
     required: true,
     type: "text",
-    errorName:"first name"
+    errorName: "first name",
   },
   {
     label: "Last name",
     name: "last_name",
     type: "text",
     required: true,
-    errorName:"last name"
-
+    errorName: "last name",
   },
   {
     label: "Email",
@@ -27,16 +26,17 @@ const createAdminUserForm = [
     label: "Password",
     name: "password",
     type: "password",
-    required: false,
+    required: true,
+    errorName: "password",
   },
   {
     label: "Confirm password",
     name: "confirmPassword",
     type: "confirmPassword",
-    required: false,
+    required: true,
+    errorName: "confirm password",
   },
 ];
-
 
 function CreateAdminUserForm() {
   return (
@@ -46,19 +46,35 @@ function CreateAdminUserForm() {
           key={value.name}
           label={value.label}
           rules={[
-            value?.name ==="email"?
-            {
-              type:"email",
-              required: true,
-              message: "Email must be valid",
-            }
-           
-            :{
-              required: value.required,
-              message: `Please fill ${value.errorName}`,
-            }
+            value?.name === "email"
+              ? {
+                  type: "email",
+                  required: true,
+                  message: "Email must be valid",
+                }
+              : {
+                  required: value.required,
+                  message: `Please fill ${value.errorName}`,
+                },
+            ({ getFieldValue }) => ({
+              validator() {
+                if (
+                  value?.name === "confirmPassword" &&
+                  getFieldValue("password") !== getFieldValue("confirmPassword")
+                ) {
+                  return Promise.reject(
+                    "Confirm password should match with password "
+                  );
+                } else if (
+                  value?.name === "password" &&
+                  getFieldValue("password")?.length <8
+                ) {
+                  return Promise.reject("Password must be 8 characters long ");
+                }
+                return Promise.resolve();
+              },
+            }),
           ]}
-         
           // className={`font-bold`}
           name={value.name}
         >
@@ -68,7 +84,7 @@ function CreateAdminUserForm() {
               onPressEnter={(e) => e.preventDefault()}
             />
           ) : (
-            <Input/>
+            <Input />
           )}
         </Form.Item>
       ))}
