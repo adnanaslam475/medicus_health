@@ -143,6 +143,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const [isDisabled, setDisabled] = useState<boolean>(false);
   const [formInstance] = Form.useForm();
 
+  const isSignupPage = window.location.pathname === "/signup";
   useEffect(() => {
     if (ref) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -150,7 +151,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     }
     if (data) {
       prepareAndSetEditPayload(parseJson(data));
-    } else {
+    } else if (isSignupPage) {
       formInstance.setFieldsValue({
         radio_drink: null,
         radio_drug: null,
@@ -162,7 +163,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       // formInstance.setFieldValue("radio_smoke", null);
     }
   }, [data]);
-  console.log("formInstanceformInstance", formInstance);
   useEffect(() => {
     if (getRole() === "Doctor" || getRole() === "Admin") {
       setDisabled(true);
@@ -242,10 +242,10 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         parseJson(data)?.q3?.q?.selectedOption ??
         parseJson(data)?.q3?.q?.ans;
     }
-    // else {
-    //   HealthQuestionnaryData.q3["ans"] = 0;
-    //   HealthQuestionnaryData.q3.q.ans = null;
-    // }
+    else {
+      HealthQuestionnaryData.q3["ans"] = 0;
+      HealthQuestionnaryData.q3.q.ans = null;
+    }
 
     if (values.drug_text) {
       HealthQuestionnaryData.q3.q2.ans = values.drug_text;
