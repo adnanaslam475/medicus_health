@@ -24,6 +24,7 @@ import initTranslation from "common/utils/initTranslation";
 import i18next from "i18next";
 import dayjs from "dayjs";
 import { getCurrentUserTimeZone } from "common/utils/date";
+import MessageModal from "../ConfirmationModal/ConfirmationModal";
 initTranslation(["PhysicianList"]);
 
 const FLAG_BY_LANGUAGE = {
@@ -72,6 +73,7 @@ function DoctorProfileCard(props: Props) {
   const { first_name, last_name } = doctorData?.user || {};
   const { language } = doctorData || "english";
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -259,21 +261,25 @@ function DoctorProfileCard(props: Props) {
                           "Please request an appointment to message physician."
                         )
                   }
-                  disabled={items && items?.length > 0 ? false : true}
+                  // disabled={items && items?.length > 0 ? false : true}
                   className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
-                  onClick={() => {
-                    const query: any = {
-                      chat: "patient",
-                      // patientId: adminApp_Details?.patient.patient_id,
-                      doctorId: doctorData?.doctor_id,
-                      patientId: loggedInUser,
-                    };
-                    // localStorage.setItem("id", JSON.stringify(query));
-                    Router.push({
-                      pathname: "/patient/messages",
-                      query,
-                    });
-                  }}
+                  onClick={
+                    items && items?.length > 0
+                      ? () => {
+                          const query: any = {
+                            chat: "patient",
+                            // patientId: adminApp_Details?.patient.patient_id,
+                            doctorId: doctorData?.doctor_id,
+                            patientId: loggedInUser,
+                          };
+                          // localStorage.setItem("id", JSON.stringify(query));
+                          Router.push({
+                            pathname: "/patient/messages",
+                            query,
+                          });
+                        }
+                      : () => setOpen(true)
+                  }
                 >
                   <span className="hidden">{t("message_physician")}</span>
                 </Button>
@@ -373,6 +379,12 @@ function DoctorProfileCard(props: Props) {
         onOk={handleOk}
         onCancel={handleCancel}
         doctorData={doctorData}
+      />
+      <MessageModal
+        visible={open}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        message="Please request an appointment to message physician."
       />
     </>
   );
