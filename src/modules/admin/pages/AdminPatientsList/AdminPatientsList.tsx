@@ -74,12 +74,12 @@ const columns: ColumnsType<User> = [
       return <div>{value?.country_name ? `${value?.country_name}` : "--"}</div>;
     },
   },
-  {
-    title: "Postal code",
-    dataIndex: "zip_code",
-    key: "zip_code",
-    sorter: true,
-  },
+  // {
+  //   title: "Postal code",
+  //   dataIndex: "zip_code",
+  //   key: "zip_code",
+  //   sorter: true,
+  // },
   {
     title: "Account creation date",
     dataIndex: "createdAt",

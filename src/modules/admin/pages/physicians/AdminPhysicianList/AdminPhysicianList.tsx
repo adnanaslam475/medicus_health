@@ -85,15 +85,15 @@ const columns = [
     },
     sorter: true,
   },
-  {
-    title: "Zip code",
-    dataIndex: "zip_code",
-    key: "zip_code",
-    render: (zip_code: string) => {
-      return <div>{zip_code || ""}</div>;
-    },
-    sorter: true,
-  },
+  // {
+  //   title: "Zip code",
+  //   dataIndex: "zip_code",
+  //   key: "zip_code",
+  //   render: (zip_code: string) => {
+  //     return <div>{zip_code || ""}</div>;
+  //   },
+  //   sorter: true,
+  // },
   {
     title: "Language",
     dataIndex: "doctorProfile",
