@@ -93,7 +93,7 @@ function ProfileDetail() {
           >
             <TabPane
               tab={
-                <span>
+                <span className="flex items-center">
                   <UserOutlined className="" />
                   Profile
                 </span>
@@ -128,7 +128,7 @@ function ProfileDetail() {
             </TabPane>
             <TabPane
               tab={
-                <span>
+                <span className="flex items-center">
                   <BellOutlined />
                   Email notifications
                 </span>
@@ -139,7 +139,7 @@ function ProfileDetail() {
             </TabPane>
             <TabPane
               tab={
-                <span>
+                <span className="flex items-center">
                   <CalendarOutlined />
                   Appointment
                 </span>
@@ -150,7 +150,7 @@ function ProfileDetail() {
             </TabPane>
             <TabPane
               tab={
-                <span>
+                <span className="flex items-center">
                   <TeamOutlined />
                   Staff
                 </span>
@@ -161,7 +161,7 @@ function ProfileDetail() {
             </TabPane>
             <Tabs.TabPane
               tab={
-                <span>
+                <span className="flex items-center">
                   <DollarCircleOutlined />
                   Consultation rates
                 </span>
