@@ -121,6 +121,8 @@ function SidebarMenuItem() {
                 canceled,
                 history,
                 pending,
+                // Propose,
+                // Reschedule,
                 firstLogin: false,
               };
             } else {
@@ -138,6 +140,8 @@ function SidebarMenuItem() {
             updatedAlertData = {
               ...updatedAlertData,
               pending,
+              // Propose,
+              // Reschedule,
             };
           } else if (router.asPath.includes("/history")) {
             updatedAlertData = {
@@ -234,6 +238,7 @@ function SidebarMenuItem() {
                       break;
                     case "2":
                       if (localAppointmentAlertData?.pending < Number(pending))
+                        // ||  (localAppointmentAlertData?.requested < Number(propose)) ||  (localAppointmentAlertData?.requested < Number(reschedule))
                         dot = true;
                       break;
                     case "3":
