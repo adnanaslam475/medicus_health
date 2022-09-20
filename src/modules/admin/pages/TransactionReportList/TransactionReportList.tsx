@@ -6,6 +6,7 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import TransactionReportListFilter from "./TransactionReportListFilter";
 import MyEarningsStats from "common/components/MyEarningsStats/MyEarningsStats";
 import { useGetPhysiciansQuery, User } from "generated/graphql";
+import { tableFooter } from "utils/helper";
 
 const columns = [
   {
@@ -228,9 +229,7 @@ function TransactionReportList() {
       requestPolicy: "network-only",
     });
   }
-  const footer = () => {
-    return <div></div>;
-  };
+
   return (
     <AppLayout>
       <div className="flex mb-0 flex-wrap">
@@ -256,7 +255,7 @@ function TransactionReportList() {
             <Table
               columns={columns}
               dataSource={Ddata}
-              footer={footer}
+              footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(getPhysicians?.meta?.totalItems||0))}
               onChange={onChange}
               loading={fetching}
               scroll={{x:true}}

@@ -16,6 +16,7 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 import { useRouter } from "next/router";
 import { date } from "common/utils";
 import { StatusName } from "common/types/types";
+import { tableFooter } from "utils/helper";
 
 function AdminPhysicianList() {
 	const { query } = useRouter();
@@ -207,10 +208,6 @@ function AdminPhysicianList() {
 		});
 	}
 
-	const footer = () => {
-		return <div></div>;
-	  };
-
 	return (
 		<div className="w-full">
 			<div className="flex justify-between">
@@ -227,7 +224,7 @@ function AdminPhysicianList() {
 						dataSource={appointments?.items}
 						loading={fetching}
 						onChange={onChange}
-						footer={footer}
+						footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(appointments?.meta?.totalItems||0))}
 						pagination={{
 							total: Number(appointments?.meta?.totalPages) * pagination.limit,
 							current: appointments?.meta?.currentPage,

@@ -7,6 +7,7 @@ import { date } from "common/utils";
 import { ColumnsType } from "antd/lib/table";
 import { useRoleGuard } from "common/components/RoleGuard/useRoleGuard";
 import StatusChip from "common/components/StatusChip/StatusChip";
+import { tableFooter } from "utils/helper";
 
 type Props = {
 	dataSource: User[] | undefined;
@@ -111,9 +112,6 @@ function StaffTable({
 		}
 	}
 
-	const footer = () => {
-		return <div></div>;
-	  };
 
 	return (
 		<Table
@@ -122,7 +120,7 @@ function StaffTable({
 			loading={loading}
 			scroll={{ x: true }}
 			onChange={onChange}
-			footer={footer}
+			footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
 			pagination={{
 				total: meta?.totalPages * pagination.limit,
 				current: meta?.currentPage,

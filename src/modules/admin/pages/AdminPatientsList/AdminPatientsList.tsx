@@ -10,6 +10,7 @@ import { PatientListFilterType } from "common/types/types";
 import { Country, useGetPatientsQuery, User, City } from "generated/graphql";
 import { ColumnsType } from "antd/lib/table/Table";
 import { date } from "common/utils";
+import { tableFooter } from "utils/helper";
 
 const columns: ColumnsType<User> = [
   {
@@ -154,16 +155,6 @@ function AdminPatientsList() {
     });
   };
 
-  const footer = (currentPageData: any) => {
-    return <div></div>
-    // return getPatients?.items?.length ? (
-    //   <span>
-    //     Showing {currentPageData?.length} out of {getPatients?.items?.length} entries
-    //   </span>
-    // ) : (
-    //   ""
-    // );
-  };
 
   return (
     <AppLayout>
@@ -186,7 +177,7 @@ function AdminPatientsList() {
             <Table
               columns={columns}
               dataSource={getPatients?.items as User[]}
-              footer={footer}
+              footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(getPatients?.meta?.totalItems||0))}
               loading={fetching}
               onChange={onChange}
               pagination={{

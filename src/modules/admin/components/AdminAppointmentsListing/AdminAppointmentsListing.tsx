@@ -18,6 +18,7 @@ import {
 import { date } from "common/utils";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { StatusName } from "common/types/types";
+import { tableFooter } from "utils/helper";
 
 const appointmentColumns = [
   {
@@ -272,9 +273,6 @@ function AdminAppointmentsListing({}: Props) {
     });
   };
 
-  const footer = () => {
-    return <div></div>;
-  };
 
   return (
     <>
@@ -311,7 +309,7 @@ function AdminAppointmentsListing({}: Props) {
                 onChange={onChange}
                 scroll={{ x: true }}
                 loading={fetching}
-                footer={footer}
+                footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems || 0)}
                 pagination={{
                   total: pagination.limit * Number(meta?.totalPages),
                   current: meta?.currentPage,

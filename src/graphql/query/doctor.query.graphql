@@ -225,6 +225,7 @@ query physicianAppointments(
     meta {
       totalPages
       currentPage
+      totalItems
     }
   }
 }
@@ -500,6 +501,7 @@ query physicianAppointmentsHistory(
     meta {
       totalPages
       currentPage
+      totalItems
     }
   }
 }
@@ -550,6 +552,7 @@ query getTransactionFilter(
     meta {
       totalPages
       currentPage
+      totalItems
     }
   }
 }
@@ -581,6 +584,7 @@ query physiciansPatients(
     meta {
       totalPages
       currentPage
+      totalItems
     }
   }
 }
@@ -616,6 +620,7 @@ query getPhysicians(
     meta {
       totalPages
       currentPage
+      totalItems
     }
   }
 }
