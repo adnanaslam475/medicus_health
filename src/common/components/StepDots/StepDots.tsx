@@ -7,10 +7,9 @@ type Props = {
 function StepDots({ current }: Props) {
   return (
     <Steps current={current}>
-      <Steps.Step />
-      <Steps.Step />
-      <Steps.Step />
-      <Steps.Step />
+      {Array.from({ length: 4 }).map((_, index) => (
+        <Steps.Step key={index} />
+      ))}
     </Steps>
   );
 }

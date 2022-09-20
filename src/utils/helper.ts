@@ -1,4 +1,5 @@
 import { DoctorSchedule } from "generated/graphql";
+import { GraphQLError } from "graphql";
 import config from "../../config";
 import engFlag from "../../public/assets/images/engFlag.png";
 import espanolFlag from "../../public/assets/images/espanolFlag.png";
@@ -398,13 +399,13 @@ export const honorsBGPlaceholder = [
 ];
 
 export const days = [
-  { key: 1, value: "Monday" },
-  { key: 2, value: "Tuesday" },
-  { key: 3, value: "Wednesday" },
-  { key: 4, value: "Thursday" },
-  { key: 5, value: "Friday" },
-  { key: 6, value: "Saturday" },
-  { key: 7, value: "Sunday" },
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
 ];
 
 export const patientEmailPreferencesData = [
@@ -412,10 +413,6 @@ export const patientEmailPreferencesData = [
     key: "admin_appointment_create_update",
     value: "Support team creates and/or updates appointment",
   },
-  // {
-  //   key: "appointment_accepted_by_doctor",
-  //   value: "Appointment accepted by physician",
-  // },
   {
     key: "appointment_reminder",
     value: "Appointment reminder (4 hours before the appointment)",
@@ -456,15 +453,6 @@ export const patientEmailPreferencesData = [
 ];
 
 export const physicianEmailPreferencesData = [
-  // mine
-  // {
-  //   key:"patient_registration_update",
-  //   value:"Patient registration update"
-  // },
-  // {
-  //   key:"physician_registration_update",
-  //   value:"Physician registration update"
-  // },
   {
     key: "appointment_requested",
     value: "Appointment requested",
@@ -574,4 +562,14 @@ export const timezoneLabel = (value: any = "") => {
   return value
     ?.split("/")
     [Number(value?.split("/").length) - 1]?.replace(/_/g, " ");
+};
+
+export const graphqlError = (res: any) => {
+  let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+    ?.response as GraphQLError;
+  let customError = res?.error?.graphQLErrors[0]?.extensions
+    ?.exception as GraphQLError;
+  let errorMessage =
+    graphQLError?.message || customError?.message || "Something went wrong";
+  return errorMessage;
 };

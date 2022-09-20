@@ -172,12 +172,12 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   }, [questionnair?.length]);
 
   const onFieldsChange = (fieldChange: FieldData[]) => {
-    const formatedQuestionnier = JSON.parse(doctorQuestionnaire?.questionnaire);
+    const formatedQuestionnier = parseJson(doctorQuestionnaire?.questionnaire);
     const fieldChangedName = String(fieldChange[0]?.name).toLocaleLowerCase();
-    const filteredItem = formatedQuestionnier.filter(
+    const filteredItem = formatedQuestionnier?.filter(
       (item: any) => String(item?.name).toLocaleLowerCase() === fieldChangedName
     );
-    const filteredItemLength = filteredItem[0]?.options?.length;
+    const filteredItemLength = filteredItem?.[0]?.options?.length;
     const isCheckbox = Array.isArray(fieldChange[0]?.value) ? true : false;
 
     let updatedDepedencies = { ...dependent };
