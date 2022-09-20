@@ -271,9 +271,9 @@ export const Profile = React.forwardRef(function Profile({
                   className="flex-1"
                   // rules={[{ required: true, message: "Password is required" }]}
                   rules={[
-                    {
-                      message: "Please enter your password!",
-                    },
+                    // {
+                    //   message: "Please enter your password!",
+                    // },
                     {
                       min: 8,
                       message: "Password must be minimum 8 characters.",
