@@ -86,7 +86,8 @@ const InfoMessageBannerReminder = () => {
       />
       <div className="flex items-start gap-1 flex-wrap text-xs">
         <span className="ml-0 min-h-max md:block md:whitespace-nowrap text-xs">
-          You have an appointment with
+          {/* You have an  */}
+          appointment with
           {getRole() === "Doctor" || getRole() === "Staff" ? (
             // <span> {`${patient_first_name} ${patient_last_name}`} </span>
             <span> {`${formatedPatientFirstName} ${patient_last_name}`} </span>
