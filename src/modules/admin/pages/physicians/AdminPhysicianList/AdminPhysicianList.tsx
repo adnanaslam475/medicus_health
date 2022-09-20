@@ -238,6 +238,7 @@ function AdminPhysicianList() {
               onChange={onChange}
               footer={footer}
               loading={fetching}
+              scroll={{ x: true }}
               pagination={{
                 total:
                   Number(getPhysicians?.meta?.totalPages) * pagination.limit,
