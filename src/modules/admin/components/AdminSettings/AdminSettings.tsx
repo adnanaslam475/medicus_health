@@ -166,7 +166,7 @@ function AdminSettings() {
                 className="font-bold text-secondary"
               >
                 <InputNumber
-                  addonAfter="$"
+                  addonBefore="$"
                   type="number"
                   min={0}
                   controls={false}
@@ -235,7 +235,7 @@ function AdminSettings() {
                   className="font-bold text-secondary"
                 >
                   <InputNumber
-                    addonAfter="$"
+                    addonBefore="$"
                     type="number"
                     min={0}
                     controls={false}

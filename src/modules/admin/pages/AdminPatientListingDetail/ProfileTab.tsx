@@ -339,7 +339,7 @@ function AdminPatientProfileTab({}: Props) {
           icon={<Image priority={true} src={Envelope} alt="" />}
           onClick={handleResetLink}
         >
-          Send password reset link
+          Send reset password link
         </Button>
         <Button
           type="link"

@@ -182,7 +182,7 @@ function EditAdminUserDetails({}: Props) {
                 disabled={loading}
                 onClick={handleResetLink}
               >
-                <span className="sm:mx-3">Send password reset link</span>
+                <span className="sm:mx-3">Send reset password link</span>
               </Button>
             </div>
             <div className="flex px-0 mx-0">
