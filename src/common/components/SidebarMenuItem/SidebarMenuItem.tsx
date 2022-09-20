@@ -96,8 +96,6 @@ function SidebarMenuItem() {
   const { canceled, history, pending, upcoming, propose, reschedule } =
     appointmentCountByStatus || {};
 
-  console.log("first", propose, reschedule);
-
   const [localAppointmentAlertData, setLocalAppointmentAlertData] =
     useState<any>();
 
