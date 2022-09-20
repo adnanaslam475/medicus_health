@@ -19,6 +19,7 @@ function AdminAddUser({}: Props) {
           first_name: values.first_name,
           last_name: values.last_name,
           email: values.email,
+          password:values.password
         },
       });
       if (response?.error) {
@@ -39,7 +40,7 @@ function AdminAddUser({}: Props) {
         notification.success({
           message: "User added successfully",
         });
-        Router.push("/admin/user");
+        Router.push("/admin/users");
       }
     } catch (error: any) {
       notification.error({

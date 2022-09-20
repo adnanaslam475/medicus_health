@@ -163,14 +163,14 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
         </div>
       </li>
 
-      <li>
+      {/* <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
           <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
             Código postal
           </div>
           <div className="sm:w-1/2 text-secondary md:pl-4">{zip_code}</div>
         </div>
-      </li>
+      </li> */}
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
@@ -225,22 +225,23 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
         </div>
       </li>
 
-      {(patientProfile?.haveChildren === "Si" || patientProfile?.haveChildren === "Yes") && 
+      {(patientProfile?.haveChildren === "Si" ||
+        patientProfile?.haveChildren === "Yes") && (
         <li>
-        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
-          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
-          Numero de niños
+          <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+            <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+              Numero de niños
+            </div>
+            <div
+              className={`sm:w-1/2 md:pl-4 ${
+                !patientProfile?.children && "text-gray-1 md:pl-4"
+              }`}
+            >
+              {patientProfile?.children ? patientProfile?.children : "No"}
+            </div>
           </div>
-          <div
-            className={`sm:w-1/2 md:pl-4 ${
-              !patientProfile?.children && "text-gray-1 md:pl-4"
-            }`}
-          >
-            {patientProfile?.children ? patientProfile?.children : "No"}
-          </div>
-        </div>
-      </li>
-      }
+        </li>
+      )}
 
       <li>
         <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">

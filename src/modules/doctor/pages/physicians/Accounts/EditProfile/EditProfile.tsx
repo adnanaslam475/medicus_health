@@ -925,7 +925,7 @@ function EditProfile({
               </div>
 
               <div className="flex flex-col sm:flex-row sm:gap-3">
-                <Form.Item
+                {/* <Form.Item
                   className="flex-1"
                   label={"Postal code"}
                   name="zip_code"
@@ -940,7 +940,7 @@ function EditProfile({
                     autoComplete="new-password"
                     onPressEnter={(e) => e.preventDefault()}
                   />
-                </Form.Item>
+                </Form.Item> */}
                 <div className="flex-1">
                   <Form.Item
                     label={"Time zone"}

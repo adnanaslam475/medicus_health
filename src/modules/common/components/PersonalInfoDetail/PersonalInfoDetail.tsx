@@ -476,10 +476,9 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
               </div>
             </li>
 
-            <li>
+            {/* <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">
                 <div className="w-1/2 sm:w-1/3 text-gray-1 md:pl-4">
-                  {/* {t("postal_code")} */}
                   Código postal
                 </div>
                 <div
@@ -491,7 +490,6 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                     rules={[
                       {
                         required: true,
-                        // message: t("postal_code_is_required"),
                         validator: onPostalCodeValidation,
                       },
                     ]}
@@ -499,14 +497,13 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   >
                     <Input
                       size="large"
-                      // placeholder={t("postal_code")}
                       placeholder="Código postal"
                       type="number"
                     />
                   </Form.Item>
                 </div>
               </div>
-            </li>
+            </li> */}
 
             <li>
               <div className="flex w-full border-b border-gray-3 px-4 py-2 items-center">

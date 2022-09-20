@@ -53,7 +53,7 @@ function AppointmnetRequestedCard({
         Requested appointment type
       </span>
       <div className="text-sm text-gray mb-3">{serviceType}</div>
-      <span className="text-sm mt-6 block improved-word-spacing">
+      <span className="text-sm block improved-word-spacing">
         Requested date
       </span>
       <h6 className="text-cyan">
@@ -72,7 +72,7 @@ function AppointmnetRequestedCard({
         Appointment status
       </span>
       <div className="flex justify-between items-center">
-        <span className="text-base text-yellow font-bold ">{status}</span>
+        <span className="text-base text-yellow font-bold w-full ">{status}</span>
         <Button
           className={`${_classes["card-btn"]} bg-transparent`}
           onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}

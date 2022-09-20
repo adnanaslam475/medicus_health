@@ -503,7 +503,7 @@ export default function PersonalInfo({ onFinish }: props) {
             )}
           </Select>
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           className="flex-1"
           // label={t("postal_code")}
           label="Código postal"
@@ -521,7 +521,7 @@ export default function PersonalInfo({ onFinish }: props) {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
       </div>
 
       <div className="flex justify-between flex-col sm:flex-row">

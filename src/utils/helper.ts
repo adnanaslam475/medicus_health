@@ -96,12 +96,12 @@ export const bioForm = [
     },
   ],
   [
-    {
-      label: "Postal code",
-      name: "zip_code",
-      disabled: true,
-      defaultValue: "",
-    },
+    // {
+    //   label: "Postal code",
+    //   name: "zip_code",
+    //   disabled: true,
+    //   defaultValue: "",
+    // },
     {
       label: "Time zone",
       name: "timeZone",
@@ -201,13 +201,13 @@ export const patientEditForm = [
     inputType: "text",
     required: true,
   },
-  {
-    label: "código postal",
-    name: "zip_code",
-    type: "text",
-    inputType: "number",
-    required: true,
-  },
+  // {
+  //   label: "código postal",
+  //   name: "zip_code",
+  //   type: "text",
+  //   inputType: "number",
+  //   required: true,
+  // },
   {
     label: "Estado civil",
     name: "maritalStatus",
