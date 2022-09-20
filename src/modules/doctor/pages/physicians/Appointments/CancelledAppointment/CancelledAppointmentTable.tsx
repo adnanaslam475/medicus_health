@@ -14,6 +14,7 @@ import { date } from "common/utils";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import { getCurrentUserTimeZone } from "common/utils/date";
+import { tableFooter } from "utils/helper";
 
 type Props = {
   dataSource: Appointment[] | undefined;
@@ -173,9 +174,6 @@ function CancelledAppointmentTable({
       ),
     },
   ];
-  const footer = () => {
-    return <div></div>;
-  };
 
   return (
     <Table
@@ -184,7 +182,7 @@ function CancelledAppointmentTable({
       loading={loading}
       onChange={onChange}
       scroll={{ x: true }}
-      footer={footer}
+      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
       pagination={{
         total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,

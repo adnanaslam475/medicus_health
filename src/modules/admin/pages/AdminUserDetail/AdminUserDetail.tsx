@@ -19,7 +19,7 @@ function AdminUserDetail() {
       </div>
       <Select
           className="mr-5"
-          placeholder="Send password reset link"
+          placeholder="Send reset password link"
          
           style={{ width: 200 }}
         >

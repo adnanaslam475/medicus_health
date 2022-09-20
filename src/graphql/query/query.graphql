@@ -352,6 +352,7 @@ query getAllRequestedAppointments(
     meta {
       totalPages
       currentPage
+      totalItems
     }
   }
 }
@@ -614,6 +615,7 @@ query getAllTransactions(
     meta {
       totalPages
       currentPage
+      totalItems
     }
   }
 }
@@ -767,6 +769,7 @@ query getAllStaffByDoctor(
     meta {
       totalPages
       currentPage
+      totalItems
     }
   }
 }

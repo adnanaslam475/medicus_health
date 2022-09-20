@@ -57,7 +57,7 @@ function CancelledAppointment() {
     useGetAllRequestedAppointmentsQuery({
       variables: {
         filter: filterValues,
-        pagination: { limit: -1, page: 1 },
+        pagination: pagination,
         sorting,
       },
     });
@@ -66,7 +66,7 @@ function CancelledAppointment() {
   const [{ data: physicianList }] = useGetPhysiciansQuery({
     variables: {
       filter: {},
-      pagination: { limit: -1, page: 1 },
+      pagination: pagination,
     },
   });
   const { getPhysicians } = physicianList || {};

@@ -573,3 +573,13 @@ export const graphqlError = (res: any) => {
     graphQLError?.message || customError?.message || "Something went wrong";
   return errorMessage;
 };
+
+export const tableFooter = (currentPageCount: number, totalCount: number) => {
+  return currentPageCount && totalCount ? (
+    <span>
+      Showing {currentPageCount} out of {totalCount} entries
+    </span>
+  ) : (
+    ""
+  );
+};

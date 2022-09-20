@@ -12,6 +12,7 @@ import {
 } from "generated/graphql";
 import { date } from "common/utils";
 import { getCurrentUserTimeZone } from "common/utils/date";
+import { tableFooter } from "utils/helper";
 
 const timeZone = getCurrentUserTimeZone();
 
@@ -181,23 +182,13 @@ const RequestedList = (props: Props) => {
     meta,
     onChange,
   } = props || {};
-  const footer = (currentPageData: any) => {
-    return<div></div>
-    // return appointmentsData?.length ? (
-    //   <span>
-    //     Showing {currentPageData?.length} out of {appointmentsData?.length}{" "}
-    //     entries
-    //   </span>
-    // ) : (
-    //   ""
-    // );
-  };
+
 
   return (
     <Table
       columns={Columns}
       dataSource={appointmentsData}
-      footer={footer}
+      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
       onChange={onChange}
       loading={loading}
       scroll={{ x: true }}

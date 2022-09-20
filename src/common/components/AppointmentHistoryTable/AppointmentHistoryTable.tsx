@@ -13,6 +13,7 @@ import {
 import StatusChip from "../StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import { getCurrentUserTimeZone } from "common/utils/date";
+import { tableFooter } from "utils/helper";
 
 const timeZone = getCurrentUserTimeZone();
 
@@ -164,16 +165,13 @@ const AppointmentHistoryTable = (props: Props) => {
   const { data, loading, meta, onPaginationChange, pagination, onChange } =
     props || {};
 
-  const footer = () => {
-    return <div></div>;
-  };
   return (
     <Table
       columns={historyColumns}
       dataSource={data}
       loading={loading}
       onChange={onChange}
-      footer={footer}
+      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
       scroll={{ x: true }}
       pagination={{
         total: pagination.limit * meta?.totalPages,

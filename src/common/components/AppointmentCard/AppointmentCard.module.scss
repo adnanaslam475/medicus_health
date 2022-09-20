@@ -15,6 +15,10 @@
       margin: 0px auto 10px 0;
       width: 95%;
     }
+
+    @media screen and (max-width: 768px) {
+      margin-top: 10px;
+    }
   }
   // .btn-transparent{
   //     background-color: transparent !important;

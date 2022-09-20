@@ -9,6 +9,7 @@ import {
 } from "../../../../generated/graphql";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
+import { tableFooter } from "utils/helper";
 
 const transactionsColumns = [
   {
@@ -161,9 +162,6 @@ const TransactionHistory = (props: Props) => {
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
 
-  const footer = () => {
-    return <div></div>;
-  };
 
   return (
     <Table
@@ -171,7 +169,7 @@ const TransactionHistory = (props: Props) => {
       dataSource={data}
       onChange={onChange}
       scroll={{ x: true }}
-      footer={footer}
+      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
       loading={loading}
       // pagination={{
       //   total: pagination.limit * meta?.totalPages,

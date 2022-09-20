@@ -7,6 +7,7 @@ import { adminUserFilterType } from "common/types/types";
 import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import AdminUserSearchFilters from "common/components/AdminUserFilter/AdminUserSearchFilters";
+import { tableFooter } from "utils/helper";
 
 const Columns = [
   {
@@ -151,9 +152,7 @@ const UserList = ({}: Props) => {
         : "",
     });
   };
-  const footer = () => {
-    return <div></div>;
-  };
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -176,7 +175,7 @@ const UserList = ({}: Props) => {
           dataSource={adminUsers?.items}
           loading={fetching}
           onChange={onChange}
-          footer={footer}
+          footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(adminUsers?.meta?.totalItems||0))}
           pagination={{
             total: Number(adminUsers?.meta?.totalPages) * pagination.limit,
             current: adminUsers?.meta?.currentPage,

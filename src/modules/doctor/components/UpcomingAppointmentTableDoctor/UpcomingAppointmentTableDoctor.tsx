@@ -15,6 +15,7 @@ import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import { getCurrentUserTimeZone } from "common/utils/date";
+import { tableFooter } from "utils/helper";
 
 const timeZone = getCurrentUserTimeZone();
 
@@ -158,9 +159,7 @@ function UpcomingAppointmentTableDoctor({
   pagination,
   onChange,
 }: Props) {
-  const footer = () => {
-    return <div></div>;
-  };
+
 
   return (
     // <span className={`${_classes["upcomming-appointment-doctor-table"]}`}>
@@ -171,7 +170,7 @@ function UpcomingAppointmentTableDoctor({
       loading={loading}
       scroll={{ x: true }}
       onChange={onChange}
-      footer={footer}
+      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
       pagination={{
         total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,

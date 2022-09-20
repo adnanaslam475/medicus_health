@@ -17,6 +17,7 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 import AdminPatientAppointmentSearchFilters from "./AdminPatientAppointmentSearchFilters";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { date } from "common/utils";
+import { tableFooter } from "utils/helper";
 
 type StatusName =
   | "UPCOMING"
@@ -197,9 +198,7 @@ function AdminPatientAppointmentList() {
     //   requestPolicy: "network-only",
     // });
   }
-  const footer = () => {
-    return <div></div>;
-  };
+
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -221,7 +220,7 @@ function AdminPatientAppointmentList() {
             columns={columns}
             dataSource={appointments?.items}
             onChange={onChange}
-            footer={footer}
+            footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(appointments?.meta?.totalItems || 0))}
             pagination={{
               total: Number(appointments?.meta?.totalPages) * pagination.limit,
               current: appointments?.meta?.currentPage,

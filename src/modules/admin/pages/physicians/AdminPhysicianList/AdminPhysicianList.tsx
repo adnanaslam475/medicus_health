@@ -20,7 +20,7 @@ import {
 // import engFlag from "../../../../../../public/assets/images/engFlag.png";
 // import espanolFlag from "../../../../../../public/assets//images/espanolFlag.png";
 // import { date } from "common/utils";
-import { FLAG_BY_LANGUAGE } from "utils/helper";
+import { FLAG_BY_LANGUAGE, tableFooter } from "utils/helper";
 import { date } from "common/utils";
 // import { json } from "node:stream/consumers";
 
@@ -203,17 +203,6 @@ function AdminPhysicianList() {
     });
   };
 
-  const footer = (currentPageData: any) => {
-    return <div></div>;
-    // return getPhysicians?.items?.length ? (
-    //   <span>
-    //     Showing {currentPageData?.length} out of {getPhysicians?.items?.length}{" "}
-    //     entries
-    //   </span>
-    // ) : (
-    //   ""
-    // );
-  };
 
   return (
     <AppLayout>
@@ -236,7 +225,7 @@ function AdminPhysicianList() {
               columns={columns}
               dataSource={getPhysicians?.items}
               onChange={onChange}
-              footer={footer}
+              footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(getPhysicians?.meta?.totalItems || 0))}
               loading={fetching}
               scroll={{ x: true }}
               pagination={{

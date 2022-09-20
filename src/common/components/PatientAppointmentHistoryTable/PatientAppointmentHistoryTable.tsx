@@ -4,6 +4,7 @@ import { Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "../../utils";
 import { AppointmentServiceType } from "generated/graphql";
+import { tableFooter } from "utils/helper";
 
 type Props = {
   data?: any;
@@ -100,16 +101,13 @@ function PatientAppointmentHistoryTable(props: Props) {
   // };
   // const { data } = props || {};
 
-  const footer = () => {
-    return <div></div>;
-  };
-  
+
   return (
     <Table
       columns={historyColumns}
       dataSource={data}
       onChange={onChange}
-      footer={footer}
+      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
       scroll={{ x: true }}
       pagination={{
         total: meta?.totalPages * pagination.limit,
