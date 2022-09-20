@@ -129,7 +129,7 @@ function MessageHeader({
               {/* <div className="w-full px-4 hippa client message flex justify-center bg-gray-4 py-2 text-xs text-gray-2 mb-2">
                 <div className="flex items-center justify-center">
                   <LockOutlined className="mr-1" />
-                  Messages are HIPPA Compliant
+                  Messages are HIPPA compliant
                 </div>
               </div> */}
               <div className="flex gap-2 w-full px-4 chatremove mb-2">
