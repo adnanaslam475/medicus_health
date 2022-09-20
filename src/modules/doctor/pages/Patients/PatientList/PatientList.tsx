@@ -11,6 +11,7 @@ import {
   PatientProfile,
   usePhysiciansPatientsQuery,
 } from "generated/graphql";
+import { tableFooter } from "utils/helper";
 
 const columns = [
   {
@@ -156,9 +157,7 @@ function PatientList() {
       requestPolicy: "network-only",
     });
   }
-  const footer = () => {
-    return <div></div>;
-  };
+
 
   return (
     <AppLayout>
@@ -175,7 +174,7 @@ function PatientList() {
               loading={fetching}
               onChange={onChange}
               scroll={{ x: true }}
-              footer={footer}
+              footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(physiciansPatients?.meta?.totalItems||0))}
               pagination={{
                 total:
                   Number(physiciansPatients?.meta?.totalPages) *

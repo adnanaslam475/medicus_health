@@ -15,6 +15,7 @@ import _classes from "./CurrentAppointment.module.scss";
 import chat from "../../../../../../../public/assets/icon/chat-bubble.svg";
 import support from "../../../../../../../public/assets/icon/support.svg";
 import Image from "next/image";
+import { tableFooter } from "utils/helper";
 
 const columns = [
   {
@@ -158,9 +159,7 @@ function CurrentAppointmentTable({
   onPaginationChange,
   onChange,
 }: Props) {
-  const footer = () => {
-    return <div></div>;
-  };
+
   return (
     <Table
       columns={columns}
@@ -168,7 +167,7 @@ function CurrentAppointmentTable({
       loading={loading}
       onChange={onChange}
       scroll={{ x: true }}
-      footer={footer}
+      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
       pagination={{
         total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,

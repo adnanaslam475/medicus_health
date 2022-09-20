@@ -15,6 +15,7 @@ import { date, userData } from "common/utils";
 import { physicianMyEarningsFilterType, StatusName } from "common/types/types";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { currencyFormatter, numberFormatter } from "common/utils/date";
+import { tableFooter } from "utils/helper";
 
 type Props = {};
 const Columns = [
@@ -289,9 +290,7 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
-  const footer = () => {
-    return <div></div>;
-  };
+
   return (
     <AppLayout>
       <div className="w-full">
@@ -360,7 +359,7 @@ const PhysicianMyEarningsList = (props: Props) => {
           scroll={{ x: true }}
           onChange={onChange}
           loading={fetching}
-          footer={footer}
+          footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(getTransactionFilter?.meta?.totalItems||0))}
           pagination={{
             total:
               Number(getTransactionFilter?.meta?.totalPages) * pagination.limit,

@@ -10,6 +10,7 @@ import {
   User,
 } from "generated/graphql";
 import { date } from "../../utils";
+import { tableFooter } from "utils/helper";
 
 type Props = {
   data?: Appointment[] | undefined;
@@ -137,9 +138,6 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     },
   ];
 
-  const footer = () => {
-    return <div></div>;
-  };
 
   return (
     <Table
@@ -148,7 +146,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       loading={loading}
       scroll={{ x: true }}
       onChange={onChange}
-      footer={footer}
+      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
       pagination={{
         current: meta?.currentPage,
         total: meta?.totalPages * pagination.limit,

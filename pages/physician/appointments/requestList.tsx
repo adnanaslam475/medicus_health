@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Table, Input, Button, Space, Tag } from "antd";
 import { EyeFilled } from "@ant-design/icons";
+import { tableFooter } from "utils/helper";
 
 const Columns = [
 	{
@@ -229,15 +230,13 @@ const PhysicianList = (props: Props) => {
 	const onPaginationChange = (page: number, limit: number) =>
 		setPagination({ page, limit });
 
-		const footer = () => {
-			return <div></div>;
-		  };
+
 	return (
 		<Table
 			columns={Columns}
 			dataSource={Ddata}
 			onChange={onChange}
-			footer={footer}
+			footer={(currentPageCount)=>tableFooter(currentPageCount?.length,currentPageCount?.length)}
 			pagination={{
 				// total: pagination.limit * meta?.totalPages,
 				// current: meta?.currentPage,
