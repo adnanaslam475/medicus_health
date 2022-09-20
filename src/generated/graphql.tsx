@@ -87,6 +87,7 @@ export type Appointment = {
   scheduleId?: Maybe<Scalars['Int']>;
   serviceId?: Maybe<Scalars['Int']>;
   serviceType?: Maybe<AppointmentServiceType>;
+  serviceTypeRequested?: Maybe<AppointmentServiceType>;
   status?: Maybe<Scalars['String']>;
   transaction?: Maybe<Transaction>;
   user?: Maybe<User>;
@@ -179,6 +180,8 @@ export type AppointmentsCountResponse = {
   canceled: Scalars['Float'];
   history: Scalars['Float'];
   pending: Scalars['Float'];
+  propose: Scalars['Float'];
+  reschedule: Scalars['Float'];
   upcoming: Scalars['Float'];
 };
 
@@ -343,7 +346,7 @@ export type CreateDoctorInput = {
   streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
   timeZoneId?: InputMaybe<Scalars['Float']>;
-  zip_code: Scalars['String'];
+  zip_code?: InputMaybe<Scalars['String']>;
 };
 
 export type CreateDoctorProfileInput = {
@@ -420,7 +423,7 @@ export type CreateUserByAdminInput = {
   state_id?: InputMaybe<Scalars['Float']>;
   streetAddress: Scalars['String'];
   timeZoneId?: InputMaybe<Scalars['Float']>;
-  zip_code: Scalars['String'];
+  zip_code?: InputMaybe<Scalars['String']>;
 };
 
 export type CreateUserInput = {
@@ -439,7 +442,7 @@ export type CreateUserInput = {
   streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
   timeZoneId?: InputMaybe<Scalars['Float']>;
-  zip_code: Scalars['String'];
+  zip_code?: InputMaybe<Scalars['String']>;
 };
 
 export type CreationDate = {
@@ -1626,7 +1629,7 @@ export type UpdateDoctorProfileInput = {
   streetAddress: Scalars['String'];
   timeZoneId?: InputMaybe<Scalars['Float']>;
   year_of_experience?: InputMaybe<Scalars['Float']>;
-  zip_code: Scalars['String'];
+  zip_code?: InputMaybe<Scalars['String']>;
 };
 
 export type UpdatePatientHealthHistoryInput = {
@@ -1673,7 +1676,7 @@ export type UpdateUserInput = {
   streetAddress: Scalars['String'];
   stripe_customer_id?: InputMaybe<Scalars['String']>;
   timeZoneId?: InputMaybe<Scalars['Float']>;
-  zip_code: Scalars['String'];
+  zip_code?: InputMaybe<Scalars['String']>;
 };
 
 export type User = {
@@ -2214,7 +2217,7 @@ export type GetTimeZonesQuery = { __typename?: 'Query', getTimeZones: Array<{ __
 export type AppointmentCountByStatusQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AppointmentCountByStatusQuery = { __typename?: 'Query', appointmentCountByStatus: { __typename?: 'AppointmentsCountResponse', upcoming: number, pending: number, canceled: number, history: number } };
+export type AppointmentCountByStatusQuery = { __typename?: 'Query', appointmentCountByStatus: { __typename?: 'AppointmentsCountResponse', upcoming: number, pending: number, canceled: number, history: number, reschedule: number, propose: number } };
 
 export type GetUnreadMessageCountQueryVariables = Exact<{
   filter: GetAllChannelFilterInput;
@@ -3732,6 +3735,8 @@ export const AppointmentCountByStatusDocument = gql`
     pending
     canceled
     history
+    reschedule
+    propose
   }
 }
     `;
@@ -5779,6 +5784,15 @@ export default {
             "args": []
           },
           {
+            "name": "serviceTypeRequested",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AppointmentServiceType",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "status",
             "type": {
               "kind": "SCALAR",
@@ -6296,6 +6310,28 @@ export default {
           },
           {
             "name": "pending",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "propose",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "reschedule",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

@@ -83,6 +83,8 @@ function Login() {
             history: 0,
             pending: 0,
             upcoming: 0,
+            propose: 0,
+            reschedule: 0,
             firstLogin: true,
           })
         );
