@@ -33,6 +33,8 @@ type AppointmentStatusCount = {
   canceled: number | undefined;
   history: number | undefined;
   pending: number | undefined;
+  propose: number | undefined;
+  reschedule: number | undefined;
   firstLogin: boolean;
 };
 
@@ -91,8 +93,10 @@ function SidebarMenuItem() {
   });
   const { appointmentCountByStatus } = countsData || {};
 
-  const { canceled, history, pending, upcoming } =
+  const { canceled, history, pending, upcoming, propose, reschedule } =
     appointmentCountByStatus || {};
+
+  console.log("first", propose, reschedule);
 
   const [localAppointmentAlertData, setLocalAppointmentAlertData] =
     useState<any>();
@@ -121,8 +125,6 @@ function SidebarMenuItem() {
                 canceled,
                 history,
                 pending,
-                // Propose,
-                // Reschedule,
                 firstLogin: false,
               };
             } else {
@@ -140,8 +142,8 @@ function SidebarMenuItem() {
             updatedAlertData = {
               ...updatedAlertData,
               pending,
-              // Propose,
-              // Reschedule,
+              propose,
+              reschedule,
             };
           } else if (router.asPath.includes("/history")) {
             updatedAlertData = {
@@ -167,6 +169,8 @@ function SidebarMenuItem() {
     history,
     pending,
     upcoming,
+    propose,
+    reschedule,
     appointmentCountByStatus,
     router.asPath,
   ]);
@@ -219,6 +223,9 @@ function SidebarMenuItem() {
                     Appointments
                     {(localAppointmentAlertData?.upcoming < Number(upcoming) ||
                       localAppointmentAlertData?.pending < Number(pending) ||
+                      localAppointmentAlertData?.propose < Number(propose) ||
+                      localAppointmentAlertData?.reschedule <
+                        Number(reschedule) ||
                       localAppointmentAlertData?.canceled <
                         Number(canceled)) && (
                       // localAppointmentAlertData?.history !== history
@@ -237,8 +244,12 @@ function SidebarMenuItem() {
                         dot = true;
                       break;
                     case "2":
-                      if (localAppointmentAlertData?.pending < Number(pending))
-                        // ||  (localAppointmentAlertData?.requested < Number(propose)) ||  (localAppointmentAlertData?.requested < Number(reschedule))
+                      if (
+                        localAppointmentAlertData?.pending < Number(pending) ||
+                        localAppointmentAlertData?.propose < Number(propose) ||
+                        localAppointmentAlertData?.reschedule <
+                          Number(reschedule)
+                      )
                         dot = true;
                       break;
                     case "3":
@@ -312,49 +323,12 @@ function SidebarMenuItem() {
                 title="Reports"
               >
                 {el.submenu?.map((el2, i2) => {
-                  let dot = false;
-                  switch (el2.subId) {
-                    case "1":
-                      if (localAppointmentAlertData?.upcoming !== upcoming)
-                        dot = true;
-                      break;
-                    case "2":
-                      if (localAppointmentAlertData?.pending !== pending)
-                        dot = true;
-                      break;
-                    case "3":
-                      if (localAppointmentAlertData?.canceled !== canceled)
-                        dot = true;
-                      break;
-                    // case "4":
-                    //   if (localAppointmentAlertData?.history !== history)
-                    //     dot = true;
-                    //   break;
-                    default:
-                      break;
-                  }
                   return (
                     <Menu.Item
                       key={el2.route}
                       className={_classes["side-bar-submenu-item"]}
                     >
-                      {el.id == "2" ? (
-                        <Link passHref href={el2.route}>
-                          {/* <Badge
-                            dot={dot}
-                            // count={100}
-                            className={_classes["side-bar-submenu-count"]}
-                          >
-                            <>{el2.name}</>
-                          </Badge> */}
-                          <>{el2.name}</>
-                        </Link>
-                      ) : (
-                        <Link href={el2.route}>
-                          <>{el2.name}</>
-                        </Link>
-                      )}
-                      {/* <Link href={el2.route}>{el2.name}</Link> */}
+                      <Link href={el2.route}>{el2.name}</Link>
                     </Menu.Item>
                   );
                 })}
@@ -365,19 +339,7 @@ function SidebarMenuItem() {
                 icon={IconsListAdmin[i]}
                 className={_classes["side-bar-submenu-item"]}
               >
-                {el.id == "5" ? (
-                  <Link passHref href={el.route}>
-                    <Badge
-                      count={msgCount}
-                      className={_classes["side-bar-submenu-count"]}
-                    >
-                      <>{el.name}</>
-                    </Badge>
-                  </Link>
-                ) : (
-                  <Link href={el.route}>{el.name}</Link>
-                )}
-                {/* <Link href={el.route}>{el.name}</Link> */}
+                <Link href={el.route}>{el.name}</Link>
               </Menu.Item>
             );
           })}
