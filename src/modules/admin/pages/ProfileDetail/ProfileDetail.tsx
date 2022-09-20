@@ -126,7 +126,7 @@ function ProfileDetail() {
               )} */}
               <AccountsProfile />
             </TabPane>
-            <TabPane
+            {/* <TabPane
               tab={
                 <span className="flex items-center">
                   <BellOutlined />
@@ -136,7 +136,7 @@ function ProfileDetail() {
               key="2"
             >
               <EmailNotification />
-            </TabPane>
+            </TabPane> */}
             <TabPane
               tab={
                 <span className="flex items-center">

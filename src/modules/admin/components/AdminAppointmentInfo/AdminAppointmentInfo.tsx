@@ -173,7 +173,8 @@ function AdminAppointmentInfo({
           </li>
         </div>
         {(appointmentStatus === "Canceled" ||
-          appointmentStatus === "Completed") && (
+          appointmentStatus === "Completed" ||
+          appointmentStatus === "Rescheduled") && (
           <AdminAppointmentInfoFooter
             appointmentStatus={appointmentStatus}
             adminApp_Details={adminApp_Details}
@@ -446,6 +447,30 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
         >
           <span className="pl-2">Message patient</span>
         </Button>
+        <Button
+            icon={
+              <Image
+                priority={true}
+                width={15}
+                height={15}
+                src={chat}
+                alt=""
+                className=""
+              />
+            }
+            className={`${_classes["appointments-btn"]} flex-1`}
+            onClick={() =>
+              Router.push({
+                pathname: "/admin/messages",
+                query: {
+                  chat: "admin",
+                  doctorId: adminApp_Details?.doctor.doctor_Id,
+                },
+              })
+            }
+          >
+            <span className="pl-2">Message physician</span>
+          </Button>
         <Button
           danger
           className={`${_classes["appointments-btn"]}  flex-1`}
