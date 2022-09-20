@@ -71,7 +71,7 @@ function AppointmnetRequestedCard({
       <span className="text-sm mt-4 block font-normal improved-word-spacing">
         Appointment status
       </span>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between">
         <span className="text-base text-yellow font-bold w-full ">{status}</span>
         <Button
           className={`${_classes["card-btn"]} bg-transparent`}

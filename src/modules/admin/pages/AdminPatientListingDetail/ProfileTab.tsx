@@ -28,7 +28,6 @@ import chat from "./../../../../../public/assets/icon/chat-bubble.svg";
 type Props = {};
 type CountryOrStateObject = { id: number | string | undefined | null };
 function AdminPatientProfileTab({}: Props) {
-  
   const { query } = useRouter();
   const [countryId, setCountryId] = React.useState<CountryOrStateObject>({
     id: 0,
@@ -336,10 +335,14 @@ function AdminPatientProfileTab({}: Props) {
           loading={loading}
           type="link"
           disabled={loading || disableLoading}
-          icon={<Image priority={true} src={Envelope} alt="" />}
+          icon={
+            <span className="mr-1 mt-0.5">
+              <Image priority={true} src={Envelope} alt="" />
+            </span>
+          }
           onClick={handleResetLink}
         >
-          Send password reset link
+          Send reset password link
         </Button>
         <Button
           type="link"
@@ -347,7 +350,11 @@ function AdminPatientProfileTab({}: Props) {
           onClick={() => setOpen(true)}
           disabled={deleting}
           loading={deleting || disableLoading}
-          icon={<CloseOutlined />}
+          icon={
+            <span className="mr-0.5">
+              <CloseOutlined className="mb-2.5" />
+            </span>
+          }
         >
           Delete profile
         </Button>

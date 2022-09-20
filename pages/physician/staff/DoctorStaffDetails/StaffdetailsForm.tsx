@@ -52,7 +52,7 @@ function StaffDetailsFrom({
         >
           <Select
             className="mr-5"
-            placeholder="Send password reset link"
+            placeholder="Send reset password link"
             onChange={handleChange}
             value={disableAccountInput}
             style={{ width: 216 }}
@@ -67,7 +67,7 @@ function StaffDetailsFrom({
           disabled={loading}
           onClick={handleResetLink}
         >
-          Send password reset link
+          Send reset password link
         </Button>
       </div>
       <div className="md:grid md:grid-cols-2 md:gap-x-4">
