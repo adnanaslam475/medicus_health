@@ -3,6 +3,7 @@ import ChatBar from "./ChatBar";
 import MessageInput from "../MessageInput/MessageInput";
 import _classes from "./Message-detail.module.scss";
 import { useMessageContext } from "./MessageContext";
+import { LockOutlined } from "@ant-design/icons";
 
 type Props = {
   removeCurrentChat?: boolean | undefined;
@@ -27,6 +28,12 @@ function MessageContent({ removeCurrentChat }: Props) {
 
   return (
     <div className="border border-gray-4 w-full chatremove">
+      <div className="w-full px-4 hippa client message flex justify-center bg-gray-4 py-2 text-xs text-gray-2 mb-0">
+        <div className="flex items-center justify-center">
+          <LockOutlined className="mr-1" />
+          Messages are HIPPA compliant
+        </div>
+      </div>
       {currentChannelMessages && !removeCurrentChat ? (
         <div className={`${_classes["custom-height"]}`}>
           {currentChannelMessages?.map((message: any) => {
