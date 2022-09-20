@@ -21,10 +21,10 @@ function DayPicker({ setAddScheduleDay, addScheduleDay }: props) {
       className="sm:min-w-[120px]"
       onChange={handleChange}
     >
-      {days.map((item) => {
+      {days.map((item, index) => {
         return (
-          <Option value={item.key} key={item.key}>
-            {item.value}
+          <Option value={index + 1} key={index + 1}>
+            {item}
           </Option>
         );
       })}

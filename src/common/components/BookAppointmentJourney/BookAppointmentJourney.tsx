@@ -22,6 +22,7 @@ import { getUserData } from "../../utils/userData";
 import SuccessMessage from "../Appointments/booking/SuccessMessage";
 import { useMediaUploader } from "common/hooks/media";
 import { GraphQLError } from "graphql";
+import { graphqlError } from "utils/helper";
 
 type AdminData = {
   patientList: User[];
@@ -114,6 +115,7 @@ function BookAppointmentModal({
     if (visible) {
       setCurrentStepName("stepOne");
       setCurrentStepNumber(0);
+      setClear(false);
     }
   }, [visible]);
 
@@ -123,51 +125,37 @@ function BookAppointmentModal({
   };
 
   const next = (stepName: string) => {
-    if (stepName === "stepFour") return;
-    if (stepName === "stepOne") {
-      setCurrentStepName("stepTwo");
-    } else if (stepName === "stepTwo") {
-      setCurrentStepName("stepThree");
-    } else if (stepName === "stepThree") {
-      setCurrentStepName("stepFour");
-    }
+    const allSteps: AllSteps = {
+      stepOne: "stepTwo",
+      stepTwo: "stepThree",
+      stepThree: "stepFour",
+      stepFour: "",
+    };
+    if (allSteps[stepName as keyof AllSteps])
+      setCurrentStepName(
+        allSteps[stepName as keyof AllSteps] as keyof AllSteps
+      );
     setCurrentStepNumber((prev) => prev + 1);
     form.current?.submit();
   };
 
-  // const next = async (stepName: string) => {
-  //   try {
-  //     console.log("final next is");
-  //     const res = await form?.current?.validateFields();
-  //     if (stepName === "stepFour") return;
-  //     if (stepName === "stepOne") {
-  //       setCurrentStepName("stepTwo");
-  //     } else if (stepName === "stepTwo") {
-  //       setCurrentStepName("stepThree");
-  //     } else if (stepName === "stepThree") {
-  //       setCurrentStepName("stepFour");
-  //     }
-  //     setCurrentStepNumber((prev) => prev + 1);
-  //     form.current?.submit();
-  //   } catch (error: any) {
-  //     console.log("error", error);
-  //     error?.errorFields?.forEach((e: any) => {
-  //       notification.error({
-  //         message: e.errors[0],
-  //       });
-  //     });
-  //   }
-  // };
-
+  type AllSteps = {
+    stepOne: String;
+    stepTwo: String;
+    stepThree: String;
+    stepFour: String;
+  };
   const prev = (stepName: string) => {
-    if (stepName === "stepOne") return;
-    else if (stepName === "stepTwo") {
-      setCurrentStepName("stepOne");
-    } else if (stepName === "stepThree") {
-      setCurrentStepName("stepTwo");
-    } else if (stepName === "stepFour") {
-      setCurrentStepName("stepThree");
-    }
+    const allSteps: AllSteps = {
+      stepOne: "",
+      stepTwo: "stepOne",
+      stepThree: "stepTwo",
+      stepFour: "stepThree",
+    };
+    if (allSteps[stepName as keyof AllSteps])
+      setCurrentStepName(
+        allSteps[stepName as keyof AllSteps] as keyof AllSteps
+      );
     setCurrentStepNumber((prev) => prev - 1);
   };
 
@@ -230,14 +218,7 @@ function BookAppointmentModal({
         setSuccessModal(true);
         clearBookingContext?.({});
       } else if (res?.error?.graphQLErrors) {
-        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
-          ?.response as GraphQLError;
-        let customError = res?.error?.graphQLErrors[0]?.extensions
-          ?.exception as GraphQLError;
-        let errorMessage =
-          graphQLError?.message ||
-          customError?.message ||
-          "Something went wrong";
+        const errorMessage = graphqlError(res);
         notification.error({
           message: errorMessage,
         });
@@ -307,9 +288,6 @@ function BookAppointmentModal({
     setClear(true);
     clearBookingContext?.({});
     onCancel?.(e);
-    setTimeout(() => {
-      setClear(false);
-    }, 2000);
   };
 
   return (
