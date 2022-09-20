@@ -146,7 +146,8 @@ export const englishCommon: any = {
   app_confirm_message_2:
     "The appointment is not being Charged yet You will get a notification once the doctor will confirm the appointment. Thank you",
   back_to_appointments: "Back to appointments",
-  you_have_an_appointment_with: "You have an appointment with",
+  // you_have_an_appointment_with: "You have an appointment with",
+  you_have_an_appointment_with: "appointment with",
   join_now: "Join now",
   details: "Details",
   page: "Page",
