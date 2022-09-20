@@ -33,36 +33,54 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Service",
-    dataIndex: "first_name",
-    key: "first_name",
+    title: "Physician name",
+    dataIndex: "patient_name",
+    key: "patient_name",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
     sorter: true,
   },
   {
-    title: "Scheduled date",
-    dataIndex: "first_name",
-    key: "first_name",
+    title: "Service Type (Consultation/Second Opinion)",
+    dataIndex: "service_type",
+    key: "service_type",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
     sorter: true,
   },
   {
-    title: "Status",
-    dataIndex: "first_name",
-    key: "first_name",
+    title: "Appointment Booking Date",
+    dataIndex: "booking_date",
+    key: "booking_date",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
     sorter: true,
   },
   {
-    title: "Payment",
-    dataIndex: "first_name",
-    key: "first_name",
+    title: "Appointment Schedule Date",
+    dataIndex: "schedule_date",
+    key: "schedule_date",
+    render: (value: User) => {
+      return <div>{`${value}`}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "Status (Completed/Cancelled)",
+    dataIndex: "status",
+    key: "status",
+    render: (value: User) => {
+      return <div>{`${value}`}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "Payment Status (Paid/Refunded)",
+    dataIndex: "payment_status",
+    key: "payment_status",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
@@ -70,8 +88,8 @@ const columns = [
   },
   {
     title: "Gross sales ($)",
-    dataIndex: "first_name",
-    key: "first_name",
+    dataIndex: "gross_sales",
+    key: "gross_sales",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
@@ -79,8 +97,8 @@ const columns = [
   },
   {
     title: "Refunds ($)",
-    dataIndex: "first_name",
-    key: "first_name",
+    dataIndex: "refund",
+    key: "refund",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
@@ -88,8 +106,8 @@ const columns = [
   },
   {
     title: "Taxes ($)",
-    dataIndex: "first_name",
-    key: "first_name",
+    dataIndex: "taxes",
+    key: "taxes",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
@@ -97,8 +115,58 @@ const columns = [
   },
   {
     title: "Total sales ($)",
-    dataIndex: "first_name",
-    key: "first_name",
+    dataIndex: "total_sales",
+    key: "total_sales",
+    render: (value: User) => {
+      return <div>{`${value}`}</div>;
+    },
+    sorter: true,
+  },
+
+  {
+    title: "Physician Fee ($)",
+    dataIndex: "total_sales",
+    key: "total_sales",
+    render: (value: User) => {
+      return <div>{`${value}`}</div>;
+    },
+    sorter: true,
+  },
+
+  {
+    title: "Stripe Processing Fee ($)",
+    dataIndex: "stripe_fee",
+    key: "stripe_fee",
+    render: (value: User) => {
+      return <div>{`${value}`}</div>;
+    },
+    sorter: true,
+  },
+
+  {
+    title: "Net Physician Fee ($)",
+    dataIndex: "total_sales",
+    key: "total_sales",
+    render: (value: User) => {
+      return <div>{`${value}`}</div>;
+    },
+    sorter: true,
+  },
+
+  {
+    title: "Revenue ($)",
+    dataIndex: "medicus_revenue",
+    key: "medicus_revenue",
+    render: (value: User) => {
+      return <div>{`${value}`}</div>;
+    },
+    sorter: true,
+  },
+
+  {
+    title: "Revenue ($) + Taxes($)",
+    dataIndex: "revenue_n_tax",
+    key: "revenue_n_tax",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
@@ -235,15 +303,17 @@ function TransactionReportList() {
     <AppLayout>
       <div className="flex mb-0 flex-wrap">
         <MyEarningsStats
-          label={"Total Consultants"}
+          label={"Net Gross Sales"}
           // text={String(total_number_of_consultation)}
           text={10}
         />
-        <MyEarningsStats label={"Total Second opinions"} text={10} />
+        <MyEarningsStats label={"Total Sales"} text={10} />
         <MyEarningsStats label={"Total Patients"} text={10} />
-        <MyEarningsStats label={"Earnings through consultants"} text={10} />
-        <MyEarningsStats label={"Earnings through second opinion"} text={10} />
-        <MyEarningsStats label={"Total Earnings"} text={10} />
+        <MyEarningsStats label={"Net Physician Fee"} text={10} />
+        <MyEarningsStats label={"Net Medicus Revenue"} text={10} />
+        <MyEarningsStats label={"Total Unique Patients"} text={10} />
+        <MyEarningsStats label={"Total Second Opinions"} text={10} />
+        <MyEarningsStats label={"Total Consultations"} text={10} />
       </div>
       <Divider className="my-0 py-0" />
       <div className="w-full">
@@ -259,9 +329,10 @@ function TransactionReportList() {
               footer={footer}
               onChange={onChange}
               loading={fetching}
-              scroll={{x:true}}
+              scroll={{ x: true }}
               pagination={{
-                total: Number(getPhysicians?.meta?.totalPages) * pagination.limit,
+                total:
+                  Number(getPhysicians?.meta?.totalPages) * pagination.limit,
                 current: getPhysicians?.meta?.currentPage,
                 defaultPageSize: 10,
                 onChange: onPaginationChange,
