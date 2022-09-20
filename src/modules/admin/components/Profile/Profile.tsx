@@ -16,8 +16,6 @@ import { useUserData } from "common/components/Context/UserContext";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-
-
 type profileType = {
   doctorId?: string | string[] | undefined;
   doctorData: any;
@@ -272,6 +270,15 @@ export const Profile = React.forwardRef(function Profile({
                   name="password"
                   className="flex-1"
                   // rules={[{ required: true, message: "Password is required" }]}
+                  rules={[
+                    // {
+                    //   message: "Please enter your password!",
+                    // },
+                    {
+                      min: 8,
+                      message: "Password must be minimum 8 characters.",
+                    },
+                  ]}
                 >
                   <Input.Password />
                 </Form.Item>
@@ -281,24 +288,24 @@ export const Profile = React.forwardRef(function Profile({
                   name="confirmPassword"
                   className="flex-1"
                   dependencies={["password"]}
-                  // rules={[
-                  //   {
-                  //     required: true,
-                  //     message: "Please confirm your password!",
-                  //   },
-                  //   ({ getFieldValue }) => ({
-                  //     validator(_, value) {
-                  //       if (!value || getFieldValue("password") === value) {
-                  //         return Promise.resolve();
-                  //       }
-                  //       return Promise.reject(
-                  //         new Error(
-                  //           "The two passwords that you entered do not match!"
-                  //         )
-                  //       );
-                  //     },
-                  //   }),
-                  // ]}
+                  rules={[
+                    // {
+                    //   required: true,
+                    //   message: "Please confirm your password!",
+                    // },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            "The two passwords that you entered do not match!"
+                          )
+                        );
+                      },
+                    }),
+                  ]}
                 >
                   <Input.Password />
                 </Form.Item>
