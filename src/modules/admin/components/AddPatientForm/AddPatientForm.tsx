@@ -1,6 +1,7 @@
 import { Button, Form, Input, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import ReactPhoneInput from "react-phone-input-2";
 import {
   useCountriesQuery,
   useGetCitiesByStateQuery,
@@ -30,6 +31,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
   const [formInstance] = Form.useForm();
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
+  const [countryCode, setCountryCode] = useState(null);
   const [form] = Form.useForm();
   const { onFinish } = props || {};
 
@@ -58,6 +60,19 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
 
+  const onContactNoValidation = (_rule: any, value: string, callback: any) => {
+    console.log("value", value);
+    if (value?.trim().length === 0 || !value) {
+      // callback(t("contact_number_message"));
+      callback("Por favor ingrese su número de contacto");
+    } else if (value?.trim().length < 9) {
+      // callback(t("contact_number_message"));
+      callback("Por favor ingrese el número de contacto correcto");
+    } else {
+      callback();
+    }
+  };
+
   return (
     <Form form={formInstance} onFinish={onFinish} layout="vertical">
       <div className="flex flex-row gap-3">
@@ -84,7 +99,9 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
         <Form.Item
           name="email"
           label="Email"
-          rules={[{ type: "email", required: true,message:"Email is required" }]}
+          rules={[
+            { type: "email", required: true, message: "Email is required" },
+          ]}
           className="flex-1"
         >
           <Input />
@@ -92,7 +109,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <Form.Item
+        {/* <Form.Item
           className="flex-1"
           label="Contact #"
           name="contact_number"
@@ -104,6 +121,36 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           ]}
         >
           <Input type="tel" />
+        </Form.Item> */}
+        <Form.Item
+          // className="flex-1"
+          // label={t("contact_number")}
+          label="Contact #"
+          name="contact"
+          validateFirst
+          rules={[
+            {
+              required: true,
+              validator: onContactNoValidation,
+            },
+          ]}
+        >
+          {/* <Input /> */}
+          <ReactPhoneInput
+            country={"us"}
+            placeholder={"Ingrese su número de contacto"}
+            enableAreaCodes
+            onChange={(_value, country: any) => {
+              const code = country?.dialCode;
+              if (code) {
+                // setCountryCode(code);
+                // form.setFieldsValue({
+                //   contact_number: code
+                // });
+              }
+            }}
+            value={countryCode}
+          />
         </Form.Item>
       </div>
       {/* Address, City, State, Country Postal Address */}

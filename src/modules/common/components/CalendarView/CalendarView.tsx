@@ -111,9 +111,11 @@ function AdminCalender(props: Props) {
               : new Date().toISOString();
 
           const [startDate] = startTime.split("T");
+
           return {
             id: id,
             title: `${serviceType?.name}: ${patient?.first_name} ${patient?.last_name}`,
+            mobileName: `${serviceType?.name}: ${patient?.first_name} ${patient?.last_name}`,
             start: `${startDate}T${dayjs(startTime)
               .tz(timeZone)
               .format("HH:mm")}:00.000Z`,
@@ -185,6 +187,9 @@ function AdminCalender(props: Props) {
       setIsInitialLoad(false);
     }
   }, [fetching]);
+
+  // const mobileCalenName = {};
+  // console.log("first", arg.event.extendedProps);
   return (
     <div>
       {isInitialLoad ? (
@@ -204,6 +209,23 @@ function AdminCalender(props: Props) {
               getRole() == "Admin" ? (
                 <FullCalendar
                   // hiddenDays={[0, 6]}
+                  expandRows={true}
+                  eventDidMount={(info) => {
+                    console.log(
+                      "hello world1",
+                      info?.event?._def?.extendedProps
+                    );
+
+                    const div = document.createElement("div");
+                    div.classList.add("tooltipCustom");
+                    const span = document.createElement("span");
+                    span.classList.add("tooltiptext");
+                    // eslint-disable-next-line no-underscore-dangle
+                    span.innerText =
+                      info?.event?._def?.extendedProps?.mobileName;
+                    div.appendChild(span);
+                    info.el.appendChild(div);
+                  }}
                   dayHeaderContent={(args) => {
                     const weekShortName = new Date(args.date).toLocaleString(
                       "en-us",
@@ -287,6 +309,23 @@ function AdminCalender(props: Props) {
                 />
               ) : (
                 <FullCalendar
+                  expandRows={true}
+                  eventDidMount={(info) => {
+                    console.log(
+                      "hello world2",
+                      info?.event?._def?.extendedProps
+                    );
+
+                    const div = document.createElement("div");
+                    div.classList.add("tooltipCustom");
+                    const span = document.createElement("span");
+                    span.classList.add("tooltiptext");
+                    // eslint-disable-next-line no-underscore-dangle
+                    span.innerText =
+                      info?.event?._def?.extendedProps?.mobileName;
+                    div.appendChild(span);
+                    info.el.appendChild(div);
+                  }}
                   // hiddenDays={[0, 6]}
                   dayHeaderContent={(args) => {
                     const weekShortName = new Date(args.date).toLocaleString(
@@ -372,6 +411,19 @@ function AdminCalender(props: Props) {
               )
             ) : (
               <FullCalendar
+                expandRows={true}
+                eventDidMount={(info) => {
+                  console.log("hello world3", info?.event?._def?.extendedProps);
+
+                  const div = document.createElement("div");
+                  div.classList.add("tooltipCustom");
+                  const span = document.createElement("span");
+                  span.classList.add("tooltiptext");
+                  // eslint-disable-next-line no-underscore-dangle
+                  span.innerText = info?.event?._def?.extendedProps?.mobileName;
+                  div.appendChild(span);
+                  info.el.appendChild(div);
+                }}
                 // hiddenDays={[0, 6]}
                 dayHeaderContent={(args) => {
                   const weekShortName = new Date(args.date).toLocaleString(
