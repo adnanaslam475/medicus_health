@@ -43,7 +43,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Service Type (Consultation/Second Opinion)",
+    title: "Appointment type",
     dataIndex: "service_type",
     key: "service_type",
     render: (value: User) => {
@@ -52,7 +52,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Appointment Booking Date",
+    title: "Booking date",
     dataIndex: "booking_date",
     key: "booking_date",
     render: (value: User) => {
@@ -61,7 +61,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Appointment Schedule Date",
+    title: "Schedule date",
     dataIndex: "schedule_date",
     key: "schedule_date",
     render: (value: User) => {
@@ -70,7 +70,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Status (Completed/Cancelled)",
+    title: "Status",
     dataIndex: "status",
     key: "status",
     render: (value: User) => {
@@ -79,7 +79,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Payment Status (Paid/Refunded)",
+    title: "Payment status",
     dataIndex: "payment_status",
     key: "payment_status",
     render: (value: User) => {
@@ -125,9 +125,9 @@ const columns = [
   },
 
   {
-    title: "Physician Fee ($)",
-    dataIndex: "total_sales",
-    key: "total_sales",
+    title: "Physician fee ($)",
+    dataIndex: "physician_fee",
+    key: "physician_fee",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
@@ -135,7 +135,7 @@ const columns = [
   },
 
   {
-    title: "Stripe Processing Fee ($)",
+    title: "Stripe processing fee ($)",
     dataIndex: "stripe_fee",
     key: "stripe_fee",
     render: (value: User) => {
@@ -145,9 +145,9 @@ const columns = [
   },
 
   {
-    title: "Net Physician Fee ($)",
-    dataIndex: "total_sales",
-    key: "total_sales",
+    title: "Net physician fee ($)",
+    dataIndex: "net_physician_fee",
+    key: "net_physician_fee",
     render: (value: User) => {
       return <div>{`${value}`}</div>;
     },
@@ -306,13 +306,13 @@ function TransactionReportList() {
           // text={String(total_number_of_consultation)}
           text={10}
         />
-        <MyEarningsStats label={"Total Sales"} text={10} />
-        <MyEarningsStats label={"Total Patients"} text={10} />
-        <MyEarningsStats label={"Net Physician Fee"} text={10} />
-        <MyEarningsStats label={"Net Medicus Revenue"} text={10} />
-        <MyEarningsStats label={"Total Unique Patients"} text={10} />
-        <MyEarningsStats label={"Total Second Opinions"} text={10} />
-        <MyEarningsStats label={"Total Consultations"} text={10} />
+        <MyEarningsStats label={"Total sales"} text={10} />
+        <MyEarningsStats label={"Total patients"} text={10} />
+        <MyEarningsStats label={"Net physician fee"} text={10} />
+        <MyEarningsStats label={"Net medicus revenue"} text={10} />
+        <MyEarningsStats label={"Total unique patients"} text={10} />
+        <MyEarningsStats label={"Total second opinions"} text={10} />
+        <MyEarningsStats label={"Total consultations"} text={10} />
       </div>
       <Divider className="my-0 py-0" />
       <div className="w-full">
@@ -325,7 +325,12 @@ function TransactionReportList() {
             <Table
               columns={columns}
               dataSource={Ddata}
-              footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(getPhysicians?.meta?.totalItems||0))}
+              footer={(currentPageCount) =>
+                tableFooter(
+                  currentPageCount?.length,
+                  Number(getPhysicians?.meta?.totalItems || 0)
+                )
+              }
               onChange={onChange}
               loading={fetching}
               scroll={{ x: true }}
