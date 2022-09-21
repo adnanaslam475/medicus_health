@@ -7,6 +7,7 @@ import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRan
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { SelectStatusTypeFilter } from "common/components/SelectStatusTypeFilter/SelectStatusTypeFilter";
 import { BookingDate } from "generated/graphql";
+import _classes from "./TransactionReportListFilter.module.scss";
 
 const { Option } = Select;
 
@@ -103,7 +104,7 @@ function TransactionReportListFilter({ onChange }: Props) {
             heading="Booking date"
           />
         </div>
-        <div className="-mt-6 w-full sm:w-60">
+        {/* <div className="-mt-6 w-full sm:w-60">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
               setCreationDate({
@@ -126,7 +127,7 @@ function TransactionReportListFilter({ onChange }: Props) {
             }
             heading="Schedule date"
           />
-        </div>
+        </div> */}
         <div className="w-full sm:w-40">
           <SelectStatusTypeFilter
             placeholder="Status"
@@ -134,11 +135,11 @@ function TransactionReportListFilter({ onChange }: Props) {
             value={filterState?.status || "Status"}
           />
         </div>
-        <div className="w-full sm:w-40">
+        <div className="w-full sm:w-40 text-gray-1">
           <Select
             placeholder="Payment status"
             onChange={(value) => onChangeFields("paymentStatus", value)}
-            className="w-full sm:w-50"
+            className={`w-full sm:w-50 ${_classes["text-color"]}`}
             value={filterState?.paymentStatus || "Payment status"}
           >
             <Select.Option value="paid">PAID</Select.Option>
