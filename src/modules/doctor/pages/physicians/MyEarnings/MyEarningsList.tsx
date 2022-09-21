@@ -245,7 +245,7 @@ const PhysicianMyEarningsList = (props: Props) => {
       pagination,
       sorting,
     },
-    requestPolicy:"network-only"
+    requestPolicy: "network-only",
   });
 
   const { getTransactionFilter } = transactionData || {};
@@ -290,6 +290,8 @@ const PhysicianMyEarningsList = (props: Props) => {
 
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
+
+  console.log("getTransactionFilter", transactionData);
 
   return (
     <AppLayout>
@@ -359,7 +361,12 @@ const PhysicianMyEarningsList = (props: Props) => {
           scroll={{ x: true }}
           onChange={onChange}
           loading={fetching}
-          footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(getTransactionFilter?.meta?.totalItems||0))}
+          footer={(currentPageCount) =>
+            tableFooter(
+              currentPageCount?.length,
+              Number(getTransactionFilter?.meta?.totalItems || 0)
+            )
+          }
           pagination={{
             total:
               Number(getTransactionFilter?.meta?.totalPages) * pagination.limit,
