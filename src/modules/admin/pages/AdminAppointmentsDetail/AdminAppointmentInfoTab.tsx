@@ -7,8 +7,10 @@ import { Appointment } from "generated/graphql";
 import { Spin } from "antd";
 
 type Props = {
+  formRef?:any
   appointment: Appointment | undefined;
   loading?: boolean;
+  isEdit:boolean
 };
 
 type DoctorData = {
@@ -22,7 +24,7 @@ type DoctorData = {
   };
 };
 
-function AdminAppointmentInfoTab({ appointment, loading }: Props) {
+function AdminAppointmentInfoTab({ appointment, loading,isEdit,formRef }: Props) {
   let selectedAppointment = appointment?.appointmentTimeSlots?.find(
     (item) => item.selected
   );
@@ -85,6 +87,8 @@ function AdminAppointmentInfoTab({ appointment, loading }: Props) {
           data={normalizedAppointmentData as any}
           adminApp_Details={adminApp_Details as DoctorData}
           appointmentData={appointment as Appointment}
+          isEdit={isEdit}
+          formRef={formRef}
         />
       </div>
     </CardWithProfileImageInfo>

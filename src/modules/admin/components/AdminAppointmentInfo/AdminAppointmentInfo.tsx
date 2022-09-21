@@ -1,32 +1,32 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  CloseOutlined,
-  MessageOutlined,
-  VideoCameraFilled,
-} from "@ant-design/icons";
-import { Button, notification, Tag } from "antd";
+import { VideoCameraFilled } from "@ant-design/icons";
+import { Button, Form, notification, Select } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
 
 import chat from "../../../../../public/assets/icon/chat-bubble.svg";
-// scss
 import _classes from "./AdminAppointmentInfo.module.scss";
 import Router, { useRouter } from "next/router";
 import {
   Appointment,
   AppointmentTimeSlots,
   useCancelAppointmentByDoctorMutation,
+  useGetAllAppointmentServiceTypesQuery,
+  useGetPatientsQuery,
+  useGetPhysiciansQuery,
   useRemoveAppointmentByAdminMutation,
 } from "generated/graphql";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
-import { date } from "common/utils";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import RescheduleAppointmentModal from "common/components/RescheduleAppointment/RescheduleAppointment";
 import { isAppointmentTimeValid } from "common/utils/date";
 import Image from "next/image";
+const { Option } = Select;
 
 type Props = {
+  isEdit?: boolean;
+  formRef?: any;
   appointmentData?: Appointment;
   data?: {
     id: string;
@@ -58,6 +58,8 @@ function AdminAppointmentInfo({
   data,
   adminApp_Details,
   appointmentData,
+  isEdit,
+  formRef,
 }: Props) {
   const { query } = useRouter();
   const {
@@ -76,6 +78,11 @@ function AdminAppointmentInfo({
 
   const [, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
+
+  const [
+    { data: appointmentServiceType },
+    executeUseGetAllAppointmentServiceTypesQuery,
+  ] = useGetAllAppointmentServiceTypesQuery({ requestPolicy: "network-only" });
 
   async function onCancelRequestedAppointment() {
     try {
@@ -125,18 +132,140 @@ function AdminAppointmentInfo({
       });
     }
   };
+
+  const allAppoinments = appointmentServiceType?.appointmentServiceTypes;
+
+  const [{ data: physicianList }] = useGetPhysiciansQuery({
+    variables: {
+      filter: {},
+      pagination: { limit: -1, page: 1 },
+    },
+  });
+
+  const { getPhysicians } = physicianList || {};
+
+  const [{ data: patientList }] = useGetPatientsQuery({
+    variables: {
+      filter: {},
+      pagination: { limit: -1, page: 1 },
+    },
+  });
+
+  const { getPatients } = patientList || {};
+
+  const [formInstance] = Form.useForm();
+
+  useEffect(() => {
+    if (formRef) {
+      formRef.current = formInstance;
+    }
+  }, []);
+
   return (
     <>
       <div className="max-w-[700px]">
-        <div>
+        <Form form={formInstance}>
           <LabelWithText label="ID#" text={id} />
-          {/* <LabelWithText
-            label="Booking date"
-            text={date?.formatDAYMMDDYY(bookingDate as string)}
-          /> */}
-          <LabelWithText label="Patient" text={patient} />
-          <LabelWithText label="Physician" text={physician} />
-          <LabelWithText label="Appointment type" text={service} />
+          {isEdit ? (
+            <>
+              <li className="flex border-b border-gray-5 py-3">
+                <div className="w-full text-gray-1 max-w-[300px]">Patient</div>
+                <div className="w-full table-action-icon">
+                  <div className="text-primary">
+                    <Form.Item name="patient">
+                      <Select
+                        className="max-w-[230px]"
+                        showSearch
+                        placeholder="Patient"
+                        optionFilterProp="children"
+                        filterOption={(input, option) =>
+                          (option!.children as unknown as string)
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                      >
+                        {getPatients?.items?.map((item, index) => (
+                          <Option
+                            key={index}
+                            value={`${item?.first_name} ${item?.last_name}`}
+                          >
+                            {`${item?.first_name} ${item?.last_name}`}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+                </div>
+              </li>
+
+              <li className="flex border-b border-gray-5 py-3">
+                <div className="w-full text-gray-1 max-w-[300px]">
+                  Physician
+                </div>
+                <div className="w-full table-action-icon">
+                  <div className="text-primary">
+                    <Form.Item name="physician">
+                      <Select
+                        className="max-w-[230px]"
+                        showSearch
+                        placeholder="Physicians"
+                        optionFilterProp="children"
+                        filterOption={(input, option) => {
+                          return (option!?.children as unknown as string)
+                            ?.toLowerCase()
+                            ?.includes(input.toLowerCase());
+                        }}
+                      >
+                        {getPhysicians?.items
+                          ?.filter((physician) => physician?.doctorProfile)
+                          .map((item, index) => {
+                            const firstName = item?.first_name?.includes("Dr.")
+                              ? item?.first_name
+                              : `Dr. ${item?.first_name}`;
+                            return (
+                              <Option
+                                key={index}
+                                value={`${item.id}: ${item?.first_name} ${item?.last_name}`}
+                              >
+                                {`${firstName} ${item?.last_name}`}
+                              </Option>
+                            );
+                          })}
+                      </Select>
+                    </Form.Item>
+                  </div>
+                </div>
+              </li>
+
+              <li className="flex border-b border-gray-5 py-3">
+                <div className="w-full text-gray-1 max-w-[300px]">
+                  Appointment type
+                </div>
+                <div className="w-full table-action-icon">
+                  <div className="text-primary">
+                    <Form.Item name="appointmentType">
+                      <Select
+                        placeholder="Select appointment type"
+                        className="max-w-[230px]"
+                      >
+                        {allAppoinments?.map((item) => (
+                          <Option key={item?.id} value={item.id}>
+                            {item.name}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+                </div>
+              </li>
+            </>
+          ) : (
+            <>
+              <LabelWithText label="Patient" text={patient} />
+              <LabelWithText label="Physician" text={physician} />
+              <LabelWithText label="Appointment type" text={service} />
+            </>
+          )}
           <LabelWithText label="Appointment date" text={dueDate} />
           <LabelWithText label="Time" text={time} />
           <LabelWithText
@@ -171,7 +300,7 @@ function AdminAppointmentInfo({
               />
             </div>
           </li>
-        </div>
+        </Form>
         {(appointmentStatus === "Canceled" ||
           appointmentStatus === "Completed" ||
           appointmentStatus === "Rescheduled") && (
@@ -448,29 +577,29 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
           <span className="pl-2">Message patient</span>
         </Button>
         <Button
-            icon={
-              <Image
-                priority={true}
-                width={15}
-                height={15}
-                src={chat}
-                alt=""
-                className=""
-              />
-            }
-            className={`${_classes["appointments-btn"]} flex-1`}
-            onClick={() =>
-              Router.push({
-                pathname: "/admin/messages",
-                query: {
-                  chat: "admin",
-                  doctorId: adminApp_Details?.doctor.doctor_Id,
-                },
-              })
-            }
-          >
-            <span className="pl-2">Message physician</span>
-          </Button>
+          icon={
+            <Image
+              priority={true}
+              width={15}
+              height={15}
+              src={chat}
+              alt=""
+              className=""
+            />
+          }
+          className={`${_classes["appointments-btn"]} flex-1`}
+          onClick={() =>
+            Router.push({
+              pathname: "/admin/messages",
+              query: {
+                chat: "admin",
+                doctorId: adminApp_Details?.doctor.doctor_Id,
+              },
+            })
+          }
+        >
+          <span className="pl-2">Message physician</span>
+        </Button>
         <Button
           danger
           className={`${_classes["appointments-btn"]}  flex-1`}

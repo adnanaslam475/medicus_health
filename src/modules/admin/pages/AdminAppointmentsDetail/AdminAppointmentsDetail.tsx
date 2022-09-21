@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Router, { useRouter } from "next/router";
-import { Button, notification, Tabs } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { Button, FormInstance, notification, Tabs } from "antd";
+import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import AdminAppointmentInfoTab from "./AdminAppointmentInfoTab";
 import AdminQuestionnaireFormTab from "./AdminQuestionnaireFormTab";
@@ -42,11 +42,40 @@ function AdminAppointmentHistoryDetail() {
     query?.activeTab && setActiveTab(String(query?.activeTab));
   }, [query]);
 
+  const [isEdit, setIsEdit] = useState(false);
+  const formRef = useRef();
+
+  const saveChanges = () => {
+    if (isEdit) {
+      const formRefference: any = formRef.current;
+      console.log("updated values are", formRefference?.getFieldsValue());
+      //api call here
+    }
+    setIsEdit((prev) => !prev);
+  };
+
   return (
     <AppLayout>
       <div>
-        <h2 className="mb-4">Appointment details</h2>
-
+        <div className="flex items-center mb-4">
+          <h2 className="mb-0">Appointment details</h2>
+          <Button
+            size="large"
+            className="px-0 mx-0 mr-2 ml-2"
+            onClick={() => setIsEdit((prev) => !prev)}
+          >
+            {isEdit ? "Cancel" : "Edit info"}
+          </Button>
+          {isEdit && (
+            <Button
+              size="large"
+              className="px-0 mx-0"
+              onClick={() => saveChanges()}
+            >
+              Save changes
+            </Button>
+          )}
+        </div>
         <div className="profile-tabs">
           <Tabs
             type="card"
@@ -58,6 +87,8 @@ function AdminAppointmentHistoryDetail() {
               <AdminAppointmentInfoTab
                 appointment={appointment as Appointment}
                 loading={fetching}
+                isEdit={isEdit}
+                formRef={formRef}
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Health questionnaire" key="3">
