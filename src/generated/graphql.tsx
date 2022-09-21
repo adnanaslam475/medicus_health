@@ -2116,7 +2116,7 @@ export type AdminPhysicianAppointmentQueryVariables = Exact<{
 }>;
 
 
-export type AdminPhysicianAppointmentQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, charges: number, status?: string | null, patient?: { __typename?: 'User', first_name: string, last_name: string, email: string, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number, totalItems: number } } };
+export type AdminPhysicianAppointmentQuery = { __typename?: 'Query', appointments: { __typename?: 'AppointmentPaginatedResponse', items: Array<{ __typename?: 'Appointment', id?: number | null, charges: number, status?: string | null, patient?: { __typename?: 'User', first_name: string, last_name: string, email: string, patientProfile?: { __typename?: 'PatientProfile', profileImage?: string | null } | null } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, appointmentTimeSlots?: Array<{ __typename?: 'AppointmentTimeSlots', startTime: any, endTime: any, selected: boolean }> | null, appointmentSchedule?: { __typename?: 'DoctorSchedule', startTime: string, endTime: string } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null, endTime?: string | null } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', total?: number | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number, totalItems: number } } };
 
 export type GetPatientsQueryVariables = Exact<{
   filter: GetPatientsInput;
@@ -3387,6 +3387,9 @@ export const AdminPhysicianAppointmentDocument = gql`
         endTime
       }
       charges
+      appointmentCharges {
+        total
+      }
       status
       serviceType {
         name
