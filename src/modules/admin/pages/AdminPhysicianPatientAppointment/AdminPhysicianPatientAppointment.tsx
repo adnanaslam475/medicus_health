@@ -79,7 +79,7 @@ function AdminPhysicianList() {
 
 	const columns = [
 		{
-			title: "Appointment ID",
+			title: "ID#",
 			dataIndex: "id",
 			key: "id",
 			sorter: true,
@@ -94,7 +94,7 @@ function AdminPhysicianList() {
 			sorter: true,
 		},
 		{
-			title: "Service",
+			title: "Appointment type",
 			dataIndex: "serviceType",
 			key: "serviceType",
 			render: (serviceType: AppointmentServiceType) => {
@@ -103,7 +103,21 @@ function AdminPhysicianList() {
 			sorter: true,
 		},
 		{
-			title: "Time slot",
+			title: "Appointment date",
+			dataIndex: "appointmentDateTime",
+			key: "appointmentDateTime",
+			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+				let formatedStartTime = date.formatMMMMDDYYYY(String(appointmentDateTime?.startTime));
+				return (
+					<div>
+				{appointmentDateTime?.startTime ? `${formatedStartTime} ` : "--"}
+					</div>
+				);
+			},
+			sorter: true,
+		},
+		{
+			title: "Appointment time",
 			dataIndex: "appointmentDateTime",
 			key: "appointmentDateTime",
 			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
@@ -114,23 +128,6 @@ function AdminPhysicianList() {
 									appointmentDateTime?.startTime
 							  )} - ${date?.formathhmma(appointmentDateTime.endTime)}`
 							: "--"}
-					</div>
-				);
-			},
-			sorter: true,
-		},
-		{
-			title: "Date",
-			dataIndex: "appointmentDateTime",
-			key: "appointmentDateTime",
-			render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-				let formatedStartTime = date.formathhmma(String(appointmentDateTime?.startTime));
-				let formatedEndTime = date.formathhmma(String(appointmentDateTime?.endTime))
-				return (
-					<div>
-				{appointmentDateTime?.startTime && appointmentDateTime?.endTime
-				  ? `${formatedStartTime} - ${formatedEndTime} `
-				  : "--"}
 					</div>
 				);
 			},
