@@ -8,6 +8,7 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 import AdminAppointmentsFilter from "../AdminAppointmentsFilter/AdminAppointmentsFilter";
 import {
   AppointmentDateTimeResponse,
+  AppointmentPriceResponse,
   AppointmentServiceType,
   GetAppointmentInput,
   useGetPatientsQuery,
@@ -150,10 +151,10 @@ const appointmentColumns = [
   },
   {
     title: "Total amount",
-    dataIndex: "charges",
-    key: "charges",
+    dataIndex: "appointmentCharges",
+    key: "appointmentCharges",
     sorter: true,
-    render: (charges: AppointmentServiceType) => <div>{`$${charges}`}</div>,
+    render: (appointmentCharges: AppointmentPriceResponse) => <div>{`$${appointmentCharges?.total}`}</div>,
   },
   {
     title: "",

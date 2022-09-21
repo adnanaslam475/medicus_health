@@ -4,6 +4,7 @@ import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
 	AppointmentDateTimeResponse,
+	AppointmentPriceResponse,
 	AppointmentServiceType,
 	AppointmentTimeSlots,
 	GetAppointmentInput,
@@ -137,10 +138,10 @@ function AdminPhysicianList() {
 		},
 		{
 			title: "Total amount",
-			dataIndex: "charges",
-			key: "charges",
-			render: (value: User) => {
-				return <div>${value}</div>;
+			dataIndex: "appointmentCharges",
+			key: "appointmentCharges",
+			render: (appointmentCharges: AppointmentPriceResponse) => {
+				return <div>${appointmentCharges?.total}</div>;
 			},
 			sorter: true,
 		},
