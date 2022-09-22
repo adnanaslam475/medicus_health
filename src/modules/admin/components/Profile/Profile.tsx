@@ -30,6 +30,7 @@ export const Profile = React.forwardRef(function Profile({
 }: profileType) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
+  const [countryCode, setCountryCode] = useState(null);
 
   const { user } = getUserData();
   const { id } = user || {};
@@ -160,6 +161,19 @@ export const Profile = React.forwardRef(function Profile({
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
+  const onContactNoValidation = (_rule: any, value: string, callback: any) => {
+    console.log("value", value);
+    if (value?.trim().length === 0 || !value) {
+      // callback(t("contact_number_message"));
+      callback("Por favor ingrese su número de contacto");
+    } else if (value?.trim().length < 9) {
+      // callback(t("contact_number_message"));
+      callback("Por favor ingrese el número de contacto correcto");
+    } else {
+      callback();
+    }
+  };
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -247,8 +261,7 @@ export const Profile = React.forwardRef(function Profile({
                 >
                   <Input disabled={true} />
                 </Form.Item>
-                <Form.Item label="Contact #" className="flex-1" name="contact">
-                  {/* <Input /> */}
+                {/* <Form.Item label="Contact #" className="flex-1" name="contact">
                   <ReactPhoneInput
                     containerStyle={{
                       border: "1px solid #9296af",
@@ -261,6 +274,36 @@ export const Profile = React.forwardRef(function Profile({
                     }}
                     country={"us"}
                     enableAreaCodes
+                  />
+                </Form.Item> */}
+                <Form.Item
+                  // className="flex-1"
+                  // label={t("contact_number")}
+                  label="Contact #"
+                  name="contact"
+                  validateFirst
+                  rules={[
+                    {
+                      required: true,
+                      validator: onContactNoValidation,
+                    },
+                  ]}
+                >
+                  {/* <Input /> */}
+                  <ReactPhoneInput
+                    country={"us"}
+                    placeholder={"Ingrese su número de contacto"}
+                    enableAreaCodes
+                    onChange={(_value, country: any) => {
+                      const code = country?.dialCode;
+                      if (code) {
+                        // setCountryCode(code);
+                        // form.setFieldsValue({
+                        //   contact_number: code
+                        // });
+                      }
+                    }}
+                    value={countryCode}
                   />
                 </Form.Item>
               </div>
