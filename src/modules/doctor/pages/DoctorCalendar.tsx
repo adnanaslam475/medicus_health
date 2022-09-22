@@ -78,6 +78,7 @@ function DoctorCalendar() {
         }) => ({
           id: id,
           title: patient?.first_name,
+          mobileName: patient?.first_name,
           start:
             (appointmentTimeSlots &&
               appointmentTimeSlots.find((item) => item.selected)?.startTime) ||
