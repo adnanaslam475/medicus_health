@@ -141,7 +141,7 @@ function ProfileDetail() {
               tab={
                 <span className="flex items-center">
                   <CalendarOutlined />
-                  Appointment
+                  Appointments
                 </span>
               }
               key="3"
