@@ -10,6 +10,8 @@ import {
   FormInstance,
 } from "antd";
 import { patientEditForm } from "utils/helper";
+import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 type CountryOrStateProps = {
   id: number | undefined;
@@ -35,72 +37,97 @@ const InputFields = ({
 }: Props) => {
   const [showChildren, setShowChildren] = useState<any>();
 
-  useEffect(()=>{
-    let init:any = {}
-    patientEditForm.filter(item=>item.relationName).forEach((item:any)=>{
-        init[item?.relationName] = formInstance?.getFieldValue(item?.relationName);
-    })
-    setShowChildren(init)
-  },[])
+  useEffect(() => {
+    let init: any = {};
+    patientEditForm
+      .filter((item) => item.relationName)
+      .forEach((item: any) => {
+        init[item?.relationName] = formInstance?.getFieldValue(
+          item?.relationName
+        );
+      });
+    setShowChildren(init);
+  }, []);
 
   return (
     <>
       <div className="max-w-[800px] gap-x-4 grid grid-cols-2 relative">
         {patientEditForm.map((value: any) => (
           <>
-            {value.type === "select" && (!value.relationType || showChildren?.[value?.relationName] === "Yes") && (
-              <Form.Item
-                label={value.label}
-                name={value.option_name}
-              >
-                <Select
-                  placeholder={value.label}
-                  onChange={(id) => {
-                    setShowChildren((prev:any)=>({
-                      ...(prev || {}),
-                      [value?.name]: id,
-                    }));
-                    if (value.option_name !== "city_name") {
-                      const updatedValue = (
-                        data[value.name] || value.options
-                      ).find((val: CountryOrStateProps) => val.id === id);
-                      value.option_name === "country_name"
-                        ? setCountryId(updatedValue)
-                        : setStateId(updatedValue);
-                    }
-                  }}
-                >
-                  {(data[value.name] || value.options)?.map(
-                    (item: CountryOrStateProps | any) => {
-                      return (
-                        <Select.Option
-                          value={value.options?.length ? `${item?.value?.charAt(0)?.toUpperCase()}${item?.value?.slice(1)}` : item.id}
-                        >
-                          {value.options?.length
-                            ? `${item?.value?.charAt(0)?.toUpperCase()}${item?.value?.slice(1)}`
-                            : item[value.option_name]}
-                        </Select.Option>
-                      );
-                    }
-                  )}
-                </Select>
-              </Form.Item>
-            )}
+            {value.type === "select" &&
+              (!value.relationType ||
+                showChildren?.[value?.relationName] === "Yes") && (
+                <Form.Item label={value.label} name={value.option_name}>
+                  <Select
+                    placeholder={value.label}
+                    onChange={(id) => {
+                      setShowChildren((prev: any) => ({
+                        ...(prev || {}),
+                        [value?.name]: id,
+                      }));
+                      if (value.option_name !== "city_name") {
+                        const updatedValue = (
+                          data[value.name] || value.options
+                        ).find((val: CountryOrStateProps) => val.id === id);
+                        value.option_name === "country_name"
+                          ? setCountryId(updatedValue)
+                          : setStateId(updatedValue);
+                      }
+                    }}
+                  >
+                    {(data[value.name] || value.options)?.map(
+                      (item: CountryOrStateProps | any) => {
+                        return (
+                          <Select.Option
+                            value={
+                              value.options?.length
+                                ? `${item?.value
+                                    ?.charAt(0)
+                                    ?.toUpperCase()}${item?.value?.slice(1)}`
+                                : item.id
+                            }
+                          >
+                            {value.options?.length
+                              ? `${item?.value
+                                  ?.charAt(0)
+                                  ?.toUpperCase()}${item?.value?.slice(1)}`
+                              : item[value.option_name]}
+                          </Select.Option>
+                        );
+                      }
+                    )}
+                  </Select>
+                </Form.Item>
+              )}
 
-            {value.type === "text" && !value?.relationName && (
-              <Form.Item
-                label={value.label}
-                name={value.name}
-              >
-                <Input type={value.inputType} />
+            {value.type === "text" &&
+              value.name !== "contact_number" &&
+              !value?.relationName && (
+                <Form.Item label={value.label} name={value.name}>
+                  <Input type={value.inputType} />
+                </Form.Item>
+              )}
+            {value.name === "contact_number" && (
+              <Form.Item label={value.label} name={value.name}>
+                <ReactPhoneInput
+                  containerStyle={{
+                    border: "1px solid #9296af",
+                    borderRadius: "6px",
+                  }}
+                  inputStyle={{
+                    width: "100%",
+                    height: "40px",
+                    fontWeight: "600",
+                  }}
+                  country={"us"}
+                  placeholder={"Ingrese su número de contacto"}
+                  enableAreaCodes
+                />
               </Form.Item>
             )}
             {value.type === "text" &&
               showChildren?.[value?.relationName] === "Yes" && (
-                <Form.Item
-                  label={value.label}
-                  name={value.name}
-                >
+                <Form.Item label={value.label} name={value.name}>
                   <Input type={value.inputType} />
                 </Form.Item>
               )}
@@ -123,13 +150,13 @@ const InputFields = ({
                 <Radio.Group
                   name={value.option_name || value.name}
                   onChange={(e) =>
-                    setShowChildren((prev:any)=>({
+                    setShowChildren((prev: any) => ({
                       ...(prev || {}),
-                      [value.name]: e.target.value
+                      [value.name]: e.target.value,
                     }))
                   }
                 >
-                  {value.options?.map((value: string, i: number) =>(
+                  {value.options?.map((value: string, i: number) => (
                     <Radio key={i} value={value}>
                       {value}
                     </Radio>
