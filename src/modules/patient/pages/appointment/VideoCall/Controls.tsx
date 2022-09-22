@@ -39,14 +39,18 @@ function Controls(props: Props) {
   };
 
   const shareScreen = async () => {};
-  const {user} = userData?.getUserData()
+
+  const { user } = userData?.getUserData();
   const leaveChannel = async () => {
     await client.leave();
     client.removeAllListeners();
     tracks[0].close();
     tracks[1].close();
     // Router.back();
-    const path = user?.role === "User" ? "/patient/appointments/upcoming" : "/physician/appointments/upcoming";
+    const path =
+      user?.role === "User"
+        ? "/patient/appointments/upcoming"
+        : "/physician/appointments/upcoming";
     Router.push(path);
   };
 
