@@ -59,7 +59,7 @@ const appointmentColumns = [
     sorter: true,
   },
   {
-    title: "Type",
+    title: "Appointment type",
     dataIndex: "serviceType",
     key: "name",
     sorter: true,
