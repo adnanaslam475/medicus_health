@@ -60,16 +60,16 @@ function AdminAppointmentHistoryDetail() {
         <div className="flex items-center mb-4">
           <h2 className="mb-0">Appointment details</h2>
           <Button
-            size="large"
-            className="px-0 mx-0 mr-2 ml-2"
+            size="middle"
+            className="max-h-[36px] max-w-[84px] px-0 mx-0 mr-2 ml-2 "
             onClick={() => setIsEdit((prev) => !prev)}
           >
             {isEdit ? "Cancel" : "Edit info"}
           </Button>
           {isEdit && (
             <Button
-              size="large"
-              className="px-0 mx-0"
+              size="middle"
+              className="max-h-[36px]  px-0 mx-0 "
               onClick={() => saveChanges()}
             >
               Save changes

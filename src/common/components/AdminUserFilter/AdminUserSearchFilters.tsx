@@ -23,6 +23,8 @@ import searchStyle from "./style.module.scss";
 import _classes from "./AdminUserSearchFilters.module.scss";
 import { adminUserFilterType } from "common/types/types";
 import AmountDropdown from "../AmountDropdown/AmountDropdown";
+import Image from "next/image";
+import { calendarFilterIcon } from "utils/images";
 
 const { RangePicker } = DatePicker;
 
@@ -158,6 +160,15 @@ function AdminUserSearchFilters(props: Props) {
                   </div>
                 ) : (
                   <div className="flex justify-between items-center w-full px-3">
+                    <span className="mr-2 mt-1">
+                      <Image
+                        priority={true}
+                        width={18}
+                        height={18}
+                        src={calendarFilterIcon}
+                        alt=""
+                      />
+                    </span>
                     <div>Account creation date</div>
                     <div>
                       <CaretDownOutlined />

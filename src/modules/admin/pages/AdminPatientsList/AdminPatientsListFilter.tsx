@@ -66,14 +66,14 @@ function AdminPatientsListFilter(props: Props) {
           />
         </div>
 
-        <div className="w-full md:w-44 xl:w-44 sm:mt-0">
+        {/* <div className="w-full md:w-44 xl:w-44 sm:mt-0">
           <SelectCountryTypeFilter
             onChange={(value) => onChangeFields("countryId", Number(value))}
             value={filterState?.countryId}
           />
-        </div>
+        </div> */}
 
-        <div className="w-full md:w-44 xl:w-44 sm:mt-0  flex">
+        {/* <div className="w-full md:w-44 xl:w-44 sm:mt-0  flex">
           <SelectStateTypeFilter
             onChange={(value) => onChangeFields("stateId", Number(value))}
             value={filterState?.stateId}
@@ -87,7 +87,7 @@ function AdminPatientsListFilter(props: Props) {
             <CloseOutlined className="text-sm" />
             <span className="text-gray-1 text-sm">Clear</span>
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

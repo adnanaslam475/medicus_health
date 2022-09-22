@@ -67,7 +67,7 @@ function AdminAppointmentInfoTab({ appointment, loading,isEdit,formRef }: Props)
         ? `${formatedStartTime} - ${formatedEndTime}`
         : "--"
     }`,
-    totalAmount: appointment?.transaction?.amountReceived || appointment?.charges,
+    totalAmount: appointment?.appointmentCharges?.total || appointment?.charges,
     appointmentStatus: appointment?.status,
     paymentStatus: appointment?.transaction?.status,
     profilePicture: appointment?.patient?.patientProfile?.profileImage,

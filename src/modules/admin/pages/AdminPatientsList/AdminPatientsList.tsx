@@ -45,7 +45,7 @@ const columns: ColumnsType<User> = [
     key: "contact_number",
     sorter: true,
     render: (value: string) => {
-      return <div>{value}</div>;
+      return <div>{`+${value}`}</div>;
     },
   },
   {
