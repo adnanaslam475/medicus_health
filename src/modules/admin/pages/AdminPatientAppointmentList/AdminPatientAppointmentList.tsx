@@ -10,6 +10,7 @@ import {
   AppointmentTimeSlots,
   GetAppointmentInput,
   useAdminPhysicianAppointmentQuery,
+  useGetUserQuery,
   usePhysicianPaymentByAdminMutation,
   User,
 } from "generated/graphql";
@@ -152,16 +153,33 @@ function AdminPatientAppointmentList() {
       },
     });
 
+
+    const [{ data:userData }] = useGetUserQuery({
+      variables: {
+        input: Number(query.id),
+      },
+      pause: !query.id,
+    });
+  
+    const { user } = userData || {};
+    const {
+      first_name,
+      last_name,
+      email,
+      patientProfile,
+    } = user || {};
+
+
   const { appointments } = data || {};
   const patientFirstName =
-    appointments?.items && appointments.items[0]?.patient?.first_name;
+    appointments?.items?.length ? appointments.items[0]?.patient?.first_name : first_name;
   const patientLastName =
-    appointments?.items && appointments.items[0]?.patient?.last_name;
+    appointments?.items?.length ? appointments.items[0]?.patient?.last_name : last_name;
   const patientEmail =
-    appointments?.items && appointments.items[0]?.patient?.email;
+    appointments?.items?.length ? appointments.items[0]?.patient?.email: email;
   const patientProfilePicture =
-    appointments &&
-    appointments?.items[0]?.patient?.patientProfile?.profileImage;
+    appointments?.items?.length ?
+    appointments?.items[0]?.patient?.patientProfile?.profileImage : patientProfile?.profileImage;
 
   // Physician Payment By Admin Mutatio
   // const [result, PhysicianPaymentByAdmin] =
@@ -206,7 +224,7 @@ function AdminPatientAppointmentList() {
   ) : (
     <div className="w-full">
       <CardWithProfileImageInfo
-        name={`${patientFirstName} ${patientLastName}`}
+        name={`${patientFirstName || ""} ${patientLastName || ""}`}
         serviceName={patientEmail}
         imageUrl={patientProfilePicture}
       >

@@ -62,11 +62,27 @@ function AdminHealthQuestionnaireFrom() {
     }
   };
 
+  const [{ data:userData }] = useGetUserQuery({
+    variables: {
+      input: Number(query.id),
+    },
+    pause: !query.id,
+  });
+
+  const { user:userFromUrlId } = userData || {};
+  const {
+    first_name,
+    last_name,
+    email,
+    patientProfile,
+  } = userFromUrlId || {};
+
+
   return (
     <div className="md:max-w-1/2">
       <CardWithProfileImageInfo
-        name={`${appointment?.patient?.first_name || ""} ${appointment?.patient?.last_name || ""}`}
-        serviceName={appointment?.serviceType?.name}
+        name={`${appointment?.patient?.first_name || first_name || ""} ${appointment?.patient?.last_name ||last_name || ""}`}
+        serviceName={appointment?.patient?.email || email}
       >
         <QuestionnaireForm
           ref={form}

@@ -43,7 +43,7 @@ function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
           )} - ${date?.formathhmma(selectedAppointment?.endTime)}`
         : "--"
     }`,
-    totalAmount: appointment?.charges,
+    totalAmount: appointment?.appointmentCharges?.total,
     appointmentStatus: appointment?.status,
     paymentStatus: appointment?.transaction?.status,
   };
