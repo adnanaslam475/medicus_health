@@ -275,7 +275,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           </Select>
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           className="flex-1"
           label="Postal code"
           name="postalCode"
@@ -287,7 +287,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           ]}
         >
           <Input type="number" />
-        </Form.Item>
+        </Form.Item> */}
       </div>
       <Form.Item>
         <div className="flex items-center justify-end">
