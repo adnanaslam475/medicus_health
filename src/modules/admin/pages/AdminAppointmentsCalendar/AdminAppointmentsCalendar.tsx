@@ -68,6 +68,7 @@ function AdminAppointmentsCalendar() {
         }) => ({
           id: id,
           title: doctor?.first_name,
+          mobileName: doctor?.first_name,
           start: requestedDate,
           patient: patient?.first_name + " " + patient?.last_name,
           serviceType: serviceType?.name,
