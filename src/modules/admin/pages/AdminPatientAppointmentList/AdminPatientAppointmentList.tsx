@@ -32,13 +32,13 @@ type StatusName =
 
 const columns = [
   {
-    title: "Appointment ID",
+    title: "ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,
   },
   {
-    title: "Physician Name",
+    title: "Physician name",
     dataIndex: "doctor",
     key: "first_name",
     sorter: true,
@@ -47,7 +47,7 @@ const columns = [
     },
   },
   {
-    title: "Service",
+    title: "Appointment type",
     dataIndex: "serviceType",
     key: "name",
     sorter: true,
@@ -56,7 +56,7 @@ const columns = [
     },
   },
   {
-    title: "Time slot",
+    title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "appointment_time_slots",
     sorter: true,
@@ -77,7 +77,7 @@ const columns = [
     },
   },
   {
-    title: "Date",
+    title: "Appointment date",
     dataIndex: "appointmentDateTime",
     key: "appointmentDateTime",
     sorter: true,

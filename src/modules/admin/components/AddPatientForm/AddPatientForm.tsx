@@ -117,12 +117,12 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           className="flex-1"
           label="Contact #"
           name="contact_number"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your contact number",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: "Please enter your contact number",
+          //   },
+          // ]}
         >
           <Input type="tel" />
         </Form.Item> */}
@@ -163,12 +163,12 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           className="flex-1"
           label="Street address"
           name="streetAddress"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your street address",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: "Please enter your street address",
+          //   },
+          // ]}
         >
           <Input />
         </Form.Item>
@@ -178,12 +178,12 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           className="flex-1"
           label="Country"
           name="country"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your country",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: "Please enter your country",
+          //   },
+          // ]}
         >
           <Select
             showSearch

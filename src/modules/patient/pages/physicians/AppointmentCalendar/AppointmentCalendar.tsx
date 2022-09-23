@@ -90,6 +90,7 @@ function AppointmentCalendar() {
             //       " " +
             //       doctor?.last_name,
             title: "Dr. " + doctor?.first_name + " " + doctor?.last_name,
+            mobileName: "Dr. " + doctor?.first_name + " " + doctor?.last_name,
             start: `${startDate}T${dayjs(startTime)
               .tz(timeZone)
               .format("HH:mm")}:00.000Z`,
