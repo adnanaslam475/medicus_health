@@ -7,6 +7,8 @@ import {
   useGetCitiesByStateQuery,
   useGetStatesByCountryQuery,
 } from "../../../../generated/graphql";
+import _classes from "./AddPatientForm.module.scss";
+import "react-phone-input-2/lib/style.css";
 
 type Props = {
   onFinish?: (values: {
@@ -64,10 +66,10 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
     console.log("value", value);
     if (value?.trim().length === 0 || !value) {
       // callback(t("contact_number_message"));
-      callback("Por favor ingrese su número de contacto");
+      callback("Please enter your contact number");
     } else if (value?.trim().length < 9) {
       // callback(t("contact_number_message"));
-      callback("Por favor ingrese el número de contacto correcto");
+      callback("Please enter the correct contact number");
     } else {
       callback();
     }
@@ -108,7 +110,9 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
         </Form.Item>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4">
+      <div
+        className={`${_classes.contactNo} flex flex-col md:flex-row gap-4 w-full`}
+      >
         {/* <Form.Item
           className="flex-1"
           label="Contact #"
@@ -126,11 +130,11 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           // className="flex-1"
           // label={t("contact_number")}
           label="Contact #"
-          name="contact"
+          name="contact_number"
           validateFirst
           rules={[
             {
-              required: true,
+              // required: true,
               validator: onContactNoValidation,
             },
           ]}
@@ -138,7 +142,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           {/* <Input /> */}
           <ReactPhoneInput
             country={"us"}
-            placeholder={"Ingrese su número de contacto"}
+            placeholder={"Enter your contact number"}
             enableAreaCodes
             onChange={(_value, country: any) => {
               const code = country?.dialCode;
