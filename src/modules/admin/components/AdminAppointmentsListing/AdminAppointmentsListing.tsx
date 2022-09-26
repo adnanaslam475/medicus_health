@@ -7,6 +7,7 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import AdminAppointmentsFilter from "../AdminAppointmentsFilter/AdminAppointmentsFilter";
 import {
+  Appointment,
   AppointmentDateTimeResponse,
   AppointmentPriceResponse,
   AppointmentServiceType,
@@ -60,11 +61,11 @@ const appointmentColumns = [
   },
   {
     title: "Appointment type",
-    dataIndex: "serviceType",
-    key: "name",
     sorter: true,
-    render: (serviceType: AppointmentServiceType) => {
-      return <div>{`${serviceType?.name ? serviceType?.name : "-"}`}</div>;
+    render: (value: Appointment) => {
+      const appointmentType =
+        value?.appointmentTypeProposed?.type || value?.serviceType?.name || "-";
+      return <div>{appointmentType}</div>;
     },
   },
   // {
@@ -130,7 +131,7 @@ const appointmentColumns = [
   {
     title: "Payment status",
     dataIndex: "transaction",
-    key: "status",
+    key: "transaction",
     className: "table-action-icon",
     sorter: true,
     render: (value: any) => {
@@ -154,7 +155,9 @@ const appointmentColumns = [
     dataIndex: "appointmentCharges",
     key: "appointmentCharges",
     sorter: true,
-    render: (appointmentCharges: AppointmentPriceResponse) => <div>{`$${appointmentCharges?.total}`}</div>,
+    render: (appointmentCharges: AppointmentPriceResponse) => (
+      <div>{`$${appointmentCharges?.total}`}</div>
+    ),
   },
   {
     title: "",
@@ -257,6 +260,7 @@ function AdminAppointmentsListing({}: Props) {
         "",
       column:
         `${
+          (["status"].includes(sorter.field) && "appointment") ||
           (["transaction"].includes(sorter.field) && "transaction") ||
           (sorter.columnKey === "name" && "appointment_service_type") ||
           (/startTime/.test(sorter.columnKey) && "appointment_time_slots") ||
@@ -269,6 +273,8 @@ function AdminAppointmentsListing({}: Props) {
         }.${
           /(doctor|patient)/.test(sorter.field)
             ? "first_name"
+            : /(transaction)/.test(sorter.field)
+            ? "status"
             : sorter.columnKey
         }` || "",
     });
