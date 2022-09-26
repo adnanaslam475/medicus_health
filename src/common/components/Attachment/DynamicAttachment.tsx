@@ -15,6 +15,7 @@ const availableTypes = {
   // for patient appointmetn
   pdf: pdf.src,
   docx: docx.src,
+  doc: doc.src,
   zip: zip.src,
   bmp: bmp.src,
   "x-tga": tga.src,

@@ -83,6 +83,7 @@ function AdminHealthQuestionnaireFrom() {
       <CardWithProfileImageInfo
         name={`${appointment?.patient?.first_name || first_name || ""} ${appointment?.patient?.last_name ||last_name || ""}`}
         serviceName={appointment?.patient?.email || email}
+        imageUrl={patientProfile?.profileImage}
       >
         <QuestionnaireForm
           ref={form}

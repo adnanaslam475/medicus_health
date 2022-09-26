@@ -6,6 +6,7 @@ import Router from "next/router";
 import {
   Appointment,
   AppointmentDateTimeResponse,
+  AppointmentPriceResponse,
   AppointmentServiceType,
   AppointmentTimeSlots,
   GetAppointmentInput,
@@ -94,11 +95,11 @@ const columns = [
   },
   {
     title: "Total amount",
-    dataIndex: "charges",
-    key: "charges",
+    dataIndex: "appointmentCharges",
+    key: "appointmentCharges",
     sorter: true,
-    render: (value: User) => {
-      return <div>${value}</div>;
+    render: (appointmentCharges: AppointmentPriceResponse) => {
+      return <div>${appointmentCharges?.total}</div>;
     },
   },
   {
@@ -217,12 +218,7 @@ function AdminPatientAppointmentList() {
     // });
   }
 
-  return fetching ? (
-    <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
-      <Spin />
-    </div>
-  ) : (
-    <div className="w-full">
+  return  <div className="w-full">
       <CardWithProfileImageInfo
         name={`${patientFirstName || ""} ${patientLastName || ""}`}
         serviceName={patientEmail}
@@ -238,6 +234,7 @@ function AdminPatientAppointmentList() {
             columns={columns}
             dataSource={appointments?.items}
             onChange={onChange}
+            loading={fetching}
             footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(appointments?.meta?.totalItems || 0))}
             pagination={{
               total: Number(appointments?.meta?.totalPages) * pagination.limit,
@@ -251,6 +248,6 @@ function AdminPatientAppointmentList() {
         </div>
       </CardWithProfileImageInfo>
     </div>
-  );
+  
 }
 export default AdminPatientAppointmentList;
