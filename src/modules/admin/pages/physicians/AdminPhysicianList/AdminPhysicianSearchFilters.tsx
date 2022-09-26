@@ -53,6 +53,9 @@ function AdminPhysicianSearchFilters(props: Props) {
     if (!filters?.searchField) {
       delete filters?.searchField;
     }
+    if (!filters?.specialization) {
+      delete filters?.specialization;
+    }
 
     if (!filters?.language) {
       delete filters?.language;
@@ -85,7 +88,9 @@ function AdminPhysicianSearchFilters(props: Props) {
     pause: countryId === undefined,
   });
   return (
-    <div className="page-filters flex lg:flex items-center mb-5 flex-wrap gap-2">
+    <div
+      className={`${_classes["page-filters-parent"]} page-filters flex lg:flex items-center mb-5 flex-wrap gap-2`}
+    >
       <div className="flex lg:mb-0 ">
         <div className="flex-1 flex w-96">
           <Input
@@ -97,7 +102,13 @@ function AdminPhysicianSearchFilters(props: Props) {
         </div>
       </div>
       <div className="sm:mt-0">
-        <Select
+        <Input
+          value={filterState.specialization || ""}
+          placeholder="Specialization"
+          // prefix={<SearchOutlined />}
+          onChange={(e) => onChangeFields("specialization", e.target.value)}
+        />
+        {/* <Select
           placeholder="Specialization"
           className="w-full sm:w-40"
           onChange={(e) => onChangeFields("specialization", e)}
@@ -106,7 +117,7 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="Cardiologist">Cardiologist</Option>
           <Option value="Family Physician">Family Physician</Option>
           <Option value="Neurologist">Neurologist</Option>
-        </Select>
+        </Select> */}
       </div>
       <div className="w-1/5 sm:mt-0  md:w-44 xl:w-44">
         <SelectCountryTypeFilter
@@ -198,7 +209,9 @@ function AdminPhysicianSearchFilters(props: Props) {
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3 border-gray text-gray-1">
-                  <div>Account created at</div>
+                  <div className="font-rubik font-normal">
+                    Account created at
+                  </div>
                   <CaretDownOutlined />
                 </div>
               )}

@@ -1,11 +1,21 @@
-.page-filters {
+.page-filters-parent {
   .ant-space-item {
     border: 1px solid #9295af !important;
   }
-  .ant-btn {
+  :global .ant-btn {
     border: 1px solid #9295af !important;
   }
   .dropdown {
     border: 1px solid #9295af !important;
+  }
+  :global button.ant-btn.dropdown.ant-btn-default.ant-btn-block {
+    border: 1px solid #9295af !important;
+  }
+  :global .ant-space {
+    .ant-space-item {
+      :global .ant-btn.dropdown {
+        border: 1px solid #9295af !important;
+      }
+    }
   }
 }
