@@ -31,6 +31,9 @@ export const Profile = React.forwardRef(function Profile({
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
   const [countryCode, setCountryCode] = useState(null);
+  const [disable, setDisable] = useState(false);
+  const [isConfirmPasswordRequired, setIsConfirmPasswordRequired] =
+    useState(false);
 
   const { user } = getUserData();
   const { id } = user || {};
@@ -73,7 +76,12 @@ export const Profile = React.forwardRef(function Profile({
 
   const onFinish = async (values: any) => {
     try {
-      updateAdminProfile(values);
+      if (values?.password?.length >= 8 && !values?.confirmPassword) {
+        setIsConfirmPasswordRequired(true);
+        formInstance.submit();
+      } else {
+        updateAdminProfile(values);
+      }
     } catch (error) {
       setIsEdit(true);
     }
@@ -174,6 +182,12 @@ export const Profile = React.forwardRef(function Profile({
     }
   };
 
+  const FieldsHandler = (e: any) => {
+    const password = formInstance.getFieldValue("password");
+    if (!password?.length) {
+      setIsConfirmPasswordRequired(false);
+    }
+  };
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -224,6 +238,7 @@ export const Profile = React.forwardRef(function Profile({
               name="basic"
               onFinish={onFinish}
               layout="vertical"
+              onFieldsChange={(e) => FieldsHandler(e)}
             >
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
@@ -332,10 +347,10 @@ export const Profile = React.forwardRef(function Profile({
                   className="flex-1"
                   dependencies={["password"]}
                   rules={[
-                    // {
-                    //   required: true,
-                    //   message: "Please confirm your password!",
-                    // },
+                    {
+                      required: isConfirmPasswordRequired,
+                      message: "Please confirm your password!",
+                    },
                     ({ getFieldValue }) => ({
                       validator(_, value) {
                         if (!value || getFieldValue("password") === value) {
@@ -358,7 +373,12 @@ export const Profile = React.forwardRef(function Profile({
                   <Button type="default" onClick={() => setIsEdit(false)}>
                     Close
                   </Button>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={password}
+                    loading={fetching}
+                  >
                     Save changes
                   </Button>
                 </div>
