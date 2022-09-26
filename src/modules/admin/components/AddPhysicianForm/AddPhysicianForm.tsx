@@ -60,7 +60,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
 
   return (
     <Form form={formInstance} onFinish={onFinish} layout="vertical">
-      <div className="flex flex-row gap-3">
+      <div className="flex flex-row gap-4">
         <Form.Item
           label="First name"
           name="firstName"

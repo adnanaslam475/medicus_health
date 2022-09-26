@@ -59,7 +59,7 @@ function StaffDetailsFrom({
           <Option value={false}>Disable</Option>
         </Select>
         <Button
-          className="ml-7"
+          className="ml-4"
           loading={loading}
           disabled={loading}
           onClick={handleResetLink}
