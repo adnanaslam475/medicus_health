@@ -61,12 +61,12 @@ export const ADMIN_ROUTES: routes = [
     id: "6",
     submenu: [
       {
-        name: "Transaction Reports",
+        name: "Transaction reports",
         route: "/admin/reports/transactionReport",
         subId: "1",
       },
       {
-        name: "Payout Reports",
+        name: "Payout reports",
         route: "/admin/reports/payoutReport",
         subId: "2",
       },
