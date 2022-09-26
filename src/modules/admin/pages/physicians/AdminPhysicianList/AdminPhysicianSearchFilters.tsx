@@ -53,6 +53,9 @@ function AdminPhysicianSearchFilters(props: Props) {
     if (!filters?.searchField) {
       delete filters?.searchField;
     }
+    if (!filters?.specialization) {
+      delete filters?.specialization;
+    }
 
     if (!filters?.language) {
       delete filters?.language;
@@ -99,7 +102,13 @@ function AdminPhysicianSearchFilters(props: Props) {
         </div>
       </div>
       <div className="sm:mt-0">
-        <Select
+        <Input
+          value={filterState.specialization || ""}
+          placeholder="Specialization"
+          // prefix={<SearchOutlined />}
+          onChange={(e) => onChangeFields("specialization", e.target.value)}
+        />
+        {/* <Select
           placeholder="Specialization"
           className="w-full sm:w-40"
           onChange={(e) => onChangeFields("specialization", e)}
@@ -108,7 +117,7 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="Cardiologist">Cardiologist</Option>
           <Option value="Family Physician">Family Physician</Option>
           <Option value="Neurologist">Neurologist</Option>
-        </Select>
+        </Select> */}
       </div>
       <div className="w-1/5 sm:mt-0  md:w-44 xl:w-44">
         <SelectCountryTypeFilter
