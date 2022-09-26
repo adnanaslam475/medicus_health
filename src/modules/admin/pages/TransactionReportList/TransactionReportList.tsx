@@ -302,7 +302,7 @@ function TransactionReportList() {
     <AppLayout>
       <div className="flex mb-0 flex-wrap">
         <MyEarningsStats
-          label={"Net Gross Sales"}
+          label={"Net gross sales"}
           // text={String(total_number_of_consultation)}
           text={10}
         />
