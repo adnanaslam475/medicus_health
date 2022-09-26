@@ -384,6 +384,10 @@ query physicianAppointmentsHistory(
       serviceType {
         name
       }
+      appointmentTypeProposed {
+        type
+        serviceId
+      }
       patient {
         id
         first_name
@@ -546,6 +550,9 @@ query getTransactionFilter(
           selected
           startTime
           endTime
+        }
+        appointmentTypeProposed {
+          type
         }
       }
     }

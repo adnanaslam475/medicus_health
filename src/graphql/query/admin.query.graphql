@@ -26,7 +26,7 @@ query adminDashboard($filter: GetTransectionInput!) {
     total_number_of_users
     total_number_of_appointments
     total_number_of_physicians
-    total_revenue
+    total_medicus_revenue
     gross_sale
     net_gross_sale
     net_physician_fee

@@ -48,7 +48,9 @@ const Columns = [
     key: "name",
     sorter: true,
     render: (value: Appointment) => {
-      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+      const appointmentType =
+        value?.appointmentTypeProposed?.type || value?.serviceType?.name || "-";
+      return <div>{appointmentType}</div>;
     },
   },
   // {

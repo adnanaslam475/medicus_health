@@ -19,7 +19,7 @@ function AdminDashboard() {
     total_number_of_appointments,
     total_number_of_physicians,
     total_number_of_users,
-    total_revenue,
+    total_medicus_revenue,
   } = adminDashboard || {};
 
   return (
@@ -60,7 +60,7 @@ function AdminDashboard() {
           <StatisticsCard
             src={revenue}
             title="The total revenue to date ($)"
-            value={total_revenue ? valueSeparator(total_revenue) : 0}
+            value={total_medicus_revenue ? valueSeparator(total_medicus_revenue) : 0}
           />
         </div>
       </div>
