@@ -85,7 +85,9 @@ function AdminPhysicianSearchFilters(props: Props) {
     pause: countryId === undefined,
   });
   return (
-    <div className="page-filters flex lg:flex items-center mb-5 flex-wrap gap-2">
+    <div
+      className={`${_classes["page-filters-parent"]} page-filters flex lg:flex items-center mb-5 flex-wrap gap-2`}
+    >
       <div className="flex lg:mb-0 ">
         <div className="flex-1 flex w-96">
           <Input
@@ -198,7 +200,9 @@ function AdminPhysicianSearchFilters(props: Props) {
                 </div>
               ) : (
                 <div className="flex justify-between items-center w-full px-3 border-gray text-gray-1">
-                  <div>Account created at</div>
+                  <div className="font-rubik font-normal">
+                    Account created at
+                  </div>
                   <CaretDownOutlined />
                 </div>
               )}
