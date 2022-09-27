@@ -12,7 +12,7 @@ import Image from "next/image";
 import camera from "../../../../../public/assets/images/camera.svg";
 import Router from "next/router";
 import Link from "next/link";
-import { getUserData } from "common/utils/userData";
+import { getRole, getUserData } from "common/utils/userData";
 type Props =
   | {
       modalVisible: boolean;
@@ -135,7 +135,14 @@ function CalendarModalComponent(props: Props) {
             />
             <span className="ml-2 mt-1">Join now</span>
           </Button> */}
-          <Link passHref href={`/patient/appointments/${id}/call`}>
+          <Link
+            passHref
+            href={
+              getRole() === "User"
+                ? `/patient/appointments/${id}/call`
+                : `/physician/appointments/${id}/call`
+            }
+          >
             <Button
               type="primary"
               className={`${_classes["appointments-btn"]} mr-3`}

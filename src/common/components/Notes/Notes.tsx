@@ -42,12 +42,13 @@ function Notes(props: Props) {
         />
         {/* <p className="pt-2">No notes to show</p> */}
         <p className="pt-2">Add notes</p>
+        {/*Removed Plus icon for accessability on lower resolution */}
         <Button
-          icon={<PlusOutlined className="-mt-2" />}
           className={`${_classes["custom-button-green"]}`}
           onClick={() => setModalVisible(true)}
           disabled={disabled}
         >
+          <span className="text-2xl -mt-[4px] mr-1">+</span>
           Add
         </Button>
       </div>
