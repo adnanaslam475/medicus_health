@@ -35,15 +35,17 @@ function AdminPatientAppointmentInfoTab({ appointment, loading }: Props) {
     physician:
       appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
     service: appointment?.serviceType?.name,
-    dueDate: formatMMMM_Dcoma_YYYY(selectedAppointment?.startTime),
+    dueDate: formatMMMM_Dcoma_YYYY(String(appointment?.appointmentDateTime?.startTime)),
     time: `${
-      selectedAppointment?.startTime
+      appointment?.appointmentDateTime?.startTime
         ? `${date?.formathhmma(
-            selectedAppointment?.startTime
-          )} - ${date?.formathhmma(selectedAppointment?.endTime)}`
+            appointment?.appointmentDateTime?.startTime
+          )} - ${date?.formathhmma(
+            appointment?.appointmentDateTime?.startTime
+          )}`
         : "--"
     }`,
-    totalAmount: appointment?.charges,
+    totalAmount: appointment?.appointmentCharges?.total,
     appointmentStatus: appointment?.status,
     paymentStatus: appointment?.transaction?.status,
   };
@@ -67,6 +69,7 @@ function AdminPatientAppointmentInfoTab({ appointment, loading }: Props) {
     <CardWithProfileImageInfo
       name={`${normalizedAppointmentData.patient}`}
       serviceName={normalizedAppointmentData.service}
+      imageUrl={appointment?.patient?.patientProfile?.profileImage || ""}
     >
       <div className="max-w-[800px]">
         <AdminAppointmentInfo

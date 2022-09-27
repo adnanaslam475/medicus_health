@@ -187,7 +187,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     setRadioDrug(parsedData?.q3.ans);
     setShowDrugOthers(parsedData?.q3.q.selectedOption.includes("Otra"));
     setShowSurgicalOthers(parsedData?.q4.selectedOption.includes("Otros"));
-
     formInstance.setFieldsValue({
       // q1
       [HealthQuestionnaryData.q1.name]: parsedData?.q1.ans,
@@ -199,7 +198,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       [HealthQuestionnaryData.q2.q2.name]: parsedData?.q2.q2?.ans,
       // q3
       [HealthQuestionnaryData.q3.name]: parsedData?.q3.ans,
-      [HealthQuestionnaryData.q3.q.name]: parsedData?.q3?.q?.ans
+      [HealthQuestionnaryData.q3.q.name]: parsedData?.q3?.q?.ans?.length
         ? [...parsedData?.q3.q.selectedOption, ...parsedData?.q3?.q?.ans]
         : [...parsedData?.q3.q.selectedOption],
       [HealthQuestionnaryData.q3.q2.name]: parsedData?.q3?.q2?.ans,
@@ -244,8 +243,11 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     }
     else {
       HealthQuestionnaryData.q3["ans"] = 0;
-      HealthQuestionnaryData.q3.q.ans = null;
-    }
+      HealthQuestionnaryData.q3.q.ans =
+        values.check_drug ??
+        selectedMedicalOption ??
+        parseJson(data)?.q3?.q?.selectedOption ??
+        parseJson(data)?.q3?.q?.ans;    }
 
     if (values.drug_text) {
       HealthQuestionnaryData.q3.q2.ans = values.drug_text;
