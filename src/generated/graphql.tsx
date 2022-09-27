@@ -63,6 +63,17 @@ export type AdminSettingResponse = {
   washington_state_tax?: Maybe<Scalars['String']>;
 };
 
+export type AdminTransactionReportResponse = {
+  __typename?: 'AdminTransactionReportResponse';
+  net_gross_sale?: Maybe<Scalars['Float']>;
+  net_physician_fee?: Maybe<Scalars['Float']>;
+  total_medicus_revenue?: Maybe<Scalars['Float']>;
+  total_number_of_consultation?: Maybe<Scalars['Float']>;
+  total_number_of_second_opinions?: Maybe<Scalars['Float']>;
+  total_number_of_users?: Maybe<Scalars['Float']>;
+  total_sale?: Maybe<Scalars['Float']>;
+};
+
 export type Appointment = {
   __typename?: 'Appointment';
   appointmentCharges?: Maybe<AppointmentPriceResponse>;
@@ -1188,6 +1199,8 @@ export type Query = {
   doctorQuestionnaires: Array<DoctorQuestionnaire>;
   doctorSchedules: Array<DoctorSchedule>;
   doctorSchedulesByDay: Array<DoctorSchedule>;
+  getAdminTransactionReport: AdminTransactionReportResponse;
+  getAdminTransactionReportListing: TransactionPaginatedResponse;
   getAllCards: Array<UserCard>;
   getAllChatChannels: Array<ChatChannels>;
   getAppointmentPrice: AppointmentPriceResponse;
@@ -1326,6 +1339,18 @@ export type QueryDoctorSchedulesArgs = {
 export type QueryDoctorSchedulesByDayArgs = {
   doctorId: Scalars['Int'];
   filter: GetDoctorScheduleFilterInput;
+};
+
+
+export type QueryGetAdminTransactionReportArgs = {
+  filter: GetTransectionInput;
+};
+
+
+export type QueryGetAdminTransactionReportListingArgs = {
+  filter: GetTransectionInput;
+  pagination?: InputMaybe<PaginationParams>;
+  sorting?: InputMaybe<SortingParams>;
 };
 
 
@@ -1570,6 +1595,7 @@ export type Transaction = {
   createdAt: Scalars['DateTime'];
   doctor_percentage: Scalars['String'];
   id: Scalars['Int'];
+  medicus_percentage: Scalars['String'];
   payment_status?: Maybe<Scalars['String']>;
   status: Scalars['String'];
   stripeFee: Scalars['Float'];
@@ -2107,7 +2133,7 @@ export type AdminDashboardQueryVariables = Exact<{
 }>;
 
 
-export type AdminDashboardQuery = { __typename?: 'Query', adminDashboard: { __typename?: 'AdminDashboardResponse', total_number_of_users?: number | null, total_number_of_appointments?: number | null, total_number_of_physicians?: number | null, total_medicus_revenue?: number | null, gross_sale?: number | null, net_gross_sale?: number | null, net_physician_fee?: number | null, total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null } };
+export type AdminDashboardQuery = { __typename?: 'Query', adminDashboard: { __typename?: 'AdminDashboardResponse', total_number_of_users?: number | null, total_number_of_physicians?: number | null, total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null, net_gross_sale?: number | null, net_physician_fee?: number | null, total_medicus_revenue?: number | null, total_number_of_appointments?: number | null, gross_sale?: number | null } };
 
 export type AdminPhysicianAppointmentQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -3341,14 +3367,15 @@ export const AdminDashboardDocument = gql`
     query adminDashboard($filter: GetTransectionInput!) {
   adminDashboard(filter: $filter) {
     total_number_of_users
-    total_number_of_appointments
     total_number_of_physicians
-    total_medicus_revenue
-    gross_sale
-    net_gross_sale
-    net_physician_fee
     total_number_of_consultation
     total_number_of_second_opinions
+    net_gross_sale
+    net_physician_fee
+    total_medicus_revenue
+    total_number_of_appointments
+    total_number_of_physicians
+    gross_sale
   }
 }
     `;
@@ -5585,6 +5612,69 @@ export default {
           },
           {
             "name": "washington_state_tax",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AdminTransactionReportResponse",
+        "fields": [
+          {
+            "name": "net_gross_sale",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "net_physician_fee",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_medicus_revenue",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_consultation",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_second_opinions",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_users",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_sale",
             "type": {
               "kind": "SCALAR",
               "name": "Any"
@@ -9876,6 +9966,66 @@ export default {
             ]
           },
           {
+            "name": "getAdminTransactionReport",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AdminTransactionReportResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "getAdminTransactionReportListing",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TransactionPaginatedResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "pagination",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "sorting",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
             "name": "getAllCards",
             "type": {
               "kind": "NON_NULL",
@@ -10968,6 +11118,17 @@ export default {
           },
           {
             "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "medicus_percentage",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

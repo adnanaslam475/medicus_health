@@ -8,6 +8,7 @@ import revenue from "../../../../../public/assets/icon/dollars.svg";
 import _classes from "./AdminDashboard.module.scss";
 import { useAdminDashboardQuery } from "generated/graphql";
 import { valueSeparator } from "common/utils/helper";
+import { currencyFormatter, numberFormatter } from "common/utils/date";
 function AdminDashboard() {
   const [{ data }] = useAdminDashboardQuery({
     variables: {
@@ -16,53 +17,67 @@ function AdminDashboard() {
   });
   const { adminDashboard } = data || {};
   const {
-    total_number_of_appointments,
-    total_number_of_physicians,
-    total_number_of_users,
-    total_medicus_revenue,
+    total_number_of_users = 0,
+    total_number_of_physicians = 0,
+    total_number_of_consultation = 0,
+    total_number_of_second_opinions = 0,
+    net_gross_sale = 0,
+    net_physician_fee = 0,
+    total_medicus_revenue = 0,
   } = adminDashboard || {};
+
+  const adminDashboardStatistics = [
+    {
+      key: "Total Number of Patients",
+      value: numberFormatter(Number(total_number_of_users)),
+      icon: users,
+    },
+    {
+      key: "Total Number of Physicians",
+      value: numberFormatter(Number(total_number_of_physicians)),
+      icon: physician,
+    },
+    {
+      key: "Total Number of Consultations (for all appointment statuses)",
+      value: numberFormatter(Number(total_number_of_consultation)),
+      icon: appointments,
+    },
+    {
+      key: "Total Number of Second Opinions (for all appointment statuses)",
+      value: numberFormatter(Number(total_number_of_second_opinions)),
+      icon: appointments,
+    },
+    {
+      key: "Net Gross sales ($)",
+      value: currencyFormatter(Number(net_gross_sale)),
+      icon: revenue,
+    },
+    {
+      key: "Net Physician Fee ($)",
+      value: currencyFormatter(Number(net_physician_fee)),
+      icon: revenue,
+    },
+    {
+      key: "Total Medicus revenue ($)",
+      value: currencyFormatter(Number(total_medicus_revenue)),
+      icon: revenue,
+    },
+  ];
 
   return (
     <AppLayout>
       <div className="xl:flex flex-wrap">
-        <div className="basis-1/2">
-          <StatisticsCard
-            src={users}
-            title="Total number of users "
-            value={
-              total_number_of_users ? valueSeparator(total_number_of_users) : 0
-            }
-          />
-        </div>
-        <div className="basis-1/2">
-          <StatisticsCard
-            src={appointments}
-            title="Number of appointments "
-            value={
-              total_number_of_appointments
-                ? valueSeparator(total_number_of_appointments)
-                : 0
-            }
-          />
-        </div>
-        <div className="basis-1/2">
-          <StatisticsCard
-            src={physician}
-            title="Number of physicians "
-            value={
-              total_number_of_physicians
-                ? valueSeparator(total_number_of_physicians)
-                : 0
-            }
-          />
-        </div>
-        <div className="basis-1/2">
-          <StatisticsCard
-            src={revenue}
-            title="The total revenue to date ($)"
-            value={total_medicus_revenue ? valueSeparator(total_medicus_revenue) : 0}
-          />
-        </div>
+        {adminDashboardStatistics.map((dashboardValue, index) => {
+          return (
+            <div className="basis-1/2" key={index}>
+              <StatisticsCard
+                src={dashboardValue?.icon}
+                title={dashboardValue?.key}
+                value={dashboardValue?.value}
+              />
+            </div>
+          );
+        })}
       </div>
     </AppLayout>
   );

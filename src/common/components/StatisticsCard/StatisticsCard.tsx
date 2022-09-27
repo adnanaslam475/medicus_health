@@ -24,10 +24,10 @@ function StatisticsCard({ src, title, value }: Props) {
         />
       </div>
 
-      <div className="text-6xl mx-auto px-auto text-center py-2 font-circular">
+      <div className="xs:text-2xl sm:text-6xl mx-auto px-auto text-center py-2 font-circular ">
         {value}
       </div>
-      <div className="text-center text-xl">{title} </div>
+      <div className="text-center xs:text-sm sm:text-xl">{title} </div>
     </div>
   );
 }
