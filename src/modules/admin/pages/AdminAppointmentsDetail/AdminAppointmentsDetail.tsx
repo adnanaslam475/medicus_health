@@ -61,7 +61,7 @@ function AdminAppointmentHistoryDetail() {
           <h2 className="mb-0">Appointment details</h2>
           <Button
             size="middle"
-            className="max-h-[36px] max-w-[84px] px-0 mx-0 mr-2 ml-2 "
+            className="max-h-[36px] max-w-[84px] px-0 mx-0 mr-2 ml-[29px] "
             onClick={() => setIsEdit((prev) => !prev)}
           >
             {isEdit ? "Cancel" : "Edit info"}

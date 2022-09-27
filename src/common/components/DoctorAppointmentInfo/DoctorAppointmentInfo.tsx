@@ -457,7 +457,14 @@ function DoctorAppointmentInfoFooter({
         // >
         //   Join now
         // </Button>
-        <Link passHref href={`/physician/appointments/${appointmentId}/call`}>
+        <Link
+          passHref
+          href={
+            getRole() === "User"
+              ? `/patient/appointments/${appointmentId}/call`
+              : `/physician/appointments/${appointmentId}/call`
+          }
+        >
           <Button
             type="primary"
             icon={<VideoCameraFilled />}
@@ -559,7 +566,14 @@ function DoctorUpcomingAppointmentInfoFooter({
             />
             <span className="ml-2">Reschedule appointment</span>
           </Button>
-          <Link passHref href={`/patient/appointments/${appointmentId}/call`}>
+          <Link
+            passHref
+            href={
+              getRole() === "User"
+                ? `/patient/appointments/${appointmentId}/call`
+                : `/physician/appointments/${appointmentId}/call`
+            }
+          >
             <Button
               type="primary"
               icon={<VideoCameraFilled />}

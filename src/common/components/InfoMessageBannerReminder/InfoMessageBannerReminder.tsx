@@ -115,7 +115,14 @@ const InfoMessageBannerReminder = () => {
       </div>
 
       {isAppoinmetnStartTime && (
-        <Link passHref href={`/patient/appointments/${id}/call`}>
+        <Link
+          passHref
+          href={
+            getRole() === "User"
+              ? `/patient/appointments/${id}/call`
+              : `/physician/appointments/${id}/call`
+          }
+        >
           <Button
             className="link_button bg-primary text-primary whitespace-nowrap ml-auto font-circular"
             type="default"

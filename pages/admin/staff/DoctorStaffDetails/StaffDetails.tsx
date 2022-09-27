@@ -69,7 +69,10 @@ function DoctorStaffDetails() {
         notification.success({
           message: "Staff delete successfully",
         });
-        Router.push(`/admin/physicians/${query.adminId}`);
+        Router.push({
+          pathname: `/admin/physicians/${query.adminId}`,
+          query: { activeTab: "4" },
+        });
       }
     } catch (error: any) {
       notification.error({
@@ -125,7 +128,10 @@ function DoctorStaffDetails() {
         notification.success({
           message: "Staff updated successfully",
         });
-        Router.push(`/admin/physicians/${query.adminId}`);
+        Router.push({
+          pathname: `/admin/physicians/${query.adminId}`,
+          query: { activeTab: "4" },
+        });
       }
     } catch (error: any) {
       notification.error({

@@ -361,7 +361,9 @@ function AppointmentInfo(props: Props) {
           {status !== "Requested" &&
             status !== "Rescheduled" &&
             status !== "Proposed" && (
-              <Link passHref href={`/patient/appointments/${id}/call`}>
+              <Link passHref href={getRole() === "User"
+              ? `/patient/appointments/${id}/call`
+              : `/physician/appointments/${id}/call`}>
                 <Button
                   className={`${_classes["appointments-btn"]}`}
                   type="primary"

@@ -11,6 +11,7 @@ import { date } from "../../../utils";
 import { MessageOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import { isAppointmentTimeValid } from "common/utils/date";
+import { getRole } from "common/utils/userData";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -76,7 +77,11 @@ function AppointmnetCurrentCard({
           type="primary"
           className={`${_classes["card-btn"]} mr-3`}
           onClick={() =>
-            Router.push(`/patient/appointments/${appointmentId}/call`)
+            Router.push(
+              getRole() === "User"
+                ? `/patient/appointments/${appointmentId}/call`
+                : `/physician/appointments/${appointmentId}/call`
+            )
           }
           disabled={disabled}
         >

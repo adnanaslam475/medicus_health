@@ -8,6 +8,7 @@ import { Appointment, AppointmentTimeSlots } from "generated/graphql";
 import { isAppointmentTimeValid } from "common/utils/date";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { getRole } from "common/utils/userData";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -85,7 +86,14 @@ function AppointmnetConfirmedCard({
       <span className="text-base text-primary font-bold">{status}</span>
 
       <div className="flex mt-4 justify-between">
-        <Link passHref href={`/patient/appointments/${appointmentId}/call`}>
+        <Link
+          passHref
+          href={
+            getRole() === "User"
+              ? `/patient/appointments/${appointmentId}/call`
+              : `/physician/appointments/${appointmentId}/call`
+          }
+        >
           <Button
             className={` ${_classes["card-btn"]} mr-3`}
             type={"primary"}

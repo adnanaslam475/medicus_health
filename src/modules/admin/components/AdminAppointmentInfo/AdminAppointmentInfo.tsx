@@ -22,6 +22,7 @@ import { StatusName } from "common/types/types";
 import RescheduleAppointmentModal from "common/components/RescheduleAppointment/RescheduleAppointment";
 import { isAppointmentTimeValid } from "common/utils/date";
 import Image from "next/image";
+import { getRole } from "common/utils/userData";
 const { Option } = Select;
 
 type Props = {
@@ -538,7 +539,11 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
           icon={<VideoCameraFilled />}
           className={`${_classes["appointments-btn"]} bg-current`}
           onClick={() =>
-            Router.push(`/physician/appointments/${appointmentData?.id}/call`)
+            Router.push(
+              getRole() === "User"
+                ? `/patient/appointments/${appointmentData?.id}/call`
+                : `/physician/appointments/${appointmentData?.id}/call`
+            )
           }
           disabled={disabled}
         >
