@@ -24,14 +24,15 @@ query getAdminUsers(
 query adminDashboard($filter: GetTransectionInput!) {
   adminDashboard(filter: $filter) {
     total_number_of_users
-    total_number_of_appointments
     total_number_of_physicians
-    total_medicus_revenue
-    gross_sale
-    net_gross_sale
-    net_physician_fee
     total_number_of_consultation
     total_number_of_second_opinions
+    net_gross_sale
+    net_physician_fee
+    total_medicus_revenue
+    total_number_of_appointments
+    total_number_of_physicians
+    gross_sale
   }
 }
 
