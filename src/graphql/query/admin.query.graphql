@@ -254,3 +254,15 @@ query getAdminTransactionReportListing(
     }
   }
 }
+
+query getAdminTransactionReport($filter: GetTransectionInput!) {
+  getAdminTransactionReport(filter: $filter) {
+    total_number_of_users
+    total_medicus_revenue
+    total_sale
+    net_gross_sale
+    net_physician_fee
+    total_number_of_consultation
+    total_number_of_second_opinions
+  }
+}

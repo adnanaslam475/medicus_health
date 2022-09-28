@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Router from "next/router";
-import { Divider, Table } from "antd";
+import { Divider, Skeleton, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import TransactionReportListFilter from "./TransactionReportListFilter";
@@ -8,11 +8,13 @@ import MyEarningsStats from "common/components/MyEarningsStats/MyEarningsStats";
 import {
   Appointment,
   useGetAdminTransactionReportListingQuery,
+  useGetAdminTransactionReportQuery,
   useGetPhysiciansQuery,
   User,
 } from "generated/graphql";
 import { tableFooter } from "utils/helper";
 import { date } from "common/utils";
+import { currencyFormatter, numberFormatter } from "common/utils/date";
 
 const columns = [
   {
@@ -210,6 +212,7 @@ const columns = [
 ];
 function TransactionReportList() {
   const [filterValues, setFilterValues] = useState({});
+  const [statisticsFilterValues, setStatisticsFilterValues] = useState({});
   const [pagination, setPagination] = React.useState({
     page: 1,
     limit: 10,
@@ -227,6 +230,14 @@ function TransactionReportList() {
         sorting,
       },
     });
+  const [
+    { data: statisticsData, fetching: statisticsLoading },
+    executeUseGetAdminTransactionReportQuery,
+  ] = useGetAdminTransactionReportQuery({
+    variables: {
+      filter: statisticsFilterValues,
+    },
+  });
 
   const { getAdminTransactionReportListing } = data || {};
   const { meta } = getAdminTransactionReportListing || {};
@@ -244,32 +255,68 @@ function TransactionReportList() {
 
   function onChangeFilters(values: any) {
     setFilterValues(values);
+    setStatisticsFilterValues(values);
     setPagination({ ...pagination, page: 1 });
     executeUseGetAdminTransactionReportListingQuery({
       filter: filterValues,
       requestPolicy: "network-only",
     });
-  }
-  console.log(
-    "getAdminTransactionReportListing",
-    getAdminTransactionReportListing?.items
-  );
 
+    executeUseGetAdminTransactionReportQuery({
+      filter: statisticsFilterValues,
+      requestPolicy: "network-only",
+    });
+  }
+
+  const { getAdminTransactionReport } = statisticsData || {};
+  const {
+    total_number_of_users = 0,
+    total_medicus_revenue = 0,
+    total_sale = 0,
+    net_gross_sale = 0,
+    net_physician_fee = 0,
+    total_number_of_consultation = 0,
+    total_number_of_second_opinions = 0,
+  } = getAdminTransactionReport || {};
+
+  const transactionStatistics = [
+    {
+      key: "Total sales",
+      value: numberFormatter(Number(total_sale)),
+    },
+    {
+      key: "Total patients",
+      value: numberFormatter(Number(total_number_of_users)),
+    },
+    {
+      key: "Net Physician Fee ($)",
+      value: currencyFormatter(Number(net_physician_fee)),
+    },
+    {
+      key: "Net medicus revenue",
+      value: currencyFormatter(Number(total_medicus_revenue)),
+    },
+    {
+      key: "Total consultations",
+      value: numberFormatter(Number(total_number_of_consultation)),
+    },
+    {
+      key: "Total second opinions",
+      value: numberFormatter(Number(total_number_of_second_opinions)),
+    },
+    {
+      key: "Net Gross sales ($)",
+      value: currencyFormatter(Number(net_gross_sale)),
+    },
+  ];
   return (
     <AppLayout>
       <div className="flex mb-0 flex-wrap">
-        <MyEarningsStats
-          label={"Net gross sales"}
-          // text={String(total_number_of_consultation)}
-          text={10}
-        />
-        <MyEarningsStats label={"Total sales"} text={10} />
-        <MyEarningsStats label={"Total patients"} text={10} />
-        <MyEarningsStats label={"Net physician fee"} text={10} />
-        <MyEarningsStats label={"Net medicus revenue"} text={10} />
-        <MyEarningsStats label={"Total unique patients"} text={10} />
-        <MyEarningsStats label={"Total second opinions"} text={10} />
-        <MyEarningsStats label={"Total consultations"} text={10} />
+        <Skeleton loading={statisticsLoading} paragraph={{ rows: 0 }} active>
+          {transactionStatistics.map((item, index) => (
+            <MyEarningsStats label={item.key} text={item.value} key={index} />
+          ))}
+        </Skeleton>
       </div>
       <Divider className="my-0 py-0" />
       <div className="w-full">
@@ -300,7 +347,6 @@ function TransactionReportList() {
                 showSizeChanger: true,
               }}
             />{" "}
-            {/* #do loading to true when api is being implemented */}
           </div>
         </div>
       </div>
