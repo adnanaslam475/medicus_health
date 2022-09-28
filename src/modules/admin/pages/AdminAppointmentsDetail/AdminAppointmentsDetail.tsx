@@ -12,6 +12,7 @@ import {
   Appointment,
   useDoctorQuestionnaireQuery,
   useGetAppointmentByIdQuery,
+  useUpdateAppointmentMutation,
 } from "generated/graphql";
 import { REQUESTED, PROPOSED, COMPLETED } from "common/constants/status";
 import NotesTab from "common/components/NotesTab/NotesTab";
@@ -19,6 +20,11 @@ import NotesTab from "common/components/NotesTab/NotesTab";
 function AdminAppointmentHistoryDetail() {
   const { query } = useRouter();
   const [activeTab, setActiveTab] = useState<string>("");
+
+  const [
+    { fetching: updateMutationFetching },
+    executeUseUpdateAppointmentMutation,
+  ] = useUpdateAppointmentMutation();
 
   const [{ data, fetching }] = useGetAppointmentByIdQuery({
     variables: { id: Number(query?.id) },
@@ -44,33 +50,75 @@ function AdminAppointmentHistoryDetail() {
 
   const [isEdit, setIsEdit] = useState(false);
   const formRef = useRef();
-
-  const saveChanges = () => {
+  const saveChanges = async () => {
     if (isEdit) {
       const formRefference: any = formRef.current;
-      console.log("updated values are", formRefference?.getFieldsValue());
-      //api call here
+      const changedValues = formRefference?.getFieldsValue();
+      console.log("updated values are", changedValues);
+
+      try {
+        const response = await executeUseUpdateAppointmentMutation({
+          updateAppointmentInput: {
+            serviceId:
+              changedValues?.appointmentType || appointment?.serviceType?.id,
+            charges: Number(appointment?.charges),
+            doctorId: changedValues?.physician || appointment?.doctorId,
+            id: appointment?.id,
+          },
+        });
+
+        if (response?.error) {
+          setIsEdit((prev) => !prev);
+          throw new Error(response?.error?.graphQLErrors[0]?.message);
+        }
+        if (response.data) {
+          setIsEdit((prev) => !prev);
+          notification.success({
+            message: "Successfully updated",
+          });
+        }
+      } catch (error: any) {
+        setIsEdit((prev) => !prev);
+        notification.error({
+          message: error.message || "Something went wrong",
+        });
+      }
+    }
+  };
+
+  const HandleCancelButton = () => {
+    const form: any = formRef?.current;
+    if (!isEdit) {
+      form?.resetFields();
     }
     setIsEdit((prev) => !prev);
   };
+  let isEditable =
+    window.location.search &&
+    window.location.search === "?activeTab=1" &&
+    appointment?.status !== "Canceled" &&
+    appointment?.status !== "Completed";
 
   return (
     <AppLayout>
       <div>
         <div className="flex items-center mb-4">
           <h2 className="mb-0">Appointment details</h2>
-          <Button
-            size="middle"
-            className="max-h-[36px] max-w-[84px] px-0 mx-0 mr-2 ml-[29px] "
-            onClick={() => setIsEdit((prev) => !prev)}
-          >
-            {isEdit ? "Cancel" : "Edit info"}
-          </Button>
-          {isEdit && (
+          {isEditable && (
+            <Button
+              size="middle"
+              className="max-h-[36px] max-w-[84px] px-0 mx-0 mr-2 ml-[29px] "
+              onClick={HandleCancelButton}
+            >
+              {isEdit ? "Cancel" : "Edit info"}
+            </Button>
+          )}
+          {isEdit && isEditable && (
             <Button
               size="middle"
               className="max-h-[36px]  px-0 mx-0 "
               onClick={() => saveChanges()}
+              loading={updateMutationFetching}
             >
               Save changes
             </Button>

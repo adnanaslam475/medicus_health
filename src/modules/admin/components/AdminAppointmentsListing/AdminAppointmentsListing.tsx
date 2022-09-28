@@ -168,7 +168,7 @@ const appointmentColumns = [
       return (
         <div className="text-primary">
           <EyeFilled
-            onClick={() => Router.push(`/admin/appointments/${appointmentId}`)}
+            onClick={() => Router.push(`/admin/appointments/${appointmentId}?activeTab=1`)}
           />
         </div>
       );

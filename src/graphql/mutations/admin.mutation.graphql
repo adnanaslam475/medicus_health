@@ -11,3 +11,14 @@ mutation updateAdminUser(
     contact_number
   }
 }
+
+mutation updateAppointment($updateAppointmentInput: UpdateAppointmentInput!) {
+  updateAppointment(updateAppointmentInput: $updateAppointmentInput) {
+    doctor {
+      first_name
+    }
+    serviceType {
+      name
+    }
+  }
+}

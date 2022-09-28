@@ -76,8 +76,6 @@ function PhysicianQuestionnaire(props: Props) {
     });
   }
 
-  console.log("doctorIddoctorId", doctorId);
-
   let doctorQuestionnaireId = user?.role === "Doctor" ? user?.id : doctorId;
 
   // let doctorQuestionnaireId =

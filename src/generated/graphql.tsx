@@ -68,7 +68,9 @@ export type AdminTransactionReportResponse = {
   net_gross_sale?: Maybe<Scalars['Float']>;
   net_physician_fee?: Maybe<Scalars['Float']>;
   total_medicus_revenue?: Maybe<Scalars['Float']>;
+  total_number_of_appointments?: Maybe<Scalars['Float']>;
   total_number_of_consultation?: Maybe<Scalars['Float']>;
+  total_number_of_physicians?: Maybe<Scalars['Float']>;
   total_number_of_second_opinions?: Maybe<Scalars['Float']>;
   total_number_of_users?: Maybe<Scalars['Float']>;
   total_sale?: Maybe<Scalars['Float']>;
@@ -182,6 +184,7 @@ export type AppointmentTotalCharges = {
 export type AppointmentTypeProposedResponse = {
   __typename?: 'AppointmentTypeProposedResponse';
   dateTime: Array<DateTimeSlots>;
+  price?: Maybe<Scalars['Int']>;
   serviceId?: Maybe<Scalars['Int']>;
   type?: Maybe<Scalars['String']>;
 };
@@ -777,6 +780,7 @@ export type Mutation = {
   suggestNewTime: Appointment;
   toggleEmailPreferences: UserEmailPreferencesResponse;
   updateAdminUser: User;
+  updateAppointment: Appointment;
   updateAppointmentAttachments: Appointment;
   updateDctorPercentage: Transaction;
   updateDoctorProfile: DoctorProfile;
@@ -1062,6 +1066,11 @@ export type MutationToggleEmailPreferencesArgs = {
 export type MutationUpdateAdminUserArgs = {
   id: Scalars['Int'];
   updateAdminUserInput: UpdateAdminUserInput;
+};
+
+
+export type MutationUpdateAppointmentArgs = {
+  updateAppointmentInput: UpdateAppointmentInput;
 };
 
 
@@ -1630,6 +1639,13 @@ export type UpdateAppointmentAttachmentsInput = {
   reportUrl: Scalars['JSON'];
 };
 
+export type UpdateAppointmentInput = {
+  charges: Scalars['Int'];
+  doctorId: Scalars['Int'];
+  id?: InputMaybe<Scalars['Int']>;
+  serviceId: Scalars['Int'];
+};
+
 export type UpdateDoctorPercentage = {
   doctor_percentage: Scalars['String'];
 };
@@ -1795,6 +1811,13 @@ export type UpdateAdminUserMutationVariables = Exact<{
 
 
 export type UpdateAdminUserMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null } };
+
+export type UpdateAppointmentMutationVariables = Exact<{
+  updateAppointmentInput: UpdateAppointmentInput;
+}>;
+
+
+export type UpdateAppointmentMutation = { __typename?: 'Mutation', updateAppointment: { __typename?: 'Appointment', doctor?: { __typename?: 'User', first_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null } };
 
 export type GenerateRtcTokenMutationVariables = Exact<{
   generateRTCTokenInput: GenerateRtcTokenInput;
@@ -2586,6 +2609,22 @@ export const UpdateAdminUserDocument = gql`
 
 export function useUpdateAdminUserMutation() {
   return Urql.useMutation<UpdateAdminUserMutation, UpdateAdminUserMutationVariables>(UpdateAdminUserDocument);
+};
+export const UpdateAppointmentDocument = gql`
+    mutation updateAppointment($updateAppointmentInput: UpdateAppointmentInput!) {
+  updateAppointment(updateAppointmentInput: $updateAppointmentInput) {
+    doctor {
+      first_name
+    }
+    serviceType {
+      name
+    }
+  }
+}
+    `;
+
+export function useUpdateAppointmentMutation() {
+  return Urql.useMutation<UpdateAppointmentMutation, UpdateAppointmentMutationVariables>(UpdateAppointmentDocument);
 };
 export const GenerateRtcTokenDocument = gql`
     mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
@@ -5650,7 +5689,23 @@ export default {
             "args": []
           },
           {
+            "name": "total_number_of_appointments",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "total_number_of_consultation",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_physicians",
             "type": {
               "kind": "SCALAR",
               "name": "Any"
@@ -6373,6 +6428,14 @@ export default {
                   }
                 }
               }
+            },
+            "args": []
+          },
+          {
+            "name": "price",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -8887,6 +8950,29 @@ export default {
               },
               {
                 "name": "updateAdminUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "updateAppointmentInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
