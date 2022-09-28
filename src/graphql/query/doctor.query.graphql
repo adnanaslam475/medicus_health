@@ -41,6 +41,7 @@ query doctorAppointmentDetail($id: Int!) {
     }
     appointmentTypeProposed {
       type
+      price
       dateTime {
         date
         startTime
@@ -110,6 +111,7 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
     }
     appointmentTypeProposed {
       type
+      price
       dateTime {
         date
         startTime
@@ -206,6 +208,7 @@ query physicianAppointments(
       }
       appointmentTypeProposed {
         type
+        price
         dateTime {
           date
           startTime
@@ -386,6 +389,7 @@ query physicianAppointmentsHistory(
       }
       appointmentTypeProposed {
         type
+        price
         serviceId
       }
       patient {
@@ -553,6 +557,7 @@ query getTransactionFilter(
         }
         appointmentTypeProposed {
           type
+          price
         }
       }
     }
