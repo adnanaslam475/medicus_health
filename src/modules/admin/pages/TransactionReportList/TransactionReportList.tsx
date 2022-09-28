@@ -5,8 +5,14 @@ import { EyeFilled } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import TransactionReportListFilter from "./TransactionReportListFilter";
 import MyEarningsStats from "common/components/MyEarningsStats/MyEarningsStats";
-import { useGetPhysiciansQuery, User } from "generated/graphql";
+import {
+  Appointment,
+  useGetAdminTransactionReportListingQuery,
+  useGetPhysiciansQuery,
+  User,
+} from "generated/graphql";
 import { tableFooter } from "utils/helper";
+import { date } from "common/utils";
 
 const columns = [
   {
@@ -17,64 +23,74 @@ const columns = [
   },
   {
     title: "Appointment ID#",
-    dataIndex: "appointment_id",
-    key: "appointment_id",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointmentId",
+    key: "appointmentId",
+    render: (value: string) => {
+      return <div>{value}</div>;
     },
     sorter: true,
   },
   {
     title: "Patient name",
-    dataIndex: "patient_name",
-    key: "patient_name",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointment",
+    key: "patient",
+    render: (appointment: Appointment) => {
+      const patientName = `${appointment?.patient?.first_name || ""} ${
+        appointment?.patient?.last_name || ""
+      }`;
+      return <div>{patientName}</div>;
     },
     sorter: true,
   },
   {
     title: "Physician name",
-    dataIndex: "patient_name",
-    key: "patient_name",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointment",
+    key: "physician",
+    render: (appointment: Appointment) => {
+      const physicianName = `${appointment?.doctor?.first_name || ""} ${
+        appointment?.doctor?.last_name || ""
+      }`;
+      return <div>{physicianName}</div>;
     },
     sorter: true,
   },
   {
     title: "Appointment type",
-    dataIndex: "service_type",
-    key: "service_type",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointment",
+    key: "serviceType",
+    render: (appointment: Appointment) => {
+      const serviceType = appointment?.serviceType?.name || "";
+      return <div>{serviceType}</div>;
     },
     sorter: true,
   },
   {
     title: "Booking date",
-    dataIndex: "booking_date",
-    key: "booking_date",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointment",
+    key: "requestedDate",
+    render: (appointment: Appointment) => {
+      const bookingDate = appointment?.requestedDate || "";
+      return <div>{date.formatDAYMMDD(bookingDate)}</div>;
     },
     sorter: true,
   },
   {
     title: "Schedule date",
-    dataIndex: "schedule_date",
-    key: "schedule_date",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointment",
+    key: "requestedDate",
+    render: (appointment: Appointment) => {
+      const bookingDate = appointment?.requestedDate || "";
+      return <div>{date.formatDAYMMDD(bookingDate)}</div>;
     },
     sorter: true,
   },
   {
     title: "Status",
-    dataIndex: "status",
+    dataIndex: "appointment",
     key: "status",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    render: (appointment: Appointment) => {
+      const status = appointment?.status || "";
+      return <div>{status}</div>;
     },
     sorter: true,
   },
@@ -82,8 +98,8 @@ const columns = [
     title: "Payment status",
     dataIndex: "payment_status",
     key: "payment_status",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    render: (value: string) => {
+      return <div>{value}</div>;
     },
     sorter: true,
   },
@@ -107,10 +123,11 @@ const columns = [
   },
   {
     title: "Taxes ($)",
-    dataIndex: "taxes",
-    key: "taxes",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointment",
+    key: "tax",
+    render: (appointment: Appointment) => {
+      const tax = appointment?.appointmentCharges?.tax || 0;
+      return <div>{tax}</div>;
     },
     sorter: true,
   },
@@ -136,40 +153,41 @@ const columns = [
 
   {
     title: "Stripe processing fee ($)",
-    dataIndex: "stripe_fee",
-    key: "stripe_fee",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "stripeFee",
+    key: "stripeFee",
+    render: (stripeFee: string) => {
+      return <div>{stripeFee}</div>;
     },
     sorter: true,
   },
 
   {
     title: "Net physician fee ($)",
-    dataIndex: "net_physician_fee",
-    key: "net_physician_fee",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "doctor_percentage",
+    key: "doctor_percentage",
+    render: (value: string) => {
+      return <div>{value}</div>;
     },
     sorter: true,
   },
 
   {
     title: "Revenue ($)",
-    dataIndex: "medicus_revenue",
-    key: "medicus_revenue",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "medicus_percentage",
+    key: "medicus_percentage",
+    render: (value: string) => {
+      return <div>{value}</div>;
     },
     sorter: true,
   },
 
   {
     title: "Revenue ($) + Taxes($)",
-    dataIndex: "revenue_n_tax",
-    key: "revenue_n_tax",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointment",
+    key: "appointmentCharges",
+    render: (appointment: Appointment) => {
+      const appointmentCharges = appointment?.appointmentCharges?.total || 0;
+      return <div>{appointmentCharges}</div>;
     },
     sorter: true,
   },
@@ -190,72 +208,6 @@ const columns = [
     ),
   },
 ];
-
-const Ddata = [
-  {
-    id: "1",
-    // name: "John Brown",
-    appointment_id: "MD-2312",
-    patient_name: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    // status: ["completed", "pending"],
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    id: "2",
-    appointment_id: "MD-2312",
-    patient_name: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    id: "3",
-    appointment_id: "MD-2312",
-    patient_name: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    id: "4",
-    appointment_id: "MD-2312",
-    patient_name: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    id: "5",
-    appointment_id: "MD-2312",
-    patient_name: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-];
-
 function TransactionReportList() {
   const [filterValues, setFilterValues] = useState({});
   const [pagination, setPagination] = React.useState({
@@ -267,8 +219,8 @@ function TransactionReportList() {
     order: "",
   });
 
-  const [{ data, fetching }, executeUseGetPhysiciansQuery] =
-    useGetPhysiciansQuery({
+  const [{ data, fetching }, executeUseGetAdminTransactionReportListingQuery] =
+    useGetAdminTransactionReportListingQuery({
       variables: {
         filter: filterValues,
         pagination,
@@ -276,7 +228,8 @@ function TransactionReportList() {
       },
     });
 
-  const { getPhysicians } = data || {};
+  const { getAdminTransactionReportListing } = data || {};
+  const { meta } = getAdminTransactionReportListing || {};
 
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
@@ -292,11 +245,15 @@ function TransactionReportList() {
   function onChangeFilters(values: any) {
     setFilterValues(values);
     setPagination({ ...pagination, page: 1 });
-    executeUseGetPhysiciansQuery({
+    executeUseGetAdminTransactionReportListingQuery({
       filter: filterValues,
       requestPolicy: "network-only",
     });
   }
+  console.log(
+    "getAdminTransactionReportListing",
+    getAdminTransactionReportListing?.items
+  );
 
   return (
     <AppLayout>
@@ -324,20 +281,19 @@ function TransactionReportList() {
           <div className="">
             <Table
               columns={columns}
-              dataSource={Ddata}
+              dataSource={getAdminTransactionReportListing?.items}
               footer={(currentPageCount) =>
                 tableFooter(
                   currentPageCount?.length,
-                  Number(getPhysicians?.meta?.totalItems || 0)
+                  Number(meta?.totalItems || 0)
                 )
               }
               onChange={onChange}
               loading={fetching}
               scroll={{ x: true }}
               pagination={{
-                total:
-                  Number(getPhysicians?.meta?.totalPages) * pagination.limit,
-                current: getPhysicians?.meta?.currentPage,
+                total: Number(meta?.totalPages) * pagination.limit,
+                current: meta?.currentPage,
                 defaultPageSize: 10,
                 onChange: onPaginationChange,
                 pageSizeOptions: ["10", "20", "30", "40"],

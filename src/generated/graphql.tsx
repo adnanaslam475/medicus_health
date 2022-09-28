@@ -68,7 +68,9 @@ export type AdminTransactionReportResponse = {
   net_gross_sale?: Maybe<Scalars['Float']>;
   net_physician_fee?: Maybe<Scalars['Float']>;
   total_medicus_revenue?: Maybe<Scalars['Float']>;
+  total_number_of_appointments?: Maybe<Scalars['Float']>;
   total_number_of_consultation?: Maybe<Scalars['Float']>;
+  total_number_of_physicians?: Maybe<Scalars['Float']>;
   total_number_of_second_opinions?: Maybe<Scalars['Float']>;
   total_number_of_users?: Maybe<Scalars['Float']>;
   total_sale?: Maybe<Scalars['Float']>;
@@ -182,6 +184,7 @@ export type AppointmentTotalCharges = {
 export type AppointmentTypeProposedResponse = {
   __typename?: 'AppointmentTypeProposedResponse';
   dateTime: Array<DateTimeSlots>;
+  price?: Maybe<Scalars['Int']>;
   serviceId?: Maybe<Scalars['Int']>;
   type?: Maybe<Scalars['String']>;
 };
@@ -777,6 +780,7 @@ export type Mutation = {
   suggestNewTime: Appointment;
   toggleEmailPreferences: UserEmailPreferencesResponse;
   updateAdminUser: User;
+  updateAppointment: Appointment;
   updateAppointmentAttachments: Appointment;
   updateDctorPercentage: Transaction;
   updateDoctorProfile: DoctorProfile;
@@ -1062,6 +1066,11 @@ export type MutationToggleEmailPreferencesArgs = {
 export type MutationUpdateAdminUserArgs = {
   id: Scalars['Int'];
   updateAdminUserInput: UpdateAdminUserInput;
+};
+
+
+export type MutationUpdateAppointmentArgs = {
+  updateAppointmentInput: UpdateAppointmentInput;
 };
 
 
@@ -1630,6 +1639,13 @@ export type UpdateAppointmentAttachmentsInput = {
   reportUrl: Scalars['JSON'];
 };
 
+export type UpdateAppointmentInput = {
+  charges: Scalars['Int'];
+  doctorId: Scalars['Int'];
+  id?: InputMaybe<Scalars['Int']>;
+  serviceId: Scalars['Int'];
+};
+
 export type UpdateDoctorPercentage = {
   doctor_percentage: Scalars['String'];
 };
@@ -2185,6 +2201,15 @@ export type RemoveAdminUserMutationVariables = Exact<{
 
 
 export type RemoveAdminUserMutation = { __typename?: 'Mutation', removeUser: { __typename?: 'User', id: number } };
+
+export type GetAdminTransactionReportListingQueryVariables = Exact<{
+  filter: GetTransectionInput;
+  pagination?: InputMaybe<PaginationParams>;
+  sorting?: InputMaybe<SortingParams>;
+}>;
+
+
+export type GetAdminTransactionReportListingQuery = { __typename?: 'Query', getAdminTransactionReportListing: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, payment_status?: string | null, stripeFee: number, amountReceived: number, doctor_percentage: string, medicus_percentage: string, appointment?: { __typename?: 'Appointment', status?: string | null, requestedDate?: any | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, currentPage: number } } };
 
 export type GetAllChatChannelsQueryVariables = Exact<{
   filter: GetAllChannelFilterInput;
@@ -3557,6 +3582,55 @@ export const RemoveAdminUserDocument = gql`
 
 export function useRemoveAdminUserMutation() {
   return Urql.useMutation<RemoveAdminUserMutation, RemoveAdminUserMutationVariables>(RemoveAdminUserDocument);
+};
+export const GetAdminTransactionReportListingDocument = gql`
+    query getAdminTransactionReportListing($filter: GetTransectionInput!, $pagination: PaginationParams, $sorting: SortingParams) {
+  getAdminTransactionReportListing(
+    filter: $filter
+    pagination: $pagination
+    sorting: $sorting
+  ) {
+    items {
+      id
+      appointmentId
+      payment_status
+      appointment {
+        patient {
+          first_name
+          last_name
+        }
+        doctor {
+          first_name
+          last_name
+        }
+        serviceType {
+          name
+        }
+        status
+        requestedDate
+        appointmentCharges {
+          appointmentPrice
+          tax
+          systemFee
+          total
+        }
+      }
+      stripeFee
+      amountReceived
+      doctor_percentage
+      medicus_percentage
+    }
+    meta {
+      totalItems
+      totalPages
+      currentPage
+    }
+  }
+}
+    `;
+
+export function useGetAdminTransactionReportListingQuery(options: Omit<Urql.UseQueryArgs<GetAdminTransactionReportListingQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAdminTransactionReportListingQuery, GetAdminTransactionReportListingQueryVariables>({ query: GetAdminTransactionReportListingDocument, ...options });
 };
 export const GetAllChatChannelsDocument = gql`
     query getAllChatChannels($filter: GetAllChannelFilterInput!) {
@@ -5650,7 +5724,23 @@ export default {
             "args": []
           },
           {
+            "name": "total_number_of_appointments",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "total_number_of_consultation",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "total_number_of_physicians",
             "type": {
               "kind": "SCALAR",
               "name": "Any"
@@ -6373,6 +6463,14 @@ export default {
                   }
                 }
               }
+            },
+            "args": []
+          },
+          {
+            "name": "price",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -8887,6 +8985,29 @@ export default {
               },
               {
                 "name": "updateAdminUserInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateAppointment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Appointment",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "updateAppointmentInput",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
