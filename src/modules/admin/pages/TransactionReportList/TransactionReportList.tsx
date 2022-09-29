@@ -7,6 +7,7 @@ import TransactionReportListFilter from "./TransactionReportListFilter";
 import MyEarningsStats from "common/components/MyEarningsStats/MyEarningsStats";
 import {
   Appointment,
+  Transaction,
   useGetAdminTransactionReportListingQuery,
   useGetAdminTransactionReportQuery,
   useGetPhysiciansQuery,
@@ -15,6 +16,8 @@ import {
 import { tableFooter } from "utils/helper";
 import { date } from "common/utils";
 import { currencyFormatter, numberFormatter } from "common/utils/date";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
 
 const columns = [
   {
@@ -59,20 +62,10 @@ const columns = [
   {
     title: "Appointment type",
     dataIndex: "appointment",
-    key: "serviceType",
+    key: "appointment",
     render: (appointment: Appointment) => {
-      const serviceType = appointment?.serviceType?.name || "";
+      const serviceType = appointment?.appointmentTypeProposed?.type || "";
       return <div>{serviceType}</div>;
-    },
-    sorter: true,
-  },
-  {
-    title: "Booking date",
-    dataIndex: "appointment",
-    key: "requestedDate",
-    render: (appointment: Appointment) => {
-      const bookingDate = appointment?.requestedDate || "";
-      return <div>{date.formatDAYMMDD(bookingDate)}</div>;
     },
     sorter: true,
   },
@@ -81,8 +74,8 @@ const columns = [
     dataIndex: "appointment",
     key: "requestedDate",
     render: (appointment: Appointment) => {
-      const bookingDate = appointment?.requestedDate || "";
-      return <div>{date.formatDAYMMDD(bookingDate)}</div>;
+      const scheduleDate = appointment?.appointmentDateTime?.startTime || "";
+      return <div>{date.formatDAYMMDD(scheduleDate)}</div>;
     },
     sorter: true,
   },
@@ -91,37 +84,56 @@ const columns = [
     dataIndex: "appointment",
     key: "status",
     render: (appointment: Appointment) => {
-      const status = appointment?.status || "";
-      return <div>{status}</div>;
+      return (
+        <div className="w-full text-primary">
+          <StatusChip type={appointment?.status?.toUpperCase() as StatusName} />
+        </div>
+      );
     },
     sorter: true,
   },
   {
     title: "Payment status",
-    dataIndex: "payment_status",
-    key: "payment_status",
-    render: (value: string) => {
-      return <div>{value}</div>;
+    dataIndex: "status",
+    key: "status",
+    render: (status: string) => {
+      let _status = null;
+      if (status === "succeeded") {
+        _status = "paid";
+      } else if (status === "Refunded") {
+        _status = status;
+      } else {
+        _status = "Unpaid";
+      }
+      return (
+        <div className="text-primary">
+          <StatusChip type={_status.toUpperCase() as StatusName} />
+        </div>
+      );
     },
     sorter: true,
   },
   {
     title: "Gross sales ($)",
-    dataIndex: "appointment",
-    key: "appointmentCharges",
-    render: (appointment: Appointment) => {
-      return <div>{appointment?.appointmentCharges?.total || "-"}</div>;
+    // dataIndex: "status",
+    // key: "appointment",
+    render: (transaction: Transaction) => {
+      const refund =
+        transaction?.status === "Refunded"
+          ? 0
+          : `${transaction?.appointmentCharges}`;
+      return <div>{refund}</div>;
     },
     sorter: true,
   },
   {
     title: "Refunds ($)",
-    dataIndex: "appointment",
-    key: "appointment",
-    render: (appointment: Appointment) => {
+    // dataIndex: "appointment",
+    // key: "appointment",
+    render: (transaction: Transaction) => {
       const refund =
-        appointment?.status === "Refunded"
-          ? `-${appointment?.appointmentCharges?.total}`
+        transaction?.status === "Refunded"
+          ? `-${transaction?.appointmentCharges}`
           : 0;
       return <div>{refund}</div>;
     },
@@ -137,32 +149,24 @@ const columns = [
     },
     sorter: true,
   },
-  {
-    title: "Total sales ($)",
-    dataIndex: "total_sales",
-    key: "total_sales",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
-    },
-    sorter: true,
-  },
-
-  {
-    title: "Physician fee ($)",
-    dataIndex: "physician_fee",
-    key: "physician_fee",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
-    },
-    sorter: true,
-  },
 
   {
     title: "Stripe processing fee ($)",
-    dataIndex: "stripeFee",
-    key: "stripeFee",
-    render: (stripeFee: string) => {
+    // dataIndex: "transaction",
+    // key: "transaction",
+    render: (transaction: Transaction) => {
+      const stripeFee =
+        transaction?.status === "Refunded" ? 0 : transaction?.stripeFee;
       return <div>{stripeFee}</div>;
+    },
+    sorter: true,
+  },
+  {
+    title: "Total sales ($)",
+    dataIndex: "appointment",
+    key: "appointment",
+    render: (appointment: any) => {
+      return <div>{appointment?.transaction.amountReceived || "0"}</div>;
     },
     sorter: true,
   },
@@ -171,29 +175,18 @@ const columns = [
     title: "Net physician fee ($)",
     dataIndex: "doctor_percentage",
     key: "doctor_percentage",
-    render: (value: string) => {
-      return <div>{value}</div>;
+    render: (value: User) => {
+      return <div>{`${value}`}</div>;
     },
     sorter: true,
   },
 
   {
-    title: "Revenue ($)",
+    title: "Net medicus fee($)",
     dataIndex: "medicus_percentage",
     key: "medicus_percentage",
     render: (value: string) => {
       return <div>{value}</div>;
-    },
-    sorter: true,
-  },
-
-  {
-    title: "Revenue ($) + Taxes($)",
-    dataIndex: "appointment",
-    key: "appointmentCharges",
-    render: (appointment: Appointment) => {
-      const appointmentCharges = appointment?.appointmentCharges?.total || 0;
-      return <div>{appointmentCharges}</div>;
     },
     sorter: true,
   },
@@ -233,6 +226,7 @@ function TransactionReportList() {
         pagination,
         sorting,
       },
+      requestPolicy: "network-only",
     });
   const [
     { data: statisticsData, fetching: statisticsLoading },
@@ -286,7 +280,7 @@ function TransactionReportList() {
   const transactionStatistics = [
     {
       key: "Total sales",
-      value: numberFormatter(Number(total_sale)),
+      value: currencyFormatter(Number(total_sale)),
     },
     {
       key: "Total patients",
