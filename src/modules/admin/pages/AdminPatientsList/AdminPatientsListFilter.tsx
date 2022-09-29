@@ -53,7 +53,6 @@ function AdminPatientsListFilter(props: Props) {
     <div
       className={`${_classes["page-filters"]} flex-none md:flex items-center mb-5 flex-wrap`}
     >
-      <span className="text-gray-1 mr-3 mb-3"></span>
       <div className="flex flex-wrap gap-2 ">
         <div className=" w-full sm:w-full md:w-full lg:w-96 ">
           <Input

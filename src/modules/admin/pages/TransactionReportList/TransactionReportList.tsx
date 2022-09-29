@@ -18,7 +18,7 @@ import { currencyFormatter, numberFormatter } from "common/utils/date";
 
 const columns = [
   {
-    title: "ID",
+    title: "ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,

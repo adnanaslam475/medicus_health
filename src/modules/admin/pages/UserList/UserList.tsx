@@ -11,7 +11,7 @@ import { tableFooter } from "utils/helper";
 
 const Columns = [
   {
-    title: "ID",
+    title: "ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,
@@ -175,7 +175,12 @@ const UserList = ({}: Props) => {
           dataSource={adminUsers?.items}
           loading={fetching}
           onChange={onChange}
-          footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(adminUsers?.meta?.totalItems||0))}
+          footer={(currentPageCount) =>
+            tableFooter(
+              currentPageCount?.length,
+              Number(adminUsers?.meta?.totalItems || 0)
+            )
+          }
           pagination={{
             total: Number(adminUsers?.meta?.totalPages) * pagination.limit,
             current: adminUsers?.meta?.currentPage,
