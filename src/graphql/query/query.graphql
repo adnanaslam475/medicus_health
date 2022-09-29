@@ -342,6 +342,7 @@ query getAllRequestedAppointments(
       }
       appointmentTypeProposed {
         type
+        price
         dateTime {
           date
           startTime
@@ -494,6 +495,7 @@ query getAppointmentById($id: Int!) {
     }
     appointmentTypeProposed {
       type
+      price
       dateTime {
         date
         startTime
@@ -664,6 +666,7 @@ query ViewSuggestedTimeSlots($id: Int!) {
     }
     appointmentTypeProposed {
       type
+      price
       serviceId
       dateTime {
         date

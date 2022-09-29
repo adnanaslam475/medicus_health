@@ -38,12 +38,12 @@ function AdminDashboard() {
       icon: physician,
     },
     {
-      key: "Total Number of Consultations (for all appointment statuses)",
+      key: "Total Number of Consultations",
       value: numberFormatter(Number(total_number_of_consultation)),
       icon: appointments,
     },
     {
-      key: "Total Number of Second Opinions (for all appointment statuses)",
+      key: "Total Number of Second Opinions",
       value: numberFormatter(Number(total_number_of_second_opinions)),
       icon: appointments,
     },
