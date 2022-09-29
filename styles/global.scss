@@ -616,3 +616,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .admin-filter {
   color: #9295af !important;
 }
+
+body.ant-scrolling-effect {
+  width: calc(100% - 0px);
+}
