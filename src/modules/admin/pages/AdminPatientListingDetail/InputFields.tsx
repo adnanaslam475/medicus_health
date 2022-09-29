@@ -111,12 +111,12 @@ const InputFields = ({
               <Form.Item label={value.label} name={value.name}>
                 <ReactPhoneInput
                   containerStyle={{
-                    border: "1px solid #9296af",
+                    border: "0.5px solid #9296af",
                     borderRadius: "6px",
                   }}
                   inputStyle={{
                     width: "100%",
-                    height: "40px",
+                    height: "45px",
                     fontWeight: "600",
                   }}
                   country={"us"}
