@@ -14,7 +14,7 @@ import { tableFooter } from "utils/helper";
 
 const columns: ColumnsType<User> = [
   {
-    title: "ID",
+    title: "ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,
@@ -155,7 +155,6 @@ function AdminPatientsList() {
     });
   };
 
-
   return (
     <AppLayout>
       <div className="w-full">
@@ -177,7 +176,12 @@ function AdminPatientsList() {
             <Table
               columns={columns}
               dataSource={getPatients?.items as User[]}
-              footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(getPatients?.meta?.totalItems||0))}
+              footer={(currentPageCount) =>
+                tableFooter(
+                  currentPageCount?.length,
+                  Number(getPatients?.meta?.totalItems || 0)
+                )
+              }
               loading={fetching}
               onChange={onChange}
               pagination={{

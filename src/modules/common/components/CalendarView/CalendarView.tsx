@@ -17,7 +17,7 @@ import {
 } from "generated/graphql";
 import { getRole } from "../../../../common/utils/userData";
 import { translationJson } from "common/locales/translationJson";
-import { date } from "common/utils";
+import { date, userData } from "common/utils";
 import dayjs from "dayjs";
 import { getCurrentUserTimeZone } from "common/utils/date";
 import { Spin } from "antd";
@@ -64,7 +64,6 @@ function AdminCalender(props: Props) {
   }
 
   const timeZone = getCurrentUserTimeZone();
-
   const [
     { data: physicianData, fetching },
     executeUsePhysicianAppointmentsQuery,
@@ -111,17 +110,25 @@ function AdminCalender(props: Props) {
               : new Date().toISOString();
 
           const [startDate] = startTime.split("T");
+          const start =
+            userData.getRole() === "Admin"
+              ? appointmentDateTime?.startTime
+              : `${startDate}T${dayjs(startTime)
+                  .tz(timeZone)
+                  .format("HH:mm")}:00.000Z`;
+          const end =
+            userData.getRole() === "Admin"
+              ? appointmentDateTime?.endTime
+              : `${startDate}T${dayjs(endTime)
+                  .tz(timeZone)
+                  .format("HH:mm")}:00.000Z`;
 
           return {
             id: id,
             title: `${serviceType?.name}: ${patient?.first_name} ${patient?.last_name}`,
             mobileName: `${serviceType?.name}: ${patient?.first_name} ${patient?.last_name}`,
-            start: `${startDate}T${dayjs(startTime)
-              .tz(timeZone)
-              .format("HH:mm")}:00.000Z`,
-            end: `${startDate}T${dayjs(endTime)
-              .tz(timeZone)
-              .format("HH:mm")}:00.000Z`,
+            start: start,
+            end: end,
             doctor: doctor?.first_name + " " + doctor?.last_name,
             patient: patient?.first_name + " " + patient?.last_name,
             serviceType: serviceType?.name,

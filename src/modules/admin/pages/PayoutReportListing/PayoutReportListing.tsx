@@ -8,7 +8,7 @@ function PayoutReportListing() {
   const onChange = (key: string | string[]) => {};
 
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
+    { title: "ID#", dataIndex: "id", key: "id" },
     {
       title: "Appointment ID#",
       dataIndex: "appointment_id",

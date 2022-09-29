@@ -95,7 +95,9 @@ function MessageItem(props: Props) {
                       alt=""
                       width={25}
                       height={25}
-                      src={getFileImageIcon(fileName) as string | StaticImageData}
+                      src={
+                        getFileImageIcon(fileName) as string | StaticImageData
+                      }
                     />
                     <a
                       href={message}
@@ -108,7 +110,9 @@ function MessageItem(props: Props) {
                   </p>
                 ) : (
                   <p
-                    className={`p-3 text-secondary rounded inline-block break-all`}
+                    className={`p-3 text-secondary rounded inline-block ${
+                      message.includes(" ") ? "break-words" : "break-all"
+                    }`}
                   >
                     {message}
                   </p>

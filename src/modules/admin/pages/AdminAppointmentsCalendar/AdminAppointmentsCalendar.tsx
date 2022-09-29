@@ -8,6 +8,8 @@ import {
 import CalendarModalComponent from "../../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
 import Router from "next/router";
+import { getCurrentUserTimeZone } from "common/utils/date";
+import dayjs from "dayjs";
 
 type events = {
   calenderEvents: Appointment | undefined | any;
@@ -49,6 +51,7 @@ function AdminAppointmentsCalendar() {
 
     setModalVisible(true);
   };
+  const timeZone = getCurrentUserTimeZone();
 
   const closeModal = () => {
     setModalVisible(!modalVisible);
@@ -65,17 +68,25 @@ function AdminAppointmentsCalendar() {
           serviceType,
           charges,
           status,
-        }) => ({
-          id: id,
-          title: doctor?.first_name,
-          mobileName: doctor?.first_name,
-          start: requestedDate,
-          patient: patient?.first_name + " " + patient?.last_name,
-          serviceType: serviceType?.name,
-          total: charges,
-          status: status,
-          doctor: doctor,
-        })
+          appointmentDateTime,
+          appointmentTimeSlots,
+        }) => {
+          const startTime = appointmentDateTime?.endTime;
+          const endTime = appointmentDateTime?.endTime;
+
+          return {
+            id: id,
+            title: doctor?.first_name,
+            mobileName: doctor?.first_name,
+            start: startTime,
+            end: endTime,
+            patient: patient?.first_name + " " + patient?.last_name,
+            serviceType: serviceType?.name,
+            total: charges,
+            status: status,
+            doctor: doctor,
+          };
+        }
       ),
     });
   };

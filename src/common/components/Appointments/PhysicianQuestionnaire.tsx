@@ -171,7 +171,7 @@ function PhysicianQuestionnaire(props: Props) {
 
   return (
     <React.Fragment>
-      <div className="md:w-3/6">
+      <div className="lg:w-3/6 md:w-full">
         <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
           {fetching ? (
             <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">

@@ -303,9 +303,19 @@ export const Profile = React.forwardRef(function Profile({
                       validator: onContactNoValidation,
                     },
                   ]}
+                  className="flex-1"
                 >
                   {/* <Input /> */}
                   <ReactPhoneInput
+                    containerStyle={{
+                      border: "0.5px solid #9296af",
+                      borderRadius: "6px",
+                    }}
+                    inputStyle={{
+                      width: "100%",
+                      height: "45px",
+                      fontWeight: "600",
+                    }}
                     country={"us"}
                     placeholder={"Ingrese su número de contacto"}
                     enableAreaCodes

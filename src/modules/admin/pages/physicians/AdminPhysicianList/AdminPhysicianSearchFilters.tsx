@@ -95,7 +95,7 @@ function AdminPhysicianSearchFilters(props: Props) {
         <div className="flex-1 flex w-96">
           <Input
             value={filterState.searchField || ""}
-            placeholder="Search by ID, name,email address or zip code"
+            placeholder="Search by ID, name,email address"
             prefix={<SearchOutlined />}
             onChange={(e) => onChangeFields("searchField", e.target.value)}
           />
@@ -219,9 +219,17 @@ function AdminPhysicianSearchFilters(props: Props) {
           </div>
         </Space>
       </div>
-      <Button type="text" className="" onClick={clear}>
+      {/* <Button type="text" className="" onClick={clear}>
         <CloseOutlined className="text-sm" />
         <span className="text-gray-1">Clear</span>
+      </Button> */}
+      <Button
+        onClick={clear}
+        type="text"
+        className={`${_classes["btn-clear"]} ml-0`}
+      >
+        <CloseOutlined style={{ color: "#9295af" }} className="text-sm" />
+        <span className="text-gray-1 text-sm">Clear</span>
       </Button>
     </div>
   );

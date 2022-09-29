@@ -218,7 +218,21 @@ query getAdminTransactionReportListing(
       id
       appointmentId
       payment_status
+      appointmentCharges
+      amountReceived
+      status
       appointment {
+        createdAt
+        appointmentTypeProposed{
+          type
+        }
+        appointmentDateTime{
+          startTime
+        }
+        transaction {
+          amountReceived
+          status
+        }
         patient {
           first_name
           last_name

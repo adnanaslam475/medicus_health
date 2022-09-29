@@ -127,7 +127,7 @@ function AccountTabs() {
             }
             key="2"
           >
-            <div className="md:w-3/6">
+            <div className="lg:w-3/6 md:w-full">
               <QuestionnaireForm
                 ref={form}
                 data={data?.patientHealthHistory?.history}
@@ -170,14 +170,13 @@ function AccountTabs() {
             key="4"
           >
             <div className="font-normal">
-            <TransactionHistory
-              data={transactions?.items as Transaction[]}
-              setSorting={setSorting}
-              meta={transactions?.meta}
-              loading={allTransactionLoading}
-            />
+              <TransactionHistory
+                data={transactions?.items as Transaction[]}
+                setSorting={setSorting}
+                meta={transactions?.meta}
+                loading={allTransactionLoading}
+              />
             </div>
-            
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
