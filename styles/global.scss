@@ -620,3 +620,9 @@ input[type="number"]::-webkit-outer-spin-button {
 body.ant-scrolling-effect {
   width: calc(100% - 0px);
 }
+
+@media screen and (min-width: 992px) and (max-width: 1099px) {
+  .profile-tabs .lg\:w-3\/6 {
+    width: 100%;
+  }
+}

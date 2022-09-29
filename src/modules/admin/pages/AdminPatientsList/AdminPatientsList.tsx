@@ -14,7 +14,7 @@ import { tableFooter } from "utils/helper";
 
 const columns: ColumnsType<User> = [
   {
-    title: "ID",
+    title: "ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,

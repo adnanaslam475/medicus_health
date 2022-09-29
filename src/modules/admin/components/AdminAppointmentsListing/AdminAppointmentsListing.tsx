@@ -24,7 +24,7 @@ import { tableFooter } from "utils/helper";
 
 const appointmentColumns = [
   {
-    title: "ID",
+    title: "ID#",
     dataIndex: "id",
     key: "id",
     sorter: true,
@@ -168,7 +168,9 @@ const appointmentColumns = [
       return (
         <div className="text-primary">
           <EyeFilled
-            onClick={() => Router.push(`/admin/appointments/${appointmentId}?activeTab=1`)}
+            onClick={() =>
+              Router.push(`/admin/appointments/${appointmentId}?activeTab=1`)
+            }
           />
         </div>
       );
@@ -280,7 +282,6 @@ function AdminAppointmentsListing({}: Props) {
     });
   };
 
-
   return (
     <>
       <AppLayout>
@@ -316,7 +317,9 @@ function AdminAppointmentsListing({}: Props) {
                 onChange={onChange}
                 scroll={{ x: true }}
                 loading={fetching}
-                footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems || 0)}
+                footer={(currentPageCount) =>
+                  tableFooter(currentPageCount?.length, meta?.totalItems || 0)
+                }
                 pagination={{
                   total: pagination.limit * Number(meta?.totalPages),
                   current: meta?.currentPage,
