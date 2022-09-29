@@ -23,6 +23,7 @@ import RescheduleAppointmentModal from "common/components/RescheduleAppointment/
 import { isAppointmentTimeValid } from "common/utils/date";
 import Image from "next/image";
 import { getRole } from "common/utils/userData";
+import Input from "antd/lib/input/Input";
 const { Option } = Select;
 
 type Props = {
@@ -272,10 +273,42 @@ function AdminAppointmentInfo({
           </>
           <LabelWithText label="Appointment date" text={dueDate} />
           <LabelWithText label="Time" text={time} />
-          <LabelWithText
-            label="Total amount"
-            text={totalAmount ? `$${totalAmount}` : "-"}
-          />
+          {isEdit ? (
+            <li className="flex border-b border-gray-5 py-3">
+              <div className="w-full text-gray-1 max-w-[300px]">
+                Appointment type
+              </div>
+              <div className="w-full table-action-icon">
+                <div className="text-primary">
+                  <Form.Item
+                    // label="Physician*"
+                    name="charges"
+                    className="max-w-[230px]"
+                  >
+                    <Input defaultValue={totalAmount} placeholder="Total amount" className="w-full" />
+                  </Form.Item>
+                  {/* <Form.Item name="appointmentType">
+                    <Select
+                      defaultValue={service}
+                      placeholder="Select appointment type"
+                      className="max-w-[230px]"
+                    >
+                      {allAppoinments?.map((item) => (
+                        <Option key={item?.id} value={item.id}>
+                          {item.name}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item> */}
+                </div>
+              </div>
+            </li>
+          ) : (
+            <LabelWithText
+              label="Total amount"
+              text={totalAmount ? `$${totalAmount}` : "-"}
+            />
+          )}
 
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 max-w-[300px]">

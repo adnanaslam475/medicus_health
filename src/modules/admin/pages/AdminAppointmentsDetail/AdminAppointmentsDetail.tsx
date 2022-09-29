@@ -60,9 +60,9 @@ function AdminAppointmentHistoryDetail() {
         const response = await executeUseUpdateAppointmentMutation({
           updateAppointmentInput: {
             serviceId:
-              changedValues?.appointmentType || appointment?.serviceType?.id,
-            charges: Number(appointment?.charges),
-            doctorId: changedValues?.physician || appointment?.doctorId,
+              Number(changedValues?.appointmentType) || Number(appointment?.serviceType?.id),
+            charges: Number(changedValues?.charges) || Number(appointment?.charges),
+            doctorId: Number(changedValues?.physician) || Number(appointment?.doctorId),
             id: appointment?.id,
           },
         });
