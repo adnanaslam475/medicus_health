@@ -1812,6 +1812,13 @@ export type UpdateAdminUserMutationVariables = Exact<{
 
 export type UpdateAdminUserMutation = { __typename?: 'Mutation', updateAdminUser: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, password?: string | null, contact_number?: string | null } };
 
+export type UpdateAppointmentMutationVariables = Exact<{
+  updateAppointmentInput: UpdateAppointmentInput;
+}>;
+
+
+export type UpdateAppointmentMutation = { __typename?: 'Mutation', updateAppointment: { __typename?: 'Appointment', doctor?: { __typename?: 'User', first_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null } };
+
 export type GenerateRtcTokenMutationVariables = Exact<{
   generateRTCTokenInput: GenerateRtcTokenInput;
 }>;
@@ -2618,6 +2625,22 @@ export const UpdateAdminUserDocument = gql`
 
 export function useUpdateAdminUserMutation() {
   return Urql.useMutation<UpdateAdminUserMutation, UpdateAdminUserMutationVariables>(UpdateAdminUserDocument);
+};
+export const UpdateAppointmentDocument = gql`
+    mutation updateAppointment($updateAppointmentInput: UpdateAppointmentInput!) {
+  updateAppointment(updateAppointmentInput: $updateAppointmentInput) {
+    doctor {
+      first_name
+    }
+    serviceType {
+      name
+    }
+  }
+}
+    `;
+
+export function useUpdateAppointmentMutation() {
+  return Urql.useMutation<UpdateAppointmentMutation, UpdateAppointmentMutationVariables>(UpdateAppointmentDocument);
 };
 export const GenerateRtcTokenDocument = gql`
     mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {

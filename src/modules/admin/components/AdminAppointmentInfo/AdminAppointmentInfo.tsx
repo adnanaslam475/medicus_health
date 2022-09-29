@@ -167,8 +167,8 @@ function AdminAppointmentInfo({
       <div className="max-w-[700px]">
         <Form form={formInstance}>
           <LabelWithText label="ID#" text={id} />
-          {isEdit ? (
-            <>
+          <>
+            {/* {isEdit ? (
               <li className="flex border-b border-gray-5 py-3">
                 <div className="w-full text-gray-1 max-w-[300px]">Patient</div>
                 <div className="w-full table-action-icon">
@@ -198,7 +198,12 @@ function AdminAppointmentInfo({
                   </div>
                 </div>
               </li>
+            ) : (
+              <LabelWithText label="Patient" text={patient} />
+            )} */}
+            <LabelWithText label="Patient" text={patient} />
 
+            {isEdit ? (
               <li className="flex border-b border-gray-5 py-3">
                 <div className="w-full text-gray-1 max-w-[300px]">
                   Physician
@@ -207,6 +212,7 @@ function AdminAppointmentInfo({
                   <div className="text-primary">
                     <Form.Item name="physician">
                       <Select
+                        defaultValue={physician}
                         className="max-w-[230px]"
                         showSearch
                         placeholder="Physicians"
@@ -224,10 +230,7 @@ function AdminAppointmentInfo({
                               ? item?.first_name
                               : `Dr. ${item?.first_name}`;
                             return (
-                              <Option
-                                key={index}
-                                value={`${item.id}: ${item?.first_name} ${item?.last_name}`}
-                              >
+                              <Option key={index} value={`${item.id}`}>
                                 {`${firstName} ${item?.last_name}`}
                               </Option>
                             );
@@ -237,7 +240,10 @@ function AdminAppointmentInfo({
                   </div>
                 </div>
               </li>
-
+            ) : (
+              <LabelWithText label="Physician" text={physician} />
+            )}
+            {isEdit && paymentStatus === "unpaid" ? (
               <li className="flex border-b border-gray-5 py-3">
                 <div className="w-full text-gray-1 max-w-[300px]">
                   Appointment type
@@ -246,6 +252,7 @@ function AdminAppointmentInfo({
                   <div className="text-primary">
                     <Form.Item name="appointmentType">
                       <Select
+                        defaultValue={service}
                         placeholder="Select appointment type"
                         className="max-w-[230px]"
                       >
@@ -259,14 +266,10 @@ function AdminAppointmentInfo({
                   </div>
                 </div>
               </li>
-            </>
-          ) : (
-            <>
-              <LabelWithText label="Patient" text={patient} />
-              <LabelWithText label="Physician" text={physician} />
+            ) : (
               <LabelWithText label="Appointment type" text={service} />
-            </>
-          )}
+            )}
+          </>
           <LabelWithText label="Appointment date" text={dueDate} />
           <LabelWithText label="Time" text={time} />
           <LabelWithText
