@@ -2216,7 +2216,7 @@ export type GetAdminTransactionReportListingQueryVariables = Exact<{
 }>;
 
 
-export type GetAdminTransactionReportListingQuery = { __typename?: 'Query', getAdminTransactionReportListing: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, payment_status?: string | null, stripeFee: number, amountReceived: number, doctor_percentage: string, medicus_percentage: string, appointment?: { __typename?: 'Appointment', status?: string | null, requestedDate?: any | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, currentPage: number } } };
+export type GetAdminTransactionReportListingQuery = { __typename?: 'Query', getAdminTransactionReportListing: { __typename?: 'TransactionPaginatedResponse', items: Array<{ __typename?: 'Transaction', id: number, appointmentId: number, payment_status?: string | null, appointmentCharges: number, amountReceived: number, status: string, stripeFee: number, doctor_percentage: string, medicus_percentage: string, appointment?: { __typename?: 'Appointment', createdAt: any, status?: string | null, requestedDate?: any | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null } | null, transaction?: { __typename?: 'Transaction', amountReceived: number, status: string } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, doctor?: { __typename?: 'User', first_name: string, last_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null } | null }>, meta: { __typename?: 'Meta', totalItems: number, totalPages: number, currentPage: number } } };
 
 export type GetAdminTransactionReportQueryVariables = Exact<{
   filter: GetTransectionInput;
@@ -3624,7 +3624,21 @@ export const GetAdminTransactionReportListingDocument = gql`
       id
       appointmentId
       payment_status
+      appointmentCharges
+      amountReceived
+      status
       appointment {
+        createdAt
+        appointmentTypeProposed {
+          type
+        }
+        appointmentDateTime {
+          startTime
+        }
+        transaction {
+          amountReceived
+          status
+        }
         patient {
           first_name
           last_name

@@ -19,7 +19,7 @@ type Props = {
 function TransactionReportListFilter({ onChange }: Props) {
   const [filterState, setFilterState] = useState<physicianFilterType>({});
   const [creationDate, setCreationDate] = useState<BookingDate>({});
-  const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<BookingDate>({});
 
   function clear() {
     setFilterState({});
@@ -30,7 +30,7 @@ function TransactionReportListFilter({ onChange }: Props) {
 
   const applyDateRange = () => {
     setOpenDateRange(false);
-    onChangeFields("bookingDate", bookingDate);
+    onChangeFields("dueDate", dueDate);
   };
 
   const applyCreationDate = () => {
@@ -45,8 +45,8 @@ function TransactionReportListFilter({ onChange }: Props) {
     };
     setFilterState(filters);
 
-    if (!filters.bookingDate?.startDate && !filters.bookingDate?.endDate) {
-      delete filters.bookingDate;
+    if (!filters.dueDate?.startDate && !filters.dueDate?.endDate) {
+      delete filters.dueDate;
     }
     if (!filters.dueDate?.startDate && !filters.dueDate?.endDate) {
       delete filters.dueDate;
@@ -83,7 +83,7 @@ function TransactionReportListFilter({ onChange }: Props) {
         <div className="-mt-6 w-full sm:w-60">
           <FilterRangePicker
             onChange={(dateString: string[]) =>
-              setBookingDate({
+              setDueDate({
                 startDate: dateString[0],
                 endDate: dateString[1],
               })
@@ -93,15 +93,15 @@ function TransactionReportListFilter({ onChange }: Props) {
             onCancel={() => setOpenDateRange(false)}
             onApply={applyDateRange}
             title={
-              filterState.bookingDate?.startDate && (
+              filterState.dueDate?.startDate && (
                 <div>
-                  {filterState.bookingDate
-                    ? `${filterState.bookingDate.startDate} -> ${filterState.bookingDate.endDate}`
-                    : "Booking date"}
+                  {filterState.dueDate
+                    ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
+                    : "Schedule date"}
                 </div>
               )
             }
-            heading="Booking date"
+            heading="Schedule date"
           />
         </div>
         {/* <div className="-mt-6 w-full sm:w-60">
@@ -133,6 +133,7 @@ function TransactionReportListFilter({ onChange }: Props) {
             placeholder="Status"
             onChange={(value) => onChangeFields("status", value as string)}
             value={filterState?.status || "Status"}
+            hideRequested
           />
         </div>
         <div className="w-full sm:w-40 text-gray-1">
@@ -142,8 +143,8 @@ function TransactionReportListFilter({ onChange }: Props) {
             className={`w-full sm:w-50 ${_classes["text-color"]}`}
             value={filterState?.paymentStatus || "Payment status"}
           >
-            <Select.Option value="paid">PAID</Select.Option>
-            <Select.Option value="unpaid">UNPAID</Select.Option>
+            <Select.Option value="paid">Paid</Select.Option>
+            <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
         </div>
         <FilterClearButton onClear={clear} />
