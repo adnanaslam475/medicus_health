@@ -203,3 +203,66 @@ mutation removeAdminUser($id: Int!) {
     id
   }
 }
+
+query getAdminTransactionReportListing(
+  $filter: GetTransectionInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  getAdminTransactionReportListing(
+    filter: $filter
+    pagination: $pagination
+    sorting: $sorting
+  ) {
+    items {
+      id
+      appointmentId
+      payment_status
+      appointment {
+        patient {
+          first_name
+          last_name
+        }
+        doctor {
+          first_name
+          last_name
+        }
+        serviceType {
+          name
+        }
+        status
+
+        requestedDate
+
+        appointmentCharges {
+          appointmentPrice
+          tax
+          systemFee
+          total
+        }
+      }
+
+      stripeFee
+      amountReceived
+      doctor_percentage
+      medicus_percentage
+    }
+    meta {
+      totalItems
+      totalPages
+      currentPage
+    }
+  }
+}
+
+query getAdminTransactionReport($filter: GetTransectionInput!) {
+  getAdminTransactionReport(filter: $filter) {
+    total_number_of_users
+    total_medicus_revenue
+    total_sale
+    net_gross_sale
+    net_physician_fee
+    total_number_of_consultation
+    total_number_of_second_opinions
+  }
+}

@@ -90,7 +90,7 @@ function EditAdminUserDetails({}: Props) {
         notification.success({
           message: "User Updated successfully",
         });
-        Router.push(`/admin/user`);
+        Router.push(`/admin/users`);
         executeUseGetAdminUserByIdQuery({ requestPolicy: "network-only" });
       }
     } catch (error: any) {
@@ -144,7 +144,7 @@ function EditAdminUserDetails({}: Props) {
         notification.success({
           message: "User Delete Successfully",
         });
-        Router.push(`/admin/user`);
+        Router.push(`/admin/users`);
       }
     } catch (error: any) {
       notification.error({
