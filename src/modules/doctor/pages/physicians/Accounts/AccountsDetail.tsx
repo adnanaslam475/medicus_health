@@ -123,7 +123,7 @@ function Accounts() {
             }
             key="4"
           >
-            <div className="md:w-3/6">
+            <div className="lg:w-3/6 md:w-full">
               <ConsultationRates />
             </div>
           </Tabs.TabPane>
