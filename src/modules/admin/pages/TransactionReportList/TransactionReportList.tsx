@@ -107,19 +107,23 @@ const columns = [
   },
   {
     title: "Gross sales ($)",
-    dataIndex: "gross_sales",
-    key: "gross_sales",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointment",
+    key: "appointmentCharges",
+    render: (appointment: Appointment) => {
+      return <div>{appointment?.appointmentCharges?.total || "-"}</div>;
     },
     sorter: true,
   },
   {
     title: "Refunds ($)",
-    dataIndex: "refund",
-    key: "refund",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    dataIndex: "appointment",
+    key: "appointment",
+    render: (appointment: Appointment) => {
+      const refund =
+        appointment?.status === "Refunded"
+          ? `-${appointment?.appointmentCharges?.total}`
+          : 0;
+      return <div>{refund}</div>;
     },
     sorter: true,
   },
