@@ -1,6 +1,7 @@
 import { Button, Form, InputNumber, notification } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import SmallLabelWithTextDiv from "common/components/LabelWithTextDiv/SmallLabelWithTextDiv";
+import { numberFormatter } from "common/utils/date";
 import {
   useCreateAdminSettingsMutation,
   useGetAdminSettingsQuery,
@@ -79,32 +80,65 @@ function AdminSettings() {
 
   const onLocalFinish = async (values: any) => {
     setAdminSettingArr([]);
-    try {
-      let keys = Object.keys(values);
-      let updatedValues = Object.values(values);
-
-      keys.forEach((value: string, index) => {
-        adminSettingArr.push({
-          key: keys[index],
-          value: updatedValues[index] ? String(updatedValues[index]) : "",
-        });
+    const totalConsultationPercentage =
+      Number(values?.consultation_charges_medicus_cut) +
+      Number(values?.consultation_charges_physician_cut);
+    const totalSecondOpinionPercentage =
+      Number(values?.second_opinion_charges_medicus_cut) +
+      Number(values?.second_opinion_charges_physician_cut);
+    if (
+      totalConsultationPercentage !== 100 ||
+      values?.consultation_charges_medicus_cut <= 0 ||
+      values?.consultation_charges_physician_cut <= 0
+    ) {
+      return notification.error({
+        message:
+          "Medicus cut and physician cut in consultation should be equal to 100%",
       });
-
-      const res = await executeCreateAdminSettingsMutation({
-        createAdminSettingInput: adminSettingArr as [],
+    } else if (
+      totalSecondOpinionPercentage !== 100 ||
+      values?.second_opinion_charges_medicus_cut <= 0 ||
+      values?.second_opinion_charges_physician_cut <= 0
+    ) {
+      return notification.error({
+        message:
+          "Medicus cut and physician cut in second opinion should be equal to 100%",
       });
+    } else if (
+      values?.total_second_opinion_charges <= 0 ||
+      values?.total_consultation_charges <= 0
+    ) {
+      return notification.error({
+        message: "Please add amount in total charges field",
+      });
+    } else {
+      try {
+        let keys = Object.keys(values);
+        let updatedValues = Object.values(values);
 
-      if (res?.data?.createAdminSetting) {
-        notification.success({
-          message: "Settings Saved Successfully",
+        keys.forEach((value: string, index) => {
+          adminSettingArr.push({
+            key: keys[index],
+            value: updatedValues[index] ? String(updatedValues[index]) : "",
+          });
         });
-      } else {
-        notification.error({
-          message: res?.error?.message || "Something Went Wrong",
+
+        const res = await executeCreateAdminSettingsMutation({
+          createAdminSettingInput: adminSettingArr as [],
         });
+
+        if (res?.data?.createAdminSetting) {
+          notification.success({
+            message: "Settings Saved Successfully",
+          });
+        } else {
+          notification.error({
+            message: res?.error?.message || "Something Went Wrong",
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -165,10 +199,15 @@ function AdminSettings() {
                 name="total_consultation_charges"
                 className="font-bold text-secondary"
               >
+                {/* {Input type number is removed for formating with ,} */}
                 <InputNumber
                   addonBefore="$"
-                  type="number"
-                  min={0}
+                  // type="number"
+                  formatter={(value) =>
+                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
+                  // min={0}
                   controls={false}
                 />
               </Form.Item>
@@ -186,6 +225,7 @@ function AdminSettings() {
                   addonAfter="%"
                   type="number"
                   min={0}
+                  max={100}
                   controls={false}
                 />
               </Form.Item>
@@ -193,7 +233,9 @@ function AdminSettings() {
                 <SmallLabelWithTextDiv
                   label={""}
                   value={`${
-                    consultationMedicusCut ? consultationMedicusCut : 0
+                    consultationMedicusCut
+                      ? numberFormatter(consultationMedicusCut)
+                      : 0
                   }$`}
                 />
               </div>
@@ -211,6 +253,7 @@ function AdminSettings() {
                   addonAfter="%"
                   type="number"
                   min={0}
+                  max={100}
                   controls={false}
                 />
               </Form.Item>
@@ -219,7 +262,7 @@ function AdminSettings() {
                   label={""}
                   value={`${
                     totalChargesConsultationPhysicianCut
-                      ? totalChargesConsultationPhysicianCut
+                      ? numberFormatter(totalChargesConsultationPhysicianCut)
                       : 0
                   }$`}
                 />
@@ -236,8 +279,12 @@ function AdminSettings() {
                 >
                   <InputNumber
                     addonBefore="$"
-                    type="number"
-                    min={0}
+                    formatter={(value) =>
+                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
+                    // type="number"
+                    // min={0}
                     controls={false}
                   />
                 </Form.Item>
@@ -255,6 +302,7 @@ function AdminSettings() {
                     addonAfter="%"
                     type="number"
                     min={0}
+                    max={100}
                     controls={false}
                   />
                 </Form.Item>
@@ -262,7 +310,9 @@ function AdminSettings() {
                   <SmallLabelWithTextDiv
                     label={""}
                     value={`${
-                      secondOpinionMedicusCut ? secondOpinionMedicusCut : 0
+                      secondOpinionMedicusCut
+                        ? numberFormatter(secondOpinionMedicusCut)
+                        : 0
                     }$`}
                   />
                 </div>
@@ -280,6 +330,7 @@ function AdminSettings() {
                     addonAfter="%"
                     type="number"
                     min={0}
+                    max={100}
                     controls={false}
                   />
                 </Form.Item>
@@ -287,7 +338,9 @@ function AdminSettings() {
                   <SmallLabelWithTextDiv
                     label={""}
                     value={`${
-                      secondOpinionPhysicianCut ? secondOpinionPhysicianCut : 0
+                      secondOpinionPhysicianCut
+                        ? numberFormatter(secondOpinionPhysicianCut)
+                        : 0
                     }$`}
                   />
                 </div>
@@ -304,8 +357,12 @@ function AdminSettings() {
                 >
                   <InputNumber
                     addonAfter="%"
-                    type="number"
-                    min={0}
+                    formatter={(value) =>
+                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
+                    // type="number"
+                    // min={0}
                     controls={false}
                   />
                 </Form.Item>
@@ -319,8 +376,12 @@ function AdminSettings() {
                 >
                   <InputNumber
                     addonAfter="%"
-                    type="number"
-                    min={0}
+                    formatter={(value) =>
+                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
+                    // type="number"
+                    // min={0}
                     controls={false}
                   />
                 </Form.Item>
@@ -333,8 +394,12 @@ function AdminSettings() {
                 >
                   <InputNumber
                     addonAfter="%"
-                    type="number"
-                    min={0}
+                    formatter={(value) =>
+                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
+                    // type="number"
+                    // min={0}
                     controls={false}
                   />
                 </Form.Item>
