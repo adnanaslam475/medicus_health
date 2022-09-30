@@ -1817,7 +1817,7 @@ export type UpdateAppointmentMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAppointmentMutation = { __typename?: 'Mutation', updateAppointment: { __typename?: 'Appointment', doctor?: { __typename?: 'User', first_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null } };
+export type UpdateAppointmentMutation = { __typename?: 'Mutation', updateAppointment: { __typename?: 'Appointment', doctor?: { __typename?: 'User', first_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null } };
 
 export type GenerateRtcTokenMutationVariables = Exact<{
   generateRTCTokenInput: GenerateRtcTokenInput;
@@ -2633,7 +2633,9 @@ export const UpdateAppointmentDocument = gql`
       first_name
     }
     serviceType {
+      id
       name
+      price
     }
   }
 }
