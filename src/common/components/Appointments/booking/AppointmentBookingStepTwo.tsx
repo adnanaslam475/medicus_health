@@ -171,6 +171,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
         >
           <div className="w-full bg-gray-4 rounded flex items-center p-3">
             <Checkbox
+              checked={patientHealthHistory?.id ? true : false}
               onChange={handlechecked}
               defaultChecked={patientHealthHistory?.id ? true : false}
               disabled={true}

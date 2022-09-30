@@ -164,7 +164,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     }
   }, [data]);
   useEffect(() => {
-    if (getRole() === "Doctor" || getRole() === "Admin") {
+    if (getRole() === "Doctor" ) {
       setDisabled(true);
     } else {
       setDisabled(false);

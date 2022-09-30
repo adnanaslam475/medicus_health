@@ -96,8 +96,7 @@ function AdminAppointmentHistoryDetail() {
   let isEditable =
     window.location.search &&
     window.location.search === "?activeTab=1" &&
-    appointment?.status !== "Canceled" &&
-    appointment?.status !== "Completed";
+    appointment?.status === "Requested" ;
 
   return (
     <AppLayout>
