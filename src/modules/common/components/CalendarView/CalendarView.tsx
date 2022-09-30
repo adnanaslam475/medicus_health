@@ -135,6 +135,7 @@ function AdminCalender(props: Props) {
             charges: transaction?.amountReceived || charges,
             status: status,
             appointmentTimeSlots: appointmentTimeSlots,
+            appointmentDateTime: appointmentDateTime,
           };
         }
       ),
@@ -218,11 +219,6 @@ function AdminCalender(props: Props) {
                   // hiddenDays={[0, 6]}
                   expandRows={true}
                   eventDidMount={(info) => {
-                    console.log(
-                      "hello world1",
-                      info?.event?._def?.extendedProps
-                    );
-
                     const div = document.createElement("div");
                     div.classList.add("tooltipCustom");
                     const span = document.createElement("span");

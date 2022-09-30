@@ -42,6 +42,8 @@ function CalendarModalComponent(props: Props) {
     dateValue,
     charges,
     appointmentTimeSlots,
+    startDate,
+    appointmentDateTime
   } = data;
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () =>
@@ -94,7 +96,7 @@ function CalendarModalComponent(props: Props) {
         <p className="text-grey-4 ">Appointment date</p>
         <h4 className="text-xl">
           {date.formatDAYMMDDYY(
-            selectedAppointment?.startTime || dateValue,
+            startDate || dateValue,
             timeZone
           )}
         </h4>
