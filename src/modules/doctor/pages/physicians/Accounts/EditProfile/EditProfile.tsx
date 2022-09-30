@@ -40,12 +40,17 @@ import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
-import { InfoCircleOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  InfoCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { useUserData } from "common/components/Context/UserContext";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { timezoneLabel } from "utils/helper";
 import { GraphQLError } from "graphql";
+import ConfirmationModal from "modules/admin/pages/AdminPatientListingDetail/ConfirmationModal";
 
 const { TextArea } = Input;
 
@@ -167,6 +172,7 @@ function EditProfile({
     });
   }, [language]);
   const { data: userContextData, saveUserData } = useUserData();
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const educationalBackground = parseJson(educational_background) || [];
 
@@ -651,6 +657,23 @@ function EditProfile({
                   doctor_last_name && doctor_last_name
                 }`}
               </h2>
+
+              <div className="flex justify-end mb-8 absolute top-0 left-0 md:right-0 w-full">
+                <Button
+                  type="link"
+                  danger
+                  onClick={() => setOpen(true)}
+                  // disabled={deleting}
+                  // loading={deleting || disableLoading}
+                  icon={
+                    <span className="mr-0.5">
+                      <CloseOutlined className="mb-2.5" />
+                    </span>
+                  }
+                >
+                  Delete profile
+                </Button>
+              </div>
               <span className="block">{doctor_email}</span>
               {getRole() === "Admin" && (
                 <div className=" grid grid-cols-2 gap-3">
@@ -1326,6 +1349,13 @@ function EditProfile({
                   </div>
                 </div>
               </div>
+              <ConfirmationModal
+                visible={open}
+                // confirmLoading={RemoveFetching}
+                onCancel={() => setOpen(false)}
+                // onOk={deleteAdminUser}
+                message="Are you sure you want to delete this physician?"
+              />
             </Form>
           </div>
         </div>
