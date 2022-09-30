@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { VideoCameraFilled } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  DeleteOutlined,
+  VideoCameraFilled,
+} from "@ant-design/icons";
 import { Button, Form, notification, Select } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
 
@@ -285,7 +289,11 @@ function AdminAppointmentInfo({
                     name="charges"
                     className="max-w-[230px]"
                   >
-                    <Input defaultValue={totalAmount} placeholder="Total amount" className="w-full" />
+                    <Input
+                      defaultValue={totalAmount}
+                      placeholder="Total amount"
+                      className="w-full"
+                    />
                   </Form.Item>
                   {/* <Form.Item name="appointmentType">
                     <Select
@@ -364,24 +372,33 @@ function AdminAppointmentInfo({
         )}
 
         {/* DELETE THIS APPOINTMENT */}
-        {/* <Button
-          type="link"
-          className="ml-auto mt-10"
-          danger
-          loading={deleteFetching}
-          disabled={deleteFetching}
-          icon={<CloseOutlined />}
-          onClick={deleteModalHandler}
-        >
-          Delete appointment
-        </Button> */}
-        <ConfirmationModal
-          message="Are you sure You want to delete this appointment?"
-          onCancel={deleteModalHandler}
-          confirmLoading={deleteFetching}
-          onOk={deleteAppointmentHandler}
-          visible={open}
-        />
+        {paymentStatus === "unpaid" && (
+          <>
+            {" "}
+            <Button
+              type="link"
+              className="ml-auto mt-10"
+              danger
+              loading={deleteFetching}
+              disabled={deleteFetching}
+              icon={
+                <span className="mr-1 -mt-2.5">
+                  <DeleteOutlined />
+                </span>
+              }
+              onClick={deleteModalHandler}
+            >
+              Delete appointment
+            </Button>
+            <ConfirmationModal
+              message="Are you sure You want to delete this appointment?"
+              onCancel={deleteModalHandler}
+              confirmLoading={deleteFetching}
+              onOk={deleteAppointmentHandler}
+              visible={open}
+            />
+          </>
+        )}
       </div>
     </>
   );

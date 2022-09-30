@@ -42,8 +42,8 @@ function AdminAppointmentsCalendar() {
       serviceType: data?.extendedProps?.serviceType,
       dateValue: data?.createdAt,
       className: data?.extendedProps?.extraData?.class_name,
-      startDate: data?.extendedProps?.appointmentTimeSlots?.startTime,
-      endDate: data?.extendedProps?.appointmentTimeSlots?.endTime,
+      startDate: data?.extendedProps?.appointmentDateTime?.startTime,
+      endDate: data?.extendedProps?.appointmentDateTime?.endTime,
       status: data?.status,
       charges: data?.extendedProps?.total || data?.extendedProps?.charges,
       type: "Assignment",
@@ -85,6 +85,7 @@ function AdminAppointmentsCalendar() {
             total: charges,
             status: status,
             doctor: doctor,
+            appointmentDateTime:appointmentDateTime
           };
         }
       ),

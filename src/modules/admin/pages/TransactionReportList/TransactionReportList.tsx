@@ -287,7 +287,7 @@ function TransactionReportList() {
       value: numberFormatter(Number(total_number_of_users)),
     },
     {
-      key: "Net Physician Fee ($)",
+      key: "Net physician fee",
       value: currencyFormatter(Number(net_physician_fee)),
     },
     {
@@ -303,7 +303,7 @@ function TransactionReportList() {
       value: numberFormatter(Number(total_number_of_second_opinions)),
     },
     {
-      key: "Net Gross sales ($)",
+      key: "Net gross sales",
       value: currencyFormatter(Number(net_gross_sale)),
     },
   ];
