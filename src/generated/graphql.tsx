@@ -27,19 +27,6 @@ export type AccountCreationDate = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type AdminDashboardResponse = {
-  __typename?: 'AdminDashboardResponse';
-  gross_sale?: Maybe<Scalars['Float']>;
-  net_gross_sale?: Maybe<Scalars['Float']>;
-  net_physician_fee?: Maybe<Scalars['Float']>;
-  total_medicus_revenue?: Maybe<Scalars['Float']>;
-  total_number_of_appointments?: Maybe<Scalars['Float']>;
-  total_number_of_consultation?: Maybe<Scalars['Float']>;
-  total_number_of_physicians?: Maybe<Scalars['Float']>;
-  total_number_of_second_opinions?: Maybe<Scalars['Float']>;
-  total_number_of_users?: Maybe<Scalars['Float']>;
-};
-
 export type AdminProfilePicture = {
   __typename?: 'AdminProfilePicture';
   id: Scalars['Int'];
@@ -1179,7 +1166,7 @@ export type ProposedTimeSlots = {
 
 export type Query = {
   __typename?: 'Query';
-  adminDashboard: AdminDashboardResponse;
+  adminDashboard: AdminTransactionReportResponse;
   adminSettings: AdminSettingResponse;
   adminUser: User;
   adminUsers: UserPaginatedFilterResponse;
@@ -1643,6 +1630,7 @@ export type UpdateAppointmentInput = {
   charges: Scalars['Int'];
   doctorId: Scalars['Int'];
   id?: InputMaybe<Scalars['Int']>;
+  patientId: Scalars['Int'];
   serviceId: Scalars['Int'];
 };
 
@@ -2156,7 +2144,7 @@ export type AdminDashboardQueryVariables = Exact<{
 }>;
 
 
-export type AdminDashboardQuery = { __typename?: 'Query', adminDashboard: { __typename?: 'AdminDashboardResponse', total_number_of_users?: number | null, total_number_of_physicians?: number | null, total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null, net_gross_sale?: number | null, net_physician_fee?: number | null, total_medicus_revenue?: number | null, total_number_of_appointments?: number | null, gross_sale?: number | null } };
+export type AdminDashboardQuery = { __typename?: 'Query', adminDashboard: { __typename?: 'AdminTransactionReportResponse', total_number_of_users?: number | null, total_number_of_physicians?: number | null, total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null, net_gross_sale?: number | null, net_physician_fee?: number | null, total_medicus_revenue?: number | null, total_number_of_appointments?: number | null } };
 
 export type AdminPhysicianAppointmentQueryVariables = Exact<{
   filter: GetAppointmentInput;
@@ -3432,7 +3420,6 @@ export const AdminDashboardDocument = gql`
     total_medicus_revenue
     total_number_of_appointments
     total_number_of_physicians
-    gross_sale
   }
 }
     `;
@@ -5546,85 +5533,6 @@ export default {
     },
     "subscriptionType": null,
     "types": [
-      {
-        "kind": "OBJECT",
-        "name": "AdminDashboardResponse",
-        "fields": [
-          {
-            "name": "gross_sale",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "net_gross_sale",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "net_physician_fee",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "total_medicus_revenue",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "total_number_of_appointments",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "total_number_of_consultation",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "total_number_of_physicians",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "total_number_of_second_opinions",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "total_number_of_users",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          }
-        ],
-        "interfaces": []
-      },
       {
         "kind": "OBJECT",
         "name": "AdminProfilePicture",
@@ -9479,7 +9387,7 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "AdminDashboardResponse",
+                "name": "AdminTransactionReportResponse",
                 "ofType": null
               }
             },

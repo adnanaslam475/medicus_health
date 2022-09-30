@@ -54,15 +54,18 @@ function AdminAppointmentHistoryDetail() {
     if (isEdit) {
       const formRefference: any = formRef.current;
       const changedValues = formRefference?.getFieldsValue();
-      console.log("updated values are", changedValues);
-
       try {
         const response = await executeUseUpdateAppointmentMutation({
           updateAppointmentInput: {
             serviceId:
-              Number(changedValues?.appointmentType) || Number(appointment?.serviceType?.id),
-            charges: Number(changedValues?.charges) || Number(appointment?.charges),
-            doctorId: Number(changedValues?.physician) || Number(appointment?.doctorId),
+              Number(changedValues?.appointmentType) ||
+              Number(appointment?.serviceType?.id),
+            charges:
+              Number(changedValues?.charges) || Number(appointment?.charges),
+            doctorId:
+              Number(changedValues?.physician) || Number(appointment?.doctorId),
+            patientId:
+              Number(changedValues?.patient) || Number(appointment?.patientId),
             id: appointment?.id,
           },
         });
@@ -94,9 +97,10 @@ function AdminAppointmentHistoryDetail() {
     setIsEdit((prev) => !prev);
   };
   let isEditable =
-    window.location.search &&
-    window.location.search === "?activeTab=1" &&
-    appointment?.status === "Requested" ;
+    (window.location.search &&
+      window.location.search === "?activeTab=1" &&
+      appointment?.status === "Requested") ||
+    appointment?.status === "Proposed";
 
   return (
     <AppLayout>

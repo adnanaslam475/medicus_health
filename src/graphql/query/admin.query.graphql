@@ -32,7 +32,7 @@ query adminDashboard($filter: GetTransectionInput!) {
     total_medicus_revenue
     total_number_of_appointments
     total_number_of_physicians
-    gross_sale
+    # gross_sale
   }
 }
 

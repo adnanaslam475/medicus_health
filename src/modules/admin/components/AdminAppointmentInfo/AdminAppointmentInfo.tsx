@@ -173,13 +173,14 @@ function AdminAppointmentInfo({
         <Form form={formInstance}>
           <LabelWithText label="ID#" text={id} />
           <>
-            {/* {isEdit ? (
+            {isEdit ? (
               <li className="flex border-b border-gray-5 py-3">
                 <div className="w-full text-gray-1 max-w-[300px]">Patient</div>
                 <div className="w-full table-action-icon">
                   <div className="text-primary">
                     <Form.Item name="patient">
                       <Select
+                        defaultValue={patient}
                         className="max-w-[230px]"
                         showSearch
                         placeholder="Patient"
@@ -191,10 +192,7 @@ function AdminAppointmentInfo({
                         }
                       >
                         {getPatients?.items?.map((item, index) => (
-                          <Option
-                            key={index}
-                            value={`${item?.first_name} ${item?.last_name}`}
-                          >
+                          <Option key={index} value={item?.id}>
                             {`${item?.first_name} ${item?.last_name}`}
                           </Option>
                         ))}
@@ -205,8 +203,8 @@ function AdminAppointmentInfo({
               </li>
             ) : (
               <LabelWithText label="Patient" text={patient} />
-            )} */}
-            <LabelWithText label="Patient" text={patient} />
+            )}
+            {/* <LabelWithText label="Patient" text={patient} /> */}
 
             {isEdit ? (
               <li className="flex border-b border-gray-5 py-3">

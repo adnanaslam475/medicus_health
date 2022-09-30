@@ -33,6 +33,7 @@ export function SelectStatusTypeFilter({
       <Select.Option value="Canceled">Canceled</Select.Option>
       <Select.Option value="Confirmed">Upcoming</Select.Option>
       <Select.Option value="Completed">Completed</Select.Option>
+      <Select.Option value="Rescheduled">Rescheduled</Select.Option>
     </Select>
   );
 }
