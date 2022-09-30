@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
-import { EditOutlined } from "@ant-design/icons";
+import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import { Avatar, Form, Button, Skeleton } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
@@ -19,6 +19,7 @@ import { getRole } from "common/utils/userData";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 import user from "../../../../pages/admin/users";
 import { timezoneLabel } from "utils/helper";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 
 type props = {
   doctorId?: string;
@@ -39,6 +40,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 }: props) {
   const [formInstance] = Form.useForm();
   const { contact_number, status, language, password } = doctorData?.user || {};
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: Number(doctorId) },
@@ -155,6 +157,23 @@ export const ViewProfile = React.forwardRef(function Profile({
                   Edit info
                 </Button>
               </div>
+
+              <div className="flex justify-end mb-8 absolute top-0 left-0 md:right-0 w-full">
+                <Button
+                  type="link"
+                  danger
+                  onClick={() => setOpen(true)}
+                  // disabled={deleting}
+                  // loading={deleting || disableLoading}
+                  icon={
+                    <span className="mr-0.5">
+                      <CloseOutlined className="mb-2.5" />
+                    </span>
+                  }
+                >
+                  Delete profile
+                </Button>
+              </div>
             </div>
           </div>
           <ProfileForm
@@ -167,6 +186,13 @@ export const ViewProfile = React.forwardRef(function Profile({
             educationalBackground={educationalBackground}
             certificationBackground={certificationBackground}
             honorsBackground={honorsBackground}
+          />
+          <ConfirmationModal
+            visible={open}
+            // confirmLoading={RemoveFetching}
+            onCancel={() => setOpen(false)}
+            // onOk={deleteAdminUser}
+            message="Are you sure you want to delete this physician?"
           />
         </div>
       </div>
