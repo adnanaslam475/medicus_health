@@ -223,10 +223,10 @@ query getAdminTransactionReportListing(
       status
       appointment {
         createdAt
-        appointmentTypeProposed{
+        appointmentTypeProposed {
           type
         }
-        appointmentDateTime{
+        appointmentDateTime {
           startTime
         }
         transaction {
@@ -278,5 +278,48 @@ query getAdminTransactionReport($filter: GetTransectionInput!) {
     net_physician_fee
     total_number_of_consultation
     total_number_of_second_opinions
+  }
+}
+
+query doctorPayoutsByAdmin {
+  doctorPayoutsByAdmin {
+    appointmentMonths
+    doctorEarnings
+    monthAppointments {
+      id
+      status
+      doctorId
+      serviceType{
+        name
+      }
+      appointmentTypeProposed {
+        type
+      }
+      appointmentDateTime {
+        startTime
+      }
+      appointmentCharges {
+        appointmentPrice
+        tax
+        systemFee
+        total
+      }
+      patient {
+        first_name
+        last_name
+      }
+      transaction {
+        createdAt
+        transactionId
+        tax
+        doctor_percentage
+        medicus_percentage
+        stripeFee
+        amountReceived
+        status
+        payment_status
+        appointmentCharges
+      }
+    }
   }
 }
