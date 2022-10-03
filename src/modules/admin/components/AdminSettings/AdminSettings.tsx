@@ -201,6 +201,7 @@ function AdminSettings() {
               >
                 {/* {Input type number is removed for formating with ,} */}
                 <InputNumber
+                  maxLength={15}
                   addonBefore="$"
                   // type="number"
                   formatter={(value) =>
@@ -278,6 +279,7 @@ function AdminSettings() {
                   className="font-bold text-secondary"
                 >
                   <InputNumber
+                    maxLength={15}
                     addonBefore="$"
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
