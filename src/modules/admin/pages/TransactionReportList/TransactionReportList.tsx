@@ -190,22 +190,6 @@ const columns = [
     },
     sorter: true,
   },
-
-  {
-    title: "",
-    dataIndex: "id",
-    key: "view",
-    className: "table-action-icon",
-    render: (value: any) => (
-      <div className="text-primary">
-        <EyeFilled
-          onClick={() => {
-            return Router.push(`/admin/physicians/${value}`);
-          }}
-        />
-      </div>
-    ),
-  },
 ];
 function TransactionReportList() {
   const [filterValues, setFilterValues] = useState({});

@@ -81,7 +81,6 @@ function AdminAppointmentInfo({
     paymentStatus = "unpaid",
     status,
   } = data || {};
-
   const [, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
 
@@ -273,12 +272,17 @@ function AdminAppointmentInfo({
               <LabelWithText label="Appointment type" text={service} />
             )}
           </>
-          <LabelWithText label="Appointment date" text={dueDate} />
+          <LabelWithText
+            label={
+              appointmentStatus == "Requested" ? "Requested date" : "Appointment date"
+            }
+            text={dueDate}
+          />
           <LabelWithText label="Time" text={time} />
           {isEdit ? (
             <li className="flex border-b border-gray-5 py-3">
               <div className="w-full text-gray-1 max-w-[300px]">
-                Appointment type
+                Total amount
               </div>
               <div className="w-full table-action-icon">
                 <div className="text-primary">
