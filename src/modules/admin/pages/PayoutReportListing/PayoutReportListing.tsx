@@ -23,7 +23,9 @@ function PayoutReportListing() {
       dataIndex: "transaction",
       key: "transactionId",
       render: (transaction: Transaction) => {
-        return <div>{transaction?.transactionId}</div>;
+        return (
+          <div className="break-all w-50">{transaction?.transactionId}</div>
+        );
       },
       sorter: true,
     },
@@ -200,7 +202,7 @@ function PayoutReportListing() {
                         doctorNameWithTotalEarningIndex
                       ) => {
                         return (
-                          <Collapse key={appointmentIndex+1}>
+                          <Collapse key={appointmentIndex + 1}>
                             <Panel
                               header={doctorNameWithTotalEarning}
                               key={appointmentIndex}
