@@ -15,6 +15,7 @@ import LanguageList from "../Languages/LanguageList";
 import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
 
 import _classes from "./PhysicianProfile.module.scss";
+import TextArea from "antd/lib/input/TextArea";
 interface Props {
   doctorId?: string;
   doctorData: any;
@@ -154,10 +155,17 @@ function ProfileForm({
             return (
               <div className=" my-3 py-3" key={index}>
                 <Form.Item className="flex-1">
-                  <Input
+                  {/* <Input
                     name={`certification_and_licensure`}
                     value={certificate?.certification_and_licensure}
                     disabled
+                  /> */}
+                  <TextArea
+                    name={`certification_and_licensure`}
+                    value={certificate?.certification_and_licensure}
+                    disabled
+                    rows={3}
+                    // placeholder="certificates and licensure details"
                   />
                 </Form.Item>
               </div>
