@@ -573,7 +573,8 @@ function EditProfile({
   };
 
   const handleCertificationChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    // e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLTextAreaElement>,
     index: number
   ) => {
     const { name, value } = e.target;
@@ -1103,6 +1104,7 @@ function EditProfile({
                     >
                       <Form.Item
                         // label="Certificates"
+                        // name={`certification_and_licensure`}
                         rules={[
                           {
                             required: false,
@@ -1111,11 +1113,19 @@ function EditProfile({
                         ]}
                         className="flex-1"
                       >
-                        <Input
+                        {/* <Input
                           name={`certification_and_licensure`}
                           value={certificate?.certification_and_licensure}
                           onChange={(e) => handleCertificationChange(e, index)}
                           onPressEnter={(e) => e.preventDefault()}
+                        /> */}
+                        <TextArea
+                          name={`certification_and_licensure`}
+                          value={certificate?.certification_and_licensure}
+                          onChange={(e) => handleCertificationChange(e, index)}
+                          onPressEnter={(e) => e.preventDefault()}
+                          rows={3}
+                          placeholder="Enter certificates and licensure details"
                         />
                       </Form.Item>
                       {certificationList?.length - 1 === index && (
