@@ -27,6 +27,13 @@ export type AccountCreationDate = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type AdminPayoutResponse = {
+  __typename?: 'AdminPayoutResponse';
+  appointmentMonths: Array<Scalars['String']>;
+  doctorEarnings: Array<Array<Scalars['String']>>;
+  monthAppointments: Array<Array<Array<Appointment>>>;
+};
+
 export type AdminProfilePicture = {
   __typename?: 'AdminProfilePicture';
   id: Scalars['Int'];
@@ -1189,6 +1196,7 @@ export type Query = {
   doctorBillingMethod: DoctorBillingMethod;
   doctorBillingMethods: Array<DoctorBillingMethod>;
   doctorPayouts?: Maybe<DoctorPayoutResponse>;
+  doctorPayoutsByAdmin?: Maybe<AdminPayoutResponse>;
   doctorProfile: DoctorProfile;
   doctorProfiles: Array<DoctorProfile>;
   doctorQuestionnaire: DoctorQuestionnaire;
@@ -2212,6 +2220,11 @@ export type GetAdminTransactionReportQueryVariables = Exact<{
 
 
 export type GetAdminTransactionReportQuery = { __typename?: 'Query', getAdminTransactionReport: { __typename?: 'AdminTransactionReportResponse', total_number_of_users?: number | null, total_medicus_revenue?: number | null, total_sale?: number | null, net_gross_sale?: number | null, net_physician_fee?: number | null, total_number_of_consultation?: number | null, total_number_of_second_opinions?: number | null } };
+
+export type DoctorPayoutsByAdminQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DoctorPayoutsByAdminQuery = { __typename?: 'Query', doctorPayoutsByAdmin?: { __typename?: 'AdminPayoutResponse', appointmentMonths: Array<string>, doctorEarnings: Array<Array<string>>, monthAppointments: Array<Array<Array<{ __typename?: 'Appointment', id?: number | null, status?: string | null, doctorId?: number | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, transaction?: { __typename?: 'Transaction', createdAt: any, transactionId: string, tax: number, doctor_percentage: string, medicus_percentage: string, stripeFee: number, amountReceived: number, status: string, payment_status?: string | null, appointmentCharges: number } | null }>>> } | null };
 
 export type GetAllChatChannelsQueryVariables = Exact<{
   filter: GetAllChannelFilterInput;
@@ -3681,6 +3694,54 @@ export const GetAdminTransactionReportDocument = gql`
 
 export function useGetAdminTransactionReportQuery(options: Omit<Urql.UseQueryArgs<GetAdminTransactionReportQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAdminTransactionReportQuery, GetAdminTransactionReportQueryVariables>({ query: GetAdminTransactionReportDocument, ...options });
+};
+export const DoctorPayoutsByAdminDocument = gql`
+    query doctorPayoutsByAdmin {
+  doctorPayoutsByAdmin {
+    appointmentMonths
+    doctorEarnings
+    monthAppointments {
+      id
+      status
+      doctorId
+      serviceType {
+        name
+      }
+      appointmentTypeProposed {
+        type
+      }
+      appointmentDateTime {
+        startTime
+      }
+      appointmentCharges {
+        appointmentPrice
+        tax
+        systemFee
+        total
+      }
+      patient {
+        first_name
+        last_name
+      }
+      transaction {
+        createdAt
+        transactionId
+        tax
+        doctor_percentage
+        medicus_percentage
+        stripeFee
+        amountReceived
+        status
+        payment_status
+        appointmentCharges
+      }
+    }
+  }
+}
+    `;
+
+export function useDoctorPayoutsByAdminQuery(options?: Omit<Urql.UseQueryArgs<DoctorPayoutsByAdminQueryVariables>, 'query'>) {
+  return Urql.useQuery<DoctorPayoutsByAdminQuery, DoctorPayoutsByAdminQueryVariables>({ query: DoctorPayoutsByAdminDocument, ...options });
 };
 export const GetAllChatChannelsDocument = gql`
     query getAllChatChannels($filter: GetAllChannelFilterInput!) {
@@ -5533,6 +5594,82 @@ export default {
     },
     "subscriptionType": null,
     "types": [
+      {
+        "kind": "OBJECT",
+        "name": "AdminPayoutResponse",
+        "fields": [
+          {
+            "name": "appointmentMonths",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "doctorEarnings",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "Any"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "monthAppointments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "LIST",
+                        "ofType": {
+                          "kind": "NON_NULL",
+                          "ofType": {
+                            "kind": "OBJECT",
+                            "name": "Appointment"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
       {
         "kind": "OBJECT",
         "name": "AdminProfilePicture",
@@ -9907,6 +10044,15 @@ export default {
                 }
               }
             ]
+          },
+          {
+            "name": "doctorPayoutsByAdmin",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AdminPayoutResponse",
+              "ofType": null
+            },
+            "args": []
           },
           {
             "name": "doctorProfile",

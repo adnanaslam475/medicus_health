@@ -1,200 +1,233 @@
 import React from "react";
-import { Collapse, Table } from "antd";
+import { Collapse, Empty, Space, Spin, Table } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import _classes from "./PayoutReportListing.module.scss";
+import {
+  Appointment,
+  AppointmentServiceType,
+  Transaction,
+  useDoctorPayoutsByAdminQuery,
+  User,
+} from "generated/graphql";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
+import { date } from "common/utils";
 
 function PayoutReportListing() {
   const { Panel } = Collapse;
   const onChange = (key: string | string[]) => {};
 
   const columns = [
-    { title: "ID#", dataIndex: "id", key: "id" },
+    {
+      title: "ID#",
+      dataIndex: "transaction",
+      key: "transactionId",
+      render: (transaction: Transaction) => {
+        return <div>{transaction?.transactionId}</div>;
+      },
+      sorter: true,
+    },
     {
       title: "Appointment ID#",
-      dataIndex: "appointment_id",
-      key: "appointment_id",
-    },
-    { title: "Patient name", dataIndex: "patient_name", key: "patient_name" },
-    { title: "Appointment type", dataIndex: "service", key: "service" },
-    {
-      title: "Booking date",
-      dataIndex: "booking_date",
-      key: "booking_date",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: "Scheduled date",
-      dataIndex: "scheduled_date",
-      key: "scheduled_date",
+      title: "Patient name",
+      key: "patient",
+      dataIndex: "patient",
+      render: (patient: User) => {
+        const patientName = `${patient?.first_name || "-"} ${
+          patient?.last_name || ""
+        }`;
+        return <div>{patientName}</div>;
+      },
     },
-
+    {
+      title: "Appointment type",
+      // dataIndex: "appointment",
+      // key: "appointment",
+      render: (appointment: any) => {
+        const serviceName =
+          appointment?.appointmentTypeProposed?.name ||
+          appointment?.serviceType?.name ||
+          "-";
+        return <div>{serviceName}</div>;
+      },
+    },
+    {
+      title: "Schedule date",
+      dataIndex: "appointmentDateTime",
+      key: "appointmentDateTime",
+      render: (appointmentDateTime: any) => {
+        const scheduleDate = appointmentDateTime?.startTime || "";
+        return <div>{date.formatDAYMMDD(scheduleDate)}</div>;
+      },
+      sorter: true,
+    },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      render: (status: string) => {
+        return (
+          <div className="w-full text-primary">
+            <StatusChip type={status?.toUpperCase() as StatusName} />
+          </div>
+        );
+      },
+      sorter: true,
     },
     {
       title: "Payment status",
-      dataIndex: "payment_status",
-      key: "payment_status",
+      dataIndex: "status",
+      key: "status",
+      render: (status: string) => {
+        let _status = null;
+        if (status === "succeeded") {
+          _status = "paid";
+        } else if (status === "Refunded") {
+          _status = status;
+        } else {
+          _status = "Unpaid";
+        }
+        return (
+          <div className="text-primary">
+            <StatusChip type={_status.toUpperCase() as StatusName} />
+          </div>
+        );
+      },
+      sorter: true,
     },
     {
-      title: "Patient payment",
-      dataIndex: "patient_payment",
-      key: "patient_payment",
-    },
-
-    { title: "Gross sales ($)", dataIndex: "sales", key: "sales" },
-    { title: "Refunds ($)", dataIndex: "refund", key: "refund" },
-
-    { title: "Taxes ($)", dataIndex: "taxes", key: "taxes" },
-    { title: "Total sales ($)", dataIndex: "total_sales", key: "total_sales" },
-    {
-      title: "Physician fee ($)",
-      dataIndex: "physician_fee",
-      key: "physician_fee",
+      title: "Gross sales ($)",
+      // dataIndex: "status",
+      // key: "appointment",
+      render: (appointment: Appointment) => {
+        const refund =
+          appointment?.transaction?.status === "Refunded"
+            ? 0
+            : `${appointment?.transaction?.appointmentCharges}`;
+        return <div>{refund}</div>;
+      },
+      sorter: true,
     },
     {
-      title: "Net Physician Fee ($)",
-      dataIndex: "net_physician_fee",
-      key: "net_physician_fee",
+      title: "Refunds ($)",
+      // dataIndex: "appointment",
+      // key: "appointment",
+      render: (transaction: Transaction) => {
+        const refund =
+          transaction?.status === "Refunded"
+            ? `-${transaction?.appointmentCharges}`
+            : 0;
+        return <div>{refund}</div>;
+      },
+      sorter: true,
     },
     {
-      title: "Medicus Revenue ($)",
-      dataIndex: "medicus_fee",
-      key: "medicus_fee",
-    },
-
-    {
-      title: "Medicus Revenue + Taxes ($)",
-      dataIndex: "medicus_revenue_with_taxes",
-      key: "medicus_revenue_with_taxes",
-    },
-    // {
-    //   title: "Return processing fee ($)",
-    //   dataIndex: "return_fee",
-    //   key: "return_fee",
-    // },
-    // {
-    //   title: "Stripe processing fee ($)",
-    //   dataIndex: "stripe_fee",
-    //   key: "stripe_fee",
-    // },
-  ];
-  const Ddata = [
-    {
-      id: "1",
-      // name: "John Brown",
-      appointment_id: "MD-2312",
-      booking_date: "05-06-2023",
-      scheduled_date: "09:00 AM - 09:30 AM",
-      status: "Requested",
-      payment_status: "Unpaid",
-      patient_payment: "$309.25",
-      patient_name: "Dr. Paul Wallner",
-      service: "First Consultation",
-      sales: "$40.00",
-      refund: "$40.00",
-      taxes: "$40.00",
-      total_sales: "$40.00",
-      physician_fee: "$40.00",
-      net_physician_fee: "$40.00",
-      medicus_fee: "$40.00",
-      medicus_revenue_with_taxes: "$863",
-      // stripe_fee: "$40.00",
+      title: "Taxes ($)",
+      dataIndex: "appointment",
+      key: "tax",
+      render: (transaction: Transaction) => {
+        const tax = transaction?.tax || 0;
+        return <div>{tax}</div>;
+      },
+      sorter: true,
     },
     {
-      id: "2",
-      appointment_id: "MD-2312",
-      booking_date: "05-06-2023",
-      scheduled_date: "09:00 AM - 09:30 AM",
-      status: "Completed",
-      payment_status: "Paid",
-      patient_payment: "$209.25",
-      patient_name: "Dr. Paul Wallner",
-      service: "First Consultation",
-      sales: "$40.0",
-      refund: "$40.00",
-      physician_fee: "$40.00",
-      net_physician_fee: "$40.00",
-      taxes: "$40.00",
-      total_sales: "$40.00",
-      medicus_fee: "$40.00",
-      medicus_revenue_with_taxes: "$863",
-      // stripe_fee: "$40.00",
+      title: "Total sales ($)",
+      dataIndex: "transaction",
+      key: "amountReceived",
+      render: (transaction: Transaction) => {
+        return <div>{transaction.amountReceived || "0"}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "Net physician fee ($)",
+      dataIndex: "transaction",
+      key: "doctor_percentage",
+      render: (transaction: Transaction) => {
+        return <div>{transaction?.doctor_percentage || "0"}</div>;
+      },
+      sorter: true,
+    },
+    {
+      title: "Net medicus fee($)",
+      dataIndex: "transaction",
+      key: "medicus_percentage",
+      render: (transaction: Transaction) => {
+        return <div>{transaction?.medicus_percentage || "0"}</div>;
+      },
+      sorter: true,
     },
   ];
 
-  const monthName_for_admin = "june";
-  const net_month_payout_for_admin = "$448";
+  const [{ data, fetching }] = useDoctorPayoutsByAdminQuery();
+
+  const { doctorPayoutsByAdmin } = data || {};
+
+  const { appointmentMonths, doctorEarnings, monthAppointments } =
+    doctorPayoutsByAdmin || {};
+
   return (
     <AppLayout>
-      <h2 className="text-2xl">Payout</h2>
-      <Collapse onChange={onChange} className={`${_classes["payout_report"]}`}>
-        <Panel
-          // header="june $448"
-          header={
-            <div className=" justify-start flex flex-col sm:flex-row flex-1">
-              <div className="">{` ${monthName_for_admin} `}</div>
-              <div className="mx-3">{` ${net_month_payout_for_admin}`}</div>
-            </div>
-          }
-          key="1"
-        >
-          <Collapse defaultActiveKey="1">
-            <Panel
-              // header="james clark"
-              header={
-                <div className=" justify-start flex flex-col sm:flex-row flex-1">
-                  <div className="">James Clark</div>
-                  <div className="mx-3">$291</div>
-                </div>
-              }
-              key="1"
+      <>
+        <h2 className="text-2xl">Payout</h2>
+        {fetching ? (
+          <div className="w-full bg-gray-4 rounded-md border-primary my-2 h-20 flex flex-col justify-center items-center">
+            <Space size="middle">
+              <Spin size="small" />
+            </Space>
+          </div>
+        ) : !appointmentMonths?.length ? (
+          <div className="flex items-center justify-center w-full">
+            <Empty />
+          </div>
+        ) : (
+          <>
+            <Collapse
+              onChange={onChange}
+              className={`${_classes["payout_report"]}`}
             >
-              <Table
-                columns={columns}
-                dataSource={Ddata}
-                scroll={{ x: true }}
-                pagination={false}
-              />
-            </Panel>
-            <Panel
-              // header="james chadwick"
-              header={
-                <div className=" justify-start flex flex-col sm:flex-row flex-1">
-                  <div className="">james chadwick</div>
-                  <div className="mx-3">$291</div>
-                </div>
-              }
-              key="2"
-            >
-              <Table
-                columns={columns}
-                dataSource={Ddata}
-                scroll={{ x: true }}
-                pagination={false}
-              />
-            </Panel>
-          </Collapse>
-        </Panel>
-        <Panel header="May $231" key="3">
-          <Table
-            columns={columns}
-            dataSource={Ddata}
-            scroll={{ x: true }}
-            pagination={false}
-          />
-        </Panel>
-        <Panel header="April $324" key="4">
-          <Table
-            columns={columns}
-            dataSource={Ddata}
-            loading={false}
-            scroll={{ x: true }}
-            pagination={false}
-          />
-        </Panel>
-      </Collapse>
+              {appointmentMonths?.map((appointmentMonth, appointmentIndex) => {
+                return (
+                  <Panel header={`${appointmentMonth}`} key={appointmentIndex}>
+                    {doctorEarnings?.[appointmentIndex].map(
+                      (
+                        doctorNameWithTotalEarning,
+                        doctorNameWithTotalEarningIndex
+                      ) => {
+                        return (
+                          <Collapse key={appointmentIndex+1}>
+                            <Panel
+                              header={doctorNameWithTotalEarning}
+                              key={appointmentIndex}
+                            >
+                              <Table
+                                columns={columns}
+                                dataSource={
+                                  monthAppointments?.[appointmentIndex]?.[
+                                    doctorNameWithTotalEarningIndex
+                                  ]
+                                }
+                                loading={false}
+                                // scroll={{ x: true }}
+                                pagination={false}
+                              />
+                            </Panel>
+                          </Collapse>
+                        );
+                      }
+                    )}
+                  </Panel>
+                );
+              })}
+            </Collapse>
+          </>
+        )}
+      </>
     </AppLayout>
   );
 }
