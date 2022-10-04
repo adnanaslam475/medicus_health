@@ -169,7 +169,7 @@ function AdminUserSearchFilters(props: Props) {
                         alt=""
                       />
                     </span>
-                    <div>Account creation date</div>
+                    <div className="font-rubik">Account creation date</div>
                     <div>
                       <CaretDownOutlined />
                     </div>

@@ -85,7 +85,7 @@ function AdminPatientAdd() {
     <AppLayout>
       <div className="w-full">
         <div className="flex justify-between">
-          <h2 className="mb-4">Add a Patient</h2>
+          <h2 className="mb-4">Add a patient</h2>
         </div>
         <div className="w-full">
           <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
