@@ -75,15 +75,17 @@ const InfoMessageBannerReminder = () => {
 
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
-      <Image
-        priority={true}
-        unoptimized
-        alt=""
-        className="warning-small mx-3 shadow-none border-0"
-        height={34}
-        width={34}
-        src="/assets/icon/warning-small.svg"
-      />
+      <span className="w-[30px] h-[28px]">
+        <Image
+          priority={true}
+          unoptimized
+          alt=""
+          className="warning-small mx-3 shadow-none border-0"
+          height={34}
+          width={34}
+          src="/assets/icon/warning-small.svg"
+        />
+      </span>
       <div className="flex items-start gap-1 flex-wrap text-xs">
         <span className="ml-0 min-h-max md:block md:whitespace-nowrap text-xs">
           {/* You have an  */}
