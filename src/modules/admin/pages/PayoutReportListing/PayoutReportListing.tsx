@@ -24,7 +24,9 @@ function PayoutReportListing() {
       key: "transactionId",
       render: (transaction: Transaction) => {
         return (
-          <div className="break-all w-50">{transaction?.transactionId}</div>
+          <div className="break-all w-[100px]">
+            {transaction?.transactionId}
+          </div>
         );
       },
       sorter: true,
@@ -215,7 +217,7 @@ function PayoutReportListing() {
                                   ]
                                 }
                                 loading={false}
-                                // scroll={{ x: true }}
+                                scroll={{ x: true }}
                                 pagination={false}
                               />
                             </Panel>

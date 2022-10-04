@@ -1,14 +1,24 @@
 .payout_report {
-	:global .ant-collapse-header {
-		font-weight: 600 !important;
-	}
-  :global .ant-collapse-item-active{
+  :global .ant-collapse-header {
+    font-weight: 600 !important;
+  }
+  :global .ant-collapse-item-active {
     font-weight: 300 !important;
   }
- :global .ant-collapse > .ant-collapse-item > .ant-collapse-header{
+  :global .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     font-weight: 500 !important;
-    color: #272B4C !important;
-    background-color:  white !important;
-
+    color: #272b4c !important;
+    background-color: white !important;
+    border-radius: 0.4rem;
+  }
+  :global .ant-collapse-item.ant-collapse-item-active {
+    border-radius: 0.4rem;
+    :global .ant-collapse-content {
+      :global .ant-collapse-content-box {
+        :global .ant-collapse {
+          margin-bottom: 10px;
+        }
+      }
+    }
   }
 }
