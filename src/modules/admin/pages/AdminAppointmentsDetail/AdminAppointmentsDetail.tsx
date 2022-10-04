@@ -146,6 +146,7 @@ function AdminAppointmentHistoryDetail() {
               <AdminHealthQuestionnaireFormTab
                 appointment={appointment as Appointment}
                 loading={fetching}
+                disabled
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician questionnaire" key="4">
