@@ -2224,7 +2224,7 @@ export type GetAdminTransactionReportQuery = { __typename?: 'Query', getAdminTra
 export type DoctorPayoutsByAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DoctorPayoutsByAdminQuery = { __typename?: 'Query', doctorPayoutsByAdmin?: { __typename?: 'AdminPayoutResponse', appointmentMonths: Array<string>, doctorEarnings: Array<Array<string>>, monthAppointments: Array<Array<Array<{ __typename?: 'Appointment', id?: number | null, status?: string | null, doctorId?: number | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, transaction?: { __typename?: 'Transaction', createdAt: any, transactionId: string, tax: number, doctor_percentage: string, medicus_percentage: string, stripeFee: number, amountReceived: number, status: string, payment_status?: string | null, appointmentCharges: number } | null }>>> } | null };
+export type DoctorPayoutsByAdminQuery = { __typename?: 'Query', doctorPayoutsByAdmin?: { __typename?: 'AdminPayoutResponse', appointmentMonths: Array<string>, doctorEarnings: Array<Array<string>>, monthAppointments: Array<Array<Array<{ __typename?: 'Appointment', id?: number | null, status?: string | null, doctorId?: number | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, transaction?: { __typename?: 'Transaction', id: number, createdAt: any, transactionId: string, tax: number, doctor_percentage: string, medicus_percentage: string, stripeFee: number, amountReceived: number, status: string, payment_status?: string | null, appointmentCharges: number } | null }>>> } | null };
 
 export type GetAllChatChannelsQueryVariables = Exact<{
   filter: GetAllChannelFilterInput;
@@ -3724,6 +3724,7 @@ export const DoctorPayoutsByAdminDocument = gql`
         last_name
       }
       transaction {
+        id
         createdAt
         transactionId
         tax
