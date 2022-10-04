@@ -167,7 +167,7 @@ function PayoutReportListing() {
   return (
     <AppLayout>
       <>
-        <h2 className="text-2xl">Payout</h2>
+        <h2 className="text-2xl">Payouts</h2>
         {fetching ? (
           <div className="w-full bg-gray-4 rounded-md border-primary my-2 h-20 flex flex-col justify-center items-center">
             <Space size="middle">

@@ -151,7 +151,7 @@ const columns = [
   },
 
   {
-    title: "Stripe processing fee ($)",
+    title: "System processing fee ($)",
     // dataIndex: "transaction",
     // key: "transaction",
     render: (transaction: Transaction) => {
@@ -166,27 +166,39 @@ const columns = [
     dataIndex: "appointment",
     key: "appointment",
     render: (appointment: any) => {
-      return <div>{appointment?.transaction.amountReceived || "0"}</div>;
+      const totalSales =
+        appointment?.transaction?.status === "Refunded"
+          ? `-${appointment?.transaction.amountReceived}`
+          : appointment?.transaction.amountReceived;
+      return <div>{totalSales}</div>;
     },
     sorter: true,
   },
 
   {
     title: "Net physician fee ($)",
-    dataIndex: "doctor_percentage",
-    key: "doctor_percentage",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    // dataIndex: "doctor_percentage",
+    // key: "doctor_percentage",
+    render: (transaction: Transaction) => {
+      const physicianFee =
+        transaction?.status === "Refunded"
+          ? `-${transaction?.doctor_percentage}`
+          : transaction?.doctor_percentage;
+      return <div>{physicianFee}</div>;
     },
     sorter: true,
   },
 
   {
     title: "Net medicus fee($)",
-    dataIndex: "medicus_percentage",
-    key: "medicus_percentage",
-    render: (value: string) => {
-      return <div>{value}</div>;
+    // dataIndex: "medicus_percentage",
+    // key: "medicus_percentage",
+    render: (transaction: Transaction) => {
+      const medicusFee =
+        transaction?.status === "Refunded"
+          ? `-${transaction?.medicus_percentage}`
+          : transaction?.medicus_percentage;
+      return <div>{medicusFee}</div>;
     },
     sorter: true,
   },
