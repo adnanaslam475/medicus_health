@@ -309,6 +309,7 @@ query doctorPayoutsByAdmin {
         last_name
       }
       transaction {
+        id
         createdAt
         transactionId
         tax
