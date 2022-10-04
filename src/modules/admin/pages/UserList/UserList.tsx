@@ -175,6 +175,7 @@ const UserList = ({}: Props) => {
           dataSource={adminUsers?.items}
           loading={fetching}
           onChange={onChange}
+          scroll={{ x: true }}
           footer={(currentPageCount) =>
             tableFooter(
               currentPageCount?.length,
