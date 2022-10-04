@@ -97,11 +97,11 @@ function TransactionReportListFilter({ onChange }: Props) {
                 <div>
                   {filterState.dueDate
                     ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                    : "Schedule date"}
+                    : "Appointment date"}
                 </div>
               )
             }
-            heading="Schedule date"
+            heading="Appointment date"
           />
         </div>
         {/* <div className="-mt-6 w-full sm:w-60">
@@ -121,11 +121,11 @@ function TransactionReportListFilter({ onChange }: Props) {
                 <div>
                   {filterState.dueDate
                     ? `${filterState.dueDate.startDate} -> ${filterState.dueDate.endDate}`
-                    : "Schedule date"}
+                    : "Appointment date"}
                 </div>
               )
             }
-            heading="Schedule date"
+            heading="Appointment date"
           />
         </div> */}
         <div className="w-full sm:w-40">

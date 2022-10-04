@@ -70,7 +70,7 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Schedule date",
+    title: "Appointment date",
     dataIndex: "appointment",
     key: "requestedDate",
     render: (appointment: Appointment) => {

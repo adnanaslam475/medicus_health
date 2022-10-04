@@ -21,15 +21,14 @@ function PayoutReportListing() {
     {
       title: "ID#",
       dataIndex: "transaction",
-      key: "transactionId",
+      key: "id",
       render: (transaction: Transaction) => {
         return (
           <div className="break-all w-[100px]">
-            {transaction?.transactionId}
+            {transaction?.id}
           </div>
         );
       },
-      sorter: true,
     },
     {
       title: "Appointment ID#",
@@ -60,14 +59,13 @@ function PayoutReportListing() {
       },
     },
     {
-      title: "Schedule date",
+      title: "Appointment date",
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
       render: (appointmentDateTime: any) => {
         const scheduleDate = appointmentDateTime?.startTime || "";
         return <div>{date.formatDAYMMDD(scheduleDate)}</div>;
       },
-      sorter: true,
     },
     {
       title: "Status",
@@ -80,7 +78,6 @@ function PayoutReportListing() {
           </div>
         );
       },
-      sorter: true,
     },
     {
       title: "Payment status",
@@ -101,7 +98,6 @@ function PayoutReportListing() {
           </div>
         );
       },
-      sorter: true,
     },
     {
       title: "Gross sales ($)",
@@ -114,20 +110,6 @@ function PayoutReportListing() {
             : `${appointment?.transaction?.appointmentCharges}`;
         return <div>{refund}</div>;
       },
-      sorter: true,
-    },
-    {
-      title: "Refunds ($)",
-      // dataIndex: "appointment",
-      // key: "appointment",
-      render: (transaction: Transaction) => {
-        const refund =
-          transaction?.status === "Refunded"
-            ? `-${transaction?.appointmentCharges}`
-            : 0;
-        return <div>{refund}</div>;
-      },
-      sorter: true,
     },
     {
       title: "Taxes ($)",
@@ -137,7 +119,6 @@ function PayoutReportListing() {
         const tax = transaction?.tax || 0;
         return <div>{tax}</div>;
       },
-      sorter: true,
     },
     {
       title: "Total sales ($)",
@@ -146,7 +127,6 @@ function PayoutReportListing() {
       render: (transaction: Transaction) => {
         return <div>{transaction.amountReceived || "0"}</div>;
       },
-      sorter: true,
     },
     {
       title: "Net physician fee ($)",
@@ -154,6 +134,16 @@ function PayoutReportListing() {
       key: "doctor_percentage",
       render: (transaction: Transaction) => {
         return <div>{transaction?.doctor_percentage || "0"}</div>;
+      },
+    },
+    {
+      title: "Stripe processing fee ($)",
+      dataIndex: "transaction",
+      key: "transaction",
+      render: (transaction: Transaction) => {
+        const stripeFee =
+          transaction?.status === "Refunded" ? 0 : transaction?.stripeFee;
+        return <div>{stripeFee}</div>;
       },
       sorter: true,
     },
@@ -164,7 +154,6 @@ function PayoutReportListing() {
       render: (transaction: Transaction) => {
         return <div>{transaction?.medicus_percentage || "0"}</div>;
       },
-      sorter: true,
     },
   ];
 
