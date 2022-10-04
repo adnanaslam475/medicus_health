@@ -159,7 +159,7 @@
   :global .tooltipCustom {
     display: inline-block;
     @media screen and (min-width: 769px) {
-      visibility: hidden;
+      visibility: hidden !important;
     }
   }
 
@@ -171,10 +171,12 @@
       padding-left: 14px;
       background-color: #642574;
       border-radius: 12px;
-      visibility: visible !important;
       color: #ffffff;
       height: 24px;
       padding-top: 2.5px;
+      @media screen and (max-width: 768px) {
+        visibility: visible !important;
+      }
     }
   }
 
@@ -186,10 +188,12 @@
       padding-left: 14px;
       background-color: #ff8061;
       border-radius: 12px;
-      visibility: visible !important;
       color: #ffffff;
       height: 24px;
       padding-top: 2.5px;
+      @media screen and (max-width: 768px) {
+        visibility: visible !important;
+      }
     }
   }
 
@@ -201,11 +205,13 @@
       padding-left: 14px;
       background-color: #378e53;
       border-radius: 12px;
-      visibility: visible !important;
       color: #ffffff;
       height: 24px;
       padding-top: 2.5px;
       border-color: #378e53;
+      @media screen and (max-width: 768px) {
+        visibility: visible !important;
+      }
     }
   }
 
@@ -217,10 +223,12 @@
       padding-left: 14px;
       background-color: #bababa;
       border-radius: 12px;
-      visibility: visible !important;
       color: #ffffff;
       height: 24px;
       padding-top: 2.5px;
+      @media screen and (max-width: 768px) {
+        visibility: visible !important;
+      }
     }
   }
 
@@ -232,10 +240,12 @@
       padding-left: 14px;
       background-color: #dedede;
       border-radius: 12px;
-      visibility: visible !important;
       color: #ffffff;
       height: 24px;
       padding-top: 2.5px;
+      @media screen and (max-width: 768px) {
+        visibility: visible !important;
+      }
     }
   }
   // CSS FOR TOOLTIP IN RESPONSIVE
