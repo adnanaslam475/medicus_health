@@ -134,7 +134,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   props: any,
   ref: any
 ) {
-  const { onFinishSuccess, onFinishedFailed, data } = props || {};
+  const { onFinishSuccess, onFinishedFailed, data,disabled:propsDisabled } = props || {};
   const [radioDrink, setRadioDrink] = useState(false);
   const [radioSmoke, setRadioSmoke] = useState(false);
   const [radioDrug, setRadioDrug] = useState(false);
@@ -142,7 +142,6 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const [showSurgicalOthers, setShowSurgicalOthers] = useState(false);
   const [isDisabled, setDisabled] = useState<boolean>(false);
   const [formInstance] = Form.useForm();
-
   const isSignupPage = window.location.pathname === "/signup";
   useEffect(() => {
     if (ref) {
@@ -174,7 +173,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   const router = useRouter();
 
   const { pathname } = router || {};
-  let disabled = pathname?.includes("/physician/appointments");
+  let disabled = pathname?.includes("/physician/appointments") || propsDisabled;
 
   i18next.changeLanguage(useLocale());
   const t = i18next.t;

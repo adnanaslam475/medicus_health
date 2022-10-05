@@ -16,6 +16,7 @@ import {
 } from "generated/graphql";
 import { REQUESTED, PROPOSED, COMPLETED } from "common/constants/status";
 import NotesTab from "common/components/NotesTab/NotesTab";
+import _classes from "./AdminAppointmentsDetail.module.scss";
 
 function AdminAppointmentHistoryDetail() {
   const { query } = useRouter();
@@ -105,12 +106,18 @@ function AdminAppointmentHistoryDetail() {
   return (
     <AppLayout>
       <div>
-        <div className="flex items-center mb-4">
+        <div
+          className={`${
+            _classes[isEdit ? `editActiveGroup` : "editNonGroup"]
+          } flex items-center mb-4`}
+        >
           <h2 className="mb-0">Appointment details</h2>
           {isEditable && (
             <Button
               size="middle"
-              className="max-h-[36px] max-w-[84px] px-0 mx-0 mr-2 ml-[29px] "
+              className={`${
+                _classes[isEdit ? `cancelBtn` : "editBtn"]
+              } max-h-[36px] max-w-[84px] px-0 mx-0 mr-2 ml-[29px]`}
               onClick={HandleCancelButton}
             >
               {isEdit ? "Cancel" : "Edit info"}
@@ -119,7 +126,9 @@ function AdminAppointmentHistoryDetail() {
           {isEdit && isEditable && (
             <Button
               size="middle"
-              className="max-h-[36px]  px-0 mx-0 "
+              className={`${
+                _classes[isEdit ? `saveBtn` : "hiddenBtn"]
+              } max-h-[36px]  px-0 mx-0`}
               onClick={() => saveChanges()}
               loading={updateMutationFetching}
             >
@@ -146,6 +155,7 @@ function AdminAppointmentHistoryDetail() {
               <AdminHealthQuestionnaireFormTab
                 appointment={appointment as Appointment}
                 loading={fetching}
+                disabled
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician questionnaire" key="4">

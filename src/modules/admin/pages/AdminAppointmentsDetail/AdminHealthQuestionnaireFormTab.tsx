@@ -4,8 +4,8 @@ import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
 import { Appointment } from "generated/graphql";
 import { Spin } from "antd";
 
-type Props = { appointment: Appointment | undefined; loading?: boolean };
-function AdminHealthQuestionnaireFormTab({ appointment, loading }: Props) {
+type Props = { appointment: Appointment | undefined; loading?: boolean,disabled?:boolean };
+function AdminHealthQuestionnaireFormTab({ appointment, loading,disabled }: Props) {
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
@@ -19,6 +19,7 @@ function AdminHealthQuestionnaireFormTab({ appointment, loading }: Props) {
       >
         <QuestionnaireForm
           data={appointment?.patient?.patientHealthHistory?.history}
+          disabled={disabled}
         />
       </CardWithProfileImageInfo>
     </div>

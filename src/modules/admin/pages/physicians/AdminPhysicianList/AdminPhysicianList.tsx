@@ -59,11 +59,11 @@ const columns = [
     sorter: true,
   },
   {
-    title: "City",
-    dataIndex: "city",
-    key: "city_name",
-    render: (city: City) => {
-      return <div>{city?.city_name || ""}</div>;
+    title: "Country",
+    dataIndex: "country",
+    key: "country_name",
+    render: (country: Country) => {
+      return <div>{country?.country_name || ""}</div>;
     },
     sorter: true,
   },
@@ -77,11 +77,11 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Country",
-    dataIndex: "country",
-    key: "country_name",
-    render: (country: Country) => {
-      return <div>{country?.country_name || ""}</div>;
+    title: "City",
+    dataIndex: "city",
+    key: "city_name",
+    render: (city: City) => {
+      return <div>{city?.city_name || ""}</div>;
     },
     sorter: true,
   },
