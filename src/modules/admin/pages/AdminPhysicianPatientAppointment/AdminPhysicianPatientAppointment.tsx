@@ -3,6 +3,7 @@ import { Button, notification, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
+	Appointment,
 	AppointmentDateTimeResponse,
 	AppointmentPriceResponse,
 	AppointmentServiceType,
@@ -95,12 +96,16 @@ function AdminPhysicianList() {
 		},
 		{
 			title: "Appointment type",
-			dataIndex: "serviceType",
+			// dataIndex: "serviceType",
 			key: "serviceType",
-			render: (serviceType: AppointmentServiceType) => {
-				return <div>{serviceType?.name}</div>;
-			},
 			sorter: true,
+			render: (value: Appointment) => {
+			  const appointmentType =
+				value?.appointmentTypeProposed?.type ||
+				value?.serviceType?.name ||
+				"-";
+			  return <div>{appointmentType}</div>;
+			},
 		},
 		{
 			title: "Appointment date",

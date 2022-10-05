@@ -3,6 +3,7 @@ import { Collapse, Empty, Space, Spin, Table } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import _classes from "./PhysicianPayoutReportListing.module.scss";
 import {
+  Appointment,
   AppointmentDateTimeResponse,
   AppointmentServiceType,
   Transaction,
@@ -46,11 +47,14 @@ function PhysicianPayoutReportListing() {
     },
     {
       title: "Appointment type",
+      // dataIndex: "serviceType",
       key: "serviceType",
-      dataIndex: "serviceType",
-      render: (serviceType: AppointmentServiceType) => {
-        const serviceName = serviceType?.name || "-";
-        return <div>{serviceName}</div>;
+      render: (value: Appointment) => {
+        const appointmentType =
+          value?.appointmentTypeProposed?.type ||
+          value?.serviceType?.name ||
+          "-";
+        return <div>{appointmentType}</div>;
       },
     },
     {

@@ -139,7 +139,7 @@ function StatusChip(props: Props) {
 
   return (
     <div
-      className={`py-2 px-5 flex items-center gap-2 rounded-md ${background} ${borderClass} ${blockClass}`}
+      className={`py-2 px-5 flex items-center gap-2 rounded-md ${background} ${borderClass} ${blockClass} w-[135px] justify-center`}
     >
       <span className={color}>{text}</span>
     </div>

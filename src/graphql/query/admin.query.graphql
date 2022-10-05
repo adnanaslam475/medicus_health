@@ -44,6 +44,9 @@ query AdminPhysicianAppointment(
   appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
     items {
       id
+      appointmentTypeProposed{
+        type
+      }
       patient {
         first_name
         last_name
