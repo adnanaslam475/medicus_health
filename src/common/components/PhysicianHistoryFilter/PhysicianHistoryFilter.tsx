@@ -99,7 +99,7 @@ function PhysicianSearchFilters(props: Props) {
         <Space
           direction="vertical"
           size={0}
-          className="w-full md:w-44 xl:w-60 sm:mb-3"
+          className="w-full md:w-56 xl:w-60 sm:mb-3"
         >
           <div className="relative">
             <RangePicker

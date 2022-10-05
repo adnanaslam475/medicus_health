@@ -68,7 +68,7 @@ function PatientAdd() {
           <h2 className="mb-4">Add a patient</h2>
         </div>
         <div className="w-full">
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
             <div className="flex flex-col w-full justify-start items-center py-3">
               <div className="w-full mb-10">
                 <Upload
