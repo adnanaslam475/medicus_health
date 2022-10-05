@@ -695,6 +695,9 @@ query doctorPayouts($doctorId: Int!) {
       id
       doctorId
       patientId
+      appointmentTypeProposed {
+        type
+      }
       patient {
         first_name
         last_name

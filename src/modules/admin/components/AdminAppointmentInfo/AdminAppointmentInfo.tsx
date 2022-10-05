@@ -321,7 +321,7 @@ function AdminAppointmentInfo({
           )}
 
           <li className="flex border-b border-gray-5 py-3">
-            <div className="w-full text-gray-1 max-w-[300px]">
+            <div className="text-gray-1 w-full max-w-[150px] sm:max-w-[300px]">
               Appointment status
             </div>
             <div className="w-full table-action-icon">
@@ -334,7 +334,7 @@ function AdminAppointmentInfo({
           </li>
 
           <li className="flex border-b border-gray-5 py-3">
-            <div className="w-full text-gray-1 max-w-[300px]">
+            <div className="text-gray-1 w-full max-w-[150px] sm:max-w-[300px]">
               Payment status
             </div>
             <div className="w-full">
