@@ -304,20 +304,28 @@ function EditProfile({
         about_me: values?.about_me || "",
         condition_treated: conditionTreatedList || "",
         language: physicianLanguage || "",
-        educational_background: educationList?.map((item) => ({
-          institution: item?.institution,
-          degree: item?.degree,
-        })),
-        professional_experience: clinicList?.map((item) => ({
-          institution: item?.institution,
-          role: item?.role,
-        })),
-        certification_and_licensure: certificationList?.map((item) => ({
-          certification_and_licensure: item?.certification_and_licensure,
-        })),
-        awards_honors_recognition: honorsList?.map((item) => ({
-          awards_honors_and_recognition: item?.awards_honors_and_recognition,
-        })),
+        educational_background: educationList
+          ?.filter((item) => item?.institution !== "" && item?.degree !== "")
+          ?.map((item) => ({
+            institution: item?.institution,
+            degree: item?.degree,
+          })),
+        professional_experience: clinicList
+          ?.filter((item) => item?.institution !== "" && item?.role !== "")
+          ?.map((item) => ({
+            institution: item?.institution,
+            role: item?.role,
+          })),
+        certification_and_licensure: certificationList
+          ?.filter((item) => item?.certification_and_licensure !== "")
+          ?.map((item) => ({
+            certification_and_licensure: item?.certification_and_licensure,
+          })),
+        awards_honors_recognition: honorsList
+          ?.filter((item) => item?.awards_honors_and_recognition !== "")
+          ?.map((item) => ({
+            awards_honors_and_recognition: item?.awards_honors_and_recognition,
+          })),
         // timeZoneId: values?.timeZoneId,
         timeZoneId: values?.timeZone,
       },

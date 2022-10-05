@@ -68,15 +68,6 @@ function PhysicianPayoutReportListing() {
       },
     },
     {
-      title: "Physician fee ($)",
-      dataIndex: "transaction",
-      key: "physicianFee",
-      render: (transaction: Transaction) => {
-        const physicianFee = transaction?.doctor_percentage || "0";
-        return <div>${physicianFee}</div>;
-      },
-    },
-    {
       title: "Refund ($)",
       dataIndex: "refund",
       key: "refund",
