@@ -156,7 +156,7 @@ function AdminPhysicianSearchFilters(props: Props) {
         <Space
           direction="vertical"
           size={0}
-          className="w-full md:w-44 xl:w-60 sm:mb-3"
+          className="w-full md:w-56 lg:w-44 xl:w-60 sm:mb-3"
         >
           <div className="relative -mt-4">
             <RangePicker
@@ -208,7 +208,7 @@ function AdminPhysicianSearchFilters(props: Props) {
                     : "Account created at"}
                 </div>
               ) : (
-                <div className="flex justify-between items-center w-full px-3 border-gray text-gray-1">
+                <div className="flex justify-between items-center w-full px-1 border-gray text-gray-1">
                   <div className="font-rubik font-normal">
                     Account created at
                   </div>
