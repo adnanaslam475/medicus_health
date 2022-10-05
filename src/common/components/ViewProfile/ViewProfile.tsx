@@ -123,11 +123,13 @@ export const ViewProfile = React.forwardRef(function Profile({
       });
       if (response?.error) {
         notification.error({ message: graphqlError(response) });
+        setOpen(false);
       }
       if (response.data) {
         notification.success({
           message: "User Delete Successfully",
         });
+        setOpen(false);
         Router.push(`/admin/physicians`);
       }
     } catch (error: any) {
