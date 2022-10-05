@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
-import { Avatar, Form, Button, Skeleton } from "antd";
+import { Avatar, Form, Button, Skeleton, notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 import {
+  useDeleteDoctorMutation,
   useGetCityByIdQuery,
   useGetCountryByIdQuery,
   useGetStatesByCountryQuery,
@@ -18,8 +19,9 @@ import _classes from "./PhysicianProfile.module.scss";
 import { getRole } from "common/utils/userData";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 import user from "../../../../pages/admin/users";
-import { timezoneLabel } from "utils/helper";
+import { graphqlError, timezoneLabel } from "utils/helper";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+import Router from "next/router";
 
 type props = {
   doctorId?: string;
@@ -41,6 +43,9 @@ export const ViewProfile = React.forwardRef(function Profile({
   const [formInstance] = Form.useForm();
   const { contact_number, status, language, password } = doctorData?.user || {};
   const [open, setOpen] = React.useState<boolean>(false);
+
+  const [{ fetching }, executeUseDeleteDoctorMutation] =
+    useDeleteDoctorMutation();
 
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: Number(doctorId) },
@@ -111,8 +116,26 @@ export const ViewProfile = React.forwardRef(function Profile({
     });
   }
 
-  // let lastNameFormated = last_name?.toLocaleLowerCase();
-
+  const deleteAdminUser = async () => {
+    try {
+      const response = await executeUseDeleteDoctorMutation({
+        id: Number(doctorId),
+      });
+      if (response?.error) {
+        notification.error({ message: graphqlError(response) });
+      }
+      if (response.data) {
+        notification.success({
+          message: "User Delete Successfully",
+        });
+        Router.push(`/admin/physicians`);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -163,8 +186,8 @@ export const ViewProfile = React.forwardRef(function Profile({
                   type="link"
                   danger
                   onClick={() => setOpen(true)}
-                  // disabled={deleting}
-                  // loading={deleting || disableLoading}
+                  disabled={fetching}
+                  loading={fetching}
                   icon={
                     <span className="mr-0.5">
                       <CloseOutlined className="mb-2.5" />
@@ -189,9 +212,9 @@ export const ViewProfile = React.forwardRef(function Profile({
           />
           <ConfirmationModal
             visible={open}
-            // confirmLoading={RemoveFetching}
+            confirmLoading={fetching}
             onCancel={() => setOpen(false)}
-            // onOk={deleteAdminUser}
+            onOk={deleteAdminUser}
             message="Are you sure you want to delete this physician?"
           />
         </div>

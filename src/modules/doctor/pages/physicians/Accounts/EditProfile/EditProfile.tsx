@@ -23,6 +23,7 @@ import ReactS3Client from "react-aws-s3-typescript";
 import {
   LoginUserInput,
   useCountriesQuery,
+  useDeleteDoctorMutation,
   useEnableOrDisableDoctorMutation,
   useGetCitiesByStateQuery,
   useGetStatesByCountryQuery,
@@ -48,9 +49,10 @@ import {
 import { useUserData } from "common/components/Context/UserContext";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { timezoneLabel } from "utils/helper";
+import { graphqlError, timezoneLabel } from "utils/helper";
 import { GraphQLError } from "graphql";
-import ConfirmationModal from "modules/admin/pages/AdminPatientListingDetail/ConfirmationModal";
+import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
+// import ConfirmationModal from "modules/admin/pages/AdminPatientListingDetail/ConfirmationModal";
 
 const { TextArea } = Input;
 
@@ -617,6 +619,30 @@ function EditProfile({
   };
 
   const [getTimeZones] = useGetTimeZonesQuery();
+
+  const [{ fetching: deleteDoctorLoading }, executeUseDeleteDoctorMutation] =
+    useDeleteDoctorMutation();
+
+  const deleteAdminUser = async () => {
+    try {
+      const response = await executeUseDeleteDoctorMutation({
+        id: Number(doctorId),
+      });
+      if (response?.error) {
+        notification.error({ message: graphqlError(response) });
+      }
+      if (response.data) {
+        notification.success({
+          message: "User Delete Successfully",
+        });
+        Router.push(`/admin/physicians`);
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -1361,9 +1387,9 @@ function EditProfile({
               </div>
               <ConfirmationModal
                 visible={open}
-                // confirmLoading={RemoveFetching}
+                confirmLoading={deleteDoctorLoading}
                 onCancel={() => setOpen(false)}
-                // onOk={deleteAdminUser}
+                onOk={deleteAdminUser}
                 message="Are you sure you want to delete this physician?"
               />
             </Form>
