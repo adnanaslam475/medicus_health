@@ -745,6 +745,8 @@ export type Mutation = {
   createStaff: User;
   createUser: User;
   deleteChat: ChatChannels;
+  deleteDoctor: User;
+  deleteDoctorWithAllDataHardDelete: User;
   deleteServiceType: AppointmentServiceType;
   enableOrDisableDoctor: User;
   enableOrDisablePatient: User;
@@ -759,7 +761,6 @@ export type Mutation = {
   removeAppointment: Appointment;
   removeAppointmentNote: AppointmentNote;
   removeCard: UserCard;
-  removeDoctor: User;
   removeDoctorBillingMethod: DoctorBillingMethod;
   removeDoctorProfile: DoctorProfile;
   removeDoctorQuestionnaire: DoctorQuestionnaire;
@@ -917,6 +918,16 @@ export type MutationDeleteChatArgs = {
 };
 
 
+export type MutationDeleteDoctorArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationDeleteDoctorWithAllDataHardDeleteArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationDeleteServiceTypeArgs = {
   id: Scalars['Int'];
 };
@@ -983,11 +994,6 @@ export type MutationRemoveAppointmentNoteArgs = {
 
 
 export type MutationRemoveCardArgs = {
-  id: Scalars['Int'];
-};
-
-
-export type MutationRemoveDoctorArgs = {
   id: Scalars['Int'];
 };
 
@@ -1814,6 +1820,13 @@ export type UpdateAppointmentMutationVariables = Exact<{
 
 
 export type UpdateAppointmentMutation = { __typename?: 'Mutation', updateAppointment: { __typename?: 'Appointment', doctor?: { __typename?: 'User', first_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null } };
+
+export type DeleteDoctorMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeleteDoctorMutation = { __typename?: 'Mutation', deleteDoctor: { __typename?: 'User', id: number } };
 
 export type GenerateRtcTokenMutationVariables = Exact<{
   generateRTCTokenInput: GenerateRtcTokenInput;
@@ -2644,6 +2657,17 @@ export const UpdateAppointmentDocument = gql`
 
 export function useUpdateAppointmentMutation() {
   return Urql.useMutation<UpdateAppointmentMutation, UpdateAppointmentMutationVariables>(UpdateAppointmentDocument);
+};
+export const DeleteDoctorDocument = gql`
+    mutation deleteDoctor($id: Int!) {
+  deleteDoctor(id: $id) {
+    id
+  }
+}
+    `;
+
+export function useDeleteDoctorMutation() {
+  return Urql.useMutation<DeleteDoctorMutation, DeleteDoctorMutationVariables>(DeleteDoctorDocument);
 };
 export const GenerateRtcTokenDocument = gql`
     mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
@@ -8436,6 +8460,52 @@ export default {
             ]
           },
           {
+            "name": "deleteDoctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "deleteDoctorWithAllDataHardDelete",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "deleteServiceType",
             "type": {
               "kind": "NON_NULL",
@@ -8741,29 +8811,6 @@ export default {
               "ofType": {
                 "kind": "OBJECT",
                 "name": "UserCard",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "id",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "removeDoctor",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "User",
                 "ofType": null
               }
             },
