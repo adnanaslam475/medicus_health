@@ -13,6 +13,7 @@ import Router, { useRouter } from "next/router";
 import {
   Appointment,
   AppointmentTimeSlots,
+  AppointmentTypeProposedResponse,
   useCancelAppointmentByDoctorMutation,
   useGetAllAppointmentServiceTypesQuery,
   useGetPatientsQuery,
@@ -46,6 +47,7 @@ type Props = {
     appointmentStatus: string;
     paymentStatus: string;
     status: string;
+    appointmentTypeProposed: AppointmentTypeProposedResponse | null | undefined;
   };
   adminApp_Details?: DoctorData;
   onCancelRequestedAppointment?: () => void;
@@ -80,6 +82,7 @@ function AdminAppointmentInfo({
     appointmentStatus,
     paymentStatus = "unpaid",
     status,
+    appointmentTypeProposed,
   } = data || {};
   const [, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
@@ -245,17 +248,19 @@ function AdminAppointmentInfo({
             ) : (
               <LabelWithText label="Physician" text={physician} />
             )}
+            <LabelWithText label="Appointment type requested" text={service} />
+
             {isEdit && paymentStatus === "unpaid" ? (
               <li className="flex border-b border-gray-5 py-3">
                 <div className="w-full text-gray-1 max-w-[300px]">
-                  Appointment type
+                  Appointment type proposed
                 </div>
                 <div className="w-full table-action-icon">
                   <div className="text-primary">
                     <Form.Item name="appointmentType">
                       <Select
-                        defaultValue={service}
-                        placeholder="Select appointment type"
+                        defaultValue={appointmentTypeProposed?.type||""}
+                        placeholder="Appointment type proposed"
                         className="max-w-[230px]"
                       >
                         {allAppoinments?.map((item) => (
@@ -269,12 +274,17 @@ function AdminAppointmentInfo({
                 </div>
               </li>
             ) : (
-              <LabelWithText label="Appointment type" text={service} />
+              <LabelWithText
+                label="Appointment type proposed"
+                text={String(appointmentTypeProposed?.type   || "")}
+              />
             )}
           </>
           <LabelWithText
             label={
-              appointmentStatus == "Requested" ? "Requested date" : "Appointment date"
+              appointmentStatus == "Requested"
+                ? "Requested date"
+                : "Appointment date"
             }
             text={dueDate}
           />

@@ -17,6 +17,10 @@ mutation updateAppointment($updateAppointmentInput: UpdateAppointmentInput!) {
     doctor {
       first_name
     }
+    appointmentTypeProposed{
+      type
+      serviceId
+    }
     serviceType {
       id
       name

@@ -1819,7 +1819,7 @@ export type UpdateAppointmentMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAppointmentMutation = { __typename?: 'Mutation', updateAppointment: { __typename?: 'Appointment', doctor?: { __typename?: 'User', first_name: string } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null } };
+export type UpdateAppointmentMutation = { __typename?: 'Mutation', updateAppointment: { __typename?: 'Appointment', doctor?: { __typename?: 'User', first_name: string } | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null, serviceId?: number | null } | null, serviceType?: { __typename?: 'AppointmentServiceType', id: number, name: string, price: number } | null } };
 
 export type DeleteDoctorMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -2645,6 +2645,10 @@ export const UpdateAppointmentDocument = gql`
   updateAppointment(updateAppointmentInput: $updateAppointmentInput) {
     doctor {
       first_name
+    }
+    appointmentTypeProposed {
+      type
+      serviceId
     }
     serviceType {
       id
