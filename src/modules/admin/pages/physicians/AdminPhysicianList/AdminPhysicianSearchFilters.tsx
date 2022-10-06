@@ -91,8 +91,8 @@ function AdminPhysicianSearchFilters(props: Props) {
     <div
       className={`${_classes["page-filters-parent"]} page-filters flex lg:flex items-center mb-5 flex-wrap gap-2`}
     >
-      <div className="flex lg:mb-0 ">
-        <div className="flex-1 flex w-96">
+      <div className="inline-flex flex-1 sm:flex-0 md:flex-none lg:mb-0 ">
+        <div className="flex w-full md:w-72 lg:w-72 xl:w-96">
           <Input
             value={filterState.searchField || ""}
             placeholder="Search by ID, name,email address"
@@ -101,7 +101,7 @@ function AdminPhysicianSearchFilters(props: Props) {
           />
         </div>
       </div>
-      <div className="sm:mt-0">
+      <div className="sm:mt-0 w-full md:w-44 lg:w-56 xl:w-56">
         <Input
           value={filterState.specialization || ""}
           placeholder="Specialization"
@@ -119,13 +119,13 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="Neurologist">Neurologist</Option>
         </Select> */}
       </div>
-      <div className="w-1/5 sm:mt-0  md:w-44 xl:w-44">
+      <div className="w-full sm:mt-0 md:w-44 xl:w-44">
         <SelectCountryTypeFilter
           onChange={(value) => onChangeFields("countryId", Number(value))}
           value={filterState?.countryId}
         />
       </div>
-      <div className="w-44 sm:mt-0">
+      <div className="w-full sm:mt-0 md:w-44 xl:w-44">
         <SelectStateTypeFilter
           onChange={(value) => onChangeFields("stateId", Number(value))}
           value={filterState?.stateId}
@@ -133,7 +133,7 @@ function AdminPhysicianSearchFilters(props: Props) {
         />
       </div>
 
-      <div className="w-44 sm:mt-0">
+      <div className="w-full sm:mt-0 md:w-44 xl:w-44">
         <SelectCityFilter
           onChange={(value) => onChangeFields("cityId", Number(value))}
           value={filterState?.cityId}
@@ -141,10 +141,10 @@ function AdminPhysicianSearchFilters(props: Props) {
         />
       </div>
 
-      <div className="sm:mt-0">
+      <div className="w-full sm:mt-0 md:w-44 lg:w-auto xl:w-44">
         <Select
           placeholder="Language"
-          className="w-full sm:w-40"
+          className="w-full sm:w-full sm:mt-0 md:w-44 lg:w-full xl:w-44"
           onChange={(e) => onChangeFields("language", e.toLowerCase())}
           value={filterState.language}
         >
@@ -152,11 +152,11 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="Spanish">Espanol</Option>
         </Select>
       </div>
-      <div className="flex-none sm:flex mt-4 sm:mt-0">
+      <div className="flex-none sm:flex lg:flex-none mt-0 sm:mt-0 w-full md:w-52 lg:w-52 xl:w-52">
         <Space
           direction="vertical"
           size={0}
-          className="w-full md:w-56 lg:w-44 xl:w-60 sm:mb-3"
+          className="w-full md:w-56 lg:w-52 xl:w-60 sm:mb-3"
         >
           <div className="relative -mt-4">
             <RangePicker
@@ -208,7 +208,7 @@ function AdminPhysicianSearchFilters(props: Props) {
                     : "Account created at"}
                 </div>
               ) : (
-                <div className="flex justify-between items-center w-full px-1 border-gray text-gray-1">
+                <div className="flex justify-between items-center w-full px-1 lg:pl-0 border-gray text-gray-1">
                   <div className="font-rubik font-normal">
                     Account created at
                   </div>
