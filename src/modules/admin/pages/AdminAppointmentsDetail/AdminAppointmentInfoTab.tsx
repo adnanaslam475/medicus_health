@@ -71,6 +71,7 @@ function AdminAppointmentInfoTab({ appointment, loading,isEdit,formRef }: Props)
     appointmentStatus: appointment?.status,
     paymentStatus: appointment?.transaction?.status,
     profilePicture: appointment?.patient?.patientProfile?.profileImage,
+    appointmentTypeProposed: appointment?.appointmentTypeProposed
   };
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
