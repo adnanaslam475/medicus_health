@@ -280,6 +280,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         onFinish={onFinishLocal}
         onFieldsChange={onFieldsChange}
         scrollToFirstError
+        id="request_app_3"
       >
         {doctorQuestionnaire && (
           <Form.Item valuePropName="checked">

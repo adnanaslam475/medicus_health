@@ -131,7 +131,12 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   return (
     <>
       <h2>Request an appointment</h2>
-      <Form layout="vertical" form={formInstance} onFinish={onFinishLocal}>
+      <Form
+        layout="vertical"
+        form={formInstance}
+        onFinish={onFinishLocal}
+        id="request_app_2"
+      >
         <Form.Item label="Medical history*">
           <Dragger
             {...attachmentProps}

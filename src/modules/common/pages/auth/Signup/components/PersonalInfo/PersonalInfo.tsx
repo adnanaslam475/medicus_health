@@ -140,6 +140,7 @@ export default function PersonalInfo({ onFinish }: props) {
 
   return (
     <Form
+      id="signup_form"
       layout="vertical"
       form={form}
       onFinish={onFinish}
