@@ -22,7 +22,7 @@ export function SelectServiceTypeFilter({
   return (
     <Select
       placeholder={t("appointment_type")}
-      className={"w-full"}
+      className={"w-full admin-filter"}
       onChange={onChange}
       value={value}
     >

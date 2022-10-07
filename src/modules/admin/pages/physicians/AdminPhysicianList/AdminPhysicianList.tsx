@@ -11,18 +11,11 @@ import {
   Country,
   DoctorProfile,
   State,
-  useCountriesQuery,
-  useGetCitiesByStateQuery,
   useGetPhysiciansQuery,
-  useGetStatesByCountryQuery,
   User,
 } from "generated/graphql";
-// import engFlag from "../../../../../../public/assets/images/engFlag.png";
-// import espanolFlag from "../../../../../../public/assets//images/espanolFlag.png";
-// import { date } from "common/utils";
 import { FLAG_BY_LANGUAGE, tableFooter } from "utils/helper";
 import { date } from "common/utils";
-// import { json } from "node:stream/consumers";
 
 const columns = [
   {
@@ -54,7 +47,7 @@ const columns = [
     dataIndex: "doctorProfile",
     key: "specialization",
     render: (doctorProfile: DoctorProfile) => {
-      return <div>{doctorProfile?.specialization || ""}</div>;
+      return <div>{doctorProfile?.specialization || "-"}</div>;
     },
     sorter: true,
   },
@@ -63,7 +56,7 @@ const columns = [
     dataIndex: "country",
     key: "country_name",
     render: (country: Country) => {
-      return <div>{country?.country_name || ""}</div>;
+      return <div>{country?.country_name || "-"}</div>;
     },
     sorter: true,
   },
@@ -72,7 +65,7 @@ const columns = [
     dataIndex: "state",
     key: "state_name",
     render: (state: State) => {
-      return <div>{state?.state_name || ""}</div>;
+      return <div>{state?.state_name || "-"}</div>;
     },
     sorter: true,
   },
@@ -81,7 +74,7 @@ const columns = [
     dataIndex: "city",
     key: "city_name",
     render: (city: City) => {
-      return <div>{city?.city_name || ""}</div>;
+      return <div>{city?.city_name || "-"}</div>;
     },
     sorter: true,
   },

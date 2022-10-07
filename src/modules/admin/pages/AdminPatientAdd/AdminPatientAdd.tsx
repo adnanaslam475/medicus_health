@@ -1,44 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-// import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
+import React from "react";
 
-import {
-  Table,
-  Tag,
-  Modal,
-  Avatar,
-  Upload,
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Select,
-  notification,
-} from "antd";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
-import Link from "next/link";
-import Image from "next/image";
-import yourImage from "../../../../../../public/assets/images/your_photo.png";
-import dayjs from "dayjs";
-import Router, { useRouter } from "next/router";
+import { notification } from "antd";
+import Router from "next/router";
 import { useCreatePatientByAdminMutation } from "generated/graphql";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { AddPatientForm } from "modules/admin/components/AddPatientForm/AddPatientForm";
+import { graphqlError } from "utils/helper";
 
-type props = {
-  // validateForm?: (value: any) => void;
-  // onFinishPersonalInfo?: (value: any) => void;
-};
 function AdminPatientAdd() {
-  const [data, CreatePatientByAdminMutation] =
-    useCreatePatientByAdminMutation();
-
-  const form: any = useRef();
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const [image, setImage] = useState("");
+  const [{fetching}, CreatePatientByAdminMutation] = useCreatePatientByAdminMutation();
 
   const createPatient = async (values: any) => {
     const response = await CreatePatientByAdminMutation({
@@ -69,16 +39,17 @@ function AdminPatientAdd() {
     }
 
     if (response?.error) {
-      response?.error?.graphQLErrors[0]?.message &&
-        notification.error({
-          message:
-            response?.error?.graphQLErrors[0]?.message ||
-            "Something went wrong",
-        });
+      notification.error({
+        message: graphqlError(response),
+      });
     }
 
     try {
-    } catch (error) {}
+    } catch (error) {
+      notification.error({
+        message: "Something went wrong.",
+      });
+    }
   };
 
   return (
@@ -91,7 +62,7 @@ function AdminPatientAdd() {
           <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
             <div className="flex flex-col w-full justify-start items-center py-3">
               <div className="w-full">
-                <AddPatientForm onFinish={createPatient} />
+                <AddPatientForm onFinish={createPatient} loading={fetching}/>
               </div>
             </div>
           </div>

@@ -36,7 +36,7 @@ function AdminAttachmentTab({ appointment, loading }: Props) {
         serviceName={serviceType?.name}
         imageUrl={appointment?.patient?.patientProfile?.profileImage}
       >
-        <div className="flex gap-2">
+        <div className="">
           {urlArr?.length ? (
             urlArr?.map((item: AttachmentObject) => (
               <Attachment item={item} enable={false} />

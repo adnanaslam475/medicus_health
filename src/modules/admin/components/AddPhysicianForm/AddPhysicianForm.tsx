@@ -1,13 +1,14 @@
 import { Button, Form, Input, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import dayjs from "dayjs";
 import {
+  useCheckEmailAvailabilityQuery,
   useCountriesQuery,
   useGetCitiesByStateQuery,
   useGetStatesByCountryQuery,
-} from "../../../../generated/graphql";
+} from "generated/graphql";
 
 type Props = {
+  loading: boolean;
   onFinish?: (values: {
     firstName: string;
     lastName: string;
@@ -19,8 +20,6 @@ type Props = {
     streetAddress: string;
     profileImage: string;
   }) => void;
-  // user?: User;
-  // loading?: boolean;
 };
 
 export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
@@ -31,7 +30,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
   const [countryId, setCountryId] = useState<number | undefined>();
   const [stateId, setStateId] = useState<number | undefined>();
   const [form] = Form.useForm();
-  const { onFinish } = props || {};
+  const { onFinish, loading } = props || {};
 
   function selectCountryId(id: number): void {
     setCountryId(id);
@@ -58,13 +57,47 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
   const [{ data }] = useCountriesQuery();
   const { countries } = data || {};
 
+  const [userEmail, setUserEmail] = useState("");
+  const [result] = useCheckEmailAvailabilityQuery({
+    variables: {
+      emailAvailableInput: { email: String(userEmail) },
+    },
+    pause: !userEmail,
+  });
+  const { data: emailData, fetching } = result;
+
+  useEffect(() => {
+    if (userEmail && !fetching) {
+      formInstance.validateFields(["email"]);
+    }
+  }, [emailData]);
+  const emailValidator = async (rule: any, value: string) => {
+    if (!value?.length) return Promise.resolve();
+    setUserEmail(value?.trim());
+    if (
+      value?.trim().length &&
+      value.includes("@") &&
+      value.includes(".") &&
+      !fetching &&
+      !emailData?.checkEmailAvailability?.isEmailAvailable
+    ) {
+      // return Promise.reject(t("email_already_exist"));
+      return Promise.reject("Email already exist.");
+    }
+    return Promise.resolve();
+  };
+  
+
   return (
     <Form form={formInstance} onFinish={onFinish} layout="vertical">
       <div className="flex flex-row gap-4">
         <Form.Item
           label="First name"
           name="firstName"
-          rules={[{ required: true, message: "First name is required" }]}
+          rules={[
+            { required: true, message: "First name is required" },
+            { max: 50, message: "First name is too long." },
+          ]}
           className="flex-1"
         >
           <Input />
@@ -73,7 +106,10 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
         <Form.Item
           label="Last name"
           name="lastName"
-          rules={[{ required: true, message: "Last name is required" }]}
+          rules={[
+            { required: true, message: "Last name is required" },
+            { max: 50, message: "Last name is too long." },
+          ]}
           className="flex-1"
         >
           <Input />
@@ -85,7 +121,10 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
           name="email"
           label="Email"
           rules={[
-            { type: "email", required: true, message: "Email is required" },
+            { required: true, message: "Email is required" },
+            { type: "email", message: "Invalid email." },
+            { max: 30, message: "Email is too long." },
+            { validator: emailValidator },
           ]}
           className="flex-1"
         >
@@ -133,12 +172,16 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
           className="flex-1"
           label="Street address"
           name="streetAddress"
-          // rules={[
-          //   {
-          //     required: true,
-          //     message: "Please enter your street address",
-          //   },
-          // ]}
+          rules={[
+            {
+              required: true,
+              message: "Please enter your street address",
+            },
+            {
+              max: 100,
+              message: "Street address is too long.",
+            },
+          ]}
         >
           <Input />
         </Form.Item>
@@ -261,7 +304,12 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
       </div>
       <Form.Item>
         <div className="flex items-center justify-end">
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={loading}
+            loading={loading}
+          >
             Add physician
           </Button>
         </div>

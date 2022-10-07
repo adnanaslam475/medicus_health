@@ -1,12 +1,7 @@
 import React, { useEffect } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
-import {
-  Appointment,
-  useDoctorAppointmentDetailQuery,
-  useGetAppointmentReportUrlByIdQuery,
-  usePhysicianAppointmentsHistoryQuery,
-} from "generated/graphql";
+import { usePhysicianAppointmentsHistoryQuery } from "generated/graphql";
 import { Tabs } from "antd";
 import ProfileTab from "./ProfileTab";
 import AdminHealthQuestionnaireFrom from "./AdminHealthQuestionnaireFromTab";
