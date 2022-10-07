@@ -57,9 +57,12 @@ const InputFields = ({
             {value.type === "select" &&
               (!value.relationType ||
                 showChildren?.[value?.relationName] === "Yes") && (
-                <Form.Item label={value.label} name={value.option_name}>
+                <Form.Item
+                  label={value?.label}
+                  name={!!value.option_name ? value.option_name : "-"}
+                >
                   <Select
-                    placeholder={value.label}
+                    placeholder={value?.label}
                     onChange={(id) => {
                       setShowChildren((prev: any) => ({
                         ...(prev || {}),

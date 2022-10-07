@@ -34,7 +34,7 @@ type props = {
   onFinishPersonalInfo?: (value: any) => void;
 };
 function AdminPhysicianAdd() {
-  const [data, CreateDoctorMutation] = useCreateDoctorMutation();
+  const [{fetching}, CreateDoctorMutation] = useCreateDoctorMutation();
 
   const form: any = useRef();
 
@@ -119,7 +119,7 @@ function AdminPhysicianAdd() {
                 </Upload>
               </div> */}
               <div className="w-full">
-                <AddPhysicianForm onFinish={createDoctor} />
+                <AddPhysicianForm onFinish={createDoctor} loading={fetching}/>
               </div>
             </div>
           </div>

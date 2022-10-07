@@ -71,7 +71,7 @@ function AdminCalender(props: Props) {
     variables: {
       filter: {
         ...filterValues,
-        status: isPhysicianCalendar ? "Confirmed" : "", // we need to show all appointments for admin and only confirmed for physician
+        status: isPhysicianCalendar ? "Confirmed" : filterValues?.status , // we need to show all appointments for admin and only confirmed for physician
       },
       pagination: { page: 1, limit: -1 },
     },

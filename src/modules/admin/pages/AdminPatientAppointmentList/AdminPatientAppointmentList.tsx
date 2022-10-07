@@ -142,7 +142,7 @@ function AdminPatientAppointmentList() {
     order: "",
   });
 
-  const [{ data, fetching }, executeUseAdminPhysicianAppointmentQuery] =
+  const [{ data, fetching }] =
     useAdminPhysicianAppointmentQuery({
       variables: {
         filter: {
@@ -212,10 +212,6 @@ function AdminPatientAppointmentList() {
     setFilterValues(filterValue);
     setPagination({ ...pagination, page: 1 });
     setSorting({ column: "", order: "" });
-    // executeUseAdminPhysicianAppointmentQuery({
-    //   filter: filterValues,
-    //   requestPolicy: "network-only",
-    // });
   }
 
   return  <div className="w-full">
