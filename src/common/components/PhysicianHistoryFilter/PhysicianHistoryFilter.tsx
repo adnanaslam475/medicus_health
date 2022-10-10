@@ -262,14 +262,16 @@ function PhysicianSearchFilters(props: Props) {
           <Select.Option value="unpaid">Unpaid</Select.Option>
         </Select>
       </div>
-      <Button
-        onClick={onClear}
-        type="text"
-        className={`${_classes["btn-clear"]}`}
-      >
-        <CloseOutlined className="text-sm" />
-        <span className="text-gray-1 text-sm">Clear</span>
-      </Button>
+      <div className="flex w-full md:w-44 xl:w-60 mr-0">
+        <Button
+          onClick={onClear}
+          type="text"
+          className={`${_classes["btn-clear"]} `}
+        >
+          <CloseOutlined className="text-sm" />
+          <span className="text-gray-1 text-sm">Clear</span>
+        </Button>
+      </div>
     </div>
   );
 }

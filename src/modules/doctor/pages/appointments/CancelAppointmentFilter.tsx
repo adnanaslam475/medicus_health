@@ -7,6 +7,7 @@ import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRan
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { BookingDate } from "generated/graphql";
 import { useTranslations } from "next-intl";
+import _classes from "./CancelAppointmentFilters.module.scss";
 
 type Props = {
   onChange: (value: cancelledAppointmentFilterType) => void;
@@ -49,12 +50,15 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
   }
 
   return (
-    <div className="page-filters flex items-center my-5 flex-wrap">
-      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 sm:mb-0 2xl:mr-3">
+    <div
+      className={`${_classes["page-filters-parent"]} page-filters flex lg:flex items-start mb-5 flex-col sm:flex-col md:flex-col lg:flex-row`}
+    >
+      <div className="flex items-start sm:flex-none w-auto text-gray-1 2xl:w-auto mr-0 mb-3 sm:mb-0 lg:mt-3 lg:mr-3 xl:mr-3 2xl:mr-3 md:mb-3">
         Search by
-      </span>
-      <div className="flex items-center sm:mb-0 lg:mb-0 gap-2 flex-col sm:flex-row flex-wrap">
-        <div className="w-full sm:w-full md:w-full lg:w-96">
+      </div>
+
+      <div className="flex w-full lg:mb-0 flex-wrap gap-2">
+        <div className="flex w-full md:w-72 lg:w-72 xl:w-96 ">
           <Input
             value={filterState.searchString}
             placeholder="ID# or patient name"
@@ -62,9 +66,9 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);
             }}
+            className={`${_classes["line-height-searchIcon"]} `}
           />
         </div>
-
         <div className="w-full sm:w-60">
           <SelectServiceTypeFilter
             onChange={(value) => onChangeFields("serviceId", value)}
@@ -100,7 +104,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             />
           </Space>
         </div>
-        <div className="flex w-full md:w-44 xl:w-60 mr-3 pl-1 sm:pl-0">
+        <div className="flex w-full md:w-44 xl:w-60 mr-0">
           <Select
             placeholder="Payment status"
             onChange={(e) => onChangeFields("paymentStatus", e)}
@@ -111,8 +115,8 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             <Select.Option value="unpaid">Unpaid</Select.Option>
             <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
-          <FilterClearButton onClear={clear} />
         </div>
+        <FilterClearButton onClear={clear} />
       </div>
     </div>
   );
