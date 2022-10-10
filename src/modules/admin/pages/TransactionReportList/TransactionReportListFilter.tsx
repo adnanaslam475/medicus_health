@@ -128,11 +128,11 @@ function TransactionReportListFilter({ onChange }: Props) {
             heading="Appointment date"
           />
         </div> */}
-        <div className="w-full sm:w-40">
+        <div className="w-full sm:w-52">
           <SelectStatusTypeFilter
-            placeholder="Status"
+            // placeholder="Appointment Status"
             onChange={(value) => onChangeFields("status", value as string)}
-            value={filterState?.status || "Status"}
+            value={filterState?.status || "Appointment status"}
             hideRequested
           />
         </div>
