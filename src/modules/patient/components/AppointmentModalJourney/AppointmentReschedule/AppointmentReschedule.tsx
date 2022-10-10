@@ -117,7 +117,7 @@ function AppointmentReschedule(props: Props) {
                   value={item.id}
                 >
                   <div className="text-secondary flex justify-between w-full">
-                    <div className="mr-3 block text-sm min-w-[110px]">
+                    <div className="mr-0 block text-sm min-w-[105px]">
                       {date.formatDAYMMDDYY(item.startTime, timeZone)}
                     </div>
                     <div className="inline-block text-sm text-right whitespace-nowrap">{`${date.formathhmma(
