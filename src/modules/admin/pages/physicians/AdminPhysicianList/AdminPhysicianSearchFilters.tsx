@@ -152,13 +152,15 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="Spanish">Espanol</Option>
         </Select>
       </div>
-      <div className="flex-none sm:flex lg:flex-none mt-0 sm:mt-0 w-full md:w-52 lg:w-52 xl:w-52">
+      <div
+        className={`${_classes["rangePicker-cover"]} flex-none sm:flex lg:flex-none mt-0 sm:mt-0 w-full md:w-52 lg:w-52 xl:w-52`}
+      >
         <Space
           direction="vertical"
           size={0}
           className="w-full md:w-56 lg:w-52 xl:w-60 sm:mb-3"
         >
-          <div className="relative -mt-4">
+          <div className="relative">
             <RangePicker
               value={null}
               open={openDateRange1}
