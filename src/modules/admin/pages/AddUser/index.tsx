@@ -19,7 +19,7 @@ function AdminAddUser({}: Props) {
           first_name: values.first_name,
           last_name: values.last_name,
           email: values.email,
-          password:values.password
+          password: values.password,
         },
       });
       if (response?.error) {
@@ -59,9 +59,22 @@ function AdminAddUser({}: Props) {
               <div className="md:grid md:grid-cols-2 md:gap-x-4">
                 <AddAdminUserFormItems />
               </div>
+              <div className="text-right">
+                <Form.Item noStyle>
+                  <Button
+                    loading={fetching}
+                    disabled={fetching}
+                    type="primary"
+                    htmlType="submit"
+                    className="ml-0 py-2"
+                  >
+                    Add user
+                  </Button>
+                </Form.Item>
+              </div>
             </div>
           </div>
-          <div className="flex justify-end pb-0 absolute bottom-0 right-0">
+          {/* <div className="flex justify-end pb-0 absolute bottom-0 right-0">
             <Form.Item noStyle>
               <Button
                 loading={fetching}
@@ -73,7 +86,7 @@ function AdminAddUser({}: Props) {
                 Add user
               </Button>
             </Form.Item>
-          </div>
+          </div> */}
         </Form>
       </div>
     </AppLayout>
