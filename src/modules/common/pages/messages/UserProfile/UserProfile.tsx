@@ -120,7 +120,7 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
             {messageDateTime}
           </span>
         </div>
-        <div className="flex flex-col md:flex-row justify-between md:items-center ">
+        <div className="flex flex-row md:flex-row justify-between md:items-center ">
           {/* <div> */}
           {/* <span className="text-black text-xs sm:text-base max-w-[50px] sm:max-w-[200px] break-all font-semibold sm:font-normal"> */}
           <span className="text-black text-sm sm:text-base sm:max-w-[200px] break-all font-semibold sm:font-normal overflow-hidden">
@@ -136,7 +136,7 @@ function UserProfile({ thread, setRemoveCurrentChat, updateLayout }: Props) {
           </span>
           <Badge
             count={channelMessagesCount}
-            className="new-msg-count ml-2 mb-3"
+            className="new-msg-count ml-2 mb-3 w-[20px]"
           />
           {/* </div> */}
         </div>
