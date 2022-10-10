@@ -15,12 +15,13 @@ import {
   getCurrentUserTimeZone,
   isAppointmentTimeValid,
 } from "common/utils/date";
-import { CustomTimeSlot } from "common/types/types";
+import { CustomTimeSlot, StatusName } from "common/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import CardWithProfileImageInfo from "../CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { getRole } from "common/utils/userData";
 import ViewProposeAppointmentTime from "../ViewProposeAppointmentTime";
+import StatusChip from "../StatusChip/StatusChip";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -221,9 +222,11 @@ function AppointmentInfo(props: Props) {
                 : "Requested date"
             }
             value={
-              appointment?.appointmentDateTime?.startTime && status === "Completed"||status === "Confirmed"
-              ? `${formatedDueDate}`
-              : date.formatMMMMDDYYYY(requestedDate, timeZone)
+              (appointment?.appointmentDateTime?.startTime &&
+                status === "Completed") ||
+              status === "Confirmed"
+                ? `${formatedDueDate}`
+                : date.formatMMMMDDYYYY(requestedDate, timeZone)
             }
           />
           {/* <LabelValueRow
@@ -263,12 +266,7 @@ function AppointmentInfo(props: Props) {
               Appointment status
             </div>
             <div className="w-full text-primary">
-              <Tag
-                color="#e2f8f7"
-                className="ant-typography ant-typography-secondary"
-              >
-                {status}
-              </Tag>
+              <StatusChip type={status?.toUpperCase() as StatusName} />
             </div>
           </li>
 
@@ -278,27 +276,31 @@ function AppointmentInfo(props: Props) {
               value={appointmentTypeProposed?.type || ""}
             />
           )}
-          {appointmentTypeProposed?.dateTime?.length && status !== "Confirmed" && (
-            <LabelValueRow
-              label={"Appointment(s) proposed"}
-              value={
-                appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
-                  return (
-                    <div>{`${date.formatDAYMMDDYY(
-                      String(item?.date),
-                      timeZone
-                    )} - ${date.formathhmma(
-                      String(item?.startTime),
-                      timeZone
-                    )} - ${date.formathhmma(
-                      String(item?.endTime),
-                      timeZone
-                    )}`}</div>
-                  );
-                }) as any
-              }
-            />
-          )}
+          {appointmentTypeProposed &&
+            appointmentTypeProposed?.dateTime?.length > 0 &&
+            status !== "Confirmed" && (
+              <LabelValueRow
+                label={"Appointment(s) proposed"}
+                value={
+                  appointmentTypeProposed.dateTime.map(
+                    (item: DateTimeSlots) => {
+                      return (
+                        <div>{`${date.formatDAYMMDDYY(
+                          String(item?.date),
+                          timeZone
+                        )} - ${date.formathhmma(
+                          String(item?.startTime),
+                          timeZone
+                        )} - ${date.formathhmma(
+                          String(item?.endTime),
+                          timeZone
+                        )}`}</div>
+                      );
+                    }
+                  ) as any
+                }
+              />
+            )}
         </div>
 
         <div className="max-w-[700px] flex sm:justify-between flex-wrap justify-center mt-4">
@@ -361,9 +363,14 @@ function AppointmentInfo(props: Props) {
           {status !== "Requested" &&
             status !== "Rescheduled" &&
             status !== "Proposed" && (
-              <Link passHref href={getRole() === "User"
-              ? `/patient/appointments/${id}/call`
-              : `/physician/appointments/${id}/call`}>
+              <Link
+                passHref
+                href={
+                  getRole() === "User"
+                    ? `/patient/appointments/${id}/call`
+                    : `/physician/appointments/${id}/call`
+                }
+              >
                 <Button
                   className={`${_classes["appointments-btn"]}`}
                   type="primary"
