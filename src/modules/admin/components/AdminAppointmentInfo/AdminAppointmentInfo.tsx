@@ -33,6 +33,7 @@ const { Option } = Select;
 
 type Props = {
   isEdit?: boolean;
+  cancelFetching?:boolean;
   formRef?: any;
   appointmentData?: Appointment;
   data?: {
@@ -84,7 +85,7 @@ function AdminAppointmentInfo({
     status,
     appointmentTypeProposed,
   } = data || {};
-  const [, executeCancelRequestedAppointment] =
+  const [{fetching:cancelFetching}, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
 
   const [
@@ -259,7 +260,7 @@ function AdminAppointmentInfo({
                   <div className="text-primary">
                     <Form.Item name="appointmentType">
                       <Select
-                        defaultValue={appointmentTypeProposed?.type||""}
+                        defaultValue={appointmentTypeProposed?.type || ""}
                         placeholder="Appointment type proposed"
                         className="max-w-[230px]"
                       >
@@ -276,7 +277,7 @@ function AdminAppointmentInfo({
             ) : (
               <LabelWithText
                 label="Appointment type proposed"
-                text={String(appointmentTypeProposed?.type   || "")}
+                text={String(appointmentTypeProposed?.type || "")}
               />
             )}
           </>
@@ -372,6 +373,7 @@ function AdminAppointmentInfo({
           <AdminAppointmentRequestedInfoFooter
             adminApp_Details={adminApp_Details}
             onCancelRequestedAppointment={onCancelRequestedAppointment}
+            cancelFetching={cancelFetching}
           />
         )}
 
@@ -513,14 +515,15 @@ function AdminAppointmentInfoFooter({
 }
 
 function AdminAppointmentRequestedInfoFooter(props: Props) {
-  const { onCancelRequestedAppointment, adminApp_Details } = props || {};
+  const { cancelFetching,onCancelRequestedAppointment, adminApp_Details } = props || {};
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   return (
     <div className="flex justify-between mt-6 flex-wrap wrap">
       <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2">
         <Button
           danger
           className={`${_classes["appointments-btn"]}  flex-1`}
-          onClick={onCancelRequestedAppointment}
+          onClick={() => setShowConfirmationModal(true)}
         >
           Cancel appointment
         </Button>
@@ -573,6 +576,13 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
           <span className="pl-2">Message physician</span>
         </Button>
       </div>
+      <ConfirmationModal
+        visible={showConfirmationModal}
+        confirmLoading={cancelFetching}
+        onCancel={() => setShowConfirmationModal(false)}
+        onOk={onCancelRequestedAppointment}
+        message="Are you sure you want to cancel appointment?"
+      />
     </div>
   );
 }

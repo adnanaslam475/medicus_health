@@ -58,7 +58,7 @@ function MultiRangeDatePicker(props: Props) {
   }
 
   return (
-    <div className="dateWithTextCardWrapper">
+    <div className="dateWithTextCardWrapper my-6 border-b border-gray-3">
       <div className="font-medium text-lightBlue-1">Availability</div>
       {!disable && (
         <div

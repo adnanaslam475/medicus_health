@@ -34,7 +34,7 @@ function InputWithLi(props: IMyProps) {
   };
 
   return (
-    <div className="mt-3">
+    <div className="mt-3 border-b border-gray-3">
       <span className="font-medium text-lightBlue-1">Conditions treated</span>
       <div className={`${_Classes["input-with-li"]} relative`}>
         {!disable && (
