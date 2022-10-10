@@ -30,3 +30,19 @@
     }
   }
 }
+
+.rangePicker-cover {
+  :global .ant-space-item {
+    .ant-picker-range {
+      position: absolute;
+    }
+    .ant-picker.ant-picker-range {
+      padding: 0;
+    }
+    .ant-picker.ant-picker-range + button {
+      @media screen and (min-width: 808px) {
+        top: 5px;
+      }
+    }
+  }
+}
