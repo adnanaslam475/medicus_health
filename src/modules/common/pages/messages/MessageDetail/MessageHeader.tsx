@@ -125,7 +125,7 @@ function MessageHeader({
         </div>
         {isShowHeaderInfo && !removeCurrentChat && (
           <>
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-col flex-1 w-full">
               {/* <div className="w-full px-4 hippa client message flex justify-center bg-gray-4 py-2 text-xs text-gray-2 mb-2">
                 <div className="flex items-center justify-center">
                   <LockOutlined className="mr-1" />

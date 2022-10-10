@@ -295,7 +295,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         )}
         {status === "Canceled" && (
           <li className="flex border-b border-gray-5 py-3">
-            <div className="w-full text-gray-1 max-w-[300px]">
+            <div className="w-full text-gray-1 min-w-[150px] max-w-[150px] sm:max-w-[300px] ">
               Payment status
             </div>
             <div className="w-full text-secondary">
