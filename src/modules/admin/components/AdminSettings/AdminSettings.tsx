@@ -203,6 +203,7 @@ function AdminSettings() {
                 <InputNumber
                   maxLength={15}
                   addonBefore="$"
+                  className={` ${_classes["total-field"]}`}
                   // type="number"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -223,6 +224,7 @@ function AdminSettings() {
                 className="text-secondary font-bold"
               >
                 <InputNumber
+                  addonBefore="$"
                   addonAfter="%"
                   type="number"
                   min={0}
@@ -251,6 +253,7 @@ function AdminSettings() {
                 className="font-bold text-secondary"
               >
                 <InputNumber
+                  addonBefore="$"
                   addonAfter="%"
                   type="number"
                   min={0}
@@ -279,6 +282,7 @@ function AdminSettings() {
                   className="font-bold text-secondary"
                 >
                   <InputNumber
+                    className={` ${_classes["total-field"]}`}
                     maxLength={15}
                     addonBefore="$"
                     formatter={(value) =>
@@ -301,6 +305,7 @@ function AdminSettings() {
                   className="font-bold text-secondary"
                 >
                   <InputNumber
+                    addonBefore="$"
                     addonAfter="%"
                     type="number"
                     min={0}
@@ -329,6 +334,7 @@ function AdminSettings() {
                   className="font-bold text-secondary"
                 >
                   <InputNumber
+                    addonBefore="$"
                     addonAfter="%"
                     type="number"
                     min={0}
@@ -358,6 +364,7 @@ function AdminSettings() {
                   className="font-semibold text-secondary"
                 >
                   <InputNumber
+                    addonBefore="$"
                     addonAfter="%"
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -377,6 +384,7 @@ function AdminSettings() {
                   className="font-bold text-secondary"
                 >
                   <InputNumber
+                    addonBefore="$"
                     addonAfter="%"
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -395,6 +403,7 @@ function AdminSettings() {
                   className="font-bold text-secondary"
                 >
                   <InputNumber
+                    addonBefore="$"
                     addonAfter="%"
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")

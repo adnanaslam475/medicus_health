@@ -136,6 +136,16 @@ function ProfileForm({
         <LanguageList disable={true} language={formatedLanguage} />
         <AboutMe />
 
+        {!condition_treated && (
+          <div className="my-6 border-b border-gray-3 w-full">
+            <span className="font-medium text-lightBlue-1">
+              Conditions treated
+            </span>
+            <br />
+
+          </div>
+        )}
+
         {condition_treated && (
           <InputWithLi
             disable={true}
