@@ -259,7 +259,7 @@ function AdminAppointmentInfo({
                   <div className="text-primary">
                     <Form.Item name="appointmentType">
                       <Select
-                        defaultValue={appointmentTypeProposed?.type||""}
+                        defaultValue={appointmentTypeProposed?.type || ""}
                         placeholder="Appointment type proposed"
                         className="max-w-[230px]"
                       >
@@ -276,7 +276,7 @@ function AdminAppointmentInfo({
             ) : (
               <LabelWithText
                 label="Appointment type proposed"
-                text={String(appointmentTypeProposed?.type   || "")}
+                text={String(appointmentTypeProposed?.type || "")}
               />
             )}
           </>
@@ -551,6 +551,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
         <Button
           icon={
             <Image
+              unoptimized
               priority={true}
               width={15}
               height={15}
@@ -630,10 +631,10 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
               height={15}
               src={chat}
               alt=""
-              className=""
+              className="w-14"
             />
           }
-          className={`${_classes["appointments-btn"]}  flex-1`}
+          className={`${_classes["appointments-btn"]} ${_classes["for-msg-icon-width"]}  flex-1`}
           onClick={() => {
             Router.push({
               pathname: "/admin/messages",
@@ -654,10 +655,10 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
               height={15}
               src={chat}
               alt=""
-              className=""
+              className="w-14"
             />
           }
-          className={`${_classes["appointments-btn"]} flex-1`}
+          className={`${_classes["appointments-btn"]} ${_classes["for-msg-icon-width"]} flex-1`}
           onClick={() =>
             Router.push({
               pathname: "/admin/messages",
