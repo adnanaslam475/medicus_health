@@ -98,7 +98,7 @@ function StaffAppointmentsFilter({ onChange }: Props) {
               />
             </span> */}
             <Select
-              placeholder="Status"
+              placeholder="Profile status"
               className="w-full sm:w-60"
               onChange={(value) => onChangeFields("status", value as Object)}
               value={filterState.status}
