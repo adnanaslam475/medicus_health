@@ -49,7 +49,7 @@ function AdminPatientListingDetail() {
           >
             <Tabs.TabPane
               tab={
-                <span>
+                <span className="flex items-center">
                   <UserOutlined className="" />
                   Profile
                 </span>
@@ -60,7 +60,7 @@ function AdminPatientListingDetail() {
             </Tabs.TabPane>
             <Tabs.TabPane
               tab={
-                <span>
+                <span className="flex items-center">
                   <UnorderedListOutlined />
                   Questionnaire
                 </span>
@@ -71,7 +71,7 @@ function AdminPatientListingDetail() {
             </Tabs.TabPane>
             <Tabs.TabPane
               tab={
-                <span>
+                <span className="flex items-center">
                   <CalendarOutlined />
                   Appointments
                 </span>

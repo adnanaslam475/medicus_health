@@ -116,6 +116,7 @@ function CanncelledAppointmentFilter({ onChange }: Props) {
             <Select.Option value="refunded">Refunded</Select.Option>
           </Select>
         </div>
+        {/* <FilterClearButton onClear={clear} /> */}
         <FilterClearButton onClear={clear} />
       </div>
     </div>
