@@ -173,10 +173,10 @@ export const Profile = React.forwardRef(function Profile({
     console.log("value", value);
     if (value?.trim().length === 0 || !value) {
       // callback(t("contact_number_message"));
-      callback("Por favor ingrese su número de contacto");
+      callback("Please enter your contact number");
     } else if (value?.trim().length < 9) {
       // callback(t("contact_number_message"));
-      callback("Por favor ingrese el número de contacto correcto");
+      callback("Please enter the correct contact number");
     } else {
       callback();
     }
