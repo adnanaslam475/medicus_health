@@ -1,21 +1,9 @@
 .page-filters-parent {
-  .ant-space-item {
-    border: 1px solid #9295af !important;
-  }
-  :global .ant-btn {
-    border: 1px solid #9295af !important;
-  }
   .dropdown {
     border: 1px solid #9295af !important;
-  }
-  :global button.ant-btn.dropdown.ant-btn-default.ant-btn-block {
-    border: 1px solid #9295af !important;
-  }
-  :global .ant-space {
-    .ant-space-item {
-      :global .ant-btn.dropdown {
-        border: 1px solid #9295af !important;
-      }
+    & > div {
+      // font-weight: 300 !important;
+      font-size: 15px;
     }
   }
 
@@ -42,6 +30,9 @@
     .ant-picker.ant-picker-range + button {
       @media screen and (min-width: 808px) {
         top: 5px;
+        // & > div {
+        //   font-weight: 300 !important;
+        // }
       }
     }
   }

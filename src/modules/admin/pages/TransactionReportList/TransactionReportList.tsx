@@ -319,8 +319,9 @@ function TransactionReportList() {
         </div>
         <TransactionReportListFilter onChange={onChangeFilters} />
         <div className="w-full">
-          <div className="">
+          <div className="table-with-fixed-header">
             <Table
+              scroll={{ x: true }}
               columns={columns}
               dataSource={getAdminTransactionReportListing?.items}
               footer={(currentPageCount) =>
@@ -331,7 +332,6 @@ function TransactionReportList() {
               }
               onChange={onChange}
               loading={fetching}
-              scroll={{ x: true }}
               pagination={{
                 total: Number(meta?.totalPages) * pagination.limit,
                 current: meta?.currentPage,
@@ -340,7 +340,8 @@ function TransactionReportList() {
                 pageSizeOptions: ["10", "20", "30", "40"],
                 showSizeChanger: true,
               }}
-            />{" "}
+              className="table-with-fixed-header"
+            />
           </div>
         </div>
       </div>

@@ -200,7 +200,7 @@ function AdminPhysicianSearchFilters(props: Props) {
               onClick={() => setOpenDateRange1?.(!openDateRange1)}
             >
               {filterState?.creationDate?.endDate ? (
-                <div className="border-4 border-indigo-600">
+                <div className="border-0 border-indigo-0 text-gray-1 ">
                   {filterState?.creationDate?.endDate
                     ? `${getDateInFormat(
                         filterState?.creationDate?.startDate
