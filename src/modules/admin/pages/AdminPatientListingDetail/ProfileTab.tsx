@@ -158,12 +158,12 @@ function AdminPatientProfileTab({}: Props) {
         setOpen(false);
         Router.push(`/admin/patients/`);
         notification.success({
-          message: "User Deleted Successfully",
+          message: "User deleted successfully",
         });
       }
     } catch (error: any) {
       notification.error({
-        message: error?.message || "Something Went Wrong",
+        message: error?.message || "Something went wrong",
       });
     }
   };

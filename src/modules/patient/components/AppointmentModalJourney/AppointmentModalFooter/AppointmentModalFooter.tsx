@@ -92,7 +92,7 @@ function AppointmentModalFooter({
       });
       if (res?.data?.cancelAppointmentByPatient) {
         notification.success({
-          message: "Appointment Canceled",
+          message: "Appointment canceled",
         });
         setShowConfirmationModal(false);
       } else if (res?.error?.graphQLErrors) {

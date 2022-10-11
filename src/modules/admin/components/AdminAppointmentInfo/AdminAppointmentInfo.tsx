@@ -33,7 +33,7 @@ const { Option } = Select;
 
 type Props = {
   isEdit?: boolean;
-  cancelFetching?:boolean;
+  cancelFetching?: boolean;
   formRef?: any;
   appointmentData?: Appointment;
   data?: {
@@ -85,7 +85,7 @@ function AdminAppointmentInfo({
     status,
     appointmentTypeProposed,
   } = data || {};
-  const [{fetching:cancelFetching}, executeCancelRequestedAppointment] =
+  const [{ fetching: cancelFetching }, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
 
   const [
@@ -101,7 +101,7 @@ function AdminAppointmentInfo({
 
       if (res?.data?.cancelAppointment) {
         notification.success({
-          message: "Appointment Canceled",
+          message: "Appointment canceled",
         });
       } else {
         notification.error({
@@ -382,6 +382,7 @@ function AdminAppointmentInfo({
             adminApp_Details={adminApp_Details}
             onCancelRequestedAppointment={onCancelRequestedAppointment}
             appointmentData={appointmentData as any}
+            cancelFetching={cancelFetching}
           />
         )}
 
@@ -515,7 +516,8 @@ function AdminAppointmentInfoFooter({
 }
 
 function AdminAppointmentRequestedInfoFooter(props: Props) {
-  const { cancelFetching,onCancelRequestedAppointment, adminApp_Details } = props || {};
+  const { cancelFetching, onCancelRequestedAppointment, adminApp_Details } =
+    props || {};
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   return (
     <div className="flex justify-between mt-6 flex-wrap wrap">
@@ -589,8 +591,12 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
 }
 
 function AdminAppointmentConfirmedInfoFooter(props: Props) {
-  const { onCancelRequestedAppointment, adminApp_Details, appointmentData } =
-    props || {};
+  const {
+    cancelFetching,
+    onCancelRequestedAppointment,
+    adminApp_Details,
+    appointmentData,
+  } = props || {};
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
@@ -600,6 +606,9 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
   useEffect(() => {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment, disabled]);
+
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
   return (
     <div className="flex justify-between mt-6 flex-wrap wrap">
       <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2">
@@ -684,11 +693,18 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
         <Button
           danger
           className={`${_classes["appointments-btn"]}  flex-1`}
-          onClick={onCancelRequestedAppointment}
+          onClick={() => setShowConfirmationModal(true)}
         >
           Cancel appointment
         </Button>
       </div>
+      <ConfirmationModal
+        visible={showConfirmationModal}
+        confirmLoading={cancelFetching}
+        onCancel={() => setShowConfirmationModal(false)}
+        onOk={onCancelRequestedAppointment}
+        message="Are you sure you want to cancel appointment?"
+      />
     </div>
   );
 }
