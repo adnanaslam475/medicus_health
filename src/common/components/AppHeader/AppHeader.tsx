@@ -167,6 +167,7 @@ const AppHeader = () => {
                       alt="Profile Image"
                       height="40"
                       width="40"
+                      objectFit="cover"
                       onError={(e) => console.log(e)}
                       src={profilePicture || userDefaultPicture}
                       className="bg-gray border rounded-full border-gray min-w-[40]"

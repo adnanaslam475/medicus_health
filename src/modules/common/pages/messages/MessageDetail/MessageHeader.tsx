@@ -138,6 +138,7 @@ function MessageHeader({
                     alt=""
                     width={39}
                     height={39}
+                    objectFit="cover"
                     className="rounded-full"
                     src={profileImage || ""}
                     fallbackImage={profile}

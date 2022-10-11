@@ -134,7 +134,12 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
   props: any,
   ref: any
 ) {
-  const { onFinishSuccess, onFinishedFailed, data,disabled:propsDisabled } = props || {};
+  const {
+    onFinishSuccess,
+    onFinishedFailed,
+    data,
+    disabled: propsDisabled,
+  } = props || {};
   const [radioDrink, setRadioDrink] = useState(false);
   const [radioSmoke, setRadioSmoke] = useState(false);
   const [radioDrug, setRadioDrug] = useState(false);
@@ -163,7 +168,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     }
   }, [data]);
   useEffect(() => {
-    if (getRole() === "Doctor" ) {
+    if (getRole() === "Doctor") {
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -184,7 +189,10 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     setRadioDrink(parsedData?.q1.ans);
     setRadioSmoke(parsedData?.q2.ans);
     setRadioDrug(parsedData?.q3.ans);
-    setShowDrugOthers(parsedData?.q3.q.selectedOption.includes("Otra"));
+    setShowDrugOthers(
+      Array.isArray(parsedData?.q3?.q?.selectedOption) &&
+        parsedData?.q3?.q?.selectedOption?.includes("Otra")
+    );
     setShowSurgicalOthers(parsedData?.q4.selectedOption.includes("Otros"));
     formInstance.setFieldsValue({
       // q1
@@ -198,8 +206,13 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       // q3
       [HealthQuestionnaryData.q3.name]: parsedData?.q3.ans,
       [HealthQuestionnaryData.q3.q.name]: parsedData?.q3?.q?.ans?.length
-        ? [...parsedData?.q3.q.selectedOption, ...parsedData?.q3?.q?.ans]
-        : [...parsedData?.q3.q.selectedOption],
+        ? [
+            ...(new Set([
+              ...parsedData?.q3.q.selectedOption,
+              ...parsedData?.q3?.q?.ans,
+            ]) as unknown as string[]),
+          ]
+        : Array.isArray(parsedData?.q3.q.selectedOption) ? [...parsedData?.q3.q.selectedOption]:[],
       [HealthQuestionnaryData.q3.q2.name]: parsedData?.q3?.q2?.ans,
 
       //q4
@@ -239,14 +252,14 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
         selectedMedicalOption ??
         parseJson(data)?.q3?.q?.selectedOption ??
         parseJson(data)?.q3?.q?.ans;
-    }
-    else {
+    } else {
       HealthQuestionnaryData.q3["ans"] = 0;
       HealthQuestionnaryData.q3.q.ans =
         values.check_drug ??
         selectedMedicalOption ??
         parseJson(data)?.q3?.q?.selectedOption ??
-        parseJson(data)?.q3?.q?.ans;    }
+        parseJson(data)?.q3?.q?.ans;
+    }
 
     if (values.drug_text) {
       HealthQuestionnaryData.q3.q2.ans = values.drug_text;
