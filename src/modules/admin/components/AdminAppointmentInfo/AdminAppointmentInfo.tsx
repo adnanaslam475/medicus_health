@@ -101,7 +101,7 @@ function AdminAppointmentInfo({
 
       if (res?.data?.cancelAppointment) {
         notification.success({
-          message: "Appointment Canceled",
+          message: "Appointment canceled",
         });
       } else {
         notification.error({
