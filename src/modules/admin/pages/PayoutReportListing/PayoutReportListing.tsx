@@ -23,11 +23,7 @@ function PayoutReportListing() {
       dataIndex: "transaction",
       key: "id",
       render: (transaction: Transaction) => {
-        return (
-          <div className="break-all w-[100px]">
-            {transaction?.id}
-          </div>
-        );
+        return <div className="break-all w-[100px]">{transaction?.id}</div>;
       },
     },
     {
@@ -120,22 +116,7 @@ function PayoutReportListing() {
         return <div>{tax}</div>;
       },
     },
-    {
-      title: "Total sales ($)",
-      dataIndex: "transaction",
-      key: "amountReceived",
-      render: (transaction: Transaction) => {
-        return <div>{transaction.amountReceived || "0"}</div>;
-      },
-    },
-    {
-      title: "Net physician fee ($)",
-      dataIndex: "transaction",
-      key: "doctor_percentage",
-      render: (transaction: Transaction) => {
-        return <div>{transaction?.doctor_percentage || "0"}</div>;
-      },
-    },
+
     {
       title: "Stripe processing fee ($)",
       dataIndex: "transaction",
@@ -153,6 +134,22 @@ function PayoutReportListing() {
       key: "medicus_percentage",
       render: (transaction: Transaction) => {
         return <div>{transaction?.medicus_percentage || "0"}</div>;
+      },
+    },
+    {
+      title: "Net physician fee ($)",
+      dataIndex: "transaction",
+      key: "doctor_percentage",
+      render: (transaction: Transaction) => {
+        return <div>{transaction?.doctor_percentage || "0"}</div>;
+      },
+    },
+    {
+      title: "Total sales ($)",
+      dataIndex: "transaction",
+      key: "amountReceived",
+      render: (transaction: Transaction) => {
+        return <div>{transaction.amountReceived || "0"}</div>;
       },
     },
   ];
