@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "antd";
 import Image from "next/image";
 import {
-  AppointmentTimeSlots,
   useGetAppointmentsReminderBannerQuery,
 } from "generated/graphql";
 import { date } from "common/utils";
@@ -16,6 +15,7 @@ import {
   getCurrentUserTimeZone,
   isAppointmentTimeValid,
 } from "common/utils/date";
+import { AppointmentTimeSlots } from "common/types/types";
 
 const InfoMessageBannerReminder = () => {
   // BANNER API CALL

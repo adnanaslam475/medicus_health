@@ -48,7 +48,7 @@ function PayoutReportListing() {
       // key: "appointment",
       render: (appointment: any) => {
         const serviceName =
-          appointment?.appointmentTypeProposed?.name ||
+          appointment?.appointmentTypeProposed?.type ||
           appointment?.serviceType?.name ||
           "-";
         return <div>{serviceName}</div>;

@@ -5,8 +5,7 @@ import localeData from "dayjs/plugin/localeData";
 import duration from "dayjs/plugin/duration";
 import timezone from "dayjs/plugin/timezone";
 import { date } from "./index";
-import { AppointmentTimeSlots } from "generated/graphql";
-import { CustomTimeSlot } from "common/types/types";
+import { AppointmentTimeSlots, CustomTimeSlot } from "common/types/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
 dayjs.extend(utc);

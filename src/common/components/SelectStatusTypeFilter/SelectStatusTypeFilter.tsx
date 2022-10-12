@@ -1,7 +1,6 @@
 import { Select } from "antd";
 import _classes from "./SelectStatusTypeFilter.module.scss";
 
-
 export function SelectStatusTypeFilter({
   onChange,
   value,
@@ -28,8 +27,9 @@ export function SelectStatusTypeFilter({
     >
       {/* ---> reuquested will give both Suggested and Requested */}
       {!hideRequested && (
-        <Select.Option  value="Requested">Requested</Select.Option>
+        <Select.Option value="Requested">Requested</Select.Option>
       )}
+      <Select.Option value="Proposed">Proposed</Select.Option>
       <Select.Option value="Canceled">Canceled</Select.Option>
       <Select.Option value="Confirmed">Upcoming</Select.Option>
       <Select.Option value="Completed">Completed</Select.Option>

@@ -28,37 +28,37 @@ function AdminDashboard() {
 
   const adminDashboardStatistics = [
     {
-      key: "Total Number of Patients",
+      key: "Total number of patients",
       value: numberFormatter(Number(total_number_of_users)),
       icon: users,
     },
     {
-      key: "Total Number of Physicians",
+      key: "Total number of physicians",
       value: numberFormatter(Number(total_number_of_physicians)),
       icon: physician,
     },
     {
-      key: "Total Number of Consultations",
+      key: "Total number of consultations",
       value: numberFormatter(Number(total_number_of_consultation)),
       icon: appointments,
     },
     {
-      key: "Total Number of Second Opinions",
+      key: "Total number of second opinions",
       value: numberFormatter(Number(total_number_of_second_opinions)),
       icon: appointments,
     },
     {
-      key: "Net Gross sales ($)",
+      key: "($) Net gross sales",
       value: currencyFormatter(Number(net_gross_sale)),
       icon: revenue,
     },
     {
-      key: "Net Physician Fee ($)",
+      key: "($) Net physician fee",
       value: currencyFormatter(Number(net_physician_fee)),
       icon: revenue,
     },
     {
-      key: "Total Medicus revenue ($)",
+      key: "($) Total medicus revenue",
       value: currencyFormatter(Number(total_medicus_revenue)),
       icon: revenue,
     },
