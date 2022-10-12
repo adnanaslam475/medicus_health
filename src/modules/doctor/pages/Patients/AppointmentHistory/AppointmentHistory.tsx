@@ -5,9 +5,11 @@ import { useRouter } from "next/router";
 
 function AppointmentHistory() {
   // GET ALL APPOINMENTS
+  let defaultPageSize =
+    localStorage.getItem("physicianPatientAppointmentperPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
 
   const [sorting, setSorting] = React.useState({
@@ -39,8 +41,13 @@ function AppointmentHistory() {
     }
   );
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem(
+      "physicianPatientAppointmentperPageLimit",
+      String(limit)
+    );
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;

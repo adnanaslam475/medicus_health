@@ -138,7 +138,8 @@ function PhysicianAppointmentHistoryTable(props: Props) {
     },
   ];
 
-
+  let defaultPageSize =
+    localStorage.getItem("physicianHistoryAppointmentperPageLimit") || 10;
   return (
     <Table
       columns={historyColumns}
@@ -150,7 +151,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       pagination={{
         current: meta?.currentPage,
         total: meta?.totalPages * pagination.limit,
-        defaultPageSize: 10,
+        defaultPageSize: Number(defaultPageSize),
         onChange: onPaginationChange,
         pageSizeOptions: ["10", "20", "30", "40"],
         showSizeChanger: true,

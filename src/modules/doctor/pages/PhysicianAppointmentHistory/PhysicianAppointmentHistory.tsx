@@ -10,10 +10,11 @@ import {
 
 function PatientAppointmentHistory() {
   const [filterValues, setFilterValues] = useState({});
-
+  let defaultPageSize =
+    localStorage.getItem("physicianHistoryAppointmentperPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
   const [sorting, setSorting] = React.useState({
     column: "",
@@ -42,8 +43,13 @@ function PatientAppointmentHistory() {
     });
   }
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem(
+      "physicianHistoryAppointmentperPageLimit",
+      String(limit)
+    );
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;

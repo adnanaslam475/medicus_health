@@ -205,9 +205,11 @@ const PhysicianMyEarningsList = (props: Props) => {
     useState<physicianMyEarningsFilterType>({});
   const [DoctorEarningsfilterValues, setDoctorEarningsFilterValues] =
     useState<GetTransectionInput>({});
+  let defaultPageSize =
+    localStorage.getItem("physicianEarningperPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
 
   const [sorting, setSorting] = React.useState({
@@ -290,10 +292,10 @@ const PhysicianMyEarningsList = (props: Props) => {
     });
   };
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem("physicianEarningperPageLimit", String(limit));
     setPagination({ page, limit });
-
-  console.log("getTransactionFilter", transactionData);
+  };
 
   return (
     <AppLayout>
@@ -373,7 +375,7 @@ const PhysicianMyEarningsList = (props: Props) => {
             total:
               Number(getTransactionFilter?.meta?.totalPages) * pagination.limit,
             current: getTransactionFilter?.meta?.currentPage,
-            defaultPageSize: 10,
+            defaultPageSize: Number(defaultPageSize),
             onChange: onPaginationChange,
             pageSizeOptions: ["10", "20", "30", "40"],
             showSizeChanger: true,
