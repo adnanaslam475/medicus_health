@@ -95,9 +95,9 @@ function AdminPatientProfileTab({}: Props) {
     formInstance.setFieldsValue({
       ...user,
       ...patientProfile,
-      country_name: country_id,
-      state_name: state_id,
-      city_name: city_id,
+      country_name: country_id||"",
+      state_name: state_id||"",
+      city_name: city_id||"",
       date_of_birth: user?.date_of_birth ? moment(user?.date_of_birth) : "",
       gender: userGender,
     });

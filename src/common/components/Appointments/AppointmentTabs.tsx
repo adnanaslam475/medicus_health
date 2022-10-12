@@ -57,7 +57,7 @@ const AppointmentTabs = (props: Props) => {
   const { reportUrl } = appointment || {};
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
-    urlArr = urlArr?.flat(1)?.map((item: any) => ({
+    urlArr = urlArr?.flat(1)?.filter((value:any)=>value?.url !== undefined).map((item: any) => ({
       name: item?.name,
       url: item?.url,
     }));
@@ -86,6 +86,8 @@ const AppointmentTabs = (props: Props) => {
       },
     });
   }, [deletedUrl]);
+
+  console.log("hello world",urlArr)
   return (
     <div className="profile-tabs">
       <Tabs
@@ -120,7 +122,7 @@ const AppointmentTabs = (props: Props) => {
           />
           <div>
             <span className="font-semibold text-md">Your files</span>
-            {urlArr?.length ? (
+            {!!urlArr?.length ? (
               urlArr?.map((item: AttachmentObject) => (
                 <Attachment
                   item={item}
