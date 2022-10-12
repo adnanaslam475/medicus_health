@@ -12,6 +12,7 @@ import InfoMessageBannerReminder from "../InfoMessageBannerReminder/InfoMessageB
 import { usePatientHealthHistoryQuery } from "generated/graphql";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 import { useUserData } from "../Context/UserContext";
+import MDNextImage from "../MDNextImage/MDNextImage";
 
 const { Header } = Layout;
 
@@ -162,7 +163,7 @@ const AppHeader = () => {
               <div onClick={showPopover}>
                 {user?.first_name && (
                   <>
-                    <Image
+                    {/* <Image
                       priority={true}
                       alt="Profile Image"
                       height="40"
@@ -171,6 +172,14 @@ const AppHeader = () => {
                       onError={(e) => console.log(e)}
                       src={profilePicture || userDefaultPicture}
                       className="bg-gray border rounded-full border-gray min-w-[40]"
+                    /> */}
+                    <MDNextImage
+                      alt=""
+                      width={40}
+                      height={40}
+                      objectFit="cover"
+                      className="rounded-full"
+                      src={profilePicture || userDefaultPicture}
                     />
                     <span className="justify-center px-2 hidden xl:block">
                       {userName}
