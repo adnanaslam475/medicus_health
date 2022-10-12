@@ -148,9 +148,11 @@ const columns = [
 
 function AdminPhysicianList() {
   const [filterValues, setFilterValues] = useState({});
+  let defaultPageSize =
+    localStorage.getItem("adminPhysicianListingPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
   const [sorting, setSorting] = React.useState({
     column: "",
@@ -168,8 +170,10 @@ function AdminPhysicianList() {
 
   const { getPhysicians } = data || {};
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem("adminPhysicianListingPerPageLimit", String(limit));
     setPagination({ page, limit });
+  };
 
   function onChangeFilters(values: any) {
     setPagination({ ...pagination, page: 1 });
@@ -229,7 +233,7 @@ function AdminPhysicianList() {
                 total:
                   Number(getPhysicians?.meta?.totalPages) * pagination.limit,
                 current: getPhysicians?.meta?.currentPage,
-                defaultPageSize: 10,
+                defaultPageSize: Number(defaultPageSize),
                 onChange: onPaginationChange,
                 pageSizeOptions: ["10", "20", "30", "40"],
                 showSizeChanger: true,

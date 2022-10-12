@@ -159,8 +159,8 @@ function UpcomingAppointmentTableDoctor({
   pagination,
   onChange,
 }: Props) {
-
-
+  let defaultPageSize =
+    localStorage.getItem("physicianUpcommingAppointmentperPageLimit") || 10;
   return (
     // <span className={`${_classes["upcomming-appointment-doctor-table"]}`}>
     <Table
@@ -170,11 +170,13 @@ function UpcomingAppointmentTableDoctor({
       loading={loading}
       scroll={{ x: true }}
       onChange={onChange}
-      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
+      footer={(currentPageCount) =>
+        tableFooter(currentPageCount?.length, meta?.totalItems)
+      }
       pagination={{
         total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,
-        defaultPageSize: 10,
+        defaultPageSize: Number(defaultPageSize),
         onChange: onPaginationChange,
         pageSizeOptions: ["10", "20", "30", "40"],
         showSizeChanger: true,

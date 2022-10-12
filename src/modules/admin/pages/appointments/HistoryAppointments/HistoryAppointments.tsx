@@ -29,9 +29,11 @@ function CancelledAppointment() {
   const [filterValues, setFilterValues] = useState<GetAppointmentInput>({
     status: "Completed",
   });
+  let defaultPageSize =
+  localStorage.getItem("patientAppointmentHistoryPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
   const [sorting, setSorting] = React.useState({
     column: "",
@@ -79,8 +81,10 @@ function CancelledAppointment() {
       requestPolicy: "network-only",
     });
   }
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem("patientAppointmentHistoryPerPageLimit", String(limit));
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;

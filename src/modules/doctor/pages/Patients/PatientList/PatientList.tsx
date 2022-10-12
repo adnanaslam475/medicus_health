@@ -117,9 +117,11 @@ const columns = [
 
 function PatientList() {
   const [searchValue, setSearchValue] = React.useState("");
+  let defaultPageSize =
+    localStorage.getItem("physicianPatientperPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
   const [sorting, setSorting] = React.useState({
     column: "",
@@ -132,8 +134,10 @@ function PatientList() {
     });
   const { physiciansPatients } = data || {};
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem("physicianPatientperPageLimit", String(limit));
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
@@ -141,9 +145,7 @@ function PatientList() {
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
         ? `${/country_name/.test(sorter.columnKey) ? "country" : "user"}.${
-        
-            sorter.columnKey ||
-            sorter.field
+            sorter.columnKey || sorter.field
           }`
         : "",
     });
@@ -157,7 +159,6 @@ function PatientList() {
       requestPolicy: "network-only",
     });
   }
-
 
   return (
     <AppLayout>
@@ -174,13 +175,18 @@ function PatientList() {
               loading={fetching}
               onChange={onChange}
               scroll={{ x: true }}
-              footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(physiciansPatients?.meta?.totalItems||0))}
+              footer={(currentPageCount) =>
+                tableFooter(
+                  currentPageCount?.length,
+                  Number(physiciansPatients?.meta?.totalItems || 0)
+                )
+              }
               pagination={{
                 total:
                   Number(physiciansPatients?.meta?.totalPages) *
                   pagination.limit,
                 current: physiciansPatients?.meta?.currentPage,
-                defaultPageSize: 10,
+                defaultPageSize: Number(defaultPageSize),
                 onChange: onPaginationChange,
                 pageSizeOptions: ["10", "20", "30", "40"],
                 showSizeChanger: true,

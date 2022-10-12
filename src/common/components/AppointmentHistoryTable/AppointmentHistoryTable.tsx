@@ -165,18 +165,23 @@ const AppointmentHistoryTable = (props: Props) => {
   const { data, loading, meta, onPaginationChange, pagination, onChange } =
     props || {};
 
+  let defaultPageSize =
+    localStorage.getItem("patientAppointmentHistoryPerPageLimit") || 10;
+
   return (
     <Table
       columns={historyColumns}
       dataSource={data}
       loading={loading}
       onChange={onChange}
-      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
+      footer={(currentPageCount) =>
+        tableFooter(currentPageCount?.length, meta?.totalItems)
+      }
       scroll={{ x: true }}
       pagination={{
         total: pagination.limit * meta?.totalPages,
         current: meta?.currentPage,
-        defaultPageSize: 10,
+        defaultPageSize: Number(defaultPageSize),
         onChange: onPaginationChange,
         pageSizeOptions: ["10", "20", "30", "40"],
         showSizeChanger: true,

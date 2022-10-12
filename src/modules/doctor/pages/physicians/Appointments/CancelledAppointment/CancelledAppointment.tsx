@@ -18,9 +18,11 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
   const t = useTranslations("Common");
   const [filterValues, setFilterValues] =
     React.useState<cancelAppointmentFilterType>({});
+  let defaultPageSize =
+    localStorage.getItem("physicianCanceledAppointmentperPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
   const [sorting, setSorting] = React.useState({
     column: "",
@@ -50,8 +52,13 @@ function CancelledAppointment({}: CancelledAppointmentProps) {
     });
   }
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem(
+      "physicianCanceledAppointmentperPageLimit",
+      String(limit)
+    );
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;

@@ -206,9 +206,11 @@ const columns = [
 function TransactionReportList() {
   const [filterValues, setFilterValues] = useState({});
   const [statisticsFilterValues, setStatisticsFilterValues] = useState({});
+  let defaultPageSize =
+    localStorage.getItem("adminTransactionReportPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
   const [sorting, setSorting] = React.useState({
     column: "",
@@ -236,8 +238,10 @@ function TransactionReportList() {
   const { getAdminTransactionReportListing } = data || {};
   const { meta } = getAdminTransactionReportListing || {};
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem("adminTransactionReportPerPageLimit", String(limit));
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
@@ -335,7 +339,7 @@ function TransactionReportList() {
               pagination={{
                 total: Number(meta?.totalPages) * pagination.limit,
                 current: meta?.currentPage,
-                defaultPageSize: 10,
+                defaultPageSize: Number(defaultPageSize),
                 onChange: onPaginationChange,
                 pageSizeOptions: ["10", "20", "30", "40"],
                 showSizeChanger: true,
