@@ -14,6 +14,7 @@ import {
   Appointment,
   AppointmentTimeSlots,
   AppointmentTypeProposedResponse,
+  DateTimeSlots,
   useCancelAppointmentByDoctorMutation,
   useGetAllAppointmentServiceTypesQuery,
   useGetPatientsQuery,
@@ -29,6 +30,7 @@ import { isAppointmentTimeValid } from "common/utils/date";
 import Image from "next/image";
 import { getRole } from "common/utils/userData";
 import Input from "antd/lib/input/Input";
+import { date } from "common/utils";
 const { Option } = Select;
 
 type Props = {
@@ -39,6 +41,7 @@ type Props = {
   data?: {
     id: string;
     bookingDate: string;
+    bookingTime: string;
     patient: string;
     physician: string;
     service: string;
@@ -74,6 +77,7 @@ function AdminAppointmentInfo({
   const {
     id,
     bookingDate,
+    bookingTime,
     patient,
     physician,
     service,
@@ -178,7 +182,9 @@ function AdminAppointmentInfo({
           <>
             {isEdit ? (
               <li className="flex border-b border-gray-5 py-3">
-                <div className="w-full text-gray-1 max-w-[300px]">Patient</div>
+                <div className="w-full text-gray-1 max-w-[300px]">
+                  Patient name
+                </div>
                 <div className="w-full table-action-icon">
                   <div className="text-primary">
                     <Form.Item name="patient">
@@ -186,7 +192,7 @@ function AdminAppointmentInfo({
                         defaultValue={patient}
                         className="max-w-[230px]"
                         showSearch
-                        placeholder="Patient"
+                        placeholder="Patients"
                         optionFilterProp="children"
                         filterOption={(input, option) =>
                           (option!.children as unknown as string)
@@ -205,14 +211,14 @@ function AdminAppointmentInfo({
                 </div>
               </li>
             ) : (
-              <LabelWithText label="Patient" text={patient} />
+              <LabelWithText label="Patient name" text={patient} />
             )}
             {/* <LabelWithText label="Patient" text={patient} /> */}
 
             {isEdit ? (
               <li className="flex border-b border-gray-5 py-3">
                 <div className="w-full text-gray-1 max-w-[300px]">
-                  Physician
+                  Physician name
                 </div>
                 <div className="w-full table-action-icon">
                   <div className="text-primary">
@@ -247,49 +253,20 @@ function AdminAppointmentInfo({
                 </div>
               </li>
             ) : (
-              <LabelWithText label="Physician" text={physician} />
+              <LabelWithText label="Physician name" text={physician} />
             )}
             <LabelWithText label="Appointment type requested" text={service} />
-
-            {isEdit && paymentStatus === "unpaid" ? (
-              <li className="flex border-b border-gray-5 py-3">
-                <div className="w-full text-gray-1 max-w-[300px]">
-                  Appointment type proposed
-                </div>
-                <div className="w-full table-action-icon">
-                  <div className="text-primary">
-                    <Form.Item name="appointmentType">
-                      <Select
-                        defaultValue={appointmentTypeProposed?.type || ""}
-                        placeholder="Appointment type proposed"
-                        className="max-w-[230px]"
-                      >
-                        {allAppoinments?.map((item) => (
-                          <Option key={item?.id} value={item.id}>
-                            {item.name}
-                          </Option>
-                        ))}
-                      </Select>
-                    </Form.Item>
-                  </div>
-                </div>
-              </li>
-            ) : (
-              <LabelWithText
-                label="Appointment type proposed"
-                text={String(appointmentTypeProposed?.type || "")}
-              />
-            )}
           </>
           <LabelWithText
             label={
-              appointmentStatus == "Requested"
-                ? "Requested date"
-                : "Appointment date"
+              "Requested date"
+              // appointmentStatus == "Requested"
+              //   ? "Requested date"
+              //   : "Appointment date"
             }
-            text={dueDate}
+            text={`${bookingDate}`}
           />
-          <LabelWithText label="Time" text={time} />
+          <LabelWithText label="Booking date and Time" text={`${dueDate} - ${time}`} />
           {isEdit ? (
             <li className="flex border-b border-gray-5 py-3">
               <div className="w-full text-gray-1 max-w-[300px]">
@@ -358,6 +335,57 @@ function AdminAppointmentInfo({
               />
             </div>
           </li>
+
+          {isEdit && paymentStatus === "unpaid" ? (
+            <li className="flex border-b border-gray-5 py-3">
+              <div className="w-full text-gray-1 max-w-[300px]">
+                Appointment type proposed
+              </div>
+              <div className="w-full table-action-icon">
+                <div className="text-primary">
+                  <Form.Item name="appointmentType">
+                    <Select
+                      defaultValue={appointmentTypeProposed?.type || "-"}
+                      placeholder="Appointment type proposed"
+                      className="max-w-[230px]"
+                    >
+                      {allAppoinments?.map((item) => (
+                        <Option key={item?.id} value={item.id}>
+                          {item.name}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                </div>
+              </div>
+            </li>
+          ) : (
+            <LabelWithText
+              label="Appointment type proposed"
+              text={String(appointmentTypeProposed?.type || "-")}
+            />
+          )}
+
+          {appointmentTypeProposed &&
+            appointmentTypeProposed?.dateTime?.length > 0 &&
+            status !== "Confirmed" && (
+              <LabelWithText
+                label={"Appointment(s) proposed"}
+                text={
+                  appointmentTypeProposed.dateTime.map(
+                    (item: DateTimeSlots) => {
+                      return (
+                        <div>{`${date.formatDAYMMDDYY(
+                          String(item?.date)
+                        )} - ${date.formathhmma(
+                          String(item?.startTime)
+                        )} - ${date.formathhmma(String(item?.endTime))}`}</div>
+                      );
+                    }
+                  ) as any
+                }
+              />
+            )}
         </Form>
         {(appointmentStatus === "Canceled" ||
           appointmentStatus === "Completed" ||

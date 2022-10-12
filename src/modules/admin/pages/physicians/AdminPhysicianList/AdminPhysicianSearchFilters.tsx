@@ -95,7 +95,7 @@ function AdminPhysicianSearchFilters(props: Props) {
         <div className="flex w-full md:w-72 lg:w-72 xl:w-96">
           <Input
             value={filterState.searchField || ""}
-            placeholder="Search by ID, name,email address"
+            placeholder="Search by ID# or physician name"
             prefix={<SearchOutlined />}
             onChange={(e) => onChangeFields("searchField", e.target.value)}
           />
@@ -119,7 +119,7 @@ function AdminPhysicianSearchFilters(props: Props) {
           <Option value="Neurologist">Neurologist</Option>
         </Select> */}
       </div>
-      <div className="w-full sm:mt-0 md:w-44 xl:w-44">
+      {/* <div className="w-full sm:mt-0 md:w-44 xl:w-44">
         <SelectCountryTypeFilter
           onChange={(value) => onChangeFields("countryId", Number(value))}
           value={filterState?.countryId}
@@ -220,7 +220,7 @@ function AdminPhysicianSearchFilters(props: Props) {
             </Button>
           </div>
         </Space>
-      </div>
+      </div> */}
       {/* <Button type="text" className="" onClick={clear}>
         <CloseOutlined className="text-sm" />
         <span className="text-gray-1">Clear</span>
