@@ -132,9 +132,11 @@ const columns = [
 function AdminPatientAppointmentList() {
   const { query } = useRouter();
   const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
+  let defaultPageSize = localStorage.getItem("adminPatientAppointmentListPerPageLimit") || 10;
+
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
 
   const [sorting, setSorting] = React.useState({
@@ -186,8 +188,10 @@ function AdminPatientAppointmentList() {
   // const [result, PhysicianPaymentByAdmin] =
   //   usePhysicianPaymentByAdminMutation();
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) =>{
+    localStorage.setItem("adminPatientAppointmentListPerPageLimit", String(limit));
     setPagination({ page, limit });
+  }
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
@@ -235,7 +239,7 @@ function AdminPatientAppointmentList() {
             pagination={{
               total: Number(appointments?.meta?.totalPages) * pagination.limit,
               current: appointments?.meta?.currentPage,
-              defaultPageSize: 10,
+              defaultPageSize: Number(defaultPageSize),
               onChange: onPaginationChange,
               pageSizeOptions: ["10", "20", "30", "40"],
               showSizeChanger: true,

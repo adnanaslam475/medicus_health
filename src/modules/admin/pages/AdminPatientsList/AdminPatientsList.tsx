@@ -135,10 +135,11 @@ const columns: ColumnsType<User> = [
 
 function AdminPatientsList() {
   const [filterValues, setFilterValues] = useState<PatientListFilterType>({});
-
+  let defaultPageSize =
+    localStorage.getItem("adminPatientListingPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
   const [sorting, setSorting] = React.useState({
     column: "",
@@ -163,8 +164,10 @@ function AdminPatientsList() {
       requestPolicy: "network-only",
     });
   }
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem("adminPatientListingPerPageLimit", String(limit));
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
@@ -212,7 +215,7 @@ function AdminPatientsList() {
               pagination={{
                 total: Number(getPatients?.meta?.totalPages) * pagination.limit,
                 current: getPatients?.meta?.currentPage,
-                defaultPageSize: 10,
+                defaultPageSize: Number(defaultPageSize),
                 onChange: onPaginationChange,
                 pageSizeOptions: ["10", "20", "30", "40"],
                 showSizeChanger: true,
