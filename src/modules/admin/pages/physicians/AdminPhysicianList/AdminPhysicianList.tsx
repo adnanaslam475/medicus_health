@@ -25,11 +25,14 @@ const columns = [
     sorter: true,
   },
   {
-    title: "Name",
-    dataIndex: "first_name",
-    key: "first_name",
-    render: (value: User) => {
-      return <div>{`${value}`}</div>;
+    title: "Physician name",
+    dataIndex: "last_name",
+    key: "last_name",
+    render: (value: string) => {
+      let formatedDoctorName = `${
+        value?.includes("Dr.") ? value : `Dr. ${value}`
+      }`;
+      return <div>{formatedDoctorName}</div>;
     },
     sorter: true,
   },
@@ -51,33 +54,33 @@ const columns = [
     },
     sorter: true,
   },
-  {
-    title: "Country",
-    dataIndex: "country",
-    key: "country_name",
-    render: (country: Country) => {
-      return <div>{country?.country_name || "-"}</div>;
-    },
-    sorter: true,
-  },
-  {
-    title: "State",
-    dataIndex: "state",
-    key: "state_name",
-    render: (state: State) => {
-      return <div>{state?.state_name || "-"}</div>;
-    },
-    sorter: true,
-  },
-  {
-    title: "City",
-    dataIndex: "city",
-    key: "city_name",
-    render: (city: City) => {
-      return <div>{city?.city_name || "-"}</div>;
-    },
-    sorter: true,
-  },
+  // {
+  //   title: "Country",
+  //   dataIndex: "country",
+  //   key: "country_name",
+  //   render: (country: Country) => {
+  //     return <div>{country?.country_name || "-"}</div>;
+  //   },
+  //   sorter: true,
+  // },
+  // {
+  //   title: "State",
+  //   dataIndex: "state",
+  //   key: "state_name",
+  //   render: (state: State) => {
+  //     return <div>{state?.state_name || "-"}</div>;
+  //   },
+  //   sorter: true,
+  // },
+  // {
+  //   title: "City",
+  //   dataIndex: "city",
+  //   key: "city_name",
+  //   render: (city: City) => {
+  //     return <div>{city?.city_name || "-"}</div>;
+  //   },
+  //   sorter: true,
+  // },
   // {
   //   title: "Zip code",
   //   dataIndex: "zip_code",
@@ -87,39 +90,39 @@ const columns = [
   //   },
   //   sorter: true,
   // },
-  {
-    title: "Language",
-    dataIndex: "doctorProfile",
-    key: "language",
-    render: (doctorProfile: DoctorProfile) => {
-      let formatedLanguage =
-        doctorProfile?.language !== undefined &&
-        doctorProfile?.language?.includes("{")
-          ? JSON.parse(doctorProfile?.language)
-          : doctorProfile?.language;
+  // {
+  //   title: "Language",
+  //   dataIndex: "doctorProfile",
+  //   key: "language",
+  //   render: (doctorProfile: DoctorProfile) => {
+  //     let formatedLanguage =
+  //       doctorProfile?.language !== undefined &&
+  //       doctorProfile?.language?.includes("{")
+  //         ? JSON.parse(doctorProfile?.language)
+  //         : doctorProfile?.language;
 
-      let language = doctorProfile?.language?.toLowerCase() || "english";
+  //     let language = doctorProfile?.language?.toLowerCase() || "english";
 
-      return (
-        <div className="flagAvatar engFlag pr-2">
-          {formatedLanguage &&
-            Object.entries(formatedLanguage)
-              .filter((item) => item[1])
-              ?.map((value) => {
-                return (
-                  <Image
-                    priority={true}
-                    src={FLAG_BY_LANGUAGE[String(value[0]).toLowerCase()]}
-                    alt={language || "flag"}
-                    width={25}
-                    height={25}
-                  />
-                );
-              })}
-        </div>
-      );
-    },
-  },
+  //     return (
+  //       <div className="flagAvatar engFlag pr-2">
+  //         {formatedLanguage &&
+  //           Object.entries(formatedLanguage)
+  //             .filter((item) => item[1])
+  //             ?.map((value) => {
+  //               return (
+  //                 <Image
+  //                   priority={true}
+  //                   src={FLAG_BY_LANGUAGE[String(value[0]).toLowerCase()]}
+  //                   alt={language || "flag"}
+  //                   width={25}
+  //                   height={25}
+  //                 />
+  //               );
+  //             })}
+  //       </div>
+  //     );
+  //   },
+  // },
   {
     title: "Account creation date",
     dataIndex: "createdAt",

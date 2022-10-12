@@ -266,6 +266,7 @@ export default function PersonalInfo({ onFinish }: props) {
           // label={t("password")}
           label="Contraseña"
           name="password"
+          dependencies={["confirmPassword"]}
           rules={[
             {
               required: true,
@@ -289,6 +290,7 @@ export default function PersonalInfo({ onFinish }: props) {
           // label={t("confirm_password")}
           label="Confirmar contraseña"
           name="confirmPassword"
+          dependencies={["password"]}
           rules={[
             {
               required: true,

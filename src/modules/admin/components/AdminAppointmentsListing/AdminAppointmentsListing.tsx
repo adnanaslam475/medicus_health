@@ -45,7 +45,7 @@ const appointmentColumns = [
     sorter: true,
   },
   {
-    title: "Physician",
+    title: "Physician name",
     dataIndex: "doctor",
     key: "",
     render: (value: User) => {
