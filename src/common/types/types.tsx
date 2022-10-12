@@ -182,3 +182,11 @@ export type AttachmentObject = {
   name: string;
   url: string;
 };
+
+export type AppointmentTimeSlots = {
+  appointment?: Maybe<Appointment>;
+  endTime: Scalars["DateTime"];
+  id: Scalars["Int"];
+  selected: Scalars["Boolean"];
+  startTime: Scalars["DateTime"];
+};

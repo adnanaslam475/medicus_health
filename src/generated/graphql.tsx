@@ -31,7 +31,7 @@ export type AdminPayoutResponse = {
   __typename?: 'AdminPayoutResponse';
   appointmentMonths: Array<Scalars['String']>;
   doctorEarnings: Array<Array<Scalars['String']>>;
-  monthAppointments: Array<Array<Array<Appointment>>>;
+  monthAppointments?: Maybe<Array<Array<Array<Appointment>>>>;
 };
 
 export type AdminProfilePicture = {
@@ -97,6 +97,7 @@ export type Appointment = {
   serviceTypeRequested?: Maybe<AppointmentServiceType>;
   status?: Maybe<Scalars['String']>;
   transaction?: Maybe<Transaction>;
+  updatedAt: Scalars['DateTime'];
   user?: Maybe<User>;
 };
 
@@ -164,6 +165,7 @@ export type AppointmentTime = {
 export type AppointmentTimeSlots = {
   __typename?: 'AppointmentTimeSlots';
   appointment?: Maybe<Appointment>;
+  deletedAt: Scalars['DateTime'];
   endTime: Scalars['DateTime'];
   id: Scalars['Int'];
   selected: Scalars['Boolean'];
@@ -510,6 +512,7 @@ export type DoctorProfile = {
   awards_honors_recognition?: Maybe<Scalars['String']>;
   certification_and_licensure?: Maybe<Scalars['String']>;
   condition_treated?: Maybe<Scalars['String']>;
+  deletedAt: Scalars['DateTime'];
   doctor_id: Scalars['Int'];
   educational_background?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
@@ -2183,7 +2186,7 @@ export type GetPatientsQueryVariables = Exact<{
 }>;
 
 
-export type GetPatientsQuery = { __typename?: 'Query', getPatients: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, createdAt: any, streetAddress?: string | null, zip_code?: string | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number, totalItems: number } } };
+export type GetPatientsQuery = { __typename?: 'Query', getPatients: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, contact_number?: string | null, createdAt: any, streetAddress?: string | null, zip_code?: string | null, status: boolean, date_of_birth?: any | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number, totalItems: number } } };
 
 export type PhysicianPaymentByAdminMutationVariables = Exact<{
   paymentInput: PaymentInput;
@@ -2237,7 +2240,7 @@ export type GetAdminTransactionReportQuery = { __typename?: 'Query', getAdminTra
 export type DoctorPayoutsByAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DoctorPayoutsByAdminQuery = { __typename?: 'Query', doctorPayoutsByAdmin?: { __typename?: 'AdminPayoutResponse', appointmentMonths: Array<string>, doctorEarnings: Array<Array<string>>, monthAppointments: Array<Array<Array<{ __typename?: 'Appointment', id?: number | null, status?: string | null, doctorId?: number | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, transaction?: { __typename?: 'Transaction', id: number, createdAt: any, transactionId: string, tax: number, doctor_percentage: string, medicus_percentage: string, stripeFee: number, amountReceived: number, status: string, payment_status?: string | null, appointmentCharges: number } | null }>>> } | null };
+export type DoctorPayoutsByAdminQuery = { __typename?: 'Query', doctorPayoutsByAdmin?: { __typename?: 'AdminPayoutResponse', appointmentMonths: Array<string>, doctorEarnings: Array<Array<string>>, monthAppointments?: Array<Array<Array<{ __typename?: 'Appointment', id?: number | null, status?: string | null, doctorId?: number | null, serviceType?: { __typename?: 'AppointmentServiceType', name: string } | null, appointmentTypeProposed?: { __typename?: 'AppointmentTypeProposedResponse', type?: string | null } | null, appointmentDateTime?: { __typename?: 'AppointmentDateTimeResponse', startTime?: string | null } | null, appointmentCharges?: { __typename?: 'AppointmentPriceResponse', appointmentPrice?: number | null, tax?: number | null, systemFee?: number | null, total?: number | null } | null, patient?: { __typename?: 'User', first_name: string, last_name: string } | null, transaction?: { __typename?: 'Transaction', id: number, createdAt: any, transactionId: string, tax: number, doctor_percentage: string, medicus_percentage: string, stripeFee: number, amountReceived: number, status: string, payment_status?: string | null, appointmentCharges: number } | null }>>> | null } | null };
 
 export type GetAllChatChannelsQueryVariables = Exact<{
   filter: GetAllChannelFilterInput;
@@ -3534,6 +3537,8 @@ export const GetPatientsDocument = gql`
       createdAt
       streetAddress
       zip_code
+      status
+      date_of_birth
       state {
         state_name
       }
@@ -5676,23 +5681,21 @@ export default {
           {
             "name": "monthAppointments",
             "type": {
-              "kind": "NON_NULL",
+              "kind": "LIST",
               "ofType": {
-                "kind": "LIST",
+                "kind": "NON_NULL",
                 "ofType": {
-                  "kind": "NON_NULL",
+                  "kind": "LIST",
                   "ofType": {
-                    "kind": "LIST",
+                    "kind": "NON_NULL",
                     "ofType": {
-                      "kind": "NON_NULL",
+                      "kind": "LIST",
                       "ofType": {
-                        "kind": "LIST",
+                        "kind": "NON_NULL",
                         "ofType": {
-                          "kind": "NON_NULL",
-                          "ofType": {
-                            "kind": "OBJECT",
-                            "name": "Appointment"
-                          }
+                          "kind": "OBJECT",
+                          "name": "Appointment",
+                          "ofType": null
                         }
                       }
                     }
@@ -6164,6 +6167,17 @@ export default {
             "args": []
           },
           {
+            "name": "updatedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "user",
             "type": {
               "kind": "OBJECT",
@@ -6545,6 +6559,17 @@ export default {
               "kind": "OBJECT",
               "name": "Appointment",
               "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "deletedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },
@@ -7422,6 +7447,17 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "deletedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },

@@ -104,6 +104,8 @@ query getPatients(
       createdAt
       streetAddress
       zip_code
+      status
+      date_of_birth
       state {
         state_name
       }

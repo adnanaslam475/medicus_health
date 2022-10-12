@@ -5,7 +5,6 @@ import _classes from "./AppointmentButtons.module.scss";
 import support from "./../../../../public/assets/icon/support.svg";
 import chat from "./../../../../public/assets/icon/chat-bubble.svg";
 import {
-  AppointmentTimeSlots,
   DateTimeSlots,
   GetAppointmentByIdQuery,
 } from "../../../generated/graphql";
@@ -15,7 +14,7 @@ import {
   getCurrentUserTimeZone,
   isAppointmentTimeValid,
 } from "common/utils/date";
-import { CustomTimeSlot, StatusName } from "common/types/types";
+import { AppointmentTimeSlots, CustomTimeSlot, StatusName } from "common/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import CardWithProfileImageInfo from "../CardWithProfileImageInfo/CardWithProfileImageInfo";
