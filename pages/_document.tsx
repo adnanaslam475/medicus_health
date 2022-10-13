@@ -10,7 +10,7 @@ export default function Document() {
         {process.env.NEXT_PUBLIC_PRODUCTION === "true" && (
           <noscript
             dangerouslySetInnerHTML={{
-              __html: `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT8JQHF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`,
+              __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT8JQHF" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
             }}
           />
         )}
