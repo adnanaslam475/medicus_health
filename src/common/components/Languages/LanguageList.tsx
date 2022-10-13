@@ -21,10 +21,14 @@ const LanguageList = (props: Props) => {
     language?.English !== undefined ||
     language?.Spanish !== undefined ||
     language !== undefined;
+
   return (
     <>
       <div className="mr-auto font-medium text-lightBold-1 my-2">Languages</div>
-      {languageCheck && (
+      {!languageCheck ? (
+        <div className="text-gray-1 input-style">No language selected</div>
+      ) : (
+        // "No language selected"
         <div className="flex mr-auto">
           <Form.Item label="" name="english" className="flex mr-auto">
             <Language

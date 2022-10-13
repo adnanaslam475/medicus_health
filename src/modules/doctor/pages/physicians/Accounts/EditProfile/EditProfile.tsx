@@ -658,7 +658,7 @@ function EditProfile({
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
         <div className="flex flex-col w-full justify-start items-center py-3">
-          <div className="w-full mb-10 flex gap-8 items-center">
+          <div className="w-full mb-10 mt-10 sm:mt-auto flex gap-8 items-center">
             <Upload
               maxCount={1}
               beforeUpload={onBeforeUpload}
@@ -1059,13 +1059,14 @@ function EditProfile({
                   <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
                     <Image
                       priority={true}
+                      unoptimized
                       alt=""
                       height={21}
                       width={21}
                       src={end}
-                      className="majid"
+                      className="w-[21px]"
                     />
-                    <span className=" pl-1 pr-10">English</span>
+                    <span className=" pl-1 pr-5">English</span>
                     <Checkbox
                       defaultChecked={formatedLanguage?.English}
                       onChange={(e) => handleChangeLanguage(e, "English")}
@@ -1080,13 +1081,14 @@ function EditProfile({
                   <div className="flex items-center border border-gray rounded px-4 py-2 mr-3">
                     <Image
                       priority={true}
+                      unoptimized
                       alt=""
                       height={21}
                       width={21}
                       src={esp}
-                      className="px-1 majid"
+                      className="px-1 w-[21px]"
                     />
-                    <span className=" pl-1 pr-10">Spanish</span>
+                    <span className="pl-1 pr-5">Spanish</span>
 
                     <Checkbox
                       defaultChecked={formatedLanguage?.Spanish}

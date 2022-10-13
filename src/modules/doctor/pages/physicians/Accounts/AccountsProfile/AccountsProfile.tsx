@@ -115,6 +115,7 @@ function AccountsProfile() {
   useEffect(() => {
     executeUseDoctorProfileQuery({ requestPolicy: "network-only" });
   }, [profileUpdated]);
+
   return (
     <div>
       {isEdit ? (
@@ -133,7 +134,7 @@ function AccountsProfile() {
           onAddClick={onAddClick}
           loading={fetching}
           setProfileUpdated={setProfileUpdated}
-          showCancelScheduleModal={showCancelScheduleModal} 
+          showCancelScheduleModal={showCancelScheduleModal}
           setShowCancelScheduleModal={setShowCancelScheduleModal}
         />
       ) : (
