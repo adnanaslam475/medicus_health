@@ -49,7 +49,7 @@ const classesAccordingToType: StatusType<StatusName> = {
   },
   COMPLETED: {
     text: COMPLETED,
-    color: "text-sky",
+    color: "text-primary",
     background: "bg-lightBlue",
     border: "border border-lightBlue",
   },
