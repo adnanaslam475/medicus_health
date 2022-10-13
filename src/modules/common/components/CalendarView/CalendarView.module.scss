@@ -294,4 +294,50 @@
     }
   }
   // CSS FOR TOOLTIP IN RESPONSIVE
+
+  :global .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
+    :global .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+      @media screen and (min-width: 360px) and (max-width: 576px) {
+        display: flex !important;
+        gap: 4px;
+
+        :global .fc-toolbar-chunk:first-child {
+          display: flex !important;
+          flex-wrap: wrap;
+          // width: 100%;
+          button:first-child {
+            margin-left: 0 !important;
+            display: block !important;
+            width: 100%;
+          }
+          button:nth-child(2) {
+            margin-left: 0 !important;
+            // display: block !important;
+            // width: 100%;
+          }
+        }
+
+        :global .fc-toolbar-chunk:last-child {
+          display: flex !important;
+          flex-wrap: wrap;
+          gap: 10px;
+          // width: 100%;
+          button:first-child {
+            margin-left: 0 !important;
+            display: block !important;
+            width: auto;
+          }
+          button:nth-child(2) {
+            margin-left: 0 !important;
+            // display: block !important;
+            // width: 100%;
+          }
+          button:last-child {
+            margin-left: 0 !important;
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
 }

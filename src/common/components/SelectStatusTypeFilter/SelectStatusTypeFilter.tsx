@@ -1,7 +1,6 @@
 import { Select } from "antd";
 import _classes from "./SelectStatusTypeFilter.module.scss";
 
-
 export function SelectStatusTypeFilter({
   onChange,
   value,
@@ -21,14 +20,14 @@ export function SelectStatusTypeFilter({
       className={
         isAdminFilter
           ? `admin-filter w-full md:w-50  font-rubik ${_classes["text-color"]}`
-          : `w-full md:w-50  font-rubik ${_classes["text-color"]}`
+          : `w-full md:w-50 font-rubik ${_classes["text-color"]}`
       }
       onChange={onChange}
       value={value || "Appointment status"}
     >
       {/* ---> reuquested will give both Suggested and Requested */}
       {!hideRequested && (
-        <Select.Option  value="Requested">Requested</Select.Option>
+        <Select.Option value="Requested">Requested</Select.Option>
       )}
       <Select.Option value="Canceled">Canceled</Select.Option>
       <Select.Option value="Confirmed">Upcoming</Select.Option>

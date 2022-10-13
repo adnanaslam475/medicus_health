@@ -95,8 +95,9 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
             value={filterState.serviceId || undefined}
           />
         </div>
-
-        <FilterClearButton onClear={clear} />
+        <div className="flex sm:flex-row flex-1 w-full sm:w-60">
+          <FilterClearButton onClear={clear} />
+        </div>
       </div>
     </div>
   );
