@@ -78,7 +78,7 @@ export const englishCommon: any = {
   upcoming_appointments: "Upcoming appointments",
   pending_appointments: "Pending appointments",
   canceled_appointments: "Canceled appointments",
-  filter_search_placeholder_1: "Search by ID, Physician name or Patient name",
+  filter_search_placeholder_1: "Search by ID#, Physician name or Patient name",
   appointments_history: "Appointments history",
 
   physician: "Physician",

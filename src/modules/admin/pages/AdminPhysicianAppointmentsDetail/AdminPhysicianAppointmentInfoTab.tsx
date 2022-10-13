@@ -49,6 +49,7 @@ function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
     totalAmount: appointment?.appointmentCharges?.total,
     appointmentStatus: appointment?.status,
     paymentStatus: appointment?.transaction?.status,
+    appointmentTypeProposed:appointment?.appointmentTypeProposed
   };
 
   const adminApp_Details = {

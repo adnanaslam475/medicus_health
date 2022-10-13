@@ -21,7 +21,7 @@ function PatientSearchFilters() {
 			<div className="flex-none sm:flex sm:mb-3 lg:mb-0">
 				<div className="lg:ml-3 sm:w-full md:w-full lg:w-70">
 					<Input
-						placeholder="Search by ID or Physician name"
+						placeholder="Search by ID# or Physician name"
 						prefix={<SearchOutlined />}
 					/>
 				</div>
