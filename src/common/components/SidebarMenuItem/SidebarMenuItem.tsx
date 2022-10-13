@@ -337,7 +337,18 @@ function SidebarMenuItem() {
                 icon={IconsListAdmin[i]}
                 className={_classes["side-bar-submenu-item"]}
               >
-                <Link href={el.route}>{el.name}</Link>
+                {el.id == "5" ? (
+                  <Link passHref href={el.route}>
+                    <Badge
+                      count={msgCount}
+                      className={_classes["side-bar-submenu-count"]}
+                    >
+                      <>{el.name}</>
+                    </Badge>
+                  </Link>
+                ) : (
+                  <Link href={el.route}>{el.name}</Link>
+                )}
               </Menu.Item>
             );
           })}
