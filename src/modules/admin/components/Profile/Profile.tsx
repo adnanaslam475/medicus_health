@@ -317,7 +317,7 @@ export const Profile = React.forwardRef(function Profile({
                       fontWeight: "600",
                     }}
                     country={"us"}
-                    placeholder={"Ingrese su número de contacto"}
+                    placeholder={"Enter your contact number"}
                     enableAreaCodes
                     onChange={(_value, country: any) => {
                       const code = country?.dialCode;
