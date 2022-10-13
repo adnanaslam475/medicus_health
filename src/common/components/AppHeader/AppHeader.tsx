@@ -179,7 +179,8 @@ const AppHeader = () => {
                       height={40}
                       objectFit="cover"
                       className="rounded-full"
-                      src={profilePicture || userDefaultPicture}
+                      src={profilePicture}
+                      fallbackImage="/assets/images/profile.svg"
                     />
                     <span className="justify-center px-2 hidden xl:block">
                       {userName}
