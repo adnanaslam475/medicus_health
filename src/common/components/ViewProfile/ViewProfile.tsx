@@ -141,8 +141,8 @@ export const ViewProfile = React.forwardRef(function Profile({
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
-        <div className="flex flex-col w-full justify-start  py-3">
-          <div className="w-full mb-10 flex gap-8 items-center mt-10 sm:mt-0 flex-wrap">
+        <div className="flex flex-col w-full justify-start py-3">
+          <div className="w-full mt-10 sm:mt-auto mb-10 flex gap-8 items-center  sm:mt-0 flex-wrap">
             <div className="relative">
               <Avatar
                 size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}

@@ -780,9 +780,9 @@ function EditProfile({
                       height={21}
                       width={21}
                       src={end}
-                      className="majid"
+                      className="w-[21px]"
                     />
-                    <span className=" pl-1 pr-10">English</span>
+                    <span className="pl-1 pr-10">English</span>
                     <Checkbox
                       defaultChecked={formatedLanguage?.English}
                       onChange={(e) => handleChangeLanguage(e, "English")}

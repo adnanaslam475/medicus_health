@@ -40,7 +40,6 @@ function AccountsProfile(props: Props) {
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
   const [showCancelScheduleModal, setShowCancelScheduleModal] = useState(false);
 
-
   // GET USER ID
   const { user } = getUserData();
   const role = user?.role;
@@ -128,7 +127,7 @@ function AccountsProfile(props: Props) {
           onAddClick={onAddClick}
           loading={fetching}
           isStaff={isStaff}
-          showCancelScheduleModal={showCancelScheduleModal} 
+          showCancelScheduleModal={showCancelScheduleModal}
           setShowCancelScheduleModal={setShowCancelScheduleModal}
         />
       ) : (
