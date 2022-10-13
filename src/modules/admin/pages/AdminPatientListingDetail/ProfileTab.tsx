@@ -95,9 +95,9 @@ function AdminPatientProfileTab({}: Props) {
     formInstance.setFieldsValue({
       ...user,
       ...patientProfile,
-      country_name: country_id||"",
-      state_name: state_id||"",
-      city_name: city_id||"",
+      country_name: country_id || "",
+      state_name: state_id || "",
+      city_name: city_id || "",
       date_of_birth: user?.date_of_birth ? moment(user?.date_of_birth) : "",
       gender: userGender,
     });
@@ -257,7 +257,9 @@ function AdminPatientProfileTab({}: Props) {
   }, [getCitiesByState]);
 
   return (
-    <div className={`relative ${_classes["admin-patient-profile-page"]}`}>
+    <div
+      className={`relative ${_classes["admin-patient-profile-page"]} pt-16 sm:pt-0`}
+    >
       <div className="w-full mb-10 flex gap-8 items-center pt-10">
         <div className="relative">
           <Avatar
@@ -329,14 +331,14 @@ function AdminPatientProfileTab({}: Props) {
           </div>
         </div>
       </div>
-      <div className="flex mb-8 absolute top-0 left-0 md:right-0">
+      <div className="flex mb-8 absolute top-0 left-0 md:right-0 flex-wrap justify-start sm:justify-end w-full">
         <Button
           className={`${_classes["first-btn"]}} md:ml-auto`}
           loading={loading}
           type="link"
           disabled={loading || disableLoading}
           icon={
-            <span className="mr-1 mt-0.5">
+            <span className="mr-2 mt-0.5">
               <Image priority={true} src={Envelope} alt="" />
             </span>
           }
