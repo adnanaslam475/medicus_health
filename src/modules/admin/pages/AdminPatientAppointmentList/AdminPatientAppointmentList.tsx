@@ -133,7 +133,8 @@ const columns = [
 function AdminPatientAppointmentList() {
   const { query } = useRouter();
   const [filterValues, setFilterValues] = useState<GetAppointmentInput>({});
-  let defaultPageSize = localStorage.getItem("adminPatientAppointmentListPerPageLimit") || 10;
+  let defaultPageSize =
+    localStorage.getItem("adminPatientAppointmentListPerPageLimit") || 10;
 
   const [pagination, setPagination] = React.useState({
     page: 1,
@@ -145,54 +146,52 @@ function AdminPatientAppointmentList() {
     order: "",
   });
 
-  const [{ data, fetching }] =
-    useAdminPhysicianAppointmentQuery({
-      variables: {
-        filter: {
-          ...filterValues,
-          patientId: Number(query.id),
-        },
-        pagination,
-        sorting,
+  const [{ data, fetching }] = useAdminPhysicianAppointmentQuery({
+    variables: {
+      filter: {
+        ...filterValues,
+        patientId: Number(query.id),
       },
-    });
+      pagination,
+      sorting,
+    },
+  });
 
+  const [{ data: userData }] = useGetUserQuery({
+    variables: {
+      input: Number(query.id),
+    },
+    pause: !query.id,
+  });
 
-    const [{ data:userData }] = useGetUserQuery({
-      variables: {
-        input: Number(query.id),
-      },
-      pause: !query.id,
-    });
-  
-    const { user } = userData || {};
-    const {
-      first_name,
-      last_name,
-      email,
-      patientProfile,
-    } = user || {};
-
+  const { user } = userData || {};
+  const { first_name, last_name, email, patientProfile } = user || {};
 
   const { appointments } = data || {};
-  const patientFirstName =
-    appointments?.items?.length ? appointments.items[0]?.patient?.first_name : first_name;
-  const patientLastName =
-    appointments?.items?.length ? appointments.items[0]?.patient?.last_name : last_name;
-  const patientEmail =
-    appointments?.items?.length ? appointments.items[0]?.patient?.email: email;
-  const patientProfilePicture =
-    appointments?.items?.length ?
-    appointments?.items[0]?.patient?.patientProfile?.profileImage : patientProfile?.profileImage;
+  const patientFirstName = appointments?.items?.length
+    ? appointments.items[0]?.patient?.first_name
+    : first_name;
+  const patientLastName = appointments?.items?.length
+    ? appointments.items[0]?.patient?.last_name
+    : last_name;
+  const patientEmail = appointments?.items?.length
+    ? appointments.items[0]?.patient?.email
+    : email;
+  const patientProfilePicture = appointments?.items?.length
+    ? appointments?.items[0]?.patient?.patientProfile?.profileImage
+    : patientProfile?.profileImage;
 
   // Physician Payment By Admin Mutatio
   // const [result, PhysicianPaymentByAdmin] =
   //   usePhysicianPaymentByAdminMutation();
 
-  const onPaginationChange = (page: number, limit: number) =>{
-    localStorage.setItem("adminPatientAppointmentListPerPageLimit", String(limit));
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem(
+      "adminPatientAppointmentListPerPageLimit",
+      String(limit)
+    );
     setPagination({ page, limit });
-  }
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
@@ -219,7 +218,8 @@ function AdminPatientAppointmentList() {
     setSorting({ column: "", order: "" });
   }
 
-  return  <div className="w-full">
+  return (
+    <div className="w-full">
       <CardWithProfileImageInfo
         name={`${patientFirstName || ""} ${patientLastName || ""}`}
         serviceName={patientEmail}
@@ -232,11 +232,17 @@ function AdminPatientAppointmentList() {
         <AdminPatientAppointmentSearchFilters onChange={onChangeFilters} />
         <div className="w-full">
           <Table
+            scroll={{ x: true }}
             columns={columns}
             dataSource={appointments?.items}
             onChange={onChange}
             loading={fetching}
-            footer={(currentPageCount)=>tableFooter(currentPageCount?.length,Number(appointments?.meta?.totalItems || 0))}
+            footer={(currentPageCount) =>
+              tableFooter(
+                currentPageCount?.length,
+                Number(appointments?.meta?.totalItems || 0)
+              )
+            }
             pagination={{
               total: Number(appointments?.meta?.totalPages) * pagination.limit,
               current: appointments?.meta?.currentPage,
@@ -249,6 +255,6 @@ function AdminPatientAppointmentList() {
         </div>
       </CardWithProfileImageInfo>
     </div>
-  
+  );
 }
 export default AdminPatientAppointmentList;

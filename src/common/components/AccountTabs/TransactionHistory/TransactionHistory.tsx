@@ -145,9 +145,7 @@ const TransactionHistory = (props: Props) => {
         column: sorter.order
           ? `${
               (sorter.field === "transaction" && "transaction") ||
-              (/(charges|requestedDate|createdAt|id)/.test(
-                sorter.columnKey
-              ) &&
+              (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
                 "appointment") ||
               (sorter.columnKey === "name" && "appointment_service_type") ||
               (sorter.columnKey === "startTime" && "appointment_time_slots") ||
@@ -162,14 +160,15 @@ const TransactionHistory = (props: Props) => {
   const onPaginationChange = (page: number, limit: number) =>
     setPagination({ page, limit });
 
-
   return (
     <Table
       columns={transactionsColumns}
       dataSource={data}
       onChange={onChange}
       scroll={{ x: true }}
-      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
+      footer={(currentPageCount) =>
+        tableFooter(currentPageCount?.length, meta?.totalItems)
+      }
       loading={loading}
       // pagination={{
       //   total: pagination.limit * meta?.totalPages,
