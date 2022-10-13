@@ -88,7 +88,7 @@ function AdminUserSearchFilters(props: Props) {
       <div className="flex gap-2 flex-wrap">
         <div className=" w-full sm:w-full md:w-full lg:w-96">
           <Input
-            placeholder="Search by ID, name or email address"
+            placeholder="Search by ID#, name or email address"
             prefix={<SearchOutlined />}
             value={filterState?.searchUser}
             onChange={(e) => onChangeFields("searchUser", e?.target.value)}

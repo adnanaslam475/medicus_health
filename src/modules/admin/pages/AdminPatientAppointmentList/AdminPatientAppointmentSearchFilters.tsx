@@ -52,7 +52,7 @@ function AdminPatientAppointmentSearchFilters({ onChange }: Props) {
         <div className=" w-full sm:w-80">
           <Input
             value={filterState.searchString || ""}
-            placeholder="Search by ID or Physician name"
+            placeholder="Search by ID# or Physician name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);

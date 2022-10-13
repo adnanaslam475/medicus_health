@@ -54,7 +54,7 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
         <div className="w-full lg:w-70 flex-1">
           <Input
             value={filterState.searchString || undefined}
-            placeholder="Search by ID or Patient name"
+            placeholder="Search by ID# or Patient name"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("searchString", e.target.value);

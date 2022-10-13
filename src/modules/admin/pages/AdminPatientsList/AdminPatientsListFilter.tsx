@@ -57,7 +57,7 @@ function AdminPatientsListFilter(props: Props) {
         <div className=" w-full sm:w-full md:w-full lg:w-96 ">
           <Input
             value={filterState.searchField}
-            placeholder="Search by ID or patient name or email address"
+            placeholder="Search by ID# or patient name or email address"
             prefix={<SearchOutlined />}
             onChange={(e) => {
               onChangeFields("searchField", e.target.value);
