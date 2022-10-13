@@ -471,8 +471,8 @@ function AdminAppointmentInfoFooter({
   };
   return (
     <>
-      <div className="flex justify-between mt-6">
-        <div className="flex">
+      <div className="flex justify-between mt-6 items-center sm:items-start ">
+        <div className="flex flex-wrap md:flex-nowrap flex-col sm:flex-row gap-2 flex-1 w-full">
           <Button
             icon={
               <Image
@@ -484,7 +484,7 @@ function AdminAppointmentInfoFooter({
                 className=""
               />
             }
-            className={`${_classes["appointments-btn"]} mr-3`}
+            className={`${_classes["appointments-btn"]} mr-0 sm:mr-3`}
             onClick={() =>
               Router.push({
                 pathname: "/admin/messages",
@@ -639,7 +639,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
 
   return (
     <div className="flex justify-between mt-6 flex-wrap wrap">
-      <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2">
+      <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2 ">
         {showRescheduleModal && (
           <RescheduleAppointmentModal
             showRescheduleModal={showRescheduleModal}
@@ -650,7 +650,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
         <Button
           type="primary"
           icon={<VideoCameraFilled />}
-          className={`${_classes["appointments-btn"]} bg-current`}
+          className={`${_classes["appointments-btn"]} bg-current w-full sm:w-auto`}
           onClick={() =>
             Router.push(
               getRole() === "User"
@@ -665,7 +665,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
         <Button
           type="primary"
           icon={<VideoCameraFilled />}
-          className={`${_classes["appointments-btn"]} bg-current`}
+          className={`${_classes["appointments-btn"]} bg-current w-full sm:w-auto`}
           onClick={() => setShowRescheduleModal(true)}
         >
           Reschedule appointment
@@ -674,11 +674,12 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
           icon={
             <Image
               priority={true}
-              width={15}
-              height={15}
+              unoptimized
+              width={16}
+              height={16}
               src={chat}
               alt=""
-              className="w-14"
+              className="w-full"
             />
           }
           className={`${_classes["appointments-btn"]} ${_classes["for-msg-icon-width"]}  flex-1`}

@@ -182,7 +182,7 @@ function EditAdminUserDetails({}: Props) {
                 disabled={loading}
                 onClick={handleResetLink}
               >
-                <span className="sm:mx-3">Send reset password link</span>
+                <span className="sm:mx-3 ml-2">Send reset password link</span>
               </Button>
             </div>
             <div className="flex px-0 mx-0">
@@ -208,9 +208,8 @@ function EditAdminUserDetails({}: Props) {
           <div className="flex">
             <Form.Item name="status">
               <Select
-                className="mr-5"
+                className="mr-5 max-w-[200px] min-w-[150px]"
                 onChange={changeAccountStatusHandler}
-                style={{ width: 200 }}
               >
                 <Option value={true}>Enabled</Option>
                 <Option value={false}>Disabled</Option>

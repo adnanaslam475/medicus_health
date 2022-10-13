@@ -17,7 +17,7 @@ type Props = {
 const MessageButtons = (props: Props) => {
   const { patientID, doctorId } = props;
   return (
-    <div className="flex justify-between mt-6">
+    <div className="flex justify-between mt-6 ">
       <div className="flex ">
         {/* ROLE BASED MESSAGE BUTTONS CONDITIONS */}
         {(getRole() === "Admin" ||
@@ -53,7 +53,7 @@ const MessageButtons = (props: Props) => {
             <span className="pl-2">Message patient</span>
           </Button>
         )}
-        
+
         {(getRole() === "User" ||
           getRole() === "Doctor" ||
           getRole() === "Staff") && (

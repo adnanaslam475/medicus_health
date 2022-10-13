@@ -20,7 +20,7 @@ export function SelectStatusTypeFilter({
       className={
         isAdminFilter
           ? `admin-filter w-full md:w-50  font-rubik ${_classes["text-color"]}`
-          : `w-full md:w-50  font-rubik ${_classes["text-color"]}`
+          : `w-full md:w-50 font-rubik ${_classes["text-color"]}`
       }
       onChange={onChange}
       value={value || "Appointment status"}

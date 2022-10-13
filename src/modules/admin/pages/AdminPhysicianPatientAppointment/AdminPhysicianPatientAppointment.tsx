@@ -237,6 +237,7 @@ function AdminPhysicianList() {
       <div className="w-full">
         <div>
           <Table
+            scroll={{ x: true }}
             columns={columns}
             dataSource={appointments?.items}
             loading={fetching}
