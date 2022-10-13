@@ -856,7 +856,7 @@ function EditProfile({
                 {clinicList?.map((clinic: clinicType, index: number) => {
                   return (
                     <div
-                      className="border-b border-gray-3 my-3 py-3"
+                      className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]"
                       key={index}
                     >
                       <Form.Item
@@ -913,7 +913,7 @@ function EditProfile({
                 {educationList?.map((education, index) => {
                   return (
                     <div
-                      className="border-b border-gray-3 my-3 py-3"
+                      className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]"
                       key={index}
                     >
                       <Form.Item
@@ -984,7 +984,7 @@ function EditProfile({
             <Form layout="vertical">
               <div className={`my-6 hidden ${_classes["educational"]}`}>
                 <h6>Login information</h6>
-                <div className="border-b border-gray-3 my-3 py-3">
+                <div className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]">
                   <Form.Item
                     label="Email address"
                     name="institute"

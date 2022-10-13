@@ -183,6 +183,8 @@ const RequestedList = (props: Props) => {
     onChange,
   } = props || {};
 
+  let defaultPageSize =
+    localStorage.getItem("physicianPendingAppointmentperPageLimit") || 10;
 
   return (
     <Table
@@ -195,7 +197,7 @@ const RequestedList = (props: Props) => {
       pagination={{
         total: pagination.limit * meta?.totalPages,
         current: meta?.currentPage,
-        defaultPageSize: 10,
+        defaultPageSize: Number(defaultPageSize),
         onChange: onPaginationChange,
         pageSizeOptions: ["10", "20", "30", "40"],
         showSizeChanger: true,

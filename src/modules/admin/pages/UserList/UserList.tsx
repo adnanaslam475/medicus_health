@@ -92,9 +92,10 @@ type Props = {};
 
 const UserList = ({}: Props) => {
   const [filterValues, setFilterValues] = useState<adminUserFilterType>({});
+  let defaultPageSize = localStorage.getItem("adminUserListPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
   const [sorting, setSorting] = React.useState({
     column: "",
@@ -123,8 +124,10 @@ const UserList = ({}: Props) => {
     });
   }
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem("adminUserListPerPageLimit", String(limit));
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
@@ -185,7 +188,7 @@ const UserList = ({}: Props) => {
           pagination={{
             total: Number(adminUsers?.meta?.totalPages) * pagination.limit,
             current: adminUsers?.meta?.currentPage,
-            defaultPageSize: 10,
+            defaultPageSize: Number(defaultPageSize),
             onChange: onPaginationChange,
             pageSizeOptions: ["10", "20", "30", "40"],
             showSizeChanger: true,

@@ -22,9 +22,12 @@ import { tableFooter } from "utils/helper";
 
 function AdminPhysicianList() {
   const { query } = useRouter();
+  let defaultPageSize =
+    localStorage.getItem("adminPhysicianPatientAppointmentPerPageLimit") || 10;
+
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
 
   const [sorting, setSorting] = React.useState({
@@ -197,8 +200,13 @@ function AdminPhysicianList() {
     },
   ];
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem(
+      "adminPhysicianPatientAppointmentPerPageLimit",
+      String(limit)
+    );
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
@@ -243,7 +251,7 @@ function AdminPhysicianList() {
             pagination={{
               total: Number(appointments?.meta?.totalPages) * pagination.limit,
               current: appointments?.meta?.currentPage,
-              defaultPageSize: 10,
+              defaultPageSize: Number(defaultPageSize),
               onChange: onPaginationChange,
               pageSizeOptions: ["10", "20", "30", "40"],
               showSizeChanger: true,

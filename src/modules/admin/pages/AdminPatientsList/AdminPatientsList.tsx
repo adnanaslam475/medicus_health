@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import AppLayout from "common/components/AppLayout/AppLayout";
-import { Button, Table } from "antd";
+import { Button, Table, Tag } from "antd";
 import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import AdminPatientsListFilter from "./AdminPatientsListFilter";
 
-import { PatientListFilterType } from "common/types/types";
+import { PatientListFilterType, StatusName } from "common/types/types";
 import { Country, useGetPatientsQuery, User, City } from "generated/graphql";
 import { ColumnsType } from "antd/lib/table/Table";
 import { date } from "common/utils";
 import { tableFooter } from "utils/helper";
+import StatusChip from "common/components/StatusChip/StatusChip";
 
 const columns: ColumnsType<User> = [
   {
@@ -20,7 +21,7 @@ const columns: ColumnsType<User> = [
     sorter: true,
   },
   {
-    title: "Name",
+    title: "Patient name",
     dataIndex: "",
     key: "first_name",
     sorter: true,
@@ -48,15 +49,15 @@ const columns: ColumnsType<User> = [
       return <div>{`+${value}`}</div>;
     },
   },
-  {
-    title: "Street address",
-    dataIndex: "streetAddress",
-    key: "streetAddress",
-    sorter: true,
-    render: (value: String) => {
-      return <div className="max-w-[100px]">{value || "--"}</div>;
-    },
-  },
+  // {
+  //   title: "Street address",
+  //   dataIndex: "streetAddress",
+  //   key: "streetAddress",
+  //   sorter: true,
+  //   render: (value: String) => {
+  //     return <div className="max-w-[100px]">{value || "--"}</div>;
+  //   },
+  // },
   {
     title: "City",
     dataIndex: "city",
@@ -82,13 +83,37 @@ const columns: ColumnsType<User> = [
   //   sorter: true,
   // },
   {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    sorter: true,
+    render: (value: string) => {
+      return (
+        <Tag color={value ? "cyan" : "red"}>
+          {value ? "Enabled" : "Disabled"}
+        </Tag>
+      );
+    },
+  },
+  {
+    title: "Date of birth",
+    dataIndex: "date_of_birth",
+    key: "date_of_birth",
+    sorter: true,
+    render: (value: String) => {
+      return (
+        <div>{value ? `${date?.formatDAYMMDDYY(value as string)}` : "-"}</div>
+      );
+    },
+  },
+  {
     title: "Account creation date",
     dataIndex: "createdAt",
     key: "createdAt",
     sorter: true,
     render: (value: String) => {
       return (
-        <div>{value ? `${date?.formatDAYMMDDYY(value as string)}` : "--"}</div>
+        <div>{value ? `${date?.formatDAYMMDDYY(value as string)}` : "-"}</div>
       );
     },
   },
@@ -110,10 +135,11 @@ const columns: ColumnsType<User> = [
 
 function AdminPatientsList() {
   const [filterValues, setFilterValues] = useState<PatientListFilterType>({});
-
+  let defaultPageSize =
+    localStorage.getItem("adminPatientListingPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
   const [sorting, setSorting] = React.useState({
     column: "",
@@ -138,8 +164,10 @@ function AdminPatientsList() {
       requestPolicy: "network-only",
     });
   }
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem("adminPatientListingPerPageLimit", String(limit));
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
@@ -187,7 +215,7 @@ function AdminPatientsList() {
               pagination={{
                 total: Number(getPatients?.meta?.totalPages) * pagination.limit,
                 current: getPatients?.meta?.currentPage,
-                defaultPageSize: 10,
+                defaultPageSize: Number(defaultPageSize),
                 onChange: onPaginationChange,
                 pageSizeOptions: ["10", "20", "30", "40"],
                 showSizeChanger: true,

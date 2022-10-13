@@ -1135,7 +1135,7 @@ function EditProfile({
                 {certificationList?.map((certificate, index) => {
                   return (
                     <div
-                      className="border-b border-gray-3 my-3 py-3"
+                      className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]"
                       key={index}
                     >
                       <Form.Item
@@ -1187,7 +1187,7 @@ function EditProfile({
                 {clinicList?.map((clinic: clinicType, index: number) => {
                   return (
                     <div
-                      className="border-b border-gray-3 my-3 py-3"
+                      className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]"
                       key={index}
                     >
                       <Form.Item
@@ -1243,7 +1243,7 @@ function EditProfile({
                 {educationList?.map((education, index) => {
                   return (
                     <div
-                      className="border-b border-gray-3 my-3 py-3"
+                      className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]"
                       key={index}
                     >
                       <Form.Item
@@ -1304,7 +1304,7 @@ function EditProfile({
                 {honorsList?.map((honor, index) => {
                   return (
                     <div
-                      className="border-b border-gray-3 my-3 py-3"
+                      className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]"
                       key={index}
                     >
                       <Form.Item className="flex-1">

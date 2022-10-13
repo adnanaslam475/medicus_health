@@ -45,7 +45,7 @@ const appointmentColumns = [
     sorter: true,
   },
   {
-    title: "Physician",
+    title: "Physician name",
     dataIndex: "doctor",
     key: "",
     render: (value: User) => {
@@ -189,9 +189,11 @@ function AdminAppointmentsListing({}: Props) {
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
   );
+  let defaultPageSize =
+    localStorage.getItem("adminAppointmentListingPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
 
   const [sorting, setSorting] = React.useState({
@@ -216,8 +218,10 @@ function AdminAppointmentsListing({}: Props) {
     setFilterValues(values);
   };
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem("adminAppointmentListingPerPageLimit", String(limit));
     setPagination({ page, limit });
+  };
 
   const [{ data: physicianList }] = useGetPhysiciansQuery({
     variables: {
@@ -323,7 +327,7 @@ function AdminAppointmentsListing({}: Props) {
                 pagination={{
                   total: pagination.limit * Number(meta?.totalPages),
                   current: meta?.currentPage,
-                  defaultPageSize: 10,
+                  defaultPageSize: Number(defaultPageSize),
                   onChange: onPaginationChange,
                   pageSizeOptions: ["10", "20", "30", "40"],
                   showSizeChanger: true,

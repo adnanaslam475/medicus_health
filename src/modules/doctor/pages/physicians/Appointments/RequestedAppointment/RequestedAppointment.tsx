@@ -22,9 +22,11 @@ function RequestedAppointment() {
   const [serviceIds, setServiceIds] = useState<number>();
   const [searchPatient, setSearchPatient] = useState<string>();
   const [clearFilter, setClearFilter] = useState<boolean>(false);
+  let defaultPageSize =
+  localStorage.getItem("physicianPendingAppointmentperPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
-    limit: 10,
+    limit: Number(defaultPageSize),
   });
 
   const [sorting, setSorting] = React.useState({
@@ -72,8 +74,13 @@ function RequestedAppointment() {
     });
   }, [clearFilter]);
 
-  const onPaginationChange = (page: number, limit: number) =>
+  const onPaginationChange = (page: number, limit: number) => {
+    localStorage.setItem(
+      "physicianPendingAppointmentperPageLimit",
+      String(limit)
+    );
     setPagination({ page, limit });
+  };
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;

@@ -29,6 +29,7 @@ export function SelectStatusTypeFilter({
       {!hideRequested && (
         <Select.Option value="Requested">Requested</Select.Option>
       )}
+      <Select.Option value="Proposed">Proposed</Select.Option>
       <Select.Option value="Canceled">Canceled</Select.Option>
       <Select.Option value="Confirmed">Upcoming</Select.Option>
       <Select.Option value="Completed">Completed</Select.Option>
