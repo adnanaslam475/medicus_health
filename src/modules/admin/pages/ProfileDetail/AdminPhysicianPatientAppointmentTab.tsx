@@ -1,6 +1,6 @@
 import { Skeleton } from "antd";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import { useDoctorProfileQuery } from "generated/graphql";
+import { useDoctorProfileQuery, useGetUserQuery } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
 import AdminPhysicianPatientAppointment from "../AdminPhysicianPatientAppointment/AdminPhysicianPatientAppointment";
@@ -12,16 +12,21 @@ function AdminPhysicianPatientAppointmentTab() {
     pause: !Number(query?.id),
   });
   const { doctorProfile } = data || {};
-  const userName = `${doctorProfile?.user?.first_name} ${doctorProfile?.user?.last_name}`;
+
+  const [{ data: userData }] = useGetUserQuery({
+    variables: { input: Number(query?.id) },
+    pause: !query?.id,
+  });
+  const { first_name, last_name, email: userEmail } = userData?.user || {};
+
+  const userName = `${doctorProfile?.user?.first_name || first_name} ${
+    doctorProfile?.user?.last_name || last_name
+  }`;
   const profilePicture = doctorProfile?.profile_image;
-  const email = doctorProfile?.user?.email;
+  const email = doctorProfile?.user?.email || userEmail;
 
   return (
-    <Skeleton
-      loading={loading || !doctorProfile?.user?.first_name}
-      paragraph={{ rows: 1 }}
-      active
-    >
+    <Skeleton loading={loading || !first_name} paragraph={{ rows: 1 }} active>
       <CardWithProfileImageInfo
         name={userName}
         serviceName={String(email)}

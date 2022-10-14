@@ -183,22 +183,24 @@ export const ViewProfile = React.forwardRef(function Profile({
                 </Button>
               </div>
 
-              <div className="flex justify-end mb-8 absolute top-0 left-0 md:right-0 w-full">
-                <Button
-                  type="link"
-                  danger
-                  onClick={() => setOpen(true)}
-                  disabled={fetching}
-                  loading={fetching}
-                  icon={
-                    <span className="mr-0.5">
-                      <CloseOutlined className="mb-2.5" />
-                    </span>
-                  }
-                >
-                  Delete profile
-                </Button>
-              </div>
+              {getRole() === "Admin" && (
+                <div className="flex justify-end mb-8 absolute top-0 left-0 md:right-0 w-full">
+                  <Button
+                    type="link"
+                    danger
+                    onClick={() => setOpen(true)}
+                    disabled={fetching}
+                    loading={fetching}
+                    icon={
+                      <span className="mr-0.5">
+                        <CloseOutlined className="mb-2.5" />
+                      </span>
+                    }
+                  >
+                    Delete profile
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           <ProfileForm
