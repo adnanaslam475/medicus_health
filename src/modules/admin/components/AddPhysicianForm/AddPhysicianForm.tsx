@@ -86,7 +86,6 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
     }
     return Promise.resolve();
   };
-  
 
   return (
     <Form form={formInstance} onFinish={onFinish} layout="vertical">
@@ -123,7 +122,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
           rules={[
             { required: true, message: "Email is required" },
             { type: "email", message: "Invalid email." },
-            { max: 30, message: "Email is too long." },
+            { max: 50, message: "Email is too long." },
             { validator: emailValidator },
           ]}
           className="flex-1"
