@@ -295,6 +295,14 @@
   }
   // CSS FOR TOOLTIP IN RESPONSIVE
 
+  :global .fc-toolbar-chunk {
+    button:active {
+      background-color: #1a82fe !important;
+      box-shadow: none;
+      color: #ffffff;
+    }
+  }
+
   :global .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
     :global .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
       @media screen and (min-width: 360px) and (max-width: 576px) {
