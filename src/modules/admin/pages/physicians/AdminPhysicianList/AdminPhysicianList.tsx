@@ -133,6 +133,18 @@ const columns = [
     sorter: true,
   },
   {
+    title: "Last login date",
+    dataIndex: "lastLoginDateTime",
+    key: "lastLoginDateTime",
+    render: (lastLoginDateTime: string) => {
+      return <div>{date?.getDateAndTimeWRTTZ(lastLoginDateTime) || ""}</div>;
+    },
+    // render: (lastLoginDateTime: User) => {
+    //   return <div>{lastLoginDateTime}</div>;
+    // },
+    sorter: true,
+  },
+  {
     title: "",
     dataIndex: "id",
     key: "view",
@@ -202,6 +214,8 @@ function AdminPhysicianList() {
         : "",
     });
   };
+
+  // console.log("User", User);
 
   return (
     <AppLayout>
