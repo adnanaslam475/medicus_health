@@ -14,7 +14,11 @@ import {
   getCurrentUserTimeZone,
   isAppointmentTimeValid,
 } from "common/utils/date";
-import { AppointmentTimeSlots, CustomTimeSlot, StatusName } from "common/types/types";
+import {
+  AppointmentTimeSlots,
+  CustomTimeSlot,
+  StatusName,
+} from "common/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import CardWithProfileImageInfo from "../CardWithProfileImageInfo/CardWithProfileImageInfo";
@@ -132,7 +136,7 @@ function AppointmentInfo(props: Props) {
         // serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
         // imageUrl={isRoleGuard ? doctorProfilePic : null}
       >
-        <div className="flex flex-wrap mb-3 mt-6 gap-y-2">
+        <div className="inline-flex flex-wrap mb-3 mt-6 gap-y-2">
           <Button
             icon={
               <Image
@@ -158,7 +162,7 @@ function AppointmentInfo(props: Props) {
               });
             }}
           >
-            <span className="pl-2">Message support</span>
+            <span className="pl-2 text-primary">Message support</span>
           </Button>
           <Button
             icon={
@@ -185,7 +189,7 @@ function AppointmentInfo(props: Props) {
               });
             }}
           >
-            <span className="pl-2">Message physician</span>
+            <span className="pl-2 text-primary">Message physician</span>
           </Button>
           {(status === "Proposed" || status === "Rescheduled") && (
             <ViewProposeAppointmentTime

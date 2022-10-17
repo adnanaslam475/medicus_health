@@ -18,7 +18,7 @@ function Attachment(props: Props) {
   const { name, url } = item || {};
   function handleFile() {
     if (url) {
-      notification.success({message:"Attachment deleted"})
+      notification.success({ message: "Attachment deleted" });
       setVisible(false);
       setDeletedUrl?.(url);
     }
@@ -42,7 +42,7 @@ function Attachment(props: Props) {
           className={`${_classes["attachment"]} `}
         >
           <MediaFile type={attachementExtension} />
-          <span className="pl-3 ml-2 mr-4">{name}</span>
+          <span className="pl-0 md:pl-3 ml-2 mr-4">{name}</span>
         </a>
         {enable && (
           <Popover
@@ -59,7 +59,9 @@ function Attachment(props: Props) {
                   onClick={handleFile}
                 >
                   <CloseOutlined />
-                  <span className="cursor-pointer">{loading ? "Deleting" : "Delete"}</span>
+                  <span className="cursor-pointer">
+                    {loading ? "Deleting" : "Delete"}
+                  </span>
                 </p>
               </div>
             }
