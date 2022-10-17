@@ -139,9 +139,6 @@ const columns = [
     render: (lastLoginDateTime: string) => {
       return <div>{date?.getDateAndTimeWRTTZ(lastLoginDateTime) || ""}</div>;
     },
-    // render: (lastLoginDateTime: User) => {
-    //   return <div>{lastLoginDateTime}</div>;
-    // },
     sorter: true,
   },
   {
@@ -214,8 +211,6 @@ function AdminPhysicianList() {
         : "",
     });
   };
-
-  // console.log("User", User);
 
   return (
     <AppLayout>

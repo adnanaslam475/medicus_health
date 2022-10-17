@@ -266,7 +266,10 @@ function AdminAppointmentInfo({
             }
             text={`${bookingDate}`}
           />
-          <LabelWithText label="Booking date and Time" text={`${dueDate} - ${time}`} />
+          <LabelWithText
+            label="Booking date and Time"
+            text={`${dueDate} - ${time}`}
+          />
           {isEdit ? (
             <li className="flex border-b border-gray-5 py-3">
               <div className="w-full text-gray-1 max-w-[300px]">
@@ -721,7 +724,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
         </Button>
         <Button
           danger
-          className={`${_classes["appointments-btn"]}  flex-1`}
+          className={`${_classes["appointments-btn"]} flex-1`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Cancel appointment
