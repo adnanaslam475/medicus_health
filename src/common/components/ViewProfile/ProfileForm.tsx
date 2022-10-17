@@ -1,4 +1,4 @@
-import { Form, Input, notification } from "antd";
+import { Divider, Form, Input, notification } from "antd";
 import { useState } from "react";
 import { useUpdateDoctorProfileMutation } from "../../../generated/graphql";
 import {
@@ -111,7 +111,7 @@ function ProfileForm({
       >
         {bioForm.map((item, index) => {
           return (
-            <div className="flex flex-col sm:flex-row gap-3" key={index}>
+            <div className="flex flex-col sm:flex-row gap-3 " key={index}>
               {item.map((val, valIndex) => {
                 return (
                   <Form.Item
@@ -133,16 +133,20 @@ function ProfileForm({
           );
         })}
 
-        <LanguageList disable={true} language={formatedLanguage} />
+        <div className="my-6 mt-0 border-b border-gray-3 w-full"></div>
+        <div className="my-6  border-b border-gray-3 w-full">
+          <LanguageList disable={true} language={formatedLanguage} />
+        </div>
+
         <AboutMe />
+        <div className="my-6 mt-0 border-b border-gray-3 w-full"></div>
 
         {!condition_treated && (
-          <div className="my-6 border-b border-gray-3 w-full">
+          <div className="my-6 pb-[30px] border-b border-gray-3 w-full">
             <span className="font-medium text-lightBlue-1">
               Conditions treated
             </span>
             <br />
-
           </div>
         )}
 

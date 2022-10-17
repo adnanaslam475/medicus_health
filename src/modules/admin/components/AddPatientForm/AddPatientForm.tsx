@@ -105,7 +105,12 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
   };
 
   return (
-    <Form form={formInstance} onFinish={onFinish} scrollToFirstError layout="vertical">
+    <Form
+      form={formInstance}
+      onFinish={onFinish}
+      scrollToFirstError
+      layout="vertical"
+    >
       <div className="flex flex-row gap-3">
         <Form.Item
           label="First name"
@@ -138,9 +143,9 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           label="Email"
           rules={[
             { required: true, message: "Email is required" },
-            { type: 'email', message: "Invalid email." },
-            { max: 30, message: "Email is too long." },
-            { validator: emailValidator }
+            { type: "email", message: "Invalid email." },
+            { max: 50, message: "Email is too long." },
+            { validator: emailValidator },
           ]}
           className="flex-1"
         >

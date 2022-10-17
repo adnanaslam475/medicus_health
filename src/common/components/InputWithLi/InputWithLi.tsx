@@ -34,7 +34,7 @@ function InputWithLi(props: IMyProps) {
   };
 
   return (
-    <div className="mt-3 border-b border-gray-3">
+    <div className="mt-3 border-b border-gray-3  pb-[19px]">
       <span className="font-medium text-lightBlue-1">Conditions treated</span>
       <div className={`${_Classes["input-with-li"]} relative`}>
         {!disable && (
@@ -60,7 +60,7 @@ function InputWithLi(props: IMyProps) {
           </div>
         )}
         <div>
-          <ul className="gap-2 flex flex-wrap">
+          <ul className="gap-2 flex flex-wrap m-0">
             {!!initialValue?.length &&
               initialValue.map(
                 (a, i) =>

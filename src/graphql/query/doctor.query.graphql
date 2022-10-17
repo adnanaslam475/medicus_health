@@ -614,6 +614,7 @@ query getPhysicians(
       email
       streetAddress
       createdAt
+      lastLoginDateTime
       city {
         city_name
       }

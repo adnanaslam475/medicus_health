@@ -377,18 +377,18 @@ function EditProfile({
     }
 
     if (res?.error) {
-      let graphQLError = res?.error?.graphQLErrors[0]?.extensions
-        ?.response as GraphQLError;
-      let customError = res?.error?.graphQLErrors[0]?.extensions
-        ?.exception as GraphQLError;
-      let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message;
-      let errorMessage =
-        graphQLError?.message[0] ||
-        customError?.message ||
-        errorGraphQLMessage ||
-        "Something went wrong";
+      // let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+      //   ?.response as GraphQLError;
+      // let customError = res?.error?.graphQLErrors[0]?.extensions
+      //   ?.exception as GraphQLError;
+      // let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message;
+      // let errorMessage =
+      //   graphQLError?.message[0] ||
+      //   customError?.message ||
+      //   errorGraphQLMessage ||
+      //   "Something went wrong";
       notification.error({
-        message: errorMessage,
+        message: graphqlError(res),
       });
     } else setIsEdit(false);
 
@@ -695,22 +695,24 @@ function EditProfile({
                 }`}
               </h2>
 
-              <div className="flex justify-end mb-8 absolute top-0 left-0 md:right-0 w-full">
-                <Button
-                  type="link"
-                  danger
-                  onClick={() => setOpen(true)}
-                  // disabled={deleting}
-                  // loading={deleting || disableLoading}
-                  icon={
-                    <span className="mr-0.5">
-                      <CloseOutlined className="mb-2.5" />
-                    </span>
-                  }
-                >
-                  Delete profile
-                </Button>
-              </div>
+              {getRole() === "Admin" && (
+                <div className="flex justify-end mb-8 absolute top-0 left-0 md:right-0 w-full">
+                  <Button
+                    type="link"
+                    danger
+                    onClick={() => setOpen(true)}
+                    // disabled={deleting}
+                    // loading={deleting || disableLoading}
+                    icon={
+                      <span className="mr-0.5">
+                        <CloseOutlined className="mb-2.5" />
+                      </span>
+                    }
+                  >
+                    Delete profile
+                  </Button>
+                </div>
+              )}
               <span className="block">{doctor_email}</span>
               {getRole() === "Admin" && (
                 <div className=" grid grid-cols-2 gap-3">
@@ -1001,7 +1003,9 @@ function EditProfile({
                     onPressEnter={(e) => e.preventDefault()}
                   />
                 </Form.Item> */}
-                <div className="flex-1">
+                              {/* <div className="my-6 mt-0 border-b border-gray-3 w-full"></div> */}
+
+                <div className="flex-1 mb-[25px] pb-[5px] border-b border-gray-3">
                   <Form.Item
                     label={"Time zone"}
                     name="timeZone"
@@ -1050,8 +1054,7 @@ function EditProfile({
                   </div>
                 </div>
               </div>
-
-              <div className="flex items-center ">
+              <div className="flex items-center pb-[25px] border-b border-gray-3 w-full">
                 <Form.Item
                   name="languageEnglish"
                   className={`${_classes["bottom-margin-0"]}`}
@@ -1098,7 +1101,7 @@ function EditProfile({
                 </Form.Item>
               </div>
 
-              <div className="mt-5">
+              <div className="mt-5 border-b border-gray-3 ">
                 <Form.Item label="About me" name="about_me">
                   <TextArea
                     rows={10}
