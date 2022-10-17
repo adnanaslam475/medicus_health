@@ -110,7 +110,7 @@ export function UTCPrettierTime(time: any, date?: any) {
     localStorage?.getItem("timeZone") !== "undefined" &&
     localStorage?.getItem("timeZone")
       ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+      : "America/New_York";
 
   const convertedTime = time12HrConvert(time);
   const [hours, minute] = convertedTime.split(":");
@@ -214,7 +214,7 @@ export function getCurrentUserTimeZone() {
     localStorage?.getItem("timeZone") !== "undefined" &&
     localStorage?.getItem("timeZone")
       ? JSON.parse(String(localStorage?.getItem("timeZone")))
-      : "America/Cambridge_Bay";
+      : "America/New_York";
   return timeZone;
 }
 
