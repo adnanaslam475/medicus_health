@@ -51,7 +51,6 @@
   span:first-child {
     @media screen and (min-width: 810px) and (max-width: 1199px) {
       width: 19px !important;
-      // border: 1px solid red !important;
     }
   }
   span:last-child {
@@ -59,7 +58,6 @@
     display: block !important;
     border: 0px solid blue !important;
     @media screen and (min-width: 810px) and (max-width: 1199px) {
-      // width: 19px !important;
       color: #1a82fe !important;
       display: block !important;
       border: 0px solid blue !important;

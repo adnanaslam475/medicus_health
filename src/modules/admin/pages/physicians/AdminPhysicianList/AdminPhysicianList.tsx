@@ -137,7 +137,7 @@ const columns = [
     dataIndex: "lastLoginDateTime",
     key: "lastLoginDateTime",
     render: (lastLoginDateTime: string) => {
-      return <div>{date?.getDateAndTimeWRTTZ(lastLoginDateTime) || ""}</div>;
+      return <div>{date?.formatMMMMDDYYYY(lastLoginDateTime) || ""}</div>;
     },
     sorter: true,
   },
