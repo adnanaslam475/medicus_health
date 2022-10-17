@@ -185,8 +185,6 @@ function AdminPhysicianList() {
 
   const { getPhysicians } = data || {};
 
-  console.log("getPhysicians", getPhysicians);
-
   const onPaginationChange = (page: number, limit: number) => {
     localStorage.setItem("adminPhysicianListingPerPageLimit", String(limit));
     setPagination({ page, limit });
