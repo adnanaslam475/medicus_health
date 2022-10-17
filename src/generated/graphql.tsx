@@ -1752,6 +1752,7 @@ export type User = {
   first_name: Scalars['String'];
   gender?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
+  lastLoginDateTime?: Maybe<Scalars['DateTime']>;
   last_name: Scalars['String'];
   password?: Maybe<Scalars['String']>;
   patientHealthHistory?: Maybe<PatientHealthHistory>;
@@ -2380,7 +2381,7 @@ export type GetPhysiciansQueryVariables = Exact<{
 }>;
 
 
-export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, zip_code?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, doctorProfile?: { __typename?: 'DoctorProfile', language?: any | null, specialization?: string | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number, totalItems: number } } };
+export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, lastLoginDateTime?: any | null, zip_code?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, doctorProfile?: { __typename?: 'DoctorProfile', language?: any | null, specialization?: string | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number, totalItems: number } } };
 
 export type GetAppointmentNoteByIdQueryVariables = Exact<{
   appointmentId: Scalars['Int'];
@@ -4513,6 +4514,7 @@ export const GetPhysiciansDocument = gql`
       email
       streetAddress
       createdAt
+      lastLoginDateTime
       city {
         city_name
       }
@@ -11823,6 +11825,14 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "lastLoginDateTime",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },

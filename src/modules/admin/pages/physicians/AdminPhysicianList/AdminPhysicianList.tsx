@@ -133,6 +133,18 @@ const columns = [
     sorter: true,
   },
   {
+    title: "Last login date",
+    dataIndex: "lastLoginDateTime",
+    key: "lastLoginDateTime",
+    render: (lastLoginDateTime: string) => {
+      return <div>{date?.getDateAndTimeWRTTZ(lastLoginDateTime) || ""}</div>;
+    },
+    // render: (lastLoginDateTime: User) => {
+    //   return <div>{lastLoginDateTime}</div>;
+    // },
+    sorter: true,
+  },
+  {
     title: "",
     dataIndex: "id",
     key: "view",
@@ -173,6 +185,8 @@ function AdminPhysicianList() {
 
   const { getPhysicians } = data || {};
 
+  console.log("getPhysicians", getPhysicians);
+
   const onPaginationChange = (page: number, limit: number) => {
     localStorage.setItem("adminPhysicianListingPerPageLimit", String(limit));
     setPagination({ page, limit });
@@ -202,6 +216,8 @@ function AdminPhysicianList() {
         : "",
     });
   };
+
+  // console.log("User", User);
 
   return (
     <AppLayout>
