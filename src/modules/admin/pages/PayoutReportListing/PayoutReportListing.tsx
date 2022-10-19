@@ -12,6 +12,7 @@ import {
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import { date } from "common/utils";
+import { addDecimaltoAmount } from "common/utils/helper";
 
 function PayoutReportListing() {
   const { Panel } = Collapse;
@@ -104,7 +105,7 @@ function PayoutReportListing() {
           appointment?.transaction?.status === "Refunded"
             ? 0
             : `${appointment?.transaction?.appointmentCharges}`;
-        return <div>{refund}</div>;
+        return <div>{addDecimaltoAmount(refund as any)}</div>;
       },
     },
     {
@@ -113,7 +114,7 @@ function PayoutReportListing() {
       key: "tax",
       render: (transaction: Transaction) => {
         const tax = transaction?.tax || 0;
-        return <div>{tax}</div>;
+        return <div>{addDecimaltoAmount(tax as any)}</div>;
       },
     },
 
@@ -124,7 +125,7 @@ function PayoutReportListing() {
       render: (transaction: Transaction) => {
         const stripeFee =
           transaction?.status === "Refunded" ? 0 : transaction?.stripeFee;
-        return <div>{stripeFee}</div>;
+        return <div>{addDecimaltoAmount(stripeFee as any)}</div>;
       },
       sorter: true,
     },
@@ -133,7 +134,11 @@ function PayoutReportListing() {
       dataIndex: "transaction",
       key: "medicus_percentage",
       render: (transaction: Transaction) => {
-        return <div>{transaction?.medicus_percentage || "0"}</div>;
+        return (
+          <div>
+            {addDecimaltoAmount(transaction?.medicus_percentage) || "0"}
+          </div>
+        );
       },
     },
     {
@@ -141,7 +146,9 @@ function PayoutReportListing() {
       dataIndex: "transaction",
       key: "doctor_percentage",
       render: (transaction: Transaction) => {
-        return <div>{transaction?.doctor_percentage || "0"}</div>;
+        return (
+          <div>{addDecimaltoAmount(transaction?.doctor_percentage) || "0"}</div>
+        );
       },
     },
     {
@@ -149,7 +156,11 @@ function PayoutReportListing() {
       dataIndex: "transaction",
       key: "amountReceived",
       render: (transaction: Transaction) => {
-        return <div>{transaction.amountReceived || "0"}</div>;
+        return (
+          <div>
+            {addDecimaltoAmount(transaction.amountReceived as any) || "0"}
+          </div>
+        );
       },
     },
   ];

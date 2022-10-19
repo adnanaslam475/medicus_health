@@ -69,7 +69,17 @@ export const getFileImageIcon = (fileName: any) => {
   }
 };
 
-export function valueSeparator(value: string|number) {
+export function valueSeparator(value: string | number) {
   let separatorValue = parseFloat(String(value)).toLocaleString("en");
   return separatorValue;
+}
+
+export function addDecimaltoAmount(value: string) {
+  let roundFixValue = parseFloat(value).toFixed(2);
+  return roundFixValue;
+}
+
+export function convertToString(value: number | undefined) {
+  let stringValue = value?.toString;
+  return stringValue;
 }

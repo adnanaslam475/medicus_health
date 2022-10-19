@@ -3,6 +3,7 @@ import StatisticsCard from "common/components/StatisticsCard/StatisticsCard";
 import React from "react";
 import users from "../../../../../public/assets/icon/users.svg";
 import appointments from "../../../../../public/assets/icon/appointments.svg";
+import consultationIconDashBoard from "../../../../../public/assets/icon/consultationIconDashBoard.svg";
 import physician from "../../../../../public/assets/images/admin/menu/physicians-hover.svg";
 import revenue from "../../../../../public/assets/icon/dollars.svg";
 import _classes from "./AdminDashboard.module.scss";
@@ -40,7 +41,7 @@ function AdminDashboard() {
     {
       key: "Total number of consultations",
       value: numberFormatter(Number(total_number_of_consultation)),
-      icon: appointments,
+      icon: consultationIconDashBoard,
     },
     {
       key: "Total number of second opinions",
