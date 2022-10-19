@@ -76,8 +76,11 @@ const ResendLink = () => {
               <h5 className="text-center text-gray font-rubik font-normal">
                 {/* Enter your email below to reset password. */}
                 {/* {t("enter_your_email_below_to_reset_password")} */}
-                Por favor confirma tu correo debajo para recibir las
-                instrucciones de reinicio de contraseña.
+
+                {/* Client ask to remove this text in this ticket MDCS-3214 */}
+
+                {/* Por favor confirma tu correo debajo para recibir las
+                instrucciones de reinicio de contraseña. */}
               </h5>
               <div className="mt-5">
                 <Form
@@ -107,7 +110,9 @@ const ResendLink = () => {
                       },
                     ]}
                   >
-                    <Input placeholder="Escriba tú coreo electrónico" />
+                    <Input
+                    // placeholder="Escriba tú coreo electrónico"
+                    />
                   </Form.Item>
 
                   <Form.Item>
@@ -118,7 +123,8 @@ const ResendLink = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      Enviar enlace de reenvío
+                      Reenviar
+                      {/* Enviar enlace de reenvío */}
                       {/* {t("send_resend_link")} */}
                       {/* Send Resend Link */}
                     </Button>
