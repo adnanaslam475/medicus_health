@@ -18,6 +18,7 @@ import { date } from "common/utils";
 import { currencyFormatter, numberFormatter } from "common/utils/date";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
+import { addDecimaltoAmount } from "common/utils/helper";
 
 const columns = [
   {
@@ -122,7 +123,7 @@ const columns = [
         transaction?.status === "Refunded"
           ? 0
           : `${transaction?.appointmentCharges}`;
-      return <div>{refund}</div>;
+      return <div>{addDecimaltoAmount(refund as any)}</div>;
     },
     sorter: true,
   },
@@ -134,8 +135,8 @@ const columns = [
       const refund =
         transaction?.status === "Refunded"
           ? `-${transaction?.appointmentCharges}`
-          : 0;
-      return <div>{refund}</div>;
+          : 0.0;
+      return <div>{addDecimaltoAmount(refund as any)}</div>;
     },
     sorter: true,
   },
@@ -145,7 +146,7 @@ const columns = [
     key: "tax",
     render: (appointment: Appointment) => {
       const tax = appointment?.appointmentCharges?.tax || 0;
-      return <div>{tax}</div>;
+      return <div>{addDecimaltoAmount(numberFormatter(tax))}</div>;
     },
     sorter: true,
   },
@@ -170,7 +171,7 @@ const columns = [
         appointment?.transaction?.status === "Refunded"
           ? `-${appointment?.transaction.amountReceived}`
           : appointment?.transaction.amountReceived;
-      return <div>{totalSales}</div>;
+      return <div>{addDecimaltoAmount(totalSales)}</div>;
     },
     sorter: true,
   },
@@ -184,7 +185,7 @@ const columns = [
         transaction?.status === "Refunded"
           ? `-${transaction?.doctor_percentage}`
           : transaction?.doctor_percentage;
-      return <div>{physicianFee}</div>;
+      return <div>{addDecimaltoAmount(physicianFee)}</div>;
     },
     sorter: true,
   },
@@ -198,7 +199,8 @@ const columns = [
         transaction?.status === "Refunded"
           ? `-${transaction?.medicus_percentage}`
           : transaction?.medicus_percentage;
-      return <div>{medicusFee}</div>;
+      // return <div>{medicusFee}</div>;
+      return <div>{addDecimaltoAmount(medicusFee)}</div>;
     },
     sorter: true,
   },
