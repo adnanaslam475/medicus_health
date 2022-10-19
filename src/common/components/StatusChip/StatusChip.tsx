@@ -91,7 +91,7 @@ const classesAccordingToType: StatusType<StatusName> = {
   },
   RESCHEDULED: {
     text: RESCHEDULED || "Rescheduled",
-    color: "text-sky",
+    color: "text-primary",
     background: "bg-lightBlue",
     border: "border border-lightBlue",
   },
