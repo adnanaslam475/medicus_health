@@ -264,11 +264,12 @@ function AdminAppointmentInfo({
               //   ? "Requested date"
               //   : "Appointment date"
             }
-            text={`${bookingDate}`}
+            text={`${date.formatDAYMMDDYY(String(bookingDate))}`}
           />
           <LabelWithText
             label="Booking date and Time"
-            text={`${dueDate} - ${time}`}
+            // text={`${dueDate} - ${time}`}
+            text={`${date.formatDAYMMDDYY(String(dueDate))} - ${time}`}
           />
           {isEdit ? (
             <li className="flex border-b border-gray-5 py-3">
