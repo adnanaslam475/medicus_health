@@ -45,7 +45,7 @@ export function BookAppointmentProvider({
         saveStepOne,
         saveStepTwo,
         saveStepThree,
-        clearBookingContext
+        clearBookingContext,
       }}
     >
       {children}
