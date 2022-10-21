@@ -89,7 +89,7 @@ function AdminPhysicianPatientAppointmentSearchFilters({ onChange }: Props) {
         </div>
       </div>
       <div className="flex flex-col sm:flex-row flex-1 w-full sm:w-60">
-        <div className="">
+        <div className="min-w-[60px]">
           <SelectServiceTypeFilter
             onChange={(value) => onChangeFields("serviceId", value as string)}
             value={filterState.serviceId || undefined}

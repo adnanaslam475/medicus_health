@@ -251,12 +251,14 @@ function BookAppointmentModal({
     } else if (currentStepName === "stepTwo" && !patientHealthHistory?.id) {
       return form.current?.submit();
     } else if (
-      currentStepName === "stepThree" &&
-      Object.values(stepThreeFields).some(
-        (item) => item === "" || item === undefined
-      )
+      currentStepName === "stepThree"
+      // &&
+      // Object.values(stepThreeFields).some(
+      //   (item) => item === "" || item === undefined
+      // )
     ) {
-      return form.current?.submit();
+      form.current?.submit();
+      return next(currentStepName);
     } else {
       return next(currentStepName);
     }
