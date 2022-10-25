@@ -25,7 +25,7 @@ export function translationJson(local: string) {
           ...spanishCommon,
           resend_password_link: "Reenviar correo electrónico de verificación",
           your_password_reset_link_has_been_resent_on_your_email_please_check:
-            "Su enlace de restablecimiento de contraseña ha sido reenviado en su correo electrónico, ¡compruébelo!",
+            "Un correo electrónico que contiene el enlace de verificación ha sido reenviado.",
         },
         AccountDetail: {
           ...spanishCommon,
@@ -139,7 +139,7 @@ export function translationJson(local: string) {
           // resend_password_link: "Resend Password Link",
           resend_password_link: "Reenviar correo electrónico de verificación",
           your_password_reset_link_has_been_resent_on_your_email_please_check:
-            "Your password reset link has been resent on your email please check!",
+            "Un correo electrónico que contiene el enlace de verificación ha sido reenviado.",
         },
         AccountDetail: {
           ...englishCommon,
