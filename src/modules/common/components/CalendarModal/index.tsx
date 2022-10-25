@@ -13,23 +13,24 @@ import camera from "../../../../../public/assets/images/camera.svg";
 import Router from "next/router";
 import Link from "next/link";
 import { getRole, getUserData } from "common/utils/userData";
+import { isChrome } from "utils/helper";
 type Props =
   | {
-      modalVisible: boolean;
-      closeModal: () => void;
-      data: {
-        id: number;
-        doctor: string;
-        patient: {
-          first_name: string;
-        };
-        serviceType: {
-          name: string;
-        };
-        dateValue: Date;
+    modalVisible: boolean;
+    closeModal: () => void;
+    data: {
+      id: number;
+      doctor: string;
+      patient: {
+        first_name: string;
       };
-      okText: string;
-    }
+      serviceType: {
+        name: string;
+      };
+      dateValue: Date;
+    };
+    okText: string;
+  }
   | undefined
   | any;
 function CalendarModalComponent(props: Props) {
@@ -59,8 +60,8 @@ function CalendarModalComponent(props: Props) {
     user?.role === "Doctor" || user?.role === "Staff"
       ? `upcoming/${id}`
       : user?.role === "User"
-      ? `/patient/appointments/${id}`
-      : `/admin/appointments/${id}`;
+        ? `/patient/appointments/${id}`
+        : `/admin/appointments/${id}`;
 
   const timeZone = getCurrentUserTimeZone();
 
@@ -118,7 +119,7 @@ function CalendarModalComponent(props: Props) {
 
       <div className="flex justify-between">
         <div className="items-center justify-start pt-4">
-          <Button onClick={() => Router.push(detailsPageLink)}>Details</Button>
+          <Button onClick={() => Router.push(detailsPageLink)} className={`${isChrome && 'antCustomBtn'}`}>Details</Button>
         </div>
         <div className="items-center justify-end border-0 pt-4">
           {/* <Button
@@ -147,7 +148,7 @@ function CalendarModalComponent(props: Props) {
           >
             <Button
               type="primary"
-              className={`${_classes["appointments-btn"]} mr-3`}
+              className={`${_classes["appointments-btn"]} mr-3 ${isChrome && 'antCustomBtn'}`}
               disabled={disabled}
               target={"_blank"}
             >

@@ -13,6 +13,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 
 // scss
 import _classes from "./BankInfo.module.scss";
+import { isChrome } from "utils/helper";
 
 function BankInfo() {
   const stripe = useStripe();
@@ -149,7 +150,7 @@ function BankInfo() {
                 onClick={() => formRef.current?.submit()}
                 type="primary"
                 htmlType="submit"
-                className=""
+                className={`${isChrome && 'antCustomBtn'}`}
                 loading={fetching}
               >
                 Save changes

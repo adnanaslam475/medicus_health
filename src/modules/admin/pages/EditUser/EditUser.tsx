@@ -18,11 +18,12 @@ import {
 import EditAdminUserForm from "common/components/EditAdminUserFormItems/EditAdminUserFormItems";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import { GraphQLError } from "graphql";
+import { isChrome } from "utils/helper";
 
 type Props = {};
 const { Option } = Select;
 
-function EditAdminUserDetails({}: Props) {
+function EditAdminUserDetails({ }: Props) {
   const { query } = useRouter();
   const [formInstance] = Form.useForm();
   const [data, enableOrDisableAdmin] = useEnableOrDisablePatientMutation();
@@ -168,6 +169,7 @@ function EditAdminUserDetails({}: Props) {
           >
             <div className="flex">
               <Button
+                className={`${isChrome && 'antCustomBtn'}`}
                 loading={loading}
                 type="link"
                 icon={
@@ -188,7 +190,7 @@ function EditAdminUserDetails({}: Props) {
             <div className="flex px-0 mx-0">
               <Button
                 type="link"
-                className="sm:ml-auto"
+                className={` sm:ml-auto ${isChrome && 'antCustomBtn'}`}
                 danger
                 icon={<CloseOutlined />}
                 onClick={() => setOpen(true)}
@@ -216,7 +218,7 @@ function EditAdminUserDetails({}: Props) {
               </Select>
             </Form.Item>
             <Button
-              className="ml-5"
+              className={`ml-5 ${isChrome && 'antCustomBtn'}`}
               type="default"
               icon={<EditOutlined />}
               onClick={() => setDisableInputs(!disableInputs)}
@@ -230,8 +232,9 @@ function EditAdminUserDetails({}: Props) {
           <div className="flex justify-end">
             <Form.Item>
               <div className="flex gap-4">
-                <Button onClick={() => Router.back()}>Cancel</Button>
+                <Button onClick={() => Router.back()} className={`${isChrome && 'antCustomBtn'}`}>Cancel</Button>
                 <Button
+                  className={`${isChrome && 'antCustomBtn'}`}
                   loading={fetching}
                   disabled={fetching}
                   type="primary"

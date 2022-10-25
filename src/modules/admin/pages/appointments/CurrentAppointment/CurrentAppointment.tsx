@@ -12,6 +12,7 @@ import {
   User,
 } from "generated/graphql";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import { isChrome } from "utils/helper";
 
 function CurrentAppointment() {
   const [filterValues, setFilterValues] = useState({});
@@ -90,7 +91,7 @@ function CurrentAppointment() {
           <div className="flex gap-3">
             <Button
               type="primary"
-              className="text-sm"
+              className={`text-sm ${isChrome && 'antCustomBtn'}`}
               onClick={showAppointmentBookingModal}
             >
               <span className="text-xs sm:text-base">

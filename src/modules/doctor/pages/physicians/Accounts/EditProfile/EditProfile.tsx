@@ -49,7 +49,7 @@ import {
 import { useUserData } from "common/components/Context/UserContext";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { graphqlError, timezoneLabel } from "utils/helper";
+import { graphqlError, isChrome, timezoneLabel } from "utils/helper";
 import { GraphQLError } from "graphql";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 // import ConfirmationModal from "modules/admin/pages/AdminPatientListingDetail/ConfirmationModal";
@@ -423,7 +423,7 @@ function EditProfile({
     try {
       const url = await s3.uploadFile(info.file.originFileObj as File);
       setImage(url?.location);
-    } catch (error) {}
+    } catch (error) { }
     if (error) {
       notification.error({
         message: error?.graphQLErrors[0]?.message || "Something went wrong",
@@ -690,9 +690,8 @@ function EditProfile({
             </Upload>
             <div>
               <h2 className="mb-0">
-                {`${doctor_first_name && doctor_first_name} ${
-                  doctor_last_name && doctor_last_name
-                }`}
+                {`${doctor_first_name && doctor_first_name} ${doctor_last_name && doctor_last_name
+                  }`}
               </h2>
 
               {getRole() === "Admin" && (
@@ -701,6 +700,7 @@ function EditProfile({
                     type="link"
                     danger
                     onClick={() => setOpen(true)}
+                    className={`${isChrome && 'antCustomBtn'}`}
                     // disabled={deleting}
                     // loading={deleting || disableLoading}
                     icon={
@@ -722,7 +722,7 @@ function EditProfile({
                     >
                       <Button
                         type="primary"
-                        className={`${_classes["published-button"]}`}
+                        className={`${_classes["published-button"]} ${isChrome && 'antCustomBtn'}`}
                         onClick={handlePublish_Unpublish}
                         disabled={doctorData ? false : true}
                       >
@@ -1003,7 +1003,7 @@ function EditProfile({
                     onPressEnter={(e) => e.preventDefault()}
                   />
                 </Form.Item> */}
-                              {/* <div className="my-6 mt-0 border-b border-gray-3 w-full"></div> */}
+                {/* <div className="my-6 mt-0 border-b border-gray-3 w-full"></div> */}
 
                 <div className="flex-1 mb-[25px] pb-[5px] border-b border-gray-3">
                   <Form.Item
@@ -1170,7 +1170,7 @@ function EditProfile({
                         />
                       </Form.Item>
                       {certificationList?.length - 1 === index && (
-                        <Button onClick={() => addNewField("certification")}>
+                        <Button onClick={() => addNewField("certification")} className={`${isChrome && 'antCustomBtn'}`}>
                           Add new field
                         </Button>
                       )}
@@ -1179,6 +1179,7 @@ function EditProfile({
                         <Button
                           danger
                           onClick={() => removeField("certification", index)}
+                          className={`${isChrome && 'antCustomBtn'}`}
                         >
                           Remove field
                         </Button>
@@ -1225,7 +1226,7 @@ function EditProfile({
                         />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
-                        <Button onClick={() => addNewField("clinic")}>
+                        <Button onClick={() => addNewField("clinic")} className={`${isChrome && 'antCustomBtn'}`}>
                           Add new field
                         </Button>
                       )}
@@ -1234,6 +1235,7 @@ function EditProfile({
                         <Button
                           danger
                           onClick={() => removeField("clinic", index)}
+                          className={`${isChrome && 'antCustomBtn'}`}
                         >
                           Remove field
                         </Button>
@@ -1286,7 +1288,7 @@ function EditProfile({
                         />
                       </Form.Item>
                       {educationList?.length - 1 === index && (
-                        <Button onClick={() => addNewField("education")}>
+                        <Button onClick={() => addNewField("education")} className={`${isChrome && 'antCustomBtn'}`}>
                           Add new field
                         </Button>
                       )}
@@ -1295,6 +1297,7 @@ function EditProfile({
                         <Button
                           danger
                           onClick={() => removeField("education", index)}
+                          className={`${isChrome && 'antCustomBtn'}`}
                         >
                           Remove field
                         </Button>
@@ -1321,7 +1324,7 @@ function EditProfile({
                         />
                       </Form.Item>
                       {honorsList?.length - 1 === index && (
-                        <Button onClick={() => addNewField("honors")}>
+                        <Button onClick={() => addNewField("honors")} className={`${isChrome && 'antCustomBtn'}`}>
                           Add new field
                         </Button>
                       )}
@@ -1330,6 +1333,7 @@ function EditProfile({
                         <Button
                           danger
                           onClick={() => removeField("honors", index)}
+                          className={`${isChrome && 'antCustomBtn'}`}
                         >
                           Remove field
                         </Button>
@@ -1341,7 +1345,7 @@ function EditProfile({
 
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
-                  <Button type="default" onClick={() => setIsEdit(false)}>
+                  <Button type="default" onClick={() => setIsEdit(false)} className={`${isChrome && 'antCustomBtn'}`}>
                     Close
                   </Button>
                   <Button
@@ -1349,6 +1353,7 @@ function EditProfile({
                     htmlType="submit"
                     loading={fetching}
                     disabled={fetching}
+                    className={`${isChrome && 'antCustomBtn'}`}
                   >
                     Save changes
                   </Button>

@@ -10,6 +10,7 @@ import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 import Router from "next/router";
 import { getCurrentUserTimeZone } from "common/utils/date";
+import { isChrome } from "utils/helper";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -74,7 +75,7 @@ function AppointmnetRequestedCard({
       <div className="flex justify-between">
         <span className="text-base text-yellow font-bold w-full ">{status}</span>
         <Button
-          className={`${_classes["card-btn"]} bg-transparent`}
+          className={`${_classes["card-btn"]} bg-transparent ${isChrome && 'antCustomBtn'}`}
           onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
         >
           Details

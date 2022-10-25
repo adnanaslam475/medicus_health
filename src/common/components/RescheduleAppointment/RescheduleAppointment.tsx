@@ -32,6 +32,7 @@ import { getUserData } from "common/utils/userData";
 import dayjs from "dayjs";
 import Router from "next/router";
 import { GraphQLError } from "graphql";
+import { isChrome } from "utils/helper";
 
 type Props = {
   showRescheduleModal?: boolean;
@@ -275,7 +276,7 @@ function RescheduleAppointmentModal(props: Props) {
           </div>
           <div className="text-primary flex">
             <Button
-              className={`${_classes["btn_font"]}`}
+              className={`${_classes["btn_font"]} ${isChrome && 'antCustomBtn'}`}
               onClick={addTimeSlot}
               disabled={Object.values(slot).some((value) => value === "")}
               type="link"
@@ -286,7 +287,7 @@ function RescheduleAppointmentModal(props: Props) {
 
           <div className="flex justify-end">
             <Button
-              className={`${_classes["appointments-btn"]}`}
+              className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
               onClick={onRescheduleAppointment}
               type="primary"
               disabled={slots.length > 0 ? false : true}

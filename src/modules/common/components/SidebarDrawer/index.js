@@ -5,6 +5,7 @@ import Image from "next/image";
 // import { Logo } from "../../../../utils/images";
 import SidebarMenuItem from "../../../../common/components/SidebarMenuItem/SidebarMenuItem";
 import _classes from "./SidebarDrawer.module.scss";
+import { isChrome } from "utils/helper";
 
 function AdminSideMenu() {
   const [showDrawer, setShowDrawer] = useState(false);
@@ -19,11 +20,11 @@ function AdminSideMenu() {
     <div className="inline-flex">
       {showDrawer ? (
         <Button
-          className={`${_classes["Header-SideDrawer"]} shadow-none `}
+          className={`${_classes["Header-SideDrawer"]} shadow-none ${isChrome && 'antCustomBtn'}`}
           onClick={drawerHandler} icon={<CloseOutlined />} />
       ) : (
         <Button
-          className={`${_classes["Header-SideDrawer"]} shadow-none `}
+          className={`${_classes["Header-SideDrawer"]} shadow-none ${isChrome && 'antCustomBtn'}`}
           onClick={drawerHandler} icon={<MenuOutlined />} />
       )}
 

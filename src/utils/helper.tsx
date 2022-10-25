@@ -561,7 +561,7 @@ export const capitalizeFirstLetter = (value: any) => {
 export const timezoneLabel = (value: any = "") => {
   return value
     ?.split("/")
-    [Number(value?.split("/").length) - 1]?.replace(/_/g, " ");
+  [Number(value?.split("/").length) - 1]?.replace(/_/g, " ");
 };
 
 export const graphqlError = (res: any) => {
@@ -583,3 +583,5 @@ export const tableFooter = (currentPageCount: number, totalCount: number) => {
     ""
   );
 };
+// @ts-ignore
+export const isChrome = typeof window !== "undefined" && !!window.chrome

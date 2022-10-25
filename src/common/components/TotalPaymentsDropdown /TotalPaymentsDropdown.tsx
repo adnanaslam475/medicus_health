@@ -1,5 +1,6 @@
 import { Button, Form, FormInstance, InputNumber } from "antd";
 import React from "react";
+import { isChrome } from "utils/helper";
 import _classes from "../PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters.module.scss";
 type Props = {
   onFinishLocal: (values: {
@@ -24,7 +25,7 @@ function TotalPaymentsDropdown(props: Props) {
           <InputNumber placeholder="Final($)" className="mb-0" type="number" />
         </Form.Item>
 
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" className={`${isChrome && 'antCustomBtn'}`} htmlType="submit">
           Apply
         </Button>
       </div>

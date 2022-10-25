@@ -14,6 +14,7 @@ import { useTranslations } from "next-intl";
 import engFlag from "../../../../../../public/assets/images/engFlag.png";
 import espanolFlag from "../../../../../../public/assets/images/espanolFlag.png";
 import { useUserData } from "common/components/Context/UserContext";
+import { isChrome } from "utils/helper";
 
 function Login() {
   const t = useTranslations("Login");
@@ -246,6 +247,7 @@ function Login() {
                       block
                       type="primary"
                       htmlType="submit"
+                      className={`${isChrome && 'antCustomBtn'}`}
                     >
                       {/* {t("login")} */}
                       Iniciar sesión

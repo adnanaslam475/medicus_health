@@ -19,6 +19,7 @@ import { getUserData } from "common/utils/userData";
 // scss
 import _classes from "../../staff/staff.module.scss";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
+import { isChrome } from "utils/helper";
 
 function DoctorStaffDetails() {
   const { query } = useRouter();
@@ -161,7 +162,7 @@ function DoctorStaffDetails() {
         <div className="flex">
           <Button
             type="link"
-            className="ml-auto"
+            className={`ml-auto ${isChrome && 'antCustomBtn'}`}
             danger
             icon={<CloseOutlined />}
             onClick={() => setOpen(true)}

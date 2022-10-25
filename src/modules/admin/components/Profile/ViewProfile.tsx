@@ -6,7 +6,7 @@ import _classes from "./PhysicianProfile.module.scss";
 import { Input, Avatar, Form, Button } from "antd";
 
 import { User } from "generated/graphql";
-import { adminBioForm } from "utils/helper";
+import { adminBioForm, isChrome } from "utils/helper";
 
 type props = {
   doctorId?: string;
@@ -72,7 +72,7 @@ export const ViewProfile = React.forwardRef(function Profile({
               <div className="flex gap-2 pt-2">
                 <Button
                   type="default"
-                  className={`${_classes["edit-button"]}`}
+                  className={`${_classes["edit-button"]} ${isChrome && 'antCustomBtn'}`}
                   onClick={() => setIsEdit?.(true)}
                 >
                   <EditOutlined />

@@ -6,6 +6,7 @@ import {
   useGetCitiesByStateQuery,
   useGetStatesByCountryQuery,
 } from "generated/graphql";
+import { isChrome } from "utils/helper";
 
 type Props = {
   loading: boolean;
@@ -308,6 +309,7 @@ export const AddPhysicianForm = React.forwardRef(function AddPhysicianForm(
             htmlType="submit"
             disabled={loading}
             loading={loading}
+            className={`${isChrome && 'antCustomBtn'}`}
           >
             Add physician
           </Button>

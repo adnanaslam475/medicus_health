@@ -6,6 +6,7 @@ import UpcomingAppointmentTableDoctor from "modules/doctor/components/UpcomingAp
 import UpcomingAppointmentFilter from "./UpcomingAppointmentFilter";
 import { Appointment, usePhysicianAppointmentsQuery } from "generated/graphql";
 import { physicianFilterType } from "common/types/types";
+import { isChrome } from "utils/helper";
 
 function UpcomingAppointmentDoctor() {
   const [filterValues, setFilterValues] = useState<physicianFilterType>({});
@@ -60,16 +61,15 @@ function UpcomingAppointmentDoctor() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${
-            (sorter.columnKey === "name" && "appointment_service_type") ||
-            (["charges", "requestedDate"].includes(sorter.columnKey) &&
-              "appointment") ||
-            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
-            (sorter.columnKey === "first_name" && "patient") ||
-            (sorter.columnKey === "amountReceived" && "transaction") ||
-            (sorter.columnKey === "status" && "transaction") ||
-            "user"
-          }.${sorter.columnKey || sorter.field}`
+        ? `${(sorter.columnKey === "name" && "appointment_service_type") ||
+        (["charges", "requestedDate"].includes(sorter.columnKey) &&
+          "appointment") ||
+        (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+        (sorter.columnKey === "first_name" && "patient") ||
+        (sorter.columnKey === "amountReceived" && "transaction") ||
+        (sorter.columnKey === "status" && "transaction") ||
+        "user"
+        }.${sorter.columnKey || sorter.field}`
         : "",
     });
   };
@@ -81,7 +81,7 @@ function UpcomingAppointmentDoctor() {
           <h2 className="mb-4">Upcoming appointments</h2>
           <Link passHref href={`/physician/appointments/calendar`}>
             <a>
-              <Button className="bg-primary" type="primary">
+              <Button className={`bg-primary ${isChrome && 'antCustomBtn'}`} type="primary">
                 Calendar view
               </Button>
             </a>

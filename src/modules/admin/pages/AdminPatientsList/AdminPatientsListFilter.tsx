@@ -6,6 +6,7 @@ import { PatientListFilterType } from "common/types/types";
 import { SelectCountryTypeFilter } from "common/components/SelectCountryTypeFilter/SelectCountryTypeFilter";
 import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter/SelectStateTypeFilter";
 import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
+import { isChrome } from "utils/helper";
 
 type Props = {
   onChange: (value: PatientListFilterType) => void;
@@ -81,7 +82,7 @@ function AdminPatientsListFilter(props: Props) {
           <Button
             onClick={clear}
             type="text"
-            className={`${_classes["btn-clear"]} ml-3`}
+            className={`${_classes["btn-clear"]} ml-3 ${isChrome && 'antCustomBtn'}`}
           >
             <CloseOutlined className="text-sm" />
             <span className="text-gray-1 text-sm">Clear</span>

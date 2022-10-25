@@ -25,6 +25,7 @@ import CardWithProfileImageInfo from "../CardWithProfileImageInfo/CardWithProfil
 import { getRole } from "common/utils/userData";
 import ViewProposeAppointmentTime from "../ViewProposeAppointmentTime";
 import StatusChip from "../StatusChip/StatusChip";
+import { isChrome } from "utils/helper";
 
 type Props = {
   appoinmentDetails?: GetAppointmentByIdQuery | undefined;
@@ -148,7 +149,7 @@ function AppointmentInfo(props: Props) {
                 className=""
               />
             }
-            className={`${_classes["appointments-btn"]} mr-1 md:mr-2`}
+            className={`${_classes["appointments-btn"]} mr-1 md:mr-2 ${isChrome && 'antCustomBtn'}`}
             onClick={() => {
               const query: any = {
                 chat: "admin",
@@ -175,7 +176,7 @@ function AppointmentInfo(props: Props) {
                 className=""
               />
             }
-            className={`${_classes["appointments-btn"]} mr-1 md:mr-2`}
+            className={`${_classes["appointments-btn"]} mr-1 md:mr-2 ${isChrome && 'antCustomBtn'}`}
             onClick={() => {
               const query: any = {
                 chat: "doctor",
@@ -375,7 +376,7 @@ function AppointmentInfo(props: Props) {
                 }
               >
                 <Button
-                  className={`${_classes["appointments-btn"]}`}
+                  className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
                   type="primary"
                   icon={<VideoCameraFilled />}
                   target={"_blank"}

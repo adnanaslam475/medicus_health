@@ -6,6 +6,7 @@ import AcronymWithTextEditable from "../AcronymWithTextEditable/AcronymWithTextE
 import { Button, Form, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import AcronymWithText from "../AcronymWithText/AcronymWithText";
+import { isChrome } from "utils/helper";
 
 type Props = {
   appointment?: Appointment | undefined;
@@ -55,40 +56,40 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
             <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">NARRATIVE</h4>
             {!edit
               ? // <Form.Item name="note">
-                //   <TextArea />
-                // </Form.Item>
-                localDocNotes?.length &&
-                localDocNotes
-                  ?.filter((val) => val[0] !== "__typename")
-                  .map((item) => {
-                    let char = item[0].split("")[0];
-                    return (
-                      <Form.Item name="note">
-                        <TextArea defaultValue={item[1]} />
-                      </Form.Item>
-                    );
-                  })
+              //   <TextArea />
+              // </Form.Item>
+              localDocNotes?.length &&
+              localDocNotes
+                ?.filter((val) => val[0] !== "__typename")
+                .map((item) => {
+                  let char = item[0].split("")[0];
+                  return (
+                    <Form.Item name="note">
+                      <TextArea defaultValue={item[1]} />
+                    </Form.Item>
+                  );
+                })
               : localDocNotes?.length &&
-                localDocNotes
-                  ?.filter((val) => val[0] !== "__typename")
-                  .map((item) => {
-                    let char = item[0].split("")[0];
-                    return (
-                      <>
-                        <AcronymWithText
-                          character={char.toUpperCase()}
-                          word={item[0]}
-                          sentence={item[1]}
-                        />
-                        {/* <AcronymWithTextEditable
+              localDocNotes
+                ?.filter((val) => val[0] !== "__typename")
+                .map((item) => {
+                  let char = item[0].split("")[0];
+                  return (
+                    <>
+                      <AcronymWithText
+                        character={char.toUpperCase()}
+                        word={item[0]}
+                        sentence={item[1]}
+                      />
+                      {/* <AcronymWithTextEditable
                           character={char.toUpperCase()}
                           editable={edit}
                           word={item[0]}
                           sentence={item[1]}
                         /> */}
-                      </>
-                    );
-                  })}
+                    </>
+                  );
+                })}
           </>
         )}
         {noteType == "soap" && (
@@ -133,7 +134,7 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
       {edit ? (
         <div className="flex justify-end">
           <Button
-            className="mt-2"
+            className={`mt-2 ${isChrome && 'antCustomBtn'}`}
             onClick={() => {
               setEdit(!edit);
             }}
@@ -144,7 +145,7 @@ function NotesWithTextEditable({ appointment, doctorNotes }: Props) {
       ) : (
         <div className="flex justify-end">
           <Button
-            className="mt-2"
+            className={`mt-2 ${isChrome && 'antCustomBtn'}`}
             onClick={() => {
               setEdit(true);
             }}

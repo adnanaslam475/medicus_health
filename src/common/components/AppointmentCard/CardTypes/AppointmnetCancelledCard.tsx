@@ -1,6 +1,7 @@
 import { Button, Card } from "antd";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import React, { useState } from "react";
+import { isChrome } from "utils/helper";
 import {
   Appointment,
   AppointmentDateTimeResponse,
@@ -71,9 +72,8 @@ function AppointmnetCancelledCard({
   const prev = () => {
     setCurrent(current - 1);
   };
-  let formatedDoctorName = `${
-    doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
-  }`;
+  let formatedDoctorName = `${doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
+    }`;
 
   let formatedStartTime = date.formathhmma(
     String(appointmentDetail?.appointmentDateTime?.startTime),
@@ -144,7 +144,7 @@ function AppointmnetCancelledCard({
         <div className="flex">
           <Button
             type={"primary"}
-            className={`${_classes["card-btn"]} mr-3`}
+            className={`${_classes["card-btn"]} mr-3 ${isChrome && 'antCustomBtn'}`}
             onClick={showModal}
           >
             Rebook

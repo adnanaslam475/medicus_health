@@ -28,6 +28,7 @@ import RefundsDropdown from "../RefundsDropdown/RefundsDropdown";
 import TotalPaymentsDropdown from "../TotalPaymentsDropdown /TotalPaymentsDropdown";
 import Image from "next/image";
 import { calendarFilterIcon } from "utils/images";
+import { isChrome } from "utils/helper";
 
 const { RangePicker } = DatePicker;
 type Props = {
@@ -241,7 +242,7 @@ function MyEarningsSearchFilters(props: Props) {
               renderExtraFooter={() => (
                 <div className="flex gap-3 justify-end p-3">
                   <Button
-                    className="bg-gray-300"
+                    className={`bg-gray-300 ${isChrome && 'antCustomBtn'}`}
                     onClick={() => {
                       setOpenDateRangeTwo(false);
                     }}
@@ -249,7 +250,7 @@ function MyEarningsSearchFilters(props: Props) {
                     Cancel
                   </Button>
                   <Button
-                    className=" text-white"
+                    className={`text-white ${isChrome && 'antCustomBtn'}`}
                     type="primary"
                     onClick={() => {
                       applyDateRangeTwo();
@@ -261,7 +262,7 @@ function MyEarningsSearchFilters(props: Props) {
               )}
             />
             <Button
-              className="flex date-btn"
+              className={`flex date-btn ${isChrome && 'antCustomBtn'}`}
               block
               type="default"
               onClick={() => setOpenDateRangeTwo?.(!openDateRangeTwo)}
@@ -368,7 +369,7 @@ function MyEarningsSearchFilters(props: Props) {
         <Button
           onClick={clear}
           type="text"
-          className={`${_classes["btn-clear"]} sm:ml-3   sm:mt-0`}
+          className={`${_classes["btn-clear"]} sm:ml-3   sm:mt-0 ${isChrome && 'antCustomBtn'}`}
         >
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1 text-sm">Clear</span>

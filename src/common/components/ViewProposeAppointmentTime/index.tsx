@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import AppointmentModalJourney from "modules/patient/components/AppointmentModalJourney/AppointmentModalJourney";
 import React, { useState } from "react";
+import { isChrome } from "utils/helper";
 import _classes from "./style.module.scss";
 // import AppointmentModalJourney from "";
 
@@ -18,7 +19,7 @@ const ViewProposeAppointmentTime = (props: Props) => {
     <>
       <Button
         type={"primary"}
-        className={`${_classes["card-btn"]}`}
+        className={`${_classes["card-btn"]} ${isChrome && 'antCustomBtn'}`}
         onClick={() => setShowModal(true)}
       >
         View proposed appointment times

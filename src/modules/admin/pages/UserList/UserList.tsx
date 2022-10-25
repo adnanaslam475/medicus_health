@@ -7,7 +7,7 @@ import { adminUserFilterType } from "common/types/types";
 import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import AdminUserSearchFilters from "common/components/AdminUserFilter/AdminUserSearchFilters";
-import { tableFooter } from "utils/helper";
+import { isChrome, tableFooter } from "utils/helper";
 
 const Columns = [
   {
@@ -90,7 +90,7 @@ const Columns = [
 
 type Props = {};
 
-const UserList = ({}: Props) => {
+const UserList = ({ }: Props) => {
   const [filterValues, setFilterValues] = useState<adminUserFilterType>({});
   let defaultPageSize = localStorage.getItem("adminUserListPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
@@ -166,6 +166,7 @@ const UserList = ({}: Props) => {
               type="primary"
               onClick={() => Router.push("/admin/adduser")}
               icon={<PlusOutlined />}
+              className={`${isChrome && 'antCustomBtn'}`}
             >
               Add user
             </Button>

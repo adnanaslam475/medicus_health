@@ -17,6 +17,7 @@ import { getRole, getUserData } from "common/utils/userData";
 import { useRouter } from "next/router";
 import { GraphQLError } from "graphql";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
+import { isChrome } from "utils/helper";
 
 function StaffListing() {
   const { user } = getUserData();
@@ -144,15 +145,15 @@ function StaffListing() {
       pause: !doctorId,
     });
 
-    const [{ data: userData }] = useGetUserQuery({
-      variables: { input: Number(doctorId) },
-      pause: !doctorId,
-    });
-    const {
-      first_name,
-      last_name,
-      email:userEmail
-    } = userData?.user || {};
+  const [{ data: userData }] = useGetUserQuery({
+    variables: { input: Number(doctorId) },
+    pause: !doctorId,
+  });
+  const {
+    first_name,
+    last_name,
+    email: userEmail
+  } = userData?.user || {};
 
   const { doctorProfile } = physicianProfileData || {};
   const userName = `${doctorProfile?.user?.first_name || first_name} ${doctorProfile?.user?.last_name || last_name}`;
@@ -178,9 +179,10 @@ function StaffListing() {
             <h2 className="mb-0">Staff</h2>
           </div>
           <Button
+            className={`${isChrome && 'antCustomBtn'}`}
             onClick={() => setVisibleModal(true)}
             type="primary"
-            icon={<div className="text-2xl mb-[3px]">+&nbsp;</div>} 
+            icon={<div className="text-2xl mb-[3px]">+&nbsp;</div>}
           >
             Add staff
           </Button>
