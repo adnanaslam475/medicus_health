@@ -12,6 +12,7 @@ import { getUserData } from "../../../../../common/utils/userData";
 import { date } from "../../../../../common/utils";
 import { useAppointmentModal } from "../AppointmentModalProvider";
 import { getCurrentUserTimeZone } from "common/utils/date";
+import { addDecimaltoAmount } from "common/utils/helper";
 
 type Props = {
   appointmentId: number;
@@ -84,20 +85,20 @@ function AppointmentReschedule(props: Props) {
 
             <div className="flex justify-between ">
               <span>Appointment fee</span>
-              <span>${appointmentPrice || "-"}</span>
+              <span>${addDecimaltoAmount(appointmentPrice as any) || "-"}</span>
             </div>
             <div className="flex justify-between ">
               <span>Tax</span>
-              <span>${tax || "0"}</span>
+              <span>${addDecimaltoAmount(tax as any) || "0"}</span>
             </div>
 
             <div className="flex justify-between ">
               <span>Processing fee</span>
-              <span>${systemFee || "0"}</span>
+              <span>${addDecimaltoAmount(systemFee as any) || "0"}</span>
             </div>
             <div className="flex justify-between font-semibold pt-2">
               <span>Total charges</span>
-              <span>${total || "0"}</span>
+              <span>${addDecimaltoAmount(total as any) || "0"}</span>
             </div>
           </div>
         </div>
