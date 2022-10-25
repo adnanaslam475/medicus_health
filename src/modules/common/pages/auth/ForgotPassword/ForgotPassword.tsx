@@ -8,6 +8,7 @@ import { PageLoader } from "../../../../../common/components/PageLoader/PageLoad
 import Container from "../../../../../common/components/Container/Container";
 import { useUserForgotPasswordMutation } from "../../../../../generated/graphql";
 import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 const ForgotPassword = () => {
   const t = useTranslations("ForgotPass");
@@ -119,7 +120,7 @@ const ForgotPassword = () => {
                     <Button
                       loading={fetching}
                       disabled={fetching}
-                      className="ant-btn ant-btn-secondary ant-btn-block nb-button "
+                      className={`ant-btn ant-btn-secondary ant-btn-block nb-button ${isChrome && 'antCustomBtn'}`}
                       type="primary"
                       htmlType="submit"
                     >

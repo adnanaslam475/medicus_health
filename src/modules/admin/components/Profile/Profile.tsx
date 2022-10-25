@@ -15,6 +15,7 @@ import { GraphQLError } from "graphql";
 import { useUserData } from "common/components/Context/UserContext";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { isChrome } from "utils/helper";
 
 type profileType = {
   doctorId?: string | string[] | undefined;
@@ -380,7 +381,7 @@ export const Profile = React.forwardRef(function Profile({
               </div>
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
-                  <Button type="default" onClick={() => setIsEdit(false)}>
+                  <Button type="default" onClick={() => setIsEdit(false)} className={`${isChrome && 'antCustomBtn'}`}>
                     Close
                   </Button>
                   <Button
@@ -388,6 +389,7 @@ export const Profile = React.forwardRef(function Profile({
                     htmlType="submit"
                     disabled={password}
                     loading={fetching}
+                    className={`${isChrome && 'antCustomBtn'}`}
                   >
                     Save changes
                   </Button>

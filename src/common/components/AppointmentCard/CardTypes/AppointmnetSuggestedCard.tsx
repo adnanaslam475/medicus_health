@@ -10,6 +10,7 @@ import {
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 import Router from "next/router";
+import { isChrome } from "utils/helper";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -85,7 +86,7 @@ function AppointmnetSuggestedCard({
       <div className="flex justify-between items-center">
         <Button
           type={"primary"}
-          className={`${_classes["card-btn"]} mt-4`}
+          className={`${_classes["card-btn"]} mt-4 ${isChrome && 'antCustomBtn'}`}
           onClick={() => onViewSuggestedSlots()}
         >
           View proposed appointment times

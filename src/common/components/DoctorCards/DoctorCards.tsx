@@ -18,7 +18,7 @@ import {
 } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 import { useTranslations } from "next-intl";
-import { capitalizeFirstLetter } from "utils/helper";
+import { capitalizeFirstLetter, isChrome } from "utils/helper";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -189,7 +189,8 @@ function DoctorCard({
           <div className="card-actionBtns lg:w-2/5">
             {items && items?.length > 0 ? (
               <Button
-               className="w-full mb-3">
+                className={`w-full mb-3 ${isChrome && 'antCustomBtn'}`}
+              >
                 <a
                   onClick={() => {
                     const query: any = {
@@ -204,22 +205,22 @@ function DoctorCard({
                       query,
                     });
                   }}
-                  
+
                 >
                   {t("message_physician")}
                   {/* Message physician */}
                 </a>
-                </Button>
+              </Button>
             ) : (
               <div className="w-full flex justify-center my-3">
                 <Tooltip
                   title={capitalizeFirstLetter(
                     "Please request an appointment to message physician."
                   )}
-                  // {capitalizeFirstLetter(value)}
+                // {capitalizeFirstLetter(value)}
                 >
                   <Button
-                    className={`${_classes["btn-tooltip"]} w-full`}
+                    className={`${_classes["btn-tooltip"]} w-full ${isChrome && 'antCustomBtn'}`}
                     disabled={true}
                   >
                     Message Physician
@@ -249,7 +250,7 @@ function DoctorCard({
             >
               <Button
                 type="primary"
-                className={`${_classes["btn-tooltip"]} `}
+                className={`${_classes["btn-tooltip"]}  ${isChrome && 'antCustomBtn'}`}
                 onClick={showModal}
                 disabled={
                   patientHealthHistory?.patientHealthHistory ? false : true

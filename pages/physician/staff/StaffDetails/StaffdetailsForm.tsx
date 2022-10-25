@@ -6,6 +6,7 @@ import AddStaffFormItems from "common/components/AddStaffFormItems/AddStaffFormI
 
 import _classes from "../../staff/staff.module.scss";
 import { getUserData } from "common/utils/userData";
+import { isChrome } from "utils/helper";
 
 type Props = {
   form: FormInstance<any> | undefined;
@@ -78,11 +79,12 @@ function StaffDetailsFrom({
         <Form.Item>
           <div className="flex gap-4">
             {user?.role !== "Staff" && (
-              <Button onClick={() => Router.push("/physician/staff")}>
+              <Button onClick={() => Router.push("/physician/staff")} className={`${isChrome && 'antCustomBtn'}`}>
                 Cancel
               </Button>
             )}{" "}
             <Button
+              className={`${isChrome && 'antCustomBtn'}`}
               loading={fetching}
               disabled={fetching}
               type="primary"

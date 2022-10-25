@@ -20,6 +20,7 @@ import BookAppointmentJourney from "common/components/BookAppointmentJourney/Boo
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 function CancelledAppointment() {
   const t = useTranslations("CanceledAppointments");
@@ -116,7 +117,7 @@ function CancelledAppointment() {
           >
             <Button
               type="primary"
-              className="text-sm"
+              className={`text-sm ${isChrome && 'antCustomBtn'}`}
               onClick={showAppointmentBookingModal}
               disabled={
                 patientHealthHistory?.patientHealthHistory?.id ? false : true

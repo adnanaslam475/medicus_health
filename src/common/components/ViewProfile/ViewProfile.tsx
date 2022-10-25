@@ -19,7 +19,7 @@ import _classes from "./PhysicianProfile.module.scss";
 import { getRole } from "common/utils/userData";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 import user from "../../../../pages/admin/users";
-import { graphqlError, timezoneLabel } from "utils/helper";
+import { graphqlError, isChrome, timezoneLabel } from "utils/helper";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import Router from "next/router";
 
@@ -167,7 +167,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 {getRole() === "Admin" && (
                   <Button
                     type="primary"
-                    className={`${_classes["published-button"]}`}
+                    className={`${_classes["published-button"]} ${isChrome && 'antCustomBtn'}`}
                   >
                     {status ? "Published" : "Unpublished"}
                   </Button>
@@ -175,7 +175,7 @@ export const ViewProfile = React.forwardRef(function Profile({
 
                 <Button
                   type="default"
-                  className={`${_classes["edit-button"]}`}
+                  className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
                   onClick={() => setIsEdit?.(true)}
                 >
                   <EditOutlined />
@@ -186,6 +186,7 @@ export const ViewProfile = React.forwardRef(function Profile({
               {getRole() === "Admin" && (
                 <div className="flex justify-end mb-8 absolute top-0 left-0 md:right-0 w-full">
                   <Button
+                    className={`${isChrome && 'antCustomBtn'}`}
                     type="link"
                     danger
                     onClick={() => setOpen(true)}

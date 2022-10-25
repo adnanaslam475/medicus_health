@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 const SuccessScreen = () => {
   const t = useTranslations("SuccessScreen");
@@ -77,7 +78,7 @@ const SuccessScreen = () => {
                 <Form.Item>
                   <div className="text-center flex justify-center">
                     <Button
-                      className="ant-btn ant-btn-secondary ant-btn nb-button"
+                      className={`ant-btn ant-btn-secondary ant-btn nb-button ${isChrome && 'antCustomBtn'}`}
                       type="primary"
                       htmlType="submit"
                     >

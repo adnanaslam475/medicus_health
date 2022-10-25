@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Input, Button, Select, Space, DatePicker } from "antd";
 import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
+import { isChrome } from "utils/helper";
 
 const { Option } = Select;
 
@@ -40,7 +41,7 @@ function PatientSearchFilters() {
 						<Option value="Second Opinion">Espanol</Option>
 					</Select>
 				</div>
-				<Button type="text" className="sm:ml-3">
+				<Button type="text" className={`sm:ml-3 ${isChrome && 'antCustomBtn'}`}>
 					<CloseOutlined className="text-sm" />
 					<span className="text-gray-1">Clear</span>
 				</Button>

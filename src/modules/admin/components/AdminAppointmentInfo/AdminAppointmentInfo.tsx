@@ -31,6 +31,7 @@ import Image from "next/image";
 import { getRole } from "common/utils/userData";
 import Input from "antd/lib/input/Input";
 import { date } from "common/utils";
+import { isChrome } from "utils/helper";
 const { Option } = Select;
 
 type Props = {
@@ -112,7 +113,7 @@ function AdminAppointmentInfo({
           message: "Something went wrong",
         });
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   // MUTATION FOR DELETE APPOINTMENT
@@ -259,7 +260,7 @@ function AdminAppointmentInfo({
           </>
           <LabelWithText
             label={
-              "Requested date"
+              "Date of request"
               // appointmentStatus == "Requested"
               //   ? "Requested date"
               //   : "Appointment date"
@@ -267,7 +268,7 @@ function AdminAppointmentInfo({
             text={`${date.formatDAYMMDDYY(String(bookingDate))}`}
           />
           <LabelWithText
-            label="Booking date and Time"
+            label="Booking date and time"
             // text={`${dueDate} - ${time}`}
             text={`${date.formatDAYMMDDYY(String(dueDate))} - ${time}`}
           />
@@ -394,20 +395,20 @@ function AdminAppointmentInfo({
         {(appointmentStatus === "Canceled" ||
           appointmentStatus === "Completed" ||
           appointmentStatus === "Rescheduled") && (
-          <AdminAppointmentInfoFooter
-            appointmentStatus={appointmentStatus}
-            adminApp_Details={adminApp_Details}
-          />
-        )}
+            <AdminAppointmentInfoFooter
+              appointmentStatus={appointmentStatus}
+              adminApp_Details={adminApp_Details}
+            />
+          )}
 
         {(appointmentStatus === "Requested" ||
           appointmentStatus === "Proposed") && (
-          <AdminAppointmentRequestedInfoFooter
-            adminApp_Details={adminApp_Details}
-            onCancelRequestedAppointment={onCancelRequestedAppointment}
-            cancelFetching={cancelFetching}
-          />
-        )}
+            <AdminAppointmentRequestedInfoFooter
+              adminApp_Details={adminApp_Details}
+              onCancelRequestedAppointment={onCancelRequestedAppointment}
+              cancelFetching={cancelFetching}
+            />
+          )}
 
         {appointmentStatus === "Confirmed" && (
           <AdminAppointmentConfirmedInfoFooter
@@ -424,7 +425,7 @@ function AdminAppointmentInfo({
             {" "}
             <Button
               type="link"
-              className="ml-auto mt-10"
+              className={`ml-auto mt-10 ${isChrome && 'antCustomBtn'}`}
               danger
               loading={deleteFetching}
               disabled={deleteFetching}
@@ -485,7 +486,7 @@ function AdminAppointmentInfoFooter({
                 height={15}
                 src={chat}
                 alt=""
-                className=""
+                className={`${isChrome && 'antCustomBtn'}`}
               />
             }
             className={`${_classes["appointments-btn"]} mr-0 sm:mr-3`}
@@ -512,7 +513,7 @@ function AdminAppointmentInfoFooter({
                 className=""
               />
             }
-            className={`${_classes["appointments-btn"]}`}
+            className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
             onClick={() =>
               Router.push({
                 pathname: "/admin/messages",
@@ -527,14 +528,14 @@ function AdminAppointmentInfoFooter({
           </Button>
           {(appointmentStatus === "Canceled" ||
             appointmentStatus === "Completed") && (
-            <Button
-              type="primary"
-              className={`${_classes["appointments-rebook-btn"]}`}
-              onClick={showModal}
-            >
-              Rebook appointment
-            </Button>
-          )}
+              <Button
+                type="primary"
+                className={`${_classes["appointments-rebook-btn"]} ${isChrome && 'antCustomBtn'}`}
+                onClick={showModal}
+              >
+                Rebook appointment
+              </Button>
+            )}
         </div>
       </div>
       <BookAppointmentJourney
@@ -556,7 +557,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
       <div className="flex flex-wrap flex-1 gap-y-2 gap-x-2">
         <Button
           danger
-          className={`${_classes["appointments-btn"]}  flex-1`}
+          className={`${_classes["appointments-btn"]}  flex-1 ${isChrome && 'antCustomBtn'}`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Cancel appointment
@@ -572,7 +573,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
               className=""
             />
           }
-          className={`${_classes["appointments-btn"]}  flex-1`}
+          className={`${_classes["appointments-btn"]}  flex-1 ${isChrome && 'antCustomBtn'}`}
           onClick={() => {
             Router.push({
               pathname: "/admin/messages",
@@ -597,7 +598,7 @@ function AdminAppointmentRequestedInfoFooter(props: Props) {
               className=""
             />
           }
-          className={`${_classes["appointments-btn"]} flex-1`}
+          className={`${_classes["appointments-btn"]} flex-1 ${isChrome && 'antCustomBtn'}`}
           onClick={() =>
             Router.push({
               pathname: "/admin/messages",
@@ -654,7 +655,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
         <Button
           type="primary"
           icon={<VideoCameraFilled />}
-          className={`${_classes["appointments-btn"]} bg-current w-full sm:w-auto`}
+          className={`${_classes["appointments-btn"]} bg-current w-full sm:w-auto ${isChrome && 'antCustomBtn'}`}
           onClick={() =>
             Router.push(
               getRole() === "User"
@@ -669,7 +670,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
         <Button
           type="primary"
           icon={<VideoCameraFilled />}
-          className={`${_classes["appointments-btn"]} bg-current w-full sm:w-auto`}
+          className={`${_classes["appointments-btn"]} bg-current w-full sm:w-auto ${isChrome && 'antCustomBtn'}`}
           onClick={() => setShowRescheduleModal(true)}
         >
           Reschedule appointment
@@ -686,7 +687,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
               className="w-full"
             />
           }
-          className={`${_classes["appointments-btn"]} ${_classes["for-msg-icon-width"]}  flex-1`}
+          className={`${_classes["appointments-btn"]} ${_classes["for-msg-icon-width"]}  flex-1 ${isChrome && 'antCustomBtn'}`}
           onClick={() => {
             Router.push({
               pathname: "/admin/messages",
@@ -710,7 +711,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
               className="w-14"
             />
           }
-          className={`${_classes["appointments-btn"]} ${_classes["for-msg-icon-width"]} flex-1`}
+          className={`${_classes["appointments-btn"]} ${_classes["for-msg-icon-width"]} flex-1 ${isChrome && 'antCustomBtn'}`}
           onClick={() =>
             Router.push({
               pathname: "/admin/messages",
@@ -725,7 +726,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
         </Button>
         <Button
           danger
-          className={`${_classes["appointments-btn"]} flex-1`}
+          className={`${_classes["appointments-btn"]} flex-1 ${isChrome && 'antCustomBtn'}`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Cancel appointment

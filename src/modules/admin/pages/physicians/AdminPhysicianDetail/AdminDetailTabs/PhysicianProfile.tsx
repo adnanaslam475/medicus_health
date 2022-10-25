@@ -16,6 +16,7 @@ import {
   Checkbox,
 } from "antd";
 import PhysicianProfileForm from "./PhysicianProfileForm";
+import { isChrome } from "utils/helper";
 
 function PhysicianProfile() {
   return (
@@ -41,7 +42,7 @@ function PhysicianProfile() {
               <span>PY-123</span>
               <h2 className="mb-0">Maxime Bauwents</h2>
               <span className="block">usama@gmail.com</span>
-              <Button size="large" className="px-0 mx-0">
+              <Button size="large" className={`px-0 mx-0 ${isChrome && 'antCustomBtn'}`}>
                 <EditOutlined />
                 Edit info
               </Button>

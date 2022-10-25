@@ -4,6 +4,7 @@ import { Avatar, Upload, Button, notification } from "antd";
 import { useCreateDoctorMutation } from "../../../../../generated/graphql";
 import Router, { useRouter } from "next/router";
 import { AddPatientForm } from "modules/admin/components/AddPatientForm/AddPatientForm";
+import { isChrome } from "utils/helper";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -87,7 +88,7 @@ function PatientAdd() {
                     />
                     <Button
                       type="link"
-                      className="text-primary underline ml-3 text-xs"
+                      className={`text-primary underline ml-3 text-xs ${isChrome && 'antCustomBtn'}`}
                     >
                       Update photo
                     </Button>

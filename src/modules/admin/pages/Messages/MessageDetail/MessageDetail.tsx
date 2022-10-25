@@ -1,5 +1,6 @@
 import { Alert, Button, Divider, Input, notification } from "antd";
 import React, { useEffect, useRef, useState } from "react";
+import { isChrome } from "utils/helper";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import Client from "./client";
 
@@ -135,8 +136,8 @@ function MessageDetail() {
               <p>My Id</p>
               <div className="flex gap-4">
                 <Input onChange={(e) => setMyId(e.target.value)} value={myId} />
-                <Button onClick={login}>Login</Button>
-                <Button onClick={onJoin}>Join Channel</Button>
+                <Button onClick={login} className={`${isChrome && 'antCustomBtn'}`}>Login</Button>
+                <Button onClick={onJoin} className={`${isChrome && 'antCustomBtn'}`}>Join Channel</Button>
               </div>
               <Divider />
               {/* <p>Friend ID</p>
@@ -148,7 +149,7 @@ function MessageDetail() {
                 value={message}
               />
               <Divider />
-              <Button onClick={onSubmit}>Send</Button>
+              <Button onClick={onSubmit} className={`${isChrome && 'antCustomBtn'}`}>Send</Button>
             </div>
           </div>
         </div>

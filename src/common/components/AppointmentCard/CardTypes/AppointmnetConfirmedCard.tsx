@@ -9,6 +9,7 @@ import { isAppointmentTimeValid } from "common/utils/date";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { getRole } from "common/utils/userData";
+import { isChrome } from "utils/helper";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -95,7 +96,7 @@ function AppointmnetConfirmedCard({
           }
         >
           <Button
-            className={` ${_classes["card-btn"]} mr-3`}
+            className={` ${_classes["card-btn"]} mr-3 ${isChrome && 'antCustomBtn'}`}
             type={"primary"}
             target={"_blank"}
             disabled={disabled}
@@ -108,7 +109,7 @@ function AppointmnetConfirmedCard({
         </Link>
 
         <Button
-          className={`${_classes["card-btn"]} bg-transparent`}
+          className={`${_classes["card-btn"]} bg-transparent ${isChrome && 'antCustomBtn'}`}
           onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
         >
           Details

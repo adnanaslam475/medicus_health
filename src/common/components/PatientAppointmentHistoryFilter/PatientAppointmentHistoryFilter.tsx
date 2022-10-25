@@ -13,6 +13,7 @@ import { SelectPhysicianTypeFilter } from "../SelectPhysicianTypeFilter/SelectPh
 import { calendarFilterIcon } from "utils/images";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 const { RangePicker } = DatePicker;
 
@@ -136,7 +137,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
               renderExtraFooter={() => (
                 <div className="flex gap-3 justify-end p-3">
                   <Button
-                    className="bg-gray-300"
+                    className={`bg-gray-300 ${isChrome && 'antCustomBtn'}`}
                     onClick={() => {
                       setOpenDateRange1(false);
                     }}
@@ -145,7 +146,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
                     Cancel
                   </Button>
                   <Button
-                    className=" text-white"
+                    className={`text-white ${isChrome && 'antCustomBtn'}`}
                     type="primary"
                     onClick={applyDueDate}
                   >
@@ -156,7 +157,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
               )}
             />
             <Button
-              className="flex date-btn"
+              className={`flex date-btn ${isChrome && 'antCustomBtn'}`}
               block
               type="default"
               onClick={() => setOpenDateRange1?.(!openDateRange1)}
@@ -269,7 +270,7 @@ function PatientAppointmentHistoryFilter(props: Props) {
       <Button
         onClick={clear}
         type="text"
-        className={`${_classes["btn-clear"]} mr-auto `}
+        className={`${_classes["btn-clear"]} mr-auto ${isChrome && 'antCustomBtn'}`}
       >
         <CloseOutlined className="text-sm" />
         <span className="text-gray-1 text-sm">{t("clear")}</span>

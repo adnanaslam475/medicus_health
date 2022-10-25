@@ -9,6 +9,7 @@ import {
 } from "generated/graphql";
 import _classes from "./AddPatientForm.module.scss";
 import "react-phone-input-2/lib/style.css";
+import { isChrome } from "utils/helper";
 
 type Props = {
   loading?: boolean;
@@ -225,12 +226,12 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           className="flex-1"
           label="Country"
           name="country"
-          // rules={[
-          //   {
-          //     required: true,
-          //     message: "Please enter your country",
-          //   },
-          // ]}
+        // rules={[
+        //   {
+        //     required: true,
+        //     message: "Please enter your country",
+        //   },
+        // ]}
         >
           <Select
             showSearch
@@ -262,12 +263,12 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           className="flex-1"
           label="State"
           name="state"
-          // rules={[
-          //   {
-          //     required: true,
-          //     message: "Please enter your state",
-          //   },
-          // ]}
+        // rules={[
+        //   {
+        //     required: true,
+        //     message: "Please enter your state",
+        //   },
+        // ]}
         >
           <Select
             showSearch
@@ -339,6 +340,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
       <Form.Item>
         <div className="flex items-center justify-end">
           <Button
+            className={`${isChrome && 'antCustomBtn'}`}
             type="primary"
             htmlType="submit"
             disabled={loading}

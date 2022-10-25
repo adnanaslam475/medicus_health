@@ -22,6 +22,7 @@ import { useLocale } from "next-intl";
 import initTranslation from "common/utils/initTranslation";
 import i18next from "i18next";
 import { getRole } from "common/utils/userData";
+import { isChrome } from "utils/helper";
 const CheckboxGroup = Checkbox.Group;
 
 interface HealthQuesType {
@@ -70,7 +71,7 @@ const HealthQuestionnary = ({
     <div>
       {!isUpdateMode && disable && (
         <Button
-          className={`${_classes["btn-border"]} mb-4`}
+          className={`${_classes["btn-border"]} mb-4 ${isChrome && 'antCustomBtn'}`}
           block
           onClick={skipHealthQues}
         >
@@ -91,7 +92,7 @@ const HealthQuestionnary = ({
         <Button
           loading={isLoading}
           disabled={isLoading}
-          className="ant-btn ant-btn-primary ant-btn mb-0"
+          className={`ant-btn ant-btn-primary ant-btn mb-0 ${isChrome && 'antCustomBtn'}`}
           type="primary"
           onClick={() => form?.current?.submit()}
         >
@@ -102,7 +103,7 @@ const HealthQuestionnary = ({
         <div className="flex justify-center">
           <div className="inline-flex items-center">
             <div className="mb-0 ">
-              <Button type="link">
+              <Button type="link" className={`${isChrome && 'antCustomBtn'}`}>
                 <div className="flex items-center" onClick={handleChange}>
                   <span className="mt-1">
                     <Image
@@ -191,7 +192,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     setRadioDrug(parsedData?.q3.ans);
     setShowDrugOthers(
       Array.isArray(parsedData?.q3?.q?.selectedOption) &&
-        parsedData?.q3?.q?.selectedOption?.includes("Otra")
+      parsedData?.q3?.q?.selectedOption?.includes("Otra")
     );
     setShowSurgicalOthers(parsedData?.q4.selectedOption.includes("Otros"));
     formInstance.setFieldsValue({
@@ -207,12 +208,12 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       [HealthQuestionnaryData.q3.name]: parsedData?.q3.ans,
       [HealthQuestionnaryData.q3.q.name]: parsedData?.q3?.q?.ans?.length
         ? [
-            ...(new Set([
-              ...parsedData?.q3.q.selectedOption,
-              ...parsedData?.q3?.q?.ans,
-            ]) as unknown as string[]),
-          ]
-        : Array.isArray(parsedData?.q3.q.selectedOption) ? [...parsedData?.q3.q.selectedOption]:[],
+          ...(new Set([
+            ...parsedData?.q3.q.selectedOption,
+            ...parsedData?.q3?.q?.ans,
+          ]) as unknown as string[]),
+        ]
+        : Array.isArray(parsedData?.q3.q.selectedOption) ? [...parsedData?.q3.q.selectedOption] : [],
       [HealthQuestionnaryData.q3.q2.name]: parsedData?.q3?.q2?.ans,
 
       //q4
@@ -338,9 +339,8 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       onFinish={onFinishHealthQuestionnary}
       onFinishFailed={onFinishHealthQuestionnaryFailed}
       form={formInstance}
-      className={`${
-        _classes[disabled ? "disabled-class" : "questionnary-css"]
-      } `}
+      className={`${_classes[disabled ? "disabled-class" : "questionnary-css"]
+        } `}
     >
       <Form.Item
         name={HealthQuestionnaryData.q1.name}
@@ -493,7 +493,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             setRadioDrug(e.target.value);
           }}
           disabled={disabled || isDisabled}
-          // disabled
+        // disabled
         >
           <Radio value={1}>{t("yes")}</Radio>
           <Radio value={0}>{t("no")}</Radio>

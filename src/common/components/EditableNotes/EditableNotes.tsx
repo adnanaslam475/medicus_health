@@ -15,6 +15,7 @@ import AcronymWithText from "../AcronymWithText/AcronymWithText";
 import Router, { useRouter } from "next/router";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import { CloseOutlined } from "@ant-design/icons";
+import { isChrome } from "utils/helper";
 
 type Props = {
   appointment?: Appointment | undefined;
@@ -219,7 +220,7 @@ function EditableNotes() {
             >
               Publish Notes
             </Button> */}
-            <Button className="mt-2" htmlType="submit" loading={fetching}>
+            <Button className={`mt-2 ${isChrome && 'antCustomBtn'}`} htmlType="submit" loading={fetching}>
               Save
             </Button>
           </div>
@@ -227,7 +228,7 @@ function EditableNotes() {
           <div className="flex justify-end gap-3">
             <Button
               type="primary"
-              className="mt-2"
+              className={`mt-2 ${isChrome && 'antCustomBtn'}`}
               htmlType="submit"
               onClick={() => {
                 setIsPublish(true);
@@ -236,7 +237,7 @@ function EditableNotes() {
               Publish notes
             </Button>
             <Button
-              className="mt-2"
+              className={`mt-2 ${isChrome && 'antCustomBtn'}`}
               onClick={(e) => {
                 e.preventDefault();
                 setEdit(!edit);

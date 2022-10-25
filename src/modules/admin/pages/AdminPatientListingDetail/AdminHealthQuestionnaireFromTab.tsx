@@ -10,6 +10,7 @@ import {
 import React, { useRef } from "react";
 import { Button, notification } from "antd";
 import { getUserData } from "common/utils/userData";
+import { isChrome } from "utils/helper";
 
 function AdminHealthQuestionnaireFrom() {
   const { query } = useRouter();
@@ -94,7 +95,7 @@ function AdminHealthQuestionnaireFrom() {
           <Button
             loading={fetching}
             disabled={fetching}
-            className="ant-btn ant-btn-primary ant-btn mb-0"
+            className={`ant-btn ant-btn-primary ant-btn mb-0 ${isChrome && 'antCustomBtn'}`}
             type="primary"
             onClick={() => form?.current?.submit()}
           >

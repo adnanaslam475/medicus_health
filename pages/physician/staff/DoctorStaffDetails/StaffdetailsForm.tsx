@@ -5,6 +5,7 @@ import { UpdateStaffInput, User } from "generated/graphql";
 import AddStaffFormItems from "common/components/AddStaffFormItems/AddStaffFormItems";
 
 import _classes from "../../staff/staff.module.scss";
+import { isChrome } from "utils/helper";
 
 type Props = {
   form: FormInstance<any> | undefined;
@@ -62,7 +63,7 @@ function StaffDetailsFrom({
           </Select>
         </div>
         <Button
-          className="sm:ml-2 mt-2 sm:mt-0"
+          className={`sm:ml-2 mt-2 sm:mt-0 ${isChrome && 'antCustomBtn'}`}
           loading={loading}
           disabled={loading}
           onClick={handleResetLink}
@@ -76,7 +77,7 @@ function StaffDetailsFrom({
       <div className="flex justify-end mt-2">
         <Form.Item>
           <div className="flex gap-4">
-            <Button onClick={() => Router.push("/physician/staff")}>
+            <Button onClick={() => Router.push("/physician/staff")} className={`${isChrome && 'antCustomBtn'}`}>
               Cancel
             </Button>
             <Button

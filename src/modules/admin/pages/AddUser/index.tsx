@@ -5,6 +5,7 @@ import { CreateAdminInput, useCreateAdminMutation } from "generated/graphql";
 import AddAdminUserFormItems from "common/components/AddAdminUserFormItems/AddAdminUserFormItems";
 import Router from "next/router";
 import { GraphQLError } from "graphql";
+import { isChrome } from "utils/helper";
 
 type Props = {};
 
@@ -66,7 +67,7 @@ function AdminAddUser({}: Props) {
                     disabled={fetching}
                     type="primary"
                     htmlType="submit"
-                    className="ml-0 py-2"
+                    className={`ml-0 py-2 ${isChrome && 'antCustomBtn'}`}
                   >
                     Add user
                   </Button>

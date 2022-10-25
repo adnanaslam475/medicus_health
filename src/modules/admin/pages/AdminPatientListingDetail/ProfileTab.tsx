@@ -24,10 +24,11 @@ import { AdminPatientUpdateInput } from "common/types/types";
 import { GraphQLError } from "graphql";
 import userDefaultPicture from "../../../../../public/assets/images/profile.jpg";
 import chat from "./../../../../../public/assets/icon/chat-bubble.svg";
+import { isChrome } from "utils/helper";
 
 type Props = {};
 type CountryOrStateObject = { id: number | string | undefined | null };
-function AdminPatientProfileTab({}: Props) {
+function AdminPatientProfileTab({ }: Props) {
   const { query } = useRouter();
   const [countryId, setCountryId] = React.useState<CountryOrStateObject>({
     id: 0,
@@ -299,7 +300,7 @@ function AdminPatientProfileTab({}: Props) {
                 </Select.Option>
               </Select>
             </div>
-            <Button type="default" onClick={() => setIsEdit(!isEdit)}>
+            <Button type="default" onClick={() => setIsEdit(!isEdit)} className={` ${isChrome && 'antCustomBtn'}`}>
               <EditOutlined />
               Edit info
             </Button>
@@ -314,7 +315,7 @@ function AdminPatientProfileTab({}: Props) {
                   className=""
                 />
               }
-              className={`${_classes["appointments-btn"]} mr-1 sm:mr-3`}
+              className={`${_classes["appointments-btn"]} mr-1 sm:mr-3 ${isChrome && 'antCustomBtn'}`}
               onClick={() => {
                 const query: any = {
                   chat: "admin",
@@ -333,7 +334,7 @@ function AdminPatientProfileTab({}: Props) {
       </div>
       <div className="flex mb-8 absolute top-0 left-0 md:right-0 flex-wrap justify-start sm:justify-end w-full">
         <Button
-          className={`${_classes["first-btn"]}} md:ml-auto`}
+          className={`${_classes["first-btn"]}} md:ml-auto ${isChrome && 'antCustomBtn'}`}
           loading={loading}
           type="link"
           disabled={loading || disableLoading}
@@ -347,6 +348,7 @@ function AdminPatientProfileTab({}: Props) {
           Send reset password link
         </Button>
         <Button
+          className={`${isChrome && 'antCustomBtn'}`}
           type="link"
           danger
           onClick={() => setOpen(true)}

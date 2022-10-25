@@ -18,6 +18,7 @@ import { SelectCityTypeFilter } from "common/components/SelectCityTypeFilter/Sel
 import { SelectCityFilter } from "common/components/SelectCityFilter/SelectCityFilter";
 import _classes from "./AdminPhysicianSearchFilters.module.scss";
 import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter/SelectStateTypeFilter";
+import { isChrome } from "utils/helper";
 
 const { RangePicker } = DatePicker;
 
@@ -228,7 +229,7 @@ function AdminPhysicianSearchFilters(props: Props) {
       <Button
         onClick={clear}
         type="text"
-        className={`${_classes["btn-clear"]} ml-0`}
+        className={`${_classes["btn-clear"]} ml-0 ${isChrome && 'antCustomBtn'}`}
       >
         <CloseOutlined style={{ color: "#9295af" }} className="text-sm" />
         <span className="text-gray-1 text-sm">Clear</span>

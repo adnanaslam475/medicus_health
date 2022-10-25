@@ -16,6 +16,7 @@ import searchStyle from "./style.module.scss";
 import { DateType } from "common/types/types";
 import Image from "next/image";
 import { calendarFilterIcon } from "utils/images";
+import { isChrome } from "utils/helper";
 
 const { RangePicker } = DatePicker;
 
@@ -193,7 +194,7 @@ function PhysicianSearchFilters(props: Props) {
               renderExtraFooter={() => (
                 <div className="flex space-3 gap-3 justify-end p-3">
                   <Button
-                    className="bg-gray-300"
+                    className={`bg-gray-300 ${isChrome && 'antCustomBtn'}`}
                     onClick={() => {
                       setOpenDateRange2(false);
                     }}
@@ -201,7 +202,7 @@ function PhysicianSearchFilters(props: Props) {
                     Cancel
                   </Button>
                   <Button
-                    className=" text-white"
+                    className={`text-white ${isChrome && 'antCustomBtn'}`}
                     type="primary"
                     onClick={applyDueDateRange}
                   >
@@ -211,7 +212,7 @@ function PhysicianSearchFilters(props: Props) {
               )}
             />
             <Button
-              className="flex date-btn"
+              className={`flex date-btn ${isChrome && 'antCustomBtn'}`}
               block
               type="default"
               onClick={() => setOpenDateRange2?.(!openDateRange2)}
@@ -266,7 +267,7 @@ function PhysicianSearchFilters(props: Props) {
         <Button
           onClick={onClear}
           type="text"
-          className={`${_classes["btn-clear"]} `}
+          className={`${_classes["btn-clear"]} ${isChrome && 'antCustomBtn'}`}
         >
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1 text-sm">Clear</span>

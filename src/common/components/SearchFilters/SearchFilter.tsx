@@ -17,6 +17,7 @@ import Image from "next/image";
 import { calendarFilterIcon } from "utils/images";
 import { getDateInFormat } from "../../utils/date";
 import _classes from "./SearchFilters.module.scss";
+import { isChrome } from "utils/helper";
 
 const { RangePicker } = DatePicker;
 
@@ -143,7 +144,7 @@ function SearchFilters(props: Props) {
               renderExtraFooter={() => (
                 <div className="flex gap-3 justify-end p-3">
                   <Button
-                    className="bg-gray-300"
+                    className={`bg-gray-300 ${isChrome && 'antCustomBtn'}`}
                     onClick={() => {
                       setOpenDateRange(false);
                     }}
@@ -151,7 +152,7 @@ function SearchFilters(props: Props) {
                     Cancel
                   </Button>
                   <Button
-                    className=" text-white"
+                    className={`text-white ${isChrome && 'antCustomBtn'}`}
                     type="primary"
                     onClick={() => {
                       applyDateRange();
@@ -163,7 +164,7 @@ function SearchFilters(props: Props) {
               )}
             />
             <Button
-              className="flex date-btn"
+              className={`flex date-btn ${isChrome && 'antCustomBtn'}`}
               block
               type="default"
               onClick={() => setOpenDateRange?.(!openDateRange)}
@@ -204,7 +205,7 @@ function SearchFilters(props: Props) {
       <Button
         onClick={onClear}
         type="text"
-        className={`${_classes["btn-clear"]} ml-3 mr-auto sm:ml-0 sm:mr-0`}
+        className={`${_classes["btn-clear"]} ml-3 mr-auto sm:ml-0 sm:mr-0 ${isChrome && 'antCustomBtn'}`}
       >
         <CloseOutlined className="text-sm" />
         <span className="text-gray-1 text-sm">Clear</span>

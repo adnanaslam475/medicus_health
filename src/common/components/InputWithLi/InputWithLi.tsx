@@ -2,6 +2,7 @@ import React, { ChangeEvent, EventHandler, useState, useEffect } from "react";
 import { Input, Button } from "antd";
 import _Classes from "./InputWitLi.module.scss";
 import { PlusOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons";
+import { isChrome } from "utils/helper";
 
 type IMyProps = {
   disable: boolean | undefined;
@@ -27,7 +28,7 @@ function InputWithLi(props: IMyProps) {
     }
   };
   const removeFunction = (i: number) => {
-    const updatedList = initialValue && initialValue.filter((_,index) => index !== i);
+    const updatedList = initialValue && initialValue.filter((_, index) => index !== i);
     if (updatedList) {
       onChange?.(updatedList);
     }
@@ -51,7 +52,7 @@ function InputWithLi(props: IMyProps) {
                 icon={<PlusOutlined className="font-bold text-sm pb-0.5" />}
                 type="primary"
                 size="large"
-                className={`${_Classes["button-custom"]}`}
+                className={`${_Classes["button-custom"]} ${isChrome && 'antCustomBtn'}`}
                 onClick={ShowData}
               >
                 ADD

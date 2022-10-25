@@ -8,6 +8,7 @@ import {
 } from "generated/graphql";
 import Router from "next/router";
 import React, { useEffect, useState } from "react";
+import { isChrome } from "utils/helper";
 import _classes from "./AdminSettings.module.scss";
 
 type AdminSettingsArray = {
@@ -235,11 +236,10 @@ function AdminSettings() {
               <div className="">
                 <SmallLabelWithTextDiv
                   label={""}
-                  value={`${
-                    consultationMedicusCut
+                  value={`${consultationMedicusCut
                       ? numberFormatter(consultationMedicusCut)
                       : 0
-                  }$`}
+                    }$`}
                 />
               </div>
             </div>
@@ -264,11 +264,10 @@ function AdminSettings() {
               <div className="">
                 <SmallLabelWithTextDiv
                   label={""}
-                  value={`${
-                    totalChargesConsultationPhysicianCut
+                  value={`${totalChargesConsultationPhysicianCut
                       ? numberFormatter(totalChargesConsultationPhysicianCut)
                       : 0
-                  }$`}
+                    }$`}
                 />
               </div>
             </div>
@@ -316,11 +315,10 @@ function AdminSettings() {
                 <div className="">
                   <SmallLabelWithTextDiv
                     label={""}
-                    value={`${
-                      secondOpinionMedicusCut
+                    value={`${secondOpinionMedicusCut
                         ? numberFormatter(secondOpinionMedicusCut)
                         : 0
-                    }$`}
+                      }$`}
                   />
                 </div>
               </div>
@@ -345,11 +343,10 @@ function AdminSettings() {
                 <div className="">
                   <SmallLabelWithTextDiv
                     label={""}
-                    value={`${
-                      secondOpinionPhysicianCut
+                    value={`${secondOpinionPhysicianCut
                         ? numberFormatter(secondOpinionPhysicianCut)
                         : 0
-                    }$`}
+                      }$`}
                   />
                 </div>
               </div>
@@ -420,8 +417,8 @@ function AdminSettings() {
           <div className="flex justify-end">
             <Form.Item>
               <div className="flex gap-4">
-                <Button onClick={() => Router.back()}>Cancel</Button>
-                <Button type="primary" htmlType="submit" loading={fetching}>
+                <Button onClick={() => Router.back()} className={`${isChrome && 'antCustomBtn'}`}>Cancel</Button>
+                <Button type="primary" htmlType="submit" className={`${isChrome && 'antCustomBtn'}`} loading={fetching}>
                   Save changes
                 </Button>
               </div>

@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 import TermsAndConditions from "common/components/TermsAndConditionns/TermsAndConditionns";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { timezoneLabel } from "utils/helper";
+import { isChrome, timezoneLabel } from "utils/helper";
 
 type props = {
   validateForm?: (value: any) => void;
@@ -544,7 +544,7 @@ export default function PersonalInfo({ onFinish }: props) {
               <Button
                 type="link"
                 onClick={showModal}
-                className="px-0 terms-n-conditions"
+                className={`px-0 terms-n-conditions ${isChrome && 'antCustomBtn'}`}
               >
                 {t("terms_n_conditions")}
               </Button>
@@ -571,7 +571,7 @@ export default function PersonalInfo({ onFinish }: props) {
             htmlType="submit"
             type="primary"
             disabled={!terms}
-            className={`${_classes["signupNext"]} ant-btn ant-btn-primary ant-btn-block nb-button`}
+            className={`${_classes["signupNext"]} ant-btn ant-btn-primary ant-btn-block nb-button ${isChrome && 'antCustomBtn'}`}
           >
             {t("next")}
             {/* Next */}

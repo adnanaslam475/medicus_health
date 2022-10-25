@@ -17,6 +17,7 @@ import { calendarFilterIcon } from "../../../utils/images";
 import { getDateInFormat } from "../../utils/date";
 import _classes from "./SearchFilters.module.scss";
 import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 const { Option } = Select;
 
@@ -360,7 +361,7 @@ function SearchFilters(props: Props) {
               renderExtraFooter={() => (
                 <div className="flex gap-3 justify-end p-3">
                   <Button
-                    className="bg-gray-300"
+                    className={`bg-gray-300 ${isChrome && 'antCustomBtn'}`}
                     onClick={() => {
                       setOpenDueDateRange(false);
                     }}
@@ -368,7 +369,7 @@ function SearchFilters(props: Props) {
                     {t("cancel")}
                   </Button>
                   <Button
-                    className=" text-white"
+                    className={`text-white ${isChrome && 'antCustomBtn'}`}
                     type="primary"
                     onClick={() => {
                       applyDueDateRange();
@@ -380,7 +381,7 @@ function SearchFilters(props: Props) {
               )}
             />
             <Button
-              className="flex date-btn"
+              className={`flex date-btn ${isChrome && 'antCustomBtn'}`}
               block
               type="default"
               onClick={() => setOpenDueDateRange?.(!openDueDateRange)}
@@ -449,7 +450,7 @@ function SearchFilters(props: Props) {
       <Button
         onClick={onClear}
         type="text"
-        className={`${_classes["btn-clear"]} ml-2 mr-auto sm:mr-0 sm:ml-0`}
+        className={`${_classes["btn-clear"]} ml-2 mr-auto sm:mr-0 sm:ml-0 ${isChrome && 'antCustomBtn'}`}
       >
         <CloseOutlined className="text-sm mb-0.5" />
         <span className="text-gray-1 text-sm">{t("clear")}</span>
