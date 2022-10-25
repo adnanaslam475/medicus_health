@@ -53,6 +53,7 @@ type Props = {
     paymentStatus: string;
     status: string;
     appointmentTypeProposed: AppointmentTypeProposedResponse | null | undefined;
+    createdAt?:string
   };
   adminApp_Details?: DoctorData;
   onCancelRequestedAppointment?: () => void;
@@ -89,6 +90,7 @@ function AdminAppointmentInfo({
     paymentStatus = "unpaid",
     status,
     appointmentTypeProposed,
+    createdAt
   } = data || {};
   const [{ fetching: cancelFetching }, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
@@ -265,7 +267,7 @@ function AdminAppointmentInfo({
               //   ? "Requested date"
               //   : "Appointment date"
             }
-            text={`${date.formatDAYMMDDYY(String(bookingDate))}`}
+            text={`${date.formatDAYMMDDYY(String(createdAt))}`}
           />
           <LabelWithText
             label="Booking date and time"

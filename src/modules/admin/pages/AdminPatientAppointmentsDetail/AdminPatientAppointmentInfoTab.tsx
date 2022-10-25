@@ -29,26 +29,25 @@ function AdminPatientAppointmentInfoTab({ appointment, loading }: Props) {
   const normalizedAppointmentData = {
     id: appointment?.id,
     bookingDate: formatMMMM_Dcoma_YYYY(selectedAppointment?.startTime) || "--",
-    patient: `${
-      appointment?.patient?.first_name + " " + appointment?.patient?.last_name
-    }`,
+    patient: `${appointment?.patient?.first_name + " " + appointment?.patient?.last_name
+      }`,
     physician:
       appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
     service: appointment?.serviceType?.name,
     dueDate: formatMMMM_Dcoma_YYYY(String(appointment?.appointmentDateTime?.startTime)),
-    time: `${
-      appointment?.appointmentDateTime?.startTime
+    time: `${appointment?.appointmentDateTime?.startTime
         ? `${date?.formathhmma(
-            appointment?.appointmentDateTime?.startTime
-          )} - ${date?.formathhmma(
-            appointment?.appointmentDateTime?.startTime
-          )}`
+          appointment?.appointmentDateTime?.startTime
+        )} - ${date?.formathhmma(
+          appointment?.appointmentDateTime?.startTime
+        )}`
         : "--"
-    }`,
+      }`,
     totalAmount: appointment?.appointmentCharges?.total,
     appointmentStatus: appointment?.status,
     paymentStatus: appointment?.transaction?.status,
-    appointmentTypeProposed:appointment?.appointmentTypeProposed
+    appointmentTypeProposed: appointment?.appointmentTypeProposed,
+    createdAt: appointment?.createdAt
   };
 
   const adminApp_Details = {
