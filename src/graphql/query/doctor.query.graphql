@@ -391,6 +391,11 @@ query physicianAppointmentsHistory(
         type
         price
         serviceId
+        dateTime{
+          date
+          startTime
+          endTime
+        }
       }
       patient {
         id
