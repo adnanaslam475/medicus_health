@@ -25,6 +25,7 @@ function AdminPatientQuestionnaireFormTab({ appointment, loading }: Props) {
           appointmentHealthHistory={
             appointment?.appointmentHealthHistory?.history
           }
+          doctorId={Number(appointment?.doctorId)}
         />
       </CardWithProfileImageInfo>
     </div>

@@ -32,6 +32,7 @@ function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
     patient: `${
       appointment?.patient?.first_name + " " + appointment?.patient?.last_name
     }`,
+    patientProfilePic:appointment?.patient?.patientProfile?.profileImage,
     physician:
       appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
     service: appointment?.serviceType?.name,
@@ -71,6 +72,7 @@ function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
     <CardWithProfileImageInfo
       name={`${normalizedAppointmentData.patient}`}
       serviceName={normalizedAppointmentData.service}
+      imageUrl={normalizedAppointmentData?.patientProfilePic}
     >
       <div className="max-w-[800px]">
         <AdminAppointmentInfo
