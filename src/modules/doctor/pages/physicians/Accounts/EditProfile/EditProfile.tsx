@@ -907,7 +907,7 @@ function EditProfile({
                   rules={[
                     {
                       required: true,
-                      message: "Please enter your countr",
+                      message: "Please enter your country",
                     },
                   ]}
                 >
