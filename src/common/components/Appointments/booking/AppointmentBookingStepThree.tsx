@@ -37,7 +37,7 @@ type Item = {
   type: NamePath | undefined;
   label: {} | null | undefined;
   name: NamePath | undefined;
-  options: { value: any; label: any }[];
+  options: { value: any; label: any, dependents: any }[];
   dependent?: Item;
 };
 
@@ -72,18 +72,18 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     role === "Admin"
       ? patientIdFromStepOne
       : rebookData
-      ? Number(rebookData?.patientId)
-      : user?.id;
+        ? Number(rebookData?.patientId)
+        : user?.id;
   const physicianQuestionnairePatientId = rebookData
     ? Number(rebookData?.patientId)
     : Number(loggedinPatientId) ||
-      Number(adminApp_Details?.patient?.patient_id);
+    Number(adminApp_Details?.patient?.patient_id);
 
   const physicianQuestionnaireDoctorId = rebookData
     ? Number(rebookData?.doctorId)
     : Number(id) ||
-      Number(physicianId) ||
-      Number(adminApp_Details?.doctor?.doctor_Id);
+    Number(physicianId) ||
+    Number(adminApp_Details?.doctor?.doctor_Id);
 
   const [{ data: patientLastQuestionaryData }] =
     usePatientLastQuestionnaireQuery({
@@ -114,8 +114,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       });
       setDependent(updatedDepedencies);
     }
-  }, [data.stepThree, clear]);
-
+  }, [data.stepThree, clear,data?.stepThree?.isLastFilled]);
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       doctorId: doctorQuestionnaire?.doctorId,
@@ -169,7 +168,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       }
     });
     setDependent(updatedDepedencies);
-  }, [questionnair?.length]);
+  }, [questionnair?.length,data?.stepThree]);
+
+
 
   const onFieldsChange = (fieldChange: FieldData[]) => {
     const formatedQuestionnier = parseJson(doctorQuestionnaire?.questionnaire);
@@ -193,6 +194,8 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     setDependent(updatedDepedencies);
   };
 
+  const formatedQuestionnier = parseJson(doctorQuestionnaire?.questionnaire);
+
   const renderItems = (item: Item): any => {
     if (item.type === "text") {
       return (
@@ -201,9 +204,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-            // rules={[
-            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
-            // ]}
+          // rules={[
+          //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+          // ]}
           >
             <Input />
           </Form.Item>
@@ -219,9 +222,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-            // rules={[
-            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
-            // ]}
+          // rules={[
+          //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+          // ]}
           >
             <Radio.Group>
               {item?.options?.map(({ value, label }) => {
@@ -241,9 +244,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-            // rules={[
-            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
-            // ]}
+          // rules={[
+          //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+          // ]}
           >
             <Checkbox.Group
               className={`${styles["ant-checkbox-wrapper-cover"]}`}
@@ -263,6 +266,13 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     disabled={disabled}
   /> */}
           </Form.Item>
+          {
+            // @ts-ignore
+            formInstance?.getFieldsValue()[item?.name]?.map((value) => {
+              // @ts-ignore
+              return !!item?.options[value]?.dependent && renderItems(item?.options[value]?.dependent as any)
+            })}
+
           {!!item.dependent &&
             !!dependent[item.name as string] &&
             renderItems(item.dependent)}
@@ -277,7 +287,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       <Form
         layout="vertical"
         form={formInstance}
-        onFinish={onFinishLocal}
+        onFinish={(val)=>onFinishLocal(val)}
         onFieldsChange={onFieldsChange}
         scrollToFirstError
         id="request_app_3"
