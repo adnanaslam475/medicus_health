@@ -14,7 +14,7 @@ import {
   useGetPhysiciansQuery,
   User,
 } from "generated/graphql";
-import { FLAG_BY_LANGUAGE, tableFooter } from "utils/helper";
+import { FLAG_BY_LANGUAGE, isChrome, tableFooter } from "utils/helper";
 import { date } from "common/utils";
 
 const columns = [
@@ -29,9 +29,8 @@ const columns = [
     dataIndex: "last_name",
     key: "last_name",
     render: (value: string) => {
-      let formatedDoctorName = `${
-        value?.includes("Dr.") ? value : `Dr. ${value}`
-      }`;
+      let formatedDoctorName = `${value?.includes("Dr.") ? value : `Dr. ${value}`
+        }`;
       return <div>{formatedDoctorName}</div>;
     },
     sorter: true,
@@ -202,12 +201,11 @@ function AdminPhysicianList() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${
-            (["city", "country", "state"].includes(sorter.field) &&
-              sorter.field) ||
-            (sorter.columnKey === "specialization" && "doctor_profile") ||
-            "user"
-          }.${sorter.columnKey}`
+        ? `${(["city", "country", "state"].includes(sorter.field) &&
+          sorter.field) ||
+        (sorter.columnKey === "specialization" && "doctor_profile") ||
+        "user"
+        }.${sorter.columnKey}`
         : "",
     });
   };
@@ -219,7 +217,7 @@ function AdminPhysicianList() {
           <h2 className="mb-4">Physicians</h2>
           <Link passHref href={`/admin/physicians/addPhysician`}>
             <a>
-              <Button type="primary">
+              <Button type="primary" className={`${isChrome && 'antCustomBtn'}`}>
                 <PlusOutlined />
                 Add a physician
               </Button>

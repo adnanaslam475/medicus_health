@@ -17,9 +17,9 @@ function AdminSideMenu() {
   return (
     <div className="inline-flex md:hidden lg:hidden xl:hidden">
       {showDrawer ? (
-        <Button className="bg-none  shadow-none border-0" onClick={drawerHandler} icon={<CloseOutlined />} />
+        <Button className={`bg-none shadow-none border-0 ${isChrome && 'antCustomBtn'}`} onClick={drawerHandler} icon={<CloseOutlined />} />
       ) : (
-        <Button className="border-0 shadow-none" onClick={drawerHandler} icon={<MenuOutlined />} />
+        <Button className={`border-0 shadow-none ${isChrome && 'antCustomBtn'}`} onClick={drawerHandler} icon={<MenuOutlined />} />
       )}
 
       <Drawer

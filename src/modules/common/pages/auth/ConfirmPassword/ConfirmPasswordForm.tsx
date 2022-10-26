@@ -3,6 +3,7 @@ import Password from "antd/lib/input/Password";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 type Props = {
   onFinish: (values: { password: string }) => void;
@@ -66,7 +67,7 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
         <Button
           loading={loading}
           disabled={loading}
-          className="ant-btn ant-btn-secondary ant-btn-block nb-button"
+          className={`ant-btn ant-btn-secondary ant-btn-block nb-button ${isChrome && 'antCustomBtn'}`}
           type="primary"
           htmlType="submit"
         >

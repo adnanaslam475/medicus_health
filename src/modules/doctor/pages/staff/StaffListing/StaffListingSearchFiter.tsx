@@ -6,6 +6,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { physicianFilterType } from "common/types/types";
+import { isChrome } from "utils/helper";
 
 const { Option } = Select;
 
@@ -76,7 +77,7 @@ function StaffListingSearchFilter({ onChange }: Props) {
             renderExtraFooter={() => (
               <div className="flex gap-3 justify-end p-3">
                 <Button
-                  className="bg-gray-300"
+                  className={`bg-gray-300 ${isChrome && 'antCustomBtn'}`}
                   onClick={() => {
                     setOpenDateRange(false);
                   }}
@@ -84,7 +85,7 @@ function StaffListingSearchFilter({ onChange }: Props) {
                   Cancel
                 </Button>
                 <Button
-                  className=" text-white"
+                  className={`text-white ${isChrome && 'antCustomBtn'}`}
                   type="primary"
                   onClick={() => {
                     applyDateRange();
@@ -96,7 +97,7 @@ function StaffListingSearchFilter({ onChange }: Props) {
             )}
           />
           <Button
-            className="flex date-btn"
+            className={`flex date-btn ${isChrome && 'antCustomBtn'}`}
             block
             type="default"
             onClick={() => setOpenDateRange?.(!openDateRange)}
@@ -130,7 +131,7 @@ function StaffListingSearchFilter({ onChange }: Props) {
             <Option value="second opinion">Second opinion</Option>
           </Select>
         </div>
-        <Button type="text" className="sm:ml-3" onClick={clear}>
+        <Button type="text" className={`sm:ml-3 ${isChrome && 'antCustomBtn'}`}  onClick={clear}>
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1">Clear</span>
         </Button>

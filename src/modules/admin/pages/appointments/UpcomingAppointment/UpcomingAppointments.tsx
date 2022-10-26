@@ -18,6 +18,7 @@ import {
 import Router, { useRouter } from "next/router";
 import { getUserData } from "common/utils/userData";
 import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 function UpcomingAppointments() {
   const t = useTranslations("UpcomingAppointments");
@@ -41,7 +42,7 @@ function UpcomingAppointments() {
   const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =
     useGetAllRequestedAppointmentsQuery({
       variables: {
-        filter: {...filterValues,status:"Confirmed"},
+        filter: { ...filterValues, status: "Confirmed" },
         pagination: { limit: -1, page: 1 },
         sorting: { order: "", column: "" },
       },
@@ -121,7 +122,7 @@ function UpcomingAppointments() {
               </Select> */}
               <Button
                 type="primary"
-                className="text-sm"
+                className={`text-sm ${isChrome && 'antCustomBtn'}`}
                 onClick={() => Router.push(`/patient/calendar`)}
               >
                 <span className="text-xs sm:text-base">
@@ -144,7 +145,7 @@ function UpcomingAppointments() {
             >
               <Button
                 type="primary"
-                className="text-sm"
+                className={`text-sm ${isChrome && 'antCustomBtn'}`}
                 onClick={showAppointmentBookingModal}
                 disabled={
                   patientHealthHistory?.patientHealthHistory?.id ? false : true

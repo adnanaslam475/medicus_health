@@ -9,7 +9,7 @@ import {
   Button,
   FormInstance,
 } from "antd";
-import { patientEditForm } from "utils/helper";
+import { isChrome, patientEditForm } from "utils/helper";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -85,15 +85,15 @@ const InputFields = ({
                             value={
                               value.options?.length
                                 ? `${item?.value
-                                    ?.charAt(0)
-                                    ?.toUpperCase()}${item?.value?.slice(1)}`
+                                  ?.charAt(0)
+                                  ?.toUpperCase()}${item?.value?.slice(1)}`
                                 : item.id
                             }
                           >
                             {value.options?.length
                               ? `${item?.value
-                                  ?.charAt(0)
-                                  ?.toUpperCase()}${item?.value?.slice(1)}`
+                                ?.charAt(0)
+                                ?.toUpperCase()}${item?.value?.slice(1)}`
                               : item[value.option_name]}
                           </Select.Option>
                         );
@@ -172,8 +172,9 @@ const InputFields = ({
       </div>
       <Form.Item>
         <div className="flex gap-4 absolute right-0">
-          <Button onClick={() => Router.back()}>Cancel</Button>
+          <Button onClick={() => Router.back()} className={`${isChrome && 'antCustomBtn'}`}>Cancel</Button>
           <Button
+            className={`${isChrome && 'antCustomBtn'}`}
             loading={isUpdating}
             disabled={isUpdating}
             type="primary"

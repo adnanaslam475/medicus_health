@@ -12,6 +12,7 @@ import { MessageOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import { isAppointmentTimeValid } from "common/utils/date";
 import { getRole } from "common/utils/userData";
+import { isChrome } from "utils/helper";
 
 type Props = {
   appointmentId: number | null | undefined;
@@ -75,7 +76,7 @@ function AppointmnetCurrentCard({
       <div className="flex mt-4">
         <Button
           type="primary"
-          className={`${_classes["card-btn"]} mr-3`}
+          className={`${_classes["card-btn"]} mr-3 ${isChrome && 'antCustomBtn'}`}
           onClick={() =>
             Router.push(
               getRole() === "User"
@@ -97,7 +98,7 @@ function AppointmnetCurrentCard({
         </Button>
         <Button
           type="default"
-          className={`${_classes["card-btn"]} bg-transparent`}
+          className={`${_classes["card-btn"]} bg-transparent ${isChrome && 'antCustomBtn'}`}
           onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
         >
           <span className="ml-2 mt-1">Detail</span>

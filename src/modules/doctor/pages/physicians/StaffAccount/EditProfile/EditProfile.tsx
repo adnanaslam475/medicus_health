@@ -40,7 +40,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import { UserOutlined } from "@ant-design/icons";
-import { timezoneLabel } from "utils/helper";
+import { isChrome, timezoneLabel } from "utils/helper";
 
 const { TextArea } = Input;
 
@@ -331,7 +331,7 @@ function EditProfile({
     try {
       const url = await s3.uploadFile(info.file.originFileObj as File);
       setImage(url?.location);
-    } catch (error) {}
+    } catch (error) { }
     if (error) {
       notification.error({
         message: error?.graphQLErrors[0]?.message || "Something went wrong",
@@ -510,9 +510,8 @@ function EditProfile({
             </Upload>
             <div>
               <h2 className="mb-0">
-                {`${doctor_first_name && doctor_first_name} ${
-                  doctor_last_name && doctor_last_name
-                }`}
+                {`${doctor_first_name && doctor_first_name} ${doctor_last_name && doctor_last_name
+                  }`}
               </h2>
               <span className="block">{doctor_email}</span>
               {getRole() === "Admin" && (
@@ -523,7 +522,7 @@ function EditProfile({
                     >
                       <Button
                         type="primary"
-                        className={`${_classes["published-button"]}`}
+                        className={`${_classes["published-button"]} ${isChrome && 'antCustomBtn'}`}
                         onClick={handlePublish_Unpublish}
                         disabled={doctorData ? false : true}
                       >
@@ -889,7 +888,7 @@ function EditProfile({
                         />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
-                        <Button onClick={addHospital} disabled={isStaff}>
+                        <Button onClick={addHospital} disabled={isStaff} className={`${isChrome && 'antCustomBtn'}`}>
                           Add new field
                         </Button>
                       )}
@@ -899,6 +898,7 @@ function EditProfile({
                           danger
                           onClick={() => removeHospital(index)}
                           disabled={isStaff}
+                          className={`${isChrome && 'antCustomBtn'}`}
                         >
                           Remove field
                         </Button>
@@ -951,13 +951,14 @@ function EditProfile({
                         />
                       </Form.Item>
                       {educationList?.length - 1 === index && (
-                        <Button onClick={addEducation} disabled={isStaff}>
+                        <Button onClick={addEducation} disabled={isStaff} className={`${isChrome && 'antCustomBtn'}`}>
                           Add new field
                         </Button>
                       )}
                       &nbsp;
                       {educationList?.length > 1 && (
                         <Button
+                          className={`${isChrome && 'antCustomBtn'}`}
                           danger
                           onClick={() => removeEducation(index)}
                           disabled={isStaff}

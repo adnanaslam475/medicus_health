@@ -18,6 +18,7 @@ import { getUserData } from "common/utils/userData";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { translationJson } from "common/locales/translationJson";
+import { isChrome } from "utils/helper";
 
 function CancelledAppointment() {
   const t = useTranslations("HistoryAppointments");
@@ -30,7 +31,7 @@ function CancelledAppointment() {
     status: "Completed",
   });
   let defaultPageSize =
-  localStorage.getItem("patientAppointmentHistoryPerPageLimit") || 10;
+    localStorage.getItem("patientAppointmentHistoryPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
     page: 1,
     limit: Number(defaultPageSize),
@@ -91,17 +92,16 @@ function CancelledAppointment() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${
-            (sorter.field === "transaction" && "transaction") ||
-            (/(status|charges|requestedDate|createdAt|id)/.test(
-              sorter.columnKey
-            ) &&
-              "appointment") ||
-            (sorter.columnKey === "name" && "appointment_service_type") ||
-            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
-            (sorter.columnKey === "requestedDate" && "appointment") ||
-            "user"
-          }.${sorter.columnKey || sorter.field}`
+        ? `${(sorter.field === "transaction" && "transaction") ||
+        (/(status|charges|requestedDate|createdAt|id)/.test(
+          sorter.columnKey
+        ) &&
+          "appointment") ||
+        (sorter.columnKey === "name" && "appointment_service_type") ||
+        (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+        (sorter.columnKey === "requestedDate" && "appointment") ||
+        "user"
+        }.${sorter.columnKey || sorter.field}`
         : "",
     });
   };
@@ -135,7 +135,7 @@ function CancelledAppointment() {
           >
             <Button
               type="primary"
-              className="text-sm"
+              className={`text-sm ${isChrome && 'antCustomBtn'}`}
               onClick={showAppointmentBookingModal}
               disabled={
                 patientHealthHistory?.patientHealthHistory?.id ? false : true

@@ -15,7 +15,7 @@ import _classes from "./CurrentAppointment.module.scss";
 import chat from "../../../../../../../public/assets/icon/chat-bubble.svg";
 import support from "../../../../../../../public/assets/icon/support.svg";
 import Image from "next/image";
-import { tableFooter } from "utils/helper";
+import { isChrome, tableFooter } from "utils/helper";
 
 const columns = [
   {
@@ -64,7 +64,7 @@ const columns = [
     render: () => {
       return (
         <div className={`${_classes["button-wrap1"]}`}>
-          <Button>Join</Button>
+          <Button className={`${isChrome && 'antCustomBtn'}`}>Join</Button>
         </div>
       );
     },
@@ -88,7 +88,7 @@ const columns = [
               />
             }
             type="primary"
-            className="bg-primary"
+            className={`bg-primary ${isChrome && 'antCustomBtn'}`}
           >
             <span className="pl-2">Message physician</span>
           </Button>
@@ -115,7 +115,7 @@ const columns = [
               />
             }
             type="primary"
-            className="bg-primary"
+            className={`bg-primary ${isChrome && 'antCustomBtn'}`}
           >
             <span className="pl-2">Message support</span>
           </Button>
@@ -167,7 +167,7 @@ function CurrentAppointmentTable({
       loading={loading}
       onChange={onChange}
       scroll={{ x: true }}
-      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
+      footer={(currentPageCount) => tableFooter(currentPageCount?.length, meta?.totalItems)}
       pagination={{
         total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,

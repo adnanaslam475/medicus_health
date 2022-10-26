@@ -16,6 +16,7 @@ import {
   isAppointmentTimeValid,
 } from "common/utils/date";
 import { AppointmentTimeSlots } from "common/types/types";
+import { isChrome } from "utils/helper";
 
 const InfoMessageBannerReminder = () => {
   // BANNER API CALL
@@ -43,11 +44,10 @@ const InfoMessageBannerReminder = () => {
     date.formatDAYMMDDYY(selectedTime?.startTime)
   );
 
-  let formatedDoctorFirstName = `${
-    doctor_first_name?.includes("Dr.")
+  let formatedDoctorFirstName = `${doctor_first_name?.includes("Dr.")
       ? doctor_first_name
       : `Dr. ${doctor_first_name}`
-  }`;
+    }`;
 
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
@@ -67,11 +67,10 @@ const InfoMessageBannerReminder = () => {
       );
     }
   }, [selectedAppointment]);
-  let formatedPatientFirstName = `${
-    patient_first_name?.includes("")
+  let formatedPatientFirstName = `${patient_first_name?.includes("")
       ? patient_first_name
       : ` ${patient_first_name}`
-  }`;
+    }`;
 
   return data?.appointmentsReminderBanner ? (
     <div className="flex items-center bg-gray-4 p-2 lg:h-10 md:h-auto px-1 rounded text-xs text-nowr gap-1">
@@ -126,12 +125,12 @@ const InfoMessageBannerReminder = () => {
           }
         >
           <Button
-            className="link_button bg-primary text-primary whitespace-nowrap ml-auto font-circular"
+            className={`link_button bg-primary text-primary whitespace-nowrap ml-auto font-circular ${isChrome && 'antCustomBtn'}`}
             type="default"
             size="small"
             target={"_blank"}
             disabled={disabled}
-            // onClick={() => Router.push(`/patient/appointments/${id}/call`)}
+          // onClick={() => Router.push(`/patient/appointments/${id}/call`)}
           >
             <span>Join now</span>
           </Button>

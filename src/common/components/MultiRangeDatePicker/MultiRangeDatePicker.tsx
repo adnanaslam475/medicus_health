@@ -7,6 +7,7 @@ import _Classes from "./MultiRangeDatePicker.module.scss";
 import DayPicker from "../../../utils/DayPicker";
 import { Schedule, singleSchedule } from "../../types/types";
 import { RangeValue } from "rc-picker/lib/interface";
+import { isChrome } from "utils/helper";
 
 const { RangePicker } = TimePicker;
 
@@ -82,7 +83,7 @@ function MultiRangeDatePicker(props: Props) {
             icon={<PlusOutlined className="font-bold text-sm pb-0.5" />}
             type="primary"
             size="large"
-            className={`my-auto ml-auto mr-2 mt-3 md:mt-2 ${_Classes["button-custom"]}`}
+            className={`my-auto ml-auto mr-2 mt-3 md:mt-2 ${_Classes["button-custom"]} ${isChrome && 'antCustomBtn'}`}
             onClick={onAddClick}
             disabled={loading}
             loading={loading}

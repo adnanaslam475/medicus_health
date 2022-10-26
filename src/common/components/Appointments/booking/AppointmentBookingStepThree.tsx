@@ -201,9 +201,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-            rules={[
-              { required: !Boolean(item.dependent), message: "¡Requerido!" },
-            ]}
+            // rules={[
+            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            // ]}
           >
             <Input />
           </Form.Item>
@@ -219,9 +219,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-            rules={[
-              { required: !Boolean(item.dependent), message: "¡Requerido!" },
-            ]}
+            // rules={[
+            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            // ]}
           >
             <Radio.Group>
               {item?.options?.map(({ value, label }) => {
@@ -241,9 +241,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-            rules={[
-              { required: !Boolean(item.dependent), message: "¡Requerido!" },
-            ]}
+            // rules={[
+            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            // ]}
           >
             <Checkbox.Group
               className={`${styles["ant-checkbox-wrapper-cover"]}`}

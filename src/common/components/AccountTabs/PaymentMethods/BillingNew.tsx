@@ -17,6 +17,7 @@ import { getUserData } from "../../../utils/userData";
 import { CreateSourceData, StripeElement } from "@stripe/stripe-js";
 import _classes from "./StripeCard.module.scss";
 import { GraphQLError } from "graphql";
+import { isChrome } from "utils/helper";
 
 type Props = {
   title: string;
@@ -49,7 +50,7 @@ export const Payment = (props: Props) => {
             <Button
               type="link"
               size="small"
-              className="text-primary p-0"
+              className={`text-primary p-0 ${isChrome && 'antCustomBtn'}`}
               onClick={() => {
                 Modal.confirm({
                   content: "Do you want to make this card default?",
@@ -67,7 +68,7 @@ export const Payment = (props: Props) => {
           <Button
             type="link"
             size="small"
-            className="text-red-2 p-0 text-sm"
+            className={`text-red-2 p-0 text-sm ${isChrome && 'antCustomBtn'}`}
             onClick={() => {
               Modal.confirm({
                 content: "Do you want to remove this card?",
@@ -225,7 +226,7 @@ function Billing({
               )}
               <Button
                 icon={<PlusOutlined />}
-                className="text-primary cursor-pointer"
+                className={`text-primary cursor-pointer ${isChrome && 'antCustomBtn'}`}
                 onClick={() => setModalVisible(true)}
               >
                 Add payment method
@@ -298,7 +299,7 @@ function Billing({
             <Form.Item>
               <Button
                 onClick={closeModal}
-                className={`${_classes["btn-stripe-cancel"]}`}
+                className={`${_classes["btn-stripe-cancel"]} ${isChrome && 'antCustomBtn'}`}
               >
                 Cancel
               </Button>
@@ -307,7 +308,7 @@ function Billing({
                 disabled={!cardNumber || !cvv || !cardExpiry || loadingSubmit}
                 type="primary"
                 htmlType="submit"
-                className={`ml-4`}
+                className={`ml-4 ${isChrome && 'antCustomBtn'}`}
               >
                 Submit
               </Button>

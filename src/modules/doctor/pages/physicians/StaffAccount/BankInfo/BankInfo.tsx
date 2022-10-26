@@ -13,6 +13,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 
 // scss
 import _classes from "./BankInfo.module.scss";
+import { isChrome } from "utils/helper";
 
 function BankInfo() {
   const stripe = useStripe();
@@ -143,7 +144,7 @@ function BankInfo() {
                 onClick={() => formRef.current?.submit()}
                 type="primary"
                 htmlType="submit"
-                className=""
+                className={`text-primary underline ml-3 text-xs ${isChrome && 'antCustomBtn'}`}
                 loading={fetching}
               >
                 Save changes

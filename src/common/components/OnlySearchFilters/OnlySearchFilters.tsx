@@ -2,6 +2,7 @@ import React from "react";
 import { Input, Button } from "antd";
 import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import _classes from "./SearchFilters.module.scss";
+import { isChrome } from "utils/helper";
 
 type Props = {
   onChange: (e: string) => void;
@@ -37,7 +38,7 @@ function OnlySearchFilters({ onChange }: Props) {
         <Button
           onClick={onClear}
           type="text"
-          className={`${_classes["btn-clear"]} sm:ml-3`}
+          className={`${_classes["btn-clear"]} sm:ml-3 ${isChrome && 'antCustomBtn'}`}
         >
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1 text-sm">Clear</span>

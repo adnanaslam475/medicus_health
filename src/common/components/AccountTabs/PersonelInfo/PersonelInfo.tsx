@@ -21,6 +21,7 @@ import { useTranslations } from "next-intl";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import { GraphQLError } from "graphql";
 import { useUserData } from "common/components/Context/UserContext";
+import { isChrome } from "utils/helper";
 
 const PersonalInfo = () => {
   const t = useTranslations("AccountDetail");
@@ -219,7 +220,7 @@ const PersonalInfo = () => {
                   <div className="flex flex-col justify-start">
                     <Button
                       type="link"
-                      className="text-primary underline text-xs"
+                      className={`text-primary underline text-xs ${isChrome && 'antCustomBtn'}`}
                     >
                       Actualizar foto
                       {/* {t("update_photo")} */}
@@ -238,7 +239,7 @@ const PersonalInfo = () => {
               <div className="flex gap-2 flex-wrap">
                 <Button
                   danger
-                  className="text-xs p-5 text-red"
+                  className={`text-xs p-5 text-red ${isChrome && 'antCustomBtn'}`}
                   size="large"
                   onClick={() => setIsEdit(false)}
                 >
@@ -249,7 +250,7 @@ const PersonalInfo = () => {
                 </Button>
                 <Button
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
-                  className="text-xs p-5"
+                  className={`text-xs p-5 ${isChrome && 'antCustomBtn'}`}
                   size="large"
                   onClick={onSave}
                 >
@@ -262,7 +263,7 @@ const PersonalInfo = () => {
             ) : (
               <Button
                 type="default"
-                className="text-xs p-5"
+                className={`text-xs p-5 ${isChrome && 'antCustomBtn'}`}
                 size="large"
                 onClick={() => setIsEdit(true)}
               >

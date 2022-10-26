@@ -19,6 +19,7 @@ import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import _debounce from "lodash/debounce";
 import { useDebounce } from "common/utils/helper";
+import { isChrome } from "utils/helper";
 
 type Props = {
   removeCurrentChat?: boolean | undefined;
@@ -77,8 +78,8 @@ function MessageHeader({
     opposite?.role !== "Doctor"
       ? opposite?.last_name
       : opposite?.role === "Doctor" && opposite?.last_name?.includes("Dr.")
-      ? opposite?.last_name
-      : `Dr. ${opposite?.last_name}`;
+        ? opposite?.last_name
+        : `Dr. ${opposite?.last_name}`;
   return (
     <>
       <ConfirmationModal
@@ -94,7 +95,7 @@ function MessageHeader({
           <div className="md:hidden">
             <Button
               icon={<ArrowLeftOutlined />}
-              className="default"
+              className={`default ${isChrome && 'antCustomBtn'}`}
               type="link"
               onClick={() => {
                 onBackThread?.(true, false);

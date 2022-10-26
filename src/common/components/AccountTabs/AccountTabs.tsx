@@ -19,6 +19,7 @@ import { date } from "../../utils";
 import { EyeFilled } from "@ant-design/icons";
 import EmailNotificationPage from "modules/common/components/EmailNotification/EmailNotificationPage";
 import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 function AccountTabs() {
   const t = useTranslations("AccountDetail");
@@ -138,7 +139,7 @@ function AccountTabs() {
                 <Button
                   loading={fetching}
                   disabled={fetching}
-                  className="ant-btn ant-btn-primary ant-btn mb-0 w-40"
+                  className={`ant-btn ant-btn-primary ant-btn mb-0 w-40 ${isChrome && 'antCustomBtn'}`}
                   type="primary"
                   onClick={() => form?.current?.submit()}
                 >

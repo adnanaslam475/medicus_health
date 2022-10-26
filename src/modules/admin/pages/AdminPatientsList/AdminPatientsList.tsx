@@ -10,7 +10,7 @@ import { PatientListFilterType, StatusName } from "common/types/types";
 import { Country, useGetPatientsQuery, User, City } from "generated/graphql";
 import { ColumnsType } from "antd/lib/table/Table";
 import { date } from "common/utils";
-import { tableFooter } from "utils/helper";
+import { isChrome, tableFooter } from "utils/helper";
 import StatusChip from "common/components/StatusChip/StatusChip";
 
 const columns: ColumnsType<User> = [
@@ -174,11 +174,10 @@ function AdminPatientsList() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${
-            (/(country|state|city)/.test(sorter.field) && sorter.field) ||
-            (sorter.columnKey === "specialization" && "doctor_profile") ||
-            "user"
-          }.${sorter.columnKey}`
+        ? `${(/(country|state|city)/.test(sorter.field) && sorter.field) ||
+        (sorter.columnKey === "specialization" && "doctor_profile") ||
+        "user"
+        }.${sorter.columnKey}`
         : "",
     });
   };
@@ -190,7 +189,7 @@ function AdminPatientsList() {
           <h2 className="mb-4">Patients</h2>
           <Link passHref href={`/admin/patients/addPatients`}>
             <a>
-              <Button type="primary">
+              <Button type="primary" className={`${isChrome && 'antCustomBtn'}`}>
                 <PlusOutlined />
                 Add patient
               </Button>

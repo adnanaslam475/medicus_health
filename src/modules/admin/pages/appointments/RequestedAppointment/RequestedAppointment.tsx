@@ -19,6 +19,7 @@ import AppointmentModalJourney from "../../../../patient/components/AppointmentM
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { getUserData } from "common/utils/userData";
 import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 function RequestedAppointment() {
   const t = useTranslations("PendingAppointments");
@@ -136,7 +137,7 @@ function RequestedAppointment() {
               >
                 <Button
                   type="primary"
-                  className="text-sm"
+                  className={`text-sm ${isChrome && 'antCustomBtn'}`}
                   onClick={showAppointmentBookingModal}
                   disabled={
                     patientHealthHistory?.patientHealthHistory ? false : true

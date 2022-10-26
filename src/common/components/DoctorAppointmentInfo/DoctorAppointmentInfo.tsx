@@ -59,6 +59,7 @@ import Link from "next/link";
 import Image from "next/image";
 import VideoCamera from "../../../../public/assets/icon/video.svg";
 import { GraphQLError } from "graphql";
+import { isChrome } from "utils/helper";
 
 type Props = {
   data: Appointment | undefined;
@@ -468,7 +469,7 @@ function DoctorAppointmentInfoFooter({
           <Button
             type="primary"
             icon={<VideoCameraFilled />}
-            className={`${_classes["appointments-btn"]} flex `}
+            className={`${_classes["appointments-btn"]} flex ${isChrome && 'antCustomBtn'}`}
             disabled={disabled}
             target={"_blank"}
           >
@@ -479,7 +480,7 @@ function DoctorAppointmentInfoFooter({
       {getRole() === "User" && data?.status === "Completed" && (
         <Button
           type="primary"
-          className={`${_classes["appointments-rebook-btn"]}`}
+          className={`${_classes["appointments-rebook-btn"]} ${isChrome && 'antCustomBtn'}`}
           onClick={showModal}
         >
           Rebook appointment
@@ -544,7 +545,7 @@ function DoctorUpcomingAppointmentInfoFooter({
       <div className="flex min-w-[230px] sm:min-w-auto md:min-w-auto">
         <Button
           danger
-          className={`${_classes["appointments-btn"]} w-full sm:w-auto md:w-auto`}
+          className={`${_classes["appointments-btn"]} w-full sm:w-auto md:w-auto ${isChrome && 'antCustomBtn'}`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Cancel appointment
@@ -554,7 +555,7 @@ function DoctorUpcomingAppointmentInfoFooter({
         <>
           <Button
             type="primary"
-            className={`${_classes["appointments-btn"]} bg-current`}
+            className={`${_classes["appointments-btn"]} bg-current ${isChrome && 'antCustomBtn'}`}
             onClick={() => setShowRescheduleModal(true)}
           >
             <Image
@@ -577,7 +578,7 @@ function DoctorUpcomingAppointmentInfoFooter({
             <Button
               type="primary"
               icon={<VideoCameraFilled />}
-              className={`${_classes["appointments-btn"]} ${_classes["join-now-mobile"]} flex `}
+              className={`${_classes["appointments-btn"]} ${_classes["join-now-mobile"]} flex ${isChrome && 'antCustomBtn'}`}
               disabled={disabled}
               target={"_blank"}
             >
@@ -589,7 +590,7 @@ function DoctorUpcomingAppointmentInfoFooter({
       {getRole() === "User" && data?.status === "Completed" && (
         <Button
           type="primary"
-          className={`${_classes["appointments-rebook-btn"]}`}
+          className={`${_classes["appointments-rebook-btn"]} ${isChrome && 'antCustomBtn'}`}
           onClick={showModal}
         >
           Rebook appointment
@@ -811,7 +812,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         <Button
           danger
           // className="border border-red outline"
-          className={`${_classes["appointments-btn"]}`}
+          className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Reject
@@ -819,7 +820,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         <div className="flex-col sm:flex-row flex flex-wrap">
           <Button
             icon={<RetweetOutlined />}
-            className={`${_classes["appointments-btn"]} my-2 sm:my-0`}
+            className={`${_classes["appointments-btn"]} my-2 sm:my-0 ${isChrome && 'antCustomBtn'}`}
             onClick={showModal}
           >
             Propose/edit appointment
@@ -938,6 +939,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               onClick={addTimeSlot}
               disabled={Object.values(slot).some((value) => value === "")}
               type="link"
+              className={`${isChrome && 'antCustomBtn'}`}
             >
               + Add slots
             </Button>
@@ -946,7 +948,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           <div className="flex justify-end">
             <Button
               loading={fetching}
-              className={`${_classes["appointments-btn"]}`}
+              className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
               onClick={onProposeNewTimeSlot}
               type="primary"
               disabled={slots.length > 0 ? false : true}

@@ -9,6 +9,7 @@ import {
 } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
+import { isChrome } from "utils/helper";
 
 type DoctorData = {
   doctor: {
@@ -98,7 +99,7 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
         onCancel={handleCancel}
         width={540}
         footer={[
-          <Button key="back" onClick={handleCancel}>
+          <Button key="back" onClick={handleCancel} className={`${isChrome && 'antCustomBtn'}`}>
             Close
           </Button>,
           <Button
@@ -106,6 +107,7 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
             type="primary"
             loading={fetching}
             onClick={handleOk}
+            className={`${isChrome && 'antCustomBtn'}`}
           >
             Update
           </Button>,

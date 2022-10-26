@@ -5,6 +5,7 @@ import AddStaffFormItems from "common/components/AddStaffFormItems/AddStaffFormI
 
 // scss
 import _classes from "./StaffListing.module.scss";
+import { isChrome } from "utils/helper";
 
 type AddStaffModalProps = {
   visibleModal: boolean | undefined;
@@ -39,7 +40,7 @@ const AddStaffModal = React.forwardRef(function AddStaffModal(
               disabled={fetching}
               type="primary"
               htmlType="submit"
-              className="ml-4 py-2"
+              className={`ml-4 py-2 ${isChrome && 'antCustomBtn'}`}
             >
               Add staff
             </Button>

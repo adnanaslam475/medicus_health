@@ -20,7 +20,8 @@ import {
 import { date } from "common/utils";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { StatusName } from "common/types/types";
-import { tableFooter } from "utils/helper";
+import { isChrome, tableFooter } from "utils/helper";
+import _classes from "./AdminAppointmentsListing.module.scss"
 
 const appointmentColumns = [
   {
@@ -185,7 +186,7 @@ type AdminData = {
 
 type Props = {};
 
-function AdminAppointmentsListing({}: Props) {
+function AdminAppointmentsListing({ }: Props) {
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
   );
@@ -265,27 +266,24 @@ function AdminAppointmentsListing({}: Props) {
         sorter.order?.replace("end", "") ||
         "",
       column:
-        `${
-          (["status"].includes(sorter.field) && "appointment") ||
-          (["transaction"].includes(sorter.field) && "transaction") ||
-          (sorter.columnKey === "name" && "appointment_service_type") ||
-          (/startTime/.test(sorter.columnKey) && "appointment_time_slots") ||
-          (/(status|charges|requestedDate|createdAt|id)/.test(
-            sorter.columnKey
-          ) &&
-            "appointment") ||
-          (/doctor/.test(sorter.field) && "user") ||
-          "patient"
-        }.${
-          /(doctor|patient)/.test(sorter.field)
-            ? "first_name"
-            : /(transaction)/.test(sorter.field)
+        `${(["status"].includes(sorter.field) && "appointment") ||
+        (["transaction"].includes(sorter.field) && "transaction") ||
+        (sorter.columnKey === "name" && "appointment_service_type") ||
+        (/startTime/.test(sorter.columnKey) && "appointment_time_slots") ||
+        (/(status|charges|requestedDate|createdAt|id)/.test(
+          sorter.columnKey
+        ) &&
+          "appointment") ||
+        (/doctor/.test(sorter.field) && "user") ||
+        "patient"
+        }.${/(doctor|patient)/.test(sorter.field)
+          ? "first_name"
+          : /(transaction)/.test(sorter.field)
             ? "status"
             : sorter.columnKey
         }` || "",
     });
   };
-
   return (
     <>
       <AppLayout>
@@ -294,16 +292,16 @@ function AdminAppointmentsListing({}: Props) {
             <div className="pr-3 mb-3 sm:mb-0">
               <h2 className="mb-0 pb-0">Appointments</h2>
             </div>
-            <div className="flex gap-3">
+            <div className={"flex gap-3 flex-wrap "}>
               <Link passHref href={`/admin/appointments/calendar`}>
-                <a>
-                  <Button className="bg-primary" type="primary">
+                <a className={`text-sm ${isChrome && 'antCustomBtn'}  ${_classes["requestAppointmentBtn"]}`}>
+                  <Button className={`bg-primary ${isChrome && 'antCustomBtn'} ${_classes["requestAppointmentBtn"]}`} type="primary">
                     Calendar view
                   </Button>
                 </a>
               </Link>
-              <Button type="primary" className="text-sm" onClick={showModal}>
-                <span className="text-xs sm:text-base">
+              <Button type="primary" className={`text-sm ${isChrome && 'antCustomBtn'}  ${_classes["requestAppointmentBtn"]}`} onClick={showModal}>
+                <span className="long-btn">
                   Request an appointment
                 </span>
               </Button>
@@ -342,8 +340,8 @@ function AdminAppointmentsListing({}: Props) {
         onOk={handleOk}
         onCancel={handleCancel}
         adminData={adminData as AdminData}
-        // doctorData={doctorData}
-        // doctorData={doctorProfile as DoctorProfile}
+      // doctorData={doctorData}
+      // doctorData={doctorProfile as DoctorProfile}
       />
     </>
   );

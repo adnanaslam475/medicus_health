@@ -15,6 +15,7 @@ function NotesWithText({ appointment, doctorNotes }: Props) {
       <CardWithProfileImageInfo
         name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
         serviceName={appointment?.serviceType?.name}
+        imageUrl={appointment?.patient?.patientProfile?.profileImage}
       >
         <h4 className="pb-0 mb-0  pt-4 text-lightBlue-1">SOAP</h4>
         {doctorNotes?.length &&

@@ -14,7 +14,7 @@ import {
   usePatientHealthHistoryQuery,
 } from "../../../generated/graphql";
 import { date } from "../../utils";
-import { capitalizeFirstLetter, sorter } from "utils/helper";
+import { capitalizeFirstLetter, isChrome, sorter } from "utils/helper";
 import MDNextImage from "../MDNextImage/MDNextImage";
 import { getUserData } from "common/utils/userData";
 import Link from "next/link";
@@ -152,8 +152,8 @@ function DoctorProfileCard(props: Props) {
             <span className="font-rubik text-secondary text-sm block mb-2">
               {doctorData?.year_of_experience
                 ? `${doctorData?.year_of_experience} + ${t(
-                    "years_of_experience"
-                  )}`
+                  "years_of_experience"
+                )}`
                 : t("experience_not_available")}
             </span>
             <Collapse className="xl:w-4/5">
@@ -171,33 +171,31 @@ function DoctorProfileCard(props: Props) {
                 <div className="ant-collapse-time-body">
                   {doctorData?.user?.doctorSchedules?.length !== 0
                     ? doctorData?.user?.doctorSchedules
-                        ?.sort((a, b) => {
-                          return sorter(a, b);
-                        })
-                        .map((item, index) => (
-                          <div className="flex sm:flex flex-grow justify-between mb-2">
-                            <span>{date?.dayName(item.day)}</span>
-                            <div>
-                              <span>
-                                {dayjs(
-                                  `${dayjs().format("YYYY-MM-DD")}T${
-                                    item?.startTime
-                                  }:00.000Z`
-                                )
-                                  .tz(timeZone)
-                                  .format("h:mm A")}{" "}
-                                -{" "}
-                                {dayjs(
-                                  `${dayjs().format("YYYY-MM-DD")}T${
-                                    item?.endTime
-                                  }:00.000Z`
-                                )
-                                  .tz(timeZone)
-                                  .format("h:mm A")}
-                              </span>
-                            </div>
+                      ?.sort((a, b) => {
+                        return sorter(a, b);
+                      })
+                      .map((item, index) => (
+                        <div className="flex sm:flex flex-grow justify-between mb-2">
+                          <span>{date?.dayName(item.day)}</span>
+                          <div>
+                            <span>
+                              {dayjs(
+                                `${dayjs().format("YYYY-MM-DD")}T${item?.startTime
+                                }:00.000Z`
+                              )
+                                .tz(timeZone)
+                                .format("h:mm A")}{" "}
+                              -{" "}
+                              {dayjs(
+                                `${dayjs().format("YYYY-MM-DD")}T${item?.endTime
+                                }:00.000Z`
+                              )
+                                .tz(timeZone)
+                                .format("h:mm A")}
+                            </span>
                           </div>
-                        ))
+                        </div>
+                      ))
                     : t("doctor_schedules_not_available")}
                 </div>
               </Collapse.Panel>
@@ -221,7 +219,7 @@ function DoctorProfileCard(props: Props) {
                   disabled={
                     patientHealthHistory?.patientHealthHistory ? false : true
                   }
-                  className="md:mb-3 sm:mb-0"
+                  className={`md:mb-3 sm:mb-0 ${isChrome && 'antCustomBtn'}`}
                 >
                   <Image
                     priority={true}
@@ -238,7 +236,7 @@ function DoctorProfileCard(props: Props) {
               </Tooltip>
               <div className="flex-none sm:flex md:flex">
                 <Button
-                  className="highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-0 lg:ml-3"
+                  className={`highlighted-button highlighted-button-headphone btn-transparent mt-3 md:mt-0 md:ml-0 lg:ml-3 ${isChrome && 'antCustomBtn'}`}
                   onClick={() => {
                     const query = {
                       chat: "admin",
@@ -258,26 +256,26 @@ function DoctorProfileCard(props: Props) {
                     items && items?.length > 0
                       ? ""
                       : capitalizeFirstLetter(
-                          "Please request an appointment to message physician."
-                        )
+                        "Please request an appointment to message physician."
+                      )
                   }
                   // disabled={items && items?.length > 0 ? false : true}
-                  className="highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3"
+                  className={`highlighted-button highlighted-button-message button-phy btn-transparent mt-3 md:mt-0 sm:ml-3 ${isChrome && 'antCustomBtn'}`}
                   onClick={
                     items && items?.length > 0
                       ? () => {
-                          const query: any = {
-                            chat: "patient",
-                            // patientId: adminApp_Details?.patient.patient_id,
-                            doctorId: doctorData?.doctor_id,
-                            patientId: loggedInUser,
-                          };
-                          // localStorage.setItem("id", JSON.stringify(query));
-                          Router.push({
-                            pathname: "/patient/messages",
-                            query,
-                          });
-                        }
+                        const query: any = {
+                          chat: "patient",
+                          // patientId: adminApp_Details?.patient.patient_id,
+                          doctorId: doctorData?.doctor_id,
+                          patientId: loggedInUser,
+                        };
+                        // localStorage.setItem("id", JSON.stringify(query));
+                        Router.push({
+                          pathname: "/patient/messages",
+                          query,
+                        });
+                      }
                       : () => setOpen(true)
                   }
                 >

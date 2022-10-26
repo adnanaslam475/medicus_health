@@ -6,6 +6,7 @@ import React, { useRef, useState } from "react";
 import smile from "../../../../public/assets/images/smile.svg";
 import Acronym from "common/components/Acronym/Acronym";
 import _classes from "./Notes.module.scss";
+import { isChrome } from "utils/helper";
 
 type Props = {
   onFinish?: (values: any, setModalVisible: () => void) => void;
@@ -44,7 +45,7 @@ function Notes(props: Props) {
         <p className="pt-2">Add notes</p>
         {/*Removed Plus icon for accessability on lower resolution */}
         <Button
-          className={`${_classes["custom-button-green"]}`}
+          className={`${_classes["custom-button-green"]} ${isChrome && 'antCustomBtn'}`}
           onClick={() => setModalVisible(true)}
           disabled={disabled}
         >
@@ -85,7 +86,7 @@ function Notes(props: Props) {
             <Button
               htmlType="submit"
               type="primary"
-              className={`${_classes["custom-button"]}`}
+              className={`${_classes["custom-button"]} ${isChrome && 'antCustomBtn'}`}
             >
               Save notes
             </Button>

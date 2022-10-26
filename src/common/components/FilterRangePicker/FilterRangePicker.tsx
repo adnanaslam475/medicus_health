@@ -5,6 +5,7 @@ import { calendarFilterIcon } from "utils/images";
 import { RangePickerFooter } from "./RangePickerFooter";
 import _classes from "./FilterRangePicker.module.scss";
 import { ReactChild } from "react";
+import { isChrome } from "utils/helper";
 
 export function FilterRangePicker({
   title,
@@ -41,7 +42,7 @@ export function FilterRangePicker({
         )}
       />
       <Button
-        className={`${_classes["range-style"]} flex date-btn`}
+        className={`${_classes["range-style"]} flex date-btn ${isChrome && 'antCustomBtn'}`}
         block
         type="default"
         onClick={onOpen}

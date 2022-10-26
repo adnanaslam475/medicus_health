@@ -1,4 +1,5 @@
 import { Button, Form, Input } from "antd";
+import { isChrome } from "utils/helper";
 
 type Props = {
   onFinish: (values: any) => void;
@@ -32,7 +33,7 @@ function ForgotPasswordForm({ onFinish }: Props) {
 
       <Form.Item>
         <Button
-          className="ant-btn ant-btn-secondary ant-btn-block nb-button"
+          className={`ant-btn ant-btn-secondary ant-btn-block nb-button ${isChrome && 'antCustomBtn'}`}
           type="primary"
           htmlType="submit"
         >
