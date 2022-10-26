@@ -94,7 +94,6 @@ function AdminAppointmentInfo({
   } = data || {};
   const [{ fetching: cancelFetching }, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
-
   const [
     { data: appointmentServiceType },
     executeUseGetAllAppointmentServiceTypesQuery,
@@ -416,7 +415,7 @@ function AdminAppointmentInfo({
           <AdminAppointmentConfirmedInfoFooter
             adminApp_Details={adminApp_Details}
             onCancelRequestedAppointment={onCancelRequestedAppointment}
-            appointmentData={appointmentData as any}
+            appointmentData={appointmentData || data as any}
             cancelFetching={cancelFetching}
           />
         )}
