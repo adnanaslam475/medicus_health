@@ -114,7 +114,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       });
       setDependent(updatedDepedencies);
     }
-  }, [data.stepThree, clear,data?.stepThree?.isLastFilled]);
+  }, [data.stepThree, clear, data?.stepThree?.isLastFilled]);
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       doctorId: doctorQuestionnaire?.doctorId,
@@ -168,7 +168,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       }
     });
     setDependent(updatedDepedencies);
-  }, [questionnair?.length,data?.stepThree]);
+  }, [questionnair?.length, data?.stepThree]);
 
 
 
@@ -249,13 +249,21 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
           // ]}
           >
             <Checkbox.Group
-              className={`${styles["ant-checkbox-wrapper-cover"]}`}
+              className={`${styles["ant-checkbox-wrapper-cover"]} flex flex-col`}
             >
-              {item?.options?.map(({ value, label }) => {
+              {item?.options?.map(({ value, label },index) => {
                 return (
-                  <Checkbox className={`${styles.checkbox}`} value={value}>
-                    {label}
-                  </Checkbox>
+                  <>
+                    <Checkbox className={`${styles.checkbox}`} value={value}>
+                      {label}
+                    </Checkbox>
+                    {
+                      // @ts-ignore
+                      formInstance?.getFieldsValue()[item?.name]?.map((value) => {
+                        // @ts-ignore
+                        return !!item?.options[value]?.dependent && value === index && renderItems(item?.options[value]?.dependent as any)
+                      })}
+                  </>
                 );
               })}
             </Checkbox.Group>
@@ -266,12 +274,12 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     disabled={disabled}
   /> */}
           </Form.Item>
-          {
+          {/* {
             // @ts-ignore
             formInstance?.getFieldsValue()[item?.name]?.map((value) => {
               // @ts-ignore
               return !!item?.options[value]?.dependent && renderItems(item?.options[value]?.dependent as any)
-            })}
+            })} */}
 
           {!!item.dependent &&
             !!dependent[item.name as string] &&
@@ -287,7 +295,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       <Form
         layout="vertical"
         form={formInstance}
-        onFinish={(val)=>onFinishLocal(val)}
+        onFinish={(val) => onFinishLocal(val)}
         onFieldsChange={onFieldsChange}
         scrollToFirstError
         id="request_app_3"
