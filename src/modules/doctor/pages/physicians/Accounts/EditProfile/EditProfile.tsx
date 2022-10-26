@@ -904,7 +904,7 @@ function EditProfile({
                   rules={[
                     {
                       required: true,
-                      message: "country_message",
+                      message: "Please enter your country",
                     },
                   ]}
                 >
@@ -1003,7 +1003,7 @@ function EditProfile({
                     onPressEnter={(e) => e.preventDefault()}
                   />
                 </Form.Item> */}
-                              {/* <div className="my-6 mt-0 border-b border-gray-3 w-full"></div> */}
+                {/* <div className="my-6 mt-0 border-b border-gray-3 w-full"></div> */}
 
                 <div className="flex-1 mb-[25px] pb-[5px] border-b border-gray-3">
                   <Form.Item
