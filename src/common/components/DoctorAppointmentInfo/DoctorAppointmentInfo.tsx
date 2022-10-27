@@ -171,8 +171,8 @@ function DoctorAppointmentInfo({ data }: Props) {
           status === "Proposed" ||
           status === "Rescheduled" ||
           status === "Completed") && (
-          <MessageButtons patientID={patientID} doctorId={doctorIdForChat} />
-        )}
+            <MessageButtons patientID={patientID} doctorId={doctorIdForChat} />
+          )}
       </div>
       <div>
         <LabelWithText label="ID#" text={Number(id)} />
@@ -207,7 +207,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           }
           text={
             (appointmentDateTime?.startTime && status === "Completed") ||
-            status === "Confirmed"
+              status === "Confirmed"
               ? `${formatedDueDate}`
               : date.formatMMMMDDYYYY(requestedDate, timeZone)
           }
@@ -227,12 +227,12 @@ function DoctorAppointmentInfo({ data }: Props) {
             !appointmentDateTime?.startTime || !appointmentDateTime?.endTime
               ? "--"
               : `${date.formathhmma(
-                  appointmentDateTime?.startTime,
-                  timeZone
-                )} - ${date.formathhmma(
-                  appointmentDateTime?.endTime,
-                  timeZone
-                )}`
+                appointmentDateTime?.startTime,
+                timeZone
+              )} - ${date.formathhmma(
+                appointmentDateTime?.endTime,
+                timeZone
+              )}`
           }
         />
         <LabelWithText
@@ -582,7 +582,7 @@ function DoctorUpcomingAppointmentInfoFooter({
               disabled={disabled}
               target={"_blank"}
             >
-              <span>Join now</span>
+              <span className={`${_classes["joinNow"]}`}>Join now</span>
             </Button>
           </Link>
         </>
@@ -708,7 +708,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setSlot({ startDate: dateString, endDate: formatedDate });
   };
 
-  function onOkDatePicker(value: any) {}
+  function onOkDatePicker(value: any) { }
 
   // API CALL
 
