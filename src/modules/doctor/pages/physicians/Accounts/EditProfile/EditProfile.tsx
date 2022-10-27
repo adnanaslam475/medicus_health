@@ -904,12 +904,14 @@ function EditProfile({
                   className="flex-1"
                   label={"Country"}
                   name="country_id"
-                  rules={[
-                    {
-                      // required: true,
-                      message: "Please enter your country",
-                    },
-                  ]}
+                  //   rules={
+                  //   //   [
+                  //   //   {
+                  //   //     // required: true,
+                  //   //     // message: "Please enter your country",
+                  //   //   },
+                  //   // ]
+                  // }
                 >
                   <Select
                     showSearch
