@@ -90,7 +90,7 @@ function ProfileDetail() {
 
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
-      doctorId: Number(576),
+      doctorId: Number(query?.id),
       languageId: 2,
     },
   });
