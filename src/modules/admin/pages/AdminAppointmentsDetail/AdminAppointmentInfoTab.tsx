@@ -80,6 +80,7 @@ function AdminAppointmentInfoTab({
     paymentStatus: appointment?.transaction?.status,
     profilePicture: appointment?.patient?.patientProfile?.profileImage,
     appointmentTypeProposed: appointment?.appointmentTypeProposed,
+    createdAt:appointment?.createdAt
   };
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">

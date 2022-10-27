@@ -266,7 +266,7 @@ function AdminAppointmentInfo({
               //   ? "Requested date"
               //   : "Appointment date"
             }
-            text={`${date.formatDAYMMDDYY(String(createdAt))}`}
+            text={createdAt ? `${date.formatDAYMMDDYY(String(createdAt))}` : "-"}
           />
           <LabelWithText
             label="Booking date and time"
