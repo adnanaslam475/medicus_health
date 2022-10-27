@@ -160,7 +160,7 @@ function CalendarModalComponent(props: Props) {
                 className="mb-0"
                 alt="camera"
               />
-              <span className="ml-2">Join now</span>
+              <span className="ml-2 joinNowBtn">Join now</span>
             </Button>
           </Link>
         </div>
