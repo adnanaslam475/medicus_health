@@ -377,7 +377,7 @@ function AppointmentInfo(props: Props) {
               >
                 <Button
                   className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
-                  // type="primary"
+                  type="primary"
                   icon={<VideoCameraFilled />}
                   target={"_blank"}
                   disabled={disabled}
