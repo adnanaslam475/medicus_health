@@ -46,6 +46,7 @@ function AdminAppointmentsCalendar() {
       endDate: data?.extendedProps?.appointmentDateTime?.endTime,
       status: data?.status,
       charges: data?.extendedProps?.total || data?.extendedProps?.charges,
+      appointmentTimeSlots: data?.extendedProps?.appointmentTimeSlots,
       type: "Assignment",
     });
 
@@ -85,13 +86,13 @@ function AdminAppointmentsCalendar() {
             total: charges,
             status: status,
             doctor: doctor,
-            appointmentDateTime: appointmentDateTime
+            appointmentDateTime: appointmentDateTime,
+            appointmentTimeSlots:appointmentTimeSlots
           };
         }
       ),
     });
   };
-
   useEffect(() => {
     setCalendarData();
   }, [appointments]);
