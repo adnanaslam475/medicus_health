@@ -106,8 +106,8 @@ function AdminCalender(props: Props) {
             appointmentTimeSlots?.find((item) => item.selected)?.endTime
               ? appointmentTimeSlots?.find((item) => item.selected)?.endTime
               : appointmentDateTime?.endTime
-              ? appointmentDateTime?.endTime
-              : new Date().toISOString();
+              // ? appointmentDateTime?.endTime
+              // : new Date().toISOString();
 
           const [startDate] = startTime.split("T");
           const start =

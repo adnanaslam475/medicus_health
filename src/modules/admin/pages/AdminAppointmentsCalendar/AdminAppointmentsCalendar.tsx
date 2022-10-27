@@ -85,7 +85,7 @@ function AdminAppointmentsCalendar() {
             total: charges,
             status: status,
             doctor: doctor,
-            appointmentDateTime:appointmentDateTime
+            appointmentDateTime: appointmentDateTime
           };
         }
       ),
@@ -127,12 +127,12 @@ function AdminAppointmentsCalendar() {
             enableButton={true}
           />
         </div>
-        <CalendarModalComponent
+        {!!modalVisible && <CalendarModalComponent
           modalVisible={modalVisible}
           closeModal={closeModal}
           data={modalData}
           okText="Edit"
-        />
+        />}
       </div>
     </AppLayout>
   );
