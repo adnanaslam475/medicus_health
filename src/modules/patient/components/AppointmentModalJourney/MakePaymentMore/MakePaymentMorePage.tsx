@@ -17,8 +17,13 @@ import {
   useGetAllCardsQuery,
 } from "../../../../../generated/graphql";
 import { getUserData } from "common/utils/userData";
+import { isChrome } from "utils/helper";
 
-function MakePaymentMore() {
+type Props = {
+  onPrevious?: () => void;
+}
+function MakePaymentMore(props: Props) {
+  const { onPrevious } = props || {}
   const stripe = useStripe();
   const elements = useElements();
 
@@ -31,7 +36,7 @@ function MakePaymentMore() {
   const [, executeCardMutation] = useCreateCardMutation();
 
   const handleSubmit = async () => {
-    // setLoadingSubmit(true);
+    setLoadingSubmit(true);
     try {
       if (elements == null) {
         return;
@@ -59,69 +64,103 @@ function MakePaymentMore() {
           exp_month: String(source?.card?.exp_month),
           exp_year: String(source?.card?.exp_year),
           card_holder_name: "",
+          currency: String(source?.currency),
+          country: String(source?.card?.country)
         },
       });
 
       // executeGetAllCardsQuery({ requestPolicy: "network-only" });
 
+
       if (error) {
         notification.error({
           message: error?.message || "Something went wrong",
         });
-        // setLoadingSubmit(false);
+        setLoadingSubmit(false);
       } else {
-        console.log(source?.id);
         // await onSubmit(source?.id);
         // setModalVisible(false);
         cardElement?.clear();
-        // setLoadingSubmit(false);
+        setLoadingSubmit(false);
+        setCardNumber(undefined);
+        setCardExpiry(undefined);
+        setCvv(undefined);
+        formInstance.resetFields()
+        onPrevious?.();
       }
     } catch (error) {
       // setModalVisible(true);
-      // setLoadingSubmit(false);
+      setLoadingSubmit(false);
     }
   };
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const [cardNumber, setCardNumber] = useState<boolean | undefined>();
+  const [cvv, setCvv] = useState<boolean | undefined>();
+  const [cardExpiry, setCardExpiry] = useState<boolean | undefined>();
+  const [formInstance] = Form.useForm();
+  console.log("formvalues are", formInstance.getFieldsValue(), cardNumber);
   return (
     <Form
       className=""
-      // onFinish={handleSubmit}
+      onFinish={handleSubmit}
       layout="vertical"
+      form={formInstance}
     >
       {/* <h1>Add card</h1> */}
       <h1>Add payment method</h1>
-      <span className="text-base text-secondary my-2">Card number*</span>
-      <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-        <CardNumberElement
-          options={{
-            placeholder: "",
-            style: {
-              base: {
-                "::placeholder": {
-                  color: "gray",
+      <Form.Item name="cardnumber">
+        <span className="text-base text-secondary my-2">Card number*</span>
+        <div className="border border-gray-3 p-3 rounded  hover:border-primary">
+          <CardNumberElement
+            onChange={(e) => setCardNumber(e?.complete)}
+            options={{
+              placeholder: "",
+              style: {
+                base: {
+                  "::placeholder": {
+                    color: "gray",
+                  },
                 },
               },
-            },
-          }}
-        />
-      </div>
+            }}
+          />
+        </div>
+      </Form.Item>
+
       <div className="sm:grid grid-cols-2 gap-4">
-        <div>
-          <span className="text-base text-secondary">CVV*</span>
-          <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-            <CardCvcElement
-              options={{
-                placeholder: "",
-              }}
-            />
+        <Form.Item name="cvv">
+          <div>
+            <span className="text-base text-secondary">CVV*</span>
+            <div className="border border-gray-3 p-3 rounded  hover:border-primary">
+              <CardCvcElement
+                onChange={(e) => setCvv(e?.complete)}
+                options={{
+                  placeholder: "",
+                }}
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <span className="text-base text-secondary my-2">Expires on*</span>
-          <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-            <CardExpiryElement />
+        </Form.Item>
+        <Form.Item name="expires">
+          <div>
+            <span className="text-base text-secondary my-2">Expires on*</span>
+            <div className="border border-gray-3 p-3 rounded  hover:border-primary">
+              <CardExpiryElement onChange={(e) => setCardExpiry(e?.complete)}
+              />
+            </div>
           </div>
-        </div>
+        </Form.Item>
+
       </div>
+      <Button
+        loading={loadingSubmit}
+        disabled={!cardNumber || !cvv || !cardExpiry || loadingSubmit}
+        type="primary"
+        htmlType="submit"
+        className={`mb-4 ${isChrome && 'antCustomBtn'} w-full`}
+      >
+        Submit
+      </Button>
     </Form>
   );
 }

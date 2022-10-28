@@ -124,6 +124,7 @@ function AppointmentModalJourney({
                 appointmentDetails={appointment as Appointment}
                 stepName={currentStepName}
                 appointmentCharges={appointmentCharges}
+                onPrevious={() => prev(currentStepName)}
               />
             </div>
 

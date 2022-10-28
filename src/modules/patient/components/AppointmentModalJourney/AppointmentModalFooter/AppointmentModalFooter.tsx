@@ -73,7 +73,7 @@ function AppointmentModalFooter({
   const stripe = useStripe();
   const elements = useElements();
 
-  const [{}, executeGetAppointmentsReminderBannerQuery] =
+  const [{ }, executeGetAppointmentsReminderBannerQuery] =
     useGetAppointmentsReminderBannerQuery();
 
   // GET ALL CARDS API CALL
@@ -213,6 +213,8 @@ function AppointmentModalFooter({
           exp_month: String(source?.card?.exp_month),
           exp_year: String(source?.card?.exp_year),
           card_holder_name: "",
+          currency: String(source?.currency),
+          country: String(source?.card?.country)
         },
       });
 
@@ -322,7 +324,7 @@ function AppointmentModalFooter({
             <LeftOutlined className={`${_classes["icon-color"]}`} />
             <span className="text-primary">Previous</span>
           </div>
-          <Button
+          {/* <Button
             type="primary"
             className={`${_classes["button-background-color"]}`}
             onClick={(e) => {
@@ -331,7 +333,7 @@ function AppointmentModalFooter({
             loading={localStripeLoading || createCardFetching}
           >
             Pay ${totalAppointmentCharges}
-          </Button>
+          </Button> */}
         </div>
       )}
 

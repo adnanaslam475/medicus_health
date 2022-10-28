@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Appointment, AppointmentPriceResponse } from "../../../../../generated/graphql";
 import AppointmentReschedule from "../AppointmentReschedule/AppointmentReschedule";
 import AppointmentSuccess from "../AppointmentSuccess/AppointmentSuccess";
@@ -9,13 +9,16 @@ type Props = {
   stepName: string;
   appointmentId: number | undefined;
   appointmentDetails: Appointment;
-  appointmentCharges:AppointmentPriceResponse
+  appointmentCharges: AppointmentPriceResponse;
+  onPrevious?: () => void;
+
 };
 
 const CurrentStepContent = React.forwardRef(function CurrentStepContent(
-  { stepName, appointmentId, appointmentDetails,appointmentCharges }: Props,
+  { stepName, appointmentId, appointmentDetails, appointmentCharges, onPrevious,  }: Props,
   ref: any
 ) {
+
   switch (stepName) {
     case "stepOne":
       return (
@@ -26,9 +29,9 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
         />
       );
     case "stepTwo":
-      return <MakePayment />;
+      return <MakePayment  />;
     case "stepThree":
-      return <MakePaymentMore />;
+      return <MakePaymentMore onPrevious={onPrevious}/>;
     case "stepFour":
       return <AppointmentSuccess />;
 
