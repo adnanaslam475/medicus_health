@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { OperationContext } from "urql";
 import { Appointment, AppointmentPriceResponse } from "../../../../../generated/graphql";
 import AppointmentReschedule from "../AppointmentReschedule/AppointmentReschedule";
 import AppointmentSuccess from "../AppointmentSuccess/AppointmentSuccess";
@@ -11,11 +12,12 @@ type Props = {
   appointmentDetails: Appointment;
   appointmentCharges: AppointmentPriceResponse;
   onPrevious?: () => void;
+  setSelectedCardId?: React.Dispatch<React.SetStateAction<undefined | number>>
 
 };
 
 const CurrentStepContent = React.forwardRef(function CurrentStepContent(
-  { stepName, appointmentId, appointmentDetails, appointmentCharges, onPrevious,  }: Props,
+  { stepName, appointmentId, appointmentDetails, appointmentCharges, onPrevious, setSelectedCardId }: Props,
   ref: any
 ) {
 
@@ -29,9 +31,9 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
         />
       );
     case "stepTwo":
-      return <MakePayment  />;
+      return <MakePayment setSelectedCardId={setSelectedCardId} appointmentId={appointmentId as number} />;
     case "stepThree":
-      return <MakePaymentMore onPrevious={onPrevious}/>;
+      return <MakePaymentMore onPrevious={onPrevious} />;
     case "stepFour":
       return <AppointmentSuccess />;
 
