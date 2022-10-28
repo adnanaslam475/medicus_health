@@ -660,8 +660,8 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
           onClick={() =>
             Router.push(
               getRole() === "User"
-                ? `/patient/appointments/${appointmentData?.id}/call`
-                : `/physician/appointments/${appointmentData?.id}/call`
+                ? `/patient/appointments/${appointmentData?.id}/call` : getRole() === "Doctor" ?
+                  `/physician/appointments/${appointmentData?.id}/call` : `/admin/appointments/${appointmentData?.id}/call`
             )
           }
           disabled={disabled}
