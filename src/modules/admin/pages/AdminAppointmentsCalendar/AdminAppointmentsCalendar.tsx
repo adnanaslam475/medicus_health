@@ -8,7 +8,7 @@ import {
 import CalendarModalComponent from "../../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
 import Router from "next/router";
-import { getCurrentUserTimeZone } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
 import dayjs from "dayjs";
 
 type events = {

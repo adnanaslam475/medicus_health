@@ -20,6 +20,7 @@ import AdminPatientAppointmentSearchFilters from "./AdminPatientAppointmentSearc
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { date } from "common/utils";
 import { tableFooter } from "utils/helper";
+import { currencyFormatter } from "common/utils/date";
 
 type StatusName =
   | "UPCOMING"
@@ -100,7 +101,7 @@ const columns = [
     key: "appointmentCharges",
     sorter: true,
     render: (appointmentCharges: AppointmentPriceResponse) => {
-      return <div>${appointmentCharges?.total}</div>;
+      return <div>{appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "--"}</div>;
     },
   },
   {
@@ -198,16 +199,14 @@ function AdminPatientAppointmentList() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${
-            (sorter.columnKey === "name" && "appointment_service_type") ||
-            (/(status|charges)/.test(sorter.columnKey) && "appointment") ||
-            (sorter.columnKey === "appointment_time_slots" &&
-              "appointment_time_slots") ||
-            (/first_name/.test(sorter.columnKey) && "user")
-          }.${
-            (sorter.columnKey === "appointment_time_slots" && "startTime") ||
-            sorter.columnKey
-          }`
+        ? `${(sorter.columnKey === "name" && "appointment_service_type") ||
+        (/(status|charges)/.test(sorter.columnKey) && "appointment") ||
+        (sorter.columnKey === "appointment_time_slots" &&
+          "appointment_time_slots") ||
+        (/first_name/.test(sorter.columnKey) && "user")
+        }.${(sorter.columnKey === "appointment_time_slots" && "startTime") ||
+        sorter.columnKey
+        }`
         : "",
     });
   };

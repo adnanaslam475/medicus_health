@@ -35,6 +35,7 @@ import {
   useProposeNewTimeMutation,
 } from "generated/graphql";
 import {
+  currencyFormatter,
   formatMMMM_Dcoma_YYYY,
   getCurrentUserTimeZone,
   getDayJsObject,
@@ -237,7 +238,7 @@ function DoctorAppointmentInfo({ data }: Props) {
         />
         <LabelWithText
           label="Total amount"
-          text={appointmentCharges ? `$${appointmentCharges?.total}` : "-"}
+          text={appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "-"}
         />
         {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
@@ -869,7 +870,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  ${serviceInfo?.price || ""}
+                  {serviceInfo?.price ? currencyFormatter(serviceInfo?.price) : "-"}
                 </div>
               </Form.Item>
             </div>

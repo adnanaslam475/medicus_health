@@ -12,7 +12,7 @@ import {
 } from "generated/graphql";
 import StatusChip from "../StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
-import { getCurrentUserTimeZone } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
 import { tableFooter } from "utils/helper";
 
 const timeZone = getCurrentUserTimeZone();
@@ -41,11 +41,10 @@ const historyColumns = [
     key: "first_name",
     sorter: true,
     render: (doctor: User) => {
-      let formatedDoctorFirstName = `${
-        doctor?.first_name?.includes("Dr.")
+      let formatedDoctorFirstName = `${doctor?.first_name?.includes("Dr.")
           ? doctor?.first_name
           : `Dr. ${doctor?.first_name}`
-      }`;
+        }`;
       return (
         <div className="capitalize">{`${formatedDoctorFirstName} ${doctor.last_name}`}</div>
       );
@@ -73,9 +72,9 @@ const historyColumns = [
         <div>
           {appointmentDateTime?.startTime
             ? `${date?.formatDAYMMDDYY(
-                appointmentDateTime?.startTime,
-                timeZone
-              )} `
+              appointmentDateTime?.startTime,
+              timeZone
+            )} `
             : "--"}
         </div>
       );
@@ -91,9 +90,9 @@ const historyColumns = [
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
             ? `${date.formathhmma(
-                appointmentDateTime?.startTime,
-                timeZone
-              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
+              appointmentDateTime?.startTime,
+              timeZone
+            )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
             : "--"}
         </div>
       );
@@ -105,7 +104,7 @@ const historyColumns = [
     key: "amountReceived",
     sorter: true,
     render: (transaction: Transaction) => {
-      return <div>{`$${transaction?.amountReceived || "-"}`}</div>;
+      return <div>{transaction?.amountReceived ? currencyFormatter(transaction?.amountReceived) : "-"}</div>;
     },
   },
   {
@@ -115,11 +114,10 @@ const historyColumns = [
     sorter: true,
     render: (transaction: Transaction) => {
       return (
-        <div>{`${
-          transaction?.createdAt
+        <div>{`${transaction?.createdAt
             ? date?.formatDAYMMDDYY(transaction?.createdAt, timeZone)
             : "--"
-        }`}</div>
+          }`}</div>
       );
     },
   },

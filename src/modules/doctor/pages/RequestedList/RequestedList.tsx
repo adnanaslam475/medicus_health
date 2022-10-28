@@ -11,7 +11,7 @@ import {
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
-import { getCurrentUserTimeZone } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
 import { tableFooter } from "utils/helper";
 
 const timeZone = getCurrentUserTimeZone();
@@ -127,7 +127,7 @@ const Columns = [
     key: "charges",
     sorter: true,
     render: (value: any) => {
-      return <div className="someclass">{value ? `$${value?.total}` : ""}</div>;
+      return <div className="someclass">{value?.total ? currencyFormatter(value?.total) : "-"}</div>;
     },
   },
   {

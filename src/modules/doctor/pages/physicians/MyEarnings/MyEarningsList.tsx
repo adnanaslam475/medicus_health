@@ -136,7 +136,7 @@ const Columns = [
     render: (text: any, row: any) => {
       return (
         <div className="someclass">
-          {`${row?.status === "Refunded" ? row?.doctor_percentage : 0}`}
+          {`${row?.status === "Refunded" && row?.doctor_percentage ? currencyFormatter(row?.doctor_percentage) : 0}`}
         </div>
       );
     },

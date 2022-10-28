@@ -12,6 +12,7 @@ import {
 } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 import { date } from "common/utils";
+import { currencyFormatter } from "common/utils/date";
 
 function PhysicianPayoutReportListing() {
   const { Panel } = Collapse;
@@ -77,7 +78,7 @@ function PhysicianPayoutReportListing() {
       key: "refund",
       render: (transaction: Transaction) => {
         const refundAmount = transaction?.appointmentCharges || "0";
-        return <div>${refundAmount}</div>;
+        return <div>{refundAmount >0 ? currencyFormatter(Number(refundAmount)) : "$0"}</div>;
       },
     },
     {
@@ -86,7 +87,7 @@ function PhysicianPayoutReportListing() {
       key: "netPhysicianFee",
       render: (transaction: Transaction) => {
         const physicianFee = transaction?.doctor_percentage || "0";
-        return <div>${physicianFee}</div>;
+        return <div>{currencyFormatter(Number(physicianFee))}</div>;
       },
     },
   ];

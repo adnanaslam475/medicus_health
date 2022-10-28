@@ -1,4 +1,5 @@
 import Spin from "antd/lib/spin";
+import { currencyFormatter } from "common/utils/date";
 import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 import React from "react";
 
@@ -13,7 +14,7 @@ function ConsultationRates() {
 			<p className="py-2">
 				The appointment charges are set by the medicus administrator.
 			</p>
-      {/* // for loader */}
+			{/* // for loader */}
 			{/* {fetching == false ? (
 				servicesWithPrice?.map(({ name, price },id) => {
 					return (
@@ -28,16 +29,16 @@ function ConsultationRates() {
 			) : (
 				<Spin />
 			)} */}
-      	{servicesWithPrice?.map(({ name, price },id) => {
-					return (
-						<div className="my-5" key={id}>
-							<h5 className="text-sm">{name}</h5>
-							<div className="bg-gray-4 rounded p-4 max-w-[200px]">
-								<p className="pb-0 mb-0 text-md">{`$${price}`}</p>
-							</div>
+			{servicesWithPrice?.map(({ name, price }, id) => {
+				return (
+					<div className="my-5" key={id}>
+						<h5 className="text-sm">{name}</h5>
+						<div className="bg-gray-4 rounded p-4 max-w-[200px]">
+							<p className="pb-0 mb-0 text-md">{currencyFormatter(price || 0)}</p>
 						</div>
-					);
-				})}
+					</div>
+				);
+			})}
 		</div>
 	);
 }
