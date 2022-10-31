@@ -9,6 +9,7 @@ import _Classes from "./MakePayment.module.scss";
 import { useGetAllCardsQuery } from "../../../../../generated/graphql";
 import { getUserData } from "../../../../../common/utils/userData";
 import { useAppointmentModal } from "../AppointmentModalProvider";
+import { OperationContext } from "urql";
 
 const CARD_TYPE = {
   ["visa" as string]: visa,
@@ -16,7 +17,12 @@ const CARD_TYPE = {
   ["american express" as string]: americanexpress,
 };
 
-function MakePayment() {
+type Props = {
+  setSelectedCardId?: React.Dispatch<React.SetStateAction<undefined | number>>,
+  appointmentId?: number;
+}
+function MakePayment(props: Props) {
+  const { setSelectedCardId, appointmentId } = props || {}
   // GET ALL CARDS API CALL
   const { saveStepTwo } = useAppointmentModal();
   const [value, setValue] = useState(0);
@@ -31,7 +37,10 @@ function MakePayment() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allCardsData?.getAllCards]);
-
+  
+  useEffect(() => {
+    setSelectedCardId?.(value)
+  }, [value])
   return (
     <>
       <h2>Make payment</h2>

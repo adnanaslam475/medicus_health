@@ -405,6 +405,8 @@ export type CreatePaymentInput = {
   card_digits: Scalars['Float'];
   card_holder_name?: InputMaybe<Scalars['String']>;
   card_type: Scalars['String'];
+  country?: InputMaybe<Scalars['String']>;
+  currency?: InputMaybe<Scalars['String']>;
   exp_month: Scalars['String'];
   exp_year: Scalars['String'];
   is_default: Scalars['Boolean'];
@@ -1378,6 +1380,7 @@ export type QueryGetAllChatChannelsArgs = {
 
 
 export type QueryGetAppointmentPriceArgs = {
+  cardId?: InputMaybe<Scalars['Int']>;
   id: Scalars['Int'];
 };
 
@@ -1773,6 +1776,8 @@ export type UserCard = {
   card_holder_name?: Maybe<Scalars['String']>;
   card_id: Scalars['String'];
   card_type: Scalars['String'];
+  country: Scalars['String'];
+  currency: Scalars['String'];
   deletedAt: Scalars['DateTime'];
   exp_month: Scalars['String'];
   exp_year: Scalars['String'];
@@ -2274,6 +2279,7 @@ export type GetAppointmentPriceForRequestQuery = { __typename?: 'Query', getAppo
 
 export type GetAppointmentPriceQueryVariables = Exact<{
   id: Scalars['Int'];
+  cardId?: InputMaybe<Scalars['Int']>;
 }>;
 
 
@@ -3934,8 +3940,8 @@ export function useGetAppointmentPriceForRequestQuery(options: Omit<Urql.UseQuer
   return Urql.useQuery<GetAppointmentPriceForRequestQuery, GetAppointmentPriceForRequestQueryVariables>({ query: GetAppointmentPriceForRequestDocument, ...options });
 };
 export const GetAppointmentPriceDocument = gql`
-    query getAppointmentPrice($id: Int!) {
-  getAppointmentPrice(id: $id) {
+    query getAppointmentPrice($id: Int!, $cardId: Int) {
+  getAppointmentPrice(id: $id, cardId: $cardId) {
     appointmentPrice
     tax
     systemFee
@@ -10442,6 +10448,13 @@ export default {
             },
             "args": [
               {
+                "name": "cardId",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
                 "name": "id",
                 "type": {
                   "kind": "NON_NULL",
@@ -11986,6 +11999,28 @@ export default {
           },
           {
             "name": "card_type",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "country",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "currency",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
