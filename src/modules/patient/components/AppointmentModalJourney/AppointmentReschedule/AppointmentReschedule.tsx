@@ -61,9 +61,8 @@ function AppointmentReschedule(props: Props) {
   }, [charges, appointmentDetails, appointmentTimeSlots]);
 
   const { appointmentPrice, systemFee, tax, total } = appointmentCharges;
-  let formatedDoctorName = `${
-    doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`
-  }`;
+  let formatedDoctorName = `${doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`
+    }`;
   const timeZone = getCurrentUserTimeZone();
 
   return (
@@ -93,7 +92,7 @@ function AppointmentReschedule(props: Props) {
             </div>
 
             <div className="flex justify-between ">
-              <span>Processing fee</span>
+              <span>Processing fee *</span>
               <span>${addDecimaltoAmount(systemFee as any) || "0"}</span>
             </div>
             <div className="flex justify-between font-semibold pt-2">
@@ -135,8 +134,9 @@ function AppointmentReschedule(props: Props) {
       <p className="text-red text-center">
         {isRescheduledAppointment
           ? "Payment has already been submitted and processed."
-          : " Processing fee is not refundable in the event you cancel your appointment."}
+          : "* Processing fee is not refundable in the event you cancel your appointment."}
       </p>
+      {!isRescheduledAppointment && <p className="text-red">* Current amount shown is an estimate and will be updated upon finalization of transaction.</p>}
     </div>
   );
 }
