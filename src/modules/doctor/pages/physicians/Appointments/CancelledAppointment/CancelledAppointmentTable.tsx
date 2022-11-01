@@ -13,7 +13,7 @@ import { date } from "common/utils";
 // import { getUserData } from "common/utils/userData";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
-import { getCurrentUserTimeZone } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
 import { tableFooter } from "utils/helper";
 
 type Props = {
@@ -70,9 +70,8 @@ function CancelledAppointmentTable({
       key: "requestedDate",
       sorter: true,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
-        let formatedDueDate = `${
-          appointmentDateTime?.startTime?.split(" ")[0]
-        }`;
+        let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]
+          }`;
 
         return (
           <div className="someclass">
@@ -108,15 +107,14 @@ function CancelledAppointmentTable({
     },
     {
       title: "Total amount",
-      dataIndex: "transaction",
+      // dataIndex: "transaction",
       key: "charges",
       sorter: true,
-      render: (transaction: Transaction) => {
+      render: (value: Appointment) => {
+        const charges = value?.transaction?.amountReceived || value?.appointmentCharges?.total || 0
         return (
           <div>
-            {transaction?.amountReceived
-              ? `$${transaction?.amountReceived}`
-              : "--"}
+            {currencyFormatter(charges)}
           </div>
         );
       },
@@ -183,7 +181,7 @@ function CancelledAppointmentTable({
       loading={loading}
       onChange={onChange}
       scroll={{ x: true }}
-      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
+      footer={(currentPageCount) => tableFooter(currentPageCount?.length, meta?.totalItems)}
       pagination={{
         total: meta?.totalPages * pagination.limit,
         current: meta?.currentPage,

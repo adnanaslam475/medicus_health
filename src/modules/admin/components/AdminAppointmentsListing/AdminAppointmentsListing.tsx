@@ -23,6 +23,7 @@ import BookAppointmentJourney from "common/components/BookAppointmentJourney/Boo
 import { StatusName } from "common/types/types";
 import { isChrome, tableFooter } from "utils/helper";
 import _classes from "./AdminAppointmentsListing.module.scss"
+import { currencyFormatter } from "common/utils/date";
 
 const appointmentColumns = [
   {
@@ -171,7 +172,7 @@ const appointmentColumns = [
     key: "appointmentCharges",
     sorter: true,
     render: (appointmentCharges: AppointmentPriceResponse) => (
-      <div>{`$${appointmentCharges?.total}`}</div>
+      <div>{appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "-"}</div>
     ),
   },
   {

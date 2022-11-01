@@ -11,6 +11,7 @@ import {
 } from "@stripe/stripe-js";
 import { Button, notification, Tooltip } from "antd";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
+import { currencyFormatter } from "common/utils/date";
 import { getUserData } from "common/utils/userData";
 import { GraphQLError } from "graphql";
 import Router from "next/router";
@@ -310,7 +311,7 @@ function AppointmentModalFooter({
               disabled={!contextData.stepTwo?.cardId}
               loading={paymentFetching}
             >
-              Pay ${totalAppointmentCharges}
+              Pay {currencyFormatter(totalAppointmentCharges || 0)}
             </Button>
           </Tooltip>
         </div>

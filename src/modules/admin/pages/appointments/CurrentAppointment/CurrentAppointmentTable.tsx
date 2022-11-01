@@ -10,6 +10,7 @@ import React from "react";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import { date } from "common/utils";
+import { currencyFormatter } from "common/utils/date";
 
 type Props = {
   dataSource: Appointment[] | undefined;
@@ -83,7 +84,7 @@ function CurrentAppointmentTable({ dataSource, loading }: Props) {
       dataIndex: "charges",
       key: "charges",
       render: (value: number) => {
-        return <div className="someclass">{value ? `$ ${value}` : ""}</div>;
+        return <div className="someclass">{value ? currencyFormatter(value) : "-"}</div>;
       },
     },
     {

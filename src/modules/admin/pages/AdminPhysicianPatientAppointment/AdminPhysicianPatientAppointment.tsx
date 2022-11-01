@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import { date } from "common/utils";
 import { StatusName } from "common/types/types";
 import { tableFooter } from "utils/helper";
+import { currencyFormatter } from "common/utils/date";
 
 function AdminPhysicianList() {
   const { query } = useRouter();
@@ -135,8 +136,8 @@ function AdminPhysicianList() {
           <div>
             {appointmentDateTime?.startTime && appointmentDateTime?.endTime
               ? `${date?.formathhmma(
-                  appointmentDateTime?.startTime
-                )} - ${date?.formathhmma(appointmentDateTime.endTime)}`
+                appointmentDateTime?.startTime
+              )} - ${date?.formathhmma(appointmentDateTime.endTime)}`
               : "--"}
           </div>
         );
@@ -148,7 +149,7 @@ function AdminPhysicianList() {
       dataIndex: "appointmentCharges",
       key: "appointmentCharges",
       render: (appointmentCharges: AppointmentPriceResponse) => {
-        return <div>${appointmentCharges?.total}</div>;
+        return <div>{appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "--"}</div>;
       },
       sorter: true,
     },

@@ -77,6 +77,9 @@ function AdminAppointmentFilter({ onChange, filterValues }: Props) {
     if (!filters.serviceId) {
       delete filters.serviceId;
     }
+    if(filters.status){
+      filters.status2 = filters.status
+    }
 
     if (!filters.status) {
       delete filters.status;

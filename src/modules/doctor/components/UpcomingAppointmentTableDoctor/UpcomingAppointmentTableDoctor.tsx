@@ -14,7 +14,7 @@ import { date } from "common/utils";
 import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
-import { getCurrentUserTimeZone } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
 import { tableFooter } from "utils/helper";
 
 const timeZone = getCurrentUserTimeZone();
@@ -61,16 +61,15 @@ const columns = [
     key: "requestedDate",
     sorter: true,
     render: (value: any) => {
-      let formatedDueDate = `${
-        value?.appointmentDateTime?.startTime?.split(" ")[0]
-      }`;
+      let formatedDueDate = `${value?.appointmentDateTime?.startTime?.split(" ")[0]
+        }`;
       return (
         <div>
           {value?.appointmentDateTime?.startTime
             ? `${date?.formatDAYMMDDYY(
-                value?.appointmentDateTime?.startTime,
-                value?.doctor?.timeZone?.timeZone
-              )} `
+              value?.appointmentDateTime?.startTime,
+              value?.doctor?.timeZone?.timeZone
+            )} `
             : "--"}
         </div>
       );
@@ -86,9 +85,9 @@ const columns = [
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
             ? `${date.formathhmma(
-                appointmentDateTime?.startTime,
-                timeZone
-              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
+              appointmentDateTime?.startTime,
+              timeZone
+            )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
             : "--"}
         </div>
       );
@@ -99,7 +98,7 @@ const columns = [
     dataIndex: "transaction",
     key: "amountReceived",
     render: (transaction: Transaction) => {
-      return <div>${transaction?.amountReceived || "0"}</div>;
+      return <div>{transaction?.amountReceived ? currencyFormatter(transaction?.amountReceived) : "$0"}</div>;
     },
     sorter: true,
   },

@@ -11,6 +11,7 @@ import {
 } from "generated/graphql";
 import { date } from "../../utils";
 import { tableFooter } from "utils/helper";
+import { currencyFormatter } from "common/utils/date";
 
 type Props = {
   data?: Appointment[] | undefined;
@@ -101,7 +102,7 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       render: (value: Transaction) => {
         return (
           <div>
-            {value?.amountReceived ? "$" + value?.amountReceived : "--"}
+            {value?.amountReceived? currencyFormatter(value?.amountReceived) : "--"}
           </div>
         );
       },
