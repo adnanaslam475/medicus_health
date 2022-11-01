@@ -11,6 +11,7 @@ import {
 } from "@stripe/stripe-js";
 import { Button, notification, Tooltip } from "antd";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
+import { currencyFormatter } from "common/utils/date";
 import { getUserData } from "common/utils/userData";
 import { GraphQLError } from "graphql";
 import Router from "next/router";
@@ -73,7 +74,7 @@ function AppointmentModalFooter({
   const stripe = useStripe();
   const elements = useElements();
 
-  const [{}, executeGetAppointmentsReminderBannerQuery] =
+  const [{ }, executeGetAppointmentsReminderBannerQuery] =
     useGetAppointmentsReminderBannerQuery();
 
   // GET ALL CARDS API CALL
@@ -213,6 +214,8 @@ function AppointmentModalFooter({
           exp_month: String(source?.card?.exp_month),
           exp_year: String(source?.card?.exp_year),
           card_holder_name: "",
+          currency: String(source?.currency),
+          country: String(source?.card?.country)
         },
       });
 
@@ -308,7 +311,7 @@ function AppointmentModalFooter({
               disabled={!contextData.stepTwo?.cardId}
               loading={paymentFetching}
             >
-              Pay ${totalAppointmentCharges}
+              Pay {currencyFormatter(totalAppointmentCharges || 0)}
             </Button>
           </Tooltip>
         </div>
@@ -322,7 +325,7 @@ function AppointmentModalFooter({
             <LeftOutlined className={`${_classes["icon-color"]}`} />
             <span className="text-primary">Previous</span>
           </div>
-          <Button
+          {/* <Button
             type="primary"
             className={`${_classes["button-background-color"]}`}
             onClick={(e) => {
@@ -331,7 +334,7 @@ function AppointmentModalFooter({
             loading={localStripeLoading || createCardFetching}
           >
             Pay ${totalAppointmentCharges}
-          </Button>
+          </Button> */}
         </div>
       )}
 

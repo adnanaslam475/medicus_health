@@ -11,6 +11,7 @@ import {
 import { date } from "../../utils";
 import Router from "next/router";
 import {
+  currencyFormatter,
   getCurrentUserTimeZone,
   isAppointmentTimeValid,
 } from "common/utils/date";
@@ -66,11 +67,10 @@ function AppointmentInfo(props: Props) {
     isAppointmentTimeValid(selectedAppointment, disabled, setDisabled);
   }, [selectedAppointment, disabled]);
 
-  let formatedDoctorFirstName = `${
-    doctorFirstName?.includes("Dr.")
+  let formatedDoctorFirstName = `${doctorFirstName?.includes("Dr.")
       ? doctorFirstName
       : `Dr. ${doctorFirstName}`
-  }`;
+    }`;
 
   const doctorProfilePic =
     appoinmentDetails?.appointment?.doctor?.doctorProfile?.profile_image;
@@ -93,21 +93,21 @@ function AppointmentInfo(props: Props) {
     getRole() === "User"
       ? formatedDoctorFirstName
       : getRole() === "Doctor"
-      ? patientFirstName
-      : "";
+        ? patientFirstName
+        : "";
   const lastName =
     getRole() === "User"
       ? doctorLastName
       : getRole() === "Doctor"
-      ? patientLastName
-      : "";
+        ? patientLastName
+        : "";
   const serviceName = getRole() === "User" ? doctorSpecialization : "";
   const profilePic =
     getRole() === "User"
       ? doctorProfilePic
       : getRole() === "Doctor"
-      ? patientProfilePic
-      : "";
+        ? patientProfilePic
+        : "";
 
   const isPendingAppointment = [
     "Requested",
@@ -129,13 +129,13 @@ function AppointmentInfo(props: Props) {
         name={`${firstName} ${lastName}`}
         serviceName={`${serviceName}`}
         imageUrl={profilePic}
-        // name={
-        //   isRoleGuard
-        //     ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`
-        //     : ""
-        // }
-        // serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
-        // imageUrl={isRoleGuard ? doctorProfilePic : null}
+      // name={
+      //   isRoleGuard
+      //     ? `${formatedDoctorFirstName} ${last_name?.toLocaleLowerCase()}`
+      //     : ""
+      // }
+      // serviceName={isRoleGuard ? `${doctorSpecialization}` : null}
+      // imageUrl={isRoleGuard ? doctorProfilePic : null}
       >
         <div className="inline-flex flex-wrap mb-3 mt-6 gap-y-2">
           <Button
@@ -228,7 +228,7 @@ function AppointmentInfo(props: Props) {
             value={
               (appointment?.appointmentDateTime?.startTime &&
                 status === "Completed") ||
-              status === "Confirmed"
+                status === "Confirmed"
                 ? `${formatedDueDate}`
                 : date.formatMMMMDDYYYY(requestedDate, timeZone)
             }
@@ -243,26 +243,26 @@ function AppointmentInfo(props: Props) {
             value={
               selectedAppointment?.startTime
                 ? `${date?.formathhmma(
-                    selectedAppointment?.startTime,
-                    timeZone
-                  )} - ${date?.formathhmma(
-                    selectedAppointment?.endTime,
-                    timeZone
-                  )}`
+                  selectedAppointment?.startTime,
+                  timeZone
+                )} - ${date?.formathhmma(
+                  selectedAppointment?.endTime,
+                  timeZone
+                )}`
                 : appointment?.appointmentDateTime?.startTime
-                ? `${date.formathhmma(
+                  ? `${date.formathhmma(
                     String(appointment?.appointmentDateTime?.startTime),
                     timeZone
                   )} - ${date.formathhmma(
                     String(appointment?.appointmentDateTime?.endTime),
                     timeZone
                   )}`
-                : "--"
+                  : "--"
             }
           />
           <LabelValueRow
             label="Total amount"
-            value={appointmentCharges ? `$${appointmentCharges?.total}` : "-"}
+            value={appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "-"}
           />
 
           <li className="flex border-b border-gray-5 py-3">

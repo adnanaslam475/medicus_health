@@ -26,7 +26,7 @@ import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationM
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import RescheduleAppointmentModal from "common/components/RescheduleAppointment/RescheduleAppointment";
-import { isAppointmentTimeValid } from "common/utils/date";
+import { currencyFormatter, isAppointmentTimeValid } from "common/utils/date";
 import Image from "next/image";
 import { getRole } from "common/utils/userData";
 import Input from "antd/lib/input/Input";
@@ -53,6 +53,7 @@ type Props = {
     paymentStatus: string;
     status: string;
     appointmentTypeProposed: AppointmentTypeProposedResponse | null | undefined;
+    createdAt?: string
   };
   adminApp_Details?: DoctorData;
   onCancelRequestedAppointment?: () => void;
@@ -89,10 +90,10 @@ function AdminAppointmentInfo({
     paymentStatus = "unpaid",
     status,
     appointmentTypeProposed,
+    createdAt
   } = data || {};
   const [{ fetching: cancelFetching }, executeCancelRequestedAppointment] =
     useCancelAppointmentByDoctorMutation();
-
   const [
     { data: appointmentServiceType },
     executeUseGetAllAppointmentServiceTypesQuery,
@@ -265,7 +266,7 @@ function AdminAppointmentInfo({
               //   ? "Requested date"
               //   : "Appointment date"
             }
-            text={`${date.formatDAYMMDDYY(String(bookingDate))}`}
+            text={createdAt ? `${date.formatDAYMMDDYY(String(createdAt))}` : "-"}
           />
           <LabelWithText
             label="Booking date and time"
@@ -285,7 +286,7 @@ function AdminAppointmentInfo({
                     className="max-w-[230px]"
                   >
                     <Input
-                      defaultValue={totalAmount}
+                      defaultValue={totalAmount ? currencyFormatter(Number(totalAmount)) : "-"}
                       placeholder="Total amount"
                       className="w-full"
                     />
@@ -309,7 +310,7 @@ function AdminAppointmentInfo({
           ) : (
             <LabelWithText
               label="Total amount"
-              text={totalAmount ? `$${totalAmount}` : "-"}
+              text={totalAmount ? currencyFormatter(Number(totalAmount)) : "-"}
             />
           )}
 
@@ -414,7 +415,7 @@ function AdminAppointmentInfo({
           <AdminAppointmentConfirmedInfoFooter
             adminApp_Details={adminApp_Details}
             onCancelRequestedAppointment={onCancelRequestedAppointment}
-            appointmentData={appointmentData as any}
+            appointmentData={appointmentData || data as any}
             cancelFetching={cancelFetching}
           />
         )}
@@ -659,8 +660,8 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
           onClick={() =>
             Router.push(
               getRole() === "User"
-                ? `/patient/appointments/${appointmentData?.id}/call`
-                : `/physician/appointments/${appointmentData?.id}/call`
+                ? `/patient/appointments/${appointmentData?.id}/call` : getRole() === "Doctor" ?
+                  `/physician/appointments/${appointmentData?.id}/call` : `/admin/appointments/${appointmentData?.id}/call`
             )
           }
           disabled={disabled}

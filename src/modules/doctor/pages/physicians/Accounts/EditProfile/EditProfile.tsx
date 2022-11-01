@@ -423,7 +423,7 @@ function EditProfile({
     try {
       const url = await s3.uploadFile(info.file.originFileObj as File);
       setImage(url?.location);
-    } catch (error) { }
+    } catch (error) {}
     if (error) {
       notification.error({
         message: error?.graphQLErrors[0]?.message || "Something went wrong",
@@ -690,8 +690,9 @@ function EditProfile({
             </Upload>
             <div>
               <h2 className="mb-0">
-                {`${doctor_first_name && doctor_first_name} ${doctor_last_name && doctor_last_name
-                  }`}
+                {`${doctor_first_name && doctor_first_name} ${
+                  doctor_last_name && doctor_last_name
+                }`}
               </h2>
 
               {getRole() === "Admin" && (
@@ -700,7 +701,7 @@ function EditProfile({
                     type="link"
                     danger
                     onClick={() => setOpen(true)}
-                    className={`${isChrome && 'antCustomBtn'}`}
+                    className={`${isChrome && "antCustomBtn"}`}
                     // disabled={deleting}
                     // loading={deleting || disableLoading}
                     icon={
@@ -722,7 +723,9 @@ function EditProfile({
                     >
                       <Button
                         type="primary"
-                        className={`${_classes["published-button"]} ${isChrome && 'antCustomBtn'}`}
+                        className={`${_classes["published-button"]} ${
+                          isChrome && "antCustomBtn"
+                        }`}
                         onClick={handlePublish_Unpublish}
                         disabled={doctorData ? false : true}
                       >
@@ -901,12 +904,14 @@ function EditProfile({
                   className="flex-1"
                   label={"Country"}
                   name="country_id"
-                  rules={[
-                    {
-                      required: true,
-                      message: "country_message",
-                    },
-                  ]}
+                  //   rules={
+                  //   //   [
+                  //   //   {
+                  //   //     // required: true,
+                  //   //     // message: "Please enter your country",
+                  //   //   },
+                  //   // ]
+                  // }
                 >
                   <Select
                     showSearch
@@ -1170,7 +1175,10 @@ function EditProfile({
                         />
                       </Form.Item>
                       {certificationList?.length - 1 === index && (
-                        <Button onClick={() => addNewField("certification")} className={`${isChrome && 'antCustomBtn'}`}>
+                        <Button
+                          onClick={() => addNewField("certification")}
+                          className={`${isChrome && "antCustomBtn"}`}
+                        >
                           Add new field
                         </Button>
                       )}
@@ -1179,7 +1187,7 @@ function EditProfile({
                         <Button
                           danger
                           onClick={() => removeField("certification", index)}
-                          className={`${isChrome && 'antCustomBtn'}`}
+                          className={`${isChrome && "antCustomBtn"}`}
                         >
                           Remove field
                         </Button>
@@ -1226,7 +1234,10 @@ function EditProfile({
                         />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
-                        <Button onClick={() => addNewField("clinic")} className={`${isChrome && 'antCustomBtn'}`}>
+                        <Button
+                          onClick={() => addNewField("clinic")}
+                          className={`${isChrome && "antCustomBtn"}`}
+                        >
                           Add new field
                         </Button>
                       )}
@@ -1235,7 +1246,7 @@ function EditProfile({
                         <Button
                           danger
                           onClick={() => removeField("clinic", index)}
-                          className={`${isChrome && 'antCustomBtn'}`}
+                          className={`${isChrome && "antCustomBtn"}`}
                         >
                           Remove field
                         </Button>
@@ -1288,7 +1299,10 @@ function EditProfile({
                         />
                       </Form.Item>
                       {educationList?.length - 1 === index && (
-                        <Button onClick={() => addNewField("education")} className={`${isChrome && 'antCustomBtn'}`}>
+                        <Button
+                          onClick={() => addNewField("education")}
+                          className={`${isChrome && "antCustomBtn"}`}
+                        >
                           Add new field
                         </Button>
                       )}
@@ -1297,7 +1311,7 @@ function EditProfile({
                         <Button
                           danger
                           onClick={() => removeField("education", index)}
-                          className={`${isChrome && 'antCustomBtn'}`}
+                          className={`${isChrome && "antCustomBtn"}`}
                         >
                           Remove field
                         </Button>
@@ -1324,7 +1338,10 @@ function EditProfile({
                         />
                       </Form.Item>
                       {honorsList?.length - 1 === index && (
-                        <Button onClick={() => addNewField("honors")} className={`${isChrome && 'antCustomBtn'}`}>
+                        <Button
+                          onClick={() => addNewField("honors")}
+                          className={`${isChrome && "antCustomBtn"}`}
+                        >
                           Add new field
                         </Button>
                       )}
@@ -1333,7 +1350,7 @@ function EditProfile({
                         <Button
                           danger
                           onClick={() => removeField("honors", index)}
-                          className={`${isChrome && 'antCustomBtn'}`}
+                          className={`${isChrome && "antCustomBtn"}`}
                         >
                           Remove field
                         </Button>
@@ -1345,7 +1362,11 @@ function EditProfile({
 
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
-                  <Button type="default" onClick={() => setIsEdit(false)} className={`${isChrome && 'antCustomBtn'}`}>
+                  <Button
+                    type="default"
+                    onClick={() => setIsEdit(false)}
+                    className={`${isChrome && "antCustomBtn"}`}
+                  >
                     Close
                   </Button>
                   <Button
@@ -1353,7 +1374,7 @@ function EditProfile({
                     htmlType="submit"
                     loading={fetching}
                     disabled={fetching}
-                    className={`${isChrome && 'antCustomBtn'}`}
+                    className={`${isChrome && "antCustomBtn"}`}
                   >
                     Save changes
                   </Button>

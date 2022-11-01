@@ -144,12 +144,12 @@ function AppointmentCalendar() {
             enableButton={false}
           />
         </div>
-        <CalendarModalComponent
+        {!!modalVisible && <CalendarModalComponent
           modalVisible={modalVisible}
           closeModal={closeModal}
           data={modalData}
           okText="Edit"
-        />
+        />}
       </div>
     </AppLayout>
   );

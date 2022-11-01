@@ -54,7 +54,7 @@ function AppointmentModalJourney({
 
   async function onRequestAppointment() {
     try {
-    } catch (error) {}
+    } catch (error) { }
   }
 
   // API CALL VIEW SUGGESTED TIME SLOTS
@@ -65,6 +65,7 @@ function AppointmentModalJourney({
 
   const { appointment } = data || {};
   const appointmentPaymentStatus = appointment?.transaction?.status;
+  const [selectedCardId, setSelectedCardId] = useState<number>()
   // const [
   //   { data: rebookAppointmentData, fetching },
   //   executeUseReBookAppointmentMutation,
@@ -88,7 +89,8 @@ function AppointmentModalJourney({
   };
 
   const [{ data: appointmentPriceBreakup }] = useGetAppointmentPriceQuery({
-    variables: { id: Number(appointmentId) },
+    variables: { id: Number(appointmentId), cardId: Number(selectedCardId) },
+    requestPolicy: "network-only",
     pause: !appointmentId,
   });
   const { getAppointmentPrice } = appointmentPriceBreakup || {};
@@ -124,6 +126,8 @@ function AppointmentModalJourney({
                 appointmentDetails={appointment as Appointment}
                 stepName={currentStepName}
                 appointmentCharges={appointmentCharges}
+                onPrevious={() => prev(currentStepName)}
+                setSelectedCardId={setSelectedCardId}
               />
             </div>
 

@@ -11,6 +11,7 @@ import {
   AppointmentDateTimeResponse,
   AppointmentPriceResponse,
   AppointmentServiceType,
+  DateTimeSlots,
   GetAppointmentInput,
   useGetPatientsQuery,
   useGetPhysiciansQuery,
@@ -22,6 +23,7 @@ import BookAppointmentJourney from "common/components/BookAppointmentJourney/Boo
 import { StatusName } from "common/types/types";
 import { isChrome, tableFooter } from "utils/helper";
 import _classes from "./AdminAppointmentsListing.module.scss"
+import { currencyFormatter } from "common/utils/date";
 
 const appointmentColumns = [
   {
@@ -79,17 +81,30 @@ const appointmentColumns = [
   //   },
   // },
   {
-    title: "Appointment date",
-    dataIndex: "appointmentDateTime",
-    key: "startTime",
+    title: "Appointment date ",
+    // dataIndex: "appointmentDateTime",
+    key: "requestedDate",
     sorter: true,
-    render: (appointmentDateTime: AppointmentDateTimeResponse) => {
+    render: (value: Appointment) => {
+      let appointmentDateTime = value?.appointmentDateTime;
+      let status = value?.status;
       let formatedDueDate = date?.formatDAYMMDDYY(
         String(appointmentDateTime?.startTime)
       );
       return (
         <div>
-          {appointmentDateTime?.startTime ? `${formatedDueDate} ` : "-"}
+          {status === "Proposed" || status === "Rescheduled"
+            ? (value?.appointmentTypeProposed?.dateTime.map(
+              (item: DateTimeSlots) => {
+                return (
+                  <li>{`${date.formatDAYMMDDYY(
+                    String(item?.date))}`}</li>
+                );
+              }
+            ) as any)
+            : status === "Requested" && value?.requestedDate
+              ? `${date?.formatMMMMDDYYYY(value?.requestedDate)} `
+              : formatedDueDate}
         </div>
       );
     },
@@ -157,7 +172,7 @@ const appointmentColumns = [
     key: "appointmentCharges",
     sorter: true,
     render: (appointmentCharges: AppointmentPriceResponse) => (
-      <div>{`$${appointmentCharges?.total}`}</div>
+      <div>{appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "-"}</div>
     ),
   },
   {

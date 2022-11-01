@@ -8,12 +8,15 @@ import {
   CalendarOutlined,
   DollarCircleOutlined,
   TeamOutlined,
+  UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
 import EmailNotification from "../EmailNotification/EmailNotification";
 import {
+  Appointment,
   useCreateDoctorScheduleMutation,
+  useDoctorQuestionnaireQuery,
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../generated/graphql";
@@ -21,6 +24,9 @@ import AdminPhysicianPatientAppointmentTab from "./AdminPhysicianPatientAppointm
 import StaffListing from "modules/doctor/pages/staff/StaffListing/StaffListing";
 import AccountsProfile from "modules/doctor/pages/physicians/Accounts/AccountsProfile/AccountsProfile";
 import ConsultationRates from "modules/common/components/ConsultaionRates/ConsultaionRates";
+import AdminHealthQuestionnaireFrom from "../AdminPatientListingDetail/AdminHealthQuestionnaireFromTab";
+import AdminQuestionnaireFormTab from "../AdminAppointmentsDetail/AdminQuestionnaireFormTab";
+import { parseJson } from "common/utils/helper";
 
 const { TabPane } = Tabs;
 
@@ -82,6 +88,16 @@ function ProfileDetail() {
     query?.activeTab && setActiveTab(String(query?.activeTab));
   }, [query]);
 
+  const [{ data: dataList }] = useDoctorQuestionnaireQuery({
+    variables: {
+      doctorId: Number(query?.id),
+      languageId: 2,
+    },
+  });
+
+  const { doctorQuestionnaire } = dataList || {};
+
+  let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
   return (
     <AppLayout>
       <div className="w-full">
@@ -125,6 +141,21 @@ function ProfileDetail() {
                 />
               )} */}
               <AccountsProfile />
+            </TabPane>
+            <TabPane
+              tab={
+                <span className="flex items-center">
+                  <UnorderedListOutlined />
+                  Questionnaire
+                </span>
+              }
+              key="2"
+            >
+              <AdminQuestionnaireFormTab
+                questionnaire={questionnair as Appointment}
+                doctorId={Number(query?.id)}
+
+              />
             </TabPane>
             {/* <TabPane
               tab={

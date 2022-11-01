@@ -19,11 +19,14 @@ function AdminPhysicianQuestionnaireFormTab({ appointment, loading }: Props) {
       <CardWithProfileImageInfo
         name={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
         serviceName={appointment?.serviceType?.name}
+        imageUrl={appointment?.patient?.patientProfile?.profileImage}
+
       >
         <PhysicianQuestionnaire
           appointmentHealthHistory={
             appointment?.appointmentHealthHistory?.history
           }
+          doctorId={Number(appointment?.doctorId)}
         />
       </CardWithProfileImageInfo>
     </div>

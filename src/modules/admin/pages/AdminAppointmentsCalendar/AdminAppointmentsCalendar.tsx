@@ -8,7 +8,7 @@ import {
 import CalendarModalComponent from "../../../common/components/CalendarModal";
 import FullCalendar from "@fullcalendar/react";
 import Router from "next/router";
-import { getCurrentUserTimeZone } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
 import dayjs from "dayjs";
 
 type events = {
@@ -46,6 +46,7 @@ function AdminAppointmentsCalendar() {
       endDate: data?.extendedProps?.appointmentDateTime?.endTime,
       status: data?.status,
       charges: data?.extendedProps?.total || data?.extendedProps?.charges,
+      appointmentTimeSlots: data?.extendedProps?.appointmentTimeSlots,
       type: "Assignment",
     });
 
@@ -85,13 +86,13 @@ function AdminAppointmentsCalendar() {
             total: charges,
             status: status,
             doctor: doctor,
-            appointmentDateTime:appointmentDateTime
+            appointmentDateTime: appointmentDateTime,
+            appointmentTimeSlots:appointmentTimeSlots
           };
         }
       ),
     });
   };
-
   useEffect(() => {
     setCalendarData();
   }, [appointments]);
@@ -127,12 +128,12 @@ function AdminAppointmentsCalendar() {
             enableButton={true}
           />
         </div>
-        <CalendarModalComponent
+        {!!modalVisible && <CalendarModalComponent
           modalVisible={modalVisible}
           closeModal={closeModal}
           data={modalData}
           okText="Edit"
-        />
+        />}
       </div>
     </AppLayout>
   );

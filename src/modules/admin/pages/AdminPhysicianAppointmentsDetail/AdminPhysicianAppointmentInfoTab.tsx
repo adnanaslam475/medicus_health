@@ -32,6 +32,7 @@ function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
     patient: `${
       appointment?.patient?.first_name + " " + appointment?.patient?.last_name
     }`,
+    patientProfilePic:appointment?.patient?.patientProfile?.profileImage,
     physician:
       appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
     service: appointment?.serviceType?.name,
@@ -49,7 +50,8 @@ function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
     totalAmount: appointment?.appointmentCharges?.total,
     appointmentStatus: appointment?.status,
     paymentStatus: appointment?.transaction?.status,
-    appointmentTypeProposed:appointment?.appointmentTypeProposed
+    appointmentTypeProposed:appointment?.appointmentTypeProposed,
+    createdAt:appointment?.createdAt
   };
 
   const adminApp_Details = {
@@ -71,6 +73,7 @@ function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
     <CardWithProfileImageInfo
       name={`${normalizedAppointmentData.patient}`}
       serviceName={normalizedAppointmentData.service}
+      imageUrl={normalizedAppointmentData?.patientProfilePic}
     >
       <div className="max-w-[800px]">
         <AdminAppointmentInfo

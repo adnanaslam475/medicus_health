@@ -35,6 +35,7 @@ import {
   useProposeNewTimeMutation,
 } from "generated/graphql";
 import {
+  currencyFormatter,
   formatMMMM_Dcoma_YYYY,
   getCurrentUserTimeZone,
   getDayJsObject,
@@ -171,8 +172,8 @@ function DoctorAppointmentInfo({ data }: Props) {
           status === "Proposed" ||
           status === "Rescheduled" ||
           status === "Completed") && (
-          <MessageButtons patientID={patientID} doctorId={doctorIdForChat} />
-        )}
+            <MessageButtons patientID={patientID} doctorId={doctorIdForChat} />
+          )}
       </div>
       <div>
         <LabelWithText label="ID#" text={Number(id)} />
@@ -207,7 +208,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           }
           text={
             (appointmentDateTime?.startTime && status === "Completed") ||
-            status === "Confirmed"
+              status === "Confirmed"
               ? `${formatedDueDate}`
               : date.formatMMMMDDYYYY(requestedDate, timeZone)
           }
@@ -227,17 +228,17 @@ function DoctorAppointmentInfo({ data }: Props) {
             !appointmentDateTime?.startTime || !appointmentDateTime?.endTime
               ? "--"
               : `${date.formathhmma(
-                  appointmentDateTime?.startTime,
-                  timeZone
-                )} - ${date.formathhmma(
-                  appointmentDateTime?.endTime,
-                  timeZone
-                )}`
+                appointmentDateTime?.startTime,
+                timeZone
+              )} - ${date.formathhmma(
+                appointmentDateTime?.endTime,
+                timeZone
+              )}`
           }
         />
         <LabelWithText
           label="Total amount"
-          text={appointmentCharges ? `$${appointmentCharges?.total}` : "-"}
+          text={appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "-"}
         />
         {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
@@ -582,7 +583,7 @@ function DoctorUpcomingAppointmentInfoFooter({
               disabled={disabled}
               target={"_blank"}
             >
-              <span>Join now</span>
+              <span className={`${_classes["joinNow"]}`}>Join now</span>
             </Button>
           </Link>
         </>
@@ -708,7 +709,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setSlot({ startDate: dateString, endDate: formatedDate });
   };
 
-  function onOkDatePicker(value: any) {}
+  function onOkDatePicker(value: any) { }
 
   // API CALL
 
@@ -869,7 +870,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  ${serviceInfo?.price || ""}
+                  {serviceInfo?.price ? currencyFormatter(serviceInfo?.price) : "-"}
                 </div>
               </Form.Item>
             </div>

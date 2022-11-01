@@ -20,11 +20,12 @@ import {
   useSuggestNewTimeMutation,
 } from "generated/graphql";
 import {
+  currencyFormatter,
   getCurrentUserTimeZone,
   getDayJsObject,
   UTCPrettierTime,
 } from "common/utils/date";
-import { date } from "common/utils";
+import { date, userData } from "common/utils";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
 import moment from "moment";
@@ -80,6 +81,7 @@ function RescheduleAppointmentModal(props: Props) {
     setServiceInfo(serviceType as AppointmentServiceType);
   }
 
+  const parentRoute = userData.getRole() === "Admin" ? "/admin/appointments/" : "/physician/appointments/upcoming"
   const onChangeDatePicker = (dateString: string, name: string): void => {
     let formatedDate = moment(dateString, "MM-DD-YYYY hh:mm A")
       .add(30, "minutes")
@@ -116,7 +118,7 @@ function RescheduleAppointmentModal(props: Props) {
     try {
       if (response?.data?.suggestNewTime) {
         setShowRescheduleModal(false);
-        Router.push("/physician/appointments/upcoming");
+        Router.push(parentRoute);
         notification.success({
           message: "Successfully rescheduled appointment",
         });
@@ -203,7 +205,7 @@ function RescheduleAppointmentModal(props: Props) {
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  ${appointmentTypeProposed?.price || serviceInfo?.price || ""}
+                  ${appointmentTypeProposed?.price ? currencyFormatter(appointmentTypeProposed?.price) : serviceInfo?.price ? currencyFormatter(serviceInfo?.price) : ""}
                 </div>
               </Form.Item>
             </div>
@@ -362,7 +364,7 @@ function AvailabilityTimeSlots({
                 onChange={(_, date: string) => {
                   onChangeDatePicker?.(date, "startDate");
                 }}
-                // minuteStep={30}
+              // minuteStep={30}
               />
             </Space>
           </Form.Item>

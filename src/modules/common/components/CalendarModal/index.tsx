@@ -4,6 +4,7 @@ import { date } from "../../../../../src/common/utils";
 import { VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./CalendarModal.module.scss";
 import {
+  currencyFormatter,
   getCurrentUserTimeZone,
   isAppointmentTimeValid,
 } from "common/utils/date";
@@ -114,7 +115,7 @@ function CalendarModalComponent(props: Props) {
 
       <div className="border-b pb-0 pt-2">
         <p className="text-grey-4 ">Total amount</p>
-        <h4 className="text-xl"> ${charges}</h4>
+        <h4 className="text-xl"> {charges ? currencyFormatter(charges) : "-"}</h4>
       </div>
 
       <div className="flex justify-between">
@@ -160,7 +161,7 @@ function CalendarModalComponent(props: Props) {
                 className="mb-0"
                 alt="camera"
               />
-              <span className="ml-2">Join now</span>
+              <span className="ml-2 joinNowBtn">Join now</span>
             </Button>
           </Link>
         </div>

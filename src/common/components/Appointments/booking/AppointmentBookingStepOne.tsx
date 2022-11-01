@@ -198,7 +198,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       );
 
       setServiceInfo(charge as any);
-      formInstance?.resetFields(["requestedDate", "selectedDay"]);
+      formInstance?.resetFields(["requestedDate", "selectedDay","availability"]);
       setSelectedDay(9);
     }
 

@@ -134,12 +134,12 @@ function DoctorCalendar() {
             isPhysicianCalendar={true}
           />
         </div>
-        <CalendarModalComponent
+        {!!modalVisible && <CalendarModalComponent
           modalVisible={modalVisible}
           closeModal={closeModal}
           data={modalData}
           okText="Edit"
-        />
+        />}
       </div>
     </AppLayout>
   );
