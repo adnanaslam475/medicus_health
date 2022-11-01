@@ -105,8 +105,36 @@ function PhysicianQuestionnaire(props: Props) {
   function onFinishLocal(values: any) {
     // saveStepThree?.({ ...values, isLastFilled: data?.stepThree?.isLastFilled });
   }
+  const [dependent, setDependent] = useState<any>({});
 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
+  const setDepedentState = (
+    item: Item | undefined,
+    value: boolean,
+    depedency: any
+  ): any => {
+    let updatedDepedencies = { ...depedency };
+    updatedDepedencies = {
+      ...updatedDepedencies,
+      [item?.name as string]: value,
+    };
+    if (item?.dependent) {
+      return setDepedentState(item?.dependent, value, updatedDepedencies);
+    } else {
+      return updatedDepedencies;
+    }
+  };
+  useEffect(() => {
+    let updatedDepedencies = {};
+    questionnair?.forEach((item: Item) => {
+      if (item.dependent) {
+        updatedDepedencies = setDepedentState(item, false, updatedDepedencies);
+      }
+    });
+    setDependent(updatedDepedencies);
+  }, [questionnair?.length]);
+
+
 
   const renderItems = (item: Item): any => {
     if (item.type === "text") {
@@ -120,7 +148,10 @@ function PhysicianQuestionnaire(props: Props) {
           >
             <Input readOnly={isDisabled} disabled />
           </Form.Item>
-          {item.dependent && renderItems(item.dependent)}
+          {item.dependent &&
+            dependent[item.name as string] &&
+            renderItems(item.dependent)}
+          {/* {item.dependent && renderItems(item.dependent)} */}
         </>
       );
     } else if (item.type === "radio") {
@@ -163,8 +194,12 @@ function PhysicianQuestionnaire(props: Props) {
               })}
             </Checkbox.Group>
           </Form.Item>
-          {item.dependent && renderItems(item.dependent)}
-        </>
+          {
+            // @ts-ignore
+            formInstance?.getFieldsValue()[item?.name]?.map((value) => {
+              // @ts-ignore
+              return item?.options[value]?.dependent && renderItems(item?.options[value]?.dependent as any)
+            })}        </>
       );
     }
   };
