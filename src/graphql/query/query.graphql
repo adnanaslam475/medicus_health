@@ -60,6 +60,7 @@ query getCard($id: Int!) {
 query getUser($input: Int!) {
   user(id: $input) {
     id
+    tos_acceptance
     first_name
     last_name
     gender

@@ -67,3 +67,17 @@ mutation reBookAppointment($rebookAppointmentInput: ReBookAppointmentInput!) {
     status
   }
 }
+
+mutation onboardingTosAcceptance($doctorId: Int!, $ip: String!) {
+  onboardingTosAcceptance(doctorId: $doctorId, ip: $ip) {
+    tos_acceptance
+  }
+}
+
+mutation getOnboardingAccountLink($doctorId: Int!) {
+  getOnboardingAccountLink(doctorId: $doctorId) {
+    created
+    expires_at
+    url
+  }
+}
