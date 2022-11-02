@@ -491,6 +491,13 @@ export type DoctorBillingMethod = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type DoctorCreateLinkResponse = {
+  __typename?: 'DoctorCreateLinkResponse';
+  created?: Maybe<Scalars['Float']>;
+  expires_at?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+};
+
 export type DoctorEarningsResponse = {
   __typename?: 'DoctorEarningsResponse';
   total_earnings?: Maybe<Scalars['Float']>;
@@ -746,6 +753,7 @@ export type Mutation = {
   createOrUpdateDoctorSchedule: Array<DoctorSchedule>;
   createPatientByAdmin: User;
   createPatientHealthHistory: PatientHealthHistory;
+  createPhysiciansStripeConnectAccount: User;
   createServiceType: AppointmentServiceType;
   createStaff: User;
   createUser: User;
@@ -757,9 +765,11 @@ export type Mutation = {
   enableOrDisablePatient: User;
   enableOrDisableStaff: User;
   generateRTCToken: RtcTokenResponse;
+  getOnboardingAccountLink: DoctorCreateLinkResponse;
   login: LoginResponse;
   markMessagesAsRead: ChatChannels;
   markedAppointmentAsCompleted: Appointment;
+  onboardingTosAcceptance: User;
   payment: Transaction;
   proposeNewTime: Appointment;
   reBookAppointment: Appointment;
@@ -958,6 +968,11 @@ export type MutationGenerateRtcTokenArgs = {
 };
 
 
+export type MutationGetOnboardingAccountLinkArgs = {
+  doctorId: Scalars['Int'];
+};
+
+
 export type MutationLoginArgs = {
   loginUserInput: LoginUserInput;
 };
@@ -970,6 +985,12 @@ export type MutationMarkMessagesAsReadArgs = {
 
 export type MutationMarkedAppointmentAsCompletedArgs = {
   appointmentId: Scalars['Int'];
+};
+
+
+export type MutationOnboardingTosAcceptanceArgs = {
+  doctorId: Scalars['Int'];
+  ip: Scalars['String'];
 };
 
 
@@ -1767,6 +1788,7 @@ export type User = {
   streetAddress?: Maybe<Scalars['String']>;
   timeZone?: Maybe<TimeZones>;
   timeZoneId?: Maybe<Scalars['Int']>;
+  tos_acceptance: Scalars['Boolean'];
   zip_code?: Maybe<Scalars['String']>;
 };
 
@@ -1909,6 +1931,21 @@ export type ReBookAppointmentMutationVariables = Exact<{
 
 
 export type ReBookAppointmentMutation = { __typename?: 'Mutation', reBookAppointment: { __typename?: 'Appointment', status?: string | null } };
+
+export type OnboardingTosAcceptanceMutationVariables = Exact<{
+  doctorId: Scalars['Int'];
+  ip: Scalars['String'];
+}>;
+
+
+export type OnboardingTosAcceptanceMutation = { __typename?: 'Mutation', onboardingTosAcceptance: { __typename?: 'User', tos_acceptance: boolean } };
+
+export type GetOnboardingAccountLinkMutationVariables = Exact<{
+  doctorId: Scalars['Int'];
+}>;
+
+
+export type GetOnboardingAccountLinkMutation = { __typename?: 'Mutation', getOnboardingAccountLink: { __typename?: 'DoctorCreateLinkResponse', created?: number | null, expires_at?: number | null, url?: string | null } };
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
@@ -2461,7 +2498,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, timeZoneName: string, id: number, gmtOffset: string } | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, tos_acceptance: boolean, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, timeZoneName: string, id: number, gmtOffset: string } | null } };
 
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2857,6 +2894,30 @@ export const ReBookAppointmentDocument = gql`
 
 export function useReBookAppointmentMutation() {
   return Urql.useMutation<ReBookAppointmentMutation, ReBookAppointmentMutationVariables>(ReBookAppointmentDocument);
+};
+export const OnboardingTosAcceptanceDocument = gql`
+    mutation onboardingTosAcceptance($doctorId: Int!, $ip: String!) {
+  onboardingTosAcceptance(doctorId: $doctorId, ip: $ip) {
+    tos_acceptance
+  }
+}
+    `;
+
+export function useOnboardingTosAcceptanceMutation() {
+  return Urql.useMutation<OnboardingTosAcceptanceMutation, OnboardingTosAcceptanceMutationVariables>(OnboardingTosAcceptanceDocument);
+};
+export const GetOnboardingAccountLinkDocument = gql`
+    mutation getOnboardingAccountLink($doctorId: Int!) {
+  getOnboardingAccountLink(doctorId: $doctorId) {
+    created
+    expires_at
+    url
+  }
+}
+    `;
+
+export function useGetOnboardingAccountLinkMutation() {
+  return Urql.useMutation<GetOnboardingAccountLinkMutation, GetOnboardingAccountLinkMutationVariables>(GetOnboardingAccountLinkDocument);
 };
 export const CreateUserDocument = gql`
     mutation createUser($input: CreateUserInput!) {
@@ -4746,6 +4807,7 @@ export const GetUserDocument = gql`
     query getUser($input: Int!) {
   user(id: $input) {
     id
+    tos_acceptance
     first_name
     last_name
     gender
@@ -7318,6 +7380,37 @@ export default {
       },
       {
         "kind": "OBJECT",
+        "name": "DoctorCreateLinkResponse",
+        "fields": [
+          {
+            "name": "created",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "expires_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "url",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
         "name": "DoctorEarningsResponse",
         "fields": [
           {
@@ -8427,6 +8520,18 @@ export default {
             ]
           },
           {
+            "name": "createPhysiciansStripeConnectAccount",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "createServiceType",
             "type": {
               "kind": "NON_NULL",
@@ -8680,6 +8785,29 @@ export default {
             ]
           },
           {
+            "name": "getOnboardingAccountLink",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DoctorCreateLinkResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "login",
             "type": {
               "kind": "NON_NULL",
@@ -8738,6 +8866,39 @@ export default {
             "args": [
               {
                 "name": "appointmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "onboardingTosAcceptance",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "doctorId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "ip",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -11949,6 +12110,17 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "tos_acceptance",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },
