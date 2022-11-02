@@ -8,8 +8,10 @@ import {
   useDeleteDoctorMutation,
   useGetCityByIdQuery,
   useGetCountryByIdQuery,
+  useGetOnboardingAccountLinkMutation,
   useGetStatesByCountryQuery,
   useGetUserQuery,
+  useOnboardingTosAcceptanceMutation,
   User,
 } from "generated/graphql";
 import { Schedule } from "common/types/types";
@@ -47,6 +49,13 @@ export const ViewProfile = React.forwardRef(function Profile({
   const [{ fetching }, executeUseDeleteDoctorMutation] =
     useDeleteDoctorMutation();
 
+  const [{ data: tosData, fetching: tosFetching }, executeUseOnboardingTosAcceptanceMutation] =
+    useOnboardingTosAcceptanceMutation();
+
+  const [{ data: onBoardingData, fetching: onBoardingFetching }, executeUseGetOnboardingAccountLinkMutation] =
+    useGetOnboardingAccountLinkMutation();
+
+
   const [{ data: userData }] = useGetUserQuery({
     variables: { input: Number(doctorId) },
     pause: doctorId === undefined,
@@ -61,6 +70,7 @@ export const ViewProfile = React.forwardRef(function Profile({
     state,
     city,
     timeZone,
+    tos_acceptance
   } = userData?.user || {};
   const { country_name } = country || {};
   const { state_name } = state || {};
@@ -138,6 +148,31 @@ export const ViewProfile = React.forwardRef(function Profile({
       });
     }
   };
+  const [isTOSAccepted, setIsTOSAccepted] = useState(!tos_acceptance);
+  const [tosLoading, setTosLoading] = useState(false)
+  const HandleTOS = () => {
+    setTosLoading(true)
+    fetch('https://geolocation-db.com/json/')
+      .then((response) => response.json())
+      .then((data) => {
+        executeUseOnboardingTosAcceptanceMutation({ ip: data?.IPv4, doctorId: Number(doctorId) }).then((mutationResponse) => {
+          setIsTOSAccepted(mutationResponse?.data?.onboardingTosAcceptance?.tos_acceptance || false)
+          setTosLoading(false)
+          notification.success({ message: "Successfully accepted Terms for Stripe" })
+        }).catch((mutationError) => {
+          setIsTOSAccepted(false)
+          setTosLoading(false)
+        })
+      });
+
+  }
+  const HandleOnBoarding = async () => {
+    const { data } = await executeUseGetOnboardingAccountLinkMutation({ doctorId: Number(doctorId) })
+    const url = data?.getOnboardingAccountLink?.url;
+    if (url?.length) {
+      window.open(String(url), "_blank")
+    }
+  }
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -181,6 +216,27 @@ export const ViewProfile = React.forwardRef(function Profile({
                   <EditOutlined />
                   Edit info
                 </Button>
+
+                {getRole() === "Doctor" && <>
+                  {!isTOSAccepted && <Button
+                    type="default"
+                    className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
+                    onClick={HandleTOS}
+                    loading={tosLoading || tosFetching}
+                  >
+                    Accept TOS
+                  </Button>}
+
+                  <Button
+                    type="default"
+                    className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
+                    onClick={HandleOnBoarding}
+                    loading={onBoardingFetching}
+                  >
+                    On boarding
+                  </Button>
+                </>
+                }
               </div>
 
               {getRole() === "Admin" && (
