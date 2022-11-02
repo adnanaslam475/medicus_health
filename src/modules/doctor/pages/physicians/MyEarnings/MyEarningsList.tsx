@@ -123,7 +123,7 @@ const Columns = [
 
     render: (value: number) => {
       return (
-        <div className="someclass">{`${value}
+        <div className="someclass">{`${currencyFormatter(value)}
        `}</div>
       );
     },
@@ -168,7 +168,7 @@ const Columns = [
     render: (text: any, row: any) => {
       return (
         <div className="someclass">
-          {`${row?.status === "Refunded" ? 0 : row?.doctor_percentage}`}
+          {`${row?.status === "Refunded" ? 0 : currencyFormatter(row?.doctor_percentage)}`}
         </div>
       );
     },

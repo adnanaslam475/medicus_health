@@ -41,9 +41,8 @@ const columns = [
     dataIndex: "appointment",
     key: "patient",
     render: (appointment: Appointment) => {
-      const patientName = `${appointment?.patient?.first_name || ""} ${
-        appointment?.patient?.last_name || ""
-      }`;
+      const patientName = `${appointment?.patient?.first_name || ""} ${appointment?.patient?.last_name || ""
+        }`;
       return <div>{patientName}</div>;
     },
     sorter: true,
@@ -53,9 +52,8 @@ const columns = [
     dataIndex: "appointment",
     key: "physician",
     render: (appointment: Appointment) => {
-      const physicianName = `${appointment?.doctor?.first_name || ""} ${
-        appointment?.doctor?.last_name || ""
-      }`;
+      const physicianName = `${appointment?.doctor?.first_name || ""} ${appointment?.doctor?.last_name || ""
+        }`;
       return <div>{physicianName}</div>;
     },
     sorter: true,
@@ -158,7 +156,7 @@ const columns = [
     render: (transaction: Transaction) => {
       const stripeFee =
         transaction?.status === "Refunded" ? 0 : transaction?.stripeFee;
-      return <div>{stripeFee}</div>;
+      return <div>{stripeFee > 0 ? currencyFormatter(stripeFee) : 0}</div>;
     },
     sorter: true,
   },

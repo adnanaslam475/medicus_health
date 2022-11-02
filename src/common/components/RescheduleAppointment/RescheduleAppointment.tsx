@@ -205,7 +205,7 @@ function RescheduleAppointmentModal(props: Props) {
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  ${appointmentTypeProposed?.price ? currencyFormatter(appointmentTypeProposed?.price) : serviceInfo?.price ? currencyFormatter(serviceInfo?.price) : ""}
+                  {appointmentTypeProposed?.price ? currencyFormatter(appointmentTypeProposed?.price) : serviceInfo?.price ? currencyFormatter(serviceInfo?.price) : ""}
                 </div>
               </Form.Item>
             </div>

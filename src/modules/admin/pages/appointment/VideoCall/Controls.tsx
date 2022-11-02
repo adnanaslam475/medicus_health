@@ -49,8 +49,8 @@ function Controls(props: Props) {
     // Router.back();
     const path =
       user?.role === "User"
-        ? "/patient/appointments/upcoming"
-        : "/physician/appointments/upcoming";
+        ? "/patient/appointments/upcoming" :user?.role === "Doctor" ?
+        "/physician/appointments/upcoming" :"/admin/appointments";
     Router.push(path);
   };
 

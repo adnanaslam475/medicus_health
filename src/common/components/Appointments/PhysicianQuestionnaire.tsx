@@ -12,6 +12,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { NamePath } from "antd/lib/form/interface";
 import { getRole, getUserData } from "common/utils/userData";
 import { Spin } from "antd";
+import styles from "./styles.module.scss";
 
 type Props = {
   appointmentHealthHistory: string;
@@ -155,6 +156,7 @@ function PhysicianQuestionnaire(props: Props) {
         </>
       );
     } else if (item.type === "radio") {
+      console.log("item?.options",item)
       return (
         <>
           <Form.Item
@@ -183,23 +185,30 @@ function PhysicianQuestionnaire(props: Props) {
             label={item.label}
             className="text-secondary"
             name={item.name}
+            
           >
-            <Checkbox.Group disabled={isDisabled}>
-              {item?.options?.map(({ value, label }) => {
+            <Checkbox.Group
+              className={`${styles["ant-checkbox-wrapper-cover"]} flex flex-col`}
+              disabled={isDisabled || getRole()==="Admin"}
+            >
+              {item?.options?.map(({ value, label }, index) => {
                 return (
-                  <Checkbox value={value} disabled>
-                    {label}
-                  </Checkbox>
+                  <>
+                    <Checkbox className={`${styles.checkbox}`} value={value}>
+                      {label}
+                    </Checkbox>
+                    {
+                      // @ts-ignore
+                      formInstance?.getFieldsValue()[item?.name]?.map((value) => {
+                        // @ts-ignore
+                        return !!item?.options[value]?.dependent && value === index && renderItems(item?.options[value]?.dependent as any)
+                      })}
+                  </>
                 );
               })}
             </Checkbox.Group>
           </Form.Item>
-          {
-            // @ts-ignore
-            formInstance?.getFieldsValue()[item?.name]?.map((value) => {
-              // @ts-ignore
-              return item?.options[value]?.dependent && renderItems(item?.options[value]?.dependent as any)
-            })}        </>
+        </>
       );
     }
   };
