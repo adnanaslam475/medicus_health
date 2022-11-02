@@ -209,7 +209,7 @@ export const AddPatientForm = React.forwardRef(function AddPhysicianForm(
           name="streetAddress"
           rules={[
             {
-              required: true,
+              
               message: "Please enter your street address",
             },
             {
