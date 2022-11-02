@@ -556,7 +556,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .improved-word-spacing {
-  word-spacing: -5px;
+  word-spacing: -5px !important;
 
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
