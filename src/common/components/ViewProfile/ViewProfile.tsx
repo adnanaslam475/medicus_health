@@ -56,7 +56,7 @@ export const ViewProfile = React.forwardRef(function Profile({
     useGetOnboardingAccountLinkMutation();
 
 
-  const [{ data: userData }] = useGetUserQuery({
+  const [{ data: userData, fetching: userDataLoading }, executeUseGetUserQuery] = useGetUserQuery({
     variables: { input: Number(doctorId) },
     pause: doctorId === undefined,
   });
@@ -148,7 +148,6 @@ export const ViewProfile = React.forwardRef(function Profile({
       });
     }
   };
-  const [isTOSAccepted, setIsTOSAccepted] = useState(!tos_acceptance);
   const [tosLoading, setTosLoading] = useState(false)
   const HandleTOS = () => {
     setTosLoading(true)
@@ -156,11 +155,10 @@ export const ViewProfile = React.forwardRef(function Profile({
       .then((response) => response.json())
       .then((data) => {
         executeUseOnboardingTosAcceptanceMutation({ ip: data?.IPv4, doctorId: Number(doctorId) }).then((mutationResponse) => {
-          setIsTOSAccepted(mutationResponse?.data?.onboardingTosAcceptance?.tos_acceptance || false)
+          executeUseGetUserQuery({ requestPolicy: "network-only" })
           setTosLoading(false)
           notification.success({ message: "Successfully accepted Terms for Stripe" })
         }).catch((mutationError) => {
-          setIsTOSAccepted(false)
           setTosLoading(false)
         })
       });
@@ -217,26 +215,31 @@ export const ViewProfile = React.forwardRef(function Profile({
                   Edit info
                 </Button>
 
-                {getRole() === "Doctor" && <>
-                  {!isTOSAccepted && <Button
-                    type="default"
-                    className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
-                    onClick={HandleTOS}
-                    loading={tosLoading || tosFetching}
-                  >
-                    Accept TOS
-                  </Button>}
+                <Skeleton loading={userDataLoading}>
+                  {getRole() === "Doctor" && <>
+                    {!tos_acceptance &&
 
-                  <Button
-                    type="default"
-                    className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
-                    onClick={HandleOnBoarding}
-                    loading={onBoardingFetching}
-                  >
-                    On boarding
-                  </Button>
-                </>
-                }
+                      <Button
+                        type="default"
+                        className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
+                        onClick={HandleTOS}
+                        loading={tosLoading || tosFetching || userDataLoading}
+                      >
+                        Accept TOS
+                      </Button>
+                    }
+
+                    <Button
+                      type="default"
+                      className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
+                      onClick={HandleOnBoarding}
+                      loading={onBoardingFetching}
+                    >
+                      On boarding
+                    </Button>
+                  </>
+                  }
+                </Skeleton>
               </div>
 
               {getRole() === "Admin" && (
