@@ -165,7 +165,7 @@ function Login() {
                   // loading="eager"
                 />
               </div>
-              <h1 className="text-center text-secondary mb-3 font-bold">
+              <h1 className="text-center text-secondary mb-3 font-bold improved-word-spacing">
                 {t("title")}
               </h1>
               <h6 className="text-center text-gray font-rubik font-normal">
@@ -247,7 +247,7 @@ function Login() {
                       block
                       type="primary"
                       htmlType="submit"
-                      className={`${isChrome && 'antCustomBtn'}`}
+                      className={`${isChrome && "antCustomBtn"}`}
                     >
                       {/* {t("login")} */}
                       Iniciar sesión
