@@ -49,14 +49,20 @@ export const ViewProfile = React.forwardRef(function Profile({
   const [{ fetching }, executeUseDeleteDoctorMutation] =
     useDeleteDoctorMutation();
 
-  const [{ data: tosData, fetching: tosFetching }, executeUseOnboardingTosAcceptanceMutation] =
-    useOnboardingTosAcceptanceMutation();
+  const [
+    { data: tosData, fetching: tosFetching },
+    executeUseOnboardingTosAcceptanceMutation,
+  ] = useOnboardingTosAcceptanceMutation();
 
-  const [{ data: onBoardingData, fetching: onBoardingFetching }, executeUseGetOnboardingAccountLinkMutation] =
-    useGetOnboardingAccountLinkMutation();
+  const [
+    { data: onBoardingData, fetching: onBoardingFetching },
+    executeUseGetOnboardingAccountLinkMutation,
+  ] = useGetOnboardingAccountLinkMutation();
 
-
-  const [{ data: userData, fetching: userDataLoading }, executeUseGetUserQuery] = useGetUserQuery({
+  const [
+    { data: userData, fetching: userDataLoading },
+    executeUseGetUserQuery,
+  ] = useGetUserQuery({
     variables: { input: Number(doctorId) },
     pause: doctorId === undefined,
   });
@@ -70,7 +76,7 @@ export const ViewProfile = React.forwardRef(function Profile({
     state,
     city,
     timeZone,
-    tos_acceptance
+    tos_acceptance,
   } = userData?.user || {};
   const { country_name } = country || {};
   const { state_name } = state || {};
@@ -148,29 +154,37 @@ export const ViewProfile = React.forwardRef(function Profile({
       });
     }
   };
-  const [tosLoading, setTosLoading] = useState(false)
+  const [tosLoading, setTosLoading] = useState(false);
   const HandleTOS = () => {
-    setTosLoading(true)
-    fetch('https://geolocation-db.com/json/')
+    setTosLoading(true);
+    fetch("https://geolocation-db.com/json/")
       .then((response) => response.json())
       .then((data) => {
-        executeUseOnboardingTosAcceptanceMutation({ ip: data?.IPv4, doctorId: Number(doctorId) }).then((mutationResponse) => {
-          executeUseGetUserQuery({ requestPolicy: "network-only" })
-          setTosLoading(false)
-          notification.success({ message: "Successfully accepted Terms for Stripe" })
-        }).catch((mutationError) => {
-          setTosLoading(false)
+        executeUseOnboardingTosAcceptanceMutation({
+          ip: data?.IPv4,
+          doctorId: Number(doctorId),
         })
+          .then((mutationResponse) => {
+            executeUseGetUserQuery({ requestPolicy: "network-only" });
+            setTosLoading(false);
+            notification.success({
+              message: "Successfully accepted Terms for Stripe",
+            });
+          })
+          .catch((mutationError) => {
+            setTosLoading(false);
+          });
       });
-
-  }
+  };
   const HandleOnBoarding = async () => {
-    const { data } = await executeUseGetOnboardingAccountLinkMutation({ doctorId: Number(doctorId) })
+    const { data } = await executeUseGetOnboardingAccountLinkMutation({
+      doctorId: Number(doctorId),
+    });
     const url = data?.getOnboardingAccountLink?.url;
     if (url?.length) {
-      window.open(String(url), "_blank")
+      window.open(String(url), "_blank");
     }
-  }
+  };
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -200,7 +214,9 @@ export const ViewProfile = React.forwardRef(function Profile({
                 {getRole() === "Admin" && (
                   <Button
                     type="primary"
-                    className={`${_classes["published-button"]} ${isChrome && 'antCustomBtn'}`}
+                    className={`${_classes["published-button"]} ${
+                      isChrome && "antCustomBtn"
+                    }`}
                   >
                     {status ? "Published" : "Unpublished"}
                   </Button>
@@ -208,7 +224,9 @@ export const ViewProfile = React.forwardRef(function Profile({
 
                 <Button
                   type="default"
-                  className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
+                  className={`${_classes["edit-button"]}  ${
+                    isChrome && "antCustomBtn"
+                  }`}
                   onClick={() => setIsEdit?.(true)}
                 >
                   <EditOutlined />
@@ -216,36 +234,38 @@ export const ViewProfile = React.forwardRef(function Profile({
                 </Button>
 
                 <Skeleton loading={userDataLoading}>
-                  {getRole() === "Doctor" && <>
-                    {!tos_acceptance &&
+                  {getRole() === "Doctor" && (
+                    <>
+                      {!tos_acceptance && (
+                        <Button
+                          type="default"
+                          className={`${_classes["edit-button"]}  ${
+                            isChrome && "antCustomBtn"
+                          }`}
+                          onClick={HandleTOS}
+                          loading={tosLoading || tosFetching || userDataLoading}
+                        >
+                          Accept TOS
+                        </Button>
+                      )}
 
-                      <Button
-                        type="default"
-                        className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
-                        onClick={HandleTOS}
-                        loading={tosLoading || tosFetching || userDataLoading}
-                      >
-                        Accept TOS
-                      </Button>
-                    }
-
-                    <Button
+                      {/* <Button
                       type="default"
                       className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
                       onClick={HandleOnBoarding}
                       loading={onBoardingFetching}
                     >
                       On boarding
-                    </Button>
-                  </>
-                  }
+                    </Button> */}
+                    </>
+                  )}
                 </Skeleton>
               </div>
 
               {getRole() === "Admin" && (
                 <div className="flex justify-end mb-8 absolute top-0 left-0 md:right-0 w-full">
                   <Button
-                    className={`${isChrome && 'antCustomBtn'}`}
+                    className={`${isChrome && "antCustomBtn"}`}
                     type="link"
                     danger
                     onClick={() => setOpen(true)}
