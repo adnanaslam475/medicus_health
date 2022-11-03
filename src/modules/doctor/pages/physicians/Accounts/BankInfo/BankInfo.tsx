@@ -84,7 +84,7 @@ function BankInfo() {
           { requestPolicy: "network-only" }
         );
         if (error && error?.message) {
-          throw new Error(error.message);
+          throw new Error(error.message.replace("[GraphQL]",""));
         }
         executeDoctorBillingMethodsQuery({
           requestPolicy: "network-only",
@@ -108,7 +108,7 @@ function BankInfo() {
       });
       setShowForm(true);
       if (error && error?.message) {
-        throw new Error(error.message);
+        throw new Error(error.message.replace("[GraphQL]",""));
       }
     } catch (error: any) {
       notification.error({

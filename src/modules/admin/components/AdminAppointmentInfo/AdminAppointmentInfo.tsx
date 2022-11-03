@@ -656,12 +656,13 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
         <Button
           type="primary"
           icon={<VideoCameraFilled />}
+          target={"_blank"}
           className={`${_classes["appointments-btn"]} bg-current w-full sm:w-auto ${isChrome && 'antCustomBtn'}`}
           onClick={() =>
-            Router.push(
+            window.open(
               getRole() === "User"
                 ? `/patient/appointments/${appointmentData?.id}/call` : getRole() === "Doctor" ?
-                  `/physician/appointments/${appointmentData?.id}/call` : `/admin/appointments/${appointmentData?.id}/call`
+                  `/physician/appointments/${appointmentData?.id}/call` : `/admin/appointments/${appointmentData?.id}/call`,"_blank"
             )
           }
           disabled={disabled}
