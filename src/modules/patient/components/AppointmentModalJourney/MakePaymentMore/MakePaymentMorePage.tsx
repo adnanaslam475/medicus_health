@@ -21,9 +21,10 @@ import { isChrome } from "utils/helper";
 
 type Props = {
   onPrevious?: () => void;
-}
+  setSelectedCardId?: React.Dispatch<React.SetStateAction<undefined | number>>;
+};
 function MakePaymentMore(props: Props) {
-  const { onPrevious } = props || {}
+  const { onPrevious } = props || {};
   const stripe = useStripe();
   const elements = useElements();
 
@@ -65,12 +66,13 @@ function MakePaymentMore(props: Props) {
           exp_year: String(source?.card?.exp_year),
           card_holder_name: "",
           currency: String(source?.currency),
-          country: String(source?.card?.country)
+          country: String(source?.card?.country),
         },
       });
 
-      // executeGetAllCardsQuery({ requestPolicy: "network-only" });
+      executeGetAllCardsQuery({ requestPolicy: "network-only" });
 
+      console.log("getAllCardsData", getAllCardsData);
 
       if (error) {
         notification.error({
@@ -85,7 +87,7 @@ function MakePaymentMore(props: Props) {
         setCardNumber(undefined);
         setCardExpiry(undefined);
         setCvv(undefined);
-        formInstance.resetFields()
+        formInstance.resetFields();
         onPrevious?.();
       }
     } catch (error) {
@@ -145,19 +147,17 @@ function MakePaymentMore(props: Props) {
           <div>
             <span className="text-base text-secondary my-2">Expires on*</span>
             <div className="border border-gray-3 p-3 rounded  hover:border-primary">
-              <CardExpiryElement onChange={(e) => setCardExpiry(e?.complete)}
-              />
+              <CardExpiryElement onChange={(e) => setCardExpiry(e?.complete)} />
             </div>
           </div>
         </Form.Item>
-
       </div>
       <Button
         loading={loadingSubmit}
         disabled={!cardNumber || !cvv || !cardExpiry || loadingSubmit}
         type="primary"
         htmlType="submit"
-        className={`mb-4 ${isChrome && 'antCustomBtn'} w-full`}
+        className={`mb-4 ${isChrome && "antCustomBtn"} w-full`}
       >
         Submit
       </Button>

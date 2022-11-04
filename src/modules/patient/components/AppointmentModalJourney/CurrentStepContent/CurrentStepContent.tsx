@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { OperationContext } from "urql";
-import { Appointment, AppointmentPriceResponse } from "../../../../../generated/graphql";
+import {
+  Appointment,
+  AppointmentPriceResponse,
+} from "../../../../../generated/graphql";
 import AppointmentReschedule from "../AppointmentReschedule/AppointmentReschedule";
 import AppointmentSuccess from "../AppointmentSuccess/AppointmentSuccess";
 import MakePayment from "../MakePayment/MakePayment";
@@ -12,15 +15,20 @@ type Props = {
   appointmentDetails: Appointment;
   appointmentCharges: AppointmentPriceResponse;
   onPrevious?: () => void;
-  setSelectedCardId?: React.Dispatch<React.SetStateAction<undefined | number>>
-
+  setSelectedCardId?: React.Dispatch<React.SetStateAction<undefined | number>>;
 };
 
 const CurrentStepContent = React.forwardRef(function CurrentStepContent(
-  { stepName, appointmentId, appointmentDetails, appointmentCharges, onPrevious, setSelectedCardId }: Props,
+  {
+    stepName,
+    appointmentId,
+    appointmentDetails,
+    appointmentCharges,
+    onPrevious,
+    setSelectedCardId,
+  }: Props,
   ref: any
 ) {
-
   switch (stepName) {
     case "stepOne":
       return (
@@ -31,9 +39,19 @@ const CurrentStepContent = React.forwardRef(function CurrentStepContent(
         />
       );
     case "stepTwo":
-      return <MakePayment setSelectedCardId={setSelectedCardId} appointmentId={appointmentId as number} />;
+      return (
+        <MakePayment
+          setSelectedCardId={setSelectedCardId}
+          appointmentId={appointmentId as number}
+        />
+      );
     case "stepThree":
-      return <MakePaymentMore onPrevious={onPrevious} />;
+      return (
+        <MakePaymentMore
+          setSelectedCardId={setSelectedCardId}
+          onPrevious={onPrevious}
+        />
+      );
     case "stepFour":
       return <AppointmentSuccess />;
 

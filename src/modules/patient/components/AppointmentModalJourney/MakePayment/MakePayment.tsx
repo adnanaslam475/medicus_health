@@ -18,11 +18,11 @@ const CARD_TYPE = {
 };
 
 type Props = {
-  setSelectedCardId?: React.Dispatch<React.SetStateAction<undefined | number>>,
+  setSelectedCardId?: React.Dispatch<React.SetStateAction<undefined | number>>;
   appointmentId?: number;
-}
+};
 function MakePayment(props: Props) {
-  const { setSelectedCardId, appointmentId } = props || {}
+  const { setSelectedCardId, appointmentId } = props || {};
   // GET ALL CARDS API CALL
   const { saveStepTwo } = useAppointmentModal();
   const [value, setValue] = useState(0);
@@ -37,10 +37,10 @@ function MakePayment(props: Props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allCardsData?.getAllCards]);
-  
+
   useEffect(() => {
-    setSelectedCardId?.(value)
-  }, [value])
+    setSelectedCardId?.(value);
+  }, [value]);
   return (
     <>
       <h2>Make payment</h2>
