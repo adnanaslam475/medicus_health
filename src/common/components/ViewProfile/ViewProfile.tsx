@@ -249,14 +249,16 @@ export const ViewProfile = React.forwardRef(function Profile({
                         </Button>
                       )}
 
-                      {/* <Button
-                      type="default"
-                      className={`${_classes["edit-button"]}  ${isChrome && 'antCustomBtn'}`}
-                      onClick={HandleOnBoarding}
-                      loading={onBoardingFetching}
-                    >
-                      On boarding
-                    </Button> */}
+                      <Button
+                        type="default"
+                        className={`${_classes["edit-button"]}  ${
+                          isChrome && "antCustomBtn"
+                        }`}
+                        onClick={HandleOnBoarding}
+                        loading={onBoardingFetching}
+                      >
+                        On boarding
+                      </Button>
                     </>
                   )}
                 </Skeleton>
