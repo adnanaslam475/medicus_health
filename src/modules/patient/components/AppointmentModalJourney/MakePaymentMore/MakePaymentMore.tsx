@@ -1,20 +1,18 @@
 import React from "react";
 import MakePaymentMorePage from "./MakePaymentMorePage";
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
-// import config from "../../../../../../config";
+
 type Props = {
   onPrevious?: () => void;
-
-}
+  setSelectedCardId?: React.Dispatch<React.SetStateAction<undefined | number>>;
+};
 function index(props: Props) {
+  const { setSelectedCardId, onPrevious } = props || {};
 
-  const { onPrevious } = props
-  // const stripePromise = loadStripe(config.stripeKey || "");
   return (
-    // <Elements stripe={loadStripe(config.stripeKey || "")}>
-    <MakePaymentMorePage onPrevious={onPrevious}/>
-    // </Elements>
+    <MakePaymentMorePage
+      setSelectedCardId={setSelectedCardId}
+      onPrevious={onPrevious}
+    />
   );
 }
 

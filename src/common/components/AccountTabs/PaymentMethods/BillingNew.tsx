@@ -50,7 +50,7 @@ export const Payment = (props: Props) => {
             <Button
               type="link"
               size="small"
-              className={`text-primary p-0 ${isChrome && 'antCustomBtn'}`}
+              className={`text-primary p-0 ${isChrome && "antCustomBtn"}`}
               onClick={() => {
                 Modal.confirm({
                   content: "Do you want to make this card default?",
@@ -68,7 +68,7 @@ export const Payment = (props: Props) => {
           <Button
             type="link"
             size="small"
-            className={`text-red-2 p-0 text-sm ${isChrome && 'antCustomBtn'}`}
+            className={`text-red-2 p-0 text-sm ${isChrome && "antCustomBtn"}`}
             onClick={() => {
               Modal.confirm({
                 content: "Do you want to remove this card?",
@@ -157,8 +157,8 @@ function Billing({
           exp_month: String(source?.card?.exp_month),
           exp_year: String(source?.card?.exp_year),
           card_holder_name: "",
-          currency:String(source?.currency),
-          country:String(source?.card?.country)
+          currency: String(source?.currency),
+          country: String(source?.card?.country),
         },
       });
 
@@ -180,7 +180,7 @@ function Billing({
           let customError = res?.error?.graphQLErrors[0]?.extensions
             ?.exception as GraphQLError;
           let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message;
-            let errorMessage =
+          let errorMessage =
             errorGraphQLMessage ||
             graphQLError?.message ||
             customError?.message ||
@@ -228,7 +228,9 @@ function Billing({
               )}
               <Button
                 icon={<PlusOutlined />}
-                className={`text-primary cursor-pointer ${isChrome && 'antCustomBtn'}`}
+                className={`text-primary cursor-pointer ${
+                  isChrome && "antCustomBtn"
+                }`}
                 onClick={() => setModalVisible(true)}
               >
                 Add payment method
@@ -301,7 +303,9 @@ function Billing({
             <Form.Item>
               <Button
                 onClick={closeModal}
-                className={`${_classes["btn-stripe-cancel"]} ${isChrome && 'antCustomBtn'}`}
+                className={`${_classes["btn-stripe-cancel"]} ${
+                  isChrome && "antCustomBtn"
+                }`}
               >
                 Cancel
               </Button>
@@ -310,7 +314,7 @@ function Billing({
                 disabled={!cardNumber || !cvv || !cardExpiry || loadingSubmit}
                 type="primary"
                 htmlType="submit"
-                className={`ml-4 ${isChrome && 'antCustomBtn'}`}
+                className={`ml-4 ${isChrome && "antCustomBtn"}`}
               >
                 Submit
               </Button>

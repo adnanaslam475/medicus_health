@@ -74,7 +74,7 @@ function AppointmentModalFooter({
   const stripe = useStripe();
   const elements = useElements();
 
-  const [{ }, executeGetAppointmentsReminderBannerQuery] =
+  const [{}, executeGetAppointmentsReminderBannerQuery] =
     useGetAppointmentsReminderBannerQuery();
 
   // GET ALL CARDS API CALL
@@ -87,7 +87,7 @@ function AppointmentModalFooter({
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     id: number | undefined
   ) {
-    if (!appointmentDetails?.appointmentTimeSlots?.length) return null
+    if (!appointmentDetails?.appointmentTimeSlots?.length) return null;
     try {
       const res = await executeCancelAppointmentByPatientData({
         id: Number(id),
@@ -126,7 +126,7 @@ function AppointmentModalFooter({
   async function onFinalizeTransaction() {
     const selectedSlotId = contextData?.stepOne?.selectedSlotId;
     const appointmentId = appointmentDetails?.id;
-    if (!appointmentDetails?.appointmentTimeSlots?.length) return null
+    if (!appointmentDetails?.appointmentTimeSlots?.length) return null;
     try {
       const res = await executeUseReBookAppointmentMutation({
         rebookAppointmentInput: {
@@ -217,7 +217,7 @@ function AppointmentModalFooter({
           exp_year: String(source?.card?.exp_year),
           card_holder_name: "",
           currency: String(source?.currency),
-          country: String(source?.card?.country)
+          country: String(source?.card?.country),
         },
       });
 
@@ -267,7 +267,10 @@ function AppointmentModalFooter({
             danger
             className="border border-red outline w-full"
             onClick={() => setShowConfirmationModal(true)}
-            disabled={paymentStatus !== "succeeded" && !appointmentDetails?.appointmentTimeSlots?.length}
+            disabled={
+              paymentStatus !== "succeeded" &&
+              !appointmentDetails?.appointmentTimeSlots?.length
+            }
           >
             Reject
           </Button>
@@ -277,7 +280,10 @@ function AppointmentModalFooter({
             onClick={
               paymentStatus === "succeeded" ? onFinalizeTransaction : onNext
             }
-            disabled={paymentStatus !== "succeeded" && !appointmentDetails?.appointmentTimeSlots?.length}
+            disabled={
+              paymentStatus !== "succeeded" &&
+              !appointmentDetails?.appointmentTimeSlots?.length
+            }
           >
             {paymentStatus === "succeeded" ? "Submit" : "Proceed to payment"}
           </Button>
