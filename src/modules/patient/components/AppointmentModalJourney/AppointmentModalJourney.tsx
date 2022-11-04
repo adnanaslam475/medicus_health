@@ -93,7 +93,6 @@ function AppointmentModalJourney({
     requestPolicy: "network-only",
     pause: !appointmentId,
   });
-  console.log(selectedCardId, "cardId");
   const { getAppointmentPrice } = appointmentPriceBreakup || {};
   const appointmentPrice = getAppointmentPrice?.appointmentPrice;
   const systemFee = getAppointmentPrice?.systemFee;

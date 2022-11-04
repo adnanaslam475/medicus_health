@@ -72,8 +72,6 @@ function MakePaymentMore(props: Props) {
 
       executeGetAllCardsQuery({ requestPolicy: "network-only" });
 
-      console.log("getAllCardsData", getAllCardsData);
-
       if (error) {
         notification.error({
           message: error?.message || "Something went wrong",
