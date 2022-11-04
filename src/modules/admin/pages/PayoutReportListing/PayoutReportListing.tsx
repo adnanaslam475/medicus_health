@@ -82,7 +82,7 @@ function PayoutReportListing() {
       key: "status",
       render: (status: string) => {
         let _status = null;
-        if (status === "succeeded") {
+        if (status === "succeeded" || status === "Completed") {
           _status = "paid";
         } else if (status === "Refunded") {
           _status = status;
@@ -92,6 +92,22 @@ function PayoutReportListing() {
         return (
           <div className="text-primary">
             <StatusChip type={_status.toUpperCase() as StatusName} />
+          </div>
+        );
+      },
+    },
+    {
+      title: "Payout status",
+      dataIndex: "",
+      key: "payment_status",
+      render: (value: any) => {
+        return (
+          <div className="text-primary">
+            <StatusChip
+              type={
+                value?.transaction?.payment_status.toUpperCase() as StatusName
+              }
+            />
           </div>
         );
       },
