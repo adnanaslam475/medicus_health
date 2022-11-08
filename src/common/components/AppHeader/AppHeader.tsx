@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Layout, Avatar, Dropdown, Menu, Badge, Divider, Skeleton } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
@@ -9,7 +9,7 @@ import _classes from "./AppHeader.module.scss";
 import SidebarDrawer from "../../../modules/common/components/SidebarDrawer";
 import { getRole, getUserData } from "../../utils/userData";
 import InfoMessageBannerReminder from "../InfoMessageBannerReminder/InfoMessageBannerReminder";
-import { usePatientHealthHistoryQuery } from "generated/graphql";
+import { useGetUserQuery, usePatientHealthHistoryQuery } from "generated/graphql";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 import { useUserData } from "../Context/UserContext";
 import MDNextImage from "../MDNextImage/MDNextImage";
@@ -20,13 +20,25 @@ const AppHeader = () => {
   //Get logged in User
   const { user: loggedInUser } = getUserData();
   const { id: loggedInUserId } = loggedInUser || {};
-
   // Get patient Health History
   const [{ data: patientHealthHistory, fetching }] =
     usePatientHealthHistoryQuery({
       variables: { input: Number(loggedInUserId) },
       requestPolicy: "network-only",
     });
+
+  const [
+    { data: userData, fetching: userDataLoading },
+    executeUseGetUserQuery,
+  ] = useGetUserQuery({
+    variables: { input: Number(loggedInUserId) },
+    pause: !loggedInUserId,
+  });
+  useEffect(() => {
+    if (!userData?.user?.id && !userDataLoading) {
+      logout()
+    }
+  }, [userData?.user?.id,userDataLoading])
 
   const [visible, setVisible] = useState(false);
   const router = useRouter();
@@ -64,10 +76,10 @@ const AppHeader = () => {
     userRole === "Doctor"
       ? "/physician/account"
       : userRole === "Admin"
-      ? "/admin/account"
-      : userRole === "Staff"
-      ? "/physician/staffaccount?activeTab=1"
-      : "/patient/account?activeTab=1";
+        ? "/admin/account"
+        : userRole === "Staff"
+          ? "/physician/staffaccount?activeTab=1"
+          : "/patient/account?activeTab=1";
 
   const menu = (
     <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
@@ -108,8 +120,8 @@ const AppHeader = () => {
     user?.role === "User"
       ? "/patient/appointments/upcoming"
       : user?.role === "Doctor"
-      ? "/physician/appointments/upcoming"
-      : "/admin/dashboards";
+        ? "/physician/appointments/upcoming"
+        : "/admin/dashboards";
   return (
     <>
       <Header
