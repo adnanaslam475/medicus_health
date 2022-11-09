@@ -257,7 +257,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                         onClick={HandleOnBoarding}
                         loading={onBoardingFetching}
                       >
-                        On boarding
+                        Stripe Connect Account
                       </Button>
                     </>
                   )}
