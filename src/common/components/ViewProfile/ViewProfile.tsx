@@ -210,7 +210,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 </h2>
               </Skeleton>
               <span className="block">{email}</span>
-              <div className="flex gap-2 pt-2">
+              <div className="flex gap-2 pt-2 flex-wrap">
                 {getRole() === "Admin" && (
                   <Button
                     type="primary"
@@ -257,7 +257,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                         onClick={HandleOnBoarding}
                         loading={onBoardingFetching}
                       >
-                        Stripe Connect Account
+                        Stripe connect account
                       </Button>
                     </>
                   )}
