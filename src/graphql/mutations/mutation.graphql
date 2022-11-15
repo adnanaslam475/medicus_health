@@ -204,13 +204,20 @@ mutation updateDoctorProfile(
     }
   }
 }
+# pointer
 
 #ENABLE OR DISABLE DOCTOR
-mutation enableOrDisableDoctor($id: Int!, $activeStatus: Boolean) {
-  enableOrDisableDoctor(id: $id, activeStatus: $activeStatus) {
+mutation enableOrDisableDoctor($id: Int!) {
+  enableOrDisableDoctor(id: $id) {
+    id
+    is_active
+  }
+}
+# PUBLISH OR UNPUBLISH DOCTOR
+mutation publishOrUnpublishDoctor($id: Int!) {
+  publishOrUnpublishDoctor(id: $id) {
     id
     status
-    is_active
   }
 }
 

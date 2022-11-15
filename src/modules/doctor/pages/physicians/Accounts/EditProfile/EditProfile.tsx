@@ -52,6 +52,7 @@ import "react-phone-input-2/lib/style.css";
 import { graphqlError, isChrome, timezoneLabel } from "utils/helper";
 import { GraphQLError } from "graphql";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
+import { usePublishOrUnpublishDoctorMutation } from "generated/graphql";
 // import ConfirmationModal from "modules/admin/pages/AdminPatientListingDetail/ConfirmationModal";
 
 const { TextArea } = Input;
@@ -118,8 +119,14 @@ function EditProfile({
   });
   const user = getUserData();
   const { email: loggedInUserEmail, id: loggedInUserId } = user?.user || {};
-  const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
 
+  const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
+  const [publishStatus, setPublishStatus] = useState();
+  const [{ fetching: disableLoading1 }, enableOrDisableDoctorByAdmin] =
+    useEnableOrDisableDoctorMutation();
+
+  const [{ fetching: disableLoading2 }, PublishOrUnpublishDoctorMutation] =
+    usePublishOrUnpublishDoctorMutation();
 
   const router = useRouter();
 
@@ -206,8 +213,6 @@ function EditProfile({
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error, fetching } = result || {};
 
-  const [data, EnableOrDisableDoctor] = useEnableOrDisableDoctorMutation();
-
   function selectCountryId(id: number): void {
     setCountryId(id);
     formInstance.resetFields(["state_id", "city_id"]);
@@ -252,8 +257,8 @@ function EditProfile({
       // timeZoneId: timeZone?.timeZone,
       timeZone: timeZone?.id || 86,
     });
-    setUserDisableInput(is_active || false);
-
+    setUserDisableInput(userData?.user.is_active || false);
+    setPublishStatus(userData?.user.status);
   }
   const [conditionTreatedList, setConditionTreatedList] =
     useState<any>(condition_treated);
@@ -441,24 +446,6 @@ function EditProfile({
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
-
-  async function handlePublish_Unpublish() {
-    const res = await EnableOrDisableDoctor({
-      id: Number(doctor_id),
-    });
-    if (res?.data?.enableOrDisableDoctor?.status) {
-      res?.data?.enableOrDisableDoctor?.status &&
-        notification.success({
-          message: "Published",
-        });
-    }
-    if (!res?.data?.enableOrDisableDoctor?.status) {
-      !res?.data?.enableOrDisableDoctor?.status &&
-        notification.success({
-          message: "Unpublished",
-        });
-    }
-  }
 
   // const handleConditionTreated = async (list: string[]) => {
   //   const values = formInstance.getFieldsValue();
@@ -658,16 +645,17 @@ function EditProfile({
       });
     }
   };
-  
-  const changeAccountStatusHandler = async (value: boolean) => {
-    try {
-      const response = await EnableOrDisableDoctor({
-        id: Number(query.id),
-        activeStatus: Boolean(true)
-      });
-      setUserDisableInput(response.data?.enableOrDisableDoctor.is_active);
 
-      console.log(response,"rrrr")
+  const changeAccountStatusHandler = async (value: boolean) => {
+    setUserDisableInput(value);
+    try {
+      const response = await enableOrDisableDoctorByAdmin({
+        id: Number(doctorId),
+      });
+      console.log(
+        "changeAccountStatusHandler has got the following response",
+        response
+      );
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
@@ -682,6 +670,27 @@ function EditProfile({
       });
     }
   };
+
+  async function handlePublish_Unpublish() {
+    const res = await PublishOrUnpublishDoctorMutation({
+      id: Number(doctorId),
+    });
+    console.log("handlePublish_Unpublish has the folloing response :", res);
+
+    if (res?.data?.enableOrDisableDoctor?.status) {
+      res?.data?.enableOrDisableDoctor?.status &&
+        notification.success({
+          message: "Published",
+        });
+    }
+    if (!res?.data?.enableOrDisableDoctor?.status) {
+      !res?.data?.enableOrDisableDoctor?.status &&
+        notification.success({
+          message: "Unpublished",
+        });
+    }
+  }
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -744,46 +753,47 @@ function EditProfile({
               )}
               <span className="block">{doctor_email}</span>
               <div className="gap-y-2 flex-col sm:flex-row flex gap-2 pt-2">
-            <div
-              className={
-                userDisableInput
-                  ? `${_classes["profile-select-enable"]}`
-                  : `${_classes["profile-select-disable"]}`
-              }
-            >
-              <Select
-                className={`mr-5 disable-select`}
-                onChange={changeAccountStatusHandler}
-                value={userDisableInput}
-                style={{ width: 120 }}
-              >
-                <Select.Option value={true}>Enabled</Select.Option>
-                <Select.Option className="text-red" value={false}>
-                  Disabled
-                </Select.Option>
-              </Select>
-            </div>
-              {getRole() === "Admin" && (
-                <div className=" grid grid-cols-2 gap-3">
-                  <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
-                    <Tooltip
-                      title={doctorData ? "" : "Please complete doctor profile"}
-                    >
-                      <Button
-                        type="primary"
-                        className={`${_classes["published-button"]} ${
-                          isChrome && "antCustomBtn"
-                        }`}
-                        onClick={handlePublish_Unpublish}
-                        disabled={doctorData ? false : true}
+                <div
+                  className={
+                    userDisableInput
+                      ? `${_classes["profile-select-enable"]}`
+                      : `${_classes["profile-select-disable"]}`
+                  }
+                ></div>
+                {getRole() === "Admin" && (
+                  <div className=" grid grid-cols-2 gap-3">
+                    <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
+                      <Select
+                        className="mr-5 disable-select "
+                        onChange={changeAccountStatusHandler}
+                        value={userDisableInput}
+                        style={{ width: 120 }}
                       >
-                        {status ? "Published" : "Unpublished"}
-                      </Button>
-                    </Tooltip>
+                        <Select.Option value={true}>Enabled</Select.Option>
+                        <Select.Option className="text-red" value={false}>
+                          Disabled
+                        </Select.Option>
+                      </Select>
+                      <Tooltip
+                        title={
+                          doctorData ? "" : "Please complete doctor profile"
+                        }
+                      >
+                        <Button
+                          type="primary"
+                          className={`${_classes["published-button"]} ${
+                            isChrome && "antCustomBtn"
+                          }`}
+                          onClick={handlePublish_Unpublish}
+                          disabled={doctorData ? false : true}
+                        >
+                          {status ? "Published" : "Unpublished"}
+                        </Button>
+                      </Tooltip>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
             </div>
           </div>
 

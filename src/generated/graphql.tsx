@@ -772,6 +772,7 @@ export type Mutation = {
   onboardingTosAcceptance: User;
   payment: Transaction;
   proposeNewTime: Appointment;
+  publishOrUnpublishDoctor: User;
   reBookAppointment: Appointment;
   removeAppointment: Appointment;
   removeAppointmentNote: AppointmentNote;
@@ -949,7 +950,6 @@ export type MutationDeleteServiceTypeArgs = {
 
 
 export type MutationEnableOrDisableDoctorArgs = {
-  activeStatus?: InputMaybe<Scalars['Boolean']>;
   id: Scalars['Int'];
 };
 
@@ -1002,6 +1002,11 @@ export type MutationPaymentArgs = {
 
 export type MutationProposeNewTimeArgs = {
   proposeNewTimeInput: ProposeNewTimeInput;
+};
+
+
+export type MutationPublishOrUnpublishDoctorArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -2057,11 +2062,17 @@ export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDocto
 
 export type EnableOrDisableDoctorMutationVariables = Exact<{
   id: Scalars['Int'];
-  activeStatus?: InputMaybe<Scalars['Boolean']>;
 }>;
 
 
-export type EnableOrDisableDoctorMutation = { __typename?: 'Mutation', enableOrDisableDoctor: { __typename?: 'User', id: number, status: boolean, is_active: boolean } };
+export type EnableOrDisableDoctorMutation = { __typename?: 'Mutation', enableOrDisableDoctor: { __typename?: 'User', id: number, is_active: boolean } };
+
+export type PublishOrUnpublishDoctorMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type PublishOrUnpublishDoctorMutation = { __typename?: 'Mutation', publishOrUnpublishDoctor: { __typename?: 'User', id: number, status: boolean } };
 
 export type CreateAppointmentMutationVariables = Exact<{
   createAppointment: CreateAppointmentInput;
@@ -2427,7 +2438,7 @@ export type GetPhysiciansQueryVariables = Exact<{
 }>;
 
 
-export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, lastLoginDateTime?: any | null, zip_code?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, doctorProfile?: { __typename?: 'DoctorProfile', language?: any | null, specialization?: string | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number, totalItems: number } } };
+export type GetPhysiciansQuery = { __typename?: 'Query', getPhysicians: { __typename?: 'UserPaginatedResponse', items: Array<{ __typename?: 'User', id: number, first_name: string, last_name: string, email: string, streetAddress?: string | null, createdAt: any, lastLoginDateTime?: any | null, is_active: boolean, zip_code?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null, doctorProfile?: { __typename?: 'DoctorProfile', language?: any | null, specialization?: string | null } | null }>, meta: { __typename?: 'Meta', totalPages: number, currentPage: number, totalItems: number } } };
 
 export type GetAppointmentNoteByIdQueryVariables = Exact<{
   appointmentId: Scalars['Int'];
@@ -2501,7 +2512,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, tos_acceptance: boolean, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, timeZoneName: string, id: number, gmtOffset: string } | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, tos_acceptance: boolean, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, is_active: boolean, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, timeZoneName: string, id: number, gmtOffset: string } | null } };
 
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3194,10 +3205,9 @@ export function useUpdateDoctorProfileMutation() {
   return Urql.useMutation<UpdateDoctorProfileMutation, UpdateDoctorProfileMutationVariables>(UpdateDoctorProfileDocument);
 };
 export const EnableOrDisableDoctorDocument = gql`
-    mutation enableOrDisableDoctor($id: Int!, $activeStatus: Boolean) {
-  enableOrDisableDoctor(id: $id, activeStatus: $activeStatus) {
+    mutation enableOrDisableDoctor($id: Int!) {
+  enableOrDisableDoctor(id: $id) {
     id
-    status
     is_active
   }
 }
@@ -3205,6 +3215,18 @@ export const EnableOrDisableDoctorDocument = gql`
 
 export function useEnableOrDisableDoctorMutation() {
   return Urql.useMutation<EnableOrDisableDoctorMutation, EnableOrDisableDoctorMutationVariables>(EnableOrDisableDoctorDocument);
+};
+export const PublishOrUnpublishDoctorDocument = gql`
+    mutation publishOrUnpublishDoctor($id: Int!) {
+  publishOrUnpublishDoctor(id: $id) {
+    id
+    status
+  }
+}
+    `;
+
+export function usePublishOrUnpublishDoctorMutation() {
+  return Urql.useMutation<PublishOrUnpublishDoctorMutation, PublishOrUnpublishDoctorMutationVariables>(PublishOrUnpublishDoctorDocument);
 };
 export const CreateAppointmentDocument = gql`
     mutation createAppointment($createAppointment: CreateAppointmentInput!) {
@@ -4591,6 +4613,7 @@ export const GetPhysiciansDocument = gql`
       streetAddress
       createdAt
       lastLoginDateTime
+      is_active
       city {
         city_name
       }
@@ -4822,6 +4845,7 @@ export const GetUserDocument = gql`
     city_id
     state_id
     zip_code
+    is_active
     streetAddress
     status
     country {
@@ -8708,13 +8732,6 @@ export default {
             },
             "args": [
               {
-                "name": "activeStatus",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Any"
-                }
-              },
-              {
                 "name": "id",
                 "type": {
                   "kind": "NON_NULL",
@@ -8956,6 +8973,29 @@ export default {
             "args": [
               {
                 "name": "proposeNewTimeInput",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "publishOrUnpublishDoctor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

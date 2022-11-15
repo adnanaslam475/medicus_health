@@ -1,7 +1,15 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
-import { Avatar, Form, Button, Skeleton, notification, Select } from "antd";
+import {
+  Avatar,
+  Form,
+  Button,
+  Skeleton,
+  notification,
+  Select,
+  Tooltip,
+} from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 import {
@@ -25,6 +33,7 @@ import user from "../../../../pages/admin/users";
 import { graphqlError, isChrome, timezoneLabel } from "utils/helper";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import Router from "next/router";
+import { usePublishOrUnpublishDoctorMutation } from "generated/graphql";
 // import _classes from "./ProfileTab.module.scss";
 
 type props = {
@@ -47,7 +56,15 @@ export const ViewProfile = React.forwardRef(function Profile({
   const [formInstance] = Form.useForm();
   const { contact_number, status, language, password } = doctorData?.user || {};
   const [open, setOpen] = React.useState<boolean>(false);
+  //pointer
   const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
+  const [publishStatus, setPublishStatus] = useState();
+  const [{ fetching: disableLoading1 }, enableOrDisableDoctorByAdmin] =
+    useEnableOrDisableDoctorMutation();
+
+  const [{ fetching: disableLoading2 }, PublishOrUnpublishDoctorMutation] =
+    usePublishOrUnpublishDoctorMutation();
+
   const [{ fetching }, executeUseDeleteDoctorMutation] =
     useDeleteDoctorMutation();
 
@@ -60,9 +77,6 @@ export const ViewProfile = React.forwardRef(function Profile({
     { data: onBoardingData, fetching: onBoardingFetching },
     executeUseGetOnboardingAccountLinkMutation,
   ] = useGetOnboardingAccountLinkMutation();
-
-  const [{ fetching: disableLoading }, enableOrDisableDoctorByAdmin] =
-    useEnableOrDisableDoctorMutation();
 
   const [
     { data: userData, fetching: userDataLoading },
@@ -116,12 +130,14 @@ export const ViewProfile = React.forwardRef(function Profile({
   //pointer
   const changeAccountStatusHandler = async (value: boolean) => {
     setUserDisableInput(value);
-    console.log({ value, userDisableInput });
     try {
       const response = await enableOrDisableDoctorByAdmin({
         id: Number(doctorId),
-        // status: Boolean(value),
       });
+      console.log(
+        "changeAccountStatusHandler has got the following response",
+        response
+      );
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
@@ -137,6 +153,25 @@ export const ViewProfile = React.forwardRef(function Profile({
     }
   };
 
+  async function handlePublish_Unpublish() {
+    const res = await PublishOrUnpublishDoctorMutation({
+      id: Number(doctorId),
+    });
+    console.log("handlePublish_Unpublish has the folloing response :", res);
+
+    if (res?.data?.enableOrDisableDoctor?.status) {
+      res?.data?.enableOrDisableDoctor?.status &&
+        notification.success({
+          message: "Published",
+        });
+    }
+    if (!res?.data?.enableOrDisableDoctor?.status) {
+      !res?.data?.enableOrDisableDoctor?.status &&
+        notification.success({
+          message: "Unpublished",
+        });
+    }
+  }
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       firstName: first_name,
@@ -159,7 +194,10 @@ export const ViewProfile = React.forwardRef(function Profile({
       // timeZone: timezoneLabel(timeZone?.timeZone),
       timeZone: timeZone?.timeZoneName,
     });
-    setUserDisableInput(doctorData?.user?.status || userData?.user.status);
+    setUserDisableInput(
+      doctorData?.user?.is_active || userData?.user.is_active
+    );
+    setPublishStatus(doctorData?.user?.status || userData?.user.status);
   }
 
   const deleteAdminUser = async () => {
@@ -215,6 +253,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       window.open(String(url), "_blank");
     }
   };
+  // pointer doctor data
   console.log("doctorData", doctorData);
 
   console.log("userData", userData);
@@ -248,7 +287,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                   //pointer
                   <>
                     <Select
-                      className={`mr-5 disable-select`}
+                      className="mr-5 disable-select "
                       onChange={changeAccountStatusHandler}
                       value={userDisableInput}
                       style={{ width: 120 }}
@@ -258,15 +297,20 @@ export const ViewProfile = React.forwardRef(function Profile({
                         Disabled
                       </Select.Option>
                     </Select>
-
-                    <Button
-                      type="primary"
-                      className={`${_classes["published-button"]} ${
-                        isChrome && "antCustomBtn"
-                      }`}
+                    <Tooltip
+                      title={doctorData ? "" : "Please complete doctor profile"}
                     >
-                      {status ? "Published" : "Unpublished"}
-                    </Button>
+                      <Button
+                        type="primary"
+                        className={`${_classes["published-button"]} ${
+                          isChrome && "antCustomBtn"
+                        }`}
+                        onClick={handlePublish_Unpublish}
+                        // disabled={doctorData ? false : true}
+                      >
+                        {publishStatus ? "Published" : "Unpublished"}
+                      </Button>
+                    </Tooltip>
                   </>
                 )}
 
