@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
-import { Avatar, Form, Button, Skeleton, notification } from "antd";
+import { Avatar, Form, Button, Skeleton, notification, Select } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 import {
   useDeleteDoctorMutation,
+  useEnableOrDisableDoctorMutation,
   useGetCityByIdQuery,
   useGetCountryByIdQuery,
   useGetOnboardingAccountLinkMutation,
@@ -24,6 +25,7 @@ import user from "../../../../pages/admin/users";
 import { graphqlError, isChrome, timezoneLabel } from "utils/helper";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import Router from "next/router";
+// import _classes from "./ProfileTab.module.scss";
 
 type props = {
   doctorId?: string;
@@ -45,7 +47,7 @@ export const ViewProfile = React.forwardRef(function Profile({
   const [formInstance] = Form.useForm();
   const { contact_number, status, language, password } = doctorData?.user || {};
   const [open, setOpen] = React.useState<boolean>(false);
-
+  const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
   const [{ fetching }, executeUseDeleteDoctorMutation] =
     useDeleteDoctorMutation();
 
@@ -58,6 +60,9 @@ export const ViewProfile = React.forwardRef(function Profile({
     { data: onBoardingData, fetching: onBoardingFetching },
     executeUseGetOnboardingAccountLinkMutation,
   ] = useGetOnboardingAccountLinkMutation();
+
+  const [{ fetching: disableLoading }, enableOrDisableDoctorByAdmin] =
+    useEnableOrDisableDoctorMutation();
 
   const [
     { data: userData, fetching: userDataLoading },
@@ -108,6 +113,30 @@ export const ViewProfile = React.forwardRef(function Profile({
     }
   }, [doctorData, userData?.user]);
 
+  //pointer
+  const changeAccountStatusHandler = async (value: boolean) => {
+    setUserDisableInput(value);
+    console.log({ value, userDisableInput });
+    try {
+      const response = await enableOrDisableDoctorByAdmin({
+        id: Number(doctorId),
+        // status: Boolean(value),
+      });
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "User updated successfully",
+        });
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
+
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       firstName: first_name,
@@ -130,6 +159,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       // timeZone: timezoneLabel(timeZone?.timeZone),
       timeZone: timeZone?.timeZoneName,
     });
+    setUserDisableInput(doctorData?.user?.status || userData?.user.status);
   }
 
   const deleteAdminUser = async () => {
@@ -185,6 +215,9 @@ export const ViewProfile = React.forwardRef(function Profile({
       window.open(String(url), "_blank");
     }
   };
+  console.log("doctorData", doctorData);
+
+  console.log("userData", userData);
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -212,14 +245,29 @@ export const ViewProfile = React.forwardRef(function Profile({
               <span className="block">{email}</span>
               <div className="flex gap-2 pt-2 flex-wrap">
                 {getRole() === "Admin" && (
-                  <Button
-                    type="primary"
-                    className={`${_classes["published-button"]} ${
-                      isChrome && "antCustomBtn"
-                    }`}
-                  >
-                    {status ? "Published" : "Unpublished"}
-                  </Button>
+                  //pointer
+                  <>
+                    <Select
+                      className={`mr-5 disable-select`}
+                      onChange={changeAccountStatusHandler}
+                      value={userDisableInput}
+                      style={{ width: 120 }}
+                    >
+                      <Select.Option value={true}>Enabled</Select.Option>
+                      <Select.Option className="text-red" value={false}>
+                        Disabled
+                      </Select.Option>
+                    </Select>
+
+                    <Button
+                      type="primary"
+                      className={`${_classes["published-button"]} ${
+                        isChrome && "antCustomBtn"
+                      }`}
+                    >
+                      {status ? "Published" : "Unpublished"}
+                    </Button>
+                  </>
                 )}
 
                 <Button
