@@ -206,10 +206,11 @@ mutation updateDoctorProfile(
 }
 
 #ENABLE OR DISABLE DOCTOR
-mutation enableOrDisableDoctor($id: Int!) {
-  enableOrDisableDoctor(id: $id) {
+mutation enableOrDisableDoctor($id: Int!, $activeStatus: Boolean) {
+  enableOrDisableDoctor(id: $id,activeStatus : $activeStatus ) {
     id
     status
+    is_active
   }
 }
 

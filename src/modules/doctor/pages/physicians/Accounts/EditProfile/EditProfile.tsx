@@ -118,6 +118,8 @@ function EditProfile({
   });
   const user = getUserData();
   const { email: loggedInUserEmail, id: loggedInUserId } = user?.user || {};
+  const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
+
 
   const router = useRouter();
 
@@ -146,6 +148,7 @@ function EditProfile({
     email,
     contact_number,
     status,
+    is_active,
     doctorProfile,
     timeZone = 86,
   } = doctorData?.user || {};
@@ -249,6 +252,8 @@ function EditProfile({
       // timeZoneId: timeZone?.timeZone,
       timeZone: timeZone?.id || 86,
     });
+    setUserDisableInput(is_active || false);
+
   }
   const [conditionTreatedList, setConditionTreatedList] =
     useState<any>(condition_treated);
@@ -653,7 +658,30 @@ function EditProfile({
       });
     }
   };
+  
+  const changeAccountStatusHandler = async (value: boolean) => {
+    try {
+      const response = await EnableOrDisableDoctor({
+        id: Number(query.id),
+        activeStatus: Boolean(true)
+      });
+      setUserDisableInput(response.data?.enableOrDisableDoctor.is_active);
 
+      console.log(response,"rrrr")
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "User updated successfully",
+        });
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -715,6 +743,26 @@ function EditProfile({
                 </div>
               )}
               <span className="block">{doctor_email}</span>
+              <div className="gap-y-2 flex-col sm:flex-row flex gap-2 pt-2">
+            <div
+              className={
+                userDisableInput
+                  ? `${_classes["profile-select-enable"]}`
+                  : `${_classes["profile-select-disable"]}`
+              }
+            >
+              <Select
+                className={`mr-5 disable-select`}
+                onChange={changeAccountStatusHandler}
+                value={userDisableInput}
+                style={{ width: 120 }}
+              >
+                <Select.Option value={true}>Enabled</Select.Option>
+                <Select.Option className="text-red" value={false}>
+                  Disabled
+                </Select.Option>
+              </Select>
+            </div>
               {getRole() === "Admin" && (
                 <div className=" grid grid-cols-2 gap-3">
                   <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
@@ -735,6 +783,7 @@ function EditProfile({
                   </div>
                 </div>
               )}
+            </div>
             </div>
           </div>
 

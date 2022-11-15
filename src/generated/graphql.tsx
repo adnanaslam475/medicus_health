@@ -949,6 +949,7 @@ export type MutationDeleteServiceTypeArgs = {
 
 
 export type MutationEnableOrDisableDoctorArgs = {
+  activeStatus?: InputMaybe<Scalars['Boolean']>;
   id: Scalars['Int'];
 };
 
@@ -1776,6 +1777,7 @@ export type User = {
   first_name: Scalars['String'];
   gender?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
+  is_active: Scalars['Boolean'];
   lastLoginDateTime?: Maybe<Scalars['DateTime']>;
   last_name: Scalars['String'];
   password?: Maybe<Scalars['String']>;
@@ -2055,10 +2057,11 @@ export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDocto
 
 export type EnableOrDisableDoctorMutationVariables = Exact<{
   id: Scalars['Int'];
+  activeStatus?: InputMaybe<Scalars['Boolean']>;
 }>;
 
 
-export type EnableOrDisableDoctorMutation = { __typename?: 'Mutation', enableOrDisableDoctor: { __typename?: 'User', id: number, status: boolean } };
+export type EnableOrDisableDoctorMutation = { __typename?: 'Mutation', enableOrDisableDoctor: { __typename?: 'User', id: number, status: boolean, is_active: boolean } };
 
 export type CreateAppointmentMutationVariables = Exact<{
   createAppointment: CreateAppointmentInput;
@@ -3191,10 +3194,11 @@ export function useUpdateDoctorProfileMutation() {
   return Urql.useMutation<UpdateDoctorProfileMutation, UpdateDoctorProfileMutationVariables>(UpdateDoctorProfileDocument);
 };
 export const EnableOrDisableDoctorDocument = gql`
-    mutation enableOrDisableDoctor($id: Int!) {
-  enableOrDisableDoctor(id: $id) {
+    mutation enableOrDisableDoctor($id: Int!, $activeStatus: Boolean) {
+  enableOrDisableDoctor(id: $id, activeStatus: $activeStatus) {
     id
     status
+    is_active
   }
 }
     `;
@@ -8704,6 +8708,13 @@ export default {
             },
             "args": [
               {
+                "name": "activeStatus",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
                 "name": "id",
                 "type": {
                   "kind": "NON_NULL",
@@ -11998,6 +12009,17 @@ export default {
           },
           {
             "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "is_active",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
