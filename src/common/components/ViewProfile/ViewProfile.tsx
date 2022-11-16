@@ -58,7 +58,6 @@ export const ViewProfile = React.forwardRef(function Profile({
   const [formInstance] = Form.useForm();
   const { contact_number, status, language, password } = doctorData?.user || {};
   const [open, setOpen] = React.useState<boolean>(false);
-  //pointer
   const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
   const [publishStatus, setPublishStatus] = useState();
   const [{ fetching: disableLoading1 }, enableOrDisableDoctorByAdmin] =
@@ -129,17 +128,13 @@ export const ViewProfile = React.forwardRef(function Profile({
     }
   }, [doctorData, userData?.user]);
 
-  //pointer
   const changeAccountStatusHandler = async (value: boolean) => {
     setUserDisableInput(value);
     try {
       const response = await enableOrDisableDoctorByAdmin({
         id: Number(doctorId),
       });
-      console.log(
-        "changeAccountStatusHandler has got the following response",
-        response
-      );
+
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
@@ -159,7 +154,6 @@ export const ViewProfile = React.forwardRef(function Profile({
     const res = await PublishOrUnpublishDoctorMutation({
       id: Number(doctorId),
     });
-    console.log("handlePublish_Unpublish has the folloing response :", res);
 
     if (res?.data?.publishOrUnpublishDoctor?.status) {
       res?.data?.publishOrUnpublishDoctor?.status &&
@@ -255,10 +249,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       window.open(String(url), "_blank");
     }
   };
-  // pointer doctor data
-  console.log("doctorData", doctorData);
 
-  console.log("userData", userData);
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -286,7 +277,6 @@ export const ViewProfile = React.forwardRef(function Profile({
               <span className="block">{email}</span>
               <div className="flex gap-2 pt-2 flex-wrap">
                 {getRole() === "Admin" && (
-                  //pointer
                   <>
                     <Select
                       className="mr-5 disable-select "

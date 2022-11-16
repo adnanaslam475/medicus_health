@@ -115,7 +115,6 @@ function AccountsProfile() {
   useEffect(() => {
     executeUseDoctorProfileQuery({ requestPolicy: "network-only" });
   }, [profileUpdated]);
-  console.log(doctorProfile, "doctorProfile");
   return (
     <div>
       {isEdit ? (

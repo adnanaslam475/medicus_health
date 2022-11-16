@@ -653,10 +653,7 @@ function EditProfile({
       const response = await enableOrDisableDoctorByAdmin({
         id: Number(doctorId),
       });
-      console.log(
-        "changeAccountStatusHandler has got the following response",
-        response
-      );
+
       if (response?.error) {
         throw new Error(response?.error?.graphQLErrors[0]?.message);
       }
@@ -676,7 +673,6 @@ function EditProfile({
     const res = await PublishOrUnpublishDoctorMutation({
       id: Number(doctorId),
     });
-    console.log("handlePublish_Unpublish has the folloing response :", res);
 
     if (res?.data?.publishOrUnpublishDoctor?.status) {
       res?.data?.publishOrUnpublishDoctor?.status &&
@@ -754,13 +750,6 @@ function EditProfile({
               )}
               <span className="block">{doctor_email}</span>
               <div className="gap-y-2 flex-col sm:flex-row flex gap-2 pt-2">
-                {/* <div
-                  className={
-                    userDisableInput
-                      ? `${_classes["profile-select-enable"]}`
-                      : `${_classes["profile-select-disable"]}`
-                  }
-                > */}
                 {getRole() === "Admin" && (
                   <>
                     <Select
@@ -796,7 +785,6 @@ function EditProfile({
                     </Button>
                   </>
                 )}
-                {/* </div> */}
               </div>
             </div>
           </div>

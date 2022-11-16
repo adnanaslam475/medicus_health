@@ -204,7 +204,6 @@ mutation updateDoctorProfile(
     }
   }
 }
-# pointer
 
 #ENABLE OR DISABLE DOCTOR
 mutation enableOrDisableDoctor($id: Int!) {
