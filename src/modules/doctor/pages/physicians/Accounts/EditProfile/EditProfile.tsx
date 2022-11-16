@@ -43,6 +43,7 @@ import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import {
   CloseOutlined,
+  EditOutlined,
   InfoCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -121,7 +122,7 @@ function EditProfile({
   const { email: loggedInUserEmail, id: loggedInUserId } = user?.user || {};
 
   const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
-  const [publishStatus, setPublishStatus] = useState();
+  const [publishStatus, setPublishStatus] = useState<boolean>();
   const [{ fetching: disableLoading1 }, enableOrDisableDoctorByAdmin] =
     useEnableOrDisableDoctorMutation();
 
@@ -257,8 +258,8 @@ function EditProfile({
       // timeZoneId: timeZone?.timeZone,
       timeZone: timeZone?.id || 86,
     });
-    setUserDisableInput(userData?.user.is_active || false);
-    setPublishStatus(userData?.user.status);
+    setUserDisableInput(userData?.user?.is_active || false);
+    setPublishStatus(userData?.user?.status);
   }
   const [conditionTreatedList, setConditionTreatedList] =
     useState<any>(condition_treated);
@@ -677,14 +678,14 @@ function EditProfile({
     });
     console.log("handlePublish_Unpublish has the folloing response :", res);
 
-    if (res?.data?.enableOrDisableDoctor?.status) {
-      res?.data?.enableOrDisableDoctor?.status &&
+    if (res?.data?.publishOrUnpublishDoctor?.status) {
+      res?.data?.publishOrUnpublishDoctor?.status &&
         notification.success({
           message: "Published",
         });
     }
-    if (!res?.data?.enableOrDisableDoctor?.status) {
-      !res?.data?.enableOrDisableDoctor?.status &&
+    if (!res?.data?.publishOrUnpublishDoctor?.status) {
+      !res?.data?.publishOrUnpublishDoctor?.status &&
         notification.success({
           message: "Unpublished",
         });
@@ -753,46 +754,49 @@ function EditProfile({
               )}
               <span className="block">{doctor_email}</span>
               <div className="gap-y-2 flex-col sm:flex-row flex gap-2 pt-2">
-                <div
+                {/* <div
                   className={
                     userDisableInput
                       ? `${_classes["profile-select-enable"]}`
                       : `${_classes["profile-select-disable"]}`
                   }
-                ></div>
+                > */}
                 {getRole() === "Admin" && (
-                  <div className=" grid grid-cols-2 gap-3">
-                    <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
-                      <Select
-                        className="mr-5 disable-select "
-                        onChange={changeAccountStatusHandler}
-                        value={userDisableInput}
-                        style={{ width: 120 }}
+                  <>
+                    <Select
+                      className="mr-5 disable-select "
+                      onChange={changeAccountStatusHandler}
+                      value={userDisableInput}
+                      style={{ width: 120 }}
+                    >
+                      <Select.Option value={true}>Enabled</Select.Option>
+                      <Select.Option className="text-red" value={false}>
+                        Disabled
+                      </Select.Option>
+                    </Select>
+                    <Tooltip
+                      title={doctorData ? "" : "Please complete doctor profile"}
+                    >
+                      <Button
+                        type="primary"
+                        className="ant-btn ant-btn-default  antCustomBtn"
+                        onClick={handlePublish_Unpublish}
+                        // disabled={doctorData ? false : true}
                       >
-                        <Select.Option value={true}>Enabled</Select.Option>
-                        <Select.Option className="text-red" value={false}>
-                          Disabled
-                        </Select.Option>
-                      </Select>
-                      <Tooltip
-                        title={
-                          doctorData ? "" : "Please complete doctor profile"
-                        }
-                      >
-                        <Button
-                          type="primary"
-                          className={`${_classes["published-button"]} ${
-                            isChrome && "antCustomBtn"
-                          }`}
-                          onClick={handlePublish_Unpublish}
-                          disabled={doctorData ? false : true}
-                        >
-                          {status ? "Published" : "Unpublished"}
-                        </Button>
-                      </Tooltip>
-                    </div>
-                  </div>
+                        {publishStatus ? "Published" : "Unpublished"}
+                      </Button>
+                    </Tooltip>
+                    <Button
+                      type="default"
+                      className="ant-btn ant-btn-default  antCustomBtn"
+                      onClick={() => setIsEdit?.(false)}
+                    >
+                      <EditOutlined />
+                      Edit info
+                    </Button>
+                  </>
                 )}
+                {/* </div> */}
               </div>
             </div>
           </div>

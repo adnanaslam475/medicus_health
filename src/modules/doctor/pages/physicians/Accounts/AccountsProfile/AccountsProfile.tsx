@@ -115,7 +115,7 @@ function AccountsProfile() {
   useEffect(() => {
     executeUseDoctorProfileQuery({ requestPolicy: "network-only" });
   }, [profileUpdated]);
-
+  console.log(doctorProfile, "doctorProfile");
   return (
     <div>
       {isEdit ? (
@@ -141,6 +141,7 @@ function AccountsProfile() {
         <ViewProfile
           setIsEdit={setIsEdit}
           schedules={schedules}
+          edit={editData}
           doctorId={String(id)}
           doctorData={doctorProfile}
           loading={doctorDataLoading}

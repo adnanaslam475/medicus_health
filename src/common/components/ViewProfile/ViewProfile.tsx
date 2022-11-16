@@ -43,6 +43,7 @@ type props = {
   showLoginInfo?: boolean;
   schedules?: Schedule[] | undefined;
   loading?: boolean;
+  edit: any;
 };
 
 export const ViewProfile = React.forwardRef(function Profile({
@@ -52,6 +53,7 @@ export const ViewProfile = React.forwardRef(function Profile({
   showLoginInfo,
   schedules,
   loading,
+  edit,
 }: props) {
   const [formInstance] = Form.useForm();
   const { contact_number, status, language, password } = doctorData?.user || {};
@@ -159,14 +161,14 @@ export const ViewProfile = React.forwardRef(function Profile({
     });
     console.log("handlePublish_Unpublish has the folloing response :", res);
 
-    if (res?.data?.enableOrDisableDoctor?.status) {
-      res?.data?.enableOrDisableDoctor?.status &&
+    if (res?.data?.publishOrUnpublishDoctor?.status) {
+      res?.data?.publishOrUnpublishDoctor?.status &&
         notification.success({
           message: "Published",
         });
     }
-    if (!res?.data?.enableOrDisableDoctor?.status) {
-      !res?.data?.enableOrDisableDoctor?.status &&
+    if (!res?.data?.publishOrUnpublishDoctor?.status) {
+      !res?.data?.publishOrUnpublishDoctor?.status &&
         notification.success({
           message: "Unpublished",
         });
@@ -302,28 +304,35 @@ export const ViewProfile = React.forwardRef(function Profile({
                     >
                       <Button
                         type="primary"
-                        className={`${_classes["published-button"]} ${
-                          isChrome && "antCustomBtn"
-                        }`}
+                        className="ant-btn ant-btn-default  antCustomBtn"
                         onClick={handlePublish_Unpublish}
                         // disabled={doctorData ? false : true}
                       >
                         {publishStatus ? "Published" : "Unpublished"}
                       </Button>
                     </Tooltip>
+                    <Button
+                      type="default"
+                      className="ant-btn ant-btn-default  antCustomBtn"
+                      onClick={() => setIsEdit?.(true)}
+                    >
+                      <EditOutlined />
+                      Edit info
+                    </Button>
                   </>
                 )}
-
-                <Button
-                  type="default"
-                  className={`${_classes["edit-button"]}  ${
-                    isChrome && "antCustomBtn"
-                  }`}
-                  onClick={() => setIsEdit?.(true)}
-                >
-                  <EditOutlined />
-                  Edit info
-                </Button>
+                {getRole() !== "Admin" && (
+                  <Button
+                    type="default"
+                    className={`${_classes["edit-button"]}  ${
+                      isChrome && "antCustomBtn"
+                    }`}
+                    onClick={() => setIsEdit?.(true)}
+                  >
+                    <EditOutlined />
+                    Edit info
+                  </Button>
+                )}
 
                 <Skeleton loading={userDataLoading}>
                   {getRole() === "Doctor" && (
