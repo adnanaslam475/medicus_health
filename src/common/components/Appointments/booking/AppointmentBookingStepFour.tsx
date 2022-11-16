@@ -48,8 +48,8 @@ function StepFour(props: Props) {
   let formatedPhysicianName = doctorName
     ? `${doctorName?.includes("Dr.") ? doctorName : `Dr. ${doctorName}`}`
     : physician
-      ? `${physician?.includes("Dr.") ? physician : `Dr. ${physician}`}`
-      : "";
+    ? `${physician?.includes("Dr.") ? physician : `Dr. ${physician}`}`
+    : "";
 
   const timeZone = getCurrentUserTimeZone();
 
@@ -95,14 +95,16 @@ function StepFour(props: Props) {
         {/* <span className="ml-3">{date.formathhmma(requestedDate)}</span> */}
         <span className="ml-3">
           {dayjs(
-            `${dayjs().format("YYYY-MM-DD")}T${availabilityTime?.startTime
+            `${dayjs().format("YYYY-MM-DD")}T${
+              availabilityTime?.startTime
             }:00.000Z`
           )
             .tz(timeZone)
             .format("h:mm A")}{" "}
           -{" "}
           {dayjs(
-            `${dayjs().format("YYYY-MM-DD")}T${availabilityTime?.endTime
+            `${dayjs().format("YYYY-MM-DD")}T${
+              availabilityTime?.endTime
             }:00.000Z`
           )
             .tz(timeZone)
@@ -120,9 +122,9 @@ function StepFour(props: Props) {
       </p>
       <p className="text-red">
         * Processing fee is not refundable in the event you cancel your
-        appointment.
+        appointment. Current amount shown is an estimate and will be updated
+        upon finalization of transaction.
       </p>
-      <p className="text-red">* Current amount shown is an estimate and will be updated upon finalization of transaction.</p>
     </>
   );
 }
