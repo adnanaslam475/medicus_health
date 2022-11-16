@@ -140,7 +140,6 @@ function AccountsProfile() {
         <ViewProfile
           setIsEdit={setIsEdit}
           schedules={schedules}
-          edit={editData}
           doctorId={String(id)}
           doctorData={doctorProfile}
           loading={doctorDataLoading}

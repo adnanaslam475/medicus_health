@@ -43,7 +43,6 @@ type props = {
   showLoginInfo?: boolean;
   schedules?: Schedule[] | undefined;
   loading?: boolean;
-  edit: any;
 };
 
 export const ViewProfile = React.forwardRef(function Profile({
@@ -53,7 +52,6 @@ export const ViewProfile = React.forwardRef(function Profile({
   showLoginInfo,
   schedules,
   loading,
-  edit,
 }: props) {
   const [formInstance] = Form.useForm();
   const { contact_number, status, language, password } = doctorData?.user || {};

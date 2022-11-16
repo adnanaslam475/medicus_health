@@ -122,7 +122,6 @@ function AccountsProfile(props: Props) {
           setAddScheduleTime={setAddScheduleTime}
           doctorId={String(id)}
           doctorData={doctorProfile}
-          edit={editData}
           addScheduleTime={addScheduleTime}
           onAddClick={onAddClick}
           loading={fetching}
