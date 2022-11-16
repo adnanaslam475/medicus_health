@@ -391,7 +391,7 @@ query physicianAppointmentsHistory(
         type
         price
         serviceId
-        dateTime{
+        dateTime {
           date
           startTime
           endTime
@@ -620,6 +620,7 @@ query getPhysicians(
       streetAddress
       createdAt
       lastLoginDateTime
+      is_active
       city {
         city_name
       }

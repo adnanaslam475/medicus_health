@@ -17,7 +17,7 @@ mutation updateAppointment($updateAppointmentInput: UpdateAppointmentInput!) {
     doctor {
       first_name
     }
-    appointmentTypeProposed{
+    appointmentTypeProposed {
       type
       serviceId
     }
@@ -31,6 +31,6 @@ mutation updateAppointment($updateAppointmentInput: UpdateAppointmentInput!) {
 
 mutation deleteDoctor($id: Int!) {
   deleteDoctor(id: $id) {
-      id
+    id
   }
 }

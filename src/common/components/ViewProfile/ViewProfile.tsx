@@ -1,11 +1,20 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
-import { Avatar, Form, Button, Skeleton, notification } from "antd";
+import {
+  Avatar,
+  Form,
+  Button,
+  Skeleton,
+  notification,
+  Select,
+  Tooltip,
+} from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 import {
   useDeleteDoctorMutation,
+  useEnableOrDisableDoctorMutation,
   useGetCityByIdQuery,
   useGetCountryByIdQuery,
   useGetOnboardingAccountLinkMutation,
@@ -24,6 +33,8 @@ import user from "../../../../pages/admin/users";
 import { graphqlError, isChrome, timezoneLabel } from "utils/helper";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import Router from "next/router";
+import { usePublishOrUnpublishDoctorMutation } from "generated/graphql";
+// import _classes from "./ProfileTab.module.scss";
 
 type props = {
   doctorId?: string;
@@ -45,6 +56,13 @@ export const ViewProfile = React.forwardRef(function Profile({
   const [formInstance] = Form.useForm();
   const { contact_number, status, language, password } = doctorData?.user || {};
   const [open, setOpen] = React.useState<boolean>(false);
+  const [userDisableInput, setUserDisableInput] = React.useState<boolean>();
+  const [publishStatus, setPublishStatus] = useState();
+  const [{ fetching: disableLoading1 }, enableOrDisableDoctorByAdmin] =
+    useEnableOrDisableDoctorMutation();
+
+  const [{ fetching: disableLoading2 }, PublishOrUnpublishDoctorMutation] =
+    usePublishOrUnpublishDoctorMutation();
 
   const [{ fetching }, executeUseDeleteDoctorMutation] =
     useDeleteDoctorMutation();
@@ -108,6 +126,46 @@ export const ViewProfile = React.forwardRef(function Profile({
     }
   }, [doctorData, userData?.user]);
 
+  const changeAccountStatusHandler = async (value: boolean) => {
+    setUserDisableInput(value);
+    try {
+      const response = await enableOrDisableDoctorByAdmin({
+        id: Number(doctorId),
+      });
+
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "User updated successfully",
+        });
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
+
+  async function handlePublish_Unpublish() {
+    const res = await PublishOrUnpublishDoctorMutation({
+      id: Number(doctorId),
+    });
+
+    if (res?.data?.publishOrUnpublishDoctor?.status) {
+      res?.data?.publishOrUnpublishDoctor?.status &&
+        notification.success({
+          message: "Published",
+        });
+    }
+    if (!res?.data?.publishOrUnpublishDoctor?.status) {
+      !res?.data?.publishOrUnpublishDoctor?.status &&
+        notification.success({
+          message: "Unpublished",
+        });
+    }
+  }
   function prepareAndSetEditPayload() {
     formInstance.setFieldsValue({
       firstName: first_name,
@@ -130,6 +188,10 @@ export const ViewProfile = React.forwardRef(function Profile({
       // timeZone: timezoneLabel(timeZone?.timeZone),
       timeZone: timeZone?.timeZoneName,
     });
+    setUserDisableInput(
+      doctorData?.user?.is_active || userData?.user.is_active
+    );
+    setPublishStatus(doctorData?.user?.status || userData?.user.status);
   }
 
   const deleteAdminUser = async () => {
@@ -185,6 +247,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       window.open(String(url), "_blank");
     }
   };
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2  pr-0 2xl:pr-40 gap-3">
@@ -212,26 +275,52 @@ export const ViewProfile = React.forwardRef(function Profile({
               <span className="block">{email}</span>
               <div className="flex gap-2 pt-2 flex-wrap">
                 {getRole() === "Admin" && (
+                  <>
+                    <Select
+                      className="mr-5 disable-select "
+                      onChange={changeAccountStatusHandler}
+                      value={userDisableInput}
+                      style={{ width: 120 }}
+                    >
+                      <Select.Option value={true}>Enabled</Select.Option>
+                      <Select.Option className="text-red" value={false}>
+                        Disabled
+                      </Select.Option>
+                    </Select>
+                    <Tooltip
+                      title={doctorData ? "" : "Please complete doctor profile"}
+                    >
+                      <Button
+                        type="primary"
+                        className="ant-btn ant-btn-default  antCustomBtn"
+                        onClick={handlePublish_Unpublish}
+                        // disabled={doctorData ? false : true}
+                      >
+                        {publishStatus ? "Published" : "Unpublished"}
+                      </Button>
+                    </Tooltip>
+                    <Button
+                      type="default"
+                      className="ant-btn ant-btn-default  antCustomBtn"
+                      onClick={() => setIsEdit?.(true)}
+                    >
+                      <EditOutlined />
+                      Edit info
+                    </Button>
+                  </>
+                )}
+                {getRole() !== "Admin" && (
                   <Button
-                    type="primary"
-                    className={`${_classes["published-button"]} ${
+                    type="default"
+                    className={`${_classes["edit-button"]}  ${
                       isChrome && "antCustomBtn"
                     }`}
+                    onClick={() => setIsEdit?.(true)}
                   >
-                    {status ? "Published" : "Unpublished"}
+                    <EditOutlined />
+                    Edit info
                   </Button>
                 )}
-
-                <Button
-                  type="default"
-                  className={`${_classes["edit-button"]}  ${
-                    isChrome && "antCustomBtn"
-                  }`}
-                  onClick={() => setIsEdit?.(true)}
-                >
-                  <EditOutlined />
-                  Edit info
-                </Button>
 
                 <Skeleton loading={userDataLoading}>
                   {getRole() === "Doctor" && (

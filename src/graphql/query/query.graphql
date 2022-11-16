@@ -71,6 +71,7 @@ query getUser($input: Int!) {
     city_id
     state_id
     zip_code
+    is_active
     streetAddress
     status
     country {
