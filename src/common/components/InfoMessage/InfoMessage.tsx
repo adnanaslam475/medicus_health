@@ -20,7 +20,7 @@ const InfoMessage = () => {
       />
       <span className="ml-3 min-h-max md:block">
         Please complete the health questionnaire in order to book appointments
-        with our Physicians.
+        with our physicians.
       </span>
       {/* <span className="ml-3 min-h-max block md:hidden">
         Please complete the health questionnaire in order to book appointments
@@ -28,7 +28,7 @@ const InfoMessage = () => {
       </span> */}
       <Link href="/patient/account?activeTab=2">
         <a className="underline text-primary px-3 whitespace-nowrap">
-          Complete Now
+          Complete now
         </a>
       </Link>
     </div>
