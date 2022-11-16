@@ -209,6 +209,13 @@ mutation updateDoctorProfile(
 mutation enableOrDisableDoctor($id: Int!) {
   enableOrDisableDoctor(id: $id) {
     id
+    is_active
+  }
+}
+# PUBLISH OR UNPUBLISH DOCTOR
+mutation publishOrUnpublishDoctor($id: Int!) {
+  publishOrUnpublishDoctor(id: $id) {
+    id
     status
   }
 }

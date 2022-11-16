@@ -64,7 +64,7 @@ type Props = {
   setAddScheduleDay: React.Dispatch<React.SetStateAction<string | number>>;
   setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
   onAddClick?: () => void;
-  edit?: () => void;
+
   addScheduleTime?: {
     timeString: string[];
     time: RangeValue<moment.Moment> | null;
@@ -331,7 +331,7 @@ function EditProfile({
     try {
       const url = await s3.uploadFile(info.file.originFileObj as File);
       setImage(url?.location);
-    } catch (error) { }
+    } catch (error) {}
     if (error) {
       notification.error({
         message: error?.graphQLErrors[0]?.message || "Something went wrong",
@@ -349,14 +349,14 @@ function EditProfile({
     const res = await EnableOrDisableDoctor({
       id: Number(doctor_id),
     });
-    if (res?.data?.enableOrDisableDoctor?.status) {
-      res?.data?.enableOrDisableDoctor?.status &&
+    if (res?.data?.enableOrDisableDoctor?.is_active) {
+      res?.data?.enableOrDisableDoctor?.is_active &&
         notification.success({
           message: "Published",
         });
     }
-    if (!res?.data?.enableOrDisableDoctor?.status) {
-      !res?.data?.enableOrDisableDoctor?.status &&
+    if (!res?.data?.enableOrDisableDoctor?.is_active) {
+      !res?.data?.enableOrDisableDoctor?.is_active &&
         notification.success({
           message: "Unpublished",
         });
@@ -510,8 +510,9 @@ function EditProfile({
             </Upload>
             <div>
               <h2 className="mb-0">
-                {`${doctor_first_name && doctor_first_name} ${doctor_last_name && doctor_last_name
-                  }`}
+                {`${doctor_first_name && doctor_first_name} ${
+                  doctor_last_name && doctor_last_name
+                }`}
               </h2>
               <span className="block">{doctor_email}</span>
               {getRole() === "Admin" && (
@@ -522,7 +523,9 @@ function EditProfile({
                     >
                       <Button
                         type="primary"
-                        className={`${_classes["published-button"]} ${isChrome && 'antCustomBtn'}`}
+                        className={`${_classes["published-button"]} ${
+                          isChrome && "antCustomBtn"
+                        }`}
                         onClick={handlePublish_Unpublish}
                         disabled={doctorData ? false : true}
                       >
@@ -888,7 +891,11 @@ function EditProfile({
                         />
                       </Form.Item>
                       {clinicList?.length - 1 === index && (
-                        <Button onClick={addHospital} disabled={isStaff} className={`${isChrome && 'antCustomBtn'}`}>
+                        <Button
+                          onClick={addHospital}
+                          disabled={isStaff}
+                          className={`${isChrome && "antCustomBtn"}`}
+                        >
                           Add new field
                         </Button>
                       )}
@@ -898,7 +905,7 @@ function EditProfile({
                           danger
                           onClick={() => removeHospital(index)}
                           disabled={isStaff}
-                          className={`${isChrome && 'antCustomBtn'}`}
+                          className={`${isChrome && "antCustomBtn"}`}
                         >
                           Remove field
                         </Button>
@@ -951,14 +958,18 @@ function EditProfile({
                         />
                       </Form.Item>
                       {educationList?.length - 1 === index && (
-                        <Button onClick={addEducation} disabled={isStaff} className={`${isChrome && 'antCustomBtn'}`}>
+                        <Button
+                          onClick={addEducation}
+                          disabled={isStaff}
+                          className={`${isChrome && "antCustomBtn"}`}
+                        >
                           Add new field
                         </Button>
                       )}
                       &nbsp;
                       {educationList?.length > 1 && (
                         <Button
-                          className={`${isChrome && 'antCustomBtn'}`}
+                          className={`${isChrome && "antCustomBtn"}`}
                           danger
                           onClick={() => removeEducation(index)}
                           disabled={isStaff}

@@ -154,7 +154,6 @@ function ProfileDetail() {
               <AdminQuestionnaireFormTab
                 questionnaire={questionnair as Appointment}
                 doctorId={Number(query?.id)}
-
               />
             </TabPane>
             {/* <TabPane
