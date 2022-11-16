@@ -188,9 +188,7 @@ function DoctorCard({
           </div>
           <div className="card-actionBtns lg:w-2/5">
             {items && items?.length > 0 ? (
-              <Button
-                className={`w-full mb-3 ${isChrome && 'antCustomBtn'}`}
-              >
+              <Button className={`w-full mb-3 ${isChrome && "antCustomBtn"}`}>
                 <a
                   onClick={() => {
                     const query: any = {
@@ -205,7 +203,6 @@ function DoctorCard({
                       query,
                     });
                   }}
-
                 >
                   {t("message_physician")}
                   {/* Message physician */}
@@ -217,13 +214,15 @@ function DoctorCard({
                   title={capitalizeFirstLetter(
                     "Please request an appointment to message physician."
                   )}
-                // {capitalizeFirstLetter(value)}
+                  // {capitalizeFirstLetter(value)}
                 >
                   <Button
-                    className={`${_classes["btn-tooltip"]} w-full ${isChrome && 'antCustomBtn'}`}
+                    className={`${_classes["btn-tooltip"]} w-full ${
+                      isChrome && "antCustomBtn"
+                    } tracking-tighter`}
                     disabled={true}
                   >
-                    Message Physician
+                    Message physician
                   </Button>
                 </Tooltip>
               </div>
@@ -250,7 +249,9 @@ function DoctorCard({
             >
               <Button
                 type="primary"
-                className={`${_classes["btn-tooltip"]}  ${isChrome && 'antCustomBtn'}`}
+                className={`${_classes["btn-tooltip"]}  ${
+                  isChrome && "antCustomBtn"
+                }`}
                 onClick={showModal}
                 disabled={
                   patientHealthHistory?.patientHealthHistory ? false : true
