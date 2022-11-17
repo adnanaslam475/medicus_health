@@ -17,7 +17,7 @@ import {
   formatDAYMMDDYYUTC,
   // formatDAYMMDDYYCustomTimeZone,
   getDateAndTimeWRTTZ,
-  setTimeZone
+  setTimeZone,
 } from "./date";
 
 import { isObjectEmpty } from "./object";
@@ -48,7 +48,7 @@ const date = {
   formatDAYMMDDYYUTC,
   // formatDAYMMDDYYCustomTimeZone,
   getDateAndTimeWRTTZ,
-  setTimeZone
+  setTimeZone,
 };
 
 const object = {

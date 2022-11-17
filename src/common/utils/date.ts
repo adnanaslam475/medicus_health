@@ -226,3 +226,7 @@ export const currencyFormatter = (value: number) =>
 
 export const numberFormatter = (value: number) =>
   new Intl.NumberFormat("en-PK", { maximumSignificantDigits: 3 }).format(value);
+
+export function getUnixTimeStamp(date: string) {
+  return dayjs(date).unix();
+}
