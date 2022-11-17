@@ -45,7 +45,7 @@ type Props = {
   adminData?: AdminData;
   patientData?: User[];
   adminApp_Details?: DoctorData;
-  rebookData?: Appointment;
+  rebookData?: Appointment | any;
   clear?: boolean | undefined;
   setClear?: any;
 };
@@ -198,7 +198,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
       );
 
       setServiceInfo(charge as any);
-      formInstance?.resetFields(["requestedDate", "selectedDay","availability"]);
+      formInstance?.resetFields([
+        "requestedDate",
+        "selectedDay",
+        "availability",
+      ]);
       setSelectedDay(9);
     }
 
@@ -384,9 +388,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
                     value={
                       serviceInfo
                         ? `${serviceInfo?.map((item) =>
-                            item?.price ? item?.price : ""
+                            item?.price ? item?.price + 100 : ""
                           )}`
-                        : price || charges || rebookData?.charges
+                        : parseInt(price) + 100 ||
+                          parseInt(charges) + 100 ||
+                          rebookData?.charges?.valueOf() + 100
                     }
                   />
                   {/* $

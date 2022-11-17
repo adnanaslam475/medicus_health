@@ -172,8 +172,8 @@ function DoctorAppointmentInfo({ data }: Props) {
           status === "Proposed" ||
           status === "Rescheduled" ||
           status === "Completed") && (
-            <MessageButtons patientID={patientID} doctorId={doctorIdForChat} />
-          )}
+          <MessageButtons patientID={patientID} doctorId={doctorIdForChat} />
+        )}
       </div>
       <div>
         <LabelWithText label="ID#" text={Number(id)} />
@@ -208,7 +208,7 @@ function DoctorAppointmentInfo({ data }: Props) {
           }
           text={
             (appointmentDateTime?.startTime && status === "Completed") ||
-              status === "Confirmed"
+            status === "Confirmed"
               ? `${formatedDueDate}`
               : date.formatMMMMDDYYYY(requestedDate, timeZone)
           }
@@ -228,17 +228,21 @@ function DoctorAppointmentInfo({ data }: Props) {
             !appointmentDateTime?.startTime || !appointmentDateTime?.endTime
               ? "--"
               : `${date.formathhmma(
-                appointmentDateTime?.startTime,
-                timeZone
-              )} - ${date.formathhmma(
-                appointmentDateTime?.endTime,
-                timeZone
-              )}`
+                  appointmentDateTime?.startTime,
+                  timeZone
+                )} - ${date.formathhmma(
+                  appointmentDateTime?.endTime,
+                  timeZone
+                )}`
           }
         />
         <LabelWithText
           label="Total amount"
-          text={appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "-"}
+          text={
+            appointmentCharges?.total
+              ? currencyFormatter(appointmentCharges?.total)
+              : "-"
+          }
         />
         {/* {(status === "Confirmed" || status === "Completed") && (
           <LabelWithText
@@ -470,7 +474,9 @@ function DoctorAppointmentInfoFooter({
           <Button
             type="primary"
             icon={<VideoCameraFilled />}
-            className={`${_classes["appointments-btn"]} flex ${isChrome && 'antCustomBtn'}`}
+            className={`${_classes["appointments-btn"]} flex ${
+              isChrome && "antCustomBtn"
+            }`}
             disabled={disabled}
             target={"_blank"}
           >
@@ -481,7 +487,9 @@ function DoctorAppointmentInfoFooter({
       {getRole() === "User" && data?.status === "Completed" && (
         <Button
           type="primary"
-          className={`${_classes["appointments-rebook-btn"]} ${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["appointments-rebook-btn"]} ${
+            isChrome && "antCustomBtn"
+          }`}
           onClick={showModal}
         >
           Rebook appointment
@@ -546,7 +554,9 @@ function DoctorUpcomingAppointmentInfoFooter({
       <div className="flex min-w-[230px] sm:min-w-auto md:min-w-auto">
         <Button
           danger
-          className={`${_classes["appointments-btn"]} w-full sm:w-auto md:w-auto ${isChrome && 'antCustomBtn'}`}
+          className={`${
+            _classes["appointments-btn"]
+          } w-full sm:w-auto md:w-auto ${isChrome && "antCustomBtn"}`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Cancel appointment
@@ -556,7 +566,9 @@ function DoctorUpcomingAppointmentInfoFooter({
         <>
           <Button
             type="primary"
-            className={`${_classes["appointments-btn"]} bg-current ${isChrome && 'antCustomBtn'}`}
+            className={`${_classes["appointments-btn"]} bg-current ${
+              isChrome && "antCustomBtn"
+            }`}
             onClick={() => setShowRescheduleModal(true)}
           >
             <Image
@@ -579,7 +591,9 @@ function DoctorUpcomingAppointmentInfoFooter({
             <Button
               type="primary"
               icon={<VideoCameraFilled />}
-              className={`${_classes["appointments-btn"]} ${_classes["join-now-mobile"]} flex ${isChrome && 'antCustomBtn'}`}
+              className={`${_classes["appointments-btn"]} ${
+                _classes["join-now-mobile"]
+              } flex ${isChrome && "antCustomBtn"}`}
               disabled={disabled}
               target={"_blank"}
             >
@@ -591,7 +605,9 @@ function DoctorUpcomingAppointmentInfoFooter({
       {getRole() === "User" && data?.status === "Completed" && (
         <Button
           type="primary"
-          className={`${_classes["appointments-rebook-btn"]} ${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["appointments-rebook-btn"]} ${
+            isChrome && "antCustomBtn"
+          }`}
           onClick={showModal}
         >
           Rebook appointment
@@ -709,7 +725,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     setSlot({ startDate: dateString, endDate: formatedDate });
   };
 
-  function onOkDatePicker(value: any) { }
+  function onOkDatePicker(value: any) {}
 
   // API CALL
 
@@ -813,7 +829,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         <Button
           danger
           // className="border border-red outline"
-          className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["appointments-btn"]} ${
+            isChrome && "antCustomBtn"
+          }`}
           onClick={() => setShowConfirmationModal(true)}
         >
           Reject
@@ -821,7 +839,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         <div className="flex-col sm:flex-row flex flex-wrap">
           <Button
             icon={<RetweetOutlined />}
-            className={`${_classes["appointments-btn"]} my-2 sm:my-0 ${isChrome && 'antCustomBtn'}`}
+            className={`${_classes["appointments-btn"]} my-2 sm:my-0 ${
+              isChrome && "antCustomBtn"
+            }`}
             onClick={showModal}
           >
             Propose/edit appointment
@@ -870,7 +890,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  {serviceInfo?.price ? currencyFormatter(serviceInfo?.price) : "-"}
+                  {serviceInfo?.price
+                    ? currencyFormatter(serviceInfo?.price + 100)
+                    : "-"}
                 </div>
               </Form.Item>
             </div>
@@ -940,7 +962,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
               onClick={addTimeSlot}
               disabled={Object.values(slot).some((value) => value === "")}
               type="link"
-              className={`${isChrome && 'antCustomBtn'}`}
+              className={`${isChrome && "antCustomBtn"}`}
             >
               + Add slots
             </Button>
@@ -949,7 +971,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           <div className="flex justify-end">
             <Button
               loading={fetching}
-              className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
+              className={`${_classes["appointments-btn"]} ${
+                isChrome && "antCustomBtn"
+              }`}
               onClick={onProposeNewTimeSlot}
               type="primary"
               disabled={slots.length > 0 ? false : true}
