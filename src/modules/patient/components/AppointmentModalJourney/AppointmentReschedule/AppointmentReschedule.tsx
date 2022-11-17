@@ -148,7 +148,6 @@ function AppointmentReschedule(props: Props) {
           : "* Processing fee is not refundable in the event you cancel your appointment."}
       </p>
     </div>
-    //  Current amount shown is an estimate and will be updated upon finalization of transaction.
   );
 }
 

@@ -75,7 +75,6 @@ function StepFour(props: Props) {
               ${addDecimaltoAmount((appointmentPrice as any) + 100) || "-"}
             </span>
           </div>
-          {/* pointer */}
           <div className="flex justify-between ">
             <span>Discount applied: JOINMEDICUS</span>
             <span>($100.00)</span>
