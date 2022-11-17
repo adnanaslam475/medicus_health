@@ -82,10 +82,16 @@ function AppointmentReschedule(props: Props) {
               <span>Appointment type</span>
               <span>{appointmentTypeProposed?.type || name || ""}</span>
             </div>
-
             <div className="flex justify-between ">
               <span>Appointment fee</span>
-              <span>${addDecimaltoAmount(appointmentPrice as any) || "-"}</span>
+              <span>
+                ${addDecimaltoAmount((appointmentPrice as any) + 100) || "-"}
+              </span>
+            </div>
+            {/* pointer */}
+            <div className="flex justify-between ">
+              <span>Discount applied: JOINMEDICUS</span>
+              <span>($100.00)</span>
             </div>
             <div className="flex justify-between ">
               <span>Tax</span>
@@ -93,7 +99,11 @@ function AppointmentReschedule(props: Props) {
             </div>
 
             <div className="flex justify-between ">
-              <span>Processing fee *</span>
+              <span>
+                {isRescheduledAppointment
+                  ? "Processing fee"
+                  : "Estimated processing fee*"}
+              </span>
               <span>${addDecimaltoAmount(systemFee as any) || "0"}</span>
             </div>
             <div className="flex justify-between font-semibold pt-2">
@@ -135,7 +145,7 @@ function AppointmentReschedule(props: Props) {
       <p className="text-red text-center">
         {isRescheduledAppointment
           ? "Payment has already been submitted and processed."
-          : "* Processing fee is not refundable in the event you cancel your appointment. Current amount shown is an estimate and will be updated upon finalization of transaction."}
+          : "* Processing fee is not refundable in the event you cancel your appointment."}
       </p>
     </div>
   );

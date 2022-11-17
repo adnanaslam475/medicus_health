@@ -71,7 +71,13 @@ function StepFour(props: Props) {
 
           <div className="flex justify-between ">
             <span>Appointment fee</span>
-            <span>${addDecimaltoAmount(appointmentPrice as any) || "-"}</span>
+            <span>
+              ${addDecimaltoAmount((appointmentPrice as any) + 100) || "-"}
+            </span>
+          </div>
+          <div className="flex justify-between ">
+            <span>Discount applied: JOINMEDICUS</span>
+            <span>($100.00)</span>
           </div>
           <div className="flex justify-between ">
             <span>Tax</span>
@@ -79,7 +85,7 @@ function StepFour(props: Props) {
           </div>
 
           <div className="flex justify-between ">
-            <span>Processing fee *</span>
+            <span>Estimated processing fee*</span>
             <span>${addDecimaltoAmount(systemFee as any) || "0"}</span>
           </div>
           <div className="flex justify-between font-semibold">
@@ -122,8 +128,7 @@ function StepFour(props: Props) {
       </p>
       <p className="text-red">
         * Processing fee is not refundable in the event you cancel your
-        appointment. Current amount shown is an estimate and will be updated
-        upon finalization of transaction.
+        appointment.
       </p>
     </>
   );
