@@ -5,13 +5,13 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import { Button, Table, Tag } from "antd";
 import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import AdminPatientsListFilter from "./AdminPatientsListFilter";
-
 import { PatientListFilterType, StatusName } from "common/types/types";
 import { Country, useGetPatientsQuery, User, City } from "generated/graphql";
 import { ColumnsType } from "antd/lib/table/Table";
 import { date } from "common/utils";
 import { isChrome, tableFooter } from "utils/helper";
 import StatusChip from "common/components/StatusChip/StatusChip";
+import { getUnixTimeStamp } from "common/utils/date";
 
 const columns: ColumnsType<User> = [
   {
@@ -99,7 +99,9 @@ const columns: ColumnsType<User> = [
     title: "Date of birth",
     dataIndex: "date_of_birth",
     key: "date_of_birth",
-    sorter: true,
+    sorter: (a: any, b: any) =>
+      getUnixTimeStamp(a.date_of_birth) - getUnixTimeStamp(b.date_of_birth),
+
     render: (value: String) => {
       return (
         <div>{value ? `${date?.formatDAYMMDDYY(value as string)}` : "-"}</div>
@@ -174,10 +176,11 @@ function AdminPatientsList() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${(/(country|state|city)/.test(sorter.field) && sorter.field) ||
-        (sorter.columnKey === "specialization" && "doctor_profile") ||
-        "user"
-        }.${sorter.columnKey}`
+        ? `${
+            (/(country|state|city)/.test(sorter.field) && sorter.field) ||
+            (sorter.columnKey === "specialization" && "doctor_profile") ||
+            "user"
+          }.${sorter.columnKey}`
         : "",
     });
   };
@@ -189,7 +192,10 @@ function AdminPatientsList() {
           <h2 className="mb-4">Patients</h2>
           <Link passHref href={`/admin/patients/addPatients`}>
             <a>
-              <Button type="primary" className={`${isChrome && 'antCustomBtn'}`}>
+              <Button
+                type="primary"
+                className={`${isChrome && "antCustomBtn"}`}
+              >
                 <PlusOutlined />
                 Add patient
               </Button>
