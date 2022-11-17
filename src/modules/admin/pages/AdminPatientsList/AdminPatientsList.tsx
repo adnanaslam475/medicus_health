@@ -99,7 +99,8 @@ const columns: ColumnsType<User> = [
     title: "Date of birth",
     dataIndex: "date_of_birth",
     key: "date_of_birth",
-    sorter: true,
+    sorter: (a: any, b: any) =>
+      Date.parse(a.date_of_birth) - Date.parse(b.date_of_birth),
     render: (value: String) => {
       return (
         <div>{value ? `${date?.formatDAYMMDDYY(value as string)}` : "-"}</div>
@@ -174,10 +175,11 @@ function AdminPatientsList() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${(/(country|state|city)/.test(sorter.field) && sorter.field) ||
-        (sorter.columnKey === "specialization" && "doctor_profile") ||
-        "user"
-        }.${sorter.columnKey}`
+        ? `${
+            (/(country|state|city)/.test(sorter.field) && sorter.field) ||
+            (sorter.columnKey === "specialization" && "doctor_profile") ||
+            "user"
+          }.${sorter.columnKey}`
         : "",
     });
   };
@@ -189,7 +191,10 @@ function AdminPatientsList() {
           <h2 className="mb-4">Patients</h2>
           <Link passHref href={`/admin/patients/addPatients`}>
             <a>
-              <Button type="primary" className={`${isChrome && 'antCustomBtn'}`}>
+              <Button
+                type="primary"
+                className={`${isChrome && "antCustomBtn"}`}
+              >
                 <PlusOutlined />
                 Add patient
               </Button>
