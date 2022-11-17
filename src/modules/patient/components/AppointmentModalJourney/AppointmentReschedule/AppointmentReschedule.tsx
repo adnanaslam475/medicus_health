@@ -84,7 +84,9 @@ function AppointmentReschedule(props: Props) {
             </div>
             <div className="flex justify-between ">
               <span>Appointment fee</span>
-              <span>${addDecimaltoAmount(appointmentPrice as any) || "-"}</span>
+              <span>
+                ${addDecimaltoAmount((appointmentPrice as any) + 100) || "-"}
+              </span>
             </div>
             {/* pointer */}
             <div className="flex justify-between ">
@@ -100,7 +102,7 @@ function AppointmentReschedule(props: Props) {
               <span>
                 {isRescheduledAppointment
                   ? "Processing fee"
-                  : "Estimated processing fee"}
+                  : "Estimated processing fee*"}
               </span>
               <span>${addDecimaltoAmount(systemFee as any) || "0"}</span>
             </div>

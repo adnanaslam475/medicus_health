@@ -71,7 +71,9 @@ function StepFour(props: Props) {
 
           <div className="flex justify-between ">
             <span>Appointment fee</span>
-            <span>${addDecimaltoAmount(appointmentPrice as any) || "-"}</span>
+            <span>
+              ${addDecimaltoAmount((appointmentPrice as any) + 100) || "-"}
+            </span>
           </div>
           {/* pointer */}
           <div className="flex justify-between ">
@@ -84,7 +86,7 @@ function StepFour(props: Props) {
           </div>
 
           <div className="flex justify-between ">
-            <span>Estimated processing fee</span>
+            <span>Estimated processing fee*</span>
             <span>${addDecimaltoAmount(systemFee as any) || "0"}</span>
           </div>
           <div className="flex justify-between font-semibold">
