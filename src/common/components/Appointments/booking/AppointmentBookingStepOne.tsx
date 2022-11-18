@@ -392,7 +392,10 @@ export const AppointmentBookingStepOne = React.forwardRef(
                           )}`
                         : parseInt(price) + 100 ||
                           parseInt(charges) + 100 ||
-                          rebookData?.charges?.valueOf() + 100
+                          rebookData?.charges?.valueOf() !== undefined ||
+                          null
+                        ? rebookData?.charges?.valueOf() + 100
+                        : ""
                     }
                   />
                   {/* $
