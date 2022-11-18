@@ -239,6 +239,7 @@ export const ViewProfile = React.forwardRef(function Profile({
       });
   };
   const HandleOnBoarding = async () => {
+    console.log("doctorId", doctorId);
     const { data } = await executeUseGetOnboardingAccountLinkMutation({
       doctorId: Number(doctorId),
     });
