@@ -239,7 +239,6 @@ export const ViewProfile = React.forwardRef(function Profile({
       });
   };
   const HandleOnBoarding = async () => {
-    console.log("doctorId", doctorId);
     const { data } = await executeUseGetOnboardingAccountLinkMutation({
       doctorId: Number(doctorId),
     });
@@ -324,7 +323,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 )}
 
                 <Skeleton loading={userDataLoading}>
-                  {getRole() === "Doctor" && (
+                  {/* {getRole() === "Doctor" && (
                     <>
                       {!tos_acceptance && (
                         <Button
@@ -350,7 +349,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                         Stripe connect account
                       </Button>
                     </>
-                  )}
+                  )} */}
                 </Skeleton>
               </div>
 

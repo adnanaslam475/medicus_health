@@ -24,8 +24,6 @@ function BankInfo() {
   const formRef = useRef<FormInstance>();
   const [stepNumber, setStepNumber] = useState<number>(0);
   const [tosLoading, setTosLoading] = useState<boolean>(false);
-  const [tosDisable, setTosDisable] = useState<boolean>(false);
-  const [connectAccDisble, setconnectAccDisble] = useState(false);
   const [{ fetching }, executeCreateDoctorBillingMethodMutation] =
     useCreateDoctorBillingMethodMutation();
 
@@ -34,6 +32,7 @@ function BankInfo() {
   const id = user?.id;
 
   // pointer
+
   const [
     { data: tosData, fetching: tosFetching },
     executeUseOnboardingTosAcceptanceMutation,
@@ -47,6 +46,9 @@ function BankInfo() {
     variables: { input: Number(id) },
     pause: id === undefined,
   });
+  const { tos_acceptance } = userData?.user || {};
+
+  console.log("tos_acceptance", tos_acceptance);
   // Stripe connect account Function
   const [
     { data: onBoardingData, fetching: onBoardingFetching },
@@ -70,8 +72,13 @@ function BankInfo() {
     (doctorBillingMethods?.[0] as DoctorBillingMethod) || {};
 
   useEffect(() => {
+    handleDefault();
+  }, [tos_acceptance, billingMethods?.id]);
+
+  useEffect(() => {
     if (billingMethods?.id) {
       setShowForm(false);
+      setStepNumber(3);
     } else {
       setShowForm(true);
     }
@@ -83,50 +90,58 @@ function BankInfo() {
     bankAccountNumber: string;
     routingNumber: string;
   }) {
-    // try {
-    // @ts-ignore
-    // const stripeResponse = await stripe?.createToken("bank_account", {
-    //   country: "US",
-    //   currency: "USD",
-    //   routing_number: values.routingNumber,
-    //   account_number: values.bankAccountNumber,
-    //   account_holder_name: values.accountTitle,
-    //   account_holder_type: "individual",
-    // });
-    // const token = stripeResponse?.token;
-    // if (stripeResponse?.error?.message) {
-    //   return notification.error({ message: stripeResponse?.error?.message });
-    // }
-    // if (token?.bank_account) {
-    //   const { error } = await executeCreateDoctorBillingMethodMutation(
-    //     {
-    //       createDoctorBillingMethodInput: {
-    //         ...values,
-    //         doctorId: id as number,
-    //         source: token.id,
-    //         bankId: token?.bank_account?.id,
-    //         is_default: true,
-    //       },
-    //     },
-    //     { requestPolicy: "network-only" }
-    //   );
-    //   if (error && error?.message) {
-    //     throw new Error(error.message.replace("[GraphQL]", ""));
-    //   }
-    //   executeDoctorBillingMethodsQuery({
-    //     requestPolicy: "network-only",
-    //   });
-    setStepNumber(3);
-    setShowForm(false);
-    //   notification.success({
-    //     message: "Card saved successfully",
-    //   });
-    // }
-    // } catch (error: any) {
-    // notification.error({
-    //   message: error?.message,
-    // });
-    // }
+    console.log("onAddPayment", onAddPayment);
+    if (stepNumber >= 2) {
+      try {
+        const stripeResponse = await stripe?.createToken("bank_account", {
+          country: "US",
+          currency: "USD",
+          routing_number: values.routingNumber,
+          account_number: values.bankAccountNumber,
+          account_holder_name: values.accountTitle,
+          account_holder_type: "individual",
+        });
+        const token = stripeResponse?.token;
+        if (stripeResponse?.error?.message) {
+          return notification.error({
+            message: stripeResponse?.error?.message,
+          });
+        }
+        if (token?.bank_account) {
+          const { error } = await executeCreateDoctorBillingMethodMutation(
+            {
+              createDoctorBillingMethodInput: {
+                ...values,
+                doctorId: id as number,
+                source: token.id,
+                bankId: token?.bank_account?.id,
+                is_default: true,
+              },
+            },
+            { requestPolicy: "network-only" }
+          );
+          if (error && error?.message) {
+            throw new Error(error.message.replace("[GraphQL]", ""));
+          }
+          executeDoctorBillingMethodsQuery({
+            requestPolicy: "network-only",
+          });
+          setStepNumber(3);
+          // setShowForm(true);
+          notification.success({
+            message: "Card saved successfully",
+          });
+        }
+      } catch (error: any) {
+        notification.error({
+          message: error?.message,
+        });
+      }
+    } else {
+      notification.warn({
+        message: "Kindly Complete Step 2",
+      });
+    }
   }
 
   async function onRemoveCard(id: number) {
@@ -151,47 +166,55 @@ function BankInfo() {
 
   const isCreateMode = isShowForm;
   // pointer
+  function handleDefault() {
+    if (tos_acceptance) {
+      setStepNumber(1);
+    }
+    return;
+  }
 
   const HandleTOS = () => {
     setTosLoading(true);
-    // fetch("https://geolocation-db.com/json/")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     executeUseOnboardingTosAcceptanceMutation({
-    //       ip: data?.IPv4,
-    //       // doctorId: Number(doctorId),
-    //       doctorId: Number(id),
-    //     })
-    //       .then((mutationResponse) => {
-    //         executeUseGetUserQuery({ requestPolicy: "network-only" });
-    //         setTosLoading(false);
-    //         notification.success({
-    //           message: "Successfully accepted Terms for Stripe",
-    //         });
-    setStepNumber(1);
-    setTosDisable(true);
-    //     })
-    //     .catch((mutationError) => {
-    //       setTosLoading(false);
-    //     });
-    // });
+    fetch("https://geolocation-db.com/json/")
+      .then((response) => response.json())
+      .then((data) => {
+        executeUseOnboardingTosAcceptanceMutation({
+          ip: data?.IPv4,
+          // doctorId: Number(doctorId),
+          doctorId: Number(id),
+        })
+          .then((mutationResponse) => {
+            executeUseGetUserQuery({ requestPolicy: "network-only" });
+            setTosLoading(false);
+            notification.success({
+              message: "Successfully accepted Terms for Stripe",
+            });
+            setTosLoading(false);
+            setStepNumber(1);
+          })
+          .catch((mutationError) => {
+            setTosLoading(false);
+          });
+      });
   };
 
   const HandleOnBoarding = async () => {
-    console.log("id", id);
-
-    // const { data } = await executeUseGetOnboardingAccountLinkMutation({
-    //   // doctorId: Number(doctorId),
-    //   doctorId: Number(id),
-    // });
-    // const url = data?.getOnboardingAccountLink?.url;
-    // if (url?.length) {
-    //   window.open(String(url), "_blank");
-    setStepNumber(2);
-    setconnectAccDisble(true);
-    // }
+    if (stepNumber >= 1) {
+      setStepNumber(2);
+      const { data } = await executeUseGetOnboardingAccountLinkMutation({
+        doctorId: Number(id),
+      });
+      const url = data?.getOnboardingAccountLink?.url;
+      if (url?.length) {
+        window.open(String(url), "_blank");
+      }
+    } else {
+      notification.warning({
+        message: "Kindly Complete Step 1",
+      });
+    }
   };
-
+  console.log("billingMethods", billingMethods);
   // Endpointer
   return (
     <div className="w-full pb-10">
@@ -211,7 +234,7 @@ function BankInfo() {
                       className={` ${isChrome && "antCustomBtn"}`}
                       onClick={HandleTOS}
                       loading={tosLoading || tosFetching || userDataLoading}
-                      disabled={tosDisable}
+                      disabled={tos_acceptance}
                     >
                       Accept TOS
                     </Button>
@@ -230,7 +253,6 @@ function BankInfo() {
                       }`}
                       onClick={HandleOnBoarding}
                       loading={onBoardingFetching}
-                      disabled={connectAccDisble}
                     >
                       Stripe connect account
                     </Button>
@@ -287,17 +309,19 @@ function BankInfo() {
             </div> */}
         </>
       )}
-      {isCreateMode && (
+      {!isCreateMode && (
         <div>
           <Payment
             title={billingMethods.accountTitle}
             description={`${billingMethods.bankName} - ${billingMethods.bankAccountNumber}`}
-            onRemove={() => onRemoveCard(Number(billingMethods.id))}
+            onRemove={() => {
+              return onRemoveCard(Number(billingMethods.doctorId));
+            }}
           />
         </div>
       )}
 
-      {!isCreateMode && (
+      {isCreateMode && (
         <div className=" bg-white    border-t border-gray-4  items-center flex justify-end ">
           <Form.Item className="">
             <div className="items-center  -mb-5 mt-2  ">
