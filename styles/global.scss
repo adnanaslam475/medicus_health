@@ -660,3 +660,11 @@ body.ant-scrolling-effect {
 .joinNowBtn {
   word-spacing: normal;
 }
+
+.ant-table-wrapper {
+  ul.ant-pagination.ant-table-pagination {
+    li.ant-pagination-options {
+      display: block;
+    }
+  }
+}
