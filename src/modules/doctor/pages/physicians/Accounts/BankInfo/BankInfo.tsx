@@ -84,7 +84,7 @@ function BankInfo() {
           { requestPolicy: "network-only" }
         );
         if (error && error?.message) {
-          throw new Error(error.message.replace("[GraphQL]",""));
+          throw new Error(error.message.replace("[GraphQL]", ""));
         }
         executeDoctorBillingMethodsQuery({
           requestPolicy: "network-only",
@@ -108,7 +108,7 @@ function BankInfo() {
       });
       setShowForm(true);
       if (error && error?.message) {
-        throw new Error(error.message.replace("[GraphQL]",""));
+        throw new Error(error.message.replace("[GraphQL]", ""));
       }
     } catch (error: any) {
       notification.error({
@@ -138,6 +138,7 @@ function BankInfo() {
             title={billingMethods.accountTitle}
             description={`${billingMethods.bankName} - ${billingMethods.bankAccountNumber}`}
             onRemove={() => onRemoveCard(Number(billingMethods.id))}
+            showRemoveBtn={false}
           />
         </div>
       )}
@@ -150,7 +151,7 @@ function BankInfo() {
                 onClick={() => formRef.current?.submit()}
                 type="primary"
                 htmlType="submit"
-                className={`${isChrome && 'antCustomBtn'}`}
+                className={`${isChrome && "antCustomBtn"}`}
                 loading={fetching}
               >
                 Save changes
