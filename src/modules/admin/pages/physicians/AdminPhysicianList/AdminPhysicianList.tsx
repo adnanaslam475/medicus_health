@@ -211,7 +211,6 @@ function AdminPhysicianList() {
         : "",
     });
   };
-  console.log(getPhysicians);
   return (
     <AppLayout>
       <div className="w-full">
