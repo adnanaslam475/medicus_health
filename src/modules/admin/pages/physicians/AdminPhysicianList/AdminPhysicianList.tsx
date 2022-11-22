@@ -29,8 +29,9 @@ const columns = [
     dataIndex: "last_name",
     key: "last_name",
     render: (value: string) => {
-      let formatedDoctorName = `${value?.includes("Dr.") ? value : `Dr. ${value}`
-        }`;
+      let formatedDoctorName = `${
+        value?.includes("Dr.") ? value : `Dr. ${value}`
+      }`;
       return <div>{formatedDoctorName}</div>;
     },
     sorter: true,
@@ -201,15 +202,15 @@ function AdminPhysicianList() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${(["city", "country", "state"].includes(sorter.field) &&
-          sorter.field) ||
-        (sorter.columnKey === "specialization" && "doctor_profile") ||
-        "user"
-        }.${sorter.columnKey}`
+        ? `${
+            (["city", "country", "state"].includes(sorter.field) &&
+              sorter.field) ||
+            (sorter.columnKey === "specialization" && "doctor_profile") ||
+            "user"
+          }.${sorter.columnKey}`
         : "",
     });
   };
-
   return (
     <AppLayout>
       <div className="w-full">
@@ -217,7 +218,10 @@ function AdminPhysicianList() {
           <h2 className="mb-4">Physicians</h2>
           <Link passHref href={`/admin/physicians/addPhysician`}>
             <a>
-              <Button type="primary" className={`${isChrome && 'antCustomBtn'}`}>
+              <Button
+                type="primary"
+                className={`${isChrome && "antCustomBtn"}`}
+              >
                 <PlusOutlined />
                 Add a physician
               </Button>

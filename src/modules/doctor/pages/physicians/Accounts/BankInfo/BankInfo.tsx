@@ -152,6 +152,7 @@ function BankInfo() {
       setShowForm(true);
       if (error && error?.message) {
         throw new Error(error.message.replace("[GraphQL]", ""));
+        throw new Error(error.message.replace("[GraphQL]", ""));
       }
     } catch (error: any) {
       notification.error({
@@ -317,6 +318,7 @@ function BankInfo() {
             onRemove={() => {
               return onRemoveCard(Number(billingMethods.doctorId));
             }}
+            showRemoveBtn={false}
           />
         </div>
       )}
@@ -329,6 +331,7 @@ function BankInfo() {
                 onClick={() => formRef.current?.submit()}
                 type="primary"
                 htmlType="submit"
+                className={`${isChrome && "antCustomBtn"}`}
                 className={`${isChrome && "antCustomBtn"}`}
                 loading={fetching}
               >

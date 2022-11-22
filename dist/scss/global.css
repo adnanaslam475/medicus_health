@@ -1,0 +1,639 @@
+@tailwind components;
+@tailwind utilities;
+@tailwind base;
+@font-face {
+  font-family: "Rubik-VariableFont_wght";
+  src: url("./rubik/rubik-new/Rubik-VariableFont_wght.woff") format("woff"), url("./rubik/rubik-new/Rubik-VariableFont_wght.woff2") format("woff2"), url("./rubik/rubik-new/Rubik-VariableFont_wght.svg#Rubik-VariableFont_wght") format("svg"), url("./rubik/rubik-new/Rubik-VariableFont_wght.eot"), url("./rubik/rubik-new/Rubik-VariableFont_wght.eot?#iefix") format("embedded-opentype"), url("./rubik/rubik-new/Rubik-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-Light.woff2") format("woff2"), url("./rubik/Rubik-Light.woff") format("woff"), url("./rubik/Rubik-Light.ttf") format("truetype"), url("./rubik/Rubik-Light.svg#Rubik-Light") format("svg");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-LightItalic.woff2") format("woff2"), url("./rubik/Rubik-LightItalic.woff") format("woff"), url("./rubik/Rubik-LightItalic.ttf") format("truetype"), url("./rubik/Rubik-LightItalic.svg#Rubik-LightItalic") format("svg");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-ExtraBoldItalic.woff2") format("woff2"), url("./rubik/Rubik-ExtraBoldItalic.woff") format("woff"), url("./rubik/Rubik-ExtraBoldItalic.ttf") format("truetype"), url("./rubik/Rubik-ExtraBoldItalic.svg#Rubik-ExtraBoldItalic") format("svg");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-BoldItalic.woff2") format("woff2"), url("./rubik/Rubik-BoldItalic.woff") format("woff"), url("./rubik/Rubik-BoldItalic.ttf") format("truetype"), url("./rubik/Rubik-BoldItalic.svg#Rubik-BoldItalic") format("svg");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-BlackItalic.woff2") format("woff2"), url("./rubik/Rubik-BlackItalic.woff") format("woff"), url("./rubik/Rubik-BlackItalic.ttf") format("truetype"), url("./rubik/Rubik-BlackItalic.svg#Rubik-BlackItalic") format("svg");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-SemiBold.woff2") format("woff2"), url("./rubik/Rubik-SemiBold.woff") format("woff"), url("./rubik/Rubik-SemiBold.ttf") format("truetype"), url("./rubik/Rubik-SemiBold.svg#Rubik-SemiBold") format("svg");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-ExtraBold.woff2") format("woff2"), url("./rubik/Rubik-ExtraBold.woff") format("woff"), url("./rubik/Rubik-ExtraBold.ttf") format("truetype"), url("./rubik/Rubik-ExtraBold.svg#Rubik-ExtraBold") format("svg");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-MediumItalic.woff2") format("woff2"), url("./rubik/Rubik-MediumItalic.woff") format("woff"), url("./rubik/Rubik-MediumItalic.ttf") format("truetype"), url("./rubik/Rubik-MediumItalic.svg#Rubik-MediumItalic") format("svg");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-Italic.woff2") format("woff2"), url("./rubik/Rubik-Italic.woff") format("woff"), url("./rubik/Rubik-Italic.ttf") format("truetype"), url("./rubik/Rubik-Italic.svg#Rubik-Italic") format("svg");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-Medium.woff2") format("woff2"), url("./rubik/Rubik-Medium.woff") format("woff"), url("./rubik/Rubik-Medium.ttf") format("truetype"), url("./rubik/Rubik-Medium.svg#Rubik-Medium") format("svg");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-LightItalic_1.woff2") format("woff2"), url("./rubik/Rubik-LightItalic_1.woff") format("woff"), url("./rubik/Rubik-LightItalic_1.ttf") format("truetype"), url("./rubik/Rubik-LightItalic_1.svg#Rubik-LightItalic") format("svg");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-SemiBoldItalic.woff2") format("woff2"), url("./rubik/Rubik-SemiBoldItalic.woff") format("woff"), url("./rubik/Rubik-SemiBoldItalic.ttf") format("truetype"), url("./rubik/Rubik-SemiBoldItalic.svg#Rubik-SemiBoldItalic") format("svg");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-Bold.woff2") format("woff2"), url("./rubik/Rubik-Bold.woff") format("woff"), url("./rubik/Rubik-Bold.ttf") format("truetype"), url("./rubik/Rubik-Bold.svg#Rubik-Bold") format("svg");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-Black.woff2") format("woff2"), url("./rubik/Rubik-Black.woff") format("woff"), url("./rubik/Rubik-Black.ttf") format("truetype"), url("./rubik/Rubik-Black.svg#Rubik-Black") format("svg");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-Light_1.woff2") format("woff2"), url("./rubik/Rubik-Light_1.woff") format("woff"), url("./rubik/Rubik-Light_1.ttf") format("truetype"), url("./rubik/Rubik-Light_1.svg#Rubik-Light") format("svg");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("./rubik/Rubik-Regular.woff2") format("woff2"), url("./rubik/Rubik-Regular.woff") format("woff"), url("./rubik/Rubik-Regular.ttf") format("truetype"), url("./rubik/Rubik-Regular.svg#Rubik-Regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Circular Std Book";
+  src: url("./circular/CircularStd-BookItalic.woff2") format("woff2"), url("./circular/CircularStd-BookItalic.woff") format("woff"), url("./circular/CircularStd-BookItalic.ttf") format("truetype"), url("./circular/CircularStd-BookItalic.svg#CircularStd-BookItalic") format("svg");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Circular Std";
+  src: url("./circular/CircularStd-Medium.woff2") format("woff2"), url("./circular/CircularStd-Medium.woff") format("woff"), url("./circular/CircularStd-Medium.ttf") format("truetype"), url("./circular/CircularStd-Medium.svg#CircularStd-Medium") format("svg");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Circular Std";
+  src: url("./circular/CircularStd-BlackItalic.woff2") format("woff2"), url("./circular/CircularStd-BlackItalic.woff") format("woff"), url("./circular/CircularStd-BlackItalic.ttf") format("truetype"), url("./circular/CircularStd-BlackItalic.svg#CircularStd-BlackItalic") format("svg");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Circular Std";
+  src: url("./circular/CircularStd-Bold.woff2") format("woff2"), url("./circular/CircularStd-Bold.woff") format("woff"), url("./circular/CircularStd-Bold.ttf") format("truetype"), url("./circular/CircularStd-Bold.svg#CircularStd-Bold") format("svg");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Circular Std";
+  src: url("./circular/CircularStd-BoldItalic.woff2") format("woff2"), url("./circular/CircularStd-BoldItalic.woff") format("woff"), url("./circular/CircularStd-BoldItalic.ttf") format("truetype"), url("./circular/CircularStd-BoldItalic.svg#CircularStd-BoldItalic") format("svg");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Circular Std";
+  src: url("./circular/CircularStd-Black.woff2") format("woff2"), url("./circular/CircularStd-Black.woff") format("woff"), url("./circular/CircularStd-Black.ttf") format("truetype"), url("./circular/CircularStd-Black.svg#CircularStd-Black") format("svg");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Circular Std Book";
+  src: url("./circular/CircularStd-Book.woff2") format("woff2"), url("./circular/CircularStd-Book.woff") format("woff"), url("./circular/CircularStd-Book.ttf") format("truetype"), url("./circular/CircularStd-Book.svg#CircularStd-Book") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Circular Std";
+  src: url("./circular/CircularStd-MediumItalic.woff2") format("woff2"), url("./circular/CircularStd-MediumItalic.woff") format("woff"), url("./circular/CircularStd-MediumItalic.ttf") format("truetype"), url("./circular/CircularStd-MediumItalic.svg#CircularStd-MediumItalic") format("svg");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+button.ant-btn {
+  font-family: Circular Std;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0px;
+}
+
+.antCustomBtn {
+  word-spacing: -4px !important;
+}
+
+button.ant-btn.ant-btn-link {
+  font-family: Circular Std;
+  word-spacing: 0px !important;
+}
+@media not all and (min-resolution: 0.001dpcm) {
+  button.ant-btn.ant-btn-link {
+    word-spacing: 0px;
+  }
+  @supports (-webkit-appearance: none) {
+    button.ant-btn.ant-btn-link {
+      word-spacing: 0px;
+    }
+  }
+}
+
+@supports (-moz-appearance: none) {
+  button.ant-btn {
+    word-spacing: 0px;
+  }
+}
+.ant-modal-header {
+  padding: 16px 24px 0px 24px !important;
+  border-bottom: none !important;
+}
+
+.ant-tag {
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+  border: none !important;
+}
+
+.ant-alert {
+  padding: 15px 15px;
+}
+
+.ant-tag.ant-tag-gold {
+  color: #ffaf02;
+  background: #fff6e0;
+}
+
+.ant-tag.ant-tag-cyan {
+  color: #30cec2;
+  background: #e2f8f7;
+}
+
+.login-bg {
+  background-image: url("../public/assets/images/login-bg.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+}
+
+.bg-gradient {
+  background: transparent linear-gradient(90deg, #9161fa 0%, #4b75fd 29%, #25abdf 68%, #34dbb8 100%) 0% 0% no-repeat padding-box;
+}
+
+.bg-gradient-fill {
+  fill: url(#linear-gradient);
+}
+
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  display: none !important;
+}
+
+label.ant-radio-wrapper {
+  color: #9295af !important;
+}
+
+.ant-form-item.text-secondary .ant-form-item-label label {
+  color: #272b4c;
+}
+
+.profile-tabs .ant-tabs .ant-tabs-nav:before {
+  border-bottom: 0px !important;
+}
+.profile-tabs .ant-tabs .ant-tabs-nav .ant-tabs-nav-wrap .ant-tabs-nav-list .ant-tabs-tab {
+  color: #8f95a7;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+.profile-tabs .ant-tabs .ant-tabs-nav .ant-tabs-nav-wrap .ant-tabs-nav-list .ant-tabs-tab:hover {
+  background-color: #ebf1ff;
+  color: #000;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.profile-tabs .ant-tabs .ant-tabs-nav .ant-tabs-nav-wrap .ant-tabs-nav-list .ant-tabs-tab:hover svg.tabs-icon-hover g path {
+  fill: #000 !important;
+}
+.profile-tabs .ant-tabs .ant-tabs-nav .ant-tabs-nav-wrap .ant-tabs-nav-list .ant-tabs-tab .ant-tabs-tab-btn {
+  font-size: 14px !important;
+}
+.profile-tabs .ant-tabs .ant-tabs-nav .ant-tabs-nav-wrap .ant-tabs-nav-list .ant-tabs-tab-active {
+  background-color: #1a82fe;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.profile-tabs .ant-tabs .ant-tabs-nav .ant-tabs-nav-wrap .ant-tabs-nav-list .ant-tabs-tab-active:hover {
+  background-color: #1a82fe;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.profile-tabs .ant-tabs .ant-tabs-nav .ant-tabs-nav-wrap .ant-tabs-nav-list .ant-tabs-tab-active > .ant-tabs-tab-btn {
+  color: #fff;
+  font-size: 14px !important;
+}
+
+@layer base {
+  body {
+    font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 16px !important;
+  }
+  h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Circular Std", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    margin-bottom: 0px;
+    word-spacing: -5px;
+  }
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+        word-spacing: 0px;
+      }
+    }
+  }
+  h1 {
+    word-spacing: -10px !important;
+  }
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      h1 {
+        word-spacing: 0px !important;
+      }
+    }
+  }
+  h1 {
+    font-weight: bold;
+    font-size: 1.875rem !important;
+  }
+  h2 {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+  }
+  h3 {
+    font-weight: bold;
+    font-size: 1.375rem !important;
+  }
+  h4 {
+    font-weight: bold;
+    font-size: 1.25rem !important;
+  }
+  h5 {
+    font-weight: medium;
+    font-size: 1rem !important;
+  }
+  h6 {
+    font-weight: book;
+    font-size: 16px !important;
+  }
+}
+.ant-layout-has-sider aside + .ant-layout header.ant-layout-header {
+  padding: 0px 25px;
+}
+
+.checkbox-dir-col .ant-checkbox-group {
+  display: flex;
+  flex-flow: column;
+  flex-direction: column;
+}
+.checkbox-dir-col .ant-checkbox-group label {
+  color: #9295af !important;
+}
+
+.notification-menu-cover {
+  max-width: 300px;
+  max-height: 300px;
+  overflow: auto;
+}
+.notification-menu-cover span.notificationBody {
+  display: flex;
+  flex-flow: column;
+}
+
+.ant-form-item-control .ant-form-item-control-input + .ant-form-item-explain.ant-form-item-explain-connected .ant-form-item-explain-error {
+  font-size: 12px !important;
+}
+
+.font-rubik {
+  font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  word-spacing: 1.5px;
+  letter-spacing: 0.4px;
+}
+
+.font-circular {
+  font-family: "Circular Std", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
+.ant-tabs .ant-form-item-control-input .ant-checkbox-group .ant-checkbox-checked .ant-checkbox-inner {
+  border-color: #30cec2 !important;
+  background-color: #30cec2 !important;
+}
+
+.ant-checkbox-checked::after {
+  border-color: transparent !important;
+}
+
+.custom-table-ui .ant-table-wrapper .ant-table-content table .ant-table-thead tr > th {
+  background-color: #f6f8fa;
+}
+.custom-table-ui .ant-table-wrapper .ant-table-content table .ant-table-tbody .ant-table-cell.ant-table-cell-row-hover {
+  background-color: #f6f8fa;
+}
+.custom-table-ui .ant-table-wrapper .ant-table-content table .ant-table-tbody .ant-table-cell.table-action-icon span {
+  background: #f5f5f5;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 14px;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+}
+.custom-table-ui .ant-table-wrapper .ant-table-content table .ant-table-tbody .ant-table-cell.table-action-icon span svg {
+  color: #1a82fe;
+}
+
+.ant-form-item-control-input .ant-form-item-control-input-content .ant-checkbox-group .ant-checkbox-wrapper.ant-checkbox-group-item {
+  color: #9295af;
+  width: 100%;
+}
+
+.btn-transparent {
+  background-color: transparent !important;
+}
+
+.ant-btn {
+  padding: 0 20px !important;
+}
+
+.ant-card .ant-card-body {
+  padding: 20px;
+}
+
+.ant-tooltip .ant-tooltip-content .ant-tooltip-inner {
+  color: #272b4c !important;
+  text-transform: inherit;
+  box-shadow: 0 3px 4px -4px rgba(0, 0, 0, 0.08), 0 6px 10px 0 rgba(0, 0, 0, 0.06), 0 9px 15px 6px rgba(0, 0, 0, 0.04) !important;
+  background-color: #fff !important;
+}
+.ant-tooltip .ant-tooltip-content .ant-tooltip-inner a {
+  text-transform: inherit;
+}
+.ant-tooltip .ant-tooltip-content .ant-tooltip-inner a:hover {
+  text-decoration: underline;
+}
+
+.ant-picker-range-separator {
+  margin-right: 30px !important;
+}
+
+.primary-checkbox .ant-checkbox.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #1d80fa;
+  border-color: #1d80fa;
+}
+
+.published-button {
+  height: 34px;
+  background: #e2f8f7 !important;
+  border-color: #e2f8f7 !important;
+  color: #30cec2 !important;
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border-color: #9295af !important;
+  box-shadow: 0 0 0 0 rgba(26, 130, 254, 0.2) !important;
+  border-right-width: 1px;
+  outline: 0;
+}
+
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: none !important;
+  box-shadow: none !important;
+}
+
+.ant-input-affix-wrapper:hover {
+  border-color: #9295af !important;
+}
+
+.tab-active-style .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #1d84fe !important;
+}
+
+.profile-avatar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.resendClass a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.resendClass a:hover {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title > .ant-menu-title-content {
+  word-spacing: -6px !important;
+}
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .ant-menu-inline.ant-menu-root .ant-menu-submenu-title > .ant-menu-title-content {
+      word-spacing: 0px !important;
+    }
+  }
+}
+
+.link_button {
+  word-spacing: -3px;
+}
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .link_button {
+      word-spacing: 0px !important;
+    }
+  }
+}
+
+.ant-modal-wrap .ant-modal .ant-modal-content .ant-modal-footer button.ant-btn.ant-btn-primary span {
+  text-transform: lowercase;
+}
+
+.ant-modal-wrap .ant-modal .ant-modal-content .ant-modal-footer button.ant-btn.ant-btn-primary span:first-letter {
+  text-transform: uppercase;
+}
+
+.improved-word-spacing {
+  word-spacing: -5px !important;
+}
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .improved-word-spacing {
+      word-spacing: 0px !important;
+    }
+  }
+}
+
+.ant-modal-confirm-warning .ant-modal-confirm-body > .anticon,
+.ant-modal-confirm-confirm .ant-modal-confirm-body > .anticon + span.ant-modal-confirm-title {
+  font-weight: 400;
+  color: gray;
+  line-height: 1.3;
+}
+
+.terms-n-conditions,
+.terms-n-conditions span {
+  padding: 0 3px !important;
+  font-weight: 400 !important;
+  font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@media screen and (max-width: 586px) {
+  .ant-picker-panel-container .ant-picker-panels {
+    flex-direction: column !important;
+  }
+}
+.ant-select-item-option-content {
+  white-space: inherit !important;
+}
+
+.ant-pagination,
+.ant-table-pagination,
+.ant-table-pagination-right {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding-right: 8px !important;
+}
+
+.ant-table-footer {
+  align-items: center !important;
+  display: flex !important;
+  height: 80px;
+}
+
+@media screen and (max-width: 1065px) {
+  .ant-table-footer {
+    justify-content: center !important;
+  }
+  .ant-pagination,
+.ant-table-pagination,
+.ant-table-pagination-right {
+    position: relative !important;
+  }
+}
+.ant-modal .ant-modal-content .ant-modal-body p {
+  max-width: 97% !important;
+}
+
+.font-xs {
+  font-size: 8px !important;
+}
+
+.admin-filter {
+  color: #9295af !important;
+}
+
+body.ant-scrolling-effect {
+  width: calc(100% - 0px);
+}
+
+@media screen and (min-width: 992px) and (max-width: 1099px) {
+  .profile-tabs .lg\:w-3\/6 {
+    width: 100%;
+  }
+}
+.table-with-fixed-header {
+  margin: 0;
+}
+
+.joinNowBtn {
+  word-spacing: normal;
+}
+
+.ant-table-wrapper ul.ant-pagination.ant-table-pagination li.ant-pagination-options {
+  display: block;
+}/*# sourceMappingURL=global.css.map */

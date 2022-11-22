@@ -25,9 +25,17 @@ type Props = {
   isDefault: boolean;
   onRemove?: (() => void) | undefined;
   onMakeDefault?: (() => void) | undefined;
+  showRemoveBtn?: boolean;
 };
 export const Payment = (props: Props) => {
-  const { title, description, isDefault, onRemove, onMakeDefault } = props;
+  const {
+    title,
+    description,
+    isDefault,
+    onRemove,
+    onMakeDefault,
+    showRemoveBtn,
+  } = props;
 
   return (
     <div
@@ -65,23 +73,25 @@ export const Payment = (props: Props) => {
               <p className="text-sm pb-0 mb-0"> Make default</p>
             </Button>
           )}
-          <Button
-            type="link"
-            size="small"
-            className={`text-red-2 p-0 text-sm ${isChrome && "antCustomBtn"}`}
-            onClick={() => {
-              Modal.confirm({
-                content: "Do you want to remove this card?",
-                okText: "Remove",
-                onOk() {
-                  onRemove?.();
-                },
-                onCancel() {},
-              });
-            }}
-          >
-            <p className="text-red-2 text-sm pb-0 mb-0"> Remove</p>
-          </Button>
+          {showRemoveBtn !== false && (
+            <Button
+              type="link"
+              size="small"
+              className={`text-red-2 p-0 text-sm ${isChrome && "antCustomBtn"}`}
+              onClick={() => {
+                Modal.confirm({
+                  content: "Do you want to remove this card?",
+                  okText: "Remove",
+                  onOk() {
+                    onRemove?.();
+                  },
+                  onCancel() {},
+                });
+              }}
+            >
+              <p className="text-red-2 text-sm pb-0 mb-0"> Remove</p>
+            </Button>
+          )}
         </div>
       )}
     </div>
