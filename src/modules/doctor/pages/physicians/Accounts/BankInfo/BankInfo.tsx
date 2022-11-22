@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Form, FormInstance, notification, Steps } from "antd";
+import { Button, Form, FormInstance, notification, Steps, Tooltip } from "antd";
 import {
   DoctorBillingMethod,
   useCreateDoctorBillingMethodMutation,
@@ -17,6 +17,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 // scss
 import _classes from "./BankInfo.module.scss";
 import { isChrome } from "utils/helper";
+import { CheckCircleFilled, CheckOutlined } from "@ant-design/icons";
 
 function BankInfo() {
   const stripe = useStripe();
@@ -47,8 +48,11 @@ function BankInfo() {
     pause: id === undefined,
   });
   const { tos_acceptance } = userData?.user || {};
+  const { connect_details_submitted } = userData?.user?.doctorProfile || {};
 
+  console.log("userData", userData);
   console.log("tos_acceptance", tos_acceptance);
+  console.log("id", id);
   // Stripe connect account Function
   const [
     { data: onBoardingData, fetching: onBoardingFetching },
@@ -72,17 +76,14 @@ function BankInfo() {
     (doctorBillingMethods?.[0] as DoctorBillingMethod) || {};
 
   useEffect(() => {
-    handleDefault();
-  }, [tos_acceptance, billingMethods?.id]);
-
-  useEffect(() => {
     if (billingMethods?.id) {
       setShowForm(false);
-      setStepNumber(3);
+      setStepNumber(0);
     } else {
       setShowForm(true);
     }
-  }, [billingMethods?.id]);
+    handleDefault();
+  }, [tos_acceptance, connect_details_submitted, userData, billingMethods?.id]);
 
   async function onAddPayment(values: {
     bankName: string;
@@ -91,7 +92,7 @@ function BankInfo() {
     routingNumber: string;
   }) {
     console.log("onAddPayment", onAddPayment);
-    if (stepNumber >= 2) {
+    if (stepNumber >= 1) {
       try {
         const stripeResponse = await stripe?.createToken("bank_account", {
           country: "US",
@@ -126,7 +127,7 @@ function BankInfo() {
           executeDoctorBillingMethodsQuery({
             requestPolicy: "network-only",
           });
-          setStepNumber(3);
+          setStepNumber(2);
           // setShowForm(true);
           notification.success({
             message: "Card saved successfully",
@@ -152,7 +153,6 @@ function BankInfo() {
       setShowForm(true);
       if (error && error?.message) {
         throw new Error(error.message.replace("[GraphQL]", ""));
-        throw new Error(error.message.replace("[GraphQL]", ""));
       }
     } catch (error: any) {
       notification.error({
@@ -170,6 +170,12 @@ function BankInfo() {
   function handleDefault() {
     if (tos_acceptance) {
       setStepNumber(1);
+      if (billingMethods?.id) {
+        setStepNumber(2);
+        // if (connect_details_submitted) {
+        // setStepNumber(3);
+        // }
+      }
     }
     return;
   }
@@ -191,7 +197,7 @@ function BankInfo() {
               message: "Successfully accepted Terms for Stripe",
             });
             setTosLoading(false);
-            setStepNumber(1);
+            // setStepNumber(1);
           })
           .catch((mutationError) => {
             setTosLoading(false);
@@ -200,8 +206,8 @@ function BankInfo() {
   };
 
   const HandleOnBoarding = async () => {
-    if (stepNumber >= 1) {
-      setStepNumber(2);
+    if (stepNumber >= 2) {
+      setStepNumber(3);
       const { data } = await executeUseGetOnboardingAccountLinkMutation({
         doctorId: Number(id),
       });
@@ -216,114 +222,125 @@ function BankInfo() {
     }
   };
   console.log("billingMethods", billingMethods);
+  console.log("stepNumber", stepNumber);
   // Endpointer
   return (
     <div className="w-full pb-10">
-      {isCreateMode && (
-        <>
-          <Steps
-            direction="vertical"
-            current={stepNumber}
-            items={[
-              {
-                title: "STEP-1",
-                description: (
-                  <div>
-                    <div>Accept Terms and Condition</div>
-                    <Button
-                      type="default"
-                      className={` ${isChrome && "antCustomBtn"}`}
-                      onClick={HandleTOS}
-                      loading={tosLoading || tosFetching || userDataLoading}
-                      disabled={tos_acceptance}
-                    >
-                      Accept TOS
-                    </Button>
-                  </div>
-                ),
-              },
-              {
-                title: "STEP-2",
-                description: (
-                  <div>
-                    <div>Create Stripe Connect Account</div>
-                    <Button
-                      type="default"
-                      className={`${_classes["edit-button"]}  ${
-                        isChrome && "antCustomBtn"
-                      }`}
-                      onClick={HandleOnBoarding}
-                      loading={onBoardingFetching}
-                    >
-                      Stripe connect account
-                    </Button>
-                  </div>
-                ),
-              },
-              {
-                title: "STEP-3",
-                description: (
-                  <div>
-                    <div>Add Your bank Info</div>
-                    <AddPaymentForm
-                      ref={formRef}
-                      loading={fetching}
-                      onFinish={onAddPayment}
-                    />
-                  </div>
-                ),
-              },
-            ]}
-          />
-          {/* <div className="flex-grow">
-              <div className="flex-col  justify-center items-center ">
-                <div>
-                  <Button
-                    type="default"
-                    className={`${_classes["edit-button"]}  ${
-                      isChrome && "antCustomBtn"
-                    }`}
-                    onClick={HandleTOS}
-                    loading={tosLoading || tosFetching || userDataLoading}
-                  >
-                    Accept TOS
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="default"
-                    className={`${_classes["edit-button"]}  ${
-                      isChrome && "antCustomBtn"
-                    }`}
-                    onClick={HandleOnBoarding}
-                    loading={onBoardingFetching}
-                  >
-                    Stripe connect account
-                  </Button>
-                </div>
-                <AddPaymentForm
-                  ref={formRef}
-                  loading={fetching}
-                  onFinish={onAddPayment}
-                />
-              </div>
-            </div> */}
-        </>
-      )}
-      {!isCreateMode && (
-        <div>
-          <Payment
-            title={billingMethods.accountTitle}
-            description={`${billingMethods.bankName} - ${billingMethods.bankAccountNumber}`}
-            onRemove={() => {
-              return onRemoveCard(Number(billingMethods.doctorId));
-            }}
-            showRemoveBtn={false}
-          />
-        </div>
-      )}
+      {isCreateMode ||
+        (true && (
+          <div>
+            <Payment
+              title={billingMethods.accountTitle}
+              description={`${billingMethods.bankName} - ${billingMethods.bankAccountNumber}`}
+              onRemove={() => {
+                return onRemoveCard(Number(billingMethods.doctorId));
+              }}
+              showRemoveBtn={false}
+            />
+          </div>
+        ))}
 
-      {isCreateMode && (
+      {isCreateMode ||
+        (true && (
+          <>
+            <Steps
+              direction="vertical"
+              current={stepNumber}
+              items={[
+                {
+                  title: "STEP-1",
+                  description: (
+                    <div>
+                      <br />
+                      <Button
+                        type="default"
+                        className={` ${isChrome && "antCustomBtn"}`}
+                        onClick={HandleTOS}
+                        loading={tosLoading || tosFetching || userDataLoading}
+                        disabled={tos_acceptance}
+                      >
+                        Accept TOS
+                      </Button>
+                    </div>
+                  ),
+
+                  icon: tos_acceptance && (
+                    <CheckCircleFilled
+                      className=" text-4xl "
+                      style={{ color: "#77c926" }}
+                    />
+                  ),
+                  subTitle: "Accept Terms and Condition",
+                },
+                {
+                  title: "STEP-2",
+                  description: (
+                    <div>
+                      <br />
+                      <AddPaymentForm
+                        ref={formRef}
+                        loading={fetching}
+                        onFinish={onAddPayment}
+                      />
+                      <div className=" bg-white    border-t border-gray-4  items-center flex justify-end ">
+                        <Form.Item className="">
+                          <div className="items-center  -mb-5 mt-2  ">
+                            <Button
+                              onClick={() => formRef.current?.submit()}
+                              type="primary"
+                              htmlType="submit"
+                              className={`${isChrome && "antCustomBtn"}`}
+                              loading={fetching}
+                              disabled={!tos_acceptance}
+                            >
+                              Save changes
+                            </Button>
+                          </div>
+                        </Form.Item>
+                      </div>
+                    </div>
+                  ),
+                  subTitle: "Add Your bank Info",
+                  icon: connect_details_submitted && (
+                    <CheckCircleFilled
+                      className=" text-4xl "
+                      style={{ color: "#77c926" }}
+                    />
+                  ),
+                },
+                {
+                  title: "STEP-3",
+                  description: (
+                    <div>
+                      <br />
+                      <Tooltip title="Kindly Complete the Above Steps">
+                        <Button
+                          type="default"
+                          className={`${_classes["edit-button"]}  ${
+                            isChrome && "antCustomBtn"
+                          }`}
+                          onClick={HandleOnBoarding}
+                          loading={onBoardingFetching}
+                          disabled={!connect_details_submitted}
+                        >
+                          Stripe connect account
+                        </Button>{" "}
+                      </Tooltip>
+                    </div>
+                  ),
+                  subTitle: "Create Stripe Connect Account",
+                  icon: isCreateMode && (
+                    <CheckCircleFilled
+                      className=" text-4xl "
+                      style={{ color: "#77c926" }}
+                    />
+                  ),
+                },
+              ]}
+            />
+          </>
+        ))}
+      {/* {isCreateMode && (
         <div className=" bg-white    border-t border-gray-4  items-center flex justify-end ">
           <Form.Item className="">
             <div className="items-center  -mb-5 mt-2  ">
@@ -332,15 +349,15 @@ function BankInfo() {
                 type="primary"
                 htmlType="submit"
                 className={`${isChrome && "antCustomBtn"}`}
-                className={`${isChrome && "antCustomBtn"}`}
                 loading={fetching}
+                disabled={!connect_details_submitted}
               >
                 Save changes
               </Button>
             </div>
           </Form.Item>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

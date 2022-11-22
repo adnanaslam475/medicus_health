@@ -521,6 +521,7 @@ export type DoctorProfile = {
   awards_honors_recognition?: Maybe<Scalars['String']>;
   certification_and_licensure?: Maybe<Scalars['String']>;
   condition_treated?: Maybe<Scalars['String']>;
+  connect_details_submitted: Scalars['Boolean'];
   deletedAt: Scalars['DateTime'];
   doctor_id: Scalars['Int'];
   educational_background?: Maybe<Scalars['String']>;
@@ -2512,7 +2513,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, tos_acceptance: boolean, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, is_active: boolean, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, timeZoneName: string, id: number, gmtOffset: string } | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, tos_acceptance: boolean, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, is_active: boolean, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, connect_details_submitted: boolean, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, timeZoneName: string, id: number, gmtOffset: string } | null } };
 
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4872,6 +4873,7 @@ export const GetUserDocument = gql`
     doctorProfile {
       id
       doctor_id
+      connect_details_submitted
       year_of_experience
       specialization
       condition_treated
@@ -7581,6 +7583,17 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "connect_details_submitted",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },
