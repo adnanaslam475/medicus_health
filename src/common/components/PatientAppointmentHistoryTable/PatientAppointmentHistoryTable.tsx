@@ -5,7 +5,7 @@ import { EyeFilled } from "@ant-design/icons";
 import { date } from "../../utils";
 import { AppointmentServiceType } from "generated/graphql";
 import { tableFooter } from "utils/helper";
-
+import {getCurrentUserTimeZone} from "common/utils/date"
 type Props = {
   data?: any;
   meta?: any;
@@ -42,20 +42,29 @@ const historyColumns = [
   },
   {
     title: "Appointment date",
-    dataIndex: "requestedDate",
-    key: "requestedDate",
+    dataIndex: "appointmentDateTime",
+    key: "appointmentDateTime",
     sorter: true,
-    render: (value: string) => {
-      return <div>{`${value ? date?.formatDAYMMDDYY(value) : "--"}`}</div>;
+    render: (value: any) => {
+      let timeZone = getCurrentUserTimeZone()
+
+      return <div>{`${value ? date?.formatDAYMMDDYY(value.startTime,timeZone) : "--"}`}</div>;
     },
   },
-  {
+  { 
     title: "Appointment time",
-    dataIndex: "requestedDate",
-    key: "requestedDate",
+    dataIndex: "appointmentDateTime",
+    key: "appointmentDateTime",
     sorter: true,
-    render: (value: string) => {
-      return <div>{`${value ? date?.formathhmma(value) : "--"}`}</div>;
+    render: (value: any) => {
+      let timeZone = getCurrentUserTimeZone()
+      
+      return <div>{`${date.formathhmma(
+        value?.startTime,
+        timeZone
+      )} - ${date.formathhmma(
+        value?.endTime,
+        timeZone)}`}</div>;
     },
   },
 
