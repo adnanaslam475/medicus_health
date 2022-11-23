@@ -32,8 +32,6 @@ function BankInfo() {
   const { user } = getUserData();
   const id = user?.id;
 
-  // pointer
-
   const [
     { data: tosData, fetching: tosFetching },
     executeUseOnboardingTosAcceptanceMutation,
@@ -42,23 +40,16 @@ function BankInfo() {
     { data: userData, fetching: userDataLoading },
     executeUseGetUserQuery,
   ] = useGetUserQuery({
-    // variables: { input: Number(doctorId) },
-    // pause: doctorId === undefined,
     variables: { input: Number(id) },
     pause: id === undefined,
   });
   const { tos_acceptance } = userData?.user || {};
   const { connect_details_submitted } = userData?.user?.doctorProfile || {};
 
-  console.log("userData", userData);
-  console.log("tos_acceptance", tos_acceptance);
-  console.log("id", id);
-  // Stripe connect account Function
   const [
     { data: onBoardingData, fetching: onBoardingFetching },
     executeUseGetOnboardingAccountLinkMutation,
   ] = useGetOnboardingAccountLinkMutation();
-  // endpointer
   const [, executeRemoveDoctorBillingMethodMutation] =
     useRemoveDoctorBillingMethodMutation();
 
@@ -91,7 +82,6 @@ function BankInfo() {
     bankAccountNumber: string;
     routingNumber: string;
   }) {
-    console.log("onAddPayment", onAddPayment);
     if (stepNumber >= 1) {
       try {
         const stripeResponse = await stripe?.createToken("bank_account", {
@@ -128,7 +118,6 @@ function BankInfo() {
             requestPolicy: "network-only",
           });
           setStepNumber(2);
-          // setShowForm(true);
           notification.success({
             message: "Card saved successfully",
           });
@@ -166,7 +155,6 @@ function BankInfo() {
   }
 
   const isCreateMode = isShowForm;
-  // pointer
   function handleDefault() {
     if (tos_acceptance) {
       setStepNumber(1);
@@ -187,7 +175,6 @@ function BankInfo() {
       .then((data) => {
         executeUseOnboardingTosAcceptanceMutation({
           ip: data?.IPv4,
-          // doctorId: Number(doctorId),
           doctorId: Number(id),
         })
           .then((mutationResponse) => {
@@ -197,7 +184,6 @@ function BankInfo() {
               message: "Successfully accepted Terms for Stripe",
             });
             setTosLoading(false);
-            // setStepNumber(1);
           })
           .catch((mutationError) => {
             setTosLoading(false);
@@ -207,7 +193,6 @@ function BankInfo() {
 
   const HandleOnBoarding = async () => {
     if (stepNumber >= 2) {
-      setStepNumber(3);
       const { data } = await executeUseGetOnboardingAccountLinkMutation({
         doctorId: Number(id),
       });
@@ -217,14 +202,10 @@ function BankInfo() {
       }
     } else {
       notification.warning({
-        message: "Kindly Complete Step 1",
+        message: "Kindly Complete Step 2 first",
       });
     }
   };
-  console.log("billingMethods", billingMethods);
-  console.log("stepNumber", stepNumber);
-  console.log("connect_details_submitted", connect_details_submitted);
-  // Endpointer
   return (
     <div className="w-full pb-10">
       <>
