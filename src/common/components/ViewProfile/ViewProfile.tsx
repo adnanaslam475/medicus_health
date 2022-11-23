@@ -323,7 +323,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                 )}
 
                 <Skeleton loading={userDataLoading}>
-                  {getRole() === "Doctor" && (
+                  {/* {getRole() === "Doctor" && (
                     <>
                       {!tos_acceptance && (
                         <Button
@@ -349,7 +349,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                         Stripe connect account
                       </Button>
                     </>
-                  )}
+                  )} */}
                 </Skeleton>
               </div>
 
