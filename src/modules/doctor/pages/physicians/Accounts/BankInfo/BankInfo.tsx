@@ -77,10 +77,10 @@ function BankInfo() {
 
   useEffect(() => {
     if (billingMethods?.id) {
-      setShowForm(false);
+      setShowForm(true);
       setStepNumber(0);
     } else {
-      setShowForm(true);
+      setShowForm(false);
     }
     handleDefault();
   }, [tos_acceptance, connect_details_submitted, userData, billingMethods?.id]);
@@ -172,9 +172,9 @@ function BankInfo() {
       setStepNumber(1);
       if (billingMethods?.id) {
         setStepNumber(2);
-        // if (connect_details_submitted) {
-        // setStepNumber(3);
-        // }
+        if (connect_details_submitted) {
+          setStepNumber(3);
+        }
       }
     }
     return;
@@ -223,60 +223,58 @@ function BankInfo() {
   };
   console.log("billingMethods", billingMethods);
   console.log("stepNumber", stepNumber);
+  console.log("connect_details_submitted", connect_details_submitted);
   // Endpointer
   return (
     <div className="w-full pb-10">
-      {isCreateMode ||
-        (true && (
-          <div>
-            <Payment
-              title={billingMethods.accountTitle}
-              description={`${billingMethods.bankName} - ${billingMethods.bankAccountNumber}`}
-              onRemove={() => {
-                return onRemoveCard(Number(billingMethods.doctorId));
-              }}
-              showRemoveBtn={false}
-            />
-          </div>
-        ))}
+      <>
+        <Steps
+          direction="vertical"
+          current={stepNumber}
+          items={[
+            {
+              title: "STEP-1",
+              description: (
+                <div>
+                  <br />
+                  <Button
+                    type="default"
+                    className={` ${isChrome && "antCustomBtn"}`}
+                    onClick={HandleTOS}
+                    loading={tosLoading || tosFetching || userDataLoading}
+                    disabled={tos_acceptance}
+                  >
+                    Accept TOS
+                  </Button>
+                </div>
+              ),
 
-      {isCreateMode ||
-        (true && (
-          <>
-            <Steps
-              direction="vertical"
-              current={stepNumber}
-              items={[
-                {
-                  title: "STEP-1",
-                  description: (
+              icon: tos_acceptance && (
+                <CheckCircleFilled
+                  className=" text-4xl "
+                  style={{ color: "#77c926" }}
+                />
+              ),
+              subTitle: "Accept Terms and Condition",
+            },
+            {
+              title: "STEP-2",
+              description: (
+                <div>
+                  <br />
+                  {isCreateMode ? (
                     <div>
-                      <br />
-                      <Button
-                        type="default"
-                        className={` ${isChrome && "antCustomBtn"}`}
-                        onClick={HandleTOS}
-                        loading={tosLoading || tosFetching || userDataLoading}
-                        disabled={tos_acceptance}
-                      >
-                        Accept TOS
-                      </Button>
+                      <Payment
+                        title={billingMethods.accountTitle}
+                        description={`${billingMethods.bankName} - ${billingMethods.bankAccountNumber}`}
+                        onRemove={() => {
+                          return onRemoveCard(Number(billingMethods.doctorId));
+                        }}
+                        showRemoveBtn={false}
+                      />
                     </div>
-                  ),
-
-                  icon: tos_acceptance && (
-                    <CheckCircleFilled
-                      className=" text-4xl "
-                      style={{ color: "#77c926" }}
-                    />
-                  ),
-                  subTitle: "Accept Terms and Condition",
-                },
-                {
-                  title: "STEP-2",
-                  description: (
-                    <div>
-                      <br />
+                  ) : (
+                    <>
                       <AddPaymentForm
                         ref={formRef}
                         loading={fetching}
@@ -285,61 +283,72 @@ function BankInfo() {
                       <div className=" bg-white    border-t border-gray-4  items-center flex justify-end ">
                         <Form.Item className="">
                           <div className="items-center  -mb-5 mt-2  ">
-                            <Button
-                              onClick={() => formRef.current?.submit()}
-                              type="primary"
-                              htmlType="submit"
-                              className={`${isChrome && "antCustomBtn"}`}
-                              loading={fetching}
-                              disabled={!tos_acceptance}
+                            <Tooltip
+                              title={
+                                !tos_acceptance &&
+                                "Kindly Complete the Above Steps"
+                              }
                             >
-                              Save changes
-                            </Button>
+                              {" "}
+                              <Button
+                                onClick={() => formRef.current?.submit()}
+                                type="primary"
+                                htmlType="submit"
+                                className={`${isChrome && "antCustomBtn"}`}
+                                loading={fetching}
+                                disabled={!tos_acceptance}
+                              >
+                                Save changes
+                              </Button>
+                            </Tooltip>
                           </div>
                         </Form.Item>
                       </div>
-                    </div>
-                  ),
-                  subTitle: "Add Your bank Info",
-                  icon: connect_details_submitted && (
-                    <CheckCircleFilled
-                      className=" text-4xl "
-                      style={{ color: "#77c926" }}
-                    />
-                  ),
-                },
-                {
-                  title: "STEP-3",
-                  description: (
-                    <div>
-                      <br />
-                      <Tooltip title="Kindly Complete the Above Steps">
-                        <Button
-                          type="default"
-                          className={`${_classes["edit-button"]}  ${
-                            isChrome && "antCustomBtn"
-                          }`}
-                          onClick={HandleOnBoarding}
-                          loading={onBoardingFetching}
-                          disabled={!connect_details_submitted}
-                        >
-                          Stripe connect account
-                        </Button>{" "}
-                      </Tooltip>
-                    </div>
-                  ),
-                  subTitle: "Create Stripe Connect Account",
-                  icon: isCreateMode && (
-                    <CheckCircleFilled
-                      className=" text-4xl "
-                      style={{ color: "#77c926" }}
-                    />
-                  ),
-                },
-              ]}
-            />
-          </>
-        ))}
+                    </>
+                  )}
+                </div>
+              ),
+              subTitle: "Add Your bank Info",
+              icon: isCreateMode && (
+                <CheckCircleFilled
+                  className=" text-4xl "
+                  style={{ color: "#77c926" }}
+                />
+              ),
+            },
+            {
+              title: "STEP-3",
+              description: (
+                <div>
+                  <br />
+                  <Tooltip
+                    title={!isCreateMode && "Kindly Complete the Above Steps"}
+                  >
+                    <Button
+                      type="default"
+                      className={`${_classes["edit-button"]}  ${
+                        isChrome && "antCustomBtn"
+                      }`}
+                      onClick={HandleOnBoarding}
+                      loading={onBoardingFetching}
+                      disabled={!isCreateMode}
+                    >
+                      Stripe connect account
+                    </Button>{" "}
+                  </Tooltip>
+                </div>
+              ),
+              subTitle: "Create Stripe Connect Account",
+              icon: connect_details_submitted && (
+                <CheckCircleFilled
+                  className=" text-4xl "
+                  style={{ color: "#77c926" }}
+                />
+              ),
+            },
+          ]}
+        />
+      </>
       {/* {isCreateMode && (
         <div className=" bg-white    border-t border-gray-4  items-center flex justify-end ">
           <Form.Item className="">
