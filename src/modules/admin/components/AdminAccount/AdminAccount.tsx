@@ -53,7 +53,7 @@ function AdminAccount() {
             <TabPane
               className="w-full"
               tab={
-                <span className="font-Circular font-medium improved-word-spacing flex items-center ">
+                <span className="font-Circular font-medium   flex items-center ">
                   <UserOutlined className="" />
                   <span className="-ml-1">Profile</span>
                 </span>

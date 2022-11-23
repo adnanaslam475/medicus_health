@@ -72,8 +72,9 @@ function AppointmnetCancelledCard({
   const prev = () => {
     setCurrent(current - 1);
   };
-  let formatedDoctorName = `${doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
-    }`;
+  let formatedDoctorName = `${
+    doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
+  }`;
 
   let formatedStartTime = date.formathhmma(
     String(appointmentDetail?.appointmentDateTime?.startTime),
@@ -90,16 +91,12 @@ function AppointmnetCancelledCard({
     <>
       <Card className={`${_classes["appointment-card"]}`}>
         <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
-        <h3 className="mb-0 capitalize improved-word-spacing">
-          {formatedDoctorName}
-        </h3>
-        <span className="text-primary text-base block mb-6 improved-word-spacing">
+        <h3 className="mb-0 capitalize  ">{formatedDoctorName}</h3>
+        <span className="text-primary text-base block mb-6  ">
           {specialization}
         </span>
         <span className="text-sm ">Appointment type</span>
-        <div className="text-sm text-gray mb-3 improved-word-spacing">
-          {serviceTypeName}
-        </div>
+        <div className="text-sm text-gray mb-3  ">{serviceTypeName}</div>
         <span className="text-sm">Appointment date</span>
         <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
         <span className="text-sm">Appointment time</span>
@@ -144,7 +141,9 @@ function AppointmnetCancelledCard({
         <div className="flex">
           <Button
             type={"primary"}
-            className={`${_classes["card-btn"]} mr-3 ${isChrome && 'antCustomBtn'}`}
+            className={`${_classes["card-btn"]} mr-3 ${
+              isChrome && "antCustomBtn"
+            }`}
             onClick={showModal}
           >
             Rebook
