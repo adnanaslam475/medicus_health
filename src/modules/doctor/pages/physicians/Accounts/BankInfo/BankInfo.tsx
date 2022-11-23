@@ -286,7 +286,7 @@ function BankInfo() {
                             <Tooltip
                               title={
                                 !tos_acceptance &&
-                                "Kindly Complete the Above Steps"
+                                "Kindly Complete the Above Step"
                               }
                             >
                               {" "}
