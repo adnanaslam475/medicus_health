@@ -311,27 +311,8 @@ h6 {
     margin-bottom: 0px;
     word-spacing: -5px;
   }
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-        word-spacing: 0px;
-      }
-    }
-  }
   h1 {
     word-spacing: -10px !important;
-  }
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      h1 {
-        word-spacing: 0px !important;
-      }
-    }
   }
   h1 {
     font-weight: bold;
@@ -636,4 +617,22 @@ body.ant-scrolling-effect {
 
 .ant-table-wrapper ul.ant-pagination.ant-table-pagination li.ant-pagination-options {
   display: block;
+}
+
+/* ----------- Retina Screens Safari Specific CSS ----------- */
+@media screen and (min-device-width: 360px) and (max-device-width: 1920px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+  .improved-word-spacing {
+    word-spacing: 0px !important;
+  }
+  .antCustomBtn {
+    word-spacing: 0px !important;
+  }
+  h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    word-spacing: 0px !important;
+  }
 }/*# sourceMappingURL=global.css.map */

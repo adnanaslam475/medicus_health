@@ -73,7 +73,7 @@ function Accounts() {
           <Tabs.TabPane
             className="w-full"
             tab={
-              <span className="font-Circular font-medium improved-word-spacing flex items-center">
+              <span className="font-Circular font-medium   flex items-center">
                 <UserOutlined style={{ fontSize: "20px" }} />
                 Profile
               </span>
@@ -101,7 +101,7 @@ function Accounts() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium improved-word-spacing flex items-center">
+              <span className="font-Circular font-medium   flex items-center">
                 <UnorderedListOutlined style={{ fontSize: "20px" }} />
                 Questionnaire
               </span>

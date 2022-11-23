@@ -28,7 +28,7 @@ function Payment(props: Props) {
         </div>
         <div className="px-2">
           <h6
-            className={`text-md text-dark font-medium improved-word-spacing ${_classes["wordspacing-5"]}`}
+            className={`text-md text-dark font-medium   ${_classes["wordspacing-5"]}`}
           >
             {title}
           </h6>
