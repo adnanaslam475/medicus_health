@@ -460,24 +460,19 @@ function EditProfile({
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
-  // POINTER
   const onBeforeVideoUpload = (file: File) => {
     const ismp4 = file.type === "video/mp4";
     const isMOV = file.type === "video/MOV";
     const isWMV = file.type === "video/WMV";
     return ismp4 || isMOV || isWMV || Upload.LIST_IGNORE;
   };
-  const videoFileChange = async (info: UploadChangeParam) => {
-    console.log("info", info);
-    console.log("info?.file?.size", info?.file?.size);
-    if (info?.file?.size <= 524288000) {
+  const videoFileChange = async (info: any) => {
+    if ((info?.file?.size || info?.fileList[0]?.size) <= 524288000) {
       setUserVideo(true);
 
       const s3 = new ReactS3Client(configS3);
       try {
         const url = await s3.uploadFile(info.file.originFileObj as File);
-        console.log("info", info);
-        console.log("url", url);
         setVideo(url?.location);
         setUserVideo(false);
       } catch (error) {
@@ -734,9 +729,6 @@ function EditProfile({
         });
     }
   }
-  console.log("doctorData", doctorData);
-  console.log("userData?.user", userData?.user);
-  console.log("doctorData?.user", doctorData?.user);
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -840,7 +832,6 @@ function EditProfile({
           </div>
 
           <div className="w-full pb-10">
-            {/* pointer */}
             <Form
               form={formInstance}
               name="basic"
@@ -1241,7 +1232,6 @@ function EditProfile({
                 showCancelScheduleModal={showCancelScheduleModal}
                 setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
-              {/* pointer */}
               <div className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]">
                 <Form.Item
                   className="flex-1"
