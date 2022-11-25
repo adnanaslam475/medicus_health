@@ -152,7 +152,7 @@ export const Profile = React.forwardRef(function Profile({
 
   const fileChange = async (info: UploadChangeParam) => {
     try {
-      const url = await mediaUploader.upload(info.file.originFileObj as File);
+      const url = await mediaUploader.upload(info?.file?.originFileObj as File);
       if (url) {
         setImage(url?.location);
       }
@@ -381,7 +381,11 @@ export const Profile = React.forwardRef(function Profile({
               </div>
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
-                  <Button type="default" onClick={() => setIsEdit(false)} className={`${isChrome && 'antCustomBtn'}`}>
+                  <Button
+                    type="default"
+                    onClick={() => setIsEdit(false)}
+                    className={`${isChrome && "antCustomBtn"}`}
+                  >
                     Close
                   </Button>
                   <Button
@@ -389,7 +393,7 @@ export const Profile = React.forwardRef(function Profile({
                     htmlType="submit"
                     disabled={password}
                     loading={fetching}
-                    className={`${isChrome && 'antCustomBtn'}`}
+                    className={`${isChrome && "antCustomBtn"}`}
                   >
                     Save changes
                   </Button>

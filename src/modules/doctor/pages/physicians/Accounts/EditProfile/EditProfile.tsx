@@ -445,7 +445,7 @@ function EditProfile({
   const fileChange = async (info: UploadChangeParam) => {
     const s3 = new ReactS3Client(configS3);
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
+      const url = await s3.uploadFile(info?.file?.originFileObj as File);
       setImage(url?.location);
     } catch (error) {}
     if (error) {
