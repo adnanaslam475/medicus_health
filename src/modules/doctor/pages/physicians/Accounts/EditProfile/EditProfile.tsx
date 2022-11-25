@@ -45,6 +45,8 @@ import {
   CloseOutlined,
   EditOutlined,
   InfoCircleOutlined,
+  PlaySquareOutlined,
+  UploadOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { useUserData } from "common/components/Context/UserContext";
@@ -54,6 +56,7 @@ import { graphqlError, isChrome, timezoneLabel } from "utils/helper";
 import { GraphQLError } from "graphql";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import { usePublishOrUnpublishDoctorMutation } from "generated/graphql";
+import Link from "next/link";
 // import ConfirmationModal from "modules/admin/pages/AdminPatientListingDetail/ConfirmationModal";
 
 const { TextArea } = Input;
@@ -114,6 +117,9 @@ function EditProfile({
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
+  const [video, setVideo] = useState<string>("");
+  const [userVideo, setUserVideo] = React.useState<boolean>(false);
+
   const [physicianLanguage, setPhysicianLanguage] = useState<LanguageType>({
     Spanish: false,
     English: false,
@@ -210,7 +216,8 @@ function EditProfile({
   );
   const [stateId, setStateId] = useState<number | undefined>(Number(state_id));
   //GET USER PROFILE IMAGE FROM useGetUserQuery
-  const { profile_image: userProfileImage } = doctorData || {};
+  const { profile_image: userProfileImage, profile_video: userProfileVideo } =
+    doctorData || {};
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error, fetching } = result || {};
 
@@ -312,6 +319,7 @@ function EditProfile({
         email: values?.email || "",
         password: values?.password,
         profile_image: image || userProfileImage || "",
+        profile_video: video || userProfileVideo || "",
         about_me: values?.about_me || "",
         condition_treated: conditionTreatedList || "",
         language: physicianLanguage || "",
@@ -409,6 +417,9 @@ function EditProfile({
   };
 
   const onFinish = async (values: any) => {
+    if (video !== "") {
+      values.profile_video = await video;
+    }
     try {
       await updateDoctorProfile(values);
       // setIsEdit(false);
@@ -448,6 +459,40 @@ function EditProfile({
     const isPNG = file.type === "image/png";
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
+  };
+  // POINTER
+  const onBeforeVideoUpload = (file: File) => {
+    const ismp4 = file.type === "video/mp4";
+    const isMOV = file.type === "video/MOV";
+    const isWMV = file.type === "video/WMV";
+    return ismp4 || isMOV || isWMV || Upload.LIST_IGNORE;
+  };
+  const videoFileChange = async (info: UploadChangeParam) => {
+    console.log("info", info);
+    console.log("info?.file?.size", info?.file?.size);
+    if (info?.file?.size <= 524288000) {
+      setUserVideo(true);
+
+      const s3 = new ReactS3Client(configS3);
+      try {
+        const url = await s3.uploadFile(info.file.originFileObj as File);
+        console.log("info", info);
+        console.log("url", url);
+        setVideo(url?.location);
+        setUserVideo(false);
+      } catch (error) {
+        setUserVideo(false);
+      }
+      if (error) {
+        notification.error({
+          message: error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+      }
+    } else {
+      notification.error({
+        message: "Maximum Upload Size 500MB",
+      });
+    }
   };
 
   // const handleConditionTreated = async (list: string[]) => {
@@ -689,6 +734,9 @@ function EditProfile({
         });
     }
   }
+  console.log("doctorData", doctorData);
+  console.log("userData?.user", userData?.user);
+  console.log("doctorData?.user", doctorData?.user);
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -792,6 +840,7 @@ function EditProfile({
           </div>
 
           <div className="w-full pb-10">
+            {/* pointer */}
             <Form
               form={formInstance}
               name="basic"
@@ -1192,7 +1241,45 @@ function EditProfile({
                 showCancelScheduleModal={showCancelScheduleModal}
                 setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
-
+              {/* pointer */}
+              <div className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]">
+                <Form.Item
+                  className="flex-1"
+                  label={"Video"}
+                  name="profile_video"
+                >
+                  <Upload
+                    listType="picture"
+                    maxCount={1}
+                    beforeUpload={onBeforeVideoUpload}
+                    onChange={videoFileChange}
+                    itemRender={() => <div />}
+                  >
+                    <Button loading={userVideo} icon={<UploadOutlined />}>
+                      Upload Video
+                    </Button>
+                  </Upload>
+                  {(video || userProfileVideo) && (
+                    <div className="mt-8 flex items-center justify-center  rounded-lg border p-2 ">
+                      <div className=" relative">
+                        <a target="blank" href={video || userProfileVideo}>
+                          <>
+                            <div className="flex-1 absolute top-6 left-14">
+                              <PlaySquareOutlined className="text-4xl" />
+                            </div>
+                            <video
+                              width="150px"
+                              height="150px"
+                              src={video || userProfileVideo}
+                              autoCorrect="0"
+                            ></video>
+                          </>
+                        </a>
+                      </div>
+                    </div>
+                  )}
+                </Form.Item>
+              </div>
               <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Certification and licensure</h6>
                 {certificationList?.map((certificate, index) => {

@@ -247,6 +247,13 @@ export const ViewProfile = React.forwardRef(function Profile({
       window.open(String(url), "_blank");
     }
   };
+  console.log("doctorData", doctorData);
+  console.log(
+    "userData?.user",
+    userData?.user,
+    "doctorData?.user",
+    doctorData?.user
+  );
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>

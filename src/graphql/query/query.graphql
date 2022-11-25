@@ -107,6 +107,7 @@ query getUser($input: Int!) {
       language
       about_me
       profile_image
+      profile_video
     }
     timeZone {
       countryName
@@ -203,6 +204,7 @@ query doctorProfile($doctor_id: Int!) {
     language
     about_me
     profile_image
+    profile_video
     user {
       id
       first_name
