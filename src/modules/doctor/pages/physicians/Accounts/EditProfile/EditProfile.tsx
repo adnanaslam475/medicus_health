@@ -1523,7 +1523,7 @@ function EditProfile({
                   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={fetching || UserVideoLoader}
+                    loading={fetching}
                     disabled={fetching}
                     className={`${isChrome && "antCustomBtn"}`}
                   >
