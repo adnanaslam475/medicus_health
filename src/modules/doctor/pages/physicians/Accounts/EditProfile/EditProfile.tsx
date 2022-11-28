@@ -47,6 +47,7 @@ import {
   CloseOutlined,
   DeleteOutlined,
   EditOutlined,
+  FileOutlined,
   InfoCircleOutlined,
   PlaySquareOutlined,
   UploadOutlined,
@@ -1275,9 +1276,29 @@ function EditProfile({
                     listType="picture"
                     maxCount={1}
                     beforeUpload={onBeforeVideoUpload}
+                    accept=".mp4"
                     onRemove={onRemoveVideoClick}
                     defaultFileList={defaultArray}
-                    // onChange={videoFileChange}
+                    itemRender={(itemRender) => {
+                      console.log(
+                        "itemRender",
+                        itemRender.props.children[0].props.children.props
+                          .children[1]
+                      );
+                      return (
+                        <div className="flex border rounded-xl items-center p-2 mt-2 text-primary">
+                          <FileOutlined className="text-2xl mx-2" />
+                          {
+                            itemRender.props.children[0].props.children.props
+                              .children[1]
+                          }
+                        </div>
+                      );
+                    }}
+                    customRequest={(arg) => {
+                      console.log(arg);
+                      return null;
+                    }}
                   >
                     <Button
                       // loading={userVideoLoader}
@@ -1286,7 +1307,7 @@ function EditProfile({
                       }}
                       icon={<UploadOutlined />}
                     >
-                      Upload Video
+                      Upload video
                     </Button>
                   </Upload>
                 </Form.Item>
@@ -1523,7 +1544,7 @@ function EditProfile({
                   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={fetching}
+                    loading={fetching || userVideoLoader}
                     disabled={fetching}
                     className={`${isChrome && "antCustomBtn"}`}
                   >

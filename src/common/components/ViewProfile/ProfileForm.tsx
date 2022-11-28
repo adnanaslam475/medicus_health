@@ -17,6 +17,8 @@ import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
 import _classes from "./PhysicianProfile.module.scss";
 import TextArea from "antd/lib/input/TextArea";
 import { DeleteOutlined, PlaySquareOutlined } from "@ant-design/icons";
+import ReactPlayer from "react-player";
+
 interface Props {
   doctorId?: string;
   doctorData: any;
@@ -56,7 +58,9 @@ function ProfileForm({
   const [video, setVideo] = useState<string>("");
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   useEffect(() => {
-    setVideo(doctorData?.profile_video);
+    setTimeout(() => {
+      setVideo(doctorData?.profile_video);
+    }, 500);
   }, [doctorData]);
 
   const {
@@ -147,15 +151,20 @@ function ProfileForm({
         <div className="my-6  border-b border-gray-3 w-full">
           <LanguageList disable={true} language={formatedLanguage} />
         </div>
-        {doctorData?.profile_video && (
+
+        {video && (
           <Form.Item label="Video">
             <>
               <Space className="flex justify-between p-2 flex-col my-2 relative">
                 <div className="absolute right-0 -top-3 "></div>
                 <div className="flex-1">
-                  <video width="750" height="500" controls>
-                    <source src={doctorData.profile_video} type="video/mp4" />
-                  </video>
+                  <ReactPlayer url={video} width="750" height="500" controls />
+                  {/* <video width="750" height="500" controls>
+                    <source
+                      src={video + "?t=" + new Date().getTime()}
+                      type="video/mp4"
+                    />
+                  </video> */}
                 </div>
               </Space>
             </>

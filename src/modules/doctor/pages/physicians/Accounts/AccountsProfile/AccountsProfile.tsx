@@ -114,9 +114,9 @@ function AccountsProfile() {
       requestPolicy: "network-only",
     });
   const { doctorProfile } = data || {};
-  useEffect(() => {
-    setDoctorProfileData(doctorProfile);
-  }, [doctorProfileData, isEdit, data]);
+  // useEffect(() => {
+  //   setDoctorProfileData(doctorProfile);
+  // }, [doctorProfileData, isEdit, data]);
 
   useEffect(() => {
     executeUseDoctorProfileQuery({ requestPolicy: "network-only" });
@@ -133,7 +133,8 @@ function AccountsProfile() {
           addScheduleDay={String(addScheduleDay)}
           setAddScheduleTime={setAddScheduleTime}
           doctorId={String(id)}
-          doctorData={doctorProfileData}
+          // doctorData={doctorProfileData}
+          doctorData={doctorProfile}
           edit={editData}
           addScheduleTime={addScheduleTime}
           onAddClick={onAddClick}
@@ -147,7 +148,7 @@ function AccountsProfile() {
           setIsEdit={setIsEdit}
           schedules={schedules}
           doctorId={String(id)}
-          doctorData={doctorProfileData}
+          doctorData={doctorProfile}
           loading={doctorDataLoading}
         />
       )}
