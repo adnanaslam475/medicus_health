@@ -1275,9 +1275,12 @@ function EditProfile({
                     listType="picture"
                     maxCount={1}
                     beforeUpload={onBeforeVideoUpload}
+                    accept=".mp4"
                     onRemove={onRemoveVideoClick}
                     defaultFileList={defaultArray}
-                    // onChange={videoFileChange}
+                    customRequest={(arg) => {
+                        return null;
+                    }}
                   >
                     <Button
                       // loading={userVideoLoader}
@@ -1286,7 +1289,7 @@ function EditProfile({
                       }}
                       icon={<UploadOutlined />}
                     >
-                      Upload Video
+                      Upload video
                     </Button>
                   </Upload>
                 </Form.Item>
@@ -1523,7 +1526,7 @@ function EditProfile({
                   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={fetching}
+                    loading={fetching || userVideoLoader}
                     disabled={fetching}
                     className={`${isChrome && "antCustomBtn"}`}
                   >
