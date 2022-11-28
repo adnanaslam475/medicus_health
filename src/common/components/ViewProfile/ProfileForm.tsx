@@ -1,5 +1,5 @@
-import { Divider, Form, Input, notification } from "antd";
-import { useState } from "react";
+import { Divider, Form, Input, notification, Space } from "antd";
+import { useEffect, useState } from "react";
 import { useUpdateDoctorProfileMutation } from "../../../generated/graphql";
 import {
   bioForm,
@@ -16,7 +16,7 @@ import MultiRangeDatePicker from "../MultiRangeDatePicker/MultiRangeDatePicker";
 
 import _classes from "./PhysicianProfile.module.scss";
 import TextArea from "antd/lib/input/TextArea";
-import { PlaySquareOutlined } from "@ant-design/icons";
+import { DeleteOutlined, PlaySquareOutlined } from "@ant-design/icons";
 interface Props {
   doctorId?: string;
   doctorData: any;
@@ -55,6 +55,10 @@ function ProfileForm({
   const [image, setImage] = useState<string>("");
   const [video, setVideo] = useState<string>("");
   //GET USER PROFILE IMAGE FROM useGetUserQuery
+  useEffect(() => {
+    setVideo(doctorData?.profile_video);
+  }, [doctorData]);
+
   const {
     profile_image: userProfileImage,
     profile_video: userProfileVideo,
@@ -143,24 +147,19 @@ function ProfileForm({
         <div className="my-6  border-b border-gray-3 w-full">
           <LanguageList disable={true} language={formatedLanguage} />
         </div>
-        {userProfileVideo && (
-          <div className="mt-8 flex items-center justify-center  rounded-lg border p-2 ">
-            <div className=" relative">
-              <a target="blank" href={userProfileVideo}>
-                <>
-                  <div className="flex-1 absolute top-6 left-14">
-                    <PlaySquareOutlined className="text-4xl" />
-                  </div>
-                  <video
-                    width="150px"
-                    height="150px"
-                    src={userProfileVideo}
-                    autoCorrect="0"
-                  ></video>
-                </>
-              </a>
-            </div>
-          </div>
+        {doctorData?.profile_video && (
+          <Form.Item label="Video">
+            <>
+              <Space className="flex justify-between p-2 flex-col my-2 relative">
+                <div className="absolute right-0 -top-3 "></div>
+                <div className="flex-1">
+                  <video width="750" height="500" controls>
+                    <source src={doctorData.profile_video} type="video/mp4" />
+                  </video>
+                </div>
+              </Space>
+            </>
+          </Form.Item>
         )}
 
         <AboutMe />

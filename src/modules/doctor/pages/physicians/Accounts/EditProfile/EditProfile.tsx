@@ -15,6 +15,8 @@ import {
   Select,
   DatePicker,
   Tooltip,
+  Progress,
+  Space,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
@@ -43,6 +45,7 @@ import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import {
   CloseOutlined,
+  DeleteOutlined,
   EditOutlined,
   InfoCircleOutlined,
   PlaySquareOutlined,
@@ -118,7 +121,9 @@ function EditProfile({
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
   const [video, setVideo] = useState<string>("");
-  const [userVideo, setUserVideo] = React.useState<boolean>(false);
+  const [deleteVideo, setDeleteVideo] = React.useState<boolean>();
+  const [userVideoLoader, setUserVideoLoader] = React.useState<boolean>(false);
+  const [progressBar, setProgressBar] = useState();
 
   const [physicianLanguage, setPhysicianLanguage] = useState<LanguageType>({
     Spanish: false,
@@ -218,6 +223,17 @@ function EditProfile({
   //GET USER PROFILE IMAGE FROM useGetUserQuery
   const { profile_image: userProfileImage, profile_video: userProfileVideo } =
     doctorData || {};
+  let defaultArray: any = userProfileVideo
+    ? [
+        {
+          uid: "1",
+          name: userProfileVideo,
+          status: "done",
+          url: userProfileVideo,
+          thumbUrl: userProfileVideo,
+        },
+      ]
+    : [];
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error, fetching } = result || {};
 
@@ -319,7 +335,7 @@ function EditProfile({
         email: values?.email || "",
         password: values?.password,
         profile_image: image || userProfileImage || "",
-        profile_video: video || userProfileVideo || "",
+        profile_video: values?.profile_video,
         about_me: values?.about_me || "",
         condition_treated: conditionTreatedList || "",
         language: physicianLanguage || "",
@@ -415,8 +431,19 @@ function EditProfile({
 
     // }
   };
+  // pointer
 
   const onFinish = async (values: any) => {
+    if (deleteVideo) {
+      values.profile_video = "";
+    } else {
+      if (deleteVideo == undefined) {
+        values.profile_video = userProfileVideo;
+      } else {
+        const res = await videoFileChange(values.profile_video);
+        values.profile_video = res;
+      }
+    }
     if (video !== "") {
       values.profile_video = await video;
     }
@@ -424,7 +451,6 @@ function EditProfile({
       await updateDoctorProfile(values);
       // setIsEdit(false);
     } catch (error) {
-      console.log("my error is", error);
       // setIsEdit(true);
     }
   };
@@ -467,16 +493,16 @@ function EditProfile({
     return ismp4 || isMOV || isWMV || Upload.LIST_IGNORE;
   };
   const videoFileChange = async (info: any) => {
-    if ((info?.file?.size || info?.fileList[0]?.size) <= 524288000) {
-      setUserVideo(true);
-
+    if (info?.file?.size <= 524288000 || true) {
+      setUserVideoLoader(true);
       const s3 = new ReactS3Client(configS3);
       try {
         const url = await s3.uploadFile(info.file.originFileObj as File);
         setVideo(url?.location);
-        setUserVideo(false);
+        setUserVideoLoader(false);
+        return url?.location;
       } catch (error) {
-        setUserVideo(false);
+        setUserVideoLoader(false);
       }
       if (error) {
         notification.error({
@@ -490,6 +516,10 @@ function EditProfile({
     }
   };
 
+  // pointer
+  const onRemoveVideoClick = () => {
+    setDeleteVideo(true);
+  };
   // const handleConditionTreated = async (list: string[]) => {
   //   const values = formInstance.getFieldsValue();
   //   const res = await updateDoctor({
@@ -729,7 +759,6 @@ function EditProfile({
         });
     }
   }
-
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -1233,6 +1262,10 @@ function EditProfile({
                 setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
               <div className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]">
+                {/* pointer */}
+
+                {/* ----------------------------------------------------------- */}
+
                 <Form.Item
                   className="flex-1"
                   label={"Video"}
@@ -1242,32 +1275,20 @@ function EditProfile({
                     listType="picture"
                     maxCount={1}
                     beforeUpload={onBeforeVideoUpload}
-                    onChange={videoFileChange}
-                    itemRender={() => <div />}
+                    onRemove={onRemoveVideoClick}
+                    defaultFileList={defaultArray}
+                    // onChange={videoFileChange}
                   >
-                    <Button loading={userVideo} icon={<UploadOutlined />}>
+                    <Button
+                      // loading={userVideoLoader}
+                      onClick={() => {
+                        setDeleteVideo(false);
+                      }}
+                      icon={<UploadOutlined />}
+                    >
                       Upload Video
                     </Button>
                   </Upload>
-                  {(video || userProfileVideo) && (
-                    <div className="mt-8 flex items-center justify-center  rounded-lg border p-2 ">
-                      <div className=" relative">
-                        <a target="blank" href={video || userProfileVideo}>
-                          <>
-                            <div className="flex-1 absolute top-6 left-14">
-                              <PlaySquareOutlined className="text-4xl" />
-                            </div>
-                            <video
-                              width="150px"
-                              height="150px"
-                              src={video || userProfileVideo}
-                              autoCorrect="0"
-                            ></video>
-                          </>
-                        </a>
-                      </div>
-                    </div>
-                  )}
                 </Form.Item>
               </div>
               <div className={`my-6 ${_classes["educational"]}`}>
