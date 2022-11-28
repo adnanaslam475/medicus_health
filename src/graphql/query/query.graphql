@@ -202,6 +202,7 @@ query doctorProfile($doctor_id: Int!) {
     language
     about_me
     profile_image
+    profile_video
     user {
       id
       first_name
@@ -329,6 +330,8 @@ query getAllRequestedAppointments(
         createdAt
         status
         amountReceived
+        tax
+        stripeFee
       }
       appointmentCharges {
         total
@@ -688,6 +691,8 @@ query ViewSuggestedTimeSlots($id: Int!) {
     transaction {
       status
       amountReceived
+      tax
+      stripeFee
     }
   }
 }
