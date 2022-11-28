@@ -47,6 +47,7 @@ import {
   CloseOutlined,
   DeleteOutlined,
   EditOutlined,
+  FileOutlined,
   InfoCircleOutlined,
   PlaySquareOutlined,
   UploadOutlined,
@@ -1278,8 +1279,25 @@ function EditProfile({
                     accept=".mp4"
                     onRemove={onRemoveVideoClick}
                     defaultFileList={defaultArray}
+                    itemRender={(itemRender) => {
+                      console.log(
+                        "itemRender",
+                        itemRender.props.children[0].props.children.props
+                          .children[1]
+                      );
+                      return (
+                        <div className="flex border rounded-xl items-center p-2 mt-2 text-primary">
+                          <FileOutlined className="text-2xl mx-2" />
+                          {
+                            itemRender.props.children[0].props.children.props
+                              .children[1]
+                          }
+                        </div>
+                      );
+                    }}
                     customRequest={(arg) => {
-                        return null;
+                      console.log(arg);
+                      return null;
                     }}
                   >
                     <Button
