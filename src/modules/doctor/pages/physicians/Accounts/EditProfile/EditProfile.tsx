@@ -265,18 +265,18 @@ function EditProfile({
     formInstance.setFieldsValue({
       firstName: doctor_first_name,
       lastName: doctor_last_name,
-      specialization: specialization || "",
-      year_of_experience: year_of_experience || "",
+      specialization: specialization || "qwertyuio",
+      year_of_experience: year_of_experience || "qwertyuio",
       streetAddress: street_address,
       city_id: city_id || "",
       country_id: country_id || "",
       state_id: state_id || "",
       zip_code: zip_code || "",
-      contact: contact_number || "",
+      contact: contact_number || "121212121212",
       email: doctor_email,
       password: "",
       confirmPassword: "",
-      about_me: about_me,
+      about_me: about_me || "qwertyuio",
       language: language,
       condition_treated: conditionTreatedList || "",
       // timeZoneId: timeZone?.timeZone,
@@ -459,7 +459,7 @@ function EditProfile({
     if (doctorData || userData?.user) {
       prepareAndSetEditPayload();
     }
-  }, [doctorData, userData?.user]);
+  }, [userData?.user]);
 
   const configS3 = {
     region: config?.region || "",
@@ -761,6 +761,34 @@ function EditProfile({
         });
     }
   }
+  // console.log("doctorData", doctorData);
+  //   console.log(
+  //     `loading
+  // false
+  // schedules
+  // setDeleteScheduleId
+  // deleteScheduleFetching
+  // setAddScheduleTime
+  // addScheduleTime
+  // addScheduleDay
+  // setAddScheduleDay
+  // onAddClick
+  // setAddScheduleClick
+  // showCancelScheduleModal
+  // setShowCancelScheduleModal`,
+  //     ,
+  //     setDeleteScheduleId,
+  //     deleteScheduleFetching,
+  //     setAddScheduleTime,
+  //     addScheduleTime,
+  //     addScheduleDay,
+  //     setAddScheduleDay,
+  //     onAddClick,
+  //     setAddScheduleClick,
+  //     showCancelScheduleModal,
+  //     setShowCancelScheduleModal
+  //   );
+  console.log("addScheduleDay", addScheduleDay);
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -1247,7 +1275,7 @@ function EditProfile({
                 }}
                 initialValue={conditionTreatedList?.split(",")}
               />
-
+              {/* pointer */}
               <MultiRangeDatePicker
                 loading={loading}
                 disable={false}
