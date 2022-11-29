@@ -15,7 +15,9 @@ function DayPicker({ setAddScheduleDay, addScheduleDay }: props) {
   return (
     <Select
       bordered={false}
-      value={Number(addScheduleDay) || "Select Day"}
+      value={
+        addScheduleDay == "Select Day" ? addScheduleDay : Number(addScheduleDay)
+      }
       defaultValue={"Select Day"}
       // style={{ width: 120 }}
       className="sm:min-w-[120px]"

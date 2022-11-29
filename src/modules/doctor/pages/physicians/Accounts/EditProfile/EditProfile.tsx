@@ -276,7 +276,7 @@ function EditProfile({
       email: doctor_email,
       password: "",
       confirmPassword: "",
-      about_me: about_me,
+      about_me: about_me || "",
       language: language,
       condition_treated: conditionTreatedList || "",
       // timeZoneId: timeZone?.timeZone,
@@ -459,7 +459,7 @@ function EditProfile({
     if (doctorData || userData?.user) {
       prepareAndSetEditPayload();
     }
-  }, [doctorData, userData?.user]);
+  }, [userData?.user]);
 
   const configS3 = {
     region: config?.region || "",
@@ -761,6 +761,7 @@ function EditProfile({
         });
     }
   }
+
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -1247,7 +1248,6 @@ function EditProfile({
                 }}
                 initialValue={conditionTreatedList?.split(",")}
               />
-
               <MultiRangeDatePicker
                 loading={loading}
                 disable={false}
