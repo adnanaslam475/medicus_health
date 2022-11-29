@@ -2,6 +2,7 @@ import { Button, Form, InputNumber, notification } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import SmallLabelWithTextDiv from "common/components/LabelWithTextDiv/SmallLabelWithTextDiv";
 import { numberFormatter } from "common/utils/date";
+import { addDecimaltoAmount } from "common/utils/helper";
 import {
   useCreateAdminSettingsMutation,
   useGetAdminSettingsQuery,
@@ -155,6 +156,10 @@ function AdminSettings() {
     const consultation_charges_medicus_cut =
       dataValues?.consultation_charges_medicus_cut * total_consultation_charges;
     setConsultationMedicusCut(consultation_charges_medicus_cut);
+    console.log(
+      "ataValues?.consultation_charges_medicus_cut * total_consultation_charges;",
+      dataValues?.consultation_charges_medicus_cut * total_consultation_charges
+    );
 
     //Consultation Physician Cut
     const consultation_charges_physician_cut =
@@ -182,6 +187,7 @@ function AdminSettings() {
   const changesValue = (changedValues: any, allValues: any) => {
     prepopulated(allValues);
   };
+
   return (
     <AppLayout>
       <div className="w-full md:w-full">
@@ -206,11 +212,12 @@ function AdminSettings() {
                   addonBefore="$"
                   className={` ${_classes["total-field"]}`}
                   // type="number"
-                  formatter={(value) =>
-                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
+                  // formatter={(value) =>
+                  //   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  // }
                   parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
                   // min={0}
+                  precision={2}
                   controls={false}
                 />
               </Form.Item>
@@ -230,16 +237,18 @@ function AdminSettings() {
                   type="number"
                   min={0}
                   max={100}
+                  precision={2}
                   controls={false}
                 />
               </Form.Item>
               <div className="">
                 <SmallLabelWithTextDiv
                   label={""}
-                  value={`${consultationMedicusCut
-                      ? numberFormatter(consultationMedicusCut)
+                  value={`$ ${
+                    consultationMedicusCut
+                      ? addDecimaltoAmount(consultationMedicusCut.toString())
                       : 0
-                    }$`}
+                  }`}
                 />
               </div>
             </div>
@@ -258,16 +267,20 @@ function AdminSettings() {
                   type="number"
                   min={0}
                   max={100}
+                  precision={2}
                   controls={false}
                 />
               </Form.Item>
               <div className="">
                 <SmallLabelWithTextDiv
                   label={""}
-                  value={`${totalChargesConsultationPhysicianCut
-                      ? numberFormatter(totalChargesConsultationPhysicianCut)
+                  value={`$ ${
+                    totalChargesConsultationPhysicianCut
+                      ? addDecimaltoAmount(
+                          totalChargesConsultationPhysicianCut.toString()
+                        )
                       : 0
-                    }$`}
+                  }`}
                 />
               </div>
             </div>
@@ -284,12 +297,13 @@ function AdminSettings() {
                     className={` ${_classes["total-field"]}`}
                     maxLength={15}
                     addonBefore="$"
-                    formatter={(value) =>
-                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    }
+                    // formatter={(value) =>
+                    //   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    // }
                     parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
                     // type="number"
                     // min={0}
+                    precision={2}
                     controls={false}
                   />
                 </Form.Item>
@@ -310,15 +324,17 @@ function AdminSettings() {
                     min={0}
                     max={100}
                     controls={false}
+                    precision={2}
                   />
                 </Form.Item>
                 <div className="">
                   <SmallLabelWithTextDiv
                     label={""}
-                    value={`${secondOpinionMedicusCut
-                        ? numberFormatter(secondOpinionMedicusCut)
+                    value={`$ ${
+                      secondOpinionMedicusCut
+                        ? addDecimaltoAmount(secondOpinionMedicusCut.toString())
                         : 0
-                      }$`}
+                    }`}
                   />
                 </div>
               </div>
@@ -337,16 +353,20 @@ function AdminSettings() {
                     type="number"
                     min={0}
                     max={100}
+                    precision={2}
                     controls={false}
                   />
                 </Form.Item>
                 <div className="">
                   <SmallLabelWithTextDiv
                     label={""}
-                    value={`${secondOpinionPhysicianCut
-                        ? numberFormatter(secondOpinionPhysicianCut)
+                    value={`$ ${
+                      secondOpinionPhysicianCut
+                        ? addDecimaltoAmount(
+                            secondOpinionPhysicianCut.toString()
+                          )
                         : 0
-                      }$`}
+                    }`}
                   />
                 </div>
               </div>
@@ -369,11 +389,11 @@ function AdminSettings() {
                     parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
                     // type="number"
                     // min={0}
+                    precision={2}
                     controls={false}
                   />
                 </Form.Item>
               </div>
-
               <div className="flex">
                 <Form.Item
                   label="Washington"
@@ -389,6 +409,7 @@ function AdminSettings() {
                     parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
                     // type="number"
                     // min={0}
+                    precision={2}
                     controls={false}
                   />
                 </Form.Item>
@@ -408,6 +429,7 @@ function AdminSettings() {
                     parser={(value) => value!.replaceAll(/\$\s?|(,*)/g, "")}
                     // type="number"
                     // min={0}
+                    precision={2}
                     controls={false}
                   />
                 </Form.Item>
@@ -417,8 +439,18 @@ function AdminSettings() {
           <div className="flex justify-end">
             <Form.Item>
               <div className="flex gap-4">
-                <Button onClick={() => Router.back()} className={`${isChrome && 'antCustomBtn'}`}>Cancel</Button>
-                <Button type="primary" htmlType="submit" className={`${isChrome && 'antCustomBtn'}`} loading={fetching}>
+                <Button
+                  onClick={() => Router.back()}
+                  className={`${isChrome && "antCustomBtn"}`}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className={`${isChrome && "antCustomBtn"}`}
+                  loading={fetching}
+                >
                   Save changes
                 </Button>
               </div>
